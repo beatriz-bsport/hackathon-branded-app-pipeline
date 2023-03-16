@@ -5,7 +5,10 @@ import {
 } from '@bsport/common/lib/master-data/payment-group';
 
 import { SPOT_NOT_AVAILABLE } from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
-import { LOCK_ACQUISITION_FAILURE_ERROR_CODE } from '@bsport/common/lib/master-data/error-codes/lock';
+import {
+  LOCK_ACQUISITION_FAILURE_GENERIC,
+  LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
+} from '@bsport/common/lib/master-data/error-codes/lock';
 
 import {
   revert as revertAPI,
@@ -226,7 +229,12 @@ export function createQuickInvoice(
           case EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED:
             translationKey = 'role.noMasterControl.overbookingNotAllowed';
             break;
-          case LOCK_ACQUISITION_FAILURE_ERROR_CODE:
+          case LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING:
+            translationKey = `canNotBuyErrorCode.${LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING}`;
+            break;
+          case LOCK_ACQUISITION_FAILURE_GENERIC:
+            translationKey = `canNotBuyErrorCode.${LOCK_ACQUISITION_FAILURE_GENERIC}`;
+            break;
           case SPOT_NOT_AVAILABLE:
             translationKey = `canNotBuyErrorCode.${SPOT_NOT_AVAILABLE}`;
             break;

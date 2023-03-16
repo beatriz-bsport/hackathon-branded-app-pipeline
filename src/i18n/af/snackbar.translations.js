@@ -34,7 +34,8 @@ const {
 } = require('@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought');
 
 const {
-  LOCK_ACQUISITION_FAILURE_ERROR_CODE,
+  LOCK_ACQUISITION_FAILURE_GENERIC,
+  LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
 } = require('@bsport/common/lib/master-data/error-codes/lock');
 
 const {
@@ -170,8 +171,10 @@ exports.default = {
     [GIFTCARD_CAN_NOT_BE_BOUGHT_MANAGER_ONLY]:
       "La carte cadeau n'est plus disponible à la vente.",
     [SHOP_ITEM_CAN_NOT_BE_BOUGHT_NOT_ENOUGH_STOCK]: 'Stock insuffisant',
-    [LOCK_ACQUISITION_FAILURE_ERROR_CODE]:
+    [LOCK_ACQUISITION_FAILURE_GENERIC]:
       'Une réservation est déjà en cours, veuillez patienter quelques instants',
+    [LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING]:
+      'Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.',
   },
   offer: {
     restore: {

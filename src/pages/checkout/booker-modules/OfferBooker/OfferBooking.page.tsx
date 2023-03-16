@@ -578,7 +578,6 @@ class OfferBooking extends React.PureComponent<Props, State> {
       },
       onError: () => {
         this.setState({ showLoader: false });
-        this.props.snackbarError('bookerModule.book.unknowError');
       },
     });
   };

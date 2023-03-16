@@ -1,4 +1,5 @@
 import { TFunction } from 'i18next';
+import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { getPrice } from '#libs/theme/utils';
 import { Basket, PrepaidLine } from './types';
 import {
@@ -48,10 +49,7 @@ export const getBasketTotalPriceExcludingTax = (
   return parseFloat(getPrice(sum_prices, true, mean_tax)).toFixed(2);
 };
 
-export const getBookingGuestErrorMessage = (
-  t: TFunction,
-  codeError?: number,
-) => {
+export const getBookingErrorMessage = (t: TFunction, codeError?: number) => {
   if (!codeError) {
     return t('validation.sections.errorExplain.generic');
   }
@@ -70,6 +68,8 @@ export const getBookingGuestErrorMessage = (
       return t('validation.sections.errorExplain.guestPass');
     case EXCEPTION_BOOKING_GUEST_NOT_ENOUGH_SPOT:
       return t('validation.sections.errorExplain.guestNotEnoughSpot');
+    case SPOT_NOT_AVAILABLE:
+      return t(`canNotBuyErrorCode.${SPOT_NOT_AVAILABLE}`);
     default:
       return t('validation.sections.errorExplain.generic');
   }

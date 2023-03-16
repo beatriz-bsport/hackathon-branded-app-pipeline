@@ -3557,7 +3557,7 @@
                 "color": "Color code",
                 "use_full_establishment_capacity": {
                     "label": "Requires the entire establishment",
-                    "helperText": "Dynamic Resource Management allows you to manage several activities and/or appointments in the same establishment simultaneously, if the capacity allows it."
+                    "helperText": "Uncheck to allow multiple activities/appointments in the same room simultaneously if the capacity allows it"
                 },
                 "title": "Appointments",
                 "createButton": "Add an appointment",

@@ -19,9 +19,9 @@ const BsportLogo = (props: Props) => {
       <div className={classes.centerRight}>
         <a
           className={classes.poweredBy}
-          href={`https://pro.bsport.io?utm_source=widget&utm_medium=referral&utm_content=bsport_logo&utm_campaign=${(
-            props.theme.company_name || ''
-          ).replace(/\//gi, '-')}`}
+          href={`https://pro.bsport.io?utm_source=widget&utm_medium=referral&utm_content=bsport_logo&utm_campaign=bsport-widget-company-${
+            props.theme.company || '0'
+          }`}
         >
           <Typography color="textSecondary" variant="caption">
             Powered by

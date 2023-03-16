@@ -141,9 +141,6 @@ type Props = {
   member: ?Member,
   pushToTab: (memberId: number, tab: string) => void,
   billMember: (id: number) => void,
-  openCommunicationDrawer: () => void,
-  closeCommunicationDrawer: () => void,
-  communicationDrawerOpen: boolean,
   openContractDialog: () => void,
   contractList: Array<Contract>,
   contractLoading: boolean,
@@ -188,7 +185,8 @@ type Props = {
     data: any,
     options: OptionCallback,
   ) => void,
-  queryParams: { openChat?: boolean },
+  queryParams: { openChat?: string },
+  setQueryParams: (queryName: string) => (queryValue: string) => void,
 };
 
 const stripeRegion = getStripeRegion();
@@ -209,20 +207,6 @@ export class MemberDetail extends React.Component<Props> {
       this.props.fetchProgram({
         is_disabled: false,
       });
-    }
-    if (this.props.queryParams?.openChat) {
-      this.props.openCommunicationDrawer();
-    }
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (
-      this.props.id &&
-      this.props.id !== prevProps.id &&
-      !!this.props.queryParams?.openChat
-    ) {
-      // We navigate to a distinct member using Communication Notification --> we should open the chat
-      this.props.openCommunicationDrawer();
     }
   }
 
@@ -270,6 +254,14 @@ export class MemberDetail extends React.Component<Props> {
     this.props.fetchCountObjects(this.props.id);
   };
 
+  handleOpenCommunicationDrawer = () => {
+    this.props.setQueryParams('openChat')('true');
+  };
+
+  handleCloseCommunicationDrawer = () => {
+    this.props.setQueryParams('openChat')('null');
+  };
+
   render() {
     const {
       t,
@@ -279,7 +271,10 @@ export class MemberDetail extends React.Component<Props> {
       infosOfMember,
       videoPurchasedCount,
       customFormFilledList,
+      queryParams,
     } = this.props;
+
+    const isOpenChat = queryParams.openChat === 'true';
 
     const enabledPaymentMethods = [
       BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
@@ -471,7 +466,7 @@ export class MemberDetail extends React.Component<Props> {
           interrogateMemberStatus={this.interrogateMemberStatus}
           member={this.props.member}
           unArchiveMember={this.unArchiveMember}
-          openCommunicationDrawer={this.props.openCommunicationDrawer}
+          openCommunicationDrawer={this.handleOpenCommunicationDrawer}
           companyId={this.props.companyId}
         />
         {!!this.props.invoiceInfo && (
@@ -520,10 +515,10 @@ export class MemberDetail extends React.Component<Props> {
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
           this.props.companyId === 498) &&
-          !!this.props.communicationDrawerOpen && (
+          isOpenChat && (
             <CommunicationDrawer
-              openDrawer={this.props.communicationDrawerOpen}
-              onDrawerClose={this.props.closeCommunicationDrawer}
+              openDrawer={isOpenChat}
+              onDrawerClose={this.handleCloseCommunicationDrawer}
               contextIdentifier={CONTEXT_MEMBER}
               contextObjectId={this.props.member?.id ?? this.props.id}
               contextMember={this.props.member}
@@ -639,7 +634,6 @@ export default compose(
   withState('contractDialogOpen', 'setContractDialogOpen', false),
   withState('contractToBill', 'setContractToBill', null),
   withState('openArchiveDialog', 'setOpenArchiveDialog', false),
-  withState('communicationDrawerOpen', 'setCommunicationDrawerOpen', false),
   withHandlers({
     closeContractDialog:
       ({ setContractDialogOpen, setContractToBill }) =>
@@ -653,16 +647,6 @@ export default compose(
         fetchContractList();
         setContractDialogOpen(true);
         setContractToBill(null);
-      },
-    closeCommunicationDrawer:
-      ({ setCommunicationDrawerOpen }) =>
-      () => {
-        setCommunicationDrawerOpen(false);
-      },
-    openCommunicationDrawer:
-      ({ setCommunicationDrawerOpen }) =>
-      () => {
-        setCommunicationDrawerOpen(true);
       },
     fetchPaymentMethodList:
       ({ id, fetchPaymentMethodList }) =>
@@ -721,7 +705,7 @@ export default compose(
         });
       },
   }),
-  withQueryParams([['openChat'], 'queryParams']),
+  withQueryParams([['openChat'], 'queryParams', 'setQueryParams']),
   withTitle(({ member }) => (member ? member.name : '')),
   withMemberBannerHOC(({ member }) => member),
 )(MemberDetail);

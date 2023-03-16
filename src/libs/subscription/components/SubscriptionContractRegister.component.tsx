@@ -349,6 +349,7 @@ export default compose(
           first_billing_timestamp,
           note,
           billing_establishment_id,
+          with_prorata: !!contract.month_billing_day,
         };
         registerContractBackground(contract.id, data, {
           onSuccess: () => {

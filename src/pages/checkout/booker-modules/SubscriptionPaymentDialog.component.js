@@ -77,6 +77,7 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
           first_billing_timestamp,
           payment_method_id,
           coupon,
+          with_prorata: !!this.props.contract?.month_billing_day,
         },
         {
           onBackgroundError: () => {

@@ -52,6 +52,7 @@ import type { StripeReader } from '#libs/terminal/types';
 import NumericInput from '#components/input/NumericInput.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypography';
+import { computeProrataPriceForSubscription } from '../utils';
 
 const MANUAL_PAYMENT_METHOD_FOR_PAST_INVOICES = '0';
 const SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES = '1';
@@ -328,6 +329,22 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     this.setState({ coupon_code: '', voucher: null });
   };
 
+  getPriceDisplay = () => {
+    if (this.props.contract?.month_billing_day) {
+      const firstInvoiceProrataPrice = computeProrataPriceForSubscription(
+        this.props.date,
+        this.props.contract?.month_billing_day,
+        this.props.contract.recurrent_price,
+      );
+      return parseFloat(
+        Math.max(firstInvoiceProrataPrice - (this.state.voucher || 0), 0),
+      ).toFixed(2);
+    }
+    return parseFloat(
+      this.props.contract.recurrent_price - (this.state.voucher || 0),
+    ).toFixed(2);
+  };
+
   render() {
     const {
       paymentMethod,
@@ -374,52 +391,70 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 />
               </Typography>
             </div>
-            <div className={classes.buttonDateBlock}>
-              <Typography className={classes.buttonLeftText}>
-                {t('contract.actions.iwanttostarton')}
-              </Typography>
-              <div className={classes.column}>
-                <MuiPickersUtilsProvider
-                  utils={MomentUtils}
-                  moment={Moment}
-                  locale={Moment.locale()}
-                >
-                  <DatePicker
-                    value={date}
-                    onChange={setDate}
-                    format="L"
-                    required
-                    mask={(value) => {
-                      if (value) {
-                        return [
-                          /\d/,
-                          /\d/,
-                          '/',
-                          /\d/,
-                          /\d/,
-                          '/',
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                          /\d/,
-                        ];
-                      }
-                      return [];
-                    }}
-                    returnMoment={false}
-                    disablePast
-                  />
-                </MuiPickersUtilsProvider>
+            {!this.props.contract?.month_billing_day && (
+              <div className={classes.buttonDateBlock}>
+                <Typography className={classes.buttonLeftText}>
+                  {t('contract.actions.iwanttostarton')}
+                </Typography>
+                <div className={classes.column}>
+                  <MuiPickersUtilsProvider
+                    utils={MomentUtils}
+                    moment={Moment}
+                    locale={Moment.locale()}
+                  >
+                    <DatePicker
+                      value={date}
+                      onChange={setDate}
+                      format="L"
+                      required
+                      mask={(value) => {
+                        if (value) {
+                          return [
+                            /\d/,
+                            /\d/,
+                            '/',
+                            /\d/,
+                            /\d/,
+                            '/',
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                            /\d/,
+                          ];
+                        }
+                        return [];
+                      }}
+                      returnMoment={false}
+                      disablePast
+                    />
+                  </MuiPickersUtilsProvider>
+                </div>
               </div>
-            </div>
+            )}
           </>
         )}
+        <div className={classes.buttonDateBlock}>
+          {this.props.contract?.month_billing_day && (
+            <Alert severity="info">
+              {t('subscription.prorata.helperOnSusscribe', {
+                priceWithCurrency: getCurrencyDisplayWithPrice(
+                  this.getPriceDisplay(),
+                ),
+                firstBillingDate: moment(date).format('L'),
+                recurrentPrice: `${getCurrencyDisplayWithPrice(
+                  parseFloat(this.props.contract.recurrent_price).toFixed(2),
+                )}`,
+                monthBillingDay: this.props.contract.month_billing_day,
+              })}
+            </Alert>
+          )}
+        </div>
         {this.props.contract && (
           <>
             {this.props.isExcludingTax && (
               <BasketTaxInfo
                 excludingTaxPrice={getPrice(
-                  this.props.contract.recurrent_price,
+                  this.getPriceDisplay(),
                   true,
                   this.props.contract.tax,
                 )}
@@ -431,7 +466,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 taxPrice={
                   parseFloat(
                     getTaxPrice(
-                      this.props.contract.recurrent_price,
+                      this.getPriceDisplay(),
                       this.props.contract.tax,
                     ),
                   ) +
@@ -447,12 +482,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
             <div className={classes.priceContainer}>
               <div className={classes.priceInner}>
                 <Typography variant="h4">
-                  {`${getCurrencyDisplayWithPrice(
-                    parseFloat(
-                      this.props.contract.recurrent_price -
-                        (this.state.voucher || 0),
-                    ).toFixed(2),
-                  )}`}
+                  {getCurrencyDisplayWithPrice(this.getPriceDisplay())}
                 </Typography>
                 {!!parseInt(this.props.contract.flat_fee, 10) && (
                   <Typography variant="caption">

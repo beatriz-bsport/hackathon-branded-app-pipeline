@@ -192,6 +192,11 @@ export class MarketplaceSubscriptionPayment extends React.Component<
   ) => {
     Analytics.contractShowPayment(this.props.contractId);
     this.setState({ processing: true });
+    const contract =
+      this.props.contractList.find(
+        (c: ContractWithPaymentPack) =>
+          c.id === parseInt(this.props.contractId),
+      ) || this.props.contract;
     try {
       const first_billing_timestamp = moment(this.props.date).unix();
       this.props.registerContractBackground(
@@ -201,6 +206,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
           first_billing_timestamp,
           coupon,
           ...(_ === 'bsport:credit' ? { stripe_source: 'bsport:credit' } : {}), // TODO: payment refacto
+          with_prorata: !!contract?.month_billing_day,
         },
         {
           onError: () => this.setState({ processing: false }),
@@ -209,12 +215,12 @@ export class MarketplaceSubscriptionPayment extends React.Component<
             this.goToValidationPage(true);
             this.setState({ processing: false });
             try {
-              const contract =
+              const contractValues =
                 this.props.contractList.find(
                   (c: ContractWithPaymentPack) =>
                     c.id === parseInt(this.props.contractId),
                 ) || this.props.contract;
-              Analytics.contractPaymentSuccess(contract);
+              Analytics.contractPaymentSuccess(contractValues);
             } catch (err) {
               console.error(err);
             }

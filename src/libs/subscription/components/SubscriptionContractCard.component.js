@@ -60,44 +60,46 @@ export const SubscriptionContractCard = (props: Props) => {
             />
           </FormControl>
 
-          <div className={props.classes.buttonDateBlock}>
-            <Typography className={props.classes.buttonLeftText}>
-              {props.t('contract.actions.iwanttostarton')}
-            </Typography>
-            <div className={props.classes.column}>
-              <MuiPickersUtilsProvider
-                utils={MomentUtils}
-                moment={Moment}
-                locale={Moment.locale()}
-              >
-                <DatePicker
-                  value={props.date}
-                  onChange={props.setDate}
-                  format="L"
-                  required
-                  mask={(value) => {
-                    if (value) {
-                      return [
-                        /\d/,
-                        /\d/,
-                        '/',
-                        /\d/,
-                        /\d/,
-                        '/',
-                        /\d/,
-                        /\d/,
-                        /\d/,
-                        /\d/,
-                      ];
-                    }
-                    return [];
-                  }}
-                  returnMoment={false}
-                  disablePast
-                />
-              </MuiPickersUtilsProvider>
+          {!props.contract.month_billing_day && (
+            <div className={props.classes.buttonDateBlock}>
+              <Typography className={props.classes.buttonLeftText}>
+                {props.t('contract.actions.iwanttostarton')}
+              </Typography>
+              <div className={props.classes.column}>
+                <MuiPickersUtilsProvider
+                  utils={MomentUtils}
+                  moment={Moment}
+                  locale={Moment.locale()}
+                >
+                  <DatePicker
+                    value={props.date}
+                    onChange={props.setDate}
+                    format="L"
+                    required
+                    mask={(value) => {
+                      if (value) {
+                        return [
+                          /\d/,
+                          /\d/,
+                          '/',
+                          /\d/,
+                          /\d/,
+                          '/',
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                          /\d/,
+                        ];
+                      }
+                      return [];
+                    }}
+                    returnMoment={false}
+                    disablePast
+                  />
+                </MuiPickersUtilsProvider>
+              </div>
             </div>
-          </div>
+          )}
         </>
       )}
       <Button

@@ -9078,6 +9078,9 @@
         "changeDate": "Modifier la date",
         "postPone": "Repousser la facture",
         "advanceTime": "Avancer cette facture"
+      },
+      "prorata": {
+        "helperOnSusscribe": "Le premier paiement est calculé au prorata pour un montant de {{ priceWithCurrency }} et sera encaissé à la date du {{-firstBillingDate}}. Les paiements suivants se feront tous les {{ monthBillingDay }} du mois, et seront d’un montant de {{ recurrentPrice }}"
       }
     },
     "end": { "noRenew": "Fin de la souscription", "renew": "Renouvellement automatique" },

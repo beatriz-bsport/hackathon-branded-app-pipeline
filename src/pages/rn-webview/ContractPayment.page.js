@@ -97,6 +97,7 @@ export class ContractPayment extends React.Component<Props, State> {
         payment_method_id,
         is_v2: true,
         coupon: coupon_code,
+        with_prorata: !!this.props.contract?.month_billing_day,
       },
       {
         onBackgroundSuccess: () => {

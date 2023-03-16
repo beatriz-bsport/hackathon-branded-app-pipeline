@@ -5,8 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import AlarmAddIcon from '@material-ui/icons/AlarmAdd';
-
 import EventBusyIcon from '@material-ui/icons/EventBusy';
+import PopOver from '#components/Popover';
+
 import { OptionCallback } from '../../../state/types';
 import RedButton from '../../../components/button/RedButton.component';
 import PauseFormDialog from './pause/PauseFormDialog.component';
@@ -34,20 +35,26 @@ export const SubscriptionActionsV2: FC<Props> = (props) => {
       </Typography>
       <Divider className={classes.divider} />
       <div className={classes.actionsContainer}>
-        <Button
-          className={classes.button}
-          color="primary"
-          variant="outlined"
-          onClick={() => setRequestPause(true)}
-          disabled={
-            !props.requestPause ||
-            props.subscription.has_ended ||
-            !!props.subscription.canceled_at
-          }
+        <PopOver
+          title={t('subscription.freeze.disabledReasons.month_billing_day')}
+          hide={!props.subscription.month_billing_day}
         >
-          <AlarmAddIcon className={classes.leftIcon} />
-          {t('subscription.actions.freeze')}
-        </Button>
+          <Button
+            className={classes.button}
+            color="primary"
+            variant="outlined"
+            onClick={() => setRequestPause(true)}
+            disabled={
+              !props.requestPause ||
+              props.subscription.has_ended ||
+              !!props.subscription.canceled_at ||
+              !!props.subscription.month_billing_day
+            }
+          >
+            <AlarmAddIcon className={classes.leftIcon} />
+            {t('subscription.actions.freeze')}
+          </Button>
+        </PopOver>
       </div>
       {!!requestPause && (
         <PauseFormDialog

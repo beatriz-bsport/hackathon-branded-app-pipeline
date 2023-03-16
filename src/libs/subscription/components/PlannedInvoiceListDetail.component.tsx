@@ -223,6 +223,7 @@ const PlannedInvoiceEditMenu = (props: {
   onRequestPriceChange: (plannedInvoice: PlannedInvoice) => void;
   onRequestDateChange: (plannedInvoice: PlannedInvoice) => void;
   onRequestScheduledStop: (plannedInvoiceId?: number) => void;
+  disableDateModification: boolean;
 }) => {
   const { t } = useTranslation(['subscription']);
   const isPast =
@@ -239,7 +240,9 @@ const PlannedInvoiceEditMenu = (props: {
         </Typography>
       </MenuItem>
       <MenuItem
-        disabled={isPast || props.disableActions}
+        disabled={
+          isPast || props.disableActions || props.disableDateModification
+        }
         onClick={() => props.onRequestDateChange(props.plannedInvoice)}
       >
         <ListItemIcon>
@@ -282,6 +285,7 @@ const PlannedInvoiceItem = (props: {
   plannedInvoice: PlannedInvoice;
   onClickInvoice: (uuid: string) => void;
   disableActions: boolean;
+  disableDateModification: boolean;
   onRequestPriceChange: (plannedInvoice: PlannedInvoice) => void;
   onRequestDateChange: (plannedInvoice: PlannedInvoice) => void;
   onRequestScheduledStop: (plannedInvoiceId?: number) => void;
@@ -349,6 +353,7 @@ const PlannedInvoiceItem = (props: {
         onRequestPriceChange={props.onRequestPriceChange}
         onRequestDateChange={props.onRequestDateChange}
         onRequestScheduledStop={props.onRequestScheduledStop}
+        disableDateModification={props.disableDateModification}
       />
     </React.Fragment>
   );
@@ -432,6 +437,7 @@ export function PlannedInvoiceListDetail(props: Props) {
     ),
     'from_date',
   );
+
   return (
     <div className={classes.container}>
       {plannedInvoiceListWithRelatedPauseList.map(
@@ -466,6 +472,9 @@ export function PlannedInvoiceListDetail(props: Props) {
                 <PlannedInvoiceItem
                   disableActions={
                     fullDisable && !pl.is_last_invoice_before_scheduled_stop
+                  }
+                  disableDateModification={
+                    !!props.subscription.month_billing_day
                   }
                   onClickInvoice={props.onClickInvoice}
                   plannedInvoice={pl}

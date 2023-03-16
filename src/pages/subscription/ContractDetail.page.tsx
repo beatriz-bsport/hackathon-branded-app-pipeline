@@ -207,6 +207,8 @@ export class ContractDetailPage extends Component<Props> {
       text: t('pauseV2.common.actions.pause'),
       icon: <PauseIcon />,
       color: 'secondary',
+      disabled: !!this.props.contract?.month_billing_day,
+      popOverTitle: t('subscription.freeze.disabledReasons.month_billing_day'),
     },
   ]);
 

@@ -147,6 +147,10 @@ exports.default = {
         cancel: 'Annuler',
         submit: 'Enregistrer',
       },
+      disabledReasons: {
+        month_billing_day:
+          'Impossible de mettre en pause un contrat facturé à jour fixe ',
+      },
     },
     scheduledStop: {
       title: "Programmer l'arrêt de la souscription",

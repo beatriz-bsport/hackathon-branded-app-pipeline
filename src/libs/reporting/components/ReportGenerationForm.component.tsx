@@ -7,6 +7,7 @@ import { compose } from 'recompose';
 import * as Yup from 'yup';
 import { withFormik, Form } from 'formik';
 
+import Alert from '@material-ui/lab/Alert';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
@@ -66,6 +67,8 @@ type DownloadButtonProps = {
   isSubmitting_: boolean;
   values: any;
 };
+
+const CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES = ['billing_plan'];
 
 const ReportGenerationSchema = Yup.object().shape({
   dateStart: Yup.date().required('required'),
@@ -276,6 +279,17 @@ const ReportGenerationForm: React.FC<Props> = ({
             </Actions>
           </Grid>
         </Grid>
+        {CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES.includes(
+          reportConfiguration?.category,
+        ) && (
+          <Alert
+            severity="info"
+            classes={{ root: classes.alertIcon }}
+            className={classes.alert}
+          >
+            {t(`reporting:helperText.${reportConfiguration.category}`)}
+          </Alert>
+        )}
         <div className={classes.reportFilterConfig}>
           <ReportFilterConfigSelector
             reportFilterConfigs={reportFilterConfigs}
@@ -305,6 +319,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  alertIcon: {
+    alignItems: 'center',
+  },
+  alert: {
+    marginBottom: theme.spacing(2),
+    width: '30%',
   },
 }));
 

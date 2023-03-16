@@ -1311,7 +1311,8 @@
         "graph_bookings": "Réservations",
         "graph_private_bookings": "RDV",
         "graph_payments": "Paiements",
-        "graph_subscriptions": "Souscriptions",
+        "graph_subscriptions": "Factures souscriptions",
+        "graph_billing_plan": "Souscriptions",
         "graph_dispute": "Litiges"
       },
       "accumulate": { "total": "Accumuler" },
@@ -1331,15 +1332,20 @@
       }
     },
     "dataSourceIdentifiers": {
+      "plan_auto_renewal": "Renouvellement tacite",
+      "billing_plan_payment_method": "Moyen de paiement",
+      "contract_name": "Abonnement",
       "date_joined": "Date d'inscription",
       "member_pk": "Nombre de nouveaux membres",
       "member_pk_accumulate": "Nombre de membres",
       "booking_pk": "Nombre de réservations",
       "is_recurrent_booking": "Réservation récurrente",
+      "last_invoice_status": "Statut du dernier paiement",
       "source_device": "Origine",
       "privatebooking_pk": "Nombre de RDV",
       "payment_pk": "Nombre de paiements",
       "plannedinvoice_pk": "Nombre de factures",
+      "billingplan_pk": "Nombre d'abonnements",
       "booking_effectif_timeslots": "Effectif moyen",
       "activity_kind": "Type de cours",
       "is_workshop": "Atelier",
@@ -1347,6 +1353,12 @@
       "attendance": "Présent",
       "date_start": "Date de la séance",
       "date_created": "Date de la réservation",
+      "new_member_only": "Offre nouveau membre",
+      "plan_date_end": "Date de fin de facturation",
+      "plan_date_start": "Date de première facturation",
+      "plan_flat_fee": "Frais de dossier",
+      "plan_recurrent_price": "Montant du paiement récurrent",
+      "plan_status": "Statut de l'abonnement",
       "booking_status_code": "Statut de la réservation",
       "was_refunded": "Remboursé",
       "coach": "Professeurs",
@@ -1364,12 +1376,15 @@
       "price": "Prix TTC",
       "private_service_name": "Rendez-vous",
       "margin_value": "Apport marginal TTC",
+      "nb_planned_invoices": "Nombre d'encaissements total",
       "activity": "Activité",
       "payment_pack": "Carte de cours",
       "private_pass": "Carte de RDV",
       "payout_date_created": "Date du virement",
       "payout_identifier": "Virement",
       "payout_status": "Status du virement",
+      "total_discount": "Réduction totale",
+      "total_payments_made": "Nombre d'encaissements effectués",
       "is_unpaid": "Impayé",
       "dispute_status": "Status de litige"
     },
@@ -1380,6 +1395,7 @@
       "bookingTemporal": "Réservations",
       "subscriptionTemporalCount": "Nombre de factures de souscription",
       "subscriptionTemporalSum": "Encaissement des souscriptions",
+      "billingPlanTemporal": "Souscriptions",
       "memberTemporal": "Nouveaux membres",
       "privateBookingTemporal": "Rendez-vous"
     },
@@ -2393,7 +2409,8 @@
         "errors": { "errorAmount": "Montant invalide." }
       },
       "actions": { "apply": "Paiement carte cadeau", "cancel": "Fermer", "confirm": "Valider" }
-    }
+    },
+    "status": { "0": "Réussi", "1": "Echec", "2": "En attente", "3": "Annulé", "4": "En cours" }
   },
   "login": {
     "accountConfiguration": {
@@ -4460,7 +4477,7 @@
       "6": "AMEX",
       "7": "Virement",
       "8": "Event brite",
-      "9": "Paiement sur place",
+      "9": "Crédit client",
       "10": "Paiement automatique",
       "11": "Other",
       "12": "Dispute",
@@ -4471,7 +4488,7 @@
       "50": "EPS",
       "60": "Giropay",
       "CB": "Carte",
-      "CREDIT_ACCOUNT": "Paiement sur place",
+      "CREDIT_ACCOUNT": "Crédit client",
       "CASH": "Espèces",
       "CHECK": "Chèque",
       "SEPA": "SEPA",
@@ -6695,7 +6712,8 @@
       "private_bookings": "Réservations (rendez-vous)",
       "unpaid_private_bookings": "Réservations Impayées (rendez-vous)",
       "discount": "Promotions",
-      "subscription": "Souscription",
+      "billing_plan": "Souscription",
+      "subscription": "Factures souscriptions",
       "first_booking": "Première séance (collectif)",
       "first_attendance": "Première présence (collectif)",
       "first_privatebooking": "Premier RDV",
@@ -6744,7 +6762,7 @@
       "save": "Sauvegarder"
     },
     "columns": {
-      "dispute_status": "Status litige",
+      "dispute_status": "Statut litige",
       "accept_email": "Accepte les emails",
       "accept_sms": "Accepte les SMS",
       "activitiesest": "Activités par salle",
@@ -6771,13 +6789,13 @@
       "archived": "Archivé",
       "available_credits": "Crédits disponible PCA",
       "baskettotal_price": "Montant facturé TTC",
-      "billing_date_start": "Date de première facturation",
       "billing_date_start_annotated": "Date de première facturation",
       "billing_establishment": "Adresse",
       "billing_group": "Groupe de facturation",
       "billing_planrecurrent_price": "Montant",
+      "billing_plan_payment_method": "Moyen de paiement",
       "birthday": "Date de naissance",
-      "booking_status_code": "Status",
+      "booking_status_code": "Statut",
       "bsport_fee": "Frais de transaction",
       "c": "Professeur",
       "ca": "Chiffre d'affaire généré",
@@ -6791,6 +6809,7 @@
       "concatenated_notes": "Notes",
       "consumed_amount_gifted": "Montant consommé",
       "contract": "Contrat",
+      "contract_name": "Nom de l'abonnement",
       "couponamount_off": "Réduction fixe",
       "couponName": "Promotion",
       "couponpercent_off": "Réduction en %",
@@ -6845,6 +6864,7 @@
       "is_recurring": "Récurrent",
       "is_rent": "Location",
       "last_booking": "Précédente réservation",
+      "last_invoice_status": "Statut du dernier paiement",
       "last_name": "Nom",
       "last_payment_date": "Date du dernier paiement",
       "last_view": "Dernière vue",
@@ -6871,8 +6891,10 @@
       "nb_non_attendance": "Absents",
       "nb_offers_cancelled": "Nombre de séances annulées",
       "nb_offers": "Nombre de séances",
+      "nb_planned_invoices": "Nombre d'encaissements total",
       "nb_purchase": "Nombre d'achats",
       "negative_voucher": "Réduction",
+      "new_member_only": "Offre nouveau membre",
       "next_booking": "Prochaine réservation",
       "note": "Note",
       "paid": "Encaissé",
@@ -6909,11 +6931,17 @@
       "payment_status": "Statut du paiement",
       "payout_date_created": "Date du virement",
       "payout_identifier": "Virement",
-      "payout_status": "Status du virement",
+      "payout_status": "Statut du virement",
       "payout": "Virement",
       "percent_off": "Réduction en %",
       "phonenumber": "Téléphone",
       "pk": "ID",
+      "plan_auto_renewal": "Renouvellement tacite",
+      "plan_date_end": "Date de fin de facturation",
+      "plan_date_start": "Date de première facturation",
+      "plan_status": "Statut de l'abonnement",
+      "plan_flat_fee": "Frais de dossier",
+      "plan_recurrent_price": "Montant du paiement récurrent",
       "price_bought": "Prix d`'achat",
       "price": "Prix",
       "private_passcredits": "Crédit restant",
@@ -6969,6 +6997,7 @@
       "total_basket": "Total panier",
       "total_discount": "Réduction totale",
       "total_payments": "Total paiements",
+      "total_payments_made": "Nombre d'encaissements effectués",
       "total_price_notax": "Montant facturé HT",
       "total_price": "Montant facturé TTC",
       "total_unpaid_amount": "Montant total impayé",
@@ -7066,6 +7095,8 @@
       "giropay": "Giropay",
       "debt": "Crédit interne"
     },
+    "payment_method_with_credit_account": { "9": "Crédit client", "10": "Paiement automatique", "13": "SEPA" },
+    "last_invoice_status": { "[object Object]": "Annulé" },
     "product_type": {
       "payment_pack": "Carte de cours",
       "refund": "Remboursement crédit",
@@ -7101,6 +7132,7 @@
       "price": "Prix",
       "cts": "Prix en centimes",
       "payment_method": "Méthode de paiement",
+      "payment_method_with_credit_account": "Moyen de paiement",
       "coupon": "Coupon",
       "contract": "Contrat",
       "date": "Date",
@@ -7117,7 +7149,7 @@
       "percent": "Pourcentage",
       "email": "Email",
       "user": "Membre",
-      "boolean": "Vraix/Faux",
+      "boolean": "Vrai/Faux",
       "private_service": "Rendez vous",
       "private_pass": "Carte de rendez-vous",
       "private_slot": "Type de rendez vous",
@@ -7126,14 +7158,17 @@
       "billing_group": "Groupe de facturation",
       "activity": "Activité",
       "booking_status_code": "Statut de la réservation",
-      "payout_status": "Status du virement",
+      "billing_plan_status": "Statut de l'abonnement",
+      "payout_status": "Statut du virement",
+      "invoice_status": "Statut du dernier paiement",
       "payout": "Virement",
       "staff": "Staff",
       "company": "Studio",
-      "disputeStatus": "Status litige"
+      "disputeStatus": "Statut litige"
     },
     "presetValuesByDatatype": {
       "source_device": { "0": "Application", "1": "Web", "2": "Backoffice bsport", "3": "Autre", "4": "Migration de données" },
+      "billing_plan_status": { "0": "Pas encore commencé", "1": "En cours", "2": "Stoppé", "3": "En pause", "4": "Terminé" },
       "booking_status_code": { "0": "Non-annulé", "1": "Annulation manager", "2": "Annulation client", "3": "Séance annulée" },
       "payment_method": {
         "0": "Carte",
@@ -7145,7 +7180,7 @@
         "6": "AMEX",
         "7": "Virement",
         "8": "Event brite",
-        "9": "Paiement sur place",
+        "9": "Crédit client",
         "10": "Paiement automatique",
         "11": "Other",
         "12": "Dispute",
@@ -7156,6 +7191,7 @@
         "50": "EPS",
         "60": "Giropay"
       },
+      "payment_method_with_credit_account": { "9": "Crédit client", "10": "Paiement automatique", "13": "SEPA" },
       "payment_engine": { "0": "Payment manuel", "1": "Payment en ligne" }
     },
     "presetValuesByIdentifier": {
@@ -7170,7 +7206,8 @@
       "part2": "Vous pouvez dès à présent exporter le rapport et le traiter sur excel ensuite. Les dates indiquées ainsi que la vue filtrée appliquée seront prises en compte dans l'export."
     },
     "helperText": {
-      "franchise_shared_pass": "Ce rapport vous permet d'analyser les réservations faites avec les cartes partagées. Lorsqu'une carte partagée est achetée dans un studio, le rapport indique le nombre de réservations réalisées avec cette carte dans un autre studio. Le nombre de séances réservées comprends les réservations de cours collectifs, ateliers et rendez-vous."
+      "franchise_shared_pass": "Ce rapport vous permet d'analyser les réservations faites avec les cartes partagées. Lorsqu'une carte partagée est achetée dans un studio, le rapport indique le nombre de réservations réalisées avec cette carte dans un autre studio. Le nombre de séances réservées comprends les réservations de cours collectifs, ateliers et rendez-vous.",
+      "billing_plan": "Les souscriptions sont filtrées sur la date de première facturation."
     }
   },
   "role": {
@@ -8934,6 +8971,7 @@
       "isPaused": "En pause",
       "hasEnded": "Terminé"
     },
+    "billing_plan_status": { "0": "Pas encore commencé", "1": "En cours", "2": "Stoppé", "3": "En pause", "4": "Terminé" },
     "notificationToolTip": "Des notifications sont définies pour cet abonnement",
     "events": {
       "list": { "title": "Derniers évènements" },

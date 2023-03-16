@@ -15,6 +15,8 @@ import {
   PAYOUT_STATUS_TRANSIT,
 } from '@bsport/common/lib/master-data/payout-status';
 
+import PLANNED_INVOICE_STATUS from '@bsport/common/lib/master-data/planned-invoice-status';
+
 import {
   BOOKING_SOURCE_APP,
   BOOKING_SOURCE_WEB,
@@ -31,6 +33,15 @@ import {
 import PAYMENT_METHODS, {
   CREDIT_ACCOUNT,
 } from '@bsport/common/lib/master-data/payment-methods';
+
+import {
+  BILLING_PLAN_STATUS_NOT_STARTED,
+  BILLING_PLAN_STATUS_STARTED,
+  BILLING_PLAN_STATUS_STOPPED,
+  BILLING_PLAN_STATUS_PAUSED,
+  BILLING_PLAN_STATUS_ENDED,
+} from '@bsport/common/lib/master-data/subscription-status';
+
 import { Field, FieldAttributes, useFormikContext } from 'formik';
 import {
   BOOKING_STATUS_OK,
@@ -359,6 +370,22 @@ const DatatypeFilterConfigValueList: React.FC<{
           label: t(`payment:payout.status.${value}`),
           value,
         }));
+      case 'invoice_status':
+        return PLANNED_INVOICE_STATUS.map((status) => ({
+          label: t(`invoice:status.${status.id}`),
+          value: status.id,
+        }));
+      case 'billing_plan_status':
+        return [
+          BILLING_PLAN_STATUS_NOT_STARTED,
+          BILLING_PLAN_STATUS_STARTED,
+          BILLING_PLAN_STATUS_STOPPED,
+          BILLING_PLAN_STATUS_PAUSED,
+          BILLING_PLAN_STATUS_ENDED,
+        ].map((value) => ({
+          label: t(`subscription:billing_plan_status.${value}`),
+          value,
+        }));
       case 'dispute_status':
         return [
           {
@@ -443,26 +470,13 @@ const DatatypeFilterConfigValueList: React.FC<{
           value: id ?? 0,
           label: t(`payment:method.${id}`),
         }));
-      // return [
-      //   {
-      //     value: BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-      //     label: t(
-      //       `subscription:parameters.payment_method.${BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB}`,
-      //     ),
-      //   },
-      //   {
-      //     value: BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-      //     label: t(
-      //       `subscription:parameters.payment_method.${BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA}`,
-      //     ),
-      //   },
-      //   {
-      //     value: BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-      //     label: t(
-      //       `subscription:parameters.payment_method.${BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT}`,
-      //     ),
-      //   },
-      // ];
+      case 'payment_method_with_credit_account':
+        return [...PAYMENT_METHODS].map(({ id }) => {
+          return {
+            value: id ?? 0,
+            label: t(`payment:method.${id}`),
+          };
+        });
       case 'dow':
         return Array(7)
           .fill(0)

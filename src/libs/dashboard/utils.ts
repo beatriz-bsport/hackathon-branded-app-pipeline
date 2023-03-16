@@ -14,6 +14,7 @@ import {
   BOOKING_GRAPH_IDENTIFIER,
   PRIVATE_BOOKING_GRAPH_IDENTIFIER,
   SUBSCRIPTION_GRAPH_IDENTIFIER,
+  BILLING_PLAN_GRAPH_IDENTIFIER,
 } from '#libs/dashboard/constants';
 import { DatatypeFilterConfig } from '#libs/datatype-filtering/types';
 
@@ -233,8 +234,10 @@ export const getHelperTextForDrawerSelector = (
   }
 
   if (
-    dashboardGraphIdentifier === SUBSCRIPTION_GRAPH_IDENTIFIER &&
-    fieldName === 'date_value'
+    (dashboardGraphIdentifier === SUBSCRIPTION_GRAPH_IDENTIFIER &&
+      fieldName === 'date_value') ||
+    (dashboardGraphIdentifier === BILLING_PLAN_GRAPH_IDENTIFIER &&
+      fieldName === 'plan_date_start')
   ) {
     // Helper text for graph param
     if (fieldValue === 'plannedinvoice_pk') {

@@ -305,6 +305,9 @@ export function getConverter(
       }
       return { value: t('payment_method.none') };
     }
+    if (datatype === 'payment_method_with_credit_account') {
+      return { value: t(`payment_method_with_credit_account.${value}`) };
+    }
     if (datatype === 'dispute_status') {
       return { value: t(`payment:disputeStatus.${value}`) };
     }

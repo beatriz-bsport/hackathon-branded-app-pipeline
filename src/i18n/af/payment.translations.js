@@ -113,7 +113,7 @@ exports.default = {
   paymentComboSectionTitle: 'Pack',
   method: {
     CB: 'Carte',
-    CREDIT_ACCOUNT: 'Paiement sur place',
+    CREDIT_ACCOUNT: 'Crédit client',
     CASH: 'Espèces',
     CHECK: 'Chèque',
     SEPA: 'SEPA',
@@ -124,7 +124,7 @@ exports.default = {
     GIROPAY: 'Giropay',
     [CB.id]: 'Carte',
     [CB_MANUAL.id]: 'Carte (manuel)',
-    [CREDIT_ACCOUNT.id]: 'Paiement sur place',
+    [CREDIT_ACCOUNT.id]: 'Crédit client',
     [HOLIDAY_CHECK.id]: 'Chèque vacances',
     [AMEX.id]: 'AMEX',
     [BANK_TRANSFER.id]: 'Virement',

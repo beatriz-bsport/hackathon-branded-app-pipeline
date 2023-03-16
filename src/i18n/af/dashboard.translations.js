@@ -22,6 +22,7 @@ const MEMBER_GRAPH_IDENTIFIER = 'graph_members';
 const BOOKING_GRAPH_IDENTIFIER = 'graph_bookings';
 const PRIVATE_BOOKING_GRAPH_IDENTIFIER = 'graph_private_bookings';
 const PAYMENT_GRAPH_IDENTIFIER = 'graph_payments';
+const BILLING_PLAN_GRAPH_IDENTIFIER = 'graph_billing_plan';
 const SUBSCRIPTION_GRAPH_IDENTIFIER = 'graph_subscriptions';
 const DISPUTE_GRAPH_IDENTIFIER = 'graph_dispute';
 
@@ -223,7 +224,8 @@ exports.default = {
       [BOOKING_GRAPH_IDENTIFIER]: 'Réservations',
       [PRIVATE_BOOKING_GRAPH_IDENTIFIER]: 'RDV',
       [PAYMENT_GRAPH_IDENTIFIER]: 'Paiements',
-      [SUBSCRIPTION_GRAPH_IDENTIFIER]: 'Souscriptions',
+      [SUBSCRIPTION_GRAPH_IDENTIFIER]: 'Factures souscriptions',
+      [BILLING_PLAN_GRAPH_IDENTIFIER]: 'Souscriptions',
       [DISPUTE_GRAPH_IDENTIFIER]: 'Litiges',
     },
     accumulate: {
@@ -248,15 +250,20 @@ exports.default = {
     },
   },
   dataSourceIdentifiers: {
+    plan_auto_renewal: 'Renouvellement tacite',
+    billing_plan_payment_method: 'Moyen de paiement',
+    contract_name: 'Abonnement',
     date_joined: "Date d'inscription",
     member_pk: 'Nombre de nouveaux membres',
     member_pk_accumulate: 'Nombre de membres',
     booking_pk: 'Nombre de réservations',
     is_recurrent_booking: 'Réservation récurrente',
+    last_invoice_status: 'Statut du dernier paiement',
     source_device: 'Origine',
     privatebooking_pk: 'Nombre de RDV',
     payment_pk: 'Nombre de paiements',
     plannedinvoice_pk: 'Nombre de factures',
+    billingplan_pk: "Nombre d'abonnements",
     booking_effectif_timeslots: 'Effectif moyen',
     activity_kind: 'Type de cours',
     is_workshop: 'Atelier',
@@ -264,6 +271,12 @@ exports.default = {
     attendance: 'Présent',
     date_start: 'Date de la séance',
     date_created: 'Date de la réservation',
+    new_member_only: 'Offre nouveau membre',
+    plan_date_end: 'Date de fin de facturation',
+    plan_date_start: 'Date de première facturation',
+    plan_flat_fee: 'Frais de dossier',
+    plan_recurrent_price: 'Montant du paiement récurrent',
+    plan_status: "Statut de l'abonnement",
     booking_status_code: 'Statut de la réservation',
     was_refunded: 'Remboursé',
     coach: 'Professeurs',
@@ -281,12 +294,15 @@ exports.default = {
     price: 'Prix TTC',
     private_service_name: 'Rendez-vous',
     margin_value: 'Apport marginal TTC',
+    nb_planned_invoices: "Nombre d'encaissements total",
     activity: 'Activité',
     payment_pack: 'Carte de cours',
     private_pass: 'Carte de RDV',
     payout_date_created: 'Date du virement',
     payout_identifier: 'Virement',
     payout_status: 'Status du virement',
+    total_discount: 'Réduction totale',
+    total_payments_made: "Nombre d'encaissements effectués",
     is_unpaid: 'Impayé',
     dispute_status: 'Status de litige',
   },
@@ -297,6 +313,7 @@ exports.default = {
     bookingTemporal: 'Réservations',
     subscriptionTemporalCount: 'Nombre de factures de souscription',
     subscriptionTemporalSum: 'Encaissement des souscriptions',
+    billingPlanTemporal: 'Souscriptions',
     memberTemporal: 'Nouveaux membres',
     privateBookingTemporal: 'Rendez-vous',
   },

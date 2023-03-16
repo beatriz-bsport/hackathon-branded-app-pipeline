@@ -1,3 +1,5 @@
+const PLANNED_INVOICE_STATUS = require('@bsport/common/lib/master-data/planned-invoice-status');
+
 const {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_SHOP_ITEM,
@@ -595,5 +597,12 @@ exports.default = {
       cancel: 'Fermer',
       confirm: 'Valider',
     },
+  },
+  status: {
+    [PLANNED_INVOICE_STATUS.SUCCEEDED.id]: 'Réussi',
+    [PLANNED_INVOICE_STATUS.FAILED.id]: 'Echec',
+    [PLANNED_INVOICE_STATUS.PENDING.id]: 'En attente',
+    [PLANNED_INVOICE_STATUS.PROCESSING.id]: 'En cours',
+    [PLANNED_INVOICE_STATUS.CANCELED.id]: 'Annulé',
   },
 };

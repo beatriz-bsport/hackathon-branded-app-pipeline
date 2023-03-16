@@ -36,6 +36,14 @@ const {
 } = require('@bsport/common/lib/master-data/payment-group');
 
 const {
+  BILLING_PLAN_STATUS_NOT_STARTED,
+  BILLING_PLAN_STATUS_STARTED,
+  BILLING_PLAN_STATUS_STOPPED,
+  BILLING_PLAN_STATUS_PAUSED,
+  BILLING_PLAN_STATUS_ENDED,
+} = require('@bsport/common/lib/master-data/subscription-status');
+
+const {
   BOOKING_STATUS_OK,
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
@@ -56,6 +64,8 @@ const FILTER_OPERAND_LIST_ID = 0;
 const FILTER_OPERAND_FLOAT_ID = 1;
 const FILTER_OPERAND_BOOLEAN_ID = 2;
 const FILTER_OPERAND_DATE_ID = 3;
+
+const PLANNED_INVOICE_STATUS = require('@bsport/common/lib/master-data/planned-invoice-status');
 
 exports.default = {
   search: 'Rechercher un rapport',
@@ -92,7 +102,8 @@ exports.default = {
     private_bookings: 'Réservations (rendez-vous)',
     unpaid_private_bookings: 'Réservations Impayées (rendez-vous)',
     discount: 'Promotions',
-    subscription: 'Souscription',
+    billing_plan: 'Souscription',
+    subscription: 'Factures souscriptions',
     first_booking: 'Première séance (collectif)',
     first_attendance: 'Première présence (collectif)',
     first_privatebooking: 'Premier RDV',
@@ -141,7 +152,7 @@ exports.default = {
     save: 'Sauvegarder',
   },
   columns: {
-    dispute_status: 'Status litige',
+    dispute_status: 'Statut litige',
     accept_email: 'Accepte les emails',
     accept_sms: 'Accepte les SMS',
     activitiesest: 'Activités par salle',
@@ -168,13 +179,13 @@ exports.default = {
     archived: 'Archivé',
     available_credits: 'Crédits disponible PCA',
     baskettotal_price: 'Montant facturé TTC',
-    billing_date_start: 'Date de première facturation',
     billing_date_start_annotated: 'Date de première facturation',
     billing_establishment: 'Adresse',
     billing_group: 'Groupe de facturation',
     billing_planrecurrent_price: 'Montant',
+    billing_plan_payment_method: 'Moyen de paiement',
     birthday: 'Date de naissance',
-    booking_status_code: 'Status',
+    booking_status_code: 'Statut',
     bsport_fee: 'Frais de transaction',
     c: 'Professeur',
     ca: "Chiffre d'affaire généré",
@@ -188,6 +199,7 @@ exports.default = {
     concatenated_notes: 'Notes',
     consumed_amount_gifted: 'Montant consommé',
     contract: 'Contrat',
+    contract_name: "Nom de l'abonnement",
     couponamount_off: 'Réduction fixe',
     couponName: 'Promotion',
     couponpercent_off: 'Réduction en %',
@@ -242,6 +254,7 @@ exports.default = {
     is_recurring: 'Récurrent',
     is_rent: 'Location',
     last_booking: 'Précédente réservation',
+    last_invoice_status: 'Statut du dernier paiement',
     last_name: 'Nom',
     last_payment_date: 'Date du dernier paiement',
     last_view: 'Dernière vue',
@@ -268,8 +281,10 @@ exports.default = {
     nb_non_attendance: 'Absents',
     nb_offers_cancelled: 'Nombre de séances annulées',
     nb_offers: 'Nombre de séances',
+    nb_planned_invoices: "Nombre d'encaissements total",
     nb_purchase: "Nombre d'achats",
     negative_voucher: 'Réduction',
+    new_member_only: 'Offre nouveau membre',
     next_booking: 'Prochaine réservation',
     note: 'Note',
     paid: 'Encaissé',
@@ -306,11 +321,17 @@ exports.default = {
     payment_status: 'Statut du paiement',
     payout_date_created: 'Date du virement',
     payout_identifier: 'Virement',
-    payout_status: 'Status du virement',
+    payout_status: 'Statut du virement',
     payout: 'Virement',
     percent_off: 'Réduction en %',
     phonenumber: 'Téléphone',
     pk: 'ID',
+    plan_auto_renewal: 'Renouvellement tacite',
+    plan_date_end: 'Date de fin de facturation',
+    plan_date_start: 'Date de première facturation',
+    plan_status: "Statut de l'abonnement",
+    plan_flat_fee: 'Frais de dossier',
+    plan_recurrent_price: 'Montant du paiement récurrent',
     price_bought: "Prix d`'achat",
     price: 'Prix',
     private_passcredits: 'Crédit restant',
@@ -366,6 +387,7 @@ exports.default = {
     total_basket: 'Total panier',
     total_discount: 'Réduction totale',
     total_payments: 'Total paiements',
+    total_payments_made: "Nombre d'encaissements effectués",
     total_price_notax: 'Montant facturé HT',
     total_price: 'Montant facturé TTC',
     total_unpaid_amount: 'Montant total impayé',
@@ -483,6 +505,18 @@ exports.default = {
     giropay: 'Giropay',
     debt: 'Crédit interne',
   },
+  payment_method_with_credit_account: {
+    [SUBSCRIPTION_CB.id]: 'Paiement automatique',
+    [CREDIT_ACCOUNT.id]: 'Crédit client',
+    [SEPA.id]: 'SEPA',
+  },
+  last_invoice_status: {
+    [PLANNED_INVOICE_STATUS.SUCCEEDED]: 'Réussi',
+    [PLANNED_INVOICE_STATUS.FAILED]: 'Echec',
+    [PLANNED_INVOICE_STATUS.PENDING]: 'En attente',
+    [PLANNED_INVOICE_STATUS.PROCESSING]: 'En cours',
+    [PLANNED_INVOICE_STATUS.CANCELED]: 'Annulé',
+  },
   product_type: {
     payment_pack: 'Carte de cours',
     refund: 'Remboursement crédit',
@@ -523,6 +557,7 @@ exports.default = {
     price: 'Prix',
     cts: 'Prix en centimes',
     payment_method: 'Méthode de paiement',
+    payment_method_with_credit_account: 'Moyen de paiement',
     coupon: 'Coupon',
     contract: 'Contrat',
     date: 'Date',
@@ -539,7 +574,7 @@ exports.default = {
     percent: 'Pourcentage',
     email: 'Email',
     user: 'Membre',
-    boolean: 'Vraix/Faux',
+    boolean: 'Vrai/Faux',
     private_service: 'Rendez vous',
     private_pass: 'Carte de rendez-vous',
     private_slot: 'Type de rendez vous',
@@ -548,11 +583,13 @@ exports.default = {
     billing_group: 'Groupe de facturation',
     activity: 'Activité',
     booking_status_code: 'Statut de la réservation',
-    payout_status: 'Status du virement',
+    billing_plan_status: "Statut de l'abonnement",
+    payout_status: 'Statut du virement',
+    invoice_status: 'Statut du dernier paiement',
     payout: 'Virement',
     staff: 'Staff',
     company: 'Studio',
-    disputeStatus: 'Status litige',
+    disputeStatus: 'Statut litige',
   },
   presetValuesByDatatype: {
     source_device: {
@@ -561,6 +598,13 @@ exports.default = {
       [BOOKING_SOURCE_SAAS.id.toString()]: 'Backoffice bsport',
       [BOOKING_SOURCE_OTHER.id.toString()]: 'Autre',
       [BOOKING_SOURCE_MIGRATION.id.toString()]: 'Migration de données',
+    },
+    billing_plan_status: {
+      [BILLING_PLAN_STATUS_STARTED]: 'En cours',
+      [BILLING_PLAN_STATUS_NOT_STARTED]: 'Pas encore commencé',
+      [BILLING_PLAN_STATUS_STOPPED]: 'Stoppé',
+      [BILLING_PLAN_STATUS_PAUSED]: 'En pause',
+      [BILLING_PLAN_STATUS_ENDED]: 'Terminé',
     },
     booking_status_code: {
       [BOOKING_STATUS_OK.id.toString()]: 'Non-annulé',
@@ -571,7 +615,7 @@ exports.default = {
     payment_method: {
       [CB.id]: 'Carte',
       [CB_MANUAL.id]: 'Carte (manuel)',
-      [CREDIT_ACCOUNT.id]: 'Paiement sur place',
+      [CREDIT_ACCOUNT.id]: 'Crédit client',
       [HOLIDAY_CHECK.id]: 'Chèque vacances',
       [AMEX.id]: 'AMEX',
       [BANK_TRANSFER.id]: 'Virement',
@@ -588,6 +632,11 @@ exports.default = {
       [PAYMENT_PACK.id]: 'Pass',
       [OTHER.id]: 'Other',
       [DISPUTE.id]: 'Dispute',
+    },
+    payment_method_with_credit_account: {
+      [SUBSCRIPTION_CB.id]: 'Paiement automatique',
+      [CREDIT_ACCOUNT.id]: 'Crédit client',
+      [SEPA.id]: 'SEPA',
     },
     payment_engine: {
       [PAYMENT_ENGINE_BSPORT]: 'Payment manuel',
@@ -626,5 +675,7 @@ exports.default = {
   helperText: {
     franchise_shared_pass:
       "Ce rapport vous permet d'analyser les réservations faites avec les cartes partagées. Lorsqu'une carte partagée est achetée dans un studio, le rapport indique le nombre de réservations réalisées avec cette carte dans un autre studio. Le nombre de séances réservées comprends les réservations de cours collectifs, ateliers et rendez-vous.",
+    billing_plan:
+      'Les souscriptions sont filtrées sur la date de première facturation.',
   },
 };

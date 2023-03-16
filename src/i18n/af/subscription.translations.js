@@ -7,6 +7,14 @@ const {
 } = PAYMENT_METHOD;
 
 const {
+  BILLING_PLAN_STATUS_NOT_STARTED,
+  BILLING_PLAN_STATUS_STARTED,
+  BILLING_PLAN_STATUS_STOPPED,
+  BILLING_PLAN_STATUS_PAUSED,
+  BILLING_PLAN_STATUS_ENDED,
+} = require('@bsport/common/lib/master-data/subscription-status');
+
+const {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } = require('@bsport/common/lib/master-data/payment-group');
@@ -31,6 +39,13 @@ exports.default = {
     hasStopped: 'Stoppé',
     isPaused: 'En pause',
     hasEnded: 'Terminé',
+  },
+  billing_plan_status: {
+    [BILLING_PLAN_STATUS_STARTED]: 'En cours',
+    [BILLING_PLAN_STATUS_NOT_STARTED]: 'Pas encore commencé',
+    [BILLING_PLAN_STATUS_STOPPED]: 'Stoppé',
+    [BILLING_PLAN_STATUS_PAUSED]: 'En pause',
+    [BILLING_PLAN_STATUS_ENDED]: 'Terminé',
   },
   notificationToolTip: 'Des notifications sont définies pour cet abonnement',
   events: {

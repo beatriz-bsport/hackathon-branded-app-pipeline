@@ -41,4 +41,5 @@ export const MEMBER_GRAPH_IDENTIFIER = 'graph_members';
 export const BOOKING_GRAPH_IDENTIFIER = 'graph_bookings';
 export const PRIVATE_BOOKING_GRAPH_IDENTIFIER = 'graph_private_bookings';
 export const PAYMENT_GRAPH_IDENTIFIER = 'graph_payments';
+export const BILLING_PLAN_GRAPH_IDENTIFIER = 'graph_billing_plan';
 export const SUBSCRIPTION_GRAPH_IDENTIFIER = 'graph_subscriptions';

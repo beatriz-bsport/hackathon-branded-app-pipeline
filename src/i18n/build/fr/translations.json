@@ -6593,6 +6593,7 @@
             "credit_account": "Crédit client",
             "other": "Divers"
         },
+        "payment_method_with_credit_account": { "subscription_cb": "Paiement planifié (abonnement)", "credit_account": "Crédit client", "sepa": "SEPA" },
         "product_type": {
             "payment_pack": "Carte de cours",
             "refund": "Remboursement crédit",

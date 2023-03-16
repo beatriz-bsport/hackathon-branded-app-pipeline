@@ -5,6 +5,7 @@ import {
   BOOKING_GRAPH_IDENTIFIER,
   PAYMENT_GRAPH_IDENTIFIER,
   SUBSCRIPTION_GRAPH_IDENTIFIER,
+  BILLING_PLAN_GRAPH_IDENTIFIER,
   PRIVATE_BOOKING_GRAPH_IDENTIFIER,
 } from '#libs/dashboard/constants';
 
@@ -351,6 +352,42 @@ export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSet
             group_operand: 1,
           },
           dashboard_graph_identifier: PRIVATE_BOOKING_GRAPH_IDENTIFIER,
+        },
+        {
+          uuid: uuidv4(),
+          title: '',
+          defaultTitle: 'graphDefaultTitles.billingPlanTemporal',
+          graph_family: 'temporal',
+          graph_params: {
+            date: 'plan_date_start',
+            date_value: 'billingplan_pk',
+            accumulate_total_data: false,
+            aggregation_function_name: 'count',
+          },
+          filter_config: {},
+          chart_component: 'bar',
+          date_filter_config: {
+            groups: [
+              {
+                uuid: uuidv4(),
+                filters_data: [
+                  {
+                    uuid: uuidv4(),
+                    value: [1629241200, 1660863599],
+                    datatype: 'datetime',
+                    comparator: 4,
+                    identifier: 'plan_date_start',
+                    time_period: 'trimester',
+                    sub_datatype: 0,
+                  },
+                ],
+                inner_operand: 1,
+                display_has_single: true,
+              },
+            ],
+            group_operand: 1,
+          },
+          dashboard_graph_identifier: BILLING_PLAN_GRAPH_IDENTIFIER,
         },
       ],
       tab_label: 'main',

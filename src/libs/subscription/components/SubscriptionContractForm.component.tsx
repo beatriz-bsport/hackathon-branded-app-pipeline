@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Collapse from '@material-ui/core/Collapse';
 import { useTranslation } from 'react-i18next';
 import omit from 'lodash/omit';
@@ -10,8 +11,9 @@ import DollarIcon from '@material-ui/icons/AttachMoney';
 import InvoiceIcon from '@material-ui/icons/Receipt';
 import KeyIcon from '@material-ui/icons/VpnKey';
 import SettingsIcon from '@material-ui/icons/Tune';
+import Alert from '@material-ui/lab/Alert';
 import * as Yup from 'yup';
-import { FormikProps, withFormik } from 'formik';
+import { FormikProps, useFormikContext, withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core';
 import {
   TextField,
@@ -20,11 +22,11 @@ import {
   RadioGroupField,
   IntervalRecurrenceSelectField,
   IntegerField,
+  SelectField,
 } from '../../../components/forms';
 import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
 import PrivatePassSelectorField from '../../private-service/components/pass/PrivatePassSelectorField.component';
 import PaymentComboSelectorField from '../../payment-combo/components/PaymentComboSelectorField.component';
-import InfoBox from '#components/box/InfoBox.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { ContractWithPaymentPack } from '../types';
@@ -34,7 +36,7 @@ import { PaymentCombo } from '#libs/payment-combo/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { OptionCallback } from '../../../state/types';
 import FormSection from '#components/forms/FormSection';
-// import PopOver from '#components/Popover';
+import PopOver from '#components/Popover';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -47,11 +49,17 @@ enum ObjectType {
   paymentCombo = 'payment_combo',
 }
 
-// enum InvoicingType {
-//   sameDayAsSubscription = 'same_day_as_subscription',
-//   fixedDay = 'fixed_day',
-// }
+enum InvoicingType {
+  sameDayAsSubscription = 'same_day_as_subscription',
+  fixedDay = 'fixed_day',
+}
 
+const monthBillingDayChoice = [...Array(32).keys()]
+  .filter((day) => !!day)
+  .map((day) => ({
+    label: day.toString(),
+    value: day,
+  }));
 type FormValues = Omit<
   ContractWithPaymentPack,
   | 'payment_pack'
@@ -68,6 +76,7 @@ type FormValues = Omit<
   payment_combo?: number;
   object_type: ObjectType;
   unusable_by_staff: boolean;
+  invoicing_type: InvoicingType;
 };
 
 export type SubscriptionContractFormDrawerPropsWithoutFormik = {
@@ -96,6 +105,26 @@ export function SubscriptionContractFields(
     trackFormAdd(props.initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const { values, setFieldValue } = useFormikContext<FormValues>();
+  React.useEffect(() => {
+    if (values.invoicing_type === InvoicingType.fixedDay) {
+      setFieldValue('recurrence_basis', 1);
+      setFieldValue('interval', 'month');
+      if (values.nb_interval > 12) {
+        setFieldValue('nb_interval', 12);
+      }
+      if (!values.month_billing_day) {
+        setFieldValue('month_billing_day', 1);
+      }
+    } else {
+      setFieldValue('month_billing_day', null);
+    }
+  }, [
+    values.invoicing_type,
+    values.nb_interval,
+    values.month_billing_day,
+    setFieldValue,
+  ]);
 
   return (
     <div>
@@ -187,10 +216,9 @@ export function SubscriptionContractFields(
           // the backend returns a string for recurrent_price as it is handled as a decimal
           parseFloat(props.values.recurrent_price) !==
             parseFloat(props.initial.recurrent_price) && (
-            <InfoBox
-              content={t('contract.form.recurrent_price.infoBox')}
-              className={classes.fieldMargin2}
-            />
+            <Alert severity="info" className={classes.fieldMargin2}>
+              {t('contract.form.recurrent_price.infoBox')}
+            </Alert>
           )}
         <PriceField
           name="flat_fee"
@@ -206,11 +234,12 @@ export function SubscriptionContractFields(
         sectionTitle={t('contract.form.invoicing.title')}
         sectionIcon={InvoiceIcon}
       >
-        {/* <PopOver
+        <PopOver
           title={t('contract.form.invoicing.invoicing_type_readonly')}
           hide={!props.initial?.id}
         >
           <RadioGroupField
+            name="invoicing_type"
             choices={[
               {
                 label: t(
@@ -226,29 +255,35 @@ export function SubscriptionContractFields(
             disabled={!!props.initial?.id}
           />
         </PopOver>
-        <InfoBox
-          content={t(
-            'contract.form.invoicing.same_day_as_subscription.explain',
-          )}
-          className={classes.fieldMargin2}
-        /> */}
-        <div className={classes.row}>
-          <Typography variant="body2">
-            {t('contract.form.recurrence_basis.label')}
-          </Typography>
-          <IntegerField
-            name="recurrence_basis"
-            required
-            className={classes.intervalIntegerField}
-          />
-          <IntervalRecurrenceSelectField
-            name="interval"
-            required
-            variant="outlined"
-            displayPeriod
-            className={classes.intervalSelectorField}
-          />
-        </div>
+        <Alert
+          className={classNames(classes.fieldMargin2, classes.alert)}
+          severity="info"
+        >
+          {props.values.invoicing_type === InvoicingType.sameDayAsSubscription
+            ? t('contract.form.invoicing.same_day_as_subscription.explain')
+            : t('contract.form.invoicing.fixed_day.explain')}
+        </Alert>
+        <Collapse
+          in={values.invoicing_type === InvoicingType.sameDayAsSubscription}
+        >
+          <div className={classes.row}>
+            <Typography variant="body2">
+              {t('contract.form.recurrence_basis.label')}
+            </Typography>
+            <IntegerField
+              name="recurrence_basis"
+              required
+              className={classes.intervalIntegerField}
+            />
+            <IntervalRecurrenceSelectField
+              name="interval"
+              required
+              variant="outlined"
+              displayPeriod
+              className={classes.intervalSelectorField}
+            />
+          </div>
+        </Collapse>
         <TextField
           name="nb_interval"
           label={t('contract.form.nb_interval.label', {
@@ -265,26 +300,87 @@ export function SubscriptionContractFields(
               : ''
           }
         />
-        <InfoBox
-          content={t(
-            `contract.form.invoicing.same_day_as_subscription.recurrence_explain.${props.values.interval}`,
-            {
-              // *1 to force count to update when values.recurrence_basis changes
-              count: props.values.recurrence_basis * 1,
-              recurrence_basis: props.values.recurrence_basis,
-              nb_interval: props.values.nb_interval,
-              time_unit: t(`contract.interval.${props.values.interval}`, {
-                count: props.values.nb_interval * props.values.recurrence_basis,
-              }),
-              total_subscription_duration:
-                props.values.nb_interval * props.values.recurrence_basis,
-              invoice: t('contract.form.invoicing.invoice', {
-                count: props.values.nb_interval * 1,
-              }),
-            },
+
+        <Collapse
+          in={values.invoicing_type === InvoicingType.sameDayAsSubscription}
+        >
+          <Alert severity="info" variant="outlined">
+            {t(
+              `contract.form.invoicing.same_day_as_subscription.recurrence_explain.${props.values.interval}`,
+              {
+                // *1 to force count to update when values.recurrence_basis changes
+                count: props.values.recurrence_basis * 1,
+                recurrence_basis: props.values.recurrence_basis,
+                nb_interval: props.values.nb_interval,
+                time_unit: t(`contract.interval.${props.values.interval}`, {
+                  count:
+                    props.values.nb_interval * props.values.recurrence_basis,
+                }),
+                total_subscription_duration:
+                  props.values.nb_interval * props.values.recurrence_basis,
+                invoice: t('contract.form.invoicing.invoice', {
+                  count: props.values.nb_interval * 1,
+                }),
+              },
+            )}
+          </Alert>
+        </Collapse>
+
+        <Collapse in={values.invoicing_type === InvoicingType.fixedDay}>
+          <div className={classNames(classes.row, classes.field)}>
+            <Typography variant="body2">
+              {t('contract.form.month_billing_day.label1')}
+            </Typography>
+            <SelectField
+              name="month_billing_day"
+              id="select-month-billing-day"
+              select
+              variant="outlined"
+              choices={monthBillingDayChoice}
+              className={classes.monthBillingDaySelect}
+            />
+            <Typography variant="body2">
+              {t('contract.form.month_billing_day.label2')}
+            </Typography>
+          </div>
+          {props.initial?.id &&
+            props.initial?.month_billing_day !== values.month_billing_day && (
+              <Alert
+                severity="info"
+                className={classNames(classes.alert, classes.field)}
+              >
+                {t(
+                  `contract.form.invoicing.fixed_day.modification_not_apply_to_past`,
+                  {
+                    month_billing_day: props.values.month_billing_day,
+                  },
+                )}
+              </Alert>
+            )}
+          {props.values.month_billing_day >= 29 && (
+            <Alert
+              severity="warning"
+              className={classNames(classes.alert, classes.field)}
+            >
+              {t(`contract.form.invoicing.fixed_day.end_of_month_explain`, {
+                month_billing_day: props.values.month_billing_day,
+              })}
+            </Alert>
           )}
-          variant="outlined"
-        />
+          <Alert severity="info" variant="outlined" className={classes.alert}>
+            {t(
+              `contract.form.invoicing.fixed_day.recurrence_explain.${props.values.interval}`,
+              {
+                count: 1,
+                nb_interval: props.values.nb_interval,
+                invoice: t('contract.form.invoicing.invoice', {
+                  count: props.values.nb_interval * 1,
+                }),
+                month_billing_day: props.values.month_billing_day,
+              },
+            )}
+          </Alert>
+        </Collapse>
       </FormSection>
 
       <FormSection
@@ -346,6 +442,9 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(-2),
     width: theme.spacing(5),
   },
+  alert: {
+    alignItems: 'center',
+  },
   intervalSelectorField: {
     height: theme.spacing(5),
   },
@@ -362,13 +461,57 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(1),
     },
   },
+  smallTextField: {
+    width: theme.spacing(3.75),
+  },
+  monthBillingDaySelect: {
+    height: theme.spacing(5),
+  },
 }));
 
 export const SubscriptionContractFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
-  nb_interval: Yup.number().integer().min(1).max(90).required(),
-  recurrence_basis: Yup.number().integer().min(1).required(),
-  interval: Yup.string().required(),
+  nb_interval: Yup.number()
+    .integer()
+    .min(1)
+    .max(90)
+    .required()
+    .test(
+      'Must-be-less-than-twelve-for-fixed-billing-day',
+      'contract.form.nb_interval.errorForFixedBillingDay',
+      function checkNbIntervalForFixedBillingDay(nb_interval) {
+        return (
+          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
+          nb_interval <= 12
+        );
+      },
+    ),
+  recurrence_basis: Yup.number()
+    .integer()
+    .min(1)
+    .required()
+    .test(
+      'Must-be-one-for-fixed-billing-day',
+      'Fixed Billing Day must be one',
+      function checkNbIntervalForFixedBillingDay(recurrence_basis) {
+        return (
+          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
+          recurrence_basis === 1
+        );
+      },
+    ),
+  interval: Yup.string()
+    .required()
+    .test(
+      'Must-be-month-if-month-billing-day-not-null',
+      'Interval must be month',
+      function checkIntervalBasedOnMonthBillingDay(interval) {
+        return (
+          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
+          interval === 'month'
+        );
+      },
+    ),
   recurrent_price: Yup.number().min(0),
   flat_fee: Yup.number().min(0),
   payment_pack: Yup.number()
@@ -409,6 +552,21 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
   manager_only: Yup.boolean(),
   auto_renewal: Yup.boolean(),
   unusable_by_staff: Yup.boolean(),
+  invoicing_type: Yup.string(),
+  month_billing_day: Yup.number()
+    .min(1)
+    .max(31)
+    .nullable()
+    .test(
+      'Must-set-if-fixed-day-invoicing-type',
+      'missing',
+      function checkIntervalBasedOnMonthBillingDay(month_billing_day) {
+        return (
+          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
+          !!month_billing_day
+        );
+      },
+    ),
 });
 
 function isNumber(value: unknown): value is number {
@@ -442,6 +600,9 @@ export const SubscriptionContractFormHoc = withFormik<
           ? ObjectType.paymentPack
           : ObjectType.paymentCombo,
         unusable_by_staff: !initial.is_usable_by_staff,
+        invoicing_type: initial.month_billing_day
+          ? InvoicingType.fixedDay
+          : InvoicingType.sameDayAsSubscription,
       };
     }
     return {
@@ -460,6 +621,8 @@ export const SubscriptionContractFormHoc = withFormik<
       auto_renewal: false,
       object_type: ObjectType.paymentPack,
       unusable_by_staff: false,
+      invoicing_type: InvoicingType.fixedDay,
+      month_billing_day: 1,
     };
   },
   enableReinitialize: true,

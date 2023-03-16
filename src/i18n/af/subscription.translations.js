@@ -313,6 +313,7 @@ exports.default = {
     privatePass: 'Carte RDV associée',
     paymentCombo: 'Pack associé',
     duration: '{{month}} factures',
+    monthBillingDay: 'Facturé tous les {{ month_billing_day }} du mois',
     billingFrequency: 'Fréquence de facturation',
     description: 'Description',
     legal: 'Mentions légales',
@@ -423,13 +424,27 @@ exports.default = {
           label: 'Facturer à un jour fixe',
           explain:
             'Chaque facture sera facturée au jour choisi. Le premier paiement est calculé au prorata si besoin.',
+          recurrence_explain: {
+            month:
+              'La souscription sera facturée tous les {{ month_billing_day }} du mois sur une durée totale de {{ nb_interval }} mois et génèrera {{ nb_interval }} {{ invoice }}. Le premier paiement est calculé au prorata si besoin.',
+          },
+          end_of_month_explain:
+            'Si un mois ne comporte pas de {{ month_billing_day }}, la facture sera éditée le dernier jour du mois.',
+          modification_not_apply_to_past:
+            'Vous êtes sur le point de modifier le jour de facturation de votre souscription. Seules les nouvelles souscriptions créées seront impactées. Les souscriptions en cours et les souscriptions avec renouvellement déjà existantes ne changeront pas (même après renouvellement)',
         },
         invoicing_type_readonly:
           'Il est impossible de changer le type de facturation',
       },
+      month_billing_day: {
+        label1: 'Facturer tous les',
+        label2: 'du mois.',
+      },
       nb_interval: {
         label: 'Nombre de facturations',
         error: 'Le nombre de facturations ne doit pas dépasser 90',
+        errorForFixedBillingDay:
+          'Le nombre de facturations ne doit pas dépasser 12',
       },
       interval: {
         label: 'Récurrence',

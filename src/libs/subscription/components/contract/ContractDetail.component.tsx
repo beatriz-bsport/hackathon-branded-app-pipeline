@@ -34,6 +34,7 @@ const ContractDetail = (props: Props) => {
     auto_renewal,
     manager_only,
     payment_pack,
+    month_billing_day,
   } = props.contract;
   const classes = useStyles();
   const { t } = useTranslation('subscription');
@@ -44,6 +45,15 @@ const ContractDetail = (props: Props) => {
         <Typography variant="h3" className={classes.title}>
           {name}
         </Typography>
+        {!!month_billing_day && (
+          <div>
+            <Typography variant="h4">
+              {t('contract.monthBillingDay', {
+                month_billing_day,
+              })}
+            </Typography>
+          </div>
+        )}
         <div className={classes.row}>
           <Typography variant="h4">
             {t('contract.duration', { month: nb_interval })}

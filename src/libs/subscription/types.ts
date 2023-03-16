@@ -63,6 +63,7 @@ export type Subscription<
   status: number;
   stripe_payment_method_id: string;
   trial_nb: number;
+  month_billing_day: number | null;
 };
 
 export type SubscriptionData = {
@@ -112,6 +113,7 @@ export type Contract = {
   tax: string;
   contract_terms_pdf_link: string | null;
   is_usable_by_staff: boolean;
+  month_billing_day: number | null;
 };
 
 export type ContractWithPaymentPack<
@@ -136,6 +138,7 @@ export type ContractWithPaymentPack<
   private_pass?: PrivatePassType;
   payment_combo?: PaymentComboType;
   is_usable_by_staff: boolean;
+  month_billing_day: number | null;
 };
 
 export type ContractPause = {

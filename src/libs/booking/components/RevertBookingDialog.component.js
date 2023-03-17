@@ -15,11 +15,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-// import Collapse from '@material-ui/core/Collapse';
-// import ButtonBase from '@material-ui/core/ButtonBase';
-// import Typography from '@material-ui/core/Typography';
-// import List from '@material-ui/core/List';
-// import Switch from '@material-ui/core/Switch';
 
 import RedButton from '#components/button/RedButton.component';
 
@@ -27,7 +22,6 @@ import type { Booking } from '../types';
 
 type Props = {
   offer: Offer,
-  // similarBookings: Booking[],
   offerIsAvailable: boolean,
   bookingToRevert: Booking,
 
@@ -48,7 +42,6 @@ export function RevertBookingDialog(props: Props) {
   const {
     t,
     offer,
-    // similarBookings,
     bookingToRevert,
     closeRevertBookingDialog,
     handleBookingDeletion,
@@ -58,29 +51,6 @@ export function RevertBookingDialog(props: Props) {
     toggleForceRefund,
   } = props;
   const classes = useStyles();
-  // const [similarOfferToCancel, setSimilarOfferToCancel] = useState<number[]>(
-  //   [],
-  // );
-  // const [modifyRecursively, setModifyRecursively] = useState(false);
-  // const selectAll = () => {
-  //   setSimilarOfferToCancel(similarBookings.map((o) => o.id));
-  // };
-
-  // const unselectAll = () => {
-  //   setSimilarOfferToCancel([]);
-  // };
-
-  // const handleChangeSelection = (id: number) => () => {
-  //   const indexOf = similarOfferToCancel.indexOf(id);
-  //   if (indexOf === -1) {
-  //     setSimilarOfferToCancel([...similarOfferToCancel, id]);
-  //     return;
-  //   }
-  //   setSimilarOfferToCancel([
-  //     ...similarOfferToCancel.splice(0, indexOf),
-  //     ...similarOfferToCancel.splice(indexOf + 1),
-  //   ]);
-  // };
 
   if (!bookingToRevert) {
     return null;
@@ -134,63 +104,6 @@ export function RevertBookingDialog(props: Props) {
                   name: offer?.group?.name,
                 })}
               </Alert>
-              {/* Hidden until we put the possibility to add in all offer of group al */}
-              {/* <FormControlLabel
-                label={t('booking.cancellingBookingInGroup')}
-                control={
-                  <Switch
-                    color="primary"
-                    checked={modifyRecursively}
-                    onChange={(event) => {
-                      setModifyRecursively(event.target.checked);
-                    }}
-                  />
-                }
-              />
-
-              <Collapse in={modifyRecursively}>
-                <ButtonBase
-                  onClick={selectAll}
-                  className={classes.selectOption}
-                >
-                  <Typography variant="caption">
-                    {t('offer:liveOfferEdit.selectAll')}
-                  </Typography>
-                </ButtonBase>
-                <ButtonBase
-                  onClick={unselectAll}
-                  className={classes.selectOption}
-                >
-                  <Typography variant="caption">
-                    {t('offer:liveOfferEdit.unselectAll')}
-                  </Typography>
-                </ButtonBase>
-                {!(similarBookings || []).length ? (
-                  <div className={classes.noSimilarOfferMessage}>
-                    <Typography variant="body">
-                      {t('offer:liveOfferEdit.noSimilarOffer')}
-                    </Typography>
-                  </div>
-                ) : (
-                  <List component="nav">
-                    <OfferListItemV2
-                      similarOffer
-                      offer={offer}
-                      checked
-                      disabled
-                    />
-                    {similarBookings.map((so) => (
-                      <OfferListItemV2
-                        key={so.id}
-                        similarOffer
-                        offer={so}
-                        handleChange={handleChangeSelection(so.id)}
-                        checked={similarOfferToCancel.includes(so.id)}
-                      />
-                    ))}
-                  </List>
-                )}
-              </Collapse> */}
             </>
           )}
         </DialogContent>

@@ -49,7 +49,7 @@ import { MaterialStyleType } from '../../../../../utils/types';
 import CustomFormFieldTagRuleSelector from '../CustomFormBuilderTagRule.selector';
 import { TagGroup, Tag } from '../../../../tag/types';
 import { Theme as CompanyTheme } from '../../../../theme/types';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { OptionCallback } from '../../../../../state/types';
 import { ALLOWED_COUNTRIES_FOR_STATES } from '../../../../member/constants';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
@@ -60,7 +60,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.CUSTOMFORM_QUESTION,
+  SegmentAnalyticsFormObjectIdentifier.CustomformQuestion,
 );
 type OwnProps = {
   open: boolean;

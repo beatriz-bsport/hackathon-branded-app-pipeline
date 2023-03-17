@@ -14,14 +14,14 @@ import { makeStyles } from '@material-ui/core';
 import PaymentComboFields, {
   PaymentComboFormHoc,
 } from './PaymentComboForm.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_COMBO,
+    SegmentAnalyticsFormObjectIdentifier.PaymentCombo,
   );
 
 type Props = {
@@ -45,7 +45,7 @@ export function PaymentComboFormDrawer(props: Props) {
       title={t('form.title')}
       subtitle={props.initial?.name}
       trackingObjectIdentifier={
-        SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_COMBO
+        SegmentAnalyticsFormObjectIdentifier.PaymentCombo
       }
       trackingObjectId={props.initial?.id}
     >

@@ -81,7 +81,7 @@ import TagDetailSmartlist from '#libs/marketing/components/TagDetailSmartlist';
 import TagDetailCoupon from '#libs/marketing/components/TagDetailCoupon';
 import TagDetailMembers from '#libs/marketing/components/TagDetailMembers.component';
 import TadDetailOfferFilters from '#libs/marketing/components/TagDetailOfferFilters.components';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 export enum TagAuthorizationFilter {
@@ -143,7 +143,7 @@ const TAG_KIND_SMARTLIST = 'smartlist';
 const TAG_KIND_OFFER = 'offer';
 
 const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.TAG_GROUP,
+  SegmentAnalyticsFormObjectIdentifier.TagGroup,
 );
 class MarketingTagManagement extends React.PureComponent<Props> {
   componentDidMount() {

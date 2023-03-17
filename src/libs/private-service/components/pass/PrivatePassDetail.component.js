@@ -34,7 +34,7 @@ import type {
 import PrivatePassForm from './private-pass-form/PrivatePassForm.component';
 import PrivateSlotCompatibleServiceForm from '../slot/PrivateSlotCompatibleServiceForm.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
 type Props = {
   pass: PrivatePass,
@@ -218,7 +218,7 @@ export const PrivatePassDetail = (props: Props) => {
         title={props.t('privatePass.form.title')}
         subtitle={pass?.name}
         trackingObjectIdentifier={
-          SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS
+          SegmentAnalyticsFormObjectIdentifier.PrivatePass
         }
         trackingObjectId={pass?.id}
       >

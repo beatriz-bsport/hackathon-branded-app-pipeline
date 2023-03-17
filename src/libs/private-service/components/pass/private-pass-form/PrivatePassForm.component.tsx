@@ -64,7 +64,7 @@ import PrivatePassCategorySelector from '../../../../payment-packs/components/ca
 import { PrivateServiceListItem } from '../../service/PrivateServiceListItem.component';
 import { PrivateServiceSelector } from '../../service/PrivateServiceSelector.component';
 import { PrivateSlotSelectionDialog } from '../../slot/PrivateSlotSelectionDialog.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { provincialTaxHelperText } from '#libs/theme/utils';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import UniversalPassFormPaymentPackCompatibility from '../../../../universal-pass/components/UniversalPassFormPaymentPackCompatibility.component';
@@ -149,7 +149,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS,
+  SegmentAnalyticsFormObjectIdentifier.PrivatePass,
 );
 export const PrivatePassForm = (props: Props) => {
   React.useEffect(() => {

@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import Tooltip from '#components/Tooltip.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 type OwnProps = {
@@ -25,7 +25,7 @@ type OwnProps = {
   flexContent?: boolean;
   mobileMinWidth?: string;
   withoutHeaderContainer?: boolean;
-  trackingObjectIdentifier?: SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM;
+  trackingObjectIdentifier?: SegmentAnalyticsFormObjectIdentifier;
   trackingObjectId?: number;
   forwardedContainerRef?: HTMLDivElement;
 };

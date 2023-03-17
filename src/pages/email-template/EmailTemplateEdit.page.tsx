@@ -31,11 +31,11 @@ import { RootState } from '../../reducers';
 
 import { EmailTemplate } from '../../libs/email-editor/types';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EMAIL_TEMPLATE,
+    SegmentAnalyticsFormObjectIdentifier.EmailTemplate,
   );
 type OwnProps = {
   id: number;

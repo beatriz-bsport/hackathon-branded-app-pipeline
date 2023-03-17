@@ -8,13 +8,13 @@ import SubscriptionContractFields, {
   SubscriptionContractFormDrawerProps,
   SubscriptionContractFormHoc,
 } from './SubscriptionContractForm.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SUBSCRIPTION,
+    SegmentAnalyticsFormObjectIdentifier.Subscription,
   );
 
 export const SubscriptionContractFormDrawer = (
@@ -35,7 +35,7 @@ export const SubscriptionContractFormDrawer = (
       onClose={onDrawerClose}
       title={t('contract.form.title')}
       trackingObjectIdentifier={
-        SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SUBSCRIPTION
+        SegmentAnalyticsFormObjectIdentifier.Subscription
       }
       trackingObjectId={props.initial?.id}
       withoutPadding

@@ -58,7 +58,7 @@ import type { OptionCallback } from '../../../state/types';
 import FilterCard from './FilterListItem.component';
 import MemberBaseFilter from './filters/MemberBaseFilter.component';
 import type { SmartList } from '#libs/smart-list/types';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { getCurrencyDisplay } from '../../theme/selectors';
 import { PaymentPack } from '#libs/payment-packs/types';
@@ -68,7 +68,7 @@ import { createUrl } from '../../../utils/createUrlHandlers';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SMARTLIST_FILTER,
+    SegmentAnalyticsFormObjectIdentifier.SmartlistFilter,
   );
 const MEMBER_INFO = 1;
 const PAYMENT_PACK = 2;

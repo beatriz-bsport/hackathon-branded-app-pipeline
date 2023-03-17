@@ -30,7 +30,7 @@ import {
 } from '../../../../../components/forms';
 import { PrivatePassWithCompatibility } from '../../../types';
 import { getValidityInfo } from '../../../utils';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const {
@@ -39,7 +39,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS_TEMPLATE,
+  SegmentAnalyticsFormObjectIdentifier.PrivatePassTemplate,
 );
 interface FormikValues {
   name: string | null;

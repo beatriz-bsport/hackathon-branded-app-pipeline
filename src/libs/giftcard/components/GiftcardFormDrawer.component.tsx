@@ -10,13 +10,13 @@ import { Form, FormikProps } from 'formik';
 import GiftcardForm, { GiftcardFormFieldHOC } from './GiftcardForm.component';
 import { OptionCallback } from '../../../state/types';
 import { GiftcardDataAPI, Giftcard, GiftcardTemplate } from '../types';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.GIFTCARD,
+    SegmentAnalyticsFormObjectIdentifier.Giftcard,
   );
 
 type OwnProps = {
@@ -40,9 +40,7 @@ const GiftcardFormDrawer = (props: Props) => {
       open={props.open}
       title={t('form.giftcard.title')}
       subtitle={props.initial?.name}
-      trackingObjectIdentifier={
-        SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.GIFTCARD
-      }
+      trackingObjectIdentifier={SegmentAnalyticsFormObjectIdentifier.Giftcard}
       trackingObjectId={props.initial?.id}
       onClose={props.onClose}
     >

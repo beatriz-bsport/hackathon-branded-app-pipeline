@@ -67,12 +67,12 @@ import { RootState } from '../../reducers';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import InfoBox from '#components/box/InfoBox.component';
 
 const { trackFormAdd, trackFormCancel, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.CATEGORY_EMAIL,
+    SegmentAnalyticsFormObjectIdentifier.CategoryEmail,
   );
 
 type OwnProps = {

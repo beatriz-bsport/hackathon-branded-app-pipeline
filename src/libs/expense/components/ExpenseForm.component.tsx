@@ -27,7 +27,7 @@ import {
 import { UserRole } from '#libs/role/types';
 import ExpenseRecurrencySelector from '../../../components/input/ExpenseRecurrencySelector.component';
 
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const {
@@ -36,7 +36,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EXPENSE,
+  SegmentAnalyticsFormObjectIdentifier.Expense,
 );
 
 type OwnProps = {

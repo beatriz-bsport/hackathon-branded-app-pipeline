@@ -20,7 +20,7 @@ import { Establishment } from '../../establishment/types';
 import { PaymentPack } from '../../payment-packs/types';
 import { RoomBlueprint } from '../../spot-scheduling/types';
 import { CoachPaymentRule } from '../../coach-payment-rules/types';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 type StepType = {
@@ -280,8 +280,8 @@ export class MetaActivityCreateDrawer extends Component<Props> {
     }
     const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
       this.props.isWorkshop
-        ? SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.WORKSHOP
-        : SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.ACTIVITY,
+        ? SegmentAnalyticsFormObjectIdentifier.Workshop
+        : SegmentAnalyticsFormObjectIdentifier.Activity,
     );
 
     return (

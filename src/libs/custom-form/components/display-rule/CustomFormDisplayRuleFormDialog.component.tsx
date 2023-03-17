@@ -32,7 +32,7 @@ import {
 } from '@bsport/common/lib/master-data/custom-form';
 import type { CustomFormDisplayRule } from '../../types';
 import { IntegerField } from '../../../../components/forms';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { OptionCallback } from '../../../../state/types';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
@@ -42,7 +42,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.CUSTOMFORM_DISPLAY_RULE,
+  SegmentAnalyticsFormObjectIdentifier.CustomformDisplayRule,
 );
 type InitialValues = { initial?: CustomFormDisplayRule };
 type OwnProps = InitialValues & {

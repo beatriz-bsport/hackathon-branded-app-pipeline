@@ -25,12 +25,12 @@ import { OptionTypeBase } from '../../../components/Selector/MaterialUISelector.
 import FranchiseCompaniesSelector from '../../franchise/components/FranchiseCompaniesSelector.component';
 import CategorySelector from '#components/ordering/CategorySelector.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { createUrl } from '../../../utils/createUrlHandlers';
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EMAIL_TEMPLATE,
+    SegmentAnalyticsFormObjectIdentifier.EmailTemplate,
   );
 export type OwnProps = {
   autoSaveEnabled?: boolean;

@@ -52,10 +52,10 @@ import BottomActionButtons from '#components/button/BottomActionsButton.componen
 import InstalmentPaymentDetail from '#libs/instalment-payment-configuration/components/InstalmentPaymentConfigurationDetail.component';
 
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
 const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.INSTALMENT_PAYMENT,
+  SegmentAnalyticsFormObjectIdentifier.InstalmentPayment,
 );
 
 type OwnProps = {

@@ -1,6 +1,6 @@
 import withSegmentAnalytics from './with-segment-analytics';
 import withFormTrackingHOC from './with-segment-form-tracking.hoc';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from './constants';
+import { SegmentAnalyticsFormObjectIdentifier } from './constants';
 import type {
   WithSegmentAnalyticsHandlers,
   WithSegmentAnalyticsFormTrackerHandlers,
@@ -11,5 +11,5 @@ export {
   withFormTrackingHOC,
   WithSegmentAnalyticsHandlers,
   WithSegmentAnalyticsFormTrackerHandlers,
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM,
+  SegmentAnalyticsFormObjectIdentifier,
 };

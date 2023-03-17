@@ -13,7 +13,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import InfoIcon from '@material-ui/icons/Info';
 import TextField from '@material-ui/core/TextField';
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 import TagGroupItem from './TagGroupItem.component';
@@ -37,7 +37,7 @@ interface State {
 
 const { trackFormAdd, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.TAG_GROUP,
+    SegmentAnalyticsFormObjectIdentifier.TagGroup,
   );
 
 type Props = OwnProps &

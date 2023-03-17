@@ -33,7 +33,7 @@ import PaymentPackFormTag from './PaymentPackFormTag.component';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { Actions } from '#components/forms';
 import { Moment } from '../../../../i18n';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import type {
   PrivateServiceWithSlots,
   PrivatePass,
@@ -105,7 +105,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_PACK,
+  SegmentAnalyticsFormObjectIdentifier.PaymentPack,
 );
 export const PaymentPackForm = (props: Props) => {
   const [disabledUniversalPassFields, setDisableUniversalPassFields] =

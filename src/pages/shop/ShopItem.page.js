@@ -41,7 +41,7 @@ import shopSelectors from '../../libs/shop/selectors';
 import type { ShopItem, Provision } from '../../libs/shop/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import themeSelectors from '../../libs/theme/selectors';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
 type Props = {
   id: number,
@@ -197,7 +197,7 @@ export class ShopItemDetail extends Component<Props, State> {
           title={this.props.t('shop:shopitem.form.title')}
           subtitle={this.props.shopitem?.name}
           trackingObjectIdentifier={
-            SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SHOP_ITEM
+            SegmentAnalyticsFormObjectIdentifier.ShopItem
           }
           trackingObjectId={this.props.shopitem?.id}
         >

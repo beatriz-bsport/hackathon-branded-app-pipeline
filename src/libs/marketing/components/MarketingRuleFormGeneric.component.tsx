@@ -26,7 +26,7 @@ import { PaymentPack } from '../../payment-packs/types';
 import MarketingRuleFormContract from './marketing-rule-form/MarketingRuleFormContract.component';
 import { SmartList } from '#libs/smart-list/types';
 
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 type Identifier =
@@ -86,7 +86,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.MARKETING_NOTIFICATION,
+  SegmentAnalyticsFormObjectIdentifier.MarketingNotification,
 );
 
 export class MarketingRuleFormGeneric extends React.PureComponent<

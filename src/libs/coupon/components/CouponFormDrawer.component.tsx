@@ -10,7 +10,7 @@ import type { ShopItem } from '#libs/shop/types';
 import type { PrivatePass } from '#libs/private-service/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { Tag, TagGroupAPI } from '../../tag/types';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
 type OwnProps = {
   open: boolean;
@@ -37,9 +37,7 @@ export const CouponFormDrawer = (props: Props) => {
       onClose={onClose}
       title={t('form.title')}
       subtitle={props.initial?.name}
-      trackingObjectIdentifier={
-        SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.COUPON
-      }
+      trackingObjectIdentifier={SegmentAnalyticsFormObjectIdentifier.Coupon}
       trackingObjectId={initial?.id}
     >
       <CouponForm {...props} />

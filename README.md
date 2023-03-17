@@ -16,10 +16,10 @@ You can now run the frontend cf next section
 
 To bootstrap the local backend, follow instructions in the README of https://gitlab.com/bsport/bsport-django
 
-When you are ready you can start with : 
+When you are ready you can start with :
 
 ```sh
-yarn start 
+yarn start
 ```
 
 ## Running with the staging backend
@@ -95,7 +95,6 @@ Each folder here is, more or less, a root url. There are a few "master-router-pa
 - `check-in/` a special interface for tablet check-in (see product doc). Some studio have a tablet at the entrydoor where user can check-in or register, this is the code.
 
 All other folders have router/page imported by the main interface : the Backoffice (`pages/Backoffice.component.js`)
-
 
 ### components/
 
@@ -259,7 +258,6 @@ describe('FuzeSearch: <FuzeSearch />', () => {
 
 Currently we are not implementing end to end testing for the moment
 
-
 ## Tracking Event
 
 All the forms and the pages are tracked. When a new form is implemented it is necessary to add the event trackers. To track events we are using rudderstack, see the documentation for the <a href="https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/">JS SDK</a>.
@@ -287,7 +285,7 @@ To initialize the use of tracking functions you first need to add a constant nam
 
 ```js
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
 const {
   trackFormAdd,
@@ -295,7 +293,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EXEMPLE,
+  SegmentAnalyticsFormObjectIdentifier.Exemple,
 );
 ```
 
@@ -305,11 +303,11 @@ See the exemple for the integration of the tracking functions :
 
 ```js
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EXAMPLE,
+    SegmentAnalyticsFormObjectIdentifier.Example,
   );
 
 type Props = yourProps;
@@ -391,59 +389,65 @@ the alias need to respect some convention use a # as a prefix to make it clear i
 > :warning: **Don t break the widget**: Until better bundling for the widget we also need to add the alias configuration in the widget's webpack otherwise it will break the build
 
 ## Access the react app running locally on another device
-1. Install ngrok: [https://ngrok.com/download](https://ngrok.com/download)
-2. Expose your port 8000 where your api runs with ngrok: `ngrok http 8000`. 
-    ```
-    $ ngrok http 8000
 
-    Session Status                online                                                                                                   
-    Account                       Sofian Medbouhi (Plan: Pro)                                                                              
-    Version                       3.1.1                                                                                                    
-    Region                        Europe (eu)                                                                                              
-    Latency                       44ms                                                                                                     
-    Web Interface                 http://127.0.0.1:4041                                                                                    
-    Forwarding                    https://354ff7984fcc.eu.ngrok.io -> http://localhost:8000                                                
-                                                                                                                                          
-    Connections                   ttl     opn     rt1     rt5     p50     p90                                                              
-                                  164     2       0.05    0.13    1.91    22.56
-    ```
-    In this example, your django application running locally on port 8000 is accessible through the internet via `https://354ff7984fcc.eu.ngrok.io`
+1. Install ngrok: [https://ngrok.com/download](https://ngrok.com/download)
+2. Expose your port 8000 where your api runs with ngrok: `ngrok http 8000`.
+
+   ```
+   $ ngrok http 8000
+
+   Session Status                online
+   Account                       Sofian Medbouhi (Plan: Pro)
+   Version                       3.1.1
+   Region                        Europe (eu)
+   Latency                       44ms
+   Web Interface                 http://127.0.0.1:4041
+   Forwarding                    https://354ff7984fcc.eu.ngrok.io -> http://localhost:8000
+
+   Connections                   ttl     opn     rt1     rt5     p50     p90
+                                 164     2       0.05    0.13    1.91    22.56
+   ```
+
+   In this example, your django application running locally on port 8000 is accessible through the internet via `https://354ff7984fcc.eu.ngrok.io`
 
 3. Open the `envs/local` file and update the following values:
-    ```
-    env.REACT_APP_BASE_URI = '<your_ngrok_url>';
-    env.REACT_APP_API_URI = '<your_ngrok_url>/api-v0';
-    ```
+
+   ```
+   env.REACT_APP_BASE_URI = '<your_ngrok_url>';
+   env.REACT_APP_API_URI = '<your_ngrok_url>/api-v0';
+   ```
 
 4. You will also need an IP address to navigate to the backoffice and load the react app. There are two possible ways to do so:
-    a. If you have the pro version of ngrok (you’ll need to provide an auth token), you can run `ngrok http 3000`to expose your port 3000, and get an url.
-    b. Otherwise, you can just use the local network. To do so you will need your current IP address:
-    
-    ```
-    $ ip a s
+   a. If you have the pro version of ngrok (you’ll need to provide an auth token), you can run `ngrok http 3000`to expose your port 3000, and get an url.
+   b. Otherwise, you can just use the local network. To do so you will need your current IP address:
 
-    1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-        link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-        inet 127.0.0.1/8 scope host lo
-          valid_lft forever preferred_lft forever
-        inet6 ::1/128 scope host 
-          valid_lft forever preferred_lft forever
-    2: wlp0s20f3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
-        link/ether 58:6c:25:13:4f:a7 brd ff:ff:ff:ff:ff:ff
-        inet 192.168.1.49/24 brd 192.168.1.255 scope global dynamic noprefixroute wlp0s20f3
-          valid_lft 40675sec preferred_lft 40675sec
-        inet6 fe80::3d9:aa8b:61cd:507f/64 scope link noprefixroute 
-          valid_lft forever preferred_lft forever
-    ```
-    `ip a s` is short for `ip address show`.
-    
-    In this example, the IP address is `192.168.0.129`and your url will be `http://192.168.0.129:3000`. 
-    
-    **NB: your phone needs to be connected to the SAME network than your host machine.**
+   ```
+   $ ip a s
+
+   1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+       link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+       inet 127.0.0.1/8 scope host lo
+         valid_lft forever preferred_lft forever
+       inet6 ::1/128 scope host
+         valid_lft forever preferred_lft forever
+   2: wlp0s20f3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+       link/ether 58:6c:25:13:4f:a7 brd ff:ff:ff:ff:ff:ff
+       inet 192.168.1.49/24 brd 192.168.1.255 scope global dynamic noprefixroute wlp0s20f3
+         valid_lft 40675sec preferred_lft 40675sec
+       inet6 fe80::3d9:aa8b:61cd:507f/64 scope link noprefixroute
+         valid_lft forever preferred_lft forever
+   ```
+
+   `ip a s` is short for `ip address show`.
+
+   In this example, the IP address is `192.168.0.129`and your url will be `http://192.168.0.129:3000`.
+
+   **NB: your phone needs to be connected to the SAME network than your host machine.**
+
 5. In `envs/local`, update the following value with the url of the previous step:
-    
-    ```
-    env.I18N_TRANSLATION_DOMAIN = '<step_4_url>';
-    ```
-    
+
+   ```
+   env.I18N_TRANSLATION_DOMAIN = '<step_4_url>';
+   ```
+
 6. Restart yarn, and navigate to step 4 url on your device. You’re all set !

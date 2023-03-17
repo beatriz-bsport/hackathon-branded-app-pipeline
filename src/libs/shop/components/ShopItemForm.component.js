@@ -21,7 +21,7 @@ import PriceInput from '../../../components/input/PriceInput.component';
 import ImageUploader from '../../../components/input/ImageUploader.component';
 
 import PaymentMethodSelectorInput from '../../payment/components/PaymentMethodSelectorInput.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import type { OptionCallback } from '../../../state/types';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
@@ -31,7 +31,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SHOP_ITEM,
+  SegmentAnalyticsFormObjectIdentifier.ShopItem,
 );
 type Props = {
   initial: ?ShopItem,

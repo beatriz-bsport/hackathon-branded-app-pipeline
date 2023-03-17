@@ -35,10 +35,10 @@ import { fetchCompanyUserRoles } from '#libs/role/actions';
 import { UserRole } from '#libs/role/types';
 
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
 const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.EXPENSE,
+  SegmentAnalyticsFormObjectIdentifier.Expense,
 );
 
 type StateHandlerInit = {

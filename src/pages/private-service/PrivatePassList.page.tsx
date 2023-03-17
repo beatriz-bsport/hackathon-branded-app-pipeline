@@ -78,7 +78,7 @@ import {
 } from '#libs/user-preference/actions';
 import { OptionCallback } from '../../state/types';
 import { getFormInitial } from '#libs/private-service/utils';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { fetchOne as fetchPaymentPackAction } from '#libs/payment-packs/actions';
 import type { PaymentPack } from '#libs/payment-packs/types';
@@ -104,7 +104,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS_CATEGORY,
+  SegmentAnalyticsFormObjectIdentifier.PrivatePassCategory,
 );
 
 type OwnProps = {
@@ -368,7 +368,7 @@ export class PrivatePassList extends React.Component<Props, State> {
             onClose={() => this.props.closePrivatePassForm()}
             title={this.props.t('privatePass.form.title')}
             trackingObjectIdentifier={
-              SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS
+              SegmentAnalyticsFormObjectIdentifier.PrivatePass
             }
           >
             <PrivatePassForm
@@ -527,7 +527,7 @@ export class PrivatePassList extends React.Component<Props, State> {
           title={this.props.t('privatePass.form.title')}
           subtitle={this.props.selectedPrivatePass?.name}
           trackingObjectIdentifier={
-            SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS
+            SegmentAnalyticsFormObjectIdentifier.PrivatePass
           }
           trackingObjectId={this.props.selectedPrivatePass?.id}
         >

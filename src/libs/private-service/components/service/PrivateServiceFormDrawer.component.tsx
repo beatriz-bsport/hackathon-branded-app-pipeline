@@ -16,12 +16,12 @@ import type { AssociatedEstablishment } from '#libs/establishment/types';
 import type { Coach } from '#libs/associated-coach/types';
 import type { PrivateService } from '#libs/private-service/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const { trackFormSubmitIntent, trackFormAdd, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_SERVICE,
+    SegmentAnalyticsFormObjectIdentifier.PrivateService,
   );
 type OwnProps = {
   fullScreen: boolean;

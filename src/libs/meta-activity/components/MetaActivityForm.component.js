@@ -30,7 +30,7 @@ import {
 } from '../../../components/forms';
 import SCTSelectField from '../../category/components/SCTSelectorField.component';
 import MetaActivityCustomRestrictionsForm from './MetaActivityCustomRestrictionsForm.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { formatDurationFromMinute } from '../../../utils/duration';
 
@@ -95,8 +95,8 @@ export function MetaActivityForm(props: Props) {
     () =>
       rudderStackFormTrackingFunctionsRegistry(
         variant === 'workshop'
-          ? SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.WORKSHOP
-          : SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.ACTIVITY,
+          ? SegmentAnalyticsFormObjectIdentifier.Workshop
+          : SegmentAnalyticsFormObjectIdentifier.Activity,
       ),
     [variant],
   );
@@ -497,8 +497,8 @@ export default compose(
       }
       const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
         variant === 'workshop'
-          ? SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.WORKSHOP
-          : SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.ACTIVITY,
+          ? SegmentAnalyticsFormObjectIdentifier.Workshop
+          : SegmentAnalyticsFormObjectIdentifier.Activity,
       );
 
       onSubmit(data, {

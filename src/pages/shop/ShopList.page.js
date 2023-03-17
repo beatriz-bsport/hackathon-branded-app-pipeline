@@ -63,7 +63,7 @@ import withtitle from '../../hocs/with-title.hoc';
 import Tooltip from '../../components/Tooltip.component';
 import type { OptionCallback } from '../../state/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
 type Props = {
   t: TFunction,
@@ -357,7 +357,7 @@ export class ShopItemList extends Component<Props, State> {
           onClose={() => this.setState({ createItemFromSubShop: null })}
           title={this.props.t('shop:shopitem.form.title')}
           trackingObjectIdentifier={
-            SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SHOP_ITEM
+            SegmentAnalyticsFormObjectIdentifier.ShopItem
           }
         >
           <ShopItemForm

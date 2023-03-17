@@ -15,7 +15,7 @@ import {
 } from '#components/forms';
 import ImageField from '#components/forms/ImageField.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { GiftcardDataAPI, Giftcard, GiftcardTemplate } from '../types';
 import { OptionCallback } from '../../../state/types';
 
@@ -27,7 +27,7 @@ type Props = {
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.GIFTCARD,
+    SegmentAnalyticsFormObjectIdentifier.Giftcard,
   );
 const GiftcardForm = (props: Props) => {
   const { t } = useTranslation(['giftcard']);

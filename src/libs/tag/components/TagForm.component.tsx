@@ -22,7 +22,7 @@ import {
 } from '../../../components/forms';
 import { MaterialStyleType } from '../../../utils/types';
 import { Tag, TagGroupAPI } from '../types';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const {
@@ -31,7 +31,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.TAG,
+  SegmentAnalyticsFormObjectIdentifier.Tag,
 );
 type OwnProps = {
   isSubmitting: boolean;

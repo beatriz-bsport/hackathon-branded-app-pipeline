@@ -37,7 +37,7 @@ import ToolTip from '#components/Tooltip.component';
 
 import { ALLOWED_COUNTRIES_FOR_STATES } from './constants';
 
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const {
@@ -46,7 +46,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.MEMBER,
+  SegmentAnalyticsFormObjectIdentifier.Member,
 );
 
 const styles = (theme) => ({

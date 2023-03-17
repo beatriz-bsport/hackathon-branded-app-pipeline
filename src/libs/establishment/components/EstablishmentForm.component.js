@@ -22,12 +22,12 @@ import MultipleImageUploader from '../../../components/MultipleImageUploader.com
 import { Establishment as EstablishmentType } from '../../../api/types';
 
 import ImageList from '../../../components/ImageList.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const { trackFormAdd, trackFormSubmitIntent } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.ESTABLISHMENT,
+    SegmentAnalyticsFormObjectIdentifier.Establishment,
   );
 
 const addressParser = (location: Location) => {

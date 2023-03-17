@@ -25,7 +25,7 @@ import PrivatePassSelectorField from '../../private-service/components/pass/Priv
 import PaymentComboSelectorField from '../../payment-combo/components/PaymentComboSelectorField.component';
 import InfoBox from '#components/box/InfoBox.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { ContractWithPaymentPack } from '../types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
@@ -37,7 +37,7 @@ import FormSection from '#components/forms/FormSection';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.SUBSCRIPTION,
+    SegmentAnalyticsFormObjectIdentifier.Subscription,
   );
 
 enum ObjectType {

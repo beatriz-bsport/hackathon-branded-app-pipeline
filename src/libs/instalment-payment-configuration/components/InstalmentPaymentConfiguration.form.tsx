@@ -22,7 +22,7 @@ import InstalmentPaymentCompabilityForm from './InstalmentPaymentConfigurationCo
 import InstalmentPaymentGeneralInfoForm from './InstalmentPaymentConfigurationGeneralInfo.form';
 import { PrivatePass } from '#libs/private-service/types';
 import InstalmentPaymentAdvancedForm from './InstalmentPaymentConfigurationAdvanced.form';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const {
@@ -31,7 +31,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.INSTALMENT_PAYMENT,
+  SegmentAnalyticsFormObjectIdentifier.InstalmentPayment,
 );
 
 type OwnProps = {

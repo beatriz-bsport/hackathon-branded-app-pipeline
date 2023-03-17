@@ -90,7 +90,7 @@ import {
   fetchActivitiesCompany,
   fetchMetaActivities as fetchMetaActivitiesAction,
 } from '../../libs/meta-activity/actions';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import themeSelectors from '../../libs/theme/selectors';
 import { getPrivateServices } from '#libs/private-service/selectors/private-service';
 import { getCompatibilityPassWithService as getCompatibleServicePass } from '#libs/private-service/selectors/private-pass';
@@ -111,7 +111,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PAYMENT_PACK_CATEGORY,
+  SegmentAnalyticsFormObjectIdentifier.PaymentPackCategory,
 );
 type StateHandlerInit = {
   showCategoryDialog: boolean;

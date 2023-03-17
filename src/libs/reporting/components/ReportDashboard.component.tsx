@@ -26,7 +26,7 @@ import ReportConfigurationForm from './ReportConfigurationForm.component';
 import { OptionCallback } from '../../../state/types';
 import FuzzySearch from '#components/search/FuzzySearch.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const {
@@ -35,7 +35,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.REPORT,
+  SegmentAnalyticsFormObjectIdentifier.Report,
 );
 type OwnProps = {
   metadata: ReportMetadataValue[];

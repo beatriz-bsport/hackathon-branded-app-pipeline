@@ -51,11 +51,11 @@ import BottomActionButtons from '#components/button/BottomActionsButton.componen
 import { Member } from '#libs/member/types';
 import ProgramListSkeleton from '#libs/performance-tracking/components/program/ProgramListSkeleton.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const { trackFormAdd } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PERFORMANCE_TRACKING_PROGRAM,
+  SegmentAnalyticsFormObjectIdentifier.PerformanceTrackingProgram,
 );
 
 type OwnProps = {
@@ -233,7 +233,7 @@ export class ProgramList extends Component<Props, State> {
                 : t('program.form.update')
             }
             trackingObjectIdentifier={
-              SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PERFORMANCE_TRACKING_PROGRAM
+              SegmentAnalyticsFormObjectIdentifier.PerformanceTrackingProgram
             }
             trackingObjectId={selectedProgramToEdit?.id}
           >

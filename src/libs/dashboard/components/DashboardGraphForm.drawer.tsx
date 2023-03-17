@@ -71,12 +71,12 @@ import {
   GROUP_AND_OPERAND,
 } from '#libs/datatype-filtering/constants';
 
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const { trackFormAdd, trackFormSuccess, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.DASHBOARD,
+    SegmentAnalyticsFormObjectIdentifier.Dashboard,
   );
 
 type Values = DataSourceDashboardGraph;

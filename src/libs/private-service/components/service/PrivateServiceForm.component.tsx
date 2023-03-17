@@ -46,11 +46,11 @@ import type {
 import type { Tag, TagGroup } from '#libs/tag/types';
 import type { PrivateServiceGroup } from '#libs/private-service/types';
 import PrivateServiceFormTag from './PrivateServiceFormTag.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_SERVICE,
+  SegmentAnalyticsFormObjectIdentifier.PrivateService,
 );
 export interface FormikValues {
   cover_main: string;

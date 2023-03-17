@@ -2,7 +2,7 @@
 import React from 'react';
 import { Analytics } from '@segment/analytics-next';
 import { segmentTrackEnum, TrackProperties } from './utils';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from './constants';
+import { SegmentAnalyticsFormObjectIdentifier } from './constants';
 
 type Props = {};
 type State = {
@@ -16,7 +16,7 @@ declare global {
 }
 
 type AnalyticsHOCParams = {
-  object_identifier: SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM;
+  object_identifier: SegmentAnalyticsFormObjectIdentifier;
 };
 
 export default function withFormTrackingHOC<P>(params: AnalyticsHOCParams) {

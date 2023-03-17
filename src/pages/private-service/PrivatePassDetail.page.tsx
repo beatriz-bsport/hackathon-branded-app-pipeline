@@ -112,7 +112,7 @@ import {
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
 } from '#libs/notification-rule/actions';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { setGenericFilterValue } from '#libs/payment-packs/utils';
 
 type OwnProps = {
@@ -400,7 +400,7 @@ export class PrivatePassDetails extends Component<Props> {
           title={this.props.t('privatePass.form.title')}
           subtitle={this.props.privatePass?.name}
           trackingObjectIdentifier={
-            SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PRIVATE_PASS
+            SegmentAnalyticsFormObjectIdentifier.PrivatePass
           }
           trackingObjectId={this.props.privatePass?.id}
         >

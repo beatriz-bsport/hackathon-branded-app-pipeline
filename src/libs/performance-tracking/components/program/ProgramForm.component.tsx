@@ -28,12 +28,12 @@ import {
 } from '#libs/performance-tracking/types';
 import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
 import MetricConfigurationTable from '../metrics/MetricConfigurationTable.component';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const { trackFormSubmitIntent, trackFormSuccess, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
-    SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.PERFORMANCE_TRACKING_PROGRAM,
+    SegmentAnalyticsFormObjectIdentifier.PerformanceTrackingProgram,
   );
 
 type OwnProps = {

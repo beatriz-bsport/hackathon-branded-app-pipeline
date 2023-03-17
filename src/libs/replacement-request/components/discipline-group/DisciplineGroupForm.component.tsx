@@ -26,7 +26,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { SCT } from '#libs/category/types';
 import { Coach } from '#libs/associated-coach/types';
 
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const {
@@ -35,7 +35,7 @@ const {
   trackFormSuccess,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.DISCIPLINE_GROUP,
+  SegmentAnalyticsFormObjectIdentifier.DisciplineGroup,
 );
 
 type Props = {

@@ -63,7 +63,7 @@ import { PrivatePass } from '#libs/private-service/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { Tag, TagGroupAPI } from '#libs/tag/types';
 import type { OptionCallback } from '../../../state/types';
-import { SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM } from '#components/analytics/segment';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const {
@@ -72,7 +72,7 @@ const {
   trackFormSubmitIntent,
   trackFormCancel,
 } = rudderStackFormTrackingFunctionsRegistry(
-  SEGMENT_ANALYTICS_FORM_OBJECT_IDENTIFIER_ENUM.COUPON,
+  SegmentAnalyticsFormObjectIdentifier.Coupon,
 );
 const ALL_BUYABLES = 100;
 

@@ -8,9 +8,15 @@ export type Props = {
   children: React.ReactNode;
   size?: CardSize;
   classes?: { [key: string]: string };
+  onClick?: () => void;
 };
 
-export const Container: React.FC<Props> = ({ children, size, classes }) => {
+export const Container: React.FC<Props> = ({
+  children,
+  size,
+  classes,
+  onClick,
+}) => {
   return (
     <div
       className={classNames('bs-generic-card', {
@@ -18,6 +24,8 @@ export const Container: React.FC<Props> = ({ children, size, classes }) => {
         [`size-${size}`]: size,
         ...classes,
       })}
+      onClick={onClick}
+      aria-hidden="true"
     >
       {children}
     </div>

@@ -1,119 +1,139 @@
-import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { compose } from 'recompose';
-import { WithTranslation, withTranslation } from 'react-i18next';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
-import CardContent from '@material-ui/core/CardContent';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import { Theme } from '@material-ui/core';
-import { TFunction } from 'i18next';
+import React, { useCallback } from 'react';
 
-import type { PaymentCombo } from '../../payment-combo/types';
+import { useTranslation } from 'react-i18next';
+import Typography from '@material-ui/core/Typography';
+import { Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+
 import Analytics from '../../../components/analytics/Analytics.component';
-import PaymentPackComboItem from '../../payment-combo/components/PaymentComboBookableItem.component';
-import { MaterialStyleType } from '../../../utils/types';
 
-type OwnProps = {
-  paymentComboList: Array<PaymentCombo>;
-  onAddBasket: (comboId: number) => void;
+import MarketplacePaymentComboCard from '#libs/marketplace/components/MarketplacePaymentComboCard';
+import { useMarketplacePassFilters } from '#libs/marketplace/hooks';
+
+import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
+import { PaymentCombo } from '#libs/payment-combo/types';
+
+type Props = {
+  paymentComboList: PaymentCombo[];
   isExcludingTax: boolean;
+  searchedPaymentCombo: number[] | null;
+  setSelectedPass: (id: number) => void;
+  onAddBasket: (comboId: number) => void;
 };
 
-type Props = OwnProps &
-  MaterialStyleType<ReturnType<typeof styles>> &
-  WithTranslation;
+type PaymentComboCardProps = {
+  paymentCombo: PaymentCombo;
+  isExcludingTax: boolean;
+  setSelectedPass: (id: number) => void;
+  onAddBasket: (comboId: number) => void;
+};
 
-const PaymentComboCard = (
-  props: {
-    t: TFunction;
-    paymentCombo: PaymentCombo;
-    isExcludingTax: boolean;
-    onAddBasket: () => void;
-  } & MaterialStyleType<ReturnType<typeof styles>>,
-) => {
+const PaymentComboCard = (props: PaymentComboCardProps) => {
+  const { paymentCombo, isExcludingTax, setSelectedPass, onAddBasket } = props;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(
+    theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM),
+  );
+
+  const handleMobileClick = useCallback(() => {
+    if (isMobile) {
+      setSelectedPass(paymentCombo.id);
+    }
+  }, [isMobile, paymentCombo.id, setSelectedPass]);
+
+  const handleAddToCart = useCallback(() => {
+    onAddBasket(paymentCombo.id);
+    Analytics.addPackToCart(paymentCombo);
+  }, [onAddBasket, paymentCombo]);
+
+  const handleOpenDetailDialog = useCallback(
+    () => setSelectedPass(paymentCombo.id),
+    [paymentCombo.id, setSelectedPass],
+  );
+
   return (
-    <Card className={props.classes.card}>
-      <div className={props.classes.cardInner}>
-        <CardContent>
-          <PaymentPackComboItem
-            paymentCombo={props.paymentCombo}
-            isExcludingTax={props.isExcludingTax}
-          />
-        </CardContent>
-        <CardActions>
-          <Button
-            color="primary"
-            disabled={!props.onAddBasket}
-            onClick={props.onAddBasket}
-          >
-            <AddShoppingCartIcon className={props.classes.leftIcon} />
-            {props.t('paymentCombo.addToCart')}
-          </Button>
-        </CardActions>
-      </div>
-    </Card>
+    <MarketplacePaymentComboCard
+      key={paymentCombo.id}
+      paymentCombo={paymentCombo}
+      isExcludingTax={isExcludingTax}
+      addToCart={handleAddToCart}
+      onClick={handleMobileClick}
+      onOpenDetailDialog={handleOpenDetailDialog}
+    />
   );
 };
 
 export const MarketplacePaymentComboList = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation();
+  const {
+    searchedPaymentCombo,
+    paymentComboList,
+    isExcludingTax,
+    onAddBasket,
+    setSelectedPass,
+  } = props;
+
+  const { filteredPaymentComboList } = useMarketplacePassFilters({
+    paymentComboList,
+    fuzzySearchPaymentComboResults: searchedPaymentCombo,
+  });
+
   return (
-    <div className={props.classes.container}>
-      <div className={props.classes.comboListContainer}>
-        {props.paymentComboList.map((pc) => (
-          <div key={pc.id} className={props.classes.cardContainer}>
+    <>
+      <Typography component="h3" variant="h6" className={classes.sectionTitle}>
+        {t('marketplace.paymentComboListTitle')}
+      </Typography>
+
+      {!!filteredPaymentComboList.length && (
+        <div className={classes.passesItemsContainer}>
+          {filteredPaymentComboList.map((paymentCombo) => (
             <PaymentComboCard
-              isExcludingTax={props.isExcludingTax}
-              t={props.t}
-              classes={props.classes}
-              paymentCombo={pc}
-              onAddBasket={() => {
-                props.onAddBasket(pc.id);
-                Analytics.addPackToCart(pc);
-              }}
+              key={paymentCombo.id}
+              paymentCombo={paymentCombo}
+              isExcludingTax={isExcludingTax}
+              setSelectedPass={setSelectedPass}
+              onAddBasket={onAddBasket}
             />
-          </div>
-        ))}
-      </div>
-    </div>
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 
-const styles = (theme: Theme) => ({
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
+const useStyles = makeStyles((theme: Theme) => ({
+  sectionTitle: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
-  comboListContainer: {
-    overflowX: 'auto',
-    padding: theme.spacing(2),
+  sectionTitleWithDivider: {
+    marginBottom: theme.spacing(2),
+    fontWeight: 500,
+  },
+  noCategory: {
+    marginTop: theme.spacing(5),
+  },
+  passesItemsContainer: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gridTemplateRows: '260px',
+    gap: theme.spacing(4),
+    [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.MD)]: {
+      gridTemplateColumns: 'repeat(2, 1fr)',
+    },
+    [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM)]: {
+      gridTemplateColumns: 'repeat(1, 1fr)',
+      gridTemplateRows: '220px',
+      gap: theme.spacing(2),
+    },
+  },
+  privatePassButtonContainer: {
+    outline: 'none',
+    border: 'none',
+    background: 'none',
+    padding: 0,
+  },
+}));
 
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    flexDirection: 'row',
-  },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
-  cardContainer: {
-    paddingRight: theme.spacing(2),
-    minWidth: 300,
-  },
-  card: {
-    height: '100%',
-  },
-  cardInner: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-});
-
-export default compose<any, OwnProps>(
-  withTranslation(['marketplace']),
-  // @ts-ignore
-  withStyles(styles),
-)(MarketplacePaymentComboList);
+export default MarketplacePaymentComboList;

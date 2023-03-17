@@ -850,7 +850,7 @@ export class Backoffice extends Component<Props, State> {
         {this.props.platformSubscriptionPaymentStatus && (
           <div>
             <GenericResponsiveDialog
-              open={this.state.need_regularizing_failed_invoice_modal}
+              open={!!this.state.need_regularizing_failed_invoice_modal}
             >
               <RegularizingInvoiceInformation
                 goNext={this.redirectToPlatformBilling}
@@ -860,7 +860,7 @@ export class Backoffice extends Component<Props, State> {
               />
             </GenericResponsiveDialog>
             <GenericResponsiveDialog
-              open={this.state.need_regularizing_disputed_invoice_modal}
+              open={!!this.state.need_regularizing_disputed_invoice_modal}
             >
               <RegularizingInvoiceInformation
                 goNext={this.redirectToPlatformBilling}
@@ -873,7 +873,7 @@ export class Backoffice extends Component<Props, State> {
         )}
         {this.props.stripeAccountStatus && (
           <GenericResponsiveDialog
-            open={this.state.need_configuring_stripe_account_dialog}
+            open={!!this.state.need_configuring_stripe_account_dialog}
           >
             <StripeAccountConfiguration
               contactSupport={this.redirectToCompanySettings}

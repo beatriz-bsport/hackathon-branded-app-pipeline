@@ -30,7 +30,7 @@ const DrawerItemIcon: React.FC<ItemWithIconProps> = ({
             [classes.disabledIconPadding]: iconsOnly,
           })}
         >
-          <item.icon nbTutorialAlerting={nbTutorialAlerting} />
+          <item.icon {...(nbTutorialAlerting ? { nbTutorialAlerting } : {})} />
         </ListItemIcon>
       );
     }
@@ -41,7 +41,7 @@ const DrawerItemIcon: React.FC<ItemWithIconProps> = ({
             [classes.nestedIcon]: isNested,
           })}
         >
-          <item.icon nbTutorialAlerting={nbTutorialAlerting} />
+          <item.icon {...(nbTutorialAlerting ? { nbTutorialAlerting } : {})} />
         </ListItemIcon>
       </ToolTip>
     );

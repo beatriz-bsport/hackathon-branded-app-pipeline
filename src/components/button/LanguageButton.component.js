@@ -45,7 +45,7 @@ const LanguageSelectBase = (props: Props) => {
 
   const renderMenuItem = (lng, noLabelMenuItem?: boolean) => {
     return (
-      <MenuItem key={lng} value={lng}>
+      <MenuItem component="div" key={lng} value={lng}>
         {lng !== 'none' && (
           <img
             className={classes.flag}
@@ -73,12 +73,14 @@ const LanguageSelectBase = (props: Props) => {
         }}
         name="Language"
       >
-        <MenuItem value="" disabled>
+        <MenuItem component="div" value="" disabled>
           {t('navigation.pick_a_language')}
         </MenuItem>
         {availableLanguages.map((lng) => renderMenuItem(lng.lang))}
         {!!allowNull && (
-          <MenuItem value="none">{t('navigation.automaticLanguage')}</MenuItem>
+          <MenuItem component="div" value="none">
+            {t('navigation.automaticLanguage')}
+          </MenuItem>
         )}
       </Select>
     </FormControl>

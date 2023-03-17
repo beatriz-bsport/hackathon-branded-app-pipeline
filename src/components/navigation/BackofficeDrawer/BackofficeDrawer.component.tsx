@@ -554,7 +554,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                     container
                     direction="row"
                     alignItems="center"
-                    justify="flex-start"
+                    justifyContent="flex-start"
                     wrap="nowrap"
                   >
                     <Grid item zeroMinWidth>

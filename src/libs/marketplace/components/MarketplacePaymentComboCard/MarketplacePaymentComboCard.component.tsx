@@ -25,19 +25,27 @@ import type { PaymentCombo } from '#libs/payment-combo/types';
 
 export type Props = {
   paymentCombo: PaymentCombo;
+  isExcludingTax: boolean;
+  onClick: () => void;
   addToCart: () => void;
   onOpenDetailDialog: () => void;
 };
 
 const MarketplacePaymentComboCard: React.FC<Props> = ({
   paymentCombo,
+  isExcludingTax,
+  onClick,
   addToCart,
   onOpenDetailDialog,
 }) => {
   const { t } = useTranslation('marketplace');
 
   return (
-    <Card size={CardSize.ML} classes={{ 'bs-pack-card': 'bs-pack-card' }}>
+    <Card
+      size={CardSize.AUTO}
+      classes={{ 'bs-pack-card': 'bs-pack-card' }}
+      onClick={onClick}
+    >
       <Content>
         <Grid classes={{ 'bs-pack-card__grid': 'bs-pack-card__grid' }}>
           <Item
@@ -72,15 +80,21 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
             <div className="bs-pack-card__prices-container">
               <InitialPrice paymentCombo={paymentCombo} />
               <Price
+                tax={paymentCombo.tax}
+                isExcludingTax={isExcludingTax}
                 amount={paymentCombo.price}
                 formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                 classes={{
                   'bs-pack-card__price': 'bs-pack-card__price',
                 }}
               >
-                <div className="bs-pack-card__price__icon">
+                <button
+                  type="button"
+                  className="bs-pack-card__price__icon"
+                  onClick={addToCart}
+                >
                   <ShoppingCartIcon />
-                </div>
+                </button>
               </Price>
             </div>
           </Item>
@@ -115,7 +129,7 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
   );
 };
 
-export default compose(
+export default compose<any, Props>(
   marketplaceCssHoc(),
   React.memo,
 )(MarketplacePaymentComboCard);

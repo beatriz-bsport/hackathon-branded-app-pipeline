@@ -46,6 +46,7 @@ export const PassSearch: React.FC<Props> = (props) => {
     addPrivatePassToBasket,
     showPaymentComboDetail,
     addPaymentComboToBasket,
+    onPressEnter,
   } = props;
 
   const actionIcon = <ShoppingCartIcon className="bs-search__item__icon" />;
@@ -53,6 +54,7 @@ export const PassSearch: React.FC<Props> = (props) => {
   const { paymentPackItems } = useMarketplaceSearchPaymentPackData({
     paymentPackList,
     actionIcon,
+    isExcludingTax,
     showPaymentPackDetail,
     addPaymentPackToBasket,
   });
@@ -60,6 +62,7 @@ export const PassSearch: React.FC<Props> = (props) => {
   const { privatePassItems } = useMarketplaceSearchPrivatePassData({
     privatePassList,
     actionIcon,
+    isExcludingTax,
     showPrivatePassDetail,
     addPrivatePassToBasket,
   });
@@ -67,6 +70,7 @@ export const PassSearch: React.FC<Props> = (props) => {
   const { paymentComboItems } = useMarketplaceSearchPaymentComboData({
     paymentComboList,
     actionIcon,
+    isExcludingTax,
     showPaymentComboDetail,
     addPaymentComboToBasket,
   });

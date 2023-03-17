@@ -54,17 +54,34 @@ export const getSearchItemIndicator = (
 export const getSearchItemPrice = (
   kind: HelperResolverChoices,
   t: TFunction,
+  isExcludingTax: boolean,
 ) => {
   switch (kind.itemType) {
     case ItemType.PAYMENT_PACK:
-      return getCurrencyDisplayWithPrice(kind?.item?.price ?? 0);
+      return getCurrencyDisplayWithPrice(
+        kind?.item?.price ?? 0,
+        isExcludingTax,
+        kind.item.tax,
+      );
     case ItemType.PRIVATE_PASS:
-      return getCurrencyDisplayWithPrice(kind?.item?.price ?? 0);
+      return getCurrencyDisplayWithPrice(
+        kind?.item?.price ?? 0,
+        isExcludingTax,
+        kind.item.tax,
+      );
     case ItemType.PAYMENT_COMBO:
-      return getCurrencyDisplayWithPrice(kind?.item?.price ?? 0);
+      return getCurrencyDisplayWithPrice(
+        kind?.item?.price ?? 0,
+        isExcludingTax,
+        kind.item.tax,
+      );
     case ItemType.CONTRACT:
       return t('platformBilling:platformBillingStage.monthlyPrice', {
-        price: getCurrencyDisplayWithPrice(kind?.item?.recurrent_price ?? 0),
+        price: getCurrencyDisplayWithPrice(
+          kind?.item?.recurrent_price ?? 0,
+          isExcludingTax,
+          kind.item.tax,
+        ),
       });
     default:
       return null;

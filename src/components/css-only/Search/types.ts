@@ -14,6 +14,7 @@ type MarketplaceSearchDataParamsBase = {
 export interface MarketplaceSearchPaymentPackDataParams
   extends MarketplaceSearchDataParamsBase {
   paymentPackList: PaymentPack[];
+  isExcludingTax: boolean;
   showPaymentPackDetail: (id?: number) => void;
   addPaymentPackToBasket: (id?: number) => void;
 }
@@ -21,6 +22,7 @@ export interface MarketplaceSearchPaymentPackDataParams
 export interface MarketplaceSearchPrivatePassDataParams
   extends MarketplaceSearchDataParamsBase {
   privatePassList: PrivatePass[];
+  isExcludingTax: boolean;
   showPrivatePassDetail: (id?: number) => void;
   addPrivatePassToBasket: (id?: number) => void;
 }
@@ -28,6 +30,7 @@ export interface MarketplaceSearchPrivatePassDataParams
 export interface MarketplaceSearchPaymentComboDataParams
   extends MarketplaceSearchDataParamsBase {
   paymentComboList: PaymentCombo[];
+  isExcludingTax: boolean;
   showPaymentComboDetail: (id?: number) => void;
   addPaymentComboToBasket: (id?: number) => void;
 }
@@ -35,6 +38,14 @@ export interface MarketplaceSearchPaymentComboDataParams
 export interface MarketplaceSearchContractDataParams
   extends MarketplaceSearchDataParamsBase {
   contractList: Contract[];
+  isExcludingTax: boolean;
   showContractDetail: (id?: number) => void;
   addContractToBasket: (id?: number) => void;
+}
+
+export enum MarketplaceSearchDataIdentifier {
+  PAYMENT_PACK = 'paymentPack',
+  PRIVATE_PASS = 'privatePass',
+  PAYMENT_COMBO = 'paymentCombo',
+  CONTRACT = 'contract',
 }

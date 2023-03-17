@@ -121,7 +121,7 @@ const MarketplacePrivatePassCompatibilityModal: React.FC<Props> = ({
                     {compatiblePrivateServices?.map((privateService) => (
                       <AvailableSlots
                         privateServiceWithSlots={privateService}
-                        key={privateService.id}
+                        key={privateService?.id}
                       />
                     ))}
                   </div>
@@ -157,7 +157,7 @@ const MarketplacePrivatePassCompatibilityModal: React.FC<Props> = ({
   );
 };
 
-export default compose(
+export default compose<any, Props>(
   marketplaceCssHoc(),
   React.memo,
 )(MarketplacePrivatePassCompatibilityModal);

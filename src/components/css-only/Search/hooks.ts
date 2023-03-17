@@ -9,6 +9,7 @@ import {
 } from '#components/css-only/Search/PassSearch/utils';
 import {
   MarketplaceSearchContractDataParams,
+  MarketplaceSearchDataIdentifier,
   MarketplaceSearchPaymentComboDataParams,
   MarketplaceSearchPaymentPackDataParams,
   MarketplaceSearchPrivatePassDataParams,
@@ -21,6 +22,7 @@ import {
 export const useMarketplaceSearchPaymentPackData = ({
   paymentPackList,
   actionIcon,
+  isExcludingTax,
   showPaymentPackDetail,
   addPaymentPackToBasket,
 }: MarketplaceSearchPaymentPackDataParams) => {
@@ -36,6 +38,7 @@ export const useMarketplaceSearchPaymentPackData = ({
         Immutable({
           name: paymentPack.name,
           id: paymentPack.id,
+          identifier: MarketplaceSearchDataIdentifier.PAYMENT_PACK,
           additionalData: {
             primary: paymentPack.name,
             secondary: getSearchItemIndicator(
@@ -45,6 +48,7 @@ export const useMarketplaceSearchPaymentPackData = ({
             tertiary: getSearchItemPrice(
               { item: paymentPack, itemType: ItemType.PAYMENT_PACK },
               t,
+              isExcludingTax,
             ),
             actionIcon,
             onClick: () => showPaymentPackDetail(paymentPack.id),
@@ -55,6 +59,7 @@ export const useMarketplaceSearchPaymentPackData = ({
     [
       actionIcon,
       addPaymentPackToBasket,
+      isExcludingTax,
       paymentPackList,
       showPaymentPackDetail,
       t,
@@ -67,6 +72,7 @@ export const useMarketplaceSearchPaymentPackData = ({
 export const useMarketplaceSearchPrivatePassData = ({
   privatePassList,
   actionIcon,
+  isExcludingTax,
   showPrivatePassDetail,
   addPrivatePassToBasket,
 }: MarketplaceSearchPrivatePassDataParams) => {
@@ -82,6 +88,7 @@ export const useMarketplaceSearchPrivatePassData = ({
         Immutable({
           name: privatePass.name,
           id: privatePass.id,
+          identifier: MarketplaceSearchDataIdentifier.PRIVATE_PASS,
           additionalData: {
             primary: privatePass.name,
             secondary: getSearchItemIndicator(
@@ -91,6 +98,7 @@ export const useMarketplaceSearchPrivatePassData = ({
             tertiary: getSearchItemPrice(
               { item: privatePass, itemType: ItemType.PRIVATE_PASS },
               t,
+              isExcludingTax,
             ),
             actionIcon,
             onClick: () => showPrivatePassDetail(privatePass.id),
@@ -101,6 +109,7 @@ export const useMarketplaceSearchPrivatePassData = ({
     [
       actionIcon,
       addPrivatePassToBasket,
+      isExcludingTax,
       privatePassList,
       showPrivatePassDetail,
       t,
@@ -113,6 +122,7 @@ export const useMarketplaceSearchPrivatePassData = ({
 export const useMarketplaceSearchPaymentComboData = ({
   paymentComboList,
   actionIcon,
+  isExcludingTax,
   showPaymentComboDetail,
   addPaymentComboToBasket,
 }: MarketplaceSearchPaymentComboDataParams) => {
@@ -128,6 +138,7 @@ export const useMarketplaceSearchPaymentComboData = ({
         Immutable({
           name: paymentCombo.name,
           id: paymentCombo.id,
+          identifier: MarketplaceSearchDataIdentifier.PAYMENT_COMBO,
           additionalData: {
             primary: paymentCombo.name,
             secondary: getSearchItemIndicator(
@@ -137,6 +148,7 @@ export const useMarketplaceSearchPaymentComboData = ({
             tertiary: getSearchItemPrice(
               { item: paymentCombo, itemType: ItemType.PAYMENT_COMBO },
               t,
+              isExcludingTax,
             ),
             actionIcon,
             onClick: () => showPaymentComboDetail(paymentCombo.id),
@@ -147,6 +159,7 @@ export const useMarketplaceSearchPaymentComboData = ({
     [
       actionIcon,
       addPaymentComboToBasket,
+      isExcludingTax,
       paymentComboList,
       showPaymentComboDetail,
       t,
@@ -159,6 +172,7 @@ export const useMarketplaceSearchPaymentComboData = ({
 export const useMarketplaceSearchContractData = ({
   contractList,
   actionIcon,
+  isExcludingTax,
   showContractDetail,
   addContractToBasket,
 }: MarketplaceSearchContractDataParams) => {
@@ -174,6 +188,7 @@ export const useMarketplaceSearchContractData = ({
         Immutable({
           name: contract.name,
           id: contract.id,
+          identifier: MarketplaceSearchDataIdentifier.CONTRACT,
           additionalData: {
             primary: contract.name,
             secondary: getSearchItemIndicator(
@@ -183,6 +198,7 @@ export const useMarketplaceSearchContractData = ({
             tertiary: getSearchItemPrice(
               { item: contract, itemType: ItemType.CONTRACT },
               t,
+              isExcludingTax,
             ),
             actionIcon,
             onClick: () => showContractDetail(contract.id),
@@ -190,7 +206,14 @@ export const useMarketplaceSearchContractData = ({
           },
         }),
       ),
-    [actionIcon, addContractToBasket, contractList, showContractDetail, t],
+    [
+      actionIcon,
+      addContractToBasket,
+      contractList,
+      isExcludingTax,
+      showContractDetail,
+      t,
+    ],
   );
 
   return { contractItems };

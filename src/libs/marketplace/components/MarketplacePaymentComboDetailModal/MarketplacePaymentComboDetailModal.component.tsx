@@ -29,6 +29,8 @@ import type { PaymentCombo } from '#libs/payment-combo/types';
 export type Props = {
   paymentCombo: PaymentCombo;
   isOpen: boolean;
+  tax: number | undefined;
+  isExcludingTax: boolean;
   onDialogClose: () => void;
   onAddToCart: () => void;
 };
@@ -36,6 +38,8 @@ export type Props = {
 const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
   paymentCombo,
   isOpen,
+  isExcludingTax,
+  tax,
   onDialogClose,
   onAddToCart,
 }) => {
@@ -88,6 +92,8 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                               'bs-combo-details-dialog__price':
                                 'bs-combo-details-dialog__price',
                             }}
+                            isExcludingTax={isExcludingTax}
+                            tax={tax}
                           />
                           <InitialPrice paymentCombo={paymentCombo} />
                         </div>
@@ -179,7 +185,7 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                         type="button"
                         onClick={onAddToCart}
                       >
-                        {t('paymentCombo.addToCart')}
+                        {t('genericCard.addButton.buttonContent')}
                       </button>
                     </div>
                   </Item>
@@ -193,7 +199,7 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
   );
 };
 
-export default compose(
+export default compose<any, Props>(
   marketplaceCssHoc(),
   React.memo,
 )(MarketplacePaymentComboDetailsModal);

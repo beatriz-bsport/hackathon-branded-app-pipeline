@@ -1,14 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { compose, pure } from 'recompose';
 
+import { compose, pure } from 'recompose';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-
 import { Style } from '@material-ui/icons';
 
-import { useValidityInfoForPrivatePassCard } from '../../utils/private-pass';
-
+import { useMediaQuery, useTheme } from '@material-ui/core';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ToolTip from '#components/Tooltip.component';
 import Card from '#components/css-only/Card';
@@ -20,31 +18,54 @@ import Item, {
   Justification,
 } from '#components/css-only/Grid/GridItem';
 import Price from '#components/css-only/Price';
-
-import './styles.css';
-
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-
 import type { PrivatePass } from '#libs/private-service/types';
+import { CardSize } from '#components/css-only/Card/types';
+import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
+
+import { useValidityInfoForPrivatePassCard } from '../../utils/private-pass';
+import './styles.css';
 
 export type Props = {
   privatePass: PrivatePass;
+  isExcludingTax: boolean;
   addToCart: () => void;
   onOpenDetailDialog: () => void;
 };
 
 const PassCard: React.FC<Props> = ({
   privatePass,
+  isExcludingTax,
   addToCart,
   onOpenDetailDialog,
 }) => {
   const { t } = useTranslation(['marketplace']);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(
+    theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM),
+  );
+
+  const handleAddToCart = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.stopPropagation();
+    addToCart();
+  };
 
   return (
-    <Card classes={{ 'bs-pass-card': 'bs-pass-card' }}>
-      <Content padding>
+    <Card size={CardSize.AUTO} classes={{ 'bs-pass-card': 'bs-pass-card' }}>
+      <Content
+        padding
+        classes={{ 'bs-pass-card-content': 'bs-pass-card-content' }}
+      >
         <Grid classes={{ 'bs-pass-card__grid': 'bs-pass-card__grid' }}>
-          <Item alignment={Alignment.FLEX_START} columnEnd={1}>
+          <Item
+            alignment={Alignment.FLEX_START}
+            justification={
+              isMobile ? Justification.SPACE_BETWEEN : Justification.FLEX_START
+            }
+            columnEnd={1}
+          >
             <div className="bs-pass-card__title">
               {!!privatePass?.linked_payment_pack && (
                 <ToolTip title={t('genericCard.title.universalPassMessage')}>
@@ -58,9 +79,11 @@ const PassCard: React.FC<Props> = ({
                 count: privatePass.credits,
               })}
             </div>
-            <div className="bs-pass-card__description">
-              {privatePass.description}
-            </div>
+            {privatePass.description && (
+              <div className="bs-pass-card__description">
+                {privatePass.description}
+              </div>
+            )}
           </Item>
           <Item
             alignment={Alignment.FLEX_END}
@@ -71,16 +94,20 @@ const PassCard: React.FC<Props> = ({
                 {useValidityInfoForPrivatePassCard(privatePass)}
               </div>
             </div>
-            <div className="bs-pass-card__price-container">
-              <Price
-                amount={privatePass.price}
-                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+            <Price
+              tax={privatePass.tax}
+              isExcludingTax={isExcludingTax}
+              amount={privatePass.price}
+              formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+            >
+              <button
+                type="button"
+                className="bs-pass-card__price-icon"
+                onClick={handleAddToCart}
               >
-                <div className="bs-pass-card__price-icon">
-                  <ShoppingCartIcon />
-                </div>
-              </Price>
-            </div>
+                <ShoppingCartIcon />
+              </button>
+            </Price>
           </Item>
         </Grid>
         <Item
@@ -112,4 +139,4 @@ const PassCard: React.FC<Props> = ({
   );
 };
 
-export default compose(marketplaceCssHoc(), pure)(PassCard);
+export default compose<any, Props>(marketplaceCssHoc(), pure)(PassCard);

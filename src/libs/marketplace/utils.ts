@@ -6,6 +6,8 @@ import Config from '../../config';
 import { Offer, Offer_FULL } from '#libs/offer/types';
 import { Establishment } from '#libs/establishment/types';
 import { Theme } from '#libs/theme/types';
+import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
+import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
 
 export function isOfferInThePast(offer: Offer | Offer_FULL) {
   if (!offer) return false;
@@ -301,4 +303,85 @@ export const getPositionOfOfferInTheList = (offers: Offer[], index: number) => {
     position.push('last');
   }
   return position;
+};
+
+// pass page - parse the categories from router params to array of numbers if any
+export const getParsedPassRestrictedCategories = (
+  paymentPackCategoriesRouterParam: string,
+  privatePassCategoriesRouterParam: string,
+) => {
+  let paymentPackCategories = null;
+  let privatePassCategories = null;
+
+  if (paymentPackCategoriesRouterParam) {
+    paymentPackCategories =
+      typeof paymentPackCategoriesRouterParam === 'string'
+        ? paymentPackCategoriesRouterParam
+            .split(',')
+            .map((id: string) => parseInt(id, 10))
+        : paymentPackCategoriesRouterParam;
+  }
+
+  if (privatePassCategoriesRouterParam) {
+    privatePassCategories =
+      typeof privatePassCategoriesRouterParam === 'string'
+        ? privatePassCategoriesRouterParam
+            .split(',')
+            .map((id: string) => parseInt(id, 10))
+        : privatePassCategoriesRouterParam;
+  }
+
+  return { paymentPackCategories, privatePassCategories };
+};
+
+// pass page category filter - get all of the available categories
+export const getPassFilterAvailableCategories = (
+  paymentPackByCategory: PaymentPackCategoryWithPacks[],
+  privatePassByCategory: PrivatePassCategoryWithPasses[],
+  restrictedCategories: {
+    paymentPack: number[] | null;
+    privatePass: number[] | null;
+  },
+  t: TFunction,
+) => {
+  const parsedPaymentPackCategories = paymentPackByCategory
+    .filter((category: PaymentPackCategoryWithPacks) =>
+      restrictedCategories.paymentPack?.length
+        ? restrictedCategories.paymentPack.includes(category.id)
+        : category,
+    )
+    .filter((category: PaymentPackCategoryWithPacks) => !!category.packs.length)
+    .filter((category: PaymentPackCategoryWithPacks) => !!category.name)
+    .map((category: PaymentPackCategoryWithPacks) => {
+      return {
+        label: category.name,
+        value: category.id?.toString(),
+      };
+    });
+
+  const parsedPrivatePassCategories = privatePassByCategory
+    .filter((cat: PrivatePassCategoryWithPasses) =>
+      restrictedCategories.privatePass?.length
+        ? restrictedCategories.privatePass.includes(cat.id)
+        : cat,
+    )
+    .filter((cat: PrivatePassCategoryWithPasses) => !!cat.passes.length)
+    .filter((cat: PrivatePassCategoryWithPasses) => !!cat.name)
+    .map((category: PrivatePassCategoryWithPasses) => {
+      return {
+        label: category.name,
+        value: category.id?.toString(),
+      };
+    });
+
+  const availableCategories = [
+    ...parsedPaymentPackCategories,
+    ...parsedPrivatePassCategories,
+    {
+      label: t('marketplace:pass.filters.noCategory'),
+      value: '',
+    },
+  ];
+
+  return availableCategories;
 };

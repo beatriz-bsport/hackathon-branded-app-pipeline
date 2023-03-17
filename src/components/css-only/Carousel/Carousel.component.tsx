@@ -45,7 +45,7 @@ const Carousel = <T extends BaseData>(props: Props<T>) => {
   const nextItemIndex = currentIndex + 1;
   const previousItemIndex = currentIndex - 1;
   const lastItemIndex = data.length - 1;
-  const itemCount = data ? data.length : 0;
+  const itemCount = data.length;
 
   const getAllInOneClasses = (itemIndex: number) => {
     const isPreviousItem = itemIndex === previousItemIndex;

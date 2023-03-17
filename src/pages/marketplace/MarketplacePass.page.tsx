@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, useCallback } from 'react';
 
 import { compose, withProps } from 'recompose';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
-import { Theme } from '@material-ui/core';
+import { Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { withRouter } from 'react-router';
 
@@ -23,9 +23,8 @@ import themeSelector from '#libs/theme/selectors';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
-import MarketplacePassList from '#libs/marketplace/components/MarketplacePassList.component';
+import MarketplacePaymentPackList from '#libs/marketplace/components/MarketplacePaymentPackList.component';
 import MarketplacePrivatePassList from '#libs/marketplace/components/MarketplacePrivatePassList.component';
-import MarketplacePaymentComboList from '#libs/marketplace/components/MarketplacePaymentComboList.component';
 
 import withQueryParams from '#hocs/with-query-params.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -46,8 +45,13 @@ import { getCurrentBasket } from '#libs/checkout/selectors';
 import {
   fetchPrivatePassAsConsumerList,
   fetchAllPrivatePassCategory,
+  fetchMarketplacePrivateServices,
+  fetchMarketplacePrivateSlots,
 } from '#libs/private-service/actions';
-import { getPrivatePassAsConsumer } from '#libs/private-service/selectors/private-pass';
+import {
+  getPrivatePassAsConsumer,
+  withServices,
+} from '#libs/private-service/selectors/private-pass';
 
 // payment-combo
 // -----------------------------
@@ -63,8 +67,36 @@ import { fetchMemberTagList } from '#libs/tag/actions';
 import { getMemberTagsIdsList } from '#libs/tag/selectors';
 import type { Tag } from '#libs/tag/types';
 import { getPrivatePassByCategoryWithPasses } from '#libs/private-service/selectors/private-pass-category';
+import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
+import {
+  MarketplaceCategoryPassFilterOption,
+  MarketplacePassDialogStateKey,
+  MarketplacePassPageDialogState,
+  MarketplacePassPagePrivatePass,
+} from '#libs/marketplace/types';
+import {
+  PaymentPack,
+  PaymentPackCategoryWithPacks,
+} from '#libs/payment-packs/types';
+import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
+import Carousel from '#components/css-only/Carousel';
+import { PaymentCombo } from '#libs/payment-combo/types';
+import MarketplacePaymentComboCard from '#libs/marketplace/components/MarketplacePaymentComboCard';
+import {
+  BaseAdditionalData,
+  SearchItemData,
+} from '#components/css-only/Search/Search.component';
+import MarketplacePaymentComboList from '#libs/marketplace/components/MarketplacePaymentComboList.component';
+import MarketplacePassFilters from './MarketplacePassFilters.component';
+import {
+  getParsedPassRestrictedCategories,
+  getPassFilterAvailableCategories,
+} from '#libs/marketplace/utils';
+import MarketplacePassDialogs from './MarketplacePassDialogs.component';
+import { MaterialStyleType } from '../../utils/types';
 
 type OwnProps = {
+  authenticated: boolean;
   params?: {
     hidePaymentPack?: string;
     hidePrivatePass?: string;
@@ -82,11 +114,128 @@ type OwnProps = {
 
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation &
   typeof mapDispatchToProps;
 
-export class MarketPlacePassPage extends Component<Props> {
+type State = {
+  dialogSelectedItem:
+    | (PaymentPack | MarketplacePassPagePrivatePass | PaymentCombo)
+    | null;
+  isPaymentPackDetailsDialogOpen: boolean;
+  isPaymentPackCompatibilityDialogOpen: boolean;
+  isPaymentPackRestrictionDialogOpen: boolean;
+  isPrivatePassDetailsDialogOpen: boolean;
+  isPrivatePassCompatibilityDialogOpen: boolean;
+  isPaymentComboDetailsDialogOpen: boolean;
+  restrictedCategories: {
+    paymentPack: number[] | null;
+    privatePass: number[] | null;
+  };
+  passSearchFilters: {
+    type: MarketplaceCategoryPassFilterOption;
+    selectedCategories: MarketplaceCategoryPassFilterOption[];
+    allCategories: MarketplaceCategoryPassFilterOption[];
+  };
+  passSearchResult: {
+    query: string;
+    paymentPack: number[] | null;
+    privatePass: number[] | null;
+    paymentCombo: number[] | null;
+  };
+};
+
+type CarouselItemProps = {
+  paymentCombo: PaymentCombo;
+  isExcludingTax: boolean;
+  handleOpenDialog: (
+    key: MarketplacePassDialogStateKey,
+    selectedItem?: PaymentPack | MarketplacePassPagePrivatePass | PaymentCombo,
+  ) => void;
+  addComboToCart: (comboId: number) => void;
+};
+
+const CarouselItem = (props: CarouselItemProps) => {
+  const { paymentCombo, isExcludingTax, handleOpenDialog, addComboToCart } =
+    props;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(
+    theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM),
+  );
+
+  const handleOpenDetailDialog = useCallback(() => {
+    handleOpenDialog('isPaymentComboDetailsDialogOpen', paymentCombo);
+  }, [handleOpenDialog, paymentCombo]);
+
+  const handleMobileClick = useCallback(() => {
+    if (isMobile) {
+      handleOpenDialog('isPaymentComboDetailsDialogOpen', paymentCombo);
+    }
+  }, [handleOpenDialog, isMobile, paymentCombo]);
+
+  const handleAddToCart = useCallback(() => {
+    addComboToCart(paymentCombo.id);
+  }, [addComboToCart, paymentCombo.id]);
+
+  return (
+    <MarketplacePaymentComboCard
+      paymentCombo={paymentCombo}
+      addToCart={handleAddToCart}
+      onOpenDetailDialog={handleOpenDetailDialog}
+      isExcludingTax={isExcludingTax}
+      onClick={handleMobileClick}
+    />
+  );
+};
+
+export class MarketPlacePassPage extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      dialogSelectedItem: null,
+      isPaymentPackDetailsDialogOpen: false,
+      isPaymentPackCompatibilityDialogOpen: false,
+      isPaymentPackRestrictionDialogOpen: false,
+      isPrivatePassDetailsDialogOpen: false,
+      isPrivatePassCompatibilityDialogOpen: false,
+      isPaymentComboDetailsDialogOpen: false,
+
+      restrictedCategories: {
+        paymentPack: null,
+        privatePass: null,
+      },
+
+      passSearchFilters: {
+        type: null,
+        selectedCategories: [],
+        allCategories: [],
+      },
+
+      passSearchResult: {
+        query: '',
+        paymentPack: null,
+        privatePass: null,
+        paymentCombo: null,
+      },
+    };
+  }
+
   componentDidMount() {
     this.fetchData();
+
+    const { paymentPackCategories, privatePassCategories } =
+      getParsedPassRestrictedCategories(
+        this.props.params.paymentPackCategories,
+        this.props.params.privatePassCategories,
+      );
+
+    this.setState({
+      restrictedCategories: {
+        paymentPack: paymentPackCategories,
+        privatePass: privatePassCategories,
+      },
+    });
   }
 
   fetchData = () => {
@@ -105,11 +254,38 @@ export class MarketPlacePassPage extends Component<Props> {
     this.props.fetchAllPaymentPackCategory(this.props.companyId);
     this.props.fetchAllPrivatePassCategory(this.props.companyId);
     this.props.fetchMemberTagList(this.props.companyId);
+    this.props.fetchMarketplacePrivateServices(this.props.companyId);
+    this.props.fetchMarketplacePrivateSlots(this.props.companyId);
   };
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.authenticated !== this.props.authenticated) {
       this.fetchData();
+    }
+
+    // get available categories for category filter
+    if (
+      this.props.privatePassByCategory?.length &&
+      this.props.paymentPackByCategory?.length &&
+      (prevProps.paymentPackByCategory !== this.props.paymentPackByCategory ||
+        prevProps.privatePassByCategory !== this.props.privatePassByCategory)
+    ) {
+      const availableCategories = getPassFilterAvailableCategories(
+        this.props.paymentPackByCategory,
+        this.props.privatePassByCategory,
+        this.state.restrictedCategories,
+        this.props.t,
+      );
+
+      this.setState((prevState) => {
+        return {
+          ...prevState,
+          passSearchFilters: {
+            ...prevState.passSearchFilters,
+            allCategories: availableCategories,
+          },
+        };
+      });
     }
   }
 
@@ -122,6 +298,7 @@ export class MarketPlacePassPage extends Component<Props> {
     if (!this.props.authenticated) {
       this.props.requestSignUp();
     } else {
+      this.handleCloseDialog(MarketplacePassPageDialogState.PaymentComboDetail);
       this.props.pushComboCheckout(comboId, this.props.currentBasket.id);
       this.props.toggleCurrentBasketOpen(true);
     }
@@ -136,6 +313,7 @@ export class MarketPlacePassPage extends Component<Props> {
     if (!this.props.authenticated) {
       this.props.requestSignUp();
     } else {
+      this.handleCloseDialog(MarketplacePassPageDialogState.PaymentPackDetail);
       this.props.pushPackCheckout(packId, this.props.currentBasket.id);
       this.props.toggleCurrentBasketOpen(true);
     }
@@ -150,9 +328,180 @@ export class MarketPlacePassPage extends Component<Props> {
     if (!this.props.authenticated) {
       this.props.requestSignUp();
     } else {
+      this.handleCloseDialog(MarketplacePassPageDialogState.PrivatePassDetail);
       this.props.pushPrivatePassCheckout(packId, this.props.currentBasket.id);
       this.props.toggleCurrentBasketOpen(true);
     }
+  };
+
+  handleSearchPressEnter = (
+    searchResult: SearchItemData<BaseAdditionalData>[],
+    searchText: string,
+  ) => {
+    if (searchText !== this.state.passSearchResult.query) {
+      this.setState({
+        passSearchResult: {
+          query: searchText,
+          paymentPack:
+            searchResult
+              ?.filter(
+                (searchItem: SearchItemData<BaseAdditionalData>) =>
+                  searchItem.identifier === 'paymentPack',
+              )
+              .map((searchItem) => searchItem.id) ?? [],
+          privatePass:
+            searchResult
+              ?.filter(
+                (searchItem: SearchItemData<BaseAdditionalData>) =>
+                  searchItem.identifier === 'privatePass',
+              )
+              .map((searchItem) => searchItem.id) ?? [],
+          paymentCombo:
+            searchResult
+              ?.filter(
+                (searchItem: SearchItemData<BaseAdditionalData>) =>
+                  searchItem.identifier === 'paymentCombo',
+              )
+              .map((searchItem) => searchItem.id) ?? [],
+        },
+      });
+    }
+  };
+
+  handleShowPaymentPackDetail = (id: number) => {
+    let paymentPackList: PaymentPack[] = [];
+
+    if (this.props.paymentPackByCategory.length) {
+      paymentPackList = this.props.paymentPackByCategory
+        .map((category: PaymentPackCategoryWithPacks) => category.packs)
+        .flat()
+        .filter((pack: PaymentPack) =>
+          this.state.restrictedCategories.paymentPack
+            ? this.state.restrictedCategories.paymentPack.some(
+                (category) => category === pack.category,
+              )
+            : pack,
+        );
+    }
+
+    const paymentPack = paymentPackList.find(
+      (pack: PaymentPack) => pack.id === id,
+    );
+
+    this.handleOpenDialog(
+      MarketplacePassPageDialogState.PaymentPackDetail,
+      paymentPack,
+    );
+  };
+
+  handleShowPrivatePassDetail = (id: number) => {
+    let privatePassList: MarketplacePassPagePrivatePass[] = [];
+
+    if (this.props.privatePassByCategory.length) {
+      privatePassList = this.props.privatePassByCategory
+        .map((category: PrivatePassCategoryWithPasses) => category.passes)
+        .flat()
+        .filter((pass: MarketplacePassPagePrivatePass) =>
+          this.state.restrictedCategories.privatePass
+            ? this.state.restrictedCategories.privatePass.some(
+                (category) => category === pass.category,
+              )
+            : pass,
+        );
+    }
+
+    const privatePass = privatePassList.find((pass) => pass.id === id);
+
+    this.handleOpenDialog(
+      MarketplacePassPageDialogState.PrivatePassDetail,
+      privatePass,
+    );
+  };
+
+  handleShowPaymentComboDetail = (id: number) => {
+    let paymentComboList: PaymentCombo[] = [];
+
+    if (this.props.paymentComboList.length) {
+      paymentComboList = this.props.paymentComboList;
+    }
+
+    const paymentCombo = paymentComboList.find(
+      (combo: PaymentCombo) => combo.id === id,
+    );
+
+    this.handleOpenDialog(
+      MarketplacePassPageDialogState.PaymentComboDetail,
+      paymentCombo,
+    );
+  };
+
+  handleClearSearchResult = () => {
+    this.setState({
+      passSearchResult: {
+        query: '',
+        paymentPack: null,
+        privatePass: null,
+        paymentCombo: null,
+      },
+    });
+  };
+
+  handlePassFilterChangeType = (
+    option: MarketplaceCategoryPassFilterOption,
+  ) => {
+    this.setState((prevState: State) => {
+      return {
+        ...prevState,
+        passSearchFilters: {
+          ...prevState.passSearchFilters,
+          type: option,
+        },
+      };
+    });
+  };
+
+  handlePassFilterChangeCategory = (
+    options: MarketplaceCategoryPassFilterOption[],
+  ) => {
+    this.setState((prevState: State) => {
+      return {
+        ...prevState,
+        passSearchFilters: {
+          ...prevState.passSearchFilters,
+          selectedCategories: options,
+        },
+      };
+    });
+  };
+
+  handleOpenDialog = (
+    key: MarketplacePassDialogStateKey,
+    selectedItem?: PaymentPack | MarketplacePassPagePrivatePass | PaymentCombo,
+  ) => {
+    if (selectedItem) {
+      return this.setState((prevState) => {
+        return {
+          ...prevState,
+          dialogSelectedItem: selectedItem,
+          [key]: true,
+        };
+      });
+    }
+    return this.setState((prevState) => {
+      return {
+        ...prevState,
+        [key]: true,
+      };
+    });
+  };
+
+  handleCloseDialog = (key: MarketplacePassDialogStateKey) => {
+    return this.setState((prevState) => {
+      return {
+        ...prevState,
+        [key]: false,
+      };
+    });
   };
 
   render() {
@@ -162,78 +511,185 @@ export class MarketPlacePassPage extends Component<Props> {
     const hidePaymentPack = this.props.params?.hidePaymentPack === 'true';
     const hidePrivatePass = this.props.params?.hidePrivatePass === 'true';
     const hidePaymentCombo = this.props.params?.hidePaymentCombo === 'true';
-    const paymentPackCategories =
-      this.props.params?.paymentPackCategories || null;
-    const privatePassCategories =
-      this.props.params?.privatePassCategories || null;
-    let paymentPCategories = [];
-    if (typeof paymentPackCategories === 'string') {
-      paymentPCategories = paymentPackCategories
-        .split(',')
-        .map((id: string) => parseInt(id, 10));
-    } else {
-      paymentPCategories = paymentPackCategories;
-    }
-
-    let privatePCategories = [];
-    if (typeof privatePassCategories === 'string') {
-      privatePCategories = privatePassCategories
-        .split(',')
-        .map((id: string) => parseInt(id, 10));
-    } else {
-      privatePCategories = privatePassCategories;
-    }
 
     return (
-      <Grid container direction="row" justify="space-evenly">
-        {!!this.props.paymentComboList.length && !hidePaymentCombo ? (
-          <Grid item xs={12}>
-            <MarketplacePaymentComboList
-              paymentComboList={this.props.paymentComboList}
-              onAddBasket={this.addComboToCart}
-              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
-            />
-          </Grid>
-        ) : null}
-        {!hidePaymentPack && (
-          <Grid item xs={11} md={5}>
-            <MarketplacePassList
-              pushPackCheckout={this.addPaymentPackToCart}
-              paymentPackByCategory={this.props.paymentPackByCategory}
-              paymentPackCategories={paymentPCategories}
-              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
-            />
-          </Grid>
-        )}
+      <>
+        {!hidePaymentCombo &&
+          !this.state.passSearchResult.query &&
+          !!this.props.paymentComboList.length && (
+            <Grid
+              container
+              direction="row"
+              className={this.props.classes.carouselContainer}
+            >
+              <Carousel
+                data={this.props.paymentComboList}
+                renderItem={(paymentCombo: PaymentCombo) => (
+                  <CarouselItem
+                    paymentCombo={paymentCombo}
+                    isExcludingTax={
+                      this.props.theme.is_tax_excluded_in_marketplace
+                    }
+                    handleOpenDialog={this.handleOpenDialog}
+                    addComboToCart={this.addComboToCart}
+                  />
+                )}
+              />
+            </Grid>
+          )}
 
-        {!hidePrivatePass && (
-          <Grid item xs={11} md={5}>
-            <MarketplacePrivatePassList
-              privatePassByCategory={this.props.privatePassByCategory}
-              onAddBasket={this.addPrivatePassToCart}
-              filteredCategories={privatePCategories}
-              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
-            />
-          </Grid>
-        )}
-      </Grid>
+        <Grid
+          container
+          direction="row"
+          className={this.props.classes.container}
+        >
+          <MarketplacePassFilters
+            searchFiltersState={this.state.passSearchFilters}
+            searchResultState={this.state.passSearchResult}
+            paymentComboList={this.props.paymentComboList}
+            hidePaymentPack={hidePaymentPack}
+            hidePrivatePass={hidePrivatePass}
+            paymentPackByCategory={this.props.paymentPackByCategory}
+            restrictedPaymentPackCategories={
+              this.state.restrictedCategories.paymentPack
+            }
+            privatePassByCategory={this.props.privatePassByCategory}
+            restrictedPrivatePassCategories={
+              this.state.restrictedCategories.privatePass
+            }
+            isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
+            onSearchPressEnter={this.handleSearchPressEnter}
+            addPaymentPackToCart={this.addPaymentPackToCart}
+            addPrivatePassToCart={this.addPrivatePassToCart}
+            addComboToCart={this.addComboToCart}
+            onShowPaymentPackDetail={this.handleShowPaymentPackDetail}
+            onShowPrivatePassDetail={this.handleShowPrivatePassDetail}
+            onShowPaymentComboDetail={this.handleShowPaymentComboDetail}
+            onClearSearchResult={this.handleClearSearchResult}
+            onChangeType={this.handlePassFilterChangeType}
+            onChangeCategory={this.handlePassFilterChangeCategory}
+          />
+
+          {!!this.state.passSearchResult.query &&
+            !!this.state.passSearchResult.paymentCombo.length && (
+              <div className={this.props.classes.marketplaceList}>
+                <MarketplacePaymentComboList
+                  setSelectedPass={this.handleShowPaymentComboDetail}
+                  paymentComboList={this.props.paymentComboList}
+                  searchedPaymentCombo={
+                    this.state.passSearchResult.paymentCombo
+                  }
+                  onAddBasket={this.addComboToCart}
+                  isExcludingTax={
+                    this.props.theme.is_tax_excluded_in_marketplace
+                  }
+                />
+              </div>
+            )}
+
+          {!hidePaymentPack &&
+            this.state.passSearchFilters.type?.value !== 'privatePass' && (
+              <div className={this.props.classes.marketplaceList}>
+                <MarketplacePaymentPackList
+                  setSelectedPass={this.handleShowPaymentPackDetail}
+                  selectedCategories={
+                    this.state.passSearchFilters.selectedCategories
+                  }
+                  searchedPaymentPack={this.state.passSearchResult.paymentPack}
+                  pushPackCheckout={this.addPaymentPackToCart}
+                  paymentPackByCategory={this.props.paymentPackByCategory}
+                  restrictedPaymentPackCategories={
+                    this.state.restrictedCategories.paymentPack
+                  }
+                  isExcludingTax={
+                    this.props.theme.is_tax_excluded_in_marketplace
+                  }
+                />
+              </div>
+            )}
+
+          {!hidePrivatePass &&
+            this.state.passSearchFilters.type?.value !== 'paymentPack' && (
+              <div className={this.props.classes.marketplaceList}>
+                <MarketplacePrivatePassList
+                  setSelectedPass={this.handleShowPrivatePassDetail}
+                  selectedCategories={
+                    this.state.passSearchFilters.selectedCategories
+                  }
+                  searchedPrivatePass={this.state.passSearchResult.privatePass}
+                  privatePassByCategory={this.props.privatePassByCategory}
+                  onAddBasket={this.addPrivatePassToCart}
+                  restrictedPrivatePassCategories={
+                    this.state.restrictedCategories.privatePass
+                  }
+                  isExcludingTax={
+                    this.props.theme.is_tax_excluded_in_marketplace
+                  }
+                />
+              </div>
+            )}
+        </Grid>
+
+        <MarketplacePassDialogs
+          dialogSelectedItem={this.state.dialogSelectedItem}
+          isPaymentPackDetailsDialogOpen={
+            this.state.isPaymentPackDetailsDialogOpen
+          }
+          isPaymentPackCompatibilityDialogOpen={
+            this.state.isPaymentPackCompatibilityDialogOpen
+          }
+          isPaymentPackRestrictionDialogOpen={
+            this.state.isPaymentPackRestrictionDialogOpen
+          }
+          isPrivatePassDetailsDialogOpen={
+            this.state.isPrivatePassDetailsDialogOpen
+          }
+          isPrivatePassCompatibilityDialogOpen={
+            this.state.isPrivatePassCompatibilityDialogOpen
+          }
+          isPaymentComboDetailsDialogOpen={
+            this.state.isPaymentComboDetailsDialogOpen
+          }
+          isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
+          addPaymentPackToCart={this.addPaymentPackToCart}
+          addPrivatePassToCart={this.addPrivatePassToCart}
+          addComboToCart={this.addComboToCart}
+          handleCloseDialog={this.handleCloseDialog}
+          handleOpenDialog={this.handleOpenDialog}
+        />
+      </>
     );
   }
 }
 
 const styles = (theme: Theme) => ({
+  marketplaceList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(3),
+  },
   container: {
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  content: {
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '50%',
+    flexDirection: 'column',
+    gap: theme.spacing(3),
+    padding: theme.spacing(6),
+    paddingTop: theme.spacing(4),
+    maxWidth: '1652px',
+    margin: '0 auto',
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing(2),
     },
-    margin: theme.spacing(2),
+  },
+  carouselContainer: {
+    padding: theme.spacing(6),
+    paddingTop: theme.spacing(2),
+    paddingBottom: 0,
+    maxWidth: '1652px',
+    margin: '0 auto',
+    [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.MD)]: {
+      paddingLeft: theme.spacing(0),
+      paddingRight: theme.spacing(0),
+    },
   },
 });
 
@@ -258,7 +714,6 @@ const mapStateToProps = (
 ) => ({
   currentBasket: getCurrentBasket(state),
   theme: themeSelector.getTheme(state),
-  privatePassList: getPrivatePassAsConsumer(state),
   paymentComboList: getPaymentComboListAvailableOnline(state),
   loading: state.paymentPack.loading,
   establishmentLoading: state.establishment.bulkRetrieve.loading,
@@ -269,7 +724,7 @@ const mapStateToProps = (
     ),
   )(state, { memberTagList, authenticated }),
   privatePassByCategory: getPrivatePassByCategoryWithPasses(
-    getPrivatePassAsConsumer,
+    withServices(getPrivatePassAsConsumer),
   )(state),
 });
 
@@ -280,6 +735,8 @@ const mapDispatchToProps = {
   fetchAllPaymentPackCategory,
   fetchPrivatePassAsConsumerList,
   fetchAllPrivatePassCategory,
+  fetchMarketplacePrivateServices,
+  fetchMarketplacePrivateSlots,
   pushPrivatePassCheckout: (packId: number, basketId: string) =>
     addItemToBasket(basketId, {
       buyable_item_identifier: BUYABLE_ITEM_PRIVATE_PASS,
@@ -345,4 +802,5 @@ export default compose<any, OwnProps>(
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:marketplace.marketplacePass'),
   ),
+  withStyles(styles),
 )(MarketplacePassBase);

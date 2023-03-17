@@ -36,51 +36,51 @@ type HelperResolverChoices =
     };
 
 export const getSearchItemIndicator = (
-  kind: HelperResolverChoices,
+  searchItem: HelperResolverChoices,
   t: TFunction,
 ) => {
-  switch (kind.itemType) {
+  switch (searchItem.itemType) {
     case ItemType.PAYMENT_PACK:
-      return getPaymentPackIndicator(kind?.item, t);
+      return getPaymentPackIndicator(searchItem?.item, t);
     case ItemType.PRIVATE_PASS:
-      return getPrivatePassIndicator(kind?.item, t);
+      return getPrivatePassIndicator(searchItem?.item, t);
     case ItemType.PAYMENT_COMBO:
-      return getPaymentComboIndicator(kind?.item, t);
+      return getPaymentComboIndicator(searchItem?.item, t);
     default:
       return null;
   }
 };
 
 export const getSearchItemPrice = (
-  kind: HelperResolverChoices,
+  searchItem: HelperResolverChoices,
   t: TFunction,
   isExcludingTax: boolean,
 ) => {
-  switch (kind.itemType) {
+  switch (searchItem.itemType) {
     case ItemType.PAYMENT_PACK:
       return getCurrencyDisplayWithPrice(
-        kind?.item?.price ?? 0,
+        searchItem?.item?.price ?? 0,
         isExcludingTax,
-        kind.item.tax,
+        searchItem.item.tax,
       );
     case ItemType.PRIVATE_PASS:
       return getCurrencyDisplayWithPrice(
-        kind?.item?.price ?? 0,
+        searchItem?.item?.price ?? 0,
         isExcludingTax,
-        kind.item.tax,
+        searchItem.item.tax,
       );
     case ItemType.PAYMENT_COMBO:
       return getCurrencyDisplayWithPrice(
-        kind?.item?.price ?? 0,
+        searchItem?.item?.price ?? 0,
         isExcludingTax,
-        kind.item.tax,
+        searchItem.item.tax,
       );
     case ItemType.CONTRACT:
       return t('platformBilling:platformBillingStage.monthlyPrice', {
         price: getCurrencyDisplayWithPrice(
-          kind?.item?.recurrent_price ?? 0,
+          searchItem?.item?.recurrent_price ?? 0,
           isExcludingTax,
-          kind.item.tax,
+          searchItem.item.tax,
         ),
       });
     default:

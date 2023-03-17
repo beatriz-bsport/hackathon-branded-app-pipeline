@@ -1,7 +1,18 @@
 import { Coach } from '#libs/associated-coach/types';
+import { SCT } from '#libs/category/types';
 import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
+import { PaymentCombo } from '#libs/payment-combo/types';
+import {
+  PaymentPack,
+  PaymentPackCategoryWithPacks,
+} from '#libs/payment-packs/types';
+import {
+  PrivatePass,
+  PrivatePassCategoryWithPasses,
+  PrivateServiceWithSlots,
+} from '#libs/private-service/types';
 import { WidgetCustomCSS } from '#libs/theme/types';
 import { ErrorAndLoading } from '#libs/types';
 
@@ -116,3 +127,60 @@ export type MarketPlaceFilter = {
   activity__in: number[];
   establishment_group__in: number[];
 };
+
+export type MarketplaceCategoryPassFilterOption = {
+  label: string;
+  value: string;
+};
+
+export type MarketplacePassFiltersHookOptions = {
+  selectedCategories?: MarketplaceCategoryPassFilterOption[];
+
+  paymentPackByCategory?: PaymentPackCategoryWithPacks[];
+  restrictedPaymentPackCategories?: number[];
+  fuzzySearchPaymentPackResults?: number[] | null;
+
+  privatePassByCategory?: PrivatePassCategoryWithPasses[];
+  restrictedPrivatePassCategories?: number[];
+  fuzzySearchPrivatePassResults?: number[] | null;
+
+  paymentComboList?: PaymentCombo[];
+  fuzzySearchPaymentComboResults?: number[] | null;
+};
+
+export type MarketplacePassSearchHookOptions = {
+  paymentPackByCategory: PaymentPackCategoryWithPacks[];
+  restrictedPaymentPackCategories: number[];
+  privatePassByCategory: PrivatePassCategoryWithPasses[];
+  restrictedPrivatePassCategories: number[];
+};
+
+export type MarketplacePassPagePaymentPack = PaymentPack & {
+  categories: SCT[];
+  metaActivities: MetaActivity[];
+  establishments: Establishment[];
+};
+
+export type MarketplacePassPagePrivatePass = Omit<
+  PrivatePass,
+  'private_services'
+> & {
+  private_services: PrivateServiceWithSlots[];
+};
+
+export type MarketplacePassDialogStateKey =
+  | 'isPaymentPackDetailsDialogOpen'
+  | 'isPaymentPackCompatibilityDialogOpen'
+  | 'isPaymentPackRestrictionDialogOpen'
+  | 'isPrivatePassDetailsDialogOpen'
+  | 'isPrivatePassCompatibilityDialogOpen'
+  | 'isPaymentComboDetailsDialogOpen';
+
+export enum MarketplacePassPageDialogState {
+  PaymentPackDetail = 'isPaymentPackDetailsDialogOpen',
+  PaymentPackCompatibility = 'isPaymentPackCompatibilityDialogOpen',
+  PaymentPackRestriction = 'isPaymentPackRestrictionDialogOpen',
+  PrivatePassDetail = 'isPrivatePassDetailsDialogOpen',
+  PrivatePassCompatibility = 'isPrivatePassCompatibilityDialogOpen',
+  PaymentComboDetail = 'isPaymentComboDetailsDialogOpen',
+}

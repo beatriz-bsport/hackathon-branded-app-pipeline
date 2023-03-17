@@ -18,6 +18,12 @@ export type Props = {
   paymentPackList: PaymentPack[];
   privatePassList: PrivatePass[];
   paymentComboList: PaymentCombo[];
+  isExcludingTax: boolean;
+  onPressEnter: (
+    searchResult: SearchItemData<BaseAdditionalData>[],
+    searchText: string,
+  ) => void;
+  onClearInput: () => void;
   showPaymentPackDetail: (id: number) => void;
   addPaymentPackToBasket: (id: number) => void;
 
@@ -32,6 +38,8 @@ export const PassSearch: React.FC<Props> = (props) => {
     paymentPackList,
     privatePassList,
     paymentComboList,
+    isExcludingTax,
+    onClearInput,
     showPaymentPackDetail,
     addPaymentPackToBasket,
     showPrivatePassDetail,
@@ -71,6 +79,8 @@ export const PassSearch: React.FC<Props> = (props) => {
   return (
     <Search
       data={data}
+      onPressEnter={onPressEnter}
+      onClearInput={onClearInput}
       renderItem={(item: SearchItemData<BaseAdditionalData>) => (
         <ClickableItem {...item.additionalData} />
       )}

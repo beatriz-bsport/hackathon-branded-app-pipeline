@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useCallback, useState } from 'react';
 import Fuse from 'fuse.js';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -29,6 +29,7 @@ export type BaseAdditionalData = {
 export type SearchItemData<AdditionalData extends BaseAdditionalData> = {
   name: string;
   id: number;
+  identifier: string;
   additionalData?: AdditionalData;
 };
 
@@ -36,6 +37,11 @@ export type Props<AdditionalData extends BaseAdditionalData = unknown> = {
   data: SearchItemData<AdditionalData>[];
   fuseOptions?: FuseOptions;
   renderItem: React.FC<SearchItemData<AdditionalData>>;
+  onPressEnter?: (
+    searchResult: SearchItemData<AdditionalData>[],
+    inputText: string,
+  ) => void;
+  onClearInput: () => void;
 };
 
 const defaultFuseOptions = {
@@ -49,12 +55,14 @@ const Search: React.FC<Props> = ({
   fuseOptions = defaultFuseOptions,
   data,
   renderItem,
+  onClearInput,
+  onPressEnter,
 }) => {
   const [search, setSearch] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const { t } = useTranslation('search');
 
-  const changeSearch = React.useCallback(
+  const changeSearch = useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       const fuse = new Fuse(data, fuseOptions);
 
@@ -65,10 +73,22 @@ const Search: React.FC<Props> = ({
     [data, fuseOptions],
   );
 
-  const handleClearInput = () => setSearch('');
+  const handleClearInput = useCallback(() => {
+    setSearch('');
+    onClearInput && onClearInput();
+  }, [onClearInput]);
+
+  const handleSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      setSearchResult(null);
+      onPressEnter(searchResult, search);
+    },
+    [onPressEnter, search, searchResult],
+  );
 
   return (
-    <div className="bs-search__container">
+    <form className="bs-search__container" onSubmit={handleSubmit}>
       <div className="bs-search__input__container">
         <button type="button" className="bs-search__input__icon">
           <SearchIcon fontSize="small" />
@@ -105,7 +125,7 @@ const Search: React.FC<Props> = ({
           )}
         </div>
       )}
-    </div>
+    </form>
   );
 };
 

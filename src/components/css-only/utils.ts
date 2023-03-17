@@ -7,6 +7,7 @@ type carouselParams = {
   previousItemIndex: number;
   itemIndex: number;
   nextItemIndex: number;
+  itemCount: number;
 };
 
 export const getCarouselItemClasses = (carouselParams: carouselParams) => {
@@ -19,13 +20,18 @@ export const getCarouselItemClasses = (carouselParams: carouselParams) => {
     previousItemIndex,
     itemIndex,
     nextItemIndex,
+    itemCount,
   } = carouselParams;
 
   const itemClasses = ['bs-carousel__item'];
 
   if (isPreviousItem) itemClasses.push('bs-carousel__item__left');
-  if (isCurrentItem && itemIndex === 0)
-    itemClasses.push('bs-carousel__ml_auto');
+  if (isCurrentItem && itemIndex === 0 && itemCount === 1) {
+    itemClasses.push('bs-carousel__margin_auto');
+  }
+  if (isCurrentItem && itemIndex === 0 && itemCount > 1) {
+    itemClasses.push('bs-carousel__margin_left_auto');
+  }
   if (isCurrentItem) itemClasses.push('bs-carousel__item__center');
   if (isNextItem) itemClasses.push('bs-carousel__item__right');
   if (isFirstItem) itemClasses.push('bs-carousel__item__first');

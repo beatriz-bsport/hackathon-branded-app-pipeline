@@ -3126,18 +3126,6 @@
       "disconnect": "Me déconnecter",
       "backToBackoffice": "Interface manager"
     },
-    "pass": {
-      "filters": {
-        "noCategory": "Aucune catégorie",
-        "type": { "paymentPack": "Carte de cours", "privatePass": "Carte de RDV" },
-        "placeholder": { "type": "Type", "categories": "Catégories" }
-      },
-      "search": {
-        "result": "{{count}} résultat pour \"{{queryText}}\"",
-        "result_plural": "{{count}} résultats pour \"{{queryText}}\"",
-        "goBack": "Revenir à la liste complète"
-      }
-    },
     "workshop": {
       "loadMore": "Voir plus",
       "noWorkshopAvailable": "Aucun atelier n'est prévu pour le moment",
@@ -7726,7 +7714,7 @@
         "calendarV2": "Calendrier",
         "workshop": "Ateliers",
         "privateService": "Sur rendez-vous",
-        "pass": "Cartes",
+        "pass": "Carte de cours",
         "vod": "VOD",
         "subscription": "Abonnement",
         "shop": "Magasin",
@@ -11109,7 +11097,6 @@
       "noSessionToday": "Aucune séance",
       "privatePassListTitle": "Cartes RDV",
       "passListTitle": "Cartes cours collectifs",
-      "paymentComboListTitle": "Packs",
       "bookButton": {
         "book": "Réserver",
         "bookOption": "Liste d'attente",

@@ -134,8 +134,12 @@
     display: flex !important;
 }
 
-.bs-carousel__ml_auto {
+.bs-carousel__margin_left_auto {
     margin-left: auto;
+}
+
+.bs-carousel__margin_auto {
+    margin: auto;
 }
 
 .bs-carousel__item__left {
@@ -226,6 +230,11 @@
     display: none;
 }
 
+.bs-carousel__item .bs-pack-card {
+    width: 100%;
+    height: 260px;
+}
+
 .bs-carousel__indicator__container {
     margin-top: var(--spacing-1);
     display: flex;
@@ -257,7 +266,7 @@
     display: none;
 }
 
-@media screen and (max-width:599px) {
+@media screen and (max-width: 1099px) {
     .hidden-item-right {
         width: inherit;
         position: inherit;
@@ -279,7 +288,7 @@
     }
 
     .bs-carousel__item {
-        width: 50vw;
+        width: 80vw;
         flex-basis: inherit;
         position: inherit;
         display: flex !important;

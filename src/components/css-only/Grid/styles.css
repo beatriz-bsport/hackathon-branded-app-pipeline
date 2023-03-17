@@ -4,9 +4,3 @@
     display: grid;
     gap: var(--spacing-1);
 }
-
-@media only screen and (max-width: 570px) {
-    .bs-generic-card {
-        min-height: 130px;
-    }
-}

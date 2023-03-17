@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 999;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
@@ -25,6 +25,12 @@
   color: var(--color-grey-main);
   font-size: var(--body1-fontSize);
   white-space: pre-line;
+}
+
+.bs-pack-details-dialog .bs-generic-card {
+  max-height: calc(100% - var(--spacing-4));
+  margin-left: var(--spacing-2);
+  margin-right: var(--spacing-2);
 }
 
 .bs-pack-details-dialog__container {
@@ -132,9 +138,6 @@
   .bs-pack-details-dialog__body {
     display: none;
   }
-  .bs-pack-details-dialog__footer {
-    display: none;
-  }
 
   .bs-pack-details-dialog__header {
     flex-direction: column;
@@ -144,11 +147,11 @@
     max-height: none;
   }
 
-  ::-webkit-scrollbar {
+  .bs-pack-details-dialog::-webkit-scrollbar {
     display: none;
   }
 
-  .bs-pack-details-dialog__price {
-    font-size: var(--h4-fontSize);
+  .bs-pack-details-dialog__item {
+    align-items: flex-end;
   }
 }

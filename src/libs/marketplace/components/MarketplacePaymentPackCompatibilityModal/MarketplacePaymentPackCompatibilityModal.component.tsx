@@ -174,7 +174,7 @@ const MarketplacePaymentPackCompatibilityModal: React.FC<Props> = ({
   );
 };
 
-export default compose(
+export default compose<any, Props>(
   marketplaceCssHoc(),
   React.memo,
 )(MarketplacePaymentPackCompatibilityModal);

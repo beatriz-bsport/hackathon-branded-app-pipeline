@@ -17,6 +17,7 @@ import { SLIDESHOW_INTERVAL_TIME, SLIDESHOW_ANIMATION_TIME } from './constants';
 import { getCarouselItemClasses } from '#csscomponents/utils';
 import './style.css';
 import CarouselIndicator from './CarouselIndicator';
+import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 
 export interface Props<T = unknown> {
   data: Array<T>;
@@ -37,11 +38,14 @@ const Carousel = <T extends BaseData>(props: Props<T>) => {
   const carouselSwipeContainer = useRef<HTMLDivElement>(null);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  const isMobile = useMediaQuery(
+    theme.breakpoints.down(MARKETPLACE_BREAKPOINT.MD),
+  );
 
   const nextItemIndex = currentIndex + 1;
   const previousItemIndex = currentIndex - 1;
   const lastItemIndex = data.length - 1;
+  const itemCount = data ? data.length : 0;
 
   const getAllInOneClasses = (itemIndex: number) => {
     const isPreviousItem = itemIndex === previousItemIndex;
@@ -58,6 +62,7 @@ const Carousel = <T extends BaseData>(props: Props<T>) => {
       previousItemIndex,
       itemIndex,
       nextItemIndex,
+      itemCount,
     });
 
     return classes.join(' ');
@@ -96,8 +101,16 @@ const Carousel = <T extends BaseData>(props: Props<T>) => {
 
   useWheel({
     ref: carouselSwipeContainer,
-    onScrollDown: () => !isTransition && handleNagivate(nextItemIndex),
-    onScrollUp: () => !isTransition && handleNagivate(previousItemIndex),
+    onScrollDown: () => {
+      if (itemCount > 1 && !isTransition) {
+        handleNagivate(nextItemIndex);
+      }
+    },
+    onScrollUp: () => {
+      if (itemCount > 1 && !isTransition) {
+        handleNagivate(previousItemIndex);
+      }
+    },
   });
 
   useEffect(() => {
@@ -121,8 +134,8 @@ const Carousel = <T extends BaseData>(props: Props<T>) => {
   const translateCount = useMemo(() => {
     let translateDistanceViewportUnit = 0;
     const translateDistanceGap = 8 * currentIndex;
-    const carouselItemWidth = 50;
-    const translateDistanceItem = 20;
+    const carouselItemWidth = 80;
+    const translateDistanceItem = 10;
 
     switch (currentIndex) {
       case 0:

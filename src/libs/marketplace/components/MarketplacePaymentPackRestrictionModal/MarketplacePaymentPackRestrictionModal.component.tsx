@@ -108,7 +108,7 @@ const MarketplacePaymentPackRestrictionModal: React.FC<Props> = ({
   );
 };
 
-export default compose(
+export default compose<any, Props>(
   marketplaceCssHoc(),
   React.memo,
 )(MarketplacePaymentPackRestrictionModal);

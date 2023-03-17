@@ -1,4 +1,4 @@
-.bs-price__container{
+.bs-price__container {
     font-size: var(--h3-fontSize);
     font-weight: var(--h3-fontWeight);
     letter-spacing: var(--h3-letterSpacing);
@@ -7,7 +7,7 @@
     align-items: center;
 }
 
-.primary{
+.primary {
     color: var(--color-primary-main);
 }
 
@@ -17,4 +17,10 @@
 
 .secondary {
     color: var(--color-secondary-main);
+}
+
+@media screen and (max-width: 749px) {
+    .bs-price__container {
+        font-size: var(--h4-fontSize);
+    }
 }

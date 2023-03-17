@@ -1,4 +1,4 @@
-.bs-generic-card{
+.bs-generic-card {
     border: 2px solid #F1F3F4;
     border-radius: var(--border-radius-2);
     display: flex;
@@ -24,5 +24,15 @@
 }
 
 .size-xl {
-    width: 750px
+    width: 750px;
+}
+
+.size-auto {
+    width: auto;
+}
+
+@media only screen and (max-width: 599px) {
+    .bs-generic-card {
+        width: 100%;
+    }
 }

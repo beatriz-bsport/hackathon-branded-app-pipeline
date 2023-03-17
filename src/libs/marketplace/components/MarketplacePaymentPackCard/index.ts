@@ -2,5 +2,5 @@ import MarketplacePaymentPackCard, {
   Props,
 } from './MarketplacePaymentPackCard.component';
 
-export { Props };
+export type { Props };
 export default MarketplacePaymentPackCard;

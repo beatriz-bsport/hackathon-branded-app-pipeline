@@ -114,7 +114,7 @@ exports.default = {
       calendarV2: 'Calendrier',
       workshop: 'Ateliers',
       privateService: 'Sur rendez-vous',
-      pass: 'Carte de cours',
+      pass: 'Cartes',
       vod: 'VOD',
       subscription: 'Abonnement',
       shop: 'Magasin',

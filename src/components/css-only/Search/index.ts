@@ -4,6 +4,6 @@ import List, { Props as ListProps } from './List';
 import { SearchItem } from './types';
 
 export { Item, List };
-export { Props, ItemProps, ListProps, SearchItem };
+export type { Props, ItemProps, ListProps, SearchItem };
 
 export default Search;

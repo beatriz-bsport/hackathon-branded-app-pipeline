@@ -1,4 +1,4 @@
 import Grid, { Props } from './Grid.component';
 
-export { Props };
+export type { Props };
 export default Grid;

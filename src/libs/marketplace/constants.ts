@@ -56,3 +56,10 @@ export const AVAILABLE_BOOKING_ELEMENTS_IDS = [
   'book-button__inner__text',
   'book-button-offer-list-item',
 ];
+
+export enum MARKETPLACE_BREAKPOINT {
+  XS = 425,
+  SM = 750,
+  MD = 1100,
+  LG = 1475,
+}

@@ -1071,6 +1071,7 @@ exports.default = {
     noSessionToday: 'Aucune séance',
     privatePassListTitle: 'Cartes RDV',
     passListTitle: 'Cartes cours collectifs',
+    paymentComboListTitle: 'Packs',
     bookButton: {
       book: 'Réserver',
       bookOption: "Liste d'attente",

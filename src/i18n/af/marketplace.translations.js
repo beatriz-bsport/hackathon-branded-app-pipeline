@@ -13,6 +13,24 @@ exports.default = {
     disconnect: 'Me déconnecter',
     backToBackoffice: 'Interface manager',
   },
+  pass: {
+    filters: {
+      noCategory: 'Aucune catégorie',
+      type: {
+        paymentPack: 'Carte de cours',
+        privatePass: 'Carte de RDV',
+      },
+      placeholder: {
+        type: 'Type',
+        categories: 'Catégories',
+      },
+    },
+    search: {
+      result: '{{count}} résultat pour "{{queryText}}"',
+      result_plural: '{{count}} résultats pour "{{queryText}}"',
+      goBack: 'Revenir à la liste complète',
+    },
+  },
   workshop: {
     loadMore: 'Voir plus',
     noWorkshopAvailable: "Aucun atelier n'est prévu pour le moment",

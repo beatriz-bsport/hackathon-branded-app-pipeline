@@ -4,6 +4,7 @@ enum CardSize {
   ML = 'ml',
   L = 'l',
   XL = 'xl',
+  AUTO = 'auto',
 }
 
 export { CardSize };

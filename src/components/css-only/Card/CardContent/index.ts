@@ -1,4 +1,4 @@
 import CardContent, { Props } from './CardContent.component';
 
-export { Props };
+export type { Props };
 export default CardContent;

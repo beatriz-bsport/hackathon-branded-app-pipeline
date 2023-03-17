@@ -2,6 +2,6 @@ import PassSearch, {
   Props,
 } from '#components/css-only/Search/PassSearch/PassSearch.component';
 
-export { Props };
+export type { Props };
 
 export default PassSearch;

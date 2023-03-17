@@ -1,5 +1,5 @@
 import List, { Props } from '#components/css-only/Search/List/List.component';
 
-export { Props };
+export type { Props };
 
 export default List;

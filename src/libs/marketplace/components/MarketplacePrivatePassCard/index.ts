@@ -2,5 +2,5 @@ import MarketplacePrivatePassCard, {
   Props,
 } from './MarketplacePrivatePassCard.component';
 
-export { Props };
+export type { Props };
 export default MarketplacePrivatePassCard;

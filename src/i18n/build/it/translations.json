@@ -2865,7 +2865,7 @@
                 "close": "Chiudi"
             },
             "createModal": {
-                "create": "Creare una prenotazione ricorrente"
+                "create": "Aggiungi una sessione ricorrente"
             },
             "recurrentBookings": "Sessioni ricorrenti"
         },
@@ -4675,7 +4675,8 @@
             "10001": "Stock insufficiente",
             "85000": "Una prenotazione è già in corso, attendi qualche istante",
             "45004": "La carta regalo non è più disponibile per la vendita.",
-            "45005": "La carta regalo non è più disponibile per la vendita."
+            "45005": "La carta regalo non è più disponibile per la vendita.",
+            "85101": "Impossibile prenotare. Questo posto è stato prenotato da un altro membro. Si prega di riprovare scegliendo un altro punto."
         },
         "establishmentGroup": {
             "create": {
@@ -5678,6 +5679,13 @@
         },
         "invoiceFuturePaymentsDialog": {
             "applyForAllFuturePayments": "Applicare alle scadenze future di questa fattura"
+        },
+        "status": {
+            "4": "In corso",
+            "3": "Annullato",
+            "2": "In attesa",
+            "1": "Fallito",
+            "0": "Riuscito"
         }
     },
     "coach": {
@@ -6469,6 +6477,13 @@
         "contractNotification": {
             "creation": "Alla creazione dell'abbonamento",
             "firstBilling": "Alla prima fattura"
+        },
+        "billing_plan_status": {
+            "4": "Terminato",
+            "3": "In pausa",
+            "2": "Interrotto",
+            "1": "In corso",
+            "0": "Non ancora iniziato"
         }
     },
     "reporting": {
@@ -6478,7 +6493,7 @@
             "sum_margin_value": "Contributo marginale",
             "fee": "Spesa",
             "activity_name": "Attività",
-            "booking_status_code": "status",
+            "booking_status_code": "Stato",
             "amortized_price": "Il resto di",
             "end_date": "Fine della validità",
             "credits": "Saldo totale cliente",
@@ -6689,7 +6704,7 @@
             "universal_nb_bookings": "Numero di prenotazioni (corsi di gruppo)",
             "total_unpaid_amount": "Importo totale in sospeso",
             "applied_tax": "IVA",
-            "dispute_status": "Stato della controversia",
+            "dispute_status": "Stato delle controversie",
             "amount_due": "Importo dovuto",
             "annotated_remaining_credits": "Credito rimanente",
             "archived": "Archiviato",
@@ -6715,7 +6730,19 @@
             "src_company": "Studio acquisti",
             "dst_company": "Uso studio",
             "total_mixed_from_src": "Numero di sessioni prenotate",
-            "shared_pass_ratio": "Percentuale d'uso"
+            "shared_pass_ratio": "Percentuale d'uso",
+            "total_payments_made": "Numero di incassi effettuati",
+            "plan_recurrent_price": "Importo del pagamento ricorrente",
+            "plan_flat_fee": "Tasse di iscrizione",
+            "plan_status": "Stato dell'abbonamento",
+            "plan_date_start": "Data della prima fatturazione",
+            "plan_date_end": "Data di fine fatturazione",
+            "plan_auto_renewal": "Rinnovo tacito",
+            "new_member_only": "Offerta per nuovi membri",
+            "nb_planned_invoices": "Numero di ricevute totali",
+            "last_invoice_status": "Stato dell'ultimo pagamento",
+            "contract_name": "Nome dell'abbonamento",
+            "billing_plan_payment_method": "Metodo di pagamento"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -6786,7 +6813,7 @@
             "first_privatebooking": "Primo appuntamento",
             "first_booking": "Prima sessione (gruppo)",
             "first_attendance": "Prima presenza (gruppo)",
-            "subscription": "Abbonamento",
+            "subscription": "Fatture di abbonamenti",
             "discount": "Promozioni",
             "private_bookings": "Prenotazioni (appuntamento)",
             "shop": "Negozio",
@@ -6815,7 +6842,8 @@
             "private_cpasses_expired": "Crediti d'appuntamento scaduti",
             "universal_passes": "Carte universali",
             "dispute": "Controversia sul pagamento",
-            "franchise_shared_pass": "Utilizzo di pass condivisi"
+            "franchise_shared_pass": "Utilizzo di pass condivisi",
+            "billing_plan": "Abbonamento"
         },
         "globalCategories": {
             "subheader": {
@@ -6893,7 +6921,10 @@
             "payment_pack": "Pass",
             "int": "Numero",
             "number": "Numero",
-            "percent": "Percentuale"
+            "percent": "Percentuale",
+            "invoice_status": "Stato dell'ultimo pagamento",
+            "billing_plan_status": "Stato dell'abbonamento",
+            "payment_method_with_credit_account": "Metodo di pagamento"
         },
         "presetValuesByDatatype": {
             "payment_method": {
@@ -6906,7 +6937,7 @@
                 "5": "Controllo ferie",
                 "6": "AMEX",
                 "7": "Pagamento",
-                "9": "Pagamento in loco",
+                "9": "Credito cliente",
                 "10": "Pagamento automatico",
                 "11": "Altro",
                 "12": "Disputa",
@@ -6933,6 +6964,18 @@
             "payment_engine": {
                 "0": "Pagamento manuale",
                 "1": "Pagamento online"
+            },
+            "billing_plan_status": {
+                "2": "Interrotto",
+                "4": "Terminato",
+                "3": "In pausa",
+                "1": "In corso",
+                "0": "Non ancora iniziato"
+            },
+            "payment_method_with_credit_account": {
+                "13": "SEPA",
+                "10": "Pagamento automatico",
+                "9": "Credito cliente"
             }
         },
         "presetValuesByIdentifier": {
@@ -7032,7 +7075,18 @@
             "part2": "Ora puoi esportare il rapporto ed elaborarlo successivamente in Excel. Le date indicate e la visualizzazione filtrata applicata verranno prese in considerazione nell'esportazione."
         },
         "helperText": {
-            "franchise_shared_pass": "Questo report consente di analizzare le prenotazioni effettuate con le carte condivise. Quando viene acquistata una carta condivisa in uno studio, il report mostra il numero di prenotazioni effettuate con questa carta in un altro studio. Il numero di sessioni prenotate include prenotazioni per lezioni di gruppo, workshop e appuntamenti."
+            "franchise_shared_pass": "Questo report consente di analizzare le prenotazioni effettuate con le carte condivise. Quando viene acquistata una carta condivisa in uno studio, il report mostra il numero di prenotazioni effettuate con questa carta in un altro studio. Il numero di sessioni prenotate include prenotazioni per lezioni di gruppo, workshop e appuntamenti.",
+            "billing_plan": "Gli abbonamenti vengono filtrati alla data della prima fatturazione."
+        },
+        "last_invoice_status": {
+            "": [
+                "Annullato"
+            ]
+        },
+        "payment_method_with_credit_account": {
+            "13": "SEPA",
+            "10": "Pagamento automatico",
+            "9": "Credito cliente"
         }
     },
     "alerting": {
@@ -10241,7 +10295,7 @@
         },
         "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
         "method": {
-            "CREDIT_ACCOUNT": "Pagamento in loco",
+            "CREDIT_ACCOUNT": "Credito cliente",
             "CB": "Carta",
             "CHECK": "Controlla",
             "CASH": "Specie",
@@ -10260,7 +10314,7 @@
             "12": "Controversia",
             "11": "Altro",
             "10": "Pagamento automatico",
-            "9": "Pagamento in loco",
+            "9": "Credito cliente",
             "8": "Event brite",
             "7": "Trasferimento",
             "6": "AMEX",
@@ -11383,7 +11437,8 @@
             "bookingTemporal": "Prenotazioni",
             "bookingQualitative": "Origine delle prenotazioni",
             "paymentTemporal": "Collezioni",
-            "bookingTimeslots": "Numero medio"
+            "bookingTimeslots": "Numero medio",
+            "billingPlanTemporal": "Abbonamenti"
         },
         "dataSourceIdentifiers": {
             "dispute_status": "Stato delle controversie",
@@ -11426,7 +11481,21 @@
             "booking_pk": "Numero di prenotazioni",
             "member_pk_accumulate": "Numero di membri",
             "member_pk": "Numero di nuovi membri",
-            "date_joined": "Data di registrazione"
+            "date_joined": "Data di registrazione",
+            "total_payments_made": "Numero di incassi effettuati",
+            "total_discount": "Riduzione totale",
+            "nb_planned_invoices": "Numero di ricevute totali",
+            "plan_status": "Stato dell'abbonamento",
+            "plan_recurrent_price": "Importo del pagamento ricorrente",
+            "plan_flat_fee": "Tasse di iscrizione",
+            "plan_date_start": "Data della prima fatturazione",
+            "plan_date_end": "Data di fine fatturazione",
+            "new_member_only": "Offerta per nuovi membri",
+            "billingplan_pk": "Numero di abbonamenti",
+            "last_invoice_status": "Stato dell'ultimo pagamento",
+            "contract_name": "Abbonamento",
+            "billing_plan_payment_method": "Metodi di pagamento",
+            "plan_auto_renewal": "Rinnovo tacito"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -11448,11 +11517,12 @@
             },
             "dashboardGraphIdentifier": {
                 "graph_dispute": "Controversie",
-                "graph_subscriptions": "Abbonamenti",
+                "graph_subscriptions": "Fatture di abbonamenti",
                 "graph_payments": "Pagamenti",
                 "graph_private_bookings": "Appuntamenti",
                 "graph_bookings": "Prenotazioni",
-                "graph_members": "Nuovi membri"
+                "graph_members": "Nuovi membri",
+                "graph_billing_plan": "Abbonamenti"
             },
             "aggregation": {
                 "max": "Massimo",

@@ -2493,7 +2493,7 @@
             "paid": "Betaald",
             "amount_due": "Verschuldigd bedrag",
             "payout": "Bankoverschrijving",
-            "payout_status": "Status bankoverschrijving",
+            "payout_status": "Transferstatus",
             "payout_date_created": "Datum bankoverschrijving",
             "applied_tax": "Btw",
             "couponamount_off": "Vaste korting",
@@ -2518,7 +2518,19 @@
             "dst_company": "Gebruiksstudio",
             "src_company": "Aankoopstudio",
             "dispute_status": "Status van het geschil",
-            "is_unpaid": "Onbetaald"
+            "is_unpaid": "Onbetaald",
+            "total_payments_made": "Aantal uitgevoerde collecties",
+            "plan_recurrent_price": "Terugkerende betaling",
+            "plan_flat_fee": "Aanvraagkosten",
+            "plan_status": "Abonnementsstatus",
+            "plan_date_start": "Datum eerste factuur",
+            "plan_date_end": "Einddatum factuur",
+            "plan_auto_renewal": "Stilzwijgende verlenging",
+            "new_member_only": "Aanbod voor nieuwe leden",
+            "nb_planned_invoices": "Totaal aantal collecties",
+            "last_invoice_status": "Status van de laatste betaling",
+            "contract_name": "Naam van het abonnement",
+            "billing_plan_payment_method": "Wijze van betaling"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2541,7 +2553,7 @@
             "first_privatebooking": "Eerste reserveringen (afspraken)",
             "first_attendance": "Eerste aanwezigheid (groepsactiviteiten)",
             "first_booking": "Eerste reserveringen (groepsactiviteiten)",
-            "subscription": "Abonnementen",
+            "subscription": "Abonnement facturen",
             "discount": "Promoties",
             "private_bookings": "Reserveringen (afspraken)",
             "shop": "Webshop",
@@ -2570,7 +2582,8 @@
             "private_cpasses_expired": "Verlopen credits (afspraakkaarten)",
             "expired_pass": "Verlopen credits (leskaarten)",
             "franchise_shared_pass": "Gedeeld pasgebruik",
-            "dispute": "Geschil"
+            "dispute": "Geschil",
+            "billing_plan": "Abonnement"
         },
         "globalCategories": {
             "subheader": {
@@ -2702,7 +2715,7 @@
             "percent": "Percentage",
             "email": "E-mail",
             "user": "Lid",
-            "boolean": "Waar / Onwaar",
+            "boolean": "Waar/Onwaar",
             "private_pass": "Afspraakkaart",
             "private_slot": "Afspraak",
             "subshop": "Categorie",
@@ -2710,14 +2723,17 @@
             "billing_group": "Groepsfacturatie",
             "activity": "Activiteit",
             "booking_status_code": "Status reservering",
-            "payout_status": "Status bankoverschrijving",
+            "payout_status": "Transferstatus",
             "payout": "Bankoverschrijving",
             "payment_method": "Betaalmethode",
             "video": "Video",
             "private_service": "Afspraak",
             "staff": "Medewerkers",
             "company": "Studio",
-            "disputeStatus": "Status van het geschil"
+            "disputeStatus": "Status van het geschil",
+            "invoice_status": "Status van de laatste betaling",
+            "billing_plan_status": "Abonnementsstatus",
+            "payment_method_with_credit_account": "Wijze van betaling"
         },
         "presetValuesByDatatype": {
             "source_device": {
@@ -2743,7 +2759,7 @@
                 "6": "AMEX",
                 "7": "Transfer",
                 "8": "Eventbrite",
-                "9": "Betalingen in de studio",
+                "9": "Klantenkrediet",
                 "10": "Automatische betaling",
                 "11": "Anders",
                 "12": "Geschil",
@@ -2757,6 +2773,18 @@
             "payment_engine": {
                 "0": "Handmatige betaling",
                 "1": "Online betaling"
+            },
+            "payment_method_with_credit_account": {
+                "13": "SEPA",
+                "10": "Automatische betaling",
+                "9": "Klantenkrediet"
+            },
+            "billing_plan_status": {
+                "4": "Afgerond",
+                "3": "In de pauze",
+                "2": "Gestopt",
+                "1": "In uitvoering",
+                "0": "Nog niet begonnen"
             }
         },
         "presetValuesByIdentifier": {
@@ -2783,11 +2811,22 @@
             }
         },
         "helperText": {
-            "franchise_shared_pass": "Met dit rapport kunt u de boekingen met gedeelde kaarten analyseren. Wanneer een gedeelde kaart in een studio is gekocht, toont het rapport het aantal boekingen dat met deze kaart in een andere studio is gemaakt. Het aantal geboekte sessies omvat boekingen voor activiteiten, workshops en afspraken."
+            "franchise_shared_pass": "Met dit rapport kunt u de boekingen met gedeelde kaarten analyseren. Wanneer een gedeelde kaart in een studio is gekocht, toont het rapport het aantal boekingen dat met deze kaart in een andere studio is gemaakt. Het aantal geboekte sessies omvat boekingen voor activiteiten, workshops en afspraken.",
+            "billing_plan": "Abonnementen worden gefilterd op de datum van de eerste factuur."
         },
         "franchiseWarning": {
             "part2": "U kunt het rapport nu exporteren en daarna in Excel verwerken. Bij de export wordt rekening gehouden met de aangegeven data en de toegepaste gefilterde weergave.",
             "part1": "Door de grote hoeveelheid data kan het genereren van het rapport enkele minuten duren."
+        },
+        "last_invoice_status": {
+            "": [
+                "Annuleren"
+            ]
+        },
+        "payment_method_with_credit_account": {
+            "13": "SEPA",
+            "10": "Automatische betaling",
+            "9": "Klantenkrediet"
         }
     },
     "alerting": {
@@ -6726,6 +6765,13 @@
                 "error": "Onmogelijk om het abonnement te registreren, probeer het later opnieuw.",
                 "success": "Uw abonnement {{- name }} is succesvol geregistreerd."
             }
+        },
+        "billing_plan_status": {
+            "4": "Afgerond",
+            "3": "Op pauze",
+            "2": "Gestopt",
+            "1": "Aan de gang",
+            "0": "Nog niet gestart"
         }
     },
     "coachPerformance": {
@@ -8752,7 +8798,7 @@
         "paymentComboSectionTitle": "Pakketten",
         "method": {
             "CB": "Kaart",
-            "CREDIT_ACCOUNT": "Fysieke betalingen",
+            "CREDIT_ACCOUNT": "Klantenkrediet",
             "GIROPAY": "Giropay",
             "EPS": "EPS",
             "IDEAL": "iDEAL",
@@ -8766,7 +8812,7 @@
             "5": "Vakantiecheque",
             "6": "AMEX",
             "7": "Bankoverschrijving",
-            "9": "Fysieke betaling",
+            "9": "Klantenkrediet",
             "10": "Automatische incasso",
             "11": "Anders",
             "12": "Stornering",
@@ -9690,7 +9736,8 @@
             "45005": "De cadeaubon is niet meer beschikbaar voor verkoop.",
             "45004": "De cadeaubon is niet meer beschikbaar voor verkoop.",
             "10001": "Onvoldoende voorraad",
-            "85000": "Er is al een boeking in behandeling, even geduld a.u.b"
+            "85000": "Er is al een boeking in behandeling, even geduld a.u.b",
+            "85101": "Onmogelijk om te boeken. Deze plek is gereserveerd door een ander lid. Probeer het opnieuw door een andere plek te kiezen."
         },
         "signup": {
             "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
@@ -10559,8 +10606,9 @@
                 "graph_bookings": "Reserveringen",
                 "graph_private_bookings": "Afspraken",
                 "graph_payments": "Betalingen",
-                "graph_subscriptions": "Abonnementen",
-                "graph_dispute": "Geschillen"
+                "graph_subscriptions": "Facturen van abonnementen",
+                "graph_dispute": "Geschillen",
+                "graph_billing_plan": "Abonnementen"
             },
             "accumulate": {
                 "total": "Accumuleer"
@@ -10630,7 +10678,21 @@
             "payout_date_created": "Overschrijfdatum",
             "private_pass": "Afspraakkaart",
             "payment_pack": "Leskaart",
-            "dispute_status": "Status geschil"
+            "dispute_status": "Status geschil",
+            "total_payments_made": "Aantal uitgevoerde collecties",
+            "total_discount": "Totale vermindering",
+            "nb_planned_invoices": "Totaal aantal collecties",
+            "plan_status": "Abonnementsstatus",
+            "plan_recurrent_price": "Terugkerend betalingsbedrag",
+            "plan_flat_fee": "Aanvraagkosten",
+            "plan_date_start": "Datum eerste factuur",
+            "plan_date_end": "Einddatum factuur",
+            "new_member_only": "Aanbod voor nieuwe leden",
+            "billingplan_pk": "Aantal abonnementen",
+            "last_invoice_status": "Status van de laatste betaling",
+            "contract_name": "Abonnement",
+            "billing_plan_payment_method": "Wijze van betaling",
+            "plan_auto_renewal": "Stilzwijgende vernieuwing"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Incasso's",
@@ -10640,7 +10702,8 @@
             "subscriptionTemporalCount": "Aantal gefactureerde abonnementen",
             "memberTemporal": "Nieuwe leden",
             "subscriptionTemporalSum": "Abonnementsbetalingen",
-            "privateBookingTemporal": "Afspraken"
+            "privateBookingTemporal": "Afspraken",
+            "billingPlanTemporal": "Abonnementen"
         },
         "placeholderEmptyValues": {
             "establishment": "Zonder vestiging",
@@ -11890,6 +11953,13 @@
         },
         "invoiceFuturePaymentsDialog": {
             "applyForAllFuturePayments": "Toepassen op alle toekomstige betalingen"
+        },
+        "status": {
+            "4": "In uitvoering",
+            "3": "Annuleren",
+            "2": "In de wacht",
+            "1": "Storing",
+            "0": "Succesvol"
         }
     },
     "waitingList": {

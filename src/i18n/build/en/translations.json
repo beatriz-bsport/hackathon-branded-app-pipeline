@@ -4403,7 +4403,8 @@
             "bookingTemporal": "Bookings",
             "bookingQualitative": "Sources of the bookings",
             "bookingTimeslots": "Average number of people",
-            "paymentTemporal": "Receipts"
+            "paymentTemporal": "Receipts",
+            "billingPlanTemporal": "Subscriptions"
         },
         "dataSourceIdentifiers": {
             "private_service_name": "Appointment",
@@ -4446,7 +4447,21 @@
             "payout_date_created": "Transfer: date",
             "payout_identifier": "Transfer",
             "payout_status": "Transfer: status",
-            "is_unpaid": "Unpaid"
+            "is_unpaid": "Unpaid",
+            "total_payments_made": "Total number of receipts",
+            "total_discount": "Total discount",
+            "nb_planned_invoices": "Total number of receipts",
+            "plan_status": "Subscription status",
+            "plan_recurrent_price": "Recurring payment amount",
+            "plan_flat_fee": "Joining fee",
+            "plan_date_start": "First billing date",
+            "plan_date_end": "End date of billing",
+            "new_member_only": "New member offer",
+            "billingplan_pk": "Number of subscriptions",
+            "last_invoice_status": "Last payment status",
+            "contract_name": "Subscription",
+            "billing_plan_payment_method": "Payment method",
+            "plan_auto_renewal": "Auto renewal"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -4467,12 +4482,13 @@
                 "total": "Accumulate"
             },
             "dashboardGraphIdentifier": {
-                "graph_subscriptions": "Subscriptions",
+                "graph_subscriptions": "Subscriptions Invoices",
                 "graph_payments": "Payments",
                 "graph_private_bookings": "Appointments",
                 "graph_bookings": "Bookings",
                 "graph_members": "New members",
-                "graph_dispute": "Disputes"
+                "graph_dispute": "Disputes",
+                "graph_billing_plan": "Subscriptions"
             },
             "aggregation": {
                 "max": "Maximum",
@@ -6951,7 +6967,7 @@
         "hasOneOrMoreOption": "You've already joined this waitlist",
         "method": {
             "CB": "Card",
-            "CREDIT_ACCOUNT": "In-studio payments",
+            "CREDIT_ACCOUNT": "Internal account",
             "GIROPAY": "Giropay",
             "EPS": "EPS",
             "IDEAL": "iDEAL",
@@ -6968,7 +6984,7 @@
             "6": "AMEX",
             "7": "Transfer",
             "8": "Eventbrite",
-            "9": "Physical payment",
+            "9": "Internal account",
             "10": "Direct debit",
             "11": "Other",
             "12": "Chargeback",
@@ -7712,6 +7728,13 @@
         },
         "invoiceFuturePaymentsDialog": {
             "applyForAllFuturePayments": "Apply to future installments of this invoice"
+        },
+        "status": {
+            "4": "In progress",
+            "3": "Cancelled",
+            "2": "Pending",
+            "1": "Failed",
+            "0": "Successful"
         }
     },
     "coach": {
@@ -8578,6 +8601,13 @@
                     "cancel": "Cancel"
                 }
             }
+        },
+        "billing_plan_status": {
+            "4": "Finished",
+            "3": "Paused",
+            "2": "Stopped",
+            "1": "In progress",
+            "0": "Not yet started"
         }
     },
     "reporting": {
@@ -8824,7 +8854,19 @@
             "dst_company": "Usage studio",
             "src_company": "Purchasing studio",
             "dispute_status": "Dispute status",
-            "is_unpaid": "Unpaid"
+            "is_unpaid": "Unpaid",
+            "total_payments_made": "Total number of receipts",
+            "nb_planned_invoices": "Total number of receipts",
+            "plan_recurrent_price": "Recurring payment amount",
+            "plan_flat_fee": "Joining fee",
+            "plan_status": "Subscription status",
+            "plan_date_start": "First billing date",
+            "plan_date_end": "Date of billing end",
+            "plan_auto_renewal": "Auto renewal",
+            "new_member_only": "New member offer",
+            "last_invoice_status": "Last payment status",
+            "contract_name": "Subscription name",
+            "billing_plan_payment_method": "Payment method"
         },
         "yes": "Yes",
         "no": "No",
@@ -8896,7 +8938,7 @@
             "first_privatebooking": "First booking (appointment)",
             "first_attendance": "First attendance (group activities)",
             "first_booking": "First booking (group activities)",
-            "subscription": "Subscriptions",
+            "subscription": "Subscriptions invoices",
             "discount": "Promotions",
             "private_bookings": "Bookings (appointments)",
             "shop": "Webshop",
@@ -8925,7 +8967,8 @@
             "private_cpasses_expired": "Expired credits (appointment passes)",
             "universal_passes": "Universal passes",
             "franchise_shared_pass": "Shared pass uses",
-            "dispute": "Dispute"
+            "dispute": "Dispute",
+            "billing_plan": "Subscription"
         },
         "globalCategories": {
             "subheader": {
@@ -9072,7 +9115,10 @@
             "payout": "Transfer",
             "staff": "Staff",
             "company": "Studio",
-            "disputeStatus": "Dispute status"
+            "disputeStatus": "Dispute status",
+            "invoice_status": "Last payment status",
+            "billing_plan_status": "Subscription status",
+            "payment_method_with_credit_account": "Payment method"
         },
         "presetValuesByIdentifier": {
             "gender": {
@@ -9112,7 +9158,7 @@
                 "12": "Dispute",
                 "11": "Other",
                 "10": "Automatic payment",
-                "9": "In-studio payments",
+                "9": "Internal account",
                 "8": "Eventbrite",
                 "7": "Transfer",
                 "6": "AMEX",
@@ -9135,14 +9181,37 @@
                 "2": "Bsport Backoffice",
                 "1": "Web",
                 "0": "App"
+            },
+            "payment_method_with_credit_account": {
+                "13": "SEPA",
+                "10": "Automatic payment",
+                "9": "Internal account"
+            },
+            "billing_plan_status": {
+                "4": "Finished",
+                "3": "Stopped",
+                "2": "Stopped",
+                "1": "In progress",
+                "0": "Not yet started"
             }
         },
         "helperText": {
-            "franchise_shared_pass": "This report allows you to analyse the bookings made with shared passes. When a shared pass is purchased in one studio, the report shows the number of bookings made with this pass in another studio. The number of sessions booked includes bookings for activities, workshops and appointments."
+            "franchise_shared_pass": "This report allows you to analyse the bookings made with shared passes. When a shared pass is purchased in one studio, the report shows the number of bookings made with this pass in another studio. The number of sessions booked includes bookings for activities, workshops and appointments.",
+            "billing_plan": "Subscriptions are filtered on the first billing date."
         },
         "franchiseWarning": {
             "part2": "You can now export the report and process it in Excel afterwards. The dates indicated and the filtered view applied will be taken into account in the export.",
             "part1": "Due to the large amount of data, the report may take several minutes to generate."
+        },
+        "last_invoice_status": {
+            "": [
+                "Cancelled"
+            ]
+        },
+        "payment_method_with_credit_account": {
+            "13": "SEPA",
+            "10": "Automatic payment",
+            "9": "Internal account"
         }
     },
     "alerting": {
@@ -12989,7 +13058,8 @@
             "45005": "The giftcard is not available for purchase anymore.",
             "45004": "The giftcard is not not available for purchase anymore.",
             "10001": "Insufficient stock",
-            "85000": "A booking is already in progress, please wait a few moments"
+            "85000": "A booking is already in progress, please wait a few moments",
+            "85101": "Impossible to book. This spot is being booked by another member. Please try again by choosing another spot."
         },
         "customForm": {
             "update": {

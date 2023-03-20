@@ -15,7 +15,6 @@ import {
 } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
 import InfoIcon from '@material-ui/icons/Info';
 
 import {
@@ -46,15 +45,13 @@ type OwnProps = {
   onEditRole: (role: Role | FranchiseRole) => void;
   onDeleteRole: (role: Role | FranchiseRole) => void;
   users?: UserRole[];
+  openCreateRoleDialog: boolean;
+  setOpenCreateRoleDialog: (v: boolean) => void;
+  currentRole: null | Role | FranchiseRole;
+  setCurrentRole: (value: null | Role | FranchiseRole) => void;
 };
 
 type WithStateType = {
-  openCreateDialog: boolean;
-  setOpenCreateDialog: (v: boolean) => void;
-
-  currentRole: null | Role | FranchiseRole;
-  setCurrentRole: (value: null | Role | FranchiseRole) => void;
-
   openDeleteDialog: boolean;
   setOpenDeleteDialog: (value: boolean) => void;
 
@@ -69,10 +66,15 @@ type Props = OwnProps &
 
 export class RoleList extends React.PureComponent<Props> {
   onSubmit = (role: Role | FranchiseRole) => {
-    this.props.setOpenCreateDialog(false);
+    this.props.setOpenCreateRoleDialog(false);
     typeof role.id === 'number'
       ? this.props.onEditRole(role)
       : this.props.onCreateRole(role);
+  };
+
+  onCloseCreateRoleDialog = () => {
+    this.props.setOpenCreateRoleDialog(false);
+    this.props.setCurrentRole(null);
   };
 
   onDelete = (role: Role | FranchiseRole) => {
@@ -111,7 +113,7 @@ export class RoleList extends React.PureComponent<Props> {
                         color: role.editable ? 'primary' : 'textSecondary',
                         onClick: () => {
                           this.props.setCurrentRole(role);
-                          this.props.setOpenCreateDialog(true);
+                          this.props.setOpenCreateRoleDialog(true);
                         },
                       },
                     ]
@@ -133,39 +135,17 @@ export class RoleList extends React.PureComponent<Props> {
             />
           </ListItem>
         ))}
-
-        <div className={classes.buttonContainer}>
-          <Button
-            variant="outlined"
-            color="primary"
-            id="button_staff_add"
-            onClick={() => {
-              this.props.setCurrentRole(null);
-              this.props.setOpenCreateDialog(true);
-            }}
-          >
-            <AddIcon className={classes.marginRight} />
-            {t('forms.role.create.buttonCreate')}
-          </Button>
-        </div>
-
         {isFranchisor ? (
           <CreateFranchiseRoleDialog
-            open={this.props.openCreateDialog}
-            onClose={() => {
-              this.props.setOpenCreateDialog(false);
-              this.props.setCurrentRole(null);
-            }}
+            open={this.props.openCreateRoleDialog}
+            onClose={this.onCloseCreateRoleDialog}
             franchisorRole={this.props.currentRole}
             onSubmit={this.onSubmit}
           />
         ) : (
           <CreateRoleDialog
-            open={this.props.openCreateDialog}
-            onClose={() => {
-              this.props.setOpenCreateDialog(false);
-              this.props.setCurrentRole(null);
-            }}
+            open={this.props.openCreateRoleDialog}
+            onClose={this.onCloseCreateRoleDialog}
             role={this.props.currentRole}
             onSubmit={this.onSubmit}
           />
@@ -229,8 +209,6 @@ export default compose<any, OwnProps>(
   withTranslation(['role']),
   // @ts-ignore
   withStyles(styles),
-  withState('openCreateDialog', 'setOpenCreateDialog', false),
   withState('openDeleteDialog', 'setOpenDeleteDialog', false),
   withState('openFailDeleteDialog', 'setOpenFailDeleteDialog', false),
-  withState('currentRole', 'setCurrentRole', null),
 )(RoleList);

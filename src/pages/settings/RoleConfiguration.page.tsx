@@ -7,10 +7,12 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { TFunction } from 'i18next';
+import AddIcon from '@material-ui/icons/Add';
 import { Backdrop, CircularProgress, Divider, Theme } from '@material-ui/core';
 import UserWithRoleList from '#libs/role/components/UserWithRoleList.component';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import RoleList from '#libs/role/components/RoleList.component';
+import { Role, FranchiseRole } from '#libs/role/types';
 import {
   fetchCompanyUserRoles,
   updateUserRole,
@@ -31,13 +33,41 @@ import { getActiveCoaches } from '#libs/associated-coach/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
+import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
 
 type ConnectedProps = WithTranslation &
   typeof mapDispatchToProps &
   MaterialStyleType<ReturnType<typeof styles>> &
-  ReturnType<typeof mapStateToProps>;
+  ReturnType<typeof mapStateToProps> &
+  State;
+
+type State = {
+  openCreateStaffDialog: boolean;
+  openCreateRoleDialog: boolean;
+  currentRole: null | Role | FranchiseRole;
+};
 
 export class RoleConfiguration extends React.Component<ConnectedProps> {
+  constructor(props: ConnectedProps) {
+    super(props);
+    this.state = {
+      openCreateStaffDialog: false,
+      currentRole: null,
+      openCreateRoleDialog: false,
+    };
+  }
+
+  setOpenCreateStaffDialog = (value: boolean) =>
+    this.setState({ openCreateStaffDialog: value });
+
+  setOpenCreateRoleDialog = (value: boolean) => {
+    this.setState({ openCreateRoleDialog: value });
+  };
+
+  setCurrentRole = (value: null | Role | FranchiseRole) => {
+    this.setState({ currentRole: value });
+  };
+
   componentDidMount() {
     this.props.fetchCompanyUserRoles();
     this.props.fetchAssociatedCoachesList();
@@ -75,6 +105,8 @@ export class RoleConfiguration extends React.Component<ConnectedProps> {
             coachList={this.props.coachList}
             coachListLoading={this.props.coachListLoading}
             hasOwnerPermission={hasOwnerPermission}
+            openCreateStaffDialog={this.state.openCreateStaffDialog}
+            setOpenCreateStaffDialog={this.setOpenCreateStaffDialog}
           />
         </Paper>
         <Typography variant="h5" className={classes.sectionTitle}>
@@ -88,12 +120,30 @@ export class RoleConfiguration extends React.Component<ConnectedProps> {
             onCreateRole={(role) => this.props.createCompanyRole(role)}
             onEditRole={(role) => this.props.updateCompanyRole(role)}
             onDeleteRole={(role) => this.props.deleteCompanyRole(role)}
+            openCreateRoleDialog={this.state.openCreateRoleDialog}
+            currentRole={this.state.currentRole}
+            setOpenCreateRoleDialog={this.setOpenCreateRoleDialog}
+            setCurrentRole={this.setCurrentRole}
           />
         </Paper>
 
         <Backdrop className={classes.backdrop} open={this.props.updateLoading}>
           <CircularProgress color="primary" />
         </Backdrop>
+        <BottomActionsButtonCustom
+          buttonsProperties={[
+            {
+              onClick: this.setOpenCreateStaffDialog,
+              text: t('forms.user.create.buttonLabel'),
+              icon: <AddIcon />,
+            },
+            {
+              onClick: this.setOpenCreateRoleDialog,
+              text: t('forms.role.create.buttonCreate'),
+              icon: <AddIcon />,
+            },
+          ]}
+        />
       </div>
     );
   }
@@ -117,9 +167,6 @@ const styles = (theme: Theme) => ({
   rolePaper: {
     marginTop: theme.spacing(1),
   },
-  leftIcon: {
-    marginRight: theme.spacing(2),
-  },
   row: {
     display: 'flex',
     alignItems: 'center',
@@ -132,6 +179,9 @@ const styles = (theme: Theme) => ({
   },
   backdrop: {
     zIndex: 999,
+  },
+  leftIcon: {
+    marginRight: theme.spacing(2),
   },
 });
 

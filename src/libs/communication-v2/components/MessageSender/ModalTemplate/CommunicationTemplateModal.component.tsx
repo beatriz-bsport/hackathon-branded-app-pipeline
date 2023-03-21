@@ -10,11 +10,10 @@ import Fab from '@material-ui/core/Fab';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-
+import Alert from '@material-ui/lab/Alert/Alert';
 import {
   Add as AddIcon,
   Edit as EditIcon,
-  InfoOutlined as InfoIcon,
   Refresh as RefreshIcon,
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
@@ -143,12 +142,11 @@ export class CommunicationTemplateModal extends Component<Props, State> {
     }
     return (
       <div className={classes.previewEmpty}>
-        <InfoIcon fontSize="large" color="disabled" />
-        <Typography className={classes.previewEmptyText}>
+        <Alert severity="info" className={classes.alertInfo}>
           {emails?.length > 0
             ? t('mail.selectToShowPreview')
             : t('mail.noMailAvailable')}
-        </Typography>
+        </Alert>
       </div>
     );
   };
@@ -203,14 +201,9 @@ export class CommunicationTemplateModal extends Component<Props, State> {
                 </Typography>
               </Button>
               <div className={classes.refreshText}>
-                <InfoIcon className={classes.refreshInfoIcon} />
-                <Typography
-                  className={classes.refreshTypography}
-                  variant="body2"
-                  align="left"
-                >
+                <Alert severity="info" className={classes.alertInfo}>
                   {t('dialogTemplate.refreshText')}
-                </Typography>
+                </Alert>
               </div>
             </div>
           )}
@@ -294,6 +287,10 @@ export class CommunicationTemplateModal extends Component<Props, State> {
 }
 
 const styles: any = (theme: Theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   addIcon: {
     marginLeft: theme.spacing(1),
   },
@@ -357,13 +354,6 @@ const styles: any = (theme: Theme) => ({
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
   },
-  previewEmptyText: {
-    marginTop: theme.spacing(2),
-    color: theme.palette.text.disabled,
-  },
-  refreshTypography: {
-    maxWidth: 'fit-content',
-  },
   refreshContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -371,12 +361,6 @@ const styles: any = (theme: Theme) => ({
     width: '100%',
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
-  },
-  refreshInfoIcon: {
-    color: theme.palette.info.main,
-    width: theme.spacing(2.5),
-    height: theme.spacing(2.5),
-    marginRight: theme.spacing(1),
   },
   refreshText: {
     display: 'flex',

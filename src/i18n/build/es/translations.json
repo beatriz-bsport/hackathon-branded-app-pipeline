@@ -1345,7 +1345,8 @@
             "bookingTemporal": "Reservas",
             "bookingQualitative": "Origen de las reservas",
             "bookingTimeslots": "Efectivos medio",
-            "paymentTemporal": "Cobros"
+            "paymentTemporal": "Cobros",
+            "billingPlanTemporal": "Suscripciones"
         },
         "dataSourceIdentifiers": {
             "activity": "Actividad",
@@ -1388,7 +1389,21 @@
             "payout_date_created": "Fecha de transferencia",
             "private_pass": "Tarjeta de cita",
             "payment_pack": "Bono",
-            "dispute_status": "Estado de litigio"
+            "dispute_status": "Estado de litigio",
+            "total_payments_made": "Número total de recibos",
+            "total_discount": "Descuento total",
+            "nb_planned_invoices": "Número total de recibos",
+            "plan_status": "Estado de la suscripción",
+            "plan_recurrent_price": "Importe del pago recurrente",
+            "plan_flat_fee": "Cuota de ingreso",
+            "plan_date_start": "Primera fecha de facturación",
+            "plan_date_end": "Fecha final de facturación",
+            "new_member_only": "Oferta para nuevos miembros",
+            "billingplan_pk": "Number of subscriptions",
+            "last_invoice_status": "Estado del último pago",
+            "contract_name": "Suscripción",
+            "billing_plan_payment_method": "Método de pago",
+            "plan_auto_renewal": "Renovación tácita"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -1409,12 +1424,13 @@
                 "total": "Acumular"
             },
             "dashboardGraphIdentifier": {
-                "graph_subscriptions": "Cuotas",
+                "graph_subscriptions": "Facturas de suscripciones",
                 "graph_payments": "Pagos",
                 "graph_private_bookings": "Cita",
                 "graph_bookings": "Reservas",
                 "graph_members": "Nuevos miembros",
-                "graph_dispute": "Litigios"
+                "graph_dispute": "Litigios",
+                "graph_billing_plan": "Suscripciones"
             },
             "aggregation": {
                 "max": "Máximo",
@@ -2637,7 +2653,7 @@
             }
         },
         "method": {
-            "CREDIT_ACCOUNT": "Pago en el acto",
+            "CREDIT_ACCOUNT": "Cuenta interna",
             "CB": "Tarjeta",
             "GIROPAY": "Giropay",
             "EPS": "EPS",
@@ -2656,7 +2672,7 @@
             "12": "Litigio",
             "11": "Otro",
             "10": "Pago automático",
-            "9": "Pagos en persona",
+            "9": "Cuenta interna",
             "8": "Event brite",
             "7": "Transferencia",
             "6": "AMEX",
@@ -3349,6 +3365,13 @@
         },
         "invoiceFuturePaymentsDialog": {
             "applyForAllFuturePayments": "Aplicar a futuros vencimientos de esta factura"
+        },
+        "status": {
+            "4": "En curso",
+            "3": "Cancelado",
+            "2": "Pendiente",
+            "1": "Fallido",
+            "0": "Exitoso"
         }
     },
     "coach": {
@@ -4195,6 +4218,13 @@
                 "error": "No se ha podido registrar la suscripción",
                 "success": "Tu suscripción {{- name }} ha sido registrada."
             }
+        },
+        "billing_plan_status": {
+            "4": "Terminado",
+            "3": "En pausa",
+            "2": "Detenido",
+            "1": "En curso",
+            "0": "Aún no se ha iniciado"
         }
     },
     "reporting": {
@@ -4295,7 +4325,7 @@
             "payment_date_time": "Hora de pago",
             "payment_date_date": "Fecha de pago",
             "was_refunded": "Reembolsado",
-            "booking_status_code": "Estatus",
+            "booking_status_code": "Estado",
             "fee": "Tarifas",
             "total_payments": "Total pagos",
             "checkout_items": "Contenido de la cesta",
@@ -4441,7 +4471,19 @@
             "dst_company": "Estudio de uso",
             "src_company": "Estudio de compra",
             "dispute_status": "Estado del litigio",
-            "is_unpaid": "Impagado"
+            "is_unpaid": "Impagado",
+            "total_payments_made": "Número total de recibos",
+            "plan_recurrent_price": "Importe del pago recurrente",
+            "plan_flat_fee": "Cuota de inscripción",
+            "plan_status": "Estado de la suscripción",
+            "plan_date_start": "Primera fecha de facturación",
+            "plan_date_end": "Fecha de fin de facturación",
+            "plan_auto_renewal": "Renovación tácita",
+            "new_member_only": "Oferta para nuevos miembros",
+            "nb_planned_invoices": "Número total de recibos",
+            "last_invoice_status": "Estado del último pago",
+            "contract_name": "Nombre de la suscripción",
+            "billing_plan_payment_method": "Método de pago"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -4512,7 +4554,7 @@
             "first_privatebooking": "Primera cita",
             "first_attendance": "Primera presencia (colectivo)",
             "first_booking": "Primera sesión (colectivo)",
-            "subscription": "Suscripción",
+            "subscription": "Facturas de suscripciones",
             "discount": "Promociones",
             "private_bookings": "Reservas (cita)",
             "shop": "Tienda",
@@ -4541,7 +4583,8 @@
             "expired_pass": "Créditos caducados (bonos)",
             "universal_passes": "Bonos Universales",
             "franchise_shared_pass": "Usos de tarjetas compartidas",
-            "dispute": "Litigio sobre el pago"
+            "dispute": "Litigio sobre el pago",
+            "billing_plan": "Suscripción"
         },
         "globalCategories": {
             "subheader": {
@@ -4619,7 +4662,10 @@
             "private_pass": "Tarjetas de citas",
             "staff": "Personal",
             "company": "Estudio",
-            "disputeStatus": "Estado del litigio"
+            "disputeStatus": "Estado del litigio",
+            "invoice_status": "Estado del último pago",
+            "billing_plan_status": "Estado de la suscripción",
+            "payment_method_with_credit_account": "Método de pago"
         },
         "filter": {
             "form": {
@@ -4728,7 +4774,7 @@
                 "12": "Litigio",
                 "11": "Otro",
                 "10": "Pago automático",
-                "9": "Pago in situ",
+                "9": "Cuenta interna",
                 "8": "Event brite",
                 "7": "Transferencia",
                 "6": "AMEX",
@@ -4751,14 +4797,37 @@
                 "2": "Backoffice bsport",
                 "1": "Web",
                 "0": "Aplicación"
+            },
+            "payment_method_with_credit_account": {
+                "13": "SEPA",
+                "10": "Pago automático",
+                "9": "Cuenta interna"
+            },
+            "billing_plan_status": {
+                "4": "Terminado",
+                "3": "En pausa",
+                "2": "Detenido",
+                "1": "En curso",
+                "0": "Aún no se ha iniciado"
             }
         },
         "helperText": {
-            "franchise_shared_pass": "Este informe permite analizar las reservas realizadas con tarjetas compartidas. Cuando se compra una tarjeta compartida en un estudio, el informe muestra el número de reservas realizadas con esta tarjeta en otro estudio. El número de sesiones reservadas incluye las reservas de actividades, talleres y citas."
+            "franchise_shared_pass": "Este informe permite analizar las reservas realizadas con tarjetas compartidas. Cuando se compra una tarjeta compartida en un estudio, el informe muestra el número de reservas realizadas con esta tarjeta en otro estudio. El número de sesiones reservadas incluye las reservas de actividades, talleres y citas.",
+            "billing_plan": "Las suscripciones se filtran en la primera fecha de facturación."
         },
         "franchiseWarning": {
             "part2": "Ahora puedes exportar el informe y procesarlo posteriormente en Excel. Las fechas indicadas y la vista filtrada aplicada se tendrán en cuenta en la exportación.",
             "part1": "Debido a la gran cantidad de datos, el informe puede tardar varios minutos en generarse."
+        },
+        "last_invoice_status": {
+            "": [
+                "Cancelar"
+            ]
+        },
+        "payment_method_with_credit_account": {
+            "13": "SEPA",
+            "10": "Pago automático",
+            "9": "Cuenta interna"
         }
     },
     "alerting": {
@@ -6574,8 +6643,9 @@
                 },
                 "color": "Código color",
                 "coach_capacity_used": {
-                    "helperText": "Ej: un profesor puede monitorear a dos estudiantes por separado en dos máquinas ",
-                    "label": "Número máximo de citas simultáneas que un profesor puede gestionar"
+                    "helperText": "Ej: un profesor puede monitorizar a dos estudiantes por separado en dos máquinas",
+                    "label": "Número máximo de citas simultáneas que un profesor puede gestionar",
+                    "alertText": "Un profesor puede gestionar 1, 2, 3, 4, 6 o 12 citas simultáneamente."
                 },
                 "delete": {
                     "confirm": "Suprimir",
@@ -9976,7 +10046,8 @@
             "45005": "La tarjeta regalo ya no está a la venta.",
             "45004": "La tarjeta regalo ya no está a la venta.",
             "10001": "Stock insuficiente",
-            "85000": "Ya hay una reserva en curso, espere unos instantes"
+            "85000": "Ya hay una reserva en curso, espere unos instantes",
+            "85101": "Imposible reservar. Esta plaza está reservada por otro usuario. Por favor, inténtelo de nuevo eligiendo otra plaza."
         },
         "paymentRuleGroups": {
             "update": {

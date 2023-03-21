@@ -18,6 +18,8 @@ import IT_FLAG from '../input/flags/IT.png';
 import DE_FLAG from '../input/flags/DE.png';
 import EN_FLAG from '../input/flags/EN.png';
 import US_FLAG from '../input/flags/US.png';
+import PT_FLAG from '../input/flags/PT.png';
+import CZ_FLAG from '../input/flags/CZ.png';
 
 type Props = {
   closeMenu: () => void,
@@ -37,6 +39,8 @@ const countryFlag = {
   nl: NL_FLAG,
   it: IT_FLAG,
   es: ES_FLAG,
+  pt: PT_FLAG,
+  cs: CZ_FLAG,
 };
 
 const LanguageSelectBase = (props: Props) => {

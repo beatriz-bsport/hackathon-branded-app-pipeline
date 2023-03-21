@@ -145,11 +145,10 @@ export const LOCALE_LIST: Array<Locale> = [
     currencyDisplay: '€',
   },
   {
-    locale: 'en_PT',
+    locale: 'pt_PT',
     icon: PT_FLAG,
     currencyCode: 'eur',
     currencyDisplay: '€',
-    showLang: true,
   },
   {
     locale: 'en_PT',
@@ -290,11 +289,10 @@ export const LOCALE_LIST: Array<Locale> = [
     showLang: true,
   },
   {
-    locale: 'en_CZ',
+    locale: 'cz_CZ',
     icon: CZ_FLAG,
     currencyCode: 'czk',
     currencyDisplay: 'Kč',
-    showLang: true,
   },
   {
     locale: 'en_HK',

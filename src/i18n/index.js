@@ -15,6 +15,8 @@ import 'moment/locale/nl';
 import 'moment/locale/es';
 import 'moment/locale/it';
 import 'moment/locale/en-gb';
+import 'moment/locale/pt';
+import 'moment/locale/cs';
 
 const backendOptions = {};
 
@@ -58,6 +60,8 @@ i18n
       if (code.startsWith('nl')) return ['nl', 'en', 'fr', ...fallback];
       if (code.startsWith('de')) return ['de', 'en', 'fr', ...fallback];
       if (code.startsWith('ca')) return ['es', 'en', 'fr', ...fallback];
+      if (code.startsWith('pt')) return ['pt', 'en', 'fr', ...fallback];
+      if (code.startsWith('cs')) return ['cs', 'en', 'fr', ...fallback];
       return ['en', 'fr', 'af'];
     },
 
@@ -118,6 +122,12 @@ const availableLanguages = [
   },
   {
     lang: 'it',
+  },
+  {
+    lang: 'pt',
+  },
+  {
+    lang: 'cs',
   },
 ];
 

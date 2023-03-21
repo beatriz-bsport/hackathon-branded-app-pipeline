@@ -45,16 +45,23 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 export const UserWithRoleList = (props: Props) => {
-  const onCloseCreateStaffDialog = () => props.setOpenCreateStaffDialog(false);
-  const onSubmitStaffUserCreation = (
-    data: FranchiseUserRoleData & {
-      first_name: string;
-      last_name: string;
+  const { setOpenCreateStaffDialog, createUserRole } = props;
+  const onCloseCreateStaffDialog = React.useCallback(
+    () => setOpenCreateStaffDialog(false),
+    [setOpenCreateStaffDialog],
+  );
+  const onSubmitStaffUserCreation = React.useCallback(
+    (
+      data: FranchiseUserRoleData & {
+        first_name: string;
+        last_name: string;
+      },
+    ) => {
+      createUserRole(data);
+      setOpenCreateStaffDialog(false);
     },
-  ) => {
-    props.createUserRole(data);
-    props.setOpenCreateStaffDialog(false);
-  };
+    [createUserRole, setOpenCreateStaffDialog],
+  );
 
   return (
     <List>

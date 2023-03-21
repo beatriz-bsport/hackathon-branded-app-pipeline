@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
+import AddIcon from '@material-ui/icons/Add';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
@@ -25,14 +26,34 @@ import {
 import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../../reducers';
 import { MaterialStyleType } from '../../../utils/types';
-import { FranchiseRole } from '#libs/role/types';
+import { FranchiseRole, Role } from '#libs/role/types';
+import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
   WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>>;
+  MaterialStyleType<ReturnType<typeof styles>> &
+  State;
 
-export class RoleConfiguration extends React.Component<Props> {
+type State = {
+  openCreateRoleDialog: boolean;
+  currentRole: null | Role | FranchiseRole;
+};
+
+export class RoleConfiguration extends React.Component<Props, State> {
+  state: State = {
+    currentRole: null,
+    openCreateRoleDialog: false,
+  };
+
+  setOpenCreateRoleDialog = (value: boolean) => {
+    this.setState({ openCreateRoleDialog: value });
+  };
+
+  setCurrentRole = (value: null | Role | FranchiseRole) => {
+    this.setState({ currentRole: value });
+  };
+
   componentDidMount() {
     this.props.fetchCompanyRoles();
     this.props.fetchFranchiseRoles();
@@ -55,7 +76,7 @@ export class RoleConfiguration extends React.Component<Props> {
       return <LinearProgress />;
     }
 
-    const { roles, classes } = this.props;
+    const { t, roles, classes } = this.props;
 
     return (
       <div className={classes.container}>
@@ -68,9 +89,22 @@ export class RoleConfiguration extends React.Component<Props> {
             onDeleteRole={this.props.deleteFranchiseRole}
             isFranchisor
             users={this.props.users}
+            openCreateRoleDialog={this.state.openCreateRoleDialog}
+            currentRole={this.state.currentRole}
+            setOpenCreateRoleDialog={this.setOpenCreateRoleDialog}
+            setCurrentRole={this.setCurrentRole}
           />
         </Paper>
-
+        <BottomActionsButtonCustom
+          buttonsProperties={[
+            {
+              onClick: this.setOpenCreateRoleDialog,
+              text: t('forms.role.create.buttonCreate'),
+              icon: <AddIcon />,
+              color: 'primary',
+            },
+          ]}
+        />
         <Backdrop className={classes.backdrop} open={this.props.updateLoading}>
           <CircularProgress color="primary" />
         </Backdrop>
@@ -116,7 +150,7 @@ const mapDispatchToProps = {
 export default compose(
   // @ts-ignore
   withStyles(styles),
-  withTranslation(['franchise']),
+  withTranslation(['role']),
   withTitle(({ t }: { t: TFunction }) => t('navigation:franchiseMenu.staff')),
   connect(mapStateToProps, mapDispatchToProps),
 )(RoleConfiguration);

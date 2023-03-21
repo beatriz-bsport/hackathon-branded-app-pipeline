@@ -5,6 +5,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { TFunction } from 'i18next';
 import { Backdrop, CircularProgress, Theme } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import UserWithRoleList from '#libs/role/components/UserWithRoleList.component';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import InfoBox from '#components/box/InfoBox.component';
@@ -27,13 +28,27 @@ import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../../reducers';
 import { MaterialStyleType } from '../../../utils/types';
 import { getFranchiseCompanies } from '#libs/franchise/selectors';
+import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
   WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>>;
+  MaterialStyleType<ReturnType<typeof styles>> &
+  State;
 
-export class FranchiseStaffConfiguration extends React.Component<Props> {
+type State = {
+  openCreateStaffDialog: boolean;
+};
+export class FranchiseStaffConfiguration extends React.Component<Props, State> {
+  state: State = {
+    openCreateStaffDialog: false,
+  };
+
+  setOpenCreateStaffDialog = (value: boolean) =>
+    this.setState({ openCreateStaffDialog: value });
+
+  handleOpenCreateStaffDialog = () => this.setOpenCreateStaffDialog(true);
+
   componentDidMount() {
     this.props.fetchFranchise();
     this.props.fetchFranchiseUserRoles();
@@ -44,7 +59,6 @@ export class FranchiseStaffConfiguration extends React.Component<Props> {
     if (this.props.loading) {
       return <LinearProgress />;
     }
-
     const { t, users, franchiseRoles, classes, hasOwnerPermission } =
       this.props;
     return (
@@ -63,6 +77,20 @@ export class FranchiseStaffConfiguration extends React.Component<Props> {
           updateUserRole={this.props.updateFranchiseUserRole}
           hasOwnerPermission={hasOwnerPermission}
           users={users}
+          openCreateStaffDialog={this.state.openCreateStaffDialog}
+          setOpenCreateStaffDialog={this.setOpenCreateStaffDialog}
+        />
+        <BottomActionsButtonCustom
+          buttonsProperties={[
+            {
+              onClick: this.handleOpenCreateStaffDialog,
+              text: t('forms.user.create.buttonLabel', { ns: 'role' }),
+              icon: <AddIcon />,
+              color: 'primary',
+            },
+          ]}
+          openCreateStaffDialog={this.state.openCreateStaffDialog}
+          setOpenCreateStaffDialog={this.setOpenCreateStaffDialog}
         />
         <Backdrop className={classes.backdrop} open={this.props.updateLoading}>
           <CircularProgress color="primary" />
@@ -115,7 +143,7 @@ const mapDispatchToProps = {
 export default compose(
   // @ts-ignore
   withStyles(styles),
-  withTranslation('franchise'),
+  withTranslation(['franchise', 'role']),
   withTitle(({ t }: { t: TFunction }) => t('navigation:franchiseMenu.staff')),
   connect(mapStateToProps, mapDispatchToProps),
 )(FranchiseStaffConfiguration);

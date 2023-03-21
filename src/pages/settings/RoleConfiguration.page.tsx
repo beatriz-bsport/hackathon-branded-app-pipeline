@@ -47,15 +47,12 @@ type State = {
   currentRole: null | Role | FranchiseRole;
 };
 
-export class RoleConfiguration extends React.Component<ConnectedProps> {
-  constructor(props: ConnectedProps) {
-    super(props);
-    this.state = {
-      openCreateStaffDialog: false,
-      currentRole: null,
-      openCreateRoleDialog: false,
-    };
-  }
+export class RoleConfiguration extends React.Component<ConnectedProps, State> {
+  state: State = {
+    openCreateStaffDialog: false,
+    currentRole: null,
+    openCreateRoleDialog: false,
+  };
 
   setOpenCreateStaffDialog = (value: boolean) =>
     this.setState({ openCreateStaffDialog: value });

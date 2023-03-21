@@ -2679,8 +2679,9 @@
                     "helperText": "Il membro vede e sceglie il luogo prima di prenotare, se selezionato bsport cercherà di ottimizzare il riempimento delle sale"
                 },
                 "coach_capacity_used": {
-                    "helperText": "Es: un insegnante può seguire due allievi separatamente su due macchinari ",
-                    "label": "Numero massimo di appuntamenti simultanei che un professore può gestire"
+                    "helperText": "Es: un insegnante può seguire due allievi separatamente su due macchinari",
+                    "label": "Numero massimo di appuntamenti simultanei che un professore può gestire",
+                    "alertText": "Un docente può gestire contemporaneamente 1, 2, 3, 4, 6 o 12 appuntamenti."
                 },
                 "use_full_establishment_capacity": {
                     "helperText": "Deseleziona per autorizzare contemporaneamente più attività / appuntamenti nella stessa sala se la capacità lo consente",
@@ -7080,7 +7081,8 @@
         },
         "last_invoice_status": {
             "": [
-                "Annullato"
+                "Annullato",
+                "Annulla"
             ]
         },
         "payment_method_with_credit_account": {

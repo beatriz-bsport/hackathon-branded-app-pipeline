@@ -7095,7 +7095,7 @@
       "giropay": "Giropay",
       "debt": "Crédit interne"
     },
-    "payment_method_with_credit_account": { "9": "Crédit client", "10": "Paiement automatique", "13": "SEPA" },
+    "payment_method_with_credit_account": { "0": "Carte", "9": "Crédit client", "13": "SEPA" },
     "last_invoice_status": { "[object Object]": "Annulé" },
     "product_type": {
       "payment_pack": "Carte de cours",
@@ -7191,7 +7191,7 @@
         "50": "EPS",
         "60": "Giropay"
       },
-      "payment_method_with_credit_account": { "9": "Crédit client", "10": "Paiement automatique", "13": "SEPA" },
+      "payment_method_with_credit_account": { "0": "Carte", "9": "Crédit client", "13": "SEPA" },
       "payment_engine": { "0": "Payment manuel", "1": "Payment en ligne" }
     },
     "presetValuesByIdentifier": {
@@ -8269,9 +8269,8 @@
       "10001": "Stock insuffisant",
       "45004": "La carte cadeau n'est plus disponible à la vente.",
       "45005": "La carte cadeau n'est plus disponible à la vente.",
-      "85000": "Une réservation est déjà en cours, veuillez patienter quelques instants",
-      "85101": "Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.",
-      "generic": "Impossible de réserver"
+      "generic": "Impossible de réserver",
+      "undefined": "Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot."
     },
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
     "settings": {

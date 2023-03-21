@@ -506,7 +506,7 @@ exports.default = {
     debt: 'Crédit interne',
   },
   payment_method_with_credit_account: {
-    [SUBSCRIPTION_CB.id]: 'Paiement automatique',
+    [CB.id]: 'Carte',
     [CREDIT_ACCOUNT.id]: 'Crédit client',
     [SEPA.id]: 'SEPA',
   },
@@ -634,7 +634,7 @@ exports.default = {
       [DISPUTE.id]: 'Dispute',
     },
     payment_method_with_credit_account: {
-      [SUBSCRIPTION_CB.id]: 'Paiement automatique',
+      [CB.id]: 'Carte',
       [CREDIT_ACCOUNT.id]: 'Crédit client',
       [SEPA.id]: 'SEPA',
     },

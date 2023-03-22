@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import FactoryBotSubscription from '#libs/subscription/factory'
 import MarketplaceSubscriptionCard, {
     Props,
-} from './';
+} from '.';
 
 export default {
     title: 'Components/Marketplace/PassCard/MarketplaceSubscriptionCard',
@@ -17,7 +17,7 @@ export default {
     },
 } as ComponentMeta<typeof MarketplaceSubscriptionCard>;
 
-const fakeSubscription = FactoryBotSubscription.Subscription.create()
+const fakeContract = FactoryBotSubscription.Contract.create()
 
 const SubscriptionTemplate: ComponentStory<typeof MarketplaceSubscriptionCard> = (args: Props) => (
     <MarketplaceSubscriptionCard {...args} />
@@ -25,7 +25,7 @@ const SubscriptionTemplate: ComponentStory<typeof MarketplaceSubscriptionCard> =
 
 export const BasicSubscriptionCard = SubscriptionTemplate.bind({});
 BasicSubscriptionCard.args = {
-    subscription: fakeSubscription,
+    contract: fakeContract,
     addToCart: () => { },
     onOpenDetailDialog: () => { },
 }

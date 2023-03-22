@@ -24,48 +24,43 @@ import './styles.css';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-import type { Subscription } from '#libs/subscription/types';
-import { PrivatePass } from '#libs/private-service/types';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-
-type SubscriptionType = Subscription<PrivatePass, PaymentPack, PaymentCombo>;
+import type { ContractWithPaymentPack } from '#libs/subscription/types';
 
 export type Props = {
-  subscription: SubscriptionType;
+  contract: ContractWithPaymentPack;
   addToCart: () => void;
   onOpenDetailDialog: () => void;
 };
 
-const MarketplaceSubscriptionCard: React.FC<Props> = ({
-  subscription,
+const MarketplaceContractCard: React.FC<Props> = ({
+  contract,
   addToCart,
   onOpenDetailDialog,
 }) => {
   const { t } = useTranslation('marketplace');
 
   return (
-    <Card classes={{ 'bs-subscription-card': 'bs-subscription-card' }}>
+    <Card classes={{ 'bs-contract-card': 'bs-contract-card' }}>
       <Content padding>
         <Grid
           classes={{
-            'bs-subscription-card__grid': 'bs-subscription-card__grid',
+            'bs-contract-card__grid': 'bs-contract-card__grid',
           }}
         >
           <Item alignment={Alignment.FLEX_START} columnEnd={1}>
-            <div className="bs-subscription-card__title">
-              <HistoryIcon className="bs-subscription-card__title__icon" />
-              {subscription?.name}
+            <div className="bs-contract-card__title">
+              <HistoryIcon className="bs-contract-card__title__icon" />
+              {contract?.name}
             </div>
-            {!!subscription?.flat_fee && (
-              <div className="bs-subscription-card__subtitle">
-                {t('subscriptionCard.fees', {
-                  fees: getCurrencyDisplayWithPrice(subscription.flat_fee),
+            {!!contract?.flat_fee && (
+              <div className="bs-contract-card__subtitle">
+                {t('contractCard.fees', {
+                  fees: getCurrencyDisplayWithPrice(contract.flat_fee),
                 })}
               </div>
             )}
-            <div className="bs-subscription-card__description">
-              {subscription?.description}
+            <div className="bs-contract-card__description">
+              {contract?.description}
             </div>
           </Item>
           <Item
@@ -74,11 +69,11 @@ const MarketplaceSubscriptionCard: React.FC<Props> = ({
             rowStart={1}
             columnEnd={2}
           >
-            {!!subscription?.planned_invoices?.length && (
-              <div className="bs-subscription-card__planned-invoices">
-                <div className="bs-subscription-card__planned-invoices__content">
-                  {t('subscriptionCard.invoice', {
-                    count: subscription.planned_invoices.length,
+            {!!contract?.nb_interval && (
+              <div className="bs-contract-card__planned-invoices">
+                <div className="bs-contract-card__planned-invoices__content">
+                  {t('contractCard.invoice', {
+                    count: contract.nb_interval,
                   })}
                 </div>
               </div>
@@ -90,26 +85,25 @@ const MarketplaceSubscriptionCard: React.FC<Props> = ({
             justification={Justification.FLEX_END}
             alignment={Alignment.FLEX_END}
             classes={{
-              'bs-subscription-card__price-item':
-                'bs-subscription-card__price-item',
+              'bs-contract-card__price-item': 'bs-contract-card__price-item',
             }}
           >
-            <div className="bs-subscription-card__price-container">
+            <div className="bs-contract-card__price-container">
               <Price
-                amount={subscription?.recurrent_price}
+                amount={contract?.recurrent_price}
                 formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                 classes={{
-                  'bs-subscription-card__price': 'bs-subscription-card__price',
+                  'bs-contract-card__price': 'bs-contract-card__price',
                 }}
               >
-                <div className="bs-subscription-card__billing-interval--desktop">
-                  <BillingInterval subscription={subscription} />
+                <div className="bs-contract-card__billing-interval--desktop">
+                  <BillingInterval contract={contract} />
                 </div>
-                <div className="bs-subscription-card__billing-interval--mobile">
-                  {subscription?.flat_fee ? (
-                    <BillingInterval subscription={subscription} withFees />
+                <div className="bs-contract-card__billing-interval--mobile">
+                  {contract?.flat_fee ? (
+                    <BillingInterval contract={contract} withFees />
                   ) : (
-                    <BillingInterval subscription={subscription} />
+                    <BillingInterval contract={contract} />
                   )}
                 </div>
               </Price>
@@ -121,8 +115,7 @@ const MarketplaceSubscriptionCard: React.FC<Props> = ({
             justification={Justification.CENTER}
             alignment={Alignment.FLEX_END}
             classes={{
-              'bs-subscription-card__price-icon':
-                'bs-subscription-card__price-icon',
+              'bs-contract-card__price-icon': 'bs-contract-card__price-icon',
             }}
           >
             <ShoppingCartIcon />
@@ -132,26 +125,26 @@ const MarketplaceSubscriptionCard: React.FC<Props> = ({
           justification={Justification.SPACE_BETWEEN}
           direction={Direction.ROW}
           classes={{
-            'bs-subscription-card__footer': 'bs-subscription-card__footer',
+            'bs-contract-card__footer': 'bs-contract-card__footer',
           }}
         >
           <button
             type="button"
-            className="bs-subscription-card__left-button"
+            className="bs-contract-card__left-button"
             onClick={onOpenDetailDialog}
           >
-            <div className="bs-subscription-card__left-button__content">
-              <VisibilityIcon className="bs-subscription-card__left-button__icon" />
+            <div className="bs-contract-card__left-button__content">
+              <VisibilityIcon className="bs-contract-card__left-button__icon" />
               {t('genericCard.details.buttonContent')}
             </div>
           </button>
 
           <button
             type="button"
-            className="bs-subscription-card__right-button"
+            className="bs-contract-card__right-button"
             onClick={addToCart}
           >
-            {t('subscriptionCard.registerButton')}
+            {t('contractCard.registerButton')}
           </button>
         </Item>
       </Content>
@@ -162,4 +155,4 @@ const MarketplaceSubscriptionCard: React.FC<Props> = ({
 export default compose(
   marketplaceCssHoc(),
   React.memo,
-)(MarketplaceSubscriptionCard);
+)(MarketplaceContractCard);

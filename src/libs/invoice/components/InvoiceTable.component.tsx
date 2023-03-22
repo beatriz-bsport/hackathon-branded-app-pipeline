@@ -258,6 +258,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
                         onSuccess: (inv: Invoice) => {
                           setDownloadMenuOpen(null);
                           window.open(inv.stripe_invoice_pdf, '_blank');
+                          setProcessing(false);
                         },
                       });
                     }}
@@ -268,10 +269,17 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
                     disabled={!invoice.is_v2 || !invoice.payments.length}
                     onClick={(ev) => {
                       ev.stopPropagation();
-                      getReceiptUrlAPI(invoice.uuid).then((r) => {
-                        setDownloadMenuOpen(null);
-                        window.open(r.data, '_blank');
-                      });
+                      setProcessing(true);
+                      getReceiptUrlAPI(invoice.uuid)
+                        .then((r) => {
+                          setDownloadMenuOpen(null);
+                          window.open(r.data, '_blank');
+                          setProcessing(false);
+                        })
+                        .catch((err) => {
+                          console.error(err);
+                          setProcessing(false);
+                        });
                     }}
                   >
                     {t('actions.downloadReceipt')}

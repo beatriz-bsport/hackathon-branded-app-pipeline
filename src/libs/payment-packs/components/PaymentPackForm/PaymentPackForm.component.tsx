@@ -374,7 +374,7 @@ export const PaymentPackForm = (props: Props) => {
           values,
         }: FormikProps<PaymentPackFormValues>) => {
           return (
-            <Form>
+            <Form data-testid="paymentpack-form">
               <div
                 className={
                   !isInDrawer
@@ -429,7 +429,10 @@ export const PaymentPackForm = (props: Props) => {
                 />
               </div>
               <Divider className={classes.divider} />
-              <div className={classes.actionContainer}>
+              <div
+                className={classes.actionContainer}
+                id="paymentpack-form-actions"
+              >
                 <Actions>
                   {onCancel || closeForm ? (
                     <Button

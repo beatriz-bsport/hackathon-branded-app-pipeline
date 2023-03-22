@@ -28,7 +28,10 @@ export const PaymentPackFormTag = (props: Props) => {
     useFormikContext();
   return (
     <>
-      <div className={classes.advancedOptionsSection}>
+      <div
+        className={classes.advancedOptionsSection}
+        id="paymentpack-form-advanced-options-section"
+      >
         <ButtonBase
           onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
           className={classes.advancedOptionsHeader}

@@ -47,7 +47,7 @@ export const PaymentPackFormValidity = (props: Props) => {
   ];
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} id="paymentpack-form-validity-section">
         <Grid item xs={12}>
           <div className={classes.infoText}>
             <DateRangeIcon className={classes.icon} />
@@ -111,7 +111,7 @@ export const PaymentPackFormValidity = (props: Props) => {
               <div className={classes.row}>
                 <IntegerFieldEnhancedHelperTextError
                   disabled={initial && !initial?.editable}
-                  id="dayValidity"
+                  id="paymentpack-form-day-validity-input"
                   fullWidth
                   type="number"
                   name="duration_days"
@@ -122,7 +122,7 @@ export const PaymentPackFormValidity = (props: Props) => {
 
                 <IntegerFieldEnhancedHelperTextError
                   disabled={initial && !initial?.editable}
-                  id="monthValidity"
+                  id="paymentpack-form-month-validity-input"
                   fullWidth
                   type="number"
                   name="duration_months"
@@ -134,7 +134,7 @@ export const PaymentPackFormValidity = (props: Props) => {
 
                 <IntegerFieldEnhancedHelperTextError
                   disabled={initial && !initial?.editable}
-                  id="yearValidity"
+                  id="paymentpack-form-year-validity-input"
                   fullWidth
                   type="number"
                   name="duration_years"
@@ -192,7 +192,7 @@ export const PaymentPackFormValidity = (props: Props) => {
               <Grid item xs={6}>
                 <TextFieldEnhancedLabelWithError
                   disabled={initial && !initial?.editable}
-                  id="textfield_expiration_date"
+                  id="paymentpack-form-month-expiration-input"
                   fullWidth
                   name="expiration_days_before_first_use"
                   type="number"

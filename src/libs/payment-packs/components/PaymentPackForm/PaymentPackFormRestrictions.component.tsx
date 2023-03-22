@@ -55,7 +55,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
     useFormikContext();
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} id="paymentpack-form-restrictions-section">
         <Grid item xs={12}>
           <div className={classes.infoText}>
             <CancelIcon className={classes.icon} />
@@ -66,7 +66,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
-            id="max_bookings_per_day"
+            id="max-bookings-per-day"
             fullWidth
             type="number"
             name="max_bookings_per_day"
@@ -79,7 +79,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
-            id="max_bookings_per_week"
+            id="max-bookings-per-week"
             fullWidth
             type="number"
             name="max_bookings_per_week"
@@ -92,7 +92,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
-            id="max_bookings_per_month"
+            id="max-bookings-per-month"
             fullWidth
             type="number"
             name="max_bookings_per_month"
@@ -105,7 +105,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
         </Grid>
         <Grid item xs={6}>
           <TextFieldEnhancedLabelWithError
-            id="max_purchase_per_member"
+            id="max-purchase-per-member"
             fullWidth
             type="number"
             name="max_purchase_per_member"
@@ -114,7 +114,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             disabled={!!initial?.template_instance}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} id="restrictions-switchfields-grid">
           <div className={classes.switch}>
             <div className={classes.row}>
               <SwitchField
@@ -161,6 +161,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               {t('addPaymentPack.categories')}
             </Typography>
             <MaterialUISelector
+              id="categories-selector"
               options={
                 [
                   ...categoryList?.map((category) => ({
@@ -212,6 +213,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               {t('addPaymentPack.room')}
             </Typography>
             <MaterialUISelector
+              id="establishments-selector"
               menuPosition="fixed"
               options={
                 [
@@ -256,6 +258,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               {t('addPaymentPack.activities')}
             </Typography>
             <MaterialUISelector
+              id="activities-selector"
               options={[
                 ...metaActivityList?.map((metaActivity) => ({
                   label: metaActivity.name,

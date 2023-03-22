@@ -105,7 +105,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
   }, [is_universal_pass_value, setValues, setDisableUniversalPassFields]);
   return (
     <>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} id="paymentpack-form-general-section">
         {initial && !initial?.editable ? (
           <Grid item xs={12}>
             <div className={classes.row}>
@@ -136,7 +136,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
         </Grid>
         <Grid item xs={12}>
           <TextFieldEnhancedLabelWithError
-            id="textfield_pass_title"
+            id="paymentpack-form-title-input"
             fullWidth
             name="name"
             required
@@ -162,7 +162,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
           <PriceField
             disabled={initial && !initial?.editable}
             name="price"
-            id="textfield_pass_price"
+            id="paymentpack-form-price-input"
             label={t('form.paymentPack.priceIncludingTax.label')}
             required
             fullWidth
@@ -173,7 +173,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
           <TextField
             disabled={initial && !initial?.editable}
             name="tax"
-            id="textfield_pass_VAT"
+            id="paymentpack-form-vat-input"
             label={t('form.paymentPack.tax.label')}
             helperText={provincialTaxText}
             type="number"
@@ -187,7 +187,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
             FormHelperTextProps={{ classes: { root: classes.helperTextError } }}
           />
         </Grid>
-        <Grid item xs={12} md={12}>
+        <Grid item xs={12} md={12} id="is-universal-pass-grid">
           <Grid item xs={12} md={12}>
             <SwitchField
               name="is_universal_pass"
@@ -238,7 +238,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
               <TextField
                 disabled={initial && !initial?.editable}
                 name="credits"
-                id="textfield_credit"
+                id="paymentpack-form-credit-input"
                 label={t('addPaymentPack.credit')}
                 type="number"
                 required
@@ -263,7 +263,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
               <PriceField
                 disabled={initial && !initial?.editable}
                 name="theorical_margin_value"
-                id="textfield_pass_marginal_contribution"
+                id="paymentpack-form-margin-input"
                 label={t('addPaymentPack.marginalContribution')}
                 required
                 fullWidth
@@ -277,7 +277,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
         )}
         <Grid item xs={12}>
           <Grid item xs={12}>
-            <div className={classes.row}>
+            <div className={classes.row} id="paymentpack-form-penalty-switch">
               <SwitchField
                 name="apply_penalties"
                 label={t('form.paymentPack.penalty.label')}
@@ -331,6 +331,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
           <Grid item xs={12}>
             <div className={classes.row}>
               <CheckboxField
+                id="paymentpack-form-penalty-cancellations-checkbox"
                 disabled={initial && !initial?.editable}
                 name="penalty_active"
                 label={t('form.paymentPack.penalty.cancellationsCheckbox')}
@@ -340,6 +341,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
           <Grid item xs={12}>
             <div className={classes.row}>
               <CheckboxField
+                id="paymentpack-form-penalty-noshow-checkbox"
                 disabled={initial && !initial?.editable}
                 name="no_show_penalty_active"
                 label={t('form.paymentPack.penalty.noShowCheckbox')}
@@ -375,7 +377,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                 <Grid item xs={6}>
                   <TextFieldEnhancedLabelWithError
                     disabled={initial && !initial?.editable}
-                    id="textfield_penalityNumberCancel"
+                    id="paymentpack-form-penality-cancellations-input"
                     fullWidth
                     name="penalty_nb_late_cancellations"
                     type="number"
@@ -387,7 +389,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                 <Grid item xs={6}>
                   <TextFieldEnhancedLabelWithError
                     disabled={initial && !initial?.editable}
-                    id="penalty_nb_days"
+                    id="paymentpack-form-penality-days-input"
                     fullWidth
                     name="penalty_nb_days"
                     type="number"
@@ -436,7 +438,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                   <Grid item xs={6}>
                     <TextFieldEnhancedLabelWithError
                       disabled={initial && !initial?.editable}
-                      id="textfield_block"
+                      id="paymentpack-form-penality-days-blocked-input"
                       fullWidth
                       name="penalty_days_blocked"
                       type="number"
@@ -451,7 +453,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
                   <Grid item xs={6}>
                     <PriceField
                       disabled={initial && !initial?.editable}
-                      id="textfield_penalityAccount"
+                      id="paymentpack-form-penality-account-input"
                       fullWidth
                       name="penalty_account_value"
                       required

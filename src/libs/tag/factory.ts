@@ -12,7 +12,7 @@ const iconNameList = ['AcUnit', 'AccessAlarm', 'Accessible', 'AddBox'];
 
 FactoryBot.define('Tag', {
   id: FactoryBot.sequence(),
-  name: () => faker.random.word(),
+  name: () => faker.random.word(2),
   group: () => ({
     id: Math.floor(Math.random() * 1000),
     name: faker.random.word(),

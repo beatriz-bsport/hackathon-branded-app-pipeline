@@ -12,7 +12,7 @@ const oneMonthLater = moment(now).add(1, 'M').format(DATE_FORMAT);
 
 FactoryBot.define('PaymentPackCategory', {
   id: FactoryBot.sequence(),
-  name: () => faker.random.word(),
+  name: () => faker.random.word(2),
   company_id: 1,
   category_ordering: () => Math.floor(Math.random() * 10),
 });

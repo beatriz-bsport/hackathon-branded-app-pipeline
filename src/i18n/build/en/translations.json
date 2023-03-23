@@ -2376,7 +2376,7 @@
             "isUnpaid": "Outstanding payment"
         },
         "dashboard": {
-            "favoriteTitle": "Highlights",
+            "favoriteTitle": "Booking suggestion",
             "nextBookingTitle": "My bookings",
             "currentPassTitle": "My passes",
             "showMore": "Show more",

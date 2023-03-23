@@ -1,8 +1,23 @@
 export type DeliveryFee = {
-  free_threshold: number;
+  company: number;
+  disabled: boolean;
+  free_threshold: string | null;
   name: string;
-  fee: number;
+  fee: string;
   id?: number;
+};
+
+export type DeliveryFeeCreationOrUpdatePayload = {
+  free_threshold?: string;
+  name: string;
+  fee: string;
+  id?: number;
+  disabled?: boolean;
+};
+
+export type DeliveryConfiguration = {
+  company?: number;
+  default_delivery_fee: number;
 };
 
 export type Order = {
@@ -26,15 +41,16 @@ export type DeliveryData = {
   last_name: string;
 } & AddressType;
 
-export type OrderWithProducts = {
+export type OrderWithProducts<M = number> = {
   id: string;
-  member: number;
+  member: M;
   state: number;
   total_price: number;
   product_lines: Array<Product>;
   updated_at: string;
   created_at: string;
   member_archived: boolean;
+  delivery_fee?: DeliveryFee;
 } & DeliveryData;
 
 export type ProductData = {
@@ -56,13 +72,31 @@ export type Product = {
 };
 
 export type OrderState = {
+  deliveryFee: {
+    items: Array<DeliveryFee>;
+    loading: boolean;
+    error?: Error | null;
+    createOrUpdate: {
+      loading: boolean;
+      error?: Error | null;
+    };
+  };
+  configuration: {
+    data: DeliveryConfiguration;
+    loading: boolean;
+    error?: Error | null;
+    update: {
+      loading: boolean;
+      error?: Error | null;
+    };
+  };
   order: {
     current: {
       data?: OrderWithProducts;
       loading: boolean;
       error?: Error;
     };
-    items: Array<Order>;
+    items: Array<OrderWithProducts>;
     nextPage?: number;
     loading: boolean;
     error?: Error;
@@ -80,4 +114,9 @@ export type OrderState = {
       error?: Error;
     };
   };
+};
+
+export type OrderListActions = {
+  nextPage: number | null;
+  orders: Array<OrderWithProducts>;
 };

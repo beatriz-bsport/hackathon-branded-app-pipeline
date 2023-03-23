@@ -1,18 +1,16 @@
-// @flow
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { withTranslation, TFunction } from 'react-i18next';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-import type { DeliveryFee } from '../types';
+import type { DeliveryFee } from '#libs/order/types';
 
 type Props = {
-  deliveryFee: DeliveryFee,
-  t: TFunction,
-};
+  deliveryFee: DeliveryFee;
+} & WithTranslation;
 
-export const DeliveryFeeListItem = (props: Props) => {
+export const DeliveryFeeListItem: React.FC<Props> = (props) => {
   const { name, free_threshold, fee } = props.deliveryFee;
   if (name && fee) {
     return (

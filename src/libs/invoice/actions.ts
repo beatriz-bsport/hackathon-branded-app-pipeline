@@ -259,7 +259,10 @@ export const retrieveInvoiceActions = {
   success: createAction('INVOICE/RETRIEVE/SUCCESS'),
 };
 
-export function fetchByQueryInvoice(params: any, options: OptionCallback) {
+export function fetchByQueryInvoice(
+  params: any,
+  options: OptionCallback<Invoice>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveInvoiceActions.isLoading(true));
     dispatch(retrieveInvoiceActions.error(null));

@@ -1,5 +1,4 @@
-// @flow
-import React from 'react';
+import React, { useState } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from '@material-ui/core/List';
@@ -8,25 +7,23 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
-import { withTranslation, TFunction } from 'react-i18next';
+import { useTranslation, WithTranslation } from 'react-i18next';
 
-import { compose, withState } from 'recompose';
-import ProductLine from './ProductLine.component';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import ProductLine from '#libs/order/components/ProductLine.component';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-import type { OrderWithProducts } from '../types';
+import type { OrderWithProducts } from '#libs/order/types';
 
 type Props = {
-  order: OrderWithProducts,
-  t: TFunction,
-  expanded: boolean,
-  setExpanded: (boolean) => void,
-  divider: ?boolean,
-  dense: ?boolean,
-};
+  order: OrderWithProducts;
+  divider?: boolean;
+  dense?: boolean;
+} & WithTranslation;
 
-export const OrderListItem = (props: Props) => {
-  const { t, order, expanded } = props;
+export const OrderListItem: React.FC<Props> = (props) => {
+  const { order } = props;
+  const { t } = useTranslation(['order']);
+  const [expanded, setExpanded] = useState(false);
   return (
     <div>
       <ListItem dense={!!props.dense} divider={!!props.divider}>
@@ -38,7 +35,7 @@ export const OrderListItem = (props: Props) => {
           secondary={`${getCurrencyDisplayWithPrice(order.total_price)}`}
         />
         <ListItemSecondaryAction>
-          <IconButton onClick={() => props.setExpanded(!expanded)}>
+          <IconButton onClick={() => setExpanded(!expanded)}>
             {expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
         </ListItemSecondaryAction>
@@ -54,7 +51,4 @@ export const OrderListItem = (props: Props) => {
   );
 };
 
-export default compose(
-  withTranslation(['order']),
-  withState('expanded', 'setExpanded', false),
-)(OrderListItem);
+export default OrderListItem;

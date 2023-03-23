@@ -3,12 +3,13 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme } from '@material-ui/core/styles';
-import type { OrderWithProducts } from '../types';
+import type { OrderWithProducts } from '#libs/order/types';
 
-import { ALLOWED_COUNTRIES_FOR_STATES } from '../../member/constants';
+import { ALLOWED_COUNTRIES_FOR_STATES } from '#libs/member/constants';
+import { Member } from '#libs/member/types';
 
 type Props = {
-  order: OrderWithProducts;
+  order: OrderWithProducts<Member>;
   companyCountry?: string;
 };
 

@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
@@ -7,21 +6,21 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { compose } from 'recompose';
-import type { DeliveryFee } from '../types';
+import { Theme, WithStyles, createStyles } from '@material-ui/core';
+import type { DeliveryConfiguration, DeliveryFee } from '#libs/order/types';
 
 type Props = {
-  deliveryFees: Array<DeliveryFee>,
-  configuration: any,
-  onSubmit: (DeliveryFee) => void,
-  t: TFunction,
-  classes: any,
-};
+  deliveryFees: Array<DeliveryFee>;
+  configuration: DeliveryConfiguration;
+  onSubmit: (deliveryFeeConfiguration: DeliveryConfiguration) => void;
+} & WithTranslation &
+  WithStyles<typeof styles>;
 
 type State = {
-  configuration: any,
+  configuration: DeliveryConfiguration;
 };
 
 export class OrderConfigrationForm extends Component<Props, State> {
@@ -32,8 +31,8 @@ export class OrderConfigrationForm extends Component<Props, State> {
     };
   }
 
-  handleChange = (key: string) => (value: *) => {
-    this.setState({ configuration: { [key]: value } });
+  handleChange = (value: number) => {
+    this.setState({ configuration: { default_delivery_fee: value } });
   };
 
   compareStateAndProps = () =>
@@ -64,10 +63,8 @@ export class OrderConfigrationForm extends Component<Props, State> {
                   ? -1
                   : configuration.default_delivery_fee
               }
-              onChange={(ev) =>
-                this.handleChange('default_delivery_fee')(
-                  parseInt(ev.target.value, 10),
-                )
+              onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
+                this.handleChange(parseInt(ev.target.value, 10))
               }
             >
               <MenuItem value={-1}>
@@ -94,17 +91,18 @@ export class OrderConfigrationForm extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-  formControl: {
-    paddingBottom: theme.spacing(2),
-    minWidth: 260,
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
+    formControl: {
+      paddingBottom: theme.spacing(2),
+      minWidth: 260,
+    },
+  });
 
 export default compose(
   withTranslation(['order']),

@@ -19,17 +19,18 @@ import {
   ORDER_STATE_ONSITEDELIVERY,
   ORDER_STATE_SENT,
 } from '@bsport/common/lib/master-data/order-states';
-import RedButton from '../../../components/button/RedButton.component';
-import MemberSummaryCard from '../../member/components/MemberSummaryCard.component';
+import RedButton from '#components/button/RedButton.component';
+import MemberSummaryCard from '#libs/member/components/MemberSummaryCard.component';
 import ProductLine from './ProductLine.component';
 import DeliveryInfo from './DeliveryInfo.component';
-import InvoiceSummary from '../../invoice/InvoiceListItem.component';
+import InvoiceSummary from '#libs/invoice/InvoiceListItem.component';
 
-import { OrderWithProducts, Product } from '../types';
-import { Invoice } from '../../invoice/types';
+import { OrderWithProducts, Product } from '#libs/order/types';
+import { Invoice } from '#libs/invoice/types';
 import { EmailTemplateDetail } from '#libs/email-editor/types';
 
-import DeliveryFeeListItem from './DeliveryFeeListItem.component';
+import DeliveryFeeListItem from '#libs/order/components/DeliveryFeeListItem.component';
+import { Member } from '#libs/member/types';
 
 type Props = {
   onInvoiceClick: (uuid: string) => void;
@@ -37,7 +38,7 @@ type Props = {
   updateOrderState: (id: number) => void;
   sendCommunication: (com: any) => void;
 
-  order?: OrderWithProducts;
+  order?: OrderWithProducts<Member>;
   invoice?: Invoice;
   companyCountry?: string;
 
@@ -80,7 +81,7 @@ export const OrderDetail: React.FC<Props> = ({
             alignItems: 'center',
           }}
         >
-          <Typography inline component="h2" variant="h4">
+          <Typography component="h2" variant="h4">
             {t('detail.section.title')}
           </Typography>
           <Typography

@@ -1,25 +1,27 @@
-// @flow
 import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import PriceInput from '../../../components/input/PriceInput.component';
-import { DeliveryFee } from '../types';
+import { Theme, WithStyles, createStyles } from '@material-ui/core';
+import PriceInput from '#components/input/PriceInput.component';
+import {
+  DeliveryFee,
+  DeliveryFeeCreationOrUpdatePayload,
+} from '#libs/order/types';
 
 type Props = {
-  t: TFunction,
-  initial: ?DeliveryFee,
-  onCancel: () => void,
-  onSubmit: (data: DeliveryFee) => void,
-  classes: any,
-};
+  initial?: DeliveryFee;
+  onCancel: () => void;
+  onSubmit: (data: DeliveryFeeCreationOrUpdatePayload) => void;
+} & WithTranslation &
+  WithStyles<typeof styles>;
 
 type State = {
-  data: DeliveryFee,
+  data: DeliveryFeeCreationOrUpdatePayload;
 };
 
 export class DeliveryFeeDialogForm extends React.Component<Props, State> {
@@ -38,14 +40,14 @@ export class DeliveryFeeDialogForm extends React.Component<Props, State> {
       this.state = {
         data: {
           name: '',
-          fee: '0.00',
-          free_threshold: '20.00',
+          fee: '0.0',
+          free_threshold: '20.0',
         },
       };
     }
   }
 
-  handleChange = (key: string) => (value: *) => {
+  handleChange = (key: string) => (value: string) => {
     this.setState((prevState) => ({
       data: { ...prevState.data, [key]: value },
     }));
@@ -74,7 +76,9 @@ export class DeliveryFeeDialogForm extends React.Component<Props, State> {
             className={classes.field}
             required
             label={t('deliveryFee.forms.feeLabel')}
-            onChange={(ev) => this.handleChange('fee')(ev.target.value)}
+            onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
+              this.handleChange('fee')(ev.target.value)
+            }
           />
         </div>
         <div className={classes.field}>
@@ -83,7 +87,7 @@ export class DeliveryFeeDialogForm extends React.Component<Props, State> {
             label={t('deliveryFee.forms.freeThresholdLabel')}
             helperText={t('deliveryFee.forms.freeThresholdHelper')}
             required
-            onChange={(ev) =>
+            onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
               this.handleChange('free_threshold')(ev.target.value)
             }
           />
@@ -101,20 +105,21 @@ export class DeliveryFeeDialogForm extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
-  buttons: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginTop: theme.spacing(2),
-  },
-  field: {
-    marginBottom: theme.spacing(1),
-  },
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    buttons: {
+      display: 'flex',
+      flexDirection: 'row',
+      marginTop: theme.spacing(2),
+    },
+    field: {
+      marginBottom: theme.spacing(1),
+    },
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+  });
 
 export default compose(
   withStyles(styles),

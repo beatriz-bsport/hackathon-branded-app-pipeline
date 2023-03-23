@@ -109,6 +109,7 @@ import { MemberState } from '#libs/member/types';
 import { MetaActivityState } from '#libs/meta-activity/types';
 import { NotificationRuleState } from '#libs/notification-rule/types';
 import { OfferState } from '#libs/offer/types';
+import { OrderState } from '#libs/order/types';
 import { PartnershipState } from '#libs/partnership/types';
 import { PerformanceTrackingState } from '#libs/performance-tracking/types';
 import { PlaylistState } from '#libs/playlist/types';
@@ -258,7 +259,7 @@ export type RootState = {
   network: any;
   notificationRule: NotificationRuleState;
   offer: OfferState;
-  order: any;
+  order: OrderState;
   partnership: PartnershipState;
   paymentBackend: any;
   paymentCombo: PaymentComboState;

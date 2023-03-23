@@ -1,76 +1,61 @@
-// @flow
-
 import { createAction } from 'redux-actions';
-
 import * as api from './api';
-
-import type { Dispatch, State, ThunkAction } from '../../state/types';
-
-import type { ProductData } from './types';
+import type {
+  Dispatch,
+  GetState,
+  ThunkAction,
+  OptionCallback,
+} from '../../state/types';
+import type {
+  DeliveryFee,
+  DeliveryFeeCreationOrUpdatePayload,
+  DeliveryConfiguration,
+  OrderWithProducts,
+  OrderListActions,
+  Order,
+} from '#libs/order/types';
 
 export const deliverFeesList = {
-  error: createAction('DELIVERY_FEE/LIST/ERROR'),
-  isLoading: createAction('DELIVERY_FEE/LIST/IS_LOADING'),
-  success: createAction('DELIVERY_FEE/LIST/SUCCESS'),
+  error: createAction<Error | null>('DELIVERY_FEE/LIST/ERROR'),
+  isLoading: createAction<boolean>('DELIVERY_FEE/LIST/IS_LOADING'),
+  success: createAction<Array<DeliveryFee>>('DELIVERY_FEE/LIST/SUCCESS'),
 };
 
 export const deliverFeesCreateOrUpdate = {
-  error: createAction('DELIVERY_FEE/CREATE_OR_UPDATE/ERROR'),
-  isLoading: createAction('DELIVERY_FEE/CREATE_OR_UPDATE/IS_LOADING'),
-  success: createAction('DELIVERY_FEE/CREATE_OR_UPDATE/SUCCESS'),
+  error: createAction<Error | null>('DELIVERY_FEE/CREATE_OR_UPDATE/ERROR'),
+  isLoading: createAction<boolean>('DELIVERY_FEE/CREATE_OR_UPDATE/IS_LOADING'),
+  success: createAction<DeliveryFee>('DELIVERY_FEE/CREATE_OR_UPDATE/SUCCESS'),
 };
 
 export const configurationDetail = {
-  error: createAction('ORDER_CONFIGURATION/DETAIL/ERROR'),
-  isLoading: createAction('ORDER_CONFIGURATION/DETAIL/IS_LOADING'),
-  success: createAction('ORDER_CONFIGURATION/DETAIL/SUCCESS'),
+  error: createAction<Error | null>('ORDER_CONFIGURATION/DETAIL/ERROR'),
+  isLoading: createAction<boolean>('ORDER_CONFIGURATION/DETAIL/IS_LOADING'),
+  success: createAction<DeliveryConfiguration>(
+    'ORDER_CONFIGURATION/DETAIL/SUCCESS',
+  ),
 };
 
 export const configurationUpdate = {
-  error: createAction('ORDER_CONFIGURATION/UPDATE/ERROR'),
-  isLoading: createAction('ORDER_CONFIGURATION/UPDATE/IS_LOADING'),
+  error: createAction<Error | null>('ORDER_CONFIGURATION/UPDATE/ERROR'),
+  isLoading: createAction<boolean>('ORDER_CONFIGURATION/UPDATE/IS_LOADING'),
 };
 
 export const orderDetailActions = {
-  error: createAction('ORDER/DETAIL/ERROR'),
-  isLoading: createAction('ORDER/DETAIL/IS_LOADING'),
-  success: createAction('ORDER/DETAIL/SUCCESS'),
+  error: createAction<Error | null>('ORDER/DETAIL/ERROR'),
+  isLoading: createAction<boolean>('ORDER/DETAIL/IS_LOADING'),
+  success: createAction<OrderWithProducts>('ORDER/DETAIL/SUCCESS'),
 };
 
 export const orderListActions = {
-  error: createAction('ORDER/LIST/ERROR'),
-  isLoading: createAction('ORDER/LIST/IS_LOADING'),
-  success: createAction('ORDER/LIST/SUCCESS'),
+  error: createAction<Error | null>('ORDER/LIST/ERROR'),
+  isLoading: createAction<boolean>('ORDER/LIST/IS_LOADING'),
+  success: createAction<OrderListActions>('ORDER/LIST/SUCCESS'),
 };
 
 export const currentOrderCreateOrUpdateActions = {
-  error: createAction('ORDER/PATCH/ERROR'),
-  isLoading: createAction('ORDER/PATCH/IS_LOADING'),
-  success: createAction('ORDER/PATCH/SUCCESS'),
-};
-
-export const currentOrderActions = {
-  error: createAction('ORDER/CURRENT/ERROR'),
-  isLoading: createAction('ORDER/CURRENT/IS_LOADING'),
-  success: createAction('ORDER/CURRENT/SUCCESS'),
-};
-
-export const productListActions = {
-  error: createAction('PRODUCT/LIST/ERROR'),
-  isLoading: createAction('PRODUCT/LIST/IS_LOADING'),
-  success: createAction('PRODUCT/LIST/SUCCESS'),
-};
-
-export const addProductActions = {
-  error: createAction('PRODUCT/ADD/ERROR'),
-  isLoading: createAction('PRODUCT/ADD/IS_LOADING'),
-  success: createAction('PRODUCT/ADD/SUCCESS'),
-};
-
-export const removeProductActions = {
-  error: createAction('PRODUCT/REMOVE/ERROR'),
-  isLoading: createAction('PRODUCT/REMOVE/IS_LOADING'),
-  success: createAction('PRODUCT/REMOVE/SUCCESS'),
+  error: createAction<Error | null>('ORDER/PATCH/ERROR'),
+  isLoading: createAction<boolean>('ORDER/PATCH/IS_LOADING'),
+  success: createAction<OrderWithProducts>('ORDER/PATCH/SUCCESS'),
 };
 
 export function fetchAllDeliveryFee(): ThunkAction {
@@ -88,7 +73,9 @@ export function fetchAllDeliveryFee(): ThunkAction {
     dispatch(deliverFeesList.isLoading(false));
   };
 }
-export function disableDeliveryFee(data: *): ThunkAction {
+export function disableDeliveryFee(
+  data: DeliveryFeeCreationOrUpdatePayload,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(deliverFeesCreateOrUpdate.isLoading(true));
     dispatch(deliverFeesCreateOrUpdate.error(null));
@@ -104,7 +91,9 @@ export function disableDeliveryFee(data: *): ThunkAction {
   };
 }
 
-export function createOrUpdateDeliveryFee(data: *): ThunkAction {
+export function createOrUpdateDeliveryFee(
+  data: DeliveryFeeCreationOrUpdatePayload,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(deliverFeesCreateOrUpdate.isLoading(true));
     dispatch(deliverFeesCreateOrUpdate.error(null));
@@ -121,7 +110,7 @@ export function createOrUpdateDeliveryFee(data: *): ThunkAction {
   };
 }
 
-export function patchConfiguration(data: *): ThunkAction {
+export function patchConfiguration(data: DeliveryConfiguration): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(configurationUpdate.isLoading(true));
     dispatch(configurationUpdate.error(null));
@@ -155,8 +144,8 @@ export function fetchConfiguration(): ThunkAction {
 
 export function patchOrder(
   id: string,
-  data_: any,
-  options: ?{ onError: ?() => void, onSuccess: ?() => void },
+  data_: Partial<Order>,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(orderDetailActions.isLoading(true));
@@ -187,39 +176,10 @@ export function resetOrders(): ThunkAction {
   };
 }
 
-export function getOrCreateCurrentOrder(companyId: ?number): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(currentOrderActions.isLoading(true));
-    dispatch(currentOrderActions.error(null));
-
-    try {
-      const { data } = await api.fetchCurrentOrder(companyId);
-      dispatch(currentOrderActions.success(data));
-    } catch (error) {
-      dispatch(currentOrderActions.error(error));
-    }
-
-    dispatch(currentOrderActions.isLoading(false));
-  };
-}
-
-export function updateCurrentOrder(id: string, data_: *): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(currentOrderCreateOrUpdateActions.isLoading(true));
-    dispatch(currentOrderCreateOrUpdateActions.error(null));
-
-    try {
-      const { data } = await api.patchOrder(id, data_);
-      dispatch(currentOrderCreateOrUpdateActions.success(data));
-    } catch (error) {
-      dispatch(currentOrderCreateOrUpdateActions.error(error));
-    }
-
-    dispatch(currentOrderCreateOrUpdateActions.isLoading(false));
-  };
-}
-
-export function fetchOrder(id: string, options: OptionCallback): ThunkAction {
+export function fetchOrder(
+  id: string,
+  options: OptionCallback<OrderWithProducts>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(orderDetailActions.isLoading(true));
     dispatch(orderDetailActions.error(null));
@@ -242,7 +202,7 @@ export function fetchOrder(id: string, options: OptionCallback): ThunkAction {
 }
 
 export function fetchOrders(): ThunkAction {
-  return async (dispatch: Dispatch, getState: () => State) => {
+  return async (dispatch: Dispatch, getState: GetState) => {
     dispatch(orderListActions.isLoading(true));
     dispatch(orderListActions.error(null));
 
@@ -267,43 +227,5 @@ export function resetAndFetchOrders(): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(resetOrders());
     dispatch(fetchOrders());
-  };
-}
-
-export function addProductToOrder(
-  productData: ProductData,
-  orderId: number,
-): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(currentOrderActions.isLoading(true));
-    dispatch(currentOrderActions.error(null));
-
-    try {
-      const { data } = await api.addProduct(productData, orderId);
-      dispatch(currentOrderActions.success(data));
-    } catch (error) {
-      dispatch(currentOrderActions.error(error));
-    }
-
-    dispatch(currentOrderActions.isLoading(false));
-  };
-}
-
-export function removeProductFromOrder(
-  productData: ProductData,
-  orderId: number,
-): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(currentOrderActions.isLoading(true));
-    dispatch(currentOrderActions.error(null));
-
-    try {
-      const { data } = await api.removeProduct(productData, orderId);
-      dispatch(currentOrderActions.success(data));
-    } catch (error) {
-      dispatch(currentOrderActions.error(error));
-    }
-
-    dispatch(currentOrderActions.isLoading(false));
   };
 }

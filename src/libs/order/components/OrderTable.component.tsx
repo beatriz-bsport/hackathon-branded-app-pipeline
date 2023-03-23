@@ -1,39 +1,35 @@
-// @flow
 import React, { Component } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MUIDataTable from 'mui-datatables';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 import {
   ORDER_STATE_CANCELLED,
   ORDER_STATE_ONSITEDELIVERY,
 } from '@bsport/common/lib/master-data/order-states';
+import { AxiosResponse } from 'axios';
 import { formatAsDatetime } from '../../../utils/datetime';
 
-import type { OrderWithProducts } from '../types';
+import type { OrderWithProducts } from '#libs/order/types';
+import { PaginatedResponse } from '../../../state/types';
 
-type PaginatedResponse = {
-  data: {
-    results: Array<*>,
-    count: number,
-    next_page: ?number,
-  },
-};
 type Props = {
-  title: string,
-  onOrderClick: (id: string) => void,
-  fetch: (page: number) => Promise<PaginatedResponse>,
-  t: TFunction,
-};
+  title: string;
+  onOrderClick: (id: string) => void;
+  fetch: (
+    page: number,
+  ) => Promise<AxiosResponse<PaginatedResponse<OrderWithProducts>>>;
+} & WithTranslation;
 
 type State = {
-  orders: Array<OrderWithProducts>,
-  loading: boolean,
-  count: number,
+  orders: Array<OrderWithProducts>;
+  loading: boolean;
+  count: number;
   tableState: {
-    page: number,
-  },
+    page: number;
+  };
 };
 
 const ORDER_PER_PAGE = 50;
@@ -73,7 +69,7 @@ const renderRow = (order: OrderWithProducts, t: TFunction) => {
 };
 
 const renderState = (state: number, t: TFunction) => {
-  let color = 'primary';
+  let color: 'primary' | 'secondary' | 'error' = 'primary';
   if (state === ORDER_STATE_CANCELLED.id) {
     color = 'error';
   }
@@ -130,7 +126,7 @@ const getColumnData = (t: TFunction) => {
 
 export class OrderTable extends Component<Props, State> {
   state = {
-    orders: [],
+    orders: [] as Array<OrderWithProducts>,
     loading: true,
     count: 0,
     tableState: {
@@ -144,7 +140,7 @@ export class OrderTable extends Component<Props, State> {
     }
   };
 
-  doFetch = (page) => {
+  doFetch = (page: number) => {
     this.props
       .fetch(page)
       .then((response) => {
@@ -202,7 +198,7 @@ export class OrderTable extends Component<Props, State> {
           ),
         },
       },
-      onTableChange: (action, tableState) => {
+      onTableChange: (_action: string, tableState: { page: number }) => {
         this.fetchPage(tableState.page + 1);
       },
     };

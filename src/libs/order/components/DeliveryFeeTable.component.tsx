@@ -1,8 +1,7 @@
-// @flow
-
 import React from 'react';
 
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,15 +12,14 @@ import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import type { DeliveryFee } from '../../../api/types';
-import withConfirm from '../../../hocs/with-confirm.hoc';
+import type { DeliveryFee } from '#libs/order/types';
+import withConfirm from '#hocs/with-confirm.hoc';
 
 type Props = {
-  deliveryFees: DeliveryFee[],
-  onEdit: (id: number) => void,
-  onDelete: (id: number) => void,
-  t: TFunction,
-};
+  deliveryFees: DeliveryFee[];
+  onEdit: (df: DeliveryFee) => void;
+  onDelete: (df: DeliveryFee) => void;
+} & WithTranslation;
 
 const DeleteButtonWithConfirm = withConfirm(Button, 'onClick', {
   title: 'order:deliveryFee.modal.delete.title',

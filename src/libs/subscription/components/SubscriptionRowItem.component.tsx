@@ -10,10 +10,12 @@ import DoneIcon from '@material-ui/icons/Done';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { isPaused } from '../utils';
+import {
+  BILLING_PLAN_STATUS_ENDED,
+  BILLING_PLAN_STATUS_PAUSED,
+} from '@bsport/common/lib/master-data/subscription-status';
 import { formatAsDate } from '../../../utils/datetime';
 import { Subscription } from '../types';
-import { BILLING_PLAN_STATUS_HAS_ENDED } from '../constants';
 
 const SubscriptionStatus = (props: { subscription: Subscription }) => {
   const classes = useStyles();
@@ -29,7 +31,7 @@ const SubscriptionStatus = (props: { subscription: Subscription }) => {
   }
   if (
     subscription.has_ended ||
-    subscription.status === BILLING_PLAN_STATUS_HAS_ENDED
+    subscription.status === BILLING_PLAN_STATUS_ENDED
   ) {
     return (
       <div className={classes.subscriptionStatus}>
@@ -38,7 +40,7 @@ const SubscriptionStatus = (props: { subscription: Subscription }) => {
       </div>
     );
   }
-  if (isPaused(subscription.pauses)) {
+  if (subscription.status === BILLING_PLAN_STATUS_PAUSED) {
     return (
       <div className={classes.subscriptionStatus}>
         <Typography variant="caption">{t('listItem.paused')}</Typography>

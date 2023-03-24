@@ -13,8 +13,6 @@ import AddIcon from '@material-ui/icons/Add';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import InfoIcon from '@material-ui/icons/Info';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
-import { getStatus, isPaused } from '../../utils';
-import { BILLING_PLAN_STATUS_IS_PAUSED } from '../../constants';
 
 import SubscriptionPaymentMethod from '../SubscriptionPaymentMethod.component';
 import RedButton from '#components/button/RedButton.component';
@@ -103,12 +101,7 @@ export const SubscriptionListItem = (props: Props) => {
   if (!subscription) {
     return null;
   }
-  const subscriptionStatus = getStatus(
-    isPaused(subscription.pauses)
-      ? BILLING_PLAN_STATUS_IS_PAUSED
-      : subscription.status,
-    t,
-  );
+  const subscriptionStatus = t(`billing_plan_status.${subscription.status}`);
   if (variant === 'listItem') {
     return (
       <ListItem className={classes.paperContainer} divider>

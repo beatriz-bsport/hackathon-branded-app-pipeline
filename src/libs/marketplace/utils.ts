@@ -20,6 +20,9 @@ export function firstOfferInGroupLocksBookingBecauseInPast(
   return moment(offerInGroup.group.first_offer_date).isSameOrBefore(moment());
 }
 export function isOfferBookableYet(offer: Offer_FULL) {
+  if (offer.meta_activity && !offer.meta_activity.first_booking_minutes_until) {
+    return true;
+  }
   if (offer.meta_activity) {
     return moment(offer.date_start)
       .add(-offer.meta_activity.first_booking_minutes_until, 'minutes')

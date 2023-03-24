@@ -4821,7 +4821,8 @@
         },
         "last_invoice_status": {
             "": [
-                "Cancelar"
+                "Cancelar",
+                "Cancelado"
             ]
         },
         "payment_method_with_credit_account": {
@@ -10890,7 +10891,7 @@
             "yearValidity": "Duración de la validez en años",
             "monthValidity": "Duración de la validez en meses",
             "dayValidity": "Duración de la validez en días",
-            "endBeforeStart": "La fecha de finalización no puede ser mayor que la fecha de inicio",
+            "endBeforeStart": "La fecha final debe ser mayor que la fecha de inicio",
             "toDate": "Hasta el",
             "fromDate": "A partir del",
             "availabilitySlot": "Hacer que la tarjeta sea válida sólo para un rango de fechas",
@@ -11478,6 +11479,12 @@
         },
         "stripeOnboardingPending": {
             "banner": "Si no ha completado la configuración de la facturación, los pagos en línea pueden estar desactivados. Haga clic aquí para completar su configuración."
+        },
+        "tab": {
+            "coach": {
+                "calendar": "Calendario",
+                "general": "Perfil"
+            }
         }
     },
     "video": {

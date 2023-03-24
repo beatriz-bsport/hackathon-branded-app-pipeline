@@ -4595,7 +4595,7 @@
             "availabilitySlot": "Rendre la carte valide uniquement sur un créneau de dates",
             "fromDate": "À partir du",
             "toDate": "Jusqu’au",
-            "endBeforeStart": "La date de fin ne peut être supérieur à la date de début",
+            "endBeforeStart": "La date de fin doit être supérieure à la date de début",
             "dayValidity": "Durée de validité en jours",
             "monthValidity": "Durée de validité en mois",
             "yearValidity": "Durée de validité en années",
@@ -6593,7 +6593,11 @@
             "credit_account": "Crédit client",
             "other": "Divers"
         },
-        "payment_method_with_credit_account": { "subscription_cb": "Paiement planifié (abonnement)", "credit_account": "Crédit client", "sepa": "SEPA" },
+        "payment_method_with_credit_account": {
+            "subscription_cb": "Paiement planifié (abonnement)",
+            "credit_account": "Crédit client",
+            "sepa": "SEPA"
+        },
         "product_type": {
             "payment_pack": "Carte de cours",
             "refund": "Remboursement crédit",

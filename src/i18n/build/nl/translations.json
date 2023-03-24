@@ -2820,6 +2820,7 @@
         },
         "last_invoice_status": {
             "": [
+                "Annuleren",
                 "Annuleren"
             ]
         },
@@ -3563,7 +3564,7 @@
             "yearValidity": "Geldigheidsduur (in jaren)",
             "monthValidity": "Geldigheidsduur (in maanden)",
             "dayValidity": "Geldigheidsduur (in dagen)",
-            "endBeforeStart": "De einddatum kan niet eerder zijn dan de startdatum",
+            "endBeforeStart": "De einddatum moet groter zijn dan de begindatum",
             "toDate": "Tot",
             "fromDate": "Van",
             "availabilitySlot": "Maak de kaart alleen tussen bepaalde data geldig",
@@ -7951,7 +7952,8 @@
                 },
                 "coach_capacity_used": {
                     "label": "Selecteer het maximaal aantal afspraken dat een instructeur tegelijk kan beheren",
-                    "helperText": "Voorbeeld: een instructeur kan 2 leden afzonderlijk bijstaan op 2 toestellen. "
+                    "helperText": "Bijvoorbeeld: een leraar kan twee leerlingen afzonderlijk helpen op twee machines.",
+                    "alertText": "Een leraar kan 1, 2, 3, 4, 6 of 12 afspraken tegelijk beheren."
                 },
                 "use_full_establishment_capacity": {
                     "label": "Vereist de gehele vestiging",
@@ -12612,6 +12614,12 @@
         },
         "stripeOnboardingPending": {
             "banner": "Klik hier om de instellingen voor (online) transacties, uitbetalingen en facturatie te voltooien en te activeren."
+        },
+        "tab": {
+            "coach": {
+                "calendar": "Kalender",
+                "general": "Profiel"
+            }
         }
     },
     "widget": {

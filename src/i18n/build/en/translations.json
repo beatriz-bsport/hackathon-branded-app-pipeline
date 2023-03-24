@@ -3552,7 +3552,8 @@
                 },
                 "coach_capacity_used": {
                     "label": "This is the maximum number of appointments that a teacher can attend to simultaneously.",
-                    "helperText": "Example: one teacher can attend two members that had booked their appointment separately. "
+                    "helperText": "Example: a teacher can monitor two students separately on two machines",
+                    "alertText": "A teacher can manage 1, 2, 3, 4, 6 or 12 appointments simultaneously."
                 },
                 "color": "Color code",
                 "use_full_establishment_capacity": {
@@ -9205,6 +9206,7 @@
         },
         "last_invoice_status": {
             "": [
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -9956,7 +9958,7 @@
             "yearValidity": "Validity (in years)",
             "monthValidity": "Validity (in months)",
             "dayValidity": "Validity (in days)",
-            "endBeforeStart": "The end date can't be greater than the start date",
+            "endBeforeStart": "The end date must be greater than the start date",
             "toDate": "Until",
             "fromDate": "From",
             "availabilitySlot": "Make this pass valid during a certain time period",
@@ -13433,6 +13435,12 @@
         },
         "stripeOnboardingPending": {
             "banner": "Click here to complete your billing set up and to activate online payments."
+        },
+        "tab": {
+            "coach": {
+                "calendar": "Calendar",
+                "general": "Profile"
+            }
         }
     },
     "video": {

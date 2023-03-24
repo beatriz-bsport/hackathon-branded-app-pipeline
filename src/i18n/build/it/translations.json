@@ -3459,6 +3459,12 @@
         },
         "stripeOnboardingPending": {
             "banner": "Se non hai completato l'impostazione della fatturazione, i pagamenti online potrebbero essere disabilitati. Clicca qui per completare la tua configurazione."
+        },
+        "tab": {
+            "coach": {
+                "calendar": "Calendario",
+                "general": "Profilo"
+            }
         }
     },
     "stripe": {
@@ -7082,6 +7088,7 @@
         "last_invoice_status": {
             "": [
                 "Annullato",
+                "Annulla",
                 "Annulla"
             ]
         },
@@ -7765,7 +7772,7 @@
             "yearValidity": "Durata della validità in anni",
             "monthValidity": "Durata della validità in mesi",
             "dayValidity": "Durata della validità in giorni",
-            "endBeforeStart": "La data di fine non può essere maggiore di quella di inizio",
+            "endBeforeStart": "La data di fine deve essere maggiore della data di inizio",
             "toDate": "Fino a",
             "fromDate": "Dal",
             "availabilitySlot": "Rendere la carta valida solo per un intervallo di date",

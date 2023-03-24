@@ -3137,7 +3137,7 @@
             "yearValidity": "Gültigkeitsdauer in Jahren",
             "monthValidity": "Gültigkeitsdauer in Monaten",
             "dayValidity": "Gültigkeitsdauer in Tagen",
-            "endBeforeStart": "Das Enddatum darf nicht höher sein als das Startdatum.",
+            "endBeforeStart": "Das Enddatum muss größer als das Startdatum sein",
             "toDate": "Bis zum",
             "fromDate": "Ab dem",
             "availabilitySlot": "Die Karte nur in einem bestimmten Datumsfenster gültig machen",

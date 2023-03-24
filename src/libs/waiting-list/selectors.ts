@@ -7,6 +7,9 @@ export const getBookingOptionConsumerList = (state: RootState) =>
 const _getForBookingIds = (state: RootState) =>
   state.waitingList.option.forBooking.allIds;
 
+const _getForMemberIds = (state: RootState) =>
+  state.waitingList.option.forMember.allIds;
+
 const _getData = (state: RootState) => state.waitingList.option.byId;
 
 export const getBookingOptionListForBooking = createSelector(
@@ -26,8 +29,7 @@ export const getBookingOptionListForBookingConvertible = createSelector(
     bookingOptionList.filter((bookingOption) => bookingOption.is_convertible),
 );
 
-export const getBookingOptionListForMember = (state: RootState) => {
-  return state.waitingList.option.forMember.allIds.map(
-    (id) => state.waitingList.option.byId[id],
-  );
-};
+export const getBookingOptionListForMember = createSelector(
+  [_getData, _getForMemberIds],
+  (data, ids) => ids.map((id) => data[id]),
+);

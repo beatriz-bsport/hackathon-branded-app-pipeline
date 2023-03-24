@@ -1,23 +1,22 @@
-// @flow
-
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import MetaActivityListItem from './MetaActivityListItem.component';
+import { OptionCallback } from '../../../state/types';
 
 import type { MetaActivity } from '../types';
 
 type Props = {
-  metaActivities: Array<MetaActivity>,
-  goToEdit: (metaActivityId: number) => void,
-  goToDetail: (id: number) => void,
+  metaActivities: Array<MetaActivity>;
+  goToEdit: (metaActivityId: number) => void;
+  goToDetail: (metaActivityId: number) => void;
   makeActivityCopy: (
     id: number,
     suffix: string,
     options?: OptionCallback,
-  ) => void,
-  deleteMetaActivity: (metaActivityId: number) => void,
-  restoreMetaActivity?: (metaActivityId: number) => Promise<>,
+  ) => void;
+  deleteMetaActivity: (metaActivityId: number) => void;
+  restoreMetaActivity?: (metaActivityId: number) => void;
 };
 
 export default function MetaActivityList(props: Props) {

@@ -1,7 +1,6 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
+import uniq from 'lodash/uniq';
 
 import {
   metaActivityListActions,
@@ -20,8 +19,10 @@ import {
   deleteMetaActivityCategoryActions,
   updateMetaActivityCategoryOrderActions,
   listAllMetaActivityCategoryActions,
+  disabledMetaActivitiesActions,
 } from './actions';
 import { MetaActivity, MetaActivityState } from './types';
+import { PaginatedResponse } from '../../state/types';
 
 const initialState: Immutable.Immutable<MetaActivityState> =
   Immutable<MetaActivityState>({
@@ -55,6 +56,14 @@ const initialState: Immutable.Immutable<MetaActivityState> =
         loading: false,
         error: null,
       },
+    },
+    disabledMetaActivities: {
+      allIds: [],
+      page: null,
+      next_page: null,
+      count: 0,
+      loading: false,
+      error: null,
     },
   });
 
@@ -357,6 +366,79 @@ export default handleActions<Immutable.Immutable<MetaActivityState>, any>(
       { payload },
     ) => {
       return state.setIn(['metaActivityCategory', 'upsert', 'error'], payload);
+    },
+    [disabledMetaActivitiesActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: PaginatedResponse<MetaActivity>;
+      },
+    ) => {
+      const newIds = payload.results.map((ma) => ma.id);
+      return state
+        .setIn(
+          ['disabledMetaActivities', 'allIds'],
+          uniq([...state.disabledMetaActivities.allIds, ...newIds]),
+        )
+        .setIn(['disabledMetaActivities', 'count'], payload.count)
+        .setIn(['disabledMetaActivities', 'page'], payload.page)
+        .setIn(['disabledMetaActivities', 'next_page'], payload.next_page)
+        .merge(
+          {
+            byId: payload.results.reduce(
+              (acc: MetaActivityState['byId'], ma) => {
+                acc[ma.id] = ma;
+                return acc;
+              },
+              {},
+            ),
+          },
+          { deep: true },
+        );
+    },
+    [disabledMetaActivitiesActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['disabledMetaActivities', 'loading'], payload);
+    },
+    [disabledMetaActivitiesActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error },
+    ) => {
+      return state.setIn(['disabledMetaActivities', 'error'], payload);
+    },
+    [disabledMetaActivitiesActions.add.toString()]: (
+      state,
+      { payload }: { payload: number },
+    ) => {
+      const metaActivity = state.byId[payload];
+      if (!metaActivity) return state;
+      return state
+        .setIn(
+          ['disabledMetaActivities', 'allIds'],
+          uniq([...state.disabledMetaActivities.allIds, payload]),
+        )
+        .setIn(
+          ['disabledMetaActivities', 'count'],
+          state.disabledMetaActivities.count + 1,
+        );
+    },
+    [disabledMetaActivitiesActions.remove.toString()]: (
+      state,
+      { payload }: { payload: number },
+    ) => {
+      return state
+        .setIn(['allIds'], uniq([...state.allIds, payload]))
+        .setIn(
+          ['disabledMetaActivities', 'allIds'],
+          state.disabledMetaActivities.allIds.filter((id) => id !== payload),
+        )
+        .setIn(
+          ['disabledMetaActivities', 'count'],
+          state.disabledMetaActivities.count - 1,
+        );
     },
   },
   initialState,

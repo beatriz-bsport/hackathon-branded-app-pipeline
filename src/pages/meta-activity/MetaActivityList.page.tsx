@@ -1,6 +1,6 @@
 import React from 'react';
 import { push, goBack } from 'connected-react-router';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { compose, withState, withHandlers } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
@@ -15,7 +15,8 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Divider from '@material-ui/core/Divider';
-import { createStyles, Theme } from '@material-ui/styles';
+import { createStyles } from '@material-ui/styles';
+import { Theme } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 
@@ -30,7 +31,8 @@ import MetaActivityList from '#libs/meta-activity/components/MetaActivityList.co
 import MetaActivityDeleteDialog from '#libs/meta-activity/components/MetaActivityDeleteDialog.component';
 import {
   getPageEnabledPureMetaActivities,
-  getPageDisabledPureMetaActivities,
+  getDisabledMetaActivityList,
+  getDisabledMetaActivitiesPaginationState,
   getMetaActivityByCategoryWithActivities,
   getEnabledMetaActivities,
   getEnabledWorkshops,
@@ -51,21 +53,23 @@ import {
   upsert,
   fetchActivitiesCompany as fetchActivitiesCompanyAction,
   fetchMetaActivities as fetchMetactivitiesAction,
+  fetchDisabledMetaActivityPaginatedList as fetchDisabledMetaActivityPaginatedListAction,
 } from '#libs/meta-activity/actions';
+import { PAGINATION_SIZE } from '#libs/meta-activity/constants';
 import { checkCanDeleteMetaActivity as canDeleteMetaActivityAPI } from '#libs/meta-activity/api/common';
 
-import type { Coach, MetaActivity, Offer } from '../../api/types';
 import { fetchMarketingNotificationList } from '#libs/marketing/actions';
 import { withBookingNotification } from '#libs/marketing/selectors';
 import { CategoryList } from '#components/ordering/CategoryList.component';
 import MetaActivityListItem from '#libs/meta-activity/components/MetaActivityListItem.component';
-import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
+import { OptionCallback, PaginatedResponse } from '../../state/types';
 import {
+  MetaActivity,
   MetaActivityCategory,
   MetaActivityCategoryWithActivities,
 } from '#libs/meta-activity/types';
 import { RootState } from '../../reducers';
-import { MaterialStyleType } from '../../utils/types';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 // import AddCategoryButton from '#components/ordering/AddCategoryButton.component';
 import CategoryCreationEditDialog from '#components/ordering/CategoryCreationEditDialog.component';
 import { redirectIfAllowed as redirectIfAllowedAction } from '#libs/role/actions';
@@ -106,18 +110,11 @@ import {
   getActiveCustomLevels,
   getAllCustomLevels,
 } from '#libs/level/selectors';
-import { Establishment } from '#libs/establishment/types';
-import { PaymentPack } from '#libs/payment-packs/types';
 import { getAvailableRoomBlueprints } from '#libs/spot-scheduling/selector';
 import { fetchRoomBlueprints } from '#libs/spot-scheduling/actions';
-import { RoomBlueprint } from '#libs/spot-scheduling/types';
 import { fetchAllCoachPaymentRules } from '#libs/coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '#libs/coach-payment-rules/selectors';
-import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
-
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
-import { Level, LevelFilterSet } from '#libs/level/types';
-import { CompanyTheme } from '#libs/theme/types';
 import { mapFormData, unmap } from '../form.utils';
 import MetaActivityEditDrawer from '#libs/meta-activity/components/MetaActivityEdit.drawer';
 
@@ -140,124 +137,26 @@ const MetaActivityMap = {
   custom_restriction_rule: 'custom_restriction_rule',
   id: 'id',
 };
-type StepType = {
-  id: number;
-  label: string;
-};
 
-type OwnProps = {
-  classes: Object;
+type RouterParamsToProps = { id: number };
 
-  id: number;
+type MetaActivityConnectedProps = ConnectedProps<typeof connector>;
 
-  compatiblePacksLoading: boolean;
-  goBack: () => void;
-  metaActivityNames: Array<string>;
-  compatiblePaymentPacks: Array<PaymentPack>;
-  availableEstablishments: Array<Establishment>;
-  fetchEstablishments: () => void;
-  SCTs: any;
+type MetaActivityHandlers = WithHandlerType<typeof handlers>;
 
-  onSubmitMetaActivity: () => void;
-  coaches: Array<Coach>;
-  fetchAssociatedCoachesList: () => void;
-  setStep: (step: StepType) => void;
-  step: StepType;
-  upsertedMetaActivity: MetaActivity;
-  fetchPaymentPacks: (id: number) => void;
-  offerHadError: Error;
-  // createOffers: () => void,
-  offerIsProcessing: boolean;
-  goToMetaActivity: (id: number) => void;
-  t: TFunction;
-  goToPaymentPackCreate: () => void;
-  resetPaymentPacks: () => void;
-  companyTheme: CompanyTheme;
-  fetchRoomBlueprints: () => void;
-  roomBlueprints: Array<RoomBlueprint>;
-  fetchAllCoachPaymentRules: () => void;
-  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
-  fetchActivitiesCompany: (
-    companyId: number,
-    data?: { customer_enabled: true },
-  ) => void;
-  fetchMetactivities: () => void;
-  fetchAllPaymentPacks: () => void;
-  fetchAllPaymentPackCategory: () => void;
-  fetchAllOffers: any;
-  allEstablishmentList: any;
-  createOrUpdatePaymentPackAction: (data: any, options: any) => void;
-  // metaActivities: any,
-  allTagsWithTagGroup: any;
-  paymentPackCategories: any;
-  createPaymentPack: (data: any, options: any) => void;
-  showPartnership: boolean;
-  metaActivityCategories: Array<MetaActivityCategoryWithActivities>;
-
-  activeCustomLevels: Level[];
-  allCustomLevels: Level[];
-  createOffers: (data: Offer, options: OptionCallback) => void;
-  fetchLevelList: (
-    params: LevelFilterSet,
-    options?: OptionPaginatedCallback<Level>,
-  ) => void;
-  updateLevel: (id: number, data: Level, options: OptionCallback) => void;
-  createLevel: (data: Level, options?: OptionCallback<Level>) => void;
-  deleteLevel: (id: number, options?: OptionCallback) => void;
-  companyId: number;
-
-  enabledMetaActivities: Array<MetaActivity>;
-  metaActivities: Array<MetaActivity>;
-  disabledMetaActivities: Array<MetaActivity>;
-  loading: boolean;
-  notificationLoading: boolean;
-
-  fetchAllMetactivities: () => void;
-  goToDetail: (metaActivityId: number) => void;
-  onCreate: () => void;
-  deleteMetaActivity: (metaActivityId: number) => void;
-  restoreMetaActivity: (MetaActivityId: number) => void;
-  setActivityToDelete: (id: number) => void;
-  activityToDelete: (activity: number) => void;
-  fetchMarketingNotificationList: (params: any) => void;
-
-  goToPaymentPack: () => void;
-
-  makeActivityCopy: (
-    id: number,
-    suffix: string,
-    options?: OptionCallback,
-  ) => void;
-
-  metaActivityCategoriesWithActivities: Array<MetaActivityCategoryWithActivities>;
-  fetchAllMetaActivityCategory: (companyId?: number) => void;
-  upsertMetaActivityCategory: (
-    category: MetaActivityCategory,
-    options?: OptionCallback,
-  ) => void;
-  deleteMetaActivityCategory: (
-    category: MetaActivityCategoryWithActivities,
-    options?: OptionCallback<MetaActivityCategoryWithActivities>,
-  ) => void;
-  editOrderMetaActivity: (
-    data: Array<{ id: number; ordering_in_category: number }>,
-    options?: OptionCallback,
-  ) => void;
-  updateMetaActivityCategoryOrder: (
-    data: Array<{ id: number; category_ordering: number }>,
-    options?: OptionCallback,
-  ) => void;
-  categoryLoading: boolean;
-  fetchMetaActivityBulkAfterCategoryDelete: (ids: Array<number>) => void;
-  selectedMetaActivity: MetaActivityCategoryWithActivities;
-  setSelectedMetaActivityId: (id: null | number) => void;
+type StateToProps = {
+  setSelectedMetaActivityId: (metaActivityId: null | number) => void;
   selectedMetaActivityId: null | number;
-  onSubmit: (values: MetaActivity, options: OptionCallback) => void;
+  setActivityToDelete: (metaActivityId: number) => void;
+  activityToDelete: number;
 };
 
-type Props = OwnProps &
+type Props = RouterParamsToProps &
   MaterialStyleType<ReturnType<typeof styles>> &
-  WithTranslation;
+  WithTranslation &
+  MetaActivityConnectedProps &
+  MetaActivityHandlers &
+  StateToProps;
 
 type State = {
   searchText: string;
@@ -281,7 +180,8 @@ export class MetaActivityListPage extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.fetchActivitiesCompany(this.props.companyId);
+    this.fetchEnabledMetaActivityList();
+    this.fetchDisabledMetaActivityList();
 
     this.props.fetchAllMetaActivityCategory();
     this.props.fetchMarketingNotificationList({
@@ -337,8 +237,36 @@ export class MetaActivityListPage extends React.Component<Props, State> {
     this.setState({ formIsOpen: false });
   };
 
-  fetchAllActivities = () =>
-    this.props.fetchActivitiesCompany(this.props.companyId);
+  fetchEnabledMetaActivityList = (options?: OptionCallback) =>
+    this.props.fetchActivitiesCompany(
+      this.props.companyId,
+      {
+        customer_enabled: true,
+        is_workshop: false,
+      },
+      options,
+    );
+
+  fetchDisabledMetaActivityList = (
+    options?: OptionCallback<PaginatedResponse<MetaActivity>>,
+  ) =>
+    this.props.fetchDisabledMetaActivityPaginatedList(
+      this.props.companyId,
+      {
+        page: 1,
+        pageSize: PAGINATION_SIZE,
+        isWorkshop: false,
+      },
+      options,
+    );
+
+  fetchMoreDisabledMetaActivities = () => {
+    this.props.fetchDisabledMetaActivityPaginatedList(this.props.companyId, {
+      page: this.props.disabledMetaActivitiesPagination.nextPage,
+      pageSize: PAGINATION_SIZE,
+      isWorkshop: false,
+    });
+  };
 
   renderCreateActivity = () => {
     return (
@@ -377,7 +305,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         fetchAllOffers={this.props.fetchAllOffers}
         fetchRoomBlueprints={this.props.fetchRoomBlueprints}
         fetchAllCoachPaymentRules={this.props.fetchAllCoachPaymentRules}
-        fetchAllActivities={this.fetchAllActivities}
+        fetchAllActivities={this.fetchEnabledMetaActivityList}
         fetchMetactivities={this.props.fetchMetactivities}
         fetchAllPaymentPackCategory={this.props.fetchAllPaymentPackCategory}
         createOrUpdatePaymentPackAction={
@@ -533,6 +461,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
             >
               <Typography variant="h5">
                 {`${t('metaActivity:disabledMetaActivities')} (${
+                  this.props.disabledMetaActivitiesPagination?.count ||
                   (this.props.disabledMetaActivities || []).length
                 })`}
               </Typography>
@@ -557,6 +486,23 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                 makeActivityCopy={this.props.makeActivityCopy}
                 restoreMetaActivity={this.restoreMetaActivity}
               />
+              {!!this.props.disabledMetaActivitiesPagination?.nextPage &&
+                !!this.props.disabledMetaActivitiesPagination
+                  ?.remainingCount && (
+                  <div className={classes.showMoreContainer}>
+                    <Button
+                      variant="outlined"
+                      onClick={this.fetchMoreDisabledMetaActivities}
+                      color="primary"
+                    >
+                      {this.props.t('common:showMore', {
+                        count:
+                          this.props.disabledMetaActivitiesPagination
+                            .remainingCount,
+                      })}
+                    </Button>
+                  </div>
+                )}
             </Collapse>
           </div>
         )}
@@ -632,147 +578,168 @@ const styles = (theme: Theme) =>
       paddingLeft: theme.spacing(2),
       paddingTop: theme.spacing(2),
     },
+    showMoreContainer: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginTop: theme.spacing(2),
+    },
   });
+
+const connector = connect(
+  (
+    state: RootState,
+    { selectedMetaActivityId }: { selectedMetaActivityId: number | null },
+  ) => ({
+    metaActivities: uniqBy(
+      [
+        ...getEnabledMetaActivities(state),
+        ...getEnabledWorkshops(state),
+        ...getActivitiesByIdList(state, []),
+      ],
+      'id',
+    ),
+    selectedMetaActivity: getMetaActivity(state, selectedMetaActivityId),
+    SCTs: getEditableSCTs(state),
+    enabledMetaActivities: withBookingNotification(
+      getPageEnabledPureMetaActivities,
+    )(state),
+    disabledMetaActivities: getDisabledMetaActivityList(state),
+    disabledMetaActivitiesPagination:
+      getDisabledMetaActivitiesPaginationState(state),
+    loading: state.metaActivity.loading, // REMOVED (glitch): || state.metaActivity.delete.loading,
+    notificationLoading: state.marketingNotification.loading,
+    metaActivityCategories: getMetaActivityCategories(state),
+    metaActivityCategoriesWithActivities:
+      getMetaActivityByCategoryWithActivities(
+        withBookingNotification(getPageEnabledPureMetaActivities),
+      )(state),
+    categoryLoading: state.metaActivity.metaActivityCategory.loading,
+    // from MetaActivityCreate now
+    offerIsProcessing: state.offer.create.loading,
+    offerHadError: state.offer.create.error,
+    availableEstablishments: getAvailableEstablishmentList(state),
+    metaActivityNames: [
+      ...getEnabledMetaActivities(state),
+      ...getEnabledWorkshops(state),
+    ].map((ma) => ma.name),
+    coaches: getActiveCoaches(state),
+    upsertedMetaActivity: state.metaActivity.upsert.data,
+    companyTheme: themeSelectors.getTheme(state),
+    compatiblePaymentPacks: {
+      items: getActivityCompatiblePaymentPacks(state),
+      count: state.paymentPack.byActivity.count,
+      page: state.paymentPack.byActivity.page,
+      loading: state.paymentPack.byActivity.loading,
+    },
+    roomBlueprints: getAvailableRoomBlueprints(state),
+    coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
+    allEstablishmentList: getAllEstablishments(state),
+    allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+    paymentPackCategories: getAllPaymentPackCategory(state),
+    showPartnership: state.theme.theme.has_partnership,
+    activeCustomLevels: getActiveCustomLevels(state),
+    allCustomLevels: getAllCustomLevels(state),
+    companyId: state.theme.theme.company,
+  }),
+  {
+    makeActivityCopy: makeActivityCopyAction,
+    goToDetail: (metaActivityId: number) =>
+      push(`/activity/${metaActivityId}/general`),
+    redirectIfAllowed: redirectIfAllowedAction,
+    deleteMetaActivity,
+    restoreMetaActivity,
+    fetchMarketingNotificationList,
+    fetchAllMetaActivityCategory,
+    upsertMetaActivityCategory,
+    deleteMetaActivityCategory,
+    editOrderMetaActivity,
+    updateMetaActivityCategoryOrder,
+    fetchMetaActivityBulkAfterCategoryDelete,
+    goBack,
+    fetchEstablishments,
+    fetchAssociatedCoachesList,
+    fetchPaymentPacks: fetchActivityCompatiblePaymentPacksAction,
+    upsertMetaActivity: upsert,
+    resetPaymentPacks: resetCompatiblePaymentPacksAction,
+    goToMetaActivity: (id: number) => push(`/activity/${id}/general`),
+    goToPaymentPackCreate: () => push('/payment-pack/add'),
+    fetchAllOffers: fetchAllOffersAction,
+    fetchRoomBlueprints,
+    fetchAllCoachPaymentRules,
+    fetchActivitiesCompany: fetchActivitiesCompanyAction,
+    fetchMetactivities: fetchMetactivitiesAction,
+    fetchAllPaymentPackCategory,
+    createOrUpdatePaymentPackAction: createPaymentPack,
+    createOffers: createOffersActions,
+    fetchLevelList: fetchLevelListAction,
+    updateLevel: updateLevelAction,
+    createLevel: createLevelAction,
+    deleteLevel: deleteLevelAction,
+    fetchDisabledMetaActivityPaginatedList:
+      fetchDisabledMetaActivityPaginatedListAction,
+  },
+);
+
+type HandlersProps = MetaActivityConnectedProps &
+  RouterParamsToProps &
+  StateToProps;
+const handlers = {
+  makeActivityCopy:
+    ({ makeActivityCopy, fetchActivitiesCompany, companyId }: HandlersProps) =>
+    (id: number, suffix: string) => {
+      makeActivityCopy(id, suffix, {
+        onSuccess: () =>
+          fetchActivitiesCompany(companyId, { customer_enabled: true }),
+      });
+    },
+  onSubmit:
+    ({
+      selectedMetaActivityId,
+      upsertMetaActivity,
+      setSelectedMetaActivityId,
+    }: HandlersProps) =>
+    (values: any, options: OptionCallback) => {
+      try {
+        const formData = mapFormData(values, MetaActivityMap);
+        formData.append('id', selectedMetaActivityId);
+        formData.append('is_workshop', false);
+        upsertMetaActivity(formData, {
+          ...options,
+          onSuccess: () => {
+            if (options.onSuccess) options.onSuccess();
+            setSelectedMetaActivityId(null);
+          },
+          onError: (err) => {
+            console.error(err);
+            if (options?.onError) options.onError(err);
+          },
+        });
+      } catch (err) {
+        console.error(err);
+        if (options?.onError) options.onError(err);
+      }
+    },
+  goToPaymentPack:
+    ({ redirectIfAllowed }: HandlersProps) =>
+    () => {
+      redirectIfAllowed('/payment-pack', {
+        newWindow: false,
+        deniedAccessDialog: { display: true },
+      });
+    },
+};
 
 export default compose(
   withStyles(styles),
-  withTranslation(['metaActivity', 'titles']),
+  withTranslation(['metaActivity', 'titles', 'common']),
   withState('selectedMetaActivityId', 'setSelectedMetaActivityId', null),
+  withState('activityToDelete', 'setActivityToDelete', null),
   routerParamsToProps({ id: 'id:number' }),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:metaActivity.metaActivityList'),
   ),
-  connect(
-    (state: RootState, { selectedMetaActivityId }) => ({
-      metaActivities: uniqBy(
-        [
-          ...getEnabledMetaActivities(state),
-          ...getEnabledWorkshops(state),
-          ...getActivitiesByIdList(state, []),
-        ],
-        'id',
-      ),
-      selectedMetaActivity: getMetaActivity(state, selectedMetaActivityId),
-      SCTs: getEditableSCTs(state),
-      enabledMetaActivities: withBookingNotification(
-        getPageEnabledPureMetaActivities,
-      )(state),
-      disabledMetaActivities: getPageDisabledPureMetaActivities(state),
-      loading: state.metaActivity.loading || state.metaActivity.delete.loading,
-      notificationLoading: state.marketingNotification.loading,
-      metaActivityCategories: getMetaActivityCategories(state),
-      metaActivityCategoriesWithActivities:
-        getMetaActivityByCategoryWithActivities(
-          withBookingNotification(getPageEnabledPureMetaActivities),
-        )(state),
-      categoryLoading: state.metaActivity.metaActivityCategory.loading,
-      // from MetaActivityCreate now
-      offerIsProcessing: state.offer.create.loading,
-      offerHadError: state.offer.create.error,
-      availableEstablishments: getAvailableEstablishmentList(state),
-      metaActivityNames: [
-        ...getEnabledMetaActivities(state),
-        ...getEnabledWorkshops(state),
-      ].map((ma) => ma.name),
-      coaches: getActiveCoaches(state),
-      upsertedMetaActivity: state.metaActivity.upsert.data,
-      companyTheme: themeSelectors.getTheme(state),
-      compatiblePaymentPacks: {
-        items: getActivityCompatiblePaymentPacks(state),
-        count: state.paymentPack.byActivity.count,
-        page: state.paymentPack.byActivity.page,
-        loading: state.paymentPack.byActivity.loading,
-      },
-      roomBlueprints: getAvailableRoomBlueprints(state),
-      coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
-      allEstablishmentList: getAllEstablishments(state),
-      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
-      paymentPackCategories: getAllPaymentPackCategory(state),
-      showPartnership: state.theme.theme.has_partnership,
-      activeCustomLevels: getActiveCustomLevels(state),
-      allCustomLevels: getAllCustomLevels(state),
-      companyId: state.theme.theme.company,
-    }),
-    {
-      makeActivityCopy: makeActivityCopyAction,
-      goToDetail: (metaActivityId: number) =>
-        push(`/activity/${metaActivityId}/general`),
-      redirectIfAllowed: redirectIfAllowedAction,
-      deleteMetaActivity,
-      restoreMetaActivity,
-      fetchMarketingNotificationList,
-      fetchAllMetaActivityCategory,
-      upsertMetaActivityCategory,
-      deleteMetaActivityCategory,
-      editOrderMetaActivity,
-      updateMetaActivityCategoryOrder,
-      fetchMetaActivityBulkAfterCategoryDelete,
-      goBack,
-      fetchEstablishments,
-      fetchAssociatedCoachesList,
-      fetchPaymentPacks: fetchActivityCompatiblePaymentPacksAction,
-      upsertMetaActivity: upsert,
-      resetPaymentPacks: resetCompatiblePaymentPacksAction,
-      goToMetaActivity: (id: number) => push(`/activity/${id}/general`),
-      goToPaymentPackCreate: () => push('/payment-pack/add'),
-      fetchAllOffers: fetchAllOffersAction,
-      fetchRoomBlueprints,
-      fetchAllCoachPaymentRules,
-      fetchActivitiesCompany: fetchActivitiesCompanyAction,
-      fetchMetactivities: fetchMetactivitiesAction,
-      fetchAllPaymentPackCategory,
-      createOrUpdatePaymentPackAction: createPaymentPack,
-      createOffers: createOffersActions,
-      fetchLevelList: fetchLevelListAction,
-      updateLevel: updateLevelAction,
-      createLevel: createLevelAction,
-      deleteLevel: deleteLevelAction,
-    },
-  ),
-  withHandlers({
-    makeActivityCopy:
-      ({ makeActivityCopy, fetchActivitiesCompany, companyId }) =>
-      (id: number, suffix: string) => {
-        makeActivityCopy(id, suffix, {
-          onSuccess: () =>
-            fetchActivitiesCompany(companyId, { customer_enabled: true }),
-        });
-      },
-    onSubmit:
-      ({
-        selectedMetaActivityId,
-        upsertMetaActivity,
-        setSelectedMetaActivityId,
-      }) =>
-      (values: any, options: OptionCallback) => {
-        try {
-          const formData = mapFormData(values, MetaActivityMap);
-          formData.append('id', selectedMetaActivityId);
-          formData.append('is_workshop', false);
-          upsertMetaActivity(formData, {
-            ...options,
-            onSuccess: () => {
-              if (options.onSuccess) options.onSuccess();
-              setSelectedMetaActivityId(null);
-            },
-            onError: (err) => {
-              console.error(err);
-              if (options?.onError) options.onError(err);
-            },
-          });
-        } catch (err) {
-          console.error(err);
-          if (options?.onError) options.onError(err);
-        }
-      },
-    goToPaymentPack:
-      ({ redirectIfAllowed }) =>
-      () => {
-        redirectIfAllowed('/payment-pack', {
-          newWindow: false,
-          deniedAccessDialog: { display: true },
-        });
-      },
-  }),
-  withState('activityToDelete', 'setActivityToDelete', null),
+  connector,
+  withHandlers(handlers),
 )(MetaActivityListPage);

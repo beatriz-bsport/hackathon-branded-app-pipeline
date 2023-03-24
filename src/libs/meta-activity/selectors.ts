@@ -219,3 +219,23 @@ export const withCustomRestrictionsTags = memoize((selector: any) =>
     },
   ),
 );
+
+export const getDisabledMetaActivityIdList = (state: RootState) =>
+  state.metaActivity.disabledMetaActivities.allIds;
+
+export const getDisabledMetaActivityList = createSelector(
+  [getDisabledMetaActivityIdList, getPureMetaActivitiesDict],
+  (idList, metaActivities) =>
+    idList.map((id) => metaActivities[id]).filter((ma) => !!ma),
+);
+
+export const getDisabledMetaActivitiesPaginationState = (state: RootState) => {
+  const { count, page, next_page, allIds } =
+    state.metaActivity.disabledMetaActivities;
+  return {
+    count,
+    page,
+    nextPage: next_page,
+    remainingCount: count - allIds.length,
+  };
+};

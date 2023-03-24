@@ -2,7 +2,12 @@ import * as Sentry from '@sentry/react';
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import type {
+  Dispatch,
+  ThunkAction,
+  OptionCallback,
+  PaginatedResponse,
+} from '../../state/types';
 
 import { getFreshPureMetaActivityList } from './selectors';
 
@@ -33,6 +38,8 @@ import {
   MetaActivityCategoryWithActivities,
   MetaActivityFilter,
 } from './types';
+
+import { PAGINATION_SIZE } from './constants';
 
 export const metaActivityBulkActions = {
   isLoading: createAction('META_ACTIVITIES/BULK/IS_LOADING'),
@@ -149,9 +156,16 @@ export function deleteMetaActivity(
     dispatch(deleteAction.error(null));
 
     try {
-      await deleteMetaActivityAPI(id);
+      const response = await deleteMetaActivityAPI(id);
+      const payload = { [response.data.id]: response.data };
       dispatch(snackbarSuccess('metaActivity.del.success'));
       dispatch(deleteAction.success(id));
+      // Update the dict
+      dispatch(metaActivityDetailActions.success(payload));
+      if (!response.data.customer_enabled) {
+        // we can safely add it to the disabled list
+        dispatch(disabledMetaActivitiesActions.add(id));
+      }
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       dispatch(deleteAction.error(err));
@@ -466,6 +480,10 @@ export function restoreMetaActivity(id: number, options: OptionCallback) {
       const response = await restoreMetaActivityAPI(id);
       const payload = { [response.data.id]: response.data };
       dispatch(metaActivityDetailActions.success(payload));
+      if (response.data.customer_enabled) {
+        // we can safely remove it from the disabled list
+        dispatch(disabledMetaActivitiesActions.remove(id));
+      }
       dispatch(snackbarSuccess('metaActivity.restore.success'));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
@@ -607,5 +625,55 @@ export function deleteMetaActivityCategory(
       if (options && options.onError) options.onError();
     }
     dispatch(deleteMetaActivityCategoryActions.loading(false));
+  };
+}
+
+export const disabledMetaActivitiesActions = {
+  error: createAction<Error>('DISABLED_META_ACTIVITY/PAGINATED_LIST/ERROR'),
+  isLoading: createAction<boolean>(
+    'DISABLED_META_ACTIVITY/PAGINATED_LIST/IS_LOADING',
+  ),
+  success: createAction<PaginatedResponse<MetaActivity>>(
+    'DISABLED_META_ACTIVITY/PAGINATED_LIST/SUCCESS',
+  ),
+  add: createAction<number>('DISABLED_META_ACTIVITY/UPDATE_LIST/ADD'),
+  remove: createAction<number>('DISABLED_META_ACTIVITY/UPDATE_LIST/REMOVE'),
+};
+
+export function fetchDisabledMetaActivityPaginatedList(
+  companyId: number,
+  queryParams: {
+    page?: number;
+    pageSize?: number;
+    isWorkshop?: boolean;
+  },
+  options?: OptionCallback<PaginatedResponse<MetaActivity>>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    if (!companyId) return;
+    dispatch(disabledMetaActivitiesActions.isLoading(true));
+    dispatch(disabledMetaActivitiesActions.error(null));
+
+    try {
+      const { page, pageSize, isWorkshop } = queryParams;
+      const response = await fetchAllActivitiesAPI({
+        page_size: pageSize || PAGINATION_SIZE,
+        companyId,
+        page: page || 1,
+        customer_enabled: false,
+        ...(isWorkshop !== undefined ? { is_workshop: isWorkshop } : {}),
+      });
+      dispatch(disabledMetaActivitiesActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      if (options && options.onError) {
+        options.onError(err);
+      }
+      console.error(err);
+      dispatch(disabledMetaActivitiesActions.error(err));
+    }
+    dispatch(disabledMetaActivitiesActions.isLoading(false));
   };
 }

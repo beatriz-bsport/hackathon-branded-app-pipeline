@@ -1,4 +1,4 @@
-import { ErrorAndLoading } from '../types';
+import { ErrorAndLoading, GenericListReducerI } from '#libs/types';
 
 type MetaActivityImage = {
   id: number;
@@ -77,6 +77,7 @@ export type MetaActivityState = ErrorAndLoading & {
       error?: Error;
     };
   };
+  disabledMetaActivities: GenericListReducerI;
 };
 
 export type MetaActivityFilter = {

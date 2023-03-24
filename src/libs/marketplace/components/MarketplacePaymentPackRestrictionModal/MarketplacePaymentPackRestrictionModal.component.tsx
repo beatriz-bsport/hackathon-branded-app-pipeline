@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -48,35 +48,49 @@ const MarketplacePaymentPackRestrictionModal: React.FC<Props> = ({
                   <ul className="bs-restriction-modal__list">
                     {!!paymentPack.max_bookings_per_day && (
                       <li className="bs-restriction-modal__list__item">
-                        {t(
-                          'genericCardDetails.includedElements.restrictions.maxPerDay',
-                          { count: paymentPack.max_bookings_per_day },
-                        )}
+                        <Trans
+                          t={t}
+                          i18nKey="genericCardDetails.includedElements.restrictions.maxPerDay"
+                          count={paymentPack.max_bookings_per_day}
+                        >
+                          Maximum usage per day:{' '}
+                          <strong>
+                            {{ count: paymentPack.max_bookings_per_day }}
+                          </strong>
+                        </Trans>
                       </li>
                     )}
                     {!!paymentPack.max_bookings_per_week && (
                       <li className="bs-restriction-modal__list__item">
-                        {t(
-                          'genericCardDetails.includedElements.restrictions.maxPerWeek',
-                          {
-                            count: paymentPack.max_bookings_per_week,
-                          },
-                        )}
+                        <Trans
+                          t={t}
+                          i18nKey="genericCardDetails.includedElements.restrictions.maxPerWeek"
+                          count={paymentPack.max_bookings_per_week}
+                        >
+                          Maximum usage per week:{' '}
+                          <strong>
+                            {{ count: paymentPack.max_bookings_per_week }}
+                          </strong>
+                        </Trans>
                       </li>
                     )}
                     {!!paymentPack.max_bookings_per_month && (
                       <li className="bs-restriction-modal__list__item">
-                        {t(
-                          'genericCardDetails.includedElements.restrictions.maxPerMonth',
-                          {
-                            count: paymentPack.max_bookings_per_month,
-                          },
-                        )}
+                        <Trans
+                          t={t}
+                          i18nKey="genericCardDetails.includedElements.restrictions.maxPerMonth"
+                          count={paymentPack.max_bookings_per_month}
+                        >
+                          Maximum usage per month:{' '}
+                          <strong>
+                            {{ count: paymentPack.max_bookings_per_month }}
+                          </strong>
+                        </Trans>
                       </li>
                     )}
                   </ul>
                 </Item>
-                <Item rowStart={3}>
+                <Item alignment={Alignment.FLEX_END} rowStart={3}>
                   <button
                     className="bs-restriction-modal__button"
                     type="button"

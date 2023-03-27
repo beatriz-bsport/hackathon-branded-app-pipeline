@@ -9,30 +9,24 @@ import {
   ORDER_STATE_CANCELLED,
   ORDER_STATE_ONSITEDELIVERY,
 } from '@bsport/common/lib/master-data/order-states';
-import { AxiosResponse } from 'axios';
 import { formatAsDatetime } from '../../../utils/datetime';
 
 import type { OrderWithProducts } from '#libs/order/types';
-import { PaginatedResponse } from '../../../state/types';
 
 type Props = {
   title: string;
   onOrderClick: (id: string) => void;
-  fetch: (
-    page: number,
-  ) => Promise<AxiosResponse<PaginatedResponse<OrderWithProducts>>>;
+  orders: OrderWithProducts<number>[];
+  loading: boolean;
+  count: number | null;
+  onChange: any;
 } & WithTranslation;
 
 type State = {
-  orders: Array<OrderWithProducts>;
-  loading: boolean;
-  count: number;
-  tableState: {
-    page: number;
-  };
+  tableState: { page: number };
 };
 
-const ORDER_PER_PAGE = 50;
+export const ORDER_PER_PAGE = 50;
 
 const renderRows = (orders: Array<OrderWithProducts>, t: TFunction) => {
   return orders.map((order) => renderRow(order, t));
@@ -126,46 +120,31 @@ const getColumnData = (t: TFunction) => {
 
 export class OrderTable extends Component<Props, State> {
   state = {
-    orders: [] as Array<OrderWithProducts>,
-    loading: true,
-    count: 0,
     tableState: {
       page: 1,
     },
   };
 
-  fetchPage = (page: number) => {
-    if (this.state.tableState.page !== page) {
-      this.doFetch(page);
+  componentDidMount() {
+    this.props.onChange(1);
+  }
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (prevState.tableState !== this.state.tableState) {
+      this.props.onChange(this.state.tableState.page);
+    }
+  }
+
+  handlePageChange = (newPage: number) => {
+    if (newPage !== this.state.tableState.page) {
+      this.setState((prevState) => ({
+        tableState: { ...prevState.tableState, page: newPage },
+      }));
     }
   };
 
-  doFetch = (page: number) => {
-    this.props
-      .fetch(page)
-      .then((response) => {
-        this.setState((prevState) => ({
-          orders: response.data.results,
-          count: response.data.count,
-          loading: false,
-          tableState: {
-            ...prevState.tableState,
-            page,
-          },
-        }));
-      })
-      .catch((err) => {
-        console.error(err);
-        this.setState({ loading: false });
-      });
-  };
-
-  componentDidMount() {
-    this.doFetch(1);
-  }
-
   onRowClick = (rowData: any, { rowIndex }: { rowIndex: number }) => {
-    this.props.onOrderClick(this.state.orders[rowIndex].id);
+    this.props.onOrderClick(this.props.orders[rowIndex].id);
   };
 
   render() {
@@ -174,8 +153,8 @@ export class OrderTable extends Component<Props, State> {
       serverSide: true,
       rowsPerPage: ORDER_PER_PAGE,
       rowsPerPageOptions: [ORDER_PER_PAGE],
-      loading: this.state.loading,
-      count: this.state.count,
+      loading: this.props.loading,
+      count: this.props.count,
       tableState: this.state.tableState,
       filter: false,
       search: false,
@@ -191,20 +170,20 @@ export class OrderTable extends Component<Props, State> {
       },
       textLabels: {
         body: {
-          noMatch: this.state.loading ? (
+          noMatch: this.props.loading ? (
             <CircularProgress />
           ) : (
             'Sorry, there is no order data to display'
           ),
         },
       },
-      onTableChange: (_action: string, tableState: { page: number }) => {
-        this.fetchPage(tableState.page + 1);
+      onTableChange: (action, tableState: { page: number }) => {
+        this.handlePageChange(tableState.page + 1);
       },
     };
     return (
       <MUIDataTable
-        data={renderRows(this.state.orders, this.props.t)}
+        data={renderRows(this.props.orders, this.props.t)}
         columns={getColumnData(this.props.t)}
         options={options}
         title={this.props.title}

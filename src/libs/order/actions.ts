@@ -201,18 +201,19 @@ export function fetchOrder(
   };
 }
 
-export function fetchOrders(): ThunkAction {
+export function fetchOrders(chosenPage?: number): ThunkAction {
   return async (dispatch: Dispatch, getState: GetState) => {
     dispatch(orderListActions.isLoading(true));
     dispatch(orderListActions.error(null));
 
     try {
       const page = getState().order.order.nextPage;
-      const res = await api.fetchOrders(page);
+      const res = await api.fetchOrders(chosenPage ?? page);
       dispatch(
         orderListActions.success({
-          orders: [...getState().order.order.items, ...res.data.results],
+          orders: [...res.data.results],
           nextPage: res.data.next_page,
+          count: res.data.count,
         }),
       );
     } catch (error) {

@@ -54,6 +54,7 @@ const initialState: Immutable.Immutable<OrderState> = Immutable<OrderState>({
       loading: false,
       error: null,
     },
+    count: null,
   },
   product: {
     items: [],
@@ -168,7 +169,8 @@ export default handleActions<Immutable.Immutable<OrderState>, any>(
     ) => {
       return state
         .setIn(['order', 'items'], payload.orders)
-        .setIn(['order', 'nextPage'], payload.nextPage);
+        .setIn(['order', 'nextPage'], payload.nextPage)
+        .setIn(['order', 'count'], payload.count);
     },
     [orderDetailActions.isLoading.toString()]: (
       state,

@@ -104,6 +104,7 @@ export type OrderState = {
       loading: boolean;
       error?: Error;
     };
+    count?: number | null;
   };
   product: {
     items: Array<Product>;
@@ -119,4 +120,5 @@ export type OrderState = {
 export type OrderListActions = {
   nextPage: number | null;
   orders: Array<OrderWithProducts>;
+  count?: number;
 };

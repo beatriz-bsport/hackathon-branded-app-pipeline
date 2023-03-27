@@ -5,24 +5,42 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import OrderTable from '#libs/order/components/OrderTable.component';
-import { fetchOrders } from '#libs/order/api';
+import { fetchOrders as fetchOrdersAction } from '#libs/order/actions';
 import withTitle from '#hocs/with-title.hoc';
+import {
+  getAllOrdersItems,
+  getOrdersListLoading,
+  getOrdersListCount,
+} from '#libs/order/selectors';
+import { RootState } from '../../reducers';
 
 type Props = ConnectedProps<typeof connector>;
 
 export const OrderList: React.FC<Props> = (props: Props) => {
+  const { fetchOrders, goToOrderPage, orders, count, loading } = props;
   return (
     <OrderTable
       title=""
-      fetch={fetchOrders}
-      onOrderClick={props.goToOrderPage}
+      orders={orders}
+      count={count}
+      loading={loading}
+      onOrderClick={goToOrderPage}
+      onChange={fetchOrders}
     />
   );
 };
 
-const connector = connect(null, {
-  goToOrderPage: (id: string) => pushRouter(`/order/${id}/`),
-});
+const connector = connect(
+  (state: RootState) => ({
+    orders: getAllOrdersItems(state),
+    count: getOrdersListCount(state),
+    loading: getOrdersListLoading(state),
+  }),
+  {
+    goToOrderPage: (id: string) => pushRouter(`/order/${id}/`),
+    fetchOrders: fetchOrdersAction,
+  },
+);
 
 export default compose(
   connector,

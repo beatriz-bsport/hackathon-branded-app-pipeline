@@ -4,10 +4,17 @@ import type { RootState } from '../../reducers';
 import type { OrderWithProducts } from '#libs/order/types';
 import { getMemberDetailData } from '#libs/member/selectors';
 
-const getAll = (state: RootState) => state.order.order.items;
+const getOrderState = (state: RootState) => state.order.order;
+
+export const getAllOrdersItems = (state: RootState) =>
+  getOrderState(state).items;
+export const getOrdersListLoading = (state: RootState) =>
+  getOrderState(state).loading;
+export const getOrdersListCount = (state: RootState) =>
+  getOrderState(state).count;
 
 export const getOrder = (state: RootState, id: string) =>
-  getAll(state).find((order) => order.id === id);
+  getAllOrdersItems(state).find((order) => order.id === id);
 
 const getDeliveryFees = (state: RootState) => state.order.deliveryFee.items;
 
@@ -38,4 +45,9 @@ export const withMember = memoize(
     }),
 );
 
-export default { get: getOrder, getAll };
+export default {
+  get: getOrder,
+  getAllOrdersItems,
+  getOrdersListLoading,
+  getOrdersListCount,
+};

@@ -123,7 +123,7 @@ const StepperForm = withTranslation(['metaActivity'])(
 export class MetaActivityCreateDrawer extends Component<Props> {
   constructor(props: Props) {
     super(props);
-    this.topDrawerRef = React.createRef<HTMLDivElement>();
+    this.topDrawerRef = React.createRef<HTMLDivElement>(null);
   }
 
   componentDidMount() {

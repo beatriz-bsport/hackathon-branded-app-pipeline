@@ -1019,6 +1019,8 @@
       "de": "Allemand",
       "it": "Italien",
       "nl": "Néerlandais",
+      "pt": "Portuguais",
+      "cs": "Tchèque",
       "none": "Automatique"
     }
   },
@@ -2606,7 +2608,8 @@
       "it": "italien",
       "nl": "néerlandais",
       "es": "espagnol",
-      "pt": "Portuguais"
+      "pt": "portuguais",
+      "cs": "tchèque"
     }
   },
   "marketing": {

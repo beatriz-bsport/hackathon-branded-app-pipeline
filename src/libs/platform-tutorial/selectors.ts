@@ -61,7 +61,7 @@ export const getUserTutorialStatistics = (state: RootState) =>
 
 const translateSection = (
   section: TutorialSection,
-  language: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it',
+  language: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it' | 'pt' | 'cs',
 ) => {
   return {
     ...section,
@@ -70,7 +70,7 @@ const translateSection = (
 };
 export const translateLesson = (
   lesson: TutorialLesson,
-  language: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it',
+  language: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it' | 'pt' | 'cs',
 ) => {
   return {
     ...lesson,
@@ -87,7 +87,7 @@ export const translateSectionsWithLessons = memoize(
       [selector, (state, lng) => lng],
       (
         sectionsWithLessons: TutorialSection[] | TutorialSection,
-        userLanguage: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it',
+        userLanguage: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it' | 'pt' | 'cs',
       ) => {
         if (!sectionsWithLessons) {
           return sectionsWithLessons;

@@ -247,6 +247,7 @@ exports.default = {
     it: 'italien',
     nl: 'néerlandais',
     es: 'espagnol',
-    pt: 'Portuguais',
+    pt: 'portuguais',
+    cs: 'tchèque',
   },
 };

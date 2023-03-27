@@ -62,7 +62,7 @@ type OwnProps = {
   selectedLesson: TutorialLesson;
   finishAllDialog: boolean;
   defaultSelectedSectionId: string;
-  selectedLanguage: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it';
+  selectedLanguage: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it' | 'pt' | 'cs';
 };
 
 type State = {

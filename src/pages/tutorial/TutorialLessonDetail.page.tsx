@@ -67,7 +67,7 @@ type OwnProps = {
   lessonId: string;
   sectionRestricted: boolean;
   lessonRestricted: boolean;
-  selectedLanguage: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it';
+  selectedLanguage: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it' | 'pt' | 'cs';
   checkTutorialPermission: boolean;
 };
 

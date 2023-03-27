@@ -21,6 +21,8 @@ import IE_FLAG from './flags/IE.png';
 import DE_FLAG from './flags/DE.png';
 // import CH_FLAG from './flags/CH.png';
 import AT_FLAG from './flags/AT.png';
+import PT_FLAG from './flags/PT.png';
+import CZ_FLAG from './flags/CZ.png';
 
 type Props = {
   onChange: (e: SyntheticEvent<HTMLElement>) => void,
@@ -65,6 +67,14 @@ const localeList: Array<Locale> = [
   {
     country: 'ES',
     icon: ES_FLAG,
+  },
+  {
+    country: 'PT',
+    icon: PT_FLAG,
+  },
+  {
+    country: 'CZ',
+    icon: CZ_FLAG,
   },
 ];
 

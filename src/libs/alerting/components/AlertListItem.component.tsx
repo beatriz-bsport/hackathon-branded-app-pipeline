@@ -404,7 +404,7 @@ const NewTutorialSectionOrLessonListItem = (props: {
   const { section_names, lesson_names, section_id, lesson_id, new_section } =
     alerting.data;
   const notificationType = new_section ? 'newSection' : 'newLesson';
-  const lang: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it' = [
+  const lang: 'en' | 'fr' | 'es' | 'nl' | 'de' | 'it' | 'pt' | 'cs' = [
     'en-GB',
     'en-US',
   ].includes(i18n?.language)

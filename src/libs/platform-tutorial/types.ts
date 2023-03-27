@@ -8,6 +8,8 @@ export type LanguageDict = {
   nl: string;
   de: string;
   it: string;
+  pt: string;
+  cs: string;
 };
 
 export type TutorialSection = {

@@ -916,6 +916,12 @@ export function fetchMarketplaceOfferByMetaActivityList(
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(offerMarketplaceByMetaActivityListActions.init(metaActivityId));
+    dispatch(
+      offerMarketplaceByMetaActivityListActions.isLoading({
+        metaActivityId,
+        value: true,
+      }),
+    );
     const { filters } = params;
 
     try {

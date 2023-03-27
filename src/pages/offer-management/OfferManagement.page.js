@@ -473,10 +473,11 @@ export default compose(
         });
       },
     deleteBooking:
-      ({ refresh, cancelBooking, fetchOfferStatus, id }) =>
+      ({ refresh, cancelBooking, fetchOfferStatus, fetchOffer, id }) =>
       (bookingId, ordering_field, options, data) => {
         cancelBooking(bookingId, data || {}, {
           onSuccess: () => {
+            fetchOffer(id);
             fetchOfferStatus(id);
             refresh(ordering_field);
             if (options && options.onSuccess) {

@@ -3,7 +3,6 @@ import { Moment as MomentType } from 'moment-timezone';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import BlockIcon from '@material-ui/icons/Block';
 import { Theme, WithStyles, withStyles, createStyles } from '@material-ui/core';
@@ -12,23 +11,19 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Divider from '@material-ui/core/Divider';
-import SettingsIcon from '@material-ui/icons/Settings';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Collapse from '@material-ui/core/Collapse';
-import FilterIcon from '@material-ui/icons/FilterList';
 import Typography from '@material-ui/core/Typography';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import Button from '@material-ui/core/Button';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ViewWeek from '@material-ui/icons/ViewWeek';
 import ViewComfy from '@material-ui/icons/ViewComfy';
 import { Moment } from '../../i18n';
 
-import { DATE_FORMAT, formatAsTitle } from '../../utils/datetime';
+import { DATE_FORMAT } from '../../utils/datetime';
 import { CalendarDay } from './CalendarDay.component';
+import { CalendarHeader } from './CalendarHeader.component';
 
 export const WEEKMODE = 0;
 export const MONTHMODE = 1;
@@ -92,23 +87,9 @@ class Calendar extends PureComponent<Props, State> {
     );
   };
 
-  renderCalendarTitle = () => {
-    const dateSelected = this.getDateSelected();
+  showNext = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
 
-    if (this.state.displayMode === MONTHMODE) {
-      const dateMonth = Moment.months()[dateSelected.month()];
-      const dateYear = dateSelected.year();
-      return `${dateMonth} ${dateYear}`;
-    }
-
-    const startDate = dateSelected.clone().startOf('week');
-    const date_end = startDate.clone().add(6, 'days');
-    return `${formatAsTitle(startDate.format(DATE_FORMAT))} - ${formatAsTitle(
-      date_end.format(DATE_FORMAT),
-    )}`;
-  };
-
-  showNext = () => {
     const dateSelected = this.getDateSelected();
 
     this.props.onDateChange(
@@ -118,7 +99,9 @@ class Calendar extends PureComponent<Props, State> {
     );
   };
 
-  showPrevious = () => {
+  showPrevious = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+
     const dateSelected = this.getDateSelected();
 
     this.props.onDateChange(
@@ -144,51 +127,6 @@ class Calendar extends PureComponent<Props, State> {
     this.setState({
       isMenuOpen: false,
     });
-  };
-
-  renderHeader = () => {
-    const { t, classes, searchBar, toggleSearchBar } = this.props;
-
-    return (
-      <div className={classes.rowCentered}>
-        <div className={classes.trick}>
-          {((!this.props.forceMonthDisplay &&
-            !this.props.hideSwitchViewButton) ||
-            !!this.props.setShowCancelledOffers ||
-            !!this.props.onRequestMassDisable ||
-            !!this.props.onDownload) && (
-            <IconButton ref={this.anchorRef} onClick={this.handleOpenMenu}>
-              <SettingsIcon />
-            </IconButton>
-          )}
-          {!!searchBar && (
-            <Button onClick={toggleSearchBar}>
-              <FilterIcon />
-
-              <Typography className={classes.filterLabel} variant="subtitle2">
-                {t('calendar.filter')}
-              </Typography>
-            </Button>
-          )}
-        </div>
-        <div className={classes.dateRow}>
-          <IconButton onClick={this.showPrevious}>
-            <ChevronLeftIcon />
-          </IconButton>
-          <Typography
-            component="h3"
-            variant="h6"
-            className={classes.textCapitalize}
-          >
-            {this.renderCalendarTitle()}
-          </Typography>
-          <IconButton id="calendar-next-month" onClick={this.showNext}>
-            <ChevronRightIcon />
-          </IconButton>
-        </div>
-        <div className={classes.trick} />
-      </div>
-    );
   };
 
   handleToggleCancelDisplay = () => {
@@ -378,7 +316,23 @@ class Calendar extends PureComponent<Props, State> {
   render() {
     return (
       <div id="calendar" className={this.props.classes.calendarContainer}>
-        {this.renderHeader()}
+        <CalendarHeader
+          forceMonthDisplay={this.props.forceMonthDisplay}
+          hideSwitchViewButton={this.props.hideSwitchViewButton}
+          setShowCancelledOffers={this.props.setShowCancelledOffers}
+          onRequestMassDisable={this.props.onRequestMassDisable}
+          onDownload={this.props.onDownload}
+          searchBar={this.props.searchBar}
+          toggleSearchBar={this.props.toggleSearchBar}
+          displayMode={this.state.displayMode}
+          getDateSelected={this.getDateSelected}
+          dateSelected={this.props.date}
+          handleOpenMenu={this.handleOpenMenu}
+          showPrevious={this.showPrevious}
+          showNext={this.showNext}
+          onDateChange={this.props.onDateChange}
+          ref={this.anchorRef}
+        />
         {this.renderSearchBar()}
         {!this.props.hideDateBar && (
           <div className={this.props.classes.dayRow}>
@@ -393,17 +347,9 @@ class Calendar extends PureComponent<Props, State> {
 
 const styles = (theme: Theme) =>
   createStyles({
-    trick: {
-      flex: '1',
-      [theme.breakpoints.down('xs')]: { flex: '0' },
-    },
     calendarContainer: {
       width: '100%',
       marginBottom: theme.spacing(2),
-    },
-    dateRow: {
-      display: 'flex',
-      alignItems: 'center',
     },
     dayButton: {
       padding: theme.spacing(1),
@@ -463,31 +409,17 @@ const styles = (theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'center',
     },
-    textCapitalize: {
-      textTransform: 'capitalize',
-    },
     row: {
       display: 'flex',
       flexDirection: 'row',
     },
 
-    rowCentered: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'relative',
-      flexWrap: 'wrap-reverse',
-    },
     weekRow: {
       width: '100%',
     },
     absoluteLeft: {
       position: 'absolute',
       left: 0,
-    },
-    filterLabel: {
-      marginLeft: theme.spacing(1),
     },
     dayButonInRange: {
       borderRadius: 0,

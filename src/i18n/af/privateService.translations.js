@@ -386,6 +386,7 @@ exports.default = {
   calendar: {
     header: {
       threeDaysView: '3 jours',
+      dateSelector: 'Sélecteur de date',
     },
     enableAvailability: 'Ajouter une disponibilité ce jour',
     disableAvailability: 'Supprimer la disponibilité',

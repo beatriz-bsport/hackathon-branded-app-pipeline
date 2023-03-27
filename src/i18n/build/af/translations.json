@@ -4187,7 +4187,7 @@
     "extraordinaryEstablishment": "(lieu temporaire)",
     "substitute": "Remplaçant",
     "pendingReplacementRequest": "Une demande de remplacement est ouverte",
-    "calendar": { "modifyOffer": "Modifier", "deleteOffer": "Annuler", "filter": "Filtrer" },
+    "calendar": { "modifyOffer": "Modifier", "deleteOffer": "Annuler", "filter": "Filtrer", "today": "Aujourd'hui" },
     "manageOffer": "Gérer mes réservations",
     "restoreOffer": "Restaurer la séance",
     "forms": { "old_date": "Ancien horaire :", "new_date": "Nouvel horaire :", "delete": { "buttonHardDelete": "Supprimer" } },
@@ -5838,7 +5838,7 @@
       }
     },
     "calendar": {
-      "header": { "threeDaysView": "3 jours" },
+      "header": { "threeDaysView": "3 jours", "dateSelector": "Sélecteur de date" },
       "enableAvailability": "Ajouter une disponibilité ce jour",
       "disableAvailability": "Supprimer la disponibilité",
       "enableRecurrentAvailability": "Ajouter une disponibilité récurrente",

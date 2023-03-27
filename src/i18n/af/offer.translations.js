@@ -30,6 +30,7 @@ exports.default = {
     modifyOffer: 'Modifier',
     deleteOffer: 'Annuler',
     filter: 'Filtrer',
+    today: "Aujourd'hui",
   },
   manageOffer: 'Gérer mes réservations',
   restoreOffer: 'Restaurer la séance',

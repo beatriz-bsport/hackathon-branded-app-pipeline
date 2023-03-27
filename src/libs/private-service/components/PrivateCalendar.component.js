@@ -25,6 +25,8 @@ import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import InfoIcon from '@material-ui/icons/Info';
+import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
+import MomentUtils from '@date-io/moment';
 
 // import momentTimezonePlugin from '@fullcalendar/moment-timezone';
 
@@ -49,6 +51,7 @@ import './custom.scss';
 import i18n, { Moment } from '../../../i18n';
 import type { AvailabilitySlot, PrivateBooking } from '../types';
 import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.component';
+import { DATE_FORMAT } from '../../../utils/datetime';
 
 const EVENT_DEFAULT_COLOR = '#8fdf82';
 
@@ -389,6 +392,8 @@ export class PrivateCalendar extends React.Component<Props, State> {
     date_start: null,
     date_end: null,
     availabilityDetailData: null,
+
+    datePickerOpen: false,
   };
 
   select = (eventSlotSelected: EventSlot) => {
@@ -428,6 +433,10 @@ export class PrivateCalendar extends React.Component<Props, State> {
       });
     }
   }
+
+  openDatePicker = () => {
+    this.setState({ datePickerOpen: true });
+  };
 
   zoomIn = () =>
     this.props.setScheduleFilter({
@@ -654,6 +663,18 @@ export class PrivateCalendar extends React.Component<Props, State> {
     return `${dateStart.format('DD MMM')} - ${dateEnd.format('DD MMM YYYY')}`;
   };
 
+  setNewDate = (newDate) => {
+    this.calendarRef.current.getApi().gotoDate(new Date(newDate));
+  };
+
+  onCloseDatePicker = () => {
+    this.setState({ datePickerOpen: false });
+  };
+
+  hiddenDiv = () => {
+    return <div style={{ display: 'none' }} />;
+  };
+
   render() {
     const { classes, t } = this.props;
     const { events, allDaySlot } = this.getAvailableSlotAsEvents(
@@ -689,6 +710,28 @@ export class PrivateCalendar extends React.Component<Props, State> {
             {this.getSimilarDateDisplayAsFullCalendar()}
           </div>
         )}
+        <div>
+          <MuiPickersUtilsProvider
+            utils={MomentUtils}
+            moment={moment}
+            locale={moment.locale()}
+          >
+            <DatePicker
+              onChange={this.setNewDate}
+              value={null}
+              TextFieldComponent={this.hiddenDiv}
+              DialogProps={{ open: this.state.datePickerOpen }}
+              initialFocusedDate={
+                this.calendarRef.current
+                  ? moment(this.calendarRef.current.getApi().getDate()).format(
+                      DATE_FORMAT,
+                    )
+                  : moment().format(DATE_FORMAT)
+              }
+              onClose={this.onCloseDatePicker}
+            />
+          </MuiPickersUtilsProvider>
+        </div>
         <FullCalendar
           ref={this.calendarRef}
           plugins={[
@@ -708,6 +751,10 @@ export class PrivateCalendar extends React.Component<Props, State> {
             zoomOut: {
               text: '-',
               click: this.zoomOut,
+            },
+            datePicker: {
+              text: t('calendar.header.dateSelector'),
+              click: this.openDatePicker,
             },
           }}
           views={{
@@ -729,8 +776,8 @@ export class PrivateCalendar extends React.Component<Props, State> {
             left: 'prev,next today',
             center: isWidthUp('sm', this.props.width) ? 'title' : '',
             right: this.props.resourceDatatypeView
-              ? 'zoomOut,zoomIn resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
-              : 'zoomOut,zoomIn timeGridDay,timeGridWeek,dayGridMonth',
+              ? 'datePicker zoomOut,zoomIn resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
+              : 'datePicker zoomOut,zoomIn timeGridDay,timeGridWeek,dayGridMonth',
           }}
           schedulerLicenseKey="0617518912-fcs-1639035029"
           filterResourcesWithEvents

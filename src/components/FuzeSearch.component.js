@@ -57,7 +57,7 @@ export class FuzeSearch extends React.Component<Props> {
           fullWidth
           onChange={this.props.changeSearch(fuse)}
           delay={170}
-          disableAutoFocus={this.props.disableAutoFocus}
+          autoFocus={!this.props.disableAutoFocus}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

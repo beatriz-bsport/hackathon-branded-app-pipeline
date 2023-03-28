@@ -7,9 +7,12 @@ import {
   retrieveCommunicationSentAction,
   flagAllUnreadCommunicationsAsReadInContextActions,
   getUnreadAnswersCountActions,
+  fetchCommunicationProviderSettingsActions,
+  updateCommunicationProviderSettingsActions,
 } from './actions';
 
 import type { CommunicationState, Recipient, Communication } from './types';
+import { COMMUNICATION_KIND } from './constants';
 
 const initialState: Immutable.Immutable<CommunicationState> =
   Immutable<CommunicationState>({
@@ -43,6 +46,35 @@ const initialState: Immutable.Immutable<CommunicationState> =
       loading: false,
       error: null,
       count: 0,
+    },
+    company_communication_provider: {
+      email: {
+        provider: null,
+        loading: false,
+        error: null,
+        update: {
+          loading: false,
+          error: null,
+        },
+      },
+      sms: {
+        provider: null,
+        loading: false,
+        error: null,
+        update: {
+          loading: false,
+          error: null,
+        },
+      },
+      push_notification: {
+        provider: null,
+        loading: false,
+        error: null,
+        update: {
+          loading: false,
+          error: null,
+        },
+      },
     },
   });
 
@@ -201,6 +233,52 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
     },
     [getUnreadAnswersCountActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['unreadAnswers', 'count'], payload);
+    },
+    [fetchCommunicationProviderSettingsActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['company_communication_provider', payload.kind, 'error'],
+        payload.error,
+      );
+    },
+    [fetchCommunicationProviderSettingsActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['company_communication_provider', payload.kind, 'loading'],
+        payload.loading,
+      );
+    },
+    [fetchCommunicationProviderSettingsActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      const kind = COMMUNICATION_KIND[payload.kind];
+      return state.setIn(
+        ['company_communication_provider', kind, 'provider'],
+        payload,
+      );
+    },
+    [updateCommunicationProviderSettingsActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['company_communication_provider', payload.kind, 'update', 'error'],
+        payload.error,
+      );
+    },
+    [updateCommunicationProviderSettingsActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['company_communication_provider', payload.kind, 'update', 'loading'],
+        payload.loading,
+      );
     },
   },
   initialState,

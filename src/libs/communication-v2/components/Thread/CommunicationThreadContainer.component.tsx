@@ -38,6 +38,7 @@ type OwnProps = {
   recipientListCount: number;
   resolvedGenericTags: ResolvedGenericTags;
   scrollToBottomFlag: boolean;
+  showMailProviderWarningContent: boolean;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles;
@@ -105,6 +106,7 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
       paginationSize,
       recipientList,
       recipientListCount,
+      showMailProviderWarningContent,
     } = this.props;
     let modalContextTitle = '';
     let modalContextInformation = '';
@@ -125,6 +127,18 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
               variantIcon="outlined"
               alignItems="flex-start"
               type="error"
+              withCollapse
+            />
+          </div>
+        )}
+        {showMailProviderWarningContent && (
+          <div className={classes.consentContainer}>
+            <InfoGenericBox
+              content={t('mail.warningProvider')}
+              variant="contained"
+              variantIcon="outlined"
+              alignItems="flex-start"
+              type="warning"
               withCollapse
             />
           </div>
@@ -174,10 +188,10 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
 
 const styles: any = (theme: Theme) => ({
   consentContainer: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    marginLeft: theme.spacing(4),
-    marginRight: theme.spacing(4),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       marginLeft: theme.spacing(3),
       marginRight: theme.spacing(3),

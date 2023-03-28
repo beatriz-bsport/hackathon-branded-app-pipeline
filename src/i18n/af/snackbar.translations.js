@@ -1155,4 +1155,10 @@ exports.default = {
       message: "Vous ne pouvez pas accéder à l'espace demandé",
     },
   },
+  communicationProviderSettings: {
+    update: {
+      success: 'Modifications enregistrées',
+      error: 'Impossible de sauvegarder les modifications',
+    },
+  },
 };

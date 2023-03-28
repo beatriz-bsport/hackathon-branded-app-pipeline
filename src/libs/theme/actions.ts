@@ -31,18 +31,17 @@ export function fetchCompanyTheme(
       const theme = response.data;
       moment.tz.setDefault(theme.timezone_name);
       dispatch(themeDetail.success(theme));
-      dispatch(themeDetail.isLoading(false));
       if (options && options.onSuccess) {
         options.onSuccess(theme);
       }
     } catch (err) {
       console.error(err);
       dispatch(themeDetail.error(err));
-      dispatch(themeDetail.isLoading(false));
       if (options && options.onError) {
         options.onError(err);
       }
     }
+    dispatch(themeDetail.isLoading(false));
   };
 }
 

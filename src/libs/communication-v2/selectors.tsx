@@ -74,3 +74,11 @@ export const getThreadCommunicationListHasNextPage = (state: RootState) =>
 
 export const getThreadCommunicationListLoading = (state: RootState) =>
   !!state.communicationV2.sent.thread.loading;
+
+export const getIsTwoWayEmailActivated = (state: RootState): boolean => {
+  const provider =
+    state.communicationV2.company_communication_provider.email.provider;
+  let isTwoWayEmailActivated = false;
+  if (provider) isTwoWayEmailActivated = provider.is_two_way_email_activated;
+  return isTwoWayEmailActivated;
+};

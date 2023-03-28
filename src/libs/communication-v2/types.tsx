@@ -1,6 +1,11 @@
 import { ErrorAndLoading, GenericListReducerI } from '#libs/types';
 import { Member, MemberFilter } from '#libs/member/types';
 
+export type CommunicationProviderState = {
+  provider?: CommunicationProvider;
+  update: ErrorAndLoading;
+} & ErrorAndLoading;
+
 export type CommunicationState = {
   recipient: {
     byId: { [id: number]: Recipient<number> };
@@ -14,6 +19,11 @@ export type CommunicationState = {
   send: ErrorAndLoading;
   flagAsReadByContext: ErrorAndLoading;
   unreadAnswers: { count: number } & ErrorAndLoading;
+  company_communication_provider: {
+    email: CommunicationProviderState;
+    sms: CommunicationProviderState;
+    push_notification: CommunicationProviderState;
+  };
 };
 
 export type Recipient<MemberType = number> = {
@@ -151,4 +161,14 @@ export type FilteringMemberIdsByGenericCategories = {
     categoryLabel: string;
   }>;
   filterPlaceholder: string;
+};
+
+export type CommunicationProvider = {
+  company: number;
+  kind: number;
+  is_two_way_email_activated: boolean;
+};
+
+export type CommunicationProviderSettings = {
+  is_two_way_email_activated: boolean;
 };

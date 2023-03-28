@@ -86,6 +86,7 @@ export type Theme = {
   is_roll_call_mandatory: boolean;
   no_show_validated_number_of_hours: number;
   no_show_email_sent_number_of_hours: number;
+  is_two_way_email_activated: boolean;
 };
 
 export type ThemeState = {

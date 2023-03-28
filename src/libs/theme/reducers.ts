@@ -14,6 +14,7 @@ export const initialState: Immutable.Immutable<ThemeState> =
       primary_color: colors.primary,
       secondary_color: colors.secondary,
       cover: null,
+      is_two_way_email_activated: true,
     },
 
     createOrUpdate: {

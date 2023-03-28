@@ -81,6 +81,8 @@ exports.default = {
       'Attention ! Ce membre a désactivé la possibilité de lui envoyer des emails promotionnels. Les emails directs permettent de discuter avec vos membres de manière simple et rapide. Ils ne doivent pas servir à des fins publicitaires ou promotionnelles.',
     warningConsent2:
       "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des emails directs.",
+    warningProvider:
+      "Attention, les réponses des membres à ce message n'apparaitront pas sur la plateforme mais directement dans votre boîte mail. Pour qu'ils apparaissent tous ici, modifiez le paramètre de communication dans la page Paramètres/Personnalisation.",
   },
   recipients: 'Destinataires',
   common: {
@@ -339,5 +341,14 @@ exports.default = {
   generic: {
     communication: 'Communication',
     history: 'Historique',
+  },
+  forms: {
+    title: 'Paramètres du chat',
+    submit: 'Sauvegarder',
+    twoWayEmail: {
+      title: 'Recevoir les réponses par email sur la plateforme',
+      description:
+        "Attention, les réponses par mail des membres n'apparaitront plus dans votre boîte mail mais directement sur la plateforme.",
+    },
   },
 };

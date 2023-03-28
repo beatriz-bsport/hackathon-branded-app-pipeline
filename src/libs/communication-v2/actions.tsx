@@ -10,6 +10,8 @@ import {
   flagCommunicationRecipientAsRead as flagCommunicationRecipientAsReadAPI,
   flagAllUnreadCommunicationsAsReadInContext as flagAllUnreadCommunicationsAsReadInContextAPI,
   getUnreadAnswersCount as getUnreadAnswersCountAPI,
+  fetchCommunicationProviderSettings as fetchCommunicationProviderSettingsAPI,
+  updateCommunicationProviderSettings as updateCommunicationProviderSettingsAPI,
 } from './api';
 import {
   FetchCommunicationParams,
@@ -17,6 +19,7 @@ import {
   Communication,
   Recipient,
   CommunicationContext,
+  CommunicationProviderSettings,
 } from './types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from './constants';
 
@@ -248,5 +251,97 @@ export function getUnreadAnswersCount(
       dispatch(getUnreadAnswersCountActions.error(error));
     }
     dispatch(getUnreadAnswersCountActions.isLoading(false));
+  };
+}
+
+// --------- COMPANY COMMUNICATION PROVIDERS ---------
+
+export const fetchCommunicationProviderSettingsActions = {
+  error: createAction('COMMUNICATION_PROVIDER/FETCH/ERROR'),
+  success: createAction('COMMUNICATION_PROVIDER/FETCH/SUCCESS'),
+  isLoading: createAction('COMMUNICATION_PROVIDER/FETCH/IS_LOADING'),
+};
+
+export function fetchCommunicationProviderSettings(kind: string): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      fetchCommunicationProviderSettingsActions.isLoading({
+        loading: true,
+        kind,
+      }),
+    );
+    dispatch(
+      fetchCommunicationProviderSettingsActions.error({
+        error: null,
+        kind,
+      }),
+    );
+    try {
+      const response = await fetchCommunicationProviderSettingsAPI(kind);
+      dispatch(
+        fetchCommunicationProviderSettingsActions.success(response.data),
+      );
+    } catch (error) {
+      dispatch(
+        fetchCommunicationProviderSettingsActions.error({
+          error,
+          kind,
+        }),
+      );
+    }
+    dispatch(
+      fetchCommunicationProviderSettingsActions.isLoading({
+        loading: false,
+        kind,
+      }),
+    );
+  };
+}
+
+export const updateCommunicationProviderSettingsActions = {
+  error: createAction('COMMUNICATION_PROVIDER/UPDATE/ERROR'),
+  isLoading: createAction('COMMUNICATION_PROVIDER/UPDATE/IS_LOADING'),
+};
+
+export function updateCommunicationProviderSettings(
+  kind: string,
+  data: CommunicationProviderSettings,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      updateCommunicationProviderSettingsActions.isLoading({
+        loading: true,
+        kind,
+      }),
+    );
+    dispatch(
+      updateCommunicationProviderSettingsActions.error({
+        error: null,
+        kind,
+      }),
+    );
+    try {
+      const response = await updateCommunicationProviderSettingsAPI(kind, data);
+      dispatch(
+        fetchCommunicationProviderSettingsActions.success(response.data),
+      );
+      dispatch(snackbarSuccess('communicationProviderSettings.update.success'));
+      if (options && options.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(
+        updateCommunicationProviderSettingsActions.error({
+          error,
+          kind,
+        }),
+      );
+      dispatch(snackbarError('communicationProviderSettings.update.error'));
+    }
+    dispatch(
+      updateCommunicationProviderSettingsActions.isLoading({
+        loading: false,
+        kind,
+      }),
+    );
   };
 }

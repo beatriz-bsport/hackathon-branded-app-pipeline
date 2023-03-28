@@ -17,6 +17,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
 import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
+import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communication-kind';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import CommunicationHeader from './CommunicationHeader.component';
 import CommunicationFilterContainer from './Filter/CommunicationFilterContainer.component';
@@ -263,6 +264,10 @@ export class CommunicationDrawer extends React.Component<Props, State> {
         this.state.communicationKindBeingWritten,
         t,
       );
+    const showMailProviderWarningContent: boolean =
+      this.state.showMessageWritter &&
+      this.state.communicationKindBeingWritten === COMMUNICATION_KIND_EMAIL &&
+      !theme.is_two_way_email_activated;
     return (
       <GenericResponsiveDrawer
         open={openDrawer}
@@ -317,6 +322,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
               !!this.state.filterDateStart ||
               !!this.state.filters.length
             }
+            showMailProviderWarningContent={showMailProviderWarningContent}
           />
         </div>
         {contextIdentifier !== CONTEXT_NOTIFICATION && (

@@ -107,3 +107,10 @@ export const COMMUNICATION_FILTER_SRC_OR_DST = [
   COMMUNICATION_SRC_OR_DST_RECEIVED,
 ];
 // ------------------------------------
+
+// COMPANY COMMUNICATION PROVIDER
+export const COMMUNICATION_KIND = {
+  [COMMUNICATION_KIND_EMAIL]: 'email',
+  [COMMUNICATION_KIND_PUSH_NOTIFICATION]: 'push_notification',
+  [COMMUNICATION_KIND_SMS]: 'sms',
+};

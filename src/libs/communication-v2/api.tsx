@@ -1,9 +1,17 @@
 import { AxiosResponse } from 'axios';
-import { API_V1_URI, postAuth, getAuth, buildUrlParams } from '../../http';
+import {
+  API_V1_URI,
+  postAuth,
+  getAuth,
+  buildUrlParams,
+  patchAuth,
+} from '../../http';
 import {
   MessageParams,
   FetchCommunicationParams,
   CommunicationContext,
+  CommunicationProvider,
+  CommunicationProviderSettings,
 } from './types';
 import { FetchRecipientsParams } from '#libs/member/types';
 
@@ -80,4 +88,19 @@ export const flagAllUnreadCommunicationsAsReadInContext = async (
       params,
     )}`,
   );
+};
+
+export const fetchCommunicationProviderSettings = async (
+  kind: string,
+): Promise<AxiosResponse<CommunicationProvider>> => {
+  // Overrides get_object method in the backend: replaces 0 by the good pk
+  return getAuth(`${API_V1_URI}/communication/provider/${kind}/0/`);
+};
+
+export const updateCommunicationProviderSettings = async (
+  kind: string,
+  data: CommunicationProviderSettings,
+): Promise<AxiosResponse<CommunicationProvider>> => {
+  // idem
+  return patchAuth(`${API_V1_URI}/communication/provider/${kind}/0/`, data);
 };

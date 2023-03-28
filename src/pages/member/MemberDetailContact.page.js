@@ -3,7 +3,6 @@ import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import isEqual from 'lodash/isEqual';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import {
@@ -28,27 +27,9 @@ type Props = {
   resolvedGenericTags: ResolvedGenericTags,
 } & WithTranslation;
 export class MemberDetailContact extends React.Component<Props> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filteredCampaignList: [],
-    };
-  }
-
   componentDidMount() {
     this.props.fetchCampaignList(1);
     this.props.fetchResolvedGenericTags();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (
-      !isEqual(
-        prevProps.campaignRecipientList,
-        this.props.campaignRecipientList,
-      )
-    ) {
-      this.getFilteredCampaignList();
-    }
   }
 
   getFilteredCampaignList = () => {
@@ -56,16 +37,14 @@ export class MemberDetailContact extends React.Component<Props> {
       ([, b]) => !!b,
     );
 
-    this.setState({
-      filteredCampaignList,
-    });
+    return filteredCampaignList;
   };
 
   render() {
     return (
       <React.Fragment>
         <CampaignList
-          campaignList={this.state.filteredCampaignList}
+          campaignList={this.getFilteredCampaignList()}
           loading={this.props.loading}
           fetchMore={
             this.props.nextPage && this.props.nextPage > 1

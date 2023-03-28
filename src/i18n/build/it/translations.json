@@ -1635,6 +1635,9 @@
             },
             "error": {
                 "atLeastOneThing": "Devi aggiungere almeno un articolo nel tuo pacchetto"
+            },
+            "unusableByStaff": {
+                "label": "Non visibile per lo staff"
             }
         },
         "detail": {
@@ -1654,7 +1657,10 @@
             "list": "Pacchetto"
         },
         "edit": "Modifica",
-        "search": "Cerca un pack"
+        "search": "Cerca un pack",
+        "parameters": {
+            "unusableByStaff": "Non visibile per lo staff"
+        }
     },
     "communication": {
         "table": {
@@ -2609,7 +2615,8 @@
                 "nbCredits_plural": "{{ credits }} crediti",
                 "managerOnly": "Invisibile ai clienti",
                 "price": "{{ price, price}}",
-                "tax": "I.V.A. :{{ tax }}%"
+                "tax": "I.V.A. :{{ tax }}%",
+                "unusableByStaff": "Non visibile per lo staff"
             },
             "edit": "Modifica",
             "disabledTitle": "Pass per appuntamenti archiviati",
@@ -2624,6 +2631,9 @@
             "ht": "Tasse escluse",
             "actions": {
                 "forceRegularizeUnpaid": "Regolarizzare tutti i pagamenti in sospeso"
+            },
+            "listItem": {
+                "unusableByStaff": "Non visibile per lo staff"
             }
         },
         "openCalendar": "Vedi il calendario",
@@ -6049,6 +6059,9 @@
                 },
                 "settings": {
                     "title": "Impostazioni"
+                },
+                "unusableByStaff": {
+                    "label": "Non visibile per lo staff"
                 }
             },
             "legal": "Informazioni legali",
@@ -6491,7 +6504,8 @@
             "2": "Interrotto",
             "1": "In corso",
             "0": "Non ancora iniziato"
-        }
+        },
+        "invisibleForStaffToolTip": "Non visibile per lo staff"
     },
     "reporting": {
         "columns": {
@@ -6982,7 +6996,8 @@
             "payment_method_with_credit_account": {
                 "13": "SEPA",
                 "10": "Pagamento automatico",
-                "9": "Credito cliente"
+                "9": "Credito cliente",
+                "0": "Carta"
             }
         },
         "presetValuesByIdentifier": {
@@ -7089,13 +7104,15 @@
             "": [
                 "Annullato",
                 "Annulla",
+                "Annulla",
                 "Annulla"
             ]
         },
         "payment_method_with_credit_account": {
             "13": "SEPA",
             "10": "Pagamento automatico",
-            "9": "Credito cliente"
+            "9": "Credito cliente",
+            "0": "Carta"
         }
     },
     "alerting": {
@@ -7683,7 +7700,7 @@
         "selector": {
             "noAvailable": "Nessuna carta corrispondente alla disponibilità scelta",
             "noManagerOnly": "Disponibile per la vendita",
-            "managerOnly": "Non disponibile per la vendita",
+            "managerOnly": "Non visibile per i clienti",
             "filterManagerOnly": "Tutte le disponibilità",
             "filterCategory": "Tutte le categorie",
             "titleSort": "Ordina",
@@ -7695,7 +7712,8 @@
                 "descendingPrice": "Prezzo decrescente",
                 "ascendingPrice": "Prezzo crescente",
                 "customSort": "Ordine lato client (mercato e app)"
-            }
+            },
+            "unusableByStaff": "Non visibile per lo staff"
         },
         "cardDetails": {
             "packBlocking2": " cancellazioni fuori tempo massimo in una settimana",
@@ -7732,7 +7750,7 @@
             "room": "Camere",
             "categories": "Categorie",
             "inShopPayment": "Possibilità di pagare sul posto",
-            "notForSell": "Non disponibile per la vendita",
+            "notForSell": "Non visibile per i clienti",
             "newClientOnly": "Solo per i nuovi clienti",
             "maxUseMember": "Acquisto massimo per membro",
             "maxUseMonth": "Usi massimi al mese",
@@ -7805,7 +7823,8 @@
                     "label": "In relazione alle cancellazioni tardive in ciascun affiliato"
                 },
                 "label": "Applicazione del deposito"
-            }
+            },
+            "unusableByStaff": "Non visibile per lo staff"
         },
         "paymentPackTemplate": {
             "actions": {
@@ -7903,7 +7922,10 @@
             "week_plural": "Carta limitata a {{count}} utilizzi massimi a settimana"
         },
         "next": "Successivo",
-        "previous": "Precedente"
+        "previous": "Precedente",
+        "listItem": {
+            "unusableByStaff": "Non visibile per lo staff"
+        }
     },
     "metaActivity": {
         "detail": {

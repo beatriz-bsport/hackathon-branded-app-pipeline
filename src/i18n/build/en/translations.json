@@ -2561,6 +2561,9 @@
             },
             "error": {
                 "atLeastOneThing": "You must add at least one item to your pack"
+            },
+            "unusableByStaff": {
+                "label": "Invisible for the staff"
             }
         },
         "detail": {
@@ -2577,7 +2580,10 @@
             "submit": "Delete"
         },
         "edit": "Edit",
-        "search": "Search a pack"
+        "search": "Search a pack",
+        "parameters": {
+            "unusableByStaff": "Invisible for the staff"
+        }
     },
     "communication": {
         "table": {
@@ -3365,7 +3371,8 @@
                 "nbCredits_plural": "{{ credits }} credits",
                 "price": "{{ price, price}}",
                 "tax": "VAT / Sales Tax: {{ tax }}%",
-                "managerOnly": "Unavailable for purchase"
+                "managerOnly": "Unavailable for purchase",
+                "unusableByStaff": "Invisible for the staff"
             },
             "compatibleServices": {
                 "title": "Compatible appointments",
@@ -3484,6 +3491,9 @@
             "ht": "Excl. VAT / Sales Tax",
             "actions": {
                 "forceRegularizeUnpaid": "Regularise all outstanding payments"
+            },
+            "listItem": {
+                "unusableByStaff": "Invisible for the staff"
             }
         },
         "service": {
@@ -8071,6 +8081,9 @@
                 },
                 "general_info": {
                     "title": "General information"
+                },
+                "unusableByStaff": {
+                    "label": "Invisible for the staff"
                 }
             },
             "deleteForm": {
@@ -8609,7 +8622,8 @@
             "2": "Stopped",
             "1": "In progress",
             "0": "Not yet started"
-        }
+        },
+        "invisibleForStaffToolTip": "Invisible for the staff"
     },
     "reporting": {
         "columns": {
@@ -9186,7 +9200,8 @@
             "payment_method_with_credit_account": {
                 "13": "SEPA",
                 "10": "Automatic payment",
-                "9": "Internal account"
+                "9": "Internal account",
+                "0": "Pass"
             },
             "billing_plan_status": {
                 "4": "Finished",
@@ -9207,13 +9222,15 @@
         "last_invoice_status": {
             "": [
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
         "payment_method_with_credit_account": {
             "13": "SEPA",
             "10": "Automatic payment",
-            "9": "Internal account"
+            "9": "Internal account",
+            "0": "Pass"
         }
     },
     "alerting": {
@@ -9838,7 +9855,7 @@
         "selector": {
             "noAvailable": "There are no compatible passes to display.",
             "noManagerOnly": "Available for purchase",
-            "managerOnly": "Not available for purchase",
+            "managerOnly": "Invisible to customers",
             "filterManagerOnly": "All availabilities",
             "filterCategory": "All categories",
             "titleSort": "Sort",
@@ -9850,7 +9867,8 @@
                 "descendingPrice": "Price: descending",
                 "ascendingPrice": "Price: ascending",
                 "customSort": "Additional orders (MarketPlace and App)"
-            }
+            },
+            "unusableByStaff": "Invisible for the staff"
         },
         "noUnauthorizedTag": "There are no refused tags to display.",
         "noAuthorizedTag": "There are no authorized tags to display.",
@@ -9918,7 +9936,7 @@
             "room": "Establishments",
             "categories": "Categories",
             "inShopPayment": "Enable on-site payments",
-            "notForSell": "Unavailable for purchase",
+            "notForSell": "Invisible to customers",
             "newClientOnly": "Only available to new members",
             "maxUseMember": "Maximum purchases per member",
             "maxUseMonth": "Maximum usage per month",
@@ -9991,7 +10009,8 @@
                     "label": "In proportion to late cancelations in each franchisee"
                 },
                 "label": "Member account balance will be charged"
-            }
+            },
+            "unusableByStaff": "Invisible for the staff"
         },
         "universalPass": {
             "restore": {
@@ -10029,6 +10048,9 @@
             "2010": "Incompatible establishment",
             "2009": "Incompatible category",
             "2008": "Incompatible activity"
+        },
+        "listItem": {
+            "unusableByStaff": "Invisible for the staff"
         }
     },
     "metaActivity": {

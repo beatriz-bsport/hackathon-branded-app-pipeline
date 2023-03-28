@@ -3666,6 +3666,9 @@
                 },
                 "general_info": {
                     "title": "Información general"
+                },
+                "unusableByStaff": {
+                    "label": "Invisible para el personal"
                 }
             },
             "list": {
@@ -4225,7 +4228,8 @@
             "2": "Detenido",
             "1": "En curso",
             "0": "Aún no se ha iniciado"
-        }
+        },
+        "invisibleForStaffToolTip": "Invisible para el personal"
     },
     "reporting": {
         "columns": {
@@ -4801,7 +4805,8 @@
             "payment_method_with_credit_account": {
                 "13": "SEPA",
                 "10": "Pago automático",
-                "9": "Cuenta interna"
+                "9": "Cuenta interna",
+                "0": "Bono"
             },
             "billing_plan_status": {
                 "4": "Terminado",
@@ -4822,13 +4827,15 @@
         "last_invoice_status": {
             "": [
                 "Cancelar",
+                "Cancelado",
                 "Cancelado"
             ]
         },
         "payment_method_with_credit_account": {
             "13": "SEPA",
             "10": "Pago automático",
-            "9": "Cuenta interna"
+            "9": "Cuenta interna",
+            "0": "Bono"
         }
     },
     "alerting": {
@@ -6893,7 +6900,8 @@
                 "tax": "IVA: {{ tax }}%",
                 "price": "{{ price, price}}",
                 "nbCredits": "{{ credits }} crédito",
-                "nbCredits_plural": "{{ credits }} créditos"
+                "nbCredits_plural": "{{ credits }} créditos",
+                "unusableByStaff": "Invisible para el personal"
             },
             "list": {
                 "createButton": "Crear una tarjeta de cita",
@@ -6920,6 +6928,9 @@
             "ht": "Sin IVA",
             "actions": {
                 "forceRegularizeUnpaid": "Regularizar todos los pagos pendientes"
+            },
+            "listItem": {
+                "unusableByStaff": "Invisible para el personal"
             }
         },
         "privateBooking": {
@@ -8038,6 +8049,9 @@
             },
             "error": {
                 "atLeastOneThing": "Debes añadir al menos un artículo a tu pack"
+            },
+            "unusableByStaff": {
+                "label": "Invisible para el personal"
             }
         },
         "list": {
@@ -8064,7 +8078,10 @@
             "title": "Supresión del pack"
         },
         "edit": "Modificar",
-        "search": "Buscar una manada"
+        "search": "Buscar una manada",
+        "parameters": {
+            "unusableByStaff": "Invisible para el personal"
+        }
     },
     "theme": {
         "forms": {
@@ -10802,7 +10819,7 @@
         "selector": {
             "noAvailable": "No hay tarjeta correspondiente a la disponibilidad elegida",
             "noManagerOnly": "Disponible para la venta",
-            "managerOnly": "No disponible para la venta",
+            "managerOnly": "Invisible para los clientes",
             "filterManagerOnly": "Todas las disponibilidades",
             "filterCategory": "Todas las categorías",
             "titleSort": "Ordenar",
@@ -10814,7 +10831,8 @@
                 "descendingPrice": "Precio descendente",
                 "ascendingPrice": "Aumento del precio",
                 "customSort": "Pedido del lado del cliente (mercado y aplicación)"
-            }
+            },
+            "unusableByStaff": "Invisible para el personal"
         },
         "cardDetails": {
             "packBlocking2": " cancelaciones fuera de plazo durante una semana",
@@ -10851,7 +10869,7 @@
             "room": "Salas",
             "categories": "Categorías",
             "inShopPayment": "Posibilidad de pagar en el momento",
-            "notForSell": "Indisponible para la venta",
+            "notForSell": "Invisible para los clientes",
             "newClientOnly": "Solo para nuevos clientes",
             "maxUseMember": "Compra máxima por miembro",
             "maxUseMonth": "Usos máximos por mes",
@@ -10924,7 +10942,8 @@
                     "label": "En proporción a las cancelaciones tardías en cada franquiciado.",
                     "explain": "El saldo de la cuenta de socio se cargará con {{ price }} en proporción a las cancelaciones tardías registradas en cada franquiciado. Se cargará un importe total de {{ price }} a nivel de franquicia."
                 }
-            }
+            },
+            "unusableByStaff": "Invisible para el personal"
         },
         "paymentPackTemplate": {
             "actions": {
@@ -11022,6 +11041,9 @@
             "2010": "Establecimiento no compatible",
             "2009": "Categoría no compatible",
             "2008": "Actividad no compatible"
+        },
+        "listItem": {
+            "unusableByStaff": "Invisible para el personal"
         }
     },
     "selfCheckIn": {

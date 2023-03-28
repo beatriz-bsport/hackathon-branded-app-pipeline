@@ -1980,6 +1980,9 @@
             },
             "error": {
                 "atLeastOneThing": "U moet ten minste één item aan uw pakket toevoegen"
+            },
+            "unusableByStaff": {
+                "label": "Onzichtbaar voor het personeel"
             }
         },
         "list": {
@@ -2000,7 +2003,10 @@
             "list": "Pakketten"
         },
         "edit": "Wijzigen",
-        "search": "Zoek een pakket"
+        "search": "Zoek een pakket",
+        "parameters": {
+            "unusableByStaff": "Onzichtbaar voor het personeel"
+        }
     },
     "login": {
         "tempPassword": {
@@ -2777,7 +2783,8 @@
             "payment_method_with_credit_account": {
                 "13": "SEPA",
                 "10": "Automatische betaling",
-                "9": "Klantenkrediet"
+                "9": "Klantenkrediet",
+                "0": "Kaart"
             },
             "billing_plan_status": {
                 "4": "Afgerond",
@@ -2821,13 +2828,15 @@
         "last_invoice_status": {
             "": [
                 "Annuleren",
-                "Annuleren"
+                "Annuleren",
+                "Geannuleerd"
             ]
         },
         "payment_method_with_credit_account": {
             "13": "SEPA",
             "10": "Automatische betaling",
-            "9": "Klantenkrediet"
+            "9": "Klantenkrediet",
+            "0": "Kaart"
         }
     },
     "alerting": {
@@ -3410,7 +3419,7 @@
         "selector": {
             "noAvailable": "Er is geen kaart die overeenkomt met de gekozen beschikbaarheid.",
             "noManagerOnly": "Beschikbare kaarten",
-            "managerOnly": "Niet beschikbaar voor verkoop",
+            "managerOnly": "Onzichtbaar voor klanten",
             "filterManagerOnly": "Alle beschikbaarheid",
             "filterCategory": "Alle categorieën",
             "titleSort": "Sorteren",
@@ -3422,7 +3431,8 @@
                 "descendingPrice": "Prijs: aflopend",
                 "ascendingPrice": "Prijs: oplopend",
                 "customSort": "Aanvullende bestellingen (MarketPlace en Mobiele App)"
-            }
+            },
+            "unusableByStaff": "Onzichtbaar voor het personeel"
         },
         "paymentPackTemplate": {
             "actions": {
@@ -3513,7 +3523,7 @@
         },
         "validityTo": " tot ",
         "addPaymentPack": {
-            "notForSell": "Niet beschikbaar voor verkoop",
+            "notForSell": "Onzichtbaar voor klanten",
             "limited": "Beperkt",
             "sumNotZero": "Het aantal dagen kan niet 0 zijn",
             "only_vod_access": "Maak deze kaart alleen geschikt voor Video On Demand",
@@ -3596,7 +3606,8 @@
                     "label": "In verhouding tot de late opzeggingen in elke franchisenemer"
                 },
                 "label": "Het saldo van de ledenaccount wordt in rekening gebracht"
-            }
+            },
+            "unusableByStaff": "Onzichtbaar voor het personeel"
         },
         "unlimitedPlural": "Onbeperkt",
         "universalPass": {
@@ -3635,6 +3646,9 @@
             "2010": "Incompatibele vestiging",
             "2009": "Incompatibele categorie",
             "2008": "Incompatibele activiteit"
+        },
+        "listItem": {
+            "unusableByStaff": "Onzichtbaar voor het personeel"
         }
     },
     "establishment": {
@@ -6115,6 +6129,9 @@
                 },
                 "general_info": {
                     "title": "Algemene informatie"
+                },
+                "unusableByStaff": {
+                    "label": "Onzichtbaar voor het personeel"
                 }
             },
             "registerManager": {
@@ -6773,7 +6790,8 @@
             "2": "Gestopt",
             "1": "Aan de gang",
             "0": "Nog niet gestart"
-        }
+        },
+        "invisibleForStaffToolTip": "Onzichtbaar voor het personeel"
     },
     "coachPerformance": {
         "dateTitle": "Datumbereik",
@@ -7887,7 +7905,8 @@
                 "nbCredits_plural": "{{ credits }} credits",
                 "price": "{{ price, price}}",
                 "tax": "Btw: {{ tax }}%",
-                "managerOnly": "Onbeschikbaar voor leden"
+                "managerOnly": "Onbeschikbaar voor leden",
+                "unusableByStaff": "Onzichtbaar voor het personeel"
             },
             "compatibleServices": {
                 "title": "Compatibele afspraken",
@@ -7908,6 +7927,9 @@
             "ht": "Excl. btw",
             "actions": {
                 "forceRegularizeUnpaid": "Alle openstaande facturen vereffenen"
+            },
+            "listItem": {
+                "unusableByStaff": "Onzichtbaar voor het personeel"
             }
         },
         "service": {

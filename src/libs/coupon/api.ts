@@ -65,26 +65,22 @@ export const createCoupon: (
   return postAuth(COUPON_URI, data);
 };
 
-export const appliesToContract: (
-  coupon_code: string,
-  contract: number,
-  member?: number,
-) => Promise<AxiosResponse<ApplyToContractAPI>> = async (
-  coupon_code,
-  contract,
-  member?,
-) => {
-  if (member !== undefined) {
-    return post(`${COUPON_URI}applies_to_contract/`, {
-      coupon_code,
-      contract,
-      member,
-    });
+export const appliesToContract: (data: {
+  coupon_code: string;
+  contract: number;
+  member?: number;
+  with_prorata?: boolean;
+  from_timestamp?: number;
+}) => Promise<AxiosResponse<ApplyToContractAPI>> = async (data) => {
+  if (data?.member !== undefined) {
+    return post(`${COUPON_URI}applies_to_contract/`, data);
   }
 
   return postAuth(`${COUPON_URI}applies_to_contract/`, {
-    coupon_code,
-    contract,
+    coupon_code: data.coupon_code,
+    contract: data.contract,
+    with_prorata: data.with_prorata,
+    from_timestamp: data.from_timestamp,
   });
 };
 

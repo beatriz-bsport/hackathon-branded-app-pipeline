@@ -173,6 +173,9 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               0,
           ),
       });
+      if (this.props.contract?.month_billing_day) {
+        this.deleteCoupon();
+      }
     }
 
     if (
@@ -306,11 +309,13 @@ export class SubscriptionPayment extends React.Component<Props, State> {
   };
 
   applyCoupon = async (coupon_code: string, options: any) => {
-    await appliesToContract(
+    await appliesToContract({
       coupon_code,
-      this.props.contract.id,
-      this.props.member?.id || this.props.memberId,
-    )
+      contract: this.props.contract.id,
+      member: this.props.member?.id || this.props.memberId,
+      with_prorata: !!this.props.contract?.month_billing_day,
+      from_timestamp: moment(this.props.date).unix(),
+    })
       .then(({ data }) => {
         if (data.can_be_applied) {
           this.setState({

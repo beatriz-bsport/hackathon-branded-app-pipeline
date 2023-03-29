@@ -8,18 +8,22 @@ import {
   Fab,
   withStyles,
   Theme,
+  Badge,
 } from '@material-ui/core';
 
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import { MaterialStyleType } from '../../utils/types';
+import ExtendedFabBadge from '#components/ExtendedFabBadge.component';
 
 type OwnProps = {
   items: {
     label: string;
     onClick: () => void;
+    badgeValue?: number;
   }[];
   label?: string;
+  badgeValue?: number;
 };
 
 type Props = OwnProps &
@@ -28,6 +32,7 @@ type Props = OwnProps &
 
 interface State {
   openFab: boolean;
+  badgeButtonBaseValue: number;
 }
 
 class FabWithItems extends React.PureComponent<Props, State> {
@@ -36,7 +41,19 @@ class FabWithItems extends React.PureComponent<Props, State> {
 
     this.state = {
       openFab: false,
+      badgeButtonBaseValue: 0,
     };
+  }
+
+  componentDidUpdate(prevProps: OwnProps) {
+    if (
+      this.props.badgeValue &&
+      this.props.badgeValue !== prevProps.badgeValue
+    ) {
+      this.setState({
+        badgeButtonBaseValue: this.props.badgeValue,
+      });
+    }
   }
 
   onClose = () => {
@@ -46,36 +63,40 @@ class FabWithItems extends React.PureComponent<Props, State> {
   onClick = () => {
     this.setState((prevState) => ({
       openFab: !prevState.openFab,
+      badgeButtonBaseValue: prevState.openFab ? this.props.badgeValue : 0,
     }));
   };
 
   render() {
+    const { classes, label } = this.props;
     return (
       <>
         {this.state.openFab && (
           <ButtonBase
-            className={this.props.classes.fabBackgroundContainer}
+            className={classes.fabBackgroundContainer}
             disableRipple
             onClick={this.onClose}
           />
         )}
 
-        <div className={this.props.classes.fabContainer}>
+        <div className={classes.fabContainer}>
           {this.state.openFab && (
             <>
               {this.props.items
                 .filter((item) => !!item)
                 .map((item) => (
-                  <ButtonBase
-                    key={item.label}
-                    className={this.props.classes.fabItem}
-                    onClick={() => {
-                      this.setState({ openFab: false });
-                      item.onClick();
-                    }}
-                  >
-                    <Typography>{item.label}</Typography>
-                  </ButtonBase>
+                  <Badge badgeContent={item.badgeValue} color="error">
+                    <ButtonBase
+                      key={item.label}
+                      className={classes.fabItem}
+                      onClick={() => {
+                        this.setState({ openFab: false });
+                        item.onClick();
+                      }}
+                    >
+                      <Typography>{item.label}</Typography>
+                    </ButtonBase>
+                  </Badge>
                 ))}
             </>
           )}
@@ -83,14 +104,13 @@ class FabWithItems extends React.PureComponent<Props, State> {
           <Fab
             color="primary"
             aria-label="add"
-            variant={this.props.label ? 'extended' : undefined}
+            variant={label ? 'extended' : undefined}
             onClick={this.onClick}
           >
+            <ExtendedFabBadge badgeValue={this.state.badgeButtonBaseValue} />
             {this.state.openFab ? <CloseIcon /> : <AddIcon />}
-            {this.props.label && (
-              <Typography className={this.props.classes.fabLabel}>
-                {this.props.label}
-              </Typography>
+            {label && (
+              <Typography className={classes.fabLabel}>{label}</Typography>
             )}
           </Fab>
         </div>

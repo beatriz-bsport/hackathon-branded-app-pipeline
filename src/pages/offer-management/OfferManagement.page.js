@@ -153,6 +153,7 @@ import {
   withReceiver,
   onlyUsable,
 } from '#libs/giftcard/selectors';
+import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -235,6 +236,9 @@ export default compose(
       activityGroups: getGroupListCount(state),
       spotTypes: getSpotTypesOfCompany(state),
       stripeReaders: getStripeReaders(state),
+
+      // unread answers
+      numberOfUnreadAnswers: state.communicationV2.unreadAnswers.count,
     }),
     {
       fetchOffer: fetchOfferByIdAction,
@@ -329,6 +333,9 @@ export default compose(
 
       fetchSpotForBlueprint: fetchSpotForBlueprintAction,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
+
+      // communication v2
+      getUnreadAnswersCountAction,
     },
   ),
   withHandlers({

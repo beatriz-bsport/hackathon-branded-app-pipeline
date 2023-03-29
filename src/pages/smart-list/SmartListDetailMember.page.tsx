@@ -88,6 +88,7 @@ import type { PrivateService } from '#libs/private-service/types';
 // COMMUNICATION
 import { sendCommunication as sendCommunicationAction } from '#libs/communication/actions';
 import type { SendDirectCommunicationType } from '#libs/communication/types';
+import type { CommunicationContext } from '#libs/communication-v2/types';
 
 // MEMBER
 import { fetchCommunicationsPaginatedMembers } from '#libs/member/actions';
@@ -158,6 +159,7 @@ import { getAllCustomForm } from '#libs/custom-form/selectors';
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_SMARTLIST } from '#libs/communication-v2/constants';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
+import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
 
 import Config from '../../config';
 
@@ -179,6 +181,8 @@ type OwnProps = {
   resolvedGenericTags: ResolvedGenericTags;
   openCommunicationChatDrawer: boolean;
   setOpenCommunicationChatDrawer: (open: boolean) => void;
+  getUnreadAnswersCountAction: (params: CommunicationContext) => void;
+  numberOfUnreadAnswers: number;
 } & WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 
@@ -203,6 +207,10 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   };
 
   componentDidMount() {
+    const params = {
+      context_identifier: CONTEXT_SMARTLIST,
+      context_object_id: this.props.id,
+    };
     this.props.fetchSmartListFilters(this.props.id);
     this.props.fetchTags();
     this.props.fetchAllAutoTagRulesAction();
@@ -212,6 +220,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     });
     this.handleFetchLevel();
     this.props.fetchResolvedGenericTags();
+    this.props.getUnreadAnswersCountAction(params);
   }
 
   handleFetchLevel = () => {
@@ -322,6 +331,10 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           _campaign?.event_kind === this.props.automatedCampaignCreateEventkind,
       )
       ?.map((aut_co: AutomatedCampaign) => aut_co.communication_kind);
+  };
+
+  handleCommunicationDrawerClose = () => {
+    this.props.setOpenCommunicationChatDrawer(false);
   };
 
   render() {
@@ -535,9 +548,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
             {!!this.props.openCommunicationChatDrawer && (
               <CommunicationDrawer
                 openDrawer={this.props.openCommunicationChatDrawer}
-                onDrawerClose={() =>
-                  this.props.setOpenCommunicationChatDrawer(false)
-                }
+                onDrawerClose={this.handleCommunicationDrawerClose}
                 contextIdentifier={CONTEXT_SMARTLIST}
                 contextObjectId={this.props.smartlist?.id ?? this.props.id}
                 contextTitle={this.props.smartlist?.name}
@@ -558,6 +569,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
                   icon: <SendIcon />,
                   text: this.props.t('communication:generic.communication'),
                   keepTextUnderSelectedMinWidth: true,
+                  badgeValue: this.props.numberOfUnreadAnswers,
                 },
               ]}
               minWidth="xs"
@@ -693,6 +705,9 @@ const connector = connect(
     customForms: getAllCustomForm(state),
     customFormLoading: state.customForm.loading,
 
+    // UNREAD ANSWERS
+    numberOfUnreadAnswers: state.communicationV2.unreadAnswers.count,
+
     // OTHERS
     companyId: state.theme.theme.company,
   }),
@@ -731,6 +746,7 @@ const connector = connect(
     // COMMUNICATION
     fetchCommunicationsPaginatedMembers,
     sendCommunication: sendCommunicationAction,
+    getUnreadAnswersCountAction,
 
     // EMAIL
     fetchEmailTemplatesSummaries: () => emailTemplatesSummaries(),

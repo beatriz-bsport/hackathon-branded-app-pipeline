@@ -8,12 +8,15 @@ import {
   fetchCommunicationRecipientList as fetchCommunicationRecipientListAPI,
   sendCommunication as sendCommunicationAPI,
   flagCommunicationRecipientAsRead as flagCommunicationRecipientAsReadAPI,
+  flagAllUnreadCommunicationsAsReadInContext as flagAllUnreadCommunicationsAsReadInContextAPI,
+  getUnreadAnswersCount as getUnreadAnswersCountAPI,
 } from './api';
 import {
   FetchCommunicationParams,
   MessageParams,
   Communication,
   Recipient,
+  CommunicationContext,
 } from './types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from './constants';
 
@@ -187,5 +190,63 @@ export function flagCommunicationRecipientAsRead(
       dispatch(flagAsReadActions.error(error));
     }
     dispatch(flagAsReadActions.isLoading(false));
+  };
+}
+
+export const flagAllUnreadCommunicationsAsReadInContextActions = {
+  error: createAction('COMMUNICATION_SENT/FLAG_AS_READ_IN_CONTEXT/ERROR'),
+  success: createAction('COMMUNICATION_SENT/FLAG_AS_READ_IN_CONTEXT/SUCCESS'),
+  isLoading: createAction(
+    'COMMUNICATION_SENT/FLAG_AS_READ_IN_CONTEXT/IS_LOADING',
+  ),
+};
+
+export function flagAllUnreadCommunicationsAsReadInContext(
+  params: CommunicationContext,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(flagAllUnreadCommunicationsAsReadInContextActions.isLoading(true));
+    dispatch(flagAllUnreadCommunicationsAsReadInContextActions.error(null));
+    try {
+      const response = await flagAllUnreadCommunicationsAsReadInContextAPI(
+        params,
+      );
+      dispatch(
+        flagAllUnreadCommunicationsAsReadInContextActions.success(
+          response.data,
+        ),
+      );
+      if (options?.onSuccess) options.onSuccess();
+    } catch (error) {
+      dispatch(flagAllUnreadCommunicationsAsReadInContextActions.error(error));
+    }
+    dispatch(
+      flagAllUnreadCommunicationsAsReadInContextActions.isLoading(false),
+    );
+  };
+}
+
+// --------- COMMUNICATION SENT ---------
+
+export const getUnreadAnswersCountActions = {
+  error: createAction('COMMUNICATION_SENT/UNREAD_ANSWERS_COUNT/ERROR'),
+  success: createAction('COMMUNICATION_SENT/UNREAD_ANSWERS_COUNT/SUCCESS'),
+  isLoading: createAction('COMMUNICATION_SENT/UNREAD_ANSWERS_COUNT/IS_LOADING'),
+};
+
+export function getUnreadAnswersCount(
+  params: CommunicationContext,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(getUnreadAnswersCountActions.isLoading(true));
+    dispatch(getUnreadAnswersCountActions.error(null));
+    try {
+      const response = await getUnreadAnswersCountAPI(params);
+      dispatch(getUnreadAnswersCountActions.success(response.data));
+    } catch (error) {
+      dispatch(getUnreadAnswersCountActions.error(error));
+    }
+    dispatch(getUnreadAnswersCountActions.isLoading(false));
   };
 }

@@ -238,6 +238,8 @@ type Props = {
   stripeReaders: StripeReader[],
   memberProgramIdsList: (memberId: number) => MemberProgram[],
   resetInvoiceList: () => void,
+  getUnreadAnswersCountAction: (params: CommunicationContext) => void,
+  numberOfUnreadAnswers: number,
 };
 
 type State = {
@@ -260,6 +262,10 @@ export class OfferManagement extends Component<Props, State> {
   }
 
   componentDidMount() {
+    const params = {
+      context_identifier: CONTEXT_OFFER,
+      context_object_id: this.props.offerId,
+    };
     this.fetchOfferAndData();
     this.props.fetchProgram({ is_disabled: false }); // WILL BECOME USELESS
     this.props.fetchShopItems();
@@ -277,6 +283,7 @@ export class OfferManagement extends Component<Props, State> {
       company: this.props.company_theme.company,
     });
     this.props.fetchStripeReaders();
+    this.props.getUnreadAnswersCountAction(params);
   }
 
   fetchOfferAndData = () => {
@@ -550,6 +557,10 @@ export class OfferManagement extends Component<Props, State> {
     });
   };
 
+  handleCloseCommunicationDrawer = () => {
+    this.props.closeCommunicationDrawer();
+  };
+
   render() {
     const {
       offer,
@@ -558,6 +569,7 @@ export class OfferManagement extends Component<Props, State> {
       bookings,
       fullScreen,
       members,
+      numberOfUnreadAnswers,
     } = this.props;
 
     if (!this.props.offer) {
@@ -703,6 +715,7 @@ export class OfferManagement extends Component<Props, State> {
             quickCreatedInvoices={this.props.quickCreatedInvoices}
             companyId={this.props.companyId}
             onProgramDetailsClick={this.onProgramDetailsClick}
+            numberOfUnreadAnswers={numberOfUnreadAnswers}
           />
         </Grid>
         <Grid item xs={12} lg={6}>
@@ -856,7 +869,7 @@ export class OfferManagement extends Component<Props, State> {
             this.props.companyId === 498) && (
             <CommunicationDrawer
               openDrawer={this.props.communicationDrawerIsOpen}
-              onDrawerClose={this.props.closeCommunicationDrawer}
+              onDrawerClose={this.handleCloseCommunicationDrawer}
               contextIdentifier={CONTEXT_OFFER}
               contextObjectId={this.props.offer.id ?? this.props.offerId}
               contextTitle={this.props.offer?.name}

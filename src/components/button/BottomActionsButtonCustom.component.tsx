@@ -6,6 +6,7 @@ import {
   BottomActionButtonBaseList,
   Props as ButtonBaseListProps,
 } from './BottomActionsButton.component';
+import ExtendedFabBadge from '#components/ExtendedFabBadge.component';
 
 type OwnProps = {
   buttonsProperties: Array<{
@@ -16,6 +17,7 @@ type OwnProps = {
     fabVariant?: 'extended' | 'circular' | 'round';
     disabled?: boolean;
     keepTextUnderSelectedMinWidth?: boolean;
+    badgeValue?: number | string;
   }>;
   minWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 };
@@ -28,6 +30,7 @@ type ButtonProperties = {
   fabVariant?: 'extended' | 'circular' | 'round';
   disabled?: boolean;
   keepTextUnderSelectedMinWidth?: boolean;
+  badgeValue?: number | string;
 };
 
 type Props = OwnProps & ButtonBaseListProps;
@@ -47,6 +50,7 @@ export const BottomActionsButtonCustom: React.FC<Props> = (props: Props) => {
             onClick={button.onClick}
             disabled={button.disabled}
           >
+            <ExtendedFabBadge badgeValue={button.badgeValue} />
             {!!button.icon && button.icon}
             {button.text && (
               <div

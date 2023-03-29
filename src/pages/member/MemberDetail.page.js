@@ -79,6 +79,8 @@ import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_MEMBER } from '#libs/communication-v2/constants';
+import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
+import type { CommunicationContext } from '#libs/communication-v2/types';
 
 import {
   ACTION_MODE_REDIRECT,
@@ -187,6 +189,8 @@ type Props = {
   ) => void,
   queryParams: { openChat?: string },
   setQueryParams: (queryName: string) => (queryValue: string) => void,
+  numberOfUnreadAnswers: number,
+  getUnreadAnswersCountAction: (params: CommunicationContext) => void,
 };
 
 const stripeRegion = getStripeRegion();
@@ -194,6 +198,10 @@ const companyCountry = getCompanyCountry();
 
 export class MemberDetail extends React.Component<Props> {
   componentDidMount() {
+    const params = {
+      context_identifier: CONTEXT_MEMBER,
+      context_object_id: this.props.id,
+    };
     this.props.fetchStripeReaders();
     if (Number.isInteger(this.props.id)) {
       this.props.fetchPaymentMethodList();
@@ -207,6 +215,17 @@ export class MemberDetail extends React.Component<Props> {
       this.props.fetchProgram({
         is_disabled: false,
       });
+    }
+    this.props.getUnreadAnswersCountAction(params);
+  }
+
+  componentDidUpdate(prevProps: OwnAndConnectedProps) {
+    if (this.props.id && this.props.id !== prevProps.id) {
+      const params = {
+        context_identifier: CONTEXT_MEMBER,
+        context_object_id: this.props.id,
+      };
+      this.props.getUnreadAnswersCountAction(params);
     }
   }
 
@@ -272,6 +291,7 @@ export class MemberDetail extends React.Component<Props> {
       videoPurchasedCount,
       customFormFilledList,
       queryParams,
+      numberOfUnreadAnswers,
     } = this.props;
 
     const isOpenChat = queryParams.openChat === 'true';
@@ -468,6 +488,7 @@ export class MemberDetail extends React.Component<Props> {
           unArchiveMember={this.unArchiveMember}
           openCommunicationDrawer={this.handleOpenCommunicationDrawer}
           companyId={this.props.companyId}
+          numberOfUnreadAnswers={numberOfUnreadAnswers}
         />
         {!!this.props.invoiceInfo && (
           <InvoiceInfoDialog
@@ -588,6 +609,7 @@ export default compose(
       memberArchiveLoading: state.member.archive.loading,
       memberToArchive: getMemberDetail(state, id),
       stripeReaders: getStripeReaders(state),
+      numberOfUnreadAnswers: state.communicationV2.unreadAnswers.count,
     }),
     {
       billMember: (id) => pushRouter(`/invoice/bill-member/${id}/`),
@@ -613,6 +635,7 @@ export default compose(
       registerContractBackground: registerContractBackgroundAction,
       displayBackgroundDialog: displayBackgroundDialogAction,
       deletebackgroundDialog: deletebackgroundDialogAction,
+      getUnreadAnswersCountAction,
     },
   ),
   withHandlers({

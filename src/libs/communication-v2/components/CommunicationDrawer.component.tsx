@@ -81,6 +81,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
     this.fetchThreadCommunicationListAndScheduleRefresh();
     this.props.fetchResolvedGenericTags();
     this.props.fetchTagList();
+    this.props.flagAllUnreadCommunicationsAsRead();
   }
 
   componentDidUpdate(prevProps: Readonly<Props>): void {
@@ -269,7 +270,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
         withoutHeaderContainer
         flexContent
         mobileMinWidth="350px"
-        onClose={this.props.onDrawerClose}
+        onClose={onDrawerClose}
       >
         <CommunicationHeader
           contextAvatar={contextMember?.photo}

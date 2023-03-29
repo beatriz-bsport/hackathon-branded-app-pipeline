@@ -123,6 +123,7 @@ type Props = {
   refresh: () => void,
   companyId: number,
   onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
+  numberOfUnreadAnswers: number,
 };
 
 type State = {
@@ -341,6 +342,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                               icon: <SendIcon />,
                               text: t('communication:generic.communication'),
                               keepTextUnderSelectedMinWidth: true,
+                              badgeValue: this.props.numberOfUnreadAnswers,
                             },
                           ]}
                           minWidth="xs"

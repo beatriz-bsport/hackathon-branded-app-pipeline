@@ -2,6 +2,7 @@ import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import uniq from 'lodash/uniq';
+import { UNREAD_COMMUNICATION } from '@bsport/common/lib/master-data/alerting_kind';
 import { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 
@@ -10,7 +11,10 @@ import {
   fetchCommunicationRecipientList as fetchCommunicationRecipientListAction,
   fetchCommunicationSentList as fetchCommunicationSentListAction,
   sendCommunication,
+  flagAllUnreadCommunicationsAsReadInContext as flagAllUnreadCommunicationsAsReadInContextAction,
+  getUnreadAnswersCount as getUnreadAnswersCountAction,
 } from './actions';
+import { fetch as fetchAction } from '#libs/alerting/actions';
 import {
   getRecipientWithMemberPaginatedList,
   getThreadCommunicationList,
@@ -87,6 +91,7 @@ type WithHandlers = {
     memberSelectedCategories?: number[],
   ) => void;
   resetPaginatedAvailableRecipientMemberList: (options: OptionCallback) => void;
+  flagAllUnreadCommunicationsAsRead: () => void;
 };
 
 const connector = connect(
@@ -128,6 +133,9 @@ const connector = connect(
     fetchMemberBulkById: fetchMemberBulkByIdAction,
     fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
     fetchTagList: fetchTagListAction,
+    fetchUnreadCommunicationAction: fetchAction,
+    flagAllUnreadCommunicationsAsReadInContextAction,
+    getUnreadAnswersCountAction,
   },
 );
 
@@ -254,6 +262,22 @@ export default function withCommunicationData(
             },
           };
           return props.sendCommunicationAction(dataWithContext, options);
+        },
+      flagAllUnreadCommunicationsAsRead:
+        (props: CommunicationConnectedProps) => () => {
+          const params = {
+            context_identifier: props.contextIdentifier,
+            context_object_id: props.contextObjectId,
+          };
+          props.flagAllUnreadCommunicationsAsReadInContextAction(params, {
+            onSuccess: () => {
+              props.fetchUnreadCommunicationAction(
+                UNREAD_COMMUNICATION.alert_kind,
+                1,
+              );
+              props.getUnreadAnswersCountAction(params);
+            },
+          });
         },
     }),
   )(WrappedComponent);

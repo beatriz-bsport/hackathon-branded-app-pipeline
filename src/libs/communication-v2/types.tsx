@@ -12,6 +12,8 @@ export type CommunicationState = {
     thread: GenericListReducerI;
   };
   send: ErrorAndLoading;
+  flagAsReadByContext: ErrorAndLoading;
+  unreadAnswers: { count: number } & ErrorAndLoading;
 };
 
 export type Recipient<MemberType = number> = {

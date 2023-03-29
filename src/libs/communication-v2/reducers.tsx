@@ -5,6 +5,8 @@ import {
   recipientAction,
   communicationSentAction,
   retrieveCommunicationSentAction,
+  flagAllUnreadCommunicationsAsReadInContextActions,
+  getUnreadAnswersCountActions,
 } from './actions';
 
 import type { CommunicationState, Recipient, Communication } from './types';
@@ -32,6 +34,15 @@ const initialState: Immutable.Immutable<CommunicationState> =
     send: {
       loading: false,
       error: null,
+    },
+    flagAsReadByContext: {
+      loading: false,
+      error: null,
+    },
+    unreadAnswers: {
+      loading: false,
+      error: null,
+      count: 0,
     },
   });
 
@@ -166,6 +177,30 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       { payload },
     ) => {
       return state.merge({ sent: { byId: payload } }, { deep: true });
+    },
+    [flagAllUnreadCommunicationsAsReadInContextActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['send', 'error'], payload);
+    },
+    [flagAllUnreadCommunicationsAsReadInContextActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['send', 'loading'], payload);
+    },
+    [getUnreadAnswersCountActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['send', 'error'], payload);
+    },
+    [getUnreadAnswersCountActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['send', 'loading'], payload);
+    },
+    [getUnreadAnswersCountActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['unreadAnswers', 'count'], payload);
     },
   },
   initialState,

@@ -18,6 +18,7 @@ import RedFab from '#components/button/RedFab.component';
 import GreenFab from '#components/button/GreenFab.component';
 import FabWithItems from '#components/button/FabWithItems';
 import Config from '../../../config';
+import ExtendedFabBadge from '#components/ExtendedFabBadge.component';
 
 type OwnProps = {
   billMember: () => void;
@@ -27,6 +28,7 @@ type OwnProps = {
   member: Member;
   openCommunicationDrawer: () => void;
   companyId: number;
+  numberOfUnreadAnswers: number;
 };
 type Props = OwnProps;
 export const MemberActions: React.FC<Props> = (props: Props) => {
@@ -48,6 +50,7 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
                 {
                   label: t('communication'),
                   onClick: props.openCommunicationDrawer,
+                  badgeValue: props.numberOfUnreadAnswers,
                 },
                 {
                   label: t('paymentAction.toBill'),
@@ -87,6 +90,7 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
                     },
               ]
         }
+        badgeValue={props.numberOfUnreadAnswers}
       />
     );
   }
@@ -98,10 +102,11 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
         props.companyId === 498) && (
         <Fab
           color="secondary"
-          className={classes.bottomButton}
           variant="extended"
+          className={classes.bottomButton}
           onClick={props.openCommunicationDrawer}
         >
+          <ExtendedFabBadge badgeValue={props.numberOfUnreadAnswers} />
           <Send className={classes.leftIcon} />
           {t('communication')}
         </Fab>

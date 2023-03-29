@@ -203,7 +203,7 @@ export const PrivatePassForm = (props: Props) => {
   );
 
   return (
-    <Form className={classes.container}>
+    <Form className={classes.container} data-testid="private-pass-form">
       {!!props.initial?.template_instance && (
         <div className={classes.row}>
           <WarningIcon color="error" />
@@ -212,7 +212,10 @@ export const PrivatePassForm = (props: Props) => {
           </Typography>
         </div>
       )}
-      <div className={classes.categoryBlock}>
+      <div
+        id="private-pass-form-general-section"
+        className={classes.categoryBlock}
+      >
         {props.initial && props.initial.linked_payment_pack && (
           <div className={classes.infoText}>
             <WarningIcon className={classes.redIcon} />
@@ -229,6 +232,7 @@ export const PrivatePassForm = (props: Props) => {
         </div>
 
         <TextField
+          id="private-pass-name-field"
           name="name"
           fullWidth
           label={`${t('privatePass.form.name.label')}*`}
@@ -250,6 +254,7 @@ export const PrivatePassForm = (props: Props) => {
         </div>
         <div className={classes.fieldBlock}>
           <IntegerField
+            id="private-pass-credit-field"
             name="credits"
             fullWidth
             disabled={props.initial && props.initial.editable === false}
@@ -259,6 +264,7 @@ export const PrivatePassForm = (props: Props) => {
         </div>
         <div className={`${classes.fieldBlock} ${classes.flexRow}`}>
           <PriceField
+            id="private-pass-price-field"
             name="price"
             fullWidth
             label={t('privatePass.form.price.label')}
@@ -267,6 +273,7 @@ export const PrivatePassForm = (props: Props) => {
             disabled={!!props.initial?.template_instance}
           />
           <PercentField
+            id="private-pass-tax-field"
             helperText={provincialTaxText}
             FormHelperTextProps={{ classes: { root: classes.helperTextError } }}
             name="tax"
@@ -283,7 +290,10 @@ export const PrivatePassForm = (props: Props) => {
             disabled={!!props.initial?.template_instance}
           />
         </div>
-        <div className={classes.fieldBlockFlex}>
+        <div
+          id="private-pass-universal-switch-field-container"
+          className={classes.fieldBlockFlex}
+        >
           <SwitchField
             name="is_universal_pass"
             label={t('privatePass.form.universalPass.label')}
@@ -293,7 +303,10 @@ export const PrivatePassForm = (props: Props) => {
             {t('privatePass.form.universalPass.helperText')}
           </Typography>
         </div>
-        <div className={`${classes.fieldBlock} ${classes.flexColumn}`}>
+        <div
+          id="private-pass-switch-fields-container"
+          className={`${classes.fieldBlock} ${classes.flexColumn}`}
+        >
           <SwitchField
             name="manager_only"
             label={t('privatePass.form.managerOnly.label')}
@@ -321,7 +334,10 @@ export const PrivatePassForm = (props: Props) => {
 
       <Divider className={classes.divider} />
 
-      <div className={classes.categoryBlock}>
+      <div
+        id="private-pass-form-payment-section"
+        className={classes.categoryBlock}
+      >
         <div className={classes.flexRowCenter}>
           <PaymentIcon className={classes.iconLeft} />
           <Typography variant="h6">
@@ -366,7 +382,10 @@ export const PrivatePassForm = (props: Props) => {
 
       <Divider className={classes.divider} />
 
-      <div className={classes.categoryBlock}>
+      <div
+        id="private-pass-form-validity-section"
+        className={classes.categoryBlock}
+      >
         <div className={classes.flexRowCenter}>
           <DateRangeIcon className={classes.iconLeft} />
           <Typography variant="h6">
@@ -375,6 +394,7 @@ export const PrivatePassForm = (props: Props) => {
         </div>
         <div className={`${classes.durationNbBlock} ${classes.flexRowCenter}`}>
           <IntegerField
+            id="private-pass-duration-days"
             name="duration_days"
             label={t('privatePass.form.durationDays.label')}
             InputProps={{ min: 0, max: 30, step: 1 }}
@@ -384,6 +404,7 @@ export const PrivatePassForm = (props: Props) => {
           />
           <AddIcon className={classes.greyIcon} />
           <IntegerField
+            id="private-pass-duration-months"
             name="duration_months"
             label={t('privatePass.form.durationMonths.label')}
             helperText={t('privatePass.form.durationMonths.helperText')}
@@ -393,6 +414,7 @@ export const PrivatePassForm = (props: Props) => {
           />
           <AddIcon className={classes.greyIcon} />
           <IntegerField
+            id="private-pass-duration-years"
             name="duration_years"
             label={t('privatePass.form.durationYears.label')}
             helperText={t('privatePass.form.durationYears.helperText')}
@@ -429,6 +451,7 @@ export const PrivatePassForm = (props: Props) => {
             in={props.values.start_date_method !== `${START_ON_PURCHASE}`}
           >
             <TextField
+              id="private-pass-expiration-field"
               name="expiration_days_before_first_use"
               label={t('privatePass.form.expirationDaysBeforeFirstUse.label')}
               disabled={props.initial && props.initial.editable === false}
@@ -445,7 +468,10 @@ export const PrivatePassForm = (props: Props) => {
 
       <Divider className={classes.divider} />
 
-      <div className={classes.categoryBlock}>
+      <div
+        id="private-pass-form-compatibility-section"
+        className={classes.categoryBlock}
+      >
         <div className={classes.flexRowCenter}>
           <DoneAllIcon className={classes.iconLeft} />
           <Typography variant="h6">
@@ -620,7 +646,10 @@ export const PrivatePassForm = (props: Props) => {
         </>
       )}
 
-      <div className={`${classes.buttonContainer} ${classes.flexRowCenter}`}>
+      <div
+        id="private-pass-form-actions-buttons"
+        className={`${classes.buttonContainer} ${classes.flexRowCenter}`}
+      >
         <Button
           onClick={(e: MouseEvent) => {
             props.onCancel(e);

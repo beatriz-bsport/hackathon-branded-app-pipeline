@@ -30,7 +30,7 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
   const { values, setFieldValue }: FormikProps<FormikValues> =
     useFormikContext();
   return (
-    <div className={classes.outterContainer}>
+    <div id="universal-pass-compatibility" className={classes.outterContainer}>
       <div className={classes.flexRowCenter}>
         <DoneIcon className={classes.iconLeft} />
         <Typography variant="h6">

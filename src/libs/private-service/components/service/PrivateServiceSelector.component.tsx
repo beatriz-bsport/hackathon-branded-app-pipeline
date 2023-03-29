@@ -24,6 +24,7 @@ export const PrivateServiceSelector = (props: Props) => {
     null;
   return (
     <Select
+      id="private-service-selector"
       menuPortalTarget={document.querySelector('body')}
       placeholder={
         props.placeholder ? props.placeholder : t('selector.privateService')

@@ -467,7 +467,7 @@ export default compose<any, ownProps>(
   withQueryParams([['force'], 'queryParams']),
   // @ts-ignore
   withStyles(styles),
-  withState('date', 'setDate', moment()),
+  withState('date', 'setDate', moment().format('YYYY-MM-DD')),
   withState('acceptContract', 'setAcceptContract', false),
   withState('showPaymentStatusDialog', 'setShowPaymentStatusDialog', {
     open: false,

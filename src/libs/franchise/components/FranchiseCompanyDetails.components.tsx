@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import Alert from '@material-ui/lab/Alert/Alert';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import {
@@ -18,7 +19,6 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import Room from '@material-ui/icons/Room';
-import InfoIcon from '@material-ui/icons/Info';
 
 import { Member } from '../../member/types';
 import { Establishment } from '../../establishment/types';
@@ -59,12 +59,9 @@ const FranchiseCompanyDetails = (props: Props) => {
     <div>
       {!companyId && (
         <div className={classes.emptySelect}>
-          <InfoIcon className={classes.info} />
-          <div>
-            <Typography variant="body1">
-              {t('companies.emptySelect')}
-            </Typography>
-          </div>
+          <Alert severity="info" className={classes.alertInfo}>
+            {t('companies.emptySelect')}
+          </Alert>
         </div>
       )}
       {!!companyId && companyName && (
@@ -125,10 +122,9 @@ const FranchiseCompanyDetails = (props: Props) => {
             </div>
           ) : (
             <div className={classes.emptySelect}>
-              <InfoIcon className={classes.info} />
-              <Typography variant="body1">
+              <Alert severity="info" className={classes.alertInfo}>
                 {t('companies.membersEmptyState')}
-              </Typography>
+              </Alert>
             </div>
           )}
           {establishmentsByLocation && (
@@ -186,10 +182,9 @@ const FranchiseCompanyDetails = (props: Props) => {
               {(!establishmentsByLocation ||
                 Object.keys(establishmentsByLocation).length === 0) && (
                 <div className={classes.emptySelect}>
-                  <InfoIcon className={classes.info} />
-                  <Typography variant="body1">
+                  <Alert severity="info" className={classes.alertInfo}>
                     {t('companies.establishmentEmptyState')}
-                  </Typography>
+                  </Alert>
                 </div>
               )}
             </div>
@@ -202,14 +197,15 @@ const FranchiseCompanyDetails = (props: Props) => {
 
 const styles = (theme: Theme) =>
   createStyles({
+    alertInfo: {
+      display: 'flex',
+      alignItems: 'center',
+    },
     emptySelect: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       marginTop: theme.spacing(2),
-    },
-    info: {
-      marginBottom: theme.spacing(2),
     },
     divider: {
       width: '100%',

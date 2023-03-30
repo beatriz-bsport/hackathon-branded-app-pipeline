@@ -1,14 +1,13 @@
 import React from 'react';
 import { compose } from 'recompose';
 import cloneDeep from 'lodash/cloneDeep';
-
+import Alert from '@material-ui/lab/Alert/Alert';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Divider, Typography } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { createStyles, Theme } from '@material-ui/core/styles';
 import CheckIcon from '@material-ui/icons/Check';
-import InfoIcon from '@material-ui/icons/Info';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Actions, Submit } from '#components/forms';
@@ -130,10 +129,9 @@ export class CreateRoleMasterAccountDialog extends React.Component<
       <form onSubmit={this.onNext} id="role-creation-form">
         <div className={classes.content}>
           <div className={classes.infoText}>
-            <InfoIcon color="action" />
-            <Typography variant="h6">
+            <Alert severity="info" className={classes.alertInfo}>
               {t('forms.user.create.generalInfo.title')}
-            </Typography>
+            </Alert>
           </div>
           <TextField
             fullWidth
@@ -200,6 +198,10 @@ export class CreateRoleMasterAccountDialog extends React.Component<
 
 const styles = (theme: Theme) =>
   createStyles({
+    alertInfo: {
+      display: 'flex',
+      alignItems: 'center',
+    },
     content: {
       marginLeft: theme.spacing(3),
       marginRight: theme.spacing(3),

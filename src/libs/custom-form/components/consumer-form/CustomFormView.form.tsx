@@ -1,12 +1,12 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import Alert from '@material-ui/lab/Alert/Alert';
 
 import { createStyles, Theme } from '@material-ui/core/styles';
 import { Form } from 'formik';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Typography from '@material-ui/core/Typography';
-import InfoIcon from '@material-ui/icons/Info';
+
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import ConsumerFormFields, {
@@ -73,10 +73,9 @@ export function ConsumerFormView(props: Props) {
     return (
       <div className={classes.emptyContainer}>
         <div className={classes.column}>
-          <InfoIcon className={classes.leftIcon} />
-          <Typography variant="caption" align="center">
+          <Alert severity="info" className={classes.alertInfo}>
             {t('customForm.emptyCustomForm')}
-          </Typography>
+          </Alert>
         </div>
       </div>
     );
@@ -122,6 +121,10 @@ export function ConsumerFormView(props: Props) {
 
 const styles = (theme: Theme) =>
   createStyles({
+    alertInfo: {
+      display: 'flex',
+      alignItems: 'center',
+    },
     form: {
       padding: theme.spacing(1),
     },

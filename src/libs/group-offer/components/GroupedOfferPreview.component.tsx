@@ -7,7 +7,6 @@ import { withFormik, Form, FormikProps, FieldArray } from 'formik';
 import { useTranslation } from 'react-i18next';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
 
 import {
   Button,
@@ -182,8 +181,7 @@ export const GroupedOfferPreviewForm: React.FC<
     if (frequenceIsYearly) {
       return (
         <div className={classes.row}>
-          <InfoIcon color="disabled" />
-          <Typography color="textSecondary">
+          <Alert severity="info" color="grey" className={classes.alertInfo}>
             {t(
               `groupedOption.helperText.year${
                 intervalIsPlural ? '_plural' : ''
@@ -200,25 +198,30 @@ export const GroupedOfferPreviewForm: React.FC<
                 month: firstDate.format('MMMM'),
               },
             )}
-          </Typography>
+          </Alert>
         </div>
       );
     }
 
     return (
       <div className={classes.row}>
-        <InfoIcon color="disabled" />
-        <Typography color="textSecondary">
-          {t(
-            `groupedOption.helperText.${
-              FREQUENCE_STRING_CONVERTER[recurrence_rule.frequence]
-            }${intervalIsPlural ? '_plural' : ''}`,
-            {
-              count: recurrence_rule.interval ?? 0,
-              day: getDisplayDateFromRecurrence(firstDate, recurrence_rule, t),
-            },
-          )}
-        </Typography>
+        <Alert severity="info" color="grey" className={classes.alertInfo}>
+          <Typography color="textSecondary">
+            {t(
+              `groupedOption.helperText.${
+                FREQUENCE_STRING_CONVERTER[recurrence_rule.frequence]
+              }${intervalIsPlural ? '_plural' : ''}`,
+              {
+                count: recurrence_rule.interval ?? 0,
+                day: getDisplayDateFromRecurrence(
+                  firstDate,
+                  recurrence_rule,
+                  t,
+                ),
+              },
+            )}
+          </Typography>
+        </Alert>
       </div>
     );
   }, [classes, recurrence_rule, t, values?.formikGroups]);
@@ -390,6 +393,10 @@ export const GroupedOfferPreviewForm: React.FC<
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   main: {
     padding: theme.spacing(2),
     display: 'flex',

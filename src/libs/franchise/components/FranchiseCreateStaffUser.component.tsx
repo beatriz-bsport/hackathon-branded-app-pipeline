@@ -1,14 +1,14 @@
 import React from 'react';
 import { compose } from 'recompose';
+import Alert from '@material-ui/lab/Alert/Alert';
 
 import TextField from '@material-ui/core/TextField';
-import InfoIcon from '@material-ui/icons/Info';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { createStyles, Theme } from '@material-ui/core/styles';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { Divider, Typography } from '@material-ui/core';
+import { Divider } from '@material-ui/core';
 import classNames from 'classnames';
 import { Actions, Submit } from '#components/forms';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
@@ -151,10 +151,9 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
         >
           <div className={classes.container}>
             <div className={classes.infoText}>
-              <InfoIcon className={classes.icon} />
-              <Typography variant="h6">
+              <Alert severity="info" className={classes.alertInfo}>
                 {t('forms.user.create.generalInfo.title')}
-              </Typography>
+              </Alert>
             </div>
             <div className={classes.firstRow}>
               <TextField
@@ -203,10 +202,9 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
             </div>
             <Divider className={classes.divider} />
             <div className={classes.infoText}>
-              <InfoIcon className={classes.icon} />
-              <Typography variant="h6">
+              <Alert severity="info" className={classes.alertInfo}>
                 {t('forms.user.create.role.title')}
-              </Typography>
+              </Alert>
             </div>
             <div className={classes.field}>
               <MaterialUISelector
@@ -224,10 +222,9 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
 
             <Divider className={classes.divider} />
             <div className={classes.infoText}>
-              <InfoIcon className={classes.icon} />
-              <Typography variant="h6">
+              <Alert severity="info" className={classes.alertInfo}>
                 {t('forms.user.create.franchisees.title')}
-              </Typography>
+              </Alert>
             </div>
             <InfoBox
               content={t('forms.user.create.franchisees.warning')}
@@ -280,6 +277,10 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
 
 const styles = (theme: Theme) =>
   createStyles({
+    alertInfo: {
+      display: 'flex',
+      alignItems: 'center',
+    },
     container: {
       display: 'flex',
       flexDirection: 'column',

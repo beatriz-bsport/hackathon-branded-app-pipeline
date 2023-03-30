@@ -17,7 +17,7 @@ import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import InfoIcon from '@material-ui/icons/Info';
+import Alert from '@material-ui/lab/Alert/Alert';
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 
 import moment from 'moment-timezone';
@@ -191,10 +191,11 @@ export class ConsumerPackRowItem extends Component<Props, State> {
           <div className={this.props.classes.buttonsContainer}>
             {isMobile ? (
               <IconButton onClick={this.handleInfoIncompatibilitesHovering}>
-                <InfoIcon />
+                <Alert severity="info" />
               </IconButton>
             ) : (
-              <InfoIcon
+              <Alert
+                severity="info"
                 onMouseEnter={this.handleInfoIncompatibilitesHovering}
                 onMouseLeave={this.handleInfoIncompatibilitesLeaving}
               />

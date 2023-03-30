@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { push as routerPush } from 'connected-react-router';
 import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
-import InfoIcon from '@material-ui/icons/Info';
+import Alert from '@material-ui/lab/Alert/Alert';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
@@ -55,14 +55,9 @@ const ClickOnPaymentPack = withTranslation(['paymentPack'])(
   (props: { classes: Object, t: TFunction }) => (
     <div className={props.classes.container}>
       <div className={props.classes.emptyMessageContainer}>
-        <InfoIcon fontSize="large" color="disabled" />
-        <Typography
-          className={props.classes.emptyMessageText}
-          color="textSecondary"
-          variant="caption"
-        >
+        <Alert severity="info" className={props.classes.alertInfo} color="grey">
           {props.t('details.pleaseSelectAPack')}
-        </Typography>
+        </Alert>
       </div>
     </div>
   ),
@@ -205,6 +200,10 @@ export class MetaActivityDetailPacks extends Component<state, Props> {
 }
 
 const styles = (theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   header: {
     paddingBottom: theme.spacing(1),
   },

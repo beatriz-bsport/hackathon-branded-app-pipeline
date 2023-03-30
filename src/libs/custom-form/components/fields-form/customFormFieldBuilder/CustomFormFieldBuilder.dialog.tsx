@@ -1,4 +1,5 @@
 import React from 'react';
+import Alert from '@material-ui/lab/Alert/Alert';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { FieldArray, Formik } from 'formik';
@@ -9,7 +10,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import InfoIcon from '@material-ui/icons/Info';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Typography from '@material-ui/core/Typography';
@@ -400,23 +400,26 @@ export function CustomFormFieldBuilderDialog(props: Props) {
                   />
 
                   <div className={classes.textAndIcon}>
-                    <InfoIcon className={classes.leftIcon} fontSize="small" />
-                    <div className={classes.helperTextContainer}>
-                      <Typography variant="caption">
-                        {t('customForm.field.link_to_note_helper')}
-                      </Typography>
-                    </div>
+                    <Alert
+                      severity="info"
+                      className={classes.alertInfo}
+                      color="grey"
+                    >
+                      {t('customForm.field.link_to_note_helper')}
+                    </Alert>
                   </div>
                 </FormGroup>
               )}
               {formik.values.kind === CUSTOM_FORM_FIELD_FILE_OPTION && (
                 <div className={classes.textAndIcon}>
-                  <InfoIcon className={classes.leftIcon} fontSize="small" />
-                  <div className={classes.helperTextContainer}>
-                    <Typography variant="caption">
-                      {t('customForm.field.fileHelper')}
-                    </Typography>
-                  </div>
+                  <Alert
+                    severity="info"
+                    className={classes.alertInfo}
+                    color="grey"
+                  >
+                    {' '}
+                    {t('customForm.field.fileHelper')}
+                  </Alert>
                 </div>
               )}
             </DialogContent>
@@ -451,6 +454,10 @@ export function CustomFormFieldBuilderDialog(props: Props) {
   );
 }
 const styles = (theme: Theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   paddingBottom: {
     paddingBottom: theme.spacing(1),
   },

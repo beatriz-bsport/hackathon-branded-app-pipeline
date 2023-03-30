@@ -10,7 +10,7 @@ import { withFormik, Form, FormikProps } from 'formik';
 
 import { Divider, makeStyles, Typography } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import InfoIcon from '@material-ui/icons/Info';
+import Alert from '@material-ui/lab/Alert/Alert';
 import DataUsageIcon from '@material-ui/icons/DataUsage';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
@@ -407,10 +407,9 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
           <div className={classes.container}>
             <div className={classes.innerContainer}>
               <div className={classNames(classes.row, classes.formTitle)}>
-                <InfoIcon className={classes.sectionIcon} />
-                <Typography variant="h6">
+                <Alert className={classes.alertInfo}>
                   {t('graphFormDrawer.sectionTitles.general')}
-                </Typography>
+                </Alert>
               </div>
               <DelayTextField
                 fullWidth
@@ -710,6 +709,10 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   main: {
     display: 'flex',
     flexDirection: 'column',

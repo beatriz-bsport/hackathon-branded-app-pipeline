@@ -4,9 +4,9 @@ import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/styles';
 import { Button, Card, Theme, Typography } from '@material-ui/core';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import InfoIcon from '@material-ui/icons/Info';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import RoomIcon from '@material-ui/icons/Room';
+import Alert from '@material-ui/lab/Alert/Alert';
 
 export type OwnProps = {
   previousName: string;
@@ -34,8 +34,7 @@ export const MultipleSessionDetails = (props: Props) => {
   return (
     <div className={classes.container}>
       <div className={classes.title}>
-        <InfoIcon fontSize="large" className={classes.icon} color="disabled" />
-        <Typography variant="h4">{t('multiSession.title')}</Typography>
+        <Alert severity="info">{t('multiSession.title')} </Alert>
       </div>
       <div className={classes.innerContainer}>
         <Card className={classes.sessionContainer}>

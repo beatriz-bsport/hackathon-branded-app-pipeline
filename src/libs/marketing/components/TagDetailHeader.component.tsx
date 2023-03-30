@@ -1,7 +1,7 @@
 import { withStyles } from '@material-ui/styles';
 import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import InfoIcon from '@material-ui/icons/Info';
+import Alert from '@material-ui/lab/Alert/Alert';
 import Typography from '@material-ui/core/Typography';
 import { compose } from 'recompose';
 import { Theme } from '@material-ui/core/styles';
@@ -24,10 +24,9 @@ class TagDetailHeader extends React.PureComponent<Props> {
     if (!this.props.tag) {
       return (
         <div className={classes.noTagContainer}>
-          <InfoIcon />
-          <Typography className={classes.noTag}>
+          <Alert severity="info" className={classes.alertInfo}>
             {t('management.tagDetail.noTag')}
-          </Typography>
+          </Alert>
         </div>
       );
     }
@@ -46,6 +45,10 @@ class TagDetailHeader extends React.PureComponent<Props> {
 }
 
 const styles = (theme: Theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   noTagContainer: {
     display: 'flex',
     width: '100%',

@@ -7,9 +7,9 @@ import { compose } from 'recompose';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Alert from '@material-ui/lab/Alert/Alert';
 import Paper from '@material-ui/core/Paper';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import InfoIcon from '@material-ui/icons/Info';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import EventPanel from '../../libs/event/components/EventPanel.component';
 import { COMPANY_EVENTS } from '../../libs/checkout/event.utils';
@@ -31,6 +31,10 @@ import { EventListParams } from '#libs/event/types';
 
 const styles = (theme: Theme) =>
   createStyles({
+    alertInfo: {
+      display: 'flex',
+      alignItems: 'center',
+    },
     divider: {
       marginBottom: theme.spacing(2),
       marginTop: theme.spacing(1),
@@ -129,14 +133,13 @@ export class MemberDetailBasket extends Component<Props> {
           ) : (
             <div className={classes.paddedContent}>
               <div className={classes.emptyMessageContainer}>
-                <InfoIcon fontSize="large" color="disabled" />
-                <Typography
-                  className={classes.emptyMessageText}
-                  color="textSecondary"
-                  variant="caption"
+                <Alert
+                  color="grey"
+                  className={classes.alertIcon}
+                  severity="info"
                 >
                   {t('eventHistory.pleaseSelectABasket')}
-                </Typography>
+                </Alert>
               </div>
             </div>
           )}

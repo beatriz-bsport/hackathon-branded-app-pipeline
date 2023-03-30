@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import Alert from '@material-ui/lab/Alert/Alert';
 import { makeStyles, Theme } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import InfoIcon from '@material-ui/icons/Info';
 import CampaignListItem from './CampaignListItem.component';
 import type { Campaign, Recipient } from '../types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
@@ -50,10 +48,9 @@ export const CampaignList: React.FC<Props> = ({
         )}
         {!loading && campaignList.length === 0 && (
           <div className={classes.column}>
-            <InfoIcon className={classes.infoIcon} />
-            <Typography align="center" color="textSecondary">
+            <Alert color="grey" severity="info" className={classes.alertInfo}>
               {t('campaign.list.isEmpty')}
-            </Typography>
+            </Alert>
           </div>
         )}
       </div>
@@ -68,13 +65,12 @@ export const CampaignList: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   container: {
     width: '100%',
-  },
-  infoIcon: {
-    height: 120,
-    width: 120,
-    marginBottom: theme.spacing(2),
   },
   buttonContainer: {
     width: '100%',

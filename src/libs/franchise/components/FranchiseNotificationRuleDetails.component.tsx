@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import Alert from '@material-ui/lab/Alert/Alert';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Button, createStyles, Theme, Typography } from '@material-ui/core';
-import InfoIcon from '@material-ui/icons/Info';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 import FranchiseNotificationRuleCard from './FranchiseNotificationRuleCard.component';
@@ -74,12 +74,9 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
     <>
       {!notificationId && (
         <div className={classes.emptySelect}>
-          <InfoIcon className={classes.info} />
-          <div>
-            <Typography variant="body1">
-              {t('franchise.emptySelect')}
-            </Typography>
-          </div>
+          <Alert severity="info" className={classes.alertInfo}>
+            {t('franchise.emptySelect')}
+          </Alert>
         </div>
       )}
       {!!notificationId && (
@@ -165,6 +162,10 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
 
 const styles = (theme: Theme) =>
   createStyles({
+    alertInfo: {
+      display: 'flex',
+      alignItems: 'center',
+    },
     emptySelect: {
       display: 'flex',
       flexDirection: 'column',

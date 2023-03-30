@@ -5,10 +5,10 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Theme } from '@material-ui/core/styles';
 import { TFunction } from 'i18next';
+import Alert from '@material-ui/lab/Alert/Alert';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import InfoIcon from '@material-ui/icons/Info';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -121,10 +121,13 @@ export class MemberCustomForm extends React.Component<Props> {
                   ) : (
                     <div className={classes.emptyContainer}>
                       <div className={classes.column}>
-                        <InfoIcon className={classes.leftIcon} />
-                        <Typography variant="caption">
+                        <Alert
+                          severity="info"
+                          className={classes.alertIcon}
+                          color="grey"
+                        >
                           {t('customForm.allFieldDisabled')}
-                        </Typography>
+                        </Alert>
                       </div>
                     </div>
                   )}
@@ -134,10 +137,14 @@ export class MemberCustomForm extends React.Component<Props> {
               <>
                 <div className={classes.emptyContainer}>
                   <div className={classes.column}>
-                    <InfoIcon className={classes.leftIcon} />
-                    <Typography variant="caption">
+                    <Alert
+                      severity="info"
+                      className={classes.alertIcon}
+                      color="grey"
+                    >
+                      {' '}
                       {t('customForm.selectCustomFormFilled')}
-                    </Typography>
+                    </Alert>
                   </div>
                 </div>
               </>
@@ -194,14 +201,13 @@ export class MemberCustomForm extends React.Component<Props> {
   }
 }
 const styles = (theme: Theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   emptyContainer: {
     padding: theme.spacing(10),
   },
-
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
-
   column: {
     display: 'flex',
     flexDirection: 'column',

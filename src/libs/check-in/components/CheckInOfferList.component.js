@@ -8,7 +8,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
-import InfoIcon from '@material-ui/icons/Info';
+import Alert from '@material-ui/lab/Alert/Alert';
 import Fab from '@material-ui/core/Fab';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Immutable from 'seamless-immutable';
@@ -199,10 +199,7 @@ export class CheckInOfferList extends Component<Props, State> {
           </Paper>
         ) : (
           <div className={classes.empty}>
-            <InfoIcon className={classes.leftIcon} />
-            <Typography variant="h6" component="p" color="textSecondary" inline>
-              {t('offerList.emptyList')}
-            </Typography>
+            <Alert severity="info"> {t('offerList.emptyList')}</Alert>
           </div>
         )}
       </div>

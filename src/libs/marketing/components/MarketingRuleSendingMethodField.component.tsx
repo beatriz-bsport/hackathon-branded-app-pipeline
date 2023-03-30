@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import Alert from '@material-ui/lab/Alert/Alert';
 
 import {
   Button,
@@ -14,7 +15,6 @@ import classNames from 'classnames';
 import SendIcon from '@material-ui/icons/Send';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import InfoIcon from '@material-ui/icons/Info';
 import Tooltip from '#components/Tooltip.component';
 import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constant';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
@@ -201,12 +201,11 @@ const MarketingRuleSendingMethodField = (props: Props) => {
                       <CircularProgress />
                     ) : (
                       <div className={classes.previewEmpty}>
-                        <InfoIcon fontSize="large" color="disabled" />
-                        <Typography color="textSecondary">
+                        <Alert severity="info" className={classes.alertInfo}>
                           {emails.length
                             ? t('communication:mail.selectToShowPreview')
                             : t('notification.form.noMailAvailable')}
-                        </Typography>
+                        </Alert>
                       </div>
                     )}
                   </div>
@@ -253,11 +252,10 @@ const MarketingRuleSendingMethodField = (props: Props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  infoIcon: {
-    color: theme.palette.info.main,
+  alertInfo: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    color: theme.palette.info.main,
   },
   titleContainer: {
     display: 'flex',

@@ -5,7 +5,6 @@ import { withFormik, Form, FormikProps, Field, FieldArray } from 'formik';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 
-import InfoIcon from '@material-ui/icons/Info';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import ToggleOnIcon from '@material-ui/icons/ToggleOn';
@@ -318,10 +317,9 @@ export const GroupedOfferFormSettings: React.FC<
       <Form>
         <div className={classes.wrapper}>
           <div className={classes.subtitle}>
-            <InfoIcon className={classes.icon} />
-            <Typography variant="h6">
+            <Alert severity="info" className={classes.alertInfo}>
               {t('groupedOption.modal.form.subtitle')}
-            </Typography>
+            </Alert>
           </div>
           <div className={classes.column}>
             <TextField
@@ -829,6 +827,10 @@ const OffersList: React.FC<{
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   wrapper: {
     paddingBottom: theme.spacing(2),
     padding: theme.spacing(2),

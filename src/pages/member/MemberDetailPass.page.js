@@ -8,8 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Typography from '@material-ui/core/Typography';
-import InfoIcon from '@material-ui/icons/Info';
+import Alert from '@material-ui/lab/Alert/Alert';
 import { push, replace } from 'connected-react-router';
 import { compose, withState, withStateHandlers, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
@@ -189,14 +188,9 @@ const ClickOnConsumerPack = withTranslation(['paymentPack'])(
   (props: { classes: Object, t: TFunction }) => (
     <div className={props.classes.container}>
       <div className={props.classes.emptyMessageContainer}>
-        <InfoIcon fontSize="large" color="disabled" />
-        <Typography
-          className={props.classes.emptyMessageText}
-          color="textSecondary"
-          variant="caption"
-        >
+        <Alert severity="info" className={props.classes.alertInfo} color="grey">
           {props.t('details.pleaseSelectAPack')}
-        </Typography>
+        </Alert>
       </div>
     </div>
   ),
@@ -494,6 +488,10 @@ export class MemberDetailPass extends Component<Props, State> {
 }
 
 const styles = (theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   container: {
     padding: theme.spacing(2),
   },

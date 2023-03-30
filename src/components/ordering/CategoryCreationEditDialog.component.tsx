@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import React, { useCallback } from 'react';
+import Alert from '@material-ui/lab/Alert/Alert';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
-import InfoIcon from '@material-ui/icons/Info';
-import Typography from '@material-ui/core/Typography';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -70,12 +69,9 @@ export const CategoryCreationEditDialog = (props: Props) => {
         />
         {!categorySelected && props.categoryCreationHelper && (
           <div className={classes.textAndIcon}>
-            <InfoIcon className={classes.leftIcon} fontSize="small" />
-            <div className={classes.helperTextContainer}>
-              <Typography variant="caption">
-                {props.categoryCreationHelper}
-              </Typography>
-            </div>
+            <Alert severity="info" className={classes.alertInfo}>
+              {props.categoryCreationHelper}
+            </Alert>
           </div>
         )}
       </DialogContent>
@@ -105,6 +101,10 @@ export const CategoryCreationEditDialog = (props: Props) => {
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   paddingBottom: {
     paddingBottom: theme.spacing(1),
   },
@@ -112,15 +112,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: theme.spacing(2),
     display: 'flex',
     alignItems: 'center',
-  },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
-  helperTextContainer: {
-    backgroundColor: '#e0e0e0',
-    borderRadius: theme.spacing(0.5),
-    paddingRight: theme.spacing(1),
-    paddingLeft: theme.spacing(1),
   },
   optionButton: {
     paddingTop: theme.spacing(2),

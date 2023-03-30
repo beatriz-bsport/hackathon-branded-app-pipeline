@@ -11,8 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Fab from '@material-ui/core/Fab';
-import InfoIcon from '@material-ui/icons/Info';
-
+import Alert from '@material-ui/lab/Alert/Alert';
 import TextField from '@material-ui/core/TextField';
 
 import EditIcon from '@material-ui/icons/Edit';
@@ -56,20 +55,26 @@ export class SelectTemplate extends Component<Props> {
     if (emails.length === 0) {
       return (
         <div className={this.props.classes.previewEmpty}>
-          <InfoIcon fontSize="large" color="disabled" />
-          <Typography color="textSecondary">
+          <Alert
+            color="grey"
+            severity="info"
+            className={this.props.classes.alertInfo}
+          >
             {this.props.t('mail.noMailAvailable')}
-          </Typography>
+          </Alert>
         </div>
       );
     }
 
     return (
       <div className={this.props.classes.previewEmpty}>
-        <InfoIcon fontSize="large" color="disabled" />
-        <Typography color="textSecondary">
+        <Alert
+          color="grey"
+          severity="info"
+          className={this.props.classes.alertInfo}
+        >
           {this.props.t('mail.selectToShowPreview')}
-        </Typography>
+        </Alert>
       </div>
     );
   };
@@ -195,6 +200,10 @@ export class SelectTemplate extends Component<Props> {
 }
 
 const styles = (theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   buttonContainer: {
     display: 'flex',
     justifyContent: 'center',

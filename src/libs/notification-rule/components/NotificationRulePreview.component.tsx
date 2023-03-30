@@ -1,10 +1,9 @@
 // @flow
 import React, { useMemo } from 'react';
-import Typography from '@material-ui/core/Typography';
 import { IconButton, Theme, makeStyles, Paper } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import InfoIcon from '@material-ui/icons/Info';
 import CropFreeIcon from '@material-ui/icons/CropFree';
+import Alert from '@material-ui/lab/Alert/Alert';
 
 import { NotificationRule, NotificationRuleEventType } from '../types';
 import {
@@ -71,10 +70,9 @@ const NotificationRulePreview = (props: Props) => {
       {!event && (
         <div className={classes.center}>
           <div className={classes.emptyState}>
-            <InfoIcon color="disabled" />
-            <Typography className={classes.emptyText}>
+            <Alert severity="info" className={classes.alertInfo} color="grey">
               {t('preview.emptyState')}
-            </Typography>
+            </Alert>
           </div>
         </div>
       )}
@@ -115,10 +113,9 @@ const NotificationRulePreview = (props: Props) => {
             event.rule.push_notification_title === '' ||
             event.rule.push_notification_content === '') && (
             <div className={classes.emptyState}>
-              <InfoIcon color="disabled" />
-              <Typography className={classes.emptyText}>
+              <Alert severity="info" className={classes.alertInfo} color="grey">
                 {t('preview.emptyStateNotification')}
-              </Typography>
+              </Alert>
             </div>
           )}
         </>
@@ -128,17 +125,16 @@ const NotificationRulePreview = (props: Props) => {
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   emptyState: {
     marginTop: theme.spacing(6),
     marginLeft: 'auto',
     marginRight: 'auto',
     display: 'flex',
     alignItems: 'center',
-  },
-  emptyText: {
-    fontSize: 16,
-    color: theme.palette.grey['500'],
-    marginLeft: theme.spacing(1),
   },
   center: {
     display: 'flex',

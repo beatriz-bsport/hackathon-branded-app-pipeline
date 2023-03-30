@@ -10,7 +10,6 @@ import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import EventBusyIcon from '@material-ui/icons/EventBusy';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import Alert from '@material-ui/lab/Alert';
-import InfoIcon from '@material-ui/icons/Info';
 import CancelIcon from '@material-ui/icons/Cancel';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
@@ -120,10 +119,9 @@ export function MetaActivityForm(props: Props) {
       </div>
       <div className={classes.container}>
         <div className={classes.headerWithIcon}>
-          <InfoIcon
-            className={classnames(classes.leftIcon, classes.greyIcon)}
-          />
-          <Typography variant="h6">{t('activity.generalInfo')}</Typography>
+          <Alert severity="info" color="grey" className={classes.alertInfo}>
+            {t('activity.generalInfo')}
+          </Alert>
         </div>
         <TextField
           id="textfield_activity_title"
@@ -361,6 +359,10 @@ export function MetaActivityForm(props: Props) {
 }
 
 const styles = (theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   container: {
     padding: theme.spacing(3),
     display: 'flex',

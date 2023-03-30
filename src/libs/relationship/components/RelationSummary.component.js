@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-
+import Alert from '@material-ui/lab/Alert/Alert';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -9,7 +9,6 @@ import AddIcon from '@material-ui/icons/Add';
 import CancelIcon from '@material-ui/icons/Cancel';
 import IconButton from '@material-ui/core/IconButton';
 import withStyles from '@material-ui/core/styles/withStyles';
-import InfoIcon from '@material-ui/icons/Info';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
@@ -48,14 +47,9 @@ export const RelationSummary = (props: Props) => {
     return (
       <div>
         <div className={props.classes.nothingSelectedContainer}>
-          <InfoIcon fontSize="large" color="disabled" />
-          <Typography
-            className={props.classes.emptyMessageText}
-            color="textSecondary"
-            variant="caption"
-          >
+          <Alert color="grey" severity="info" className={classes.alertInfo}>
             {props.t('member.list.pleaseSelectOne')}
-          </Typography>
+          </Alert>
         </div>
       </div>
     );
@@ -178,6 +172,10 @@ export const RelationSummary = (props: Props) => {
 };
 
 const styles = (theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   title: {
     marginBottom: theme.spacing(1),
   },

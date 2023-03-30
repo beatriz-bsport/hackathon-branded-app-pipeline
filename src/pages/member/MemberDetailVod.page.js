@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { withStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import InfoIcon from '@material-ui/icons/Info';
+import Alert from '@material-ui/lab/Alert/Alert';
+
 import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_PRIVATE_PASS,
@@ -87,14 +87,9 @@ const ClickOnPurchaseVideo = withTranslation(['video'])(
   (props: { classes: Object, t: TFunction }) => (
     <div className={props.classes.container}>
       <div className={props.classes.emptyMessageContainer}>
-        <InfoIcon fontSize="large" color="disabled" />
-        <Typography
-          className={props.classes.emptyMessageText}
-          color="textSecondary"
-          variant="caption"
-        >
+        <Alert color="grey" severity="info" className={props.classes.alertInfo}>
           {props.t('details.pleaseSelectVod')}
-        </Typography>
+        </Alert>
       </div>
     </div>
   ),
@@ -197,6 +192,10 @@ export class MemberDetailVod extends Component<Props, state> {
 }
 
 const styles = (theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   containerRecurrentBooking: {
     width: '100%',
   },

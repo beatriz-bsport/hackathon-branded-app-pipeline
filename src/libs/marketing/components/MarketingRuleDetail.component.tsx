@@ -1,4 +1,6 @@
 import React from 'react';
+import Alert from '@material-ui/lab/Alert/Alert';
+
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import {
@@ -15,7 +17,6 @@ import {
   Typography,
   withStyles,
 } from '@material-ui/core';
-import InfoIcon from '@material-ui/icons/Info';
 
 import { TFunction } from 'i18next';
 import {
@@ -528,10 +529,9 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                 <CircularProgress />
               ) : (
                 <div className={classes.selectRulesContainer}>
-                  <InfoIcon />
-                  <Typography className={classes.marginTop}>
+                  <Alert severity="info" className={classes.alertInfo}>
                     {t('marketing:notifications.selectNotificationRules')}
-                  </Typography>
+                  </Alert>
                 </div>
               )}
             </div>
@@ -601,6 +601,10 @@ const getLabel = (props: Props) => {
 };
 
 const styles = (theme: Theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   divider: {
     marginBottom: theme.spacing(2),
   },

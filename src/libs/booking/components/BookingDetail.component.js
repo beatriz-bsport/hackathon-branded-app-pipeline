@@ -4,7 +4,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
-import InfoIcon from '@material-ui/icons/Info';
+import Alert from '@material-ui/lab/Alert/Alert';
 import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 
@@ -46,14 +46,9 @@ export class BookingDetail extends Component<Props> {
       return (
         <div className={classes.container}>
           <div className={classes.emptyMessageContainer}>
-            <InfoIcon fontSize="large" color="disabled" />
-            <Typography
-              className={classes.emptyMessageText}
-              color="textSecondary"
-              variant="caption"
-            >
+            <Alert severity="info" color="grey" className={classes.alertInfo}>
               {t('details.pleaseSelectABooking')}
-            </Typography>
+            </Alert>
           </div>
         </div>
       );
@@ -145,6 +140,10 @@ export class BookingDetail extends Component<Props> {
 }
 
 const styles = (theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   parametersContainer: {
     padding: theme.spacing(2),
   },
@@ -164,9 +163,6 @@ const styles = (theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: theme.spacing(4),
-  },
-  emptyMessageText: {
-    marginTop: theme.spacing(2),
   },
 });
 

@@ -3143,7 +3143,8 @@
                 }
             },
             "header": {
-                "threeDaysView": "3 Days"
+                "threeDaysView": "3 Days",
+                "dateSelector": "Date picker"
             },
             "createCustomEvent": "Add a task / personal appointment",
             "customEvent": {
@@ -9241,7 +9242,8 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
-                "Cancelled"
+                "Cancelled",
+                "Canceled"
             ]
         },
         "payment_method_with_credit_account": {
@@ -10281,7 +10283,8 @@
         "calendar": {
             "modifyOffer": "Edit",
             "deleteOffer": "Cancel",
-            "filter": "Filter"
+            "filter": "Filter",
+            "today": "Today"
         },
         "manageOffer": "Manage bookings",
         "forms": {

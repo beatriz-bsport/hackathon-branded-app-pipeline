@@ -13,42 +13,57 @@ interface Props {
   error?: string;
 }
 
-const MarketplaceGiftcardSettingsForm: React.FC<Props> = (props) => {
+const MarketplaceGiftcardSettingsForm: React.FC<Props> = ({
+  onChange,
+  giftcards,
+  config,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation('giftcard');
 
-  if (!props.config) {
+  const value = React.useMemo(
+    () => [...giftcards.filter((g) => config.giftcards?.includes(g.id))],
+    [giftcards, config.giftcards],
+  );
+
+  const handleChange = React.useCallback(
+    (e, values: Giftcard[]) => onChange({ giftcards: values.map((g) => g.id) }),
+    [onChange],
+  );
+
+  if (!config) {
     return null;
   }
 
   return (
-    <div className={classes.marginTop}>
-      <Autocomplete
-        multiple
-        options={[...props.giftcards]}
-        getOptionLabel={(option) => option.name.slice(0, 25)}
-        value={[
-          ...props.giftcards.filter((g) =>
-            props.config.giftcards?.includes(g.id),
-          ),
-        ]}
-        onChange={(e, values) =>
-          props.onChange({ giftcards: values.map((g) => g.id) })
-        }
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant="standard"
-            label={t('widget')}
-            placeholder={t('widget')}
-          />
-        )}
-      />
+    <div className={classes.flexContainer}>
+      <div className={classes.marginTop}>
+        <Autocomplete
+          multiple
+          options={[...giftcards]}
+          getOptionLabel={(option) => option.name.slice(0, 25)}
+          value={value}
+          onChange={handleChange}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              variant="standard"
+              label={t('widget')}
+              placeholder={t('widget')}
+            />
+          )}
+        />
+      </div>
     </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
+  flexContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+  },
   marginTop: {
     marginTop: theme.spacing(1),
   },

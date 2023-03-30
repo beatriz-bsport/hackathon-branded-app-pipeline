@@ -41,6 +41,7 @@ type OwnProps = {
   metadata: ReportMetadataValue[];
   reportConfigurations: ReportConfiguration[];
   upsertReportConfiguration: (value: {
+    reportId: number;
     data: ReportConfiguration;
     options: OptionCallback;
   }) => void;
@@ -187,13 +188,14 @@ export function ReportDashboard(props: Props) {
               }}
               onSubmit={(data: ReportConfiguration) => {
                 upsertReportConfiguration({
+                  reportId: reportConfiguration?.id,
                   data,
                   options: {
                     onSuccess: (response) => {
                       setShowModalAdd(false);
-                      onReportDetail(data?.id || response?.id);
+                      onReportDetail(reportConfiguration?.id || response?.id);
                       trackFormSuccess(
-                        data?.id,
+                        reportConfiguration?.id,
                         data?.category && { category: data?.category },
                       );
                     },

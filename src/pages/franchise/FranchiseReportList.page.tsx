@@ -47,14 +47,15 @@ const FranchiseReportList = (props: Props) => {
   }
 
   const handleUpsert = (value: {
+    reportId: number;
     data: ReportConfiguration;
     options: OptionCallback;
   }) => {
-    const { data, options } = value;
+    const { reportId, data, options } = value;
 
-    if (data.id) {
+    if (reportId) {
       updateReport({
-        reportId: data.id,
+        reportId,
         data,
         options,
       });

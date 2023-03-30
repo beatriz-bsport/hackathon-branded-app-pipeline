@@ -769,4 +769,12 @@ exports.default = {
       },
     },
   },
+  alreadySubscribed: {
+    dialog: {
+      validate: 'Ok',
+      content:
+        "Vous avez déjà acheté cet abonnement récemment. Si vous ne le voyez pas encore, veuillez attendre quelques minutes. Toutefois, si vous souhaitez l'acheter à nouveau, attendez quelques minutes et réessayez.",
+      title: 'Déjà abonné',
+    },
+  },
 };

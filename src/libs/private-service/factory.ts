@@ -4,6 +4,7 @@ import {
   PrivateServiceGroup,
   PrivatePass,
   PrivateService,
+  PrivatePassCategory,
 } from '#libs/private-service/types';
 
 function random_int(max: number): number {
@@ -59,7 +60,10 @@ const covers_main: Array<string> = [
   'https://assets.staging.bsport.io/activity/Boxe_Francaise.jpg',
 ];
 
-export function private_services_factory(num_el: number): Array<any> {
+export function private_services_factory(
+  num_el: number,
+  onlyAvailable?: boolean,
+): Array<any> {
   const private_services_ids: Array<number> = [...Array(num_el).keys()];
   const private_service_res: Partial<PrivateService>[] =
     private_services_ids.map((id) => {
@@ -70,7 +74,7 @@ export function private_services_factory(num_el: number): Array<any> {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nisi at sapien fringilla lobortis. Quisque rhoncus accumsan vulputate. Praesent ultricies neque lacus. Duis non iaculis ex. Nullam in ante id turpis lobortis ullamcorper vel eu sapien. Nullam varius urna at dapibus aliquam. Donec elit ex, scelerisque non pretium non, iaculis et justo.',
         establishments: [],
         coach_capacity_used: 1,
-        available: random_choice([true, false]),
+        available: onlyAvailable || random_choice([true, false]),
         use_full_establishment_capacity: random_choice([true, false]),
         coaches: [],
         color: random_choice([colors]),
@@ -151,6 +155,28 @@ export function private_services_passes_factory(
       linked_payment_pack: Math.floor(Math.random() * 2),
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nisi at sapien fringilla lobortis. Quisque rhoncus accumsan vulputate. Praesent ultricies neque lacus. Duis non iaculis ex. Nullam in ante id turpis lobortis ullamcorper vel eu sapien. Nullam varius urna at dapibus aliquam. Donec elit ex, scelerisque non pretium non, iaculis et justo.',
+    };
+  });
+}
+
+const privatePassCategoryNames = [
+  'Boxe',
+  'Piscine',
+  'Spa',
+  'Cardio',
+  'Accrobranche',
+];
+
+export function privatePassCategoryFactory(
+  num_el: number,
+): PrivatePassCategory[] {
+  const privatePassCategoryIds: number[] = [...Array(num_el).keys()];
+  return privatePassCategoryIds.map((id) => {
+    return {
+      id,
+      name: privatePassCategoryNames[id],
+      company_id: Math.random() * 100,
+      category_ordering: Math.random() * 10,
     };
   });
 }

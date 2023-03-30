@@ -9,6 +9,9 @@ import GenericFormDialog from './GenericFormDialog';
 import GenericMuiDialog from './GenericMuiDIalog';
 import GenericResponsiveDialog from './GenericMuiDIalog';
 import CustomMuiDialog from './CustomMuiDialog.component';
+import GenericDialogWithCountdownConfirm, {
+  Props as DelayedDialogProps,
+} from './GenericDialogWithCountdownConfirm.component';
 import GenericDeleteDialog, {
   Props as DeleteDialogProps,
 } from './GenericDeleteDialog.component';
@@ -136,6 +139,17 @@ DeleteDialog.args = {
   cancelLabel: 'Cancel !',
   validateLabel: 'Boom',
   content: 'I am the content of the delete dialog',
+};
+
+const GenericDialogWithCountdownConfirmTemplate = (
+  args: DelayedDialogProps,
+) => <GenericDialogWithCountdownConfirm {...args} />;
+export const DelayedDialog = GenericDialogWithCountdownConfirmTemplate.bind({});
+DelayedDialog.args = {
+  open: true,
+  title: 'Basic delayed dialog',
+  validateLabel: 'Boom',
+  content: 'I am the content of the delayed dialog',
 };
 
 export default {

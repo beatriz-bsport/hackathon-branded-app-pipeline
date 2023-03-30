@@ -1,8 +1,25 @@
 // @ts-nocheck
 import { Component } from 'react';
 import { ComponentStory } from '@storybook/react';
-import { userEvent } from '@storybook/testing-library';
+import { userEvent, within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
+
+// Function that helps us to retrieve the form and the specified element / container
+export async function findByTestIdInCanvas(
+  canvasElement: HTMLElement,
+  componentId: string,
+) {
+  const canvas = within(canvasElement);
+  const component = await canvas.findByTestId(
+    componentId,
+    {}, //Unused queryOption
+    { timeout: 3500 },
+  );
+  return {
+    canvas,
+    component,
+  };
+}
 
 // Function to emulate pausing between interactions
 // We need this to interact with the select components as sometimes (depending on the computer performance), the

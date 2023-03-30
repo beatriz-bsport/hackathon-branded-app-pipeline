@@ -3597,7 +3597,8 @@
                 "nb_interval": {
                     "helperText": "Al menos 2 meses",
                     "label": "Número de facturas",
-                    "error": "El número de facturaciones no debe superar 90"
+                    "error": "El número de facturaciones no debe superar 90",
+                    "errorForFixedBillingDay": "El número de facturaciones no debe superar 12"
                 },
                 "name": {
                     "label": "Nombre del contrato"
@@ -3641,7 +3642,12 @@
                     "invoicing_type_readonly": "No es posible cambiar el tipo de facturación",
                     "fixed_day": {
                         "explain": "Cada factura se facturará el día elegido. El primer pago se prorrateará si es necesario.",
-                        "label": "Facturar en un día fijo"
+                        "label": "Facturar en un día fijo",
+                        "modification_not_apply_to_past": "Está a punto de cambiar el día de facturación de su suscripción. Sólo se verán afectadas las nuevas suscripciones creadas. Las suscripciones existentes y las suscripciones con renovaciones no cambiarán (incluso después de la renovación).",
+                        "end_of_month_explain": "Si un mes no tiene {{ month_billing_day }}, la factura se emitirá el último día del mes.",
+                        "recurrence_explain": {
+                            "month": "La suscripción se facturará cada {{ month_billing_day }} del mes por una duración total de {{ nb_interval }} meses y generará {{ nb_interval }} {{ invoice }}. El primer pago se prorrateará si es necesario."
+                        }
                     },
                     "same_day_as_subscription": {
                         "recurrence_explain": {
@@ -3669,6 +3675,10 @@
                 },
                 "unusableByStaff": {
                     "label": "Invisible para el personal"
+                },
+                "month_billing_day": {
+                    "label2": "del mes.",
+                    "label1": "Facturar todas las"
                 }
             },
             "list": {
@@ -3760,7 +3770,8 @@
                 "alertDifferentMonth": "Ten en cuenta que has elegido una fecha en el último mes. Es posible que tu miembro tenga un o varios bonos facturados que ya han caducado.",
                 "alertSameMonth": "Atención, has elegido una fecha pasada, si la cuota contiene un bono, la validez de éste comenzará en la fecha seleccionada. En el caso de una validez de un mes, su miembro perderá {{lostDays}} días de validez.",
                 "title": "Fecha pasada"
-            }
+            },
+            "monthBillingDay": "Facturado cada {{ month_billing_day }} del mes"
         },
         "plannedInvoice": {
             "priceUpdater": {
@@ -3876,6 +3887,9 @@
                     },
                     "title": "Pausa",
                     "explainInvoice": "De qué factura (incluida) quiere aplazar la suscripción?"
+                },
+                "disabledReasons": {
+                    "month_billing_day": "No es posible pausar un contrato de día fijo "
                 }
             },
             "delete": "Suprimir",
@@ -3929,6 +3943,9 @@
                     "prewarning": "Si desea modificar futuras facturas ya creadas, debe cancelar esta suscripción.",
                     "cancel": "Cancelar"
                 }
+            },
+            "prorata": {
+                "helperOnSusscribe": "El primer pago se prorratea a {{ priceWithCurrency }} y se cobrará en {{-firstBillingDate}}. Los pagos posteriores se realizarán cada {{ monthBillingDay }} del mes, por un importe de {{ recurrentPrice }}."
             }
         },
         "noContracts": "Las cuotas te permitirán facturar a tus miembros regularmente (mensualmente) por un bono que se vuelve a acreditar cada mes/días/años.",
@@ -4828,7 +4845,8 @@
             "": [
                 "Cancelar",
                 "Cancelado",
-                "Cancelado"
+                "Cancelado",
+                "Cancelada"
             ]
         },
         "payment_method_with_credit_account": {

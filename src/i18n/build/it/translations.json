@@ -5816,6 +5816,9 @@
                     "cancel": "Annulla",
                     "submit": "Iscriviti",
                     "explainInvoice": "A partire da quale fattura (inclusa) desiderate posticipare la sottoscrizione?"
+                },
+                "disabledReasons": {
+                    "month_billing_day": "Non è possibile sospendere un contratto a giornata fissa "
                 }
             },
             "pauseSection": "Pausa",
@@ -5882,6 +5885,9 @@
                     "warning": "La fatturazione rimarrà la stessa, se volete aumentare/diminuire l'importo mensile, cambiate ogni pagamento mensile separatamente.",
                     "cancel": "Cancella"
                 }
+            },
+            "prorata": {
+                "helperOnSusscribe": "Il primo pagamento è ripartito proporzionalmente per un importo di {{ priceWithCurrency }} e verrà addebitato il giorno {{-firstBillingDate}}. I pagamenti successivi avverranno ogni {{ monthBillingDay }} del mese e saranno di {{ recurrentPrice }}"
             }
         },
         "paymentMethod": {
@@ -5972,7 +5978,8 @@
                 "nb_interval": {
                     "label": "Numero di fatturazione",
                     "helperText": "Almeno 2 mesi",
-                    "error": "Il numero di fatture non deve superare 90"
+                    "error": "Il numero di fatture non deve superare 90",
+                    "errorForFixedBillingDay": "Il numero di fatture non deve superare 12"
                 },
                 "recurrent_price": {
                     "label": "Pagamento ricorrente",
@@ -6047,7 +6054,12 @@
                     "title": "Fatturazione",
                     "fixed_day": {
                         "label": "Fattura in un giorno fisso",
-                        "explain": "Ogni fattura sarà emessa il giorno prescelto. Il primo pagamento è pro-rata se necessario."
+                        "explain": "Ogni fattura sarà emessa il giorno prescelto. Il primo pagamento è pro-rata se necessario.",
+                        "modification_not_apply_to_past": "Stai per modificare il giorno di fatturazione per il tuo abbonamento. Saranno interessati solo i nuovi abbonamenti creati. Gli abbonamenti attuali e gli abbonamenti già esistenti con rinnovo non subiranno modifiche (anche dopo il rinnovo)",
+                        "end_of_month_explain": "Se un mese non include {{ month_billing_day }}, la fattura verrà emessa l'ultimo giorno del mese.",
+                        "recurrence_explain": {
+                            "month": "L'abbonamento verrà fatturato ogni {{ month_billing_day }} del mese per una durata totale di {{ nb_interval }} mesi e genererà {{ nb_interval }} {{ invoice }}. Il primo pagamento, se necessario, è pro-rata."
+                        }
                     },
                     "invoicing_type_readonly": "Non è possibile modificare il tipo di fatturazione"
                 },
@@ -6062,6 +6074,10 @@
                 },
                 "unusableByStaff": {
                     "label": "Non visibile per lo staff"
+                },
+                "month_billing_day": {
+                    "label2": "del mese.",
+                    "label1": "Fattura tutto"
                 }
             },
             "legal": "Informazioni legali",
@@ -6125,7 +6141,8 @@
                 "valuePastInvoicesInputError": "Il valore non corrisponde. Riprova",
                 "futureInvoicesPayment": "Pagamento di fatture future",
                 "cancel": "Annulla"
-            }
+            },
+            "monthBillingDay": "Fatturato ogni {{ month_billing_day }} del mese"
         },
         "form": {
             "cancel": "Annulla",
@@ -7105,7 +7122,8 @@
                 "Annullato",
                 "Annulla",
                 "Annulla",
-                "Annulla"
+                "Annulla",
+                "Cancella"
             ]
         },
         "payment_method_with_credit_account": {

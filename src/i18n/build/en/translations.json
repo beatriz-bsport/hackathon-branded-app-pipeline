@@ -7903,6 +7903,9 @@
                     },
                     "title": "Paused",
                     "explainInvoice": "Select from which invoice you'd like to pause this subscription:"
+                },
+                "disabledReasons": {
+                    "month_billing_day": "It's not possible to pause a fixed day contract "
                 }
             },
             "switchPack": {
@@ -7953,6 +7956,9 @@
                     "explain": "This appointment pass will be replaced on all future invoices and sessions from the previous appointment pass will also be transferred.",
                     "title": "Appointment pass has been updated"
                 }
+            },
+            "prorata": {
+                "helperOnSusscribe": "The first payment is pro-rated at {{ priceWithCurrency }} and will be collected on {{-firstBillingDate}}. Subsequent payments will be made on every {{ monthBillingDay }} of the month, in the amount of {{ recurrentPrice }}"
             }
         },
         "contract": {
@@ -7994,7 +8000,8 @@
                 "nb_interval": {
                     "label": "Number of bills",
                     "helperText": "Minimum is 2 months",
-                    "error": "The number of billings should not exceed 90"
+                    "error": "The number of billings should not exceed 90",
+                    "errorForFixedBillingDay": "The number of billings should not exceed 12"
                 },
                 "managerOnly": {
                     "label": "Unavailable for purchase"
@@ -8056,7 +8063,12 @@
                     "invoicing_type_readonly": "It is not possible to change the billing type",
                     "fixed_day": {
                         "explain": "Each invoice will be invoiced on the chosen day. The first payment is pro-rated if necessary.",
-                        "label": "Invoice on a fixed day"
+                        "label": "Invoice on a fixed day",
+                        "modification_not_apply_to_past": "You are about to change the billing day of your subscription. Only new subscriptions created will be affected. Existing subscriptions and subscriptions with renewals will not change (even after renewal)",
+                        "end_of_month_explain": "If a month does not have a {{ month_billing_day }}, the invoice will be issued on the last day of the month.",
+                        "recurrence_explain": {
+                            "month": "The subscription will be invoiced every {{ month_billing_day }} of the month for a total duration of {{ nb_interval }} months and will generate {{ nb_interval }} {{ invoice }}. The first payment is pro-rated if necessary."
+                        }
                     },
                     "same_day_as_subscription": {
                         "recurrence_explain": {
@@ -8084,6 +8096,10 @@
                 },
                 "unusableByStaff": {
                     "label": "Invisible for the staff"
+                },
+                "month_billing_day": {
+                    "label2": "of the month.",
+                    "label1": "Invoice every"
                 }
             },
             "deleteForm": {
@@ -8145,7 +8161,8 @@
                 "alertDifferentMonth": "Please note that you have chosen a date in a past month. Your member may have one or more passes billed that have already expired.",
                 "alertSameMonth": "Please note that you have chosen a past date, if the subscription includes a pass, the validity of the pass will start on the selected date. In the case of a one month validity, your member will lose {{lostDays}} days of validity.",
                 "title": "Past date"
-            }
+            },
+            "monthBillingDay": "Invoiced every {{ month_billing_day }} of the month"
         },
         "recap": {
             "willBecharged": " will be charged ",
@@ -9221,6 +9238,7 @@
         },
         "last_invoice_status": {
             "": [
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled"

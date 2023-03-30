@@ -2829,7 +2829,8 @@
             "": [
                 "Annuleren",
                 "Annuleren",
-                "Geannuleerd"
+                "Geannuleerd",
+                "Annuleren"
             ]
         },
         "payment_method_with_credit_account": {
@@ -6045,7 +6046,8 @@
                 "nb_interval": {
                     "helperText": "Abonnementen hebben een minimumtermijn van 2 maanden.",
                     "label": "Aantal facturaties",
-                    "error": "Het aantal facturen mag niet meer dan 90 bedragen"
+                    "error": "Het aantal facturen mag niet meer dan 90 bedragen",
+                    "errorForFixedBillingDay": "Het aantal facturen mag niet meer dan 12 bedragen"
                 },
                 "description": {
                     "placeholder": "Een exclusieve aanbieding",
@@ -6104,7 +6106,12 @@
                     "invoicing_type_readonly": "Het is niet mogelijk het facturerings type te wijzigen",
                     "fixed_day": {
                         "explain": "Elke factuur wordt op de gekozen dag gefactureerd. De eerste betaling wordt eventueel pro rata berekend.",
-                        "label": "Factureren op een vaste dag"
+                        "label": "Factureren op een vaste dag",
+                        "modification_not_apply_to_past": "U gaat de factuurdag van uw abonnement wijzigen. Alleen nieuw aangemaakte abonnementen worden beïnvloed. Bestaande abonnementen en abonnementen met verlengingen zullen niet veranderen (zelfs niet na verlenging)",
+                        "end_of_month_explain": "Als een maand geen {{ month_billing_day }} heeft, wordt de factuur uitgereikt op de laatste dag van de maand.",
+                        "recurrence_explain": {
+                            "month": "Het abonnement wordt elke {{ month_billing_day }} van de maand gefactureerd voor een totale duur van {{ nb_interval }} maanden en genereert {{ nb_interval }} {{ invoice }}. De eerste betaling is pro rata indien nodig."
+                        }
                     },
                     "same_day_as_subscription": {
                         "recurrence_explain": {
@@ -6132,6 +6139,10 @@
                 },
                 "unusableByStaff": {
                     "label": "Onzichtbaar voor het personeel"
+                },
+                "month_billing_day": {
+                    "label2": "van de maand.",
+                    "label1": "Alle facturen"
                 }
             },
             "registerManager": {
@@ -6223,7 +6234,8 @@
                 },
                 "cancel": "Annuleren",
                 "validate": "Bevestigen"
-            }
+            },
+            "monthBillingDay": "Gefactureerd elke {{ month_billing_day }} van de maand"
         },
         "action": {
             "revertCurrentExplain": "Annuleer de laatste factuur en blokkeer de leskaart",
@@ -6298,6 +6310,9 @@
                     },
                     "explain": "Geef aan met hoeveel dagen de eerstvolgende en toekomstige betalingen wordt uitgesteld.",
                     "explainInvoice": "Selecteer vanaf welke factuur je dit abonnement wilt pauzeren:"
+                },
+                "disabledReasons": {
+                    "month_billing_day": "Niet in staat om een contract voor een vaste dag te pauzeren "
                 }
             },
             "actions": {
@@ -6349,6 +6364,9 @@
                     "explain": "Deze afspraakkaart wordt aan alle toekomstige facturen toegewezen. Alle sessies van de oude afspraakkaart worden ook naar de nieuwe afspraakkaart overgezet.",
                     "title": "De afspraakkaart is bijgewerkt"
                 }
+            },
+            "prorata": {
+                "helperOnSusscribe": "De eerste betaling is pro rata {{ priceWithCurrency }} en wordt geïnd op {{-firstBillingDate}}. Latere betalingen worden gedaan op elke {{ monthBillingDay }} van de maand, voor het bedrag van {{ recurrentPrice }}"
             }
         },
         "pause": {

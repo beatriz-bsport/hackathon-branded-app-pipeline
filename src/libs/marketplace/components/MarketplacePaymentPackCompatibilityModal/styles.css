@@ -17,10 +17,12 @@ li {
 
 .bs-pack-compatibility-dialog {
     background-color: #fff;
+    border: none;
 }
 
 .bs-pack-compatibility-dialog__header__check-icon {
     margin: var(--spacing-2);
+    margin-bottom: 0;
 }
 
 .bs-pack-compatibility-dialog__header__title {
@@ -45,18 +47,18 @@ li {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin: var(--spacing-2);
+    margin: var(--spacing-1);
 }
 
 .bs-pack-compatibility-body__compatibility__titleWithIcon {
     display: flex;
     align-items: center;
-    margin-bottom: var(--spacing-2);
     text-transform: capitalize;
 }
 
 .bs-pack-compatibility-body__compatibility__titleWithIcon__icon {
-    margin-right: var(--spacing-1);
+    margin: var(--spacing-1);
+    margin-left: 0  ;
 }
 
 .bs-pack-compatibility-body__compatibility__titleWithIcon__title {
@@ -90,18 +92,23 @@ li {
 .bs-pack-compatibility-dialog__footer__button {
     width: 100%;
     height: 100%;
-    padding: var(--spacing-4);
+    cursor: pointer;
+    padding: var(--spacing-3);
     border: none;
     background: none;
-    font-size: var(--h5-fontSize);
-    line-height: var(--h6-lineHeight);
-    font-weight: var(--h5-fontWeight);
-    color: var(--color-grey-medium);
+    font-size: var(--button-fontSize);
+    line-height: var(--button-lineHeight);
+    font-weight: var(--button-fontWeight);
+    color: var(--color-grey-main);
     text-transform: uppercase;
+
 }
 
 @media screen and (max-width: 570px) {
     .--is-desktop {
         display: none;
+    }
+    .bs-pack-compatibility-dialog__header{
+        border-bottom: var(--color-grey-light) solid 1px;
     }
 }

@@ -117,9 +117,14 @@ export class PrivateSlotForm extends React.Component<Props, State> {
     const { t, classes, onCancel } = this.props;
 
     return (
-      <form onSubmit={this.onSubmit} className={classes.container}>
+      <form
+        data-testid="privateslot-form"
+        onSubmit={this.onSubmit}
+        className={classes.container}
+      >
         <div className={classes.field}>
           <TextField
+            id="name-input"
             fullWidth
             label={t('slot.form.name.label')}
             placeholder={t('slot.form.name.placeholder')}
@@ -127,7 +132,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
             onChange={(ev) => this.setState({ name: ev.target.value })}
           />
         </div>
-        <div className={classes.field}>
+        <div id="credit-input" className={classes.field}>
           <NumericInput
             fullWidth
             label={t('slot.form.credit.label')}
@@ -137,7 +142,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
             error={this.state.credit < 0}
           />
         </div>
-        <div className={classes.field}>
+        <div id="people-capacity-input" className={classes.field}>
           <NumericInput
             fullWidth
             label={t('slot.form.people_capacity_used.label')}
@@ -149,7 +154,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
             error={this.state.people_capacity_used < 0}
           />
         </div>
-        <div className={classes.field}>
+        <div id="duration-input" className={classes.field}>
           <FormControl className={classes.flexField}>
             <InputLabel>{t('slot.form.duration_minutes.label')}</InputLabel>
             <DurationInput
@@ -164,7 +169,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
             />
           </FormControl>
         </div>
-        <div className={classes.field}>
+        <div id="booking-interval-input" className={classes.field}>
           <NumericInput
             fullWidth
             InputProps={{ step: 15, max: MAX_DURATION_MINUTES }}
@@ -186,8 +191,12 @@ export class PrivateSlotForm extends React.Component<Props, State> {
           />
         </div>
         <div className={classes.buttonContainer}>
-          <Button onClick={onCancel}>{t('slot.form.cancel')}</Button>
-          <Submit disabled={this.isFormError}>{t('slot.form.submit')}</Submit>
+          <Button id="button-cancel" onClick={onCancel}>
+            {t('slot.form.cancel')}
+          </Button>
+          <Submit id="button-submit" disabled={this.isFormError}>
+            {t('slot.form.submit')}
+          </Submit>
         </div>
       </form>
     );

@@ -69,6 +69,12 @@ import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import ConsumerAppBar from './ConsumerAppBar.container';
 import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
 import ContractTermsDialog from '#libs/subscription/components/contract/ContractTermsDialog.component';
+import GenericDialogWithCountdownConfirm from '#components/genericDialog/GenericDialogWithCountdownConfirm.component';
+import { COUNTDOWN_BEFORE_ACTIVATION } from './constants';
+
+const {
+  CONTRACT_IS_ALREADY_SUBSCRIBED,
+} = require('@bsport/common/lib/master-data/error-codes/subscription');
 
 const SubscriptionPayment = asyncComponent(
   () => import('#libs/subscription/components/SubscriptionPayment.component'),
@@ -130,6 +136,7 @@ type State = {
   processing: boolean;
   stripePromise: Promise | null;
   openContractTermsDialog: boolean;
+  openGenericDialogWithCountdownConfirm: boolean;
 };
 
 export class MarketplaceSubscriptionPayment extends React.Component<
@@ -140,6 +147,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     processing: false,
     stripePromise: null,
     openContractTermsDialog: false,
+    openGenericDialogWithCountdownConfirm: false,
   };
 
   componentWillMount() {
@@ -182,6 +190,10 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     }
   }
 
+  disableOpenGenericDialogWithCountdownConfirm = () => {
+    this.setState({ openGenericDialogWithCountdownConfirm: false });
+  };
+
   onSubmit = async (
     _,
     payment_method_id: string,
@@ -209,7 +221,14 @@ export class MarketplaceSubscriptionPayment extends React.Component<
           with_prorata: !!contract?.month_billing_day,
         },
         {
-          onError: () => this.setState({ processing: false }),
+          onError: (err) => {
+            this.setState({ processing: false });
+            if (
+              err.response?.data?.error_code === CONTRACT_IS_ALREADY_SUBSCRIBED
+            ) {
+              this.setState({ openGenericDialogWithCountdownConfirm: true });
+            }
+          },
           onBackgroundError: () => this.setState({ processing: false }),
           onBackgroundSuccess: () => {
             this.goToValidationPage(true);
@@ -250,7 +269,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     this.setState({ openContractTermsDialog: false });
 
   render() {
-    const { classes } = this.props;
+    const { classes, t } = this.props;
     if (
       this.props.contractLoading ||
       (this.props.contractId &&
@@ -385,6 +404,14 @@ export class MarketplaceSubscriptionPayment extends React.Component<
           contractTerms={contract?.contract}
           downloadContractTerms={this.props.downloadContractTerms}
           open={this.state.openContractTermsDialog}
+        />
+        <GenericDialogWithCountdownConfirm
+          open={this.state.openGenericDialogWithCountdownConfirm}
+          onValidate={this.disableOpenGenericDialogWithCountdownConfirm}
+          countdownBeforeActivation={COUNTDOWN_BEFORE_ACTIVATION}
+          validateLabel={t('alreadySubscribed.dialog.validate')}
+          content={t('alreadySubscribed.dialog.content')}
+          title={t('alreadySubscribed.dialog.title')}
         />
       </ConsumerAppBar>
     );

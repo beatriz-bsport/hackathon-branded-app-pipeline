@@ -10,10 +10,9 @@ li {
 }
 
 .bs-pass-compatibility-dialog__compatibility__title {
-    font-size: var(--subtitle1-fontSize);
+    font-size: var(--subtitle2-fontSize);
     line-height: var(--h6-lineHeight);
     font-weight: var(--h5-fontWeight);
-    margin-bottom: var(--spacing-1);
 }
 
 .bs-pass-compatibility-dialog__compatibility__itemList {
@@ -27,6 +26,9 @@ li {
     border-radius: 4px;
     margin: var(--spacing-1);
     margin-left: 0;
+    font-size: var(--subtitle2-fontSize);
+    line-height: var(--h6-lineHeight);
+    font-weight: var(--h5-fontWeight);
 }
 
 .bs-pass-compatibility-dialog__backdrop {
@@ -45,10 +47,12 @@ li {
 
 .bs-pass-compatibility-dialog{
     background-color: #fff;
+    border: none;
 }
 
 .bs-pass-compatibility-dialog__header__check-icon{
     margin: var(--spacing-2);
+    margin-bottom: 0;
 }
 
 .bs-pass-compatibility-dialog__header__title {
@@ -97,13 +101,14 @@ li {
 .bs-pass-compatibility-dialog__footer__button {
     width: 100%;
     height: 100%;
-    padding: var(--spacing-4);
+    cursor: pointer;
+    padding: var(--spacing-3);
     border: none;
     background: none;
-    font-size: var(--h5-fontSize);
-    line-height: var(--h6-lineHeight);
-    font-weight: var(--h5-fontWeight);
-    color: var(--color-grey-medium);
+    font-size: var(--button-fontSize);
+    line-height: var(--button-lineHeight);
+    font-weight: var(--button-fontWeight);
+    color: var(--color-grey-main);
     text-transform: uppercase;
 }
 

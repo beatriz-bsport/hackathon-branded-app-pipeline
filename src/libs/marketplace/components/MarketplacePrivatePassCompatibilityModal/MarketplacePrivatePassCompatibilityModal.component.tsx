@@ -73,6 +73,18 @@ const MarketplacePrivatePassCompatibilityModal: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('marketplace');
 
+  const validationIconStyles = {
+    color: '#4CAF50',
+    circle: {
+      width: 64,
+      height: 64,
+    },
+    checkIcon: {
+      width: 56,
+      height: 45,
+    },
+  };
+
   return (
     <>
       {isOpen && (
@@ -87,7 +99,13 @@ const MarketplacePrivatePassCompatibilityModal: React.FC<Props> = ({
               <Grid>
                 <Item rowStart={1} alignment={Alignment.CENTER}>
                   <div className="bs-pass-compatibility-dialog__header__check-icon --is-desktop">
-                    <ValidationIcon />
+                    <ValidationIcon
+                      color={validationIconStyles.color}
+                      widthCircle={validationIconStyles.circle.width}
+                      heightCircle={validationIconStyles.circle.height}
+                      widthIcon={validationIconStyles.checkIcon.width}
+                      heightIcon={validationIconStyles.checkIcon.height}
+                    />
                   </div>
                   <h3 className="bs-pass-compatibility-dialog__header__title --is-desktop">
                     {t('genericCardDetails.compatibility.compatible', {

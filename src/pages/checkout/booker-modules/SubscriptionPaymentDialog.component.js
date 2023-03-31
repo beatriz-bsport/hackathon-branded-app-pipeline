@@ -26,6 +26,12 @@ import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../..
 import { getSavedPaymentMethodList } from '../../../libs/payment/selectors';
 import { registerContractBackground } from '../../../libs/subscription/actions';
 import Analytics from '../../../components/analytics/Analytics.component';
+import GenericDialogWithCountdownConfirm from '#components/genericDialog/GenericDialogWithCountdownConfirm.component';
+import { COUNTDOWN_BEFORE_ACTIVATION } from '../constants';
+
+const {
+  CONTRACT_IS_ALREADY_SUBSCRIBED,
+} = require('@bsport/common/lib/master-data/error-codes/subscription');
 
 type Props = {
   t: TFunction,
@@ -49,12 +55,18 @@ type Props = {
 type State = {
   processing: boolean,
   firstBillingTimestamp: ?number,
+  openGenericDialogWithCountdownConfirm: boolean,
 };
 
 export class SubscriptionContractBooking extends React.Component<Props, State> {
   state = {
     firstBillingTimestamp: null,
     processing: false,
+    openGenericDialogWithCountdownConfirm: false,
+  };
+
+  disableOpenGenericDialogWithCountdownConfirm = () => {
+    this.setState({ openGenericDialogWithCountdownConfirm: false });
   };
 
   onSubmit = async (
@@ -84,9 +96,16 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
             this.setState({ processing: false });
             this.props.onSubmit(this.props.contract.id, false);
           },
-          onError: () => {
+          onError: (err) => {
             this.setState({ processing: false });
-            this.props.onSubmit(this.props.contract.id, false);
+            if (
+              err.response?.data?.error_code === CONTRACT_IS_ALREADY_SUBSCRIBED
+            ) {
+              this.setState({ openGenericDialogWithCountdownConfirm: true });
+              options.onError(err);
+            } else {
+              this.props.onSubmit(this.props.contract.id, false);
+            }
           },
           onBackgroundSuccess: () => {
             this.setState({ processing: false });
@@ -166,6 +185,14 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
             enabledPaymentMethods={enabledPaymentMethods}
           />
         </DialogContent>
+        <GenericDialogWithCountdownConfirm
+          open={this.state.openGenericDialogWithCountdownConfirm}
+          onValidate={this.disableOpenGenericDialogWithCountdownConfirm}
+          countdownBeforeActivation={COUNTDOWN_BEFORE_ACTIVATION}
+          validateLabel={this.props.t('alreadySubscribed.dialog.validate')}
+          content={this.props.t('alreadySubscribed.dialog.content')}
+          title={this.props.t('alreadySubscribed.dialog.title')}
+        />
       </Dialog>
     );
   }

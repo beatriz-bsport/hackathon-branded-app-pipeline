@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTheme } from '@material-ui/styles';
@@ -6,6 +7,10 @@ import { useTheme } from '@material-ui/styles';
 type Props = {
   color?: string;
   fillOpacity?: string;
+  widthCircle?: number;
+  heightCircle?: number;
+  widthIcon?: number;
+  heightIcon?: number;
 };
 
 export const ValidationIcon: React.FC<Props> = (props) => {
@@ -15,8 +20,8 @@ export const ValidationIcon: React.FC<Props> = (props) => {
     <div className={classes.container}>
       <div className={classes.validationIcon}>
         <svg
-          width="96"
-          height="77"
+          width={props.widthIcon || 96}
+          height={props.heightIcon || 77}
           viewBox="0 0 96 77"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -28,8 +33,8 @@ export const ValidationIcon: React.FC<Props> = (props) => {
           />
         </svg>
         <svg
-          width="110"
-          height="110"
+          width={props.widthCircle || 110}
+          height={props.heightCircle || 110}
           viewBox="0 0 110 110"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

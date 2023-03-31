@@ -10,25 +10,19 @@ interface OwnProps {
   fowardedRef: (ref: EbookProviderDropzone) => void;
   processing: boolean;
   setDropzoneFilled: (dropzoneFilled: boolean) => void;
+  file: File | null;
+  setFile: (file: File | null) => void;
 }
 
 type Props = OwnProps &
   WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 
-interface State {
-  file: any;
-}
-
 class EbookProviderDropzone extends React.PureComponent<Props> {
-  state: State = {
-    file: null,
-  };
-
   onDropAccepted = async (files: Array<File>) => {
     if (this.props.processing) return;
     if (files.length === 1) {
-      this.setState({ file: files[0] });
+      this.props.setFile(files[0]);
       this.props.setDropzoneFilled(true);
     }
   };
@@ -37,7 +31,7 @@ class EbookProviderDropzone extends React.PureComponent<Props> {
     const { bodyType } = params;
     let { fields } = params;
 
-    if (!this.state.file) {
+    if (!this.props.file) {
       return null;
     }
 
@@ -46,17 +40,17 @@ class EbookProviderDropzone extends React.PureComponent<Props> {
     }
 
     if (bodyType === 'binary') {
-      return this.state.file;
+      return this.props.file;
     }
     if (bodyType === 'formData') {
       const formData = new FormData();
       for (const field of Object.keys(fields)) {
         formData.append(field, fields[field]);
       }
-      formData.append('file', this.state.file);
+      formData.append('file', this.props.file);
       return formData;
     }
-    return this.state.file;
+    return this.props.file;
   };
 
   render() {
@@ -97,12 +91,12 @@ class EbookProviderDropzone extends React.PureComponent<Props> {
             }}
           </Dropzone>
         </div>
-        {this.state.file && (
+        {this.props.file && (
           <Typography
             variant="subtitle2"
             className={this.props.classes.fileName}
           >
-            {this.state.file.name}
+            {this.props.file.name}
           </Typography>
         )}
       </div>
@@ -113,7 +107,7 @@ class EbookProviderDropzone extends React.PureComponent<Props> {
 const baseStyle = {
   flex: 1,
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'column' as 'column',
   alignItems: 'center',
   padding: '20px',
   borderWidth: 2,
@@ -147,7 +141,7 @@ const styles = (theme: Theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
-    flexDirection: 'column',
+    flexDirection: 'column' as 'column',
     marginTop: theme.spacing(2),
   },
   dropZoneContainer: {
@@ -155,7 +149,7 @@ const styles = (theme: Theme) => ({
   },
   fileName: {
     marginTop: theme.spacing(4),
-    textAlign: 'center',
+    textAlign: 'center' as 'center',
   },
 });
 

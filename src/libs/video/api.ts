@@ -34,8 +34,14 @@ export const attachFile = async (id: number, file: Object) => {
   return postAuth(`${API_V1_URI}/vod/video/${id}/attach_video/`, file);
 };
 
-export const setUploadInstruction = async (id: number) => {
-  return postAuth(`${API_V1_URI}/vod/video/${id}/upload_instruction/`);
+export const getUploadInstruction = async (
+  id: number,
+  fileExtension?: string,
+) => {
+  return postAuth(
+    `${API_V1_URI}/vod/video/${id}/upload_instruction/`,
+    fileExtension ? { file_extension: fileExtension } : {},
+  );
 };
 
 export const removeVideoSource = async (id: number) => {

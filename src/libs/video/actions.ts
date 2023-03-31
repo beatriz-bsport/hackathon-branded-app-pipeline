@@ -18,7 +18,7 @@ import {
   duplicateVideo as duplicateVideoAPI,
   getPlaybackUrl as getPlaybackUrlAPI,
   setExternalUrl as setExternalUrlAPI,
-  setUploadInstruction as setUploadInstructionAPI,
+  getUploadInstruction as getUploadInstructionAPI,
   fetchUniqueVideoPurchaseByMember as fetchUniqueVideoPurchaseByMemberAPI,
 } from './api';
 
@@ -699,7 +699,7 @@ export function setExternalUrl(
   };
 }
 
-export const setUploadInstructionActions = {
+export const getUploadInstructionActions = {
   isLoading: createAction('VIDEO/SET_UPLOAD_INSTRUCTION/IS_LOADING'),
   error: createAction('VIDEO/SET_UPLOAD_INSTRUCTION/ERROR'),
   success: createAction('VIDEO/SET_UPLOAD_INSTRUCTION/SUCCESS'),
@@ -710,21 +710,21 @@ export function setUploadInstruction(
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(setUploadInstructionActions.isLoading(true));
-    dispatch(setUploadInstructionActions.error(null));
+    dispatch(getUploadInstructionActions.isLoading(true));
+    dispatch(getUploadInstructionActions.error(null));
 
     try {
-      const response = await setUploadInstructionAPI(videoId);
+      const response = await getUploadInstructionAPI(videoId);
 
-      dispatch(setUploadInstructionActions.success(response.data));
+      dispatch(getUploadInstructionActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
     } catch (err) {
       console.error(err);
       if (options && options.onError) options.onError(err);
-      dispatch(setUploadInstructionActions.error(err));
+      dispatch(getUploadInstructionActions.error(err));
     }
-    dispatch(setUploadInstructionActions.isLoading(false));
+    dispatch(getUploadInstructionActions.isLoading(false));
   };
 }

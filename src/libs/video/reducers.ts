@@ -17,7 +17,7 @@ import {
   retrieveVideoAnalyticsByMemberActions,
   getPlaybackUrlActions,
   setExternalUrlActions,
-  setUploadInstructionActions,
+  getUploadInstructionActions,
   listVideoPurchaseByMemberActions,
   listVideoPurchaseByMemberByVideoActions,
 } from './actions';
@@ -371,13 +371,13 @@ export default handleActions<Immutable.Immutable<VideoState>>(
     [setExternalUrlActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
     },
-    [setUploadInstructionActions.success.toString()]: (state, { payload }) => {
+    [getUploadInstructionActions.success.toString()]: (state, { payload }) => {
       return state.set('uploadInstructions', { ...payload });
     },
-    [setUploadInstructionActions.error.toString()]: (state, { payload }) => {
+    [getUploadInstructionActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['uploadInstructions', 'error'], payload);
     },
-    [setUploadInstructionActions.isLoading.toString()]: (
+    [getUploadInstructionActions.isLoading.toString()]: (
       state,
       { payload },
     ) => {

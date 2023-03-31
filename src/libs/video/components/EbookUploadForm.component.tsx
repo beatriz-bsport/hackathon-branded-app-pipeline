@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/styles';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import { setUploadInstruction as getUploadInstructionAPI } from '../api';
+import { getUploadInstruction as getUploadInstructionAPI } from '../api';
 import { Video } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import EbookProviderDropzone from '#libs/video/components/EbookProviderDropzone.component';
@@ -18,6 +18,7 @@ type State = {
   progress: number;
   isUploading: boolean;
   dropzoneFilled: boolean;
+  file: File | null;
 };
 
 type OwnProps = {
@@ -31,12 +32,11 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 export class EbookUploadForm extends React.Component<Props, State> {
-  file: any = null;
-
-  state = {
+  state: State = {
     isUploading: false,
     progress: 0,
     dropzoneFilled: false,
+    file: null,
   };
 
   DROPZONE_REF?: any;
@@ -49,9 +49,15 @@ export class EbookUploadForm extends React.Component<Props, State> {
 
   onComplete = () => {
     setTimeout(() => {
+      const fileNameParts = this.state.file?.name.split('.');
       this.setState({ isUploading: false, progress: 0 });
       this.props.onClose();
-      this.props.setExternalUrl(this.props.video.id);
+      this.props.setExternalUrl(
+        this.props.video.id,
+        fileNameParts && fileNameParts.length > 1
+          ? { file_extension: fileNameParts.pop() }
+          : {},
+      );
     }, 5000);
   };
 
@@ -76,7 +82,13 @@ export class EbookUploadForm extends React.Component<Props, State> {
   onClickSubmit = async () => {
     this.setState({ isUploading: true });
     try {
-      const { data } = await getUploadInstructionAPI(this.props.video.id);
+      const fileNameParts = this.state.file?.name.split('.');
+      const { data } = await getUploadInstructionAPI(
+        this.props.video.id,
+        fileNameParts && fileNameParts.length > 1
+          ? fileNameParts.pop()
+          : undefined,
+      );
       const { method, url, bodyType, fields } = data;
 
       let body = null;
@@ -104,6 +116,8 @@ export class EbookUploadForm extends React.Component<Props, State> {
     }
   };
 
+  setFile = (file: File | null) => this.setState({ file });
+
   render() {
     const { classes, t } = this.props;
 
@@ -115,6 +129,8 @@ export class EbookUploadForm extends React.Component<Props, State> {
             this.DROPZONE_REF = ref;
           }}
           setDropzoneFilled={() => this.setState({ dropzoneFilled: true })}
+          file={this.state.file}
+          setFile={this.setFile}
         />
         {this.state.isUploading && (
           <LinearProgress

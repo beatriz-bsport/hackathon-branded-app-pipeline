@@ -11,7 +11,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 
 import {
-  setUploadInstruction as getUploadInstructionAPI,
+  getUploadInstruction as getUploadInstructionAPI,
   setProviderIdentifier,
 } from '../api';
 import { Video } from '../types';

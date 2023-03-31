@@ -664,7 +664,9 @@ export class PrivateCalendar extends React.Component<Props, State> {
   };
 
   setNewDate = (newDate) => {
-    this.calendarRef.current.getApi().gotoDate(new Date(newDate));
+    this.calendarRef.current
+      .getApi()
+      .gotoDate(moment(newDate).format(DATE_FORMAT));
   };
 
   onCloseDatePicker = () => {

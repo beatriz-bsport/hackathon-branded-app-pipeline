@@ -20,6 +20,12 @@ import {
   compatibilitySectionRenderingTests,
 } from './rendering-tests';
 
+import {
+  paymentSectionInteractionsRenderingTests,
+  validitySectionInteractionsRenderingTests,
+  universalCompatibilityInteractionsRenderingTests,
+} from './rendering-with-interactions-tests';
+
 import PrivatePassForm from '../PrivatePassForm.component';
 
 import { Establishment } from '#libs/establishment/types';
@@ -83,3 +89,22 @@ export const CompatibilitySectionRenderingTests = newStoryFromTemplate(
   PrivatePassFormTemplate,
 );
 CompatibilitySectionRenderingTests.play = compatibilitySectionRenderingTests;
+
+// Rendering tests with interactions
+// The purpose of these tests is to mimic user behavior and check that hidden fields / elements are rendered
+export const PaymentSectionInteractionsRenderingTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+PaymentSectionInteractionsRenderingTests.play =
+  paymentSectionInteractionsRenderingTests;
+
+export const ValiditySectionInteractionsRenderingTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+ValiditySectionInteractionsRenderingTests.play =
+  validitySectionInteractionsRenderingTests;
+
+export const UniversalCompatibilityInteractionsRenderingTests =
+  newStoryFromTemplate(PrivatePassFormTemplate);
+UniversalCompatibilityInteractionsRenderingTests.play =
+  universalCompatibilityInteractionsRenderingTests;

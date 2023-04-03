@@ -12,6 +12,14 @@ import FactoryBotEstablishment from '#libs/establishment/factories/Establishment
 
 import { newStoryFromTemplate } from '../../../../../../utils/storybookHelper';
 
+import {
+  emptyFormRenderingTests,
+  generalSectionRenderingTests,
+  paymentSectionRenderingTests,
+  validitySectionRenderingTests,
+  compatibilitySectionRenderingTests,
+} from './rendering-tests';
+
 import PrivatePassForm from '../PrivatePassForm.component';
 
 import { Establishment } from '#libs/establishment/types';
@@ -30,7 +38,7 @@ const randomEstablishments: Establishment[] =
 const privatePassCategories = privatePassCategoryFactory(5);
 
 export default {
-  title: 'Library/PrivatePass/PrivatePass Form',
+  title: 'Library/PrivatePass/PrivatePassForm',
   component: PrivatePassForm,
   args: {
     onSubmit: actionsData.onSubmit,
@@ -48,3 +56,30 @@ const PrivatePassFormTemplate: ComponentStory<typeof PrivatePassForm> = (
   args,
 ) => <PrivatePassForm {...args} />;
 export const EmptyForm = newStoryFromTemplate(PrivatePassFormTemplate);
+
+// Rendering tests
+// The purpose of these tests is to check that all the elements of the form are rendered correctly
+export const EmptyFormRenderingTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+EmptyFormRenderingTests.play = emptyFormRenderingTests;
+
+export const GeneralSectionRenderingTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+GeneralSectionRenderingTests.play = generalSectionRenderingTests;
+
+export const PaymentSectionRenderingTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+PaymentSectionRenderingTests.play = paymentSectionRenderingTests;
+
+export const ValiditySectionRenderingTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+ValiditySectionRenderingTests.play = validitySectionRenderingTests;
+
+export const CompatibilitySectionRenderingTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+CompatibilitySectionRenderingTests.play = compatibilitySectionRenderingTests;

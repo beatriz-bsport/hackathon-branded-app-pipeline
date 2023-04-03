@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { Component } from 'react';
 import { ComponentStory } from '@storybook/react';
-import { userEvent, within } from '@storybook/testing-library';
+import { within, userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
 // Function that helps us to retrieve the form and the specified element / container
@@ -68,4 +68,23 @@ export const querySelectedFieldShouldHaveTheExpectedValue = async (
   userEvent.type(selectedField, inputValue);
   userEvent.tab();
   expect(selectedField.getAttribute('value')).toBe(expectedValue);
+};
+
+// Test that the selected element has attribute and value(optional)
+export const querySelectedElementShouldHaveAttribute = (
+  element: Element | HTMLElement,
+  attribute: string,
+  value?: string,
+) => {
+  !!value
+    ? expect(element).toHaveAttribute(attribute, value)
+    : expect(element).toHaveAttribute(attribute);
+};
+
+// Test that the selected element contains the text
+export const querySelectedElementShouldContainsSpecifiedText = (
+  element: HTMLElement,
+  text: string,
+) => {
+  expect(within(element).queryByText(text)).not.toBeNull();
 };

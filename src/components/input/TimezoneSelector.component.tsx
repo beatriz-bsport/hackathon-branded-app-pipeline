@@ -26,6 +26,7 @@ const getTimezoneListExtended = (
       ...timezoneList,
       moment.tz.zone('America/Jamaica'),
       moment.tz.zone('Asia/Manila'),
+      moment.tz.zone('Asia/Kuala_Lumpur'),
     ];
   }
   if (country === 'NL') {

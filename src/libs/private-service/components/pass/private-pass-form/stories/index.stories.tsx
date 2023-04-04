@@ -36,6 +36,11 @@ import {
 
 import { validationTests } from './validation-tests';
 
+import {
+  generalSectionErrorTests,
+  validitySectionErrorTests,
+} from './error-tests';
+
 import PrivatePassForm from '../PrivatePassForm.component';
 
 import { Establishment } from '#libs/establishment/types';
@@ -152,3 +157,15 @@ UniversalCompatibilityInteractionsTests.play =
 // The purpose is to test if the validation rules are respected
 export const ValidationTests = newStoryFromTemplate(PrivatePassFormTemplate);
 ValidationTests.play = validationTests;
+
+// Error tests
+// The purpose is to test if errors are displayed properly. It should not be possible to submit the form in case of error
+export const GeneralSectionErrorTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+GeneralSectionErrorTests.play = generalSectionErrorTests;
+
+export const ValiditySectionErrorTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+ValiditySectionErrorTests.play = validitySectionErrorTests;

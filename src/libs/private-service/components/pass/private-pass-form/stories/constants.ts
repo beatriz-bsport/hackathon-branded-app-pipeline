@@ -11,4 +11,7 @@ export const inputValues = {
     years: '73',
     expiration: '222',
   },
+  errors: {
+    wrongNumericValue: '-22',
+  },
 };

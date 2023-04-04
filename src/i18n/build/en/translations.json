@@ -22,6 +22,9 @@
           "bank_account_holder": "Bank account holder"
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 433506532 (chore(translate): update (Dutch) translation)
       },
       "errors": {
         "end_before_start": "End date must be after start date",
@@ -77,6 +80,7 @@
         "firstname": "Firstname",
         "delete": "Delete",
         "lastname": "Lastname",
+<<<<<<< HEAD
 =======
     },
     "search": {
@@ -2471,6 +2475,9 @@
 >>>>>>> 1b6d1de26 (chore(translate): update (English) translation)
         "save": "Save",
 <<<<<<< HEAD
+=======
+        "save": "Save",
+>>>>>>> 433506532 (chore(translate): update (Dutch) translation)
         "saveAndAdd": "Save and add another",
         "booking": "Booking",
         "from": "From",
@@ -2489,6 +2496,7 @@
         "credits": "Credits",
         "create": "Create",
         "or": "or",
+<<<<<<< HEAD
 =======
         "customChart": {
             "form": {
@@ -3607,6 +3615,8 @@
             "selectAll": "Select all"
         },
 >>>>>>> 2af7e5909 (refactor(marketplace): payment combo modal - update style)
+=======
+>>>>>>> 433506532 (chore(translate): update (Dutch) translation)
         "cancel": "Cancel",
         "confirm": "Confirm",
         "name": "Name",
@@ -10724,11 +10734,305 @@
         "interval": {
           "helperText": "Frequency of generated invoices / passes",
           "label": "Interval"
+<<<<<<< HEAD
+        },
+        "nb_interval": {
+          "label": "Number of invoices"
+=======
         },
         "nb_interval": {
           "label": "Number of invoices"
         },
         "actions": {
+          "close": "Close",
+          "previous": "Previous",
+          "next": "Next",
+          "submit": "Confirm"
+        },
+        "title": {
+          "payment": "Payment method",
+          "scheduler": "Timeline"
+        },
+        "anchor_date": {
+          "helperText": "The payment will processed in the morning.",
+          "label": "First instalment"
+        }
+      }
+    },
+    "interval": {
+      "week": "week",
+      "week_plural": "weeks",
+      "day": "day",
+      "day_plural": "days",
+      "year": "year",
+      "year_plural": "years",
+      "month": "month",
+      "month_plural": "months"
+    },
+    "subscriptionPaymentDialog": {
+      "error": {
+        "button_text": "Retry",
+        "text_status": "Your purchase couldn't be completed!",
+        "text_content": "Your purchase could not be completed, you can try again or return to your member account.",
+        "userSpace": "My account",
+        "title": "Error during payment"
+      },
+      "success": {
+        "button_text": "Continue",
+        "text_status": "Your purchase was successful!",
+        "text_content": "Your purchase has been taken into account, you can now find the details of your subscription on your member area.",
+        "text_content_funnel": "Your purchase has been processed, click on 'next' to finalise your booking. The pass linked to your subscription has been added to the \"My passes\" section, select it to make your booking.",
+        "title": "Congratulations! Your payment has been processed successfully.",
+        "contract": "My membership (contract)",
+        "recap": "Summary"
+      },
+      "title": "Purchase a subscription"
+    },
+    "disputeStatus": {
+      "3": "Dispute lost",
+      "2": "Dispute won",
+      "1": "Dispute processing"
+    }
+  },
+  "invoice": {
+    "returnPayment": {
+      "modal": {
+        "title": "Client refund",
+        "content": "The payment will be refunded on the bank account, a credit will be added on the invoice to reflect the refunded payment.",
+        "cancel": "Cancel",
+        "confirm": "Refund"
+      }
+    },
+    "configuration": {
+      "stripe_footer": "Invoice footer",
+      "explainStripeFooter": "This text will appear at the bottom of the invoices edited in PDF, please add any legal relevant information.",
+      "submit_stripe_footer": "Update",
+      "forms": {
+        "stripe_footer_placeholder": "No additional legal information",
+        "show_company_email_in_invoice": "Display the company emaill address on all invoices"
+      },
+      "nf525Button": "Download",
+      "nf525Explain": "BSPORT Solutions follows the NF525 compliance procedures. Download our official certificate.",
+      "nf525": "NF252 Certification",
+      "subscription": {
+        "forms": {
+          "revert_bookings_on_fail_subscription_payment": {
+            "label": "Cancel associated bookings for subscriptions when payments fail",
+            "warning": "Attention! Previously cancelled bookings resulting from a failed payment won't be recreated if a later payment was successful.",
+            "helperText": "The system will automatically refund the credits and cancel associated bookings for blocked passes for subscriptions whose payments have failed or have been disputed."
+          },
+          "disable_pass_on_fail_subscription_payment": {
+            "label": "Deactivate subscriptions when payments fail",
+            "helperText": "The system will automatically block passes from subscriptions whose payments have failed or have been disputed until the outstanding amount has been paid."
+          },
+          "nbRetriesSubscriptionPayments": {
+            "helperText": "Between 0 and 5 attempts",
+            "label": "Number of attempts after a failed payment"
+          },
+          "activateSmartRetries": {
+            "label": "Enable Smart Retries for failed payments",
+            "helperText": "The system will automatically retry failed payments at the best time."
+          },
+          "advance_sepa_billing": {
+            "helperText": "Most customers receive the SEPA payment orders 3 days later.",
+            "label": "Send the SEPA payment order 3 days in advance to compensate any delays in the Banking Networks, which may delay your cash flow."
+          }
+        },
+        "title": "Subscription"
+      },
+      "invoiceGeneral": "Invoice PDF",
+      "stripeTerminal": {
+        "title": "Payment terminals",
+        "connectDialog": {
+          "title": {
+            "edit": "Modifications",
+            "connect": "Connect",
+            "success": "Successfully connected",
+            "error": "Connection failed"
+          },
+          "success": "Your Stripe Terminal has succesfully connected",
+          "mustCreateStripeLocation": "For your first registration, please fill in the information of the studio where the terminal will be used.",
+          "loading1": "We are trying to establish a connection with your terminal.",
+          "loading2": "Please wait",
+          "form": {
+            "readerLabel": "Name of the terminal",
+            "registrationCode": "Terminal code",
+            "registrationCodeHelperText": "Enter the code displayed on your Stripe POS terminal",
+            "connect": "Connect",
+            "continue": "Continue",
+            "retry": "Retry",
+            "update": "Modify"
+          },
+          "error1": "Your Stripe Terminal has not been connected.",
+          "error2": "Retry"
+        },
+        "paymentDialog": {
+          "minAmountInfo": "The minimum purchase amount for using the terminal is {{amountString}}.",
+          "paymentSuccess": {
+            "content": {
+              "payment": "The payment has been processed.",
+              "wait": "The payment is being processed."
+            },
+            "title": {
+              "payment": "Payment accepted",
+              "setupAndPlan": "Payment saved",
+              "setupOnly": "Payment method saved"
+            }
+          },
+          "paymentFailed": {
+            "title": {
+              "setupIntent": "Operation failed",
+              "paymentIntent": "Payment failed"
+            },
+            "content": {
+              "paymentIntent": "The payment was not processed.",
+              "setupIntent": "The payment method has not been saved."
+            },
+            "explain": {
+              "label": "Reason for failure :"
+            },
+            "interac": {
+              "content": "Interac cards cannot be used for recurring payments or saved. Please use an alternative payment method.",
+              "title": "Incompatible payment method"
+            }
+          },
+          "radio": "Payment Terminal",
+          "amountToPay": "Amount due",
+          "connectAndPay": "Send to terminal",
+          "connectionSuccess": {
+            "payment": "The connection with the terminal has been made. The amount to be paid should now be displayed.",
+            "intent": "The connection with the terminal has been made. The customer should be able to present their card.",
+            "processing": "Your application is being processed",
+            "cancel": {
+              "title": "Cancellation",
+              "cancelExplain1": "Are you sure you want to cancel the operation?",
+              "cancelExplain2": "You will be redirected to payment terminal's choice.",
+              "error": "An error occurred during cancellation."
+            }
+          },
+          "disconnect": {
+            "title": "Disconnect",
+            "content": "The connection has been lost. Please try again"
+          }
+        },
+        "helperText": "Use terminals to directly complete transactions from the Back Office and to save time on cutting out all the manual work for physical payments. Please contact your Account Manager for more information.",
+        "addCard": "Add Stripe terminal",
+        "deleteDialog": {
+          "title": "Delete",
+          "content1": "Are you sure that you want to remove this payment terminal ({{label}})?",
+          "content2": "This terminal will no langer appear for physical payments.",
+          "content3": "Reconnect"
+        },
+        "addReader": "Connect a terminal"
+      }
+    },
+    "actions": {
+      "equilibrate": "Regularize (deposit)",
+      "download": "Download invoice (PDF)",
+      "addInvoiceItem": "Add to invoice",
+      "save": "Save",
+      "backToInvoiceItemEditor": "Purchase",
+      "goToPaymentEditor": "Payment",
+      "goToSubscription": "Show subscription",
+      "revert": "Cancel",
+      "invoiceReverted": "Invoice cancelled",
+      "finalize": "Finalize (PDF)",
+      "consumeBalance": "Pay via balance",
+      "explainPdfDraft": "The invoice is still a draft, pdf is not available.",
+      "addFooter": "Edit this invoice's footnote",
+      "addCoupon": "Add promo code",
+      "downloadReceipt": "Payment receipt"
+    },
+    "invoice": {
+      "editor": {
+        "title": "Invoicing",
+        "save": "Issue invoice",
+        "sumup": "Overview"
+      },
+      "title": "Invoice {{ uuid }}",
+      "header": {
+        "source": {
+          "label": "Channel : {{ source }}",
+          "3": "Other",
+          "2": "Backoffice",
+          "1": "Web",
+          "0": "App"
+        },
+        "clientAuthor": "Customer",
+        "author": "Created by : {{ name }}",
+        "date": "Date: {{ date }}",
+        "reverseInvoice": "Refunded via ",
+        "sourceInvoice": "Cancel invoice",
+        "noEstablishment": "No establishment has been associated to this invoice"
+      },
+      "titleRevert": "Credit {{ uuid }}",
+      "titleReceipt": "Payment receipt {{ uuid }}",
+      "titleReverted": "Invoice (reverted) {{uuid}}"
+    },
+    "creditAccountBalance": {
+      "current": "Current balance"
+    },
+    "uneditableMessage": {
+      "invoiceFinalizedThusNotEditable": "Invoice was finalized and is not editable anymore",
+      "invoiceFromSubscriptionThusNotEditable": "This invoice is part of a subscription and is therefore not editable, please modify the subscription directly",
+      "invoiceRevertedThusNotEditable": "Invoice was cancelled and is not editable anymore"
+    },
+    "section": {
+      "paymentList": {
+        "total": "Total payment",
+        "isEmpty": "No payment method is registered",
+        "title": "Payment methods"
+      },
+      "invoiceItemList": {
+        "total": "Total",
+        "isEmpty": "Please start by adding products to this invoice.",
+        "title": "Purchases",
+        "titleReverse": "Purchase breakdown",
+        "billing_establishment": "Billing establishment*"
+      }
+    },
+    "invoiceItem": {
+      "voucher": "Discount: €{{ voucher }}",
+      "quantity": "Quantity",
+      "credit": {
+        "label": "Credit"
+      },
+      "buyableItemIdentifier": {
+        "10": "Packs",
+        "9": "Appointment passes",
+        "3": "Credit",
+        "2": "Webshop",
+        "1": "Passes",
+        "11": "Gift cards",
+        "undefined": "Gift card"
+      },
+      "discount": "Discount"
+    },
+    "invoiceInfoDialog": {
+      "actions": {
+        "close": "Close",
+        "show": "See invoice"
+      },
+      "explain": "One or more payments are not passed correctly, the member's deposit reflects the failure of the payment"
+    },
+    "revert": {
+      "content": {
+        "explain": {
+          "2": "Choose the reimbursement method yourself. Use this method for a check / manual transfer / cash refund.",
+          "1": "A credit note will be generated and will increase the customer balance accordingly. Use this method to generate a credit note.",
+          "0": "Card payments / SEPA / etc... will be paid directly to the customer's account. Use this method to make a direct refund following an error."
+>>>>>>> 433506532 (chore(translate): update (Dutch) translation)
+        },
+        "label": {
+          "2": "Manual refund",
+          "1": "Refund on internal account",
+          "0": "Direct refund"
+        },
+        "explainEmptyPayment": "Are you sure you want to cancel this invoice?"
+      },
+      "dialog": {
+        "actions": {
+<<<<<<< HEAD
           "close": "Close",
           "previous": "Previous",
           "next": "Next",
@@ -11019,6 +11323,11 @@
           "confirm": "Confirm",
           "cancel": "Close"
         },
+=======
+          "confirm": "Confirm",
+          "cancel": "Close"
+        },
+>>>>>>> 433506532 (chore(translate): update (Dutch) translation)
         "title": "Invoice cancellation"
       },
       "warning": {
@@ -11062,6 +11371,7 @@
         "goToInvoice": "See invoice"
       }
     },
+<<<<<<< HEAD
 <<<<<<< HEAD
     "balance": {
       "updaterDialog": {
@@ -13052,6 +13362,10 @@
             "copyLink": "Copy the direct link to the payment page"
         },
 >>>>>>> 1b6d1de26 (chore(translate): update (English) translation)
+=======
+    "balance": {
+      "updaterDialog": {
+>>>>>>> 433506532 (chore(translate): update (Dutch) translation)
         "actions": {
           "cancel": "Cancel",
           "submit": "Next"
@@ -13070,11 +13384,15 @@
       }
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 433506532 (chore(translate): update (Dutch) translation)
     "paymentPanel": {
       "fields": {
         "country": {
           "placeholder": "France",
           "label": "Accountholder's country"
+<<<<<<< HEAD
 =======
     "metaActivity": {
         "metaActivity": "Activity",
@@ -15650,6 +15968,8 @@
                 "success": "Restored establishment"
             }
 >>>>>>> 1b6d1de26 (chore(translate): update (English) translation)
+=======
+>>>>>>> 433506532 (chore(translate): update (Dutch) translation)
         },
         "email": {
           "label": "Accountholder's email",
@@ -16197,6 +16517,7 @@
           "invoice": "bill",
           "invoice_plural": "bills",
           "title": "Billing"
+<<<<<<< HEAD
         },
         "price": {
           "title": "Price"
@@ -16469,6 +16790,21 @@
                 "success": "Registered changes"
             }
 >>>>>>> 1b6d1de26 (chore(translate): update (English) translation)
+=======
+        },
+        "price": {
+          "title": "Price"
+        },
+        "general_info": {
+          "title": "General information"
+        },
+        "unusableByStaff": {
+          "label": "Invisible for the staff"
+        },
+        "month_billing_day": {
+          "label2": "of the month.",
+          "label1": "Invoice every"
+>>>>>>> 433506532 (chore(translate): update (Dutch) translation)
         }
       },
       "deleteForm": {

@@ -34,6 +34,8 @@ import {
   universalCompatibilityInteractionsTests,
 } from './interaction-tests';
 
+import { validationTests } from './validation-tests';
+
 import PrivatePassForm from '../PrivatePassForm.component';
 
 import { Establishment } from '#libs/establishment/types';
@@ -41,7 +43,6 @@ import { Establishment } from '#libs/establishment/types';
 const actionsData = {
   onSubmit: action('onSubmit'),
   onCancel: action('onCancel'),
-  onClick: action('onClick'),
 };
 
 const privateServices = private_services_factory(3);
@@ -54,10 +55,11 @@ const privatePassCategories = privatePassCategoryFactory(5);
 export default {
   title: 'Library/PrivatePass/PrivatePassForm',
   component: PrivatePassForm,
-  args: {
+  argTypes: {
     onSubmit: actionsData.onSubmit,
     onCancel: actionsData.onCancel,
-    onClick: actionsData.onClick,
+  },
+  args: {
     privatePassCategories: privatePassCategories,
     privateServices: privateServices,
     categoryList: randomSCT,
@@ -145,3 +147,8 @@ export const UniversalCompatibilityInteractionsTests = newStoryFromTemplate(
 );
 UniversalCompatibilityInteractionsTests.play =
   universalCompatibilityInteractionsTests;
+
+// Validation tests
+// The purpose is to test if the validation rules are respected
+export const ValidationTests = newStoryFromTemplate(PrivatePassFormTemplate);
+ValidationTests.play = validationTests;

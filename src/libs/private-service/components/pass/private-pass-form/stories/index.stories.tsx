@@ -26,6 +26,14 @@ import {
   universalCompatibilityInteractionsRenderingTests,
 } from './rendering-with-interactions-tests';
 
+import {
+  generalSectionInteractionsTests,
+  paymentSectionInteractionsTests,
+  validitySectionInteractionsTests,
+  compatibilitySectionInteractionsTests,
+  universalCompatibilityInteractionsTests,
+} from './interaction-tests';
+
 import PrivatePassForm from '../PrivatePassForm.component';
 
 import { Establishment } from '#libs/establishment/types';
@@ -108,3 +116,32 @@ export const UniversalCompatibilityInteractionsRenderingTests =
   newStoryFromTemplate(PrivatePassFormTemplate);
 UniversalCompatibilityInteractionsRenderingTests.play =
   universalCompatibilityInteractionsRenderingTests;
+
+// Interactions tests
+// The purpose of these tests is to interact with the component and to check that the values inputted are the ones received by the form.
+export const GeneralSectionInteractionsTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+GeneralSectionInteractionsTests.play = generalSectionInteractionsTests;
+
+export const PaymentSectionInteractionsTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+PaymentSectionInteractionsTests.play = paymentSectionInteractionsTests;
+
+export const ValiditySectionInteractionsTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+ValiditySectionInteractionsTests.play = validitySectionInteractionsTests;
+
+export const CompatibilitySectionInteractionsTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+CompatibilitySectionInteractionsTests.play =
+  compatibilitySectionInteractionsTests;
+
+export const UniversalCompatibilityInteractionsTests = newStoryFromTemplate(
+  PrivatePassFormTemplate,
+);
+UniversalCompatibilityInteractionsTests.play =
+  universalCompatibilityInteractionsTests;

@@ -4116,6 +4116,16 @@
       "ReplacementRequest": {
         "name": "Remplacement",
         "tags": { "closing_date": "Date de clôture", "sub_teacher": "Professeur remplaçant" }
+      },
+      "Invoice": {
+        "name": "Facturation",
+        "tags": {
+          "id": "Identifiant de facture",
+          "invoice_price": "Montant de la facture",
+          "invoice_sum_up": "Récapitulatif de facture",
+          "invoice_date": "Date de facturation",
+          "invoice_download_link": "Lien de téléchargement"
+        }
       }
     },
     "eventType": {

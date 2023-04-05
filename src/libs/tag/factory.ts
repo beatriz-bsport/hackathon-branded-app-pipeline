@@ -106,6 +106,13 @@ export const tagCategories = {
     'address',
     'recurring_booking_fail_reason',
   ],
+  Invoice: [
+    'id',
+    'invoice_price',
+    'invoice_sum_up',
+    'invoice_date',
+    'invoice_download_link',
+  ],
 };
 
 export default FactoryBot;

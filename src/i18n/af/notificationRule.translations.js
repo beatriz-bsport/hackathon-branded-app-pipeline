@@ -232,6 +232,16 @@ exports.default = {
         sub_teacher: 'Professeur remplaçant',
       },
     },
+    Invoice: {
+      name: 'Facturation',
+      tags: {
+        id: 'Identifiant de facture',
+        invoice_price: 'Montant de la facture',
+        invoice_sum_up: 'Récapitulatif de facture',
+        invoice_date: 'Date de facturation',
+        invoice_download_link: 'Lien de téléchargement',
+      },
+    },
   },
   eventType: {
     [NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER]: 'Annulation séance (élèves)',

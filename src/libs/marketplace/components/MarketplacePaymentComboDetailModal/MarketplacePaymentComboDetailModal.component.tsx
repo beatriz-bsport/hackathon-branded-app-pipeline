@@ -42,7 +42,12 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
     <>
       {isOpen && (
         <div className="bs-combo-details-dialog">
-          <Card size={CardSize.L}>
+          <Card
+            size={CardSize.L}
+            classes={{
+              'bs-combo-details-dialog__card': 'bs-combo-details-dialog__card',
+            }}
+          >
             <div className="bs-combo-details-dialog__container">
               <Content
                 padding
@@ -69,6 +74,10 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                           formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                           amount={paymentCombo?.price}
                           color={Color.PRIMARY}
+                          classes={{
+                            'bs-combo-details-dialog__price':
+                              'bs-combo-details-dialog__price',
+                          }}
                         />
                         <InitialPrice paymentCombo={paymentCombo} />
                       </div>
@@ -97,18 +106,9 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                       'bs-combo-details-dialog__grid',
                   }}
                 >
-                  <Item
-                    rowStart={3}
-                    classes={{
-                      'bs-combo-details-dialog__description':
-                        'bs-combo-details-dialog__description',
-                    }}
-                  >
-                    {paymentCombo?.description}
-                  </Item>
                   {!!paymentCombo && (
                     <Item
-                      rowStart={4}
+                      rowStart={1}
                       classes={{
                         'bs-combo-details-dialog__content-list':
                           'bs-combo-details-dialog__content-list',
@@ -121,6 +121,15 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                       />
                     </Item>
                   )}
+                  <Item
+                    rowStart={2}
+                    classes={{
+                      'bs-combo-details-dialog__description':
+                        'bs-combo-details-dialog__description',
+                    }}
+                  >
+                    {paymentCombo?.description}
+                  </Item>
                 </Grid>
               </Content>
             </div>
@@ -134,6 +143,7 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                 classes={{
                   'bs-combo-details-dialog__grid':
                     'bs-combo-details-dialog__grid',
+                  '--footer': '--footer',
                 }}
               >
                 <Item

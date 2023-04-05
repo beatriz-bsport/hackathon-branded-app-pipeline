@@ -77,6 +77,7 @@
         "delete": "Delete",
         "lastname": "Lastname",
         "save": "Save",
+<<<<<<< HEAD
         "saveAndAdd": "Save and add another",
         "booking": "Booking",
         "from": "From",
@@ -95,6 +96,1124 @@
         "credits": "Credits",
         "create": "Create",
         "or": "or",
+=======
+        "customChart": {
+            "form": {
+                "radio": {
+                    "pie": "Pie chart",
+                    "grid": "Frequency table",
+                    "area": "Area chart",
+                    "bar": "Histogram",
+                    "qualitativeInvoiceItem": "Division",
+                    "temporalPlannedInvoice": "Historic development",
+                    "temporalPayment": "Development over time",
+                    "qualitativeBooking": "Divide",
+                    "temporalBooking": "Historic development",
+                    "temporalTimeslotBooking": "Frequency per day and per hour",
+                    "temporalMember": "Development over time",
+                    "temporalPrivateBooking": "Evolution over time"
+                },
+                "aggregateHelper": "Example: shows the progression of the total number of members instead of the total number new numbers per month.",
+                "aggregate": "Accumulate",
+                "name": "Graph title",
+                "selector": {
+                    "invoice": "Purchases",
+                    "payment": "Payments",
+                    "booking": "Bookings",
+                    "member": "New members",
+                    "object": {
+                        "helperText": "Select the info that you wish to display.",
+                        "placeholder": "Select the data.",
+                        "isEmpty": "No data has been selected."
+                    },
+                    "privateBooking": "Appointments"
+                },
+                "graphComponent": "Display",
+                "datatype": "Type of graph",
+                "submit": "Save",
+                "cancel": "Cancel",
+                "title": "Graph"
+            },
+            "noResource": "Please choose a data type.",
+            "addChart": "Add a graph"
+        },
+        "booking": {
+            "popover": "This is the total number of bookings for said date. You can filter on cancellations, late cancellations, etc.",
+            "caption": "Confirmed bookings",
+            "title": "Bookings"
+        },
+        "tabNameDialog": {
+            "titleAdd": "Add a new tab",
+            "titleRename": "Rename the tab",
+            "placeholder": "Name"
+        },
+        "noGraphToDisplay": "No graphs set up in this tab. Add one here.",
+        "privateBooking": {
+            "title": "Appointments",
+            "caption": "Saved appointments",
+            "popover": "The total number of booked appointments for this date. You can filter cancellations / refunds / ..."
+        },
+        "graphDefaultTitles": {
+            "privateBookingTemporal": "Appointment",
+            "memberTemporal": "New members",
+            "subscriptionTemporalSum": "Receipt of subscriptions",
+            "subscriptionTemporalCount": "Number of subscription invoices",
+            "bookingTemporal": "Bookings",
+            "bookingQualitative": "Sources of the bookings",
+            "bookingTimeslots": "Average number of people",
+            "paymentTemporal": "Receipts",
+            "billingPlanTemporal": "Subscriptions"
+        },
+        "dataSourceIdentifiers": {
+            "private_service_name": "Appointment",
+            "price": "Price incl. VAT / Sales Tax",
+            "contract": "Subscription",
+            "date": "Payment date",
+            "payment_method": "Payment method",
+            "payment_price": "Price incl. VAT / Sales Tax",
+            "payment_date": "Payment date",
+            "accept_sms": "Accepts text messages",
+            "accept_email": "Accept emails",
+            "gender": "Gender",
+            "billing_establishment": "Location",
+            "billing_group": "Billing group",
+            "establishment": "Establishment",
+            "coach": "Teachers",
+            "was_refunded": "Refunded",
+            "booking_status_code": "Booking status",
+            "date_start": "Session date",
+            "date_created": "Booking date",
+            "attendance": "Present",
+            "payment_engine": "Type of payment",
+            "is_workshop": "Workshop",
+            "activity_kind": "Type of session",
+            "booking_effectif_timeslots": "Average number of people",
+            "plannedinvoice_pk": "Number of invoices",
+            "payment_pk": "Number of payments",
+            "privatebooking_pk": "Number of appointments",
+            "source_device": "Origin",
+            "is_recurrent_booking": "Recurrent booking",
+            "booking_pk": "Number of bookings",
+            "member_pk_accumulate": "Number of members",
+            "member_pk": "Number of new members",
+            "date_joined": "Sign up date",
+            "margin_value": "Marginal value incl. VAT / Sales Tax",
+            "activity": "Activity",
+            "payment_pack": "Pass",
+            "dispute_status": "Dispute status",
+            "private_pass": "Appointment pass",
+            "payout_date_created": "Transfer: date",
+            "payout_identifier": "Transfer",
+            "payout_status": "Transfer: status",
+            "is_unpaid": "Unpaid",
+            "total_payments_made": "Total number of receipts",
+            "total_discount": "Total discount",
+            "nb_planned_invoices": "Total number of receipts",
+            "plan_status": "Subscription status",
+            "plan_recurrent_price": "Recurring payment amount",
+            "plan_flat_fee": "Joining fee",
+            "plan_date_start": "First billing date",
+            "plan_date_end": "End date of billing",
+            "new_member_only": "New member offer",
+            "billingplan_pk": "Number of subscriptions",
+            "last_invoice_status": "Last payment status",
+            "contract_name": "Subscription",
+            "billing_plan_payment_method": "Payment method",
+            "plan_auto_renewal": "Auto renewal",
+            "is_no_show": "No show"
+        },
+        "graphFormDrawer": {
+            "helperText": {
+                "booking_effectif_timeslots": "Average number of sessions per time slot.",
+                "accumulateMembers": "Shows the evolution of the total number of members.",
+                "subscriptionCount": "Number of invoices related to subscriptions.",
+                "subscriptionPrice": {
+                    "sum": "Sum of all payments received related to subscriptions.",
+                    "avg": "Average of all payments received related to subscriptions.",
+                    "min": "Minimum of all payments received related to subscriptions.",
+                    "max": "Maximum of all payments received related to subscriptions."
+                },
+                "plannedInvoiceCount": "Number of invoices related to subscriptions.",
+                "dateCreated": "The data will be represented in time according to the date on which the bookings were made.",
+                "dateStart": "The data will be plotted over time according to the start date of the sessions."
+            },
+            "accumulate": {
+                "total": "Accumulate"
+            },
+            "dashboardGraphIdentifier": {
+                "graph_subscriptions": "Subscriptions Invoices",
+                "graph_payments": "Payments",
+                "graph_private_bookings": "Appointments",
+                "graph_bookings": "Bookings",
+                "graph_members": "New members",
+                "graph_dispute": "Disputes",
+                "graph_billing_plan": "Subscriptions"
+            },
+            "aggregation": {
+                "max": "Maximum",
+                "min": "Minimum",
+                "avg": "Average",
+                "sum": "Total"
+            },
+            "graphFamily": {
+                "week_timeslots": "Daily and hourly frequencies",
+                "qualitative": "Distribution",
+                "temporal": "Evolution over time"
+            },
+            "chartComponents": {
+                "timeslots": "Daily and hourly frequencies",
+                "pie": "Pie chart",
+                "area": "Area diagram",
+                "bar": "Histogram",
+                "qualitativeBar": "Histogram"
+            },
+            "placeholders": {
+                "aggregationSelector": "Choose an operation",
+                "dashboardGraphIdentifier": "Choose a data type"
+            },
+            "labels": {
+                "aggregationName": "Aggregation",
+                "dividedBy": "Divided by",
+                "dataToDisplay": "Data displayed",
+                "dateFilterField": "Data for the date",
+                "groupByField": "Distribute over",
+                "graphFamily": {
+                    "qualitative": "Distribution",
+                    "temporal": "Evolution over time"
+                },
+                "title": "Name"
+            },
+            "sectionTitles": {
+                "filterConfig": "Filters",
+                "timePeriod": "Period",
+                "graphParams": "Data",
+                "graphFamily": "Graph",
+                "dashboardGraphIdentifier": "Type of data",
+                "general": "General information"
+            },
+            "title": {
+                "edit": "Modification of a graph",
+                "create": "Creation of a graph"
+            }
+        },
+        "graphActions": {
+            "delete": "Delete",
+            "edit": "Edit"
+        },
+        "showMoreLegend": "+ {{count}} legend",
+        "showMoreLegend_plural": "+ {{count}} legends",
+        "addFilter": "Add a filter",
+        "filterChipLabel": "{{count}} filter",
+        "filterChipLabel_plural": "{{count}} filters"
+    },
+    "stripe": {
+        "errors": {
+            "incomplete_number": "Your card number is incomplete.",
+            "incomplete_expiry": "Your card's expiration date is incomplete.",
+            "invalid_expiry_year_past": "Your card has expired.",
+            "invalid_expiry_year": "Your card's expiration year is invalid.",
+            "incomplete_cvc": "Your card's security code is incomplete.",
+            "invalid_number": "Your card's number is invalid.",
+            "card_declined": "Your card was declined.",
+            "expired_card": "Your card has expired.",
+            "incorrect_cvc": "Your card's security code is incorrect.",
+            "processing_error": "An error occurred while processing your card. Try again later.",
+            "insufficient_funds": "Your card has insufficient funds.",
+            "payment_intent_authentication_failure": "Your bank refused the payment.",
+            "unknown": "A network error occurred. Try again later.",
+            "lost_card": null,
+            "stolen_card": null,
+            "no_established_connection": "There are no connected terminals to display.",
+            "network_error": "Network error, please try again in a few moments",
+            "network_timeout": "Network error, please try again in a few moments",
+            "already_connected": "Another payment terminal is already connected",
+            "discovery_too_many_readers": "Unable to connect, too many terminals around",
+            "setup_intent_authentication_failure": "Unable to save this card. Please try another payment method.",
+            "none": " ",
+            "reader_error": "An error has occurred. Make sure your terminal is online and connected to the same wifi network as your device.",
+            "reader_not_found": "An error has occurred. Make sure your terminal is online and connected to the same wifi network as your device."
+        },
+        "error_code": {
+            "none": " ",
+            "incomplete_number": "Your card number is incomplete.",
+            "incomplete_expiry": "Your card's expiration date is incomplete.",
+            "invalid_expiry_year_past": "Your card is no longer valid.",
+            "invalid_expiry_year": "Your card's expiration date is invalid.",
+            "incomplete_cvc": "Your security code is incomplete.",
+            "invalid_number": "Your card's number is invalid.",
+            "expired_card": "Your card has expired.",
+            "card_declined": "Card declined",
+            "payment_intent_authentication_failure": "Your bank refused the payment.",
+            "payment_intent_payment_attempt_failed": "Your bank refused the payment.",
+            "processing_error": "An occurred while processing your payment. Try again later.",
+            "unknown": "A network error occurred. Try again later.",
+            "setup_intent_authentication_failure": "This card cannot be saved. Please try another payment method."
+        },
+        "decline_code": {
+            "none": " ",
+            "card_not_supported": "Your card couldn't be recognized.",
+            "incorrect_number": "Your card's number is invalid.",
+            "incorrect_cvc": "Your security code is invalid.",
+            "insufficient_funds": "Your card has insufficient funds.",
+            "restricted_card": "Your bank refused your card.",
+            "stolen_card": "Your bank has marked your card as stolen.",
+            "transaction_not_allowed": "Your bank refused your transaction.",
+            "generic_decline": "Your bank has refused your payment.",
+            "withdrawal_count_limit_exceeded": "Your bank declined your card, as you exceeded your withdrawal limit.",
+            "do_not_honor": "Your bank refused your payment. Contact your bank to authorize the payment.",
+            "incorrect_pin": "Wrong pin code",
+            "invalid_pin": "Wrong pin code",
+            "offline_pin_required": "Required pin code",
+            "online_or_offline_pin_required": "Required pin code",
+            "pin_try_exceeded": "Max number of attempts reached. Try another payment method",
+            "call_issuer": "Your card has been declined for an unknown reason. Please contact your bank",
+            "lost_card": "Your card has been reported lost by your bank",
+            "test_mode_live_card": "Your card has been rejected because you are using a test card. Please use a real card"
+        }
+    },
+    "role": {
+        "userRoles": "Staff accounts",
+        "permissions": "Roles and permissions",
+        "forms": {
+            "user": {
+                "create": {
+                    "buttonLabel": "Add staff",
+                    "title": "[Form] Add staff",
+                    "email": {
+                        "label": "Email"
+                    },
+                    "role": {
+                        "label": "Role",
+                        "selectRole": {
+                            "topLabel": "Role",
+                            "label": "Select a role"
+                        },
+                        "title": "Roles"
+                    },
+                    "cancel": "Cancel",
+                    "submit": "Save",
+                    "firstName": {
+                        "label": "First name"
+                    },
+                    "lastName": {
+                        "label": "Last name"
+                    },
+                    "register": "Save",
+                    "franchisees": {
+                        "warning": "Select which franchisees will have access to this staff account. Leave empty to give access to all franchisees.",
+                        "title": "Franchisees access"
+                    },
+                    "generalInfo": {
+                        "lastName": {
+                            "label": "Name"
+                        },
+                        "firstName": {
+                            "label": "First name"
+                        },
+                        "email": {
+                            "label": "Email"
+                        },
+                        "title": "General information"
+                    }
+                },
+                "delete": {
+                    "title": "Delete staff",
+                    "content": "Are you sure that you want to delete this staff account?",
+                    "cancel": "Cancel",
+                    "confirm": "Delete"
+                },
+                "snackbar": {
+                    "success": "Access rights modified",
+                    "error": "Impossible to modify access rights",
+                    "errorEmail": "This email is already used for a teacher or member account"
+                },
+                "selectCoach": "Select teachers",
+                "ifEmptySelectAll": "Leave empty to select all",
+                "selectFranchisees": "Select studios",
+                "selectFranchiseesDisabled": "This setting is only for custom role (not Admin or Owner)"
+            },
+            "role": {
+                "delete": {
+                    "confirm": "Confirm",
+                    "cancel": "Cancel",
+                    "content": "Are you sure that you want to delete this role?",
+                    "title": "Delete role"
+                },
+                "create": {
+                    "showAdvanced": "Show more",
+                    "permissions": "Permissions",
+                    "description": "Description",
+                    "name": "Name",
+                    "title": "[Form] Role",
+                    "buttonCreate": "Add role  ",
+                    "restrictedUrl": "Restricted URLs",
+                    "restrictedUrlPlaceholder": "Example: /member/",
+                    "restrictedUrlExplain": "Use this option to Whitelist the URLs and access for people associated to this Role.",
+                    "authorizeManagerExplain": "The staff with this role will be able to force actions like the manager : force the booking of a session in an unavailable establishment, force the booking with an unavailable teacher, exceed the maximum number of members registered to a session.",
+                    "authorizeManagerAction": "Give staff the control of a manager"
+                },
+                "franchise": {
+                    "create": {
+                        "buttons": {
+                            "close": "Close",
+                            "previous": "Previous",
+                            "next": "Next"
+                        },
+                        "steps": {
+                            "franchisee": "Franchisee access",
+                            "masterAccount": "Master account access"
+                        },
+                        "title": "Role creation"
+                    }
+                },
+                "failDelete": {
+                    "close": "Close",
+                    "content": "A staff still has this role, you cannot delete it.",
+                    "title": "Role deletion not possible"
+                }
+            }
+        },
+        "explainStaffDoNot": "Attention: only teachers and members can log in to the mobile app.",
+        "explainStaffDo": "Your staff can log in on their mobile, computer, or tablet via https://backoffice.bsport.io.",
+        "pageTitle": "Staff",
+        "roleDescription": {
+            "2": {
+                "description": "With Check-in | Limited, your Staff will only be able to check-in members.",
+                "name": "Check-in | Limited"
+            },
+            "1": {
+                "description": "With Check-in | Wide, staff can edit sessions (time, substitute, cancel, etc.), view your member data base, and check in members.",
+                "name": "Check-in | Wide"
+            },
+            "4": {
+                "description": "Admins have the same permissions as the Owner, but can be added/removed.",
+                "name": "Admin"
+            },
+            "3": {
+                "description": "Use this Role, if you wish that members check-in themselves via your tablet. Contact your Account Manager at BSPORT for more information.",
+                "name": "Check-in | Tablet"
+            },
+            "0": {
+                "name": "Owner",
+                "description": "The Owner always has access to all functionalities, can supersede without any restrictions, and can add Staff accounts."
+            },
+            "5": {
+                "name": "Reporting",
+                "description": "This will only provide access to Reporting, which may be useful for your accountants."
+            }
+        },
+        "rolePermissions": {
+            "member": {
+                "retrieve": {
+                    "_label": "Access to member profiles"
+                },
+                "search": {
+                    "_label": "Search members"
+                },
+                "edit": {
+                    "_label": "Edit"
+                },
+                "create": {
+                    "_label": "Adding members"
+                },
+                "_label": "Member database"
+            },
+            "appbarActions": {
+                "_helper": "For adding member profiles, processing in-studio payments, etc.",
+                "_label": "AppBar actions"
+            },
+            "navigationMenu": {
+                "settings": {
+                    "_label": "Settings",
+                    "generals": {
+                        "_label": "General"
+                    },
+                    "marketplace": {
+                        "_label": "Marketplace settings"
+                    },
+                    "widgets": {
+                        "_label": "Widgets"
+                    },
+                    "staffs": {
+                        "_label": "Staff"
+                    },
+                    "personalization": {
+                        "_label": "Personalization"
+                    },
+                    "memberForms": {
+                        "_label": "Member forms"
+                    },
+                    "liveStreaming": {
+                        "_label": "Live streaming integration"
+                    },
+                    "transactionnalEmail": {
+                        "_label": "Transactional notifications"
+                    },
+                    "teacherPayrollRules": {
+                        "_label": "Payroll rules"
+                    },
+                    "paymentMethods": {
+                        "_label": "Payment method"
+                    },
+                    "company": {
+                        "_label": "Company"
+                    },
+                    "billing": {
+                        "_label": "Billing"
+                    },
+                    "waitingList": {
+                        "_label": "Waitlist"
+                    },
+                    "webShop": {
+                        "_label": "Shop"
+                    },
+                    "webHook": {
+                        "_label": "Webhook"
+                    },
+                    "partnership": {
+                        "_label": "Partnership"
+                    },
+                    "quickBooks": {
+                        "_label": "QuickBooks"
+                    },
+                    "activeCampaign": {
+                        "_label": "ActiveCampaign"
+                    },
+                    "subscription": {
+                        "_label": "Bsport subscription"
+                    },
+                    "mobilePersonalization": {
+                        "_label": "Branded app"
+                    },
+                    "coachUserspace": {
+                        "_label": "Teacher View"
+                    }
+                },
+                "reporting": {
+                    "_label": "Reporting"
+                },
+                "member": {
+                    "_label": "Members"
+                },
+                "digitalOffer": {
+                    "_label": "Digital offer",
+                    "videos": {
+                        "_label": "Videos & eBooks"
+                    },
+                    "playlists": {
+                        "_label": "Playlist"
+                    }
+                },
+                "marketing": {
+                    "_label": "Marketing",
+                    "templates": {
+                        "_label": "Emails"
+                    },
+                    "customForms": {
+                        "_label": "Forms"
+                    },
+                    "smartlists": {
+                        "_label": "Smartlists"
+                    },
+                    "notifications": {
+                        "_label": "Notifications"
+                    },
+                    "strategies": {
+                        "_label": "Strategies"
+                    },
+                    "tags": {
+                        "_label": "Tags"
+                    }
+                },
+                "payments": {
+                    "_label": "Transactions",
+                    "billings": {
+                        "_label": "Invoices"
+                    },
+                    "directDebits": {
+                        "_label": "Direct debits"
+                    },
+                    "orders": {
+                        "_label": "Orders"
+                    },
+                    "expenses": {
+                        "_label": "Expenses"
+                    },
+                    "installments": {
+                        "_label": "Instalments"
+                    },
+                    "teachers": {
+                        "_label": "Teachers"
+                    },
+                    "clockIn": {
+                        "_label": "Attendance",
+                        "selfClockIn": {
+                            "_label": "Punch (autonomous)"
+                        },
+                        "clockInForOther": {
+                            "_label": "Punch (for another staff member)"
+                        },
+                        "canAccessHistory": {
+                            "_label": "Access time clock history"
+                        }
+                    }
+                },
+                "products": {
+                    "_label": "Products",
+                    "paymentPack": {
+                        "_label": "Passes"
+                    },
+                    "privatePass": {
+                        "_label": "Appointment passes"
+                    },
+                    "shop": {
+                        "_label": "Webshop"
+                    },
+                    "packs": {
+                        "_label": "Packs"
+                    },
+                    "giftcards": {
+                        "_label": "Gift cards"
+                    },
+                    "promotions": {
+                        "_label": "Promotions"
+                    },
+                    "contracts": {
+                        "_label": "Subscriptions"
+                    }
+                },
+                "myClub": {
+                    "_label": "My studio",
+                    "activities": {
+                        "_label": "Group activities"
+                    },
+                    "workshops": {
+                        "_label": "Workshops"
+                    },
+                    "appointments": {
+                        "_label": "Appointments"
+                    },
+                    "teachers": {
+                        "_label": "Teachers"
+                    },
+                    "establishments": {
+                        "_label": "Establishments"
+                    },
+                    "programs": {
+                        "_label": "Programs"
+                    },
+                    "replacement": {
+                        "_label": "Substitution"
+                    }
+                },
+                "schedule": {
+                    "_label": "Schedule"
+                },
+                "calendar": {
+                    "_label": "Calendar"
+                },
+                "dashboard": {
+                    "_label": "Dashboard"
+                },
+                "search": {
+                    "_helper": "Mobile only",
+                    "_label": "Search members"
+                },
+                "_label": "Navigation menu",
+                "tutorial": {
+                    "_label": "Tutorials"
+                }
+            },
+            "offer": {
+                "edit": {
+                    "_label": "Edit"
+                },
+                "delete": {
+                    "_label": "Cancel"
+                },
+                "create": {
+                    "_label": "Add"
+                },
+                "_label": "Sessions"
+            },
+            "search": {
+                "_label": "Search members"
+            },
+            "appbarButtons": {
+                "notificationCenter": {
+                    "_label": "Notifications & Alerts"
+                },
+                "ledger": {
+                    "_label": "Ledger"
+                },
+                "_label": "AppBar actions",
+                "communicationAlerts": {
+                    "_label": "Message notification"
+                }
+            },
+            "franchiseMenu": {
+                "settings": {
+                    "_label": "Settings"
+                },
+                "staff": {
+                    "_label": "Staff"
+                },
+                "widgets": {
+                    "_label": "Widgets"
+                },
+                "reporting": {
+                    "_label": "Reports"
+                },
+                "notificationRules": {
+                    "_label": "Transactional notifications "
+                },
+                "emailTemplates": {
+                    "_label": "Emails"
+                },
+                "products": {
+                    "couponTemplates": {
+                        "_label": "Promotions"
+                    },
+                    "privatePassTemplates": {
+                        "_label": "Appointment pass"
+                    },
+                    "paymentPackTemplates": {
+                        "_label": "Pass"
+                    },
+                    "_label": "Products",
+                    "giftcardTemplates": {
+                        "_label": "Gift card"
+                    }
+                },
+                "members": {
+                    "_label": "Members"
+                },
+                "franchises": {
+                    "_label": "Franchisees"
+                },
+                "_label": "Navigation menu"
+            }
+        },
+        "overbookingForbidden": "The rights you have been granted as a staff member do not allow you to exceed the maximum number of reservations."
+    },
+    "theme": {
+        "forms": {
+            "themePersonalization": {
+                "names_label_info": "Edit the fields 'First name' and 'Last name' on your sign up form",
+                "first_name_label": {
+                    "placeholder": "First name label",
+                    "label": "First name label",
+                    "helperText": "Fill in the first name label"
+                },
+                "last_name_label": {
+                    "placeholder": "Last name label",
+                    "label": "Last name label",
+                    "helperText": "Fill in the last name label"
+                },
+                "offersFilling": "Show the number of bookings and remaining spots on the calendar of your members",
+                "default_booking_ordering": {
+                    "title": "Choose the default sorting order of your bookings",
+                    "lastname": "Sort by: last name",
+                    "firstname": "Sort by: first name",
+                    "date": "Sort by: most recent"
+                },
+                "default_attendance": {
+                    "title": "Default status when a member books",
+                    "missing": "Absent",
+                    "present": "Present"
+                },
+                "calendar": {
+                    "police": {
+                        "helperText": "Change the style of the font",
+                        "label": "Font",
+                        "placeholder": "Enter CSS code"
+                    },
+                    "offerCard": {
+                        "helperText": "Change the style of the passes",
+                        "label": "Passes",
+                        "placeholder": "Enter CSS code"
+                    },
+                    "columns": {
+                        "helperText": "Change the style of the column",
+                        "label": "Columns",
+                        "placeholder": "Enter CSS code"
+                    },
+                    "bookButton": {
+                        "helperText": "Change the style of the \"book\" button",
+                        "label": "\"Book\" button",
+                        "placeholder": "Enter CSS code"
+                    },
+                    "title": "Add your own CSS to further personalize your calendar"
+                },
+                "consumerRegularizeDebt": "Allow members to regularize their outstanding debts with online payments",
+                "acceptDoubleBooking": "Accept double bookings (only for group activities)",
+                "workshopsCustomer": "Show workshops on the calendar of your members",
+                "cancelledOffersCustomer": "Show cancelled sessions on the calendar of your members",
+                "calendarPersonalizationTitle": "Calendar",
+                "basket_expiration_days": {
+                    "alert": "Add the amount of days before abandoned baskets gets emptied.",
+                    "placeholder": "Days",
+                    "helperText": "This is the number of days before an abandoned basket is automatically emptied.",
+                    "label": "Basket expiration date"
+                },
+                "cancelledOffersManager": "By default show cancelled sessions on the manager calendar",
+                "checkBalance": {
+                    "shiftRatio": {
+                        "explain": "If more than {{numberCheck}} reservations are recorded on a session, no reservation will be authorized which creates a WOMEN / MEN imbalance greater than {{gender_max_shift_for_booking}} people.",
+                        "helperText": "Limit the WOMEN / MEN imbalance to {{gender_max_shift_for_booking}} people",
+                        "placeholder": "Maximum authorized WOMAN / MEN imbalance"
+                    },
+                    "numberCheck": {
+                        "helperText": "When more than {{number}} people book a session, any additional reservation will only be accepted if the WOMEN / MEN imbalance is less than the following value.",
+                        "placeholder": "Check the WOMEN / MEN imbalance when the number of reservations exceeds"
+                    },
+                    "checkbox": "Automatically manage the male-female ratio per session"
+                },
+                "offerBalance": "Gender ratio",
+                "showGenderOffer": "Show the amount of men and women that booked a session",
+                "hideCoach": "Hide teachers' info on the calendar for members",
+                "maxFutureBooking": {
+                    "numberCheck": {
+                        "helperText": "This will be the maximum amount of future bookings per member.",
+                        "placeholder": "Maximum"
+                    },
+                    "label": "Limit the amount of future bookings per member"
+                },
+                "hiddenFromMarketplace": "Activate this to display your studio on the general BSPORT app",
+                "schedule": {
+                    "alert": "The schedule's start time must be earlier than the end time",
+                    "end": "End time",
+                    "begin": "Start time",
+                    "title": "Schedule"
+                },
+                "coach_can_edit_attendance": "Allow teachers to modify members' present/absent status in the mobile app",
+                "internalAccountWarning1": "We highly recommend to create a report for members' internal account balances before enabling this feature.",
+                "internalAccountWarningTitle": "Take member's current internal account balances into consideration.",
+                "allowConsumerToUseInternalAccount": "Allow members to use their internal account credit to complete payments for their basket and/or outstanding invoices",
+                "goToReports": "Reporting",
+                "internalAccount": "Client internal account balance",
+                "internalAccountNotusableOnContract": "This payment method can't be used for subscriptions.",
+                "internalAccountWarning2": "Go to Reporting > Add a report > Scroll down to \"Payments\" > Select \"Credits\" > Select all columns > and click \"Save\".",
+                "errorURL": "Please enter a valid URL before saving the form",
+                "bookingTitle": "Bookings",
+                "attendanceTitle": "Attendance",
+                "hideBuyablePassIfSuperfluous": "Hide passes, subscriptions, and packs in the booking funnel if the member already owns a compatible product",
+                "hideSessionWithTagsNotEligible": "Do not display sessions that the member does not have access to with tags",
+                "hideMemberForCoach": "Hide customer contact information in the teacher calendar",
+                "signup": {
+                    "urlHelperText": "The member will be redirected to this link after confirming their email. If not, they will be redirected to their profile on the marketplace.",
+                    "urlError": "Please enter a valid url",
+                    "urlRedirection": "Redirection URL",
+                    "helperText": "Upon registration, your members will receive an email to confirm their email address, their account will not be activated until this email has been confirmed",
+                    "label": "Confirmation email at registration",
+                    "title": "Registration"
+                },
+                "coachUserspace": {
+                    "errors": {
+                        "restrictionToggles": "Please select at least one option"
+                    },
+                    "requestLimitationPeriods": {
+                        "placeholder": "Select a period",
+                        "year": "Years",
+                        "month": "Months",
+                        "week": "Weeks"
+                    },
+                    "maxNbRequestPerPeriod": {
+                        "recap": {
+                            "3": "Every {{nbPeriods}} year your teachers will be able to make at most {{nbRequests}} late requests. Once this number is exceeded, they will not be able to make any more late requests until the end of the period.",
+                            "2": "Every {{nbPeriods}} month your teachers will be able to make at most {{nbRequests}} late requests. Once this number is exceeded, they will not be able to make any more late requests until the end of the period.",
+                            "1": "Every {{nbPeriods}} week your teachers will be able to make at most {{nbRequests}} late requests. Once this number is exceeded, they will not be able to make any more late requests until the end of the period."
+                        },
+                        "helperText": "Maximum number of late requests"
+                    },
+                    "isLateReplacementRequestLimited": "Limit of late requests",
+                    "daysBeforeReplacementClosingAcceptance": {
+                        "description": "Your teachers will no longer be able to accept substitutions on a session {{count}} day before the course begins.",
+                        "description_plural": "Your teachers will no longer be able to accept substitutions on a session {{count}} days before the course begins.",
+                        "helperText": "Closing of registrations at substitution",
+                        "placeholder": "Number of days"
+                    },
+                    "daysBeforeReplacementClosing": {
+                        "interval": "Interval",
+                        "every": "Every",
+                        "description": "Substitution requests made {{count}} day or more before the start of the session will be indicated as late.",
+                        "description_plural": "Substitution requests made {{count}} days or more before the start of the session will be indicated as late.",
+                        "helperText": "Closing requests for substitutions",
+                        "placeholder": "Number of days"
+                    },
+                    "daysBeforeRequestIsLate": {
+                        "description": "Substitution requests made less than {{count}} day before the beginning of the session will be indicated as late.",
+                        "description_plural": "Substitution requests made less than {{count}} days before the beginning of the session will be indicated as late.",
+                        "helperText": "Late request",
+                        "placeholder": "Number of days"
+                    },
+                    "replacementSettings": "Substitution settings",
+                    "enableReplacement": "Substitution",
+                    "enableRemuneration": "Payroll",
+                    "enableSchedule": "Schedule",
+                    "restrictionsDescription": "Indicate which tabs your teachers will have access to",
+                    "restrictions": "Restrictions",
+                    "enableDescription": "By enabling this feature, all your new teachers will have the access enabled by default",
+                    "enable": "Enable the teacher view by default",
+                    "access": "Access",
+                    "description": "Customize the teacher view on the web. Please note that the settings here do not affect the teacher's view of the application."
+                },
+                "noShow": {
+                    "errorValidatedTime": "The time elapsed before a member's booking is considered a no-show must be greater than 0",
+                    "errorEmailTime": "The time elapsed before sending the email to warn the member that his/her booking will be considered as a no-show must be greater than 0",
+                    "notAvailable": "No-show management is not available. To activate it you must first create an unlimited pass with no-show penalties.",
+                    "error": "The absence notification email cannot be sent after the member is considered a no show.",
+                    "sendMailHelpText": "To enable/disable the email please go to Settings> Transactional notifications> Penalty> Notification of absence",
+                    "sendMail": "Send an email <0/> <1/> after the roll call to notify the member that they will be considered a no show if they are listed as absent.",
+                    "daysBeforeNoShowHelpText": "This setting allows you to apply penalties on the no shows of members with an unlimited pass.",
+                    "daysBeforeNoShow": "Consider the member as (no-show) <0/> <1/> after the roll call on sessions where they are listed as absent.",
+                    "alert": "These settings only apply to no-show penalties on unlimited passes. To trigger the following counts, you must call the roll for each session.",
+                    "title": "No show"
+                }
+            },
+            "cover": {
+                "label": "Logo",
+                "helperText": "Upload here your logo with a transparent background (use a .PNG file)."
+            },
+            "primary_color": {
+                "label": "Primary color",
+                "helperText": "Choose a theme color (avoid a monochrome setup)."
+            },
+            "secondary_color": {
+                "label": "Secondary color",
+                "helperText": "Choose a complementary theme color."
+            },
+            "default_booking_ordering": {
+                "date": "Sort by most recent booking date",
+                "firstname": "Sort by first name",
+                "lastname": "Sort by last name",
+                "title": "Select bookings sort on offer page"
+            },
+            "default_attendance": {
+                "present": "Member present",
+                "missing": "Member missing",
+                "title": "Default status for a booking made by a member"
+            },
+            "websiteURL": {
+                "label": "Website",
+                "helperText": "Use this field to add the link to your own website.",
+                "placeholder": "https://studio.com/",
+                "errorText": "This URL is invalid"
+            },
+            "scheduleURL": {
+                "label": "Link to your schedule",
+                "helperText": "Use this field for your schedule.",
+                "placeholder": "https://studio.com/schedule/"
+            },
+            "instagramURL": {
+                "label": "Instagram",
+                "helperText": "Use this field to add your Instagram.",
+                "placeholder": "https://instagram.com/my-studio/"
+            },
+            "gtmId": {
+                "placeholder": "GTM-XXXXXX",
+                "label": "[ID] Google Tag Management"
+            },
+            "facebookURL": {
+                "label": "Facebook",
+                "helperText": "Use this field to add your Facebook page.",
+                "placeholder": "https://facebook.com/my-studio/"
+            },
+            "submit": "Save",
+            "general_terms_and_conditions": {
+                "placeholder": "I certify that I'm in possession of a valid medical certificate.",
+                "helperText": "These must be accepted for all payments.",
+                "label": "General Terms & Conditions"
+            },
+            "android_app_url": {
+                "placeholder": "https://play.google.com/store/apps/details?id=com.bsport",
+                "helperText": "Use this field to add the link to your Android app (Google Play Store).",
+                "label": "Android"
+            },
+            "ios_app_url": {
+                "placeholder": "https://apps.apple.com/us/app/id1356621554",
+                "helperText": "Use this field to add the link to your iOS app (Apple App Store).",
+                "label": "iOS"
+            },
+            "general_terms_of_use": {
+                "placeholder": "I certify that I'm over the age of 13.",
+                "helperText": "These must be accepted for all sign up.",
+                "label": "General Terms of Use"
+            },
+            "facebookPixelId": {
+                "placeholder": "ID",
+                "label": "[ID] Facebook Pixel"
+            },
+            "waiver": {
+                "placeholder": "I certify that I'm over the age of 13.",
+                "helperText": "All members must accept this during their sign up.",
+                "label": "Liability Waiver"
+            },
+            "provincialTax": {
+                "taxHelperText": "Will appear on invoices",
+                "taxValue": "Value of the tax",
+                "taxName": "Name of the tax",
+                "info": "Enter the name and value of your Provincial Tax here. On all the products of the platform indicate the total tax applied (Federal Tax + Provincial Tax). The Federal and Provincial Tax will be indicated on your customers' invoices.",
+                "title": "Provincial Tax"
+            },
+            "acceptGuest": "Allow booking for a guest",
+            "allowGuest": {
+                "title": "Allow the booking for a guest feature",
+                "frequencies": {
+                    "week": "Week",
+                    "month": "Month",
+                    "year": "Year",
+                    "text": " times by ",
+                    "placeholder": "Frequency"
+                },
+                "dialog": {
+                    "dialogTitle": "Warning",
+                    "dialogContent": "Please note that if you deactivate this option, it will no longer be possible for your members to reserve for a guest.",
+                    "dialogButtonCancel": "Cancel",
+                    "dialogButtonConfirm": "Confirm"
+                }
+            },
+            "extra_info": {
+                "label": "Studio information"
+            }
+        },
+        "general_terms_and_conditions": {
+            "label": "General terms and conditions",
+            "helperText": "Must be accepted for all payment and subscription",
+            "placeholder": "I certify being allowed by my doctor to practice this activity."
+        },
+        "pageTitles": {
+            "theme": "General",
+            "personalization": "Personalization",
+            "broadcast": "Livestream"
+        },
+        "analytics": {
+            "showAnalyticsInformation": "Show retargeting events",
+            "eventDesc": "Events",
+            "gtmEvent": "Google Tag Management",
+            "fbPixelEvent": "Facebook Pixel",
+            "cancel": "Cancel",
+            "showBasket": "When a user open their basket",
+            "showPass": "When a user clicks on a pass",
+            "addPassToCart": "When a user adds a pass to their basket",
+            "addPackToCart": "When a user adds a pack to their basket",
+            "addPrivatePassToCart": "When a user adds an appointment pass to their basket",
+            "addShopItemToCart": "When a user adds a webshop item to their basket",
+            "paymentSuccess": "When a user successfully completed their payment",
+            "signinShow": "When a user opens the login page",
+            "signupShow": "When a user clicks on the sign up form",
+            "signupSuccess": "When a user created an account",
+            "sessionShow": "When a user clicks on a session",
+            "contractPaymentSuccess": "When a user signed up for a subscription",
+            "contractShow": "When a user clicks on a subscription",
+            "contractPaymentShow": "When a user is on the payment page for a subscription",
+            "workshopClick": "When a user selects a date for a workshop"
+        },
+        "signUpForm": {
+            "error": "Error when saving form",
+            "success": "Form has been saved",
+            "save": "Save",
+            "editable": "Editable",
+            "required": "Obligatory",
+            "show": "Display",
+            "label": "Label",
+            "field_identifier": "Fields",
+            "account_modification": "Editing an account",
+            "account_creation": "Creating an account",
+            "title": "[Form] Sign up",
+            "fields": {
+                "waiver": "Liability Waiver",
+                "general_terms_and_conditions_accepted": "General Terms & Conditions",
+                "cgu": "General Terms of Use",
+                "accept_sms": "I agree to be notified by SMS for commercial purposes (promotions, special offers ...)",
+                "accept_email": "I agree to be notified by email for commercial purposes (promotions, special offers ...)",
+                "sms_notification": "I agree to be notified by SMS for commercial purposes (promotions, special offers ...)",
+                "email_notification": "I agree to be notified by email for commercial purposes (promotions, special offers ...)",
+                "emergency_contact": "Emergency contact",
+                "profile_picture": "Profile picture",
+                "zipcode": "Postal code",
+                "zip_code": "Postal code",
+                "country": "Country",
+                "city": "City",
+                "additionnal_address_info": "Additional address info",
+                "address": "Address",
+                "birthdate": "Date of birth",
+                "phone": "Telephone",
+                "main_phone": "Telephone",
+                "gender": "Sex",
+                "email": "Email",
+                "last_name": "Last name",
+                "first_name": "First name",
+                "photo": "Profile picture",
+                "address_line_2": "Address line 2",
+                "address_line_1": "Address line 1",
+                "birthday": "Date of birth",
+                "vaccination_status": "COVID-19 Sanitary Pass Status"
+            },
+            "customQuestionDialog": {
+                "confirm": "Add a form",
+                "cancel": "Cancel",
+                "content": "You can add custom questions to your sign up form by creating a completely new form in Marketing > Forms. You may add any new questions and select the notification rule \"new members\".",
+                "title": "Custom questions"
+            },
+            "addQuestions": "Add a question",
+            "additionalCustomForm": "Additional forms"
+        },
+        "zoom": {
+            "confirmDialog": {
+                "text": "If you have already entered video conferencing links manually on your sessions, they will be deleted and be replaced by automatically generated zoom links. Meetings already created on the ZOOM calendar must be manually deleted, they will be replaced by meetings created automatically.",
+                "title": "Zoom integration"
+            }
+        },
+        "quickbooks": {
+            "confirmDialog": {
+                "title": "QuickBooks connection",
+                "text": "Are you sure that you want to allow BSPORT to access your application?"
+            },
+            "title": "QuickBooks"
+        },
+        "marketingEmail": {
+            "caption": "Copies of the transactional emails will be sent to this email address if the settings have been activated accordingly.",
+            "placeholder": "Email",
+            "label": "Follow up email"
+        },
+        "provincialTax": {
+            "helperText": "The VAT / Sales Tax is less than or equal to the indicated Provincial Tax. On invoices, only this tax will be indicated without distinguishing between Federal and Provincial Tax."
+        },
+        "taxDisplay": {
+            "info": "Activate this option to only display prices excluding VAT / Sales Tax on the Widgets, MarketPlace, and Mobile App.",
+            "title": "Pricing display",
+            "checkbox": "Display products' tax-free amounts"
+        }
+    },
+    "common": {
+        "text": {
+            "showLessText": "Show less",
+            "showMoreText": "Show more"
+        },
+        "close": "Close",
+        "colorPicker": {
+            "validate": "Save",
+            "delete": "Clear",
+            "noColor": "No color"
+        },
+        "form": {
+            "duration": {
+                "day": "Duration in days:",
+                "day_plural": "Days:",
+                "hour": "Duration in hours:",
+                "hour_plural": "Hours:",
+                "minute": "Duration in minutes:",
+                "minute_plural": "Minutes:"
+            },
+            "requiredField": "This field is mandatory."
+        },
+        "selector": {
+            "validate": "Confirm",
+            "unselectAll": "Unselect all",
+            "selectAll": "Select all"
+        },
+>>>>>>> 2af7e5909 (refactor(marketplace): payment combo modal - update style)
         "cancel": "Cancel",
         "confirm": "Confirm",
         "name": "Name",

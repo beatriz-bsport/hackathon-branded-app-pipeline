@@ -145,7 +145,9 @@
             "nl": "Nederlands",
             "it": "Italiaans",
             "de": "Duits",
-            "none": "Automatisch"
+            "none": "Automatisch",
+            "cs": "Tsjechisch",
+            "pt": "Portugees"
         },
         "subscription": {
             "isEmpty": "Er zijn actieve abonnementen om weer te geven."
@@ -2138,7 +2140,8 @@
             "de": "Duits",
             "fr": "Frans",
             "en": "Engels",
-            "pt": "Portugees"
+            "pt": "portugees",
+            "cs": "Tsjechisch"
         },
         "signin": {
             "connect": "Meld je aan of maak een account aan om verder te gaan.",
@@ -2830,7 +2833,8 @@
                 "Annuleren",
                 "Annuleren",
                 "Geannuleerd",
-                "Annuleren"
+                "Annuleren",
+                "Geannuleerd"
             ]
         },
         "payment_method_with_credit_account": {
@@ -4721,7 +4725,8 @@
         "calendar": {
             "modifyOffer": "Bewerken",
             "deleteOffer": "Annuleren",
-            "filter": "Filter"
+            "filter": "Filter",
+            "today": "Vandaag"
         },
         "forms": {
             "old_date": "Origineel:",
@@ -5843,6 +5848,26 @@
         "packCardDetail": {
             "comboItemList": {
                 "content": "Inhoud"
+            }
+        },
+        "contractCard": {
+            "autoRenewal": "automatische verlenging",
+            "legalContract": "Juridische informatie",
+            "seeMore": "Zie meer",
+            "seeLess": "Zie minder",
+            "registerButton": "Abonneren",
+            "invoice": "{{ count }} Factuur",
+            "invoice_plural": "{{ count }} factures",
+            "fees": "Aanvraagkosten : {{ fees }}",
+            "billingInterval": {
+                "day": "dag",
+                "day_plural": "Elke {{ count }} dagen",
+                "year": "Jaar",
+                "year_plural": "Elk {{ count }} Jaar",
+                "week": "Week",
+                "week_plural": "Elke {{ count }} weken",
+                "month": "maand",
+                "month_plural": "Elke {{ count }} maanden"
             }
         }
     },
@@ -7574,7 +7599,8 @@
         "calendar": {
             "selectCoachToModifyAvailability": "Selecteer een instructeur",
             "header": {
-                "threeDaysView": "3 Dagen"
+                "threeDaysView": "3 Dagen",
+                "dateSelector": "Kies de datum"
             },
             "form": {
                 "interval": {

@@ -2424,7 +2424,9 @@
             "en-GB": "English (UK)",
             "en-US": "English (US)",
             "fr": "French",
-            "none": "Automatic"
+            "none": "Automatic",
+            "cs": "Czech",
+            "pt": "Portuguese"
         },
         "subscription": {
             "isEmpty": "There are no active subscriptions to display."
@@ -5812,7 +5814,8 @@
             "de": "German",
             "fr": "French",
             "en": "English",
-            "pt": "Portuguese"
+            "pt": "portuguese",
+            "cs": "czech"
         },
         "signin": {
             "connect": "Please log in or create an account to continue.",
@@ -9243,7 +9246,8 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
-                "Canceled"
+                "Canceled",
+                "Cancelled"
             ]
         },
         "payment_method_with_credit_account": {
@@ -11402,6 +11406,26 @@
         "packCardDetail": {
             "comboItemList": {
                 "content": "Content"
+            }
+        },
+        "contractCard": {
+            "autoRenewal": "Automatic renewal",
+            "legalContract": "Legal notice",
+            "seeLess": "See less",
+            "seeMore": "See more",
+            "registerButton": "Subscribe",
+            "invoice": "{{ count }} invoice",
+            "invoice_plural": "{{ count }} invoices",
+            "fees": "Application fee: {{ fees }}",
+            "billingInterval": {
+                "day": "day",
+                "day_plural": "Every {{ count }} days",
+                "year": "year",
+                "year_plural": "Every {{ count }} years",
+                "week": "week",
+                "week_plural": "Every {{ count }} weeks",
+                "month": "month",
+                "month_plural": "Every {{ count }} months"
             }
         }
     },

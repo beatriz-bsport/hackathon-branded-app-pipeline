@@ -1829,7 +1829,8 @@
             "it": "italiano",
             "es": "español",
             "en": "Inglés",
-            "pt": "Portugués"
+            "pt": "Portugués",
+            "cs": "Checo"
         },
         "signin": {
             "connect": "Inicia sesión para continuar.",
@@ -4846,6 +4847,7 @@
                 "Cancelar",
                 "Cancelado",
                 "Cancelado",
+                "Cancelada",
                 "Cancelada"
             ]
         },
@@ -4938,7 +4940,8 @@
         "calendar": {
             "modifyOffer": "Modificar",
             "deleteOffer": "Cancelar",
-            "filter": "Filtrar"
+            "filter": "Filtrar",
+            "today": "Hoy"
         },
         "manageOffer": "Gestionar las reservas",
         "forms": {
@@ -6023,6 +6026,26 @@
             "comboItemList": {
                 "content": "Contenido"
             }
+        },
+        "contractCard": {
+            "autoRenewal": "Renovación tácita",
+            "legalContract": "Aviso legal",
+            "seeLess": "Ver menos",
+            "seeMore": "Ver más",
+            "registerButton": "Suscribirse",
+            "invoice": "{{ count }} factura",
+            "invoice_plural": "{{ count }} facturas",
+            "fees": "Tasa de inscripción: {{ fees }}",
+            "billingInterval": {
+                "day": "día",
+                "day_plural": "Cada {{ count }} días",
+                "year": "año",
+                "year_plural": "Cada {{ count }} años",
+                "week": "semana",
+                "week_plural": "Cada {{ count }} semanas",
+                "month": "mes",
+                "month_plural": "Cada {{ count }} meses"
+            }
         }
     },
     "notificationRule": {
@@ -6448,7 +6471,9 @@
             "de": "Alemán",
             "it": "Italiano",
             "nl": "Holandés",
-            "none": "Automático"
+            "none": "Automático",
+            "cs": "Checo",
+            "pt": "Portugués"
         },
         "subscription": {
             "isEmpty": "No tienes ninguna suscripción en curso"
@@ -7348,7 +7373,8 @@
             "disableAvailability": "Suprimir la disponibilidad",
             "enableAvailability": "Añadir una disponibilidad hoy",
             "header": {
-                "threeDaysView": "3 días"
+                "threeDaysView": "3 días",
+                "dateSelector": "Selector de fecha"
             },
             "createCustomEvent": "Crea una cita personal",
             "customEvent": {

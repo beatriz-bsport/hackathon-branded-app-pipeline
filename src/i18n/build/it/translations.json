@@ -1490,7 +1490,9 @@
             "de": "Tedesco",
             "it": "Italiano",
             "nl": "Olandese",
-            "none": "Automatico"
+            "none": "Automatico",
+            "cs": "Ceco",
+            "pt": "Portoghese"
         },
         "subscription": {
             "isEmpty": "Non hai un abbonamento in corso"
@@ -2298,7 +2300,8 @@
         },
         "calendar": {
             "header": {
-                "threeDaysView": "3 giorni"
+                "threeDaysView": "3 giorni",
+                "dateSelector": "Seleziona la data"
             },
             "disableAvailability": "Rimuovi disponibilità",
             "enableRecurrentAvailability": "Aggiungi disponibilità ricorrente",
@@ -7123,7 +7126,8 @@
                 "Annulla",
                 "Annulla",
                 "Annulla",
-                "Cancella"
+                "Cancella",
+                "Annullata"
             ]
         },
         "payment_method_with_credit_account": {
@@ -10768,7 +10772,8 @@
             "de": "tedesco",
             "fr": "francese",
             "en": "Inglese",
-            "pt": "Portoghese"
+            "pt": "portoghese",
+            "cs": "ceco"
         },
         "signin": {
             "connection": "Connessione",
@@ -12009,6 +12014,26 @@
             "comboItemList": {
                 "content": "Contenuto"
             }
+        },
+        "contractCard": {
+            "autoRenewal": "Rinnovo tacito",
+            "legalContract": "Avviso legale",
+            "seeLess": "Vedi meno",
+            "seeMore": "Vedi piú",
+            "registerButton": "Abbonati",
+            "invoice": "{{ count }} fattura",
+            "invoice_plural": "{{ count }} fatture",
+            "fees": "Spese amministrative : {{ fees }}",
+            "billingInterval": {
+                "day": "giorno",
+                "day_plural": "Ogni {{ count }} giorni",
+                "year": "anno",
+                "year_plural": "Ogni {{ count }} anni",
+                "week": "settimana",
+                "week_plural": "Ogni {{ count }} settimane",
+                "month": "mese",
+                "month_plural": "Ogni {{ count }} mesi"
+            }
         }
     },
     "event": {
@@ -12080,7 +12105,8 @@
         "calendar": {
             "modifyOffer": "Modifica",
             "deleteOffer": "Annulla",
-            "filter": "Filtrare"
+            "filter": "Filtrare",
+            "today": "Oggi"
         },
         "manageOffer": "Gestisci le mie prenotazioni",
         "massDisabler": {

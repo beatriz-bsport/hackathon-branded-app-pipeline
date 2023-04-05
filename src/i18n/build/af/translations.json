@@ -3260,8 +3260,8 @@
         "paymentPackItem_plural": "{{count}} cartes de cours",
         "privatePassItem": "{{count}} carte de RDV",
         "privatePassItem_plural": "{{count}} cartes de RDV",
-        "hiddenItem": "{{count}} autre élément",
-        "hiddenItem_plural": "{{count}} autres éléments"
+        "hiddenItem": "{{count}} autre élément...",
+        "hiddenItem_plural": "{{count}} autres éléments..."
       }
     },
     "packCardDetail": { "comboItemList": { "content": "Contenu" } },

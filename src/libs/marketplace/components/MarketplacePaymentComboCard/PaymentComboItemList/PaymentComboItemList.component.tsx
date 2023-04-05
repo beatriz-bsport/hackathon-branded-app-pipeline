@@ -43,8 +43,7 @@ const PaymentComboItemList: React.FC<Props> = ({
         count: privatePassTotalQuantity,
       }),
     ...paymentCombo.shop_items.map(
-      (shopItem) =>
-        (shopItem.quantity > 1 ? `${shopItem.quantity}x ` : '') + shopItem.name,
+      (shopItem) => `${shopItem.quantity} ${shopItem.name}`,
     ),
   ].filter((element) => !!element);
 
@@ -71,7 +70,7 @@ const PaymentComboItemList: React.FC<Props> = ({
         </li>
       ))}
       {countHiddenItems > 0 && (
-        <li className="bs-combo-item-list__item--hidden">
+        <li className="bs-combo-item-list__item --hidden">
           {t('packCard.comboItemList.hiddenItem', { count: countHiddenItems })}
         </li>
       )}

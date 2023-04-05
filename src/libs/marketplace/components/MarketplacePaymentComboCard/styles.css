@@ -1,11 +1,12 @@
 .bs-pack-card {
-    background: linear-gradient(90deg, #f6f8fa 60%, transparent 40%);
+    background: linear-gradient(90deg, #f6f8fa 58%, #fff 42%);
     ;
     border-radius: var(--border-radius-4);
 }
 
 .bs-pack-card__grid {
     gap: var(--spacing-0);
+    grid-template-columns: 58% 42%;
 }
 
 .bs-pack-card__item {
@@ -154,6 +155,7 @@
 
     .bs-pack-card__price {
         margin-left: var(--spacing-1);
+        font-size: var(--h4-fontSize);
     }
 
     .bs-pack-card__item {

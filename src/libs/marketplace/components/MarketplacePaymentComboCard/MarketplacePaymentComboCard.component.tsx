@@ -44,7 +44,6 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
             alignment={Alignment.FLEX_START}
             justification={Justification.SPACE_BETWEEN}
             columnStart={1}
-            columnEnd={3}
             classes={{
               'bs-pack-card__item': 'bs-pack-card__item',
               '--left': '--left',
@@ -58,9 +57,8 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
             </div>
           </Item>
           <Item
-            alignment={Alignment.FLEX_END}
             justification={Justification.SPACE_BETWEEN}
-            columnStart={3}
+            columnStart={2}
             classes={{
               'bs-pack-card__item': 'bs-pack-card__item',
               '--rigth': '--rigth',

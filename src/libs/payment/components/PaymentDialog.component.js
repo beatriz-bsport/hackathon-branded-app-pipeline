@@ -40,7 +40,7 @@ type Props = {
   onError: () => void,
   onCancel: () => void,
   memberId: number,
-  onSuccess: () => void,
+  onSuccess: (callback?: () => void) => void,
   amountToPay: number,
   onlyInternal: ?boolean,
   asConsumer: ?boolean,

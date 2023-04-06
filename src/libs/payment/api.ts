@@ -1,5 +1,6 @@
 // @flow
 
+import { AxiosResponse } from 'axios';
 import {
   API_V1_URI,
   getAuth,
@@ -8,8 +9,11 @@ import {
   postAuth,
   buildUrlParams,
 } from '../../http';
+import { PaymentMethod } from './types';
 
-export const fetchPaymentMethodList = async (params: any = {}) => {
+export const fetchPaymentMethodList = async (
+  params: any = {},
+): Promise<AxiosResponse<Array<PaymentMethod>>> => {
   return getAuth(
     `${API_V1_URI}/payment/payment_method/${buildUrlParams(params)}`,
   );

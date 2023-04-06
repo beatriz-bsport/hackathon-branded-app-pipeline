@@ -8,27 +8,28 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+import { AxiosResponse } from 'axios';
 import { OptionCallback } from '../../../../state/types';
 import PaymentMethodListItem from '../PaymentMethodListItem.component';
 import CollectPaymentMethod from '../CollectPaymentMethod.component';
 import { PaymentMethod } from '../../types';
 
 type Props = {
-  disabled: boolean;
+  disabled?: boolean;
   savedPaymentMethodList: Array<PaymentMethod>;
   selectedSavedPaymentMethodId?: string;
   onSelect: (paymentMethodId: string) => void;
-  showEmpty: boolean | null;
+  showEmpty?: boolean | null;
 
   refreshSavedPaymentMethodList?: () => void;
 
-  requestSetupIntentSecret?: () => void;
+  requestSetupIntentSecret?: () => Promise<AxiosResponse<any>>;
   paymentMethodType?: string;
   setHasDetached?: (paymentMethodId: string) => void;
   detachPaymentMethodLoading?: boolean;
   companyId: number | null;
   memberId?: number | null;
-  detachPaymentMethod?: (pm_id: number, options?: OptionCallback) => void;
+  detachPaymentMethod?: (pm_id: string, options?: OptionCallback) => void;
   snackbarErrorMsg?: (msg: string) => void;
   snackbarSuccessMsg?: (msg: string) => void;
   onlyDefault?: boolean;
@@ -104,6 +105,7 @@ export const PaymentMethodList = (props: Props) => {
       )}
       {collectPaymentMethodIsOpen && (
         <CollectPaymentMethod
+          fullScreen={false}
           requestSetupIntentSecret={props.requestSetupIntentSecret}
           paymentMethodType={props.paymentMethodType}
           refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}

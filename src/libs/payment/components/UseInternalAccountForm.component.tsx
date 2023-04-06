@@ -7,9 +7,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
-import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/core/styles';
-import { Formik, Form, FormikProps } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -24,7 +23,7 @@ type Props = {
   creditAccountBalance: number;
   loading?: boolean;
   disabled?: boolean;
-} & FormikProps<{ amount: number }>;
+};
 
 const validationSchema = Yup.object().shape({
   amount: Yup.number()
@@ -231,4 +230,4 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
   },
 }));
-export default compose<any, Props>(UseInternalAccountForm);
+export default UseInternalAccountForm;

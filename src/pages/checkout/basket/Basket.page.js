@@ -122,7 +122,7 @@ type Props = {
   creditAccountBalance: number | null,
   fetchMember: (id: number) => void,
   refreshBasket: () => void,
-  checkItemsBasket: (basketId: string) => void,
+  checkItemsBasket: (basketId: string) => boolean,
 
   instalmentPaymentConfigurationList: Array<InstalmentPayment>,
   assignInstalmentPayment: (

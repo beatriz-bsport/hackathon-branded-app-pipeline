@@ -1,6 +1,7 @@
 // @flow
 
 import React, { useCallback } from 'react';
+import Immutable from 'seamless-immutable';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router';
 import { compose } from 'recompose';
@@ -20,12 +21,12 @@ type Props = {
   pageHeight: number,
 };
 
-export const CoachDetailRouter = (props: Props) => {
-  const tabsData = [
-    { label: 'tab.coach.general', value: 'general' },
-    { label: 'tab.coach.calendar', value: 'private-calendar' },
-  ];
+const tabsData = Immutable([
+  { label: 'tab.coach.general', value: 'general' },
+  { label: 'tab.coach.calendar', value: 'private-calendar' },
+]);
 
+export const CoachDetailRouter = (props: Props) => {
   const { pushToTab, coachId } = props;
   const onChange = useCallback(
     (newTab: string) => {

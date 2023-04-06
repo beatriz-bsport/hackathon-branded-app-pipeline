@@ -1,4 +1,5 @@
-import React, { useMemo, useCallback, memo } from 'react';
+import React, { useMemo, useCallback, memo, useRef } from 'react';
+import Immutable from 'seamless-immutable';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Tabs from '@material-ui/core/Tabs';
@@ -6,22 +7,23 @@ import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
 import { APP_HEIGHT } from '../../pages/constants';
 
-type TabCouple = {
+type TabData = {
   label: string;
   value: string;
+  count?: number;
 };
 
 type Props = {
   tab: string;
   pageHeight: number;
-  tabsData: TabCouple[];
+  tabsData: Immutable.ImmutableArray<TabData>;
   onChange: (tab: string) => void;
   scrollToTopOnChange?: boolean;
   scrollOptions?: ScrollToOptions;
 };
 
 const TabsGenerator: React.FC<{
-  tabsData: TabCouple[];
+  tabsData: Immutable.ImmutableArray<TabData>;
   isTabIntoTabsDataValue: boolean;
   tab: string;
   defaultTab: string;
@@ -31,13 +33,19 @@ const TabsGenerator: React.FC<{
     const { t } = useTranslation('navigation');
     return (
       <Tabs
-        scrollButtons="off"
+        scrollButtons="auto"
         variant="scrollable"
         value={isTabIntoTabsDataValue ? tab : defaultTab}
         onChange={handleChangeTab}
       >
         {tabsData?.map((tabValue) => (
-          <Tab label={t(`${tabValue.label}`)} value={tabValue.value} />
+          <Tab
+            label={`${t(tabValue.label, {
+              count: tabValue.count + 1,
+              number: tabValue.count,
+            })}`}
+            value={tabValue.value}
+          />
         ))}
       </Tabs>
     );
@@ -60,20 +68,27 @@ const ContentWithAppBar: React.FC<Props> = memo(
 
     const isTabsDataNullOrEmpty = !tabsData?.length;
 
+    const previousTab = useRef(tab);
+
     /** Returns true if the tab props is one of the value of the tabsData props */
     const isTabIntoTabsDataValue = useMemo(() => {
       if (isTabsDataNullOrEmpty) {
         return false;
       }
-      return tabsData.some((data: TabCouple) => data.value === tab);
+      return tabsData.some((data: TabData) => data.value === tab);
     }, [tab, tabsData, isTabsDataNullOrEmpty]);
 
     const handleChangeTab = useCallback(
       (_: React.SyntheticEvent, newTab: string) => {
         /** Is scrolling to the top when the page is loaded or refreshed, after layout and paint */
         if (scrollToTopOnChange) {
-          fieldRef?.current?.scrollTo(scrollOptions);
+          fieldRef?.current?.scrollTo(
+            previousTab.current === newTab
+              ? { ...scrollOptions, behavior: 'smooth' }
+              : scrollOptions,
+          );
         }
+        previousTab.current = newTab;
         onChange(newTab);
       },
       [onChange, scrollToTopOnChange, scrollOptions],
@@ -83,9 +98,7 @@ const ContentWithAppBar: React.FC<Props> = memo(
     if (isTabsDataNullOrEmpty) {
       return (
         <div className={classes.container} ref={fieldRef}>
-          <div className={classes.content}>
-            <div className={classes.insideContent}>{children}</div>
-          </div>
+          <div className={classes.insideContent}>{children}</div>
         </div>
       );
     }

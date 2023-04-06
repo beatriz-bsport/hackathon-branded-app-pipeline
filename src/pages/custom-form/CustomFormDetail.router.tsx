@@ -1,56 +1,50 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import Immutable from 'seamless-immutable';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router';
-import AppBar from '@material-ui/core/AppBar';
 import { compose } from 'recompose';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
 import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { TFunction } from 'i18next';
-import { Theme } from '@material-ui/core/styles';
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { MaterialStyleType } from '../../utils/types';
 import CustomFormDetail from './CustomFormDetail.page';
 import CustomFormStatistics from './CustomFormStatistics.page';
 import CustomFormLayout from './CustomFormLayout.page';
 import { CustomForm } from '../../libs/custom-form/types';
 import themeSelectors from '../../libs/theme/selectors';
 import type { RootState } from '../../reducers';
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
 
-type OwnProps = {
-  classes: Object;
+type Props = {
   tab: string;
   pushToTab: (id: number, tab: string) => void;
   id: number;
-  t: TFunction;
+  pageHeight: number;
 };
 
-type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
-export const CustomFormDetailRouter = (props: Props) => (
-  <div className={props.classes.container}>
-    <div className={props.classes.stickyNavbar}>
-      <AppBar position="static" color="default">
-        <Tabs
-          scrollButtons="off"
-          variant="scrollable"
-          value={props.tab}
-          onChange={(e, newTab) => {
-            props.pushToTab(props.id, newTab);
-          }}
-        >
-          <Tab label={props.t('customForm.tab.general')} value="general" />
-          <Tab
-            label={props.t('customForm.tab.statistics')}
-            value="statistics"
-          />
-          <Tab label={props.t('customForm.tab.layout')} value="layout" />
-        </Tabs>
-      </AppBar>
-    </div>
-    <div className={props.classes.content}>
+const tabsData = Immutable([
+  { label: 'tab.customForm.general', value: 'general' },
+  { label: 'tab.customForm.statistics', value: 'statistics' },
+  { label: 'tab.customForm.layout', value: 'layout' },
+]);
+
+export const CustomFormDetailRouter = (props: Props) => {
+  const { pushToTab, id } = props;
+  const onChange = useCallback(
+    (newTab: string) => {
+      pushToTab(id, newTab);
+    },
+    [pushToTab, id],
+  );
+
+  return (
+    <ContentWithAppBar
+      tab={props.tab}
+      onChange={onChange}
+      pageHeight={props.pageHeight}
+      tabsData={tabsData}
+    >
       <Switch>
         <Route
           path="/custom-form/details/:id/layout"
@@ -67,33 +61,9 @@ export const CustomFormDetailRouter = (props: Props) => (
         />
         <Route path="/custom-form/details/:id" component={CustomFormDetail} />
       </Switch>
-    </div>
-  </div>
-);
-const styles = (theme: Theme) => ({
-  container: {
-    marginTop: theme.spacing(-3),
-    marginBottom: theme.spacing(4),
-    width: '100vw',
-    [theme.breakpoints.up('md')]: {
-      marginLeft: theme.spacing(-3),
-      width: 'auto',
-      marginRight: theme.spacing(-3),
-      marginTop: theme.spacing(-2),
-    },
-  },
-  stickyNavbar: {
-    width: '100%',
-  },
-  content: {
-    marginBottom: theme.spacing(8),
-    [theme.breakpoints.up('md')]: {
-      margin: theme.spacing(2),
-      marginBottom: theme.spacing(8),
-    },
-    marginTop: theme.spacing(2),
-  },
-});
+    </ContentWithAppBar>
+  );
+};
 
 export default compose<any, Props>(
   routerParamsToProps({
@@ -101,7 +71,6 @@ export default compose<any, Props>(
     id: 'id:number',
   }),
   withTranslation('marketing'),
-  withStyles(styles),
   connect(
     (state: RootState) => ({
       theme: themeSelectors.getTheme(state),
@@ -114,4 +83,5 @@ export default compose<any, Props>(
   withTitle(({ customForm }: { customForm: CustomForm }) => {
     return customForm ? `${customForm.name}` : '';
   }),
+  withPageHeightHOC(),
 )(CustomFormDetailRouter);

@@ -1,87 +1,61 @@
-// @flow
-
-import React from 'react';
+import React, { useCallback } from 'react';
+import Immutable from 'seamless-immutable';
 import { Route, Switch } from 'react-router';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import { Tab } from '@material-ui/core';
 import { compose } from 'redux';
-import { Theme } from '@material-ui/core/styles';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
-import { withTranslation, WithTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/styles';
+import { withTranslation } from 'react-i18next';
 import themeSelectors from '../../libs/theme/selectors';
 import EstablishmentList from './EstablishmentList.page';
 import EstablishmentGroupPage from './EstablishmentGroup.page';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 
 type OwnProps = {
   tab: string;
+  pushToTab: (tab: string) => void;
+  pageHeight: number;
 };
 
-type Props = OwnProps & WithTranslation & ConnectedProps<typeof connector>;
+type Props = OwnProps & ConnectedProps<typeof connector>;
+
+const tabsData = Immutable([
+  { label: 'tab.establishment.room', value: 'room' },
+  { label: 'tab.establishment.location', value: 'location' },
+]);
 
 export const EstablishmentRoomLocationRouter = (props: Props) => {
-  const { t } = props;
-  const classes = useStyles();
+  const { pushToTab } = props;
+  const onChange = useCallback(
+    (newTab: string) => {
+      pushToTab(newTab);
+    },
+    [pushToTab],
+  );
   if (props.companyTheme.enable_multi_localization) {
     return (
-      <div className={classes.container}>
-        <AppBar position="static" color="default">
-          <Tabs
-            scrollButtons="off"
-            variant="scrollable"
-            value={props.tab}
-            onChange={(e, newTab) => {
-              props.pushToTab(newTab);
-            }}
-          >
-            <Tab label={t('room')} value="room" />
-            {props.companyTheme.enable_multi_localization && (
-              <Tab label={t('localisation')} value="location" />
-            )}
-          </Tabs>
-        </AppBar>
-        <div className={classes.content}>
-          <Switch>
-            <Route
-              exact
-              path="/establishment/location"
-              component={EstablishmentGroupPage}
-            />
-            <Route path="/" component={EstablishmentList} />
-          </Switch>
-        </div>
-      </div>
+      <ContentWithAppBar
+        tab={props.tab}
+        onChange={onChange}
+        pageHeight={props.pageHeight}
+        tabsData={tabsData}
+      >
+        <Switch>
+          <Route
+            exact
+            path="/establishment/location"
+            component={EstablishmentGroupPage}
+          />
+          <Route path="/" component={EstablishmentList} />
+        </Switch>
+      </ContentWithAppBar>
     );
   }
 
   return <Route path="/" component={EstablishmentList} />;
 };
-
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    marginBottom: theme.spacing(4),
-    marginTop: theme.spacing(-3),
-    width: '100vw',
-    [theme.breakpoints.up('md')]: {
-      marginLeft: theme.spacing(-3),
-      width: 'auto',
-      marginRight: theme.spacing(-3),
-      marginTop: theme.spacing(-2),
-    },
-  },
-  content: {
-    marginBottom: theme.spacing(8),
-    [theme.breakpoints.up('md')]: {
-      margin: theme.spacing(2),
-      marginBottom: theme.spacing(8),
-    },
-    marginTop: theme.spacing(2),
-  },
-}));
 
 const mapStateToProps = (state: RootState) => ({
   companyTheme: themeSelectors.getTheme(state),
@@ -99,4 +73,5 @@ export default compose<any>(
     tab: 'tab',
   }),
   connector,
+  withPageHeightHOC(),
 )(EstablishmentRoomLocationRouter);

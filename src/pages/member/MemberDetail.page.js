@@ -1,15 +1,12 @@
 // @flow
 import React from 'react';
+import Immutable from 'seamless-immutable';
 import { Theme } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import AppBar from '@material-ui/core/AppBar';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { v4 as uuid4 } from 'uuid';
 import { compose, withHandlers, withState } from 'recompose';
 import {
@@ -93,6 +90,9 @@ import withQueryParams from '#hocs/with-query-params.hoc';
 
 import { getStripeRegion, getCompanyCountry } from '../../libs/theme/selectors';
 
+import withPageHeightHOC from '#hocs/with-page-height.hoc';
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
+
 const MemberDetailInfo = asyncComponent(() =>
   import('./MemberDetailInfo.page'),
 );
@@ -136,8 +136,6 @@ const MemberDetailProgram = asyncComponent(() =>
 
 type Props = {
   theme: Theme,
-  t: TFunction,
-  classes: Object,
   tab: string,
   id: number,
   member: ?Member,
@@ -191,10 +189,79 @@ type Props = {
   setQueryParams: (queryName: string) => (queryValue: string) => void,
   numberOfUnreadAnswers: number,
   getUnreadAnswersCountAction: (params: CommunicationContext) => void,
+  pageHeight: number,
 };
 
 const stripeRegion = getStripeRegion();
 const companyCountry = getCompanyCountry();
+
+const getTabsData = (
+  bookings: number,
+  vod: number,
+  pass: number,
+  payment: number,
+  relation: number,
+  private_booking: number,
+  private_consumer_pass: number,
+  form: number,
+  performance_tracking: number,
+) => {
+  const tabsData = [
+    { label: 'tab.member.info', value: 'info' },
+    {
+      label: 'tab.member.bookings',
+      value: 'bookings',
+      count: bookings,
+    },
+    {
+      label: 'tab.member.vod',
+      value: 'vod',
+      count: vod,
+    },
+    {
+      label: 'tab.member.paymentPack',
+      value: 'pass',
+      count: pass,
+    },
+    {
+      label: 'tab.member.payment',
+      value: 'payment',
+      count: payment,
+    },
+    { label: 'tab.member.contact', value: 'contact' },
+    {
+      label: 'tab.member.relation',
+      value: 'relation',
+      count: relation,
+    },
+    {
+      label: 'tab.member.privateBooking',
+      value: 'private-booking',
+      count: private_booking,
+    },
+    { label: 'tab.member.giftcard', value: 'giftcard' },
+    {
+      label: 'tab.member.privateConsumerPass',
+      value: 'private-consumer-pass',
+      count: private_consumer_pass,
+    },
+    {
+      label: 'tab.member.form',
+      value: 'form',
+      count: form,
+    },
+    { label: 'tab.member.basket', value: 'basket' },
+  ];
+  if (performance_tracking) {
+    const newTab = {
+      label: 'tab.member.programs',
+      value: 'performance-tracking',
+    };
+    tabsData.splice(3, 0, newTab);
+    return tabsData;
+  }
+  return Immutable(tabsData);
+};
 
 export class MemberDetail extends React.Component<Props> {
   componentDidMount() {
@@ -268,7 +335,7 @@ export class MemberDetail extends React.Component<Props> {
     this.props.setOpenArchiveDialog(false);
   };
 
-  handleOnChange = (_event, newTab) => {
+  handleOnChange = (newTab: string) => {
     this.props.pushToTab(this.props.id, newTab);
     this.props.fetchCountObjects(this.props.id);
   };
@@ -282,17 +349,8 @@ export class MemberDetail extends React.Component<Props> {
   };
 
   render() {
-    const {
-      t,
-      classes,
-      tab,
-      member,
-      infosOfMember,
-      videoPurchasedCount,
-      customFormFilledList,
-      queryParams,
-      numberOfUnreadAnswers,
-    } = this.props;
+    const { tab, member, queryParams, pageHeight, numberOfUnreadAnswers } =
+      this.props;
 
     const isOpenChat = queryParams.openChat === 'true';
 
@@ -308,178 +366,115 @@ export class MemberDetail extends React.Component<Props> {
         : []),
     ];
 
+    const tabsData = getTabsData(
+      this.props.infosOfMember?.nb_reservations,
+      this.props.videoPurchasedCount,
+      this.props.infosOfMember?.nb_consumer_payment_pack,
+      this.props.infosOfMember?.nb_invoices,
+      this.props.infosOfMember?.nb_relations,
+      this.props.infosOfMember?.nb_private_bookings,
+      this.props.infosOfMember?.nb_private_consumer_pass,
+      this.props.customFormFilledList?.length,
+      this.props.programList?.length,
+    );
+
     return (
-      <div className={classes.container}>
+      <ContentWithAppBar
+        tab={tab}
+        onChange={this.handleOnChange}
+        pageHeight={pageHeight}
+        tabsData={tabsData}
+      >
         <Helmet>
           <title>{member ? member.name : ''}</title>
         </Helmet>
-        <AppBar position="static" color="default">
-          <Tabs variant="scrollable" value={tab} onChange={this.handleOnChange}>
-            <Tab label={t('menu.info')} value="info" />
-            <Tab
-              label={`${t('menu.bookings')} ${
-                infosOfMember && infosOfMember.nb_reservations !== 0
-                  ? `(${infosOfMember.nb_reservations})`
-                  : ''
-              } `}
-              value="bookings"
-            />
-            <Tab
-              label={`${t('menu.vod')} ${
-                videoPurchasedCount && videoPurchasedCount !== 0
-                  ? `(${videoPurchasedCount})`
-                  : ''
-              } `}
-              value="vod"
-            />
-            {!!this.props.programList?.length && (
-              <Tab label={t('menu.programs')} value="performance-tracking" />
-            )}
-            <Tab
-              label={`${t('menu.paymentPack')} ${
-                infosOfMember && infosOfMember.nb_consumer_payment_pack !== 0
-                  ? `(${infosOfMember.nb_consumer_payment_pack})`
-                  : ''
-              }`}
-              value="pass"
-            />
-            <Tab
-              label={`${t('menu.payment')} ${
-                infosOfMember && infosOfMember.nb_invoices !== 0
-                  ? `(${infosOfMember.nb_invoices})`
-                  : ''
-              }`}
-              value="payment"
-            />
-            <Tab label={t('menu.contact')} value="contact" />
-            <Tab
-              label={`${t('menu.relation')} ${
-                infosOfMember && infosOfMember.nb_relations !== 0
-                  ? `(${infosOfMember.nb_relations})`
-                  : ''
-              }`}
-              value="relation"
-            />
-            <Tab
-              label={`${t('menu.privateBooking')} ${
-                infosOfMember && infosOfMember.nb_private_bookings !== 0
-                  ? `(${infosOfMember.nb_private_bookings})`
-                  : ''
-              }`}
-              value="private-booking"
-            />
-            <Tab label={t('menu.giftcard')} value="giftcard" />
-            <Tab
-              label={`${t('menu.privateConsumerPass')} ${
-                infosOfMember && infosOfMember.nb_private_consumer_pass !== 0
-                  ? `(${infosOfMember.nb_private_consumer_pass})`
-                  : ''
-              }`}
-              value="private-consumer-pass"
-            />
-            <Tab
-              label={`${t('menu.form')} ${
-                customFormFilledList && customFormFilledList.length !== 0
-                  ? `(${customFormFilledList.length})`
-                  : ''
-              }`}
-              value="form"
-            />
-            <Tab label={t('menu.basket')} value="basket" />
-          </Tabs>
-        </AppBar>
-        <div className={classes.content}>
-          <Switch>
-            <Route
-              exact
-              path="/member/:id/bookings/:bookingId/"
-              component={MemberDetailBooking}
-            />
-            <Route
-              exact
-              path="/member/:id/bookings"
-              component={MemberDetailBooking}
-            />
-            <Route
-              exact
-              path="/member/:id/vod/:vodId/"
-              component={MemberDetailVod}
-            />
-            <Route
-              path="/member/:id/performance-tracking/:memberProgramId/"
-              component={MemberDetailProgram}
-            />
-            <Route
-              path="/member/:id/performance-tracking/"
-              component={MemberDetailProgram}
-            />
-            <Route exact path="/member/:id/vod" component={MemberDetailVod} />
-            <Route
-              exact
-              path="/member/:id/pass/:consumerPassId"
-              component={MemberDetailPass}
-            />
-            <Route exact path="/member/:id/pass" component={MemberDetailPass} />
-            <Route
-              exact
-              path="/member/:id/relation/:relation"
-              component={MemberDetailRelation}
-            />
-            <Route
-              path="/member/:id/relation"
-              component={MemberDetailRelation}
-            />
-            <Route
-              exact
-              path="/member/:id/payment"
-              component={MemberDetailPayment}
-            />
-            <Route exact path="/member/:id/info" component={MemberDetailInfo} />
-            <Route
-              exact
-              path="/member/:id/private-booking/:privateBookingId"
-              component={MemberDetailPrivateBooking}
-            />
-            <Route
-              exact
-              path="/member/:id/private-booking"
-              component={MemberDetailPrivateBooking}
-            />
-            <Route
-              exact
-              path="/member/:id/private-consumer-pass/:privateConsumerPassId"
-              component={MemberDetailPrivateConsumerPass}
-            />
-            <Route
-              exact
-              path="/member/:id/private-consumer-pass"
-              component={MemberDetailPrivateConsumerPass}
-            />
-            <Route
-              exact
-              path="/member/:id/contact"
-              component={MemberDetailContact}
-            />
-            <Route
-              path="/member/:id/basket/:selectedBasketId"
-              component={MemberDetailBasket}
-            />
-            <Route
-              path="/member/:id/giftcard/:selectedConsumerGiftcardId"
-              component={MemberDetailGiftcard}
-            />
-            <Route
-              path="/member/:id/giftcard/"
-              component={MemberDetailGiftcard}
-            />
-            <Route
-              exact
-              path="/member/:id/basket"
-              component={MemberDetailBasket}
-            />
-            <Route exact path="/member/:id/form" component={MemberCustomForm} />
-          </Switch>
-        </div>
+        <Switch>
+          <Route
+            exact
+            path="/member/:id/bookings/:bookingId/"
+            component={MemberDetailBooking}
+          />
+          <Route
+            exact
+            path="/member/:id/bookings"
+            component={MemberDetailBooking}
+          />
+          <Route
+            exact
+            path="/member/:id/vod/:vodId/"
+            component={MemberDetailVod}
+          />
+          <Route
+            path="/member/:id/performance-tracking/:memberProgramId/"
+            component={MemberDetailProgram}
+          />
+          <Route
+            path="/member/:id/performance-tracking/"
+            component={MemberDetailProgram}
+          />
+          <Route exact path="/member/:id/vod" component={MemberDetailVod} />
+          <Route
+            exact
+            path="/member/:id/pass/:consumerPassId"
+            component={MemberDetailPass}
+          />
+          <Route exact path="/member/:id/pass" component={MemberDetailPass} />
+          <Route
+            exact
+            path="/member/:id/relation/:relation"
+            component={MemberDetailRelation}
+          />
+          <Route path="/member/:id/relation" component={MemberDetailRelation} />
+          <Route
+            exact
+            path="/member/:id/payment"
+            component={MemberDetailPayment}
+          />
+          <Route exact path="/member/:id/info" component={MemberDetailInfo} />
+          <Route
+            exact
+            path="/member/:id/private-booking/:privateBookingId"
+            component={MemberDetailPrivateBooking}
+          />
+          <Route
+            exact
+            path="/member/:id/private-booking"
+            component={MemberDetailPrivateBooking}
+          />
+          <Route
+            exact
+            path="/member/:id/private-consumer-pass/:privateConsumerPassId"
+            component={MemberDetailPrivateConsumerPass}
+          />
+          <Route
+            exact
+            path="/member/:id/private-consumer-pass"
+            component={MemberDetailPrivateConsumerPass}
+          />
+          <Route
+            exact
+            path="/member/:id/contact"
+            component={MemberDetailContact}
+          />
+          <Route
+            path="/member/:id/basket/:selectedBasketId"
+            component={MemberDetailBasket}
+          />
+          <Route
+            path="/member/:id/giftcard/:selectedConsumerGiftcardId"
+            component={MemberDetailGiftcard}
+          />
+          <Route
+            path="/member/:id/giftcard/"
+            component={MemberDetailGiftcard}
+          />
+          <Route
+            exact
+            path="/member/:id/basket"
+            component={MemberDetailBasket}
+          />
+          <Route exact path="/member/:id/form" component={MemberCustomForm} />
+        </Switch>
         <MemberActions
           billMember={this.handleBillMember}
           subscribeMember={this.props.openContractDialog}
@@ -545,47 +540,12 @@ export class MemberDetail extends React.Component<Props> {
               contextMember={this.props.member}
             />
           )}
-      </div>
+      </ContentWithAppBar>
     );
   }
 }
 
-const styles = (theme) => ({
-  container: {
-    marginBottom: theme.spacing(4),
-    marginTop: theme.spacing(-3),
-    width: '100vw',
-    [theme.breakpoints.up('md')]: {
-      marginLeft: theme.spacing(-3),
-      width: 'auto',
-      marginRight: theme.spacing(-3),
-      marginTop: theme.spacing(-2),
-    },
-  },
-  content: {
-    marginBottom: theme.spacing(8),
-    [theme.breakpoints.up('md')]: {
-      margin: theme.spacing(2),
-      marginBottom: theme.spacing(8),
-    },
-    marginTop: theme.spacing(2),
-  },
-  bottomButtonContainer: {
-    position: 'fixed',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-  bottomButton: {
-    marginTop: theme.spacing(2),
-    marginLeft: theme.spacing(2),
-  },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
-});
-
 export default compose(
-  withStyles(styles),
   withTranslation(['member', 'subscription']),
   routerParamsToProps({ tab: 'tab', id: 'id:number' }),
   connect(
@@ -728,6 +688,7 @@ export default compose(
         });
       },
   }),
+  withPageHeightHOC(),
   withQueryParams([['openChat'], 'queryParams', 'setQueryParams']),
   withTitle(({ member }) => (member ? member.name : '')),
   withMemberBannerHOC(({ member }) => member),

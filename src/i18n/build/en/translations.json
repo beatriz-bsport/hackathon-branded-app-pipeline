@@ -9247,6 +9247,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -13507,6 +13508,78 @@
             "coach": {
                 "calendar": "Calendar",
                 "general": "Profile"
+            },
+            "customForm": {
+                "layout": "Customisation",
+                "statistics": "Statistics",
+                "campaign": "Campaign",
+                "general": "Content"
+            },
+            "franchise": {
+                "staff": {
+                    "role": "Roles",
+                    "staffAccount": "Staff accounts"
+                }
+            },
+            "replacement": {
+                "disciplineGroup": "Discipline groups",
+                "management": "Management"
+            },
+            "widget": {
+                "customize": "Customisation",
+                "create": "General"
+            },
+            "smartList": {
+                "statistic": "Statistics",
+                "campaign": "Campaigns",
+                "member": "General"
+            },
+            "member": {
+                "basket": "Basket",
+                "basket_plural": "Basket ({{number}})",
+                "form": "Forms",
+                "form_plural": "Forms ({{number}})",
+                "vod": "VOD",
+                "vod_plural": "VOD ({{number}})",
+                "privateConsumerPass": "Appointment passes",
+                "privateConsumerPass_plural": "Appointment passes ({{number}})",
+                "privateBooking": "Appointments",
+                "privateBooking_plural": "Appointments ({{number}})",
+                "payment": "Billing",
+                "payment_plural": "Billing ({{number}})",
+                "invoices": "Invoices and subscriptions",
+                "invoices_plural": "Invoices and subscriptions ({{number}})",
+                "contact": "Contact",
+                "contact_plural": "Contact ({{number}})",
+                "paymentPack": "Passes",
+                "paymentPack_plural": "Passes ({{number}})",
+                "giftcard": "Gift card",
+                "giftcard_plural": "Gift Card ({{number}})",
+                "bookings": "Bookings",
+                "bookings_plural": "Bookings ({{number}})",
+                "relation": "Relationships",
+                "relation_plural": "Relationships ({{number}})",
+                "info": "General",
+                "info_plural": "General ({{number}})"
+            },
+            "clockIn": {
+                "history": "History",
+                "realTime": "Real time"
+            },
+            "service": {
+                "calendar": "Calendar",
+                "general": "General"
+            },
+            "establishment": {
+                "location": "Location",
+                "room": "Room",
+                "calendar": "Calendar",
+                "general": "General"
+            },
+            "metaActivity": {
+                "group": "Grouped session",
+                "pack": "Compatible passes",
+                "general": "General"
             }
         }
     },

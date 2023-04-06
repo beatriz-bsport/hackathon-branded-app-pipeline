@@ -11427,7 +11427,8 @@
                 "week_plural": "Every {{ count }} weeks",
                 "month": "month",
                 "month_plural": "Every {{ count }} months"
-            }
+            },
+            "chooseButton": "Choose"
         }
     },
     "selfCheckIn": {
@@ -13560,7 +13561,9 @@
                 "relation": "Relationships",
                 "relation_plural": "Relationships ({{number}})",
                 "info": "General",
-                "info_plural": "General ({{number}})"
+                "info_plural": "General ({{number}})",
+                "programs": "",
+                "programs_plural": ""
             },
             "clockIn": {
                 "history": "History",

@@ -12,7 +12,7 @@
     align-items: center;
     color: var(--color-grey-main);
     font-weight: var(--fontWeightMedium);
-    font-size: var(--body1-fontSize);
+    font-size: var(--body2-fontSize);
 }
 
 .bs-pass-details-dialog__list__item__button {

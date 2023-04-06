@@ -7,6 +7,7 @@ import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import DoneIcon from '@material-ui/icons/Done';
 import PeopleIcon from '@material-ui/icons/People';
 import ClearIcon from '@material-ui/icons/Clear';
+import StyleIcon from '@material-ui/icons/Style';
 
 import { useValidityInfoForPrivatePassCard } from '#libs/marketplace/utils/private-pass';
 
@@ -83,6 +84,14 @@ const PrivatePassDetailsList: React.FC<Props> = React.memo(
               <PeopleIcon />
             </span>
             {t(`genericCardDetails.includedElements.newMemberOnly`)}
+          </li>
+        )}
+        {!!privatePass?.linked_payment_pack && (
+          <li className="bs-pass-details-dialog__list__item">
+            <span className="bs-pass-details-dialog__list__item__icon">
+              <StyleIcon />
+            </span>
+            {t(`genericCardDetails.includedElements.isUniversalPass`)}
           </li>
         )}
       </ul>

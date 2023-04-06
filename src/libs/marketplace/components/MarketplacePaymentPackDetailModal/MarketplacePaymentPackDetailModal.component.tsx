@@ -47,7 +47,12 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
     return (
       <div className="bs-pack-details-dialog ">
         {isOpen && (
-          <Card size={CardSize.L}>
+          <Card
+            size={CardSize.L}
+            classes={{
+              'bs-pack-details-dialog__card': 'bs-pack-details-dialog__card',
+            }}
+          >
             <div className="bs-pack-details-dialog__container">
               <Content
                 padding
@@ -66,6 +71,10 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                         formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                         amount={paymentPack.price}
                         color={Color.PRIMARY}
+                        classes={{
+                          'bs-pack-details-dialog__price':
+                            'bs-pack-details-dialog__price',
+                        }}
                       />
                     </div>
                   </Item>
@@ -115,8 +124,8 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
             >
               <Grid
                 classes={{
-                  'bs-pack-details-dialog__grid':
-                    'bs-pack-details-dialog__grid',
+                  'bs-pack-details-dialog__grid --footer':
+                    'bs-pack-details-dialog__grid --footer',
                 }}
               >
                 <Item

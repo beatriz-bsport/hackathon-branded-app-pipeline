@@ -12,9 +12,14 @@
     justify-content: center;
 }
 
+.bs-pack-details-dialog__card {
+    border: none;
+    border-radius: var(--border-radius-1);
+}
+
 .bs-pack-details-dialog__description{
     color: var(--color-grey-main);
-    font-size: var(--body-1-fontSize);
+    font-size: var(--body1-fontSize);
 }
 
 .bs-pack-details-dialog__container {
@@ -44,6 +49,11 @@
 .bs-pack-details-dialog__grid {
     gap: 0;
     background-color: #fff ;
+}
+
+.--footer {
+    border-bottom-left-radius: var(--border-radius-1);
+    border-bottom-right-radius: var(--border-radius-1);
 }
 
 .bs-pack-details-dialog__item {
@@ -94,18 +104,21 @@
     background: var(--color-primary-dark)
 }
 
-::-webkit-scrollbar{
+.bs-pack-details-dialog__container::-webkit-scrollbar{
     width: var(--spacing-1);
     background-color:#fff;
+    border-top-right-radius: var(--border-radius-1);
+
 }
 
-::-webkit-scrollbar-track{
+.bs-pack-details-dialog__container::-webkit-scrollbar-track{
     width: var(--spacing-1);
-    border-radius: 4px;
+    margin: var(--spacing-1);
+    border-radius: 4px; 
     background-color: #EEEEEE;
 }
 
-::-webkit-scrollbar-thumb{
+.bs-pack-details-dialog__container::-webkit-scrollbar-thumb{
     border-radius: 4px;
     background-color: #BDBDBD
 }
@@ -127,7 +140,11 @@
         max-height: none;
     }
 
-        ::-webkit-scrollbar{
-            display: none;
-        }
+    ::-webkit-scrollbar{
+        display: none;
+    }
+
+    .bs-pack-details-dialog__price{
+        font-size: var(--h4-fontSize);
+    }
 }

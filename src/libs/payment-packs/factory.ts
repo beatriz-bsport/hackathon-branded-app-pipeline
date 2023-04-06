@@ -82,7 +82,6 @@ FactoryBot.define('PaymentPackFullDetails', {
   full_vod_access: Math.random() < 0.5,
   is_universal_pass: Math.random() < 0.5,
   onsite_payment_available: Math.random() < 0.5,
-  isCompatibleWithAll: Math.random() < 0.5,
   only_vod_access: Math.random() < 0.5,
   max_bookings_per_day: Math.floor(Math.random() * 10),
   max_bookings_per_week: Math.floor(Math.random() * 10),

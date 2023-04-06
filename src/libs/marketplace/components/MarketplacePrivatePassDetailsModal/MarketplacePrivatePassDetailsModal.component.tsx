@@ -40,7 +40,12 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
   return (
     <div className="bs-pass-details-dialog ">
       {isOpen && (
-        <Card size={CardSize.L}>
+        <Card
+          size={CardSize.L}
+          classes={{
+            'bs-pass-details-dialog__card': 'bs-pass-details-dialog__card',
+          }}
+        >
           <div className="bs-pass-details-dialog__container">
             <Content
               padding
@@ -59,6 +64,10 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                       formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                       amount={privatePass.price}
                       color={Color.PRIMARY}
+                      classes={{
+                        'bs-pass-details-dialog__price':
+                          'bs-pass-details-dialog__price',
+                      }}
                     />
                   </div>
                 </Item>

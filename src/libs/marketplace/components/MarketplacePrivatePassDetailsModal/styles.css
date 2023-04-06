@@ -18,6 +18,10 @@
     max-height: 300px;
 }
 
+.bs-pass-details-dialog__card {
+    border: none;
+}
+
 .bs-pass-details-dialog__header-container {
     background: linear-gradient(100deg, #f6f8fa 50%, #FFFFFF 50%);
     border-top-left-radius: var(--border-radius-1);
@@ -105,18 +109,20 @@
     display: none;
 }
 
-::-webkit-scrollbar {
+.bs-pass-details-dialog__container::-webkit-scrollbar {
     width: var(--spacing-1);
     background-color: #fff;
+    border-top-right-radius: var(--border-radius-1);
 }
 
-::-webkit-scrollbar-track {
+.bs-pass-details-dialog__container::-webkit-scrollbar-track {
     width: var(--spacing-1);
+    margin: var(--spacing-1);
     border-radius: 4px;
     background-color: #EEEEEE;
 }
 
-::-webkit-scrollbar-thumb {
+.bs-pass-details-dialog__container::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: #BDBDBD
 }
@@ -124,6 +130,10 @@
 @media screen and (max-width: 570px) {
     .bs-pass-details-dialog__body {
         display: none;
+    }
+
+    .bs-pass-details-dialog__price { 
+        font-size: var(--h4-fontSize);
     }
 
     .bs-pass-details-dialog__header {

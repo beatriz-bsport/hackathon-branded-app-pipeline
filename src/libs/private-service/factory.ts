@@ -147,6 +147,7 @@ export function private_services_passes_factory(
       start_date_method: 5,
       new_member_only: random_choice([true, false]),
       company: 1,
+      linked_payment_pack: Math.floor(Math.random() * 2),
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nisi at sapien fringilla lobortis. Quisque rhoncus accumsan vulputate. Praesent ultricies neque lacus. Duis non iaculis ex. Nullam in ante id turpis lobortis ullamcorper vel eu sapien. Nullam varius urna at dapibus aliquam. Donec elit ex, scelerisque non pretium non, iaculis et justo.',
     };

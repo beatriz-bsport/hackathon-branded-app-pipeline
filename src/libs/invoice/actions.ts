@@ -42,18 +42,43 @@ import {
 } from './api';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
-import type { Dispatch, OptionCallback } from '../../state/types';
+import { Dispatch, OptionCallback, PaginatedResponse } from '../../state/types';
 
 import { fetchAll as fetchAlerting } from '../alerting/actions';
-import type { Invoice } from './types';
+import {
+  Invoice,
+  InvoiceConfigurationSerializer,
+  InvoiceDetailsSerializer,
+  InvoiceFilter,
+  InvoiceInfoSerializer,
+  InvoiceItemFilter,
+  InvoiceV1Serializer,
+  PaymentFilter,
+  PlannedPaymentEvent,
+  PlannedPaymentEventFilter,
+  PlannedPaymentEventSerializer,
+} from './types';
 import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '../role/constants';
+import { PaymentItem } from './payment/types';
+import { InvoiceItem } from './invoice-item/types';
+import { Payment } from '#libs/payment/types';
 
 export const invoiceConfigurationPatchActions = {
-  isLoading: createAction('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),
-  error: createAction('INVOICE-CONFIGURATION/PATCH/ERROR'),
+  isLoading: createAction<boolean>('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),
+  error: createAction<Error | null>('INVOICE-CONFIGURATION/PATCH/ERROR'), // not used in reducers
 };
 
-export function patchInvoiceConfiguration(data: any, options: OptionCallback) {
+export function patchInvoiceConfiguration(
+  data: {
+    stripe_footer?: string;
+    nb_retries_subscription_payments?: number;
+    disable_pass_on_fail_subscription_payment?: boolean;
+    show_company_email_in_invoice?: boolean;
+    revert_bookings_on_fail_subscription_payment?: boolean;
+    advance_sepa_billing?: boolean;
+  },
+  options: OptionCallback<InvoiceConfigurationSerializer>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(invoiceConfigurationPatchActions.isLoading(true));
     dispatch(invoiceConfigurationPatchActions.error(null));
@@ -74,9 +99,11 @@ export function patchInvoiceConfiguration(data: any, options: OptionCallback) {
 }
 
 export const invoiceConfigurationDetailActions = {
-  isLoading: createAction('INVOICE-CONFIGURATION/DETAIL/IS_LOADING'),
-  error: createAction('INVOICE-CONFIGURATION/DETAIL/ERROR'),
-  success: createAction('INVOICE-CONFIGURATION/DETAIL/SUCCESS'),
+  isLoading: createAction<boolean>('INVOICE-CONFIGURATION/DETAIL/IS_LOADING'),
+  error: createAction<Error | null>('INVOICE-CONFIGURATION/DETAIL/ERROR'),
+  success: createAction<InvoiceConfigurationSerializer>(
+    'INVOICE-CONFIGURATION/DETAIL/SUCCESS',
+  ),
 };
 
 export function fetchInvoiceConfiguration() {
@@ -94,12 +121,17 @@ export function fetchInvoiceConfiguration() {
 }
 
 export const finalizeInvoiceActions = {
-  isLoading: createAction('INVOICE/FINALIZE/IS_LOADING'),
-  error: createAction('INVOICE/FINALIZE/ERROR'),
-  success: createAction('INVOICE/FINALIZE/SUCCESS'),
+  isLoading: createAction<{ uuid: string; loading: boolean }>(
+    'INVOICE/FINALIZE/IS_LOADING',
+  ),
+  error: createAction<Error | null>('INVOICE/FINALIZE/ERROR'),
+  success: createAction<InvoiceV1Serializer>('INVOICE/FINALIZE/SUCCESS'),
 };
 
-export function finalizeInvoice(uuid: string, options: OptionCallback) {
+export function finalizeInvoice(
+  uuid: string,
+  options: OptionCallback<InvoiceV1Serializer>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(finalizeInvoiceActions.isLoading({ uuid, loading: true }));
     dispatch(finalizeInvoiceActions.error(null));
@@ -120,15 +152,15 @@ export function finalizeInvoice(uuid: string, options: OptionCallback) {
 }
 
 export const returnPaymentActions = {
-  isLoading: createAction('INVOICE/RETURN_PAYMENT/IS_LOADING'),
-  error: createAction('INVOICE/RETURN_PAYMENT/ERROR'),
-  success: createAction('INVOICE/RETURN_PAYMENT/SUCCESS'),
+  isLoading: createAction<boolean>('INVOICE/RETURN_PAYMENT/IS_LOADING'),
+  error: createAction<Error | null>('INVOICE/RETURN_PAYMENT/ERROR'),
+  success: createAction<Payment>('INVOICE/RETURN_PAYMENT/SUCCESS'), // not used in reducers
 };
 
 export function returnPayment(
   payment: string,
   invoice: string,
-  options: OptionCallback,
+  options: OptionCallback<Payment>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(returnPaymentActions.isLoading(true));
@@ -153,7 +185,10 @@ export function returnPayment(
   };
 }
 
-export function revertQuickInvoice(uuid: string, options: OptionCallback) {
+export function revertQuickInvoice(
+  uuid: string,
+  options: OptionCallback<InvoiceDetailsSerializer>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(revertInvoice(uuid, {}, options));
     dispatch(quickInvoiceActions.reset(uuid));
@@ -163,8 +198,11 @@ export function revertQuickInvoice(uuid: string, options: OptionCallback) {
 
 export function revertInvoice(
   uuid: string,
-  params: any,
-  options: OptionCallback,
+  params: {
+    reverse_type?: number;
+    payment_method_to_reverse?: string;
+  },
+  options: OptionCallback<InvoiceDetailsSerializer>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveInvoiceActions.error(null));
@@ -194,10 +232,12 @@ export function revertInvoice(
 }
 
 export const quickInvoiceActions = {
-  isLoading: createAction('INVOICE/QUICK_CREATE/LOADING'),
-  error: createAction('INVOICE/QUICK_CREATE/ERROR'),
-  success: createAction('INVOICE/QUICK_CREATE/SUCCESS'),
-  reset: createAction('INVOICE/QUICK_CREATE/RESET'),
+  isLoading: createAction<boolean>('INVOICE/QUICK_CREATE/LOADING'),
+  error: createAction<Error | null>('INVOICE/QUICK_CREATE/ERROR'),
+  success: createAction<InvoiceDetailsSerializer>(
+    'INVOICE/QUICK_CREATE/SUCCESS',
+  ),
+  reset: createAction<string | void>('INVOICE/QUICK_CREATE/RESET'),
 };
 
 export const resetQuickInvoices = quickInvoiceActions.reset;
@@ -209,7 +249,7 @@ export function createQuickInvoice(
     paymentPackId: number;
     keep_credits?: boolean;
   },
-  options: OptionCallback,
+  options: OptionCallback<InvoiceDetailsSerializer>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(quickInvoiceActions.isLoading(true));
@@ -254,14 +294,23 @@ export function createQuickInvoice(
 }
 
 export const retrieveInvoiceActions = {
-  isLoading: createAction('INVOICE/RETRIEVE/LOADING'),
-  error: createAction('INVOICE/RETRIEVE/ERROR'),
-  success: createAction('INVOICE/RETRIEVE/SUCCESS'),
+  isLoading: createAction<boolean>('INVOICE/RETRIEVE/LOADING'),
+  error: createAction<Error | null>('INVOICE/RETRIEVE/ERROR'),
+  success: createAction<
+    | PaginatedResponse<InvoiceV1Serializer>
+    | InvoiceV1Serializer[]
+    | InvoiceV1Serializer
+    | InvoiceConfigurationSerializer
+    | InvoiceDetailsSerializer
+  >('INVOICE/RETRIEVE/SUCCESS'),
 };
 
 export function fetchByQueryInvoice(
-  params: any,
-  options: OptionCallback<Invoice>,
+  params: InvoiceFilter & {
+    page: number;
+    page_size?: number;
+  },
+  options: OptionCallback<InvoiceV1Serializer>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveInvoiceActions.isLoading(true));
@@ -286,7 +335,7 @@ export function fetchByQueryInvoice(
 
 export function fetchSpecificInvoice(
   invoiceId: string,
-  options?: OptionCallback,
+  options?: OptionCallback<InvoiceV1Serializer>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveInvoiceActions.isLoading(true));
@@ -310,13 +359,13 @@ export function fetchSpecificInvoice(
 }
 
 export const sendInvoiceToQuickbooksActions = {
-  isLoading: createAction('INVOICE/QUICKBOOKS/LOADING'),
-  error: createAction('INVOICE/QUICKBOOKS/ERROR'),
-  success: createAction('INVOICE/QUICKBOOKS/SUCCESS'),
+  isLoading: createAction<boolean>('INVOICE/QUICKBOOKS/LOADING'),
+  error: createAction<Error | null>('INVOICE/QUICKBOOKS/ERROR'),
+  success: createAction<Object>('INVOICE/QUICKBOOKS/SUCCESS'), // not used in reducers
 };
 export function sendInvoiceToQuickbooks(
   invoiceId: string,
-  options?: OptionCallback,
+  options?: OptionCallback<Object>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(sendInvoiceToQuickbooksActions.isLoading(true));
@@ -351,7 +400,7 @@ export function sendInvoiceToQuickbooks(
 export function fetchByInvoiceItem(
   buyable_item_identifier: number,
   buyable_item_id: number,
-  options: OptionCallback,
+  options: OptionCallback<InvoiceV1Serializer>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveInvoiceActions.isLoading(true));
@@ -377,15 +426,15 @@ export function fetchByInvoiceItem(
 }
 
 export const updatePaymentMethodActions = {
-  isLoading: createAction('INVOICE/UPATE_PAYMENT_METHOD/LOADING'),
-  error: createAction('INVOICE/UPATE_PAYMENT_METHOD/ERROR'),
-  success: createAction('INVOICE/UPATE_PAYMENT_METHOD/SUCCESS'),
+  isLoading: createAction<boolean>('INVOICE/UPATE_PAYMENT_METHOD/LOADING'),
+  error: createAction<Error | null>('INVOICE/UPATE_PAYMENT_METHOD/ERROR'),
+  success: createAction<Payment>('INVOICE/UPATE_PAYMENT_METHOD/SUCCESS'),
 };
 
 export function updatePaymentMethod(
   uuid: string,
   newMethod: number,
-  options: OptionCallback,
+  options: OptionCallback<Payment>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(updatePaymentMethodActions.isLoading(true));
@@ -409,8 +458,8 @@ export function updatePaymentMethod(
 }
 
 export function createOrUpdateInvoice(
-  invoiceData: any[],
-  options: OptionCallback,
+  invoiceData: Invoice,
+  options: OptionCallback<InvoiceV1Serializer>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(createOrUpdateInvoiceActions.isLoading(true));
@@ -443,19 +492,29 @@ export function createOrUpdateInvoice(
   };
 }
 export const createOrUpdateInvoiceActions = {
-  isLoading: createAction('INVOICE/CREATE_OR_UPDATE/LOADING'),
-  error: createAction('INVOICE/CREATE_OR_UPDATE/ERROR'),
-  success: createAction('INVOICE/CREATE_OR_UPDATE/SUCCESS'),
-  reset: createAction('INVOICE/CREATE_OR_UPDATE/RESET'),
+  isLoading: createAction<boolean>('INVOICE/CREATE_OR_UPDATE/LOADING'),
+  error: createAction<Error | null>('INVOICE/CREATE_OR_UPDATE/ERROR'),
+  success: createAction<InvoiceV1Serializer>(
+    'INVOICE/CREATE_OR_UPDATE/SUCCESS',
+  ),
+  reset: createAction<void>('INVOICE/CREATE_OR_UPDATE/RESET'), // not used in reducers
 };
 
 export const listPaymentActions = {
-  isLoading: createAction('PAYMENT/LIST/LOADING'),
-  error: createAction('PAYMENT/LIST/ERROR'),
-  success: createAction('PAYMENT/LIST/SUCCESS'),
+  isLoading: createAction<boolean>('PAYMENT/LIST/LOADING'),
+  error: createAction<Error | null>('PAYMENT/LIST/ERROR'),
+  success: createAction<PaymentItem[] | PaginatedResponse<Payment>>(
+    'PAYMENT/LIST/SUCCESS',
+  ),
 };
 
-export function fetchPaymentList(params: any = {}, options: OptionCallback) {
+export function fetchPaymentList(
+  params: PaymentFilter & {
+    page: number;
+    page_size?: number;
+  },
+  options: OptionCallback<Payment[] | PaginatedResponse<Payment>>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(listPaymentActions.isLoading(true));
     dispatch(listPaymentActions.error(null));
@@ -478,14 +537,19 @@ export function fetchPaymentList(params: any = {}, options: OptionCallback) {
 }
 
 export const listInvoiceItemActions = {
-  isLoading: createAction('INVOICE_ITEM/LIST/LOADING'),
-  error: createAction('INVOICE_ITEM/LIST/ERROR'),
-  success: createAction('INVOICE_ITEM/LIST/SUCCESS'),
+  isLoading: createAction<boolean>('INVOICE_ITEM/LIST/LOADING'),
+  error: createAction<Error | null>('INVOICE_ITEM/LIST/ERROR'),
+  success: createAction<InvoiceItem[] | PaginatedResponse<InvoiceItem>>(
+    'INVOICE_ITEM/LIST/SUCCESS',
+  ),
 };
 
 export function fetchInvoiceItemList(
-  params: any = {},
-  options: OptionCallback,
+  params: InvoiceItemFilter & {
+    page: number;
+    page_size?: number;
+  },
+  options: OptionCallback<InvoiceItem[] | PaginatedResponse<InvoiceItem>>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listInvoiceItemActions.isLoading(true));
@@ -511,10 +575,12 @@ export function fetchInvoiceItemList(
 }
 
 export const listInvoiceActions = {
-  isLoading: createAction('INVOICE/LIST/IS_LOADING'),
-  error: createAction('INVOICE/LIST/ERROR'),
-  success: createAction('INVOICE/LIST/SUCCESS'),
-  reset: createAction('INVOICE/LIST/RESET'),
+  isLoading: createAction<boolean>('INVOICE/LIST/IS_LOADING'),
+  error: createAction<Error | null>('INVOICE/LIST/ERROR'),
+  success: createAction<
+    PaginatedResponse<InvoiceV1Serializer> | InvoiceV1Serializer[]
+  >('INVOICE/LIST/SUCCESS'),
+  reset: createAction<void>('INVOICE/LIST/RESET'),
 };
 
 export function resetInvoiceList() {
@@ -523,7 +589,15 @@ export function resetInvoiceList() {
   };
 }
 
-export function fetchInvoiceList(params: any = {}, options: OptionCallback) {
+export function fetchInvoiceList(
+  params: InvoiceFilter & {
+    page: number;
+    page_size?: number;
+  },
+  options: OptionCallback<
+    PaginatedResponse<InvoiceV1Serializer> | InvoiceV1Serializer[]
+  >,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(listInvoiceActions.isLoading(true));
     dispatch(listInvoiceActions.error(null));
@@ -551,14 +625,17 @@ export function fetchInvoiceList(params: any = {}, options: OptionCallback) {
 }
 
 export const checkInvoiceInfoActions = {
-  isLoading: createAction('INVOICE/CHECK_INFO/IS_LOADING'),
-  error: createAction('INVOICE/CHECK_INFO/ERROR'),
-  success: createAction('INVOICE/CHECK_INFO/SUCCESS'),
-  reset: createAction('INVOICE/CHECK_INFO/RESET'),
+  isLoading: createAction<boolean>('INVOICE/CHECK_INFO/IS_LOADING'),
+  error: createAction<Error | null>('INVOICE/CHECK_INFO/ERROR'),
+  success: createAction<InvoiceInfoSerializer>('INVOICE/CHECK_INFO/SUCCESS'),
+  reset: createAction<void>('INVOICE/CHECK_INFO/RESET'),
 };
 
 // a bit dirty all this stuff...
-export function checkInvoiceInfo(uuid: string, options: OptionCallback) {
+export function checkInvoiceInfo(
+  uuid: string,
+  options: OptionCallback<InvoiceInfoSerializer>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(checkInvoiceInfoActions.isLoading(true));
     dispatch(checkInvoiceInfoActions.error(null));
@@ -584,7 +661,10 @@ export function checkInvoiceInfo(uuid: string, options: OptionCallback) {
   };
 }
 
-export function allocateDebt(uuid: string, options: OptionCallback) {
+export function allocateDebt(
+  uuid: string,
+  options: OptionCallback<InvoiceConfigurationSerializer>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveInvoiceActions.error(null));
     dispatch(retrieveInvoiceActions.isLoading(true));
@@ -606,15 +686,17 @@ export function allocateDebt(uuid: string, options: OptionCallback) {
 }
 
 export const applyBalanceToUnpaidActions = {
-  isLoading: createAction('INVOICE/APPLY_BALANCE_TO_UNPAID/IS_LOADING'),
-  success: createAction('INVOICE/APPLY_BALANCE_TO_UNPAID/SUCCESS'),
-  error: createAction('INVOICE/APPLY_BALANCE_TO_UNPAID/ERROR'),
+  isLoading: createAction<boolean>(
+    'INVOICE/APPLY_BALANCE_TO_UNPAID/IS_LOADING',
+  ), // not used in reducers
+  success: createAction<string>('INVOICE/APPLY_BALANCE_TO_UNPAID/SUCCESS'), // not used in reducers
+  error: createAction<Error | null>('INVOICE/APPLY_BALANCE_TO_UNPAID/ERROR'), // not used in reducers
 };
 
 // a bit dirty all this stuff...
 export function applyBalanceToUnpaid(
   memberId: number,
-  options: OptionCallback,
+  options: OptionCallback<string>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(applyBalanceToUnpaidActions.isLoading(true));
@@ -636,14 +718,22 @@ export function applyBalanceToUnpaid(
 }
 
 export const listPlannedPaymentEventActions = {
-  isLoading: createAction('PLANNED_PAYMENT_EVENT/LIST/LOADING'),
-  error: createAction('PLANNED_PAYMENT_EVENT/LIST/ERROR'),
-  success: createAction('PLANNED_PAYMENT_EVENT/LIST/SUCCESS'),
+  isLoading: createAction<boolean>('PLANNED_PAYMENT_EVENT/LIST/LOADING'),
+  error: createAction<Error | null>('PLANNED_PAYMENT_EVENT/LIST/ERROR'),
+  success: createAction<
+    | PaginatedResponse<PlannedPaymentEventSerializer>
+    | PlannedPaymentEventSerializer[]
+  >('PLANNED_PAYMENT_EVENT/LIST/SUCCESS'),
 };
 
 export function fetchPlannedPaymentEventList(
-  params: any = {},
-  options: OptionCallback,
+  params: PlannedPaymentEventFilter & {
+    page: number;
+    page_size?: number;
+  },
+  options: OptionCallback<
+    PaginatedResponse<PlannedPaymentEvent> | PlannedPaymentEvent[]
+  >,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listPlannedPaymentEventActions.isLoading(true));
@@ -667,16 +757,20 @@ export function fetchPlannedPaymentEventList(
 }
 
 export const cancelPlannedPaymentEventActions = {
-  isLoading: createAction('PLANNED_PAYMENT_EVENT/CANCEL/LOADING'),
-  error: createAction('PLANNED_PAYMENT_EVENT/CANCEL/ERROR'),
-  success: createAction('PLANNED_PAYMENT_EVENT/CANCEL/SUCCESS'),
+  isLoading: createAction<boolean>('PLANNED_PAYMENT_EVENT/CANCEL/LOADING'),
+  error: createAction<Error | null>('PLANNED_PAYMENT_EVENT/CANCEL/ERROR'), // not used in reducers
+  success: createAction<PlannedPaymentEventSerializer>(
+    'PLANNED_PAYMENT_EVENT/CANCEL/SUCCESS',
+  ),
 };
 
-export function cancelPlannedPaymentEvent(id: number, options: OptionCallback) {
+export function cancelPlannedPaymentEvent(
+  id: number,
+  options: OptionCallback<PlannedPaymentEventSerializer>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(cancelPlannedPaymentEventActions.isLoading(true));
     dispatch(cancelPlannedPaymentEventActions.error(null));
-
     try {
       const response = await cancelPlannedPaymentEventAPI(id);
       dispatch(cancelPlannedPaymentEventActions.success(response.data));
@@ -695,12 +789,17 @@ export function cancelPlannedPaymentEvent(id: number, options: OptionCallback) {
 }
 
 export const enablePlannedPaymentEventActions = {
-  isLoading: createAction('PLANNED_PAYMENT_EVENT/ENABLE/LOADING'),
-  error: createAction('PLANNED_PAYMENT_EVENT/ENABLE/ERROR'),
-  success: createAction('PLANNED_PAYMENT_EVENT/ENABLE/SUCCESS'),
+  isLoading: createAction<boolean>('PLANNED_PAYMENT_EVENT/ENABLE/LOADING'),
+  error: createAction<Error | null>('PLANNED_PAYMENT_EVENT/ENABLE/ERROR'),
+  success: createAction<PlannedPaymentEventSerializer>(
+    'PLANNED_PAYMENT_EVENT/ENABLE/SUCCESS',
+  ),
 };
 
-export function enablePlannedPaymentEvent(id: number, options: OptionCallback) {
+export function enablePlannedPaymentEvent(
+  id: number,
+  options: OptionCallback<PlannedPaymentEventSerializer>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(enablePlannedPaymentEventActions.isLoading(true));
     dispatch(enablePlannedPaymentEventActions.error(null));
@@ -723,14 +822,18 @@ export function enablePlannedPaymentEvent(id: number, options: OptionCallback) {
 }
 
 export const registerNowPlannedPaymentEventActions = {
-  isLoading: createAction('PLANNED_PAYMENT_EVENT/REGISTER_NOW/LOADING'),
-  error: createAction('PLANNED_PAYMENT_EVENT/REGISTER_NOW/ERROR'),
-  success: createAction('PLANNED_PAYMENT_EVENT/REGISTER_NOW/ENABLE/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'PLANNED_PAYMENT_EVENT/REGISTER_NOW/LOADING',
+  ),
+  error: createAction<Error | null>('PLANNED_PAYMENT_EVENT/REGISTER_NOW/ERROR'),
+  success: createAction<PlannedPaymentEventSerializer>(
+    'PLANNED_PAYMENT_EVENT/REGISTER_NOW/ENABLE/SUCCESS',
+  ),
 };
 
 export function registerNowPlannedPaymentEvent(
   id: number,
-  options: OptionCallback,
+  options: OptionCallback<PlannedPaymentEventSerializer>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(registerNowPlannedPaymentEventActions.isLoading(true));
@@ -754,9 +857,15 @@ export function registerNowPlannedPaymentEvent(
 }
 
 export const changePaymentMethodAndRegisterPlannedPaymentEventActions = {
-  isLoading: createAction('PLANNED_PAYMENT_EVENT/CHANGE_METHOD/LOADING'),
-  error: createAction('PLANNED_PAYMENT_EVENT/CHANGE_METHOD/ERROR'),
-  success: createAction('PLANNED_PAYMENT_EVENT/CHANGE_METHOD/ENABLE/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'PLANNED_PAYMENT_EVENT/CHANGE_METHOD/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'PLANNED_PAYMENT_EVENT/CHANGE_METHOD/ERROR',
+  ),
+  success: createAction<PlannedPaymentEventSerializer>(
+    'PLANNED_PAYMENT_EVENT/CHANGE_METHOD/ENABLE/SUCCESS',
+  ),
 };
 
 export function changePaymentMethodAndRegisterPlannedPaymentEvent(
@@ -830,20 +939,21 @@ export function changePaymentMethodAndRegisterPlannedPaymentEvent(
 }
 
 export const editCustomFooterActions = {
-  isLoading: createAction('INVOICE/EDIT_FOOTER/LOADING'),
-  error: createAction('INVOICE/EDIT_FOOTER/ERROR'),
-  success: createAction('INVOICE/EDIT_FOOTER/SUCCESS'),
+  isLoading: createAction<boolean>('INVOICE/EDIT_FOOTER/LOADING'), // not used in reducers
+  error: createAction<Error | null>('INVOICE/EDIT_FOOTER/ERROR'), // not used in reducers
+  success: createAction<InvoiceDetailsSerializer>(
+    'INVOICE/EDIT_FOOTER/SUCCESS',
+  ),
 };
 
 export function editCustomFooter(
   uuid: string,
   customFooter: string,
-  options?: OptionCallback,
+  options?: OptionCallback<InvoiceDetailsSerializer>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(editCustomFooterActions.isLoading(true));
     dispatch(editCustomFooterActions.error(null));
-
     try {
       const response = await editCustomFooterAPI(uuid, customFooter);
       dispatch(editCustomFooterActions.success(response.data));
@@ -862,15 +972,28 @@ export function editCustomFooter(
 }
 
 export const schedulePaymentActions = {
-  isLoading: createAction('PLANNED_PAYMENT_EVENT/SCHEDULE_PAYMENT/LOADING'),
-  error: createAction('PLANNED_PAYMENT_EVENT/SCHEDULE_PAYMENT/ERROR'),
-  success: createAction('PLANNED_PAYMENT_EVENT/SCHEDULE_PAYMENT/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'PLANNED_PAYMENT_EVENT/SCHEDULE_PAYMENT/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'PLANNED_PAYMENT_EVENT/SCHEDULE_PAYMENT/ERROR',
+  ),
+  success: createAction<PlannedPaymentEventSerializer>(
+    'PLANNED_PAYMENT_EVENT/SCHEDULE_PAYMENT/SUCCESS',
+  ),
 };
 
 export function schedulePayment(
   uuid: string,
-  data: any,
-  options: OptionCallback,
+  data: {
+    interval: string;
+    nb_interval: number;
+    payment_method_id: string;
+    anchor_date?: string;
+    payment_method_identifier: number;
+    recurrence_basis: number;
+  },
+  options: OptionCallback<PlannedPaymentEventSerializer>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(schedulePaymentActions.isLoading(true));
@@ -890,15 +1013,19 @@ export function schedulePayment(
 }
 
 export const editBillingEstablishmentActions = {
-  isLoading: createAction('INVOICE/EDIT_BILLING_ESTABLISHMENT/LOADING'),
-  error: createAction('INVOICE/EDIT_BILLING_ESTABLISHMENT/ERROR'),
-  success: createAction('INVOICE/EDIT_BILLING_ESTABLISHMENT/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'INVOICE/EDIT_BILLING_ESTABLISHMENT/LOADING',
+  ), // not used in reducers
+  error: createAction<Error | null>('INVOICE/EDIT_BILLING_ESTABLISHMENT/ERROR'), // not used in reducers
+  success: createAction<InvoiceV1Serializer>(
+    'INVOICE/EDIT_BILLING_ESTABLISHMENT/SUCCESS',
+  ),
 };
 
 export function editBillingEstablishment(
   uuid: string,
   establishmentId: string,
-  options?: OptionCallback,
+  options?: OptionCallback<InvoiceV1Serializer>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(editBillingEstablishmentActions.isLoading(true));
@@ -929,9 +1056,9 @@ export function editBillingEstablishment(
 }
 
 export const applyBalanceToInvoiceActions = {
-  isLoading: createAction('INVOICE/APPLY_BALANCE/LOADING'),
-  error: createAction('INVOICE/APPLY_BALANCE/ERROR'),
-  success: createAction('INVOICE/APPLY_BALANCE/SUCCESS'),
+  isLoading: createAction<boolean>('INVOICE/APPLY_BALANCE/LOADING'),
+  error: createAction<Error | null>('INVOICE/APPLY_BALANCE/ERROR'),
+  success: createAction<string>('INVOICE/APPLY_BALANCE/SUCCESS'), // not used in reducers
 };
 
 export function applyBalanceToInvoice(uuid: string, options?: OptionCallback) {
@@ -972,9 +1099,9 @@ export function applyBalanceToInvoice(uuid: string, options?: OptionCallback) {
 }
 
 export const applyGiftcardOnInvoiceActions = {
-  isLoading: createAction('INVOICE/APPLY_GIFTCARD/LOADING'),
-  error: createAction('INVOICE/APPLY_GIFTCARD/ERROR'),
-  success: createAction('INVOICE/APPLY_GIFTCARD/SUCCESS'),
+  isLoading: createAction<boolean>('INVOICE/APPLY_GIFTCARD/LOADING'),
+  error: createAction<Error | null>('INVOICE/APPLY_GIFTCARD/ERROR'),
+  success: createAction<Invoice>('INVOICE/APPLY_GIFTCARD/SUCCESS'), // not used in reducers
 };
 
 export function applyGiftcardOnInvoice(

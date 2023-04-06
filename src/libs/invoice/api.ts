@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { PaginatedResponse } from '../../state/types';
 import {
   API_V1_URI,
   getAuth,
@@ -8,34 +9,45 @@ import {
   buildUrlParams,
 } from '../../http';
 
-import type { Invoice, InvoiceAllowedReverseMethods } from './types';
+import type {
+  Invoice,
+  InvoiceAllowedReverseMethods,
+  InvoiceFilter,
+  InvoiceItemFilter,
+  InvoiceV1Serializer,
+  PaymentFilter,
+  PlannedPaymentEvent,
+  PlannedPaymentEventFilter,
+  InvoiceConfigurationSerializer,
+  InvoiceInfoSerializer,
+  RequestClientSecretPayload,
+  PlannedPaymentEventSerializer,
+  InvoiceDetailsSerializer,
+} from './types';
+import { InvoiceItem } from './invoice-item/types';
+import { Payment } from '#libs/payment/types';
 
-export async function fetchAll({
-  page,
-  pageSize,
-  queryParams,
-}: {
-  page: number;
-  pageSize: number;
-  queryParams: string;
-}) {
-  return getAuth(
-    `${API_V1_URI}/payment/invoices/?page_size=${pageSize}&page=${page}${
-      queryParams ? `&${queryParams}` : ''
-    }`,
-  );
-}
-
-export async function fetchByQuery(params: any) {
+export async function fetchByQuery(
+  params: InvoiceFilter & {
+    page: number;
+    page_size?: number;
+  },
+): Promise<
+  AxiosResponse<PaginatedResponse<InvoiceV1Serializer> | InvoiceV1Serializer[]>
+> {
   const urlParams = buildUrlParams(params);
   return getAuth(`${API_V1_URI}/payment/invoices/${urlParams}`);
 }
 
-export async function fetchSpecific(invoiceId: string) {
+export async function fetchSpecific(
+  invoiceId: string,
+): Promise<AxiosResponse<InvoiceV1Serializer>> {
   return getAuth(`${API_V1_URI}/payment/invoices/${invoiceId}/`);
 }
 
-export async function sendInvoiceToQuickbooks(invoiceId: string) {
+export async function sendInvoiceToQuickbooks(
+  invoiceId: string,
+): Promise<AxiosResponse<Object>> {
   return postAuth(
     `${API_V1_URI}/payment/invoices/${invoiceId}/send_invoice_to_quickbooks/`,
   );
@@ -44,7 +56,7 @@ export async function sendInvoiceToQuickbooks(invoiceId: string) {
 export async function fetchByInvoiceItem(
   buyable_item_identifier: number,
   object_id: number,
-) {
+): Promise<AxiosResponse<InvoiceV1Serializer>> {
   return getAuth(
     `${API_V1_URI}/payment/invoices/by_invoice_item/${buildUrlParams({
       buyable_item_identifier,
@@ -53,71 +65,120 @@ export async function fetchByInvoiceItem(
   );
 }
 
-export async function getReceiptUrl(uuid: string) {
+export async function getReceiptUrl(
+  uuid: string,
+): Promise<AxiosResponse<string>> {
   return postAuth(`${API_V1_URI}/payment/invoices/${uuid}/generate_receipt/`);
 }
 
-export async function updatePaymentMethod(uuid: string, newMethod: number) {
+export async function updatePaymentMethod(
+  uuid: string,
+  newMethod: number,
+): Promise<AxiosResponse<Payment>> {
   return patchAuth(`${API_V1_URI}/payment/payments/${uuid}/`, {
     payment_method: newMethod,
   });
 }
 
-export async function create(invoiceData: any) {
+export async function create(
+  invoiceData: Invoice,
+): Promise<AxiosResponse<InvoiceV1Serializer>> {
   return postAuth(`${API_V1_URI}/payment/invoices/`, invoiceData);
 }
 
-export async function finalize(uuid: string) {
+export async function finalize(
+  uuid: string,
+): Promise<AxiosResponse<InvoiceV1Serializer>> {
   return patchAuth(`${API_V1_URI}/payment/invoices/${uuid}/finalize/`, {
     is_finalized: true,
   });
 }
 
-export async function fetchConfiguration() {
+export async function fetchConfiguration(): Promise<
+  AxiosResponse<InvoiceConfigurationSerializer>
+> {
   return getAuth(`${API_V1_URI}/payment/configuration/me/`);
 }
 
-export async function revert(uuid: string, params: any = {}) {
+export async function revert(
+  uuid: string,
+  params: {
+    reverse_type?: number;
+    payment_method_to_reverse?: string;
+  },
+): Promise<AxiosResponse<InvoiceDetailsSerializer>> {
   return postAuth(`${API_V1_URI}/payment/invoices/${uuid}/revert/`, params);
 }
 
-export async function returnPayment(uuid: string) {
+export async function returnPayment(
+  uuid: string,
+): Promise<AxiosResponse<Payment>> {
   return postAuth(`${API_V1_URI}/payment/payments/${uuid}/return_payment/`, {});
 }
 
-export async function update(invoiceData: any) {
+export async function update(
+  invoiceData: Invoice,
+): Promise<AxiosResponse<InvoiceV1Serializer>> {
   return patchAuth(
     `${API_V1_URI}/payment/invoices/${invoiceData.uuid}/`,
     invoiceData,
   );
 }
-export async function createQuick(invoiceData: any) {
+export async function createQuick(invoiceData: {
+  memberId: number;
+  offerId: number;
+  paymentPackId: number;
+  keep_credits?: boolean;
+}): Promise<AxiosResponse<InvoiceDetailsSerializer>> {
   return postAuth(`${API_V1_URI}/payment/invoices/quick_create/`, invoiceData);
 }
 
-export async function patchConfiguration(data: any) {
+export async function patchConfiguration(data: {
+  stripe_footer?: string;
+  nb_retries_subscription_payments?: number;
+  disable_pass_on_fail_subscription_payment?: boolean;
+  show_company_email_in_invoice?: boolean;
+  revert_bookings_on_fail_subscription_payment?: boolean;
+  advance_sepa_billing?: boolean;
+}): Promise<AxiosResponse<InvoiceConfigurationSerializer>> {
   return patchAuth(`${API_V1_URI}/payment/configuration/me/`, data);
 }
 
-export async function fetchPaymentList(params: any) {
+export async function fetchPaymentList(
+  params: PaymentFilter & {
+    page: number;
+    page_size?: number;
+  },
+): Promise<AxiosResponse<PaginatedResponse<Payment> | Payment[]>> {
   return getAuth(`${API_V1_URI}/payment/payments/${buildUrlParams(params)}`);
 }
 
-export async function fetchInvoiceItemList(params: any) {
+export async function fetchInvoiceItemList(
+  params: InvoiceItemFilter & {
+    page: number;
+    page_size?: number;
+  },
+): Promise<AxiosResponse<PaginatedResponse<InvoiceItem> | InvoiceItem[]>> {
   return getAuth(
     `${API_V1_URI}/payment/invoice_items/${buildUrlParams(params)}`,
   );
 }
 
-export async function checkInvoiceInfo(uuid: string) {
+export async function checkInvoiceInfo(
+  uuid: string,
+): Promise<AxiosResponse<InvoiceInfoSerializer>> {
   return getAuth(`${API_V1_URI}/payment/invoices/${uuid}/info/`);
 }
 
-export async function allocateDebtToInvoice(uuid: string) {
+export async function allocateDebtToInvoice(
+  uuid: string,
+): Promise<AxiosResponse<InvoiceConfigurationSerializer>> {
   return postAuth(`${API_V1_URI}/payment/invoices/${uuid}/allocate_debt/`);
 }
 
-export async function applyBalanceToUnpaid(member: number) {
+export async function applyBalanceToUnpaid(
+  member: number,
+): Promise<AxiosResponse<string>> {
   return postAuth(`${API_V1_URI}/payment/invoices/apply_balance_to_unpaid/`, {
     member,
   });
@@ -126,8 +187,14 @@ export async function applyBalanceToUnpaid(member: number) {
 export async function requestClientSecret(
   payment_engine_identifier: number,
   payment_intent_type: number,
-  params: any = {},
-) {
+  params: {
+    basket?: string;
+    requested_price_cts?: number;
+    invoice?: string;
+    member?: string;
+    is_physical_payment_intent?: boolean;
+  },
+): Promise<AxiosResponse<RequestClientSecretPayload>> {
   return postAuth(
     `${API_V1_URI}/payment/payment_group/request_client_secret/`,
     { payment_engine_identifier, payment_intent_type, ...(params || {}) },
@@ -137,8 +204,14 @@ export async function requestClientSecret(
 export async function unauthenticatedRequestClientSecret(
   payment_engine_identifier: number,
   payment_intent_type: number,
-  params: any = {},
-) {
+  params: {
+    basket?: string;
+    requested_price_cts?: number;
+    invoice?: string;
+    member?: string;
+    is_physical_payment_intent?: boolean;
+  },
+): Promise<AxiosResponse<RequestClientSecretPayload>> {
   return post(`${API_V1_URI}/payment/payment_group/request_client_secret/`, {
     payment_engine_identifier,
     payment_intent_type,
@@ -146,21 +219,34 @@ export async function unauthenticatedRequestClientSecret(
   });
 }
 
-export async function fetchPlannedPaymentEvent(params: any = {}) {
+export async function fetchPlannedPaymentEvent(
+  params: PlannedPaymentEventFilter & {
+    page: number;
+    page_size?: number;
+  },
+): Promise<
+  AxiosResponse<PaginatedResponse<PlannedPaymentEvent> | PlannedPaymentEvent[]>
+> {
   return getAuth(
     `${API_V1_URI}/payment/planned_payment_event/${buildUrlParams(params)}`,
   );
 }
 
-export async function cancelPlannedPaymentEvent(id: number) {
+export async function cancelPlannedPaymentEvent(
+  id: number,
+): Promise<AxiosResponse<PlannedPaymentEventSerializer>> {
   return postAuth(`${API_V1_URI}/payment/planned_payment_event/${id}/cancel/`);
 }
 
-export async function enablePlannedPaymentEvent(id: number) {
+export async function enablePlannedPaymentEvent(
+  id: number,
+): Promise<AxiosResponse<PlannedPaymentEventSerializer>> {
   return postAuth(`${API_V1_URI}/payment/planned_payment_event/${id}/enable/`);
 }
 
-export async function registerNowPlannedPaymentEvent(id: number) {
+export async function registerNowPlannedPaymentEvent(
+  id: number,
+): Promise<AxiosResponse<PlannedPaymentEventSerializer>> {
   return postAuth(
     `${API_V1_URI}/payment/planned_payment_event/${id}/register_now/`,
   );
@@ -168,22 +254,44 @@ export async function registerNowPlannedPaymentEvent(id: number) {
 
 export async function changePaymentMethodAndRegisterPlannedPaymentEvent(
   id: number,
-  data: any,
-) {
+  data: {
+    payment_method_identifier?: number;
+    payment_method_id: string;
+    apply_to_all?: boolean;
+    register_now?: boolean;
+    extra_data?: {
+      date: string;
+      note: string;
+    };
+  },
+): Promise<AxiosResponse<PlannedPaymentEventSerializer>> {
   return postAuth(
     `${API_V1_URI}/payment/planned_payment_event/${id}/change_method_and_register/`,
     data,
   );
 }
 
-export async function schedulePayment(uuid: string, data: any) {
+export async function schedulePayment(
+  uuid: string,
+  data: {
+    interval: string;
+    nb_interval: number;
+    payment_method_id: string;
+    anchor_date?: string;
+    payment_method_identifier: number;
+    recurrence_basis: number;
+  },
+): Promise<AxiosResponse<PlannedPaymentEventSerializer>> {
   return postAuth(
     `${API_V1_URI}/payment/invoices/${uuid}/schedule_payment/`,
     data,
   );
 }
 
-export async function editCustomFooter(uuid: string, custom_footer: string) {
+export async function editCustomFooter(
+  uuid: string,
+  custom_footer: string,
+): Promise<AxiosResponse<InvoiceDetailsSerializer>> {
   return postAuth(`${API_V1_URI}/payment/invoices/${uuid}/update_footer/`, {
     custom_footer,
   });
@@ -191,15 +299,17 @@ export async function editCustomFooter(uuid: string, custom_footer: string) {
 
 export async function editBillingEstablishent(
   uuid: string,
-  billing_establishment_id: number,
-) {
+  billing_establishment_id: string,
+): Promise<AxiosResponse<InvoiceV1Serializer>> {
   return postAuth(
     `${API_V1_URI}/payment/invoices/${uuid}/update_establishment/`,
     { billing_establishment_id },
   );
 }
 
-export async function applyBalanceToInvoice(uuid: string) {
+export async function applyBalanceToInvoice(
+  uuid: string,
+): Promise<AxiosResponse<string>> {
   return postAuth(
     `${API_V1_URI}/payment/invoices/${uuid}/apply_balance_to_invoice/`,
   );
@@ -228,7 +338,6 @@ export const fetchInvoiceAllowedReverseTypes = (
 };
 
 export default {
-  fetchAll,
   fetchSpecific,
   updatePaymentMethod,
   create,

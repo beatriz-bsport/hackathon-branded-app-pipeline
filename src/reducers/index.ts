@@ -136,6 +136,7 @@ import { ReplacementRequestState } from '#libs/replacement-request/types';
 import { PaymentComboState } from '#libs/payment-combo/types';
 import { CadenceState } from '#libs/sequential_marketing/types';
 import { WaitingListState } from '#libs/waiting-list/types';
+import { InvoiceState } from '#libs/invoice/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -248,7 +249,7 @@ export type RootState = {
   groupOffer: GroupOfferState;
   giftcard: GiftcardState;
   instalmentPayment: InstalmentPaymentState;
-  invoice: any;
+  invoice: InvoiceState;
   login: any;
   level: LevelState;
   marketingNotification: MarketingNotificationState;

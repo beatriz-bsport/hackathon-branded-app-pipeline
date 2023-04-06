@@ -12,6 +12,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
 } from '@bsport/common/lib/master-data/payment-group';
 import { getCurrencyDisplay } from '../../theme/selectors';
 
@@ -19,6 +20,7 @@ import SEPA_LOGO from '../icons/sepa.png';
 import BANCONTACT_LOGO from '../icons/bancontact.png';
 import SOFORT_LOGO from '../icons/sofort.png';
 import IDEAL_LOGO from '../icons/ideal.png';
+import BACS_DEBIT_LOGO from '../icons/bacs-direct-debit.png';
 
 const PaymentMethodIcon = (props: { paymentMethod: number }) => {
   const classes = useStyles();
@@ -51,6 +53,8 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
       );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL:
       return <img className={classes.icon} src={IDEAL_LOGO} alt="ideal" />;
+    case PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT:
+      return <img className={classes.icon} src={BACS_DEBIT_LOGO} alt="ideal" />;
     default:
       if (getCurrencyDisplay() === '€') {
         return <EuroSymbolIcon className={classes.icon} />;

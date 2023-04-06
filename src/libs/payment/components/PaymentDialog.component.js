@@ -297,6 +297,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                         this.props.clientSecretLoading ||
                         !this.props.clientSecret
                       }
+                      paymentGroupId={this.props.paymentGroupId}
                     />
                   )}
                   {parseInt(this.state.paymentEngine, 10) ===

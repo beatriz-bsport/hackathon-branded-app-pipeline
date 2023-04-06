@@ -409,6 +409,7 @@ export class BasketPage extends React.Component<Props> {
                   useInternalAccount={this.props.useInternalAccount}
                   creditAccountBalance={this.props.creditAccountBalance}
                   checkItemsBasket={this.props.checkItemsBasket}
+                  paymentGroupId={this.state.paymentGroupId}
                 />
               }
             />

@@ -125,3 +125,13 @@ export const checkItemsBasket = async (basketId: string) => {
 export const setPaymentMethodAsDefault = async (params: any) => {
   return postAuth(`${API_V1_URI}/payment/payment_method/set_default/`, params);
 };
+
+export const confirmPaymentByPaymentMethodId = async (
+  paymentGroupId: number,
+  paymentMethodId: number,
+) => {
+  return postAuth(
+    `${API_V1_URI}/payment/payment_group/confirm_payment_intent/`,
+    { payment_group_id: paymentGroupId, payment_method_id: paymentMethodId },
+  );
+};

@@ -1,0 +1,220 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { compose } from 'recompose';
+
+import UpdateIcon from '@material-ui/icons/Update';
+
+import classNames from 'classnames';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
+import Card, { CardSize } from '#components/css-only/Card';
+import Content from '#components/css-only/Card/CardContent';
+import Grid from '#components/css-only/Grid';
+import Item, {
+  Alignment,
+  Justification,
+} from '#components/css-only/Grid/GridItem';
+import Price from '#components/css-only/Price';
+
+import BillingInterval from '../MarketplaceBillingInterval';
+
+import './styles.css';
+
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+
+import type { ContractWithPaymentPack } from '#libs/subscription/types';
+
+export type Props = {
+  contract: ContractWithPaymentPack;
+};
+
+const MarketplaceContractCheckout: React.FC<Props> = ({ contract }) => {
+  const { t } = useTranslation('marketplace');
+
+  const [isExpanded, setIsExpanded] = React.useState(false);
+
+  const handleExpandContent = React.useCallback(
+    () => setIsExpanded((previousExpanded) => !previousExpanded),
+    [setIsExpanded],
+  );
+
+  const [showMoreDescription, setShowMoreDescription] = React.useState(false);
+
+  const handleShowMoreDescription = React.useCallback(
+    () =>
+      setShowMoreDescription(
+        (previousShowMoreDescription) => !previousShowMoreDescription,
+      ),
+    [setShowMoreDescription],
+  );
+
+  const [showMoreLegalContract, setShowMoreLegalContract] =
+    React.useState(false);
+
+  const handleShowMoreLegal = React.useCallback(
+    () =>
+      setShowMoreLegalContract(
+        (previousShowMoreLegalContract) => !previousShowMoreLegalContract,
+      ),
+    [setShowMoreLegalContract],
+  );
+
+  const objectIncludedInContract = React.useMemo(
+    () =>
+      contract?.private_pass ||
+      contract?.payment_combo ||
+      contract?.payment_pack,
+    [contract],
+  );
+
+  return (
+    <Card
+      size={CardSize.ML}
+      classes={{
+        ...(isExpanded && {
+          '--expanded-card': '--expanded-card',
+        }),
+        'bs-contract-checkout': 'bs-contract-checkout',
+      }}
+    >
+      <div
+        className={classNames('bs-contract-checkout__header', {
+          '--expanded-header': isExpanded,
+        })}
+      >
+        <Content padding>
+          <Grid
+            classes={{
+              'bs-contract-checkout__grid': 'bs-contract-checkout__grid',
+            }}
+          >
+            <Item
+              alignment={Alignment.FLEX_START}
+              columnStart={1}
+              columnEnd={1}
+              justification={Justification.SPACE_BETWEEN}
+            >
+              <div className="bs-contract-checkout__title">
+                <UpdateIcon className="bs-contract-card__title__icon" />
+                {contract?.name}
+              </div>
+              {!!contract?.flat_fee && (
+                <div className="bs-contract-checkout__subtitle">
+                  {t('contractCard.fees', {
+                    fees: getCurrencyDisplayWithPrice(contract.flat_fee),
+                  })}
+                </div>
+              )}
+              <div className="bs-contract-checkout__price-container">
+                <Price
+                  amount={contract?.recurrent_price}
+                  formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                  classes={{
+                    'bs-contract-checkout__price':
+                      'bs-contract-checkout__price',
+                  }}
+                >
+                  <BillingInterval contract={contract} />
+                </Price>
+              </div>
+            </Item>
+            <Item
+              alignment={Alignment.FLEX_END}
+              justification={Justification.SPACE_BETWEEN}
+              rowStart={1}
+              columnStart={2}
+              columnEnd={2}
+            >
+              <div className="bs-contract-checkout__planned-invoices">
+                {!!contract?.nb_interval && (
+                  <div className="bs-contract-checkout__planned-invoices__content">
+                    {t('contractCard.invoice', {
+                      count: contract.nb_interval,
+                    })}
+                  </div>
+                )}
+              </div>
+              <button
+                type="button"
+                className="bs-contract-checkout__right-button"
+                disabled={isExpanded}
+                onClick={handleExpandContent}
+              >
+                {t('contractCard.chooseButton')}
+              </button>
+            </Item>
+          </Grid>
+        </Content>
+      </div>
+      <Content
+        classes={{
+          'bs-contract-checkout__body': 'bs-contract-checkout__body',
+          ...(isExpanded && {
+            '--expanded-body': '--expanded-body',
+          }),
+        }}
+      >
+        <Grid
+          classes={{
+            'bs-contract-checkout__body__grid':
+              'bs-contract-checkout__body__grid',
+          }}
+        >
+          <Item
+            classes={{
+              'bs-contract-checkout__body__item':
+                'bs-contract-checkout__body__item',
+            }}
+          >
+            <div className="bs-contract-checkout__body__title">
+              <div className="bs-contract-checkout__body__title__rectangle" />
+              <h4>{objectIncludedInContract?.name}</h4>
+            </div>
+            <div
+              className={classNames('bs-contract-checkout__body__text', {
+                '--hide': !showMoreDescription,
+              })}
+            >
+              {contract?.description}
+            </div>
+            <button
+              type="button"
+              onClick={handleShowMoreDescription}
+              className="bs-contract-checkout__body__button"
+            >
+              {showMoreDescription
+                ? t('contractCard.seeLess')
+                : t('contractCard.seeMore')}
+            </button>
+            <div>
+              <h4 className="bs-contract-checkout__subtitle --legal">
+                {t('contractCard.legalContract')}
+              </h4>
+              <div
+                className={classNames('bs-contract-checkout__body__text', {
+                  '--hide': !showMoreLegalContract,
+                })}
+              >
+                {contract?.contract}
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleShowMoreLegal}
+              className="bs-contract-checkout__body__button"
+            >
+              {showMoreLegalContract
+                ? t('contractCard.seeLess')
+                : t('contractCard.seeMore')}
+            </button>
+          </Item>
+        </Grid>
+      </Content>
+    </Card>
+  );
+};
+
+export default compose(
+  marketplaceCssHoc(),
+  React.memo,
+)(MarketplaceContractCheckout);

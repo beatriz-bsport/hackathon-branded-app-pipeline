@@ -21,7 +21,7 @@ import Item, {
 } from '#csscomponents/Grid/GridItem';
 import Price, { Color } from '#csscomponents/Price';
 
-import BillingInterval from '../MarketplaceContractCard/BillingInterval';
+import BillingInterval from '../MarketplaceBillingInterval';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 

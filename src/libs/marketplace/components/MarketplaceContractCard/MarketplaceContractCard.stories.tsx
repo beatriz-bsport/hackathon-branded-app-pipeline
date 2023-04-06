@@ -7,7 +7,7 @@ import MarketplaceSubscriptionCard, {
 } from '.';
 
 export default {
-    title: 'Components/Marketplace/PassCard/MarketplaceSubscriptionCard',
+    title: 'Components/Marketplace/PassCards/Cards/Contract',
     component: MarketplaceSubscriptionCard,
     parameters: {
         docs: {

@@ -1,9 +1,12 @@
 import FactoryBot from 'ya-factorybot';
 import faker from 'faker';
+import FactoryBotPaymentPack from '#libs/payment-packs/factory';
 import { Contract } from '#libs/subscription/types';
 
 faker.locale = 'fr';
 const intervals = ['month', 'week', 'day', 'year'];
+
+const fakePaymentPack = FactoryBotPaymentPack.PaymentPack.create();
 
 FactoryBot.define('Contract', {
   id: FactoryBot.sequence(),
@@ -20,6 +23,7 @@ FactoryBot.define('Contract', {
   nb_interval: Math.floor(Math.random() * 10),
   contract:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  payment_pack: fakePaymentPack,
 });
 
 export const ContractStorybookFactory = (id?: number) => {

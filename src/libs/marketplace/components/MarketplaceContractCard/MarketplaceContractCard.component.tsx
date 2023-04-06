@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import HistoryIcon from '@material-ui/icons/History';
+import UpdateIcon from '@material-ui/icons/Update';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
@@ -18,7 +18,7 @@ import Item, {
 } from '#csscomponents/Grid/GridItem';
 import Price from '#csscomponents/Price';
 
-import BillingInterval from './BillingInterval';
+import BillingInterval from '../MarketplaceBillingInterval';
 
 import './styles.css';
 
@@ -49,7 +49,7 @@ const MarketplaceContractCard: React.FC<Props> = ({
         >
           <Item alignment={Alignment.FLEX_START} columnEnd={1}>
             <div className="bs-contract-card__title">
-              <HistoryIcon className="bs-contract-card__title__icon" />
+              <UpdateIcon className="bs-contract-card__title__icon" />
               {contract?.name}
             </div>
             {!!contract?.flat_fee && (
@@ -100,11 +100,7 @@ const MarketplaceContractCard: React.FC<Props> = ({
                   <BillingInterval contract={contract} />
                 </div>
                 <div className="bs-contract-card__billing-interval--mobile">
-                  {contract?.flat_fee ? (
-                    <BillingInterval contract={contract} withFees />
-                  ) : (
-                    <BillingInterval contract={contract} />
-                  )}
+                  <BillingInterval contract={contract} />
                 </div>
               </Price>
             </div>

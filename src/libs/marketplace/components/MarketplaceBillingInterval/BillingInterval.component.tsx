@@ -38,8 +38,7 @@ const BillingInterval: React.FC<Props> = ({ contract, withFees }) => {
 
   return (
     <div className="bs-billing-interval">
-      {!!interval &&
-        (contract?.nb_interval > 1 ? interval : `/\u00A0${interval}`)}
+      {!!interval && (contract?.nb_interval > 1 ? interval : `/${interval}`)}
     </div>
   );
 };

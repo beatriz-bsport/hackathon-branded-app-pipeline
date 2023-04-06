@@ -3263,7 +3263,8 @@
       "seeMore": "Voir plus",
       "seeLess": "Voir moins",
       "legalContract": "Mentions légales",
-      "autoRenewal": "Renouvellement tacite"
+      "autoRenewal": "Renouvellement tacite",
+      "chooseButton": "Choisir"
     }
   },
   "member": {

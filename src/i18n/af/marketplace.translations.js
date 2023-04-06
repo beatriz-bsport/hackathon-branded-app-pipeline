@@ -200,5 +200,6 @@ exports.default = {
     seeLess: 'Voir moins',
     legalContract: 'Mentions légales',
     autoRenewal: 'Renouvellement tacite',
+    chooseButton: 'Choisir',
   },
 };

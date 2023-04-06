@@ -20,6 +20,7 @@ const {
   IDEAL,
   SOFORT,
   PAYMENT_PACK,
+  BACS_DEBIT,
 } = require('@bsport/common/lib/master-data/payment-methods');
 
 const {
@@ -300,6 +301,7 @@ exports.default = {
     payment_legal_identifier: 'Identifiant legal de facture',
     payment_method_amex: 'AMEX',
     payment_method_bancontact: 'Bancontact',
+    payment_method_bacs_debit: 'Bacs Direct Debit',
     payment_method_bank_transfer: 'Virement',
     payment_method_cash: 'Espèce',
     payment_method_check: 'Chèque',
@@ -487,6 +489,7 @@ exports.default = {
   yes: 'Oui',
   no: 'Non',
   payment_method: {
+    bacs_debit: 'Bacs Direct Debit',
     cash: 'Espèces',
     sepa: 'SEPA',
     check: 'Chèque',
@@ -513,6 +516,7 @@ exports.default = {
     [CB.id]: 'Carte',
     [CREDIT_ACCOUNT.id]: 'Crédit client',
     [SEPA.id]: 'SEPA',
+    [BACS_DEBIT.id]: 'BACS Direct Debit',
   },
   last_invoice_status: {
     [PLANNED_INVOICE_STATUS.SUCCEEDED]: 'Réussi',

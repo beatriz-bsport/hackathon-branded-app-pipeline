@@ -134,7 +134,6 @@ export class CollectPaymentMethod extends React.Component<Props> {
     const dialogOffset = fullScreen ? '0%' : '50%';
     return (
       <Wrapper variant={this.props.variant}>
-        {/* This fragment is important for compability with 3d secure, please do not delete */}
         <>
           <div
             style={

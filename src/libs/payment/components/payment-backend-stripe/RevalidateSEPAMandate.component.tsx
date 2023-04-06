@@ -237,7 +237,7 @@ export class RevalidateSEPAMandate extends React.Component<Props, State> {
                       color="textSecondary"
                       className={classes.mandate}
                     >
-                      {this.props.t('subscription:mandate.content')}
+                      {this.props.t('subscription:mandate.contentIban')}
                     </Typography>
                     <div className={classes.actions}>
                       {this.props.onClose && (

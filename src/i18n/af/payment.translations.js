@@ -1,4 +1,5 @@
 const {
+  BACS_DEBIT,
   CB,
   CB_MANUAL,
   CHECK,
@@ -112,6 +113,7 @@ exports.default = {
 
   paymentComboSectionTitle: 'Pack',
   method: {
+    BACS_DEBIT: 'Bacs Direct Debit',
     CB: 'Carte',
     CREDIT_ACCOUNT: 'Crédit client',
     CASH: 'Espèces',
@@ -122,6 +124,7 @@ exports.default = {
     IDEAL: 'iDEAL',
     EPS: 'EPS',
     GIROPAY: 'Giropay',
+    [BACS_DEBIT.id]: 'Bacs Direct Debit',
     [CB.id]: 'Carte',
     [CB_MANUAL.id]: 'Carte (manuel)',
     [CREDIT_ACCOUNT.id]: 'Crédit client',
@@ -197,6 +200,7 @@ exports.default = {
   returnedAmount: 'Remboursé: ',
   paymentMethod: {
     label: 'Moyen de paiement',
+    [BACS_DEBIT.id]: 'Bacs Direct Debit',
     [CB.id]: 'Carte',
     [CB_MANUAL.id]: 'Carte (manuel)',
     [CHECK.id]: 'Chèque',
@@ -232,6 +236,10 @@ exports.default = {
       routingNumber: {
         label: 'Numéro de routage',
         placeholder: '000001',
+      },
+      sortCode: {
+        label: 'Code de tri',
+        placeholder: '123456',
       },
       invalid:
         "IBAN invalide. Attention : l'IBAN doit correspondre à un compte bancaire domicilié dans le même pays que votre entreprise",

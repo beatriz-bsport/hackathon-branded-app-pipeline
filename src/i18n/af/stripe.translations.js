@@ -7,6 +7,11 @@ exports.default = {
     invalid_expiry_year: "La date d'expiration de votre carte est invalide.",
     incomplete_cvc: 'Le code de sécurité de votre carte est incomplet.',
     invalid_number: 'Le numéro de votre carte est invalide.',
+    invalid_bank_account: 'Le compte bancaire fourni est invalide.',
+    invalid_bank_account_account_number:
+      'Le numéro de compte bancaire est invalide.',
+    invalid_bank_account_routing_number: 'Le sort code fourni est invalide.',
+    email_invalid: "L'adresse mail est invalide.",
     // Payment errors
     card_declined: 'Votre carte a été refusée.',
     expired_card: 'Votre carte a expirée.',
@@ -46,6 +51,10 @@ exports.default = {
     card_declined: 'Carte refusée',
     setup_intent_authentication_failure:
       'Impossible de sauvegarder cette carte. Veuillez essayer un autre moyen de paiement.',
+    invalid_bank_account_account_number:
+      'Le numéro de compte bancaire est invalide.',
+    invalid_bank_account_routing_number: 'Le sort code fourni est invalide.',
+    email_invalid: "L'adresse mail est invalide.",
     // Payment errors
     payment_intent_authentication_failure:
       'Le paiement a été refusé par votre banque.',

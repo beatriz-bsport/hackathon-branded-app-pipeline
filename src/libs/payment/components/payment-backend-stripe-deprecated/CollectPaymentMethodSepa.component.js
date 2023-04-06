@@ -377,7 +377,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
                       color="textSecondary"
                       className={classes.mandate}
                     >
-                      {this.props.t('subscription:mandate.content')}
+                      {this.props.t('subscription:mandate.contentIban')}
                     </Typography>
                     <div className={classes.actions}>
                       {this.props.onClose && (

@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/styles';
 
 type Props = {
   errorCode: string,
-  declineCode: string,
+  declineCode?: string,
   t: TFunction,
 };
 

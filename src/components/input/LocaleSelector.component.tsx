@@ -64,6 +64,7 @@ type Props = {
   valueKey?: 'locale' | 'country' | 'currencyCode';
   noMargin?: boolean;
   required?: boolean;
+  defaultValue?: string;
 };
 
 type Locale = {
@@ -430,7 +431,8 @@ export const CountrySelector = (props: Props) => {
       )}
       <Select
         variant={props.variant}
-        requried={props.required}
+        required={props.required}
+        defaultValue={props.defaultValue}
         value={props.value}
         onChange={props.onChange}
       >

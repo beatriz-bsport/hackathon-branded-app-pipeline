@@ -16,14 +16,6 @@ import {
 } from 'connected-react-router';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import {
-  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-} from '@bsport/common/lib/master-data/payment-group';
-import {
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
@@ -69,6 +61,7 @@ import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import ConsumerAppBar from './ConsumerAppBar.container';
 import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
 import ContractTermsDialog from '#libs/subscription/components/contract/ContractTermsDialog.component';
+import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
 import GenericDialogWithCountdownConfirm from '#components/genericDialog/GenericDialogWithCountdownConfirm.component';
 import { COUNTDOWN_BEFORE_ACTIVATION } from './constants';
 
@@ -279,19 +272,6 @@ export class MarketplaceSubscriptionPayment extends React.Component<
       return <LinearProgress />;
     }
 
-    const enabledPaymentMethods = [
-      ...(this.props.companyTheme.payment_method_available_subscription?.includes(
-        PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-      )
-        ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]
-        : []),
-      ...(this.props.companyTheme.payment_method_available_subscription?.includes(
-        PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-      )
-        ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
-        : []),
-    ];
-
     const contract =
       this.props.contractList.find(
         (c: ContractWithPaymentPack) =>
@@ -366,7 +346,13 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                         refreshSavedPaymentMethodList={
                           this.props.fetchPaymentMethodList
                         }
-                        enabledPaymentMethods={enabledPaymentMethods}
+                        enabledPaymentMethods={getMarketplaceEnabledPaymentMethods(
+                          {
+                            paymentMethodAvailableSubscription:
+                              this.props.companyTheme
+                                .payment_method_available_subscription,
+                          },
+                        )}
                         enabledPaymentGroupMethodIdentifier={
                           this.props.companyTheme
                             .payment_method_available_subscription

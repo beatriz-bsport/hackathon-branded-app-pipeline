@@ -11,14 +11,14 @@ import {
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { CircularProgress } from '@material-ui/core';
 
-import {
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { fetchMember } from '../../libs/member/actions';
 import { RootState } from '../../reducers';
-import { getTheme } from '#libs/theme/selectors';
+import {
+  getCompanyCountry,
+  getStripeRegion,
+  getTheme,
+} from '#libs/theme/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 
 import { fetchMembership as fetchMembershipAction } from '#libs/membership/actions';
@@ -27,6 +27,7 @@ import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/a
 import { getMember } from '#libs/member/selectors';
 import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
 import { fetchPaymentMethodList } from '#libs/payment/actions';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 
 type OwnProps = {
   queryParams: RouterProps;
@@ -82,12 +83,20 @@ export class AddPaymentMethodWebview extends Component<Props, State> {
   };
 
   render() {
+    const companyCountry = getCompanyCountry();
+    const stripeRegion = getStripeRegion();
+
     const { memberId, company } = this.props;
     if (!memberId || !company) {
       return <div>Error -1</div>;
     }
 
-    if (this.state.isThemeLoading || !this.props.member?.id) {
+    if (
+      this.state.isThemeLoading ||
+      !this.props.member?.id ||
+      !stripeRegion ||
+      !companyCountry
+    ) {
       return (
         <div className={this.props.classes.container}>
           <div className={this.props.classes.loadingContainer}>
@@ -103,12 +112,11 @@ export class AddPaymentMethodWebview extends Component<Props, State> {
           refreshSavedPaymentMethodList={this.fetchMemberPaymentMethod}
           onCancel={this.onCancel}
           paymentMethodType={this.state.paymentMethodType}
-          enabledPaymentMethods={[
-            BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-            ...(this.props.theme.currency === 'eur'
-              ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
-              : []),
-          ]}
+          enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods({
+            currency: this.props.theme.currency,
+            companyCountry,
+            stripeRegion,
+          })}
           onChange={this.changePaymentMethodType}
           sepaDefaultName={this.props.member ? this.props.member.name : ''}
           sepaDefaultEmail={this.props.member ? this.props.member.email : ''}

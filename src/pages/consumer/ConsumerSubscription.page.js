@@ -12,14 +12,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 
-import {
-  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-} from '@bsport/common/lib/master-data/payment-group';
-import {
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
+import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master-data/subscription-payment-methods';
 import { push } from 'connected-react-router';
 import { withTranslation, TFunction } from 'react-i18next';
 
@@ -36,6 +29,7 @@ import SubscriptionListItem from '../../libs/subscription/components/billing-pla
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
 
 import { WidgetUtils } from '../../libs/widget/WidgetUtils';
 
@@ -120,19 +114,6 @@ export class ConsumerSubscription extends React.Component<Props> {
   };
 
   render() {
-    const enabledPaymentMethods = [
-      ...(this.props.theme.payment_method_available_subscription?.includes(
-        PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-      )
-        ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]
-        : []),
-      ...(this.props.theme.payment_method_available_subscription?.includes(
-        PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-      )
-        ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
-        : []),
-    ];
-
     return (
       <div className={this.props.classes.table}>
         {this.props.subscriptionLoading && <BackofficeLinearProgress />}
@@ -190,7 +171,10 @@ export class ConsumerSubscription extends React.Component<Props> {
               this.props.theme.payment_method_available_subscription
             }
             member={this.props.member}
-            enabledPaymentMethods={enabledPaymentMethods}
+            enabledPaymentMethods={getMarketplaceEnabledPaymentMethods({
+              paymentMethodAvailableSubscription:
+                this.props.theme.payment_method_available_subscription,
+            })}
           />
         ) : null}
       </div>

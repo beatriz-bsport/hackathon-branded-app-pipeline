@@ -125,9 +125,9 @@ export type Props = {
   companyId: number;
 };
 
-const companyCountry = getCompanyCountry();
-
 export const PaymentStripeTerminal = (props: Props) => {
+  const companyCountry = getCompanyCountry();
+
   const { setProcessing } = props;
   const [terminal, setTerminal] = useState<Terminal | null>(null);
   const [selectedReader, setSelectedReader] = useState(() => {

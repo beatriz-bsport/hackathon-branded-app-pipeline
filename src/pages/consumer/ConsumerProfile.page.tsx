@@ -9,10 +9,6 @@ import { connect, ConnectedProps } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { createStyles, Theme } from '@material-ui/core';
-import {
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
@@ -30,7 +26,10 @@ import {
   detachPaymentMethod,
 } from '../../libs/payment/actions';
 import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
-import themeSelectors from '../../libs/theme/selectors';
+import themeSelectors, {
+  getCompanyCountry,
+  getStripeRegion,
+} from '../../libs/theme/selectors';
 
 import { getMemberDetail } from '../../libs/member/selectors';
 
@@ -55,6 +54,7 @@ import withQueryParams from '../../hocs/with-query-params.hoc';
 import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
 import PaymentModal from '#libs/payment/components/PaymentModal.component';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 
 type RouterProps = {
   membership: Membership;
@@ -73,6 +73,7 @@ type Props = StateProps &
 type State = {
   paymentMethodType: string;
 };
+
 export class ConsumerProfile extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -133,6 +134,9 @@ export class ConsumerProfile extends React.Component<Props, State> {
 
   render() {
     const { classes } = this.props;
+    const companyCountry = getCompanyCountry();
+    const stripeRegion = getStripeRegion();
+
     if (!this.props.membership || this.props.companyThemeLoading) {
       return (
         <Grid container className={classes.flexGrid} spacing={2}>
@@ -188,7 +192,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
             />
           </Paper>
         </Grid>
-        {this.props.membership?.id && (
+        {this.props.membership?.id && !!companyCountry && !!stripeRegion && (
           <PaymentModal isOpen={this.props.isAddPaymentMethodDialogOpen}>
             <AddPaymentMethod
               onCancel={() => this.openAddPaymentMethodDialog(false)}
@@ -197,12 +201,13 @@ export class ConsumerProfile extends React.Component<Props, State> {
                 this.props.fetchMemberPaymentMethod
               }
               paymentMethodType={this.state.paymentMethodType}
-              enabledPaymentMethods={[
-                BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-                ...(this.props.theme.currency === 'eur'
-                  ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
-                  : []),
-              ]}
+              enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
+                {
+                  currency: this.props.theme.currency,
+                  companyCountry,
+                  stripeRegion,
+                },
+              )}
               onChange={this.changePaymentMethodType}
               disabled={false}
               sepaDefaultName={this.props.member ? this.props.member.name : ''}

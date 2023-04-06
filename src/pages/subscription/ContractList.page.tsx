@@ -15,11 +15,6 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Theme } from '@material-ui/core/styles';
-import {
-  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
 import Fuse, { FuseOptions } from 'fuse.js';
@@ -79,8 +74,7 @@ import {
 } from '#libs/background-dialog/actions';
 import { fetchStripeReaders } from '#libs/terminal/actions';
 import { getStripeReaders } from '#libs/terminal/selectors';
-import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
-import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
@@ -94,9 +88,6 @@ import {
   DISPLAY_SUCCESS,
   ACTION_MODE_REDIRECT,
 } from '#libs/background-dialog/types';
-
-const stripeRegion = getStripeRegion();
-const companyCountry = getCompanyCountry();
 
 export class SubscriptionList extends React.Component<Props, State> {
   state = {
@@ -144,6 +135,9 @@ export class SubscriptionList extends React.Component<Props, State> {
   };
 
   render() {
+    const stripeRegion = getStripeRegion();
+    const companyCountry = getCompanyCountry();
+
     return (
       <div className={this.props.classes.container}>
         {this.props.contractListAvailableAll?.length === 0 &&
@@ -343,7 +337,10 @@ export class SubscriptionList extends React.Component<Props, State> {
           onCreateLabel={this.props.t('subscription:contract.actions.create')}
           onCreate={this.props.onRequestCreate}
         />
-        {this.props.contractRegisterOpen && this.props.selectedContract ? (
+        {this.props.contractRegisterOpen &&
+        this.props.selectedContract &&
+        !!stripeRegion &&
+        !!companyCountry ? (
           <SubscriptionContractRegister
             open={this.props.contractRegisterOpen}
             contract={this.props.selectedContractData}
@@ -358,17 +355,15 @@ export class SubscriptionList extends React.Component<Props, State> {
             refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
             savedPaymentMethodList={this.props.savedPaymentMethodList}
             onlinePaymentEnabled={this.props.theme.online_payment_enabled}
-            enabledPaymentMethods={[
-              BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-              BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-              ...(this.props.theme.currency === 'eur'
-                ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
-                : []),
-              ...(stripeRegion === 'NorthAmerica' &&
-              TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
-                ? [PAYMENT_STRIPE_TERMINAL_FAKE]
-                : []),
-            ]}
+            enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
+              {
+                currency: this.props.theme.currency,
+                companyCountry,
+                withCredit: true,
+                withTerminal: true,
+                stripeRegion,
+              },
+            )}
             waiver={this.props.theme.waiver}
             generalTermsAndConditions={
               this.props.theme.general_terms_and_conditions

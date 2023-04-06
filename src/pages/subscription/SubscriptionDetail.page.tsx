@@ -3,11 +3,6 @@ import { compose, withState, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import { createStyles, Theme } from '@material-ui/core';
-import {
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-group';
 import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
@@ -72,10 +67,9 @@ import { getStripeReaders } from '#libs/terminal/selectors';
 import { Subscription, PauseRequestData } from '#libs/subscription/types';
 import { OptionCallback } from '../../state/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 import { RootState } from '../../reducers';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
-import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
 
 type BeforeHandlerProps = RouterProps &
   typeof stateHandlerInit &
@@ -86,9 +80,6 @@ type Props = BeforeHandlerProps &
   WithHandlerType<typeof mapWithHandlers1> &
   WithHandlerType<typeof mapWithHandlers2> &
   MaterialStyleType<ReturnType<typeof styles>>;
-
-const stripeRegion = getStripeRegion();
-const companyCountry = getCompanyCountry();
 
 export class SubscriptionDetail extends Component<Props> {
   componentWillMount() {
@@ -107,6 +98,9 @@ export class SubscriptionDetail extends Component<Props> {
   }
 
   render() {
+    const stripeRegion = getStripeRegion();
+    const companyCountry = getCompanyCountry();
+
     const { loading, subscription, goToInvoice, goToMember, goToSubscribe } =
       this.props;
     return (
@@ -178,7 +172,9 @@ export class SubscriptionDetail extends Component<Props> {
           />
         ) : null}
 
-        {this.props.switchPaymentMethodDialogOpen ? (
+        {this.props.switchPaymentMethodDialogOpen &&
+        !!stripeRegion &&
+        !!companyCountry ? (
           <SubscriptionPaymentMethodSwitcherDialog
             open={this.props.switchPaymentMethodDialogOpen}
             loading={this.props.memberLoading}
@@ -187,16 +183,15 @@ export class SubscriptionDetail extends Component<Props> {
             requestSetupIntentSecret={this.props.requestSetupIntentSecret}
             refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
             savedPaymentMethodList={this.props.savedPaymentMethodList}
-            enabledPaymentMethods={[
-              BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-              BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-              this.props.theme.currency === 'eur' &&
-                BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-              ...(stripeRegion === 'NorthAmerica' &&
-              TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
-                ? [PAYMENT_STRIPE_TERMINAL_FAKE]
-                : []),
-            ]}
+            enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
+              {
+                currency: this.props.theme.currency,
+                companyCountry,
+                withCredit: true,
+                withTerminal: true,
+                stripeRegion,
+              },
+            )}
             member={this.props.memberById[this.props.subscription.member]}
             stripeReaders={this.props.stripeReaders || []}
             companyId={this.props.companyId}

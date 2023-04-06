@@ -9,11 +9,6 @@ import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import { v4 as uuid4 } from 'uuid';
 import { compose, withHandlers, withState } from 'recompose';
-import {
-  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '../../libs/payment/actions';
 import { fetchManagerFiltersSettings } from '../../libs/dashboard/actions';
@@ -72,8 +67,7 @@ import type { OptionCallback } from '../../state/types';
 import MemberArchiveDialog from '../../libs/member/components/MemberArchiveDialog.component';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 import MemberActions from '#libs/member/components/ManagerMemberActions.components';
-import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
-import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_MEMBER } from '#libs/communication-v2/constants';
 import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
@@ -191,9 +185,6 @@ type Props = {
   getUnreadAnswersCountAction: (params: CommunicationContext) => void,
   pageHeight: number,
 };
-
-const stripeRegion = getStripeRegion();
-const companyCountry = getCompanyCountry();
 
 const getTabsData = (
   bookings: number,
@@ -349,22 +340,13 @@ export class MemberDetail extends React.Component<Props> {
   };
 
   render() {
+    const stripeRegion = getStripeRegion();
+    const companyCountry = getCompanyCountry();
+
     const { tab, member, queryParams, pageHeight, numberOfUnreadAnswers } =
       this.props;
 
     const isOpenChat = queryParams.openChat === 'true';
-
-    const enabledPaymentMethods = [
-      BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-      BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-      ...(stripeRegion === 'NorthAmerica' &&
-      TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
-        ? [PAYMENT_STRIPE_TERMINAL_FAKE]
-        : []),
-      ...(this.props.theme.currency === 'eur'
-        ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
-        : []),
-    ];
 
     const tabsData = getTabsData(
       this.props.infosOfMember?.nb_reservations,
@@ -492,33 +474,43 @@ export class MemberDetail extends React.Component<Props> {
             goToInvoice={this.handleGoToInvoice}
           />
         )}
-        <SubscriptionContractRegister
-          initialMember={this.props.member}
-          contract={this.props.contractToBill}
-          contractList={this.props.contractList}
-          contractLoading={this.props.contractLoading}
-          onChangeContract={this.props.setContractToBill}
-          requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-          refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
-          savedPaymentMethodList={this.props.savedPaymentMethodList}
-          onlinePaymentEnabled={this.props.theme.online_payment_enabled}
-          member={this.props.member}
-          open={this.props.contractDialogOpen}
-          onClose={this.props.closeContractDialog}
-          enabledPaymentMethods={enabledPaymentMethods}
-          goToCustomSubscriptionForm={this.handleSubscribeMember}
-          onSuccess={this.handleOnContractRegisterSuccess}
-          managerFormConfig={this.props.managerFormConfig?.poll_fields}
-          waiver={this.props.theme.waiver}
-          generalTermsAndConditions={
-            this.props.theme.general_terms_and_conditions
-          }
-          establishments={this.props.establishmentList}
-          enableMultiLocalization={this.props.theme.enable_multi_localization}
-          stripeReaders={this.props.stripeReaders || []}
-          companyId={this.props.companyId}
-          registerContractBackground={this.props.registerContractBackground}
-        />
+        {!!stripeRegion && !!companyCountry && (
+          <SubscriptionContractRegister
+            initialMember={this.props.member}
+            contract={this.props.contractToBill}
+            contractList={this.props.contractList}
+            contractLoading={this.props.contractLoading}
+            onChangeContract={this.props.setContractToBill}
+            requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+            refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
+            savedPaymentMethodList={this.props.savedPaymentMethodList}
+            onlinePaymentEnabled={this.props.theme.online_payment_enabled}
+            member={this.props.member}
+            open={this.props.contractDialogOpen}
+            onClose={this.props.closeContractDialog}
+            enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
+              {
+                currency: this.props.theme.currency,
+                companyCountry,
+                withCredit: true,
+                withTerminal: true,
+                stripeRegion,
+              },
+            )}
+            goToCustomSubscriptionForm={this.handleSubscribeMember}
+            onSuccess={this.handleOnContractRegisterSuccess}
+            managerFormConfig={this.props.managerFormConfig?.poll_fields}
+            waiver={this.props.theme.waiver}
+            generalTermsAndConditions={
+              this.props.theme.general_terms_and_conditions
+            }
+            establishments={this.props.establishmentList}
+            enableMultiLocalization={this.props.theme.enable_multi_localization}
+            stripeReaders={this.props.stripeReaders || []}
+            companyId={this.props.companyId}
+            registerContractBackground={this.props.registerContractBackground}
+          />
+        )}
         <MemberArchiveDialog
           open={this.props.openArchiveDialog}
           member={this.props.memberToArchive}

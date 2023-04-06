@@ -10,20 +10,13 @@ import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import {
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
-
 import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-data/planned-invoice-status';
 import { getStripeRegion, getCompanyCountry } from '../../theme/selectors';
 import SubscriptionPayment from './SubscriptionPayment.component';
 
 import SubscriptionSchedule from './SubscriptionSchedule.component';
 import type { SubscriptionData } from '../types';
-import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
-import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 
 import type { Establishment } from '../../establishment/types';
 import type { StripeReader } from '#libs/terminal/types';
@@ -50,9 +43,6 @@ type Props = {
 type State = {
   loading: boolean,
 };
-
-const stripeRegion = getStripeRegion();
-const companyCountry = getCompanyCountry();
 
 const getScheduledInvoicesFromSubscriptionData = (
   subscriptionData: SubscriptionData,
@@ -89,6 +79,10 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
 
     const scheduledInvoices =
       getScheduledInvoicesFromSubscriptionData(subscriptionData);
+
+    const stripeRegion = getStripeRegion();
+    const companyCountry = getCompanyCountry();
+
     return (
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
@@ -111,47 +105,39 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
                 )}
               </Typography>
             )}
-            <SubscriptionPayment
-              onSubmit={this.props.onSubmit}
-              onCancel={this.props.onCancel}
-              processing={this.props.processing}
-              onlinePaymentEnabled={this.props.onlinePaymentEnabled}
-              member={this.props.member}
-              enabledPaymentMethods={
-                this.props.companyTheme.currency.toLowerCase() === 'eur'
-                  ? [
-                      BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-                      BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-                      BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-                    ]
-                  : [
-                      BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-                      BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
-                      ...(stripeRegion === 'NorthAmerica' &&
-                      TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(
-                        companyCountry,
-                      )
-                        ? [PAYMENT_STRIPE_TERMINAL_FAKE]
-                        : []),
-                    ]
-              }
-              requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-              savedPaymentMethodList={this.props.savedPaymentMethodList}
-              refreshSavedPaymentMethodList={
-                this.props.refreshSavedPaymentMethodList
-              }
-              enableMultiLocalization={this.props.enableMultiLocalization}
-              forceEstablishmentSelection
-              withEstablishment
-              establishments={this.props.establishments}
-              stripeReaders={this.props.stripeReaders}
-              subscriptionData={this.props.subscriptionData}
-              pastInvoices={moment(
-                subscriptionData.first_billing_timestamp * 1000,
-              ).isBefore(moment().startOf('day'))}
-              date={moment(subscriptionData.first_billing_timestamp * 1000)}
-              companyId={this.props.companyId}
-            />
+            {!!companyCountry && !!stripeRegion && (
+              <SubscriptionPayment
+                onSubmit={this.props.onSubmit}
+                onCancel={this.props.onCancel}
+                processing={this.props.processing}
+                onlinePaymentEnabled={this.props.onlinePaymentEnabled}
+                member={this.props.member}
+                enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
+                  {
+                    currency: this.props.companyTheme.currency,
+                    companyCountry,
+                    withCredit: true,
+                    stripeRegion,
+                  },
+                )}
+                requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+                savedPaymentMethodList={this.props.savedPaymentMethodList}
+                refreshSavedPaymentMethodList={
+                  this.props.refreshSavedPaymentMethodList
+                }
+                enableMultiLocalization={this.props.enableMultiLocalization}
+                forceEstablishmentSelection
+                withEstablishment
+                establishments={this.props.establishments}
+                stripeReaders={this.props.stripeReaders}
+                subscriptionData={this.props.subscriptionData}
+                pastInvoices={moment(
+                  subscriptionData.first_billing_timestamp * 1000,
+                ).isBefore(moment().startOf('day'))}
+                date={moment(subscriptionData.first_billing_timestamp * 1000)}
+                companyId={this.props.companyId}
+              />
+            )}
           </Paper>
         </Grid>
       </Grid>

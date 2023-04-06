@@ -1,11 +1,17 @@
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
   PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
-  PAYMENT_ENGINE_STRIPE,
-  PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
 } from '@bsport/common/lib/master-data/payment-group';
+import {
+  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import { TFunction } from 'i18next';
+import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
 
 export const fromPaymentGroupIdentifierToPaymentMethodIdentifier = (
   paymentGroupIdentifier: number,
@@ -17,6 +23,8 @@ export const fromPaymentGroupIdentifierToPaymentMethodIdentifier = (
       return 'sepa_debit';
     case PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT:
       return 'debt';
+    case PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT:
+      return 'bacs_debit';
     default:
       return '';
   }
@@ -26,47 +34,6 @@ export const fromPaymentGroupIdentifierToPaymentMethodIdentifier = (
 // The value 99 isn't sent to the backend, we replace this value with the appropriate one (CB)
 // before calling the api
 export const PAYMENT_STRIPE_TERMINAL_FAKE = 99;
-
-export const MATCHING_PAYMENT_GROUP_METHOD: { [key: string]: number } = {
-  '0': 1,
-  '1': 0,
-  '2': 13,
-  '3': 2,
-  '4': 5,
-  '5': 6,
-  // PAYMENT_GROUP_METHOD_IDENTIFIER_DISPUTE: 12,
-  '7': 7,
-  '8': 11,
-  '9': 20,
-  '10': 40,
-  '11': 30,
-  // PAYMENT_GROUP_METHOD_IDENTIFIER_EPS: 50,
-  // PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY: 60,
-  '14': 9,
-  '15': 4,
-};
-
-export const getPaymentEngineAvailableList = (
-  availablePaymentMethodList: Array<number>,
-) => {
-  const theoricalEngineAvailable = Object.entries(
-    PAYMENT_GROUP_METHOD_BY_ENGINE,
-  )
-    .map(([engine, all_pm]) =>
-      all_pm.filter((pm) =>
-        availablePaymentMethodList.includes(
-          MATCHING_PAYMENT_GROUP_METHOD[`${pm}`],
-        ),
-      ).length
-        ? engine
-        : null,
-    )
-    .filter((k) => !!k);
-  if (!theoricalEngineAvailable.length) {
-    return [PAYMENT_ENGINE_STRIPE];
-  }
-  return theoricalEngineAvailable;
-};
 
 export const getPaymentMethodsConcatenatedString = (
   paymentMethodIdentifierList: number[],
@@ -86,3 +53,87 @@ export const getPaymentMethodsConcatenatedString = (
       string_payment_methods[0],
     );
 };
+
+interface GetBackofficeEnabledPaymentMethodsProps {
+  currency: string;
+  companyCountry: string;
+  withCredit?: boolean;
+  withTerminal?: boolean;
+  stripeRegion?: string;
+}
+
+export const getBackofficeBillingPlanEnabledPaymentMethods = ({
+  currency,
+  companyCountry,
+  withCredit,
+  withTerminal,
+  stripeRegion,
+}: GetBackofficeEnabledPaymentMethodsProps) => {
+  if (!companyCountry || !stripeRegion)
+    throw new Error('Company country or Stripe region not provided');
+  return [
+    BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+    ...(currency.toLowerCase() === 'eur'
+      ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
+      : []),
+    ...(stripeRegion === 'Europe' && companyCountry === 'GB'
+      ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT]
+      : []),
+    ...(withCredit ? [BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT] : []),
+    ...(withTerminal &&
+    stripeRegion === 'NorthAmerica' &&
+    TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
+      ? [PAYMENT_STRIPE_TERMINAL_FAKE]
+      : []),
+  ];
+};
+
+export const getBackofficeEnabledPaymentGroupMethods = ({
+  currency,
+  companyCountry,
+  withCredit,
+  withTerminal,
+  stripeRegion,
+}: GetBackofficeEnabledPaymentMethodsProps) => {
+  if (!companyCountry || !stripeRegion)
+    throw new Error('Company country or Stripe region not provided');
+  return [
+    PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+    ...(currency.toLowerCase() === 'eur'
+      ? [PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA]
+      : []),
+    ...(stripeRegion === 'Europe' && companyCountry === 'GB'
+      ? [PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT]
+      : []),
+    ...(withCredit ? [PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT] : []),
+    ...(withTerminal &&
+    stripeRegion === 'NorthAmerica' &&
+    TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
+      ? [PAYMENT_STRIPE_TERMINAL_FAKE]
+      : []),
+  ];
+};
+
+interface GetMarketplaceEnabledPaymentMethodsProps {
+  paymentMethodAvailableSubscription?: number[];
+}
+
+export const getMarketplaceEnabledPaymentMethods = ({
+  paymentMethodAvailableSubscription,
+}: GetMarketplaceEnabledPaymentMethodsProps) => [
+  ...(paymentMethodAvailableSubscription?.includes(
+    PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  )
+    ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]
+    : []),
+  ...(paymentMethodAvailableSubscription?.includes(
+    PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+  )
+    ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
+    : []),
+  ...(paymentMethodAvailableSubscription?.includes(
+    PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+  )
+    ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT]
+    : []),
+];

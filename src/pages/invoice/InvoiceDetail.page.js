@@ -10,12 +10,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import { push as pushRouter } from 'connected-react-router';
-import {
-  PAYMENT_INTENT_TYPE_INVOICE,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
-} from '@bsport/common/lib/master-data/payment-group';
+import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group';
 import { INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER } from '@bsport/common/lib/master-data/invoice-type';
 import withTitle from '#hocs/with-title.hoc';
 import {
@@ -106,8 +101,7 @@ import type { Payment, PaymentMethod } from '../../libs/payment/types';
 import type { OptionCallback } from '../../state/types';
 import type { ConsumerGiftcard, Giftcard } from '#../../ibs/giftcard/types';
 import type { PlannedPaymentEvent } from '../../libs/invoice/types';
-import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
-import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
+import { getBackofficeEnabledPaymentGroupMethods } from '#libs/payment/utils';
 import type { StripeReader } from '../../libs/terminal/types';
 import { withDefaultBillingEstablishment } from '#libs/member/selectors';
 import { getInvoiceIdentifier } from '#libs/invoice/utils';
@@ -115,8 +109,6 @@ import { getInvoiceIdentifier } from '#libs/invoice/utils';
 import RevalidateSEPAMandateDialog from '#libs/payment/components/payment-backend-stripe/RevalidateSEPAMandateDialog.component';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
-const stripeRegion = getStripeRegion();
-const companyCountry = getCompanyCountry();
 
 type Props = {
   fetchCompanyUserRoles: () => void,
@@ -507,6 +499,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
   };
 
   render() {
+    const stripeRegion = getStripeRegion();
+    const companyCountry = getCompanyCountry();
+
     return (
       <>
         <div className={this.props.classes.container}>
@@ -591,17 +586,15 @@ export class InvoiceDetail extends React.Component<Props, State> {
                   this.props.invoice.amount_due_cts -
                   this.props.invoice.amount_paid_cts
                 }
-                enabledPaymentGroupMethodIdentifier={[
-                  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-                  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-                  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
-                  ...(stripeRegion === 'NorthAmerica' &&
-                  TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(
+                enabledPaymentGroupMethodIdentifier={getBackofficeEnabledPaymentGroupMethods(
+                  {
+                    currency: this.props.companyTheme.currency,
                     companyCountry,
-                  )
-                    ? [PAYMENT_STRIPE_TERMINAL_FAKE]
-                    : []),
-                ]}
+                    withCredit: true,
+                    withTerminal: true,
+                    stripeRegion,
+                  },
+                )}
                 availablePaymentMethodList={
                   this.props.payment_method_available_manager
                 }
@@ -660,52 +653,55 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 companyId={this.props.companyId}
               />
             )}
-            {this.props.openPlannedPaymentMethodDialog && (
-              <PlannedPaymentEventMethodSwitcherDialog
-                open={this.props.openPlannedPaymentMethodDialog}
-                selectedPPE={this.props.selectedPlannedPaymentEvent}
-                enabledPaymentMethods={[
-                  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-                  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-                  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
-                  ...(stripeRegion === 'NorthAmerica'
-                    ? [PAYMENT_STRIPE_TERMINAL_FAKE]
-                    : []),
-                ]}
-                availablePaymentMethodList={
-                  this.props.payment_method_available_manager
-                }
-                requestSetupIntentSecret={this.requestSetupIntentSecret}
-                savedPaymentMethodList={this.props.savedPaymentMethodList}
-                refreshSavedPaymentMethodList={this.fetchPaymentMethodList}
-                detachPaymentMethodLoading={
-                  this.props.detachPaymentMethodLoading
-                }
-                detachPaymentMethod={this.props.detachPaymentMethod}
-                sepaDefaultName={this.props.invoice.member.name}
-                sepaDefaultEmail={this.props.invoice.member.email}
-                snackbarSuccessMsg={this.props.snackbarSuccess}
-                snackbarErrorMsg={this.props.snackbarError}
-                companyId={this.props.companyId}
-                memberId={this.props.invoice.member.id}
-                registerNow={this.props.registerNow}
-                processing={this.props.plannedPaymentDialogProcessing}
-                dispApplyForAll={
-                  (this.props.plannedPaymentEventList || []).length > 1
-                }
-                plannedPaymentEventLoading={
-                  this.props.plannedPaymentEventLoading
-                }
-                onSubmitChangePaymentMethodAndRegister={
-                  this.onSubmitChangePaymentMethodAndRegister
-                }
-                onClose={() => {
-                  this.props.setOpenPlannedPaymentMethodDialog(false);
-                  this.props.setRegisterNow(false);
-                }}
-                stripeReaders={this.props.stripeReaders || []}
-              />
-            )}
+            {this.props.openPlannedPaymentMethodDialog &&
+              !!stripeRegion &&
+              !!companyCountry && (
+                <PlannedPaymentEventMethodSwitcherDialog
+                  open={this.props.openPlannedPaymentMethodDialog}
+                  selectedPPE={this.props.selectedPlannedPaymentEvent}
+                  enabledPaymentMethods={getBackofficeEnabledPaymentGroupMethods(
+                    {
+                      currency: this.props.companyTheme.currency,
+                      companyCountry,
+                      withCredit: true,
+                      withTerminal: true,
+                      stripeRegion,
+                    },
+                  )}
+                  availablePaymentMethodList={
+                    this.props.payment_method_available_manager
+                  }
+                  requestSetupIntentSecret={this.requestSetupIntentSecret}
+                  savedPaymentMethodList={this.props.savedPaymentMethodList}
+                  refreshSavedPaymentMethodList={this.fetchPaymentMethodList}
+                  detachPaymentMethodLoading={
+                    this.props.detachPaymentMethodLoading
+                  }
+                  detachPaymentMethod={this.props.detachPaymentMethod}
+                  sepaDefaultName={this.props.invoice.member.name}
+                  sepaDefaultEmail={this.props.invoice.member.email}
+                  snackbarSuccessMsg={this.props.snackbarSuccess}
+                  snackbarErrorMsg={this.props.snackbarError}
+                  companyId={this.props.companyId}
+                  memberId={this.props.invoice.member.id}
+                  registerNow={this.props.registerNow}
+                  processing={this.props.plannedPaymentDialogProcessing}
+                  dispApplyForAll={
+                    (this.props.plannedPaymentEventList || []).length > 1
+                  }
+                  plannedPaymentEventLoading={
+                    this.props.plannedPaymentEventLoading
+                  }
+                  onSubmitChangePaymentMethodAndRegister={
+                    this.onSubmitChangePaymentMethodAndRegister
+                  }
+                  onClose={() => {
+                    this.props.setOpenPlannedPaymentMethodDialog(false);
+                    this.props.setRegisterNow(false);
+                  }}
+                  stripeReaders={this.props.stripeReaders || []}
+                />
+              )}
           </Grid>
           <InvoiceReverterDialog
             invoice={this.props.invoice}

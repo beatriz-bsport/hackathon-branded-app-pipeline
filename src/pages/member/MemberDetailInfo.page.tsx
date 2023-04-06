@@ -8,10 +8,6 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
 
-import {
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import TaskList from '../../libs/reminder/components/TaskList.component';
@@ -128,6 +124,7 @@ import type { ConsumerGiftcard } from '#libs/giftcard/types';
 import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
 import PaymentModal from '#libs/payment/components/PaymentModal.component';
 import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
+import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 
 type Props = RouterParamsProps &
   ConnectProps &
@@ -145,9 +142,6 @@ type State = {
   fileToDelete: number;
   paymentMethodType: string;
 };
-
-const stripeRegion = getStripeRegion();
-const companyCountry = getCompanyCountry();
 
 export class MemberDetailPage extends React.Component<Props> {
   state: State = {
@@ -342,6 +336,9 @@ export class MemberDetailPage extends React.Component<Props> {
     this.props.mergeInto(this.props.id, id);
 
   render() {
+    const stripeRegion = getStripeRegion();
+    const companyCountry = getCompanyCountry();
+
     const { memberLoading, member } = this.props;
 
     const fileUploaderOptions = {
@@ -452,7 +449,7 @@ export class MemberDetailPage extends React.Component<Props> {
             companyId={this.props.companyTheme.company}
           />
         </Grid>
-        {this.props.member?.id && (
+        {this.props.member?.id && !!companyCountry && !!stripeRegion && (
           <PaymentModal isOpen={this.props.isAddPaymentMethodDialogOpen}>
             <AddPaymentMethod
               onCancel={this.handleOpenAddPaymentMethodDialog}
@@ -461,12 +458,13 @@ export class MemberDetailPage extends React.Component<Props> {
                 this.props.fetchMemberPaymentMethod
               }
               paymentMethodType={this.state.paymentMethodType}
-              enabledPaymentMethods={[
-                BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-                ...(this.props.companyTheme.currency === 'eur'
-                  ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
-                  : []),
-              ]}
+              enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
+                {
+                  currency: this.props.companyTheme.currency,
+                  companyCountry,
+                  stripeRegion,
+                },
+              )}
               onChange={this.changePaymentMethodType}
               disabled={false}
               sepaDefaultName={this.props.member ? this.props.member.name : ''}

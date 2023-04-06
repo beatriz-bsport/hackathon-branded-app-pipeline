@@ -8,38 +8,36 @@ import TextInput from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-
 import { verifyPriceBasket as verifyPriceBasketAPI } from '../../api';
 
-export const PaymentStripeGiropay = (props: {
-  clientSecret: string,
-  onCancel: () => void,
-  forceDisabled?: boolean,
-  userDefaultName?: string,
-  basketId?: string,
-  basketTotalPriceCts?: number,
-  checkItemsBasket: (basketId: string) => void,
+export const PaymentStripeEPS = (props: {
+  clientSecret: string;
+  onCancel: () => void;
+  forceDisabled?: boolean;
+  basketId?: string;
+  basketTotalPriceCts?: number;
+  checkItemsBasket: (basketId: string) => boolean;
 }) => {
   const stripe = useStripe();
   const elements = useElements();
 
   const [processing, setProcessing] = React.useState(false);
-  const [name, setName] = React.useState(props.userDefaultName || '');
+  const [name, setName] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState(null);
 
   const { t } = useTranslation(['invoice']);
   const classes = useStyles();
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     event.preventDefault();
-
     if (!stripe || !elements) {
       // Stripe has not yet loaded.
       // Make sure to disable form submission until Stripe has loaded.
       return;
     }
+
     setProcessing(true);
     setErrorMessage(null);
 
@@ -64,13 +62,19 @@ export const PaymentStripeGiropay = (props: {
       }
     }
 
-    const { error } = await stripe.confirmGiropayPayment(props.clientSecret, {
+    // For brevity, this example is using uncontrolled components for
+    // the accountholder's name. In a real world app you will
+    // probably want to use controlled components.
+    // https://reactjs.org/docs/uncontrolled-components.html
+    // https://reactjs.org/docs/forms.html#controlled-components
+
+    const { error } = await stripe.confirmEpsPayment(props.clientSecret, {
       payment_method: {
         billing_details: {
           name,
         },
       },
-      return_url: window.location.href,
+      return_url: `${window.location.href}?check_payment_intent=true`,
     });
 
     if (error) {
@@ -132,4 +136,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default PaymentStripeGiropay;
+export default PaymentStripeEPS;

@@ -20,35 +20,33 @@ import {
 import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
 
 type Props = {
-  memberId: number,
-  companyId: number,
-  onSuccess: (callback: () => void) => void,
-  onError: (callback: () => void) => void,
-  setError: (err: ?boolean) => void,
-  setProcessing: (processing: boolean) => void,
-  processing: boolean,
-  onCancel: () => void,
-  clientSecret: string,
-  error: ?Error,
-  termsAndConditionsAccepted: boolean,
-  AcceptTermsAndConditionsComponent: React.Component,
-  forceDisabled?: boolean,
-  detachPaymentMethodLoading: boolean,
-  detachPaymentMethod: (pm_id: string) => void,
-  loading?: boolean,
-  snackbarErrorMsg: (msg: string) => void,
-  snackbarSuccessMsg: (msg: string) => void,
-  sepaDefaultName?: string,
-  sepaDefaultEmail?: string,
-  basketId?: string,
-  basketTotalPriceCts?: number,
-  allowConsumerToUseInternalAccount?: boolean,
-  useInternalAccount?: (amount: number) => void,
-  applyBalanceToInvoice?: () => void,
-  creditAccountBalance?: number | null,
-  applyBalanceLoading?: boolean,
-  forceSave?: boolean,
-  checkItemsBasket: (basketId: string) => void,
+  memberId: number;
+  companyId: number;
+  onSuccess: (callback: () => void) => void;
+  onError: () => void;
+  setProcessing: (processing: boolean) => void;
+  processing: boolean;
+  onCancel: () => void;
+  clientSecret: string;
+  termsAndConditionsAccepted: boolean;
+  AcceptTermsAndConditionsComponent: React.Component;
+  forceDisabled?: boolean;
+  detachPaymentMethodLoading: boolean;
+  detachPaymentMethod: (pm_id: string) => void;
+  loading?: boolean;
+  snackbarErrorMsg: (msg: string) => void;
+  snackbarSuccessMsg: (msg: string) => void;
+  sepaDefaultName?: string;
+  sepaDefaultEmail?: string;
+  basketId?: string;
+  basketTotalPriceCts?: number;
+  allowConsumerToUseInternalAccount?: boolean;
+  useInternalAccount?: (amount: number) => void;
+  applyBalanceToInvoice?: () => void;
+  creditAccountBalance?: number | null;
+  applyBalanceLoading?: boolean;
+  forceSave?: boolean;
+  checkItemsBasket: (basketId: string) => boolean;
 };
 
 const CARD_ELEMENT_OPTIONS = {
@@ -94,6 +92,7 @@ export const StripePaymentCard = (props: Props) => {
   const stripe = useStripe();
   const elements = useElements();
 
+  const [error, setError] = React.useState(null);
   const [saveForLater, setSaveForLater] = React.useState(false);
   const [paymentMethodList, setPaymentMethodList] = React.useState([]);
   const [paymentMethodSelected, setPaymentMethodSelected] =
@@ -120,7 +119,7 @@ export const StripePaymentCard = (props: Props) => {
     }
   }, [addPaymentMethod]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     event.preventDefault();
@@ -165,12 +164,12 @@ export const StripePaymentCard = (props: Props) => {
 
       if (result.error) {
         // Show error to your customer (e.g., insufficient funds)
-        props.setError(result.error);
+        setError(result.error);
         props.setProcessing(false);
         if (props.onError) props.onError();
       } else {
         // The payment has been processed!
-        props.setError(null);
+        setError(null);
         if (result.paymentIntent.status === 'succeeded') {
           // Show a success message to your customer
           // There's a risk of the customer closing the window before callback
@@ -200,11 +199,7 @@ export const StripePaymentCard = (props: Props) => {
       </Typography>
       {addPaymentMethod && (
         <div>
-          <CardSection
-            saveForLater={saveForLater || props.forceSave}
-            setSaveForLater={setSaveForLater}
-            error={props.error}
-          />
+          <CardSection error={error} />
           <div className={classes.saveAndDisplay}>
             <div className={classes.row}>
               <Checkbox
@@ -231,11 +226,11 @@ export const StripePaymentCard = (props: Props) => {
           </div>
         </div>
       )}
-      {!addPaymentMethod && !!props.error && (
+      {!addPaymentMethod && !!error && (
         <div style={{ margin: 8 }}>
           <StripeErrorCode
-            errorCode={props.error.error_code}
-            declineCode={props.error.decline_code}
+            errorCode={error.error_code}
+            declineCode={error.decline_code}
           />
         </div>
       )}
@@ -244,7 +239,6 @@ export const StripePaymentCard = (props: Props) => {
           <PaymentMethodList
             savedPaymentMethodList={paymentMethodList}
             selectedSavedPaymentMethodId={paymentMethodSelected}
-            isExpandable={false}
             paymentMethodType="card"
             onSelect={(id: string) => defineSelectedPaymentMethod(id)}
             setHasDetached={setHasDetached}
@@ -269,8 +263,8 @@ export const StripePaymentCard = (props: Props) => {
           </ButtonBase>
         </div>
       )}
-      {props.allowConsumerToUseInternalAccount && !!props.creditAccountBalance && (
-        <div className={classes.couponCodeContainer}>
+      {props.allowConsumerToUseInternalAccount &&
+        !!props.creditAccountBalance && (
           <UseInternalAccountForm
             creditAccountBalance={props.creditAccountBalance}
             onBasketSubmit={props.useInternalAccount}
@@ -279,8 +273,7 @@ export const StripePaymentCard = (props: Props) => {
               props.loading || props.processing || props.applyBalanceLoading
             }
           />
-        </div>
-      )}
+        )}
       <div className={classes.conditionRow}>
         {props.AcceptTermsAndConditionsComponent}
       </div>

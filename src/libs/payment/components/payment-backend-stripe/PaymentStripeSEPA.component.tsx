@@ -14,6 +14,7 @@ import AddIcon from '@material-ui/icons/Add';
  */
 import { useStripe, useElements, IbanElement } from '@stripe/react-stripe-js';
 import Checkbox from '@material-ui/core/Checkbox';
+import { StripeError } from '@stripe/stripe-js';
 import StripeErrorCode from './StripeErrorCode.component';
 
 import PaymentMethodList from '../payment-method-list/PaymentMethodList.component';
@@ -51,18 +52,20 @@ const IBAN_ELEMENT_OPTIONS = {
   style: IBAN_STYLE,
 };
 
+interface BillingDetails {
+  name: string;
+  email: string;
+  address: { line1: string; country: string };
+}
+
 type PropsIban = {
-  withAddress: boolean | null,
-  disabled: boolean,
-  processing: boolean,
-  isActive: boolean,
-  error: ?Error,
-  billingDetails: {
-    name: string,
-    email: string,
-    address: { line1: string, country: string },
-  },
-  setBillingDetails: ({ name: string, email: string }) => void,
+  withAddress: boolean | null;
+  disabled: boolean;
+  processing: boolean;
+  isActive: boolean;
+  error?: StripeError;
+  billingDetails: BillingDetails;
+  setBillingDetails: (billingdetails: BillingDetails) => void;
 };
 
 const IbanForm = (props: PropsIban) => {
@@ -130,7 +133,7 @@ const IbanForm = (props: PropsIban) => {
             <IbanElement options={IBAN_ELEMENT_OPTIONS} />
             {!!props.error && (
               <StripeErrorCode
-                errorCode={props.error.error_code}
+                errorCode={props.error.code}
                 declineCode={props.error.decline_code}
               />
             )}
@@ -138,38 +141,40 @@ const IbanForm = (props: PropsIban) => {
         </div>
       </div>
       <div className={classes.mandate}>
-        <Typography color="textSecondary">{t('mandate.content')}</Typography>
+        <Typography color="textSecondary">
+          {t('mandate.contentIban')}
+        </Typography>
       </div>
     </div>
   );
 };
 
 type Props = {
-  onError: (Error) => void,
-  onSuccess: () => void,
-  memberId: ?number,
-  companyId: ?number,
-  clientSecret: string,
-  onCancel: () => void,
-  termsAndConditionsAccepted: boolean,
-  AcceptTermsAndConditionsComponent: React.Component,
-  forceDisabled?: boolean,
-  detachPaymentMethodLoading: boolean,
-  detachPaymentMethod: (pm_id: string) => void,
-  snackbarErrorMsg: (msg: string) => void,
-  snackbarSuccessMsg: (msg: string) => void,
-  userDefaultName?: string,
-  userDefaultEmail?: string,
-  loading?: boolean,
-  basketId?: string,
-  basketTotalPriceCts?: number,
-  allowConsumerToUseInternalAccount?: boolean,
-  useInternalAccount?: (amount: number) => void,
-  applyBalanceToInvoice?: () => void,
-  creditAccountBalance?: number | null,
-  applyBalanceLoading?: boolean,
-  forceSave?: boolean,
-  checkItemsBasket: (basketId: string, options?: OptionCallback) => void,
+  onError: () => void;
+  onSuccess: (callback: () => void) => void;
+  memberId?: number;
+  companyId?: number;
+  clientSecret: string;
+  onCancel: () => void;
+  termsAndConditionsAccepted: boolean;
+  AcceptTermsAndConditionsComponent: React.Component;
+  forceDisabled?: boolean;
+  detachPaymentMethodLoading: boolean;
+  detachPaymentMethod: (pm_id: string) => void;
+  snackbarErrorMsg: (msg: string) => void;
+  snackbarSuccessMsg: (msg: string) => void;
+  userDefaultName?: string;
+  userDefaultEmail?: string;
+  loading?: boolean;
+  basketId?: string;
+  basketTotalPriceCts?: number;
+  allowConsumerToUseInternalAccount?: boolean;
+  useInternalAccount?: (amount: number) => void;
+  applyBalanceToInvoice?: () => void;
+  creditAccountBalance?: number | null;
+  applyBalanceLoading?: boolean;
+  forceSave?: boolean;
+  checkItemsBasket: (basketId: string) => boolean;
 };
 
 export const PaymentStripeSEPA = (props: Props) => {
@@ -186,14 +191,14 @@ export const PaymentStripeSEPA = (props: Props) => {
   const [paymentMethodList, setPaymentMethodList] = React.useState([]);
   const [paymentMethodSelected, setPaymentMethodSelected] =
     React.useState(null);
-  const [detachPmId, setDetachPmId] = React.useState(null);
+  const [hasDetached, setHasDetached] = React.useState(null);
   const [addPaymentMethod, setAddPaymentMethod] = React.useState(true);
 
   React.useEffect(() => {
     fetchPaymentMethodListAPI({ member: props.memberId }).then((r) =>
       setPaymentMethodList(r.data.filter((pm) => pm.type === 'sepa_debit')),
     );
-  }, [props.memberId, props.clientSecret, detachPmId]);
+  }, [props.memberId, props.clientSecret, hasDetached]);
 
   React.useEffect(() => {
     setAddPaymentMethod(!paymentMethodList.length);
@@ -261,7 +266,7 @@ export const PaymentStripeSEPA = (props: Props) => {
     // eslint-disable-next-line
   }, [!!iban, setNeedBillingDetailAddress, setBillingDetails, billingDetails]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     if (!stripe || !elements) {
       // Stripe has not yet loaded.
       // Make sure to disable form submission until Stripe has loaded.
@@ -384,10 +389,9 @@ export const PaymentStripeSEPA = (props: Props) => {
           <PaymentMethodList
             savedPaymentMethodList={paymentMethodList}
             selectedSavedPaymentMethodId={paymentMethodSelected}
-            isExpandable={false}
             paymentMethodType="sepa_debit"
             onSelect={(id: string) => defineSelectedPaymentMethod(id)}
-            setDetachPmId={setDetachPmId}
+            setHasDetached={setHasDetached}
             memberId={props.memberId}
             detachPaymentMethodLoading={props.detachPaymentMethodLoading}
             detachPaymentMethod={props.detachPaymentMethod}
@@ -409,16 +413,15 @@ export const PaymentStripeSEPA = (props: Props) => {
           </ButtonBase>
         </div>
       )}
-      {props.allowConsumerToUseInternalAccount && !!props.creditAccountBalance && (
-        <div className={classes.couponCodeContainer}>
+      {props.allowConsumerToUseInternalAccount &&
+        !!props.creditAccountBalance && (
           <UseInternalAccountForm
             creditAccountBalance={props.creditAccountBalance}
             onBasketSubmit={props.useInternalAccount}
             onInvoiceSubmit={props.applyBalanceToInvoice}
             loading={props.loading || props.applyBalanceLoading}
           />
-        </div>
-      )}
+        )}
       <div className={classes.conditions}>
         {props.AcceptTermsAndConditionsComponent}
       </div>
@@ -494,6 +497,9 @@ const useStyles = makeStyles((theme) => ({
   saveAndDisplay: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  row: {
+    marginTop: theme.spacing(-1),
   },
   addButton: {
     flexDirection: 'row',

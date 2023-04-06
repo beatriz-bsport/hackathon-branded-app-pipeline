@@ -19,11 +19,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import {
-  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group';
 
 import { CircularProgress, makeStyles, Theme } from '@material-ui/core';
@@ -82,7 +83,18 @@ const PaymentMethodSwitcher = (props: {
         className={props.classes.paymentMethodRadio}
       />
     ) : null}
-
+    {(props.enabledPaymentMethods || []).includes(
+      PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+    ) ? (
+      <FormControlLabel
+        value="bacs_debit"
+        control={<Radio color="primary" />}
+        label={props.t('subscription:paymentMethod.bacs_debit')}
+        labelPlacement="bottom"
+        disabled={props.disabled}
+        className={props.classes.paymentMethodRadio}
+      />
+    ) : null}
     {(props.enabledPaymentMethods || []).includes(
       PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
     ) &&
@@ -225,6 +237,8 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
         return 'card';
       case PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA:
         return 'sepa_debit';
+      case PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT:
+        return 'bacs_debit';
       case PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT:
         return 'debt';
       default:
@@ -262,6 +276,9 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
     setPaymentMethodType(value);
     setSelectedSavedPaymentMethodId(null);
     switch (value) {
+      case 'bacs_debit':
+        setPaymentMethod(PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT);
+        break;
       case 'sepa_debit':
         setPaymentMethod(PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA);
         break;
@@ -363,7 +380,9 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
                   </Typography>
                 </div>
               )}
-              {['card', 'sepa_debit'].includes(paymentMethodType) && (
+              {['card', 'sepa_debit', 'bacs_debit'].includes(
+                paymentMethodType,
+              ) && (
                 <PaymentMethodList
                   showEmpty
                   memberId={props.memberId}
@@ -477,7 +496,9 @@ export const PlannedPaymentEventMethodSwitcherDialog = (props: Props) => {
                     disabled={
                       props.plannedPaymentEventLoading ||
                       paymentMethod === null ||
-                      (['sepa_debit', 'card'].includes(paymentMethodType) &&
+                      (['sepa_debit', 'card', 'bacs_debit'].includes(
+                        paymentMethodType,
+                      ) &&
                         !selectedSavedPaymentMethodId)
                     }
                     onClick={onSubmit}

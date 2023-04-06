@@ -9,6 +9,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
   PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
 } from '@bsport/common/lib/master-data/payment-group';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
@@ -17,7 +18,7 @@ import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell
 import { hasUpsell } from '#libs/platform-billing/utils';
 
 const PaymentMethodTypeSwitcher = (props: {
-  onChange: (string) => void;
+  onChange: (paymentMethodId: number) => void;
   payment_method: string;
   enabledPaymentGroupMethodIdentifier: Array<number>;
   disabled: boolean;
@@ -51,6 +52,18 @@ const PaymentMethodTypeSwitcher = (props: {
           value={PAYMENT_GROUP_METHOD_IDENTIFIER_CB}
           control={<Radio color="primary" />}
           label={t('paymentMethod.card')}
+          labelPlacement="bottom"
+          disabled={props.disabled || props.onlinePaymentEnabled === false}
+          className={classes.paymentMethodRadio}
+        />
+      )}
+      {(props.enabledPaymentGroupMethodIdentifier || []).includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+      ) && (
+        <FormControlLabel
+          value={PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT}
+          control={<Radio color="primary" />}
+          label={t('paymentMethod.bacs_debit')}
           labelPlacement="bottom"
           disabled={props.disabled || props.onlinePaymentEnabled === false}
           className={classes.paymentMethodRadio}

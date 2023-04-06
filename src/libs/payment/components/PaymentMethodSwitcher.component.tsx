@@ -5,11 +5,14 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 import {
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group';
 import { getCurrencyCode } from '../../theme/selectors';
@@ -25,12 +28,18 @@ type OwnProps = {
   enabledPaymentMethods: Array<number>;
   enabledPaymentGroupMethodIdentifier?: Array<number>;
   disabled: boolean;
+  onlinePaymentEnabled?: boolean;
 };
 type Props = OwnProps;
 export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
   const { t } = useTranslation('subscription');
   const classes = useStyles();
-  if (!(props.enabledPaymentMethods?.length > 1)) {
+  if (
+    !(
+      props.enabledPaymentMethods?.length > 1 ||
+      props.enabledPaymentGroupMethodIdentifier?.length > 1
+    )
+  ) {
     return null;
   }
 
@@ -58,6 +67,21 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
           className={classes.paymentMethodRadio}
         />
       ) : null}
+      {(props.enabledPaymentMethods || []).includes(
+        BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
+      ) ||
+      (props.enabledPaymentGroupMethodIdentifier || []).includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+      ) ? (
+        <FormControlLabel
+          value="bacs_debit"
+          control={<Radio color="primary" />}
+          label={t('paymentMethod.bacs_debit')}
+          labelPlacement="bottom"
+          disabled={props.disabled || props.onlinePaymentEnabled === false}
+          className={classes.paymentMethodRadio}
+        />
+      ) : null}
       {((props.enabledPaymentMethods || []).includes(
         BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
       ) ||
@@ -76,6 +100,9 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
       ) : null}
       {(props.enabledPaymentMethods || []).includes(
         BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+      ) ||
+      (props.enabledPaymentGroupMethodIdentifier || []).includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
       ) ? (
         <FormControlLabel
           value="bsport:credit"
@@ -86,10 +113,12 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
           className={classes.paymentMethodRadio}
         />
       ) : null}
-
-      {(props.enabledPaymentMethods || []).includes(
+      {((props.enabledPaymentMethods || []).includes(
         PAYMENT_STRIPE_TERMINAL_FAKE,
-      ) && (
+      ) ||
+        (props.enabledPaymentGroupMethodIdentifier || []).includes(
+          PAYMENT_STRIPE_TERMINAL_FAKE,
+        )) && (
         <FeatureListProvider>
           {(featureList: FeatureList) => (
             <FormControlLabel

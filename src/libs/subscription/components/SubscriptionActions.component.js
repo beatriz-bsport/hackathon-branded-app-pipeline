@@ -14,6 +14,7 @@ import EventBusyIcon from '@material-ui/icons/EventBusy';
 import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
 import RedButton from '../../../components/button/RedButton.component';
 
@@ -83,6 +84,7 @@ export const SubscriptionActions = (props: Props) => {
               [
                 BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
                 BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+                BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
               ].includes(props.subscription.payment_method)
             }
           >

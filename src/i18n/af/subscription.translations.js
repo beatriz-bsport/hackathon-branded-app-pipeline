@@ -611,6 +611,7 @@ exports.default = {
   paymentMethod: {
     sepa: 'Prélèvement SEPA',
     card: 'Carte',
+    bacs_debit: 'BACS Direct Debit',
     bsportCredit: 'Acompte client',
     credit: {
       explain:
@@ -620,8 +621,12 @@ exports.default = {
   mandate: {
     name: 'Nom et prénom du titulaire',
     email: 'Email du titulaire',
-    content:
+    contentIban:
       "En donnant votre IBAN et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Un remboursement doit être demandé dans les 8 semaines après le premier débit.",
+    contentBacsDebit:
+      "En donnant vos informations bancaires et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Vous pouvez à n'importe quel moment faire la demande auprès de votre banque pour annuler le mandat Direct Debit.",
+    accountNumber: 'Numéro de compte',
+    sortCode: 'Sort code',
   },
   associatedSubscriptions: 'Souscriptions associées à ce contrat',
   noAssociatedSubscription: 'Aucune souscription enregistrée',

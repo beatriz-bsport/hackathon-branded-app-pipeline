@@ -575,7 +575,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                   />
                 </div>
               )}
-              {['card', 'sepa_debit'].includes(paymentMethod) &&
+              {['card', 'sepa_debit', 'bacs_debit'].includes(paymentMethod) &&
                 !(this.props.onlinePaymentEnabled === false) && (
                   <PaymentMethodList
                     showEmpty

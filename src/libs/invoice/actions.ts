@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group';
@@ -888,6 +889,7 @@ export function changePaymentMethodAndRegisterPlannedPaymentEvent(
       const paymentBackendPaymentMethodId = [
         PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
         PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+        PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
       ].includes(paymentMethod)
         ? selectedPaymentMethodId
         : '';

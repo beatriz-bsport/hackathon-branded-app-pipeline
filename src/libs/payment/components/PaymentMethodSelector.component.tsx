@@ -60,7 +60,7 @@ export const PaymentMethodSelector = (props: Props) => {
           </Typography>
         </div>
       )}
-      {['card', 'sepa_debit'].includes(readableIdentifier) && (
+      {['card', 'sepa_debit', 'bacs_debit'].includes(readableIdentifier) && (
         <PaymentMethodList
           showEmpty
           isExpanded

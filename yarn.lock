@@ -2066,10 +2066,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bsport/common@^2.4.75":
-  version "2.4.75"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-2.4.75.tgz#3913672cc098d13655aa8c20714a38d04e5c8963"
-  integrity sha512-qw0o/jDxv70B+MBysO8z2n6Nq9yjbmdNx8pGNpahtakCLqwPaYDEk/HMcCgEKDwYFGE/Ak8w31a15UhenGyELA==
+"@bsport/common@^2.4.77":
+  version "2.4.77"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-2.4.77.tgz#7e6bec65e8ff88bc6774cfe9b97969ec784b0acc"
+  integrity sha512-zGjEfPttdlPy19rbO4tNmyuIPlMBcucvOMFLUbqHW13Sny3UN0aDxL4prAI9vcwKPEB509zP2FRmpPGTtYlzZA==
   dependencies:
     "@types/node" "^14.14.21"
     eslint-plugin-babel "^5.3.1"

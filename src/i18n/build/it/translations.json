@@ -3477,6 +3477,80 @@
             "coach": {
                 "calendar": "Calendario",
                 "general": "Profilo"
+            },
+            "member": {
+                "giftcard": "Carta regalo",
+                "giftcard_plural": "Carta regalo ({{number}})",
+                "paymentPack": "Pass",
+                "paymentPack_plural": "Pass ({{number}})",
+                "invoices": "Fatture e abbonamenti",
+                "invoices_plural": "Fatture e abbonamenti ({{number}})",
+                "contact": "Contatto",
+                "contact_plural": "Contatto ({{number}})",
+                "payment": "Fatturazione",
+                "payment_plural": "Fatturazione ({{number}})",
+                "privateBooking": "Appuntamento",
+                "privateBooking_plural": "Appuntamento ({{number}})",
+                "privateConsumerPass": "Pass appuntamento",
+                "privateConsumerPass_plural": "Pass appuntamento ({{number}})",
+                "vod": "VOD",
+                "vod_plural": "VOD ({{number}})",
+                "form": "Form",
+                "form_plural": "Form ({{number}})",
+                "basket": "Carrello",
+                "basket_plural": "Carrello ({{number}})",
+                "programs": "Programma",
+                "programs_plural": "Programmi ({{number}})",
+                "info": "Generale",
+                "info_plural": "Generale ({{number}})",
+                "relation": "Relazioni",
+                "relation_plural": "Relazioni ({{number}})",
+                "bookings": "Prenotazioni",
+                "bookings_plural": "Prenotazioni ({{number}})"
+            },
+            "smartList": {
+                "member": "Generale",
+                "campaign": "Campagne",
+                "statistic": "Statistica"
+            },
+            "widget": {
+                "create": "Generale",
+                "customize": "Personalizzazione"
+            },
+            "replacement": {
+                "management": "Gestione",
+                "disciplineGroup": "Gruppi disciplinari"
+            },
+            "franchise": {
+                "staff": {
+                    "staffAccount": "Account dello staff",
+                    "role": "Ruoli"
+                }
+            },
+            "customForm": {
+                "general": "Contenuto",
+                "campaign": "Campagna",
+                "statistics": "Statistiche",
+                "layout": "Personalizzazione"
+            },
+            "metaActivity": {
+                "general": "Generale",
+                "pack": "Pass compatibili",
+                "group": "Sessioni di gruppo"
+            },
+            "establishment": {
+                "general": "Generale",
+                "calendar": "Calendario",
+                "room": "Stabilimento",
+                "location": "Localizzazione"
+            },
+            "service": {
+                "general": "Generale",
+                "calendar": "Calendario"
+            },
+            "clockIn": {
+                "realTime": "Tempo reale",
+                "history": "Storico"
             }
         }
     },
@@ -7127,7 +7201,8 @@
                 "Annulla",
                 "Annulla",
                 "Cancella",
-                "Annullata"
+                "Annullata",
+                "Annullato"
             ]
         },
         "payment_method_with_credit_account": {
@@ -12033,7 +12108,8 @@
                 "week_plural": "Ogni {{ count }} settimane",
                 "month": "mese",
                 "month_plural": "Ogni {{ count }} mesi"
-            }
+            },
+            "chooseButton": "Scegliere"
         }
     },
     "event": {

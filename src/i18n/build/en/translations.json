@@ -9248,7 +9248,8 @@
                 "Cancelled",
                 "Canceled",
                 "Cancelled",
-                "Cancelled"
+                "Cancelled",
+                "Canceled"
             ]
         },
         "payment_method_with_credit_account": {
@@ -13562,8 +13563,8 @@
                 "relation_plural": "Relationships ({{number}})",
                 "info": "General",
                 "info_plural": "General ({{number}})",
-                "programs": "",
-                "programs_plural": ""
+                "programs": "Program",
+                "programs_plural": "Programs ({{number}})"
             },
             "clockIn": {
                 "history": "History",

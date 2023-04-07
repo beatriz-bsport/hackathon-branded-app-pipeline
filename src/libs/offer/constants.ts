@@ -29,3 +29,11 @@ export const OFFER_EDIT_FORM_FIELDS = [
   'whitelist_tags',
   'blacklist_tags',
 ];
+
+export const OFFER_BROADCAST_LINK_MISSING = 'BROADCAST_LINK_MISSING';
+
+export enum OFFER_RECURRENCE {
+  WEEKLY = 'week',
+  MONTHLY = 'month',
+  DAILY = 'day',
+}

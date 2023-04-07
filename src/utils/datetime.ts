@@ -170,3 +170,8 @@ export function formatWeekDay(weekDay: string, theme: Theme) {
       return weekDay;
   }
 }
+
+export function isAmPmTimeFormat() {
+  const time = moment().format('LT');
+  return time.includes('AM') || time.includes('PM');
+}

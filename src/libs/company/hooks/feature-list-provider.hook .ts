@@ -5,6 +5,7 @@ import Config from '../../../config';
 
 import { getCompanyFeatureState } from '../selectors';
 import type { State } from '../../../state/types';
+import { UPSELL_IDENTIFIER_ZOOM_APP } from '#libs/platform-billing/upsell-identifiers';
 
 // Hook to provide features enabled or not based on
 // company & environment settings
@@ -30,9 +31,16 @@ const useFeaturesProvider = () => {
     );
   }, [feature]);
 
+  const zoomAppEnabled = React.useMemo(() => {
+    return !!feature.data.upsell.find(
+      (f) => f.upsell_identifier === UPSELL_IDENTIFIER_ZOOM_APP,
+    );
+  }, [feature]);
+
   return {
     pushNotificationEnabled,
     smsEnabled,
+    zoomAppEnabled,
     featuresLoading: feature.loading,
   };
 };

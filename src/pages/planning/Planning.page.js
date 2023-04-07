@@ -221,7 +221,6 @@ const styles = (theme) => ({
     alignItems: 'center',
   },
   spaceTop: {
-    paddingTop: theme.spacing(2),
     height: '100%',
   },
 });
@@ -695,6 +694,20 @@ export class Planning extends PureComponent<Props, State> {
     );
   };
 
+  getIsWherebyIntegrationEnabled = () => {
+    return (
+      this.props.theme &&
+      this.props.theme.is_whereby_integration_enabled &&
+      this.props.theme.is_whereby_integration_allowed
+    );
+  };
+
+  getAllowGuestMaster = () => {
+    return (
+      this.props.theme.allow_guest_activatable && this.props.theme.allow_guest
+    );
+  };
+
   renderEditModal = () => {
     const {
       coaches,
@@ -730,11 +743,7 @@ export class Planning extends PureComponent<Props, State> {
             allEstablishments={allEstablishments}
             roomBlueprints={roomBlueprints}
             allRoomBlueprints={allRoomBlueprints}
-            is_whereby_integration_enabled={
-              this.props.theme &&
-              this.props.theme.is_whereby_integration_enabled &&
-              this.props.theme.is_whereby_integration_allowed
-            }
+            is_whereby_integration_enabled={this.getIsWherebyIntegrationEnabled()}
             loading={coachesLoading || establishmentsLoading}
             onConfirm={this.onConfirmModal}
             onCancel={this.onCancelModal}
@@ -754,10 +763,7 @@ export class Planning extends PureComponent<Props, State> {
             updateLevel={this.props.updateLevel}
             createLevel={this.props.createLevel}
             deleteLevel={this.props.deleteLevel}
-            allowGuestMaster={
-              this.props.theme.allow_guest_activatable &&
-              this.props.theme.allow_guest
-            }
+            allowGuestMaster={this.getAllowGuestMaster()}
             zoomAppDetail={this.props.zoomAppDetail}
           />
         </GenericResponsiveDrawer>
@@ -782,6 +788,7 @@ export class Planning extends PureComponent<Props, State> {
         title={this.props.t('translation:common.offers')}
         subtitle={this.props.t('translation:common.offerCreation')}
         withoutPadding
+        withoutHeaderContainer
       >
         <div className={classes.spaceTop}>
           <OfferFormWithActivity
@@ -795,11 +802,7 @@ export class Planning extends PureComponent<Props, State> {
             onSubmit={this.createOffers}
             onCancel={this.closeCreateOffersModal}
             processing={this.props.creatingOffers}
-            is_whereby_integration_enabled={
-              this.props.theme &&
-              this.props.theme.is_whereby_integration_enabled &&
-              this.props.theme.is_whereby_integration_allowed
-            }
+            is_whereby_integration_enabled={this.getIsWherebyIntegrationEnabled()}
             coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
             showPartnership={this.props.showPartnership}
             tagList={allTagsWithTagGroup}
@@ -809,11 +812,10 @@ export class Planning extends PureComponent<Props, State> {
             updateLevel={this.props.updateLevel}
             createLevel={this.props.createLevel}
             deleteLevel={this.props.deleteLevel}
-            allowGuestMaster={
-              this.props.theme.allow_guest_activatable &&
-              this.props.theme.allow_guest
-            }
+            allowGuestMaster={this.getAllowGuestMaster()}
             zoomAppDetail={this.props.zoomAppDetail}
+            coachesLoading={this.props.coachesLoading}
+            establishmentsLoading={this.props.establishmentsLoading}
           />
         </div>
       </GenericResponsiveDrawer>

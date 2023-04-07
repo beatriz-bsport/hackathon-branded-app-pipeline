@@ -192,6 +192,7 @@ export class MetaActivityCreateDrawer extends Component<Props> {
 
   renderOfferStep = () => (
     <OfferForm
+      hideBanner
       onSubmit={
         this.props.isWorkshop
           ? this.handleCreateWorkshopOffers
@@ -287,6 +288,7 @@ export class MetaActivityCreateDrawer extends Component<Props> {
     return (
       <GenericResponsiveDrawer
         open
+        withoutPadding
         onClose={() => {
           this.props.fetchAllActivities();
           this.props.onClose();

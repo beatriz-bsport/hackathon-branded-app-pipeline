@@ -1,15 +1,17 @@
 // @ts-nocheck
 // @flow
-import React from 'react';
+import React, { useState } from 'react';
 
-import Button from '@material-ui/core/Button';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import { useTranslation } from 'react-i18next';
+import Button from '@material-ui/core/Button';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
-import OfferForm from './OfferForm.component';
-import MetaActivitySelectorWithCard from '../meta-activity/components/MetaActivitySelectorWithCard.component';
-import { RoomBlueprint } from '../spot-scheduling/types';
+import { Moment } from 'moment-timezone';
+
+import { OfferCreate } from '#libs/offer/types';
+import OfferForm from '#libs/offer/OfferForm.component';
+import MetaActivitySelectorWithCard from '#libs/meta-activity/components/MetaActivitySelectorWithCard.component';
+import { RoomBlueprint } from '#libs/spot-scheduling/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
@@ -18,36 +20,40 @@ import type { Tag, TagGroup } from '#libs/tag/types';
 import { Level, LevelFilterSet } from '#libs/level/types';
 import { OptionCallback, OptionPaginatedCallback } from '../../state/types';
 import { ZoomApp } from '#libs/zoom-app/types';
-
-const STEP_META_ACTIVITY_CHOSER = 0;
-const STEP_OFFER_FORM = 1;
+import OfferFormBanner from '#libs/offer/form/OfferFormBanner.component';
 
 type Props = {
-  metaActivities: Array<MetaActivity>;
-  availableEstablishments: Array<Establishment>;
-  roomBlueprints: Array<RoomBlueprint>;
-  coaches: Array<Coach>;
+  metaActivities: MetaActivity[];
+  availableEstablishments: Establishment[];
+  roomBlueprints: RoomBlueprint[];
+  coaches: Coach[];
   onCancel: () => void;
   processing: boolean;
   activitiesLoading: boolean;
-  onSubmit: (data: any) => void;
-  selectedDate: Object;
+  onSubmit: (metaActivityId: number, data: OfferCreate) => void;
+  selectedDate: Moment;
   is_whereby_integration_enabled: boolean;
   timezone: string;
-  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
+  coachPaymentRulesByKind: { [kind: number]: CoachPaymentRule[] };
   showPartnership: boolean;
-  tagList: Array<Tag<TagGroup>>;
+  tagList: Tag<TagGroup>[];
   activeCustomLevels: Level[];
   allCustomLevels: Level[];
   fetchLevelList: (
     params: LevelFilterSet,
     options?: OptionPaginatedCallback<Level>,
   ) => void;
-  updateLevel: (id: number, data: Level, options: OptionCallback) => void;
+  updateLevel: (
+    id: number,
+    data: Level,
+    options: OptionCallback<Level>,
+  ) => void;
   createLevel: (data: Level, options?: OptionCallback<Level>) => void;
   deleteLevel: (id: number, options?: OptionCallback) => void;
   allowGuestMaster: boolean;
   zoomAppDetail: ZoomApp;
+  coachesLoading: boolean;
+  establishmentsLoading: boolean;
 };
 
 export const OfferFormWithActivity: React.FC<Props> = ({
@@ -73,82 +79,81 @@ export const OfferFormWithActivity: React.FC<Props> = ({
   deleteLevel,
   allowGuestMaster,
   zoomAppDetail,
+  coachesLoading,
+  establishmentsLoading,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation(['metaActivity', 'translation']);
-  const [step, setStep] = React.useState<0 | 1>(STEP_META_ACTIVITY_CHOSER);
-  const [selectedMetaActivity, setSelectedMetaActivty] = React.useState(null);
+  const { t } = useTranslation(['metaActivity', 'translation', 'common']);
+  const [selectedMetaActivity, setSelectedMetaActivty] =
+    useState<MetaActivity | null>(null);
+
   const handleSelectActivity = (activity: MetaActivity) =>
     setSelectedMetaActivty(activity);
 
-  React.useEffect(() => {
-    if (selectedMetaActivity) {
-      setStep(STEP_OFFER_FORM);
-    }
-    setStep(STEP_META_ACTIVITY_CHOSER);
-  }, [setStep, selectedMetaActivity]);
+  const handleSubmit = (data: OfferCreate) => {
+    onSubmit(selectedMetaActivity.id, data);
+  };
 
-  const handleSubmit = (data) => onSubmit(selectedMetaActivity.id, data);
+  const handleGoBack = () => setSelectedMetaActivty(null);
 
-  if (step === STEP_META_ACTIVITY_CHOSER || selectedMetaActivity === null) {
+  if (!selectedMetaActivity) {
     return (
-      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-        {activitiesLoading ? (
-          <LinearProgress />
-        ) : (
-          <div style={{ flex: 1 }}>
-            <MetaActivitySelectorWithCard
-              metaActivities={metaActivities}
-              placeholder={t('metaActivity:search')}
-              value={selectedMetaActivity}
-              onChange={handleSelectActivity}
-            />
-          </div>
-        )}
+      <div className={classes.container}>
+        <OfferFormBanner onCancel={onCancel} />
+
+        <MetaActivitySelectorWithCard
+          metaActivities={metaActivities}
+          placeholder={t('metaActivity:search')}
+          onChange={handleSelectActivity}
+          isLoading={activitiesLoading}
+        />
+
         <div className={classes.buttonContainer}>
           <Button onClick={onCancel} className={classes.button}>
             {t('translation:common.cancel')}
-          </Button>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() => setStep(STEP_OFFER_FORM)}
-            className={classes.button}
-          >
-            {t('translation:common.confirm')}
           </Button>
         </div>
       </div>
     );
   }
+
   return (
     <OfferForm
-      selectedDate={selectedDate}
-      coaches={coaches}
-      timezone={timezone}
-      availableEstablishments={availableEstablishments}
-      roomBlueprints={roomBlueprints}
       metaActivity={selectedMetaActivity}
-      onSubmit={handleSubmit}
-      onCancel={onCancel}
-      processing={processing}
-      is_whereby_integration_enabled={is_whereby_integration_enabled}
-      coachPaymentRulesByKind={coachPaymentRulesByKind}
-      editableCoachPaymentRule
-      showPartnership={showPartnership}
-      tagList={tagList}
+      selectedDate={selectedDate}
       activeCustomLevels={activeCustomLevels}
       allCustomLevels={allCustomLevels}
+      availableEstablishments={availableEstablishments}
+      zoomAppDetail={zoomAppDetail}
+      timezone={timezone}
+      showPartnership={showPartnership}
+      allowGuestMaster={allowGuestMaster}
+      coaches={coaches}
+      roomBlueprints={roomBlueprints}
+      isWherebyIntegrationEnabled={is_whereby_integration_enabled}
+      processing={processing}
+      coachPaymentRulesByKind={coachPaymentRulesByKind}
+      tagList={tagList}
+      isLoading={coachesLoading || establishmentsLoading}
+      editableCoachPaymentRule
       fetchLevelList={fetchLevelList}
       updateLevel={updateLevel}
       createLevel={createLevel}
       deleteLevel={deleteLevel}
-      allowGuestMaster={allowGuestMaster}
-      zoomAppDetail={zoomAppDetail}
+      onBannerGoBack={handleGoBack}
+      onCancelText={t('common:back')}
+      onCancel={handleGoBack}
+      onSubmit={handleSubmit}
     />
   );
 };
+
 const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+  },
   title: {
     paddingBottom: theme.spacing(2),
   },

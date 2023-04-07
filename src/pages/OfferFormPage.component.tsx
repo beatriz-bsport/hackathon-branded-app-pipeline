@@ -13,7 +13,6 @@ import type { RootState } from 'src/reducers';
 import { createStyles, withStyles, WithStyles } from '@material-ui/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
@@ -37,7 +36,7 @@ import { getAvailableEstablishmentList } from '../libs/establishment/selectors';
 import { fetchEstablishments } from '../libs/establishment/actions';
 import { fetchAllCoachPaymentRules } from '../libs/coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../libs/coach-payment-rules/selectors';
-import OfferForm from '../libs/offer/OfferForm.component';
+import OfferForm from '#libs/offer/OfferForm.component';
 import { fetchZoomApp } from '#libs/zoom-app/actions';
 import zoomAppSelectors from '#libs/zoom-app/selectors';
 import {
@@ -109,9 +108,6 @@ export class OfferFormPage extends Component<Props, {}> {
   render() {
     const { metaActivities, loading, goBack, allTagsWithTagGroup, classes } =
       this.props;
-    if (loading) {
-      return <CircularProgress />;
-    }
 
     const metaActivity = metaActivities.filter(
       (m) => m.id === this.props.id,
@@ -119,7 +115,7 @@ export class OfferFormPage extends Component<Props, {}> {
 
     return (
       <Grid container className={classes.container}>
-        <Grid item xs={12} lg={6}>
+        <Grid item xs={12} lg={7}>
           <Paper>
             <OfferForm
               onSubmit={this.createOffers}
@@ -134,7 +130,7 @@ export class OfferFormPage extends Component<Props, {}> {
               processing={this.props.processing}
               error={this.props.error}
               onCancel={goBack}
-              onGoBack={goBack}
+              onBannerGoBack={goBack}
               timezone={this.props.timezone}
               roomBlueprints={this.props.roomBlueprints}
               coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
@@ -152,6 +148,7 @@ export class OfferFormPage extends Component<Props, {}> {
                 this.props.theme.allow_guest_activatable
               }
               zoomAppDetail={this.props.zoomAppDetail}
+              isLoading={loading || !metaActivity}
             />
           </Paper>
         </Grid>

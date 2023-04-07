@@ -1,34 +1,49 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
-import Select, { GroupTypeBase, OptionsType, Styles } from 'react-select';
+import Select, {
+  ActionMeta,
+  GroupTypeBase,
+  OptionsType,
+  Styles,
+} from 'react-select';
 import { colors } from '@bsport/common/lib/colors';
+import { Typography } from '@material-ui/core';
 
 import type { Coach } from '../../types';
 
 import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '#libs/video/constant';
 
 type Props = {
+  id?: string;
   coaches: Array<Coach>;
   selectedCoaches: Array<number>;
   placeholder?: string;
   noMulti?: boolean;
   isDisabled?: boolean;
   closeMenuOnSelect?: boolean;
-  selectOption: (
-    value: OptionsType<{
-      value: number;
-      label: any;
-    }>,
-  ) => void;
+  selectOption: ((
+    value:
+      | { value: number; label: string }
+      | OptionsType<{ value: number; label: string }>,
+    actionMeta: ActionMeta<{ value: number; label: string }>,
+  ) => void) &
+    ((
+      value: { value: number; label: string } | OptionsType<any>,
+      action: ActionMeta<any>,
+    ) => void);
   isClearable?: boolean;
   associatedCoachOutput?: boolean;
   isLoading?: boolean;
   shouldSetMinHeight?: boolean;
+  selectorClass?: string;
+  error?: string;
+  isError?: boolean;
 };
 
 export const CoachSelector: React.FC<Props> = ({
+  id,
   coaches,
   selectedCoaches,
   placeholder,
@@ -40,8 +55,18 @@ export const CoachSelector: React.FC<Props> = ({
   associatedCoachOutput,
   isLoading,
   shouldSetMinHeight,
+  selectorClass,
+  error,
+  isError,
 }) => {
   const { t } = useTranslation('coach');
+
+  const getOptionLabel: (coach: Coach) => string = useCallback(
+    (coach: Coach) => {
+      return coach.user ? coach.user.name : coach.name;
+    },
+    [],
+  );
 
   const getCoachOptions = (
     coachOptions: Array<Coach>,
@@ -57,55 +82,91 @@ export const CoachSelector: React.FC<Props> = ({
       }
       return 1;
     });
-    const enabledCoaches = coachOptions.filter((c) => !c.disabled);
-    const disabledCoaches = coachOptions.filter((c) => c.disabled);
+    const enabledCoaches = coachOptions.filter((coach) => !coach.disabled);
+    const disabledCoaches = coachOptions.filter((coach) => coach.disabled);
     if (!sortDisabled || disabledCoaches.length === 0) {
-      return coachOptions.map((c) => ({
-        value: associatedCoachOutputOptions ? c.associated_coach_id : c.id,
-        label: c.user ? c.user.name : c.name,
+      return coachOptions.map((coach) => ({
+        value: associatedCoachOutputOptions
+          ? coach.associated_coach_id
+          : coach.id,
+        label: getOptionLabel(coach),
       }));
     }
     return [
       {
         label: t('selector.enabled'),
-        options: enabledCoaches.map((c) => ({
-          value: associatedCoachOutputOptions ? c.associated_coach_id : c.id,
-          label: c.user ? c.user.name : c.name,
+        options: enabledCoaches.map((coach) => ({
+          value: associatedCoachOutputOptions
+            ? coach.associated_coach_id
+            : coach.id,
+          label: getOptionLabel(coach),
         })),
       },
       {
         label: t('selector.disabled'),
-        options: disabledCoaches.map((c) => ({
-          value: associatedCoachOutputOptions ? c.associated_coach_id : c.id,
-          label: c.user ? c.user.name : c.name,
+        options: disabledCoaches.map((coach) => ({
+          value: associatedCoachOutputOptions
+            ? coach.associated_coach_id
+            : coach.id,
+          label: getOptionLabel(coach),
         })),
       },
     ];
   };
 
   return (
-    <Select
-      shouldSetMinHeight={shouldSetMinHeight}
-      closeMenuOnSelect={closeMenuOnSelect}
-      isMulti={!noMulti}
-      placeholder={placeholder || t('coach')}
-      options={getCoachOptions([...coaches], associatedCoachOutput, true)}
-      onChange={selectOption}
-      isDisabled={isDisabled}
-      styles={coachStyles}
-      isClearable={isClearable}
-      menuPortalTarget={document.querySelector('body')}
-      value={
-        selectedCoaches
-          ? getCoachOptions(
-              [...coaches.filter((c) => selectedCoaches.includes(c.id))],
-              associatedCoachOutput,
-            )
-          : undefined
-      }
-      isLoading={isLoading}
-    />
+    <>
+      <Select
+        id={id}
+        shouldSetMinHeight={shouldSetMinHeight}
+        closeMenuOnSelect={closeMenuOnSelect}
+        isMulti={!noMulti}
+        placeholder={placeholder || t('coach')}
+        options={getCoachOptions([...coaches], associatedCoachOutput, true)}
+        onChange={selectOption}
+        isDisabled={isDisabled}
+        styles={{ ...coachStyles, ...controlStyle(isError) }}
+        isClearable={isClearable}
+        menuPortalTarget={document.querySelector('body')}
+        value={
+          selectedCoaches
+            ? getCoachOptions(
+                [...coaches.filter((c) => selectedCoaches.includes(c.id))],
+                associatedCoachOutput,
+              )
+            : undefined
+        }
+        isLoading={isLoading}
+        className={selectorClass}
+      />
+
+      {error && (
+        <Typography variant="caption" color="error">
+          {error}
+        </Typography>
+      )}
+    </>
   );
+};
+
+const controlStyle = (isError: boolean) => {
+  return {
+    control: (styles: any, { selectProps }: any) => {
+      if (selectProps && selectProps.shouldSetMinHeight) {
+        return {
+          ...styles,
+          borderColor: isError ? 'red' : 'grey',
+          backgroundColor: 'white',
+          minHeight: MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS,
+        };
+      }
+      return {
+        ...styles,
+        backgroundColor: 'white',
+        borderColor: isError ? 'red' : 'grey',
+      };
+    },
+  };
 };
 
 const coachStyles: Partial<
@@ -121,16 +182,6 @@ const coachStyles: Partial<
     }>
   >
 > = {
-  control: (styles, { selectProps }) => {
-    if (selectProps && selectProps.shouldSetMinHeight) {
-      return {
-        ...styles,
-        backgroundColor: 'white',
-        minHeight: MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS,
-      };
-    }
-    return { ...styles, backgroundColor: 'white' };
-  },
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);

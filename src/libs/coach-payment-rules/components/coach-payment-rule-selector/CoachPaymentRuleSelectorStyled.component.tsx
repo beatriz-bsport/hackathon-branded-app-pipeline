@@ -12,6 +12,7 @@ import chroma from 'chroma-js';
 import BlockIcon from '@material-ui/icons/Block';
 import GroupIcon from '@material-ui/icons/Group';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import classNames from 'classnames';
 import type { CoachPaymentRule } from '#libs/coach-payment-rules/types';
 import type { MaterialStyleType } from '../../../../utils/types';
 import { DISSOCIATED_COACH_PAYMENT_RULE } from '#libs/coach-payment-rules/constants';
@@ -108,6 +109,7 @@ const ruleStyles = {
 
 type OwnProps = {
   onChange: (Suggestion) => void;
+  id?: string;
   coachPaymentRulesList: Array<CoachPaymentRule>;
   selectedRules: Array<number>;
   enableReset?: boolean;
@@ -116,7 +118,8 @@ type OwnProps = {
   noMulti: boolean;
   closeMenuOnSelect: boolean;
   isClearable: boolean;
-  isGroupSelect: boolean;
+  isGroupSelect?: boolean;
+  selectorClass?: string;
 };
 
 type Props = OwnProps &
@@ -135,6 +138,8 @@ export function CoachPaymentRuleSelectorStyled(props: Props) {
     enableReset,
     disabled,
     isGroupSelect,
+    selectorClass,
+    id,
   } = props;
   const suggestions = (coachPaymentRulesList || []).map((s) => ({
     value: s.id,
@@ -152,6 +157,7 @@ export function CoachPaymentRuleSelectorStyled(props: Props) {
   }
   return (
     <Select
+      id={id}
       closeMenuOnSelect={closeMenuOnSelect}
       isMulti={!noMulti}
       placeholder={placeholder || t('coach')}
@@ -174,6 +180,7 @@ export function CoachPaymentRuleSelectorStyled(props: Props) {
       }
       isGroupSelect={isGroupSelect}
       components={{ DropdownIndicator, SingleValue, Placeholder }}
+      className={classNames(selectorClass)}
     />
   );
 }

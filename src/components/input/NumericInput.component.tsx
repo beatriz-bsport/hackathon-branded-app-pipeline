@@ -2,16 +2,12 @@
 // @flow
 import React from 'react';
 
-import withStyles from '@material-ui/core/styles/withStyles';
 import TextField from '@material-ui/core/TextField';
-
-const styles = () => ({
-  textInput: {},
-});
+import classNames from 'classnames';
 
 type Props = {
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLElement>) => void;
+  value: number;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   disabled?: boolean;
   error?: boolean;
@@ -19,16 +15,19 @@ type Props = {
   margin?: number;
   label?: string;
   InputProps: any;
-  helperText: string | null;
-  classes: any;
+  helperText?: string;
   variant?: string;
   isPositive?: boolean;
-  onBlur: null | ((e: React.SyntheticEvent<HTMLInputElement>) => void);
+  id?: string;
+  name?: string;
+  size?: 'medium' | 'small';
+  placeholder?: string;
+  inputClass?: string;
+  onBlur?: (event: React.SyntheticEvent<HTMLInputElement>) => void;
 };
 
 export function NumericInput(props: Props) {
   const {
-    classes,
     required,
     disabled,
     value,
@@ -40,21 +39,30 @@ export function NumericInput(props: Props) {
     variant,
     isPositive,
     onBlur,
+    id,
+    name,
+    size,
+    placeholder,
+    inputClass,
   } = props;
 
   const handleOnChange = onChange
-    ? (ev: React.ChangeEvent<HTMLElement>) => {
+    ? (event: React.ChangeEvent<HTMLInputElement>) => {
         if (isPositive) {
-          return ev.target.value >= 0 ? onChange(ev) : undefined;
+          return parseInt(event.target.value) >= 0
+            ? onChange(event)
+            : undefined;
         }
-        return onChange(ev);
+        return onChange(event);
       }
     : onChange;
 
   return (
     <TextField
+      id={id}
+      name={name}
       variant={variant}
-      className={classes.textInput}
+      className={classNames(inputClass)}
       required={required}
       disabled={disabled}
       value={value}
@@ -67,8 +75,10 @@ export function NumericInput(props: Props) {
       fullWidth={props.fullWidth}
       margin={props.margin}
       onBlur={onBlur}
+      size={size ?? 'medium'}
+      placeholder={placeholder}
     />
   );
 }
 
-export default withStyles(styles)(NumericInput);
+export default NumericInput;

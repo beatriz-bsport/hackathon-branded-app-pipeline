@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import MuiTextField from '@material-ui/core/TextField';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Field, useField } from 'formik';
+import { Field, FieldProps, useField } from 'formik';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Switch } from '@material-ui/core';
@@ -91,21 +91,31 @@ export const CheckboxField = (props: CheckboxFieldProps) => {
   );
 };
 
-type SwitchFieldProps = { name: string; disabled?: boolean; label: string };
+type SwitchFieldProps = {
+  id?: string;
+  name: string;
+  disabled?: boolean;
+  label: string;
+  switchColor?: 'default' | 'primary' | 'secondary';
+  revertValue?: boolean;
+};
 export const SwitchField = (props: SwitchFieldProps) => {
-  const { name, disabled, label } = props;
+  const { name, disabled, label, switchColor, revertValue, id } = props;
   return (
     <Field name={name}>
-      {({ field }) => (
-        <FormControlLabel
-          {...field}
-          value=""
-          checked={field.value}
-          label={label}
-          disabled={disabled}
-          control={<Switch />}
-        />
-      )}
+      {({ field }: FieldProps) => {
+        return (
+          <FormControlLabel
+            id={id}
+            {...field}
+            value=""
+            checked={revertValue ? !field.value : field.value}
+            label={label}
+            disabled={disabled}
+            control={<Switch color={switchColor ?? 'primary'} />}
+          />
+        );
+      }}
     </Field>
   );
 };

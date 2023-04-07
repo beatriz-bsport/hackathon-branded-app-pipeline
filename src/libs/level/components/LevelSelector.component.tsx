@@ -12,6 +12,7 @@ import {
   Theme,
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import classNames from 'classnames';
 
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import ModalConfirm from '#components/ModalConfirm.component';
@@ -24,12 +25,18 @@ import { OptionCallback } from '../../../state/types';
 import { Level } from '../types';
 
 export type Props = {
+  id?: string;
   customLevels: Level[];
   memoryLevels?: Level[];
   selectedLevel: number | null;
   inScrollBar?: boolean;
   error?: boolean;
   isDisabled?: boolean;
+  name?: string;
+  selectorClass?: string;
+  noLabel?: boolean;
+  containerStyle?: string;
+  buttonContainerStyle?: string;
   fetchLevelList: () => void;
   onCreateLevel: (
     values: Omit<Level, 'id'>,
@@ -45,12 +52,18 @@ export type Props = {
 };
 
 export const LevelSelector: React.FC<Props> = ({
+  id,
   customLevels = [],
   memoryLevels = [],
   selectedLevel,
   inScrollBar = false,
   error = false,
   isDisabled = false,
+  name,
+  selectorClass,
+  noLabel,
+  containerStyle,
+  buttonContainerStyle,
   fetchLevelList,
   onCreateLevel,
   onEditLevel,
@@ -117,13 +130,16 @@ export const LevelSelector: React.FC<Props> = ({
 
   return (
     <>
-      <div>
-        <FormLabel className={classes.label}>
-          {`${t('offer:levels.select.title')} *`}
-        </FormLabel>
+      <div className={classNames(containerStyle)}>
+        {!noLabel && (
+          <FormLabel className={classes.label}>
+            {`${t('offer:levels.select.title')} *`}
+          </FormLabel>
+        )}
 
         <MaterialUISelector
           // dirty trick to close selector on click for popup edit/create/delete
+          id={id}
           key={`${editLevelId}-${deleteLevelId}-${isModalOpen ? 'y' : 'n'}`}
           value={
             selectedLevel
@@ -185,6 +201,8 @@ export const LevelSelector: React.FC<Props> = ({
           inScrollBar={inScrollBar}
           error={error}
           isDisabled={isDisabled}
+          name={name}
+          className={classNames(selectorClass)}
         />
         {!isDisabled && (
           <ButtonBase
@@ -192,7 +210,13 @@ export const LevelSelector: React.FC<Props> = ({
             onClick={() => {
               setIsModalOpen(true);
             }}
-            className={classes.button}
+            className={classNames(
+              {
+                [classes.button]: !buttonContainerStyle,
+                buttonContainerStyle,
+              },
+              classes.fitContentOnMobile,
+            )}
           >
             <AddIcon className={classes.icon} />
             {t('levels.select.add')}
@@ -246,6 +270,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
     width: '100%',
+    [theme.breakpoints.down('xs')]: {
+      alignSelf: 'stretch',
+      display: 'flex',
+    },
   },
   buttonSelectWrapper: {
     display: 'none',
@@ -263,6 +291,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   icon: {
     fill: theme.palette.primary.main,
     scrollMarginRight: theme.spacing(1),
+  },
+  fitContentOnMobile: {
+    [theme.breakpoints.down('xs')]: {
+      width: 'fit-content',
+    },
   },
 }));
 

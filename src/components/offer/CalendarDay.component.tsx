@@ -19,6 +19,9 @@ type Props = {
   events?: { [key: string]: Array<any> };
   showDayName: boolean;
   displayMode: number;
+  previewOnly?: boolean;
+  wrapperStyle?: string;
+  activeWrapperStyle?: string;
   onDateChange: (value: string) => void;
 };
 
@@ -29,6 +32,9 @@ export const CalendarDay: React.FC<Props> = ({
   day,
   showDayName,
   displayMode,
+  previewOnly,
+  wrapperStyle,
+  activeWrapperStyle,
   onDateChange,
 }) => {
   const isDayInRangeOf = ranges.filter(
@@ -48,6 +54,27 @@ export const CalendarDay: React.FC<Props> = ({
   const isLastDayOfRange =
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     isDayInRange && ranges.some(([start, end]) => moment(end).isSame(day));
+
+  if (previewOnly && wrapperStyle) {
+    return (
+      <div className={classes.dayButtonPreview}>
+        {!isDisabled && (
+          <div
+            className={classNames(wrapperStyle, {
+              [activeWrapperStyle]: events?.[day.startOf('day').toString()],
+            })}
+          >
+            {displayMode === WEEKMODE && showDayName
+              ? moment.weekdaysShort(true)?.[day.weekday()]?.[0]
+              : null}
+            <Typography color="inherit" variant="subtitle1">
+              {day.date()}
+            </Typography>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <ButtonBase
@@ -94,6 +121,14 @@ const useStyles = (inRangeOf: number) =>
       chroma.contrast(backgroundColor, '#000') > 10 ? '#000' : '#fff';
 
     return {
+      dayButtonPreview: {
+        display: 'flex',
+        flexGrow: 1,
+        flexBasis: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: theme.spacing(1),
+      },
       dayButton: {
         padding: theme.spacing(1),
         display: 'flex',

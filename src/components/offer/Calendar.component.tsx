@@ -43,6 +43,10 @@ type OwnProps = {
   hideSwitchViewButton?: boolean;
   isDownloading?: boolean;
   showCancelledOffers?: boolean;
+  previewOnly?: boolean;
+  wrapperStyle?: string;
+  activeWrapperStyle?: string;
+  weekRowContainerStyle?: string;
   onDownload?: () => void;
   onRequestMassDisable?: (date: string) => void;
   onDateChange: (value: string) => void;
@@ -84,6 +88,9 @@ class Calendar extends PureComponent<Props, State> {
         day={day}
         showDayName={this.props.showDayName}
         displayMode={this.state.displayMode}
+        previewOnly={this.props.previewOnly}
+        wrapperStyle={this.props.wrapperStyle}
+        activeWrapperStyle={this.props.activeWrapperStyle}
         onDateChange={this.props.onDateChange}
       />
     );
@@ -219,7 +226,12 @@ class Calendar extends PureComponent<Props, State> {
 
   renderWeekFrom = (firstDayWeek: MomentType) => {
     return (
-      <div className={this.props.classes.weekRowContainer}>
+      <div
+        className={classNames(
+          this.props.weekRowContainerStyle,
+          this.props.classes.weekRowContainer,
+        )}
+      >
         {this.renderDay(firstDayWeek.clone().add(0, 'days'))}
         {this.renderDay(firstDayWeek.clone().add(1, 'days'))}
         {this.renderDay(firstDayWeek.clone().add(2, 'days'))}

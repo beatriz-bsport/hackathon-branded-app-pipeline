@@ -57,7 +57,7 @@ import {
 
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
-import { Offer } from '#libs/offer/types';
+import { OfferCreate } from '#libs/offer/types';
 
 type OwnProps = {
   goBack: () => void;
@@ -91,7 +91,7 @@ export class OfferFormPage extends Component<Props, {}> {
     });
   };
 
-  createOffers = async (data: Offer) => {
+  createOffers = async (data: OfferCreate) => {
     this.props.createOffers(
       {
         ...data,
@@ -134,6 +134,7 @@ export class OfferFormPage extends Component<Props, {}> {
               processing={this.props.processing}
               error={this.props.error}
               onCancel={goBack}
+              onGoBack={goBack}
               timezone={this.props.timezone}
               roomBlueprints={this.props.roomBlueprints}
               coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}

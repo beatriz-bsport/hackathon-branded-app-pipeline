@@ -13,6 +13,7 @@ import { SketchPicker } from 'react-color';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Popover from '@material-ui/core/Popover';
 import { withTheme } from '@material-ui/styles';
+import classNames from 'classnames';
 
 export class ColorInput extends Component<Props> {
   constructor(props) {
@@ -32,13 +33,13 @@ export class ColorInput extends Component<Props> {
   };
 
   render() {
-    const { classes, t, theme } = this.props;
+    const { classes, t, theme, buttonStyle } = this.props;
 
     return (
       <FormControl>
         <FormLabel>{this.props.label}</FormLabel>
         <ButtonBase
-          className={classes.button}
+          className={classNames(buttonStyle, classes.button)}
           onClick={() => this.props.setPickerOpen(!this.props.pickerOpen)}
         >
           <div

@@ -205,22 +205,24 @@ type OwnProps = {
     }>,
   ) => void;
   onDeleteTag: (optionId: number) => void;
-  isDisabled: boolean;
+  id?: string;
+  isDisabled?: boolean;
   placeholder?: string;
   noMulti?: boolean;
   isClearable?: boolean;
   closeMenuOnSelect?: boolean;
   selectedTags?: Array<number>;
-  allTagsWithTagGroup: Array<Tag>;
+  allTagsWithTagGroup: Array<Tag> | Array<Tag<TagGroup>>;
   inScrollBar: boolean;
-  menuPlacement: 'auto' | 'top';
+  menuPlacement?: 'auto' | 'top';
   noSpaceBelow?: boolean;
 };
 
-export type Props = WithTranslation & OwnProps;
+export type Props = Partial<WithTranslation> & OwnProps;
 export function TagSelector(props: Props) {
   const { t } = props;
   const {
+    id,
     allTagsWithTagGroup,
     isDisabled,
     placeholder,
@@ -244,6 +246,7 @@ export function TagSelector(props: Props) {
     return (
       <div id={`selector_${uuid.current}`} style={{ position: 'relative' }}>
         <Select
+          id={id}
           closeMenuOnSelect={closeMenuOnSelect}
           options={getTagGroupedByTagGroup(
             allTagsWithTagGroup ? [...allTagsWithTagGroup] : [],
@@ -280,6 +283,7 @@ export function TagSelector(props: Props) {
   }
   return (
     <Select
+      id={id}
       closeMenuOnSelect={closeMenuOnSelect}
       options={getTagGroupedByTagGroup(
         allTagsWithTagGroup ? [...allTagsWithTagGroup] : [],

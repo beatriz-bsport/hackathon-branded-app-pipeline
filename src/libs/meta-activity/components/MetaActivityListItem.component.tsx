@@ -38,7 +38,7 @@ type Props = {
 
   onClickCopy?: (id: number, suffix: string) => void;
 
-  deleteMetaActivity: () => void;
+  deleteMetaActivity?: () => void;
   restoreMetaActivity?: () => void;
 
   draggable?: boolean;
@@ -101,6 +101,7 @@ const MetaActivityListItem: React.FC<Props> = (props) => {
       style={{
         borderLeft: metaActivity.color !== '' ? '5px solid' : '0px',
         borderLeftColor: metaActivity.color,
+        borderRadius: 5,
       }}
     >
       {props.draggable && (

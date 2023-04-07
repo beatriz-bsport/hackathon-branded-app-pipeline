@@ -9,6 +9,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
+import classNames from 'classnames';
 import type { Establishment, EstablishmentSelectOption } from '../types';
 
 const GroupHeading = ({ children, ...props }) => {
@@ -213,6 +214,7 @@ const establishmentStyles = {
 };
 
 export type OwnProps = {
+  id?: string;
   establishments?: Array<Establishment>;
   selectOption: (
     suggestion: EstablishmentSelectOption[] | EstablishmentSelectOption,
@@ -230,6 +232,9 @@ export type OwnProps = {
   placeholder?: string;
   isRequired?: boolean;
   requiredValueIsMissing?: boolean;
+  name?: string;
+  selectorClass?: string;
+  hideError?: boolean;
 };
 
 type Props = OwnProps & WithTranslation;
@@ -251,6 +256,10 @@ export function EstablishmentSelector(props: Props) {
     placeholder,
     isRequired,
     requiredValueIsMissing,
+    name,
+    selectorClass,
+    hideError,
+    id,
   } = props;
   const roomsSelected =
     selectedEstablishments && !nullCurrentValue
@@ -262,6 +271,7 @@ export function EstablishmentSelector(props: Props) {
   return (
     <>
       <Select
+        id={id}
         closeMenuOnSelect={!!closeMenuOnSelect}
         isMulti={!noMulti}
         placeholder={placeholder || t(isRequired ? 'roomRequired' : 'room')}
@@ -290,17 +300,20 @@ export function EstablishmentSelector(props: Props) {
         }
         selectMultipleOptions={selectMultipleOptions}
         isLoading={isLoading}
+        name={name}
+        className={classNames(selectorClass)}
       />
-      {isRequired && requiredValueIsMissing && (
+
+      {isRequired && requiredValueIsMissing && !hideError && (
         <Typography variant="caption" color="error">
-          {t('roomRequiredIsMissing')}
+          {t('offer:form.errors.required')}
         </Typography>
       )}
     </>
   );
 }
 
-const EstablishmentSelectorComposed = compose<any, OwnProps>(
+const EstablishmentSelectorComposed = compose<Props, OwnProps>(
   withTranslation(['establishment']),
 )(EstablishmentSelector);
 

@@ -605,6 +605,7 @@ export const ColorField = (props: ColorFieldProps) => {
           {...props}
           onChange={(color) => setFieldValue(props.name, color)}
           color={field.value}
+          buttonStyle={props.buttonStyle}
         />
       )}
     </Field>

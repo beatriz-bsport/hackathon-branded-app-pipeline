@@ -1,30 +1,34 @@
 // @ts-nocheck
 import React from 'react';
-import classNames from 'classnames';
-import { compose } from 'recompose';
-import * as Yup from 'yup';
-import { withFormik, Form, FormikProps } from 'formik';
-import { useTranslation } from 'react-i18next';
 
-import { makeStyles, Theme, Typography } from '@material-ui/core';
+import * as Yup from 'yup';
+import { Form, Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
+import {
+  makeStyles,
+  TextField,
+  Theme,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
+import { DateRange } from '@material-ui/icons';
+import classNames from 'classnames';
 
 import { OptionCallback } from '../../../state/types';
-import { TextField, ColorField } from '#components/forms';
+import { ColorField } from '#components/forms';
 import { Level as LevelType } from '../types';
-import Level from '#libs/level/components/Level.component';
+import FormSection from '#components/forms/FormSection';
+import { useOfferFormStyles } from '#libs/offer/hooks';
 
 const NAME_MAX_LENGTH = 30;
 
-export type OuterProps = {
-  // eslint-disable-next-line react/no-unused-prop-types
+export type Props = {
   initial: LevelType;
   open: boolean;
-  // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (arg1: {
     id?: number;
     values: Omit<LevelType, 'id'>;
@@ -33,26 +37,44 @@ export type OuterProps = {
   onClose: () => void;
 };
 
-type Values = {
+type InitialFormikValues = {
   name: string;
-  color: string | null;
+  color: string;
 };
 
-const CreateLeveLModalSchema = Yup.object().shape({
+const CreateLevelModalSchema = Yup.object({
   name: Yup.string().required('required'),
   color: Yup.string().required('required'),
 });
 
-export const CreateLeveLModal: React.FC<OuterProps & FormikProps<Values>> = ({
-  open,
-  values,
-  isSubmitting,
-  dirty,
-  isValid,
-  onClose,
-}) => {
-  const { t } = useTranslation(['offer']);
+export const CreateLevelModal = (props: Props) => {
+  const { open, initial, onClose, onSubmit } = props;
+  const { t } = useTranslation(['offer', 'common']);
+  const offerFormClasses = useOfferFormStyles();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles();
+
+  const handleSubmit = (
+    values: InitialFormikValues,
+    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void },
+  ) => {
+    onSubmit({
+      id: initial?.id,
+      values: {
+        ...(initial ?? {}),
+        ...values,
+      },
+      options: {
+        onSuccess: () => {
+          setSubmitting(false);
+        },
+        onError: () => {
+          setSubmitting(false);
+        },
+      },
+    });
+  };
 
   return (
     <Dialog
@@ -62,55 +84,77 @@ export const CreateLeveLModal: React.FC<OuterProps & FormikProps<Values>> = ({
         paper: classes.popup,
       }}
     >
-      <Form>
-        <DialogTitle>{t('levels.modal.title')}</DialogTitle>
-        <DialogContent>
-          <div className={classes.container}>
-            <div className={classNames(classes.innerRow, classes.name)}>
-              <TextField
-                name="name"
-                label={t('levels.modal.name')}
-                required
-                inputProps={{ maxLength: NAME_MAX_LENGTH }}
-              />
-              <Typography variant="caption">
-                {t('levels.modal.nameCaption', {
-                  count: values.name?.length,
-                  max: NAME_MAX_LENGTH,
-                })}
-              </Typography>
-            </div>
-            <div className={classes.color}>
-              <ColorField name="color" label={t('levels.modal.color')} />
-            </div>
-          </div>
-          {values.name && values.color && (
-            <div className={classes.level}>
-              <Level
-                customLevel={{
-                  id: -1,
-                  color: values.color,
-                  name: values.name,
-                }}
-              />
-            </div>
-          )}
-
-          <DialogActions>
-            <Button color="secondary" onClick={onClose} disabled={isSubmitting}>
-              {t('levels.modal.cancel')}
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              disabled={isSubmitting || !dirty || !isValid}
+      <Formik
+        initialValues={{
+          name: initial?.name ?? '',
+          color: initial?.color ?? '#FFFFFF',
+        }}
+        validationSchema={CreateLevelModalSchema}
+        onSubmit={handleSubmit}
+      >
+        {(formik) => (
+          <Form>
+            <FormSection
+              sectionTitle={t('offer:form.dialog.createLevel')}
+              sectionIcon={DateRange}
+              sectionCustomIconStyle={offerFormClasses.sectionIcon}
+              sectionIconContainerStyle={offerFormClasses.sectionIconContainer}
             >
-              {t('levels.modal.submit')}
-            </Button>
-          </DialogActions>
-        </DialogContent>
-      </Form>
+              <div className={classes.inputsContainer}>
+                <div className={classes.inputField}>
+                  <Typography variant="body1">
+                    {t('offer:levels.modal.name')} *
+                  </Typography>
+                  <TextField
+                    name="name"
+                    value={formik.values.name}
+                    onChange={formik.handleChange}
+                    variant="outlined"
+                    className={classNames({
+                      [offerFormClasses.bigWidth]: !isMobile,
+                    })}
+                    size="small"
+                    required
+                    placeholder={t('offer:levels.modal.name')}
+                    inputProps={{ maxLength: NAME_MAX_LENGTH }}
+                  />
+                </div>
+
+                <div className={classes.inputField}>
+                  <Typography variant="body1">
+                    {t('levels.modal.color')} *
+                  </Typography>
+                  <ColorField
+                    name="color"
+                    onChange={formik.handleChange}
+                    buttonStyle={classes.colorInput}
+                  />
+                </div>
+              </div>
+            </FormSection>
+
+            <DialogActions className={classes.actionsContainer}>
+              <Button
+                color="secondary"
+                onClick={onClose}
+                disabled={formik.isSubmitting}
+              >
+                {t('common:cancel')}
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                disabled={
+                  formik.isSubmitting || !formik.dirty || !formik.isValid
+                }
+              >
+                {t('common:saveRecord')}
+              </Button>
+            </DialogActions>
+          </Form>
+        )}
+      </Formik>
     </Dialog>
   );
 };
@@ -139,46 +183,35 @@ const useStyles = makeStyles((theme: Theme) => ({
   color: {
     width: '40%',
   },
-  level: {
-    position: 'absolute',
+  inputField: {
     display: 'flex',
-    top: theme.spacing(2),
-    right: theme.spacing(2),
+    flexDirection: 'column',
+    gap: theme.spacing(1.25),
+  },
+  inputsContainer: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: theme.spacing(3),
+    [theme.breakpoints.down('xs')]: {
+      gridTemplateColumns: '1fr',
+    },
+  },
+  actionsContainer: {
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  colorInput: {
+    margin: 0,
+    width: '125px',
+    height: '40px',
+    '& p': {
+      textOverflow: 'ellipsis',
+      whiteSpace: 'noWrap',
+      overflow: 'hidden',
+    },
   },
 }));
 
-export default compose<any, OuterProps>(
-  withFormik<OuterProps, Values>({
-    mapPropsToValues: ({ initial }) => {
-      if (initial) {
-        return {
-          name: initial.name,
-          color: initial.color,
-        };
-      }
-
-      return {
-        name: '',
-        color: '#FFFFFF',
-      };
-    },
-    validationSchema: CreateLeveLModalSchema,
-    handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
-      onSubmit({
-        id: initial?.id,
-        values: {
-          ...(initial ?? {}),
-          ...values,
-        },
-        options: {
-          onSuccess: () => {
-            setSubmitting(false);
-          },
-          onError: () => {
-            setSubmitting(false);
-          },
-        },
-      });
-    },
-  }),
-)(CreateLeveLModal);
+export default CreateLevelModal;

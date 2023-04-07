@@ -133,6 +133,7 @@ export function establishment_factory(num_el: number): Array<Establishment> {
     disabled: false,
     associatedestablishment_set: [],
     tzname: random_choice(TZNAMES),
+    establishment_billing_group_id: random_int(100),
   }));
 }
 

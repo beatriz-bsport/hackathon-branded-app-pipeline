@@ -1,4 +1,6 @@
 // @ts-nocheck
+import faker from 'faker';
+
 import { Level } from './types';
 
 function random_int(max: number) {
@@ -16,14 +18,61 @@ function randomColor() {
   return color;
 }
 
-const level_names = ['Beginner', 'Confirmed', 'Expert', 'Death mode'];
+const default_levels: Partial<Level>[] = [
+  {
+    id: 1,
+    name: 'Tous niveaux',
+    color: '#ffffff',
+    enabled: true,
+    company: null,
+  },
+  {
+    id: 2,
+    name: 'Débutants',
+    color: '#ffffff',
+    enabled: true,
+    company: null,
+  },
+  {
+    id: 3,
+    name: 'Intermédiaire',
+    color: '#ffffff',
+    enabled: true,
+    company: null,
+  },
+  {
+    id: 4,
+    name: 'Confirmé',
+    color: '#ffffff',
+    enabled: true,
+    company: null,
+  },
+  {
+    id: 5,
+    name: 'Inter/Avancé',
+    color: '#ffffff',
+    enabled: true,
+    company: null,
+  },
+];
 
-export function levelFactory(): Level {
+export function levelFactory(): Partial<Level> {
   return {
-    id: random_int(50),
+    id: random_int(1000),
     company: random_int(999),
-    name: level_names[random_int(4)],
+    name: faker.random.words(2),
     color: randomColor(),
     enabled: true,
   };
+}
+
+export function levelListFactory(count: number): Partial<Level>[] {
+  if (count > 5) {
+    const levels = new Array(count - default_levels.length)
+      .fill(0)
+      .map(() => levelFactory());
+    return [...levels, ...default_levels];
+  }
+  const levels = new Array(count).fill(0).map(() => levelFactory());
+  return levels;
 }

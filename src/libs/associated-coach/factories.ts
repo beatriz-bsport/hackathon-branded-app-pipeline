@@ -1,36 +1,11 @@
 // @ts-nocheck
+import faker from 'faker';
+
 import type { Coach } from './types';
 
 function random_int(max: number) {
   return Math.floor(Math.random() * max);
 }
-
-const lastnames = [
-  'Martin',
-  'Pitt',
-  'Bryan',
-  'Bernard',
-  'Smith',
-  'Johnson',
-  'William',
-  'Moore',
-  'Tayler',
-  'Walker',
-  'Lee',
-];
-
-const firstnames = [
-  'Noah',
-  'Aron',
-  'Etan',
-  'Tom',
-  'Isac',
-  'Nolan',
-  'Evan',
-  'Lenny',
-  'Charlie',
-  'Julian',
-];
 
 const gender = ['M', 'F'];
 
@@ -91,14 +66,17 @@ function randomPrivate_slots_coach_payment_rules(length: number) {
   }));
 }
 
-export function coachFactory(coach_payment_rule_group_id?: number): Coach {
+export function coachFactory(
+  coach_payment_rule_group_id?: number,
+): Partial<Coach> {
   const wichGender = random_int(2);
-  const firstname = firstnames[random_int(firstnames.length - 1)];
-  const lastname = lastnames[random_int(lastnames.length - 1)];
-  const name = `${firstname} ${lastname}`;
+  const firstName = faker.name.firstName();
+  const lastName = faker.name.lastName();
+  const name = `${firstName} ${lastName}`;
+
   return {
-    firstname,
-    lastname: name,
+    firstname: firstName,
+    lastname: lastName,
     name,
     gender: gender[wichGender],
     rating,
@@ -107,7 +85,7 @@ export function coachFactory(coach_payment_rule_group_id?: number): Coach {
     photo: photo[wichGender],
     description: `Hello, my name is ${name}`,
     phone: `00645545${random_int(9)}`,
-    email: `${lastname}@coach.bsport`,
+    email: faker.internet.email(firstName, lastName),
     color: randomColor(),
     associated_coach_id: random_int(1000),
     default_payment_rule_id: random_int(1000),
@@ -116,8 +94,8 @@ export function coachFactory(coach_payment_rule_group_id?: number): Coach {
     workshop_coach_payment_rule_id: random_int(1000),
     coach_payment_rule_group_id:
       coach_payment_rule_group_id || random_int(1000),
-    facebook_url: `${lastname}.facebook.com`,
-    instagram_url: `${lastname}.insta.com`,
+    facebook_url: `${lastName}.facebook.com`,
+    instagram_url: `${lastName}.insta.com`,
     disabled: randomBoolean(),
     associatedcoach_set: randomArray(10),
     private_slots_coach_payment_rules:
@@ -126,7 +104,7 @@ export function coachFactory(coach_payment_rule_group_id?: number): Coach {
   };
 }
 
-export function coachesFactory(length: number): Array<Coach> {
+export function coachesFactory(length: number): Partial<Coach>[] {
   const res = new Array(length).fill(0);
   return res.map(() => coachFactory());
 }

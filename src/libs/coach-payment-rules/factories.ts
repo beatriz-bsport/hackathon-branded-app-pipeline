@@ -1,7 +1,9 @@
 // @ts-nocheck
 
+import faker from 'faker';
 import type { CoachPaymentRule, CoachPaymentRuleGroup } from './types';
 import { coachesFactory } from '../associated-coach/factories';
+import { Coach } from '#libs/associated-coach/types';
 
 type CoachPaymentRulesByKind = {
   [kind: number]: Array<CoachPaymentRule>;
@@ -11,8 +13,6 @@ function random_int(max: number, min: number = 0) {
   // Return a random value between min (0 if undefined) and max (max excluded)
   return Math.floor(Math.random() * (max - min)) + min;
 }
-
-const names = ['Credit Card', 'Cash', 'PayPal'];
 
 function randomBoolean() {
   const table = [true, false];
@@ -38,12 +38,12 @@ function randomBonusCoachPaymentRules(length: number) {
   }));
 }
 
-export function coachPaymentRuleFactory(): CoachPaymentRule {
+export function coachPaymentRuleFactory(coachId?: number): CoachPaymentRule {
   const min_remuneration = random_int(999999, 1);
   const max_remuneration = random_int(999999, min_remuneration);
   return {
     id: random_int(1000),
-    name: names[random_int(names.length - 1)],
+    name: faker.random.words(2),
     kind: random_int(100),
     base_remuneration: random_int(1000000, 0),
     min_remuneration,
@@ -52,7 +52,7 @@ export function coachPaymentRuleFactory(): CoachPaymentRule {
     exclude_cancelled_from_confirmed_bookings: randomBoolean(),
     excluded_payment_packs: randomArray(3),
     bonuses: randomBonusCoachPaymentRules(2),
-    associated_coach: randomArray(3),
+    associated_coach: [coachId] ?? randomArray(3),
     private_associated_coach: randomArray(3),
   };
 }
@@ -69,7 +69,7 @@ export function coachPaymentRulesByKindFactory(
 ): CoachPaymentRulesByKind {
   const coach_payment_rules_by_kind: CoachPaymentRulesByKind = {};
   for (let i = 0; i < length; i += 1) {
-    coach_payment_rules_by_kind[random_int(1000)] = coachPaymentRulesFactory(3);
+    coach_payment_rules_by_kind[i] = coachPaymentRulesFactory(3);
   }
   return coach_payment_rules_by_kind;
 }
@@ -77,13 +77,13 @@ export function coachPaymentRulesByKindFactory(
 export function coachPaymentRuleGroupFactory(): CoachPaymentRuleGroup {
   return {
     id: random_int(1000),
-    name: names[random_int(names.length - 1)],
+    name: faker.random.words(2),
     company: random_int(1000),
     session_coach_payment_rule: coachPaymentRuleFactory(),
     workshop_coach_payment_rule: coachPaymentRuleFactory(),
     private_service_coach_payment_rule: coachPaymentRuleFactory(),
     private_slots_coach_payment_rules: randomArray(5),
-    associated_coach: coachesFactory(5),
+    associated_coach: coachesFactory(5) as Coach[],
   };
 }
 

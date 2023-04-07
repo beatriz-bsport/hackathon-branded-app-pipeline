@@ -1,6 +1,7 @@
 // @ts-nocheck
 import FactoryBot from 'ya-factorybot';
 import faker from 'faker';
+import { Tag, TagGroup } from './types';
 
 faker.locale = 'fr';
 
@@ -22,6 +23,33 @@ FactoryBot.define('Tag', {
   color: () => random_hex_color_code(),
   icon: () => iconNameList[Math.floor(Math.random() * iconNameList.length)],
 });
+
+export const tagFactory = (): Partial<Tag<TagGroup>> => {
+  return {
+    id: Math.floor(Math.random() * 1000),
+    name: faker.random.words(2),
+    group: {
+      id: Math.floor(Math.random() * 1000),
+      name: faker.random.word(),
+      kind: Math.floor(Math.random() * 1000),
+      tags: [],
+    },
+    color: faker.internet.color(),
+    icon: '',
+  };
+};
+
+export const tagListFactory = (num_el: number): Partial<Tag<TagGroup>>[] => {
+  const tagItemsList = new Array(num_el).fill(0);
+  return tagItemsList.map(() => tagFactory());
+};
+
+export const tagListWithGroupFactory = (
+  num_el: number,
+): Partial<Tag<TagGroup>>[] => {
+  const tagItemsList = new Array(num_el).fill(0);
+  return tagItemsList.map(() => tagFactory());
+};
 
 export const tagCategories = {
   Offer: [

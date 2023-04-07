@@ -58,7 +58,10 @@ function random_choice(arr: Array<any>): any {
   return arr[random_int(arr.length)];
 }
 
-export function meta_activity_factory(num_el: number): Array<MetaActivity> {
+export function meta_activity_factory(
+  num_el: number,
+  is_broadcast?: boolean,
+): Array<MetaActivity> {
   const META_ACTIVITY_IDS: Array<number> = [...Array(num_el).keys()];
   const names = [...Array(num_el)].map((_, i) => NAMES[i % NAMES.length]);
   const images_fac = [...Array(num_el).keys()].map((id) => ({
@@ -73,8 +76,7 @@ export function meta_activity_factory(num_el: number): Array<MetaActivity> {
       rating: random_choice(RATINGS),
       SCT: id,
       parent_category: random_choice(AVAILABLE_CATEGORY).id,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      images: images_fac.filter((e) => random_int(6) === 1),
+      images: images_fac.filter(() => random_int(6) === 1),
       establishments: [],
       next_slot: random_choice(NEXT_SLOTS),
       company: id,
@@ -84,13 +86,17 @@ export function meta_activity_factory(num_el: number): Array<MetaActivity> {
       last_discard_minutes: random_int(5000),
       first_booking_minutes_until: random_int(20000),
       is_workshop: false,
-      is_broadcast: false,
+      is_broadcast: is_broadcast ?? false,
       customer_enabled: false,
       color: random_choice(COLORS),
       on_booking_notification: [],
       auto_discard_active: false,
       auto_discard_hours_before_start: random_int(20),
       auto_discard_min_bookings_nb: random_int(20),
+      alt_cover_main: '',
+      category: random_int(20),
+      ordering_in_category: random_int(20),
+      custom_restriction_rule: [],
     };
   });
 }

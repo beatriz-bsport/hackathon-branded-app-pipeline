@@ -14,7 +14,7 @@ export type BonusCoachPaymentRule = {
 
 export type CoachPaymentRule = {
   id?: number;
-  name: String;
+  name: string;
   kind: number;
   base_remuneration: number;
   min_remuneration: number;

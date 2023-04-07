@@ -1,9 +1,12 @@
 // @ts-nocheck
+import { Moment } from 'moment-timezone';
+
 import { ErrorAndLoading } from '../types';
 import { Establishment } from '../establishment/types';
 import { MetaActivity } from '../meta-activity/types';
 import { Coach } from '../associated-coach/types';
 import { OffersGroup } from '#libs/group-offer/types';
+import { OFFER_RECURRENCE } from './constants';
 
 export type OfferFilter = {
   establishments?: number[];
@@ -237,4 +240,75 @@ export type OfferState = ErrorAndLoading & {
   } & ErrorAndLoading;
   rollCall: ErrorAndLoading;
   rollCallBulk: ErrorAndLoading;
+};
+
+export type OfferFormValues = {
+  effectif: number;
+  waitingListMaxSize: number;
+  level: number;
+  establishment: number;
+  broadcastLink: string | null;
+  credits: number;
+  dateIntervalStart: Moment;
+  dateIntervalEnd: Moment | null;
+  durationMinute: number;
+  isRecurrence: boolean;
+  recurrence:
+    | OFFER_RECURRENCE.WEEKLY
+    | OFFER_RECURRENCE.MONTHLY
+    | OFFER_RECURRENCE.DAILY;
+  recurrenceWeekDay: {
+    '1': boolean;
+    '2': boolean;
+    '3': boolean;
+    '4': boolean;
+    '5': boolean;
+    '6': boolean;
+    '7': boolean;
+  };
+  calendarSelectedDate: string;
+  isRecurrenceWeekDayDialogOpen: boolean;
+  coach: number;
+  coachPaymentRule: number | null;
+  isManagerOnly: boolean;
+  allowGuestOffer: boolean;
+  partnerMaxBookingCount: number | null;
+  availableOnPartnership: boolean;
+  selectedWhitelistTags: number[];
+  selectedBlacklistTags: number[];
+  roomBlueprint: number | null;
+  roomBlueprintSlots: number | null;
+  isMetaActivityBroadcast: boolean;
+  isOfferInGroup: boolean;
+  isZoomAppEnabled: boolean;
+};
+
+export type OfferFormRecurrenceWeekDay =
+  | '1'
+  | '2'
+  | '3'
+  | '4'
+  | '5'
+  | '6'
+  | '7';
+
+export type OfferCreate = {
+  meta_activity?: number;
+  dates: number[];
+  establishment: number;
+  coach: number;
+  effectif: number;
+  partner_max_booking_count: number;
+  waiting_list_max_size: number;
+  level: number;
+  credits: number;
+  duration_minute: number;
+  broadcast_link: string;
+  coach_payment_rule: number | null;
+  available_on_partnership: boolean;
+  manager_only: boolean;
+  whitelist_tags: number[];
+  blacklist_tags: number[];
+  allow_guest_offer: boolean;
+  room_blueprint?: number;
 };

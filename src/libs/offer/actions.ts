@@ -49,7 +49,13 @@ import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type { RootState } from '../../reducers';
-import { OfferFilter, OfferFilterData, OfferStatus, Offer } from './types';
+import {
+  OfferFilter,
+  OfferFilterData,
+  OfferStatus,
+  Offer,
+  OfferCreate,
+} from './types';
 
 export const similarOffers = {
   isLoading: createAction('OFFERS/SIMILAR/IS_LOADING'),
@@ -981,7 +987,10 @@ export const createOffersActions = {
   success: createAction('OFFER/CREATE/SUCCESS'),
 };
 
-export function createOffers(offer: Offer, options?: OptionBackgroundCallback) {
+export function createOffers(
+  offer: OfferCreate,
+  options?: OptionBackgroundCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(createOffersActions.loading(true));
     try {

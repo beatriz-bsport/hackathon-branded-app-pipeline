@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react';
 import { Moment as MomentType } from 'moment-timezone';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
 import Grid from '@material-ui/core/Grid';
 import BlockIcon from '@material-ui/icons/Block';
@@ -34,7 +35,7 @@ type OwnProps = {
   ranges?: [string, string][];
   forceMonthDisplay: boolean;
   searchBarOpen?: boolean;
-  events?: { [key: string]: Array<any> };
+  events?: { [key: string]: boolean };
   searchBar?: any;
   loading?: boolean;
   showDayName?: boolean;
@@ -436,7 +437,7 @@ const styles = (theme: Theme) =>
     },
   });
 
-export default compose(
+export default compose<Props, OwnProps>(
   withStyles(styles),
   withTranslation(['offer']),
 )(Calendar);

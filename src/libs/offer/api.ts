@@ -9,9 +9,9 @@ import {
   patchAuth,
   buildUrlParams,
 } from '../../http';
-import { Offer, OfferFilterData } from './types';
+import { Offer, OfferCreate, OfferFilterData } from './types';
 
-export async function createOffers(data: Offer) {
+export async function createOffers(data: OfferCreate) {
   return postAuth(`${API_V1_URI}/offer/create_similar_offers/`, data);
 }
 

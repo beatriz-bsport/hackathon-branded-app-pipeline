@@ -44,7 +44,17 @@ export const querySelectedElementShouldBeInTheDocument = (
   expect(selectedElement).toBeInTheDocument();
 };
 
-// Test that the value received by the field should be the same as the input value
+// Test that the selected element is rendered in the document but hidden
+export const querySelectedElementShouldBeHiddenInTheDocument = (
+  element: HTMLElement | Element,
+  selector: string,
+) => {
+  const selectedElement = element.querySelector(selector);
+  expect(selectedElement).toBeInTheDocument();
+  expect(selectedElement).not.toBeVisible();
+};
+
+// Test that the value received by the field should be the same as the one inputted
 export const querySelectedFieldShouldReceiveTheInputValue = async (
   element: HTMLElement | Element,
   selector: string,

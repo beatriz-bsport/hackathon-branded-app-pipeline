@@ -72,9 +72,22 @@ const OfferFormDateTime = (props: Props) => {
   );
 
   const handleChangeDateStart = useCallback(
-    (date: Moment) =>
-      handleChangeDate('dateIntervalStart', date, moment(dateIntervalStart)),
-    [dateIntervalStart, handleChangeDate],
+    (date: Moment) => {
+      const isDateEqualOrAfterEndDate = moment(date).isSameOrAfter(
+        moment(dateIntervalEnd),
+      );
+      handleChangeDate('dateIntervalStart', date, moment(dateIntervalStart));
+      if (isRecurrence && isDateEqualOrAfterEndDate) {
+        setFieldValue('dateIntervalEnd', moment(date).add(1, 'day'));
+      }
+    },
+    [
+      dateIntervalEnd,
+      dateIntervalStart,
+      handleChangeDate,
+      isRecurrence,
+      setFieldValue,
+    ],
   );
 
   const handleChangeDateEnd = useCallback(
@@ -90,13 +103,13 @@ const OfferFormDateTime = (props: Props) => {
 
       const newDateIntervalStart = rebuildDatetime(
         dateIntervalStart,
-        hour || moment().tz(timezone).get('hour'),
-        minute || moment().tz(timezone).get('minute'),
+        hour,
+        minute,
       );
 
       setFieldValue('dateIntervalStart', moment(newDateIntervalStart));
     },
-    [dateIntervalStart, rebuildDatetime, setFieldValue, timezone],
+    [dateIntervalStart, rebuildDatetime, setFieldValue],
   );
 
   const handleChangeDurationMinute = useCallback(

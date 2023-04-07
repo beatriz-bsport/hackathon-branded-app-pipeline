@@ -173,19 +173,28 @@ const OfferFormSpecificities = (props: Props) => {
           isRequired
           isError={!!errors.effectif}
         >
-          <NumericInput
-            id="offer-form-effectif-input"
-            name="effectif"
-            value={effectif}
-            onChange={handleChange}
-            error={!!errors.effectif}
-            helperText={t(errors.effectif)}
-            variant="outlined"
-            size="small"
-            InputProps={{ inputProps: { min: 2 } }}
-            placeholder="20"
-            inputClass={classes.mediumWidth}
-          />
+          <div className={classes.errorContainer}>
+            <NumericInput
+              id="offer-form-effectif-input"
+              name="effectif"
+              value={effectif}
+              onChange={handleChange}
+              error={!!errors.effectif}
+              variant="outlined"
+              size="small"
+              InputProps={{ inputProps: { min: 2 } }}
+              placeholder="20"
+              inputClass={classes.mediumWidth}
+            />
+
+            {!!errors.effectif && (
+              <div>
+                <Typography variant="caption" color="error">
+                  {t(errors.effectif)}
+                </Typography>
+              </div>
+            )}
+          </div>
         </OfferFormField>
 
         <OfferFormField

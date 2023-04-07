@@ -61,3 +61,19 @@ FormSectionWithManyFields.args = {
   sectionTitle: 'Informations personnelles, beaucoup de fois',
   sectionIcon: PersonIcon,
 };
+
+export const FormSectionCollapseVariant = FormSectionTemplate.bind({});
+FormSectionCollapseVariant.args = {
+  children: [
+    <TextField label="Nom" placeholder="Entrez votre nom" required fullWidth />,
+    <TextField
+      label="Prénom"
+      placeholder="Entrez votre prénom"
+      required
+      fullWidth
+    />,
+  ],
+  sectionTitle: 'Informations personnelles',
+  sectionIcon: PersonIcon,
+  variant: 'collapse',
+};

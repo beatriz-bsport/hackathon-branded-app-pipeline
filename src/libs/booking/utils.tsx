@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
-import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
@@ -20,6 +19,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import SmartphoneIcon from '@material-ui/icons/Smartphone';
 
 import { TFunction } from 'i18next';
+import { formatAsDate, formatAsTime } from '../../utils/datetime';
 import { BOOKING_CANCELLED_BY_STAFF } from '#libs/booking/components/constants';
 import {
   PRIVATE_BOOKING_CANCELLED_BY_STAFF,
@@ -55,8 +55,8 @@ export const getPrivateBookingStatusCodeForCalendar = (
       ? [
           'privateBooking.isCancelledByManagerDate',
           {
-            date: moment(private_booking.date_canceled).format('L'),
-            time: moment(private_booking.date_canceled).format('LT'),
+            date: formatAsDate(private_booking.date_canceled),
+            time: formatAsTime(private_booking.date_canceled),
             cancelled_by: getStaffName(cancelled_by),
           },
         ]
@@ -72,8 +72,8 @@ export const getPrivateBookingStatusCodeForCalendar = (
     ? [
         'privateBooking.isCancelledDate',
         {
-          date: moment(private_booking.date_canceled).format('L'),
-          time: moment(private_booking.date_canceled).format('LT'),
+          date: formatAsDate(private_booking.date_canceled),
+          time: formatAsTime(private_booking.date_canceled),
         },
       ]
     : ['privateBooking.isCancelled'];
@@ -112,8 +112,8 @@ const getBookingStatusCode = (
         return ` (${
           booking.date_canceled
             ? t('statusCode.cancelledByManagerDate', {
-                date: moment(booking.date_canceled).format('L'),
-                time: moment(booking.date_canceled).format('LT'),
+                date: formatAsDate(booking.date_canceled),
+                time: formatAsTime(booking.date_canceled),
                 cancelled_by: getStaffName(cancelled_by),
               })
             : t('statusCode.cancelledByManager', {
@@ -125,8 +125,8 @@ const getBookingStatusCode = (
       return ` (${
         booking.date_canceled
           ? t('statusCode.cancelledByAnonymousManagerDate', {
-              date: moment(booking.date_canceled).format('L'),
-              time: moment(booking.date_canceled).format('LT'),
+              date: formatAsDate(booking.date_canceled),
+              time: formatAsTime(booking.date_canceled),
             })
           : t('statusCode.cancelledByAnonymousManager')
       })`;
@@ -135,8 +135,8 @@ const getBookingStatusCode = (
       return ` (${
         booking.date_canceled
           ? t('statusCode.cancelledByConsumerDate', {
-              date: moment(booking.date_canceled).format('L'),
-              time: moment(booking.date_canceled).format('LT'),
+              date: formatAsDate(booking.date_canceled),
+              time: formatAsTime(booking.date_canceled),
             })
           : t('statusCode.cancelledByConsumer')
       })`;
@@ -145,8 +145,8 @@ const getBookingStatusCode = (
       return ` (${
         booking.date_canceled
           ? t('statusCode.cancelledByOfferDate', {
-              date: moment(booking.date_canceled).format('L'),
-              time: moment(booking.date_canceled).format('LT'),
+              date: formatAsDate(booking.date_canceled),
+              time: formatAsTime(booking.date_canceled),
             })
           : t('statusCode.cancelledByOffer')
       })`;

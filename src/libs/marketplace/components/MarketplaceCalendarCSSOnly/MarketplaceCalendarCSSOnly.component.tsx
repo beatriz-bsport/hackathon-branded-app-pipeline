@@ -16,6 +16,7 @@ import { Offer, Offer_FULL } from '#libs/offer/types';
 import { Theme } from '#libs/theme/types';
 import MarketplaceDatePicker from '../MarketplaceDatePicker';
 import { MarketplaceCommonFilter } from '#libs/marketplace/types';
+import { formatAsTime } from '../../../../utils/datetime';
 
 const LoadingIndicator = () => (
   <div className="bs-calendar--loading">
@@ -127,11 +128,11 @@ export const MarketplaceCalendar = (props: Props) => {
               )
                 ? props.t('slotSearcher.nextOffer', {
                     date: moment(nextAvailableOffer.date_start).format('L'),
-                    hour: moment(nextAvailableOffer.date_start).format('LT'),
+                    hour: formatAsTime(nextAvailableOffer.date_start),
                   })
                 : props.t('slotSearcher.previousOffer', {
                     date: moment(nextAvailableOffer.date_start).format('L'),
-                    hour: moment(nextAvailableOffer.date_start).format('LT'),
+                    hour: formatAsTime(nextAvailableOffer.date_start),
                   })}
             </div>
           </button>

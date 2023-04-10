@@ -18,7 +18,7 @@ import CoachPaymentRuleSelector from '../coach-payment-rule-selector/CoachPaymen
 import type { CoachPaymentRule, CoachPerformance } from '../../types';
 import { downloadAsCsv } from '../../../../utils/downloader';
 import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
-import { formatMinutes } from '../../../../utils/datetime';
+import { formatAsTime, formatMinutes } from '../../../../utils/datetime';
 import type { Coach } from '#libs/associated-coach/types';
 
 type Props = {
@@ -95,9 +95,9 @@ export function CoachPerformanceSessionTable(props: Props) {
                   ],
                   performances.map((session) => [
                     session.session_name,
-                    `${moment(session.date_start).format('L')} ${moment(
+                    `${moment(session.date_start).format('L')} ${formatAsTime(
                       session.date_start,
-                    ).format('LT')}`,
+                    )}`,
                     session.duration_minute,
                     session.confirmed_bookings,
                     session.cancelled_bookings,
@@ -176,9 +176,9 @@ export function CoachPerformanceSessionTable(props: Props) {
               >
                 <TableCell align="left">{session.session_name}</TableCell>
                 <TableCell align="right">
-                  {`${moment(session.date_start).format('L')} ${moment(
+                  {`${moment(session.date_start).format('L')} ${formatAsTime(
                     session.date_start,
-                  ).format('LT')}`}
+                  )}`}
                 </TableCell>
                 <TableCell align="right">
                   {formatMinutes(session.duration_minute, t)}

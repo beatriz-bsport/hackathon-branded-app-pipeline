@@ -32,6 +32,7 @@ import {
   ReplacementRequestCoachAnswerStatus,
   ReplacementRequestStatus,
 } from '#libs/replacement-request/constants';
+import { formatAsTime } from '../../../../utils/datetime';
 
 type Props = {
   timezoneName: string;
@@ -141,6 +142,11 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
     [replacementRequest.offer, timezoneName],
   );
 
+  const getTimezone = useMemo(
+    () => replacementRequest.offer.timezone_name ?? timezoneName,
+    [replacementRequest.offer.timezone_name, timezoneName],
+  );
+
   const onClickDelete = useCallback(() => {
     return handleDeleteAction(replacementRequest.id);
   }, [handleDeleteAction, replacementRequest.id]);
@@ -172,9 +178,10 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             <Typography
               className={classnames(classes.grey, classes.mobileSmallFont)}
             >
-              {`${offerDateStartAsMoment.format(
-                'LT',
-              )} - ${offerDateEndAsMoment.format('LT')}`}
+              {`${formatAsTime(
+                offerDateStartAsMoment,
+                getTimezone,
+              )} - ${formatAsTime(offerDateEndAsMoment, getTimezone)}`}
             </Typography>
           </div>
           {replacementDisplay ===
@@ -349,9 +356,10 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
               {offerDateStartAsMoment.format('ll')}
             </Typography>
             <Typography variant="body2" className={classes.grey}>
-              {`${offerDateStartAsMoment.format(
-                'LT',
-              )} - ${offerDateEndAsMoment.format('LT')}`}
+              {`${formatAsTime(
+                offerDateStartAsMoment,
+                getTimezone,
+              )} - ${formatAsTime(offerDateEndAsMoment, getTimezone)}`}
             </Typography>
           </TableCell>
         ) : (
@@ -361,9 +369,10 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                 {offerDateStartAsMoment.format('ll')}
               </Typography>
               <Typography variant="body2" className={classes.grey}>
-                {`${offerDateStartAsMoment.format(
-                  'LT',
-                )} - ${offerDateEndAsMoment.format('LT')}`}
+                {`${formatAsTime(
+                  offerDateStartAsMoment,
+                  getTimezone,
+                )} - ${formatAsTime(offerDateEndAsMoment, getTimezone)}`}
               </Typography>
             </TableCell>
             <Hidden smUp>

@@ -23,6 +23,7 @@ import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Offer } from '#libs/offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
+import { formatAsTime } from '../../../../utils/datetime';
 
 type Props = {
   timezoneName: string;
@@ -187,9 +188,13 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
               <Typography
                 className={classnames(classes.grey, classes.mobileSmallFont)}
               >
-                {`${offerDateStartAsMoment.format(
-                  'LT',
-                )} - ${offerDateEndAsMoment.format('LT')}`}
+                {`${formatAsTime(
+                  offerDateStartAsMoment,
+                  offer.timezone_name ?? timezoneName,
+                )} - ${formatAsTime(
+                  offerDateEndAsMoment,
+                  offer.timezone_name ?? timezoneName,
+                )}`}
               </Typography>
             </div>
             <Typography
@@ -274,9 +279,10 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
           {offerDateStartAsMoment.format('ll')}
         </Typography>
         <Typography variant="body2" className={classes.grey}>
-          {`${offerDateStartAsMoment.format(
-            'LT',
-          )} - ${offerDateEndAsMoment.format('LT')}`}
+          {`${formatAsTime(
+            offerDateStartAsMoment,
+            moment.locale(),
+          )} - ${formatAsTime(offerDateEndAsMoment, moment.locale())}`}
         </Typography>
       </TableCell>
       <Hidden smUp>

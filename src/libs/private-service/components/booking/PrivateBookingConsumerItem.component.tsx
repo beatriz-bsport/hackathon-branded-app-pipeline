@@ -20,6 +20,7 @@ import WidgetUtils from '../../../widget/WidgetUtils';
 import RedButton from '../../../../components/button/RedButton.component';
 import type { PrivateBooking } from '#libs/private-service/types';
 import { MaterialStyleType } from '../../../../utils/types';
+import { formatAsTime } from '../../../../utils/datetime';
 
 type OwnProps = {
   private_booking: PrivateBooking;
@@ -50,9 +51,7 @@ export const PrivateBookingConsumerItem = (props: Props) => {
           primary={moment(private_booking.date_start)
             .tz(props.timezone)
             .format('LL')}
-          secondary={moment(private_booking.date_start)
-            .tz(props.timezone)
-            .format('LT')}
+          secondary={formatAsTime(private_booking.date_start, props.timezone)}
         />
         {private_booking?.is_unpaid && (
           <Typography color="error">

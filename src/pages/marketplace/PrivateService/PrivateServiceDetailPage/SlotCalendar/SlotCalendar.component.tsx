@@ -28,6 +28,7 @@ import {
 } from '../../../../../libs/private-service/utils';
 import { Establishment } from '../../../../../libs/establishment/types';
 import { Coach } from '../../../../../libs/associated-coach/types';
+import { formatAsTime } from '../../../../../utils/datetime';
 
 type SessionMoment = ArrayElement<ReturnType<typeof groupSessionsByDayMoment>>;
 
@@ -124,9 +125,7 @@ const SlotCalendar: React.FC<Props> = ({
                     date: moment(nextDateAvailableSlot)
                       .tz(timezoneName)
                       .format('L'),
-                    hour: moment(nextDateAvailableSlot)
-                      .tz(timezoneName)
-                      .format('LT'),
+                    hour: formatAsTime(nextDateAvailableSlot, timezoneName),
                   })}
                 </Typography>
               </ButtonBase>
@@ -204,9 +203,10 @@ const SlotCalendar: React.FC<Props> = ({
                                 date: moment(nextDateAvailableSlot)
                                   .tz(timezoneName)
                                   .format('L'),
-                                hour: moment(nextDateAvailableSlot)
-                                  .tz(timezoneName)
-                                  .format('LT'),
+                                hour: formatAsTime(
+                                  nextDateAvailableSlot,
+                                  timezoneName,
+                                ),
                               })}
                             </Typography>
                           </ButtonBase>

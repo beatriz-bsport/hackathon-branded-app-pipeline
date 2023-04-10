@@ -45,7 +45,11 @@ import RedButton from '#components/button/RedButton.component';
 
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 
-import { formatAsDatetime, formatAsDate } from '../../../utils/datetime';
+import {
+  formatAsDatetime,
+  formatAsDate,
+  formatAsTime,
+} from '../../../utils/datetime';
 
 import type { Member } from '#libs/member/types';
 import { Booking } from '#libs/booking/types';
@@ -118,7 +122,7 @@ const AttendanceButton = (props: AttendanceButtonProps) => {
         <Tooltip
           title={props.t('attendanceUpdatedOn', {
             d: moment(props.attendance_date_updated).format('LL'),
-            t: moment(props.attendance_date_updated).format('LT'),
+            t: formatAsTime(props.attendance_date_updated),
           })}
         >
           {props_.children}

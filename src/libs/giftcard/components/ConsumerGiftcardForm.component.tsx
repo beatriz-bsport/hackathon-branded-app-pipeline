@@ -13,6 +13,7 @@ import { Giftcard, GiftcardBackgroundImage } from '../types';
 import EmailInputWithChipsField from '../../../components/input/email-input-with-chip/EmailInputWithChipsField.component';
 import CarouselInputField from '../../../components/input/carousel-input/CarouselInputField.component';
 import { parseQueryString } from '../../../http';
+import { formatAsTime } from '../../../utils/datetime';
 
 type Props = {
   giftcard: Giftcard;
@@ -110,12 +111,12 @@ export const ConsumerGiftcardForm = (props: Props) => {
           ? t('consumerGiftcard.form.footer', {
               expiration_days: props.giftcard?.expiration_days || 0,
               date_send: moment(props.values.date_to_send).format('L'),
-              hour_send: moment(props.values.date_to_send).format('LT'),
+              hour_send: formatAsTime(props.values.date_to_send),
               price: getCurrencyDisplayWithPrice(props.giftcard.price),
             })
           : t('consumerGiftcard.form.footerUnlimited', {
               date_send: moment(props.values.date_to_send).format('L'),
-              hour_send: moment(props.values.date_to_send).format('LT'),
+              hour_send: formatAsTime(props.values.date_to_send),
               price: getCurrencyDisplayWithPrice(props.giftcard.price),
             })}
       </Typography>

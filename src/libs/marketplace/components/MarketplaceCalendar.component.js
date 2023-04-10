@@ -18,6 +18,7 @@ import MarketplaceTimetable from './MarketplaceTimetable.component';
 import MarketplaceWeekTimetable from './MarketplaceWeekTimeTable.component';
 import MarketplaceFilterComponent from './MarketplaceFilter.component';
 import type { EstablishmentGroup } from '../../establishment/types';
+import { formatAsTime } from '../../../utils/datetime';
 
 const LoadingIndicator = () => (
   <div
@@ -189,9 +190,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
                     <Typography color="primary">
                       {this.props.t('slotSearcher.previousOffer', {
                         date: Moment(nextAvailableOffer.date_start).format('L'),
-                        hour: Moment(nextAvailableOffer.date_start).format(
-                          'LT',
-                        ),
+                        hour: formatAsTime(nextAvailableOffer.date_start),
                       })}
                     </Typography>
                   </ButtonBase>
@@ -258,9 +257,7 @@ export class MarketplaceCalendar extends PureComponent<Props> {
                             date: Moment(nextAvailableOffer.date_start).format(
                               'L',
                             ),
-                            hour: Moment(nextAvailableOffer.date_start).format(
-                              'LT',
-                            ),
+                            hour: formatAsTime(nextAvailableOffer.date_start),
                           })}
                         </Typography>
                       </ButtonBase>

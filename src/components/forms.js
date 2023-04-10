@@ -47,6 +47,7 @@ import DelayedTextField from './DelayedTextField.component';
 import ColorInput from './input/ColorInput.component';
 import Selector from './Selector.component';
 import IconInput from './input/IconInput.component';
+import { formatAsTime } from '../utils/datetime';
 
 type AlertErrorProps = {
   t: TFunction,
@@ -398,7 +399,7 @@ export const TimeField = (props: TimeFieldProps) => {
               onChange={(time) => {
                 setFieldValue(
                   props.name,
-                  props.parseAsString ? moment(time).format('LT') : time,
+                  props.parseAsString ? formatAsTime(time) : time,
                 );
               }}
               format="LT"

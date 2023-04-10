@@ -21,6 +21,7 @@ import { MetaActivity, OffersGroup } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
 import ReccurenceDisplay from './RecurrenceDisplay.component';
 import { getTextColorFromRGB } from '../../../utils/color';
+import { formatAsTime } from '../../../utils/datetime';
 
 type Props = {
   group: OffersGroup;
@@ -147,7 +148,7 @@ export const GroupCard: React.FC<Props> = ({
                 </div>
                 <div>
                   <Typography variant="caption" color="textSecondary">
-                    {moment(offer.date_start).format('LT')}
+                    {formatAsTime(offer.date_start)}
                   </Typography>
                 </div>
               </div>

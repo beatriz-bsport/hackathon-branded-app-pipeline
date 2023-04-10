@@ -9,6 +9,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import PlaceIcon from '@material-ui/icons/PlaceOutlined';
 
 import Level from '#libs/level/components/Level.component';
+import { formatAsTime } from '../../../utils/datetime';
 
 type Props = {
   offer: Object,
@@ -32,9 +33,7 @@ class CheckInOfferSummaryPanel extends Component<Props> {
           <div className={classes.row}>
             <AccessTimeIcon className={classes.leftIcon} />
             <Typography variant="body2">
-              {`${moment(offer.date_start).format('LT')} - ${moment(
-                date_end,
-              ).format('LT')}`}
+              {`${formatAsTime(offer.date_start)} - ${formatAsTime(date_end)}`}
             </Typography>
           </div>
         </div>

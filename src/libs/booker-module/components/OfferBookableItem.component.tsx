@@ -22,7 +22,7 @@ import {
   OFFER_BOOKABLE_STATUS_TOO_LATE,
   OFFER_BOOKABLE_STATUS_LOCKED,
 } from '@bsport/common/lib/master-data/bookable-status';
-import { formatMinutes } from '../../../utils/datetime';
+import { formatAsTime, formatMinutes } from '../../../utils/datetime';
 import type { OfferStatus as OfferStatusType, Offer } from '#libs/offer/types';
 import type { Coach } from '#libs/associated-coach/types';
 import type { Establishment } from '#libs/establishment/types';
@@ -130,9 +130,7 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
         {props.disabled && <div className={classes.disableOverlay} />}
         <div className={classes.time}>
           <Typography variant="h6">
-            {moment(props.offer.date_start)
-              .tz(props.offer.timezone_name)
-              .format('LT')}
+            {formatAsTime(props.offer.date_start, props.offer.timezone_name)}
           </Typography>
           <Typography color="textSecondary">
             {formatMinutes(props.offer.duration_minute, t)}

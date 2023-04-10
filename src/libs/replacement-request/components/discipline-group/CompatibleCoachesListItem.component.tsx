@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { alpha } from '@material-ui/core/styles';
 
 import SPORTS from '@bsport/common/lib/master-data/sports';
+import { formatAsTime } from '../../../../utils/datetime';
 
 type Props = {
   name: string;
@@ -56,7 +57,7 @@ export const CompatibleCoachesListItem: React.FC<Props> = ({
           nextSlot
             ? t('compatibleCoaches.nextSlot', {
                 date: moment(nextSlot).format('L'),
-                hour: moment(nextSlot).format('LT'),
+                hour: formatAsTime(nextSlot),
                 interpolation: { escapeValue: false },
               })
             : null

@@ -21,6 +21,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Level } from '#libs/level/types';
 import CoachAvatar from '#libs/associated-coach/components/CoachAvatar.component';
 import { OptionCallback } from '../../../../state/types';
+import { formatAsTime } from '../../../../utils/datetime';
 
 type Props = {
   open: boolean;
@@ -113,7 +114,7 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
           {t('coachAnswers.success.description', {
             coach: selectedCoachAnswer.coach.name,
             date: moment(replacementRequest.offer.date_start).format('L'),
-            time: moment(replacementRequest.offer.date_start).format('LT'),
+            time: formatAsTime(replacementRequest.offer.date_start),
           })}
         </Typography>
         <div className={classes.buttonContainer}>
@@ -165,10 +166,12 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
           {moment(replacementRequest.offer.date_start).format('ddd D MMM')}
         </Typography>
         <Typography variant="body2" className={classes.grey}>
-          {moment(replacementRequest.offer.date_start).format('LT')} -{' '}
-          {moment(replacementRequest.offer.date_start)
-            .add(replacementRequest.offer.duration_minute, 'minutes')
-            .format('LT')}
+          {formatAsTime(replacementRequest.offer.date_start)} -{' '}
+          {formatAsTime(
+            moment(replacementRequest.offer.date_start)
+              .add(replacementRequest.offer.duration_minute, 'minutes')
+              .format(),
+          )}
         </Typography>
       </div>
       <div className={classes.spaceBetween}>

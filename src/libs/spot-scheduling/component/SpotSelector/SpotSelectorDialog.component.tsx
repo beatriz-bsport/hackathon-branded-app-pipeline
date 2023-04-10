@@ -22,6 +22,7 @@ import { Offer } from '../../../offer/types';
 import { MaterialStyleType } from '../../../../utils/types';
 import CanvasSpotComponent from '#libs/spot-scheduling/CanvasSvg/tools/Spot/CanvasSpot.component';
 import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
+import { formatAsTime } from '../../../../utils/datetime';
 
 interface OwnProps {
   offer?: Offer;
@@ -253,9 +254,10 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                       .tz(this.props.offer.timezone_name)
                       .format('LL')}, ${moment(this.props.offer.date_start)
                       .tz(this.props.offer.timezone_name)
-                      .format('dddd')} ${moment(this.props.offer.date_start)
-                      .tz(this.props.offer.timezone_name)
-                      .format('LT')}`}
+                      .format('dddd')} ${formatAsTime(
+                      this.props.offer.date_start,
+                      this.props.offer.timezone_name,
+                    )}`}
                   </Typography>
                 </div>
               </div>
@@ -395,9 +397,10 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                   .tz(this.props.offer.timezone_name)
                   .format('LL')}, ${moment(this.props.offer.date_start)
                   .tz(this.props.offer.timezone_name)
-                  .format('dddd')} ${moment(this.props.offer.date_start)
-                  .tz(this.props.offer.timezone_name)
-                  .format('LT')}`}
+                  .format('dddd')} ${formatAsTime(
+                  this.props.offer.date_start,
+                  this.props.offer.timezone_name,
+                )}`}
               </Typography>
             </div>
           </div>

@@ -16,6 +16,7 @@ import ConsumerPackRowItem from '../../consumer-payment-pack/components/Consumer
 import VodVideoAnalytics from './VodVideoAnalytics.component';
 import InvoiceListItem from '../../invoice/InvoiceListItem.component';
 import { Invoice } from '../../invoice/types';
+import { formatAsTime } from '../../../utils/datetime';
 
 type Props = {
   classes: Object;
@@ -159,9 +160,9 @@ export class VideoDetail extends Component<Props, State> {
                 : t('video.rental.valid')}
             </Typography>
             <Typography color="textSecondary" variant="body2">
-              {`${t('video.rental.buyDate')} : ${moment(
+              {`${t('video.rental.buyDate')} : ${formatAsTime(
                 selectedVideoPurchase.date_created,
-              ).format('LT')}`}
+              )}`}
             </Typography>
           </div>
         )}

@@ -19,6 +19,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import AdjustIcon from '@material-ui/icons/Adjust';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
+import { formatAsTime } from '../../../utils/datetime';
 import RedButton from '../../../components/button/RedButton.component';
 import { Booking } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -73,7 +74,7 @@ export const BookingConsumerItem = (props: Props) => {
         </ListItemIcon>
         <ListItemText
           primary={offer ? dateStart.format('LL') : ' - '}
-          secondary={offer ? dateStart.format('LT') : ' - '}
+          secondary={offer ? formatAsTime(offer.date_start) : ' - '}
         />
       </ListItem>
       <div>{props.booking?.spot_prefix}</div>

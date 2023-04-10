@@ -1,6 +1,5 @@
 import React from 'react';
 
-import moment from 'moment-timezone';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
 
@@ -8,6 +7,7 @@ import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Avatar from '@material-ui/core/Avatar';
 import { AvailabilityDetail } from '#libs/private-service/types';
+import { formatAsTime } from '../../../../utils/datetime';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -95,8 +95,8 @@ export const SlotDetailListItem: React.FC<Props> = ({
               >
                 <Typography variant="body2">
                   {t('availabilitySlot.detail.slotBoundaries', {
-                    date_start: moment(slot.date_start).format('LT'),
-                    date_end: moment(slot.date_end).format('LT'),
+                    date_start: formatAsTime(slot.date_start),
+                    date_end: formatAsTime(slot.date_end),
                   })}
                 </Typography>
                 {slot.restriction_on_associated_establishments.length ? (
@@ -126,9 +126,9 @@ export const SlotDetailListItem: React.FC<Props> = ({
               <ul className={classes.list}>
                 {slots.map((slot) => (
                   <li key={`${resourceType}-${resourceId}-${slot.date_start}`}>
-                    {`${moment(slot.date_start).format('LT')} - ${moment(
+                    {`${formatAsTime(slot.date_start)} - ${formatAsTime(
                       slot.date_end,
-                    ).format('LT')}`}
+                    )}`}
                   </li>
                 ))}
               </ul>

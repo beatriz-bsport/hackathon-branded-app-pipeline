@@ -18,6 +18,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Level } from '#libs/level/types';
 import { OptionCallback } from '../../../../state/types';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import { formatAsTime } from '../../../../utils/datetime';
 
 type Props = {
   open: boolean;
@@ -114,10 +115,12 @@ export const ReplacementRequestClosingDateExtensionDialog: React.FC<Props> = ({
           {moment(replacementRequest.offer.date_start).format('ddd D MMM')}
         </Typography>
         <Typography variant="body2" className={classes.grey}>
-          {moment(replacementRequest.offer.date_start).format('LT')} -{' '}
-          {moment(replacementRequest.offer.date_start)
-            .add(replacementRequest.offer.duration_minute, 'minutes')
-            .format('LT')}
+          {formatAsTime(replacementRequest.offer.date_start)} -{' '}
+          {formatAsTime(
+            moment(replacementRequest.offer.date_start)
+              .add(replacementRequest.offer.duration_minute, 'minutes')
+              .format(),
+          )}
         </Typography>
       </div>
       <div className={classes.marginLeft}>
@@ -137,7 +140,7 @@ export const ReplacementRequestClosingDateExtensionDialog: React.FC<Props> = ({
       <Typography variant="body1" className={classes.marginLeft}>
         {t('askForClosingDateExtension.new_closing_date', {
           closing_date: moment(date).format('LL'),
-          time: moment(date).format('LT'),
+          time: formatAsTime(date),
         })}
       </Typography>
       <div className={classes.alignRight}>

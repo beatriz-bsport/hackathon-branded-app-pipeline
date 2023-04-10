@@ -158,7 +158,7 @@ class Calendar extends PureComponent<Props, State> {
       >
         {!forceMonthDisplay && !hideSwitchViewButton && (
           <MenuItem onClick={this.togleDisplayMode}>
-            {this.state.displayMode === WEEKMODE ? (
+            {this.state.displayMode === MONTHMODE ? (
               <>
                 <ListItemIcon>
                   <ViewWeek />

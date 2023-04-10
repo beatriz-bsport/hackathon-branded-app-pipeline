@@ -29,6 +29,7 @@ import withConfirm from '#hocs/with-confirm.hoc';
 import { ClockInData } from '../types';
 import { getTextColorFromRGB } from '../../../utils/color';
 import EditClockinModal from './EditClockIn.dialog';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   value: {
@@ -105,7 +106,6 @@ const ClockInHistory: React.FC<Props> = ({
               deleteClockIn={deleteClockIn}
             />
           ))}
-          
         </TableBody>
       </Table>
     </TableContainer>
@@ -153,10 +153,14 @@ const ClockInHistoryRow: React.FC<{
       return acc;
     }, 0) ?? 0;
 
-  const hours = Math.floor(moment.duration(totalDuration, 'millisecond').asHours());
-  const mins= Math.floor(moment.duration(totalDuration, 'millisecond').asMinutes()) - hours*60;
-  const totalDurationDisplay = hours + ":" + ((mins> 9)? mins : ("0"+mins)); 
-  
+  const hours = Math.floor(
+    moment.duration(totalDuration, 'millisecond').asHours(),
+  );
+  const mins =
+    Math.floor(moment.duration(totalDuration, 'millisecond').asMinutes()) -
+    hours * 60;
+  const totalDurationDisplay = hours + ':' + (mins > 9 ? mins : '0' + mins);
+
   return (
     <>
       <TableRow>
@@ -177,9 +181,7 @@ const ClockInHistoryRow: React.FC<{
         <TableCell className={classes.name}>
           {`${row.first_name} ${row.last_name}`}
         </TableCell>
-        <TableCell colSpan={10}>
-          {totalDurationDisplay}
-        </TableCell>
+        <TableCell colSpan={10}>{totalDurationDisplay}</TableCell>
         <TableCell colSpan={10}>
           {Math.floor(
             moment.duration(totalDuration, 'millisecond').as('hour') * 100,
@@ -321,12 +323,14 @@ const ClockInHistoryRow: React.FC<{
                         onClick={() => {
                           setEditData({
                             id: detail.id,
-                            clock_in: moment
-                              .unix(detail.date_start)
-                              .format('LLL'),
-                            clock_out: moment
-                              .unix(detail.date_end)
-                              .format('LLL'),
+                            clock_in: formatAsDatetimeAdapted(
+                              moment.unix(detail.date_start),
+                              'LLL',
+                            ),
+                            clock_out: formatAsDatetimeAdapted(
+                              moment.unix(detail.date_end),
+                              'LLL',
+                            ),
                           });
                         }}
                         className={classes.editButton}

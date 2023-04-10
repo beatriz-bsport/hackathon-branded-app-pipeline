@@ -10,6 +10,7 @@ import RedButton from '../../../../components/button/RedButton.component';
 
 import { MaterialStyleType } from '../../../../utils/types';
 import { PrivateConsumerPassMassExtension } from '../../types';
+import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
 type OwnProps = {
   massExtension: PrivateConsumerPassMassExtension;
@@ -40,7 +41,7 @@ export const PrivatePassMassExtensionListItem = (props: Props) => {
         </Typography>
         <Typography variant="caption" color="textSecondary">
           {t('massExtension.createdAt', {
-            date: moment(massExtension.date_created).format('lll'),
+            date: formatAsDatetimeAdapted(massExtension.date_created, 'lll'),
           })}
         </Typography>
       </div>

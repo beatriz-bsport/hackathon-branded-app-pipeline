@@ -1,6 +1,5 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -30,6 +29,7 @@ import type {
 import { getStaffName } from '#libs/booking/utils';
 import { OptionCallback } from '../../../state/types';
 import { Member } from '#libs/member/types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   invoice?: WithAuthor<WithEstablishment<Invoice<Member>>>;
@@ -114,7 +114,7 @@ export const InvoiceHeader = (props: Props) => {
         <div className={classes.row}>
           <TodayIcon fontSize="small" className={classes.leftIcon} />
           <Typography color="textSecondary">
-            {moment(invoice.date).format('LLL')}
+            {formatAsDatetimeAdapted(invoice.date, 'LLL')}
           </Typography>
         </div>
         <div className={classes.row}>

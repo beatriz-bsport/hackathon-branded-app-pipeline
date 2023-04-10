@@ -35,6 +35,7 @@ import type {
 } from '../types';
 import i18n from '../../../i18n';
 import { buildUrlParams } from '../../../http';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   alerting: Alerting;
@@ -317,7 +318,7 @@ const UnreadCommunicationListItem = (props: {
                 color="textSecondary"
                 component="h4"
               >
-                {moment(alerting.data.date_created).format('lll')}
+                {formatAsDatetimeAdapted(alerting.data.date_created, 'lll')}
               </Typography>
             </div>
           </div>

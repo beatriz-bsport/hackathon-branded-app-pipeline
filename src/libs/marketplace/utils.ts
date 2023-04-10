@@ -257,7 +257,7 @@ export const getOfferHours = (
       : establishment.tzname;
 
     const startMoment = moment(offer?.date_start).tz(tz);
-    const startHour = formatAsTime(startMoment.format(), tz);
+    const startHour = formatAsTime(startMoment, tz);
 
     const endMoment = moment(offer?.date_start)
       .add(moment.duration(offer?.duration_minute, 'minutes'))
@@ -266,7 +266,7 @@ export const getOfferHours = (
     if (!endMoment.isSame(startMoment, 'day')) {
       return startHour;
     }
-    const endHour = formatAsTime(endMoment.format(), tz);
+    const endHour = formatAsTime(endMoment, tz);
 
     return `${startHour} - ${endHour}`;
   }

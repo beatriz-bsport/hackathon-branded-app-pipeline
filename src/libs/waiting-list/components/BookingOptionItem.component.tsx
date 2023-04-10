@@ -12,6 +12,7 @@ import cls from 'classnames';
 import { Theme } from '@material-ui/core/styles';
 import { BookingOptionWithActivity } from '../../booking/types';
 import { MaterialStyleType } from '../../../utils/types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 interface OwnProps {
   bookingOption: BookingOptionWithActivity;
@@ -41,7 +42,10 @@ class BookingOptionItem extends React.PureComponent<Props> {
       >
         <ListItemText
           primary={bookingOption.offer.activity.name}
-          secondary={moment(bookingOption.offer.date_start).format('LLL')}
+          secondary={formatAsDatetimeAdapted(
+            bookingOption.offer.date_start,
+            'LLL',
+          )}
         />
 
         {!expired && (

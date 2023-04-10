@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { Typography, makeStyles, Button, Divider } from '@material-ui/core';
-import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
 import { PeopleAlt } from '@material-ui/icons';
@@ -13,6 +12,7 @@ import { Tag, TagGroup } from '#libs/tag/types';
 import ValidationRollCallText from './ValidationRollCallText.component';
 import ConfirmationRollCallDialog from './ConfirmationRollCallDialog.component';
 import { Offer } from '#libs/offer/types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 export type Props = {
   open: boolean;
@@ -62,9 +62,10 @@ export const RollCallDrawer: React.FC<Props> = (props) => {
     <GenericResponsiveDrawer
       open={props.open}
       title={t('rollCall.drawer.rollCall')}
-      subtitle={`${props.offer?.name} - ${moment(
+      subtitle={`${props.offer?.name} - ${formatAsDatetimeAdapted(
         props.offer?.date_start,
-      ).format('LLL')}`}
+        'LLL',
+      )}`}
       onClose={props.onClose}
     >
       <ConfirmationRollCallDialog

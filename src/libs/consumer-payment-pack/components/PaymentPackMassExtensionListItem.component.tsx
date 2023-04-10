@@ -9,6 +9,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import RedButton from '../../../components/button/RedButton.component';
 
 import { MaterialStyleType } from '../../../utils/types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 interface MassExtension {
   note: string;
@@ -47,7 +48,7 @@ export const PaymentPackMassExtensionListItem = (props: Props) => {
         </Typography>
         <Typography variant="caption" color="textSecondary">
           {t('massExtension.createdAt', {
-            date: moment(massExtension.date_created).format('lll'),
+            date: formatAsDatetimeAdapted(massExtension.date_created, 'lll'),
           })}
         </Typography>
       </div>

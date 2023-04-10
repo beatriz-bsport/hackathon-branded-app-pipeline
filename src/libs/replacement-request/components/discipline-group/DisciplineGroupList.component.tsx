@@ -13,9 +13,17 @@ import DisciplineGroupListItem from './DisciplineGroupListItem.component';
 
 import { DisciplineGroup } from '#libs/replacement-request/types';
 import { Coach } from '#libs/associated-coach/types';
+import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
 
 type Props = {
-  disciplineGroups: DisciplineGroup<number, number, number, Coach>[];
+  disciplineGroups: DisciplineGroup<
+    number,
+    number,
+    number,
+    Establishment,
+    EstablishmentGroup,
+    Coach
+  >[];
   loading: boolean;
   handleDelete: (disciplineGroup: DisciplineGroup) => void;
   handleEdit: (disciplineGroup: DisciplineGroup) => void;

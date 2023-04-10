@@ -43,6 +43,14 @@ import {
   getAllDisciplineGroupsWithFullData,
 } from '#libs/replacement-request/selectors';
 import { computeNbCompatibleCoaches } from '#libs/replacement-request/utils';
+import {
+  getAvailableEstablishmentList,
+  getAssociatedEstablishmentGroup,
+} from '#libs/establishment/selectors';
+import {
+  fetchEstablishments as fetchEstablishmentsAction,
+  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
+} from '#libs/establishment/actions';
 
 type Props = ConnectedProps<typeof connector>;
 
@@ -55,6 +63,8 @@ export const ReplacementDisciplineGroup: React.FC<Props> = (props) => {
     updateDisciplineGroup,
     fetchAssociatedCoachesList,
     fetchActivitiesCompany,
+    fetchEstablishments,
+    fetchAllEstablishmentGroup,
     companyId,
   } = props;
 
@@ -72,10 +82,14 @@ export const ReplacementDisciplineGroup: React.FC<Props> = (props) => {
     });
     fetchActivitiesCompany(companyId);
     fetchDisciplineGroupList();
+    fetchEstablishments();
+    fetchAllEstablishmentGroup();
   }, [
     fetchDisciplineGroupList,
     fetchAssociatedCoachesList,
     fetchActivitiesCompany,
+    fetchEstablishments,
+    fetchAllEstablishmentGroup,
     companyId,
   ]);
 
@@ -245,8 +259,11 @@ export const ReplacementDisciplineGroup: React.FC<Props> = (props) => {
         activityList={props.activityList}
         workshopList={props.workshopList}
         categoryList={myStudioSCTs}
+        establishmentList={props.establishmentList}
+        establishmentGroupList={props.establishmentGroupList}
         coachList={props.coachList}
         onSubmit={handleSubmit}
+        companyTheme={props.theme}
       />
     </>
   );
@@ -275,6 +292,8 @@ const connector = connect(
     disciplineGroupLoading: getDisciplineGroupLoading(state),
     metaActivityLoading: getMetaActivityLoading(state),
     coachLoading: getCoachLoading(state),
+    establishmentList: getAvailableEstablishmentList(state),
+    establishmentGroupList: getAssociatedEstablishmentGroup(state),
   }),
   {
     fetchCompanyTheme: fetchCompanyThemeAction,
@@ -284,6 +303,8 @@ const connector = connect(
     fetchDisciplineGroupList: fetchDisciplineGroupListAction,
     deleteDisciplineGroup: deleteDisciplineGroupAction,
     updateDisciplineGroup: updateDisciplineGroupAction,
+    fetchEstablishments: fetchEstablishmentsAction,
+    fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
   },
 );
 

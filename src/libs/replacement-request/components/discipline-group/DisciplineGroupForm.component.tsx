@@ -1,14 +1,16 @@
 // @ts-nocheck
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useState, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form, Formik, FormikProps, FieldArray } from 'formik';
 import * as Yup from 'yup';
+import Immutable from 'seamless-immutable';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import WarningIcon from '@material-ui/icons/Warning';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Grid from '@material-ui/core/Grid';
+import { FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
 
 import {
   TextFieldEnhancedLabelWithError,
@@ -29,6 +31,16 @@ import { Coach } from '#libs/associated-coach/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { EstablishmentSelector } from '#libs/establishment/components/EstablishmentSelector.component';
+import { EstablishmentGroupSelector } from '#libs/establishment/components/EstablishmentGroupSelector.component';
+import {
+  Establishment,
+  EstablishmentGroup,
+  EstablishmentSelectOption,
+  EstablishmentGroupSelectOption,
+} from '#libs/establishment/types';
+import type { Theme as CompanyTheme } from '#libs/theme/types';
+import { MultilocationChoice } from '#libs/replacement-request/constants';
 
 const {
   trackFormAdd,
@@ -50,6 +62,9 @@ type Props = {
   workshopList: MetaActivity[];
   categoryList: SCT[];
   coachList: Coach[];
+  establishmentList: Establishment[];
+  establishmentGroupList: EstablishmentGroup[];
+  companyTheme: CompanyTheme;
 };
 
 export const DisciplineGroupForm: React.FC<Props> = ({
@@ -60,6 +75,9 @@ export const DisciplineGroupForm: React.FC<Props> = ({
   workshopList,
   categoryList,
   coachList,
+  establishmentList,
+  establishmentGroupList,
+  companyTheme,
 }) => {
   const classes = useStyles();
 
@@ -108,6 +126,28 @@ export const DisciplineGroupForm: React.FC<Props> = ({
     [categoryList],
   );
 
+  const isMultiLocalizationActivated = companyTheme.enable_multi_localization;
+  const multiLocalizationChoices = useMemo(
+    () =>
+      Immutable([
+        {
+          label: t('disciplineGroup.form.establishments'),
+          value: MultilocationChoice.Establishments,
+        },
+        {
+          label: t('disciplineGroup.form.locations'),
+          value: MultilocationChoice.Locations,
+        },
+      ]),
+    [t],
+  );
+
+  const [multiLocationChoice, setMultiLocationChoice] = useState(
+    initial && initial.establishment_groups?.length !== 0
+      ? MultilocationChoice.Locations
+      : MultilocationChoice.Establishments,
+  );
+
   return (
     <Formik
       validationSchema={disciplineGroupSchema}
@@ -121,6 +161,8 @@ export const DisciplineGroupForm: React.FC<Props> = ({
           categories: [],
           all_categories: false,
           associated_coaches: [],
+          establishments: [],
+          establishment_groups: [],
         }
       }
       onSubmit={(values, actions) => {
@@ -157,6 +199,38 @@ export const DisciplineGroupForm: React.FC<Props> = ({
         values,
         errors,
       }: FormikProps<DisciplineGroupAPIData>) => {
+        const onChangeRadioButton = (
+          _: ChangeEvent<HTMLInputElement>,
+          value: string,
+        ) => {
+          setMultiLocationChoice(value);
+          setFieldValue('establishments', []);
+          setFieldValue('establishment_groups', []);
+        };
+        const selectOptionEstablishments = (
+          list: EstablishmentSelectOption[],
+        ) => {
+          if (!list) {
+            setFieldValue('establishments', []);
+          } else {
+            setFieldValue(
+              'establishments',
+              list.map((s) => s.value),
+            );
+          }
+        };
+        const selectOptionLocations = (
+          list: EstablishmentGroupSelectOption[],
+        ) => {
+          if (!list) {
+            setFieldValue('establishment_groups', []);
+          } else {
+            setFieldValue(
+              'establishment_groups',
+              list.map((s) => s.value),
+            );
+          }
+        };
         return (
           <Form>
             <Grid container spacing={2}>
@@ -343,6 +417,68 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                   label={t('disciplineGroup.form.allCategories')}
                 />
               </Grid>
+
+              <Grid item xs={12}>
+                <Typography variant="h6">
+                  {t('disciplineGroup.form.establishments')}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <FieldArray name="establishments">
+                  {({
+                    form: {
+                      values: { establishments, establishment_groups },
+                    },
+                  }) => (
+                    <div>
+                      {isMultiLocalizationActivated && (
+                        <div className={classes.radioButtons}>
+                          <RadioGroup
+                            name="multilocationRadioGroup"
+                            value={multiLocationChoice}
+                            onChange={onChangeRadioButton}
+                          >
+                            {multiLocalizationChoices.map(
+                              ({ value, label: l }) => (
+                                <div key={value}>
+                                  <FormControlLabel
+                                    key={value}
+                                    value={value}
+                                    control={<Radio />}
+                                    label={l}
+                                  />
+                                </div>
+                              ),
+                            )}
+                          </RadioGroup>
+                        </div>
+                      )}
+                      {multiLocationChoice === MultilocationChoice.Locations ? (
+                        <EstablishmentGroupSelector
+                          establishmentGroups={establishmentGroupList}
+                          selectedEstablishmentGroups={establishment_groups}
+                          selectOption={selectOptionLocations}
+                          isClearable
+                          placeholder={t(
+                            'disciplineGroup.form.pickEstablishment',
+                          )}
+                        />
+                      ) : (
+                        <EstablishmentSelector
+                          establishments={establishmentList}
+                          selectedEstablishments={establishments}
+                          selectOption={selectOptionEstablishments}
+                          isClearable
+                          placeholder={t(
+                            'disciplineGroup.form.pickEstablishment',
+                          )}
+                        />
+                      )}
+                    </div>
+                  )}
+                </FieldArray>
+              </Grid>
+
               <Grid item xs={12}>
                 <Typography variant="h6">
                   {t('disciplineGroup.form.coaches')}
@@ -401,7 +537,6 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                 </FieldArray>
               </Grid>
             </Grid>
-
             <Actions>
               <Button
                 onClick={() => {
@@ -429,6 +564,9 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                 {t('disciplineGroup.form.submit')}
               </Submit>
             </Actions>
+            {values.associated_coaches.length === 0 && (
+              <div className={classes.bottomMargin} />
+            )}
           </Form>
         );
       }}
@@ -453,17 +591,36 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1.5),
     marginBottom: theme.spacing(1),
   },
+  radioButtons: {
+    marginBottom: theme.spacing(1),
+  },
+  bottomMargin: {
+    marginBottom: theme.spacing(10),
+  },
 }));
 
 export default DisciplineGroupForm;
 
-const disciplineGroupSchema = Yup.object().shape({
-  name: Yup.string().required('replacement:disciplineGroup.form.required'),
-  meta_activities: Yup.array().of(Yup.number()),
-  all_activities: Yup.boolean(),
-  workshops: Yup.array().of(Yup.number()),
-  all_workshops: Yup.boolean(),
-  categories: Yup.array().of(Yup.number()),
-  all_categories: Yup.boolean(),
-  associated_coaches: Yup.array().of(Yup.number()).min(1).required(),
-});
+const disciplineGroupSchema = Yup.object()
+  .shape({
+    name: Yup.string().required('replacement:disciplineGroup.form.required'),
+    meta_activities: Yup.array().of(Yup.number()),
+    all_activities: Yup.boolean(),
+    workshops: Yup.array().of(Yup.number()),
+    all_workshops: Yup.boolean(),
+    categories: Yup.array().of(Yup.number()),
+    all_categories: Yup.boolean(),
+    establishments: Yup.array().of(Yup.number()),
+    establishment_groups: Yup.array().of(Yup.number()),
+    associated_coaches: Yup.array().of(Yup.number()).min(1).required(),
+  })
+  .test(
+    'establishments-and-locations-both-set',
+    'replacement:disciplineGroup.form.establishmentSelectorError',
+    function checkIsLocationEmpty(discipline_group) {
+      const establishmentsAreSet = discipline_group.establishments.length > 0;
+      const establishmentGroupsAreSet =
+        discipline_group.establishment_groups.length > 0;
+      return !(establishmentsAreSet && establishmentGroupsAreSet);
+    },
+  );

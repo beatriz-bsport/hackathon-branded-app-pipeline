@@ -11,6 +11,8 @@ import { Coach } from '#libs/associated-coach/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
+import type { Theme as CompanyTheme } from '../../../theme/types';
 
 const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.DisciplineGroup,
@@ -20,15 +22,32 @@ type Props = {
   open: boolean;
   handleClose: () => void;
   onSubmit: (data: any) => void;
-  disciplineGroup: DisciplineGroup<MetaActivity, MetaActivity, SCT, Coach>;
+  disciplineGroup: DisciplineGroup<
+    MetaActivity,
+    MetaActivity,
+    SCT,
+    Establishment,
+    EstablishmentGroup,
+    Coach
+  >;
   activityList: MetaActivity[];
   workshopList: MetaActivity[];
   categoryList: SCT[];
+  establishmentList: Establishment[];
+  establishmentGroupList: EstablishmentGroup[];
   coachList: Coach[];
+  companyTheme: CompanyTheme;
 };
 
 const convertDataIntoIds = (
-  disciplineGroup: DisciplineGroup<MetaActivity, MetaActivity, SCT, Coach>,
+  disciplineGroup: DisciplineGroup<
+    MetaActivity,
+    MetaActivity,
+    SCT,
+    Establishment,
+    EstablishmentGroup,
+    Coach
+  >,
 ) => {
   if (!disciplineGroup) return null;
   return {
@@ -38,6 +57,12 @@ const convertDataIntoIds = (
     ),
     workshops: disciplineGroup.workshops?.map((workshop) => workshop.id),
     categories: disciplineGroup.categories?.map((sct) => sct.id),
+    establishments: disciplineGroup.establishments?.map(
+      (establishment) => establishment.id,
+    ),
+    establishment_groups: disciplineGroup.establishment_groups?.map(
+      (establishment_group) => establishment_group.id,
+    ),
     associated_coaches: disciplineGroup.associated_coaches?.map(
       (coach) => coach.associated_coach_id,
     ),
@@ -53,6 +78,9 @@ export const DisciplineGroupFormDrawer: React.FC<Props> = ({
   workshopList,
   categoryList,
   coachList,
+  establishmentList,
+  establishmentGroupList,
+  companyTheme,
 }) => {
   const { t } = useTranslation('replacement');
 
@@ -79,6 +107,9 @@ export const DisciplineGroupFormDrawer: React.FC<Props> = ({
           workshopList={workshopList}
           categoryList={categoryList}
           coachList={coachList}
+          establishmentList={establishmentList}
+          establishmentGroupList={establishmentGroupList}
+          companyTheme={companyTheme}
         />
       )}
     </GenericResponsiveDrawer>

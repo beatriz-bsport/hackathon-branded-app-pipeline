@@ -8,7 +8,7 @@ export function formatAsDate(date: string, tzname?: string) {
   return momentDate.format('L');
 }
 
-export function formatAsTime(date: string, tzname: string) {
+export function formatAsTime(date: string | moment.Moment, tzname?: string) {
   if (moment().locale() === 'en-gb' || moment().locale() === 'en-US') {
     const momentDate = moment(date).locale('en');
     if (tzname) {
@@ -21,6 +21,31 @@ export function formatAsTime(date: string, tzname: string) {
     momentDate.tz(tzname);
   }
   return momentDate.format('LT');
+}
+
+const MOMENT_UNVALID_EN_GB_FORMATS = ['L', 'l'];
+
+export function formatAsDatetimeAdapted(
+  date: string | moment.Moment,
+  format: string,
+  tzname?: string,
+) {
+  const formatNeedsAdaptation = MOMENT_UNVALID_EN_GB_FORMATS.includes(format);
+  if (
+    formatNeedsAdaptation &&
+    (moment().locale() === 'en-gb' || moment().locale() === 'en-US')
+  ) {
+    const momentDate = moment(date).locale('en');
+    if (tzname) {
+      momentDate.tz(tzname);
+    }
+    return momentDate.format(format);
+  }
+  const momentDate = moment(date);
+  if (tzname) {
+    momentDate.tz(tzname);
+  }
+  return momentDate.format(format);
 }
 
 export function formatAsDatetime(date: string, tzname?: string) {

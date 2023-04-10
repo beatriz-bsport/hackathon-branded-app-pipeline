@@ -94,6 +94,7 @@ const {
   REPLACEMENT_REQUEST_COACH_ANSWER_COACH_CANT_ANSWER_ON_HIS_OWN_REPLACEMENT_REQUEST,
   REPLACEMENT_REQUEST_DATES_EXCEPTION,
   REPLACEMENT_REQUEST_LIMITATION_EXCEPTION,
+  REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME,
 } = require('@bsport/common/lib/master-data/error-codes/replacement');
 
 const {
@@ -1162,6 +1163,8 @@ exports.default = {
         'Vous êtes déjà remplaçant sur cette séance',
       [REPLACEMENT_REQUEST_CANNOT_BE_CANCELLED_IF_MANAGER_REFUSED]:
         'Cette demande de remplacement a été refusée: impossible de la supprimer',
+      [REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME]:
+        'Vous ne pouvez pas spécifier des établissements et des localisations en même temps.',
     },
   },
   accessDenied: {

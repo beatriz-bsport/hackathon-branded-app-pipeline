@@ -6798,10 +6798,15 @@
         "categories": "Catégories",
         "pickCategory": "Choisir une catégorie",
         "allCategories": "Enseigne toutes les catégories",
+        "establishments": "Établissements",
+        "locations": "Localisations",
+        "pickEstablishment": "Laissez vide pour tout sélectionner",
+        "allEstablishments": "Tous les établissements",
         "coaches": "Professeurs associés",
         "close": "Annuler",
         "submit": "Enregistrer",
-        "coachRequired": "Veuillez sélectionner au moins un professeur"
+        "coachRequired": "Veuillez sélectionner au moins un professeur",
+        "establishmentSelectorError": "Vous ne pouvez pas spécifier des établissements et des localisations en même temps"
       }
     },
     "compatibleCoaches": {
@@ -6826,7 +6831,11 @@
       "allWorkshops": "Enseigne tous les ateliers",
       "categories": "Catégories",
       "pickCategory": "Choisir une catégorie",
-      "allCategories": "Enseigne toutes les catégories"
+      "allCategories": "Enseigne toutes les catégories",
+      "establishments": "Établissements",
+      "locations": "Localisations",
+      "pickEstablishment": "Laissez vide pour tout sélectionner",
+      "allEstablishments": "Tous les établissements"
     },
     "tooltip": { "seeAnswers": "Voir la liste des remplaçants", "offerCancelled": "Cette séance est annulée" },
     "requestsLinkedToCancelledOffers": {
@@ -8945,6 +8954,7 @@
         "50013": "Vous ne pouvez plus répondre à cette demande de remplacement.",
         "50015": "Vous ne pouvez pas répondre à votre propre demande de remplacement",
         "50020": "Cette demande de remplacement a été refusée: impossible de la supprimer",
+        "50021": "Vous ne pouvez pas spécifier des établissements et des localisations en même temps.",
         "80002": "La valeur 'Nombre de jours demande en retard' doit être supérieure à la valeur 'Nombre de jours clôture des inscriptions.",
         "80003": "Paramètres manquants pour les limites de demandes en retard.",
         "500001": "Une demande de remplacement existe déjà",

@@ -206,10 +206,16 @@ exports.default = {
       categories: 'Catégories',
       pickCategory: 'Choisir une catégorie',
       allCategories: 'Enseigne toutes les catégories',
+      establishments: 'Établissements',
+      locations: 'Localisations',
+      pickEstablishment: 'Laissez vide pour tout sélectionner',
+      allEstablishments: 'Tous les établissements',
       coaches: 'Professeurs associés',
       close: 'Annuler',
       submit: 'Enregistrer',
       coachRequired: 'Veuillez sélectionner au moins un professeur',
+      establishmentSelectorError:
+        'Vous ne pouvez pas spécifier des établissements et des localisations en même temps',
     },
   },
   compatibleCoaches: {
@@ -236,6 +242,10 @@ exports.default = {
     categories: 'Catégories',
     pickCategory: 'Choisir une catégorie',
     allCategories: 'Enseigne toutes les catégories',
+    establishments: 'Établissements',
+    locations: 'Localisations',
+    pickEstablishment: 'Laissez vide pour tout sélectionner',
+    allEstablishments: 'Tous les établissements',
   },
   tooltip: {
     seeAnswers: 'Voir la liste des remplaçants',

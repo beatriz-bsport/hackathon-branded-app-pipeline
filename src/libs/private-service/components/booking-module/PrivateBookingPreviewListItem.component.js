@@ -10,10 +10,13 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import moment from 'moment-timezone';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import type { PrivateBookingPreview } from '../../types';
+import {
+  formatAsDatetimeAdapted,
+  formatAsTime,
+} from '../../../../utils/datetime';
 
 type Props = {
   preview: PrivateBookingPreview,
@@ -25,13 +28,14 @@ type Props = {
 };
 
 export const PrivateBookingPreviewListItem = (props: Props) => {
-  const date_start = moment(props.preview.date_start);
-  const date_end = moment(props.preview.date_end);
   const address = props.preview.address || props.address;
   return (
     <React.Fragment>
       <Typography variant="h4" component="h2" className={props.classes.title}>
-        {`${date_start.format('LLL')} - ${date_end.format('LT')}`}
+        {`${formatAsDatetimeAdapted(
+          props.preview.date_start,
+          'LLL',
+        )} - ${formatAsTime(props.preview.date_end)}`}
       </Typography>
       <ListItem>
         <ListItemAvatar>

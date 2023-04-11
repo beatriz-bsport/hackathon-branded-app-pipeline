@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { compose, withState } from 'recompose';
 import Typography from '@material-ui/core/Typography';
@@ -118,14 +118,55 @@ const BACS_DEBIT_ELEMENT_APPEARANCE: Appearance = {
   },
 };
 
-export const PaymentStripe = (props: Props) => {
+export const PaymentStripe = ({
+  loading,
+  paymentMethodSelected,
+  selectPaymentMethod,
+  paymentMethodChoices,
+  memberId,
+  companyId,
+  clientSecret,
+  onCancel,
+  onSuccess,
+  onError,
+  paymentGroupPriceCts,
+  termsAndConditions,
+  setTermsAndConditionsAccepted,
+  termsAndConditionsAccepted,
+  updatePriceCts,
+  detachPaymentMethodLoading,
+  detachPaymentMethod,
+  snackbarErrorMsg,
+  snackbarSuccessMsg,
+
+  sepaDefaultName,
+  sepaDefaultEmail,
+
+  basketId,
+  basketTotalPriceCts,
+
+  basketTotalPricePrepaidLines,
+  allowConsumerToUseInternalAccount,
+  useInternalAccount,
+  applyBalanceToInvoice,
+  creditAccountBalance,
+  applyBalanceLoading,
+
+  instalmentPaymentConfigurationList,
+  instalmentPaymentSelectedId,
+  onSelectInstalmentPayment,
+  checkItemsBasket,
+
+  fromApp,
+  paymentGroupId,
+}: Props) => {
   const classes = useStyles();
 
   const isBacsDebitSelected =
-    props.paymentMethodSelected === PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT;
+    paymentMethodSelected === PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT;
 
   const StripePaymentMethodForm =
-    STRIPE_PAYMENT_METHOD_FORM_COMPONENT[props.paymentMethodSelected];
+    STRIPE_PAYMENT_METHOD_FORM_COMPONENT[paymentMethodSelected];
 
   const [processing, setProcessing] = React.useState(true);
   const [elementOptions, setElementOptions] = React.useState({});
@@ -133,27 +174,30 @@ export const PaymentStripe = (props: Props) => {
     React.useState<boolean>(false);
   const [priceUpdaterOpen, setPriceUpdaterOpen] = React.useState(false);
   const [priceUpdateAmount, setPriceUpdateAmount] = React.useState(
-    props.paymentGroupPriceCts / 100,
+    paymentGroupPriceCts / 100,
   );
 
-  const totalPriceCts = props.basketTotalPriceCts || props.paymentGroupPriceCts;
+  const totalPriceCts = basketTotalPriceCts || paymentGroupPriceCts;
 
-  const handleSelectPaymentMethod = async (paymentMethod: number) => {
-    setProcessing(true);
-    if (paymentMethod !== PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT) {
-      setElementOptions({});
-      try {
-        await updateIntentToSavePaymentMethodAPI({
-          save_for_later: false,
-          payment_group_id: props.paymentGroupId,
-        });
-        setSaveForLaterBacsDebit(false);
-      } catch (err) {
-        console.error(err);
+  const handleSelectPaymentMethod = useCallback(
+    async (paymentMethod: number) => {
+      setProcessing(true);
+      if (paymentMethod !== PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT) {
+        setElementOptions({});
+        try {
+          await updateIntentToSavePaymentMethodAPI({
+            save_for_later: false,
+            payment_group_id: paymentGroupId,
+          });
+          setSaveForLaterBacsDebit(false);
+        } catch (err) {
+          console.error(err);
+        }
       }
-    }
-    props.selectPaymentMethod(paymentMethod);
-  };
+      selectPaymentMethod(paymentMethod);
+    },
+    [paymentGroupId, selectPaymentMethod],
+  );
 
   // Avoid to have the Elements component mounted before the clientSecret properly fetched, or the BACS Direct Debit
   // component mounted without the Element options set.
@@ -170,15 +214,10 @@ export const PaymentStripe = (props: Props) => {
           : null,
       });
       setProcessing(false);
-    } else if (props.clientSecret) {
+    } else if (clientSecret) {
       setProcessing(false);
     }
-  }, [
-    props.clientSecret,
-    isBacsDebitSelected,
-    totalPriceCts,
-    saveForLaterBacsDebit,
-  ]);
+  }, [clientSecret, isBacsDebitSelected, totalPriceCts, saveForLaterBacsDebit]);
 
   return (
     <div className={classes.container}>
@@ -193,7 +232,7 @@ export const PaymentStripe = (props: Props) => {
           <IconButton
             color="primary"
             onClick={() =>
-              props.updatePriceCts(parseInt(priceUpdateAmount * 100, 10), {
+              updatePriceCts(parseInt(priceUpdateAmount * 100, 10), {
                 onSuccess: () => setPriceUpdaterOpen(false),
               })
             }
@@ -202,14 +241,14 @@ export const PaymentStripe = (props: Props) => {
           </IconButton>
         </div>
       )}
-      {!priceUpdaterOpen && !!props.paymentGroupPriceCts && (
+      {!priceUpdaterOpen && !!paymentGroupPriceCts && (
         <div className={classes.priceContainer}>
           <Typography variant="h5">
             {`${getCurrencyDisplayWithPrice(
-              (props.paymentGroupPriceCts / 100).toFixed(2),
+              (paymentGroupPriceCts / 100).toFixed(2),
             )}`}
           </Typography>
-          {!!props.updatePriceCts && (
+          {!!updatePriceCts && (
             <IconButton
               color="primary"
               onClick={() => {
@@ -224,22 +263,19 @@ export const PaymentStripe = (props: Props) => {
       <>
         <PaymentMethodCardSelector
           selectPaymentMethod={handleSelectPaymentMethod}
-          paymentMethodSelected={props.paymentMethodSelected}
-          paymentMethodChoices={props.paymentMethodChoices}
+          paymentMethodSelected={paymentMethodSelected}
+          paymentMethodChoices={paymentMethodChoices}
         />
         <InstalmentPaymentSelector
-          instalmentPaymentConfigurationSelectedId={
-            props.instalmentPaymentSelectedId
-          }
+          instalmentPaymentConfigurationSelectedId={instalmentPaymentSelectedId}
           instalmentPaymentConfigurationList={
-            props.instalmentPaymentConfigurationList
+            instalmentPaymentConfigurationList
           }
-          onSelectInstalmentPayment={props.onSelectInstalmentPayment}
+          onSelectInstalmentPayment={onSelectInstalmentPayment}
           basketPriceCts={
-            props.basketTotalPriceCts -
-            (props.basketTotalPricePrepaidLines || 0)
+            basketTotalPriceCts - (basketTotalPricePrepaidLines || 0)
           }
-          fromApp={props.fromApp}
+          fromApp={fromApp}
         />
       </>
       {processing || !totalPriceCts ? (
@@ -248,44 +284,44 @@ export const PaymentStripe = (props: Props) => {
         <div className={classes.innerContainer}>
           <Elements stripe={stripePromise} options={elementOptions}>
             <StripePaymentMethodForm
-              onSuccess={props.onSuccess}
-              onError={props.onError}
-              clientSecret={props.clientSecret}
+              onSuccess={onSuccess}
+              onError={onError}
+              clientSecret={clientSecret}
               forceDisabled={priceUpdaterOpen}
-              basketTotalPriceCts={props.basketTotalPriceCts}
-              basketId={props.basketId}
-              forceSave={!!props.instalmentPaymentSelectedId}
-              onCancel={props.onCancel}
-              loading={props.loading || props.applyBalanceLoading}
-              memberId={props.memberId}
-              detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-              detachPaymentMethod={props.detachPaymentMethod}
-              snackbarErrorMsg={props.snackbarErrorMsg}
-              snackbarSuccessMsg={props.snackbarSuccessMsg}
-              companyId={props.companyId}
+              basketTotalPriceCts={basketTotalPriceCts}
+              basketId={basketId}
+              forceSave={!!instalmentPaymentSelectedId}
+              onCancel={onCancel}
+              loading={loading || applyBalanceLoading}
+              memberId={memberId}
+              detachPaymentMethodLoading={detachPaymentMethodLoading}
+              detachPaymentMethod={detachPaymentMethod}
+              snackbarErrorMsg={snackbarErrorMsg}
+              snackbarSuccessMsg={snackbarSuccessMsg}
+              companyId={companyId}
               AcceptTermsAndConditionsComponent={
-                props.termsAndConditions ? (
+                termsAndConditions ? (
                   <AcceptTermsAndConditions
-                    accepted={props.termsAndConditionsAccepted}
-                    onChecked={props.setTermsAndConditionsAccepted}
-                    termsAndConditions={props.termsAndConditions}
+                    accepted={termsAndConditionsAccepted}
+                    onChecked={setTermsAndConditionsAccepted}
+                    termsAndConditions={termsAndConditions}
                     type="theTermsAndConditions"
                   />
                 ) : null
               }
-              termsAndConditionsAccepted={props.termsAndConditionsAccepted}
-              userDefaultName={props.sepaDefaultName}
-              userDefaultEmail={props.sepaDefaultEmail}
+              termsAndConditionsAccepted={termsAndConditionsAccepted}
+              userDefaultName={sepaDefaultName}
+              userDefaultEmail={sepaDefaultEmail}
               allowConsumerToUseInternalAccount={
-                props.allowConsumerToUseInternalAccount &&
-                (props.useInternalAccount || props.applyBalanceToInvoice)
+                allowConsumerToUseInternalAccount &&
+                (useInternalAccount || applyBalanceToInvoice)
               }
-              useInternalAccount={props.useInternalAccount}
-              applyBalanceToInvoice={props.applyBalanceToInvoice}
-              creditAccountBalance={props.creditAccountBalance}
-              applyBalanceLoading={props.applyBalanceLoading}
-              checkItemsBasket={props.checkItemsBasket}
-              paymentGroupId={props.paymentGroupId}
+              useInternalAccount={useInternalAccount}
+              applyBalanceToInvoice={applyBalanceToInvoice}
+              creditAccountBalance={creditAccountBalance}
+              applyBalanceLoading={applyBalanceLoading}
+              checkItemsBasket={checkItemsBasket}
+              paymentGroupId={paymentGroupId}
               saveForLaterBacsDebit={saveForLaterBacsDebit}
               setSaveForLaterBacsDebit={setSaveForLaterBacsDebit}
             />

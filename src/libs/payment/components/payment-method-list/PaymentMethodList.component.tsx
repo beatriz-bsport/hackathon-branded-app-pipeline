@@ -128,4 +128,4 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default PaymentMethodList;
+export default React.memo(PaymentMethodList);

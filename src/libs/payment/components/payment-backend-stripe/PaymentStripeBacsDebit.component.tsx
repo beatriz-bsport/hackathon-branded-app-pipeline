@@ -1,5 +1,5 @@
 // @flow
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import {
   useStripe,
@@ -22,7 +22,7 @@ import {
 } from '../../api';
 import PaymentMethodList from '../payment-method-list';
 
-const PaymentStripeBacsDebit = (props: {
+interface PaymentStripeBacsDebitProps {
   companyId: number;
   onCancel: () => void;
   onSuccess: (callback?: () => void) => void;
@@ -43,7 +43,30 @@ const PaymentStripeBacsDebit = (props: {
   snackbarSuccessMsg: (msg: string) => void;
   saveForLaterBacsDebit: boolean;
   setSaveForLaterBacsDebit: React.Dispatch<React.SetStateAction<Boolean>>;
-}) => {
+}
+
+const PaymentStripeBacsDebit = ({
+  companyId,
+  onCancel,
+  onSuccess,
+  onError,
+  termsAndConditionsAccepted,
+  AcceptTermsAndConditionsComponent,
+  forceDisabled,
+  loading,
+  basketId,
+  basketTotalPriceCts,
+  checkItemsBasket,
+  clientSecret,
+  paymentGroupId,
+  memberId,
+  detachPaymentMethodLoading,
+  detachPaymentMethod,
+  snackbarErrorMsg,
+  snackbarSuccessMsg,
+  saveForLaterBacsDebit,
+  setSaveForLaterBacsDebit,
+}: PaymentStripeBacsDebitProps) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -59,12 +82,12 @@ const PaymentStripeBacsDebit = (props: {
   const classes = useStyles();
 
   useEffect(() => {
-    fetchPaymentMethodListAPI({ member: props.memberId }).then((r) =>
+    fetchPaymentMethodListAPI({ member: memberId }).then((r) =>
       setPaymentMethodList(
         r.data.filter((paymentMethod) => paymentMethod.type === 'bacs_debit'),
       ),
     );
-  }, [props.memberId, props.clientSecret, hasDetached]);
+  }, [memberId, clientSecret, hasDetached]);
 
   useEffect(() => {
     setAddPaymentMethod(!paymentMethodList.length);
@@ -79,98 +102,125 @@ const PaymentStripeBacsDebit = (props: {
     }
   }, [addPaymentMethod]);
 
-  const defineSelectedPaymentMethod = (id: string) => {
-    if (id !== paymentMethodSelected) {
-      setPaymentMethodSelected(id);
-    }
-  };
-
-  const handleSaveForLater = async (checked: boolean) => {
-    setProcessing(true);
-    try {
-      await updateIntentToSavePaymentMethodAPI({
-        save_for_later: checked,
-        payment_group_id: props.paymentGroupId,
-      });
-      props.setSaveForLaterBacsDebit(checked);
-    } catch (err) {
-      console.error(err);
-    }
-    setProcessing(false);
-  };
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    // We don't want to let default form submission happen here,
-    // which would refresh the page.
-    event.preventDefault();
-    setProcessing(true);
-    setErrorMessage(null);
-
-    if (props.basketId) {
-      const { data } = await verifyPriceBasketAPI(props.basketId);
-
-      const basketItemsChecked = await props.checkItemsBasket(props.basketId);
-      if (!basketItemsChecked) {
-        setProcessing(false);
-        return;
+  const defineSelectedPaymentMethod = useCallback(
+    (id: string) => {
+      if (id !== paymentMethodSelected) {
+        setPaymentMethodSelected(id);
       }
+    },
+    [paymentMethodSelected, setPaymentMethodSelected],
+  );
 
-      if (
-        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
-        props.basketTotalPriceCts !== data
-      ) {
-        setProcessing(false);
-        // eslint-disable-next-line
-        window.alert(t('paymentPanel.actions.basketInconsistent'));
-        window.location.reload();
-        return;
+  const handleSaveForLater = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      setProcessing(true);
+      event.persist();
+      const checked = event.target.checked;
+      try {
+        await updateIntentToSavePaymentMethodAPI({
+          save_for_later: checked,
+          payment_group_id: paymentGroupId,
+        });
+        setSaveForLaterBacsDebit(checked);
+      } catch (err) {
+        console.error(err);
       }
+      setProcessing(false);
+    },
+    [paymentGroupId, setSaveForLaterBacsDebit],
+  );
+
+  const verifyBasket = useCallback(async () => {
+    const { data } = await verifyPriceBasketAPI(basketId);
+
+    const basketItemsChecked = await checkItemsBasket(basketId);
+    if (!basketItemsChecked) {
+      setProcessing(false);
+      return;
     }
 
-    // In the case where the user wants to enter a new payment method, we use stripe 'confirmPayment',
-    // else we have to confirm the payment intent in the backend by calling 'confirmPaymentByPaymentMethodId'
-    if (!paymentMethodSelected) {
-      if (!stripe) {
-        // Stripe has not yet loaded.
-        // Make sure to disable form submission until Stripe has loaded.
-        return;
-      }
+    if (
+      (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
+      basketTotalPriceCts !== data
+    ) {
+      setProcessing(false);
+      // eslint-disable-next-line
+  window.alert(t('paymentPanel.actions.basketInconsistent'));
+      window.location.reload();
+    }
+  }, [basketId, basketTotalPriceCts, checkItemsBasket, t]);
 
-      // Trigger form validation and wallet collection
-      const { error: submitError } = await elements.submit();
-      if (submitError) {
-        setErrorMessage(submitError.message);
-        return;
-      }
+  const submitStripePayment = useCallback(async () => {
+    if (!stripe) {
+      // Stripe has not yet loaded.
+      // Make sure to disable form submission until Stripe has loaded.
+      return;
+    }
 
-      const result = await stripe.confirmPayment({
-        elements,
-        clientSecret: props.clientSecret,
-        confirmParams: {
-          // Since BACS Direct Debit is not a bank-redirect method, this param is useless but it remains mandatory (04 - 2023)
-          // Link to the Stripe doc: https://stripe.com/docs/payments/accept-a-payment?platform=web&ui=elements#web-submit-payment
-          return_url: `${window.location.href}`,
-        },
-        redirect: 'if_required',
-      });
-      if (result.error) {
-        // Show error to your customer (e.g., insufficient funds)
-        setErrorMessage(result.error.message);
-        if (props.onError) props.onError();
-        setProcessing(false);
-      } else {
-        setErrorMessage(null);
-        props.onSuccess(() => setProcessing(false));
-      }
+    // Trigger form validation and wallet collection
+    const { error: submitError } = await elements.submit();
+    if (submitError) {
+      setErrorMessage(submitError.message);
+      return;
+    }
+
+    const result = await stripe.confirmPayment({
+      elements,
+      clientSecret,
+      confirmParams: {
+        // Since BACS Direct Debit is not a bank-redirect method, this param is useless but it remains mandatory (04 - 2023)
+        // Link to the Stripe doc: https://stripe.com/docs/payments/accept-a-payment?platform=web&ui=elements#web-submit-payment
+        return_url: `${window.location.href}`,
+      },
+      redirect: 'if_required',
+    });
+    if (result.error) {
+      // Show error to your customer (e.g., insufficient funds)
+      setErrorMessage(result.error.message);
+      if (onError) onError();
+      setProcessing(false);
     } else {
-      await confirmPaymentByPaymentMethodIdAPI(
-        props.paymentGroupId,
-        paymentMethodSelected,
-      );
       setErrorMessage(null);
-      props.onSuccess(() => setProcessing(false));
+      onSuccess(() => setProcessing(false));
     }
-  };
+  }, [clientSecret, elements, onError, onSuccess, stripe]);
+
+  const submitPaymentWithPaymentMethodSelected = useCallback(async () => {
+    await confirmPaymentByPaymentMethodIdAPI(
+      paymentGroupId,
+      paymentMethodSelected,
+    );
+    setErrorMessage(null);
+    onSuccess(() => setProcessing(false));
+  }, [onSuccess, paymentGroupId, paymentMethodSelected]);
+
+  const handleSubmit = useCallback(
+    async (event: React.FormEvent<HTMLFormElement>) => {
+      // We don't want to let default form submission happen here,
+      // which would refresh the page.
+      event.preventDefault();
+      setProcessing(true);
+      setErrorMessage(null);
+
+      if (basketId) verifyBasket();
+
+      // In the case where the user wants to enter a new payment method, we use stripe 'confirmPayment',
+      // else we have to confirm the payment intent in the backend by calling 'confirmPaymentByPaymentMethodId'
+      if (!paymentMethodSelected) {
+        submitStripePayment();
+      } else {
+        submitPaymentWithPaymentMethodSelected();
+      }
+    },
+    [
+      basketId,
+      paymentMethodSelected,
+      submitPaymentWithPaymentMethodSelected,
+      submitStripePayment,
+      verifyBasket,
+    ],
+  );
+
   return (
     <form onSubmit={handleSubmit}>
       {addPaymentMethod && (
@@ -179,8 +229,8 @@ const PaymentStripeBacsDebit = (props: {
           <div className={classes.saveAndDisplay}>
             <div className={classes.row}>
               <Checkbox
-                checked={props.saveForLaterBacsDebit}
-                onChange={(ev) => handleSaveForLater(ev.target.checked)}
+                checked={saveForLaterBacsDebit}
+                onChange={handleSaveForLater}
               />
               <Typography variant="caption">
                 {t('paymentPanel.actions.saveForLater')}
@@ -207,14 +257,14 @@ const PaymentStripeBacsDebit = (props: {
             savedPaymentMethodList={paymentMethodList}
             selectedSavedPaymentMethodId={paymentMethodSelected}
             paymentMethodType="bacs_debit"
-            onSelect={(id: string) => defineSelectedPaymentMethod(id)}
+            onSelect={defineSelectedPaymentMethod}
             setHasDetached={setHasDetached}
-            memberId={props.memberId}
-            detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-            detachPaymentMethod={props.detachPaymentMethod}
-            snackbarErrorMsg={props.snackbarErrorMsg}
-            snackbarSuccessMsg={props.snackbarSuccessMsg}
-            companyId={props.companyId}
+            memberId={memberId}
+            detachPaymentMethodLoading={detachPaymentMethodLoading}
+            detachPaymentMethod={detachPaymentMethod}
+            snackbarErrorMsg={snackbarErrorMsg}
+            snackbarSuccessMsg={snackbarSuccessMsg}
+            companyId={companyId}
           />
           <ButtonBase
             disabled={false}
@@ -230,7 +280,7 @@ const PaymentStripeBacsDebit = (props: {
       )}
       {errorMessage && <Typography color="error">{errorMessage}</Typography>}
       <div className={classes.conditionRow}>
-        {props.AcceptTermsAndConditionsComponent}
+        {AcceptTermsAndConditionsComponent}
       </div>
       <div className={classes.actionRow}>
         {processing ? (
@@ -241,16 +291,13 @@ const PaymentStripeBacsDebit = (props: {
             variant="contained"
             type="submit"
             disabled={
-              props.loading ||
-              props.forceDisabled ||
-              !stripe ||
-              !props.termsAndConditionsAccepted
+              loading || forceDisabled || !stripe || !termsAndConditionsAccepted
             }
           >
             {t('paymentPanel.actions.confirmPayment')}
           </Button>
         )}
-        <Button onClick={props.onCancel} disabled={processing}>
+        <Button onClick={onCancel} disabled={processing}>
           {t('paymentPanel.actions.cancel')}
         </Button>
       </div>

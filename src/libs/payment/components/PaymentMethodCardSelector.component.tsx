@@ -74,4 +74,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default PaymentMethodCardSelector;
+export default React.memo(PaymentMethodCardSelector);

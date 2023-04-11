@@ -1,5 +1,5 @@
 // @flow
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 
 import { Elements, ElementsConsumer } from '@stripe/react-stripe-js';
 import {
@@ -96,97 +96,107 @@ const BacsDebitForm = ({
   t,
   userDefaultName,
   userDefaultEmail,
-}: BacsDebitFormProps) => (
-  <Formik
-    initialValues={{
-      email: userDefaultEmail,
-      name: userDefaultName,
-      country: 'GB',
-      sortCode: '',
-      accountNumber: '',
-      city: '',
-      line1: '',
-      line2: '',
-      postalCode: '',
-    }}
-    onSubmit={(values, actions) => {
+}: BacsDebitFormProps) => {
+  const onSubmitCallback = useCallback(
+    (values, actions) => {
       setTimeout(() => {
         handleFormSubmit(values);
         actions.setSubmitting(false);
       }, 1000);
-    }}
-    validationSchema={BacsDebitFormSchema}
-  >
-    {({ values, setFieldValue, handleSubmit }) => (
-      <Form
-        style={{ display: 'flex', flexDirection: 'column' }}
-        onSubmit={handleSubmit}
-      >
-        <TextField name="email" label={t('subscription:mandate.email')} />
-        <TextField name="name" label={t('subscription:mandate.name')} />
-        <LocaleSelector
-          distinctCountry
-          hideLang
-          // noMargin
-          valueKey="country"
-          label={t('translation:form.address.country')}
-          defaultValue="GB"
-          value={values.country}
-          onChange={(ev) => {
-            setFieldValue('country', ev.target.value);
-          }}
-        />
-        <TextField
-          name="line1"
-          label={t('translation:form.address.addressLine1')}
-        />
-        <TextField
-          name="line2"
-          label={t('translation:form.address.addressLine2')}
-        />
-        <TextField name="city" label={t('translation:form.address.city')} />
-        <TextField
-          name="postalCode"
-          label={t('translation:form.address.zipcode')}
-        />
-        <TextField name="sortCode" label={t('subscription:mandate.sortCode')} />
-        <ErrorMessage name="sortCode">
-          {(error_msg) => (
-            <Typography variant="caption" color="error">
-              {t(`${error_msg}`)}
+    },
+    [handleFormSubmit],
+  );
+
+  return (
+    <Formik
+      initialValues={{
+        email: userDefaultEmail,
+        name: userDefaultName,
+        country: 'GB',
+        sortCode: '',
+        accountNumber: '',
+        city: '',
+        line1: '',
+        line2: '',
+        postalCode: '',
+      }}
+      onSubmit={onSubmitCallback}
+      validationSchema={BacsDebitFormSchema}
+    >
+      {({ values, setFieldValue, handleSubmit }) => (
+        <Form
+          style={{ display: 'flex', flexDirection: 'column' }}
+          onSubmit={handleSubmit}
+        >
+          <TextField name="email" label={t('subscription:mandate.email')} />
+          <TextField name="name" label={t('subscription:mandate.name')} />
+          <LocaleSelector
+            distinctCountry
+            hideLang
+            // noMargin
+            valueKey="country"
+            label={t('translation:form.address.country')}
+            defaultValue="GB"
+            value={values.country}
+            onChange={(ev) => {
+              setFieldValue('country', ev.target.value);
+            }}
+          />
+          <TextField
+            name="line1"
+            label={t('translation:form.address.addressLine1')}
+          />
+          <TextField
+            name="line2"
+            label={t('translation:form.address.addressLine2')}
+          />
+          <TextField name="city" label={t('translation:form.address.city')} />
+          <TextField
+            name="postalCode"
+            label={t('translation:form.address.zipcode')}
+          />
+          <TextField
+            name="sortCode"
+            label={t('subscription:mandate.sortCode')}
+          />
+          <ErrorMessage name="sortCode">
+            {(error_msg) => (
+              <Typography variant="caption" color="error">
+                {t(`${error_msg}`)}
+              </Typography>
+            )}
+          </ErrorMessage>
+          <TextField
+            name="accountNumber"
+            label={t('subscription:mandate.accountNumber')}
+          />
+          <ErrorMessage name="accountNumber">
+            {(error_msg) => (
+              <Typography variant="caption" color="error">
+                {t(`${error_msg}`)}
+              </Typography>
+            )}
+          </ErrorMessage>
+          <div className={classes.mandate}>
+            <Typography color="textSecondary">
+              {t('subscription:mandate.contentBacsDebit')}
             </Typography>
-          )}
-        </ErrorMessage>
-        <TextField
-          name="accountNumber"
-          label={t('subscription:mandate.accountNumber')}
-        />
-        <ErrorMessage name="accountNumber">
-          {(error_msg) => (
-            <Typography variant="caption" color="error">
-              {t(`${error_msg}`)}
-            </Typography>
-          )}
-        </ErrorMessage>
-        <div className={classes.mandate}>
-          <Typography color="textSecondary">
-            {t('subscription:mandate.contentBacsDebit')}
-          </Typography>
-        </div>
-        <div className={classes.actions}>
-          {!!onClose && (
-            <Button disabled={processing} onClick={onClose}>
-              {labelClose || t('forms.paymentMethod.actions.close')}
+          </div>
+          <div className={classes.actions}>
+            {!!onClose && (
+              <Button disabled={processing} onClick={onClose}>
+                {labelClose || t('forms.paymentMethod.actions.close')}
+              </Button>
+            )}
+            <Button color="primary" disabled={processing} type="submit">
+              {t('forms.paymentMethod.actions.collect')}
             </Button>
-          )}
-          <Button color="primary" disabled={processing} type="submit">
-            {t('forms.paymentMethod.actions.collect')}
-          </Button>
-        </div>
-      </Form>
-    )}
-  </Formik>
-);
+          </div>
+        </Form>
+      )}
+    </Formik>
+  );
+};
 
 type Props = {
   fullScreen: boolean;

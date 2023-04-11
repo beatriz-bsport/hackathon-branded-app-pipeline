@@ -24,6 +24,12 @@ export type Establishment = {
   establishment_billing_group_id: number | null;
 };
 
+export type EstablishmentSelectOption = {
+  label: string;
+  value: string | number;
+  establishmentList?: Establishment[];
+};
+
 export type EstablishmentWithAssociatedId = {
   id: number;
   title: string;
@@ -137,6 +143,12 @@ export type EstablishmentGroup = {
   name: string;
   company_id: number;
   establishment: Array<Establishment>;
+};
+
+export type EstablishmentGroupSelectOption = {
+  label: string;
+  value: number | string;
+  establishmentGroupList?: EstablishmentGroup[];
 };
 
 export type EstablishmentBillingGroup = {

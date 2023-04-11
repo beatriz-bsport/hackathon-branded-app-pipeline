@@ -40,6 +40,8 @@ export type DisciplineGroup<
   M = number,
   W = number,
   Ca = number,
+  E = number,
+  Eg = number,
   Co = number,
 > = {
   id: number;
@@ -50,6 +52,8 @@ export type DisciplineGroup<
   all_workshops: boolean;
   categories: Ca[];
   all_categories: boolean;
+  establishments: E[];
+  establishment_groups: Eg[];
   associated_coaches: Co[];
   company: number;
   date_created: string;
@@ -144,6 +148,8 @@ export type DisciplineGroupAPIData = {
   all_activities: boolean;
   workshops: number[];
   all_workshops: boolean;
+  establishments: number[];
+  establishment_groups: number[];
   associated_coaches: number[];
 };
 

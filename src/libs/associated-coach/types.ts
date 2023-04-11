@@ -34,6 +34,8 @@ export type Coach = {
   meta_activities_taught: number[];
   workshops_taught: number[];
   categories_taught: number[];
+  discipline_group_establishments: number[];
+  discipline_group_establishment_groups: number[];
   is_teaching_all_activities: boolean;
   is_teaching_all_workshops: boolean;
   is_teaching_all_categories: boolean;
@@ -86,6 +88,8 @@ export type CoachReplacementPreferencesData = {
   meta_activities_taught: number[];
   workshops_taught: number[];
   categories_taught: number[];
+  discipline_group_establishments: number[];
+  discipline_group_establishment_groups: number[];
   is_teaching_all_activities: boolean;
   is_teaching_all_workshops: boolean;
   is_teaching_all_categories: boolean;

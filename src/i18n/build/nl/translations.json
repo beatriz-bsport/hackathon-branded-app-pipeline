@@ -1670,7 +1670,8 @@
             "sendNotification": "Push-notificatie",
             "warningConsent2": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt.",
             "warningConsent1": "Waarschuwing! Dit lid heeft aangegeven geen promotionele berichten te willen ontvangen. Directe berichten kunt u snel en eenvoudig versturen om leden op de hoogte houden, zonder dat daar promotionele doeleinden aan verbonden zijn.",
-            "titleInterpolated": "De gebruikte variabelen in dit bericht worden op individuele basis aangepast per ontvanger."
+            "titleInterpolated": "De gebruikte variabelen in dit bericht worden op individuele basis aangepast per ontvanger.",
+            "warningProvider": "De antwoorden van de leden op dit bericht verschijnen niet op het platform, maar rechtstreeks in je mailbox. Om ze allemaal hier te laten verschijnen, wijzigt u de communicatie-instelling in de pagina Instellingen/Aanpassing."
         },
         "table": {
             "columns": {
@@ -1928,6 +1929,14 @@
         "sentStatus": {
             "fail": "Er is een fout opgetreden tijdens het verzenden",
             "processing": "De communicatie wordt verzonden"
+        },
+        "forms": {
+            "twoWayEmail": {
+                "description": "Houd er rekening mee dat antwoorden per e-mail van leden niet langer in uw mailbox verschijnen, maar rechtstreeks op het platform.",
+                "title": "Antwoorden per e-mail ontvangen op het platform"
+            },
+            "submit": "Bewaar",
+            "title": "Chat-instellingen"
         }
     },
     "paymentCombo": {
@@ -2844,6 +2853,7 @@
                 "Annuleren",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd"
             ]
@@ -5809,16 +5819,16 @@
                 "maxPurchasePerMember": "{{count}} aankoop per lid",
                 "maxPurchasePerMember_plural": "{{count}} aankoop per leden",
                 "restrictions": {
-                    "maxPerMonth": "Maximum {{count}} gebruik per maand",
-                    "maxPerMonth_plural": "Maximum {{count}} gebruik per maanden",
+                    "maxPerMonth": "Maximaal gebruik per maand: <strong>{{count}}</strong>",
+                    "maxPerMonth_plural": "Maximaal gebruik maanden: <strong>{{count}}</strong>",
                     "perMonth": "{{count}} gebruik per maand",
                     "perMonth_plural": "{{count}} gebruik per maanden",
-                    "maxPerWeek": "Maximaal {{count}} gebruik per week",
-                    "maxPerWeek_plural": "Maximaal {{count}} gebruik per weken",
+                    "maxPerWeek": "Maximaal gebruik per week: <strong>{{count}}</strong>",
+                    "maxPerWeek_plural": "Maximaal gebruik weken: <strong>{{count}}</strong>",
                     "perWeek": "{{count}} gebruik per week",
                     "perWeek_plural": "{{count}} gebruik per weken",
-                    "maxPerDay": "Maximum {{count}} gebruik per dag",
-                    "maxPerDay_plural": "Maximum {{count}} gebruik per dagen",
+                    "maxPerDay": "Maximaal gebruik per dag: <strong>{{count}}</strong>",
+                    "maxPerDay_plural": "Maximaal gebruik dagen: <strong>{{count}}</strong>",
                     "perDay": "{{count}} gebruik per dag",
                     "perDay_plural": "{{count}} gebruik per dagen",
                     "title": "Beperkingen op het gebruik"
@@ -10088,6 +10098,12 @@
             "general": {
                 "message": "U heeft geen toegang tot het gevraagde gebied",
                 "title": "Toegang geweigerd"
+            }
+        },
+        "communicationProviderSettings": {
+            "update": {
+                "error": "Kan wijzigingen niet opslaan",
+                "success": "Geregistreerde wijzigingen"
             }
         }
     },

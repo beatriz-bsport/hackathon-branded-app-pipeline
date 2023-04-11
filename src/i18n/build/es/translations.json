@@ -2776,7 +2776,7 @@
             "status": {
                 "4": "Cancelado",
                 "3": "Fallido",
-                "2": "Éxito",
+                "2": "Exitoso",
                 "1": "Se está procesando",
                 "0": "Pendiente"
             },
@@ -12348,7 +12348,7 @@
             },
             "27": {
                 "info": "También se tienen en cuenta los bonos y las tarjetas de cita bloqueadas",
-                "fourth": "(confundido)",
+                "fourth": "(combinado)",
                 "third": "o",
                 "second": "bonos o tarjetas de cita válidas hoy. Entre",
                 "between": "y",

@@ -90,7 +90,8 @@
             "titleBooking": "Groepsactiviteiten",
             "accessLive": "Online les openen",
             "spotNumber": "Plaats: {{count}}",
-            "isUnpaid": "Openstaande betaling"
+            "isUnpaid": "Openstaande betaling",
+            "noShow": "U bent geregistreerd als afwezig voor deze sessie"
         },
         "pack": {
             "titlePrivatePack": "Afspraken",
@@ -193,7 +194,7 @@
             "300": "Wanneer een lid niet tijdig op de wachtlijst antwoordt en hun plaats verliest",
             "601": "Automatische annulering van onderbezette sessies (instructeurs)",
             "702": "Sanctie: er is een boete opgelegd (leden)",
-            "701": "Sanctie: de kaart is tijdelijk geblokkeerd (leden)",
+            "701": "Tijdige annulering: geblokkeerde kaart (studenten)",
             "530": "Wanneer een abonnementsbetaling gestorneerd wordt",
             "520": "Wanneer een Smart Retry automatisch de abonnementsbetaling opnieuw gaat proberen de betaling te voltooien",
             "515": "Wanneer de kaart van een abonnement automatisch gedeactiveerd wordt",
@@ -213,7 +214,10 @@
             "903": "Er is een andere vervanger gevonden (vervanger)",
             "902": "Verzoek om vervanging geannuleerd (vervanger)",
             "901": "Vervanging gevonden (instructeur)",
-            "907": "Vervanging gevonden (substituut)"
+            "907": "Vervanging gevonden (substituut)",
+            "705": "Waarschuwing voor afwezigheid",
+            "704": "Afwezigheid: klantenrekening gedebiteerd (leden)",
+            "703": "Afwezigheid: geblokkeerde kaart (leden)"
         },
         "tag": {
             "BookingOption": {
@@ -365,7 +369,7 @@
             "member": "Ledenregistratie",
             "marketing": "Marketing",
             "invoice": "Facturatie",
-            "payment_pack": "Kaarten",
+            "payment_pack": "Sancties",
             "recurrent_private_booking": "Periodieke afspraken",
             "replacement_request": "Vervanging"
         },
@@ -1162,7 +1166,8 @@
                 "day": "Dagelijks",
                 "week": "Wekelijks",
                 "year": "Jaarlijks",
-                "month": "Maandelijks"
+                "month": "Maandelijks",
+                "hour": "Per uur"
             },
             "completeInformation": "Voltooi je gegevens",
             "emergencyContact": "Contactpersoon voor noodgevallen",
@@ -1182,7 +1187,8 @@
                 "year": "Jaren",
                 "month": "Maanden",
                 "week": "Weken",
-                "day": "Dagen"
+                "day": "Dagen",
+                "hour": "Uren"
             }
         },
         "shop": {
@@ -2539,7 +2545,11 @@
             "nb_planned_invoices": "Totaal aantal collecties",
             "last_invoice_status": "Status van de laatste betaling",
             "contract_name": "Naam van het abonnement",
-            "billing_plan_payment_method": "Wijze van betaling"
+            "billing_plan_payment_method": "Wijze van betaling",
+            "roll_call_needs_validation": "Het beroep moet geldig worden verklaard",
+            "no_show": "No show",
+            "is_no_show": "Afwezig (no show)",
+            "date_roll_call_last_modified": "Datum van laatste wijziging van de oproep"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2834,6 +2844,7 @@
                 "Annuleren",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd"
             ]
         },
@@ -3187,9 +3198,36 @@
                     },
                     "nb_days": "Aantal dagen:",
                     "nb_cancellations": "Aantal te late annuleringen:",
-                    "explain": "Er wordt een sanctie toegepast wanneer een lid {{nb_cancellations}} keer te laat binnen {{nb_days}} dagen annuleert.",
+                    "explain": "Een boete zal worden toegepast als er {{nb_cancellations}} annuleringen zijn buiten de tijd binnen een {{nb_days}} periode",
                     "checkbox": "Een sanctie bij te veel te late annuleringen instellen",
-                    "title": "Sancties"
+                    "title": "Sancties",
+                    "deleteNoShowDialog": {
+                        "text": "Geen onbeperkte kaarten meer met no-show boetes. We hebben de \"oproep\"-functie gedeactiveerd, zodat u de oproep niet langer voor elke cursus hoeft te valideren.",
+                        "title": "Sancties verwijderd"
+                    },
+                    "noShowDialog": {
+                        "alert": "U kunt de no show-voorwaarden instellen in de aanpassingsinstellingen.",
+                        "text": "Je hebt zojuist no-show sancties aangemaakt.  We hebben zojuist de \"beroepsmogelijkheid\" geactiveerd, u moet nu voor elke cursus een beroep doen om de sancties te activeren.",
+                        "title": "Sancties op no-shows"
+                    },
+                    "bothPenaltiesInfo": "Een boete zal worden toegepast als er {{penalityNumberNoShow}} annuleringen zijn buiten de tijd of no-shows binnen een periode van {{penalityNumberDay}} dag",
+                    "bothPenaltiesInfo_plural": "Een boete zal worden toegepast als er {{penalityNumberNoShow}} annuleringen zijn buiten de tijd of no-shows binnen een periode van {{penalityNumberDay}} dagen",
+                    "bothPenaltiesNumber": "Aantal annuleringen en no-shows",
+                    "noShowPenaltyInfo": "Er wordt een boete toegepast als er {{penalityNumberNoShow}} afwezigheid (no show) is gedurende een periode van {{penalityNumberDay}} dag",
+                    "noShowPenaltyInfo_plural": "Er wordt een boete toegepast als er {{penalityNumberNoShow}} afwezigheid (no show) is gedurende een periode van {{penalityNumberDay}} dagen",
+                    "noShowPenaltyNumber": "Aantal afwezigheden (no show)",
+                    "noShowPenaltyAlert": "Om te bepalen wanneer een lid als afwezig (no show) wordt beschouwd, ga naar Instellingen>Aanpassing",
+                    "penaltyParamsText": "Pas dezelfde telling toe voor late annuleringen en no-shows",
+                    "penaltyParams": "Sanctieparameters",
+                    "bothPenaltiesTitle": "Boetes voor te late annuleringen en no-shows",
+                    "noShowPenaltyTitle": "No-show sancties",
+                    "cancellationsPenaltyTitle": "Sancties voor te late annuleringen",
+                    "errorNoPenaltyRule": "U kunt uw wijzigingen niet opslaan, u moet een sanctie kiezen of sancties uitschakelen om door te gaan.",
+                    "noShowCheckbox": "Te veel no-shows",
+                    "cancellationsCheckbox": "Te veel annuleringen buiten de tijd",
+                    "titleCheckbox": "Pas een sanctie toe voor",
+                    "helperText": "Sancties toepassen voor te veel no-shows of te late boekingen",
+                    "label": "Een sanctie toepassen"
                 },
                 "only_vod_access": "Alleen geschikt voor Video On Demand",
                 "category": {
@@ -3554,7 +3592,7 @@
             "penalityType": "Type sanctie",
             "penalityAccount": "De interne rekening (Wallet) van het lid in rekening brengen",
             "penalityBlock": "Tijdelijk de kaart blokkeren",
-            "penalityInfo": "Er wordt een sanctie toegepast wanneer een lid {{penalityNumberCancel}} keer te laat binnen {{{penalityNumberDay}}  dagen annuleert.",
+            "penalityInfo": "Er wordt een sanctie toegepast wanneer een lid {{penalityNumberCancel}} keer te laat binnen {{{penalityNumberDay}}  dagen annuleert",
             "penalityNumberDay": "Aantal dagen",
             "penalityNumberCancel": "Aantal annuleringen",
             "marginalContributionHelperText": "Dit wordt gebruikt om de payroll van de instructeur(s) te berekenen. Voorbeeld: €10 betekent dat bij 1 reservering, de instructeur €10 ontvangt. Indien dit veld leeg of €0 is, dan wordt de payroll op basis van PRIJS / AANTAL RESERVERINGEN berekend.",
@@ -3610,7 +3648,11 @@
                     "explain": "Het saldo van de ledenaccount zal worden belast met {{ price }} in verhouding tot de te late annuleringen die in elke franchisenemer zijn geregistreerd. Een totaalbedrag van {{ price }} zal door de franchise in rekening worden gebracht.",
                     "label": "In verhouding tot de late opzeggingen in elke franchisenemer"
                 },
-                "label": "Het saldo van de ledenaccount wordt in rekening gebracht"
+                "label": "Het saldo van de ledenaccount wordt in rekening gebracht",
+                "prorataNoShow": {
+                    "explain": "De aanbetaling van {{ price }} wordt pro rata toegepast op de geregistreerde no-shows bij elk van uw franchisenemers. Een totaal van {{ price }} wordt ten laste gebracht van uw franchise.",
+                    "label": "Pro rata, per franchisenemer, van afwezigheden (no shows)"
+                }
             },
             "unusableByStaff": "Onzichtbaar voor het personeel"
         },
@@ -3654,6 +3696,10 @@
         },
         "listItem": {
             "unusableByStaff": "Onzichtbaar voor het personeel"
+        },
+        "noShowPenalty": {
+            "account": "Een voorschot van {{bedrag}} wordt toegepast voor {{treshold}} afwezigheden over een periode van {{time_window_days}} dagen",
+            "block": "{{days_blocked}} geblokkeerde dagen na {{treshold}} afwezigheden over een periode van {{time_window_days}} dagen"
         }
     },
     "establishment": {
@@ -4871,7 +4917,8 @@
                 "validationRollCall_plural": "Valideer de oproepen"
             },
             "warningIcon": {
-                "stateChanged": "De status is gewijzigd maar niet gevalideerd"
+                "stateChanged": "De status is gewijzigd maar niet gevalideerd",
+                "stateChangedTitle": "Status niet gevalideerd"
             },
             "warningText": {
                 "lastValidatedRollCall": "Laatste gevalideerde oproep op {{-date}} {{time}}",
@@ -4881,6 +4928,10 @@
                 "validatedDate": "Gevalideerd op {{- date }} om {{ time }}",
                 "modifiedRollCall": "De oproep is gewijzigd, u moet hem opnieuw valideren",
                 "notValidatedRollCall": "Het beroep werd niet geldig verklaard"
+            },
+            "filter": {
+                "notValidated": "Oproep niet geldig",
+                "validated": "Beroep geldig verklaard"
             }
         }
     },
@@ -5355,7 +5406,8 @@
             "registeredOn": "Gereserveerd op ",
             "source": "Gereserveerd via",
             "cancelledOn": "Geannuleerd op ",
-            "by": "Door"
+            "by": "Door",
+            "noShow": "No-show "
         },
         "filters": {
             "notRefunded": "Niet terugbetaald",
@@ -5645,7 +5697,11 @@
             }
         },
         "place": "Plaats",
-        "unlimited": "Ongelimiteerd"
+        "unlimited": "Ongelimiteerd",
+        "noShowChip": {
+            "message": "Het lid werd als afwezig genoteerd na de zitting",
+            "title": "No-show"
+        }
     },
     "marketplace": {
         "selector": {
@@ -5868,7 +5924,8 @@
                 "week_plural": "Elke {{ count }} weken",
                 "month": "maand",
                 "month_plural": "Elke {{ count }} maanden"
-            }
+            },
+            "chooseButton": "Kies"
         }
     },
     "selfCheckIn": {
@@ -6834,7 +6891,14 @@
             "1": "Aan de gang",
             "0": "Nog niet gestart"
         },
-        "invisibleForStaffToolTip": "Onzichtbaar voor het personeel"
+        "invisibleForStaffToolTip": "Onzichtbaar voor het personeel",
+        "alreadySubscribed": {
+            "dialog": {
+                "title": "Reeds ingeschreven",
+                "content": "Je hebt dit abonnement onlangs al gekocht. Als u het nog niet ziet, wacht dan even. Als u het echter opnieuw wilt kopen, wacht dan een paar minuten en probeer het opnieuw.",
+                "validate": "Ok"
+            }
+        }
     },
     "coachPerformance": {
         "dateTitle": "Datumbereik",
@@ -10760,7 +10824,8 @@
             "last_invoice_status": "Status van de laatste betaling",
             "contract_name": "Abonnement",
             "billing_plan_payment_method": "Wijze van betaling",
-            "plan_auto_renewal": "Stilzwijgende vernieuwing"
+            "plan_auto_renewal": "Stilzwijgende vernieuwing",
+            "is_no_show": "Absent (no show)"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Incasso's",
@@ -10845,7 +10910,9 @@
             "day": "{{ count }} dag",
             "day_plural": "{{ count }} dagen"
         },
-        "download": "Download"
+        "download": "Download",
+        "ok": "OK",
+        "params": "Parameters"
     },
     "workshop": {
         "modal": {
@@ -11194,6 +11261,16 @@
                     "enable": "De instructeursweergave standaard inschakelen",
                     "access": "Toegang",
                     "description": "Pas de weergave van de instructeur op het web aan. Let op: de instellingen hier hebben geen invloed op de weergave van de app voor de instructeur."
+                },
+                "noShow": {
+                    "notAvailable": "No-show management is niet beschikbaar. Om het te activeren moet u eerst een onbeperkte cursuskaart aanmaken met no-show sancties.",
+                    "error": "De e-mail ter kennisgeving van afwezigheid kan niet worden verzonden nadat het lid is beschouwd als een no-show.",
+                    "sendMailHelpText": "Om de e-mail in/uit te schakelen gaat u naar Instellingen> Transactiemails> Sanctie> Verzuimmelding",
+                    "sendMail": "Stuur een e-mail <0/> <1/> na het gesprek om het lid te waarschuwen dat hij als no show wordt beschouwd als hij als afwezig wordt aangemerkt.",
+                    "daysBeforeNoShowHelpText": "Met deze instelling kunnen boetes worden toegepast op afwezigheden van leden met een onbeperkte kaart.",
+                    "daysBeforeNoShow": "Beschouw het lid als (no-show) <0/> <1/> na de oproep op sessies waar hij/zij als afwezig is aangegeven.",
+                    "alert": "Deze instellingen gelden alleen voor no-show boetes op onbeperkte kaarten. Om de volgende tellingen te activeren, moet u de oproep voor elke cursus valideren.",
+                    "title": "Absentie (no-show)"
                 }
             },
             "gtmId": {
@@ -12685,6 +12762,80 @@
             "coach": {
                 "calendar": "Kalender",
                 "general": "Profiel"
+            },
+            "customForm": {
+                "layout": "Personalisatie",
+                "statistics": "Statistieken",
+                "campaign": "Campagne",
+                "general": "Content"
+            },
+            "franchise": {
+                "staff": {
+                    "role": "Rollen",
+                    "staffAccount": "Personeelsrekeningen"
+                }
+            },
+            "replacement": {
+                "disciplineGroup": "Discipline groepen",
+                "management": "Beheer"
+            },
+            "widget": {
+                "customize": "Aanpassing",
+                "create": "Algemeen"
+            },
+            "smartList": {
+                "statistic": "Statistieken",
+                "campaign": "Campagnes",
+                "member": "Algemeen"
+            },
+            "member": {
+                "basket": "Winkelmandje",
+                "basket_plural": "Winkelmandje ({{number}})",
+                "form": "Formulieren",
+                "form_plural": "Formulieren ({{number}})",
+                "vod": "VOD",
+                "vod_plural": "VOD ({{number}})",
+                "privateConsumerPass": "Afspraakkaart",
+                "privateConsumerPass_plural": "Afspraakkaart ({{number}})",
+                "privateBooking": "Afspraak",
+                "privateBooking_plural": "Afspraak ({{number}})",
+                "payment": "Facturatie",
+                "payment_plural": "Facturatie ({{number}})",
+                "contact": "Contact",
+                "contact_plural": "Contact ({{number}})",
+                "invoices": "Facturen en abonnementen",
+                "invoices_plural": "Facturen en abonnementen ({{number}})",
+                "paymentPack": "Leskaart",
+                "paymentPack_plural": "Leskaart ({{number}})",
+                "giftcard": "Cadeaukaart",
+                "giftcard_plural": "Cadeaukaart ({{number}})",
+                "bookings": "Reserveringen",
+                "bookings_plural": "Reserveringen ({{number}})",
+                "relation": "Relaties",
+                "relation_plural": "Relaties ({{number}})",
+                "info": "Algemeen",
+                "info_plural": "Algemeen ({{number}})",
+                "programs": "Programma's",
+                "programs_plural": "Programma's ({{number}})"
+            },
+            "clockIn": {
+                "history": "Geschiedenis",
+                "realTime": "Echte tijd"
+            },
+            "service": {
+                "calendar": "Kalender",
+                "general": "Algmeen"
+            },
+            "establishment": {
+                "location": "Locatie",
+                "room": "Zaal",
+                "calendar": "Kalender",
+                "general": "Algemeen"
+            },
+            "metaActivity": {
+                "group": "Groepssessies",
+                "pack": "Compatibele kaarten",
+                "general": "Algemeen"
             }
         }
     },

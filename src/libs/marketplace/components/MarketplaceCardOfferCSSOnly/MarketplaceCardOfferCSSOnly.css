@@ -135,7 +135,6 @@
   font-weight: var(--fontWeightRegular);
   line-height: var(--body2-lineHeight);
   font-size: var(--body2-fontSize);
-  text-transform: lowercase;
   align-self: flex-start;
   color: var(--color-grey-main);
   text-align: left;

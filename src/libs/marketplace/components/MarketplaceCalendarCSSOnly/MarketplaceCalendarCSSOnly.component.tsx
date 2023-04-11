@@ -48,7 +48,7 @@ type Props = {
   showMultiLocalization: boolean;
   nextAvailableOffer: Offer;
   goToFirstAvailableSession: () => void;
-  getLevel: (id: number) => Level;
+  getLevel: { [id: number]: Level };
   bookedOffers?: number[];
   t: TFunction;
   activeCustomLevels: Level[];

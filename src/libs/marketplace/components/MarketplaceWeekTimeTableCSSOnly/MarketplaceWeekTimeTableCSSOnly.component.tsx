@@ -34,7 +34,7 @@ type Props = {
   onClickOffer: () => void;
   onClickBook: (offer: Offer_FULL) => void;
   onClickBookOption: (offer: Offer_FULL) => void;
-  getLevel: (id: number) => Level;
+  getLevel: { [id: number]: Level };
   date: string;
   t: TFunction;
   showOfferFilling: boolean;

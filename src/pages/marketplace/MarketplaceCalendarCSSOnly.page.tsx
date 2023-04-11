@@ -45,7 +45,7 @@ import { fetchLevelBulk as fetchLevelBulkAction } from '#libs/level/actions';
 import {
   getActiveCustomLevels,
   getAllCustomLevels,
-  getLevelById,
+  getLevelsDetails,
   withCustomLevel,
 } from '#libs/level/selectors';
 
@@ -447,7 +447,7 @@ const mapStateToProps = (state: RootState) => ({
   nextAvailableOffer: getNextAvailableOffer(state),
   authenticated: state.auth.authenticated,
   activeCustomLevels: getActiveCustomLevels(state),
-  getLevel: getLevelById(state),
+  getLevel: getLevelsDetails(state),
   customLevels: getAllCustomLevels(state),
   getOffersListByGroup: memoize((id) =>
     getOffersListByGroupSelector(state, id),

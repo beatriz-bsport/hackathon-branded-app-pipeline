@@ -101,7 +101,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
           </div>
           <div className="bs-card-offer__content__status">
             <MarketplaceLevel
-              customLevel={props.getLevel(offer.custom_level)}
+              customLevel={props.getLevel[offer.custom_level]}
               className="bs-card-offer__content__status__level"
             />
             {metaActivity && metaActivity.is_broadcast ? (

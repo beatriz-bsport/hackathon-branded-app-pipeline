@@ -26,6 +26,7 @@ import MarketPlaceLevel from '#libs/marketplace/components/MarketplaceLevelCSSOn
 import MarketplaceBroadcast from '#libs/marketplace/components/MarketplaceBroadcastCSSOnly';
 import MarketplaceCalendarVariant from '#libs/marketplace/types';
 import { AVAILABLE_BOOKING_ELEMENTS_IDS } from '#libs/marketplace/constants';
+import { Level } from '#libs/level/types';
 
 import './MarketplaceOfferListItemCSSOnly.css';
 
@@ -50,7 +51,7 @@ export type Props = {
   withoutCTA: boolean;
   isRegistered?: boolean;
   showOfferGender: boolean;
-  getLevel: (id: number) => void;
+  getLevel: { [id: number]: Level };
   isBookingDisabled: boolean;
   isWorkshop?: boolean;
   showDate?: boolean;
@@ -289,7 +290,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 {offer.custom_level && (
                   <MarketPlaceLevel
                     className="bs-offer-list-item__content__offer__right__top__level"
-                    customLevel={getLevel(offer.custom_level)}
+                    customLevel={getLevel[offer.custom_level]}
                   />
                 )}
               </div>

@@ -56,7 +56,7 @@ import {
   fetchLevelList as fetchLevelListAction,
   resetLevels as resetLevelsAction,
 } from '#libs/level/actions';
-import { getActiveCustomLevels, getLevelById } from '#libs/level/selectors';
+import { getActiveCustomLevels, getLevelsDetails } from '#libs/level/selectors';
 
 import MarketplaceWorkshop from '#libs/marketplace/components/MarketplaceWorkshop.component';
 import Analytics from '#components/analytics/Analytics.component';
@@ -363,7 +363,7 @@ const connector = connect(
     workshops: getWorkshopsByAllIds(state),
     allWorkshops: getWorkshops(state),
     getCoach: getCoachById(state),
-    getLevel: getLevelById(state),
+    getLevel: getLevelsDetails(state),
     getEstablishment: getEstablishmentById(state),
     getGroup: getGroupByIdCurried(state),
     getOffersListByMetaActivity: memoize((id) =>

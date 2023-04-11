@@ -43,7 +43,7 @@ export type Props = {
   onBook: (id: number) => void;
   getCoach: (id: number) => Coach;
   getEstablishment: (id: number) => Establishment;
-  getLevel: (id: number) => Level;
+  getLevel: { [id: number]: Level };
   customLevel: Level;
   offers: Offer[];
   metaActivity: MetaActivity;

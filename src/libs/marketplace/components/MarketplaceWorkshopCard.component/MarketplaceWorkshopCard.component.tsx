@@ -38,7 +38,7 @@ export type Props = {
   onLoadMoreOffer: (page: number) => void;
   getCoach: (id: number) => Coach;
   getEstablishment: (id: number) => Establishment;
-  getLevel: (id: number) => Level;
+  getLevel: { [id: number]: Level };
   getGroup: (id: number) => OffersGroup;
   getOffersListByGroup: (ids: number) => Offer[];
 };
@@ -181,7 +181,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                 getEstablishment={getEstablishment}
                 getCoach={getCoach}
                 getLevel={getLevel}
-                customLevel={getLevel(group.level)}
+                customLevel={getLevel[group.level]}
                 showOfferFilling={showOfferFilling}
                 showOfferGender={showOfferGender}
                 loading={offerDetailsloading || groupsLoading}
@@ -204,7 +204,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               }}
               establishment={getEstablishment(offer.establishment)}
               coach={getCoach(offer.coach_override || offer.coach)}
-              customLevel={getLevel(offer.custom_level)}
+              customLevel={getLevel[offer.custom_level]}
               showOfferFilling={showOfferFilling}
               showOfferGender={showOfferGender}
               getLevel={getLevel}

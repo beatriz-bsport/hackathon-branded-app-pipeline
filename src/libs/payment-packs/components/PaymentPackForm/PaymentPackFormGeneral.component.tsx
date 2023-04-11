@@ -486,6 +486,11 @@ export const PaymentPackFormGeneral = (props: Props) => {
                     fullWidth
                     name="no_show_penalty_threshold"
                     type="number"
+                    InputProps={{
+                      inputProps: {
+                        min: 0,
+                      },
+                    }}
                     required
                     label={t('form.paymentPack.penalty.noShowPenaltyNumber')}
                   />
@@ -498,6 +503,11 @@ export const PaymentPackFormGeneral = (props: Props) => {
                     fullWidth
                     name="no_show_penalty_time_window_days"
                     type="number"
+                    InputProps={{
+                      inputProps: {
+                        min: 0,
+                      },
+                    }}
                     required
                     label={t('addPaymentPack.penalityNumberDay')}
                   />

@@ -12,8 +12,8 @@ export type Props = {
 };
 
 const getRollCallOptions = memoize((t: TFunction) => [
-  { value: 'false', label: t('offer:rollCall.filter.validated') },
-  { value: 'true', label: t('offer:rollCall.filter.notValidated') },
+  { value: 'false', label: t('rollCall.filter.validated') },
+  { value: 'true', label: t('rollCall.filter.notValidated') },
 ]);
 
 const RollCallSelector: React.FC<Props> = (props: Props) => {
@@ -31,6 +31,7 @@ const RollCallSelector: React.FC<Props> = (props: Props) => {
         value={value}
         styles={rollCallStyles}
         menuPortalTarget={document.querySelector('body')}
+        placeholder={t('rollCall.filter.placeholder')}
       />
     </div>
   );

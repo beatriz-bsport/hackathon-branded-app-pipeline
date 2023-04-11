@@ -404,7 +404,7 @@ exports.default = {
         title: 'Pénalités',
         label: 'Appliquer une pénalité',
         helperText:
-          "Appliquer des pénalités en cas d'absence ou de réservations hors délais trop nombreuses",
+          "Appliquer des pénalités en cas d'absence ou d'annulations hors délais trop nombreuses",
         titleCheckbox: 'Appliquer une pénalité pour',
         cancellationsCheckbox: 'Les annulations hors délai trop nombreuses',
         noShowCheckbox: 'Les absences (no show) trop nombreuses',

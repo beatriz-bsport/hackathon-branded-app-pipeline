@@ -353,6 +353,11 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
                       name="no_show_validated_time"
                       type="number"
                       className={classes.numberTextField}
+                      InputProps={{
+                        inputProps: {
+                          min: 0,
+                        },
+                      }}
                     />,
                     <HoursDaysIntervalRecurrenceSelectField
                       name="no_show_validated_interval"
@@ -368,6 +373,11 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
                   'forms.themePersonalization.noShow.daysBeforeNoShowHelpText',
                 )}
               </Typography>
+              {errors?.no_show_validated_time && (
+                <Alert severity="error" className={classes.alert}>
+                  {t(errors.no_show_validated_time)}
+                </Alert>
+              )}
               <Typography className={classes.textWithInput}>
                 <Trans
                   t={t}
@@ -377,6 +387,11 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
                       name="no_show_email_time"
                       type="number"
                       className={classes.numberTextField}
+                      InputProps={{
+                        inputProps: {
+                          min: 0,
+                        },
+                      }}
                     />,
                     <HoursDaysIntervalRecurrenceSelectField
                       name="no_show_email_interval"
@@ -736,14 +751,16 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
     .min(0)
     .when('is_roll_call_mandatory', {
       is: true,
-      then: Yup.number().min(0).required(),
+      then: Yup.number()
+        .min(0, 'forms.themePersonalization.noShow.errorValidatedTime')
+        .required(),
     }),
   no_show_email_time: Yup.number()
     .min(0)
     .when('is_roll_call_mandatory', {
       is: true,
       then: Yup.number()
-        .min(0)
+        .min(0, 'forms.themePersonalization.noShow.errorEmailTime')
         .required()
         .test(
           'is-before-no-show',

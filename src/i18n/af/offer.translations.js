@@ -180,6 +180,7 @@ exports.default = {
       stateChanged: "Le statut a été changé mais n'a pas été validé",
     },
     button: {
+      validationRollCallZero: 'Valider l’appel',
       validationRollCall: 'Valider l’appel',
       validationRollCall_plural: 'Valider tous les appels',
     },
@@ -206,6 +207,7 @@ exports.default = {
     filter: {
       validated: 'Appel validé',
       notValidated: 'Appel non validé',
+      placeholder: 'Statut de l’appel',
     },
   },
 };

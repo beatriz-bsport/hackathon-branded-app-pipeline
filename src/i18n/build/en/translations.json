@@ -10425,8 +10425,8 @@
                 "savedRollCall_plural": "The calls have been saved.",
                 "validatedRollCall": "Validated call",
                 "validatedRollCall_plural": "Validated calls",
-                "confirmationRollCall": "Please note that members marked as absent and holding an unlimited pass subject to penalties will be penalised. Are you sure you want to confirm the call?",
-                "confirmationRollCall_plural": "You are about to validate the call for all the sessions of the day. Please note that members marked as absent and holding an unlimited pass subject to penalties will be penalised. Are you sure you want to confirm all calls?",
+                "confirmationRollCall": "Please note that members marked as absent and holding an unlimited pass subject to penalties will be penalized. Are you sure you want to confirm the call?",
+                "confirmationRollCall_plural": "You are about to validate the call for all the sessions of the day. Please note that members marked as absent and holding an unlimited pass subject to penalties will be penalized. Are you sure you want to confirm all calls?",
                 "validationRollCall": "Validate the call"
             },
             "button": {

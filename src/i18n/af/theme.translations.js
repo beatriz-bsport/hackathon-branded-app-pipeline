@@ -260,6 +260,10 @@ exports.default = {
           'Pour activer/ desactiver l’email merci de vous rendre dans Paramètres> Emails transactionnels> Pénalité> Notification d’absence',
         error:
           'L’email de notification d’absence ne peut pas être envoyé après que le membre soit considéré comme no show.',
+        errorValidatedTime:
+          'Le temps écoulé avant de considérer un membre comme no-show doit être supérieur à 0',
+        errorEmailTime:
+          'Le temps écoulé avant d’envoyer le mail pour prévenir le membre qu’il sera no-show doit être supérieur à 0',
         notAvailable:
           'La gestion des absences (no-show) n’est pas disponible. Pour l’activer vous devez d’abord créer une carte de cours illimitée avec des pénalités sur les absences (no show).',
       },

@@ -4362,7 +4362,11 @@
         "lastValidatedRollCall": "Dernier appel validé le {{- date }} {{ time }}"
       },
       "warningIcon": { "stateChangedTitle": "Statut non validé", "stateChanged": "Le statut a été changé mais n'a pas été validé" },
-      "button": { "validationRollCall": "Valider l’appel", "validationRollCall_plural": "Valider tous les appels" },
+      "button": {
+        "validationRollCallZero": "Valider l’appel",
+        "validationRollCall": "Valider l’appel",
+        "validationRollCall_plural": "Valider tous les appels"
+      },
       "dialog": {
         "validationRollCall": "Valider l’appel",
         "confirmationRollCall": "Attention, les membres marqués comme absents et titulaires d’une carte illimitée sujette aux pénalités seront sanctionnés. Etes-vous sûr de vouloir confirmer l’appel ?",
@@ -4378,7 +4382,7 @@
         "info": "Valider l’appel permet de déclencher le décompte pour les pénalités des absences (no-show).",
         "listMembers": "Liste des membres inscrits"
       },
-      "filter": { "validated": "Appel validé", "notValidated": "Appel non validé" }
+      "filter": { "validated": "Appel validé", "notValidated": "Appel non validé", "placeholder": "Statut de l’appel" }
     }
   },
   "order": {
@@ -4984,7 +4988,7 @@
         "penalty": {
           "title": "Pénalités",
           "label": "Appliquer une pénalité",
-          "helperText": "Appliquer des pénalités en cas d'absence ou de réservations hors délais trop nombreuses",
+          "helperText": "Appliquer des pénalités en cas d'absence ou d'annulations hors délais trop nombreuses",
           "titleCheckbox": "Appliquer une pénalité pour",
           "cancellationsCheckbox": "Les annulations hors délai trop nombreuses",
           "noShowCheckbox": "Les absences (no show) trop nombreuses",
@@ -9958,6 +9962,8 @@
           "sendMail": "Envoyer un email <0/> <1/> après l’appel pour prévenir le membre qu’il sera considéré comme no show si il est indiqué comme absent.",
           "sendMailHelpText": "Pour activer/ desactiver l’email merci de vous rendre dans Paramètres> Emails transactionnels> Pénalité> Notification d’absence",
           "error": "L’email de notification d’absence ne peut pas être envoyé après que le membre soit considéré comme no show.",
+          "errorValidatedTime": "Le temps écoulé avant de considérer un membre comme no-show doit être supérieur à 0",
+          "errorEmailTime": "Le temps écoulé avant d’envoyer le mail pour prévenir le membre qu’il sera no-show doit être supérieur à 0",
           "notAvailable": "La gestion des absences (no-show) n’est pas disponible. Pour l’activer vous devez d’abord créer une carte de cours illimitée avec des pénalités sur les absences (no show)."
         }
       },

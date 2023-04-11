@@ -21,9 +21,11 @@ export const ValidationRollCallButton: React.FC<Props> = (props) => {
       onClick={props.onClick}
     >
       <PlaylistAddCheck fontSize="small" className={classes.iconLeft} />
-      {t('rollCall.button.validationRollCall', {
-        count: props.nbRollCallsLeftToValidate,
-      })}
+      {props.nbRollCallsLeftToValidate === 0
+        ? t('rollCall.button.validationRollCallZero')
+        : t('rollCall.button.validationRollCall', {
+            count: props.nbRollCallsLeftToValidate,
+          })}
     </Button>
   );
 };

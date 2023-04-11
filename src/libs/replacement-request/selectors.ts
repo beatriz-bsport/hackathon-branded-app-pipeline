@@ -23,6 +23,11 @@ import { getEditableSCTs } from '#libs/category/selectors';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { SCT } from '#libs/category/types';
 import { Coach } from '#libs/associated-coach/types';
+import {
+  getAvailableEstablishmentList,
+  getAssociatedEstablishmentGroup,
+} from '#libs/establishment/selectors';
+import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
 
 const getState = (state: RootState): ReplacementRequestState =>
   state.replacementRequest;
@@ -203,21 +208,53 @@ export const getAllDisciplineGroups = createSelector(
 
 export const getAllDisciplineGroupsWithFullData: (
   state: RootState,
-) => DisciplineGroup<MetaActivity, MetaActivity, SCT, Coach>[] = createSelector(
+) => DisciplineGroup<
+  MetaActivity,
+  MetaActivity,
+  SCT,
+  Establishment,
+  EstablishmentGroup,
+  Coach
+>[] = createSelector(
   [
     getAllDisciplineGroups,
     getAllCoaches,
     getMetaActivities,
+    getAvailableEstablishmentList,
+    getAssociatedEstablishmentGroup,
     getWorkshops,
     getEditableSCTs,
   ],
-  (disciplineGroups, coaches, metaActivities, workshops, SCTs) => {
+  (
+    disciplineGroups,
+    coaches,
+    metaActivities,
+    establishments,
+    establishmentGroups,
+    workshops,
+    SCTs,
+  ) => {
     if (!disciplineGroups) return [];
     return disciplineGroups.map((group) => ({
       ...group,
       associated_coaches: group.associated_coaches
         .map((acId) => coaches.find((c) => c.associated_coach_id === acId))
         .filter((c) => !!c),
+      establishments: group.establishments
+        .map((establishmentId) =>
+          establishments.find(
+            (establishment) => establishment.id === establishmentId,
+          ),
+        )
+        .filter((establishment) => !!establishment),
+      establishment_groups: group.establishment_groups
+        .map((establishmentGroupId) =>
+          establishmentGroups.find(
+            (establishment_group) =>
+              establishment_group.id === establishmentGroupId,
+          ),
+        )
+        .filter((establishment_group) => !!establishment_group),
       meta_activities: group.meta_activities
         .map((activityId) =>
           metaActivities.find((activity) => activity.id === activityId),

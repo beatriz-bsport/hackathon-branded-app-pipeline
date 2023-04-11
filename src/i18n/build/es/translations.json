@@ -573,7 +573,8 @@
                 "day": "Diario",
                 "week": "Semana",
                 "year": "Anual",
-                "month": "Mensualmente"
+                "month": "Mensualmente",
+                "hour": "Por hora"
             },
             "modify": "Editar",
             "completeInformation": "Completar mi información",
@@ -593,7 +594,8 @@
                 "year": "Años",
                 "month": "Meses",
                 "week": "Semanas",
-                "day": "Días"
+                "day": "Días",
+                "hour": "Horas"
             }
         },
         "marketing": {
@@ -1403,7 +1405,8 @@
             "last_invoice_status": "Estado del último pago",
             "contract_name": "Suscripción",
             "billing_plan_payment_method": "Método de pago",
-            "plan_auto_renewal": "Renovación tácita"
+            "plan_auto_renewal": "Renovación tácita",
+            "is_no_show": "Ausente (no se presenta)"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -4247,7 +4250,14 @@
             "1": "En curso",
             "0": "Aún no se ha iniciado"
         },
-        "invisibleForStaffToolTip": "Invisible para el personal"
+        "invisibleForStaffToolTip": "Invisible para el personal",
+        "alreadySubscribed": {
+            "dialog": {
+                "title": "Ya suscrito",
+                "content": "Ya ha adquirido esta suscripción recientemente. Si aún no lo ve, espere unos minutos. No obstante, si desea volver a adquirirla, espere unos minutos e inténtelo de nuevo.",
+                "validate": "Ok"
+            }
+        }
     },
     "reporting": {
         "columns": {
@@ -4505,7 +4515,11 @@
             "nb_planned_invoices": "Número total de recibos",
             "last_invoice_status": "Estado del último pago",
             "contract_name": "Nombre de la suscripción",
-            "billing_plan_payment_method": "Método de pago"
+            "billing_plan_payment_method": "Método de pago",
+            "roll_call_needs_validation": "Debe pasar lista",
+            "no_show": "No se presenta",
+            "is_no_show": "Ausente (no se presenta)",
+            "date_roll_call_last_modified": "Fecha de la última modificación de la toma de lista"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -4848,6 +4862,7 @@
                 "Cancelado",
                 "Cancelado",
                 "Cancelada",
+                "Cancelada",
                 "Cancelada"
             ]
         },
@@ -5104,7 +5119,12 @@
                 "notValidatedRollCall": "La asistencia no fue validada"
             },
             "warningIcon": {
-                "stateChanged": "El estado ha sido modificado pero no validado"
+                "stateChanged": "El estado ha sido modificado pero no validado",
+                "stateChangedTitle": "Estado sin validar"
+            },
+            "filter": {
+                "notValidated": "Solicitud no validada",
+                "validated": "Solicitud validada"
             }
         }
     },
@@ -5459,7 +5479,8 @@
             "registeredOn": "Reservado el ",
             "source": "Canal de compra",
             "cancelledOn": "Cancelado el ",
-            "by": "Por"
+            "by": "Por",
+            "noShow": "No se presenta "
         },
         "source": {
             "web": "En el sitio web",
@@ -5822,7 +5843,11 @@
         },
         "asGuest": "Invitado",
         "unlimited": "Ilimitado",
-        "place": "Sitio"
+        "place": "Sitio",
+        "noShowChip": {
+            "message": "El miembro fue registrado como ausente después de la sesión",
+            "title": "no se presenta"
+        }
     },
     "marketplace": {
         "selector": {
@@ -6045,7 +6070,8 @@
                 "week_plural": "Cada {{ count }} semanas",
                 "month": "mes",
                 "month_plural": "Cada {{ count }} meses"
-            }
+            },
+            "chooseButton": "Seleccione"
         }
     },
     "notificationRule": {
@@ -6058,7 +6084,7 @@
             "subscription": "Suscripción",
             "marketing": "Marketing",
             "invoice": "Facturación",
-            "payment_pack": "Bonos",
+            "payment_pack": "Penalizaciones",
             "recurrent_private_booking": "Cita periódica",
             "replacement_request": "Sustitución"
         },
@@ -6094,8 +6120,8 @@
             "300": "Kick (No validada a tiempo demasiadas veces)",
             "22": "Confirmación de factura",
             "601": "Muy pocas reservas N horas antes del comienzo de la sesión (profesores)",
-            "701": "Penalización de bono: bono bloqueado (estudiantes)",
-            "702": "Penalización de bono: cargo en la cuenta creada (estudiantes)",
+            "701": "Cancelación tardía: el bono se ha bloqueado temporalmente (para miembros)",
+            "702": "Cancelación tardía: se ha añadido una multa al saldo de la cuenta interna (para miembros)",
             "530": "Disputa sobre el pago de una suscripción",
             "520": "El pago fallido de una suscripción se volverá a intentar",
             "515": "Bono del abono desactivado automáticamente",
@@ -6114,7 +6140,10 @@
             "903": "Se ha encontrado otro sustituto (sustituto)",
             "902": "Solicitud de sustitución anulada (sustituto)",
             "901": "Sustituto encontrado (profesor)",
-            "907": "Sustituto encontrado (sustituto)"
+            "907": "Sustituto encontrado (sustituto)",
+            "705": "Notificación de ausencia",
+            "704": "No se presenta: se ha añadido una multa al saldo de la cuenta interna (para miembros)",
+            "703": "No se presenta: el pase ha sido bloqueado temporalmente (para miembros)"
         },
         "tag": {
             "BookingOption": {
@@ -6406,7 +6435,8 @@
             "titleBooking": "Curso de grupo",
             "accessLive": "Acceder a la clase en vivo",
             "spotNumber": "Sitio {{count}}",
-            "isUnpaid": "No pagado"
+            "isUnpaid": "No pagado",
+            "noShow": "Ha sido registrado como ausente en esta sesión"
         },
         "pack": {
             "titlePrivatePack": "Cita",
@@ -7888,7 +7918,8 @@
             "sendNotification": "Notificación push",
             "warningConsent1": "Advertencia: este socio no quiere recibir correos electrónicos promocionales. Los correos electrónicos directos son una forma rápida y sencilla de contactar a tus miembros. No deben utilizarse con fines publicitarios o promocionales.",
             "warningConsent2": "No respetar esta decisión de su socio sería ilegal. Bsport no se hace responsable en caso de uso abusivo de los correos electrónicos directos.",
-            "titleInterpolated": "Las variables contenidas en el título y el cuerpo del correo electrónico se actualizan en función del destinatario"
+            "titleInterpolated": "Las variables contenidas en el título y el cuerpo del correo electrónico se actualizan en función del destinatario",
+            "warningProvider": "Tenga en cuenta que las respuestas de los miembros a este mensaje no aparecerán en la plataforma, sino directamente en su buzón. Para que aparezcan todas aquí, cambia la configuración de comunicación en la página Configuración/Personalización."
         },
         "table": {
             "columns": {
@@ -8039,6 +8070,14 @@
         "sentStatus": {
             "fail": "Se produjo un error al enviar",
             "processing": "La comunicación se está enviando"
+        },
+        "forms": {
+            "twoWayEmail": {
+                "description": "Tenga en cuenta que las respuestas por correo electrónico de los miembros ya no aparecerán en su buzón, sino directamente en la plataforma.",
+                "title": "Recibir respuestas por correo electrónico en la plataforma"
+            },
+            "submit": "Guardar",
+            "title": "Parámetros del chat"
         }
     },
     "paymentCombo": {
@@ -8288,6 +8327,16 @@
                     "enable": "Activar el área de profesores por defecto",
                     "access": "Acceso",
                     "description": "Personalizar el área de profesores en la web. Ten en cuenta que los ajustes realizados aquí no afectan al área de profesores de la aplicación."
+                },
+                "noShow": {
+                    "notAvailable": "La gestión de no presentarse no está disponible. Para activarla, primero debes crear un pase ilimitado con penalizaciones por no presentarse.",
+                    "error": "El correo electrónico de notificación de ausencia no puede enviarse después de que se considere que el miembro no se ha presentado.",
+                    "sendMailHelpText": "Para activar/desactivar el correo electrónico, vaya a Parámetros> Notificaciones transaccionales> Penalización> Notificación de ausencia",
+                    "sendMail": "Enviar un correo electrónico <0/> <1/> después de pasar lista para notificar al socio que se considerará que no se ha presentado si figura como ausente.",
+                    "daysBeforeNoShowHelpText": "Este ajuste le permite aplicar penalizaciones a los socios con pase ilimitado que no se presenten.",
+                    "daysBeforeNoShow": "Considerar al miembro como (no presentado) <0/> <1/> tras el pase de lista en las sesiones en las que figure como ausente.",
+                    "alert": "Estos ajustes sólo se aplican a las penalizaciones por no presentarse en tarjetas ilimitadas. Para activar los siguientes cargos, debe validar la convocatoria para cada curso.",
+                    "title": "Ausencia (no se presenta)"
                 }
             },
             "submit": "Guardar",
@@ -9410,7 +9459,9 @@
             "day": "{{ count }} día",
             "day_plural": "{{ count }} días"
         },
-        "download": "Descargar"
+        "download": "Descargar",
+        "ok": "OK",
+        "params": "Parámetros"
     },
     "snackbar": {
         "invoice": {
@@ -10346,6 +10397,12 @@
                 "message": "No puede acceder al área solicitada",
                 "title": "Acceso denegado"
             }
+        },
+        "communicationProviderSettings": {
+            "update": {
+                "error": "No se pueden guardar los cambios",
+                "success": "Cambios registrados"
+            }
         }
     },
     "paymentPack": {
@@ -10504,7 +10561,34 @@
                     "block": {
                         "label": "Período de bloqueo del bono (en días) :",
                         "helperText": "El bono será bloqueado por {{nb_days}} días"
-                    }
+                    },
+                    "deleteNoShowDialog": {
+                        "text": "Se suprimieron los pases ilimitados con penalización por no presentarse. Hemos desactivado la función \"pasar lista\", por lo que ya no tendrás que pasar lista en cada sesión.",
+                        "title": "Penalizaciones suprimidas"
+                    },
+                    "noShowDialog": {
+                        "alert": "Puede establecer las condiciones de no presentarse en los ajustes de personalización.",
+                        "text": "Acaba de crear las penalizaciones por no presentarse.  Hemos activado la función \"pasar lista\", ahora debes pasar lista en cada sesión para activar las penalizaciones.",
+                        "title": "Penalizaciones por no presentarse"
+                    },
+                    "bothPenaltiesInfo": "Se aplicará una penalización si hay {{penalityNumberNoShow}} cancelación tardía o \"no se presenta\" dentro de un período de {{penalityNumberDay}} días.",
+                    "bothPenaltiesInfo_plural": "Se aplicará una penalización si hay {{penalityNumberNoShow}} cancelaciones tardías o \"no se presenta\" dentro de un período de {{penalityNumberDay}} días.",
+                    "bothPenaltiesNumber": "Número de cancelaciones y no se presenta",
+                    "noShowPenaltyInfo": "Se aplicará una penalización si hay {{penalityNumberNoShow}} \"no se presenta\" en un período de {{penalityNumberDay}} días.",
+                    "noShowPenaltyInfo_plural": "Se aplicará una penalización si hay {{penalityNumberNoShow}} \"no se presenta\" en un período de {{penalityNumberDay}} días.",
+                    "noShowPenaltyNumber": "Número de \"no se presenta\"",
+                    "noShowPenaltyAlert": "Para definir cuando un miembro es considerado ausente (no se presenta) por favor vaya a Parámetros>Personalización",
+                    "penaltyParamsText": "Aplicar el mismo baremo a las anulaciones tardías y a las ausencias (no se presenta)",
+                    "penaltyParams": "Parámetros de penalización",
+                    "bothPenaltiesTitle": "Penalizaciones por cancelación tardía y no presentarse",
+                    "noShowPenaltyTitle": "Penalizaciones por no presentarse",
+                    "cancellationsPenaltyTitle": "Penalizaciones por cancelación tardía",
+                    "errorNoPenaltyRule": "No puede guardar sus cambios, debe elegir una penalización o desactivar las penalizaciones para continuar",
+                    "noShowCheckbox": "Demasiados \"no se presenta\"",
+                    "cancellationsCheckbox": "Demasiadas cancelaciones tardías",
+                    "titleCheckbox": "Aplicar una penalización por",
+                    "helperText": "Aplicar penalizaciones en caso de no presentarse o de anulación tardía.",
+                    "label": "Aplicar una penalización"
                 },
                 "only_vod_access": "Sólo para VOD",
                 "category": {
@@ -10985,6 +11069,10 @@
                 "prorata": {
                     "label": "En proporción a las cancelaciones tardías en cada franquiciado.",
                     "explain": "El saldo de la cuenta de socio se cargará con {{ price }} en proporción a las cancelaciones tardías registradas en cada franquiciado. Se cargará un importe total de {{ price }} a nivel de franquicia."
+                },
+                "prorataNoShow": {
+                    "explain": "La multa de {{ price }} se aplicará proporcionalmente a los no presentados registrados por cada uno de sus franquiciados. Se cobrará un total de {{ price }}.",
+                    "label": "Pro rata, por franquiciado, de no presentarse"
                 }
             },
             "unusableByStaff": "Invisible para el personal"
@@ -11088,6 +11176,10 @@
         },
         "listItem": {
             "unusableByStaff": "Invisible para el personal"
+        },
+        "noShowPenalty": {
+            "account": "Se aplicará una multa de {{amount}} por {{treshold}} no presentarse durante un periodo de {{time_window_days}} días.",
+            "block": "{{days_blocked}} días bloqueados después de {{treshold}} \"no se presenta\" durante un período de {{time_window_days}} días."
         }
     },
     "selfCheckIn": {
@@ -11550,6 +11642,80 @@
             "coach": {
                 "calendar": "Calendario",
                 "general": "Perfil"
+            },
+            "customForm": {
+                "layout": "Personalización",
+                "statistics": "Estadísticas",
+                "campaign": "Campaña",
+                "general": "Contenido"
+            },
+            "franchise": {
+                "staff": {
+                    "role": "Roles",
+                    "staffAccount": "Cuentas Staff"
+                }
+            },
+            "replacement": {
+                "disciplineGroup": "Grupos de disciplinas",
+                "management": "Gestión"
+            },
+            "widget": {
+                "customize": "Personalización",
+                "create": "General"
+            },
+            "smartList": {
+                "statistic": "Estadística",
+                "campaign": "Campañas",
+                "member": "General"
+            },
+            "member": {
+                "basket": "Cesta",
+                "basket_plural": "Cesta ({{number}})",
+                "form": "Formularios",
+                "form_plural": "Formularios ({{number}})",
+                "vod": "Videoteca",
+                "vod_plural": "Videoteca ({{number}})",
+                "privateConsumerPass": "Tarjetas de cita",
+                "privateConsumerPass_plural": "Tarjetas de cita ({{number}})",
+                "privateBooking": "Citas",
+                "privateBooking_plural": "Citas ({{number}})",
+                "payment": "Facturación",
+                "payment_plural": "Facturación ({{number}})",
+                "contact": "Contacto",
+                "contact_plural": "Contacto ({{number}})",
+                "invoices": "Facturas y suscripciones",
+                "invoices_plural": "Facturas y suscripciones ({{number}})",
+                "paymentPack": "Bonos",
+                "paymentPack_plural": "Bonos ({{number}})",
+                "giftcard": "Tarjeta regalo",
+                "giftcard_plural": "Tarjeta regalo ({{number}})",
+                "bookings": "Reservas",
+                "bookings_plural": "Reservas ({{number}})",
+                "relation": "Relaciones",
+                "relation_plural": "Relaciones ({{number}})",
+                "info": "General",
+                "info_plural": "General ({{number}})",
+                "programs": "Programa",
+                "programs_plural": "Programas ({{number}})"
+            },
+            "clockIn": {
+                "history": "Histórico",
+                "realTime": "Tiempo real"
+            },
+            "service": {
+                "calendar": "Calendario",
+                "general": "General"
+            },
+            "establishment": {
+                "location": "Ubicación",
+                "room": "Sala",
+                "calendar": "Calendario",
+                "general": "General"
+            },
+            "metaActivity": {
+                "group": "Sesión de grupo",
+                "pack": "Bonos compatibles",
+                "general": "General"
             }
         }
     },

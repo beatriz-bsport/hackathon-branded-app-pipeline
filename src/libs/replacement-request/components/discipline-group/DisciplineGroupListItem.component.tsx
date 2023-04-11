@@ -8,20 +8,44 @@ import IconButton from '@material-ui/core/IconButton';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
+import PlaceIcon from '@material-ui/icons/Place';
 import { MAX_DISPLAY } from '#libs/communication-v2/constants';
 
 import CustomAvatarGroup from '#components/CustomAvatarGroup.component';
 
 import { DisciplineGroup } from '#libs/replacement-request/types';
 import { Coach } from '#libs/associated-coach/types';
+import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
+import { MultilocationChoice } from '#libs/replacement-request/constants';
 
 type Props = {
-  disciplineGroup: DisciplineGroup<number, number, number, Coach>;
+  disciplineGroup: DisciplineGroup<
+    number,
+    number,
+    number,
+    Establishment,
+    EstablishmentGroup,
+    Coach
+  >;
   handleDelete: (
-    disciplineGroup: DisciplineGroup<number, number, number, Coach>,
+    disciplineGroup: DisciplineGroup<
+      number,
+      number,
+      number,
+      Establishment,
+      EstablishmentGroup,
+      Coach
+    >,
   ) => void;
   handleEdit: (
-    disciplineGroup: DisciplineGroup<number, number, number, Coach>,
+    disciplineGroup: DisciplineGroup<
+      number,
+      number,
+      number,
+      Establishment,
+      EstablishmentGroup,
+      Coach
+    >,
   ) => void;
 };
 
@@ -29,6 +53,22 @@ const listSumUp = (items: any[], all: boolean) => {
   if (all) return '';
 
   return items.map((i) => i.name).join(', ');
+};
+
+const listSumUpEstablishments = (
+  items: Establishment[],
+  displayAll: string,
+) => {
+  if (items.length === 0) return displayAll;
+  return items.map((establishment) => establishment.title).join(', ');
+};
+
+const listSumUpEstablishmentGroups = (
+  items: EstablishmentGroup[],
+  displayAll: string,
+) => {
+  if (items.length === 0) return displayAll;
+  return items.map((establishmentGroup) => establishmentGroup.name).join(', ');
 };
 
 export const DisciplineGroupListItem: React.FC<Props> = ({
@@ -48,6 +88,11 @@ export const DisciplineGroupListItem: React.FC<Props> = ({
     () => handleEdit(disciplineGroup),
     [handleEdit, disciplineGroup],
   );
+
+  const multiLocationChoice =
+    disciplineGroup.establishment_groups.length !== 0
+      ? MultilocationChoice.Locations
+      : MultilocationChoice.Establishments;
 
   const allImageLinks =
     disciplineGroup.associated_coaches.map((coach) => coach.photo) || [];
@@ -123,6 +168,23 @@ export const DisciplineGroupListItem: React.FC<Props> = ({
             })}
           </Typography>
         </div>
+        <div className={classes.establishmentInfos}>
+          <PlaceIcon className={classes.establishmentIcon} />
+          <Typography
+            variant="body2"
+            className={classes.establishmentDetailsList}
+          >
+            {multiLocationChoice === MultilocationChoice.Locations
+              ? listSumUpEstablishmentGroups(
+                  disciplineGroup.establishment_groups,
+                  t('disciplineGroup.form.allEstablishments'),
+                )
+              : listSumUpEstablishments(
+                  disciplineGroup.establishments,
+                  t('disciplineGroup.form.allEstablishments'),
+                )}
+          </Typography>
+        </div>
       </div>
     </ListItem>
   );
@@ -135,7 +197,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'stretch',
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    paddingBottom: theme.spacing(2),
   },
   leftContainer: {
     flex: '0 0 60%',
@@ -145,12 +207,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
   },
   rightContainer: {
-    display: 'flex',
+    display: 'inline-flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    gap: theme.spacing(4),
+    gap: theme.spacing(1),
     flex: '0 0 40%',
+    maxWidth: '40%',
+    overflow: 'hidden',
   },
   buttons: {
     display: 'table',
@@ -166,12 +230,28 @@ const useStyles = makeStyles((theme) => ({
     gap: theme.spacing(1),
     whiteSpace: 'nowrap',
   },
+  establishmentInfos: {
+    display: 'flex',
+    right: 0,
+    alignItems: 'center',
+    whiteSpace: 'nowrap',
+    color: theme.palette.common.black,
+    maxWidth: '90%',
+  },
+  establishmentIcon: {
+    color: theme.palette.grey[600],
+  },
   detailsContainer: {
     display: 'flex',
     whiteSpace: 'nowrap',
   },
   detailsList: {
     color: theme.palette.grey[600],
+    marginLeft: theme.spacing(1),
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
+  establishmentDetailsList: {
     marginLeft: theme.spacing(1),
     textOverflow: 'ellipsis',
     overflow: 'hidden',

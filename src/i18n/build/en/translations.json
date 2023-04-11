@@ -5212,6 +5212,10 @@
                     "enable": "Enable the teacher view by default",
                     "access": "Access",
                     "description": "Customize the teacher view on the web. Please note that the settings here do not affect the teacher's view of the application."
+                },
+                "noShow": {
+                    "errorValidatedTime": "The time elapsed before a member's booking is considered a no-show must be greater than 0",
+                    "errorEmailTime": "The time elapsed before sending the email to warn the member that his/her booking will be considered as a no-show must be greater than 0"
                 }
             },
             "cover": {
@@ -10431,6 +10435,7 @@
             },
             "button": {
                 "validationRollCall": "Validate the call",
+                "validationRollCallZero": "Validate the roll call",
                 "validationRollCall_plural": "Validate all calls"
             },
             "warningIcon": {
@@ -10444,6 +10449,9 @@
                 "validatedDate": "Validated on {{- date }} at {{ time }}",
                 "modifiedRollCall": "The call has been modified, you must validate it again",
                 "notValidatedRollCall": "The call was not validated"
+            },
+            "filter": {
+                "placeholder": "Roll call status"
             }
         }
     },

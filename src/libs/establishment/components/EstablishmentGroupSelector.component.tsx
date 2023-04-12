@@ -6,7 +6,10 @@ import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { colors } from '@bsport/common/lib/colors';
 import Select from 'react-select';
-import type { EstablishmentGroup, Establishment } from '../types';
+import type {
+  EstablishmentGroup,
+  EstablishmentGroupSelectOption,
+} from '../types';
 
 const getEstablishmentGroupOptions = (
   establishmentGroup: Array<EstablishmentGroup>,
@@ -80,11 +83,11 @@ const establishmentGroupStyles = {
 
 type OwnProps = {
   establishmentGroups: Array<EstablishmentGroup>;
-  selectOption: (Suggestion: {
-    label: string;
-    value: number | string;
-    establishmentList?: Array<Establishment>;
-  }) => void;
+  selectOption: (
+    suggestion:
+      | EstablishmentGroupSelectOption[]
+      | EstablishmentGroupSelectOption,
+  ) => void;
   selectMultipleOptions: (itemsValueList: Array<number>) => void;
   selectedEstablishmentGroups: Array<number> | null;
   disabled?: boolean;
@@ -92,6 +95,7 @@ type OwnProps = {
   closeMenuOnSelect: boolean;
   isClearable: boolean;
   nullCurrentValue: boolean;
+  placeholder?: string;
   isLoading?: boolean;
   onChange: () => void;
 };
@@ -110,6 +114,7 @@ export function EstablishmentGroupSelector(props: Props) {
     noMulti,
     isClearable,
     isLoading,
+    placeholder,
     onChange,
   } = props;
   const roomsSelected =
@@ -125,7 +130,7 @@ export function EstablishmentGroupSelector(props: Props) {
     <Select
       closeMenuOnSelect={!!closeMenuOnSelect}
       isMulti={!noMulti}
-      placeholder={t('localisation')}
+      placeholder={placeholder || t('localisation')}
       options={getEstablishmentGroupOptions([...establishmentGroups])}
       styles={establishmentGroupStyles}
       onChange={selectOption || onChange}

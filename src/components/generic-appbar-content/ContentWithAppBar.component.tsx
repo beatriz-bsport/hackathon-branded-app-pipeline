@@ -41,7 +41,8 @@ const TabsGenerator: React.FC<{
         {tabsData?.map((tabValue) => (
           <Tab
             label={`${t(tabValue.label, {
-              count: tabValue.count + 1,
+              // we want to use the singular (i.e. 'count: 1') only when tabValue.count is falsy (=== 0, undefined or null)
+              count: (tabValue.count || 0) + 1,
               number: tabValue.count,
             })}`}
             value={tabValue.value}

@@ -4,17 +4,15 @@ import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
-import { Button, LinearProgress } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 import { MetaActivity } from '#libs/meta-activity/types';
 import MetaActivitySelectorWithCard from '#libs/meta-activity/components/MetaActivitySelectorWithCard.component';
 
 type Props = {
   metaActivities: MetaActivity[];
-  selectedMetaActivity: MetaActivity | null;
   metaActivityLoading: boolean;
   handleSelectActivity: (metaActivity: MetaActivity) => void;
-  handleNextStep: () => void;
   handlePreviousStep: () => void;
   type?: string;
 };
@@ -22,10 +20,8 @@ type Props = {
 export const GroupedOfferFormMetaActivitySelect: React.FC<Props> = ({
   metaActivities,
   metaActivityLoading,
-  selectedMetaActivity,
   type,
   handleSelectActivity,
-  handleNextStep,
   handlePreviousStep,
 }) => {
   const { t } = useTranslation('metaActivity');
@@ -38,28 +34,15 @@ export const GroupedOfferFormMetaActivitySelect: React.FC<Props> = ({
 
   return (
     <>
-      {metaActivityLoading && <LinearProgress />}
-
-      {!metaActivityLoading && (
-        <MetaActivitySelectorWithCard
-          metaActivities={metaActivities}
-          placeholder={placeholder}
-          value={selectedMetaActivity}
-          onChange={handleSelectActivity}
-        />
-      )}
+      <MetaActivitySelectorWithCard
+        metaActivities={metaActivities}
+        placeholder={placeholder}
+        onChange={handleSelectActivity}
+        isLoading={metaActivityLoading}
+      />
       <div className={classes.buttonContainer}>
         <Button onClick={handlePreviousStep} className={classes.button}>
           {t('translation:common.cancel')}
-        </Button>
-        <Button
-          color="primary"
-          variant="contained"
-          disabled={!selectedMetaActivity}
-          onClick={handleNextStep}
-          className={classes.button}
-        >
-          {t('translation:common.confirm')}
         </Button>
       </div>
     </>

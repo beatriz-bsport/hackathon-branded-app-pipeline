@@ -648,6 +648,8 @@ const OfferDialogs: React.FC<{
         title={t('translation:common.offers')}
         subtitle={t('translation:common.offerCreation')}
         className={classes.paperInset}
+        withoutPadding
+        withoutHeaderContainer
       >
         <OfferForm
           selectedDate={moment()}
@@ -658,14 +660,12 @@ const OfferDialogs: React.FC<{
           metaActivity={metaActivity}
           onCancel={handleCloseOffersModal}
           processing={false}
-          is_whereby_integration_enabled={isWherebyIntegrationEnabled}
+          isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
           coachPaymentRulesByKind={coachPaymentRulesByKind}
           editableCoachPaymentRule
           showPartnership={theme.has_partnership}
           tagList={tagList}
           isOfferInGroup
-          disableWaitingList
-          disableTag
           onSubmit={handleAddOffer}
           zoomAppDetail={zoomAppDetail}
         />
@@ -933,6 +933,7 @@ export default compose<any, OuterProps>(
           ),
           whitelist_tags: initial?.offers?.[0]?.whitelist_tags ?? [],
           blacklist_tags: initial?.offers?.[0]?.blacklist_tags ?? [],
+          isOfferInGroup: true,
         };
       }
 
@@ -951,6 +952,7 @@ export default compose<any, OuterProps>(
         offers: [],
         whitelist_tags: [],
         blacklist_tags: [],
+        isOfferInGroup: true,
       };
     },
     validationSchema: GroupedOfferFormSettingsSchema,

@@ -182,6 +182,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
 
   const handleSelectActivity = (_metaActivity: MetaActivity) => {
     setSelectedMetaActivity(_metaActivity);
+    handleNextStep();
   };
 
   const groups = Object.keys(groupPreview).map((key) => ({
@@ -297,7 +298,6 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
           <GroupedOfferFormMetaActivitySelect
             metaActivities={metaActivities}
             metaActivityLoading={metaActivityLoading}
-            selectedMetaActivity={selectedMetaActivity}
             handleSelectActivity={handleSelectActivity}
             handleNextStep={handleNextStep}
             handlePreviousStep={handlePreviousStep}

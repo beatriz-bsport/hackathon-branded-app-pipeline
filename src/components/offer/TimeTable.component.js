@@ -26,14 +26,14 @@ type Props = {
   virtualized?: boolean,
   getHasPendingReplacementRequest: (offerId: number) => boolean,
   isRollCallMandatory?: boolean,
-  openRollCallDrawer: (index: number, offer: Offer) => void,
-  openConfirmationRollCallDialog: () => void,
+  openRollCallDrawer?: (index: number, offer: Offer) => void,
+  openConfirmationRollCallDialog?: () => void,
 };
 
 export class TimeTable extends React.PureComponent<Props, State> {
-  renderRow = (index: number, offer: Offer, withoutKey = false) => (
+  renderRow = (offer: Offer, index: number) => (
     <OfferMinimalSummary
-      key={!withoutKey ? offer.id : null}
+      key={offer.id}
       offer={offer}
       showCoach
       noDate
@@ -50,9 +50,10 @@ export class TimeTable extends React.PureComponent<Props, State> {
         this.props.getHasPendingReplacementRequest
       }
       openRollCallDrawer={() => {
-        this.props.openRollCallDrawer(index, offer);
+        if (this.props.openRollCallDrawer)
+          this.props.openRollCallDrawer(index, offer);
       }}
-      isRollCallMandatory={this.props.isRollCallMandatory}
+      isRollCallMandatory={!!this.props.isRollCallMandatory}
     />
   );
 
@@ -76,8 +77,7 @@ export class TimeTable extends React.PureComponent<Props, State> {
             itemSize={72}
             renderRow={(index) => {
               const offer = offers[index];
-              const withoutKey = false;
-              return this.renderRow(index, offer, withoutKey);
+              return this.renderRow(offer, index);
             }}
             minItemsDisplaid={6}
           />

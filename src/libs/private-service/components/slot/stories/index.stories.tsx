@@ -5,6 +5,13 @@ import { action } from '@storybook/addon-actions';
 
 import PrivateSlotForm from './PrivateSlotForm.component';
 
+import {
+  formRenderingTest,
+  formWithInitialValuesRenderingTest,
+} from './rendering-tests';
+
+import { initialData } from './constants';
+
 const actionsData = {
   onSubmit: action('onSubmit'),
   onCancel: action('onCancel'),
@@ -24,3 +31,13 @@ const PrivateSlotFormTemplate: ComponentStory<typeof PrivateSlotForm> = (
 ) => <PrivateSlotForm {...args} />;
 
 export const EmptyForm = PrivateSlotFormTemplate.bind({});
+
+// The purpose is to test if the component and its children are rendered correctly
+export const FormRenderingTest = PrivateSlotFormTemplate.bind({});
+FormRenderingTest.play = formRenderingTest;
+
+export const FormWithInitialRenderingTest = PrivateSlotFormTemplate.bind({});
+FormWithInitialRenderingTest.args = {
+  initial: initialData,
+};
+FormWithInitialRenderingTest.play = formWithInitialValuesRenderingTest;

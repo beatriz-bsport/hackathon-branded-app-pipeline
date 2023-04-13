@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles, Theme } from '@material-ui/core';
@@ -23,6 +22,7 @@ import {
   SEND_COMMUNICATION_ON_LEFT,
 } from '@bsport/common/lib/master-data/smart-list';
 import { Campaign, Recipient } from '../types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   campaign: Campaign;
@@ -216,7 +216,10 @@ export const CampaignListItem: React.FC<Props> = ({
                   )}
                   <Typography color="textSecondary">
                     {t('campaign.sentAt', {
-                      date_created: moment(date_created).format('LLLL'),
+                      date_created: formatAsDatetimeAdapted(
+                        date_created,
+                        'LLLL',
+                      ),
                     })}
                   </Typography>
                 </div>

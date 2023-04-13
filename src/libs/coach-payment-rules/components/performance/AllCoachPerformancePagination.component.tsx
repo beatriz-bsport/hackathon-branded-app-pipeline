@@ -6,6 +6,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { makeStyles } from '@material-ui/styles';
 import { useTranslation } from 'react-i18next';
+import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
 type OwnProps = {
   pagination: {
@@ -66,7 +67,10 @@ export const AllPerformancePagination = (props: Props) => {
         <Typography variant="caption" color="secondary">
           {props.oldestUpdate
             ? t('cachedData.oldestUpdate', {
-                date: moment.unix(props.oldestUpdate).format('LLLL'),
+                date: formatAsDatetimeAdapted(
+                  moment.unix(props.oldestUpdate),
+                  'LLLL',
+                ),
               })
             : t('cachedData.undeterminedOldestUpdate')}
         </Typography>

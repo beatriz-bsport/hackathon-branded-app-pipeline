@@ -143,7 +143,7 @@ const PrivateBookingIncompleteListItem = (props: {
           </Trans>
           <br />
           {t('privateBookingIncomplete.date', {
-            date_start: moment(date_start).format('LLLL'),
+            date_start: formatAsDatetimeAdapted(date_start, 'LLLL'),
           })}
           <br />
           {t('privateBookingIncomplete.name', { user_name })}
@@ -367,7 +367,7 @@ const UnpaidPrivateBookingIncompleteListItem = (props: {
             </Typography>
             <Typography variant="caption" color="textSecondary">
               {t('privateBookingIncomplete.date', {
-                date_start: moment(date_start).format('LLLL'),
+                date_start: formatAsDatetimeAdapted(date_start, 'LLLL'),
               })}
             </Typography>
           </div>

@@ -13,10 +13,10 @@ import isEqual from 'lodash/isEqual';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import moment from 'moment-timezone';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import type { Recipient } from '../types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 const renderRows = (recipientList, t, goToMember, setShowLinkOpened) => {
   return recipientList.map((r) =>
@@ -68,7 +68,7 @@ const renderRow = (recipient, t, goToMemberPage, setShowLinkOpened) => {
     email: recipient.email,
     read_count: recipient.read_count,
     last_read: recipient.last_read
-      ? moment(recipient.last_read).format('LLLL')
+      ? formatAsDatetimeAdapted(recipient.last_read, 'LLLL')
       : ' - ',
     links_opened_count: recipient.links_opened_count ? (
       <ButtonBase onClick={() => setShowLinkOpened(recipient.links_opened)}>

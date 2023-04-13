@@ -21,6 +21,7 @@ import type {
 } from '#libs/coach-payment-rules/types';
 import type { Coach } from '#libs/associated-coach/types';
 import CoachPerformanceRuleSetter from './CoachPerformanceRuleSetter.component';
+import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
 type CoachPaymentRuleTabPanelActions = {
   setSessionCoachPaymentRule: (params: {
@@ -308,7 +309,10 @@ export const CoachPerformanceTabs = (props: TabProps) => {
         <Typography variant="caption" color="secondary">
           {!props.asCoach && props.displayLastUpdate && oldestUpdate
             ? t('coachPerformance:cachedData.oldestUpdate', {
-                date: moment.unix(oldestUpdate).format('LLLL'),
+                date: formatAsDatetimeAdapted(
+                  moment.unix(oldestUpdate),
+                  'LLLL',
+                ),
               })
             : t('coachPerformance:cachedData.undeterminedOldestUpdate')}
         </Typography>

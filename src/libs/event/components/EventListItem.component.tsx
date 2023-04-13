@@ -6,6 +6,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InfoIcon from '@material-ui/icons/Info';
 import { SubscriptionEvent, SubscriptionEventSpec } from '../types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type OwnProps = {
   event: SubscriptionEvent;
@@ -24,7 +25,10 @@ export const SubscriptionEventListItem = (props: Props) => {
 
   const company_event = props.eventSpec[props.event.event_type];
   if (!company_event) return null;
-  const secondaryContent = moment(props.event.date * 1000).format('LLLL');
+  const secondaryContent = formatAsDatetimeAdapted(
+    moment(props.event.date * 1000),
+    'LLLL',
+  );
   const icon = company_event?.icon || <InfoIcon />;
 
   return (

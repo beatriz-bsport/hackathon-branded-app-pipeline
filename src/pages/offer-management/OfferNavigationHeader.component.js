@@ -16,6 +16,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 import { compose } from 'recompose';
 import moment from 'moment-timezone';
+import { formatAsDatetimeAdapted } from '../../utils/datetime';
 
 const getDateDictionnary = (offer) => {
   const date = offer
@@ -60,9 +61,11 @@ export const OfferNavigationHeader = (props: Props) => (
         >
           <TodayIcon className={props.classes.leftIcon} />
           {props.offer && !props.offerLoading && props.offer.date_start
-            ? moment(props.offer.date_start)
-                .tz(props.offer.timezone_name || 'Europe/Paris')
-                .format('LLLL')
+            ? formatAsDatetimeAdapted(
+                props.offer.date_start,
+                'LLLL',
+                props.offer.timezone_name || 'Europe/Paris',
+              )
             : ''}
         </Button>
         {props.bookingLoading ? (

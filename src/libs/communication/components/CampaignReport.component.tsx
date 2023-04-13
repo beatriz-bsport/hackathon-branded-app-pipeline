@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Divider from '@material-ui/core/Divider';
-import moment from 'moment-timezone';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
@@ -18,6 +17,7 @@ import RecipientTable from './RecipientTable.component';
 import type { Campaign, Report, Recipient } from '../types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 const useStyles = makeStyles((theme: Theme) => ({
   statBanner: {
@@ -129,7 +129,7 @@ const CampaignStatistics = (props: CampaignStatisticsProps) => {
               className={classes.inlineStat}
             >
               {report.last_open
-                ? moment(report.last_open).format('LLLL')
+                ? formatAsDatetimeAdapted(report.last_open, 'LLLL')
                 : ' - '}
             </Typography>
           </div>
@@ -140,7 +140,7 @@ const CampaignStatistics = (props: CampaignStatisticsProps) => {
               color="secondary"
               variant="subtitle2"
             >
-              {moment(campaign.date_created).format('LLLL')}
+              {formatAsDatetimeAdapted(campaign.date_created, 'LLLL')}
             </Typography>
           </div>
         </div>

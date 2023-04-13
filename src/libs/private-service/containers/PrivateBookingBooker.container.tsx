@@ -70,6 +70,7 @@ import { showVaccinationStatus } from '../../custom-form/selectors';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type OwnProps = {
   open: boolean;
@@ -338,9 +339,11 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
         : this.props.private_services;
     return (
       <GenericResponsiveDrawer
-        title={`${moment(this.state.date_start)
-          .tz(this.props.timezone)
-          .format('LLLL')}`}
+        title={`${formatAsDatetimeAdapted(
+          this.state.date_start,
+          'LLLL',
+          this.props.timezone,
+        )}`}
         open={open}
         onClose={this.onClose}
       >

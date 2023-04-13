@@ -65,6 +65,7 @@ import type {
 import type { Basket } from '../../../libs/checkout/types';
 import WidgetUtils from '../../../libs/widget/WidgetUtils';
 import { getPrivatePassByCategoryWithPasses } from '../../../libs/private-service/selectors/private-pass-category';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   privateServiceId: number,
@@ -252,9 +253,11 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
               className={this.props.classes.leftIcon}
             />
             <Typography variant="h4">
-              {moment(this.props.data.date)
-                .tz(this.props.theme.timezone_name)
-                .format('LLLL')}
+              {formatAsDatetimeAdapted(
+                this.props.data.date,
+                'LLLL',
+                this.props.theme.timezone_name,
+              )}
             </Typography>
           </div>
           <div className={this.props.classes.paper}>

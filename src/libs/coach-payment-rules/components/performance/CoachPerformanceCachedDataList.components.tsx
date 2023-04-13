@@ -17,7 +17,10 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import IconButton from '@material-ui/core/IconButton';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Paper from '@material-ui/core/Paper';
-import { formatAsDate } from '../../../../utils/datetime';
+import {
+  formatAsDate,
+  formatAsDatetimeAdapted,
+} from '../../../../utils/datetime';
 import type { CoachPerformanceCachedData } from '#libs/coach-payment-rules/types';
 import Tooltip from '#components/Tooltip.component';
 import type { OptionCallback } from '../../../../state/types';
@@ -87,7 +90,10 @@ export const CoachPerformanceCachedDataList = (props: Props) => {
               >
                 <ListItemText
                   primary={t('cachedData.dateSaved', {
-                    date: moment.unix(data.timestamp).format('LLLL'),
+                    date: formatAsDatetimeAdapted(
+                      moment.unix(data.timestamp),
+                      'LLLL',
+                    ),
                   })}
                   secondary={
                     !data?.metadata?.date_start || !data?.metadata?.date_start

@@ -12,7 +12,10 @@ import { pure } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 import WarningIcon from '@material-ui/icons/Warning';
-import { formatAsDatetime } from '../../../utils/datetime';
+import {
+  formatAsDatetime,
+  formatAsDatetimeAdapted,
+} from '../../../utils/datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import Level from '#libs/level/components/Level.component';
 
@@ -64,9 +67,11 @@ export const OfferListItem = (props: Props) => {
                 : offer.name}
             </Typography>
             <Typography inline variant="caption">
-              {moment(offer.date_start)
-                .tz(offer.timezone_name || moment().tz() || 'Europe/Paris')
-                .format('llll')}
+              {formatAsDatetimeAdapted(
+                offer.date_start,
+                'llll',
+                offer.timezone_name || moment().tz() || 'Europe/Paris',
+              )}
             </Typography>
             <div className={classes.row}>
               <Level

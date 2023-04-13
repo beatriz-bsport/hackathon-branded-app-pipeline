@@ -21,6 +21,7 @@ import type { Booking } from '#libs/booking/types';
 import type { OffersGroup } from '#libs/group-offer/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { Offer } from '#libs/offer/types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   booking?: Booking<Offer<number, number, MetaActivity>>;
@@ -94,9 +95,11 @@ export const BookingCancellationDialog: React.FC<Props> = ({
       <DialogTitle>
         {booking && booking.offer && booking.offer.timezone_name
           ? t('consumer.booking.intro', {
-              date: moment(booking.offer.date_start)
-                .tz(booking.offer.timezone_name)
-                .format('LLLL'),
+              date: formatAsDatetimeAdapted(
+                booking.offer.date_start,
+                'LLLL',
+                booking.offer.timezone_name,
+              ),
             })
           : t('consumer.booking.discardBookingTitle')}
       </DialogTitle>

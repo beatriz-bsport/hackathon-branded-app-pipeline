@@ -13,6 +13,7 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { CashBook, CashBookUpdate, Transaction } from '../types';
 import { RolePermission } from '#libs/role/types';
 import { OptionCallback } from '../../../state/types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   setOpenCash: (oepnCash: boolean) => void;
@@ -65,9 +66,9 @@ export const CashBookForm: React.FC<Props & FormikProps<Transaction>> = ({
       </div>
       <div className={classes.field}>
         <Typography variant="caption" color="textSecondary">
-          {`${t('backofficeMenu.cashBook.lastUpdated')} :  ${moment(
-            initial.date_last_update,
-          ).format('LLLL')}`}
+          {`${t(
+            'backofficeMenu.cashBook.lastUpdated',
+          )} :  ${formatAsDatetimeAdapted(initial.date_last_update, 'LLLL')}`}
         </Typography>
       </div>
       {permissions?.navigationMenu?.reporting && (

@@ -42,6 +42,7 @@ exports.default = {
   monthly: 'Mensuel',
   close: 'Fermer',
   cancel: 'Annuler',
+  back: 'Retour',
   confirm: 'Confirmer',
   activate: 'Activer',
   disconnect: 'Me déconnecter',

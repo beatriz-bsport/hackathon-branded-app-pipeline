@@ -716,6 +716,7 @@
     "monthly": "Mensuel",
     "close": "Fermer",
     "cancel": "Annuler",
+    "back": "Retour",
     "confirm": "Confirmer",
     "activate": "Activer",
     "disconnect": "Me déconnecter",
@@ -4480,6 +4481,86 @@
         "listMembers": "Liste des membres inscrits"
       },
       "filter": { "validated": "Appel validé", "notValidated": "Appel non validé", "placeholder": "Statut de l’appel" }
+    },
+    "form": {
+      "section": {
+        "specificities": {
+          "title": "Caractéristiques",
+          "field": {
+            "effectif": "Effectif",
+            "waitingListMaxSize": "Liste d'attente",
+            "level": "Niveau",
+            "credits": "Crédits",
+            "establishment": "Lieu",
+            "broadcastLink": "Lien de la visioconférence",
+            "roomBlueprint": { "title": "Spot scheduling", "placeholder": "Sélectionner un plan" }
+          },
+          "tooltip": {
+            "broadcastLink": "Le lien sera généré automatiquement pour ZOOM par bsport",
+            "credits": "Nombre de crédits de carte de cours nécessaires pour réserver",
+            "roomBlueprint": "Permet à vos élèves de réserver l'emplacement qu'ils souhaitent dans la salle"
+          }
+        },
+        "dateTime": {
+          "title": "Horaires et date",
+          "field": {
+            "dateIntervalStartTime": "Heure de début",
+            "durationMinute": "Durée",
+            "dateIntervalStart": "Date du cours",
+            "dateIntervalEnd": "Date de fin",
+            "recurrence": {
+              "title": "Récurrence",
+              "placeholder": "Sélectionner une récurrence",
+              "option": { "daily": "Quotidien", "weekly": "Hebdomadaire", "monthly": "Mensuel" },
+              "preview": "Prévisualiser",
+              "previewCount": "{{count}} séance va être créée",
+              "previewCount_plural": "{{count}} séances vont être créées"
+            }
+          }
+        },
+        "coach": {
+          "title": "Professeur",
+          "field": {
+            "coach": { "title": "Professeur", "placeholder": "Sélectionner un professeur" },
+            "coachPaymentRule": { "title": "Règle de rémunération", "placeholder": "Sélectionner une règle" }
+          }
+        },
+        "settings": {
+          "title": "Paramètres",
+          "field": {
+            "isManagerOnly": "Disponible à la réservation (web+app)",
+            "allowGuestOffer": "Autoriser la réservation pour un invité",
+            "partnership": {
+              "title": "Marketplace",
+              "availableOnPartnership": "Sur les marketplaces (ClassPass, OneFit...)",
+              "partnerMaxBookingCount": "Nombre maximum de réservation marketplace (OneFit uniquement)"
+            }
+          }
+        },
+        "tags": {
+          "title": "Tags",
+          "helperText": "Utilisez les tags pour rendre la séance réservable uniquement à un groupe de membres souhaité. Vous sélectionnez des tags pour rendre la séance réservable seulement aux membres possédant un des tags choisis. Ou bien vous pouvez sélectionner des tags pour rendre la séance non réservable seulement aux membres possédant un des tags sélectionnés.",
+          "field": { "whitelistTags": "Autorisé", "blacklistTags": "Non-Autorisé" },
+          "placeholder": "Laisser vide pour autoriser tous les membres"
+        }
+      },
+      "dialog": { "recurrencePreview": "Prévisualisation", "createLevel": "Créer un niveau" },
+      "errors": {
+        "required": "Champ incomplet",
+        "positiveNumber": "La valeur doit être supérieure à 0",
+        "minZero": "La valeur doit être supérieure ou égale à 0",
+        "minTwo": "La valeur doit être supérieure ou égale à 2",
+        "dateFormat": "Format de date invalide",
+        "dateTooFar": "Impossible de créer des séances ayant lieu dans plus de 3 ans",
+        "field": {
+          "effectif": "La valeur est supérieure au nombre maximum de places",
+          "partnerMaxBookingCount": "Le nombre de places ici est supérieur au nombre de places dans la séance",
+          "broadcastLink": "Le lien est erroné. Il doit commencer par http:// ou https:// et ne pas contenir d'espacement",
+          "durationMinute": "La durée d'une seance doit être supérieure à 0 minute",
+          "dateIntervalEnd": "La date de fin ne peut pas être avant la date de début"
+        }
+      },
+      "warnings": { "effectif": "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?" }
     }
   },
   "order": {

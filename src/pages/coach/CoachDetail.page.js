@@ -59,8 +59,19 @@ import {
   DisciplineGroup,
   AssignCoachDisciplineGroupParams,
 } from '#libs/replacement-request/types';
+import {
+  getAvailableEstablishmentList,
+  getAssociatedEstablishmentGroup,
+} from '#libs/establishment/selectors';
+import {
+  fetchEstablishments as fetchEstablishmentsAction,
+  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
+} from '#libs/establishment/actions';
+import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
+import themeSelectors from '#libs/theme/selectors';
 
 import type { OptionCallback } from '../../state/types';
+import type { Theme as CompanyTheme } from '#libs/theme/types';
 
 type Props = {
   companyId: number,
@@ -120,6 +131,11 @@ type Props = {
   activityList: MetaActivity[],
   workshopList: MetaActivity[],
   SCTList: SCT[],
+  establishmentList: Establishment[],
+  establishmentGroupList: EstablishmentGroup[],
+  theme: CompanyTheme,
+  fetchEstablishments: (data?: { page_size?: number }) => void,
+  fetchAllEstablishmentGroup: (companyId: number) => void,
   editAccessToCoachSpace: (hasAccessToCoachSpace: boolean) => void,
   updateAssociatedCoachReplacementPreferences: (
     id: number,
@@ -134,6 +150,8 @@ export class Coach extends React.Component<Props> {
     this.props.fetchAssociatedCoach(this.props.coachId);
     this.props.fetchActivitiesCompany(this.props.companyId);
     this.props.fetchDisciplineGroupList();
+    this.props.fetchEstablishments();
+    this.props.fetchAllEstablishmentGroup(this.props.companyId);
   }
 
   handleDelete = () => {
@@ -189,6 +207,9 @@ export class Coach extends React.Component<Props> {
           workshopList={this.props.workshopList}
           categoryList={this.props.SCTList}
           disciplineGroupList={this.props.disciplineGroupList}
+          establishmentList={this.props.establishmentList}
+          establishmentGroupList={this.props.establishmentGroupList}
+          companyTheme={this.props.theme}
           assignDisciplineGroup={this.props.assignDisciplineGroup}
           updateAssociatedCoachReplacementPreferences={
             this.props.updateAssociatedCoachReplacementPreferences
@@ -227,6 +248,7 @@ export default compose(
   withState('openWidgetDialog', 'setOpenWidgetDialog', false),
   connect(
     (state, { coachId }) => ({
+      theme: themeSelectors.getTheme(state),
       companyId: state.theme.theme.company,
       loading: state.coach.loading,
       isCoach: state.auth.is_coach,
@@ -241,6 +263,8 @@ export default compose(
       activityList: getEnabledMetaActivities(state),
       workshopList: getEnabledWorkshops(state),
       disciplineGroupList: getAllDisciplineGroups(state),
+      establishmentList: getAvailableEstablishmentList(state),
+      establishmentGroupList: getAssociatedEstablishmentGroup(state),
     }),
     {
       deleteCoach,
@@ -263,6 +287,8 @@ export default compose(
       fetchDisciplineGroupList: fetchDisciplineGroupListAction,
       assignDisciplineGroup,
       updateAssociatedCoachReplacementPreferences,
+      fetchEstablishments: fetchEstablishmentsAction,
+      fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
     },
   ),
   withTitle(({ coach }) => {

@@ -1,8 +1,15 @@
 // @ts-nocheck
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 import Select, { GroupTypeBase, Styles, OptionTypeBase } from 'react-select';
+import Immutable from 'seamless-immutable';
 
 import { colors } from '@bsport/common/lib/colors';
 
@@ -13,6 +20,7 @@ import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Radio, RadioGroup } from '@material-ui/core';
 
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import SCTChip from '#libs/category/components/SCTChip.component';
@@ -28,6 +36,16 @@ import {
   AssignAssociatedCoachDisciplineGroupParams,
 } from '#libs/replacement-request/types';
 import { OptionCallback } from '../../../../state/types';
+import {
+  Establishment,
+  EstablishmentGroup,
+  EstablishmentGroupSelectOption,
+  EstablishmentSelectOption,
+} from '#libs/establishment/types';
+import type { Theme as CompanyTheme } from '#libs/theme/types';
+import { EstablishmentGroupSelector } from '#libs/establishment/components/EstablishmentGroupSelector.component';
+import { EstablishmentSelector } from '#libs/establishment/components/EstablishmentSelector.component';
+import { MultilocationChoice } from '#libs/replacement-request/constants';
 
 const DISSOCIATE_COACH_DISCIPLINE_GROUP = -8000;
 
@@ -35,8 +53,11 @@ type Props = {
   activityList: MetaActivity[];
   workshopList: MetaActivity[];
   categoryList: SCT[];
+  establishmentList: Establishment[];
+  establishmentGroupList: EstablishmentGroup[];
   disciplineGroupList: DisciplineGroup[];
   coach: Coach;
+  companyTheme: CompanyTheme;
   assignDisciplineGroup: (
     params: AssignAssociatedCoachDisciplineGroupParams,
     options?: OptionCallback,
@@ -51,8 +72,11 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
   activityList,
   workshopList,
   categoryList,
+  establishmentList,
+  establishmentGroupList,
   disciplineGroupList,
   coach,
+  companyTheme,
   assignDisciplineGroup,
   updateAssociatedCoachReplacementPreferences,
 }) => {
@@ -79,6 +103,8 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
     allWorkshops: coach.is_teaching_all_workshops || false,
     categories: coach.categories_taught || [],
     allCategories: coach.is_teaching_all_categories || false,
+    establishments: coach.discipline_group_establishments,
+    establishmentGroups: coach.discipline_group_establishment_groups,
   });
 
   useEffect(() => {
@@ -90,8 +116,16 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
       allWorkshops: coach.is_teaching_all_workshops || false,
       categories: coach.categories_taught || [],
       allCategories: coach.is_teaching_all_categories || false,
+      establishments: coach.discipline_group_establishments,
+      establishmentGroups: coach.discipline_group_establishment_groups,
     });
   }, [coach]);
+
+  const [multiLocationChoice, setMultiLocationChoice] = useState(
+    coach.discipline_group_establishment_groups.length !== 0
+      ? MultilocationChoice.Locations
+      : MultilocationChoice.Establishments,
+  );
 
   const disciplineGroupOptions = useMemo(
     () =>
@@ -178,7 +212,10 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
   );
 
   const handleChange = useCallback(
-    (field: string, value: number | number[] | boolean) => {
+    (
+      field: string,
+      value: number | number[] | boolean | (string | number)[],
+    ) => {
       const newValues = { ...values, [field]: value };
       setValues(newValues);
       if (field !== 'disciplineGroup') {
@@ -186,6 +223,8 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
           meta_activities_taught: newValues.activities,
           workshops_taught: newValues.workshops,
           categories_taught: newValues.categories,
+          discipline_group_establishments: newValues.establishments,
+          discipline_group_establishment_groups: newValues.establishmentGroups,
           is_teaching_all_activities: newValues.allActivities,
           is_teaching_all_workshops: newValues.allWorkshops,
           is_teaching_all_categories: newValues.allCategories,
@@ -194,6 +233,75 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
     },
     [setValues, updateAssociatedCoachReplacementPreferences, coach.id, values],
   );
+
+  const selectOptionEstablishments = useCallback(
+    (ev: EstablishmentSelectOption[]) => {
+      handleChange(
+        'establishments',
+        ev?.map((e) => e.value),
+      );
+    },
+    [handleChange],
+  );
+
+  const selectOptionLocations = useCallback(
+    (ev: EstablishmentGroupSelectOption[]) => {
+      handleChange(
+        'establishmentGroups',
+        ev?.map((e) => e.value),
+      );
+    },
+    [handleChange],
+  );
+
+  const onChangeRadioButton = useCallback(
+    (_: ChangeEvent<HTMLInputElement>, value: string) => {
+      clearEstablishmentSelector();
+      setMultiLocationChoice(value);
+    },
+    [clearEstablishmentSelector],
+  );
+
+  const isMultiLocalizationActivated = companyTheme.enable_multi_localization;
+  const multiLocalizationChoices = useMemo(
+    () =>
+      Immutable([
+        {
+          label: t('disciplineGroup.form.establishments'),
+          value: MultilocationChoice.Establishments,
+        },
+        {
+          label: t('disciplineGroup.form.locations'),
+          value: MultilocationChoice.Locations,
+        },
+      ]),
+    [t],
+  );
+
+  const clearEstablishmentSelector = useCallback(() => {
+    const emptyNumbers: number[] = [];
+    const newValues = {
+      ...values,
+      establishments: emptyNumbers,
+      establishmentGroups: emptyNumbers,
+    };
+    setValues(newValues);
+    updateAssociatedCoachReplacementPreferences(coach.id, {
+      meta_activities_taught: newValues.activities,
+      workshops_taught: newValues.workshops,
+      categories_taught: newValues.categories,
+      discipline_group_establishments: newValues.establishments,
+      discipline_group_establishment_groups: newValues.establishmentGroups,
+      is_teaching_all_activities: newValues.allActivities,
+      is_teaching_all_workshops: newValues.allWorkshops,
+      is_teaching_all_categories: newValues.allCategories,
+    });
+  }, [
+    setValues,
+    updateAssociatedCoachReplacementPreferences,
+    coach.id,
+    values,
+  ]);
 
   return (
     <Grid container spacing={2}>
@@ -246,6 +354,11 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
         >
           {t('coachEdit.customRules')}
         </Button>
+      </Grid>
+      <Grid item xs={12} className={classes.groupTypes}>
+        <Typography variant="h6">
+          {t('disciplineGroup.form.groupTypes')}
+        </Typography>
       </Grid>
       <Grid
         item
@@ -390,6 +503,62 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
           label={t('coachEdit.allCategories')}
         />
       </Grid>
+      <Grid
+        item
+        container
+        xs={12}
+        direction="row"
+        alignItems="center"
+        spacing={2}
+      >
+        <Grid item xs={12}>
+          <Typography variant="h6">
+            {t('disciplineGroup.form.establishments')}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          {isMultiLocalizationActivated && (
+            <RadioGroup
+              name="multilocationRadioGroup"
+              value={multiLocationChoice}
+              onChange={onChangeRadioButton}
+            >
+              {multiLocalizationChoices.map(({ value, label: l }) => (
+                <div key={value}>
+                  <FormControlLabel
+                    key={value}
+                    value={value}
+                    control={<Radio />}
+                    label={l}
+                    disabled={!!values.disciplineGroup}
+                  />
+                </div>
+              ))}
+            </RadioGroup>
+          )}
+          <div className={classes.establishmentSeletor}>
+            {multiLocationChoice === MultilocationChoice.Locations ? (
+              <EstablishmentGroupSelector
+                establishmentGroups={establishmentGroupList}
+                selectedEstablishmentGroups={values.establishmentGroups}
+                selectOption={selectOptionLocations}
+                isClearable
+                placeholder={t('disciplineGroup.form.pickEstablishment')}
+                disabled={!!values.disciplineGroup}
+              />
+            ) : (
+              <EstablishmentSelector
+                establishments={establishmentList}
+                selectedEstablishments={values.establishments}
+                selectOption={selectOptionEstablishments}
+                isClearable
+                placeholder={t('disciplineGroup.form.pickEstablishment')}
+                disabled={!!values.disciplineGroup}
+              />
+            )}
+          </div>
+        </Grid>
+      </Grid>
     </Grid>
   );
 };
@@ -419,6 +588,14 @@ const useStyles = makeStyles((theme) => ({
   },
   label: {
     [theme.breakpoints.up('md')]: { marginRight: theme.spacing(2) },
+  },
+  groupTypes: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(1),
+  },
+  establishmentSeletor: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(3),
   },
 }));
 

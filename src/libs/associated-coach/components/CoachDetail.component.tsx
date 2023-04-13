@@ -28,6 +28,8 @@ import { hasUpsell } from '#libs/platform-billing/utils';
 import { FeatureList } from '#libs/company/types';
 
 import type { OptionCallback } from '../../../state/types';
+import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
+import type { Theme as CompanyTheme } from '#libs/theme/types';
 
 type Props = {
   coach: Coach;
@@ -65,6 +67,9 @@ type Props = {
   activityList: MetaActivity[];
   workshopList: MetaActivity[];
   categoryList: SCT[];
+  establishmentList: Establishment[];
+  establishmentGroupList: EstablishmentGroup[];
+  companyTheme: CompanyTheme;
   disciplineGroupList: DisciplineGroup[];
   editAccessToCoachSpace: (arg: boolean) => void;
   assignDisciplineGroup: (
@@ -93,6 +98,9 @@ export const CoachDetail: React.FC<Props> = ({
   workshopList,
   categoryList,
   disciplineGroupList,
+  establishmentList,
+  establishmentGroupList,
+  companyTheme,
   editAccessToCoachSpace,
   assignDisciplineGroup,
   updateAssociatedCoachReplacementPreferences,
@@ -149,6 +157,9 @@ export const CoachDetail: React.FC<Props> = ({
                     activityList={activityList}
                     workshopList={workshopList}
                     categoryList={categoryList}
+                    establishmentList={establishmentList}
+                    establishmentGroupList={establishmentGroupList}
+                    companyTheme={companyTheme}
                     disciplineGroupList={disciplineGroupList}
                     assignDisciplineGroup={assignDisciplineGroup}
                     updateAssociatedCoachReplacementPreferences={

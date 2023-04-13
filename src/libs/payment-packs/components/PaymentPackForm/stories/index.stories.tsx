@@ -21,6 +21,13 @@ import {
   advancedOptionsSectionRenderingTest,
 } from './rendering-tests';
 
+import {
+  generalSectionRenderingInteractionTests,
+  validitySectionRenderingInteractionTests,
+  restrictionsSectionRenderingInteractionTests,
+  advancedSectionRenderingInteractionTests,
+} from './rendering-interaction-tests';
+
 import { Establishment } from '#libs/establishment/types';
 
 const randomPaymentPackCategorieList =
@@ -102,3 +109,29 @@ export const AdvancedOptionsSectionRenderingTest = newStoryFromTemplate(
   PaymentPackFormTemplate,
 );
 AdvancedOptionsSectionRenderingTest.play = advancedOptionsSectionRenderingTest;
+
+// Rendering Interaction Tests
+// The purpose of these tests is to mimic user behavior and check that hidden fields / elements are rendered
+
+export const GeneralSectionRenderingInteractionTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+GeneralSectionRenderingInteractionTests.play =
+  generalSectionRenderingInteractionTests;
+
+export const ValiditySectionRenderingInteractionTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+ValiditySectionRenderingInteractionTests.play =
+  validitySectionRenderingInteractionTests;
+
+export const RestrictionsSectionRenderingInteractionTests =
+  newStoryFromTemplate(PaymentPackFormTemplate);
+RestrictionsSectionRenderingInteractionTests.play =
+  restrictionsSectionRenderingInteractionTests;
+
+export const AdvancedSectionRenderingInteractionTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+AdvancedSectionRenderingInteractionTests.play =
+  advancedSectionRenderingInteractionTests;

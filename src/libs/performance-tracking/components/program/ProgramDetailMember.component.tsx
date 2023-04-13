@@ -13,6 +13,7 @@ import {
 } from '#libs/performance-tracking/types';
 import MemberProgramIconWithDetail from '../member-program/MemberProgramIconWithDetail.component';
 import { Member } from '#libs/member/types';
+import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
 type OwnProps = {
   program: PerformanceTrackingProgram;
@@ -91,9 +92,10 @@ export const ProgramDetailMember = (props: Props) => {
                   />
                 </div>
                 <div className={classes.listItemThirdPart}>
-                  {moment
-                    .unix(item?.metric_record?.general?.date_created)
-                    .format('LL')}
+                  {formatAsDatetimeAdapted(
+                    moment.unix(item?.metric_record?.general?.date_created),
+                    'LL',
+                  )}
                 </div>
               </ListItem>
             );

@@ -13,6 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 
 import { RecurrenceRulePrivateBookingDeleteDialog } from './RecurrenceRulePrivateBookingConfirmDialog.component';
+import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
 type Props = {
   recurrentPrivateBooking: any,
@@ -60,7 +61,7 @@ export const RecurrenceRulePrivateBookingItem = (props: Props) => {
     return <div>{member && member.name ? member.name : '-'}</div>;
   };
 
-  const from_date = moment(start_from_date).format('LL');
+  const from_date = formatAsDatetimeAdapted(start_from_date, 'LL');
 
   return (
     <ListItem divider dense>

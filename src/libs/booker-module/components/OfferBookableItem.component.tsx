@@ -7,9 +7,8 @@ import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import BlockIcon from '@material-ui/icons/Block';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-import clx from 'classnames';
-
 import moment from 'moment-timezone';
+import clx from 'classnames';
 
 import {
   OFFER_WAITING_LIST_STATUS_FULL,
@@ -22,7 +21,11 @@ import {
   OFFER_BOOKABLE_STATUS_TOO_LATE,
   OFFER_BOOKABLE_STATUS_LOCKED,
 } from '@bsport/common/lib/master-data/bookable-status';
-import { formatAsTime, formatMinutes } from '../../../utils/datetime';
+import {
+  formatAsDatetimeAdapted,
+  formatAsTime,
+  formatMinutes,
+} from '../../../utils/datetime';
 import type { OfferStatus as OfferStatusType, Offer } from '#libs/offer/types';
 import type { Coach } from '#libs/associated-coach/types';
 import type { Establishment } from '#libs/establishment/types';
@@ -138,9 +141,12 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
         </div>
         <div className={classes.generalInfo}>
           <Typography>
-            {`${moment(props.offer.date_start)
-              .tz(props.offer.timezone_name)
-              .format('LL')}, ${moment(props.offer.date_start)
+            {`${formatAsDatetimeAdapted(
+              props.offer.date_start,
+              'LL',
+              props.offer.timezone_name,
+            )}, 
+            ${moment(props.offer.date_start)
               .tz(props.offer.timezone_name)
               .format('dddd')}`}
           </Typography>

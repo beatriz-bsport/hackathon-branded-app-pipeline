@@ -28,7 +28,6 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import TimeIcon from '@material-ui/icons/AccessTime';
-import moment from 'moment-timezone';
 import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -43,7 +42,7 @@ import { PermissionContext } from '../../context';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
 import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
 import { getRecurrenceTrad } from '#libs/group-offer/utils';
-import { formatAsTime } from '../../utils/datetime';
+import { formatAsDatetimeAdapted, formatAsTime } from '../../utils/datetime';
 
 type Props = {
   t: TFunction,
@@ -294,9 +293,11 @@ export class OfferCard extends Component<Props, State> {
                 </ListItemIcon>
                 <ListItemText
                   primary={formatAsTime(offer.date_start, offer.timezone_name)}
-                  secondary={moment(offer.date_start)
-                    .tz(offer.timezone_name)
-                    .format('LL')}
+                  secondary={formatAsDatetimeAdapted(
+                    offer.date_start,
+                    'LL',
+                    offer.timezone_name,
+                  )}
                 />
               </ListItem>
             </div>

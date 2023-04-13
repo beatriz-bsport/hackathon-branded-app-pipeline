@@ -1,11 +1,11 @@
 import { makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 
 import { PrivateConsumerPass } from '../../private-service/types';
 
 import { getExpirationDate } from '../../private-service/utils';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 interface Props {
   privateConsumerPass: PrivateConsumerPass;
@@ -34,7 +34,7 @@ const PrivateConsumerPassBookableItem = (props: Props) => {
       </Typography>
       <Typography variant="body1" color="textSecondary" align="left">
         {t('consumerPass.expiresOn', {
-          date: moment(expirationDate).format('LL'),
+          date: formatAsDatetimeAdapted(expirationDate, 'LL'),
         })}
       </Typography>
       <Typography variant="body1" color="textPrimary" align="left">

@@ -22,7 +22,10 @@ import { Offer } from '../../../offer/types';
 import { MaterialStyleType } from '../../../../utils/types';
 import CanvasSpotComponent from '#libs/spot-scheduling/CanvasSvg/tools/Spot/CanvasSpot.component';
 import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
-import { formatAsTime } from '../../../../utils/datetime';
+import {
+  formatAsDatetimeAdapted,
+  formatAsTime,
+} from '../../../../utils/datetime';
 
 interface OwnProps {
   offer?: Offer;
@@ -250,11 +253,13 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                 </Typography>
                 <div className={classes.dateContainer}>
                   <Typography variant="subtitle1">
-                    {`${moment(this.props.offer.date_start)
+                    {`${formatAsDatetimeAdapted(
+                      this.props.offer.date_start,
+                      'LL',
+                      this.props.offer.timezone_name,
+                    )}, ${moment(this.props.offer.date_start)
                       .tz(this.props.offer.timezone_name)
-                      .format('LL')}, ${moment(this.props.offer.date_start)
-                      .tz(this.props.offer.timezone_name)
-                      .format('dddd')} ${formatAsTime(
+                      .format('dddd')}, ${formatAsTime(
                       this.props.offer.date_start,
                       this.props.offer.timezone_name,
                     )}`}
@@ -393,9 +398,11 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
             </Typography>
             <div className={classes.dateContainer}>
               <Typography variant="subtitle1">
-                {`${moment(this.props.offer.date_start)
-                  .tz(this.props.offer.timezone_name)
-                  .format('LL')}, ${moment(this.props.offer.date_start)
+                {`${formatAsDatetimeAdapted(
+                  this.props.offer.date_start,
+                  'LL',
+                  this.props.offer.timezone_name,
+                )}, ${moment(this.props.offer.date_start)
                   .tz(this.props.offer.timezone_name)
                   .format('dddd')} ${formatAsTime(
                   this.props.offer.date_start,

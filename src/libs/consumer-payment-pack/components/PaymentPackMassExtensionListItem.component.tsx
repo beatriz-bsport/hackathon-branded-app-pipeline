@@ -3,7 +3,6 @@ import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { ListItem, Theme } from '@material-ui/core';
-import moment from 'moment-timezone';
 import { WithTranslation, withTranslation } from 'react-i18next';
 // @ts-ignore
 import RedButton from '../../../components/button/RedButton.component';
@@ -42,8 +41,14 @@ export const PaymentPackMassExtensionListItem = (props: Props) => {
         </Typography>
         <Typography variant="caption">
           {t('massExtension.listItemDate', {
-            minDate: moment(massExtension.min_ending_date).format('ll'),
-            maxDate: moment(massExtension.max_ending_date).format('ll'),
+            minDate: formatAsDatetimeAdapted(
+              massExtension.min_ending_date,
+              'll',
+            ),
+            maxDate: formatAsDatetimeAdapted(
+              massExtension.max_ending_date,
+              'll',
+            ),
           })}
         </Typography>
         <Typography variant="caption" color="textSecondary">

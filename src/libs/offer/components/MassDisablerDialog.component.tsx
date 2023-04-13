@@ -34,6 +34,7 @@ import RedButtonComponent from '#components/button/RedButton.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { Offer } from '../types';
 import OfferListItemV2 from '#libs/offer/components/OfferListItemV2.component';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type OwnProps = {
   onClose: () => void;
@@ -161,10 +162,14 @@ export const MassDisablerDialog = (props: Props) => {
 
                   <Typography>
                     {t('massDisabler.confirmInfo', {
-                      start_date: moment(formikProps.values.startDate).format(
+                      start_date: formatAsDatetimeAdapted(
+                        formikProps.values.startDate,
                         'LL',
                       ),
-                      end_date: moment(formikProps.values.endDate).format('LL'),
+                      end_date: formatAsDatetimeAdapted(
+                        formikProps.values.endDate,
+                        'LL',
+                      ),
                       number_of_deleted_offer:
                         props.numberOfMassDisabledOffer -
                         numberOfMassDisabledOfferInGroup,
@@ -275,10 +280,14 @@ export const MassDisablerDialog = (props: Props) => {
                   </div>
                   <Typography>
                     {t('massDisabler.successInfo', {
-                      start_date: moment(formikProps.values.startDate).format(
+                      start_date: formatAsDatetimeAdapted(
+                        formikProps.values.startDate,
                         'LL',
                       ),
-                      end_date: moment(formikProps.values.endDate).format('LL'),
+                      end_date: formatAsDatetimeAdapted(
+                        formikProps.values.endDate,
+                        'LL',
+                      ),
                     })}
                   </Typography>
                   <div className={classes.actions}>

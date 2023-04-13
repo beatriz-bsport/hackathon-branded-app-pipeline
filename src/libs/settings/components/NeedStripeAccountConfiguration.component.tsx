@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Button, IconButton, Typography } from '@material-ui/core';
-import moment from 'moment-timezone';
 import TimeoutButton from '#components/button/TimeoutButton.component';
 import IntercomIcon from '#components/icons/IntercomIcon.component';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type OwnProps = {
   goNext: () => void;
@@ -22,8 +22,10 @@ export const NeedStripeAccountConfiguration: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(['login']);
   const classes = useStyles();
-  const dateAccountIsBLockedFormattedLL =
-    moment(dateAccountIsBlocked).format('LL');
+  const dateAccountIsBLockedFormattedLL = formatAsDatetimeAdapted(
+    dateAccountIsBlocked,
+    'LL',
+  );
   return (
     <>
       <Typography variant="h5" className={classes.title}>

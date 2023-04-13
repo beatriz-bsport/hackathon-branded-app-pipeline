@@ -17,6 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import { splitIntervalList } from '../../utils';
+import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
 const stylesSlot = (theme) => ({
   columnContainer: {
@@ -234,7 +235,9 @@ export const SlotSearcherResult = (props: Props) => {
     <div className={props.classes.container}>
       <div className={props.classes.row}>
         <ScheduleIcon className={props.classes.leftIcon} />
-        <Typography variant="h6">{moment(props.date).format('LL')}</Typography>
+        <Typography variant="h6">
+          {formatAsDatetimeAdapted(props.date, 'LL')}
+        </Typography>
       </div>
       <Paper className={props.classes.resultPaper}>
         {!resourceIdentifierSuffixToFilterBy ? (

@@ -8,7 +8,6 @@ import { useTranslation, Trans } from 'react-i18next';
 import TodayIcon from '@material-ui/icons/Today';
 import CalendarIcon from '@material-ui/icons/CalendarToday';
 import CheckIcon from '@material-ui/icons/Check';
-import moment from 'moment-timezone';
 import AddIcon from '@material-ui/icons/Add';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import InfoIcon from '@material-ui/icons/Info';
@@ -21,6 +20,7 @@ import { PaymentMethod } from '#libs/payment/types';
 import { OptionCallback } from '../../../../state/types';
 import ContractTermsDialog from '../contract/ContractTermsDialog.component';
 import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypography';
+import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
 type Props = {
   subscription: Subscription;
@@ -121,7 +121,10 @@ export const SubscriptionListItem = (props: Props) => {
             <CalendarIcon className={classes.leftIcon} />
             <Typography>
               {t('subscription.listItem.startingAt', {
-                d: moment(subscription.first_billing_date).format('LL'),
+                d: formatAsDatetimeAdapted(
+                  subscription.first_billing_date,
+                  'LL',
+                ),
               })}
             </Typography>
           </div>
@@ -130,7 +133,10 @@ export const SubscriptionListItem = (props: Props) => {
               <TodayIcon className={classes.leftIcon} />
               <Typography>
                 {t('subscription.listItem.nextBillingDate', {
-                  d: moment(subscription.next_billing_date).format('LL'),
+                  d: formatAsDatetimeAdapted(
+                    subscription.next_billing_date,
+                    'LL',
+                  ),
                 })}
               </Typography>
             </div>
@@ -163,7 +169,7 @@ export const SubscriptionListItem = (props: Props) => {
           <CalendarIcon className={classes.leftIcon} />
           <Typography>
             {t('subscription.listItem.startingAt', {
-              d: moment(subscription.first_billing_date).format('LL'),
+              d: formatAsDatetimeAdapted(subscription.first_billing_date, 'LL'),
             })}
           </Typography>
         </div>
@@ -172,7 +178,10 @@ export const SubscriptionListItem = (props: Props) => {
             <TodayIcon className={classes.leftIcon} />
             <Typography>
               {t('subscription.listItem.nextBillingDate', {
-                d: moment(subscription.next_billing_date).format('LL'),
+                d: formatAsDatetimeAdapted(
+                  subscription.next_billing_date,
+                  'LL',
+                ),
               })}
             </Typography>
           </div>
@@ -189,9 +198,10 @@ export const SubscriptionListItem = (props: Props) => {
                 t={t}
                 i18nKey="parameters.contractTermsAccepted"
                 values={{
-                  dateAccepted: moment(
+                  dateAccepted: formatAsDatetimeAdapted(
                     subscription.contract_terms_date_accepted,
-                  ).format('LL'),
+                    'LL',
+                  ),
                 }}
                 components={[
                   <ButtonBaseWithTypography

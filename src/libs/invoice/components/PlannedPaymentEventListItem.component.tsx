@@ -29,6 +29,7 @@ import {
 import RedButton from '#components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PlannedPaymentEvent, Invoice } from '../types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   invoice: Invoice;
@@ -195,7 +196,8 @@ export const PlannedPaymentEventListItem = (props: Props) => {
                 }
               >
                 {t('plannedPaymentEvent.nextRetryDate', {
-                  d: moment(props.plannedPaymentEvent.next_retry_date).format(
+                  d: formatAsDatetimeAdapted(
+                    props.plannedPaymentEvent.next_retry_date,
                     'LL',
                   ),
                 })}

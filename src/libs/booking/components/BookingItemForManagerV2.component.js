@@ -49,6 +49,7 @@ import {
   formatAsDatetime,
   formatAsDate,
   formatAsTime,
+  formatAsDatetimeAdapted,
 } from '../../../utils/datetime';
 
 import type { Member } from '#libs/member/types';
@@ -121,7 +122,7 @@ const AttendanceButton = (props: AttendanceButtonProps) => {
     ? (props_) => (
         <Tooltip
           title={props.t('attendanceUpdatedOn', {
-            d: moment(props.attendance_date_updated).format('LL'),
+            d: formatAsDatetimeAdapted(props.attendance_date_updated, 'LL'),
             t: formatAsTime(props.attendance_date_updated),
           })}
         >

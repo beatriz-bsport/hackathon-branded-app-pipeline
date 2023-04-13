@@ -168,9 +168,10 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
         <Typography variant="body2" className={classes.grey}>
           {formatAsTime(replacementRequest.offer.date_start)} -{' '}
           {formatAsTime(
-            moment(replacementRequest.offer.date_start)
-              .add(replacementRequest.offer.duration_minute, 'minutes')
-              .format(),
+            moment(replacementRequest.offer.date_start).add(
+              replacementRequest.offer.duration_minute,
+              'minutes',
+            ),
           )}
         </Typography>
       </div>

@@ -9,7 +9,6 @@ import Menu from '@material-ui/core/Menu';
 import CachedIcon from '@material-ui/icons/Cached';
 import HourglassEmpty from '@material-ui/icons/HourglassEmpty';
 import MenuItem from '@material-ui/core/MenuItem';
-import moment from 'moment-timezone';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -20,6 +19,7 @@ import PAYMENT_METHODS, {
   DISPUTE as PAYMENT_METHOD_DISPUTE,
 } from '@bsport/common/lib/master-data/payment-methods';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   paymentItem: PaymentItem,
@@ -101,7 +101,7 @@ export const PaymentItem = (props: Props) => {
             color="textSecondary"
             className={paymentItem.reverted ? classes.revert : null}
           >
-            {moment(paymentItem.date).format('LL')}
+            {formatAsDatetimeAdapted(paymentItem.date, 'LL')}
           </Typography>
         </div>
       </div>

@@ -5,8 +5,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { useTranslation } from 'react-i18next';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment-timezone';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   creditRefund: ConsumerPaymentPackCreditRefund,
@@ -31,7 +31,10 @@ export const ConsumerPaymentPackCreditRefundListItem = (props: Props) => {
     >
       <ListItemText
         primary={description}
-        secondary={moment(props.creditRefund.date_created).format('LL')}
+        secondary={formatAsDatetimeAdapted(
+          props.creditRefund.date_created,
+          'LL',
+        )}
       />
       <ListItemSecondaryAction>
         <Typography variant="subtitle1" color="primary">

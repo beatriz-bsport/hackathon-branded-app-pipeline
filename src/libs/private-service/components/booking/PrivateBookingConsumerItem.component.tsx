@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
 import { WithTranslation, useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -20,7 +19,10 @@ import WidgetUtils from '../../../widget/WidgetUtils';
 import RedButton from '../../../../components/button/RedButton.component';
 import type { PrivateBooking } from '#libs/private-service/types';
 import { MaterialStyleType } from '../../../../utils/types';
-import { formatAsTime } from '../../../../utils/datetime';
+import {
+  formatAsDatetimeAdapted,
+  formatAsTime,
+} from '../../../../utils/datetime';
 
 type OwnProps = {
   private_booking: PrivateBooking;
@@ -48,9 +50,11 @@ export const PrivateBookingConsumerItem = (props: Props) => {
           <AccessTimeIcon />
         </ListItemIcon>
         <ListItemText
-          primary={moment(private_booking.date_start)
-            .tz(props.timezone)
-            .format('LL')}
+          primary={formatAsDatetimeAdapted(
+            private_booking.date_start,
+            'LL',
+            props.timezone,
+          )}
           secondary={formatAsTime(private_booking.date_start, props.timezone)}
         />
         {private_booking?.is_unpaid && (

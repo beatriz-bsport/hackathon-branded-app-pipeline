@@ -23,7 +23,10 @@ import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Offer } from '#libs/offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
-import { formatAsTime } from '../../../../utils/datetime';
+import {
+  formatAsDatetimeAdapted,
+  formatAsTime,
+} from '../../../../utils/datetime';
 
 type Props = {
   timezoneName: string;
@@ -137,6 +140,11 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
     [offer, timezoneName],
   );
 
+  const timezone = useMemo(
+    () => offer.timezone_name ?? timezoneName,
+    [offer.timezone_name, timezoneName],
+  );
+
   if (isMobile) {
     return (
       <div
@@ -183,18 +191,19 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
           >
             <div className={classes.mobileDateTimeContainer}>
               <Typography className={classes.weight500} variant="subtitle2">
-                {offerDateStartAsMoment.format('ll')}
+                {formatAsDatetimeAdapted(
+                  offerDateStartAsMoment,
+                  'll',
+                  timezone,
+                )}
               </Typography>
               <Typography
                 className={classnames(classes.grey, classes.mobileSmallFont)}
               >
                 {`${formatAsTime(
                   offerDateStartAsMoment,
-                  offer.timezone_name ?? timezoneName,
-                )} - ${formatAsTime(
-                  offerDateEndAsMoment,
-                  offer.timezone_name ?? timezoneName,
-                )}`}
+                  timezone,
+                )} - ${formatAsTime(offerDateEndAsMoment, timezone)}`}
               </Typography>
             </div>
             <Typography
@@ -276,13 +285,13 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
     <TableRow key={offer.id}>
       <TableCell className={classes.tableCell}>
         <Typography variant="subtitle1" className={classes.weight500}>
-          {offerDateStartAsMoment.format('ll')}
+          {formatAsDatetimeAdapted(offerDateStartAsMoment, 'll', timezone)}
         </Typography>
         <Typography variant="body2" className={classes.grey}>
-          {`${formatAsTime(
-            offerDateStartAsMoment,
-            moment.locale(),
-          )} - ${formatAsTime(offerDateEndAsMoment, moment.locale())}`}
+          {`${formatAsTime(offerDateStartAsMoment, timezone)} - ${formatAsTime(
+            offerDateEndAsMoment,
+            timezone,
+          )}`}
         </Typography>
       </TableCell>
       <Hidden smUp>

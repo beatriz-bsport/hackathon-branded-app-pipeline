@@ -32,7 +32,10 @@ import {
   ReplacementRequestCoachAnswerStatus,
   ReplacementRequestStatus,
 } from '#libs/replacement-request/constants';
-import { formatAsTime } from '../../../../utils/datetime';
+import {
+  formatAsDatetimeAdapted,
+  formatAsTime,
+} from '../../../../utils/datetime';
 
 type Props = {
   timezoneName: string;
@@ -142,7 +145,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
     [replacementRequest.offer, timezoneName],
   );
 
-  const getTimezone = useMemo(
+  const timezone = useMemo(
     () => replacementRequest.offer.timezone_name ?? timezoneName,
     [replacementRequest.offer.timezone_name, timezoneName],
   );
@@ -173,15 +176,15 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
         >
           <div className={classes.dateRow}>
             <Typography variant="body2" className={classes.marginRight2}>
-              {offerDateStartAsMoment.format('ll')}
+              {formatAsDatetimeAdapted(offerDateStartAsMoment, 'll', timezone)}
             </Typography>
             <Typography
               className={classnames(classes.grey, classes.mobileSmallFont)}
             >
               {`${formatAsTime(
                 offerDateStartAsMoment,
-                getTimezone,
-              )} - ${formatAsTime(offerDateEndAsMoment, getTimezone)}`}
+                timezone,
+              )} - ${formatAsTime(offerDateEndAsMoment, timezone)}`}
             </Typography>
           </div>
           {replacementDisplay ===
@@ -353,26 +356,30 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
               {replacementRequest.offer?.meta_activity?.name}
             </Typography>
             <Typography variant="subtitle2" className={classes.weight500}>
-              {offerDateStartAsMoment.format('ll')}
+              {formatAsDatetimeAdapted(offerDateStartAsMoment, 'll', timezone)}
             </Typography>
             <Typography variant="body2" className={classes.grey}>
               {`${formatAsTime(
                 offerDateStartAsMoment,
-                getTimezone,
-              )} - ${formatAsTime(offerDateEndAsMoment, getTimezone)}`}
+                timezone,
+              )} - ${formatAsTime(offerDateEndAsMoment, timezone)}`}
             </Typography>
           </TableCell>
         ) : (
           <>
             <TableCell className={classes.tableCell}>
               <Typography variant="subtitle1" className={classes.weight500}>
-                {offerDateStartAsMoment.format('ll')}
+                {formatAsDatetimeAdapted(
+                  offerDateStartAsMoment,
+                  'll',
+                  timezone,
+                )}
               </Typography>
               <Typography variant="body2" className={classes.grey}>
                 {`${formatAsTime(
                   offerDateStartAsMoment,
-                  getTimezone,
-                )} - ${formatAsTime(offerDateEndAsMoment, getTimezone)}`}
+                  timezone,
+                )} - ${formatAsTime(offerDateEndAsMoment, timezone)}`}
               </Typography>
             </TableCell>
             <Hidden smUp>

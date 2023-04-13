@@ -17,6 +17,7 @@ import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { OptionCallback } from '../../../state/types';
 import ButtonBaseWithTypography from '#components/button/ButtonBaseWithTypography';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   subscription: Subscription<PrivatePass, PaymentPack, PaymentCombo>;
@@ -77,7 +78,7 @@ export const SubscriptionSummary = (props: Props) => {
   }
   const contractTermsDateAccepted =
     subscription.contract_terms_date_accepted &&
-    moment(subscription.contract_terms_date_accepted).format('LL');
+    formatAsDatetimeAdapted(subscription.contract_terms_date_accepted, 'LL');
   return (
     <div className={classes.container}>
       <fieldset>

@@ -9,9 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import moment from 'moment-timezone';
 
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 const PlannedInvoiceListItem = (props: {
   plannedInvoice: PlannedInvoice,
@@ -22,7 +22,7 @@ const PlannedInvoiceListItem = (props: {
     <ListItem divider>
       <ListItemText
         primary={plannedInvoice.name}
-        secondary={moment(plannedInvoice.date).format('LL')}
+        secondary={formatAsDatetimeAdapted(plannedInvoice.date, 'LL')}
       />
       <ListItemSecondaryAction>
         <IconButton onClick={() => props.onClick(plannedInvoice.billing_plan)}>

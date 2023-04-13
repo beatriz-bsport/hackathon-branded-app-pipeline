@@ -11,7 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import moment from 'moment-timezone';
 import {
   PAYOUT_STATUS_PENDING,
   PAYOUT_STATUS_CANCELED,
@@ -22,6 +21,7 @@ import {
 import PaymentListItemV2 from '../../invoice/components/PaymentListItemV2.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { Payout } from '../types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   payout: Payout;
@@ -40,7 +40,8 @@ const PayoutListItem = (props: Props) => {
       <div className={classes.innerContainer}>
         <div className={classes.leftPart}>
           <Typography>
-            {`${moment(payout.date_created).format(
+            {`${formatAsDatetimeAdapted(
+              payout.date_created,
               'LL',
             )} - ${getCurrencyDisplayWithPrice(
               (payout.amount_cts / 100).toFixed(2),
@@ -61,9 +62,10 @@ const PayoutListItem = (props: Props) => {
               <InfoOutlinedIcon fontSize="small" className={classes.iconLeft} />
               <Typography variant="caption" className={classes.info}>
                 {t('payout.payoutIsIncludedInOther', {
-                  date: moment(
+                  date: formatAsDatetimeAdapted(
                     payout.is_included_in_payout.date_created,
-                  ).format('LL'),
+                    'LL',
+                  ),
                   readable_identifier:
                     payout.is_included_in_payout.readable_identifier,
                 })}

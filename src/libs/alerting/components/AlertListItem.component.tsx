@@ -167,7 +167,7 @@ const CompanyOnboardingAlertListItem = (props: {
   if (alerting.data.type === 'verification') {
     title = t('companyOnboarding.verification.title');
     resolution_url = '/settings/company_onboarding';
-    const date = moment(alerting.data.date).format('LL');
+    const date = formatAsDatetimeAdapted(alerting.data.date, 'LL');
     content = (
       <Typography variant="caption" component="div">
         <p>
@@ -273,7 +273,7 @@ const TaskAlertListItem = (props: {
               {name}
             </Typography>
             <Typography variant="caption" color="textSecondary">
-              {moment(date_due).format('LL')}
+              {formatAsDatetimeAdapted(date_due, 'LL')}
             </Typography>
           </div>
           <div className={classes.titleContainer}>

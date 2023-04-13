@@ -28,6 +28,7 @@ import TypographyMultiline from '../../../components/typo/TypographyMultiline.co
 import RedButton from '../../../components/button/RedButton.component';
 
 import type { Task as TaskType } from '../types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   task: TaskType,
@@ -54,7 +55,6 @@ const TaskStatus = (props: {
   if (props.status === TASK_STATUS_CANCELLED) {
     color = 'error';
   }
-  const momentDue = moment(props.date_due);
   return (
     <div className={props.classes.statusContainer}>
       <div
@@ -69,10 +69,12 @@ const TaskStatus = (props: {
       </div>
       <Typography
         className={props.classes.dateDue}
-        color={momentDue.isBefore(moment(), 'day') ? 'error' : 'default'}
+        color={
+          moment(props.date_due).isBefore(moment(), 'day') ? 'error' : 'default'
+        }
         variant="caption"
       >
-        {momentDue.format('LL')}
+        {formatAsDatetimeAdapted(props.date_due, 'LL')}
       </Typography>
     </div>
   );

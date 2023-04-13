@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import moment from 'moment-timezone';
 
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -8,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useTranslation } from 'react-i18next';
 import BarChartIcon from '@material-ui/icons/BarChart';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   loading: boolean,
@@ -43,7 +43,7 @@ const VodVideoAnalytics = (props: Props) => {
           component="p"
         >
           {t('video.analytics.uploaded', {
-            date: moment(props.videoDateCreated).format('LL'),
+            date: formatAsDatetimeAdapted(props.videoDateCreated, 'LL'),
           })}
         </Typography>
       )}

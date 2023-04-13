@@ -19,7 +19,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import AdjustIcon from '@material-ui/icons/Adjust';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
-import { formatAsTime } from '../../../utils/datetime';
+import { formatAsDatetimeAdapted, formatAsTime } from '../../../utils/datetime';
 import RedButton from '../../../components/button/RedButton.component';
 import { Booking } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -51,9 +51,9 @@ export const BookingConsumerItem = (props: Props) => {
   const { offer } = booking;
   if (!offer) return null;
   const { meta_activity, coach, establishment } = offer;
-  const dateStart = moment(offer.date_start);
+  let timezone = '';
   if (establishment && meta_activity && !offer.meta_activity.is_broadcast) {
-    dateStart.tz(establishment.tzname);
+    timezone = establishment.tzname;
   }
 
   return (
@@ -73,7 +73,11 @@ export const BookingConsumerItem = (props: Props) => {
           <AccessTimeIcon />
         </ListItemIcon>
         <ListItemText
-          primary={offer ? dateStart.format('LL') : ' - '}
+          primary={
+            offer
+              ? formatAsDatetimeAdapted(offer.date_start, 'LL', timezone)
+              : ' - '
+          }
           secondary={offer ? formatAsTime(offer.date_start) : ' - '}
         />
       </ListItem>

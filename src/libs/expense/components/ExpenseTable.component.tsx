@@ -31,6 +31,7 @@ import FormControl from '@material-ui/core/FormControl';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { ExpenseWithUser } from '#libs/expense/types';
 import { PAGE_SIZE } from '../../../pages/expense/ExpenseList.page';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type OwnProps = {
   expenseList: Array<ExpenseWithUser>;
@@ -177,12 +178,13 @@ export class ExpenseTable extends Component<Props> {
                         e.id === this.props.selectedExpense,
                     ).amount,
                   ),
-                  date_due: moment(
+                  date_due: formatAsDatetimeAdapted(
                     this.props.expenseList.find(
                       (e: ExpenseWithUser) =>
                         e.id === this.props.selectedExpense,
                     ).date_due,
-                  ).format('LL'),
+                    'LL',
+                  ),
                 })}
               </Typography>
               {this.props.expenseList.find(

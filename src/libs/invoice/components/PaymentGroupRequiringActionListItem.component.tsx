@@ -3,11 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment-timezone';
 import WarningIcon from '@material-ui/icons/Warning';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import { PaymentGroup } from '../types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
   paymentGroup: PaymentGroup;
@@ -30,7 +30,7 @@ export const PaymentGroupRequiringActionListItem = (props: Props) => {
               )}`}
             </Typography>
             <Typography variant="caption" color="textSecondary">
-              {moment(paymentGroup.date_created).format('LL')}
+              {formatAsDatetimeAdapted(paymentGroup.date_created, 'LL')}
             </Typography>
             <Typography variant="caption">
               {`${t(`paymentGroup.requiresAction`)}`}

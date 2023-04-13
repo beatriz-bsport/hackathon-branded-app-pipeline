@@ -13,6 +13,14 @@ import { newStoryFromTemplate } from '../../../../../utils/storybookHelper';
 
 import PaymentPackForm from '../PaymentPackForm.component';
 
+import {
+  emptyFormRenderingTest,
+  generalSectionRenderingTest,
+  validitySectionRenderingTest,
+  restrictionsSectionRenderingTest,
+  advancedOptionsSectionRenderingTest,
+} from './rendering-tests';
+
 import { Establishment } from '#libs/establishment/types';
 
 const randomPaymentPackCategorieList =
@@ -68,3 +76,29 @@ const PaymentPackFormTemplate: ComponentStory<typeof PaymentPackForm> = (
 ) => <PaymentPackForm {...args} />;
 
 export const EmptyForm = newStoryFromTemplate(PaymentPackFormTemplate);
+
+// The purpose of these tests is to check that all the elements of the form are rendered correctly
+export const EmptyFormRenderingTest = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+EmptyFormRenderingTest.play = emptyFormRenderingTest;
+
+export const GeneralSectionRenderingTest = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+GeneralSectionRenderingTest.play = generalSectionRenderingTest;
+
+export const ValiditySectionRenderingTest = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+ValiditySectionRenderingTest.play = validitySectionRenderingTest;
+
+export const RestrictionsSectionRenderingTest = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+RestrictionsSectionRenderingTest.play = restrictionsSectionRenderingTest;
+
+export const AdvancedOptionsSectionRenderingTest = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+AdvancedOptionsSectionRenderingTest.play = advancedOptionsSectionRenderingTest;

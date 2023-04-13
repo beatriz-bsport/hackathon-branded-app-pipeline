@@ -432,3 +432,62 @@ export const restrictionsSectionInteractionTests = async ({
 
   expect(canvas.queryByText(args.metaActivityList[0].name)).toBeNull();
 };
+
+export const advancedOptionsSectionInteractionTests = async ({
+  canvasElement,
+  args,
+}: {
+  args: React.ComponentProps<typeof PaymentPackForm>;
+  canvasElement: HTMLElement;
+}) => {
+  const canvas = within(canvasElement);
+  const paymentPackForm = await canvas.findByTestId(
+    'paymentpack-form',
+    {
+      /*Unused queryOption*/
+    },
+    { timeout: 3500 },
+  );
+  const advancedOptionsSection = paymentPackForm.querySelector(
+    '#paymentpack-form-advanced-options-section',
+  );
+  const expandAdvancedOptionsButton =
+    advancedOptionsSection.querySelector('button');
+  const placeholderText = i18n.t(
+    'paymentPack:form.paymentPack.advancedOptions.tag.doNotSelectToAllowAllMembers',
+  );
+
+  userEvent.click(expandAdvancedOptionsButton);
+  await sleep(500);
+
+  const tagSelectors = await canvas.findAllByText(placeholderText);
+
+  // 🧪 Approved tag selector - The name of the selected tag should appear in the control
+  const approvedTagSelector = tagSelectors[0];
+  const tagText = `${args.tagList[0].group.name} : ${args.tagList[0].name}`;
+
+  userEvent.click(approvedTagSelector);
+  userEvent.click(await canvas.findByText(args.tagList[0].name));
+
+  expect(await canvas.findByText(tagText)).toBeInTheDocument();
+
+  // 🧪 Approved tag selector - Clicking on the tag should make it disappear
+  userEvent.click(await canvas.findByText(tagText));
+  userEvent.click(approvedTagSelector);
+
+  expect(canvas.queryByText(args.tagList[0].name)).toBeNull();
+
+  // 🧪 Refused tag selector - The name of the selected tag should appear in the control
+  const refusedTagSelector = tagSelectors[1];
+
+  userEvent.click(refusedTagSelector);
+  userEvent.click(await canvas.findByText(args.tagList[0].name));
+
+  expect(await canvas.findByText(tagText)).toBeInTheDocument();
+
+  // 🧪 Refused tag selector - Clicking on the tag should make it disappear
+  userEvent.click(await canvas.findByText(tagText));
+  userEvent.click(refusedTagSelector);
+
+  expect(canvas.queryByText(args.tagList[0].name)).toBeNull();
+};

@@ -3,12 +3,16 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import PrivateSlotForm from './PrivateSlotForm.component';
+import PrivateSlotForm from '../PrivateSlotForm.component';
 
 import {
   formRenderingTest,
   formWithInitialValuesRenderingTest,
 } from './rendering-tests';
+import {
+  formValidationTest,
+  formWithWrongValuesTest,
+} from './interaction-tests';
 
 import { initialData } from './constants';
 
@@ -41,3 +45,11 @@ FormWithInitialRenderingTest.args = {
   initial: initialData,
 };
 FormWithInitialRenderingTest.play = formWithInitialValuesRenderingTest;
+
+// 🎯 Tests to verify the value that the user inputs is the ones received in the form
+export const FormValidationTest = PrivateSlotFormTemplate.bind({});
+FormValidationTest.play = formValidationTest;
+
+// 🎯 Tests to verify that the form doesn't crash if the user inputs wrong values
+export const FormWithWrongValuesTest = PrivateSlotFormTemplate.bind({});
+FormWithWrongValuesTest.play = formWithWrongValuesTest;

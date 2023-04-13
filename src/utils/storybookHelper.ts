@@ -40,3 +40,15 @@ export const querySelectedFieldShouldReceiveTheInputValue = async (
   await sleep(100);
   expect(field.getAttribute('value')).toBe(inputValue);
 };
+
+// Test that the value received by the field should be the one expected
+export const querySelectedFieldShouldHaveTheExpectedValue = async (
+  selectedField: HTMLElement | Element,
+  inputValue: string,
+  expectedValue: string,
+) => {
+  userEvent.clear(selectedField);
+  userEvent.type(selectedField, inputValue);
+  userEvent.tab();
+  expect(selectedField.getAttribute('value')).toBe(expectedValue);
+};

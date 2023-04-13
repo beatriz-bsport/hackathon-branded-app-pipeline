@@ -39,6 +39,12 @@ import { formValidationTests } from './validation-tests';
 
 import { Establishment } from '#libs/establishment/types';
 
+import {
+  generalSectionErrorsTests,
+  restrictionSectionErrorsTests,
+  validitySectionErrorsTests,
+} from './error-tests';
+
 const randomPaymentPackCategorieList =
   FactoryBotPaymentPackCategories.PaymentPackCategory.create(2);
 const randomSCT = factory_scts(5);
@@ -177,3 +183,21 @@ export const FormValidationTests = newStoryFromTemplate(
   PaymentPackFormTemplate,
 );
 FormValidationTests.play = formValidationTests;
+
+// Errors tests
+// The purpose is to test if errors are displayed properly. It should not be possible to submit the form in case of error
+
+export const GeneralSectionErrorsTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+GeneralSectionErrorsTests.play = generalSectionErrorsTests;
+
+export const ValiditySectionErrorsTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+ValiditySectionErrorsTests.play = validitySectionErrorsTests;
+
+export const RestrictionSectionErrorsTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+RestrictionSectionErrorsTests.play = restrictionSectionErrorsTests;

@@ -28,6 +28,8 @@ import {
   advancedSectionRenderingInteractionTests,
 } from './rendering-interaction-tests';
 
+import { generalSectionInteractionTests } from './interaction-tests';
+
 import { Establishment } from '#libs/establishment/types';
 
 const randomPaymentPackCategorieList =
@@ -135,3 +137,12 @@ export const AdvancedSectionRenderingInteractionTests = newStoryFromTemplate(
 );
 AdvancedSectionRenderingInteractionTests.play =
   advancedSectionRenderingInteractionTests;
+
+// Interaction Tests
+// The purpose of these tests is to interact with the component and to check that
+// the input values are the ones received by the form
+
+export const GeneralSectionInteractionTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+GeneralSectionInteractionTests.play = generalSectionInteractionTests;

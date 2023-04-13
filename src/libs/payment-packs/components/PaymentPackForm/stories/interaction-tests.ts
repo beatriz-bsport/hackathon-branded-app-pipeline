@@ -2,6 +2,7 @@ import { expect } from '@storybook/jest';
 import { userEvent, within, screen } from '@storybook/testing-library';
 
 import i18n from 'i18next';
+import moment from 'moment-timezone';
 
 import PaymentPackForm from '../PaymentPackForm.component';
 
@@ -176,5 +177,106 @@ export const generalSectionInteractionTests = async ({
 
   expect(penaltyAmountField.getAttribute('value')).toBe(
     inputValues.penalty.amount,
+  );
+};
+
+export const validitySectionInteractionTests = async ({
+  canvasElement,
+  args,
+}: {
+  args: React.ComponentProps<typeof PaymentPackForm>;
+  canvasElement: HTMLElement;
+}) => {
+  const canvas = within(canvasElement);
+  const paymentPackForm = await canvas.findByTestId(
+    'paymentpack-form',
+    {
+      /*Unused queryOption*/
+    },
+    { timeout: 3500 },
+  );
+  const validitySection = paymentPackForm.querySelector(
+    '#paymentpack-form-validity-section',
+  );
+  const validityRadioGroups = await within(
+    validitySection as HTMLElement,
+  ).findAllByRole('radiogroup');
+  const validityOptionsRadioGroup = validityRadioGroups[0];
+  const validityOptionsRadioButtons = within(
+    validityOptionsRadioGroup,
+  ).getAllByRole('radio');
+  const startDateRadioGroup = within(
+    validitySection as HTMLElement,
+  ).getAllByRole('radiogroup')[1];
+  const startDateRadioButtons =
+    within(startDateRadioGroup).getAllByRole('radio');
+
+  // 🧪 Validity - Days - The value received should be the same as the input value
+  querySelectedFieldShouldReceiveTheInputValue(
+    validitySection,
+    '#paymentpack-form-day-validity-input',
+    inputValues.validity.day,
+  );
+
+  // 🧪 Validity - Months - The value received should be the same as the input value
+  querySelectedFieldShouldReceiveTheInputValue(
+    validitySection,
+    '#paymentpack-form-month-validity-input',
+    inputValues.validity.month,
+  );
+
+  // 🧪 Validity - Years - The value received should be the same as the input value
+  querySelectedFieldShouldReceiveTheInputValue(
+    validitySection,
+    '#paymentpack-form-year-validity-input',
+    inputValues.validity.year,
+  );
+
+  // 🧪 Validity - Info message should display the corret information
+  const validityInfo = i18n.t(
+    'paymentPack:addPaymentPack.validForDuration.year',
+    {
+      duration_day: parseInt(inputValues.validity.day),
+      duration_month: parseInt(inputValues.validity.month),
+      duration_year: parseInt(inputValues.validity.year),
+    },
+  );
+  expect(canvas.queryByText(validityInfo)).not.toBeNull();
+
+  // 🧪 Expiration date - The value received should be the same as the input value
+  userEvent.click(startDateRadioButtons[1]);
+  querySelectedFieldShouldReceiveTheInputValue(
+    validitySection,
+    '#paymentpack-form-month-expiration-input',
+    inputValues.validity.expirationDate,
+  );
+
+  // 🧪 Validity date start field - The selected date from the calendar should update the one in the field
+  const lowerDateAfterInteraction = moment().date(16).format('L');
+
+  userEvent.click(validityOptionsRadioButtons[1]);
+  sleep(100);
+
+  const validityDateStartField = document.getElementsByName('lower_date')[0];
+
+  userEvent.click(validityDateStartField);
+  userEvent.click(await screen.findByText('16'));
+  userEvent.click(await screen.findByText('OK'));
+
+  expect(validityDateStartField.getAttribute('value')).toBe(
+    lowerDateAfterInteraction,
+  );
+
+  // 🧪 Validity date end field - The selected date from the calendar should update the one in the field
+  const oneMonthFromNowDate = moment().add({ months: 1 });
+  const upperDateAfterInteraction = oneMonthFromNowDate.date(16).format('L');
+  const validityDateEndField = document.getElementsByName('upper_date')[0];
+
+  userEvent.click(validityDateEndField);
+  userEvent.click(await screen.findByText('16'));
+  userEvent.click(await screen.findByText('OK'));
+
+  expect(validityDateEndField.getAttribute('value')).toBe(
+    upperDateAfterInteraction,
   );
 };

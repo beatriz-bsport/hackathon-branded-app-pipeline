@@ -28,7 +28,10 @@ import {
   advancedSectionRenderingInteractionTests,
 } from './rendering-interaction-tests';
 
-import { generalSectionInteractionTests } from './interaction-tests';
+import {
+  generalSectionInteractionTests,
+  validitySectionInteractionTests,
+} from './interaction-tests';
 
 import { Establishment } from '#libs/establishment/types';
 
@@ -146,3 +149,8 @@ export const GeneralSectionInteractionTests = newStoryFromTemplate(
   PaymentPackFormTemplate,
 );
 GeneralSectionInteractionTests.play = generalSectionInteractionTests;
+
+export const ValiditySectionInteractionTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+ValiditySectionInteractionTests.play = validitySectionInteractionTests;

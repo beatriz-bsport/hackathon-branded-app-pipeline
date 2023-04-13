@@ -9,12 +9,14 @@ import {
   formRenderingTest,
   formWithInitialValuesRenderingTest,
 } from './rendering-tests';
+
 import {
   formValidationTest,
   formWithWrongValuesTest,
 } from './interaction-tests';
 
 import { initialData } from './constants';
+import { formWithErrorTest } from './error-tests';
 
 const actionsData = {
   onSubmit: action('onSubmit'),
@@ -36,7 +38,7 @@ const PrivateSlotFormTemplate: ComponentStory<typeof PrivateSlotForm> = (
 
 export const EmptyForm = PrivateSlotFormTemplate.bind({});
 
-// The purpose is to test if the component and its children are rendered correctly
+// 🎯 The purpose is to test if the component and its children are rendered correctly
 export const FormRenderingTest = PrivateSlotFormTemplate.bind({});
 FormRenderingTest.play = formRenderingTest;
 
@@ -53,3 +55,7 @@ FormValidationTest.play = formValidationTest;
 // 🎯 Tests to verify that the form doesn't crash if the user inputs wrong values
 export const FormWithWrongValuesTest = PrivateSlotFormTemplate.bind({});
 FormWithWrongValuesTest.play = formWithWrongValuesTest;
+
+// 🎯 Tests to verify that the form behaves correctly when there is an error
+export const FormWithErrorTest = PrivateSlotFormTemplate.bind({});
+FormWithErrorTest.play = formWithErrorTest;

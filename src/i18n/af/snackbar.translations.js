@@ -36,6 +36,7 @@ const {
 const {
   LOCK_ACQUISITION_FAILURE_GENERIC,
   LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
+  BASKET_LOCK_ACQUISITION_FAILURE,
 } = require('@bsport/common/lib/master-data/error-codes/lock');
 
 const {
@@ -175,6 +176,20 @@ exports.default = {
       'Une réservation est déjà en cours, veuillez patienter quelques instants',
     [LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING]:
       'Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.',
+    [BASKET_LOCK_ACQUISITION_FAILURE]:
+      "L'objet est déjà en train d'être ajouté au panier, veuillez patienter",
+  },
+  requestCurrentBasket: {
+    [BASKET_LOCK_ACQUISITION_FAILURE]:
+      'La récupération des informations du panier est déjà en cours',
+  },
+  refreshInternalAccountPrepaidLines: {
+    [BASKET_LOCK_ACQUISITION_FAILURE]:
+      'Une opération est déjà en cours, veuillez patienter quelques instants',
+  },
+  removeItem: {
+    [BASKET_LOCK_ACQUISITION_FAILURE]:
+      "L'objet est déjà en train d'être retiré du panier, veuillez patienter",
   },
   offer: {
     restore: {

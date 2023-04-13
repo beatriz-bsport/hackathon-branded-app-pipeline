@@ -3,6 +3,7 @@ import { createAction } from 'redux-actions';
 // we import from src and not lib bvecause there is some shittery happening that
 // makes the build of the wdget crashing (widget use this file somehow)
 import ALL_ERROR_CODES from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
+import { BASKET_LOCK_ACQUISITION_FAILURE } from '@bsport/common/lib/master-data/error-codes/lock';
 
 import {
   addItemToBasket as addItemToBasketAPI,
@@ -50,6 +51,16 @@ export function fetchCurrentBasket(
         options.onSuccess(response.data);
       }
     } catch (error) {
+      if (
+        error.response?.status === 499 &&
+        error.response?.data?.error_code === BASKET_LOCK_ACQUISITION_FAILURE
+      ) {
+        dispatch(
+          snackbarError(
+            `requestCurrentBasket.${BASKET_LOCK_ACQUISITION_FAILURE}`,
+          ),
+        );
+      }
       dispatch(currentBasket.error(error));
       if (options && options.onError) options.onError(error);
     }
@@ -83,6 +94,16 @@ export function createOrRefreshInternalAccountPrepaidLine(
         options.onSuccess(response.data);
       }
     } catch (error) {
+      if (
+        error.response?.status === 499 &&
+        error.response?.data?.error_code === BASKET_LOCK_ACQUISITION_FAILURE
+      ) {
+        dispatch(
+          snackbarError(
+            `refreshInternalAccountPrepaidLines.${BASKET_LOCK_ACQUISITION_FAILURE}`,
+          ),
+        );
+      }
       dispatch(createOrRefreshInternalAccountPrepaidLineActions.error(error));
       if (options && options.onError) options.onError(error);
     }
@@ -219,6 +240,14 @@ export function removeItemFromBasket(
         options.onSuccess(response.data);
       }
     } catch (error) {
+      if (
+        error.response?.status === 499 &&
+        error.response?.data?.error_code === BASKET_LOCK_ACQUISITION_FAILURE
+      ) {
+        dispatch(
+          snackbarError(`removeItem.${BASKET_LOCK_ACQUISITION_FAILURE}`),
+        );
+      }
       dispatch(currentBasket.error(error));
       if (options && options.onError) {
         options.onError(error);

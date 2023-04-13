@@ -8402,12 +8402,16 @@
       "6003": "Vous êtes déjà inscrit en liste d'attente",
       "8001": "Le spot que vous avez choisi n'est plus disponible",
       "10001": "Stock insuffisant",
+      "15002": "L'objet est déjà en train d'être ajouté au panier, veuillez patienter",
       "45004": "La carte cadeau n'est plus disponible à la vente.",
       "45005": "La carte cadeau n'est plus disponible à la vente.",
       "85000": "Une réservation est déjà en cours, veuillez patienter quelques instants",
       "85101": "Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.",
       "generic": "Impossible de réserver"
     },
+    "requestCurrentBasket": { "15002": "La récupération des informations du panier est déjà en cours" },
+    "refreshInternalAccountPrepaidLines": { "15002": "Une opération est déjà en cours, veuillez patienter quelques instants" },
+    "removeItem": { "15002": "L'objet est déjà en train d'être retiré du panier, veuillez patienter" },
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
     "settings": {
       "update": { "success": "Paramètres mis à jour", "error": "Impossible de mettre à jour, veuillez réessayer plus tard" }

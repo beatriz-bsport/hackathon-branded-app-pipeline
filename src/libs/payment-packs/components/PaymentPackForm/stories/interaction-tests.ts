@@ -280,3 +280,155 @@ export const validitySectionInteractionTests = async ({
     upperDateAfterInteraction,
   );
 };
+
+export const restrictionsSectionInteractionTests = async ({
+  canvasElement,
+  args,
+}: {
+  args: React.ComponentProps<typeof PaymentPackForm>;
+  canvasElement: HTMLElement;
+}) => {
+  const canvas = within(canvasElement);
+  const paymentPackForm = await canvas.findByTestId(
+    'paymentpack-form',
+    {
+      /*Unused queryOption*/
+    },
+    { timeout: 3500 },
+  );
+  const restrictionSection = paymentPackForm.querySelector(
+    '#paymentpack-form-restrictions-section',
+  );
+  await sleep(500);
+
+  // 🧪 Max bookings per day - The value received should be the same as the input value
+  querySelectedFieldShouldReceiveTheInputValue(
+    restrictionSection,
+    '#max-bookings-per-day',
+    inputValues.restrictions.maxBookingPerDay,
+  );
+
+  // 🧪 Max bookings per week - The value received should be the same as the input value
+  querySelectedFieldShouldReceiveTheInputValue(
+    restrictionSection,
+    '#max-bookings-per-week',
+    inputValues.restrictions.maxBookingPerWeek,
+  );
+
+  // 🧪 Max bookings per month - The value received should be the same as the input value
+  querySelectedFieldShouldReceiveTheInputValue(
+    restrictionSection,
+    '#max-bookings-per-month',
+    inputValues.restrictions.maxBookingPerMonth,
+  );
+
+  // 🧪 Max bookings per member - The value received should be the same as the input value
+  querySelectedFieldShouldReceiveTheInputValue(
+    restrictionSection,
+    '#max-purchase-per-member',
+    inputValues.restrictions.maxPurchasePerMember,
+  );
+
+  // 🧪 Categories selector - The name of the selected category should appear in the control
+  const categoriesSelector = restrictionSection.querySelector(
+    '#categories-selector div',
+  );
+
+  args.categoryList.forEach((category) =>
+    expect(canvas.queryByText(category.name)).toBeNull(),
+  );
+
+  userEvent.click(categoriesSelector);
+  args.categoryList.forEach(async (category) =>
+    expect(await canvas.findByText(category.name)).toBeInTheDocument(),
+  );
+  userEvent.click(await canvas.findByText(args.categoryList[0].name));
+
+  // Click on the "Confirm button"
+  userEvent.click(restrictionSection.querySelectorAll('button')[1]);
+
+  expect(
+    await canvas.findByText(args.categoryList[0].name),
+  ).toBeInTheDocument();
+
+  // 🧪 Categories selector - When clicking on the unselect all, none of the tag should be displayed
+  userEvent.click(categoriesSelector);
+
+  // Click on the "Unselect all button"
+  userEvent.click(restrictionSection.querySelectorAll('button')[0]);
+
+  // Click on the "Confirm button"
+  userEvent.click(restrictionSection.querySelectorAll('button')[1]);
+
+  expect(canvas.queryByText(args.categoryList[0].name)).toBeNull();
+
+  // 🧪 Establishments selector - The name of the selected establishment should appear in the control
+  const establishmentsSelector = restrictionSection.querySelector(
+    '#establishments-selector div',
+  );
+
+  args.availableEstablishmentList.forEach((establishment) =>
+    expect(canvas.queryByText(establishment.title)).toBeNull(),
+  );
+
+  userEvent.click(establishmentsSelector);
+  args.availableEstablishmentList.forEach(async (establishment) =>
+    expect(await canvas.findByText(establishment.title)).toBeInTheDocument(),
+  );
+  userEvent.click(
+    await canvas.findByText(args.availableEstablishmentList[0].title),
+  );
+
+  // Click on the "Confirm button"
+  userEvent.click(restrictionSection.querySelectorAll('button')[1]);
+
+  expect(
+    await canvas.findByText(args.availableEstablishmentList[0].title),
+  ).toBeInTheDocument();
+
+  // 🧪 Establishments selector - When clicking on the unselect all none of the tag should be displayed
+  userEvent.click(establishmentsSelector);
+
+  // Click on the "Unselect all button"
+  userEvent.click(restrictionSection.querySelectorAll('button')[0]);
+
+  // Click on the "Confirm button"
+  userEvent.click(restrictionSection.querySelectorAll('button')[1]);
+
+  expect(
+    canvas.queryByText(args.availableEstablishmentList[0].title),
+  ).toBeNull();
+
+  // 🧪 Activities selector - The name of the selected activity should appear in the control
+  const activitiesSelector = restrictionSection.querySelector(
+    '#activities-selector div',
+  );
+
+  args.metaActivityList.forEach((activity) =>
+    expect(canvas.queryByText(activity.name)).toBeNull(),
+  );
+
+  userEvent.click(activitiesSelector);
+  args.metaActivityList.forEach(async (activity) =>
+    expect(await canvas.findByText(activity.name)).toBeInTheDocument(),
+  );
+  userEvent.click(await canvas.findByText(args.metaActivityList[0].name));
+
+  // Click on the "Confirm button"
+  userEvent.click(restrictionSection.querySelectorAll('button')[1]);
+
+  expect(
+    await canvas.findByText(args.metaActivityList[0].name),
+  ).toBeInTheDocument();
+
+  // 🧪 Activities selector - When clicking on the unselect all none of the tag should be displayed
+  userEvent.click(activitiesSelector);
+
+  // Click on the "Unselect all button"
+  userEvent.click(restrictionSection.querySelectorAll('button')[0]);
+
+  // Click on the "Confirm button"
+  userEvent.click(restrictionSection.querySelectorAll('button')[1]);
+
+  expect(canvas.queryByText(args.metaActivityList[0].name)).toBeNull();
+};

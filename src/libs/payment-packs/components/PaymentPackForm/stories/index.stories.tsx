@@ -35,6 +35,8 @@ import {
   advancedOptionsSectionInteractionTests,
 } from './interaction-tests';
 
+import { formValidationTests } from './validation-tests';
+
 import { Establishment } from '#libs/establishment/types';
 
 const randomPaymentPackCategorieList =
@@ -167,3 +169,11 @@ export const AdvancedOptionsSectionInteractionTests = newStoryFromTemplate(
 );
 AdvancedOptionsSectionInteractionTests.play =
   advancedOptionsSectionInteractionTests;
+
+// Validation tests
+// The purpose is to test if the validation rules are respected
+
+export const FormValidationTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+FormValidationTests.play = formValidationTests;

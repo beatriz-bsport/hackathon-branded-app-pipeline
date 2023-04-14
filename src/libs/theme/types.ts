@@ -1,4 +1,10 @@
 // @ts-nocheck
+import {
+  MarketPlaceCoachDisplay,
+  MarketPlaceDaysFormatDisplay,
+  MarketPlaceSessionTimeDisplay,
+} from '@bsport/common/lib/master-data/personalization';
+
 export type Theme = {
   id: string;
   default_booking_ordering: string;
@@ -88,6 +94,12 @@ export type Theme = {
   no_show_validated_number_of_hours: number;
   no_show_email_sent_number_of_hours: number;
   is_two_way_email_activated: boolean;
+  show_establishment: boolean;
+  show_level: boolean;
+  show_activity_color: boolean;
+  session_time_display: MarketPlaceSessionTimeDisplay;
+  coach_display: MarketPlaceCoachDisplay;
+  days_format_display: MarketPlaceDaysFormatDisplay;
 };
 
 export type ThemeState = {

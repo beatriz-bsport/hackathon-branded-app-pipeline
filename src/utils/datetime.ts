@@ -23,14 +23,14 @@ export function formatAsTime(date: string | moment.Moment, tzname?: string) {
   return momentDate.format('LT');
 }
 
-const MOMENT_UNVALID_EN_GB_FORMATS = ['L', 'l'];
+const MOMENT_VALID_EN_GB_FORMATS = ['L', 'l'];
 
 export function formatAsDatetimeAdapted(
   date: string | moment.Moment,
   format: string,
   tzname?: string,
 ) {
-  const formatNeedsAdaptation = MOMENT_UNVALID_EN_GB_FORMATS.includes(format);
+  const formatNeedsAdaptation = !MOMENT_VALID_EN_GB_FORMATS.includes(format);
   if (
     formatNeedsAdaptation &&
     (moment().locale() === 'en-gb' || moment().locale() === 'en-US')

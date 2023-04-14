@@ -17,6 +17,7 @@ import {
   DialogActions,
   DialogTitle,
   DialogContent,
+  InputLabel,
 } from '@material-ui/core';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
@@ -25,12 +26,17 @@ import {
   BOOKING_FIRSTNAME_ORDER,
   BOOKING_LASTNAME_ORDER,
 } from '@bsport/common/lib/master-data/settings';
+
+import {
+  MarketPlaceCoachDisplay,
+  MarketPlaceDaysFormatDisplay,
+  MarketPlaceSessionTimeDisplay,
+} from '@bsport/common/lib/master-data/personalization';
+
 import classNames from 'classnames';
 import { Alert } from '@material-ui/lab';
 import Config from '../../../config';
 
-import { OptionCallback } from '../../../state/types';
-import type { CompanyTheme } from '../types';
 import {
   IntegerField,
   RadioGroupField,
@@ -39,6 +45,9 @@ import {
   SwitchField,
   HoursDaysIntervalRecurrenceSelectField,
 } from '#components/forms';
+
+import { OptionCallback } from '../../../state/types';
+import { CompanyTheme } from '../types';
 
 interface FormikValues {
   show_offers_filling: boolean;
@@ -66,12 +75,18 @@ interface FormikValues {
   schedule_timerange_end: string;
   hide_sessions_with_tags_when_not_eligible: boolean;
   requires_email_confirmation_when_signing_up: boolean;
-  confirm_email_url_redirection: boolean;
+  confirm_email_url_redirection: string;
   is_roll_call_mandatory: boolean;
   no_show_validated_time: number;
   no_show_email_time: number;
   no_show_validated_interval: string;
   no_show_email_interval: string;
+  show_establishment: boolean;
+  show_level: boolean;
+  show_activity_color: boolean;
+  session_time_display: MarketPlaceSessionTimeDisplay;
+  coach_display: MarketPlaceCoachDisplay;
+  days_format_display: MarketPlaceDaysFormatDisplay;
 }
 type Props = {
   theme: CompanyTheme;
@@ -92,6 +107,27 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
   const { t } = useTranslation(['theme']);
   const classes = useStyles();
 
+  const handleOnChangeCoachDisplay = React.useCallback(
+    (option: { label: string; value: MarketPlaceCoachDisplay }) => {
+      setFieldValue('coach_display', option.value);
+    },
+    [setFieldValue],
+  );
+
+  const handleOnChangeSessionTimeDisplay = React.useCallback(
+    (option: { label: string; value: MarketPlaceSessionTimeDisplay }) => {
+      setFieldValue('session_time_display', option.value);
+    },
+    [setFieldValue],
+  );
+
+  const handleOnChangeDayFormatDisplay = React.useCallback(
+    (option: { label: string; value: MarketPlaceDaysFormatDisplay }) => {
+      setFieldValue('days_format_display', option.value);
+    },
+    [setFieldValue],
+  );
+
   const [showDialogGuest, setShowDialogGuest] = useState(false);
   const guestFrequencyOptions = [
     {
@@ -107,6 +143,103 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
       label: t('forms.allowGuest.frequencies.year'),
     },
   ];
+
+  const coachDisplayOptions = React.useMemo(
+    () => [
+      {
+        label: t(
+          'forms.themePersonalization.coachDisplayOptions.showCoachFullNameWithPicture',
+        ),
+        value: MarketPlaceCoachDisplay.DEFAULT,
+      },
+      {
+        label: t(
+          'forms.themePersonalization.coachDisplayOptions.onlyShowCoachFirstName',
+        ),
+        value: MarketPlaceCoachDisplay.ONLY_FIRST_NAME,
+      },
+      {
+        label: t(
+          'forms.themePersonalization.coachDisplayOptions.showCoachFirstNameWithPicture',
+        ),
+        value: MarketPlaceCoachDisplay.FIRST_NAME_WITH_PICTURE,
+      },
+      {
+        label: t(
+          'forms.themePersonalization.coachDisplayOptions.showCoachFullNameWithoutPicture',
+        ),
+        value: MarketPlaceCoachDisplay.FULL_NAME_WITHOUT_PICTURE,
+      },
+    ],
+    [t],
+  );
+
+  const coachDisplayCurrent = React.useMemo(
+    () =>
+      coachDisplayOptions.find(
+        (element) => element.value === values.coach_display,
+      ),
+    [coachDisplayOptions, values.coach_display],
+  );
+
+  const sessionDatesDisplayOptions = React.useMemo(
+    () => [
+      {
+        label: t(
+          'forms.themePersonalization.sessionDatesDisplayOptions.showEndingTime',
+        ),
+        value: MarketPlaceSessionTimeDisplay.DEFAULT,
+      },
+      {
+        label: t(
+          'forms.themePersonalization.sessionDatesDisplayOptions.onlyShowStartingTime',
+        ),
+        value: MarketPlaceSessionTimeDisplay.ONLY_STARTING_TIME,
+      },
+      {
+        label: t(
+          'forms.themePersonalization.sessionDatesDisplayOptions.showDuration',
+        ),
+        value: MarketPlaceSessionTimeDisplay.STARTING_TIME_AND_DURATION,
+      },
+    ],
+    [t],
+  );
+
+  const sessionDatesDisplayCurrent = React.useMemo(
+    () =>
+      sessionDatesDisplayOptions.find(
+        (element) => element.value === values.session_time_display,
+      ),
+    [sessionDatesDisplayOptions, values.session_time_display],
+  );
+
+  const daysFormatDisplayOptions = React.useMemo(
+    () => [
+      {
+        label: t('forms.themePersonalization.daysFormatSelector.fullWord'),
+        value: MarketPlaceDaysFormatDisplay.DEFAULT,
+      },
+      {
+        label: t('forms.themePersonalization.daysFormatSelector.threeLetters'),
+        value: MarketPlaceDaysFormatDisplay.THREE_LETTERS,
+      },
+      {
+        label: t('forms.themePersonalization.daysFormatSelector.oneLetter'),
+        value: MarketPlaceDaysFormatDisplay.ONE_LETTER,
+      },
+    ],
+    [t],
+  );
+
+  const daysFormatDisplayCurrent = React.useMemo(
+    () =>
+      daysFormatDisplayOptions.find(
+        (element) => element.value === values.days_format_display,
+      ),
+    [daysFormatDisplayOptions, values.days_format_display],
+  );
+
   return (
     <Form>
       <div className={classes.main}>
@@ -435,6 +568,22 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             name="hideCoach"
             label={t('forms.themePersonalization.hideCoach')}
           />
+          <div className={classes.selector}>
+            <InputLabel shrink>
+              {t('forms.themePersonalization.coachDisplayOptions.label')}
+            </InputLabel>
+            <Select
+              options={coachDisplayOptions}
+              placeholder={t(
+                'forms.themePersonalization.coachDisplayOptions.showCoachFullNameWithPicture',
+              )}
+              variant="outlined"
+              isDisabled={values.hideCoach}
+              name="coach_display"
+              onChange={handleOnChangeCoachDisplay}
+              value={coachDisplayCurrent}
+            />
+          </div>
           <SwitchField
             name="show_cancelled_offers_manager"
             label={t('forms.themePersonalization.cancelledOffersManager')}
@@ -457,6 +606,46 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             name="show_booked_gender_offer"
             label={t('forms.themePersonalization.showGenderOffer')}
           />
+          <SwitchField
+            name="show_establishment"
+            label={t('forms.themePersonalization.showEstablishment')}
+          />
+          <SwitchField
+            name="show_level"
+            label={t('forms.themePersonalization.showLevel')}
+          />
+          <SwitchField
+            name="show_activity_color"
+            label={t('forms.themePersonalization.showActivityColor')}
+          />
+          <div className={classes.selector}>
+            <InputLabel shrink>
+              {t('forms.themePersonalization.sessionDatesDisplayOptions.label')}
+            </InputLabel>
+            <Select
+              options={sessionDatesDisplayOptions}
+              placeholder={t(
+                'forms.themePersonalization.sessionDatesDisplayOptions.showEndingTime',
+              )}
+              name="session_time_display"
+              value={sessionDatesDisplayCurrent}
+              onChange={handleOnChangeSessionTimeDisplay}
+            />
+          </div>
+          <div className={classes.selector}>
+            <InputLabel shrink>
+              {t('forms.themePersonalization.daysFormatSelector.label')}
+            </InputLabel>
+            <Select
+              options={daysFormatDisplayOptions}
+              name="days_format_display"
+              placeholder={t(
+                'forms.themePersonalization.daysFormatSelector.fullWord',
+              )}
+              onChange={handleOnChangeDayFormatDisplay}
+              value={daysFormatDisplayCurrent}
+            />
+          </div>
         </div>
         <div className={classes.section}>
           <Typography className={classes.namesHeader}>
@@ -698,6 +887,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   textWithInput: {
     marginTop: theme.spacing(3),
   },
+  selector: {
+    width: '50%',
+  },
 }));
 
 const ThemePersonalizeFormSchema = Yup.object().shape({
@@ -792,6 +984,12 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
     is: true,
     then: Yup.string().required(),
   }),
+  show_establishment: Yup.boolean().required(),
+  show_level: Yup.boolean().required(),
+  show_activity_color: Yup.boolean().required(),
+  session_time_display: Yup.number().required(),
+  coach_display: Yup.number().required(),
+  days_format_display: Yup.number().required(),
 });
 
 const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
@@ -873,6 +1071,12 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         no_show_validated_interval: initial_no_show_validated_interval,
         no_show_email_time: initial_no_show_email_time,
         no_show_email_interval: initial_no_show_email_interval,
+        show_establishment: theme.show_establishment,
+        show_level: theme.show_level,
+        show_activity_color: theme.show_activity_color,
+        session_time_display: theme.session_time_display,
+        coach_display: theme.coach_display,
+        days_format_display: theme.days_format_display,
       };
     }
     return {
@@ -905,6 +1109,12 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       schedule_timerange_end: defaultScheduleEnd,
       requires_email_confirmation_when_signing_up: false,
       confirm_email_url_redirection: '',
+      show_establishment: true,
+      show_level: true,
+      show_activity_color: true,
+      session_time_display: MarketPlaceSessionTimeDisplay.DEFAULT,
+      coach_display: MarketPlaceCoachDisplay.DEFAULT,
+      days_format_display: MarketPlaceDaysFormatDisplay.DEFAULT,
     };
   },
   validationSchema: ThemePersonalizeFormSchema,
@@ -939,6 +1149,12 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'confirm_email_url_redirection',
       'no_show_validated_time',
       'no_show_email_time',
+      'show_establishment',
+      'show_level',
+      'show_activity_color',
+      'session_time_display',
+      'coach_display',
+      'days_format_display',
     ];
     keys.forEach((key) => {
       if (key === 'show_studio_on_general_app') {
@@ -973,7 +1189,6 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         data.append(key, values[key]);
       }
     });
-
     onSubmit(theme.company, data, {
       onSuccess: () => setSubmitting(false),
       onError: () => {

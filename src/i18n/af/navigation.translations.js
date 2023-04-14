@@ -116,7 +116,7 @@ exports.default = {
     subscription: 'Prélèvements',
     contract: 'Contrats',
     coupon: 'Promotions',
-    franchiseConnectedAs: 'Connecté en tant que: {{name}}',
+    franchiseConnectedAs: 'Connecté en tant que: {{- name}}',
     backToFranchiseWorskpace: 'Revenir au compte maitre',
     redirecting: 'Vous allez être redirigé vers votre page',
     clockIn: 'Pointeuse horaire',

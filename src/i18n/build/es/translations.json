@@ -1933,7 +1933,7 @@
     "welcome": {
       "textExplain": "Felicidades, tu registro ha sido completado. Ya puedes empezar a disfrutar de tu cuenta y reservar tus primeras sesiones.",
       "begin": "Empezar",
-      "title": "¡Bienvenido a {{companyName}}!"
+      "title": "¡Bienvenido a {{- companyName}}!"
     },
     "emailConfirmation": {
       "dialog": {

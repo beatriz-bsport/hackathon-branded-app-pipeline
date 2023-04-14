@@ -112,7 +112,7 @@ exports.default = {
     },
   },
   welcome: {
-    title: 'Bienvenue chez {{companyName}} !',
+    title: 'Bienvenue chez {{- companyName}} !',
     begin: 'Commencer',
     textExplain:
       'Félicitations, votre inscription a bien été finalisée. Vous pouvez dès maintenant commencer à profiter de votre compte et réserver vos premières séances.',

@@ -267,6 +267,28 @@ exports.default = {
         notAvailable:
           'La gestion des absences (no-show) n’est pas disponible. Pour l’activer vous devez d’abord créer une carte de cours illimitée avec des pénalités sur les absences (no show).',
       },
+      coachDisplayOptions: {
+        label: "Options d'affichage des infos du professeur",
+        showCoachFullNameWithPicture: 'Nom complet et photo',
+        onlyShowCoachFirstName: 'Prénom du professeur uniquement',
+        showCoachFullNameWithoutPicture: 'Nom complet sans photo',
+        showCoachFirstNameWithPicture: 'Prénom et photo',
+      },
+      showEstablishment: 'Afficher l’établissement',
+      showLevel: 'Afficher le niveau',
+      sessionDatesDisplayOptions: {
+        label: "Options d'affichage des horaires",
+        showEndingTime: 'Afficher l’heure de fin',
+        showDuration: 'Afficher la durée',
+        onlyShowStartingTime: "Afficher uniquement l'heure de début",
+      },
+      showActivityColor: "Afficher la couleur de l'activité",
+      daysFormatSelector: {
+        label: 'Format d’affichage du jour',
+        fullWord: 'Mot entier',
+        threeLetters: '3 lettres',
+        oneLetter: '1 lettre',
+      },
     },
     cover: {
       label: 'Logo',

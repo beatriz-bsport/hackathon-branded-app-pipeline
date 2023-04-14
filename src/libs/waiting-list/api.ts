@@ -44,7 +44,7 @@ export const fetchFilteredBookingOptionsPaginated = async (
 
 export const discardBookingOption = async (
   optionId: number,
-  params: { disable_notification?: boolean },
+  params: { disable_notification?: boolean; update_waiting_list?: boolean },
 ): Promise<AxiosResponse<WaitingListBookingOption>> => {
   return postAuth(
     `${API_V1_URI}/waiting-list/booking-option/${optionId}/discard/`,

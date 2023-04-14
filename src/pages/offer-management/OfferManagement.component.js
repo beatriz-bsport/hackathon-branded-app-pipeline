@@ -1126,6 +1126,7 @@ export default compose(
             if (optionToDiscard) {
               discardOption(optionToDiscard, {
                 disable_notification: true,
+                update_waiting_list: false, // the waiting list will already be updated on the creation of the booking, no need to do it twice
               });
               cancelDiscardOption();
             }

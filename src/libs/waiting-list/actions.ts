@@ -125,7 +125,7 @@ export const discardOptionActions = {
 
 export function discardBookingOption(
   bookingOptionId: number,
-  params: { disable_notification?: boolean },
+  params: { disable_notification?: boolean; update_waiting_list?: boolean },
   options?: OptionCallback<number>,
 ) {
   return async (dispatch: Dispatch) => {

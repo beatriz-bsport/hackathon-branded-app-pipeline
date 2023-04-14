@@ -41,6 +41,10 @@ import {
 } from './types';
 import { AssignAssociatedCoachDisciplineGroupParams } from '#libs/replacement-request/types';
 
+const {
+  REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME,
+} = require('@bsport/common/lib/master-data/error-codes/replacement');
+
 export const associated = {
   isLoading: createAction('COACH/ASSOCIATED/IS_LOADING'),
   error: createAction('COACH/ASSOCIATED/ERROR'),
@@ -723,9 +727,17 @@ export const updateAssociatedCoachReplacementPreferences = (
       options?.onSuccess?.();
     } catch (error) {
       dispatch(upsert.error(error));
-      dispatch(
-        snackbarError('replacement.updateCoachReplacementPreferences.error'),
-      );
+      const errorCode = error.response?.data?.error_code;
+      if (
+        errorCode ===
+        REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME
+      ) {
+        dispatch(snackbarError(`replacement.errors.${errorCode}`));
+      } else {
+        dispatch(
+          snackbarError('replacement.updateCoachReplacementPreferences.error'),
+        );
+      }
       options?.onError?.();
     }
     dispatch(upsert.isLoading(false));

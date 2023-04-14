@@ -44,6 +44,10 @@ import {
 } from './types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
+const {
+  REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME,
+} = require('@bsport/common/lib/master-data/error-codes/replacement');
+
 export const fetchAllReplacementRequestsActions = {
   error: createAction('REPLACEMENT_REQUEST/FETCH_LIST/ERROR'),
   loading: createAction('REPLACEMENT_REQUEST/FETCH_LIST/LOADING'),
@@ -436,7 +440,18 @@ export const updateDisciplineGroup = (
       options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(updateDisciplineGroupActions.error(error));
-      dispatch(snackbarError('replacement.disciplineGroup.update.error'));
+      if (
+        error.response?.data?.error_code ===
+        REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME
+      ) {
+        dispatch(
+          snackbarError(
+            `replacement.errors.${REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError('replacement.disciplineGroup.update.error'));
+      }
       options?.onError?.();
     }
     dispatch(updateDisciplineGroupActions.loading(false));

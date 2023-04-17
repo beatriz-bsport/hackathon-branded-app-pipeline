@@ -56,6 +56,12 @@ const {
   NOTIFICATION_CONSUMER_PAYMENT_PACK_NO_SHOW_PENALTY_BLOCK,
   NOTIFICATION_CONSUMER_PAYMENT_PACK_NO_SHOW_PENALTY_CHARGE,
   NOTIFICATION_CONSUMER_PAYMENT_PACK_NO_SHOW_WARNING,
+  NOTIFICATION_MEMBERSHIP_PASSWORD_RESET,
+  NOTIFICATION_MEMBERSHIP_EMAIL_VALIDATION,
+  NOTIFICATION_MEMBERSHIP_ACCOUNTS_FUSION,
+  NOTIFICATION_MEMBERSHIP_EMAIL_MODIFICATION_BY_MANAGER,
+  NOTIFICATION_GIFTCARD_ACTIVATION,
+  NOTIFICATION_INVOICE_PDF_REQUESTED_BY_MEMBER,
 } = NOTIFICATION_EVENTS;
 
 exports.default = {
@@ -87,6 +93,7 @@ exports.default = {
     payment_pack: 'Pénalités',
     recurrent_private_booking: 'Rendez-vous récurrent',
     replacement_request: 'Remplacement',
+    giftcard: 'Cartes cadeaux',
   },
   emailDesign: {
     placeholder: 'Généré par bsport',
@@ -127,6 +134,8 @@ exports.default = {
         firstname: 'Prénom élève',
         lastname: 'Nom élève',
         unsubscribe_link: 'Lien de désinscription newsletter',
+        reset_password_url: 'Lien réinitialisation mot de passe',
+        email_confirmation_url: "Lien confirmation d'email",
       },
     },
     Booking: {
@@ -242,6 +251,37 @@ exports.default = {
         invoice_download_link: 'Lien de téléchargement',
       },
     },
+    GiftCard: {
+      name: 'Carte cadeau',
+      tags: {
+        activate_giftcard_url: 'Lien activation carte cadeau',
+        message_is_from: 'Membre envoyant la carte cadeau',
+        message_is_for: 'Destinataire de la carte cadeau',
+        giftcard_message: 'Message de la carte cadeau',
+        giftcard_value: 'Valeur de la carte cadeau',
+        giftcard_name: 'Nom de la carte cadeau',
+      },
+    },
+    EmailChange: {
+      name: 'Modification de compte',
+      tags: {
+        new_email: 'Nouvel email de connexion',
+        old_email: 'Actuel email de connexion',
+        manage_changing_email_link: "Lien de gestion du changement d'email",
+        login_link: 'Lien de connexion espace personnel',
+      },
+    },
+    requiredTags: {
+      reset_password_url: 'Lien réinitialisation mot de passe',
+      email_confirmation_url: "Lien confirmation d'email",
+      new_email: 'Nouvel email de connexion',
+      old_email: 'Actuel email de connexion',
+      activate_giftcard_url: 'Lien activation carte cadeau',
+      message_is_from: 'Membre envoyant la carte cadeau',
+      giftcard_message: 'Message de la carte cadeau',
+      giftcard_value: 'Valeur de la carte cadeau',
+      manage_changing_email_link: "Lien de gestion du changement d'email",
+    },
   },
   eventType: {
     [NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER]: 'Annulation séance (élèves)',
@@ -341,6 +381,16 @@ exports.default = {
       'Date de clôture repoussée (remplaçant)',
     [NOTIFICATION_REPLACEMENT_REQUEST_ANWSER_HAS_BEEN_ACCEPTED]:
       'Remplaçant trouvé (remplaçant)',
+    [NOTIFICATION_MEMBERSHIP_PASSWORD_RESET]:
+      'Réinitialisation mot de passe membre',
+    [NOTIFICATION_MEMBERSHIP_EMAIL_VALIDATION]: "Validation d'email membre",
+    [NOTIFICATION_MEMBERSHIP_ACCOUNTS_FUSION]:
+      'Fusion de deux comptes du studio',
+    [NOTIFICATION_MEMBERSHIP_EMAIL_MODIFICATION_BY_MANAGER]:
+      "Changement d'email membre depuis le backoffice",
+    [NOTIFICATION_GIFTCARD_ACTIVATION]: 'Activation de carte cadeau',
+    [NOTIFICATION_INVOICE_PDF_REQUESTED_BY_MEMBER]:
+      'Demande de téléchargement de facture',
   },
   franchise: {
     emptySelect:
@@ -416,5 +466,9 @@ exports.default = {
     sendTransactionnalNotification: 'Envoyer une notification push',
     modifyTransactionnalNotification: 'modifier la notification push',
     createTransactionnalNotification: 'configurer la notification push',
+    infoBoxErrorMessageFirstLine:
+      'Ce mail doit contenir les variables suivantes :',
+    infoBoxErrorMessageLastLine:
+      "Assurez-vous de les ajouter à votre template afin de pouvoir l'enregistrer",
   },
 };

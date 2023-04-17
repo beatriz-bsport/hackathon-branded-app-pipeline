@@ -1536,7 +1536,13 @@
         "content": "Veuillez introduire du contenu dans le mail",
         "subject": "Veuillez renseigner un object"
       },
-      "selectorPlaceholder": "Sélectionner des franchisés"
+      "selectorPlaceholder": "Sélectionner des franchisés",
+      "showRequiredTags": "Voir les variables",
+      "infoBoxTextFirstLine": "Ce mail est relié à l'email transactionnel '{{-names}}'. Certaines variables sont obligatoires.",
+      "alertBoxTextFirstLine": "Ce mail est relié à l'email transactionnel '{{-names}}'. Il doit contenir les variables suivantes : ",
+      "infoBoxTextLastLine": "Assurez-vous de les ajouter à votre template afin de pouvoir l'enregistrer.",
+      "dialogWindowTitle": "Variables obligatoires",
+      "closeButton": "Fermer"
     },
     "companieEmails": "Mes templates",
     "franchiseEmails": "Templates franchise",
@@ -4006,7 +4012,8 @@
       "marketing": "Marketing",
       "payment_pack": "Pénalités",
       "recurrent_private_booking": "Rendez-vous récurrent",
-      "replacement_request": "Remplacement"
+      "replacement_request": "Remplacement",
+      "giftcard": "Cartes cadeaux"
     },
     "emailDesign": { "placeholder": "Généré par bsport", "closePreview": "Fermer", "birthdayPlaceholder": "Choisir un mail" },
     "marketingNotification": { "birthday": "Courriel d'anniversaire" },
@@ -4040,7 +4047,9 @@
         "tags": {
           "firstname": "Prénom élève",
           "lastname": "Nom élève",
-          "unsubscribe_link": "Lien de désinscription newsletter"
+          "unsubscribe_link": "Lien de désinscription newsletter",
+          "reset_password_url": "Lien réinitialisation mot de passe",
+          "email_confirmation_url": "Lien confirmation d'email"
         }
       },
       "Booking": {
@@ -4149,6 +4158,37 @@
           "invoice_date": "Date de facturation",
           "invoice_download_link": "Lien de téléchargement"
         }
+      },
+      "GiftCard": {
+        "name": "Carte cadeau",
+        "tags": {
+          "activate_giftcard_url": "Lien activation carte cadeau",
+          "message_is_from": "Membre envoyant la carte cadeau",
+          "message_is_for": "Destinataire de la carte cadeau",
+          "giftcard_message": "Message de la carte cadeau",
+          "giftcard_value": "Valeur de la carte cadeau",
+          "giftcard_name": "Nom de la carte cadeau"
+        }
+      },
+      "EmailChange": {
+        "name": "Modification de compte",
+        "tags": {
+          "new_email": "Nouvel email de connexion",
+          "old_email": "Actuel email de connexion",
+          "manage_changing_email_link": "Lien de gestion du changement d'email",
+          "login_link": "Lien de connexion espace personnel"
+        }
+      },
+      "requiredTags": {
+        "reset_password_url": "Lien réinitialisation mot de passe",
+        "email_confirmation_url": "Lien confirmation d'email",
+        "new_email": "Nouvel email de connexion",
+        "old_email": "Actuel email de connexion",
+        "activate_giftcard_url": "Lien activation carte cadeau",
+        "message_is_from": "Membre envoyant la carte cadeau",
+        "giftcard_message": "Message de la carte cadeau",
+        "giftcard_value": "Valeur de la carte cadeau",
+        "manage_changing_email_link": "Lien de gestion du changement d'email"
       }
     },
     "eventType": {
@@ -4165,6 +4205,7 @@
       "17": "Réservation annulée : crédit non remboursé (élèves)",
       "18": "Réservation annulée : crédit remboursé (élèves)",
       "19": "Inscription membre (manager)",
+      "20": "Demande de téléchargement de facture",
       "21": "Nouvelle réservation (élèves)",
       "22": "Confirmation facture",
       "24": "Abonnement créé",
@@ -4177,6 +4218,11 @@
       "102": "Annulation séance (professeurs)",
       "103": "Séance modifiée (professeurs)",
       "300": "Kick (non-validé dans les temps trop de fois)",
+      "301": "Réinitialisation mot de passe membre",
+      "302": "Validation d'email membre",
+      "303": "Fusion de deux comptes du studio",
+      "304": "Activation de carte cadeau",
+      "305": "Changement d'email membre depuis le backoffice",
       "400": "Rendez-vous annulé - hors-délai (professeur)",
       "401": "Rendez-vous annulé - remboursé (professeur)",
       "402": "Nouveau rendez-vous (professeur)",
@@ -4269,7 +4315,9 @@
       "transactionnalNotification": "Notification push",
       "sendTransactionnalNotification": "Envoyer une notification push",
       "modifyTransactionnalNotification": "modifier la notification push",
-      "createTransactionnalNotification": "configurer la notification push"
+      "createTransactionnalNotification": "configurer la notification push",
+      "infoBoxErrorMessageFirstLine": "Ce mail doit contenir les variables suivantes :",
+      "infoBoxErrorMessageLastLine": "Assurez-vous de les ajouter à votre template afin de pouvoir l'enregistrer"
     }
   },
   "offer": {
@@ -8674,7 +8722,13 @@
       "create": { "success": "Activité sauvegardée", "error": "Impossible de sauvegarder l'activité" },
       "update": { "success": "Activité mise à jour", "error": "Impossible de mettre à jour l'activité" }
     },
-    "notificationRule": { "createOrUpdate": { "success": "Modifié avec succès", "error": "Impossible d'enregistrer" } },
+    "notificationRule": {
+      "createOrUpdate": {
+        "success": "Modifié avec succès",
+        "error": "Impossible d'enregistrer",
+        "errorLackRequiredVariables": "Ce template n'a pas pu être enregistré"
+      }
+    },
     "role": {
       "update": { "success": "Autorisations modifiées" },
       "error": {

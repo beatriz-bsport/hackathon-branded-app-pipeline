@@ -39,7 +39,12 @@ export type OwnProps = {
   emailDesignList: EmailTemplateSummary[];
   fetchPreview: (id: number) => void;
   onDelete: () => void;
-  onEdit: (data: Omit<FranchiseCompleteNotificationRule, 'id'>) => void;
+  onEdit: (
+    data: Omit<FranchiseCompleteNotificationRule, 'id'>,
+    closeModal: () => void,
+    showAlert: () => void,
+  ) => void;
+  requiredTagsByEvent: { [key: number]: string[] };
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
@@ -54,6 +59,7 @@ const FranchiseNotificationRuleCard = (props: Props) => {
     fetchPreview,
     onDelete,
     onEdit,
+    requiredTagsByEvent,
     t,
   } = props;
 
@@ -61,6 +67,8 @@ const FranchiseNotificationRuleCard = (props: Props) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [selectedEmailId, setSelectedEmailId] = useState(rule.email_design);
+  const [showAlertForEdition, setShowAlertForEdition] =
+    useState<boolean>(false);
 
   useEffect(() => {
     fetchPreview(selectedEmailId);
@@ -68,6 +76,7 @@ const FranchiseNotificationRuleCard = (props: Props) => {
 
   const showEdit = () => {
     setIsEditing(true);
+    setShowAlertForEdition(false);
   };
 
   const showDelete = () => {
@@ -85,8 +94,15 @@ const FranchiseNotificationRuleCard = (props: Props) => {
   };
 
   const handleEdit = (data: Omit<FranchiseCompleteNotificationRule, 'id'>) => {
-    onEdit(data);
-    setIsEditing(false);
+    onEdit(
+      data,
+      () => {
+        setIsEditing(false);
+      },
+      () => {
+        setShowAlertForEdition(true);
+      },
+    );
   };
 
   const allowedEdit = useMemo(
@@ -182,10 +198,15 @@ const FranchiseNotificationRuleCard = (props: Props) => {
           restrictedAccess={restrictedAccess}
           emailTemplates={emailDesignList}
           onSubmit={handleEdit}
-          onClose={() => setIsEditing(false)}
+          onClose={() => {
+            setIsEditing(false);
+            setShowAlertForEdition(false);
+          }}
           notification_event={rule.notification_event}
           previewEmail={previewEmail?.[selectedEmailId]}
           refreshEmailPreview={handleFetchPreview}
+          requiredTagsByEvent={requiredTagsByEvent}
+          showAlert={showAlertForEdition}
         />
       )}
       {showPreview && previewEmail?.[rule?.email_design] && (

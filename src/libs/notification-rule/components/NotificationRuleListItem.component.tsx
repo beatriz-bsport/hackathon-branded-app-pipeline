@@ -10,6 +10,8 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { FormControlLabel, Typography, Button } from '@material-ui/core';
 
 import { useTranslation } from 'react-i18next';
+import Alert from '@material-ui/lab/Alert';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import Tooltip from '../../../components/Tooltip.component';
 import { NotificationRule } from '../types';
@@ -20,19 +22,26 @@ import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upse
 import { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
 
+const {
+  EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS,
+} = require('@bsport/common/lib/master-data/error-codes/notification-rule');
+
 type Props = {
   emailDesignList: EmailTemplateSummary[];
 
   showEmailPreviewHTML: (html: string) => void;
   showEmailPreview: (id: number) => void;
 
-  updateNotification: (rule: {
-    notification_event: number;
-    email_design?: number;
-    push_notification_title?: string;
-    push_notification_content?: string;
-    is_notification_push_active?: boolean;
-  }) => void;
+  updateNotification: (
+    rule: {
+      notification_event: number;
+      email_design?: number;
+      push_notification_title?: string;
+      push_notification_content?: string;
+      is_notification_push_active?: boolean;
+    },
+    options?: { onError: (error?: Error) => void; onSuccess: () => void },
+  ) => void;
   onDeleteNotificationRule: (id: number) => void;
 
   event: number;
@@ -45,15 +54,18 @@ type Props = {
 
   disabled: boolean;
   sendCompany: boolean;
+  disableCheckboxes: boolean;
   franchisedOwned: boolean;
   onDisable: (ev: Object) => void;
   onSendCompany: (ev: Object) => void;
   className?: string;
+  requiredTags: string[];
 };
 export const NotificationRuleListItem = (props: Props) => {
   const {
     disabled,
     sendCompany,
+    disableCheckboxes,
     franchisedOwned,
     emailDesignList,
     event,
@@ -66,11 +78,26 @@ export const NotificationRuleListItem = (props: Props) => {
     showEmailPreview,
     onDisable,
     onSendCompany,
+    requiredTags,
   } = props;
 
   const { t } = useTranslation('notificationRule');
   const classes = useStyles();
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+
+  const handleTagsError = (error: Error) => {
+    if (
+      error.response?.data.error_code &&
+      error.response?.data.error_code === EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS
+    ) {
+      setShowAlert(true);
+    }
+  };
+
+  const hideAlert = () => {
+    setShowAlert(false);
+  };
 
   const handleShowEmail = () => {
     if (rule && !rule.email_design) {
@@ -85,15 +112,21 @@ export const NotificationRuleListItem = (props: Props) => {
       return onDeleteNotificationRule(rule.id);
     }
     if (rule?.company) {
-      return updateNotification({
-        ...rule,
-        email_design: option.value,
-      });
+      return updateNotification(
+        {
+          ...rule,
+          email_design: option.value,
+        },
+        { onError: handleTagsError, onSuccess: hideAlert },
+      );
     }
-    return updateNotification({
-      notification_event: event,
-      email_design: option.value,
-    });
+    return updateNotification(
+      {
+        notification_event: event,
+        email_design: option.value,
+      },
+      { onError: handleTagsError, onSuccess: hideAlert },
+    );
   };
 
   const renderEmailSelector = () => (
@@ -112,6 +145,7 @@ export const NotificationRuleListItem = (props: Props) => {
                 helperText={t('emailDesign.placeholder')}
                 onChange={handleChangeEmail}
                 disabled={franchisedOwned}
+                nullCurrentValue={showAlert && !(rule || {}).email_design}
               />
             </div>
           </Tooltip>
@@ -157,33 +191,57 @@ export const NotificationRuleListItem = (props: Props) => {
     }
     setDialogIsOpen(false);
     if (rule?.company || rule?.companies) {
-      return updateNotification({
-        ...rule,
+      return updateNotification(
+        {
+          ...rule,
+          push_notification_title,
+          push_notification_content,
+          is_notification_push_active,
+        },
+        { onError: handleTagsError, onSuccess: hideAlert },
+      );
+    }
+    return updateNotification(
+      {
+        notification_event: event,
         push_notification_title,
         push_notification_content,
         is_notification_push_active,
-      });
-    }
-    return updateNotification({
-      notification_event: event,
-      push_notification_title,
-      push_notification_content,
-      is_notification_push_active,
-    });
+      },
+      { onError: handleTagsError, onSuccess: hideAlert },
+    );
   };
 
   const handleNotificationToggle = (_: any, value: boolean) => {
     setDialogIsOpen(false);
     if (rule?.company || rule?.companies) {
-      return updateNotification({
-        ...rule,
-        is_notification_push_active: value,
-      });
+      return updateNotification(
+        {
+          ...rule,
+          is_notification_push_active: value,
+        },
+        { onError: handleTagsError, onSuccess: hideAlert },
+      );
     }
-    return updateNotification({
-      notification_event: event,
-      is_notification_push_active: value,
-    });
+    return updateNotification(
+      {
+        notification_event: event,
+        is_notification_push_active: value,
+      },
+      { onError: handleTagsError, onSuccess: hideAlert },
+    );
+  };
+
+  const renderRequiredTagsList = () => {
+    return (
+      <ul className={classes.listStyle}>
+        {props.requiredTags.map((tag) => (
+          <li key={tag}>
+            <Typography>{t(`tag.requiredTags.${tag}`)}</Typography>
+          </li>
+        ))}
+      </ul>
+    );
   };
 
   return (
@@ -219,10 +277,11 @@ export const NotificationRuleListItem = (props: Props) => {
                         <Checkbox
                           checked={!disabled}
                           onChange={onDisable}
-                          disabled={franchisedOwned}
+                          disabled={franchisedOwned || disableCheckboxes}
                         />
                       }
                       label={t('listItem.sendTransactionnalEmail')}
+                      disabled={disableCheckboxes}
                     />
                   </div>
                 </Tooltip>
@@ -231,9 +290,11 @@ export const NotificationRuleListItem = (props: Props) => {
                     <Checkbox
                       checked={sendCompany}
                       onChange={(ev) => onSendCompany(ev)}
+                      disabled={disableCheckboxes}
                     />
                   }
                   label={t('listItem.copyCarbon')}
+                  disabled={disableCheckboxes}
                 />
                 {hasNotificationUpsell && renderEmailSelector()}
               </div>
@@ -285,6 +346,28 @@ export const NotificationRuleListItem = (props: Props) => {
                 )}
               </div>
             </div>
+            {showAlert && requiredTags.length > 0 && (
+              <Alert
+                severity="error"
+                icon={false}
+                classes={{ message: classes.MuiAlertMessage }}
+              >
+                <div className={classes.row}>
+                  <div className={classes.column}>
+                    <ErrorOutlineIcon className={classes.iconColorRed} />
+                  </div>
+                  <div className={classes.column}>
+                    <Typography>
+                      {t('listItem.infoBoxErrorMessageFirstLine')}
+                    </Typography>
+                    {renderRequiredTagsList()}
+                    <Typography>
+                      {t('listItem.infoBoxErrorMessageLastLine')}
+                    </Typography>
+                  </div>
+                </div>
+              </Alert>
+            )}
           </Paper>
         );
       }}
@@ -362,6 +445,29 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   tooltipContainer: {
     width: '85%',
+  },
+  listStyle: {
+    margin: 'unset',
+    paddingLeft: theme.spacing(3),
+    '& li': {
+      listStyleType: 'unset',
+    },
+  },
+  iconColorRed: {
+    color: theme.palette.error.main,
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  column: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    paddingRight: '15px',
+  },
+  MuiAlertMessage: {
+    width: '100%',
   },
 }));
 

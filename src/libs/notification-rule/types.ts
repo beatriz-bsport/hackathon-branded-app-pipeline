@@ -16,11 +16,13 @@ export type NotificationRule = {
   send_franchisor_carbon_copy: boolean;
   email_template?: string;
   franchisor: number | null;
+  required_tags: string[];
 };
 
 export type NotificationRuleSettings = {
   disabled: boolean;
   send_company: boolean;
+  disable_checkboxes?: boolean;
 };
 
 export type NotificationRuleEventType = {
@@ -28,6 +30,7 @@ export type NotificationRuleEventType = {
   is_instance_specific: boolean;
   notification_event: number;
   notification_group: string;
+  required_tags: string[];
 };
 
 export type NotificationRuleState = {

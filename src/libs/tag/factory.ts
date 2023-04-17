@@ -41,7 +41,13 @@ export const tagCategories = {
     'subscription_nb_days_pause',
     'subscription_next_invoice_date',
   ],
-  User: ['firstname', 'lastname', 'unsubscribe_link'],
+  User: [
+    'firstname',
+    'lastname',
+    'unsubscribe_link',
+    'reset_password_url',
+    'email_confirmation_url',
+  ],
   Booking: [
     'activity',
     'coach',
@@ -113,6 +119,20 @@ export const tagCategories = {
     'invoice_sum_up',
     'invoice_date',
     'invoice_download_link',
+  ],
+  Giftcard: [
+    'activate_giftcard_url',
+    'message_is_from',
+    'message_is_for',
+    'giftcard_message',
+    'giftcard_value',
+    'giftcard_name',
+  ],
+  EmailChange: [
+    'new_email',
+    'old_email',
+    'manage_changing_email_link',
+    'login_link',
   ],
 };
 

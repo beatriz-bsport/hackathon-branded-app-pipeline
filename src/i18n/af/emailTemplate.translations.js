@@ -39,6 +39,15 @@ exports.default = {
       subject: 'Veuillez renseigner un object',
     },
     selectorPlaceholder: 'Sélectionner des franchisés',
+    showRequiredTags: 'Voir les variables',
+    infoBoxTextFirstLine:
+      "Ce mail est relié à l'email transactionnel '{{-names}}'. Certaines variables sont obligatoires.",
+    alertBoxTextFirstLine:
+      "Ce mail est relié à l'email transactionnel '{{-names}}'. Il doit contenir les variables suivantes : ",
+    infoBoxTextLastLine:
+      "Assurez-vous de les ajouter à votre template afin de pouvoir l'enregistrer.",
+    dialogWindowTitle: 'Variables obligatoires',
+    closeButton: 'Fermer',
   },
   companieEmails: 'Mes templates',
   franchiseEmails: 'Templates franchise',

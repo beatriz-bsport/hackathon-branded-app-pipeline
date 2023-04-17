@@ -21,6 +21,7 @@ import {
   createEmailTemplateCategory as createEmailTemplateCategoryAPI,
   editCategoryOrder as editCategoryOrderAPI,
   editOrderEmailTemplate as editOrderEmailTemplateAPI,
+  fetchTemplateMetaData as fetchTemplateMetaDataAPI,
 } from './api';
 
 import { getFreshEmailTemplateSummariesIds } from './selectors';
@@ -284,6 +285,9 @@ export function emailDesignCreate(
     } catch (error) {
       dispatch(createEmailDesignAction.error(error));
       dispatch(snackbarError('email.create.error'));
+      if (error?.response?.status === 499 && options?.onError) {
+        options.onError(error);
+      }
     }
     dispatch(createEmailDesignAction.loading(false));
   };
@@ -334,8 +338,11 @@ export function emailTemplateUpdate(
       if (typeof options?.onSuccess === 'function')
         options?.onSuccess(response.data.id);
     } catch (error) {
+      console.error(error);
       dispatch(updateEmailTemplateAction.error(error));
       dispatch(snackbarError('email.update.error'));
+      if (error?.response?.status === 499 && options?.onError)
+        options.onError(error);
     }
     dispatch(updateEmailTemplateAction.loading(false));
   };
@@ -524,6 +531,27 @@ export function editOrderEmailTemplate(
       console.error(err);
       dispatch(emailTemplateUpdateOrderActions.error(err));
       if (options && options.onError) options.onError(err);
+    }
+    dispatch(emailTemplateUpdateOrderActions.loading(false));
+  };
+}
+
+export const templateMetaDataActions = {
+  error: createAction('EMAIL/TEMPLATE_META_DATA/ERROR'),
+  loading: createAction('EMAIL/TEMPLATE_META_DATA/LOADING'),
+  success: createAction('EMAIL/TEMPLATE_META_DATA/SUCCESS'),
+};
+
+export function fetchCurrentTemplateMetadata(id: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(templateMetaDataActions.loading(true));
+    dispatch(templateMetaDataActions.error(null));
+    try {
+      const response = await fetchTemplateMetaDataAPI(id);
+      dispatch(templateMetaDataActions.success(response.data));
+    } catch (error) {
+      console.error(error);
+      dispatch(templateMetaDataActions.error(error));
     }
     dispatch(emailTemplateUpdateOrderActions.loading(false));
   };

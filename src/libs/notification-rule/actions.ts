@@ -17,6 +17,10 @@ import {
 import type { Dispatch, OptionCallback } from '../../state/types';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
 
+const {
+  EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS,
+} = require('@bsport/common/lib/master-data/error-codes/notification-rule');
+
 export const notificationRuleListActions = {
   error: createAction('NOTIFICATION_RULE/LIST/ERROR'),
   isLoading: createAction('NOTIFICATION_RULE/LIST/IS_LOADING'),
@@ -144,7 +148,17 @@ export function createOrUpdateNotificationRule(
     } catch (error) {
       console.error(error);
       dispatch(notificatonRuleCreateOrUpdateActions.error(error));
-      dispatch(snackbarError('notificationRule.createOrUpdate.error'));
+      if (
+        error.response?.data.error_code === EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS
+      ) {
+        dispatch(
+          snackbarError(
+            'notificationRule.createOrUpdate.errorLackRequiredVariables',
+          ),
+        );
+      } else {
+        dispatch(snackbarError('notificationRule.createOrUpdate.error'));
+      }
       if (options && options.onError) {
         options.onError(error);
       }

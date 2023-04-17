@@ -24,6 +24,7 @@ import {
   updateEmailTemplateCategoryOrderActions,
   upsertEmailTemplateCategoryActions,
   listAllEmailTemplateCategoryActions,
+  templateMetaDataActions,
 } from './actions';
 
 import type { EmailTemplateState } from './types';
@@ -59,6 +60,10 @@ const initialState: Immutable.Immutable<EmailTemplateState> =
         loading: false,
         error: null,
       },
+    },
+    currentTemplateMetaData: {
+      required_tags_list: [],
+      related_notification_rule_events: [],
     },
   });
 
@@ -411,6 +416,15 @@ export default handleActions(
       { payload },
     ) => {
       return state.setIn(['emailTemplateCategory', 'upsert', 'error'], payload);
+    },
+    [templateMetaDataActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['currentTemplateMetaData'], payload);
+    },
+    [templateMetaDataActions.loading.toString()]: (state, { payload }) => {
+      return state.setIn(['currentTemplateMetaData', 'loading'], payload);
+    },
+    [templateMetaDataActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['currentTemplateMetaData', 'error'], payload);
     },
   },
   initialState,

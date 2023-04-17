@@ -6,30 +6,33 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { DrawerContext, DrawerContextValue } from '../../context';
 import { RootState } from '../../reducers';
-import { snackbarError as snackbarErrorAction } from '../../libs/snackbar/actions';
+import { snackbarError as snackbarErrorAction } from '#libs/snackbar/actions';
 import {
   emailDesignCreate as emailDesignCreateAction,
   emailTemplateComplete as emailTemplateCompleteAction,
   emailTemplateUpdate as emailTemplateUpdateAction,
-} from '../../libs/email-editor/actions';
-import EmailEditorPanel from '../../libs/email-editor/components/EmailEditor.component';
+  fetchCurrentTemplateMetadata as fetchCurrentTemplateMetadataAcion,
+} from '#libs/email-editor/actions';
+import EmailEditorPanel from '#libs/email-editor/components/EmailEditor.component';
 
-import { EmailTemplate } from '../../libs/email-editor/types';
+import { EmailTemplate } from '#libs/email-editor/types';
 import {
   getFranchiseCompanies,
   getFranchiseId,
-} from '../../libs/franchise/selectors';
+} from '#libs/franchise/selectors';
 import {
   getAllEmailTemplatesDict,
   getEmailTemplatesDetail,
-} from '../../libs/email-editor/selectors';
-import { fetchTagList as fetchTagListAction } from '../../libs/notification-rule/actions';
-import { getTagCategories } from '../../libs/notification-rule/selectors';
-import { fetchFranchise as fetchFranchiseAction } from '../../libs/franchise/actions';
-import { FranchiseCompany } from '../../libs/franchise/types';
+  getRelatedNotificationEvents,
+  getRequiredTags,
+} from '#libs/email-editor/selectors';
+import { fetchTagList as fetchTagListAction } from '#libs/notification-rule/actions';
+import { getTagCategories } from '#libs/notification-rule/selectors';
+import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions';
+import { FranchiseCompany } from '#libs/franchise/types';
 
 type OwnProps = {
   id: number;
@@ -54,6 +57,9 @@ const FranchiseEmailEditor = (props: Props) => {
     snackbarError,
     fetchTagList,
     fetchFranchise,
+    fetchCurrentTemplateMetadata,
+    requiredTags,
+    relatedNotificationRuleEvents,
   } = props;
 
   useEffect(() => {
@@ -65,10 +71,16 @@ const FranchiseEmailEditor = (props: Props) => {
     fetchTagList();
   }, [emailTemplateComplete, fetchTagList, id]);
 
+  useEffect(() => {
+    fetchCurrentTemplateMetadata(id);
+  }, [fetchCurrentTemplateMetadata, id]);
+
   const onSave = (
     emailId: number,
     data: EmailTemplate,
     availableCompanies: number[],
+    handleError?: (error?: Error) => void,
+    handleSuccess?: () => void,
   ) => {
     emailTemplateUpdate(
       emailId,
@@ -80,16 +92,45 @@ const FranchiseEmailEditor = (props: Props) => {
       {
         onSuccess: (templateId: number) => {
           goToListDetail(templateId);
+          if (handleSuccess) {
+            handleSuccess();
+          }
+        },
+        onError: (error: Error) => {
+          if (handleError) {
+            handleError(error);
+          }
         },
       },
     );
   };
 
-  const onAutoSave = (emailId: number, data: EmailTemplate) => {
-    emailTemplateUpdate(emailId, {
-      ...data,
-      franchise_id,
-    });
+  const onAutoSave = (
+    emailId: number,
+    data: EmailTemplate,
+    availableCompanies?: number[],
+    handleError?: (error?: Error) => void,
+    handleSuccess?: () => void,
+  ) => {
+    emailTemplateUpdate(
+      emailId,
+      {
+        ...data,
+        franchise_id,
+      },
+      {
+        onSuccess: () => {
+          if (handleSuccess) {
+            handleSuccess();
+          }
+        },
+        onError: (error: Error) => {
+          if (handleError) {
+            handleError(error);
+          }
+        },
+      },
+    );
   };
 
   const emailToEdit = React.useMemo(
@@ -119,6 +160,8 @@ const FranchiseEmailEditor = (props: Props) => {
           goToList={goToList}
           displayEmptyError={snackbarError}
           companies={emailToEdit.company_id ? [] : companies}
+          requiredTags={requiredTags}
+          relatedNotificationRuleEvents={relatedNotificationRuleEvents}
         />
       )}
     </DrawerContext.Consumer>
@@ -133,6 +176,8 @@ const connector = connect(
     tagCategories: getTagCategories(state),
     loading: state.emailTemplate.detail.loading,
     companies: getFranchiseCompanies(state),
+    requiredTags: getRequiredTags(state),
+    relatedNotificationRuleEvents: getRelatedNotificationEvents(state),
   }),
   {
     fetchFranchise: fetchFranchiseAction,
@@ -143,6 +188,7 @@ const connector = connect(
     emailTemplateComplete: emailTemplateCompleteAction,
     goToList: () => push('/f/email-template'),
     goToListDetail: (id: number) => push(`/f/email-template/${id}`),
+    fetchCurrentTemplateMetadata: fetchCurrentTemplateMetadataAcion,
   },
 );
 

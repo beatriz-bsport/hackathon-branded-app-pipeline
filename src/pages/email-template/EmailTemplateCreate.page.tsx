@@ -10,17 +10,17 @@ import {
   emailDesignCreate,
   setEmailEditorHasBeenLoaded,
   fetchAllEmailTemplateCategory,
-} from '../../libs/email-editor/actions';
+} from '#libs/email-editor/actions';
 import { DrawerContext, DrawerContextValue } from '../../context';
 
-import EmailEditorPanel from '../../libs/email-editor/components/EmailEditor.component';
+import EmailEditorPanel from '#libs/email-editor/components/EmailEditor.component';
 import withTitle from '../../hocs/with-title.hoc';
-import { snackbarError } from '../../libs/snackbar/actions';
+import { snackbarError } from '#libs/snackbar/actions';
 
-import { fetchTagList } from '../../libs/notification-rule/actions';
-import { getTagCategories } from '../../libs/notification-rule/selectors';
+import { fetchTagList } from '#libs/notification-rule/actions';
+import { getTagCategories } from '#libs/notification-rule/selectors';
 import { RootState } from '../../reducers';
-import { EmailTemplate } from '../../libs/email-editor/types';
+import { EmailTemplate } from '#libs/email-editor/types';
 import { getEmailTemplateCategories } from '#libs/email-editor/selectors';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';

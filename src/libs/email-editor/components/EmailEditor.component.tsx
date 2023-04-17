@@ -7,13 +7,24 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Prompt } from 'react-router-dom';
 import { createStyles, WithStyles } from '@material-ui/styles';
-import { Theme, Typography } from '@material-ui/core';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Theme,
+  Typography,
+} from '@material-ui/core';
 import moment from 'moment-timezone';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import memoize from 'memoize-one';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
+import { Alert } from '@material-ui/lab';
+import isEqual from 'lodash/isEqual';
 import Checkbox from '../../../components/input/Checkbox.component';
 import {
   EmailTemplate,
@@ -29,6 +40,10 @@ import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { createUrl } from '../../../utils/createUrlHandlers';
 
+const {
+  EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS,
+} = require('@bsport/common/lib/master-data/error-codes/notification-rule');
+
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
     SegmentAnalyticsFormObjectIdentifier.EmailTemplate,
@@ -43,17 +58,23 @@ export type OwnProps = {
     id: number,
     data: Omit<EmailTemplate, 'id'>,
     availableCompanies?: number[],
+    onError?: (error?: Error) => void,
+    onSuccess?: () => void,
   ) => void;
   autoSaveEmail?: (
     id: number,
     data: Omit<EmailTemplate, 'id'>,
     availableCompanies?: number[],
+    onError?: (error?: Error) => void,
+    onSuccess?: () => void,
   ) => void;
   displayEmptyError: (msg: string) => void;
   goToList: () => void;
   hideLeftMenuAction: () => void;
   showLeftMenuAction: () => void;
   emailTemplateCategories?: Array<EmailTemplateCategory>;
+  requiredTags?: string[];
+  relatedNotificationRuleEvents?: number[];
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
@@ -65,6 +86,8 @@ type State = {
   notReadyToLeave: boolean;
   selectedCompanies: OptionTypeBase[];
   categoryId: number;
+  openRequiredTagsModal: boolean;
+  showAlert: boolean;
 };
 
 export class EmailEditorPanel extends Component<Props, State> {
@@ -90,7 +113,9 @@ export class EmailEditorPanel extends Component<Props, State> {
     this.state = {
       title: props.emailToEdit?.title ?? '',
       subject: props.emailToEdit?.subject ?? '',
-      autoSave: true,
+      autoSave: this.props.requiredTags
+        ? this.props.requiredTags.length === 0
+        : true,
       notReadyToLeave: true,
       selectedCompanies: this.props.companies
         ? props.emailToEdit?.available_for_companies?.map((comp) => {
@@ -102,6 +127,8 @@ export class EmailEditorPanel extends Component<Props, State> {
           })
         : [],
       categoryId: this.props.emailToEdit?.category || null,
+      openRequiredTagsModal: false,
+      showAlert: false,
     };
     this.intervalPeriod = 60 * 1000; // Run every minutes
   }
@@ -153,6 +180,8 @@ export class EmailEditorPanel extends Component<Props, State> {
         this.state.selectedCompanies?.map((opt) =>
           parseInt(opt?.value ?? '', 10),
         ),
+        this.showAlertBox,
+        this.hideAlertBox,
       );
     });
   };
@@ -176,6 +205,8 @@ export class EmailEditorPanel extends Component<Props, State> {
         this.state.selectedCompanies?.map((opt) =>
           parseInt(opt?.value ?? '', 10),
         ),
+        this.showAlertBox,
+        this.hideAlertBox,
       );
     });
   };
@@ -188,7 +219,7 @@ export class EmailEditorPanel extends Component<Props, State> {
     this.setState({ subject });
   }
 
-  handlSaveClick = () => {
+  handleSaveClick = () => {
     trackFormSubmitIntent(this.props.emailToEdit?.id);
     this.setState({ notReadyToLeave: false });
     this.exportHtml();
@@ -214,6 +245,13 @@ export class EmailEditorPanel extends Component<Props, State> {
       this.interval = setInterval(() => {
         this.autoExportHtml();
       }, this.intervalPeriod);
+    }
+    if (
+      prevProps.requiredTags &&
+      this.props.requiredTags &&
+      !isEqual(this.props.requiredTags, prevProps.requiredTags)
+    ) {
+      this.setState({ autoSave: false });
     }
   }
 
@@ -256,6 +294,40 @@ export class EmailEditorPanel extends Component<Props, State> {
   allCompaniesAllowed = memoize((companies: FranchiseCompany[]) =>
     companies.every((c: FranchiseCompany) => c.isAllowed),
   );
+
+  openModalRequiredTags = () => {
+    this.setState({ openRequiredTagsModal: true });
+  };
+
+  closeModalRequiredTags = () => {
+    this.setState({ openRequiredTagsModal: false });
+  };
+
+  showAlertBox = (error: Error) => {
+    if (
+      error.response?.data.error_code === EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS
+    ) {
+      this.setState({ showAlert: true });
+    }
+  };
+
+  hideAlertBox = () => {
+    this.setState({ showAlert: false });
+  };
+
+  renderRequiredTagsList = () => {
+    return (
+      <ul className={this.props.classes.listStyle}>
+        {this.props.requiredTags.map((tag) => (
+          <li key={tag}>
+            <Typography>
+              {this.props.t(`notificationRule:tag.requiredTags.${tag}`)}
+            </Typography>
+          </li>
+        ))}
+      </ul>
+    );
+  };
 
   render() {
     const { t, classes } = this.props;
@@ -345,7 +417,7 @@ export class EmailEditorPanel extends Component<Props, State> {
               color="primary"
               variant="contained"
               className={classes.button}
-              onClick={this.handlSaveClick}
+              onClick={this.handleSaveClick}
             >
               {t('emailTemplate:editor.save')}
             </Button>
@@ -359,6 +431,89 @@ export class EmailEditorPanel extends Component<Props, State> {
             </Button>
           </div>
         </div>
+        {this.props.requiredTags?.length > 0 &&
+          this.props.relatedNotificationRuleEvents?.length > 0 &&
+          (!this.state.showAlert ? (
+            <Alert
+              severity="info"
+              icon={false}
+              classes={{ message: classes.MuiAlertMessage }}
+              className={classes.alertBox}
+            >
+              <div className={classes.buttonsContainer}>
+                <div className={classes.row}>
+                  <div className={classes.column}>
+                    <InfoOutlinedIcon className={classes.iconColorBlue} />
+                  </div>
+                  <div className={classes.column}>
+                    <Typography>
+                      {t('emailTemplate:editor.infoBoxTextFirstLine', {
+                        names: this.props.relatedNotificationRuleEvents
+                          .map((notification_event) => {
+                            return t(
+                              `notificationRule:eventType.${notification_event}`,
+                            );
+                          })
+                          .join(', '),
+                      })}
+                    </Typography>
+                    <Typography>
+                      {t('emailTemplate:editor.infoBoxTextLastLine')}
+                    </Typography>
+                  </div>
+                </div>
+                <Button size="small" onClick={this.openModalRequiredTags}>
+                  {t('emailTemplate:editor.showRequiredTags')}
+                </Button>
+                <Dialog
+                  open={this.state.openRequiredTagsModal}
+                  onClose={this.closeModalRequiredTags}
+                >
+                  <DialogTitle>
+                    {t('emailTemplate:editor.dialogWindowTitle')}
+                  </DialogTitle>
+                  <DialogContent>{this.renderRequiredTagsList()}</DialogContent>
+                  <DialogActions>
+                    <Button size="small" onClick={this.closeModalRequiredTags}>
+                      {t('emailTemplate:editor.closeButton')}
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+              </div>
+            </Alert>
+          ) : (
+            <Alert
+              severity="error"
+              icon={false}
+              classes={{ message: classes.MuiAlertMessage }}
+              className={classes.alertBox}
+            >
+              <div className={classes.buttonsContainer}>
+                <div className={classes.row}>
+                  <div className={classes.column}>
+                    <ErrorOutlineIcon className={classes.iconColorRed} />
+                  </div>
+                  <div className={classes.column}>
+                    <Typography>
+                      {t('emailTemplate:editor.alertBoxTextFirstLine', {
+                        names: this.props.relatedNotificationRuleEvents
+                          .map((notification_event) => {
+                            return t(
+                              `notificationRule:eventType.${notification_event}`,
+                            );
+                          })
+                          .join(', '),
+                      })}
+                    </Typography>
+                    {this.renderRequiredTagsList()}
+                    <Typography>
+                      {t('emailTemplate:editor.infoBoxTextLastLine')}
+                    </Typography>
+                  </div>
+                </div>
+              </div>
+            </Alert>
+          ))}
         <Paper>
           {!!Object.entries(mergeTags).length && (
             <EmailEditor
@@ -426,6 +581,36 @@ const styles = (theme: Theme) =>
     helper: {
       color: theme.palette.grey[500],
       marginTop: theme.spacing(1),
+    },
+    listStyle: {
+      margin: 'unset',
+      paddingLeft: theme.spacing(3),
+      '& li': {
+        listStyleType: 'unset',
+      },
+    },
+    iconColorBlue: {
+      color: theme.palette.info.main,
+    },
+    iconColorRed: {
+      color: theme.palette.error.main,
+    },
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    column: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      paddingRight: '15px',
+    },
+    MuiAlertMessage: {
+      width: '100%',
+    },
+    alertBox: {
+      marginBottom: theme.spacing(2),
     },
   });
 

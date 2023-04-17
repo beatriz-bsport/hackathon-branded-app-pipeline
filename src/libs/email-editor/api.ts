@@ -112,3 +112,9 @@ export async function editCategoryOrder(data: any) {
     data,
   );
 }
+
+export async function fetchTemplateMetaData(id: number) {
+  return getAuth(
+    `${MARKETING_EMAIL_URI}${id}/related_notification_rules_data/`,
+  );
+}

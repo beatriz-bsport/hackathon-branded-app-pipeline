@@ -11,10 +11,12 @@ import {
   getEmailTemplatesDetail,
   getAllEmailTemplatesDict,
   getEmailTemplateCategories,
-} from '../../libs/email-editor/selectors';
+  getRequiredTags,
+  getRelatedNotificationEvents,
+} from '#libs/email-editor/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import withTitle from '../../hocs/with-title.hoc';
-import { snackbarError } from '../../libs/snackbar/actions';
+import { snackbarError } from '#libs/snackbar/actions';
 
 import {
   emailTemplateComplete,
@@ -22,15 +24,16 @@ import {
   setEmailEditorHasBeenLoaded,
   emailDesignCreate,
   fetchAllEmailTemplateCategory,
-} from '../../libs/email-editor/actions';
+  fetchCurrentTemplateMetadata,
+} from '#libs/email-editor/actions';
 import { DrawerContext, DrawerContextValue } from '../../context';
 
-import EmailEditorPanel from '../../libs/email-editor/components/EmailEditor.component';
-import { fetchTagList } from '../../libs/notification-rule/actions';
-import { getTagCategories } from '../../libs/notification-rule/selectors';
+import EmailEditorPanel from '#libs/email-editor/components/EmailEditor.component';
+import { fetchTagList } from '#libs/notification-rule/actions';
+import { getTagCategories } from '#libs/notification-rule/selectors';
 import { RootState } from '../../reducers';
 
-import { EmailTemplate } from '../../libs/email-editor/types';
+import { EmailTemplate } from '#libs/email-editor/types';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
@@ -64,16 +67,35 @@ export class MarketingEmail extends Component<Props> {
     this.props.emailTemplateComplete(this.props.id);
     this.props.fetchTagList();
     this.props.fetchAllEmailTemplateCategory();
+    this.props.fetchCurrentTemplateMetadata(this.props.id);
   }
 
-  onSave = (id: number, data: EmailTemplate) => {
+  onSave = (
+    id: number,
+    data: EmailTemplate,
+    availableCompanies?: number[],
+    handleError?: (error?: Error) => void,
+    handleSuccess?: () => void,
+  ) => {
     if (this.props.create === 1) {
       this.props.emailDesignCreate(
         {
           ...data,
           company_id: this.props.company_id,
         },
-        { onSuccess: () => trackFormSuccess() },
+        {
+          onSuccess: () => {
+            trackFormSuccess();
+            if (handleSuccess) {
+              handleSuccess();
+            }
+          },
+          onError: (error: Error) => {
+            if (handleError) {
+              handleError(error);
+            }
+          },
+        },
       );
       this.props.goToList();
     } else {
@@ -87,14 +109,35 @@ export class MarketingEmail extends Component<Props> {
           onSuccess: () => {
             trackFormSuccess(id);
             this.props.goToDetailList(id);
+            if (handleSuccess) {
+              handleSuccess();
+            }
           },
+          onError: handleError,
         },
       );
     }
   };
 
-  onAutoSave = (id: number, data: any) => {
-    this.props.emailTemplateUpdate(id, data);
+  onAutoSave = (
+    id: number,
+    data: any,
+    availableCompanies?: number[],
+    handleError?: (error?: Error) => void,
+    handleSuccess?: () => void,
+  ) => {
+    this.props.emailTemplateUpdate(id, data, {
+      onSuccess: () => {
+        if (handleSuccess) {
+          handleSuccess();
+        }
+      },
+      onError: (error: Error) => {
+        if (handleError) {
+          handleError(error);
+        }
+      },
+    });
   };
 
   render() {
@@ -119,6 +162,10 @@ export class MarketingEmail extends Component<Props> {
             goToList={this.props.goToList}
             displayEmptyError={this.props.snackbarError}
             emailTemplateCategories={this.props.emailTemplateCategories}
+            requiredTags={this.props.requiredTags}
+            relatedNotificationRuleEvents={
+              this.props.relatedNotificationRuleEvents
+            }
           />
         )}
       </DrawerContext.Consumer>
@@ -135,6 +182,8 @@ const mapStateToProps = (state: RootState) => ({
   tagCategories: getTagCategories(state),
   hasBeenLoadedOnce: state.emailTemplate.hasBeenLoadedOnce,
   emailTemplateCategories: getEmailTemplateCategories(state),
+  requiredTags: getRequiredTags(state),
+  relatedNotificationRuleEvents: getRelatedNotificationEvents(state),
 });
 
 const mapDispatchToProps = {
@@ -147,6 +196,7 @@ const mapDispatchToProps = {
   goToDetailList: (id: number) => push(`/email-template/${id}`),
   goToList: () => push('/email-template'),
   fetchAllEmailTemplateCategory,
+  fetchCurrentTemplateMetadata,
 };
 
 export default compose(

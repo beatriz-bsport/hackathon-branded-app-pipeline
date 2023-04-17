@@ -107,3 +107,10 @@ export const getEventByGroup = {
     (NotificationRuleEventType & { rule: NotificationRule })[]
   >;
 };
+
+export const getRequiredTagsByEvent = createSelector([getEventList], (data) => {
+  return data.reduce((acc: { [key: number]: string[] }, event) => {
+    acc[event.notification_event] = event.required_tags;
+    return acc;
+  }, {});
+});

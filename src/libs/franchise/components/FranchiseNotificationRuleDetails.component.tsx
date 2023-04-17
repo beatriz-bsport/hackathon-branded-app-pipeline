@@ -26,10 +26,19 @@ type OwnProps = {
   handleDelete: (id: number) => () => void;
   handleEdit: (
     id: number,
-  ) => (data: Omit<FranchiseCompleteNotificationRule, 'id'>) => void;
-  handleCreate: (data: Omit<FranchiseCompleteNotificationRule, 'id'>) => void;
+  ) => (
+    data: Omit<FranchiseCompleteNotificationRule, 'id'>,
+    closeModal: () => void,
+    showAlert: () => void,
+  ) => void;
+  handleCreate: (
+    data: Omit<FranchiseCompleteNotificationRule, 'id'>,
+    closeModal: () => void,
+    showAlert: () => void,
+  ) => void;
   handleFetchPreview: (emailId: number) => void;
   selectedPreviewEmail?: number;
+  requiredTagsByEvent: { [key: number]: string[] };
 };
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
 
@@ -46,11 +55,15 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
     handleFetchPreview,
     handleCreate,
     selectedPreviewEmail,
+    requiredTagsByEvent,
     classes,
     t,
   } = props;
 
   const [create, setCreate] = useState(false);
+
+  const [showAlertForCreation, setShowAlertForCreation] =
+    useState<boolean>(false);
 
   const usedCompanies = rules.reduce<number[]>(
     (acc, rule) => [...acc, ...rule.companies],
@@ -92,7 +105,10 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
                 className={classes.button}
                 variant="contained"
                 color="primary"
-                onClick={() => setCreate(true)}
+                onClick={() => {
+                  setCreate(true);
+                  setShowAlertForCreation(false);
+                }}
                 disabled={
                   getAvailableCompanies().filter((c) => c.isAllowed).length ===
                   0
@@ -115,6 +131,7 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
                     onDelete={handleDelete(rule.id)}
                     onEdit={handleEdit(rule.id)}
                     fetchPreview={fetchEmailDesignDetail}
+                    requiredTagsByEvent={requiredTagsByEvent}
                   />
                 );
               })}
@@ -133,7 +150,10 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
                   className={classes.emptyButton}
                   variant="outlined"
                   color="primary"
-                  onClick={() => setCreate(true)}
+                  onClick={() => {
+                    setCreate(true);
+                    setShowAlertForCreation(false);
+                  }}
                 >
                   {t('franchise.addConfiguration')}
                 </Button>
@@ -148,13 +168,25 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
           companies={getAvailableCompanies()}
           emailTemplates={emailDesignList}
           onSubmit={(data) => {
-            handleCreate(data);
-            setCreate(false);
+            handleCreate(
+              data,
+              () => {
+                setCreate(false);
+              },
+              () => {
+                setShowAlertForCreation(true);
+              },
+            );
           }}
-          onClose={() => setCreate(false)}
+          onClose={() => {
+            setCreate(false);
+            setShowAlertForCreation(false);
+          }}
           notification_event={notificationId}
           previewEmail={previewEmail?.[selectedPreviewEmail]}
           refreshEmailPreview={handleFetchPreview}
+          requiredTagsByEvent={requiredTagsByEvent}
+          showAlert={showAlertForCreation}
         />
       )}
     </>

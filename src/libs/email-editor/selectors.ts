@@ -86,3 +86,9 @@ export const getEmailTemplateByCategoryWithTemplates = memoize(
       },
     ),
 );
+
+export const getRequiredTags = (state: RootState) =>
+  state.emailTemplate.currentTemplateMetaData.required_tags_list;
+
+export const getRelatedNotificationEvents = (state: RootState) =>
+  state.emailTemplate.currentTemplateMetaData.related_notification_rule_events;

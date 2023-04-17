@@ -617,6 +617,7 @@ exports.default = {
     createOrUpdate: {
       success: 'Modifié avec succès',
       error: "Impossible d'enregistrer",
+      errorLackRequiredVariables: "Ce template n'a pas pu être enregistré",
     },
   },
   role: {

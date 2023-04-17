@@ -18,6 +18,8 @@ import { withFormik } from 'formik';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
+import Alert from '@material-ui/lab/Alert';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { FranchiseCompany } from '../types';
 import {
   AlertError,
@@ -46,6 +48,8 @@ export type OwnProps = {
   previewEmail: EmailTemplateDetail;
   refreshEmailPreview: (id: number) => void;
   restrictedAccess?: boolean;
+  requiredTagsByEvent: { [key: number]: string[] };
+  showAlert?: boolean;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles<typeof styles>;
@@ -68,6 +72,8 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
     previewEmail,
     refreshEmailPreview,
     restrictedAccess,
+    requiredTagsByEvent,
+    showAlert,
   } = props;
 
   const ref = useRef(null);
@@ -81,6 +87,18 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
   );
 
   const [showPreview, setShowPreview] = useState(false);
+
+  const renderRequiredTagsList = () => {
+    return (
+      <ul className={classes.listStyle}>
+        {props.requiredTagsByEvent[props.notification_event].map((tag) => (
+          <li key={tag}>
+            <Typography>{t(`tag.requiredTags.${tag}`)}</Typography>
+          </li>
+        ))}
+      </ul>
+    );
+  };
 
   return (
     <>
@@ -140,6 +158,28 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
               <VisibilityIcon />
             </IconButton>
           </div>
+          {requiredTagsByEvent[notification_event] && showAlert && (
+            <Alert
+              severity="error"
+              icon={false}
+              classes={{ message: classes.MuiAlertMessage }}
+            >
+              <div className={classes.row}>
+                <div className={classes.column}>
+                  <ErrorOutlineIcon className={classes.iconColorRed} />
+                </div>
+                <div className={classes.column}>
+                  <Typography>
+                    {t('listItem.infoBoxErrorMessageFirstLine')}
+                  </Typography>
+                  {renderRequiredTagsList()}
+                  <Typography>
+                    {t('listItem.infoBoxErrorMessageLastLine')}
+                  </Typography>
+                </div>
+              </div>
+            </Alert>
+          )}
           <Typography variant="h6" className={classes.subtitle}>
             {t('franchise.form.useFor')}
           </Typography>
@@ -168,7 +208,10 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
           <CheckboxField
             name="active"
             label={t('franchise.form.activate')}
-            disabled={restrictedAccess}
+            disabled={
+              restrictedAccess ||
+              requiredTagsByEvent[notification_event].length > 0
+            }
           />
           <Typography variant="caption" className={classes.grey}>
             {t(
@@ -180,7 +223,10 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
           <CheckboxField
             name="receiveCarbonCopy"
             label={t('franchise.form.receiveCC')}
-            disabled={restrictedAccess}
+            disabled={
+              restrictedAccess ||
+              requiredTagsByEvent[notification_event].length > 0
+            }
           />
           {values.receiveCarbonCopy && (
             <Typography variant="caption" className={classes.grey}>
@@ -247,6 +293,29 @@ const styles = (theme: Theme) =>
       flex: 1,
       minWidth: 400,
     },
+    listStyle: {
+      margin: 'unset',
+      paddingLeft: theme.spacing(3),
+      '& li': {
+        listStyleType: 'unset',
+      },
+    },
+    iconColorRed: {
+      color: theme.palette.error.main,
+    },
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    column: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      paddingRight: '15px',
+    },
+    MuiAlertMessage: {
+      width: '100%',
+    },
   });
 
 const NoticationSchema = Yup.object().shape({
@@ -290,6 +359,7 @@ export default compose<any, OwnProps>(
           setSubmitting(false);
         },
       });
+      setSubmitting(false);
     },
   }),
 )(FranchiseNotificationRuleFormModal);

@@ -65,6 +65,12 @@ export type EmailTemplateState = {
       error?: Error;
     };
   };
+  currentTemplateMetaData?: {
+    required_tags_list?: string[];
+    related_notification_rule_events?: number[];
+    loading?: boolean;
+    error?: Error;
+  };
 };
 
 export type FranchisorSavedFilter = {

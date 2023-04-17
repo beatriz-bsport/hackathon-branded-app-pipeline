@@ -8,7 +8,7 @@ import { push } from 'connected-react-router';
 import { createStyles, Grid, Theme } from '@material-ui/core';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
   fetchEventTypeList as fetchEventTypeListAction,
   fetchNotificationRuleList as fetchNotificationRuleListAction,
@@ -19,6 +19,7 @@ import {
 import {
   getEventByGroup,
   getFranchiseNotificationRules,
+  getRequiredTagsByEvent,
 } from '#libs/notification-rule/selectors';
 
 import { fetchMarketingNotificationList as fetchMarketingNotificationListAction } from '#libs/marketing/actions';
@@ -33,13 +34,17 @@ import {
   emailTemplateDetail as fetchEmailDesignDetailAction,
   emailTemplatesSummaries as fetchEmailDesignListAction,
 } from '#libs/email-editor/actions';
-import withTitle from '../../hocs/with-title.hoc';
+import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 import { getFranchiseCompanies } from '#libs/franchise/selectors';
 
 import FranchiseNotificationRuleList from '#libs/franchise/components/FranchiseNotificationRuleList.component';
 import FranchiseNotificationRuleDetails from '#libs/franchise/components/FranchiseNotificationRuleDetails.component';
 import { NotificationRule } from '#libs/notification-rule/types';
+
+const {
+  EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS,
+} = require('@bsport/common/lib/master-data/error-codes/notification-rule');
 
 const BIRTHDAY_NOTIFICATION = {
   kind: 0,
@@ -71,6 +76,7 @@ export const FranchiseNotificationRule = (props: Props) => {
     navigateToNotification,
     createOrUpdateNotificationRule,
     fetchNotificationRuleList,
+    requiredTagsByEvent,
     classes,
   } = props;
 
@@ -104,17 +110,54 @@ export const FranchiseNotificationRule = (props: Props) => {
     fetchEmailDesignDetail(emailId);
   };
 
-  const handleCreate = (data: Omit<NotificationRule, 'id'>) => {
-    createOrUpdateNotificationRule(data);
+  const handleCreate = (
+    data: Omit<NotificationRule, 'id'>,
+    closeModal: () => void,
+    showAlert: () => void,
+  ) => {
+    createOrUpdateNotificationRule(data, {
+      onError: (error: Error) => {
+        if (
+          error.response?.data.error_code ===
+          EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS
+        ) {
+          showAlert();
+        }
+      },
+      onSuccess: () => {
+        closeModal();
+      },
+    });
   };
 
   const handleDelete = (id: number) => () => {
     deleteNotificationRule(id);
   };
 
-  const handleEdit = (id: number) => (data: Omit<NotificationRule, 'id'>) => {
-    createOrUpdateNotificationRule({ ...data, id });
-  };
+  const handleEdit =
+    (id: number) =>
+    (
+      data: Omit<NotificationRule, 'id'>,
+      closeModal: () => void,
+      showAlert: () => void,
+    ) => {
+      createOrUpdateNotificationRule(
+        { ...data, id },
+        {
+          onError: (error: Error) => {
+            if (
+              error.response?.data.error_code ===
+              EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS
+            ) {
+              showAlert();
+            }
+          },
+          onSuccess: () => {
+            closeModal();
+          },
+        },
+      );
+    };
 
   const handleNavigation = (id: number) => () => {
     navigateToNotification(id);
@@ -143,6 +186,7 @@ export const FranchiseNotificationRule = (props: Props) => {
             handleCreate={handleCreate}
             handleFetchPreview={handleFetchPreview}
             selectedPreviewEmail={selectedPreviewEmail}
+            requiredTagsByEvent={requiredTagsByEvent}
           />
         </Grid>
       </Grid>
@@ -174,6 +218,7 @@ const connector = connect(
       state.emailTemplate.loading ||
       state.marketingNotification.loading,
     birthdayNotification: getCelebrationBirthday(state),
+    requiredTagsByEvent: getRequiredTagsByEvent(state),
   }),
   {
     createOrUpdateNotificationRule: createOrUpdateNotificationRuleAction,

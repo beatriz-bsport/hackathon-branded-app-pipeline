@@ -31,6 +31,7 @@ import {
 
 import {
   getEventByGroup,
+  getRequiredTagsByEvent,
   getResolvedGenericTags,
   getTagCategories,
 } from '#libs/notification-rule/selectors';
@@ -92,6 +93,7 @@ const NotificationRuleDetail = (props: Props) => {
     push,
     t,
     eventName,
+    requiredTagsByEvent,
   } = props;
 
   useEffect(() => {
@@ -153,18 +155,21 @@ const NotificationRuleDetail = (props: Props) => {
     ? settingsData[0].settings
     : {};
 
-  const handleUpdateNotification = (rule: {
-    notification_event: number;
-    email_design?: number;
-    push_notification_title?: string;
-    push_notification_content?: string;
-    is_notification_push_active?: boolean;
-  }) => {
+  const handleUpdateNotification = (
+    rule: {
+      notification_event: number;
+      email_design?: number;
+      push_notification_title?: string;
+      push_notification_content?: string;
+      is_notification_push_active?: boolean;
+    },
+    options?: { onError: (error?: Error) => void; onSuccess: () => void },
+  ) => {
     if (rule.email_design) {
       fetchEmailDesignDetail(rule.email_design);
     }
 
-    createOrUpdateNotificationRule(rule);
+    createOrUpdateNotificationRule(rule, options);
   };
 
   const handleUpdate = (
@@ -276,10 +281,15 @@ const NotificationRuleDetail = (props: Props) => {
                   notificationRuleSettings?.[event.notification_event]
                     ?.send_company ?? false
                 }
+                disableCheckboxes={
+                  notificationRuleSettings?.[event.notification_event]
+                    ?.disable_checkboxes ?? false
+                }
                 onDisable={handleSettingsDisable(event.notification_event)}
                 onSendCompany={handleSettingsCopy(event.notification_event)}
                 tags={getMergeTags()}
                 className={classes.gridItemLeft}
+                requiredTags={requiredTagsByEvent[event.notification_event]}
               />
               <NotificationRulePreview
                 event={event}
@@ -381,6 +391,7 @@ const connector = connect(
     resolvedGenericTags: getResolvedGenericTags(state),
     company: state.theme.theme.company,
     theme: state.theme.theme,
+    requiredTagsByEvent: getRequiredTagsByEvent(state),
   }),
   {
     fetchEventTypeList: fetchEventTypeListAction,

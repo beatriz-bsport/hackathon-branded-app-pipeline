@@ -12,6 +12,7 @@ import {
   fetchOnSpotPaymentReport as fetchOnSpotPaymentReportAPI,
   fetchPaymentGroupList as fetchPaymentGroupListAPI,
   fetchPayoutList as fetchPayoutListAPI,
+  fetchStripeBalance as fetchStripeBalanceAPI,
   updatePaymentGroupPriceCts as updatePaymentGroupPriceCtsAPI,
   detachPaymentMethod as detachPaymentMethodAPI,
   setPaymentMethodAsDefault as setPaymentMethodAsDefaultAPI,
@@ -233,6 +234,27 @@ export function fetchPayoutList(
       dispatch(listPayoutActions.error(err));
     }
     dispatch(listPayoutActions.isLoading(false));
+  };
+}
+
+export const stripeBalanceActions = {
+  isLoading: createAction('STRIPE_BALANCE/LOADING'),
+  error: createAction('STRIPE_BALANCE/ERROR'),
+  success: createAction('STRIP_BALANCE/SUCCESS'),
+};
+
+export function fetchStripeBalance(): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(stripeBalanceActions.isLoading(true));
+    dispatch(stripeBalanceActions.error(null));
+    try {
+      const response = await fetchStripeBalanceAPI();
+
+      dispatch(stripeBalanceActions.success(response.data));
+    } catch (err) {
+      dispatch(stripeBalanceActions.error(err));
+    }
+    dispatch(stripeBalanceActions.isLoading(false));
   };
 }
 

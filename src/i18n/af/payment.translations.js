@@ -285,6 +285,22 @@ exports.default = {
     payoutIsManual:
       "Ce virement a été enclenché manuellement par les équipes de bsport pour accélérer la réception de vos fonds. Dans ce cas le détail des paiements n'est pas disponible. Veuillez vous rapprocher de nos équipes si vous souhaitez plus d'informations.",
   },
+  stripeBalance: {
+    title: 'Solde Stripe',
+    dialog: {
+      firstPart: `Chez bsport nous utilisons le service Stripe pour gérer l'ensemble de vos paiements en ligne. Les montants de ceux-ci sont conservés sur Stripe puis reversés sur votre compte (section "Mes encaissements").`,
+      secondPart:
+        'Votre "solde disponible" correspond donc au montant des paiements en ligne qui ne vous a pas encore été versé.',
+      thirdPart:
+        'Votre "solde en cours de traitement" correspond au montant qui va arriver sur votre solde disponible.',
+      alert:
+        'A noter que quand vous effectuez un remboursement direct, cet argent est directement prélevé sur votre compte Stripe. Ce qui peut le faire passer en négatif.',
+      close: 'Fermer',
+    },
+    nullPendingBalanceText: 'Aucun',
+    availableBalance: 'Solde disponible',
+    pendingBalance: 'Solde en cours de traitement',
+  },
   subscriptionPaymentDialog: {
     title: 'Acheter un abonnement',
     success: {

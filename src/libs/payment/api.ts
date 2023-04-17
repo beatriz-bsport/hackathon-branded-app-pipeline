@@ -172,3 +172,9 @@ export const createPendingBookings = async (
     data,
   );
 };
+
+export const fetchStripeBalance = async () => {
+  return getAuth(
+    `${API_V1_URI}/payment_backend/stripe/company/retrieve_stripe_balance`,
+  );
+};

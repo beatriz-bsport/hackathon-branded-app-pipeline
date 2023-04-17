@@ -37,7 +37,7 @@ export const PayoutList = (props: Props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.container}>
+    <>
       <Typography variant="h5" className={classes.title}>
         {t('payout.title')}
       </Typography>
@@ -80,14 +80,11 @@ export const PayoutList = (props: Props) => {
           <CircularProgress />
         </div>
       )}
-    </div>
+    </>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    padding: theme.spacing(4),
-  },
   title: {
     marginBottom: theme.spacing(1),
   },

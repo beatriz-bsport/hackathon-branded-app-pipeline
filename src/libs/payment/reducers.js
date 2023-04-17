@@ -10,6 +10,7 @@ import {
   listPayoutActions,
   incrementalListPayoutActions,
   detachPaymentMethodActions,
+  stripeBalanceActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -47,6 +48,12 @@ const initialState = Immutable({
     loading: false,
     error: null,
     msg: {},
+  },
+  balance: {
+    isLoading: false,
+    error: null,
+    amountAvailable: 0,
+    amountPending: 0,
   },
 });
 
@@ -161,6 +168,17 @@ export default handleActions(
           },
           { deep: true },
         );
+    },
+    [stripeBalanceActions.success]: (state, { payload }) => {
+      return state
+        .setIn(['balance', 'amountAvailable'], payload.balance_available)
+        .setIn(['balance', 'amountPending'], payload.balance_pending);
+    },
+    [stripeBalanceActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['balance', 'isLoading'], payload);
+    },
+    [stripeBalanceActions.error]: (state, { payload }) => {
+      return state.setIn(['balance', 'error'], payload);
     },
   },
   initialState,

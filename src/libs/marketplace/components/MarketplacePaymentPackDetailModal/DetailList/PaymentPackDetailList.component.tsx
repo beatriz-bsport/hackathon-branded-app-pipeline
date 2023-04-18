@@ -47,6 +47,30 @@ const PaymentPackDetailList: React.FC<Props> = ({
   const { t } = useTranslation('marketplace');
   const [isMenuExpanded, setMenuExpanded] = React.useState<Boolean>(false);
 
+  const penaltyThresholdMessage = t(
+    'genericCardDetails.includedElements.penaltyNoShow.threshold',
+    {
+      count: paymentPack.no_show_penalty_threshold,
+    },
+  );
+
+  const penaltyTimeWindowMessage = t(
+    'genericCardDetails.includedElements.penaltyNoShow.penaltyDay',
+    {
+      count: paymentPack.no_show_penalty_time_window_days,
+    },
+  );
+
+  const penaltyDaysBlockedMessage =
+    paymentPack.no_show_penalty_days_blocked &&
+    t('genericCardDetails.includedElements.penaltyNoShow.penaltyDay', {
+      count: paymentPack.no_show_penalty_days_blocked,
+    });
+
+  const penaltyAmountMessage =
+    paymentPack.no_show_penalty_amount &&
+    getCurrencyDisplayWithPrice(paymentPack.no_show_penalty_amount);
+
   const hasRestriction =
     !!paymentPack.max_bookings_per_day ||
     !!paymentPack.max_bookings_per_week ||
@@ -269,6 +293,25 @@ const PaymentPackDetailList: React.FC<Props> = ({
                 'genericCardDetails.includedElements.penalty.penaltyDay',
                 { count: paymentPack.penalty_nb_days },
               ),
+            })}
+        </li>
+      )}
+      {paymentPack.no_show_penalty_active && (
+        <li className="bs-pack-details-dialog__list__item">
+          <span className="bs-pack-details-dialog__list__item__icon">
+            <BlockIcon />
+          </span>
+          {paymentPack.no_show_penalty_kind === PENALTY_KIND_BLOCK_CPP &&
+            t('genericCardDetails.includedElements.penaltyNoShow.block', {
+              days_blocked: penaltyDaysBlockedMessage,
+              threshold: penaltyThresholdMessage,
+              time_window_days: penaltyTimeWindowMessage,
+            })}
+          {paymentPack.no_show_penalty_kind === PENALTY_KIND_NEGATIVE_ACCOUNT &&
+            t('genericCardDetails.includedElements.penaltyNoShow.account', {
+              amount: penaltyAmountMessage,
+              threshold: penaltyThresholdMessage,
+              time_window_days: penaltyTimeWindowMessage,
             })}
         </li>
       )}

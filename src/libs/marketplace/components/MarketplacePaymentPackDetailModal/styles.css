@@ -20,6 +20,7 @@
 .bs-pack-details-dialog__description{
     color: var(--color-grey-main);
     font-size: var(--body1-fontSize);
+    white-space: pre-line;
 }
 
 .bs-pack-details-dialog__container {

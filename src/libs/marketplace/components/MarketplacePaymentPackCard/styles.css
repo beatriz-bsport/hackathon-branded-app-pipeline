@@ -20,7 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    white-space: pre-wrap;
+    white-space: pre-line;
 }
 
 .bs-paymentpack-card__title__icon {

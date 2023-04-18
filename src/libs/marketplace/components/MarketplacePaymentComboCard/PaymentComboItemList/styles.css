@@ -14,3 +14,9 @@
   color: var(--color-grey-main);
 }
 
+.--button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--color-grey-main);
+}

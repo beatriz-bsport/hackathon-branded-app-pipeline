@@ -11,6 +11,7 @@ type Props = {
   displayAllitems?: boolean;
   numberOfItemsToDisplay?: number;
   classes?: { [key: string]: string };
+  onOpenDetailDialog?: () => void;
 };
 
 const PaymentComboItemList: React.FC<Props> = ({
@@ -18,6 +19,7 @@ const PaymentComboItemList: React.FC<Props> = ({
   displayAllitems,
   numberOfItemsToDisplay,
   classes,
+  onOpenDetailDialog,
 }) => {
   const { t } = useTranslation('marketplace');
 
@@ -71,7 +73,15 @@ const PaymentComboItemList: React.FC<Props> = ({
       ))}
       {countHiddenItems > 0 && (
         <li className="bs-combo-item-list__item --hidden">
-          {t('packCard.comboItemList.hiddenItem', { count: countHiddenItems })}
+          <button
+            type="button"
+            className="bs-combo-item-list --button"
+            onClick={onOpenDetailDialog}
+          >
+            {t('packCard.comboItemList.hiddenItem', {
+              count: countHiddenItems,
+            })}
+          </button>
         </li>
       )}
     </ul>

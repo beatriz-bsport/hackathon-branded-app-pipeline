@@ -67,6 +67,7 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
             <PaymentComboItemList
               paymentCombo={paymentCombo}
               classes={{ 'bs-pack-card__list': 'bs-pack-card__list' }}
+              onOpenDetailDialog={onOpenDetailDialog}
             />
             <div className="bs-pack-card__prices-container">
               <InitialPrice paymentCombo={paymentCombo} />

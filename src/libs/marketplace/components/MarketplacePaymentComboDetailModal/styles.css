@@ -93,6 +93,10 @@
   padding-top: var(--spacing-1);
 }
 
+.bs-combo-details-dialog__content-list li { 
+  list-style-type: disc;
+}
+
 .bs-combo-details-dialog__content-list h4 {
   margin: 0;
   font-size: var(--subtitle1-fontSize);

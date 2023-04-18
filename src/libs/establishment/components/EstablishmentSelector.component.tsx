@@ -9,7 +9,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
-import type { Establishment } from '../types';
+import type { Establishment, EstablishmentSelectOption } from '../types';
 
 const GroupHeading = ({ children, ...props }) => {
   const theme = useTheme();
@@ -214,11 +214,9 @@ const establishmentStyles = {
 
 export type OwnProps = {
   establishments?: Array<Establishment>;
-  selectOption: (Suggestion: {
-    label: string;
-    value: number | string;
-    establishmentList?: Array<Establishment>;
-  }) => void;
+  selectOption: (
+    suggestion: EstablishmentSelectOption[] | EstablishmentSelectOption,
+  ) => void;
   selectMultipleOptions?: (itemsValueList: Array<number>) => void;
   selectedEstablishments: Array<number> | null;
   disabled?: boolean;

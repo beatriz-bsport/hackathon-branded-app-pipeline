@@ -18,6 +18,8 @@ import Price, { Color } from '#components/css-only/Price';
 
 import PaymentPackDetailList from './DetailList/PaymentPackDetailList.component';
 
+import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
+
 import { PaymentPack } from '#libs/payment-packs/types';
 
 export type Props = {
@@ -44,6 +46,8 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
   }) => {
     const { t } = useTranslation('marketplace');
 
+    const { modalRef } = useDialogClickAwayListener({ onDialogClose });
+
     return (
       <div className="bs-pack-details-dialog ">
         {isOpen && (
@@ -53,110 +57,112 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
               'bs-pack-details-dialog__card': 'bs-pack-details-dialog__card',
             }}
           >
-            <div className="bs-pack-details-dialog__container">
-              <Content
-                padding
-                classes={{
-                  'bs-pack-details-dialog__header-container':
-                    'bs-pack-details-dialog__header-container',
-                }}
-              >
-                <Grid>
-                  <Item rowStart={1} rowEnd={1}>
-                    <div className="bs-pack-details-dialog__header">
-                      <h3 className="bs-pack-details-dialog__header__title">
-                        {paymentPack.name}
-                      </h3>
-                      <Price
-                        formatPriceWithCurrency={getCurrencyDisplayWithPrice}
-                        amount={paymentPack.price}
-                        color={Color.PRIMARY}
-                        classes={{
-                          'bs-pack-details-dialog__price':
-                            'bs-pack-details-dialog__price',
-                        }}
-                      />
-                    </div>
-                  </Item>
-                  <Item rowStart={2}>
-                    <PaymentPackDetailList
-                      paymentPack={paymentPack}
-                      isCompatibleWithAll={isCompatibleWithAll}
-                      onShowCompatibilityDialog={onShowCompatibilityDialog}
-                      onShowRestrictionDialog={onShowRestrictionDialog}
-                    />
-                  </Item>
-                </Grid>
-              </Content>
-              {!!description && (
+            <div ref={modalRef}>
+              <div className="bs-pack-details-dialog__container">
                 <Content
+                  padding
                   classes={{
-                    'bs-pack-details-dialog__body':
-                      'bs-pack-details-dialog__body',
+                    'bs-pack-details-dialog__header-container':
+                      'bs-pack-details-dialog__header-container',
                   }}
                 >
-                  <Grid
-                    classes={{
-                      'bs-pack-details-dialog__grid':
-                        'bs-pack-details-dialog__grid',
-                    }}
-                  >
-                    <Item
-                      rowStart={3}
-                      classes={{
-                        'bs-pack-details-dialog__item':
-                          'bs-pack-details-dialog__item',
-                        'bs-pack-details-dialog__description':
-                          'bs-pack-details-dialog__description',
-                      }}
-                    >
-                      {description}
+                  <Grid>
+                    <Item rowStart={1} rowEnd={1}>
+                      <div className="bs-pack-details-dialog__header">
+                        <h3 className="bs-pack-details-dialog__header__title">
+                          {paymentPack.name}
+                        </h3>
+                        <Price
+                          formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                          amount={paymentPack.price}
+                          color={Color.PRIMARY}
+                          classes={{
+                            'bs-pack-details-dialog__price':
+                              'bs-pack-details-dialog__price',
+                          }}
+                        />
+                      </div>
+                    </Item>
+                    <Item rowStart={2}>
+                      <PaymentPackDetailList
+                        paymentPack={paymentPack}
+                        isCompatibleWithAll={isCompatibleWithAll}
+                        onShowCompatibilityDialog={onShowCompatibilityDialog}
+                        onShowRestrictionDialog={onShowRestrictionDialog}
+                      />
                     </Item>
                   </Grid>
                 </Content>
-              )}
-            </div>
-            <Content
-              classes={{
-                'bs-pack-details-dialog__footer':
-                  'bs-pack-details-dialog__footer',
-              }}
-            >
-              <Grid
+                {!!description && (
+                  <Content
+                    classes={{
+                      'bs-pack-details-dialog__body':
+                        'bs-pack-details-dialog__body',
+                    }}
+                  >
+                    <Grid
+                      classes={{
+                        'bs-pack-details-dialog__grid':
+                          'bs-pack-details-dialog__grid',
+                      }}
+                    >
+                      <Item
+                        rowStart={3}
+                        classes={{
+                          'bs-pack-details-dialog__item':
+                            'bs-pack-details-dialog__item',
+                          'bs-pack-details-dialog__description':
+                            'bs-pack-details-dialog__description',
+                        }}
+                      >
+                        {description}
+                      </Item>
+                    </Grid>
+                  </Content>
+                )}
+              </div>
+              <Content
                 classes={{
-                  'bs-pack-details-dialog__grid --footer':
-                    'bs-pack-details-dialog__grid --footer',
+                  'bs-pack-details-dialog__footer':
+                    'bs-pack-details-dialog__footer',
                 }}
               >
-                <Item
-                  rowStart={4}
-                  direction={Direction.ROW}
-                  alignment={Alignment.CENTER}
-                  justification={Justification.FLEX_END}
+                <Grid
                   classes={{
-                    'bs-pack-details-dialog__item':
-                      'bs-pack-details-dialog__item',
+                    'bs-pack-details-dialog__grid --footer':
+                      'bs-pack-details-dialog__grid --footer',
                   }}
                 >
-                  <div className="bs-pack-details-dialog__buttons">
-                    <button
-                      className="bs-pack-details-dialog__buttons__cancel"
-                      type="button"
-                      onClick={onDialogClose}
-                    >
-                      {t('common:cancel')}
-                    </button>
-                    <button
-                      className="bs-pack-details-dialog__buttons__add-to-cart"
-                      type="button"
-                      onClick={onAddToCart}
-                    >
-                      {t('paymentCombo.addToCart')}
-                    </button>
-                  </div>
-                </Item>
-              </Grid>
-            </Content>
+                  <Item
+                    rowStart={4}
+                    direction={Direction.ROW}
+                    alignment={Alignment.CENTER}
+                    justification={Justification.FLEX_END}
+                    classes={{
+                      'bs-pack-details-dialog__item':
+                        'bs-pack-details-dialog__item',
+                    }}
+                  >
+                    <div className="bs-pack-details-dialog__buttons">
+                      <button
+                        className="bs-pack-details-dialog__buttons__cancel"
+                        type="button"
+                        onClick={onDialogClose}
+                      >
+                        {t('common:cancel')}
+                      </button>
+                      <button
+                        className="bs-pack-details-dialog__buttons__add-to-cart"
+                        type="button"
+                        onClick={onAddToCart}
+                      >
+                        {t('paymentCombo.addToCart')}
+                      </button>
+                    </div>
+                  </Item>
+                </Grid>
+              </Content>
+            </div>
           </Card>
         )}
       </div>

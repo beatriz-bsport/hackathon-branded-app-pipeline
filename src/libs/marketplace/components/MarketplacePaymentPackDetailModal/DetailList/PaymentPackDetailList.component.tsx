@@ -117,7 +117,7 @@ const PaymentPackDetailList: React.FC<Props> = ({
           {t(`genericCardDetails.includedElements.onsitePaymentAvailable`)}
         </li>
       )}
-      {paymentPack.is_universal_pass && (
+      {!!paymentPack.linked_private_pass && (
         <li className="bs-pack-details-dialog__list__item">
           <span className="bs-pack-details-dialog__list__item__icon">
             <StyleIcon />

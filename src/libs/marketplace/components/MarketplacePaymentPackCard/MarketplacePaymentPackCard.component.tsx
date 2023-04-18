@@ -54,7 +54,7 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
         >
           <Item alignment={Alignment.FLEX_START} columnEnd={1}>
             <div className="bs-paymentpack-card__title">
-              {paymentPack.is_universal_pass && (
+              {!!paymentPack.linked_private_pass && (
                 <ToolTip title={t('genericCard.title.universalPassMessage')}>
                   <Style className="bs-paymentpack-card__title__icon" />
                 </ToolTip>

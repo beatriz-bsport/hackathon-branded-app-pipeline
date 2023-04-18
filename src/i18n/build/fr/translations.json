@@ -3099,29 +3099,29 @@
                     "error": {
                         "alreadyAccepted": {
                             "title": "Vous avez déjà validée cette demande",
-                            "helper": "Vous avez déjà sélectionné un email de connexion chez {{ company }}, votre décision a été prise en compte.",
+                            "helper": "Vous avez déjà sélectionné un email de connexion chez {{- company }}, votre décision a été prise en compte.",
                             "contactCompany": "Si vous n'êtes pas à l'origine de ce changement ou que vous souhaitez changer votre décision, merci de contacter directement votre studio.",
                             "currentEmail": "Votre email de connexion actuel est : {{ email }}."
                         },
                         "alreadyDenied": {
                             "title": "Vous avez déjà refusée cette demande",
-                            "helper": "Vous avez déjà sélectionné un email de connexion chez {{ company }}, votre décision a été prise en compte.",
+                            "helper": "Vous avez déjà sélectionné un email de connexion chez {{- company }}, votre décision a été prise en compte.",
                             "contactCompany": "Si vous n'êtes pas à l'origine de ce changement ou que vous souhaitez changer votre décision, merci de contacter directement votre studio.",
                             "currentEmail": "Votre email de connexion actuel est : {{ email }}."
                         },
                         "renewed": {
                             "title": "Changement de votre email de connexion",
-                            "helper": "Il semblerait que le studio {{ company }} vous ait envoyé une demande de changement d'adresse de connexion plus récente. Cette ancienne demande est caduc. Pour trouver la nouvelle demande merci de vérifier vos emails et vos spams.",
+                            "helper": "Il semblerait que le studio {{- company }} vous ait envoyé une demande de changement d'adresse de connexion plus récente. Cette ancienne demande est caduc. Pour trouver la nouvelle demande merci de vérifier vos emails et vos spams.",
                             "contactCompany": "Si vous ne trouvez pas cette nouvelle demande, veuillez contacter votre studio."
                         },
                         "delayExceeded": {
                             "title": "Change de votre email de connexion",
-                            "helper": "Le studio {{ company }} vous avait envoyé une demande de confirmation de changement d'email de connexion. La durée de validité de 7 jours de cette demande est expirée.",
+                            "helper": "Le studio {{- company }} vous avait envoyé une demande de confirmation de changement d'email de connexion. La durée de validité de 7 jours de cette demande est expirée.",
                             "contactCompany": "Si vous souhaitez demander de nouveau un changement d'adresse de connexion merci de contacter votre studio."
                         },
                         "emailTaken": {
                             "title": "Email de connexion déjà pris",
-                            "helper": "Le studio {{ company }} avait fait une demande pour changer votre email de connexion à votre espace personnel:",
+                            "helper": "Le studio {{- company }} avait fait une demande pour changer votre email de connexion à votre espace personnel:",
                             "contactCompany": "Cependant un compte utilisant l'adresse {{ email }} a été crée entre-temps. Cette demande est désormais caduc. Si l'adresse email {{ email }} vous appartient mais que vous n'êtes pas à l'origine de la création du compte associé, merci de contacter directement votre studio."
                         }
                     }
@@ -3129,20 +3129,20 @@
                 "linkAccount": {
                     "title": "Fusion de votre compte",
                     "veto": {
-                        "requestExplanation": "Nous avons détecté que l’adresse {{ email }} est déjà utilisée dans un autre studio. Le studio {{ company }} a fait la demande de fusionner votre compte avec cet autre compte. Si vous acceptez de fusionner les deux comptes, vos nouveaux identifiants de connexion (email et mot de passe) seront ceux du compte {{ email }}. Vous pourrez gérer l’ensemble des studios dans lesquels vous êtes inscrit depuis une seule adresse.",
+                        "requestExplanation": "Nous avons détecté que l’adresse {{ email }} est déjà utilisée dans un autre studio. Le studio {{- company }} a fait la demande de fusionner votre compte avec cet autre compte. Si vous acceptez de fusionner les deux comptes, vos nouveaux identifiants de connexion (email et mot de passe) seront ceux du compte {{ email }}. Vous pourrez gérer l’ensemble des studios dans lesquels vous êtes inscrit depuis une seule adresse.",
                         "acceptRequestHelper": "Pour accepter la fusion des comptes merci de vous rendre sur votre adresse {{ email }} et de cliquer sur le lien dans l’email que nous vous avons envoyé.",
                         "deniedRequestHelper": "Si vous ne souhaitez pas fusionner ces comptes ou que vous n’êtes pas à l’origine de cette demande merci de cliquer sur “refuser la fusion”. Cela empêchera la fusion des comptes et vous conserverez vos données de connexion."
                     },
                     "dstUser": {
-                        "requestingStudio": "Le studio {{ company }} a fait la demande de fusionner votre compte {{ new_email }} avec le compte {{ old_email }}.",
-                        "notMemberYet": "Nous avons détecté que vous ne faisiez pas encore parti du studio {{ company }}. Si vous acceptez de fusionner les deux comptes, vous serez inscrit au studio {{ company }} et récuperez les informations et réservations du compte {{ old_email }}. Vous conserverez vos identifiants de connexion actuels sur l’adresse {{ new_email }}. Vous pourrez gérer l’ensemble des studios dans lesquels vous êtes inscrit depuis cette adresse.",
+                        "requestingStudio": "Le studio {{- company }} a fait la demande de fusionner votre compte {{ new_email }} avec le compte {{ old_email }}.",
+                        "notMemberYet": "Nous avons détecté que vous ne faisiez pas encore parti du studio {{- company }}. Si vous acceptez de fusionner les deux comptes, vous serez inscrit au studio {{- company }} et récuperez les informations et réservations du compte {{ old_email }}. Vous conserverez vos identifiants de connexion actuels sur l’adresse {{ new_email }}. Vous pourrez gérer l’ensemble des studios dans lesquels vous êtes inscrit depuis cette adresse.",
                         "acceptRequestHelper": "Pour accepter la fusion des comptes merci de cliquer sur “accepter la fusion”.",
-                        "deniedRequestHelper": "Si vous ne souhaitez pas fusionner ces comptes ou que vous n’êtes pas à l’origine de cette demande merci de cliquer sur “refuser la fusion”. Cela empêchera la fusion des comptes et vous ne serez pas inscrit chez {{ company }}."
+                        "deniedRequestHelper": "Si vous ne souhaitez pas fusionner ces comptes ou que vous n’êtes pas à l’origine de cette demande merci de cliquer sur “refuser la fusion”. Cela empêchera la fusion des comptes et vous ne serez pas inscrit chez {{- company }}."
                     },
                     "submit": {
                         "accepted": {
                             "title": "Fusion Acceptée",
-                            "content": "Votre compte a bien été fusionné avec le compte {{ old_email }}. Vous êtes désormais membre du studio {{ company }}. Utilisez l'adresse {{ new_email }} pour vous connecter à votre compte."
+                            "content": "Votre compte a bien été fusionné avec le compte {{ old_email }}. Vous êtes désormais membre du studio {{- company }}. Utilisez l'adresse {{ new_email }} pour vous connecter à votre compte."
                         },
                         "denied": {
                             "title": "Fusion refusée",
@@ -3152,7 +3152,7 @@
                     "error": {
                         "denied": {
                             "title": "Fusion refusée",
-                            "helper": "Vous avez déjà fait le choix de refuser la demande de fusion au studio {{ company }}, votre décision a été prise en compte.",
+                            "helper": "Vous avez déjà fait le choix de refuser la demande de fusion au studio {{- company }}, votre décision a été prise en compte.",
                             "contactCompany": "Si vous souhaitez demander de nouveau une fusion de votre compte ou si vous n'avez pas refusé la demande de fusion, merci de contacter directement votre studio."
                         },
                         "accepted": {
@@ -3169,10 +3169,10 @@
                     "confirmFusion": "Accepter la fusion",
                     "continue": "Continuer"
                 },
-                "requestingStudio": "Le studio {{ company }} souhaite changer votre email de connexion à votre espace personnel :",
+                "requestingStudio": "Le studio {{- company }} souhaite changer votre email de connexion à votre espace personnel :",
                 "generalError": {
                     "title": "Changement de mail de connexion invalide",
-                    "helper": "Le studio {{ company }} avait fait une demande pour changer votre email de connexion à votre espace personnel:",
+                    "helper": "Le studio {{- company }} avait fait une demande pour changer votre email de connexion à votre espace personnel:",
                     "contactCompany": "Cependant nous avons détecté une erreur dans la demande actuelle, par mesure de sécurité cette demande est désormais désactivée. Pour regénérer cette demande, ou si vous n'êtes pas à l'origine de cette dernière, veuillez contacter directement votre studio."
                 },
                 "unAuthorizedAccess": {
@@ -3377,7 +3377,7 @@
             "subscription": "Prélèvements",
             "contract": "Contrats",
             "coupon": "Promotions",
-            "franchiseConnectedAs": "Connecté en tant que: {{name}}",
+            "franchiseConnectedAs": "Connecté en tant que: {{- name}}",
             "backToFranchiseWorskpace": "Revenir au compte maitre",
             "redirecting": "Vous allez être redirigé vers votre page",
             "clockIn": "Pointeuse horaire"

@@ -168,6 +168,16 @@ exports.default = {
         penaltyDay: '{{count}} jour',
         penaltyDay_plural: '{{count}} jours',
       },
+      penaltyNoShow: {
+        block:
+          '{{days_blocked}} de blocage après {{threshold}} sur une période de {{time_window_days}}.',
+        account:
+          'Un acompte de {{amount}} sera appliqué pour {{threshold}} sur une période de {{time_window_days}}.',
+        penaltyDay: '{{count}} jour',
+        penaltyDay_plural: '{{count}} jours',
+        threshold: '{{count}} absence',
+        threshold_plural: '{{count}} absences',
+      },
       see: 'Voir',
     },
   },

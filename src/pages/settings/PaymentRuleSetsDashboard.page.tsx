@@ -42,9 +42,10 @@ import type {
   CoachPaymentRuleGroupAPI,
 } from '../../libs/coach-payment-rules/types';
 import {
-  getAll as getPaymentPacks,
-  getEnabled as getPaymentPackAvailable,
+  getPaymentPack,
+  getEnabled as getEnabledPaymentPacks,
 } from '../../libs/payment-packs/selectors';
+import { fetchPaymentPackBulk } from '../../libs/payment-packs/actions';
 
 import FabWithItems from '../../components/button/FabWithItems';
 import withTitle from '../../hocs/with-title.hoc';
@@ -112,6 +113,11 @@ export class PaymentRulesDashboard extends Component<Props> {
     this.props.fetchAllPrivateSlots();
   }
 
+  handleOpenRuleDialogForm = (excludedPaymentPacks: Array<number>) => {
+    this.props.fetchPaymentPackBulk(excludedPaymentPacks);
+    this.props.handleOpen();
+  };
+
   render() {
     const { classes, t } = this.props;
     return (
@@ -147,7 +153,6 @@ export class PaymentRulesDashboard extends Component<Props> {
           <CoachPaymentRuleFormDrawer
             open={this.props.ruleDialogFormOpen}
             handleClose={this.props.handleClose}
-            handleOpen={this.props.handleOpen}
             initial={
               this.props.initial && this.props.initial.bonus_coach_payment
                 ? {
@@ -160,7 +165,8 @@ export class PaymentRulesDashboard extends Component<Props> {
             }
             onSubmit={this.props.upsertCoachPaymentRule}
             error={this.props.error}
-            paymentPackList={this.props.paymentPackList}
+            getPaymentPack={this.props.getPaymentPack}
+            enabledPaymentPacks={this.props.enabledPaymentPacks}
             ruleTypeCreation={this.props.ruleTypeCreation}
           />
         ) : null}
@@ -212,7 +218,7 @@ export class PaymentRulesDashboard extends Component<Props> {
             onDeletePaymentRuleGroup={this.props.deleteCoachPaymentRuleGroup}
             onEditPaymentRule={(paymentRule: CoachPaymentRule) => {
               this.props.setInitial(paymentRule);
-              this.props.handleOpen();
+              this.handleOpenRuleDialogForm(paymentRule.excluded_payment_packs);
             }}
             onEditPaymentRuleGroup={(
               paymentRuleGroup: CoachPaymentRuleGroup,
@@ -249,8 +255,9 @@ const mapStateToProps = (state: RootState) => ({
   groupDialogFormOpen: state.coachPaymentRules.groupDialog,
   error: state.coachPaymentRules.upsert.error,
   rules: CoachPaymentRulesSelector(state),
-  paymentPacks: getPaymentPacks(state),
-  paymentPackList: getPaymentPackAvailable(state),
+  getPaymentPack: (paymentPackId: number) =>
+    getPaymentPack(state, paymentPackId),
+  enabledPaymentPacks: getEnabledPaymentPacks(state),
   simulationResult: state.coachPaymentRules.simulation.result,
   rulesByKind: CoachPaymentRuleByKindSelector(state),
   coachPaymentRuleGroups: getCoachPaymentRuleGroups(state),
@@ -274,6 +281,7 @@ const mapDispatchToProps = {
   fetchAllCoachPaymentRuleGroups: fetchAllCoachPaymentRuleGroupsAction,
   fetchAllPrivateSlots: fetchAllPrivateSlotsAction,
   fetchAllPrivateServices,
+  fetchPaymentPackBulk,
 };
 
 const mapWithHandlers = {

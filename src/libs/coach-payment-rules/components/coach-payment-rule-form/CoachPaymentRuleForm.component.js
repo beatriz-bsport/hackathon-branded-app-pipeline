@@ -804,7 +804,7 @@ export function CoachPaymentRuleFields(props: Props) {
               }) => (
                 <div>
                   <PaymentPackSelector
-                    paymentPacks={props.paymentPackList}
+                    paymentPacks={props.enabledPaymentPacks}
                     nullCurrentValue
                     helperText={props.t(
                       'coach_payment_rules.paymentPackPlaceHolder',
@@ -817,7 +817,7 @@ export function CoachPaymentRuleFields(props: Props) {
                     <PaymentPackListItem
                       key={`${id}-${i}`}
                       dense
-                      pack={props.paymentPackList.find((pp) => pp.id === id)}
+                      pack={props.getPaymentPack(id)}
                       onDelete={() => remove(i)}
                     />
                   ))}

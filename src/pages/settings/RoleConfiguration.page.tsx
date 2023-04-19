@@ -155,6 +155,7 @@ const styles = (theme: Theme) => ({
   },
   container: {
     padding: theme.spacing(2),
+    paddingBottom: '20vh',
   },
   usersRolePaper: {
     padding: theme.spacing(2),

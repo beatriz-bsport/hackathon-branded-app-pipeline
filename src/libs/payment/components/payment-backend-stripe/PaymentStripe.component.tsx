@@ -181,8 +181,12 @@ export const PaymentStripe = ({
 
   const handleSelectPaymentMethod = useCallback(
     async (paymentMethod: number) => {
-      setProcessing(true);
-      if (paymentMethod !== PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT) {
+      // If we change the payment method we want to reinitialize the 'save_for_later"
+      // option on the Payment Intent.
+      if (
+        paymentGroupId &&
+        paymentMethod !== PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT
+      ) {
         setElementOptions({});
         try {
           await updateIntentToSavePaymentMethodAPI({
@@ -193,6 +197,11 @@ export const PaymentStripe = ({
         } catch (err) {
           console.error(err);
         }
+      } else {
+        // If we change the payment method to BACS Direct Debit we want to be sure
+        // not to try to mount the PaymentStripeBacsDebit component without having updated
+        // the elementOptions.
+        setProcessing(true);
       }
       selectPaymentMethod(paymentMethod);
     },

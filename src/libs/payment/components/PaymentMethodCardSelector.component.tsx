@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import FormControl from '@material-ui/core/FormControl';
 import Paper from '@material-ui/core/Paper';
@@ -15,9 +15,20 @@ type Props = {
   selectPaymentMethod: (paymentMethod: number) => void;
 };
 
-export const PaymentMethodCardSelector = (props: Props) => {
+export const PaymentMethodCardSelector = ({
+  paymentMethodChoices,
+  paymentMethodSelected,
+  selectPaymentMethod,
+}: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
+
+  const handleClick = useCallback(
+    (pm: number) => {
+      if (pm !== paymentMethodSelected) selectPaymentMethod(pm);
+    },
+    [paymentMethodSelected, selectPaymentMethod],
+  );
   return (
     <FormControl className={classes.formControl}>
       <Typography
@@ -28,12 +39,12 @@ export const PaymentMethodCardSelector = (props: Props) => {
         {t('paymentMethod.select.label')}
       </Typography>
       <div className={classes.row}>
-        {props.paymentMethodChoices.map((pm) => (
-          <ButtonBase onClick={() => props.selectPaymentMethod(pm)}>
+        {paymentMethodChoices.map((pm) => (
+          <ButtonBase onClick={() => handleClick(pm)}>
             <Paper
               className={classnames(
                 classes.paper,
-                props.paymentMethodSelected === pm ? classes.selected : null,
+                paymentMethodSelected === pm ? classes.selected : null,
               )}
             >
               <PaymentMethodIcon paymentMethod={pm} />

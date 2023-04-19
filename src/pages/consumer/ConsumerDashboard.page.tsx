@@ -277,7 +277,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
           goToCalendar={this.props.goToCalendar}
         />
         <div style={{ marginBottom: 32 }}>
-          {!!this.props.member && (
+          {!!this.props.member && !this.props.companyThemeLoading && (
             <MemberBillingProblemCard
               invoiceLoading={this.props.invoiceLoading}
               memberId={this.props.membership.id}
@@ -426,7 +426,7 @@ const mapStateToProps = (state: RootState, props) => ({
   )(state),
   privateConsumerPassLoading: state.privateService.privateConsumerPass.loading,
   consumerPackLoading: state.consumerPaymentPack.byMember.loading,
-
+  companyThemeLoading: state.theme.loading,
   companyTheme: themeSelectors.getTheme(state),
   consumerPackList: withIsSharedActive(getConsumerPacksByMemberWithPaymentPack)(
     state,

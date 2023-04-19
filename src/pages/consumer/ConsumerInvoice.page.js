@@ -79,8 +79,7 @@ export class ConsumerInvoice extends React.Component<Props> {
   render() {
     return (
       <div className={this.props.classes.table}>
-        {this.props.companyTheme &&
-          this.props.companyTheme.consumer_regularize_debt &&
+        {this.props.companyTheme.consumer_regularize_debt &&
           parseFloat(this.props.membership.credit_account_balance).toFixed(2) <
             0 && (
             <ConsumerDebtRegularizerDialog

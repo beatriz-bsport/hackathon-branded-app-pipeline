@@ -79,6 +79,7 @@ type Props = {
   processing: boolean,
   companyId: number,
   removeItemFromBasket: (basketId: string, data: any) => void,
+  companyThemeLoading: boolean,
   fetchCompanyTheme: (companyId: number) => void,
   goBack: () => void,
   theme: ?Theme,
@@ -298,7 +299,7 @@ export class BasketPage extends React.Component<Props> {
   };
 
   render() {
-    if (!this.props.basket) {
+    if (!this.props.basket || this.props.companyThemeLoading) {
       return (
         <div className={this.props.classes.loader}>
           <CircularProgress />
@@ -471,6 +472,7 @@ export default compose(
       basket: getCurrentBasket(state),
       loading: state.checkout.basket.current.loading,
       processing: state.checkout.basket.current.updating,
+      companyThemeLoading: state.theme.loading,
       theme: themeSelectors.getTheme(state),
       companyCountry: state.theme.theme?.locale?.split('_')[1],
       shopItemList: getShopItemFeaturedList(state),

@@ -97,7 +97,7 @@ export const RefundConsumerPaymentPack = (props: Props) => {
               label={t('consumerPaymentPack.refund.price.label')}
               value={props.price}
               variant="outlined"
-              InputProps={{ inputProps: { step: 1, min: 0 } }}
+              InputProps={{ inputProps: { step: 0.01, min: 0 } }}
               className={classes.field}
               onChange={props.handlePriceChange}
               onBlur={() =>

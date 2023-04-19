@@ -88,6 +88,7 @@ type State = {
   clientSecretLoading: boolean;
   clientSecret: string | null;
   selfProcessing: boolean;
+  paymentGroupId: number;
 };
 export class BasketPaymentIntent extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -97,6 +98,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       clientSecretLoading: true,
       clientSecret: null,
       selfProcessing: false,
+      paymentGroupId: null,
     };
   }
 
@@ -129,6 +131,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         this.setState({
           clientSecret: r.data.client_secret,
           clientSecretLoading: false,
+          paymentGroupId: r.data.payment_group,
         });
       })
       .catch((err) => {
@@ -340,6 +343,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             instalmentPaymentSelectedId={this.props.basket?.instalment_payment}
             onSelectInstalmentPayment={this.onSelectInstalmentPayment}
             fromApp
+            paymentGroupId={this.state.paymentGroupId}
           />
         )}
 

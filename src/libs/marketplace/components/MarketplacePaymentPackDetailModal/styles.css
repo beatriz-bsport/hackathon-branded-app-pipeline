@@ -14,7 +14,11 @@
 
 .bs-pack-details-dialog__card {
   border: none;
-  border-radius: var(--border-radius-1);
+  border-radius: var(--border-radius-2);
+}
+
+.bs-pack-details-dialog__card-content {
+  width: 100%;
 }
 
 .bs-pack-details-dialog__description {
@@ -27,11 +31,12 @@
   overflow-y: scroll;
   width: 100%;
   max-height: 300px;
+  border-top-left-radius: var(--border-radius-2);
 }
 
 .bs-pack-details-dialog__header-container {
   background: linear-gradient(100deg, #f6f8fa 50%, #ffffff 50%);
-  border-top-left-radius: var(--border-radius-1);
+  border-top-left-radius: var(--border-radius-2);
 }
 
 .bs-pack-details-dialog__header {
@@ -53,8 +58,8 @@
 }
 
 .--footer {
-  border-bottom-left-radius: var(--border-radius-1);
-  border-bottom-right-radius: var(--border-radius-1);
+  border-bottom-left-radius: var(--border-radius-2);
+  border-bottom-right-radius: var(--border-radius-2);
 }
 
 .bs-pack-details-dialog__item {
@@ -67,8 +72,8 @@
 }
 
 .bs-pack-details-dialog__footer {
-  border-bottom-left-radius: var(--border-radius-1);
-  border-bottom-right-radius: var(--border-radius-1);
+  border-bottom-left-radius: var(--border-radius-2);
+  border-bottom-right-radius: var(--border-radius-2);
 }
 
 .bs-pack-details-dialog__buttons button {
@@ -108,7 +113,7 @@
 .bs-pack-details-dialog__container::-webkit-scrollbar {
   width: var(--spacing-1);
   background-color: #fff;
-  border-top-right-radius: var(--border-radius-1);
+  border-top-right-radius: var(--border-radius-2);
 }
 
 .bs-pack-details-dialog__container::-webkit-scrollbar-track {

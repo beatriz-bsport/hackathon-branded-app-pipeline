@@ -57,7 +57,10 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
               'bs-pack-details-dialog__card': 'bs-pack-details-dialog__card',
             }}
           >
-            <div ref={modalRef}>
+            <div
+              className="bs-pack-details-dialog__card-content"
+              ref={modalRef}
+            >
               <div className="bs-pack-details-dialog__container">
                 <Content
                   padding

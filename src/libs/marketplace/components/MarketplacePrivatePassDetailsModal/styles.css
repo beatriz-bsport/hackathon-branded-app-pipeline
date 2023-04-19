@@ -16,15 +16,21 @@
   overflow-y: scroll;
   width: 100%;
   max-height: 300px;
+  border-top-left-radius: var(--border-radius-2);
+}
+
+.bs-pass-details-dialog__card-content {
+  width: 100%;
 }
 
 .bs-pass-details-dialog__card {
   border: none;
+  border-radius: var(--border-radius-2);
 }
 
 .bs-pass-details-dialog__header-container {
   background: linear-gradient(100deg, #f6f8fa 50%, #ffffff 50%);
-  border-top-left-radius: var(--border-radius-1);
+  border-top-left-radius: var(--border-radius-2);
 }
 
 .bs-pass-details-dialog__header {
@@ -46,8 +52,8 @@
 }
 
 .bs-pass-details-dialog__footer-grid {
-  border-bottom-left-radius: var(--border-radius-1);
-  border-bottom-right-radius: var(--border-radius-1);
+  border-bottom-left-radius: var(--border-radius-2);
+  border-bottom-right-radius: var(--border-radius-2);
 }
 
 .bs-pass-details-dialog__item {
@@ -57,8 +63,8 @@
   border-top: 1px solid var(--color-grey-light);
   display: flex;
   padding: var(--spacing-2);
-  border-bottom-left-radius: var(--border-radius-1);
-  border-bottom-right-radius: var(--border-radius-1);
+  border-bottom-left-radius: var(--border-radius-2);
+  border-bottom-right-radius: var(--border-radius-2);
 }
 
 .bs-pass-details-dialog__description {
@@ -68,8 +74,8 @@
 }
 
 .bs-pass-details-dialog__footer {
-  border-bottom-left-radius: var(--border-radius-1);
-  border-bottom-right-radius: var(--border-radius-1);
+  border-bottom-left-radius: var(--border-radius-2);
+  border-bottom-right-radius: var(--border-radius-2);
 }
 
 .bs-pass-details-dialog__buttons button {
@@ -113,7 +119,7 @@
 .bs-pass-details-dialog__container::-webkit-scrollbar {
   width: var(--spacing-1);
   background-color: #fff;
-  border-top-right-radius: var(--border-radius-1);
+  border-top-right-radius: var(--border-radius-2);
 }
 
 .bs-pass-details-dialog__container::-webkit-scrollbar-track {

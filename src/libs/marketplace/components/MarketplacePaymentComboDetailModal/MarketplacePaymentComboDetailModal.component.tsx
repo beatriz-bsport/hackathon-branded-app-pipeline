@@ -52,7 +52,10 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
               'bs-combo-details-dialog__card': 'bs-combo-details-dialog__card',
             }}
           >
-            <div ref={modalRef}>
+            <div
+              className="bs-combo-details-dialog__card-content"
+              ref={modalRef}
+            >
               <div className="bs-combo-details-dialog__container">
                 <Content
                   padding

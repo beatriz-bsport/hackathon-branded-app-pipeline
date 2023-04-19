@@ -50,7 +50,7 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
             'bs-pass-details-dialog__card': 'bs-pass-details-dialog__card',
           }}
         >
-          <div ref={modalRef}>
+          <div className="bs-pass-details-dialog__card-content" ref={modalRef}>
             <div className="bs-pass-details-dialog__container">
               <Content
                 padding

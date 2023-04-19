@@ -136,7 +136,7 @@ const styles = (theme: Theme) => ({
 export default compose(
   withTranslation(['subscription']),
   withStyles(styles),
-  withTitle(({ t }) => t('titles:subscription.subscriptions')),
+  withTitle(({ t }) => t('navigation:backofficeMenu.subscription')),
   connect(
     (state: RootState) => ({
       subscriptionList: getSubscriptionList(state),

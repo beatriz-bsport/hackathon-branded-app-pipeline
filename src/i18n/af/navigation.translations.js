@@ -209,8 +209,8 @@ exports.default = {
       vod_plural: 'VOD ({{number}})',
       form: 'Formulaires',
       form_plural: 'Formulaires ({{number}})',
-      basket: 'Basket',
-      basket_plural: 'Basket ({{number}})',
+      basket: 'Panier',
+      basket_plural: 'Panier ({{number}})',
     },
     smartList: {
       member: 'Général',

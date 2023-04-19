@@ -3957,8 +3957,8 @@
         "vod_plural": "VOD ({{number}})",
         "form": "Formulaires",
         "form_plural": "Formulaires ({{number}})",
-        "basket": "Basket",
-        "basket_plural": "Basket ({{number}})"
+        "basket": "Panier",
+        "basket_plural": "Panier ({{number}})"
       },
       "smartList": { "member": "Général", "campaign": "Campagnes", "statistic": "Statistique" },
       "widget": { "create": "Général", "customize": "Personnalisation" },

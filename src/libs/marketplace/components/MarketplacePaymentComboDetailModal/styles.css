@@ -93,7 +93,7 @@
   padding-top: var(--spacing-1);
 }
 
-.bs-combo-details-dialog__content-list li { 
+.bs-combo-details-dialog__content-list li {
   list-style-type: disc;
 }
 
@@ -179,7 +179,6 @@
 
   .bs-combo-details-dialog__header__title-container {
     flex-direction: column;
-    height: 80px;
   }
 
   .bs-combo-details-dialog__price {

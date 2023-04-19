@@ -631,7 +631,7 @@ export default compose(
       }),
   })),
   withTitle(({ t }: { t: TFunction }) =>
-    t('titles:subscription.subscriptions'),
+    t('navigation:backofficeMenu.contract'),
   ),
   connect(mapStateToProps, mapDispatchToProps),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),

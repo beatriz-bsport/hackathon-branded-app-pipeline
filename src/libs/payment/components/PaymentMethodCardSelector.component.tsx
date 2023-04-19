@@ -40,7 +40,7 @@ export const PaymentMethodCardSelector = ({
       </Typography>
       <div className={classes.row}>
         {paymentMethodChoices.map((pm) => (
-          <ButtonBase onClick={() => handleClick(pm)}>
+          <ButtonBase key={`${pm}`} onClick={() => handleClick(pm)}>
             <Paper
               className={classnames(
                 classes.paper,

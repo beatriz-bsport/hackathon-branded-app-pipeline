@@ -7,9 +7,11 @@ import {
   START_ON_FIRST_ATTENDANCE,
 } from '@bsport/common/lib/master-data/payment-pack';
 
-import type { PrivatePass } from '#libs/private-service/types';
+import { MarketplacePassPagePrivatePass } from '#libs/marketplace/types';
 
-export const useValidityInfoForPrivatePassCard = (privatePass: PrivatePass) => {
+export const useValidityInfoForPrivatePassCard = (
+  privatePass: MarketplacePassPagePrivatePass,
+) => {
   const { t } = useTranslation('marketplace');
   const validityInfo = useMemo(() => {
     if (

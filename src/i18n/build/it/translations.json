@@ -3523,7 +3523,7 @@
                 "form": "Form",
                 "form_plural": "Form ({{number}})",
                 "basket": "Carrello",
-                "basket_plural": "Carrello ({{number}})",
+                "basket_plural": "Carrelli ({{number}})",
                 "programs": "Programma",
                 "programs_plural": "Programmi ({{number}})",
                 "info": "Generale",
@@ -7284,6 +7284,7 @@
                 "Cancella",
                 "Annullata",
                 "Annulla",
+                "Cancella",
                 "Cancella"
             ]
         },

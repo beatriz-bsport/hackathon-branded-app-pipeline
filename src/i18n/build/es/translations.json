@@ -1110,6 +1110,7 @@
         }
       }
     },
+<<<<<<< HEAD
     "openSchedule": "Ver el horario",
     "strategy": {
       "strategy": "Estrategia",
@@ -1125,6 +1126,625 @@
       "location": "Lugar",
       "gender": "Sexo",
       "sport": "Deporte"
+=======
+    "reporting": {
+        "columns": {
+            "establishment": "Establecimiento",
+            "activity": "Actividad",
+            "pass": "Bono",
+            "remaining_credits": "Créditos restantes",
+            "duration": "Duración (minutos)",
+            "date_start": "Fecha",
+            "duration_minute": "Duración (minutos)",
+            "coach": "Profesores",
+            "effectif": "Numero de plazas",
+            "nb_attendance": "Presentes",
+            "nb_non_attendance": "Ausentes",
+            "name": "Nombre",
+            "identifier": "Identificador",
+            "first_name": "Nombre",
+            "last_name": "Apellido",
+            "email": "Correo electrónico",
+            "phonenumber": "Teléfono",
+            "date_joined": "Fecha de registro",
+            "gender": "Sexo",
+            "payment_pack": "Bono",
+            "activity_name": "Actividad",
+            "activity_date": "Fecha de la actividad",
+            "activity_duration": "Duración",
+            "member_identifier": "Identificador",
+            "payment_date": "Fecha de compra",
+            "payment_method": "Modo de pago",
+            "payment_identifier": "Identificador de compra",
+            "product": "Productos",
+            "product_names": "Productos",
+            "product_type": "Tipo de productos",
+            "start_date": "Fecha de inicio",
+            "price": "Precio",
+            "payment_price": "Precio",
+            "membership_duration": "Duración de validez",
+            "membership_name": "Abono",
+            "amortized_price": "Compras diferidas",
+            "end_date": "Fin de validez",
+            "credits": "Saldo de la cuenta cliente",
+            "available_credits": "Creditos disponibles PCA",
+            "payment_method_readable_identifier": "Modo de pago",
+            "tax": "IVA",
+            "voucher": "Descuento",
+            "product_price": "Precio del producto",
+            "total_price": "Total con impuestos incluidos",
+            "total_price_notax": "Total sin IVA",
+            "payment_note": "Notas de compras",
+            "remaining_days": "Dias remanentes",
+            "description": "Descripción",
+            "marketplace_enabled": "Disponible para la venta en línea",
+            "supplier_price": "Precio del revendedor",
+            "subshop_name": "Categoría",
+            "ca": "Volumen de negocios generado",
+            "sales": "Ventas",
+            "stock_variation": "Variación de las existencias",
+            "stock": "Existencias actuales",
+            "shop": "Tienda",
+            "contract": "Contrato",
+            "interval": "Tipo de recurrencia",
+            "nb_interval": "Número de recurrencias",
+            "adjusted_price": "Precio ajustado",
+            "payment_status": "Estado de pago",
+            "billing_date_start": "Fecha de la primera facturación",
+            "time": "Hora",
+            "products": "Contenido de la cesta",
+            "total_basket": "Cesta total",
+            "couponName": "Promoción",
+            "date_offer": "Fecha y hora de la sesión",
+            "date": "Fecha",
+            "member": "Miembro",
+            "amount_off": "Reducción fija",
+            "percent_off": "Reducción (en %)",
+            "expiration_date": "Fecha de expiración",
+            "date_created": "Fecha de creación",
+            "total_uses": "Número de usos",
+            "total_discount": "Reducción total",
+            "date_sumup": "Fecha",
+            "payment_method_total": "Total",
+            "payment_method_dispute": "Litigio",
+            "payment_method_other": "Otro",
+            "payment_method_subscription_cb": "Suscripción",
+            "payment_method_event_brite": "EventBrite",
+            "payment_method_bank_transfer": "Transferancia",
+            "payment_method_amex": "AMEX",
+            "payment_method_holiday_check": "Cheque de vacaciones",
+            "payment_method_manual_credit_card": "Tarjeta de pago (manual con máquina)",
+            "payment_method_check": "Cheque",
+            "payment_method_cash": "Efectivo",
+            "payment_method_stripe": "Tarjeta de pago",
+            "bsport_fee": "Tarifas de transacción",
+            "address": "Dirección",
+            "membership_ID": "ID de miembro",
+            "start_date_time": "Hora de inicio",
+            "start_date_date": "Fecha de inicio",
+            "payment_date_time": "Hora de pago",
+            "payment_date_date": "Fecha de pago",
+            "was_refunded": "Reembolsado",
+            "booking_status_code": "Estado",
+            "fee": "Tarifas",
+            "total_payments": "Total pagos",
+            "checkout_items": "Contenido de la cesta",
+            "sum_margin_value": "Contribución marginal",
+            "disabled": "Cancelado",
+            "attendance": "Presente",
+            "margin_value": "Contribución marginal",
+            "date_start_time": "Hora",
+            "date_start_date": "Fecha",
+            "concatenated_notes": "Notas",
+            "next_booking": "Próxima reserva",
+            "last_booking": "Reserva previa",
+            "date_start_dow": "Día",
+            "slot_date_end": "Fin de sesión",
+            "private_slot_name": "Sesión",
+            "nb_bookings": "Número de reservas",
+            "private_service_name": "Cita",
+            "author": "Autor",
+            "nb_bookings_same_pass": "Nb reserva a través del mismo pase",
+            "credit_consumed": "Crédito consumido",
+            "effectif_rate": "Tasa de ocupación",
+            "cancel_rate": "Tasa de cancelación",
+            "rate_non_attendance": "Tasa de ausencia",
+            "rate_attendance": "Tasa de asistencia",
+            "availability": "Activo",
+            "min_credit": "Crédito mínimo",
+            "max_credit": "Crédito máximo",
+            "canceled_bookings": "Número de reservas canceladas",
+            "c": "Profesor",
+            "private_slot": "Tipo de sesión",
+            "private_service": "Nombre cita",
+            "date_first_privatebooking": "Fecha primera cita",
+            "activitiesest": "Actividades por establecimiento",
+            "coaches": "Profesores",
+            "today_end_amount": "Cantidad al final del día",
+            "today_start_amount": "Cantidad al comienzo del día",
+            "date_last_update": "Fecha",
+            "amount": "Ganancias del día",
+            "nb_offers_cancelled": "Número de sesiones canceladas",
+            "nb_offers": "Número de sesiones",
+            "private_pass": "Tarjeta de cita",
+            "note": "Nota",
+            "pk": "ID",
+            "full_address": "Dirección completa",
+            "birthday": "Fecha de nacimiento",
+            "video_status": "Estado",
+            "level_activity": "Nivel",
+            "sct_name": "Categoría",
+            "duration_second": "Duración (segundos)",
+            "payment_method_sepa": "SEPA",
+            "credit_price": "Precio en crédito",
+            "purchases": "Compras",
+            "views_unique": "Vistas únicas",
+            "views_total": "Vistas",
+            "amount_unpaid_remaining_cts": "Resto debido",
+            "amount_paid_cts": "Cantidad pagada",
+            "amount_due_cts": "El importe de la compra",
+            "author_name": "Autor",
+            "stripe_invoice_pdf": "PDF",
+            "payment_method_giropay": "Giropay",
+            "payment_method_ideal": "iDeal",
+            "payment_method_bancontact": "Bancontact",
+            "payment_method_sofort": "Sofort",
+            "payment_method_eps": "EPS",
+            "stock_at_start": "Provisión al inicio del periodo",
+            "stock_at_end": "Provisión al final del periodo",
+            "accept_email": "Aceptar correos electrónicos",
+            "accept_sms": "Aceptar SMS",
+            "payout_identifier": "Transferencia",
+            "credit_amount": "Importe de los créditos",
+            "initial_price": "Precio de compra",
+            "last_view": "Visto por última vez",
+            "video_title": "Título del vídeo",
+            "recurrent_price": "Importe",
+            "sum__non_attendance": "Número de alumnos ausentes",
+            "sum_attendance": "Número de alumnos presentes",
+            "invoice_date": "Fecha de facturación",
+            "nb_canceled": "Número de cancelaciones",
+            "last_payment_date": "Fecha del último pago",
+            "invoice_date_created": "Fecha de emisión de la factura",
+            "invoice_datetime": "Fecha y hora de emisión de la factura",
+            "invoice_time": "Tiempo de emisión de la factura",
+            "payment_amount_by_payment_method": "Recaudación por método de pago",
+            "billing_establishment": "Dirección",
+            "billing_group": "Grupo de facturación",
+            "company_name": "Franquicia",
+            "reverted": "Cancelado",
+            "sum_available_amount_non_expired": "Créditos ofrecidos todavía disponibles",
+            "sum_available_amount_expired": "Créditos ofrecidos y expirados",
+            "sum_consumed_amount": "Créditos ofrecidos",
+            "nb_expired": "Número de tarjetas caducadas",
+            "nb_non_activated": "Número de tarjetas no activadas",
+            "nb_activated": "Número de tarjetas activadas",
+            "nb_purchase": "Número de compras",
+            "consumed_amount_gifted": "Cantidad consumida",
+            "id": "ID",
+            "dst_gender": "Género del destinatario",
+            "dst_phonenumber": "Teléfono receptor",
+            "dst_email": "Correo electrónico del beneficiaro",
+            "dst_lastname": "Apellido del beneficiario",
+            "dst_firstname": "Nombre del beneficiario",
+            "src_gender": "Género del comprador",
+            "src_phonenumber": "Teléfono del comprador",
+            "src_email": "Correo electrónico del comprador",
+            "src_lastname": "Nombre del comprador",
+            "src_firstname": "Nombre del comprador",
+            "price_bought": "Precio de compra",
+            "date_expiration": "Fecha de caducidad",
+            "date_bought": "Fecha de compra",
+            "is_rent": "Alquiler",
+            "due_date": "Fecha de expiración",
+            "supplier": "Proveedor",
+            "category": "Categoría",
+            "is_recurring": "Recurrente",
+            "amount_expense": "Importe",
+            "universal_nb_bookings": "Número de reservas (clases en grupo)",
+            "universal_nb_private_bookings": "Número de reservas (citas previas)",
+            "amount_due": "Cantidad a pagar",
+            "paid": "Cobrado",
+            "couponamount_off": "Reducción fija",
+            "couponpercent_off": "Reducción (en %)",
+            "baskettotal_price": "Total con impuestos incluidos",
+            "negative_voucher": "Rebaja",
+            "applied_tax": "IVA",
+            "establishment_title": "Local",
+            "remaining_credits_annotated": "Créditos restantes hoy",
+            "billing_planrecurrent_price": "Monto",
+            "payout_date_created": "Fecha de transferencia",
+            "payout_status": "Estado de transferencia",
+            "payout": "Transferencia",
+            "annotated_remaining_credits": "Crédito restante",
+            "private_passcredits": "Crédito restante",
+            "unpaid_amount": "Importe total pendiente",
+            "total_unpaid_amount": "Importe total pendiente",
+            "unSelectAll": "Deseleccionar todo",
+            "selectAll": "Seleccionar todo",
+            "payment_legal_identifier": "Identificador legal de la factura",
+            "member_default_billing_establishment": "Dirección de facturación",
+            "archived": "Archivado",
+            "billing_date_start_annotated": "Fecha de la primera facturación",
+            "shared_pass_ratio": "Porcentaje de uso",
+            "total_mixed_from_src": "Número de sesiones reservadas",
+            "dst_company": "Estudio de uso",
+            "src_company": "Estudio de compra",
+            "dispute_status": "Estado del litigio",
+            "is_unpaid": "Impagado",
+            "total_payments_made": "Número total de recibos",
+            "plan_recurrent_price": "Importe del pago recurrente",
+            "plan_flat_fee": "Cuota de inscripción",
+            "plan_status": "Estado de la suscripción",
+            "plan_date_start": "Primera fecha de facturación",
+            "plan_date_end": "Fecha de fin de facturación",
+            "plan_auto_renewal": "Renovación tácita",
+            "new_member_only": "Oferta para nuevos miembros",
+            "nb_planned_invoices": "Número total de recibos",
+            "last_invoice_status": "Estado del último pago",
+            "contract_name": "Nombre de la suscripción",
+            "billing_plan_payment_method": "Método de pago",
+            "roll_call_needs_validation": "Debe pasar lista",
+            "no_show": "No se presenta",
+            "is_no_show": "Ausente (no se presenta)",
+            "date_roll_call_last_modified": "Fecha de la última modificación de la toma de lista",
+            "payment_method_bacs_debit": "Bacs Direct Debit"
+        },
+        "payment_method": {
+            "cash": "Efectivo",
+            "check": "Cheque",
+            "stripe": "Tarjeta de pago",
+            "manual_credit_card": "Tarjeta de pago (manual con máquina)",
+            "holiday_check": "Cheque de vacaciones",
+            "amex": "Amex",
+            "bank_transfer": "Transferancia",
+            "event_brite": "EventBrite",
+            "none": "Ninguno",
+            "subscription_cb": "Subscripción",
+            "credit_account": "Sueldo cliente",
+            "other": "Otros",
+            "dispute": "Litigio",
+            "sepa": "SEPA",
+            "credit_card": "Tarjeta de pago",
+            "debt": "Crédito interno",
+            "giropay": "Giropay",
+            "eps": "EPS",
+            "ideal": "iDeal",
+            "sofort": "Sofort",
+            "bancontact": "Bancontact",
+            "bacs_debit": "Bacs Direct Debit"
+        },
+        "product_type": {
+            "payment_pack": "Bono",
+            "shop_item": "Tienda",
+            "top_up": "Sueldo cliente",
+            "private_pass": "Tarjeta de cita",
+            "payment_combo": "Pack",
+            "fee": "Tarifas",
+            "refund": "Reembolso de crédito",
+            "giftcard": "Tarjeta regalo",
+            "coupon": "Bono",
+            "booking": "Reserva"
+        },
+        "report": {
+            "delete_message": "Esta seguro suprimir el informe {{name}} ?"
+        },
+        "form": {
+            "title": "Nueve informe",
+            "name": "Nombre",
+            "description": "Descripción",
+            "category": "Categoría",
+            "columns": "Columnas",
+            "save": "Confirmar",
+            "cancel": "Cancelar"
+        },
+        "list": {
+            "empty": "¿Ningún informe? ¡Crea un primer informe!",
+            "button_new": "Creo mi primero informe"
+        },
+        "no": "No",
+        "yes": "Sí",
+        "subheader": {
+            "average": "Promedio",
+            "total": "Total"
+        },
+        "categories": {
+            "dayBookings": "Reservas (curso de grupo) por día",
+            "privateService": "Citas",
+            "privateServiceEst": "Citas por establecimiento",
+            "privateServiceCoach": "Citas por profesor",
+            "activityByCoach": "Actividades y talleres por profesor",
+            "activityByEst": "Actividades y talleres por establecimiento",
+            "workshop": "Talleres",
+            "activities": "Actividades",
+            "first_privatebooking": "Primera cita",
+            "first_attendance": "Primera presencia (colectivo)",
+            "first_booking": "Primera sesión (colectivo)",
+            "subscription": "Facturas de suscripciones",
+            "discount": "Promociones",
+            "private_bookings": "Reservas (cita)",
+            "shop": "Tienda",
+            "private_cpasses": "Tarjeta de cita",
+            "payment_sumup": "Total pagos",
+            "credit": "Saldo de la cuenta cliente",
+            "basket": "Cesta",
+            "memberships": "Bonos",
+            "invoices": "Compras",
+            "products": "Productos",
+            "payments": "Pagos",
+            "bookings": "Reservas (curso de grupo)",
+            "offers": "Sesiones",
+            "members": "Miembros",
+            "cashbook": "Libro de caja",
+            "on_spot_payments": "Pagos en persona",
+            "video": "Vídeo",
+            "unpaid_invoices": "Facturas impagadas",
+            "video_purchase": "Compra de vídeos",
+            "consumer_giftcard": "Tarjetas regalo compradas",
+            "giftcard": "Tarjeta regalo",
+            "payment_installments": "Pagos fraccionados",
+            "unpaid_private_bookings": "Reservas no pagadas (citas)",
+            "expense": "Gasto",
+            "private_cpasses_expired": "Créditos caducados (tarjetas de cita)",
+            "expired_pass": "Créditos caducados (bonos)",
+            "universal_passes": "Bonos Universales",
+            "franchise_shared_pass": "Usos de tarjetas compartidas",
+            "dispute": "Litigio sobre el pago",
+            "billing_plan": "Suscripción"
+        },
+        "globalCategories": {
+            "subheader": {
+                "average": "Promedio",
+                "total": "Total"
+            },
+            "Payments": "Pagos",
+            "Products": "Productos",
+            "Bookings": "Reservas",
+            "Club": "Club"
+        },
+        "export": {
+            "category": "Informe en Excel : {{category}}",
+            "ready": "Su informe \"{{ name }}\" está listo para ser descargado.",
+            "generate": "Generar",
+            "processing": "Su solicitud de informe en Excel está siendo procesada. Se le notificará tan pronto como esté listo.",
+            "continue": "Seguir navegando",
+            "excel_report": "Informe en Excel"
+        },
+        "header": {
+            "average": "Por término medio",
+            "sum": "Suma",
+            "save": "Guardar",
+            "from_to": "Del {{-from}} hasta el {{-to}}",
+            "helper": {
+                "year": "El año pasado",
+                "trimester": "Últimos tres meses",
+                "month": "El mes pasado",
+                "week": "Semana pasada",
+                "today": "Hoy",
+                "next_year": "Próximo año",
+                "next_week": "Próxima semana",
+                "next_month": "Próximo mes",
+                "next_trimester": "Próximos tres meses"
+            },
+            "rapidChoice": "Elección rápida",
+            "end": "Final",
+            "start": "Inicio",
+            "to": "hasta el",
+            "from": "Del",
+            "selectDate": "Seleccionar una fecha",
+            "selectRange": "Seleccionar un rango de fechas"
+        },
+        "search": "Buscar un informe",
+        "datatype": {
+            "private_service": "Cita",
+            "boolean": "Verdadero/Falso",
+            "user": "Miembro",
+            "email": "Email",
+            "percent": "Porcentaje",
+            "number": "Número",
+            "int": "Número",
+            "payment_pack": "Bono",
+            "video": "Vídeo",
+            "giftcard": "Tarjetas regalo",
+            "coach": "Profesores",
+            "establishment": "Establecimiento",
+            "datetime": "Fecha",
+            "dow": "Día de la semana",
+            "time": "Hora",
+            "date": "Fecha",
+            "contract": "Contrato",
+            "coupon": "Bono",
+            "payment_method": "Método de pago",
+            "cts": "Precio en céntimos",
+            "price": "Precio",
+            "payout": "Transferencia",
+            "payout_status": "Estado de transferencia",
+            "booking_status_code": "Estado de la reserva",
+            "activity": "Actividad",
+            "billing_group": "Grupo de facturación",
+            "billing_establishment": "Establecimiento de facturación",
+            "subshop": "Categoría",
+            "private_slot": "Tipo de cita",
+            "private_pass": "Tarjetas de citas",
+            "staff": "Personal",
+            "company": "Estudio",
+            "disputeStatus": "Estado del litigio",
+            "invoice_status": "Estado del último pago",
+            "billing_plan_status": "Estado de la suscripción",
+            "payment_method_with_credit_account": "Método de pago"
+        },
+        "filter": {
+            "form": {
+                "columnError": "Tenga en cuenta que la columna filtrada aquí se ha eliminado del informe. Sin embargo, el filtro de esta columna se sigue aplicando.",
+                "edit": "Modificar",
+                "cancel": "Cancelar",
+                "submit": "Guardar",
+                "error": {
+                    "wrongOrdering": "Los valores no están en orden ascendente",
+                    "needAtLeatOneFilter": "Se requiere un filtro mínimo",
+                    "byIdDuplicate": "Algunos campos de selección múltiple están presentes por duplicado",
+                    "invalidTypeForColumns": "Operación imposible en esta columna"
+                },
+                "isFalse": "Falso",
+                "isTrue": "Verdadero",
+                "placeholderList": "Seleccionar",
+                "subDataType": {
+                    "hour": "Hora",
+                    "day": "Fecha"
+                },
+                "filterComparator": {
+                    "3": {
+                        "4": "En el intervalo",
+                        "1": "No es el",
+                        "0": "Es el"
+                    },
+                    "2": {
+                        "0": "Es",
+                        "1": "No es"
+                    },
+                    "1": {
+                        "5": "Fuera del intervalo",
+                        "4": "En el intervalo",
+                        "3": "Mayor o igual a",
+                        "2": "Menos de o igual a",
+                        "1": "No es igual a",
+                        "0": "Igual a"
+                    },
+                    "0": {
+                        "5": "No está",
+                        "4": "Está"
+                    }
+                },
+                "groupOperandHelperText": {
+                    "0": "Los elementos filtrados deben coincidir con al menos a un filtro.",
+                    "1": "Los elementos filtrados deben coincidir con todos los filtros."
+                },
+                "groupOperand": {
+                    "1": "Y",
+                    "0": "O"
+                },
+                "emptyState": "Ninguna columna de este informe se puede filtrar",
+                "addFilter": "Añadir un filtro",
+                "addFilterOption": "Un filtro",
+                "addGroupOption": "Un grupo de filtros",
+                "add": "Añadir",
+                "operandSelect": "Regla entre filtros",
+                "filter": "Filtros",
+                "information": "Informaciones generales",
+                "name": "Nombre",
+                "title": "Vista filtrada"
+            },
+            "deleteModal": {
+                "content": "¿Estás seguro de que quieres eliminar esta vista filtrada? Esta acción es irreversible.",
+                "title": "Supresión"
+            },
+            "createFilter": "Añadir una vista filtrada",
+            "emptyFilter": "Todos los datos",
+            "title": "Vista filtrada"
+        },
+        "presetValuesByIdentifier": {
+            "gender": {
+                "F": "Mujeres",
+                "M": "Hombres",
+                "X": "Otros"
+            },
+            "activity_kind": {
+                "False": "Actividad",
+                "True": "Taller"
+            },
+            "is_recurrent_booking": {
+                "True": "Recurrente",
+                "False": "No recurrente"
+            },
+            "attendance": {
+                "True": "Presente",
+                "False": "Ausente"
+            },
+            "is_unpaid": {
+                "False": "Pagado",
+                "True": "No pagado"
+            }
+        },
+        "presetValuesByDatatype": {
+            "payment_engine": {
+                "1": "Pago online",
+                "0": "Pago manual"
+            },
+            "payment_method": {
+                "60": "Giropay",
+                "50": "EPS",
+                "40": "iDEAL",
+                "30": "Sofort",
+                "20": "Bancontact",
+                "13": "SEPA",
+                "12": "Litigio",
+                "11": "Otro",
+                "10": "Pago automático",
+                "9": "Cuenta interna",
+                "8": "Event brite",
+                "7": "Transferencia",
+                "6": "AMEX",
+                "5": "Cheque de vacaciones",
+                "4": "Tarjeta (manual)",
+                "3": "Pass",
+                "2": "Cheque",
+                "1": "Efectivo",
+                "0": "Tarjeta"
+            },
+            "booking_status_code": {
+                "3": "Sesión cancelada",
+                "2": "Cancelación miembro",
+                "1": "Cancelación manager",
+                "0": "No cancelado"
+            },
+            "source_device": {
+                "4": "Migración de datos",
+                "3": "Otro",
+                "2": "Backoffice bsport",
+                "1": "Web",
+                "0": "Aplicación"
+            },
+            "payment_method_with_credit_account": {
+                "13": "SEPA",
+                "10": "Pago automático",
+                "9": "Cuenta interna",
+                "0": "Bono"
+            },
+            "billing_plan_status": {
+                "4": "Terminado",
+                "3": "En pausa",
+                "2": "Detenido",
+                "1": "En curso",
+                "0": "Aún no se ha iniciado"
+            }
+        },
+        "helperText": {
+            "franchise_shared_pass": "Este informe permite analizar las reservas realizadas con tarjetas compartidas. Cuando se compra una tarjeta compartida en un estudio, el informe muestra el número de reservas realizadas con esta tarjeta en otro estudio. El número de sesiones reservadas incluye las reservas de actividades, talleres y citas.",
+            "billing_plan": "Las suscripciones se filtran en la primera fecha de facturación."
+        },
+        "franchiseWarning": {
+            "part2": "Ahora puedes exportar el informe y procesarlo posteriormente en Excel. Las fechas indicadas y la vista filtrada aplicada se tendrán en cuenta en la exportación.",
+            "part1": "Debido a la gran cantidad de datos, el informe puede tardar varios minutos en generarse."
+        },
+        "last_invoice_status": {
+            "": [
+                "Cancelar",
+                "Cancelado",
+                "Cancelado",
+                "Cancelada",
+                "Cancelada",
+                "Cancelada",
+                "Cancelada"
+            ]
+        },
+        "payment_method_with_credit_account": {
+            "13": "SEPA",
+            "10": "Pago automático",
+            "9": "Cuenta interna",
+            "0": "Bono",
+            "70": "BACS Direct Debit"
+        }
+>>>>>>> chore(translate): update (Dutch) translation
     },
     "blockBooking": "Bloquear la reserva a los bonos nuevos clientes",
     "languageToolTip": "Disponible en el marketplace web",
@@ -1205,10 +1825,245 @@
       "popover": "Suma de todos los pagos recibidos que figuran en las facturas",
       "title": "Volumen de negocios"
     },
+<<<<<<< HEAD
     "bookings": "Reservas",
     "dateRange": {
       "start": "Inicio",
       "end": "Final"
+=======
+    "marketplace": {
+        "selector": {
+            "coach": {
+                "placeholder": "Profesor"
+            },
+            "level": {
+                "placeholder": "Nivel"
+            },
+            "establishment": {
+                "placeholder": "Establecimiento"
+            }
+        },
+        "workshop": {
+            "noWorkshopAvailable": "No hay mas eventos previstos",
+            "card": {
+                "showMore": "Más informacion",
+                "book": "Reservar",
+                "bookOption": "Lista de espera",
+                "isPast": "Pasada",
+                "notAvailable": "Cancelada",
+                "duration": "Duración: {{duration}}",
+                "loadMore": "Más sesiones",
+                "bookTitle": "Reserva una sesión"
+            },
+            "warningPartialBooking": "Estás reservando un grupo de sesiones. Sin embargo, no estás obligado a asistir a todas las sesiones de este grupo. Puedes seleccionar las sesiones a las que deseas asistir.",
+            "warningFullBooking": "Estás reservando un grupo de sesiones. Estarás inscrito en las {{count}} sesiones de este grupo.",
+            "confirm": "Continuar",
+            "cancel": "Cancelar",
+            "loadMore": "Ver más",
+            "warningBookingRedirectToFirstOffer": "Ha sido redirigido a la pantalla de reserva de grupo de sesiones {{name}}, las sesiones que se van a reservar juntas aparecerán en su pantalla de reserva."
+        },
+        "warning": {
+            "backToBackoffice": "Interfaz manager",
+            "disconnect": "Desconectar",
+            "isManager": "Has iniciado sesión como administrador, para acceder a la vista cliente, cierra sesión"
+        },
+        "paymentCombo": {
+            "addToCart": "Añadir a la cesta"
+        },
+        "calendar": {
+            "registered": "Ya está registrado",
+            "close": "Cerrar",
+            "description": "Descripción",
+            "conditions": "Condiciones",
+            "broadcast": "En línea"
+        },
+        "genericCard": {
+            "validForDuration": {
+                "attendance": "Válido a partir de la primera asistencia",
+                "booking": "Válido a partir de la primera reserva",
+                "purchase": "Válido a partir de la fecha de facturación",
+                "validFromTo": "Válido desde {{duration_date_start}} hasta {{duration_date_end}}",
+                "validDaysMonthsYears": "Válido por {{duration_years}}, {{ duration_months }} y {{ duration_days }}",
+                "validAnd": "Válido {{ first }} y {{ second }}",
+                "validYear": "Válido por {{ count }} año",
+                "validYear_plural": "Válido por {{ count }} años",
+                "validMonth": "Válido por {{ count }} mes",
+                "validMonth_plural": "Válido por {{ count }} meses",
+                "validDay": "Válido por {{ count }} día",
+                "validDay_plural": "Válido por {{ count }} días"
+            },
+            "addButton": {
+                "buttonContent": "Añadir a la cesta"
+            },
+            "validity": {
+                "day": "{{count}} día",
+                "day_plural": "{{count}} días",
+                "month": "{{count}} mes",
+                "month_plural": "{{count}} meses",
+                "year": "{{count}} año",
+                "year_plural": "{{count}} años"
+            },
+            "details": {
+                "buttonContent": "Detalles"
+            },
+            "credits": {
+                "unlimited": "Ilimitado",
+                "availableCredit": "{{count}} crédito",
+                "availableCredit_plural": "{{count}} créditos"
+            },
+            "title": {
+                "universalPassMessage": "Tarjeta universal, puede utilizarse para actividades de grupo y citas"
+            }
+        },
+        "genericCardDetails": {
+            "packCard": {
+                "comboItemList": {
+                    "hiddenItem": "{{count}} otro elemento",
+                    "hiddenItem_plural": "{{count}} otros elementos",
+                    "privatePassItem": "{{count}} tarjeta de cita",
+                    "privatePassItem_plural": "{{count}} tarjetas de cita",
+                    "paymentPackItem": "{{count}} bono",
+                    "paymentPackItem_plural": "{{count}} bonos"
+                }
+            },
+            "includedElements": {
+                "see": "Ver",
+                "penalty": {
+                    "penaltyDay": "{{count}} día",
+                    "penaltyDay_plural": "{{count}} días",
+                    "amount": "{{penalty_amount}} descontado después de {{penalty_cancellations}} fuera de tiempo durante un periodo de {{penalty_days_period}}",
+                    "days": "{{penalty_days}} de bloqueo después de {{penalty_cancellations}} fuera de tiempo durante un período de {{penalty_days_period}}"
+                },
+                "maxPurchasePerMember": "{{count}} compra por socio",
+                "maxPurchasePerMember_plural": "{{count}} compras por socio",
+                "restrictions": {
+                    "maxPerMonth": "Máximo {{count}} uso al mes",
+                    "maxPerMonth_plural": "Máximo {{count}} usos al mes",
+                    "perMonth": "{{count}} uso al mes",
+                    "perMonth_plural": "{{count}} usos al mes",
+                    "maxPerWeek": "Máximo {{count}} uso por semana",
+                    "maxPerWeek_plural": "Máximo {{count}} usos por semana",
+                    "perWeek": "{{count}} uso por semana",
+                    "perWeek_plural": "{{count}} usos por semana",
+                    "maxPerDay": "Máximo {{count}} uso por día",
+                    "maxPerDay_plural": "Máximo {{count}} usos por día",
+                    "perDay": "{{count}} uso por día",
+                    "perDay_plural": "{{count}} usos por día",
+                    "title": "Restricciones de uso"
+                },
+                "newMemberOnly": "Sólo para los nuevos miembros",
+                "isUniversalPass": "Bono universal",
+                "compatibleWithEverything": "Compatible con todo",
+                "onlyVodAccess": "Disponible sólo para VOD",
+                "fullVodAccess": "Compatible con VOD",
+                "onsitePaymentAvailable": "Pago in situ disponible",
+                "cancellation": "{{cuenta}} cancelación",
+                "cancellation_plural": "{{cuenta}} cancelaciones",
+                "penaltyNoShow": {
+                    "block": "{{days_blocked}} de bloqueo después de {{threshold}} durante un periodo de {{time_window_days}}.",
+                    "account": "Se aplicará un depósito de {{amount}} para {{threshold}} durante un periodo de {{time_window_days}}.",
+                    "penaltyDay": "{{count}} día",
+                    "penaltyDay_plural": "{{count}} días",
+                    "threshold": "{{count}} ausencia",
+                    "threshold_plural": "{{count}} ausencias"
+                }
+            },
+            "restrictions": "Restricciones",
+            "compatibility": {
+                "packs": {
+                    "and": " y ",
+                    "categoriesAndActivitiesAndEstablishments": "Compatible con {{ categorías }}, {{ establecimientos }} y {{ actividades }} ",
+                    "establishmentsAndActivities": "Compatible con {{ establecimientos }} y {{ actividades }} ",
+                    "categoriesAndEstablishment": "Compatible con {{ categories }} y {{ establishments }} ",
+                    "categoriesAndActivities": "Compatible con {{ categories }} y {{ activities }} ",
+                    "establishments": "Compatible con {{ count }} sala",
+                    "establishments_plural": "Compatible con {{ count }} salas",
+                    "activities": "Compatible con {{ count }} actividad",
+                    "activities_plural": "Compatible con {{ count }} actividades",
+                    "categories": "Compatible con {{ count }} categoría",
+                    "categories_plural": "Compatible con {{ count }} categorías",
+                    "compatible": "Compatible con ",
+                    "all": "Compatible con todo"
+                },
+                "establishments": "{{ count }} sala",
+                "establishments_plural": "{{ count }} salas",
+                "compatibilityModal": {
+                    "establishments": "Salas",
+                    "activities": "Actividades",
+                    "categories": "Categorías"
+                },
+                "activities": "{{ count }} actividad",
+                "activities_plural": "{{ count }} actividades",
+                "categories": "{{ count }} categoría",
+                "categories_plural": "{{ count }} categorías",
+                "button": {
+                    "close": "Cerrar"
+                },
+                "allPrivateSlotsAvailables": "Todo tipo de sesiones",
+                "compatibilities": "Compatibilidades",
+                "compatible": "Compatible con {{count}} cita",
+                "compatible_plural": "Compatible con {{count}} citas",
+                "none": "No hay citas compatibles"
+            },
+            "credits": {
+                "unlimited": "Ilimitado",
+                "availableCredit": "{{count}} crédito",
+                "availableCredit_plural": "{{count}} créditos"
+            }
+        },
+        "packCard": {
+            "comboItemList": {
+                "paymentPackItem": "{{count}} bono",
+                "paymentPackItem_plural": "{{count}} bonos",
+                "privatePassItem": "{{count}} tarjeta de cita",
+                "privatePassItem_plural": "{{count}} tarjetas de cita",
+                "hiddenItem": "{{count}} otro elemento",
+                "hiddenItem_plural": "{{count}} otros elementos"
+            }
+        },
+        "subscriptionCard": {
+            "billingInterval": {
+                "month": "mes",
+                "month_plural": "Cada {{ count }} meses",
+                "week": "semana",
+                "week_plural": "Cada {{ count }} semanas",
+                "year": "año",
+                "year_plural": "Cada {{ count }} año",
+                "day": "día",
+                "day_plural": "Cada {{ count }} días"
+            },
+            "fees": "Cuota de inscripción: {{ fees }}",
+            "invoice": "{{ count }} factura",
+            "invoice_plural": "{{ count }} facturas",
+            "registerButton": "Suscribirse"
+        },
+        "packCardDetail": {
+            "comboItemList": {
+                "content": "Contenido"
+            }
+        },
+        "contractCard": {
+            "autoRenewal": "Renovación tácita",
+            "legalContract": "Aviso legal",
+            "seeLess": "Ver menos",
+            "seeMore": "Ver más",
+            "registerButton": "Suscribirse",
+            "invoice": "{{ count }} factura",
+            "invoice_plural": "{{ count }} facturas",
+            "fees": "Tasa de inscripción: {{ fees }}",
+            "billingInterval": {
+                "day": "día",
+                "day_plural": "Cada {{ count }} días",
+                "year": "año",
+                "year_plural": "Cada {{ count }} años",
+                "week": "semana",
+                "week_plural": "Cada {{ count }} semanas",
+                "month": "mes",
+                "month_plural": "Cada {{ count }} meses"
+            },
+            "chooseButton": "Seleccione"
+        }
+>>>>>>> chore(translate): update (Dutch) translation
     },
     "filterByDateTitle": "Filtrar por fechas",
     "detailsGraphTitle": "En detalle",
@@ -1740,6 +2595,7 @@
       "tagGroupName": "Nombre",
       "tagGroupEmpty": "No hay etiquetas en esta categoría"
     },
+<<<<<<< HEAD
     "cancel": "Cancelar",
     "submit": "Confirmar",
     "tagColumn": {
@@ -1749,6 +2605,246 @@
       "actions": "Acciones ",
       "offer_count": "Sesiones vinculadas",
       "coupon_count": " "
+=======
+    "navigation": {
+        "backofficeMenu": {
+            "requestTempPassword": "Permitir el acceso",
+            "combo": "Packs",
+            "marketing_automation": "Marketing Auto",
+            "digital": "Oferta digital",
+            "podcast": "Podcasts",
+            "playlist": "Recorrido",
+            "video": "Videoteca",
+            "myShop": "Tienda",
+            "product": "Productos",
+            "coaches": "Profesores",
+            "privateService": {
+                "pass": "Tarjetas de cita",
+                "services": "Sólo con cita previa",
+                "title": "Sólo con cita previa"
+            },
+            "schedule": "Horario",
+            "alpha": "en desarollo",
+            "invoice": "Facturas",
+            "workshopActivities": "Talleres",
+            "order": "Pedidos",
+            "email_template": "Emails",
+            "smart_list": "Smartlists",
+            "sequence": "Estrategias",
+            "consumer": {
+                "pass": "Bonos",
+                "order": "Mis pedidos",
+                "profile": "Mi perfil",
+                "bookings": "Mis reservas ",
+                "subscriptions": "Mis cuotas",
+                "myAccount": "Mi cuenta"
+            },
+            "beta": "beta",
+            "coachPerformance": "Profesores",
+            "search": "Buscar",
+            "reporting": "Informes",
+            "coupon": "Promociones",
+            "contract": "Cuotas",
+            "subscription": "Muestreos",
+            "myClub": "Mi Club",
+            "settings": {
+                "settings": "Parámetros",
+                "active_campaign": "ActiveCampaign",
+                "partnership": "Asociación",
+                "webhook": "Webhook",
+                "personalization": "Personalización",
+                "role": "Staff",
+                "shop": "Tienda",
+                "waitingList": "Lista de espera",
+                "invoice": "Facturación",
+                "company": "Empresa",
+                "paymentRules": "Reglas de remuneración",
+                "notificationRule": "Emails transaccionales",
+                "broadcast": "Videoconferencia",
+                "general": "General",
+                "platform_billing": "Suscripción a bsport",
+                "marketplaceSettings": "Parámetros marketplace",
+                "widget": "Widget",
+                "paymentMethod": "Medios de pago",
+                "forms": "Formularios miembros",
+                "quickbooks": "QuickBooks",
+                "mobilePersonalization": "Personalización de la app",
+                "coachUserspace": "Área de profesores"
+            },
+            "pass": "Bono",
+            "goBack": "Volver",
+            "refresh": "Actualizar",
+            "logoff": "Cerrar sesión",
+            "payment": "Pagos",
+            "establishment": "Establecimientos",
+            "member": "Miembros",
+            "message": "Marketing",
+            "calendar": "Calendario",
+            "activity": "Mis actividades",
+            "dashboard": "Dashboard",
+            "cashBook": {
+                "save": "Guardar",
+                "at": "En",
+                "of": "De",
+                "onSpotPaymentReport": "Acceder al informe de pagos",
+                "amount": "Ganancias del día :",
+                "lastUpdated": "Última modificación el",
+                "expectedAmount": "Deberías tener: ",
+                "todayEndAmount": "Cantidad al final del día",
+                "addAmount": "Cantidad a añadir al libro de caja",
+                "todayStartAmount": "La cantidad inicial en el libro de caja",
+                "cashDialogTitle": "Libro de caja",
+                "close": "Cerrar"
+            },
+            "marketingNotification": "Notificaciones",
+            "custom_form": "Formularios",
+            "tags": "Etiquetas",
+            "addMemberTooltip": "Añadir un miembro",
+            "cashBookTooltip": "Libro de caja",
+            "redirecting": "Será redirigido a su página",
+            "backToFranchiseWorskpace": "Volver a la cuenta principal",
+            "franchiseConnectedAs": "Conectado como: {{- name}}",
+            "giftcard": "Tarjetas de regalo",
+            "programs": "Programas",
+            "expenses": "Gastos",
+            "instalmentPayment": "Pagos fraccionados",
+            "coachPayroll": "Remuneración",
+            "clockIn": "Reloj de fichaje",
+            "help": "Ayuda",
+            "tutorialInfo": "Puedes encontrar nuestra Guía de inicio en la pestaña de Tutorial.",
+            "tutorial": "Tutorial",
+            "toggle": {
+                "expand": "Extender",
+                "shrink": "Doblar"
+            },
+            "cadences": "Cadencias",
+            "replacement": "Sustitución"
+        },
+        "deprecatedNavigator": {
+            "close": "Cerrar",
+            "downloadChrome": "Descarga Google Chrome gratis",
+            "downloadFirefox": "Descarga Mozilla Firefox gratis",
+            "navigatorError": "Parece que tu navegador es demasiado viejo para usar nuestros servicios. Puedes encontrar errores, le recomendamos que descargas una versión más reciente, en particular: "
+        },
+        "paymentMethodMissing": {
+            "closeModal": "Cerrar",
+            "explain": "No ha introducido un método de pago válido, por favor, confírmelo para seguir utilizando su suscripción a bsport.",
+            "banner": "No ha introducido un método de pago para su suscripción a bsport. Por favor, haga clic aquí."
+        },
+        "franchiseMenu": {
+            "members": "Miembros",
+            "franchises": "Franquicias",
+            "reporting": "Informes",
+            "paymentPack": "Fichas de cursos",
+            "widget": "Widget",
+            "settings": "Parámetros",
+            "staff": "Staff",
+            "widgets": "Widget",
+            "notificationRules": "Emails transaccionales",
+            "emailTemplates": "Emails",
+            "products": {
+                "couponTemplates": "Promociones",
+                "privatePassTemplates": "Tarjetas de cita",
+                "paymentPackTemplates": "Bonos",
+                "label": "Productos",
+                "giftcardTemplates": "Tarjetas de regalo"
+            }
+        },
+        "multiSession": {
+            "current": "Sesión actual",
+            "previous": "Sesión anterior",
+            "manager": "gerente",
+            "franchisor": "franquiciador",
+            "continue": "Continúe con esta sesión",
+            "currentSession": "Actualmente está conectado como {{name}}",
+            "restore": "Restaurar esta sesión",
+            "previousSession": " Has iniciado la sesión como {{name}}",
+            "title": " Parece que está utilizando varias pestañas simultáneamente"
+        },
+        "stripeOnboardingPending": {
+            "banner": "Si no ha completado la configuración de la facturación, los pagos en línea pueden estar desactivados. Haga clic aquí para completar su configuración."
+        },
+        "tab": {
+            "coach": {
+                "calendar": "Calendario",
+                "general": "Perfil"
+            },
+            "customForm": {
+                "layout": "Personalización",
+                "statistics": "Estadísticas",
+                "campaign": "Campaña",
+                "general": "Contenido"
+            },
+            "franchise": {
+                "staff": {
+                    "role": "Roles",
+                    "staffAccount": "Cuentas Staff"
+                }
+            },
+            "replacement": {
+                "disciplineGroup": "Grupos de disciplinas",
+                "management": "Gestión"
+            },
+            "widget": {
+                "customize": "Personalización",
+                "create": "General"
+            },
+            "smartList": {
+                "statistic": "Estadística",
+                "campaign": "Campañas",
+                "member": "General"
+            },
+            "member": {
+                "basket": "Cesta",
+                "basket_plural": "Cestas ({{number}})",
+                "form": "Formularios",
+                "form_plural": "Formularios ({{number}})",
+                "vod": "Videoteca",
+                "vod_plural": "Videoteca ({{number}})",
+                "privateConsumerPass": "Tarjetas de cita",
+                "privateConsumerPass_plural": "Tarjetas de cita ({{number}})",
+                "privateBooking": "Citas",
+                "privateBooking_plural": "Citas ({{number}})",
+                "payment": "Facturación",
+                "payment_plural": "Facturación ({{number}})",
+                "contact": "Contacto",
+                "contact_plural": "Contacto ({{number}})",
+                "invoices": "Facturas y suscripciones",
+                "invoices_plural": "Facturas y suscripciones ({{number}})",
+                "paymentPack": "Bonos",
+                "paymentPack_plural": "Bonos ({{number}})",
+                "giftcard": "Tarjeta regalo",
+                "giftcard_plural": "Tarjeta regalo ({{number}})",
+                "bookings": "Reservas",
+                "bookings_plural": "Reservas ({{number}})",
+                "relation": "Relaciones",
+                "relation_plural": "Relaciones ({{number}})",
+                "info": "General",
+                "info_plural": "General ({{number}})",
+                "programs": "Programa",
+                "programs_plural": "Programas ({{number}})"
+            },
+            "clockIn": {
+                "history": "Histórico",
+                "realTime": "Tiempo real"
+            },
+            "service": {
+                "calendar": "Calendario",
+                "general": "General"
+            },
+            "establishment": {
+                "location": "Ubicación",
+                "room": "Sala",
+                "calendar": "Calendario",
+                "general": "General"
+            },
+            "metaActivity": {
+                "group": "Sesión de grupo",
+                "pack": "Bonos compatibles",
+                "general": "General"
+            }
+        }
+>>>>>>> chore(translate): update (Dutch) translation
     },
     "deleteTagDialog": {
       "title": "Supresión de tag",

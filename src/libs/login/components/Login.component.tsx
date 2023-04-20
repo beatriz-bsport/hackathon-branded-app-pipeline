@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
+import { alpha } from '@material-ui/core';
 import './LoginBackground.css';
 import './Login.css';
 import HelpIcon from '@material-ui/icons/Help';
@@ -437,6 +438,8 @@ const styles = (theme: Theme): any => ({
     whiteSpace: 'pre-line',
     textAlign: 'center',
     width: 408,
+    background: alpha(theme.palette.background.default, 0.7),
+    borderRadius: 180,
     [theme.breakpoints.down('xs')]: {
       width: '100%',
       paddingLeft: theme.spacing(5),

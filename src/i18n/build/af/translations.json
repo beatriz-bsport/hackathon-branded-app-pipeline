@@ -3958,7 +3958,7 @@
         "form": "Formulaires",
         "form_plural": "Formulaires ({{number}})",
         "basket": "Panier",
-        "basket_plural": "Panier ({{number}})"
+        "basket_plural": "Paniers ({{number}})"
       },
       "smartList": { "member": "Général", "campaign": "Campagnes", "statistic": "Statistique" },
       "widget": { "create": "Général", "customize": "Personnalisation" },

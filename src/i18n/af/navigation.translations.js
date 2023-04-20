@@ -210,7 +210,7 @@ exports.default = {
       form: 'Formulaires',
       form_plural: 'Formulaires ({{number}})',
       basket: 'Panier',
-      basket_plural: 'Panier ({{number}})',
+      basket_plural: 'Paniers ({{number}})',
     },
     smartList: {
       member: 'Général',

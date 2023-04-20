@@ -74,3 +74,9 @@ export const REPLACEMENT_DISPLAYS_REPLACEMENT_REQUESTS = [
   ReplacementDisplays.REPLACEMENT_DISPLAY_REQUEST_TEACHER_FOUND,
   ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS,
 ];
+
+// For the establishment/location selector with the subteacher and multilocation upsells
+export enum MultilocationChoice {
+  Locations = 'locations',
+  Establishments = 'establishments',
+}

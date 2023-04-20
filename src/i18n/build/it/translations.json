@@ -7283,7 +7283,8 @@
                 "Annulla",
                 "Cancella",
                 "Annullata",
-                "Annulla"
+                "Annulla",
+                "Cancella"
             ]
         },
         "payment_method_with_credit_account": {
@@ -12146,7 +12147,15 @@
                 "fullVodAccess": "Compatibile con VOD",
                 "onsitePaymentAvailable": "Possibilità di pagamento in loco",
                 "cancellation": "{{count}} cancellazione",
-                "cancellation_plural": "{{count}} cancellazioni"
+                "cancellation_plural": "{{count}} cancellazioni",
+                "penaltyNoShow": {
+                    "block": "{{days_blocked}} di blocco dopo {{threshold}} in un periodo di {{time_window_days}}.",
+                    "account": "Un importo di {{amount}} sera applicato per {{threshold}} in un periodo di {{time_window_days}}.",
+                    "penaltyDay": "{{count}} giorno",
+                    "penaltyDay_plural": "{{count}} giorni",
+                    "threshold": "{{count}} assenza",
+                    "threshold_plural": "{{count}} assenze"
+                }
             },
             "restrictions": "Restrizioni",
             "compatibility": {

@@ -363,7 +363,7 @@
                     "explainInvoice": "Ab welcher Rechnung möchtest Du das Abonnement verschieben?"
                 },
                 "disabledReasons": {
-                    "month_billing_day": ""
+                    "month_billing_day": "Es ist nicht möglich, einen Vertrag, der an einem festen Tag abgerechnet wird, zu pausieren "
                 }
             },
             "actionSection": "Verwalten",
@@ -408,7 +408,7 @@
                 }
             },
             "prorata": {
-                "helperOnSusscribe": ""
+                "helperOnSusscribe": "Die erste Zahlung wird anteilig in Höhe von {{ priceWithCurrency }} berechnet und wird am {{-firstBillingDate}} eingezogen. Die folgenden Zahlungen erfolgen an jedem {{ monthBillingDay }} des Monats und belaufen sich auf {{ recurrentPrice }}"
             }
         },
         "table": {
@@ -431,8 +431,8 @@
             },
             "billing_plan-update_payment_combo": "Modifiziertes Paket",
             "billing_plan-update_private_pass": "Geänderte Terminkarte",
-            "billing_plan-update": "",
-            "billing_plan-pause_deleted": ""
+            "billing_plan-update": "Abonnement geändert",
+            "billing_plan-pause_deleted": "Pausierung storniert"
         },
         "subscriptionStatus": {
             "isPaused": "Pause",
@@ -459,7 +459,7 @@
                 "cancel": "Abbrechen",
                 "submit": "Speichern",
                 "updateAll": "Aktualisiere alle zukünftigen Zahlungen",
-                "updateRecurrentPrice": ""
+                "updateRecurrentPrice": "Diese Änderung für Zahlungen anwenden, die nach der Verlängerung generiert werden"
             },
             "dateUpdater": {
                 "actions": {
@@ -534,7 +534,7 @@
             "hasStarted": "Aktiv",
             "hasNotStartedYet": "Inaktiv",
             "hasEnded": "Beendet",
-            "isPaused": ""
+            "isPaused": "Pausiert"
         },
         "scheduledStop": {
             "unscheduleStop": "Halte den Stop an",
@@ -712,40 +712,40 @@
                 "title": "",
                 "addTag": ""
             },
-            "subtitle": "",
-            "warning": "",
-            "title": "",
+            "subtitle": "Abonnement",
+            "warning": "Benachrichtigen Sie Ihre Kunden, wenn ihr Abonnement eine Statusänderung hat: Ende des Abonnements, Beginn des Abonnements.",
+            "title": "Regeln für Mitteilungen",
             "typeSection": {
-                "contractStart": "",
-                "title": "",
-                "contractEnd": ""
+                "contractStart": "Start des Abonnements",
+                "title": "Zu benachrichtigender Status",
+                "contractEnd": "Ende des Abonnemts"
             },
             "triggeringEvent": {
-                "contractCreation": "",
-                "title": "",
-                "firstBilling": ""
+                "contractCreation": "Abonnement erstellen",
+                "title": "Auslösendes Event",
+                "firstBilling": "Erste Rechnung"
             },
             "notificationType": {
-                "title": "",
-                "before": "",
-                "day": "",
-                "day_plural": "",
-                "hour": "",
-                "hour_plural": "",
-                "after": "",
-                "contractEnd": "",
-                "warningDayFirst": "",
-                "warningHourFirst": "",
-                "warningDayLast": "",
-                "warningHourLast": "",
-                "afterSubcriptionCreation": "",
-                "firstBilling": ""
+                "title": "Benachrichtigungs-Typ",
+                "before": "Vor",
+                "day": "Tag",
+                "day_plural": "Tage",
+                "hour": "Stunde",
+                "hour_plural": "Stunden",
+                "after": "Nach",
+                "contractEnd": "Ende des Abonnements.",
+                "warningDayFirst": "Die angegebene Anzahl von Tagen bezieht sich auf das Datum der ersten Rechnung um Mitternacht",
+                "warningHourFirst": "Die angegebene Stundenzahl bezieht sich auf das Datum der ersten Rechnung um Mitternacht",
+                "warningDayLast": "Die angegebene Annzahl von Tagen bezieht sich auf das Datum der letzten Rechnung um Mitternacht",
+                "warningHourLast": "Die angegeben Stundenzahl bezieht sicht auf das Datum der letzten Rechnung um Mitternacht",
+                "afterSubcriptionCreation": "nach Abschluss des Abonnements.",
+                "firstBilling": "Erste Rechnung des Abonnements."
             },
             "smartLists": {
                 "smartListHelper": "",
-                "warning": "",
-                "advanced": "",
-                "smartListSelection": "",
+                "warning": "Wenn Sie keine Smartlist auswählen, besteht die Gefahr, dass Sie Mitglieder benachrichtigen, die bereits einen anderen Kurspass gekauft haben.",
+                "advanced": "Fortgeschritten",
+                "smartListSelection": "(Optional) Smartlist(s) auswählen",
                 "smartListHelperInclude": "",
                 "createSmartList": ""
             },
@@ -772,20 +772,20 @@
         },
         "register": {
             "dialog": {
-                "info": "",
-                "success": "",
-                "error": ""
+                "info": "Ihr Abonnement wird gerade angemeldet, wir werden Sie informieren, sobald es fertig ist.",
+                "success": "Ihr Abonnement {{- name }} wurde erfolgreich angemeldet.",
+                "error": "Die Anmeldung ist nicht möglich, bitte versuchen Sie es später erneut."
             }
         },
-        "invisibleForStaffToolTip": "",
+        "invisibleForStaffToolTip": "Unsichtbar für Mitarbeiter",
         "billing_plan_status": {
-            "3": "",
-            "2": "",
-            "0": "",
-            "4": "",
-            "1": ""
+            "3": "Pausiert",
+            "2": "Gestoppt",
+            "0": "Noch nicht begonnen",
+            "4": "Abgeschlossen",
+            "1": "In Bearbeitung"
         },
-        "notificationToolTip": "",
+        "notificationToolTip": "Für dieses Abonnement werden Mitteilungen festgelegt",
         "notification": {
             "beforefirstBilling": "",
             "afterSubscriptionEnd": "",
@@ -802,7 +802,7 @@
             "firstBilling": "",
             "creation": ""
         },
-        "addNotification": ""
+        "addNotification": "Mitteilung hinzufügen"
     },
     "translation": {
         "appbar": {
@@ -2312,115 +2312,115 @@
                 "name": "Zahlungsmittel"
             },
             "27": {
-                "third": "",
-                "between": "",
-                "name": "",
-                "first": "",
-                "explanation": "",
-                "second": "",
-                "info": "",
-                "fourth": ""
+                "third": "oder",
+                "between": "und",
+                "name": "Gültige Pässe",
+                "first": "Verfügt über",
+                "explanation": "Besitzt X gültige Kurspässe oder Terminpässe",
+                "second": "heute gültige Kurs- oder Terminpässe. Unter",
+                "info": "Blockierte Kurs- und Terminpässe werden ebenfalls berücksichtigt.",
+                "fourth": "(zusammengefasst)"
             },
             "103": {
-                "name": "",
-                "oneNeeded": "",
-                "allNeeded": "",
-                "explanation": "",
-                "sms": "",
-                "true": "",
-                "email": "",
-                "false": ""
+                "name": "Benachrichtigungen",
+                "oneNeeded": "Mindestens eine der aktivierten Bedingungen muss erfüllt sein",
+                "allNeeded": "Alle aktivierten Bedingungen müssen erfüllt sein",
+                "explanation": "Benachrichtigungen per SMS/E-Mail akzeptieren",
+                "sms": "um Benachrichtigungen per SMS zu erhalten",
+                "true": "Akzeptieren",
+                "email": "um Benachrichtigungen per E-Mail zu erhalten",
+                "false": "Nicht Akzeptieren"
             },
             "105": {
                 "receiveCopyOfEmail": {
-                    "second": "",
-                    "false": "",
-                    "true": "",
-                    "first": ""
+                    "second": "mit einer Kopie an das Mitglied",
+                    "false": "wurden nicht gesendet",
+                    "true": "wurden auch gesendet",
+                    "first": "an die Beziehung gesendeten E-Mails"
                 },
                 "acceptEmail": {
-                    "false": "",
-                    "true": "",
-                    "second": "",
-                    "first": ""
+                    "false": "nicht akzeptiert",
+                    "true": "akzeptieren",
+                    "second": "E-Mails",
+                    "first": "die Beziehung"
                 },
-                "explanation": "",
-                "name": "",
+                "explanation": "Besitzt X Beziehungen und Y gemeinsame Kurs- oder Terminpässe oder Buchungen",
+                "name": "Beziehungen",
                 "acceptSms": {
-                    "first": "",
-                    "second": "",
-                    "true": "",
-                    "false": ""
+                    "first": "die Beziehung",
+                    "second": "SMS",
+                    "true": "akzeptieren",
+                    "false": "nicht akzeptiert"
                 },
                 "date": {
-                    "first": ""
+                    "first": "die Beziehung wurde hergestellt"
                 },
-                "second": "",
-                "between": "",
-                "fourth": "",
-                "third": "",
-                "first": "",
-                "consumerPaymentPacks": "",
-                "to": "",
-                "consumerPrivatePasses": "",
-                "validOrNot": "",
-                "valid": "",
-                "bookings": "",
+                "second": "der Beziehungen, die den ausgewählten Filtern entsprechen:",
+                "between": "und",
+                "fourth": "Die Beziehung hat eine Nummer gebucht",
+                "third": "das Mitglied hat mit der Beziehung eine Zahl geteilt",
+                "first": "Hat eine Nummer",
+                "consumerPaymentPacks": "Kurspässe",
+                "to": "zu",
+                "consumerPrivatePasses": "Terminpässe",
+                "validOrNot": "gültig oder nicht",
+                "valid": "gültig",
+                "bookings": "von Gruppenkursen und Terminen dank eines vom Mitglied geteilten Passes",
                 "info": {
-                    "consumerPaymentPacks": "",
-                    "consumerPrivatePasses": ""
+                    "consumerPaymentPacks": "\"gültig\" bedeutet, dass der Pass jetzt zur Buchung einer Gruppenstunde verwendet werden kann",
+                    "consumerPrivatePasses": "\"gültig\" bedeutet, dass der Pass jetzt zur Buchung eines Termins verwendet werden kann"
                 }
             },
             "107": {
-                "name": "",
-                "explanation": "",
-                "first": "",
-                "true": "",
-                "false": ""
+                "name": "Nutzungsbedingungen",
+                "explanation": "Hat die allgemeinen Nutzungsbedigungen akzeptiert",
+                "first": "Ihre Nutzungsbedingungen",
+                "true": "Hat akzeptiert",
+                "false": "Hat nicht akzeptiert"
             },
             "102": {
-                "hasCompleted": "",
-                "to": "",
+                "hasCompleted": "abgeschlossen",
+                "to": "zu",
                 "date": {
-                    "first": ""
+                    "first": "zuletzt abgeschlossen"
                 },
-                "second": "",
-                "atLeastOne": "",
-                "none": "",
-                "hasCompletedNone": "",
-                "third": "",
-                "all": "",
-                "hasNotCompleted": "",
-                "between": "",
-                "name": "",
-                "explanation": ""
+                "second": "unter",
+                "atLeastOne": "mindestens ein Formular",
+                "none": "kein Formular",
+                "hasCompletedNone": "nicht abgeschlossen",
+                "third": "zu einem Prozentsatz",
+                "all": "alle Formulare",
+                "hasNotCompleted": "nicht abgeschlossen",
+                "between": "und",
+                "name": "Formulare",
+                "explanation": "Hat X Formulare zu A% am Tag B ausgefüllt "
             },
             "106": {
-                "true": "",
-                "first": "",
-                "false": "",
-                "name": "",
-                "explanation": ""
+                "true": "Ausgefüllt",
+                "first": "eine Telefonnummer",
+                "false": "nicht ausgefüllt",
+                "name": "Telefon",
+                "explanation": "Hat eine Telefonnummer angegeben"
             },
             "101": {
-                "to": "",
-                "first": "",
-                "between": "",
-                "second": "",
-                "explanation": "",
-                "name": ""
+                "to": "zu",
+                "first": "Ist",
+                "between": "und",
+                "second": "Jahre (einschließlich)",
+                "explanation": "Ist weniger/mehr/genau alt...",
+                "name": "Alter"
             },
             "104": {
-                "explanation": "",
-                "medicalOrNot": "",
-                "info": "",
-                "medical": "",
+                "explanation": "Mindestens ein ärztliches Attest hat (oder auch nicht)",
+                "medicalOrNot": "medizinisch oder nicht",
+                "info": "Die so genannten medizinischen Hinweise entsprechen denen, die im Abschnitt \"Ausschreibungen\" auf dem Formular des Mitglieds aufgeführt sind",
+                "medical": "medizinisch",
                 "date": {
-                    "first": ""
+                    "first": "die erstellt wurde"
                 },
-                "nonMedical": "",
-                "name": "",
-                "first": ""
+                "nonMedical": "nicht medizinisch",
+                "name": "Hinweise",
+                "first": "Hat mindestens einen Hinweis"
             }
         },
         "filterCategory": {
@@ -2561,19 +2561,19 @@
                 "all": "alle Stufen"
             },
             "userMarketingNotifications": {
-                "warning": ""
+                "warning": "Aktivieren Sie mindestens eine der beiden Optionen"
             },
             "activePasses": {
-                "privatePassHelperText": "",
-                "warning": "",
-                "paymentPackHelperText": ""
+                "privatePassHelperText": "keine Terminkarte",
+                "warning": "Wählen Sie mindestens einen Kurspass oder einen Terminpass",
+                "paymentPackHelperText": "kein Kurspass"
             },
             "customForms": {
-                "textFieldPlaceholder": "",
-                "helperText": "",
-                "helperSelectedText": "",
-                "warning": "",
-                "helperAllSelectedText": ""
+                "textFieldPlaceholder": "Formular suchen",
+                "helperText": "Formulare auswählen",
+                "helperSelectedText": "ausgewählte Formulare",
+                "warning": "Wählen Sie mindestens ein Formular aus",
+                "helperAllSelectedText": "Alle Formulare"
             }
         },
         "description": "Beschreibung",
@@ -4897,12 +4897,12 @@
                 "error": "Es ist unmöglich, diese Werbeaktion zu löschen"
             },
             "createOrUpdate": {
-                "error": "",
-                "success": ""
+                "error": "Fehler beim Speichern des Angebots",
+                "success": "Angebot gespeichert"
             },
             "templateInstance": {
                 "create": {
-                    "error": ""
+                    "error": "Fehler beim Teilen dieses Angebots zwischen Studios"
                 }
             }
         },
@@ -4956,8 +4956,8 @@
             "consumer_payment_pack_links": {
                 "create": {
                     "error": {
-                        "generic": "",
-                        "90004": ""
+                        "generic": "Nicht möglich diesen Pass zu teilen",
+                        "90004": "Dieser Pass wird von einem anderen Konto geteilt"
                     },
                     "success": "Karte geteilt"
                 },
@@ -4990,8 +4990,8 @@
                 },
                 "create": {
                     "error": {
-                        "90005": "",
-                        "generic": ""
+                        "90005": "Dieser Terminpass wird von einem anderen Konto geteilt",
+                        "generic": "Nicht möglich diesen Terminpass zu teilen"
                     },
                     "success": "Geteilte Terminkarten"
                 }
@@ -5031,9 +5031,9 @@
                 "error": "Fehler beim Ändern der Zugriffsrechte für den Lehrerbereich"
             },
             "errors": {
-                "60004": "",
-                "60002": "",
-                "60003": ""
+                "60004": "Die angegebene E-Mail ist bereits mit einem Franchise-Konto für Mitarbeiter verknüpft.",
+                "60002": "Die angegebene E-Mail ist bereits mit einem Mitarbeiterkonto verknüpft.",
+                "60003": "Es existiert bereits ein Mitglied mit dieser E-Mail. Um sie zu verknüpfen, verwenden Sie das vorherige Pop-up."
             }
         },
         "invoice": {
@@ -5074,7 +5074,7 @@
                     "931002": "Abgelaufene Authentifizierungsschlüssel",
                     "931001": "Fehler bei der Authentifizierung in Quickbooks",
                     "931000": "Fehler bei der Authentifizierung in Quickbooks",
-                    "933103": ""
+                    "933103": "Ihre QuickBooks-Plattform unterstützt mehrere Währungen, bitte geben Sie an, welche Steuer Sie verwenden möchten."
                 },
                 "error": "Beim Übertragen Ihrer Rechnung an Quickbooks ist ein Fehler aufgetreten",
                 "success": "Ihre Rechnung wurde an Quickbooks übertragen"
@@ -5082,11 +5082,11 @@
             "applyGiftcard": {
                 "errors": {
                     "45001": "Es ist nicht möglich, diese Rechnung mit dieser Geschenkkarte zu begleichen",
-                    "45006": "",
-                    "45003": "",
-                    "45000": "",
-                    "generic": "",
-                    "45007": ""
+                    "45006": "Der Gutschein wurde bereits aktiviert",
+                    "45003": "Der Gutschein wurde deaktiviert.",
+                    "45000": "Der Aktivierungscode ist falsch.",
+                    "generic": "Nicht möglich den Gutschein zu aktivieren",
+                    "45007": "Nicht möglich, das Mitglied zu finden, das die Geschenkkarte aktivieren möchte."
                 },
                 "success": "Zahlung mit Geschenkkarte bestätigt",
                 "error": "Es ist nicht möglich, den gewünschten Betrag mit dieser Geschenkkarte zu bezahlen"
@@ -5097,8 +5097,8 @@
             },
             "revert": {
                 "errors": {
-                    "14101": "",
-                    "14100": ""
+                    "14101": "Sie können eine Saldokorrektur nicht mit einer Gutschrift erstatten.",
+                    "14100": "Es ist nicht möglich, eine Rechnung mit Interac-Zahlungen zu stornieren."
                 }
             }
         },
@@ -5148,12 +5148,12 @@
                 "success": "Erlaubnisse geändert"
             },
             "noMasterControl": {
-                "overbookingNotAllowed": "",
-                "overbookingNotAllowedInWaitingList": "",
-                "overrideEstablishmentNotAllowed": "",
-                "changeDateCoachUnaivalable": "",
-                "changeDateEstablishmentUnaivalable": "",
-                "overrideCoachNotAllowed": ""
+                "overbookingNotAllowed": "Sie können die maximale Anzahl an Buchungen nicht überschreiten.",
+                "overbookingNotAllowedInWaitingList": "Sie können die maximale Aufnahmekapazität der Warteliste nicht überschreiten.",
+                "overrideEstablishmentNotAllowed": "Sie können keinen Termin in dieser Einrichtung vereinbaren.",
+                "changeDateCoachUnaivalable": "An diesem Datum nicht buchbar: Die Lehrkraft ist nicht verfügbar.",
+                "changeDateEstablishmentUnaivalable": "An diesem Datum ist eine Buchung nicht möglich: Die Einrichtung ist nicht verfügbar.",
+                "overrideCoachNotAllowed": "Sie können keinen Termin mit dieser Lehrkraft vereinbaren."
             }
         },
         "privateConsumerPass": {
@@ -5162,10 +5162,10 @@
                 "error": "Credits konnten nicht gespeichert werden"
             },
             "nonCompatible": {
-                "error": ""
+                "error": "Beim Laden von nicht kompatiblen Pässen ist ein Fehler aufgetreten"
             },
             "incompatibilitiesReasons": {
-                "error": ""
+                "error": "Beim Laden der Gründe für die Inkompatibilität des Passes ist ein Fehler aufgetreten."
             }
         },
         "email": {
@@ -5241,9 +5241,9 @@
             },
             "register": {
                 "warning": {
-                    "11106": ""
+                    "11106": "Sie haben diesen Slot bereits gebucht"
                 },
-                "error": ""
+                "error": "Kann für dieses Datum nicht gebucht werden"
             }
         },
         "communication": {
@@ -5314,8 +5314,8 @@
                 "success": "Abonnement pausiert",
                 "alreadyPaused": "Es ist unmöglich, ein Abonnement zu pausieren, das schon pausiert ist",
                 "locked": "Es ist nicht möglich, das Abonnement momentan zu pausieren. Wird eine Zahlung überwiesen?",
-                "deleteSuccess": "",
-                "deleteFail": ""
+                "deleteSuccess": "Die Pause wurde aufgehoben",
+                "deleteFail": "Eine bereits begonnene Pause kann nicht gelöscht werden."
             },
             "updatePrice": {
                 "success": "Betrag aktualisert",
@@ -5346,18 +5346,18 @@
                 "error": "Das Paket kann nicht bearbeitet werden"
             },
             "register": {
-                "error": "",
-                "success": ""
+                "error": "Registrierung des Abonnements nicht möglich",
+                "success": "Abonnement erfolgreich registriert"
             },
             "switchItemsErrors": {
                 "paymentPack": {
-                    "63003": ""
+                    "63003": "Nicht möglich: Der Wechsel eines gemeinsamen Passes zwischen Franchisenehmern ist nicht erlaubt"
                 },
                 "privatePass": {
-                    "63003": ""
+                    "63003": "Nicht möglich: Der Wechsel des gemeinsamen Terminpasses zwischen Franchisenehmern ist nicht erlaubt"
                 },
                 "paymentCombo": {
-                    "63003": ""
+                    "63003": "Nicht möglich: Wechsel der geteilten Pakete zwischen Franchisenehmern ist nicht erlaubt"
                 }
             }
         },
@@ -5488,11 +5488,11 @@
                 "error": "Kann zu diesem Zeitpunkt nicht pausieren, versuche es später erneut"
             },
             "updateName": {
-                "success": "",
-                "error": ""
+                "success": "Der Name der Pause wurde geändert",
+                "error": "Der Name der Pause konnte nicht geändert werden"
             },
             "delete": {
-                "error": ""
+                "error": "Es ist derzeit nicht möglich, die Pause zu deaktivieren."
             }
         },
         "bookerModule": {
@@ -5510,11 +5510,11 @@
                 "pm_deleted": "Gelöschte Zahlungsmethode"
             },
             "errors": {
-                "13003": "",
-                "13001": "",
-                "13004": "",
-                "13000": "",
-                "13002": ""
+                "13003": "Mit dieser Zahlungsmethode ist ein Abonnement verbunden",
+                "13001": "Fehler beim Löschen der Zahlungsmethode",
+                "13004": "Diese Zahlungsmethode wird für zukünftige Zahlungen verwendet",
+                "13000": "Fehler beim Löschen der Zahlungsmethode",
+                "13002": "Diese Zahlungsmethode wird für zukünftige Zahlungen verwendet"
             }
         },
         "settings": {
@@ -5554,11 +5554,12 @@
             "2016": "Mit deiner Kurskarte kannst du diesen Monat nicht mehr buchen",
             "2015": "Mit deiner Kurskarte kannst du diese Woche nicht mehr buchen",
             "2014": "Mit Ihrer Kurskarte can SIE für diesen Tag nicht mehr buchen",
-            "45004": "",
-            "85000": "",
-            "45005": "",
-            "85101": "",
-            "10001": ""
+            "45004": "Der Gutschein ist nicht mehr erhältlich.",
+            "85000": "Eine Buchung ist bereits im Gange, bitte haben Sie einen Moment Geduld",
+            "45005": "Der Gutschein ist nicht mehr erhältlich.",
+            "85101": "Eine Buchung ist nicht möglich. Dieser Spot wurde bereits von einem anderen Mitglied gebucht. Bitte versuche es erneut, indem du einen anderen Spot auswählst.",
+            "10001": "Insuffizienter Bestand",
+            "15002": "Der Artikel wurde bereits in den Warenkorb hinzugefügt, bitte warten Sie"
         },
         "signup": {
             "emailAlreadyExists": "Diese E-Mail ist bereits in Gebrauch",
@@ -5712,94 +5713,103 @@
             }
         },
         "automatedCampaign": {
-            "17104": "",
-            "17105": "",
-            "17103": "",
-            "17102": "",
-            "17101": "",
-            "170001": "",
-            "17000": ""
+            "17104": "Fehler: Titel der Meldung erforderlich",
+            "17105": "Fehler: Inhalt der Mitteilung erforderlich",
+            "17103": "Fehler: SMS-Inhalt erforderlich",
+            "17102": "Fehler: Inhalt der E-Mail ist erforderlich",
+            "17101": "Fehler: Titel erforderlich",
+            "170001": "Fehler: Ungültige Höchstzahl an Sendungen pro Mitglied",
+            "17000": "Es ist ein Fehler aufgetreten"
         },
         "replacement": {
             "errors": {
-                "500001": "",
-                "80003": "",
-                "50012": "",
-                "50009": "",
-                "50011": "",
-                "50015": "",
-                "50013": "",
-                "50010": "",
-                "80002": "",
-                "500004": "",
-                "50020": "",
-                "50000": "",
-                "50007": "",
-                "50008": ""
+                "500001": "Es liegt bereits eine Vertretungsanfrage vor",
+                "80003": "Fehlende Einstellungen für Grenzwerte für verspätete Anfragen.",
+                "50012": "Diese Lehrkraft antwortete, dass sie für diese Session nicht einspringen wolle.",
+                "50009": "Sie können diesen Anfrage nicht ablehnen, da bereits eine Lehrkraft zugewiesen wurde.",
+                "50011": "Für diese Anfrage wurde bereits eine Lehrkraft zugewiesen.",
+                "50015": "Sie können nicht auf Ihre eigene Vertretungsanfrage reagieren",
+                "50013": "Sie können nicht mehr auf diese Vertretungsanfrage reagieren.",
+                "50010": "Sie können diese Anfrage nicht stornieren, da bereits eine Lehrkraft zugewiesen wurde.",
+                "80002": "Der Wert \"Anzahl der Tage, an denen die Anfrage verspätet ist\" muss größer sein als der Wert \"Anzahl der Tage, an denen die Anfrage geschlossen ist\".",
+                "500004": "Sie sind bereits Vertretungskraft dieser Session",
+                "50020": "Diese Vertretungsanfrage wurde abgelehnt: Löschen nicht möglich",
+                "50000": "Die Session ist bereits vorbei",
+                "50007": "Sie können diese Vertretungsanfragen nicht stellen, weil Sie nicht genügend ausstehende überfällige Anfragen haben.",
+                "50008": "Der Anmeldeschluss kann nicht über das Datum der Session hinaus verschoben werden."
             },
             "disciplineGroup": {
                 "create": {
-                    "success": "",
-                    "error": ""
+                    "success": "Disziplingruppen erstellt",
+                    "error": "Beim Erstellen der Disziplingruppen ist ein Fehler aufgetreten"
                 },
                 "delete": {
-                    "success": "",
-                    "error": ""
+                    "success": "Disziplingruppe gelöscht",
+                    "error": "Es ist nicht möglich diese Disziplingruppe zu löschen"
                 },
                 "update": {
-                    "success": "",
-                    "error": ""
+                    "success": "Disziplingruppen bearbeiten",
+                    "error": "Beim Bearbeiten der Disziplingruppen ist ein Fehler aufgetreten"
                 }
             },
             "assignDisciplineGroup": {
-                "success": ""
+                "success": "Die Disziplingruppe der Lehrkraft wurde aktualisiert"
             },
             "updateCoachReplacementPreferences": {
-                "success": "",
-                "error": ""
+                "success": "Gespeicherte Regeln",
+                "error": "Regeln können nicht gespeichert werden"
             },
             "cancelReplacementRequest": {
-                "error": "",
-                "success": ""
+                "error": "Beim Löschen der Anfrage ist ein Fehler aufgetreten.",
+                "success": "Die Anfrage auf Vertretung wurde gelöscht."
             }
         },
         "communicationProviderSettings": {
             "update": {
-                "error": "",
-                "success": ""
+                "error": "Änderungen können nicht gespeichert werden",
+                "success": "Registrierte Änderungen"
             }
         },
         "accessDenied": {
             "general": {
-                "message": "",
-                "title": ""
+                "message": "Sie haben keinen Zugriff auf den gewünschten Bereich",
+                "title": "Zugriff verweigert"
             }
         },
         "plannedPayment": {
             "registerNow": {
-                "error": "",
-                "success": ""
+                "error": "Zahlung kann nicht gespeichert werden",
+                "success": "Zahlung gespeichert"
             }
         },
         "marketplace": {
             "update": {
                 "stripeTerminal": {
                     "deleteReader": {
-                        "success": "",
-                        "error": ""
+                        "success": "Zahlungsterminal gelöscht",
+                        "error": "Dieses Zahlungsterminal kann nicht gelöscht werden"
                     }
                 },
-                "error": ""
+                "error": "Es ist ein Fehler aufgetreten. Bitte überprüfen Sie die angeforderten Einstellungen."
             }
         },
         "communicationv2": {
-            "success": "",
-            "error": ""
+            "success": "Mitteilung wird gesendet",
+            "error": "Problem beim Senden der Mitteilung"
         },
         "clockIn": {
             "errors": {
-                "96002": ""
+                "96002": "Dieser Benutzer ist bereits eingeloggt"
             }
+        },
+        "refreshInternalAccountPrepaidLines": {
+            "15002": "Eine Bearbeitung ist bereits im Gange, bitte warten Sie einen Moment"
+        },
+        "requestCurrentBasket": {
+            "15002": "Das Abrufen der Informationen aus dem Warenkorb ist bereits im Gange"
+        },
+        "removeItem": {
+            "15002": "Der Artikel wird bereits aus dem Warenkorb entfernt, bitte warten Sie"
         }
     },
     "invoice": {
@@ -10464,14 +10474,14 @@
             "withdrawal_count_limit_exceeded": "Zu hohe Abbuchung dieser Karte, abgelehnt.",
             "insufficient_funds": "Deine Karte ist nicht ausreichend gedeckt.",
             "none": " ",
-            "online_or_offline_pin_required": "",
-            "invalid_pin": "",
-            "lost_card": "",
-            "incorrect_pin": "",
-            "call_issuer": "",
-            "offline_pin_required": "",
-            "pin_try_exceeded": "",
-            "test_mode_live_card": ""
+            "online_or_offline_pin_required": "Pin-Code erforderlich",
+            "invalid_pin": "Falscher Pin-Code",
+            "lost_card": "Ihre Karte wurde von Ihrer Bank als verloren gemeldet",
+            "incorrect_pin": "Falscher Pin-Code",
+            "call_issuer": "Ihre Karte wurde aus einem unbekannten Grund abgelehnt. Bitte kontaktieren Sie Ihre Bank",
+            "offline_pin_required": "Pin-Code erforderlich",
+            "pin_try_exceeded": "Maximale Anzahl der Versuche erreicht. Versuchen Sie eine andere Zahlungsmethode",
+            "test_mode_live_card": "Ihre Karte wurde abgelehnt, weil Sie eine Testkarte verwende. Bitte verwenden Sie eine echte Karte."
         },
         "error_code": {
             "unknown": "Netzwerkfehler, bitte versuche es in wenigen Augenblicken erneut",
@@ -10487,7 +10497,10 @@
             "incomplete_cvc": "Der Sicherheitscode auf Deiner Karte ist unvollständig.",
             "invalid_expiry_year_past": "Das Ablaufdatum Deiner Karte ist bereits überschritten.",
             "none": " ",
-            "setup_intent_authentication_failure": ""
+            "setup_intent_authentication_failure": "Diese Karte kann nicht gespeichert werden. Bitte versuchen Sie es mit einer anderen Zahlungsmethode.",
+            "invalid_bank_account_account_number": "Die Kontonummer ist ungültig.",
+            "invalid_bank_account_routing_number": "Die angegeben Bankleizahl ist ungültig.",
+            "email_invalid": "Die angegeben E-Mail Adresse ist ungültig."
         },
         "errors": {
             "unknown": "Netzwerkfehler, bitte versuche es in wenigen Augenblicken erneut",
@@ -10503,14 +10516,18 @@
             "incomplete_expiry": "Das Ablaufdatum Deiner Karte ist unvollständig.",
             "incomplete_number": "Die Kartennummer ist unvollständig.",
             "insufficient_funds": "Deine Karte ist nicht ausreichend gedeckt.",
-            "reader_not_found": "",
-            "setup_intent_authentication_failure": "",
-            "no_established_connection": "",
-            "network_error": "",
-            "network_timeout": "",
-            "already_connected": "",
-            "reader_error": "",
-            "discovery_too_many_readers": ""
+            "reader_not_found": "Es ist ein Fehler aufgetreten. Vergewissern Sie sich, dass Ihr Terminal online ist und mit demselben WLAN verbunden ist wie Ihr Gerät.",
+            "setup_intent_authentication_failure": "Diese Karte kann nicht gespeichert werden. Bitte versuchen Sie eine andere Zahlungsmethode.",
+            "no_established_connection": "Es ist kein Bezahl-Terminal angeschlossen",
+            "network_error": "Netzwerkfehler - später erneut versuchen",
+            "network_timeout": "Netzwerkfehler - später erneut versuchen",
+            "already_connected": "Ein anderes Bezahlgerät ist bereits angeschlossen",
+            "reader_error": "Es ist ein Fehler aufgetreten. Vergewissern Sie sich, dass Ihr Terminal online ist und mit demselben WLAN verbunden ist wie Ihr Gerät.",
+            "discovery_too_many_readers": "Keine Verbindung möglich, zu viele Terminals in der Nähe",
+            "invalid_bank_account_routing_number": "Die angegebene Bankleizahl ist ungültig.",
+            "invalid_bank_account": "Das angegebene Bankkonto ist ungültig.",
+            "invalid_bank_account_account_number": "Die Kontonummer ist ungültig.",
+            "email_invalid": "Die E-Mail Adresse ist ungültig."
         }
     },
     "dashboard": {
@@ -12247,7 +12264,45 @@
                 "icon": "Symbol"
             },
             "popup": {
-                "subtitle": "Pop-up"
+                "subtitle": "Pop-up",
+                "helperText": "Das Pop-up erscheint einmal, wenn Ihre Mitglieder die Anwendung öffnen. Es lenkt die Aufmerksamkeit Ihrer Mitglieder auf ein besonderes Ereignis (einen neuen Kurs, eine Werbeaktion ...) und leitet sie auf die gewünschte Webseite weiter.",
+                "updated": "Aktualisieren",
+                "deleteModal": {
+                    "cancel": "Stornieren",
+                    "content": "Sind Sie sicher, dass Sie dieses Pop-up löschen möchten? Diese Aktion ist endgültig",
+                    "confirm": "Löschen bestätigen",
+                    "title": "Löschen"
+                },
+                "see": "Vorschau",
+                "editPopup": {
+                    "image": "Bild",
+                    "preview": "Vorschau",
+                    "previewPopup": {
+                        "title": "Übersicht",
+                        "see": "Siehe"
+                    },
+                    "title": "Start-Pop-up",
+                    "name": "Name Pop-up",
+                    "link": "Weiterleitungs-Link",
+                    "cancel": "Stornieren",
+                    "submit": "Speichern"
+                },
+                "image": "Bild",
+                "add": "Pop-up hinzufügen",
+                "name": "Pop-up Name",
+                "link": "Pop-up Link",
+                "action": "Aktion"
+            }
+        },
+        "company": {
+            "bankAccountSuccess": {
+                "content": "Ihre Bankdaten wurden erfolgreich aktualisiert. Um auf ein und dasselbe Konto gutgeschrieben und abgebucht zu werden, können Sie auch das Zahlungsmethode aktualisieren, mit dem Ihr Bsport-Abonnement abgebucht wird.",
+                "title": "Änderungen der Bankdaten",
+                "note": "Klicken Sie auf \"Konfigurieren\", um weitergeleitet zu werden."
+            },
+            "bankAccountInfo": {
+                "content": "Dieses Konto entspricht dem Konto, dem die Online-Zahlungen über Bsport gutgeschrieben werden. Um die Zahlungsmethode einzustellen, von der Ihr Bsport-Abo abgebucht wird, klicken Sie auf",
+                "link": "hier"
             }
         }
     },
@@ -13419,8 +13474,8 @@
             "pointer": "Cursor",
             "hand": "Hauptseite",
             "showGrid": "Anzeige des Gitters",
-            "addSpotType": "",
-            "helperText": ""
+            "addSpotType": "Einen Spot-Typ hinzufügen",
+            "helperText": "die Größe des Lehrersymbols muss positiv sein"
         },
         "errorLessSpotThanEffectif": "Sparen ist nicht möglich. Der Sitzplan muss mehr Platz bieten als die Anzahl der Teilnehmer der Session, zu der er gehört",
         "saveError": "Fehler",
@@ -13450,8 +13505,8 @@
             "cancel": "Abbrechen",
             "submit": "Bestätigen Sie",
             "takeSpotError": "Der Platz, den Sie für diesen Kurs ausgewählt haben, ist nicht mehr verfügbar. Bitte wählen Sie einen neuen aus.",
-            "book": "",
-            "legend": ""
+            "book": "Buchung: {{prefix}}{{indexType}}",
+            "legend": "Legende"
         },
         "searchHelper": "Hilfe: Ermöglicht es Ihren Schülern, den gewünschten Platz im Raum zu reservieren. Nicht obligatorische Felder",
         "effectifError": "Die Anzahl der Sitzplätze muss gleich oder größer sein als die Anzahl der Teilnehmer an der Session",
@@ -13461,45 +13516,45 @@
         "roomBlueprintSelectorTitle": "Wählen Sie einen Plan",
         "search": "Finden Sie einen Plan für die Spotterminierung",
         "spotCreatorForm": {
-            "triangle": "",
-            "preview": "",
-            "missImageSelected": "",
-            "personalized": "",
-            "name": "",
-            "customization": "",
-            "prefixError": "",
-            "prefix": "",
-            "deleted": "",
-            "missImageFree": "",
-            "subtitle": "",
-            "freePersonalized": "",
-            "title": "",
-            "circular": "",
-            "rectangle": "",
-            "square": "",
-            "predefined": "",
-            "selected": "",
-            "takenPersonalized": "",
-            "generalInfo": "",
-            "taken": "",
-            "saved": "",
-            "nameExplain": "",
-            "prefixExplain": "",
-            "selectedPersonalized": "",
-            "missImageTaken": "",
-            "alertDefaultSpot": "",
-            "personalizedExplain": "",
-            "free": ""
+            "triangle": "Dreieck",
+            "preview": "Vorschau",
+            "missImageSelected": "Sie haben das Bild für den ausgewählten Spot nicht geladen",
+            "personalized": "Personalisierte Bilder",
+            "name": "Name",
+            "customization": "Personalisiserung",
+            "prefixError": "Die Vorwahl darf nur aus einem Buchstaben bestehen",
+            "prefix": "Vorwahl",
+            "deleted": "Spot gelöscht",
+            "missImageFree": "Sie haben das Bild für den freien Spot nicht geladen",
+            "subtitle": "Platz-Typ erstellen",
+            "freePersonalized": "Verfügbar: {{Name}}",
+            "title": "Raumplan",
+            "circular": "Rund",
+            "rectangle": "Rechteck",
+            "square": "Quadrat",
+            "predefined": "Vorgegebene Formen",
+            "selected": "Ausgewählter Spot",
+            "takenPersonalized": "Gebucht: {{Name}}",
+            "generalInfo": "Allgemeine Informationen",
+            "taken": "Gebuchte Spots",
+            "saved": "Gespeicherter Spot",
+            "nameExplain": "Name des Platz-typs",
+            "prefixExplain": "Das hier angegebene Zeichen wird als Vorwahl der Platznummern erscheinen",
+            "selectedPersonalized": "{{Name}} ausgewählt",
+            "missImageTaken": "Sie haben das Bild für den gebuchten Spot nicht geladen",
+            "alertDefaultSpot": "Wenn Sie den Standard-spot ändern, werden alle Standard-spots auf allen Plänen identisch geändert.",
+            "personalizedExplain": "Sie können die Form der Slots anpassen, indem Sie Ihre eigenen Bilder importieren. Hierfür benötigen wir 3 verschiedene Symbole. Eines zeigt an, dass der Platz frei ist, ein anderes, dass er reserviert ist. Achten Sie darauf, dass sie die gleiche Größe haben, und fügen Sie bitte keine Zahlen in Ihre Icons ein.",
+            "free": "Spot verfügbar"
         },
         "forms": {
             "delete": {
-                "title": "",
+                "title": "Löschen",
                 "actions": {
-                    "confirm": "",
-                    "cancel": ""
+                    "confirm": "Bestätigen",
+                    "cancel": "Stornieren"
                 },
                 "content": {
-                    "canDelete": ""
+                    "canDelete": "Sind Sie sicher, dass Sie diesen Spot löschen wollen? Diese Aktion ist unwiederruflich. Er wird gelöscht und durch den Standard-Spot auf diesem Plan und allen anderen, auf denen er hinzugefügt wurde, ersetzt."
                 }
             }
         }

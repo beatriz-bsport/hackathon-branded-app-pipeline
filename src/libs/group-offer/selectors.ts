@@ -2,7 +2,6 @@
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 
-// @ts-ignore
 import memoize from 'memoize-one';
 import { RootState } from '../../reducers';
 import { Offer } from '#libs/offer/types';

@@ -13,7 +13,6 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import React, { useCallback, useState } from 'react';
-// @ts-ignore
 import memoize from 'memoize-one';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import CategoryItemWithItems, {

@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React from 'react';
-// @ts-ignore
 import memoize from 'memoize-one';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';

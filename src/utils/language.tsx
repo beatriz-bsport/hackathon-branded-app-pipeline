@@ -1,5 +1,4 @@
 // @ts-nocheck
-// @ts-ignore
 import memoize from 'memoize-one';
 // @ts-ignore
 import { availableLanguages } from '../i18n/index';

@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React from 'react';
-// @ts-ignore
 import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { Theme } from '../libs/theme/types';

@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React from 'react';
 import { AxiosResponse } from 'axios';
-// @ts-ignore
 import memoize from 'memoize-one';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';

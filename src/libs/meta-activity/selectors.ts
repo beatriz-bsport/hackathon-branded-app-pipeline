@@ -3,7 +3,6 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import pickBy from 'lodash/pickBy';
 
-// @ts-ignore
 import memoize from 'memoize-one';
 import type { MetaActivity } from './types';
 import { RootState } from '../../reducers';

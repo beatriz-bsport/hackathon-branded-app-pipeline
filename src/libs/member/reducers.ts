@@ -2,7 +2,6 @@
 import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
 
-// @ts-ignore
 import { handleActions } from 'redux-actions';
 import authActionTypes from '../../actions/auth.types';
 

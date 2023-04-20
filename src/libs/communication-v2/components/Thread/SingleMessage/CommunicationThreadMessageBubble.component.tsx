@@ -263,6 +263,14 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
   });
   const { t } = useTranslation('communication');
 
+  const upperCaseContent = (
+    communication.data?.body || communication.text
+  ).toUpperCase();
+
+  const shouldBeRenderedInHTML =
+    upperCaseContent.startsWith('<!DOCTYPE HTML') ||
+    upperCaseContent.startsWith('<HTML><BODY>');
+
   const finalChannel = useMemo(() => {
     const smartlistChannel = getSmartlistChannelFromMetadata(
       communication.metadata,
@@ -374,9 +382,7 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
             </div>
 
             {communication.kind === COMMUNICATION_KIND_EMAIL &&
-            (communication.data?.body || communication.text)
-              .toUpperCase()
-              .startsWith('<!DOCTYPE HTML') ? (
+            shouldBeRenderedInHTML ? (
               <>
                 <div className={classes.htmlPreview}>
                   <HTMLPreview

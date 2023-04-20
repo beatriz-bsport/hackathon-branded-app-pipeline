@@ -310,7 +310,7 @@ const styles = (theme: Theme): any => ({
     [theme.breakpoints.down('xs')]: {
       width: '100%',
     },
-    marginBottom: WidgetUtils.isWidget() ? theme.spacing(10) : 0,
+    marginBottom: theme.spacing(10),
   },
   connectionTitle: {
     position: 'relative',

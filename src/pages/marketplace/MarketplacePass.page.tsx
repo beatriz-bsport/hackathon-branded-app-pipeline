@@ -377,7 +377,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
         .map((category: PaymentPackCategoryWithPacks) => category.packs)
         .flat()
         .filter((pack: PaymentPack) =>
-          this.state.restrictedCategories.paymentPack
+          this.state.restrictedCategories.paymentPack?.length
             ? this.state.restrictedCategories.paymentPack.some(
                 (category) => category === pack.category,
               )

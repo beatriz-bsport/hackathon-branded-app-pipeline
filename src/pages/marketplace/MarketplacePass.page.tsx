@@ -4,18 +4,19 @@ import { compose, withProps } from 'recompose';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { createStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { withRouter } from 'react-router';
-
 import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import themeSelector from '#libs/theme/selectors';
 
 // marketplace
@@ -662,36 +663,37 @@ export class MarketPlacePassPage extends Component<Props, State> {
   }
 }
 
-const styles = (theme: Theme) => ({
-  marketplaceList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: theme.spacing(3),
-  },
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: theme.spacing(3),
-    padding: theme.spacing(6),
-    paddingTop: theme.spacing(4),
-    maxWidth: '1652px',
-    margin: '0 auto',
-    [theme.breakpoints.down('xs')]: {
-      padding: theme.spacing(2),
+const styles = (theme: Theme) =>
+  createStyles({
+    marketplaceList: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: theme.spacing(3),
     },
-  },
-  carouselContainer: {
-    padding: theme.spacing(6),
-    paddingTop: theme.spacing(2),
-    paddingBottom: 0,
-    maxWidth: '1652px',
-    margin: '0 auto',
-    [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.MD)]: {
-      paddingLeft: theme.spacing(0),
-      paddingRight: theme.spacing(0),
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: theme.spacing(3),
+      padding: theme.spacing(6),
+      paddingTop: theme.spacing(4),
+      maxWidth: '1652px',
+      margin: '0 auto',
+      [theme.breakpoints.down('xs')]: {
+        padding: theme.spacing(2),
+      },
     },
-  },
-});
+    carouselContainer: {
+      padding: theme.spacing(6),
+      paddingTop: theme.spacing(2),
+      paddingBottom: 0,
+      maxWidth: '1652px',
+      margin: '0 auto',
+      [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.MD)]: {
+        paddingLeft: theme.spacing(0),
+        paddingRight: theme.spacing(0),
+      },
+    },
+  });
 
 const mapMemberInfoStateToProps = (
   // Have to do this separation here for widget purpose
@@ -763,7 +765,6 @@ const mapDispatchToProps = {
 };
 
 export const MarketplacePassBase = compose<any, OwnProps>(
-  // @ts-ignore
   withStyles(styles),
   connect(mapMemberInfoStateToProps),
   connect(mapStateToProps, mapDispatchToProps),
@@ -783,6 +784,7 @@ export const MarketplacePassBase = compose<any, OwnProps>(
     }),
   ),
   withTranslation(),
+  marketplaceCssHoc(),
 )(MarketPlacePassPage);
 
 export default compose<any, OwnProps>(
@@ -803,4 +805,5 @@ export default compose<any, OwnProps>(
     t('titles:marketplace.marketplacePass'),
   ),
   withStyles(styles),
+  marketplaceCssHoc(),
 )(MarketplacePassBase);

@@ -14,15 +14,20 @@ export default class BsportWidget {
     parentElement,
     ...initialParams
   }: { parentElement: HTMLElement } & WidgetConfig = {}) {
+    if (initialParams?.widgetType === 'pass') {
+      import('../vendor/reset.css');
+    }
     const component = <Root initialParams={initialParams} />;
     function doRender() {
       const el = document.createElement('div');
+
       const parentElementId = parentElement || 'bsport-widget';
       el.setAttribute('class', 'cleanslate');
       document.getElementById(parentElementId).appendChild(el);
       if (BsportWidget.el_list_id.includes(parentElementId)) {
         return;
       }
+
       ReactDOM.render(component, el);
       BsportWidget.el_list_id.push(parentElementId);
 

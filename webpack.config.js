@@ -83,6 +83,7 @@ const defaultConfig = {
           },
           {
             test: /\.(scss|css)$/,
+            exclude: /reset\.css$/,
             use: [
               // fallback to style-loader in development
               // devMode ? 'style-loader' : MiniCssExtractPlugin.loader,

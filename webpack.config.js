@@ -105,6 +105,23 @@ const defaultConfig = {
               'sass-loader',
             ],
           },
+          {
+            test: /reset\.css$/,
+            use: [
+              // fallback to style-loader in development
+              // devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+              'style-loader',
+              'css-loader',
+              {
+                loader: 'postcss-loader',
+                options: {
+                  ident: 'postcss',
+                  sourceMap: devMode,
+                },
+              },
+              'sass-loader',
+            ],
+          },
         ],
       },
     ],

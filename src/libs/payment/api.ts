@@ -105,6 +105,13 @@ export const updateIntentToSavePaymentMethod = async (data: any) => {
   );
 };
 
+export const updateIntentToSavePaymentMethodWebview = async (data: any) => {
+  return postAuth(
+    `${API_V1_URI}/payment/payment_group/update_intent_to_save_payment_method_by_basket_id/`,
+    data,
+  );
+};
+
 export const fetchPayoutList = async (params: any) => {
   return getAuth(`${API_V1_URI}/payment/payout/${buildUrlParams(params)}`);
 };
@@ -137,5 +144,20 @@ export const confirmPaymentByPaymentMethodId = async (
   return postAuth(
     `${API_V1_URI}/payment/payment_group/confirm_payment_intent/`,
     { payment_group_id: paymentGroupId, payment_method_id: paymentMethodId },
+  );
+};
+
+export const confirmPaymentByPaymentMethodIdWebview = async (
+  paymentGroupId: number,
+  paymentMethodId: number,
+  basketId: string,
+) => {
+  return postAuth(
+    `${API_V1_URI}/payment/payment_group/confirm_payment_intent_by_basket_id/`,
+    {
+      payment_group_id: paymentGroupId,
+      payment_method_id: paymentMethodId,
+      basket_id: basketId,
+    },
   );
 };

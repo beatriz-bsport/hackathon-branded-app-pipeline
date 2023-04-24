@@ -19,6 +19,8 @@ import {
   verifyPriceBasket as verifyPriceBasketAPI,
   updateIntentToSavePaymentMethod as updateIntentToSavePaymentMethodAPI,
   confirmPaymentByPaymentMethodId as confirmPaymentByPaymentMethodIdAPI,
+  updateIntentToSavePaymentMethodWebview as updateIntentToSavePaymentMethodWebviewAPI,
+  confirmPaymentByPaymentMethodIdWebview as confirmPaymentByPaymentMethodIdWebviewAPI,
 } from '../../api';
 import PaymentMethodList from '../payment-method-list';
 
@@ -35,6 +37,7 @@ interface PaymentStripeBacsDebitProps {
   basketTotalPriceCts?: number;
   checkItemsBasket: (basketId: string) => boolean;
   clientSecret: string;
+  fromApp: boolean;
   paymentGroupId: number;
   memberId: number;
   detachPaymentMethodLoading: boolean;
@@ -58,6 +61,7 @@ const PaymentStripeBacsDebit = ({
   basketTotalPriceCts,
   checkItemsBasket,
   clientSecret,
+  fromApp,
   paymentGroupId,
   memberId,
   detachPaymentMethodLoading,
@@ -102,6 +106,10 @@ const PaymentStripeBacsDebit = ({
     }
   }, [addPaymentMethod]);
 
+  const updateIntentToSavePaymentMethodAdaptedAPI = fromApp
+    ? updateIntentToSavePaymentMethodWebviewAPI
+    : updateIntentToSavePaymentMethodAPI;
+
   const defineSelectedPaymentMethod = useCallback(
     (id: string) => {
       if (id !== paymentMethodSelected) {
@@ -117,17 +125,26 @@ const PaymentStripeBacsDebit = ({
       event.persist();
       const checked = event.target.checked;
       try {
-        await updateIntentToSavePaymentMethodAPI({
-          save_for_later: checked,
-          payment_group_id: paymentGroupId,
-        });
-        setSaveForLaterBacsDebit(checked);
+        if (!fromApp || basketId) {
+          await updateIntentToSavePaymentMethodAdaptedAPI({
+            save_for_later: checked,
+            payment_group_id: paymentGroupId,
+            ...(fromApp ? { basket_id: basketId } : {}),
+          });
+          setSaveForLaterBacsDebit(checked);
+        }
       } catch (err) {
         console.error(err);
       }
       setProcessing(false);
     },
-    [paymentGroupId, setSaveForLaterBacsDebit],
+    [
+      basketId,
+      fromApp,
+      paymentGroupId,
+      setSaveForLaterBacsDebit,
+      updateIntentToSavePaymentMethodAdaptedAPI,
+    ],
   );
 
   const verifyBasket = useCallback(async () => {
@@ -186,13 +203,21 @@ const PaymentStripeBacsDebit = ({
   }, [clientSecret, elements, onError, onSuccess, stripe]);
 
   const submitPaymentWithPaymentMethodSelected = useCallback(async () => {
-    await confirmPaymentByPaymentMethodIdAPI(
-      paymentGroupId,
-      paymentMethodSelected,
-    );
+    if (fromApp) {
+      await confirmPaymentByPaymentMethodIdWebviewAPI(
+        paymentGroupId,
+        paymentMethodSelected,
+        basketId,
+      );
+    } else {
+      await confirmPaymentByPaymentMethodIdAPI(
+        paymentGroupId,
+        paymentMethodSelected,
+      );
+    }
     setErrorMessage(null);
     onSuccess(() => setProcessing(false));
-  }, [onSuccess, paymentGroupId, paymentMethodSelected]);
+  }, [basketId, fromApp, onSuccess, paymentGroupId, paymentMethodSelected]);
 
   const handleSubmit = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {

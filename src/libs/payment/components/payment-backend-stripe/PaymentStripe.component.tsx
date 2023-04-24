@@ -45,7 +45,10 @@ import {
 } from '../../../theme/selectors';
 import type { OptionCallback } from '../../../../state/types';
 import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
-import { updateIntentToSavePaymentMethod as updateIntentToSavePaymentMethodAPI } from '#libs/payment/api';
+import {
+  updateIntentToSavePaymentMethod as updateIntentToSavePaymentMethodAPI,
+  updateIntentToSavePaymentMethodWebview as updateIntentToSavePaymentMethodWebviewAPI,
+} from '#libs/payment/api';
 
 const stripePromise = loadStripe(getStripePkKey());
 
@@ -168,6 +171,10 @@ export const PaymentStripe = ({
   const StripePaymentMethodForm =
     STRIPE_PAYMENT_METHOD_FORM_COMPONENT[paymentMethodSelected];
 
+  const updateIntentToSavePaymentMethodAdaptedAPI = fromApp
+    ? updateIntentToSavePaymentMethodWebviewAPI
+    : updateIntentToSavePaymentMethodAPI;
+
   const [processing, setProcessing] = React.useState(true);
   const [elementOptions, setElementOptions] = React.useState({});
   const [saveForLaterBacsDebit, setSaveForLaterBacsDebit] =
@@ -189,11 +196,14 @@ export const PaymentStripe = ({
       ) {
         setElementOptions({});
         try {
-          await updateIntentToSavePaymentMethodAPI({
-            save_for_later: false,
-            payment_group_id: paymentGroupId,
-          });
-          setSaveForLaterBacsDebit(false);
+          if (!fromApp || basketId) {
+            await updateIntentToSavePaymentMethodAdaptedAPI({
+              save_for_later: false,
+              payment_group_id: paymentGroupId,
+              ...(fromApp ? { basket_id: basketId } : {}),
+            });
+            setSaveForLaterBacsDebit(false);
+          }
         } catch (err) {
           console.error(err);
         }
@@ -205,7 +215,13 @@ export const PaymentStripe = ({
       }
       selectPaymentMethod(paymentMethod);
     },
-    [paymentGroupId, selectPaymentMethod],
+    [
+      basketId,
+      fromApp,
+      paymentGroupId,
+      selectPaymentMethod,
+      updateIntentToSavePaymentMethodAdaptedAPI,
+    ],
   );
 
   // Avoid to have the Elements component mounted before the clientSecret properly fetched, or the BACS Direct Debit
@@ -297,6 +313,7 @@ export const PaymentStripe = ({
               onError={onError}
               clientSecret={clientSecret}
               forceDisabled={priceUpdaterOpen}
+              fromApp={fromApp}
               basketTotalPriceCts={basketTotalPriceCts}
               basketId={basketId}
               forceSave={!!instalmentPaymentSelectedId}

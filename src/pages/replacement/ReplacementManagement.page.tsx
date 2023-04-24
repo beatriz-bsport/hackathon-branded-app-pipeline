@@ -712,7 +712,7 @@ const useStyles = makeStyles((theme) => ({
   },
   filters: {
     display: 'table',
-    width: '17%',
+    width: '30%',
     marginLeft: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       margin: 0,

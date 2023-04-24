@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { Component, useCallback } from 'react';
 
-import { compose, withProps } from 'recompose';
+import { compose, withHandlers } from 'recompose';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -769,9 +769,10 @@ export const MarketplacePassBase = compose<any, OwnProps>(
   withStyles(styles),
   connect(mapMemberInfoStateToProps),
   connect(mapStateToProps, mapDispatchToProps),
-  withProps(
-    ({ fetchPaymentPacks, fetchEstablishmentBulk, fetchMetaActivityBulk }) => ({
-      fetchPaymentPacks: (params: any) =>
+  withHandlers({
+    fetchPaymentPacks:
+      ({ fetchPaymentPacks, fetchEstablishmentBulk, fetchMetaActivityBulk }) =>
+      (params: any) =>
         fetchPaymentPacks(params, {
           onSuccess: (packList: Array<any>) => {
             fetchEstablishmentBulk(
@@ -782,8 +783,7 @@ export const MarketplacePassBase = compose<any, OwnProps>(
             );
           },
         }),
-    }),
-  ),
+  }),
   withTranslation(),
   marketplaceCssHoc(),
 )(MarketPlacePassPage);

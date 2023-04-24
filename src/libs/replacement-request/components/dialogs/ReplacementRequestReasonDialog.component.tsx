@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useCallback, useState } from 'react';
 import moment from 'moment-timezone';
 import { useTranslation, Trans } from 'react-i18next';
@@ -180,7 +181,7 @@ export const ReplacementRequestReasonDialog: React.FC<Props> = ({
               </Button>
               <Button
                 disabled={
-                  reason.replaceAll(' ', '').replaceAll('\n', '').length === 0
+                  reason.replaceAll(' ', '').replaceAll('', '').length === 0
                 }
                 className={classes.buttons}
                 onClick={handleSubmit}

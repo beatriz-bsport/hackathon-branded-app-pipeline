@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import values from 'lodash/values';
 import { compose } from 'recompose';

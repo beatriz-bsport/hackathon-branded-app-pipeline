@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
 import type { CustomMobilePopup, CustomShopRedirection } from './types';

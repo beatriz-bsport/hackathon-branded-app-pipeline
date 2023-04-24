@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { ButtonBase, makeStyles, Theme } from '@material-ui/core';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';

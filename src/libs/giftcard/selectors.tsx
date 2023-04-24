@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createSelector } from 'reselect';
 // @ts-ignore
 import memoize from 'memoize-one';

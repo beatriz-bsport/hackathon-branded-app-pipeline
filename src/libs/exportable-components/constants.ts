@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const EXPORTABLE_COMPONENT_TYPE_VOD = 'vod';
 export const EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2 = 'calendarV2';
 export const EXPORTABLE_COMPONENT_TYPE_CALENDAR = 'calendar';

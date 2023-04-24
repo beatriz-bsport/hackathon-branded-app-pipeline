@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ConsumerPaymentPack } from './types';
 import { PaymentPackFactory } from '#libs/payment-packs/factories';
 

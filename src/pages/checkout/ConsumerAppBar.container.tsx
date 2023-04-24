@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { MuiThemeProvider, makeStyles } from '@material-ui/core/styles';

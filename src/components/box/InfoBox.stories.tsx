@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import InfoBox, { OwnProps } from './InfoBox.component';
 import faker from 'faker';

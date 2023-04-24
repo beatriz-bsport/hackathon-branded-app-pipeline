@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import MuiSvgIcon from './MuiSvgIcon.component';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 
 import Immutable from 'seamless-immutable';

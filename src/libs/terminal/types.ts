@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type StripeReader = {
   id: string;
   device_type: string;

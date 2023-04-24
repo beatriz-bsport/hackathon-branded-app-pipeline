@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ErrorAndLoading } from '../types';
 import { Establishment } from '../establishment/types';
 import { MetaActivity } from '../meta-activity/types';

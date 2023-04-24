@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createSelector } from 'reselect';
 import { CheckoutState } from './types';
 import { RootState } from '../../reducers';

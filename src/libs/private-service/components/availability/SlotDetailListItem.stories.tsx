@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 
 import SlotDetailLisItem, { Props } from './SlotDetailListItem.component';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { AxiosResponse } from 'axios';
 import { PaginatedResponse } from '../../state/types';
 import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';

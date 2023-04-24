@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { SyntheticEvent } from 'react';
 
 import { compose, withHandlers, withStateHandlers } from 'recompose';

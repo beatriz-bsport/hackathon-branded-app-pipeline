@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { handleActions } from 'redux-actions';
 import Immutable from 'seamless-immutable';
 import {

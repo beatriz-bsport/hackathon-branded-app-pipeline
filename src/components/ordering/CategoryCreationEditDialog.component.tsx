@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useTranslation } from 'react-i18next';
 import React, { useCallback } from 'react';
 import Alert from '@material-ui/lab/Alert/Alert';

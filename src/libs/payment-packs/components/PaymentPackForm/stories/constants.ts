@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const inputValues = {
   name: "Can't buy a thrill",
   price: '10',

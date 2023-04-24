@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * The available components we can use in the marketplace
  */

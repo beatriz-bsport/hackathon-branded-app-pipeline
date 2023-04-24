@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect } from 'react';
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';

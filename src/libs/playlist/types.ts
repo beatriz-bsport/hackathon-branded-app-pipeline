@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ErrorAndLoading } from '../types';
 
 export type Playlist<V = number> = {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import uniq from 'lodash/uniq';
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';

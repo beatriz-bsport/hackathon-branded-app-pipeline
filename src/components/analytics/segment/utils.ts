@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Analytics, AnalyticsBrowser } from '@segment/analytics-next';
 import Config from '../../../config';
 

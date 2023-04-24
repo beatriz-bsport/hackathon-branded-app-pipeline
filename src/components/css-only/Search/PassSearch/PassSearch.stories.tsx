@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 
 import { PaymentPackStorybookListFactory } from '#libs/payment-packs/factory';

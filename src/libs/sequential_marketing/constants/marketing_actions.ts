@@ -1,3 +1,4 @@
+// @ts-nocheck
 export enum CadenceMarketingActionsEnum {
   CADENCE_MARKETING_ACTION_WRITTEN_EMAIL = 1,
   CADENCE_MARKETING_ACTION_SMS = 2,

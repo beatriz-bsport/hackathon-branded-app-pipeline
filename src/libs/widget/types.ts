@@ -1,3 +1,4 @@
+// @ts-nocheck
 export enum WidgetMessageType {
   PAYMENT_SUCCESS = 'PAYMENT_SUCCESS',
   VIDEO_REGISTERED = 'VIDEO_REGISTERED',

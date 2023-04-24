@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import { OWNER_ROLE, ADMIN_ROLE } from '#libs/role/role-types';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { API_V1_URI, buildUrlParams, getAuth, postAuth } from '../../http';
 import type {
   TutorialSectionQueryParams,

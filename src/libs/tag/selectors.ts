@@ -1,3 +1,4 @@
+// @ts-nocheck
 import memoize from 'memoize-one';
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
 import { createSelector } from 'reselect';

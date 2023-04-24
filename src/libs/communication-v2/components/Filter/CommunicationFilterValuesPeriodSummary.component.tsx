@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import moment, { Moment as MomentType } from 'moment-timezone';
 import { makeStyles, Theme, Chip, Typography } from '@material-ui/core';

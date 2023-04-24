@@ -1,3 +1,4 @@
+// @ts-nocheck
 import moment from 'moment-timezone';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import { FranchiseCompanyListFactory } from '#libs/franchise/factories/FranchiseCompanyFactory';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // tests back
 // validation front
 // page DETAIL

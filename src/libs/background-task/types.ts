@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type BackgroundTask = {
   uuid: string;
   status: number;

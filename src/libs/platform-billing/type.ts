@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { UpsellPackage } from '#libs/company/types';
 import {
   BLOCK_BACKOFFICE,

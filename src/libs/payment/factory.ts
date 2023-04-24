@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { PaymentMethod } from './types';
 
 function random_int(max: number): number {

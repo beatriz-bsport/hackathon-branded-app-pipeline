@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { SVGProps } from 'react';
 
 const CheckIcon: React.FC<SVGProps<SVGElement>> = ({

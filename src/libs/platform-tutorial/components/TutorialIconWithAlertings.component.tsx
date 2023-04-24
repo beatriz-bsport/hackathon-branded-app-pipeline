@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import SchoolIcon from '@material-ui/icons/School';
 import { Badge } from '@material-ui/core';

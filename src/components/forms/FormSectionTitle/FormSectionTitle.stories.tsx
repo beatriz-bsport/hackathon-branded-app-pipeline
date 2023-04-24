@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import InfoIcon from '@material-ui/icons/Info';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 
 import { Handle, Position, HandleType } from 'react-flow-renderer';

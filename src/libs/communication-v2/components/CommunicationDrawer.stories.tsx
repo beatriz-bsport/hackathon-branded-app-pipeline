@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import { CommunicationDrawerWithStyles as CommunicationDrawer } from './CommunicationDrawer.component';
 import MembersFactory, { MemberFactory } from '#libs/member/factories/Member';

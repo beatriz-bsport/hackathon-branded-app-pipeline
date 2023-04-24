@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import {

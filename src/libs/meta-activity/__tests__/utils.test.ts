@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { MarketPlaceFilter } from '#libs/marketplace/types';
 import { convertMarketplaceFilterForMetaActivityCall } from '../utils';
 import { MetaActivityFilter } from './types';

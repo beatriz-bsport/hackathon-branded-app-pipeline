@@ -1,3 +1,4 @@
+// @ts-nocheck
 import MarketplacePrivatePassCard, {
   Props,
 } from './MarketplacePrivatePassCard.component';

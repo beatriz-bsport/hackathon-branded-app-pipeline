@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import moment from 'moment-timezone';
 import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports';
 import { MetaActivity } from './types';

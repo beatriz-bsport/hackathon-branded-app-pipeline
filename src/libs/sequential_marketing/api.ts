@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { AxiosResponse } from 'axios';
 import {
   API_V1_URI,

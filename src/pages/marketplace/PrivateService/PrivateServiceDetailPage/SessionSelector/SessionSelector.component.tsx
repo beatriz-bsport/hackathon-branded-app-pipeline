@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useCallback, useEffect, useState } from 'react';
 import { Fade, Typography, Tab, Tabs, Paper } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';

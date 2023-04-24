@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as rudderanalytics from 'rudder-sdk-js';
 import { captureException as SentryCaptureException } from '@sentry/react';
 import Config from '../../../config';

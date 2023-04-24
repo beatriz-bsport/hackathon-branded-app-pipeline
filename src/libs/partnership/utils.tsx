@@ -1,3 +1,4 @@
+// @ts-nocheck
 exports.SIMPLE_MULTIPLE_MODE = 1;
 exports.OVERRIDE_MODE = 2;
 exports.MULTIPLE_MERGE_MODE = 3;

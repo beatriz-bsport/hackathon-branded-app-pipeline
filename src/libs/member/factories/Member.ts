@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Member } from '../types';
 import FactoryBotTag from '../../tag/factory';
 

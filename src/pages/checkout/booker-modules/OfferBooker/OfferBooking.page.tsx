@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import isEqual from 'lodash/isEqual';
 import { compose, withHandlers, withProps } from 'recompose';

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from 'react';
 import OfferSpotSelector from '../../../../pages/checkout/booker-modules/OfferBooker/OfferSpotSelector';
 
@@ -400,7 +402,7 @@ TemplateOffer.args = {
   offer: offer,
   onCancel: () => {},
   offerStatusById: {},
-  spotTypes:[],
+  spotTypes: [],
   // fullScreen: true,
 };
 

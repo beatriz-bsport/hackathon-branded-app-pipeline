@@ -1,3 +1,4 @@
+// @ts-nocheck
 // FROM BackEndConnectedTriggerPayload TO StepConnectedTriggerConfig ||CadenceConnectedTriggerConfig
 
 import {

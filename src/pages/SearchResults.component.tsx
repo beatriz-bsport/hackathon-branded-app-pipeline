@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Fuse from 'fuse.js';
 import React from 'react';
 import { compose } from 'recompose';

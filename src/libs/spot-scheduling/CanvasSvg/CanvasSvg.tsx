@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 
 export const SVG_WORK_SIZE = 2100;

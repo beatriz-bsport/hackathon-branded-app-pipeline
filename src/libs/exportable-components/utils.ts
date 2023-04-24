@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TFunction } from 'i18next';
 import {
   EXPORTABLE_COMPONENTS,

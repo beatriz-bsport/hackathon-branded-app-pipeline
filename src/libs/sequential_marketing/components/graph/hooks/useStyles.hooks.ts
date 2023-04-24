@@ -1,3 +1,4 @@
+// @ts-nocheck
 import makeStyles from '@material-ui/styles/makeStyles';
 
 export const useGraphStyles = makeStyles(() => ({

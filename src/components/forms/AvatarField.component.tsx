@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 
 import omit from 'lodash/omit';

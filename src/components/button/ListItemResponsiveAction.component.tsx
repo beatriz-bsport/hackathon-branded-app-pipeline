@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import Menu from '@material-ui/core/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';

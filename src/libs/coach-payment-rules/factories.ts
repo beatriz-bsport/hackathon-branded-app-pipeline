@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import type { CoachPaymentRule, CoachPaymentRuleGroup } from './types';
 import { coachesFactory } from '../associated-coach/factories';
 

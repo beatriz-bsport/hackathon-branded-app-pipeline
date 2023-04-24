@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import getVideoId from 'get-video-id';

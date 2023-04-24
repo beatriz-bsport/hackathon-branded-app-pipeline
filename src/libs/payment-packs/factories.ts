@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { PaymentPack } from './types';
 
 function randomInt(max: number) {

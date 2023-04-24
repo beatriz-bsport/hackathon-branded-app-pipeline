@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';

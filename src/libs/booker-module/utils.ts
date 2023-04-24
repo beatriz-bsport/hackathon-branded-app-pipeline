@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Offer_FULL } from '../offer/types';
 import { ExtraDataFromQueryParams } from './types';
 

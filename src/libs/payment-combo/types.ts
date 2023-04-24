@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { PrivatePass } from '#libs/private-service/types';
 import { ErrorAndLoading } from '#libs/types';
 import { PaymentPack } from '../payment-packs/types';

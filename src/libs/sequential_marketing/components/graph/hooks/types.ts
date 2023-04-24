@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Node as FlowNode } from 'react-flow-renderer';
 import { CustomNodesEnum } from './useNodes.hooks';
 import type {

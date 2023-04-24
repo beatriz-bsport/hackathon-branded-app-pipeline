@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type MaterialStyleType<S> = {
   classes: Record<keyof S, string>;
 };

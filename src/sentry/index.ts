@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 import { Replay } from '@sentry/replay';

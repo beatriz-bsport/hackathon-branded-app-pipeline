@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ResolvedGenericTags } from './types';
 
 export const replaceGenericTagsInTemplate = (

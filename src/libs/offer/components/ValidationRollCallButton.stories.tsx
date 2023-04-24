@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import { ValidationRollCallButton, Props } from "./ValidationRollCallButton.component";
 

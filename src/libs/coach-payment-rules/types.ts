@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ErrorAndLoading } from '#libs/types';
 import type { Coach } from '../associated-coach/types';
 

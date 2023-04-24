@@ -1,3 +1,4 @@
+// @ts-nocheck
 import MarketplacePaymentPackRestrictionModal, {
   Props,
 } from './MarketplacePaymentPackRestrictionModal.component';

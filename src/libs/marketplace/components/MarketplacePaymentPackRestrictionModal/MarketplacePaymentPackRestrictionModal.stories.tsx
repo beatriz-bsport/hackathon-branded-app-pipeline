@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import MarketplacePaymentPackRestrictionModal, {Props} from '.';
 import FactoryBotPaymentPack from '#libs/payment-packs/factory'

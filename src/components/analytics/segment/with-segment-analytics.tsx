@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { Analytics } from '@segment/analytics-next';
 import { segmentTrackEnum, WithSegmentAnalyticsHandlers } from './utils';

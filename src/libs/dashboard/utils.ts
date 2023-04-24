@@ -1,3 +1,4 @@
+// @ts-nocheck
 import moment, { Moment as MomentType } from 'moment-timezone';
 import memoize from 'memoize-one';
 import { v4 as uuidv4 } from 'uuid';

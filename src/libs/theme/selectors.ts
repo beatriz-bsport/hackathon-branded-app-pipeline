@@ -1,3 +1,4 @@
+// @ts-nocheck
 import isNil from 'lodash/isNil';
 import { RootState } from '../../reducers';
 import Config from '../../config';

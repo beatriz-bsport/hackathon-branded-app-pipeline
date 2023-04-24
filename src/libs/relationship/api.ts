@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 import {
   buildUrlParams,

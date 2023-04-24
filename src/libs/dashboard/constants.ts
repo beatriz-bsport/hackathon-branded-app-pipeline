@@ -1,3 +1,4 @@
+// @ts-nocheck
 // GRAPH FAMILIES
 export const GRAPH_FAMILY_TEMPORAL = 'temporal';
 export const GRAPH_FAMILY_QUALITATIVE = 'qualitative';

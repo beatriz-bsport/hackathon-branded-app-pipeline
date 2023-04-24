@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 import React, { Component } from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import RollCallDrawer, { Props } from './RollCallDrawer.component';
 import MembersFactory from '#libs/member/factories/Member';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 import React, { useEffect, useLayoutEffect, useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useCallback, useRef } from 'react';
 import { TFunction } from 'i18next';
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Offer } from './types';
 import { Coach } from '#libs/associated-coach/types';
 import { Tag } from '#libs/tag/types';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { WidgetMessageType } from './types';
 
 export class WidgetUtils {

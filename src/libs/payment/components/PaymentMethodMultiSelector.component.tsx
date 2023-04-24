@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Paper from '@material-ui/core/Paper';

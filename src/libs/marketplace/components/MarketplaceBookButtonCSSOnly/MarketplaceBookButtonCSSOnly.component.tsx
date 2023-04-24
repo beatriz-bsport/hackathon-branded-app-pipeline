@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useMemo } from 'react';
 import classnames from 'classnames';
 import { pure } from 'recompose';

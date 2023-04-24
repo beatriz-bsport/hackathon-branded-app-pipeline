@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { establishment_factory } from '../factory';
 import {

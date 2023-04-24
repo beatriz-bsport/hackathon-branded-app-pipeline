@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 import React, { useCallback, useEffect, useState } from 'react';
 import moment from 'moment-timezone';

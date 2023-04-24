@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 import React from 'react';
 import { compose, withState, withHandlers, withProps } from 'recompose';

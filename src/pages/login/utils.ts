@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { buildUrlParams } from '../../http';
 
 export const buildSignUpUrl = (

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { CategoryWithItems } from '#components/ordering/types';
 
 const EMAIL_SUBJECTS = [

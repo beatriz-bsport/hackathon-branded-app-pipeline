@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import pick from 'lodash/pick';
 import { makeStyles, Theme } from '@material-ui/core/styles';

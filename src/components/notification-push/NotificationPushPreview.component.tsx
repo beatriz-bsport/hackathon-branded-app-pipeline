@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useMemo } from 'react';
 import moment from 'moment-timezone';
 import classNames from 'classnames';

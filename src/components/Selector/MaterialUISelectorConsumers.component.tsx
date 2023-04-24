@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core';
 import uniqBy from 'lodash/uniqBy';

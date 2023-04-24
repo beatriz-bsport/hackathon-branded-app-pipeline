@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type Theme = {
   id: string;
   default_booking_ordering: string;

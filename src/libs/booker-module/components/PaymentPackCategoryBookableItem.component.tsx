@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import { Typography } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';

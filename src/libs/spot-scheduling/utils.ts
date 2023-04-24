@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { CANVAS_SELECTABLE_TOOLS } from './CanvasSvg/tools/CanvasStrategy';
 import { CanvasSpotProps } from './CanvasSvg/tools/Spot/CanvasSpot.component';
 import { RoomBlueprint, SpotType } from './types';

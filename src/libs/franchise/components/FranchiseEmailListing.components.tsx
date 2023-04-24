@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useMemo } from 'react';
 import { compose } from 'recompose';
 import { Divider, List, makeStyles, Theme } from '@material-ui/core';

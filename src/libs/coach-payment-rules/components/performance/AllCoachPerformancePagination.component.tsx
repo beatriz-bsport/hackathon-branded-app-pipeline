@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import moment from 'moment-timezone';
 import IconButton from '@material-ui/core/IconButton';

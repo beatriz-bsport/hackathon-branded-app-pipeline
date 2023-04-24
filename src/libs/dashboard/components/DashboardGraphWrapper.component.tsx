@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useCallback } from 'react';
 
 import { makeStyles, Theme } from '@material-ui/core';

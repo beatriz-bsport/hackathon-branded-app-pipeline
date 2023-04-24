@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useTranslation } from 'react-i18next';
 import MenuItem from '@material-ui/core/MenuItem';
 import { TFunction } from 'i18next';

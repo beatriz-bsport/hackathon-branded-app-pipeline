@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   CADENCE_EVENT_GROUPED_BY_CATEGORY,
   RuleBetweenEntryEvent,

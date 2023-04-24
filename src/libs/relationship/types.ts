@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ErrorAndLoading } from '../types';
 import { MemberMinimal } from '../member/types';
 

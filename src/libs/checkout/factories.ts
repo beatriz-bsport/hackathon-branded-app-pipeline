@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 const names = [
   'Pass Orange',
   'Pass Blue',

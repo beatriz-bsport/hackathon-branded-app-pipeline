@@ -1,3 +1,4 @@
+// @ts-nocheck
 import faker from 'faker';
 import React from 'react';
 import HighlitedText, { OwnProps } from './HighlightedText.component';

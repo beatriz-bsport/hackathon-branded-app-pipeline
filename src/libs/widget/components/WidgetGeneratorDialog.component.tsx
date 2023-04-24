@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Button, DialogActions, DialogContent } from '@material-ui/core';
 import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';

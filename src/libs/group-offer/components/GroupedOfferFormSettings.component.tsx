@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect, useCallback } from 'react';
 import { compose } from 'recompose';
 import * as Yup from 'yup';

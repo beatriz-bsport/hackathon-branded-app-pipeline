@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
 

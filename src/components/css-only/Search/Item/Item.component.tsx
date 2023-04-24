@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';

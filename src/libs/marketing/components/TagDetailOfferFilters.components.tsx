@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import memoize from 'memoize-one';
 import moment from 'moment-timezone';

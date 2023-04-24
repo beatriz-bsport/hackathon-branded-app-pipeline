@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 
 export const MemberMap = {

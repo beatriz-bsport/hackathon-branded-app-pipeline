@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Offer, OfferStatus } from '#libs/offer/types';
 import { ErrorAndLoading } from '../types';
 

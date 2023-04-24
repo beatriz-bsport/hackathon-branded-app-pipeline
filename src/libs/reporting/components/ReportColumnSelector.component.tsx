@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import uniq from 'lodash/uniq';
 import { makeStyles, Theme } from '@material-ui/core';

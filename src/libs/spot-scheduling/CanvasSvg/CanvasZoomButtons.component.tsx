@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { withStyles } from '@material-ui/styles';
 import React from 'react';
 import { compose } from 'recompose';

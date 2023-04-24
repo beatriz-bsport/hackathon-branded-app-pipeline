@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useCallback, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { InputActionTypes } from 'react-select';

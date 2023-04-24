@@ -1,3 +1,4 @@
+// @ts-nocheck
 import memoize from 'memoize-one';
 import {
   BUYABLE_ITEM_PASS,

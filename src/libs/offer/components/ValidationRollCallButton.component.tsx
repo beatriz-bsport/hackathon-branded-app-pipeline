@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { PlaylistAddCheck } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';

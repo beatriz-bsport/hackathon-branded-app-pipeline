@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';

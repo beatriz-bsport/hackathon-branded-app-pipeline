@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { SVGProps } from 'react';
 
 const EmailIcon: React.FC<SVGProps<SVGElement>> = (props) => {

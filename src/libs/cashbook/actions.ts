@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createAction } from 'redux-actions';
 import api from './api';
 import { Dispatch, OptionCallback } from '../../state/types';

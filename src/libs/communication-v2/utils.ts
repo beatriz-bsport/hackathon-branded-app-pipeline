@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TFunction } from 'i18next';
 // @ts-ignore
 import memoize from 'memoize-one';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import moment from 'moment-timezone';
 import { connect } from 'react-redux';

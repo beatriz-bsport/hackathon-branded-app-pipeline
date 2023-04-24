@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IconButton, ListItemText, MenuItem } from '@material-ui/core';

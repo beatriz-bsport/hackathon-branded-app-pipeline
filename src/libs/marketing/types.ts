@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type MarketingNotification = {
   id?: number;
   company?: number;

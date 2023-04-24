@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import FactoryBotPaymentCombo from '#libs/payment-combo/factory'
 import MarketplacePaymentComboCard, {

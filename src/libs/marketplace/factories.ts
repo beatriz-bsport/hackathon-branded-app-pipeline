@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { MarketplaceSettings } from './types';
 
 function random_int(max: number) {

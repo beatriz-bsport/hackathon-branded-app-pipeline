@@ -1,3 +1,4 @@
+// @ts-nocheck
 import * as Sentry from '@sentry/react';
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';

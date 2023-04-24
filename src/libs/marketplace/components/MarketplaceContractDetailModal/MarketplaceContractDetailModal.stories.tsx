@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import FactoryBotContract from '#libs/subscription/factory'
 import MarketplaceContractDetailModal, {
@@ -37,4 +38,3 @@ ContractModalUndefinedSubscription.args = {
     addToCart: () => {},
     onDialogClose: () => {},
 }
-

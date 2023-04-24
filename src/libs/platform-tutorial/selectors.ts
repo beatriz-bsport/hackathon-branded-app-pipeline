@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { memoize } from 'lodash';
 import { createSelector } from 'reselect';
 

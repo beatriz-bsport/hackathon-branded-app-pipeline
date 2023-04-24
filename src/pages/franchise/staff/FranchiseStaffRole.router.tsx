@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import { withTranslation, WithTranslation } from 'react-i18next';

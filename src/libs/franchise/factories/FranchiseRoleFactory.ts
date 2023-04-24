@@ -1,3 +1,4 @@
+// @ts-nocheck
 import faker from 'faker';
 
 faker.locale = 'fr';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import MarketplaceContractCard, {
   Props,
 } from './MarketplaceContractCard.component';

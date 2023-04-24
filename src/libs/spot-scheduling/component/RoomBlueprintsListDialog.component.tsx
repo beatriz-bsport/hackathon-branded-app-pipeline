@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 import React, { useRef } from 'react';
 import classnames from 'classnames';

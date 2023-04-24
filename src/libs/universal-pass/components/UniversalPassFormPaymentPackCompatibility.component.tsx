@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Theme } from '@material-ui/core/styles';

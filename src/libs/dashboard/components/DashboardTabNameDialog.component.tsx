@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 
 import Dialog from '@material-ui/core/Dialog';

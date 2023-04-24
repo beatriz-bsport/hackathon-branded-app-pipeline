@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { push } from 'connected-react-router';
 import uniq from 'lodash/uniq';
 import { createAction } from 'redux-actions';

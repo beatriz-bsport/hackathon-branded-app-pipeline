@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import {
   COACH_PERFORMANCE_FOR_SESSION,

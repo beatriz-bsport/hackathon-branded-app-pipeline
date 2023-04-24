@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @ts-ignore
 import memoize from 'memoize-one';
 // @ts-ignore

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { Moment as MomentType } from 'moment-timezone';
 import { compose } from 'recompose';

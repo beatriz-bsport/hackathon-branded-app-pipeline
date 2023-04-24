@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import compact from 'lodash/compact';
 import { compose } from 'recompose';

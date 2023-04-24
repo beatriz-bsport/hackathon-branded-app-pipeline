@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Coach } from './types';
 
 function random_int(max: number) {

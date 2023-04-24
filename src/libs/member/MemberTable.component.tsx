@@ -1,3 +1,4 @@
+// @ts-nocheck
 import MUIDataTable from 'mui-datatables';
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';

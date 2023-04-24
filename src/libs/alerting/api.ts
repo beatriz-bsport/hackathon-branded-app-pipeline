@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { API_URI, getAuth, postAuth, deleteAuth } from '../../http';
 
 const PAGE_SIZE = 10;

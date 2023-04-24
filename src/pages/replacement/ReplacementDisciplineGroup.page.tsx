@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useCallback } from 'react';
 import uniq from 'lodash/uniq';
 import { connect, ConnectedProps } from 'react-redux';

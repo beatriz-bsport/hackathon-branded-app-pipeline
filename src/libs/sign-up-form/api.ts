@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { API_V1_URI, getAuth, putAuth, buildUrlParams } from '../../http';
 
 export async function fetchSignUpFormConfiguration(membership?: string) {

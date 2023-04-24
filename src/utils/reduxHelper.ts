@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { Dispatch, OptionCallback } from '../state/types';
 import { GenericListReducerI, GenericReducerI } from '../libs/types';

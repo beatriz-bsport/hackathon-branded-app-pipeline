@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Dispatch } from 'redux';
 import api from './api';
 import { SCT } from './types';

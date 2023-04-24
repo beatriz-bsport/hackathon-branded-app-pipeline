@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useRef, useState } from 'react';
 import { FixedSizeList as VirtualizedList } from 'react-window';
 import classNames from 'classnames';

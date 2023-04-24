@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 

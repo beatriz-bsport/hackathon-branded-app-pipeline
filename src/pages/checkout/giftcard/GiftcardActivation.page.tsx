@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 import React from 'react';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';

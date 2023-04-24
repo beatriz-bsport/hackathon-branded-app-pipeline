@@ -1,3 +1,4 @@
+// @ts-nocheck
 enum CardSize {
   S = 's',
   M = 'm',

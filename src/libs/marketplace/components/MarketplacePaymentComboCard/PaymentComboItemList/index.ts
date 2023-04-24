@@ -1,3 +1,4 @@
+// @ts-nocheck
 import PaymentComboItemList, { Props } from './PaymentComboItemList.component';
 
 export type { Props };

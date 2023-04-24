@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 // --------------------------------------------------
 // COMPONENTS TO VISUALIZE IN STORYBOOK

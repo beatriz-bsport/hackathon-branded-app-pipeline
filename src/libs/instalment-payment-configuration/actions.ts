@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { OptionCallback, ThunkAction, Dispatch } from '../../state/types';
 import { InstalmentPaymentApi } from './types';

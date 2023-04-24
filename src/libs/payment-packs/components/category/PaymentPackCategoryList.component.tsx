@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { memo, useState } from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';

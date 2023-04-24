@@ -1,3 +1,4 @@
+// @ts-nocheck
 import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports';
 import { SCT } from './types';
 

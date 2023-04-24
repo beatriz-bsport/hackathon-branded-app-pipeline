@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { RRule } from 'rrule';
 import { UserRole } from '#libs/role/types';
 import { ErrorAndLoading } from '../../state/types';

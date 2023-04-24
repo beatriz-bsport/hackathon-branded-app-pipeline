@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ErrorAndLoading } from '../types';
 import type { AutomatedCampaign } from '#libs/smart-list/types';
 

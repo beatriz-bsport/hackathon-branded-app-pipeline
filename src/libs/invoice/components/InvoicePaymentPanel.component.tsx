@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { FC } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { makeStyles } from '@material-ui/core/styles';

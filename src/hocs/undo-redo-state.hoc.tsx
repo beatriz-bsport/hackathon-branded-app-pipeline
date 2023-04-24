@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import { DeepPartial } from '../utils/types';

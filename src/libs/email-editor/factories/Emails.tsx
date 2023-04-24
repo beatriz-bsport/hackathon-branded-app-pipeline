@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @ts-ignore
 import faker from 'faker';
 import {

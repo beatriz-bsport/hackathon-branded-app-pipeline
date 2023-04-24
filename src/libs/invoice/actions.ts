@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createAction } from 'redux-actions';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,

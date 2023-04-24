@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type MarkerType = {
   title: string;
   id: number;

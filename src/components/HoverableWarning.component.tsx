@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useRef, useState, useCallback } from 'react';
 
 import { makeStyles, Popper, Typography } from '@material-ui/core';

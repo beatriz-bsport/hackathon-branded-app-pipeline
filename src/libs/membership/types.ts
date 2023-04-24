@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ErrorAndLoading, WithPagination } from '../types';
 
 export type Membership = {

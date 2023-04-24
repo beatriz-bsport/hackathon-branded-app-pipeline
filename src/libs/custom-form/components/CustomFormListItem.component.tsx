@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import Dialog from '@material-ui/core/Dialog';

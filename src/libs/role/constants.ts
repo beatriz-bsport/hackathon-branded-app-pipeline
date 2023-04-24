@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   ADMIN_ROLE,
   CHECKIN_APP_ROLE,

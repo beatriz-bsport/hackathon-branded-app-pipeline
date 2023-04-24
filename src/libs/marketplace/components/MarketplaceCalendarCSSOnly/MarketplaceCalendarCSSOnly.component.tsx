@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useRef } from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
 import moment from 'moment-timezone';

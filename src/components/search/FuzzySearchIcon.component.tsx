@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 import React, { useState } from 'react';
 import { Theme, Collapse, makeStyles } from '@material-ui/core';

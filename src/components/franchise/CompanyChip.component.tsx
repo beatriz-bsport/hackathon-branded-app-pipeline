@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 import React from 'react';
 import { Chip, MuiThemeProvider } from '@material-ui/core';

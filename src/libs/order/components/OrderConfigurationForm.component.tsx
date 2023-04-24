@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';

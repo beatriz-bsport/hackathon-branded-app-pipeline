@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 

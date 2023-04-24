@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import FranchiseCompanySearchList, { OwnProps } from './FranchiseCompanySearchList.components';
 import { FranchiseCompanyListFactory } from '../factories/FranchiseCompanyFactory';

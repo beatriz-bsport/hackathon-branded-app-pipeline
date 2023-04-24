@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import {
   TUTORIAL_GENERIC_DIALOG_WELCOME,

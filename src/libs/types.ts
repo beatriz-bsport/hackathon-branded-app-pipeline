@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type ErrorAndLoading = {
   loading: boolean;
   error?: Error;

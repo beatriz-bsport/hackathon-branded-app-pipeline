@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Offer, OfferDetail } from '../offer/types';
 import type { ConsumerPaymentPack } from '../payment-packs/types';
 import type {

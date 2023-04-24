@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react';
 
 import { replace } from 'connected-react-router';

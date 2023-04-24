@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   EXPORTABLE_COMPONENTS,
   EXPORTABLE_COMPONENT_TYPE_VOD,

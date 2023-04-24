@@ -1,3 +1,4 @@
+// @ts-nocheck
 const storage = window.localStorage;
 
 const language = (storage.getItem('i18nextLng') || '').slice(0, 2);

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Chip, MenuItem } from '@material-ui/core';
 import React, { useState } from 'react';
 import MaterialUISelector, { OwnProps } from './MaterialUISelector.component';

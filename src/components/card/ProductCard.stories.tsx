@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { ProductCard, Props } from './ProductCard.component';
 

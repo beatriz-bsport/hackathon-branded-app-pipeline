@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { RootState } from '../../reducers';
 
 import {

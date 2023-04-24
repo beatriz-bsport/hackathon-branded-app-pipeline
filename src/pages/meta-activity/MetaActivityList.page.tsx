@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { push, goBack } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';

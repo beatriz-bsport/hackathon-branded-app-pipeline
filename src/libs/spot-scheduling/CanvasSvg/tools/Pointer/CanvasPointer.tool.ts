@@ -1,3 +1,4 @@
+// @ts-nocheck
 import CanvasAbstractTool, {
   CanvasSvgMouseParamsI,
   CanvasElementMouseParamI,

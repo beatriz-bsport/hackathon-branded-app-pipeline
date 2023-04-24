@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';

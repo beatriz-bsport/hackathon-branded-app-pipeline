@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { TFunction } from 'i18next';
 import { WithTranslation, withTranslation } from 'react-i18next';

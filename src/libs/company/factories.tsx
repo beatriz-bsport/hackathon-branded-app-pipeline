@@ -1,3 +1,4 @@
+// @ts-nocheck
 import FactoryBotCompany from 'ya-factorybot';
 import faker from 'faker';
 

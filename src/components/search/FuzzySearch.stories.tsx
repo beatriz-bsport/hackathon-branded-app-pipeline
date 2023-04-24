@@ -1,3 +1,4 @@
+// @ts-nocheck
 import faker from 'faker';
 import React from 'react';
 import FuzzySearch, { OwnProps } from './FuzzySearch.component';

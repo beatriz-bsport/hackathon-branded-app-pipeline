@@ -1,3 +1,4 @@
+// @ts-nocheck
 // PAUSE
 export const PAUSE_RESULT_SUCCESS = 1;
 export const CONTRACT_PAUSE_RESULT_SUCCESS = 2;

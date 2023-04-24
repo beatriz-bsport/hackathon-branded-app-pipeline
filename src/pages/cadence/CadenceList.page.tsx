@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import { push as pushRouter } from 'connected-react-router';

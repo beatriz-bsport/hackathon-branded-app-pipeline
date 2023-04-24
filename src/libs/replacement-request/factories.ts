@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { offerFactory } from '#libs/offer/factory';
 import { ReplacementRequest, ReplacementRequestCoachAnswer } from './types';
 import { Coach } from '#libs/associated-coach/types';

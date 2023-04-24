@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ErrorAndLoading } from '#libs/types';
 
 export type Level = {

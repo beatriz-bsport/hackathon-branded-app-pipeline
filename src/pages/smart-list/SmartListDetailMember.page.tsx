@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';

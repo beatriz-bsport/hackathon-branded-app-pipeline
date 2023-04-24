@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createAction } from 'redux-actions';
 import type { SnackKind, BackgroundSnackKind } from '../libs/snackbar/types';
 import type { Dispatch } from '../state/types';

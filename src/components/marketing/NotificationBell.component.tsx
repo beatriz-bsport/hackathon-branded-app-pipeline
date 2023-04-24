@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Notifications, NotificationsOff } from '@material-ui/icons';

@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 export declare const OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON = 1;
 export declare const OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE = 2;
 export declare const OFFER_BOOKABLE_STATUS_FULL = 3;

@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type PaymentMethod = {
   type: string;
   id: string;

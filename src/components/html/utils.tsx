@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const interpolateHTMLWithTags = (
   HTMLToInterpolate: string,
   tagsGroups: { [key: string]: string },

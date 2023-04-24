@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import TagSelector, { Props as SelectorProps } from './TagSelector.selector';
 import type { Tag, TagGroup } from '#libs/tag/types';

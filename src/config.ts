@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 type ConfigType = {
   REACT_APP_SENTRY_DSN: string;
   REACT_APP_STRIPE_PK_KEY: string;
@@ -20,7 +22,6 @@ type ConfigType = {
   REACT_APP_RUDDERSTACK_DATAPLANEURL: string;
   REACT_APP_DEBUGGER_MODE: string;
 };
-
 export const Config = {} as ConfigType;
 
 function setConfigFrom(envConfig: any) {

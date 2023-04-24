@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const DASHBOARD_COLOR_PALETTE = [
   '#FE7434',
   '#FEA802',

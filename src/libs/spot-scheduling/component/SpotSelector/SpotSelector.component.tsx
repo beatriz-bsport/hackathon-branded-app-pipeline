@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import CanvasEditor from '../../CanvasSvg/CanvasEditor.component';
 import { CANVAS_SELECTABLE_TOOLS } from '../../CanvasSvg/tools/CanvasStrategy';

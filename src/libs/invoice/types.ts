@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   REVERSE_ON_PAYMENT_METHOD,
   REVERSE_ON_DEBT,

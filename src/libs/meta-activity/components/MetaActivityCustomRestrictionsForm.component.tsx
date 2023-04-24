@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { WithTranslation, useTranslation } from 'react-i18next';
 import classNames from 'classnames';

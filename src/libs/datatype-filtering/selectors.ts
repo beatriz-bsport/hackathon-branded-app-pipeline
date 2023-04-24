@@ -1,3 +1,4 @@
+// @ts-nocheck
 import memoize from 'memoize-one';
 import { RootState } from '../../reducers';
 

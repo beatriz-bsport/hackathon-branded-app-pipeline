@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 
 import { getAuth, postAuth, buildUrlParams, API_V1_URI } from '../../http';

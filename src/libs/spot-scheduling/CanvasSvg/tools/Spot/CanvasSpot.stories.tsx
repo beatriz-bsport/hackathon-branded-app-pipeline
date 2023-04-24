@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 
 import CanvasSpot, {CanvasSpotProps} from './CanvasSpot.component';

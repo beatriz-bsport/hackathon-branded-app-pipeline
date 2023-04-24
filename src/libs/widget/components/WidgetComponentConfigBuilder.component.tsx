@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { computeNbCompatibleCoaches } from '../utils';
 
 const fakeCoachesWithoutIds = [

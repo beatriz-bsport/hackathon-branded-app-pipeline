@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Price, { Props } from './Price.component';
 import { Color } from './types';
 

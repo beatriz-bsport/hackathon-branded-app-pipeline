@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 
 import DeleteIcon from '@material-ui/icons/Delete';

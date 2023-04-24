@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { Theme } from '@material-ui/core/styles';
 import { SortableContainer } from 'react-sortable-hoc';

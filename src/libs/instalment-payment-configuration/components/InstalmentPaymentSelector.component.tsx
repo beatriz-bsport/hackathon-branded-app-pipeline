@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles, Theme } from '@material-ui/core/styles';

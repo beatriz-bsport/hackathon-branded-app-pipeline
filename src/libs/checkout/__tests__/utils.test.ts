@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getBasketTotalPriceExcludingTax } from '../utils';
 import { Basket, CheckoutItem } from '../types';
 

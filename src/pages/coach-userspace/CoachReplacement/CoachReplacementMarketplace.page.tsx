@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState, useMemo } from 'react';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';

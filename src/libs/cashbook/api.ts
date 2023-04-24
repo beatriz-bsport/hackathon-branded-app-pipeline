@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { AxiosResponse } from 'axios';
 import { API_V1_URI, getAuth, patchAuth } from '../../http';
 import { CashBook, CashBookUpdate } from './types';

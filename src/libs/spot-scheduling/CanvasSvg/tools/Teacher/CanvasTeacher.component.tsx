@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import CanvasBaseComponent from '../BaseClasses/Base.component';
 

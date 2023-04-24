@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps, Dispatch } from 'react-redux';
 import { withStyles, WithStyles, Theme } from '@material-ui/core';

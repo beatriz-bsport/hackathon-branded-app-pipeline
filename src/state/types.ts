@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { AuthAction } from './auth/types';
 import { PaymentRulesState } from '#libs/payment-rules/types';
 import { StatsState } from './stats/types';

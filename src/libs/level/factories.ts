@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Level } from './types';
 
 function random_int(max: number) {

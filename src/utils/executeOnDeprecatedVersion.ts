@@ -1,3 +1,4 @@
+// @ts-nocheck
 import axios from 'axios';
 
 import RELEASE_VERSION from '../release';

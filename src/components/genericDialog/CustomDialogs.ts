@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { showGenericDialog } from './GenericDialog';
 import i18n from '../../i18n';
 

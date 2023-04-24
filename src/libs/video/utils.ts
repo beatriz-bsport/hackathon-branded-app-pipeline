@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TFunction } from 'i18next';
 import moment from 'moment/moment';
 import { VideoPurchase } from '#libs/video/types';

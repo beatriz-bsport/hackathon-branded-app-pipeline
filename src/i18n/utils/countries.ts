@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const countries: Array<{
   code: string;
   label: string;

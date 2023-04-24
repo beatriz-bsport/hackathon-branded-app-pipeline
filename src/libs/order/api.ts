@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { AxiosResponse } from 'axios';
 import { PaginatedResponse } from '../../state/types';
 import { API_V1_URI, postAuth, getAuth, patchAuth } from '../../http';

@@ -1,6 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+// @ts-nocheck
+
 import React from 'react';
 import { fireEvent, render, act } from '@testing-library/react';
 

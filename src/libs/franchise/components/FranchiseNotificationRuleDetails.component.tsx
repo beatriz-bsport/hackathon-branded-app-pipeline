@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import Alert from '@material-ui/lab/Alert/Alert';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';

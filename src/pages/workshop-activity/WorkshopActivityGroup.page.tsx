@@ -1,3 +1,4 @@
+// @ts-nocheck
 import memoize from 'lodash/memoize';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';

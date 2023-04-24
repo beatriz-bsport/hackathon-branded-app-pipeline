@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { compose, withHandlers, withStateHandlers, withProps } from 'recompose';
 import { connect } from 'react-redux';

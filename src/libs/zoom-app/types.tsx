@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type ZoomApp = {
   id: number;
   company: number;

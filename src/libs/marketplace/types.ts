@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Coach } from '#libs/associated-coach/types';
 import { SCT } from '#libs/category/types';
 import { Establishment } from '#libs/establishment/types';

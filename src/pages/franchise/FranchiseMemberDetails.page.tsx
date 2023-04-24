@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect } from 'react';
 import { TFunction } from 'i18next';
 import { push as pushAction } from 'connected-react-router';

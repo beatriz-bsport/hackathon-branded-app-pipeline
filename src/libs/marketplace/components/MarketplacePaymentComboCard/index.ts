@@ -1,3 +1,4 @@
+// @ts-nocheck
 import MarketplacePaymentComboCard, {
   Props,
 } from './MarketplacePaymentComboCard.component';

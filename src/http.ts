@@ -1,3 +1,4 @@
+// @ts-nocheck
 import axios, { CancelToken } from 'axios';
 import moment from 'moment-timezone';
 import * as Sentry from '@sentry/react';

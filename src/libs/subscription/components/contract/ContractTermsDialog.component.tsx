@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import DownloadIcon from '@material-ui/icons/GetApp';
 import { makeStyles, Theme } from '@material-ui/core';

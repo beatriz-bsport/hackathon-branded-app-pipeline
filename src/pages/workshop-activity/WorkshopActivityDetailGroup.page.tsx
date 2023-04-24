@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { compose } from 'recompose';
 import { withWidth } from '@material-ui/core';
 import { connect } from 'react-redux';

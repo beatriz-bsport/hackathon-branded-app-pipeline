@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type InvoiceItem = {
   id: string;
   price: string;

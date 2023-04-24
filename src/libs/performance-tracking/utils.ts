@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FieldArrayRenderProps } from 'formik';
 import { PerformanceTrackingMetric } from './types';
 

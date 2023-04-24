@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ErrorAndLoading } from '../types';
 import { Company } from '../company/types';
 import { Invoice } from '#libs/invoice/types';

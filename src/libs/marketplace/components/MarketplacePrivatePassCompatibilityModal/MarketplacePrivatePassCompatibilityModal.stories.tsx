@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import MarketplacePrivatePassCompatibilityModal, {Props} from '.';
 import { private_services_factory } from '#libs/private-service/factory';

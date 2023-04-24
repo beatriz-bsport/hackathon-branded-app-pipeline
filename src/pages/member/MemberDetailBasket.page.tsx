@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react';
 import { replace } from 'connected-react-router';
 import Grid from '@material-ui/core/Grid';

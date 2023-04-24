@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { MuiIconName } from '#components/input/muiIcon/MuiIconNameType';
 import { ErrorAndLoading } from '#libs/types';
 

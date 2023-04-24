@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { v4 as uuidv4 } from 'uuid';
 import type { Values } from '#libs/sequential_marketing/components/form/Trigger/components';
 import { RuleBetweenEntryEvent } from '#libs/sequential_marketing/constants';

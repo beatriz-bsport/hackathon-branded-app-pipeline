@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useCallback } from 'react';
 import Select from 'react-select';
 import Typography from '@material-ui/core/Typography';

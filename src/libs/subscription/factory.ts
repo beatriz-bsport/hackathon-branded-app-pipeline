@@ -1,3 +1,4 @@
+// @ts-nocheck
 import FactoryBot from 'ya-factorybot';
 import faker from 'faker';
 import FactoryBotPaymentPack from '#libs/payment-packs/factory';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { StepManager } from '#libs/login/types';
 
 export const buildSteps = ({

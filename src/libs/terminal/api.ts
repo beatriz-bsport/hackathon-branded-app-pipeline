@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { API_V1_URI, postAuth, getAuth, deleteAuth, putAuth } from '../../http';
 
 export const fetchStripeReaders = async () => {

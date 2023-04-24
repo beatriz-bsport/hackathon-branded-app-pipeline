@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const UPSELL_IDENTIFIER_CUSTOM_APP = 1;
 export const UPSELL_IDENTIFIER_VOD = 2;
 export const UPSELL_IDENTIFIER_WHEREBY = 3;

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 
 import { Coach } from '../../associated-coach/types';

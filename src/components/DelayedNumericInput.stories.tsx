@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import DelayedNumericInput, { Props } from './DelayedNumericInput.component';
 

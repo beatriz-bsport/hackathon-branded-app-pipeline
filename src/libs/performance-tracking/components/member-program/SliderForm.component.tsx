@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 
 import { PerformanceTrackingMetric } from '#libs/performance-tracking/types';

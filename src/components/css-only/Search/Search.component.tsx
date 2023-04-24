@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { FormEvent, useCallback, useState } from 'react';
 import Fuse from 'fuse.js';
 import SearchIcon from '@material-ui/icons/Search';

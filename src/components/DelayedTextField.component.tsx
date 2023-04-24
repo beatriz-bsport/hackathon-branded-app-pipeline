@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react';
 
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';

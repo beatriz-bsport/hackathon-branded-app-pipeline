@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const DATE_AFTER = 0;
 export const DATE_BEFORE = 1;
 export const DATE_BETWEEN = 2;

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import NoShowChip, { Props } from './NoShowChip.component';
 

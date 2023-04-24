@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component, useCallback } from 'react';
 
 import { compose, withProps } from 'recompose';

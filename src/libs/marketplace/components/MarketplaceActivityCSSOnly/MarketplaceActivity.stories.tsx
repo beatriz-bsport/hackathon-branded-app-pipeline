@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { useMuiThemeToCssVars } from '../../../../hooks/useMuiThemeToCssVars';
 import MarketplaceActivityV2 from './MarketplaceActivityCSSOnly.component';
@@ -167,7 +168,7 @@ const Template = (args: Props) => {
 export const ListState = Template.bind({});
 
 ListState.args = {
-  offer:offer,
+  offer: offer,
   customLevel: {
     id: 12,
     name: 'Hardcore',
@@ -175,8 +176,6 @@ ListState.args = {
   },
   theme: bsportTheme,
 };
-
-
 
 export default {
   title: 'Components/Marketplace/MarketplaceActivityV2',

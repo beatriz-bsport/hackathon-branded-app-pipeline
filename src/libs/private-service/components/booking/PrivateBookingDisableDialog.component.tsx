@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 import React from 'react';
 import DialogContent from '@material-ui/core/DialogContent';

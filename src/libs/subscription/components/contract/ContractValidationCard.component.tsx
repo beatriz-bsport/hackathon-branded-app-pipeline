@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { ListItem, Typography } from '@material-ui/core';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';

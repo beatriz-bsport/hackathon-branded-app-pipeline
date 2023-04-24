@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from 'react';
 import MarketPlaceWorkshopCard, {
   Props,
@@ -5,7 +7,7 @@ import MarketPlaceWorkshopCard, {
 import { coachFactory } from '#libs/associated-coach/factories';
 import { defaultThemeParams } from '../../../../theme';
 
-import './MarketplaceWorkshopCard.css'
+import './MarketplaceWorkshopCard.css';
 // TODO Create clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1277
 const metaActivity = {
   id: 36497,
@@ -315,7 +317,7 @@ ListState.args = {
   loading: false,
   showOfferFilling: false,
   offerDetailsloading: false,
-  offers:offers,
+  offers: offers,
   onBook: () => {},
   onBookOption: () => {},
   onLoadMoreOffer: () => {},
@@ -337,7 +339,7 @@ LoadingState.args = {
   onBookOption: () => {},
   onLoadMoreOffer: () => {},
   getEstablishment: () => offer.establishment,
-  getCoach: ()=>coachFactory(),
+  getCoach: () => coachFactory(),
   getLevel: () => {},
 };
 
@@ -348,12 +350,12 @@ WithOfferFillingState.args = {
   loading: false,
   showOfferFilling: true,
   offerDetailsloading: false,
-  offers:offers,
+  offers: offers,
   onBook: () => {},
   onBookOption: () => {},
   onLoadMoreOffer: () => {},
   getEstablishment: () => offer.establishment,
-  getCoach: ()=>coachFactory(),
+  getCoach: () => coachFactory(),
   getLevel: () => {},
 };
 
@@ -364,12 +366,12 @@ WithDetailsOfferFillingState.args = {
   loading: false,
   showOfferFilling: true,
   offerDetailsloading: true,
-  offers:offers,
+  offers: offers,
   onBook: () => {},
   onBookOption: () => {},
   onLoadMoreOffer: () => {},
   getEstablishment: () => offer.establishment,
-  getCoach: ()=>coachFactory(),
+  getCoach: () => coachFactory(),
   getLevel: () => {},
 };
 

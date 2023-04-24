@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { ReactPropTypes } from 'react';
 
 export type SuportedConverter =

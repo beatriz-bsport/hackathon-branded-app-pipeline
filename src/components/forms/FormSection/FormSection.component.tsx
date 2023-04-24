@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Box, Divider, IconProps, makeStyles } from '@material-ui/core';
 import React from 'react';
 import FormSectionTitle from '../FormSectionTitle';

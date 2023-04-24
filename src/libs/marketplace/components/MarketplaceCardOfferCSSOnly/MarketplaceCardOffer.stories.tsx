@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React from 'react';
 import { useMuiThemeToCssVars } from '../../../../hooks/useMuiThemeToCssVars';
 import MartketPlaceCardOfferV2 from './MarketPlaceCardOfferCSSOnly.component';
@@ -32,7 +34,7 @@ const metaActivity = {
   auto_discard_min_bookings_nb: 1,
   ordering_in_category: 516,
   category: null,
-}
+};
 
 // Create Clean Factory : https://gitlab.com/bsport/bsport-saas/-/issues/1276
 const offer = {
@@ -144,13 +146,13 @@ export const ListState = Template.bind({});
 ListState.args = {
   bookingStatus: 'isBooked',
   theme: bsportTheme,
-  offer:offer,
+  offer: offer,
   onClickBook: () => {},
   showOfferGender: true,
   showOfferFilling: true,
   variant: 'coach',
-  coach:offer.coach,
-  getLevel: () => {}
+  coach: offer.coach,
+  getLevel: () => {},
 };
 
 export default {

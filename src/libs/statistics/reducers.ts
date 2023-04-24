@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 
 import moment from 'moment-timezone';

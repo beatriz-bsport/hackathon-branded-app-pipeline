@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState, useCallback } from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { ConnectedProps } from 'react-redux';

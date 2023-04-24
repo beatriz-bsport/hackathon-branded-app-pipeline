@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 
 import { Elements, ElementsConsumer, Stripe } from '@stripe/react-stripe-js';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { List, Paper } from '@material-ui/core';
 import React from 'react';
 import { Giftcard } from '../types';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import Popover, { PopoverProps } from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';

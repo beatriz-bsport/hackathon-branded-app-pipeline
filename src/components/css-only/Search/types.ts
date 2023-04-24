@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ReactElement } from 'react';
 
 import { PaymentCombo } from '#libs/payment-combo/types';

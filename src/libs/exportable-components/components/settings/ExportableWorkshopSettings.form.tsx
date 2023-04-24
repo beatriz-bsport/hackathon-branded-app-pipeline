@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 
 import CommonSettings from './CommonSettings.form';

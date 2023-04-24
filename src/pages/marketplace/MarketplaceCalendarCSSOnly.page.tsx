@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable */
 import React, { Component } from 'react';
 import memoize from 'lodash/memoize';

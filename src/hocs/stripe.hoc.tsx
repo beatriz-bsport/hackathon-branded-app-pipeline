@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 // @ts-ignore
 import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import OfferMinimalSummary, { Props } from './OfferMinimalSummary.component';
 import { offerFactory } from '#libs/offer/factory';

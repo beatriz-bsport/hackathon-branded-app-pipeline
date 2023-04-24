@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react';
 
 // eslint-disable-next-line bsport/no-redux-in-component

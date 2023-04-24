@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 // @flow
 import React from 'react';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import RollCallChip, {Props} from './RollCallChip.component';
 

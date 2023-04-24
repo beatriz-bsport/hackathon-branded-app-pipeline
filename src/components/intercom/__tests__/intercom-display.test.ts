@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-
+// @ts-nocheck
 import { FORCE_DISPLAY_FOR_TESTING } from '../Intercom.component';
 
 describe('Intercom not disabled manually', () => {

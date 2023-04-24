@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';

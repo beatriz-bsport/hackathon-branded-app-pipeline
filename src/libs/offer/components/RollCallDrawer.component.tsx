@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useCallback, useState } from 'react';
 import { Typography, makeStyles, Button, Divider } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';

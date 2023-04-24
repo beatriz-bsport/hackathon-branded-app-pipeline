@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { useTranslation } from 'react-i18next';

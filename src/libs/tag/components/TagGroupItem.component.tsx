@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { Theme, withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Theme, Typography, withStyles } from '@material-ui/core';
 import React from 'react';
 import Dropzone from 'react-dropzone';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TFunction } from 'i18next';
 import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { getPrice } from '#libs/theme/utils';

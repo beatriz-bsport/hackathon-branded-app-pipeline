@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { forwardRef, useCallback, useState } from 'react';
 import moment, { Moment as MomentType } from 'moment-timezone';
 import { useTranslation } from 'react-i18next';

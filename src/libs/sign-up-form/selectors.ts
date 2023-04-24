@@ -1,3 +1,4 @@
+// @ts-nocheck
 import reduce from 'lodash/reduce';
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';

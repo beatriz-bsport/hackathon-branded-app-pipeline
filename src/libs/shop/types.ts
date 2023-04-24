@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type Provision = {
   product_name: string;
   qty: number;

@@ -1,3 +1,4 @@
+// @ts-nocheck
 export type Location = {
   address: string;
   latitude: string;

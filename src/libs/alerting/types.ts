@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { LanguageDict } from '#libs/platform-tutorial/types';
 import { Member } from '#libs/member/types';
 

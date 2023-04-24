@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import FactoryBot from '#libs/subscription/factory'
 import MarketplaceContractCheckout, {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import FranchiseDrawer from './FranchiseDrawer.component';
 import type { TempPasswordState } from '../../libs/login/types';

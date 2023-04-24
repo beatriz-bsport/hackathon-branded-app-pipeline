@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react';
 import { withStyles, Theme, WithStyles } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';

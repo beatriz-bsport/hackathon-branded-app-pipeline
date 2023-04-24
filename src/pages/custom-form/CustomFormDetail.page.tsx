@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { push as pushRouter } from 'connected-react-router';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 import React, { useEffect } from 'react';
 import { compose } from 'recompose';

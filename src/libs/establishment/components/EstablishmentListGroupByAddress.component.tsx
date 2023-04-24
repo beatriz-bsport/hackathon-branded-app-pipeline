@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import type { EstablishmentListGroupByAddress as EstablishmentListGroupByAddressType } from '../types';

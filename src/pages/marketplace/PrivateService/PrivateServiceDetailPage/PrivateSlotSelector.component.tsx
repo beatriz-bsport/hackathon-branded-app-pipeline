@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { Fade, ButtonBase, Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';

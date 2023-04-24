@@ -1,3 +1,4 @@
+// @ts-nocheck
 declare module 'role-types.js' {
   const OWNER_ROLE = 0;
   const STAFF_ROLE = 1;

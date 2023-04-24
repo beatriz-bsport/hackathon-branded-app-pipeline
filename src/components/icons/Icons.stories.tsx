@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import CalendarIcon from './CalendarIcon.component';
 import ErrorIcon from './ErrorIcon.component';

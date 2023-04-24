@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TFunction } from 'i18next';
 import moment, { Moment } from 'moment-timezone';
 import {

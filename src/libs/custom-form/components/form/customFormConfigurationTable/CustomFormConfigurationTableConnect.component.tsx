@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import green from '@material-ui/core/colors/green';
 import amber from '@material-ui/core/colors/amber';

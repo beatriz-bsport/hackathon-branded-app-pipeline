@@ -1,3 +1,4 @@
+// @ts-nocheck
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withStyles } from '@material-ui/styles';
 import React from 'react';

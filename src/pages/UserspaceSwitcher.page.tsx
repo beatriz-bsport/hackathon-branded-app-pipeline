@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { compose, withProps } from 'recompose';
 import React, { useEffect, useState } from 'react';
 

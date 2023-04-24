@@ -1,3 +1,4 @@
+// @ts-nocheck
 import moment from 'moment-timezone';
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';

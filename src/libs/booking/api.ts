@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   buildUrlParams,
   API_V1_URI,

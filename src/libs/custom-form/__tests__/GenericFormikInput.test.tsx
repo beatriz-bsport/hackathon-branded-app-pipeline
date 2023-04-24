@@ -1,6 +1,8 @@
 /**
  * @jest-environment jsdom
  */
+// @ts-nocheck
+
 import React from 'react';
 import { fireEvent, render, act, waitFor } from '@testing-library/react';
 import { Formik } from 'formik';

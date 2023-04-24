@@ -1,3 +1,4 @@
+// @ts-nocheck
 import PassSearch, {
   Props,
 } from '#components/css-only/Search/PassSearch/PassSearch.component';

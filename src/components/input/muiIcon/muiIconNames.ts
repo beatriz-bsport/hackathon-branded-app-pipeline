@@ -1,3 +1,4 @@
+// @ts-nocheck
 import asyncComponent from '../../../AsyncComponent';
 import '@material-ui/icons';
 

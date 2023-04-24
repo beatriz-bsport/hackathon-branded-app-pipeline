@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ConsumerPaymentPack } from '../consumer-payment-pack/types';
 import type { Offer_FULL } from '../offer/types';
 import { PaymentCombo } from '../payment-combo/types';

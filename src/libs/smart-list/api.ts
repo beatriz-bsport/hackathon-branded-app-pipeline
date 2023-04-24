@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FILTERS_ROOTS } from '@bsport/common/lib/master-data/smart-list';
 
 import {

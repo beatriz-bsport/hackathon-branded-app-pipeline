@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const getSpecificIncompatibilitiesReasons = (
   allIncompatibilities: {
     [offerAndCpp: [offer_id: number, cpp_id: string]]: number[];

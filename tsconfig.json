@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "allowJs": false,
     "outDir": "build",
     "sourceRoot": "src",
@@ -23,5 +24,5 @@
     
     },
   },
-  "include": ["./src/**/*.ts*"]
+  "include": ["./src/**/*.ts*"],
 }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ErrorAndLoading, GenericListReducerI } from '#libs/types';
 
 type MetaActivityImage = {

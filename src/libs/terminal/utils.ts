@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const getStripeTerminalMinAmountCts = (companyId?: number) => {
   if (
     !!companyId &&

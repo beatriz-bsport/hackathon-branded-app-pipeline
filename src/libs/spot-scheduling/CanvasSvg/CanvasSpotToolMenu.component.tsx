@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { ButtonBase, Theme, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';

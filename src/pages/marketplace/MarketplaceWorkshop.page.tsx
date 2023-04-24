@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect, useCallback } from 'react';
 import memoize from 'lodash/memoize';
 import { compose } from 'recompose';

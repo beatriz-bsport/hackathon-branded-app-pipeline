@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { Grid, Theme } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';

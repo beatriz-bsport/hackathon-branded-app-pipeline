@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import TitleIcon from '@material-ui/icons/Title';
 import TextFieldsIcon from '@material-ui/icons/TextFields';

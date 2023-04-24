@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { API_URI, API_V1_URI, getAuth, postAuth, deleteAuth } from '../../http';
 
 export async function fetchConsumerOptions() {

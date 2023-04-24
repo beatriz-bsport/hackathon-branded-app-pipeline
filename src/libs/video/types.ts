@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 import { ErrorAndLoading, WithPagination } from '../types';
 import { Coach } from '../associated-coach/types';

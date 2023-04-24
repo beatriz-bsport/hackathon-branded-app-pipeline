@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Graph } from '../statistics/types';
 import { ErrorAndLoading } from '#libs/types';
 import {

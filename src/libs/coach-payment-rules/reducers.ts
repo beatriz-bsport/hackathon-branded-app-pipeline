@@ -1,3 +1,4 @@
+// @ts-nocheck
 import omit from 'lodash/omit';
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';

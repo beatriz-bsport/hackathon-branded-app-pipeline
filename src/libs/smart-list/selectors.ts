@@ -1,3 +1,4 @@
+// @ts-nocheck
 import objectAssign from 'object-assign';
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';

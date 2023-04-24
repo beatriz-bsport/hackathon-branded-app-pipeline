@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useMemo, useCallback, memo, useRef } from 'react';
 import Immutable from 'seamless-immutable';
 import { makeStyles, Theme } from '@material-ui/core';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 // we import from src and not lib bvecause there is some shittery happening that

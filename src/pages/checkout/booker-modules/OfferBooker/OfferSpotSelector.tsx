@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import SpotSelectorDialog from '../../../../libs/spot-scheduling/component/SpotSelector/SpotSelectorDialog.component';
 import { Offer, OfferStatus } from '../../../../libs/offer/types';

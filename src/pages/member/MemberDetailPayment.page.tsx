@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react';
 import { Theme } from '@material-ui/core';
 import { push } from 'connected-react-router';

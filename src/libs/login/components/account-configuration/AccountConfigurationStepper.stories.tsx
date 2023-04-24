@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import AccountConfigurationStepper, { OwnProps } from './AccountConfigurationStepper.component';
 

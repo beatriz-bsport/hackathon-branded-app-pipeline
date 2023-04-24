@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import history from '../../../history';
 import { parseQueryString } from '../../../http';

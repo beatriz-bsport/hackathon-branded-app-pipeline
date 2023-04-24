@@ -1,3 +1,4 @@
+// @ts-nocheck
 import values from 'lodash/values';
 import compact from 'lodash/compact';
 import memoize from 'memoize-one';

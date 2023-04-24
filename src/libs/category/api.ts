@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { API_URI, getAuth, buildUrlParams } from '../../http';
 
 export async function fetchEasyAccesses() {

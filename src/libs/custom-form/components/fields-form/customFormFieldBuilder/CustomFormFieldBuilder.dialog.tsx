@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import Alert from '@material-ui/lab/Alert/Alert';
 import { compose } from 'recompose';

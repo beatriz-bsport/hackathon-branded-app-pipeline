@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import Badge, { type BadgeClassKey } from '@material-ui/core/Badge';
 import ReceiptIcon from '@material-ui/icons/Receipt';

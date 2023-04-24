@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import moment from 'moment-timezone';
 import chroma from 'chroma-js';

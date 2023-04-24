@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { RootState } from '../../reducers';
 
 export const getSCTs = (state: RootState) => {

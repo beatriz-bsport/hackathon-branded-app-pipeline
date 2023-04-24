@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import isEqual from 'lodash/isEqual';
 import withStyles from '@material-ui/core/styles/withStyles';

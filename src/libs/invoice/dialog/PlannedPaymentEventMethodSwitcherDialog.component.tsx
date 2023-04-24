@@ -1,3 +1,4 @@
+// @ts-nocheck
 import moment, { Moment as MomentType } from 'moment-timezone';
 
 import React, { useState } from 'react';

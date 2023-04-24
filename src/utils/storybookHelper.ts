@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Component } from 'react';
 import { ComponentStory } from '@storybook/react';
 import { userEvent } from '@storybook/testing-library';

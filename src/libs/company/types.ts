@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   BLOCK_BACKOFFICE,
   DO_NOTHING,

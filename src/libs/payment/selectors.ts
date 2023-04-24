@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';

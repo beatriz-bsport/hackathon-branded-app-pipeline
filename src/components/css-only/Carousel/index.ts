@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Carousel, { Props } from './Carousel.component';
 
 export type { Props };

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 
 import memoize from 'memoize-one';

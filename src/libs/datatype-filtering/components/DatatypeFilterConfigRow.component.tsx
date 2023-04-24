@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 

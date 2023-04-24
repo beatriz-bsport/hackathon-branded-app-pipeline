@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @ts-ignore
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';

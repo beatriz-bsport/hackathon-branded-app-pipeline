@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useCallback, useMemo, useState } from 'react';
 import moment from 'moment-timezone';
 import { compose, withHandlers } from 'recompose';

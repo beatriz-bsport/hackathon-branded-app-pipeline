@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { API_V1_URI, postAuth, getAuth, buildUrlParams } from '../../http';
 
 export const sendCommunication = async (data: any) => {

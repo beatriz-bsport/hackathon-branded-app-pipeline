@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communication-kind';
 // @ts-ignore
 import faker from 'faker';

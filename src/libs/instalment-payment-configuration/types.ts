@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ShopItem } from '@bsport/common/lib/master-data/available-payment.type';
 import { Giftcard } from '#libs/giftcard/types';
 import { PaymentCombo } from '#libs/payment-combo/types';

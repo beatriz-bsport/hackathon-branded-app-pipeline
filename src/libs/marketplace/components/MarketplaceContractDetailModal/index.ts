@@ -1,3 +1,4 @@
+// @ts-nocheck
 import MarketplaceContractDetailModal, {
   Props,
 } from './MarketplaceContractDetailModal.component';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @flow
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';

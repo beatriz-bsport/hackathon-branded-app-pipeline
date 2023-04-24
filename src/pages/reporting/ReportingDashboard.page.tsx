@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';

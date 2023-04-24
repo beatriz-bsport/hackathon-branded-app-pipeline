@@ -1,6 +1,11 @@
 import TagManager from 'react-gtm-module';
 import { getCoachOrSubstitute } from '../../libs/offer/utils';
 
+const storage = window.localStorage;
+const currencyCode = (
+  storage.getItem('bsport:payment:currency_code') || 'EUR'
+).toUpperCase();
+
 export default class GoogleAnalytics {
   static methods = [];
 
@@ -39,6 +44,7 @@ GoogleAnalytics.addMethod(
       totalPrice: basket.total_price,
       memberId: basket.member,
       basketId: basket.id,
+      currency: basket.currency,
     },
   }),
   [
@@ -57,6 +63,7 @@ GoogleAnalytics.addMethod(
       id: pp.id,
       name: pp.name,
       price: pp.price,
+      currency: currencyCode,
       type: 'payment_pack',
     },
   }),
@@ -64,6 +71,7 @@ GoogleAnalytics.addMethod(
     ['id', 'gtm.showPass.id'],
     ['name', 'gtm.showPass.name'],
     ['price', 'gtm.showPass.price'],
+    ['currency', 'currency'],
     ['type', 'gtm.showPass.type'],
   ],
 );
@@ -77,6 +85,7 @@ GoogleAnalytics.addMethod(
       id: pp.id,
       name: pp.name,
       price: pp.price,
+      currency: currencyCode,
       type,
     },
   }),
@@ -84,6 +93,7 @@ GoogleAnalytics.addMethod(
     ['id', 'gtm.addPass.id'],
     ['name', 'gtm.showPass.name'],
     ['price', 'gtm.showPass.price'],
+    ['currency', 'currency'],
     ['type', 'gtm.showPass.type'],
   ],
 );
@@ -97,6 +107,7 @@ GoogleAnalytics.addMethod(
       id: pc.id,
       name: pc.name,
       price: pc.price,
+      currency: currencyCode,
       type: 'payment_combo',
     },
   }),
@@ -104,6 +115,7 @@ GoogleAnalytics.addMethod(
     ['id', 'gtm.addPack.id'],
     ['name', 'gtm.addPack.name'],
     ['price', 'gtm.addPack.price'],
+    ['currency', 'currency'],
     ['type', 'gtm.addPack.type'],
   ],
 );
@@ -117,6 +129,7 @@ GoogleAnalytics.addMethod(
       id: pp.id,
       name: pp.name,
       price: pp.price,
+      currency: currencyCode,
       type: 'private_pass',
     },
   }),
@@ -124,6 +137,7 @@ GoogleAnalytics.addMethod(
     ['id', 'gtm.addPrivatePass.id'],
     ['name', 'gtm.addPrivatePass.name'],
     ['price', 'gtm.addPrivatePass.price'],
+    ['currency', 'currency'],
     ['type', 'gtm.addPrivatePass.type'],
   ],
 );
@@ -137,6 +151,7 @@ GoogleAnalytics.addMethod(
       id: si.id,
       name: si.name,
       price: si.price,
+      currency: currencyCode,
       type: 'shop_item',
     },
   }),
@@ -144,6 +159,7 @@ GoogleAnalytics.addMethod(
     ['id', 'gtm.addShopItem.id'],
     ['name', 'gtm.addShopItem.name'],
     ['price', 'gtm.addShopItem.price'],
+    ['currency', 'currency'],
     ['type', 'gtm.addShopItem.type'],
   ],
 );
@@ -264,6 +280,7 @@ GoogleAnalytics.addMethod(
     ['id', 'gtm.contractPaymentSuccess.id'],
     ['name', 'gtm.contractPaymentSuccess.name'],
     ['price', 'gtm.contractPaymentSuccess.price'],
+    ['currency', 'currency'],
     ['flatFee', 'gtm.contractPaymentSuccess.flatFee'],
     ['autoRenewal', 'gtm.contractPaymentSuccess.autoRenewal'],
     ['duration', 'gtm.contractPaymentSuccess.duration'],
@@ -288,6 +305,7 @@ GoogleAnalytics.addMethod(
     ['id', 'gtm.contractShow.id'],
     ['name', 'gtm.contractShow.name'],
     ['price', 'gtm.contractShow.price'],
+    ['currency', 'currency'],
     ['flatFee', 'gtm.contractShow.flatFee'],
     ['autoRenewal', 'gtm.contractShow.autoRenewal'],
     ['duration', 'gtm.contractShow.duration'],
@@ -312,6 +330,7 @@ GoogleAnalytics.addMethod(
     ['id', 'gtm.contractPaymentShow.id'],
     ['name', 'gtm.contractPaymentShow.name'],
     ['price', 'gtm.contractPaymentShow.price'],
+    ['currency', 'currency'],
     ['flatFee', 'gtm.contractPaymentShow.flatFee'],
     ['autoRenewal', 'gtm.contractPaymentShow.autoRenewal'],
     ['duration', 'gtm.contractPaymentShow.duration'],

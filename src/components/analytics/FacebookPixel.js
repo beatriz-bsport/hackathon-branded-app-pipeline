@@ -141,7 +141,7 @@ FacebookPixel.addMethod(
   'paymentSuccess',
   'Purchase',
   (basket) => ({
-    currency: currency_code,
+    currency: currencyCode,
     value: basket.total_price,
     content_category: 'basket',
   }),

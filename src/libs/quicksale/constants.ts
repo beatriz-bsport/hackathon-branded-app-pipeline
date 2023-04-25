@@ -1,0 +1,31 @@
+export enum QuicksaleItemColor {
+  Gray = '#E4E4E4',
+  Orange = '#F5CFBB',
+  Pink = '#FBD3E4',
+  Red = '#F19090',
+  Purple = '#D4CAFD',
+  Green = '#99D8B9',
+  Blue = '#C1DCF4',
+  Yellow = '#FAEDA9',
+  LightGreen = '#C8E7B6',
+  Black = '#666666',
+}
+
+export enum QuicksaleSectionColor {
+  Gray = '#AEAEAE',
+  Orange = '#FE7434',
+  Pink = '#F071AE',
+  Red = '#E11313',
+  Purple = '#4C3DA8',
+  Green = '#209D82',
+  Blue = '#85C2DB',
+  Yellow = '#F4D323',
+  LightGreen = '#71B549',
+  Black = '#202020',
+}
+
+export enum QuicksaleItemCardStyle {
+  minWidth = '180px',
+  minHeight = '100px',
+  aspectRatio = '1.8',
+}

@@ -339,6 +339,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
     searchResult: SearchItemData<BaseAdditionalData>[],
     searchText: string,
   ) => {
+    const isPaymentComboHidden = this.props.params?.hidePaymentCombo === 'true';
     if (searchText.length && searchText !== this.state.passSearchResult.query) {
       this.setState({
         passSearchResult: {
@@ -363,7 +364,9 @@ export class MarketPlacePassPage extends Component<Props, State> {
                 (searchItem: SearchItemData<BaseAdditionalData>) =>
                   searchItem.identifier === 'paymentCombo',
               )
-              .map((searchItem) => searchItem.id) ?? [],
+              .map((searchItem) => searchItem.id)
+              .filter((searchItem) => !isPaymentComboHidden && searchItem) ??
+            [],
         },
       });
     }
@@ -550,6 +553,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
             paymentComboList={this.props.paymentComboList}
             hidePaymentPack={hidePaymentPack}
             hidePrivatePass={hidePrivatePass}
+            hidePaymentCombo={hidePaymentCombo}
             paymentPackByCategory={this.props.paymentPackByCategory}
             restrictedPaymentPackCategories={
               this.state.restrictedCategories.paymentPack
@@ -572,7 +576,8 @@ export class MarketPlacePassPage extends Component<Props, State> {
           />
 
           {!!this.state.passSearchResult.query &&
-            !!this.state.passSearchResult.paymentCombo.length && (
+            !!this.state.passSearchResult.paymentCombo.length &&
+            !hidePaymentCombo && (
               <div className={this.props.classes.marketplaceList}>
                 <MarketplacePaymentComboList
                   setSelectedPass={this.handleShowPaymentComboDetail}

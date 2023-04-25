@@ -35,6 +35,7 @@ type Props = {
   paymentComboList: PaymentCombo[];
   hidePaymentPack: boolean;
   hidePrivatePass: boolean;
+  hidePaymentCombo: boolean;
   paymentPackByCategory: PaymentPackCategoryWithPacks[];
   restrictedPaymentPackCategories: number[];
   privatePassByCategory: PrivatePassCategoryWithPasses[];
@@ -72,6 +73,7 @@ const MarketplacePassFilters: React.FC<Props> = (props) => {
     paymentComboList,
     hidePaymentPack,
     hidePrivatePass,
+    hidePaymentCombo,
     paymentPackByCategory,
     restrictedPaymentPackCategories,
     privatePassByCategory,
@@ -98,6 +100,11 @@ const MarketplacePassFilters: React.FC<Props> = (props) => {
       restrictedPrivatePassCategories,
     });
 
+  const filteredPaymentComboList = useMemo(
+    () => paymentComboList.filter((combo) => !hidePaymentCombo && combo),
+    [hidePaymentCombo, paymentComboList],
+  );
+
   const searchResultCount = useMemo(
     () =>
       searchResultState.paymentPack?.length +
@@ -116,7 +123,7 @@ const MarketplacePassFilters: React.FC<Props> = (props) => {
         <PassSearch
           onPressEnter={onSearchPressEnter}
           paymentPackList={filteredPaymentPackList}
-          paymentComboList={paymentComboList}
+          paymentComboList={filteredPaymentComboList}
           privatePassList={filteredPrivatePassList}
           isExcludingTax={isExcludingTax}
           onClearInput={onClearSearchResult}

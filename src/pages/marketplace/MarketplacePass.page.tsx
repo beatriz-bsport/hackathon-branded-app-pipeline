@@ -34,8 +34,6 @@ import {
   getMarketplacePaymentPacks,
   excludeUnaccessiblePacks,
   groupByCategory,
-  withMetaActivities,
-  withEstablishments,
 } from '#libs/payment-packs/selectors';
 // checkout
 // -----------------------------
@@ -50,10 +48,7 @@ import {
   fetchMarketplacePrivateServices,
   fetchMarketplacePrivateSlots,
 } from '#libs/private-service/actions';
-import {
-  getPrivatePassAsConsumer,
-  withServices,
-} from '#libs/private-service/selectors/private-pass';
+import { getPrivatePassAsConsumer } from '#libs/private-service/selectors/private-pass';
 
 // payment-combo
 // -----------------------------
@@ -74,13 +69,15 @@ import {
   MarketplaceCategoryPassFilterOption,
   MarketplacePassDialogStateKey,
   MarketplacePassPageDialogState,
-  MarketplacePassPagePrivatePass,
 } from '#libs/marketplace/types';
 import {
   PaymentPack,
   PaymentPackCategoryWithPacks,
 } from '#libs/payment-packs/types';
-import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
+import {
+  PrivatePass,
+  PrivatePassCategoryWithPasses,
+} from '#libs/private-service/types';
 import Carousel from '#components/css-only/Carousel';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import MarketplacePaymentComboCard from '#libs/marketplace/components/MarketplacePaymentComboCard';
@@ -96,6 +93,10 @@ import {
 } from '#libs/marketplace/utils';
 import MarketplacePassDialogs from './MarketplacePassDialogs.component';
 import { MaterialStyleType } from '../../utils/types';
+import { getAllEstablishmentsDict } from '#libs/establishment/selectors';
+import { getMetaActivityAbstractDict } from '#libs/meta-activity/selectors';
+import { _getPrivateServicesById } from '#libs/private-service/selectors/private-service';
+import { getAllPrivateSlotsDict } from '#libs/private-service/selectors/private-slot';
 
 type OwnProps = {
   authenticated: boolean;
@@ -121,9 +122,7 @@ type Props = OwnProps &
   typeof mapDispatchToProps;
 
 type State = {
-  dialogSelectedItem:
-    | (PaymentPack | MarketplacePassPagePrivatePass | PaymentCombo)
-    | null;
+  dialogSelectedItem: (PaymentPack | PrivatePass | PaymentCombo) | null;
   isPaymentPackDetailsDialogOpen: boolean;
   isPaymentPackCompatibilityDialogOpen: boolean;
   isPaymentPackRestrictionDialogOpen: boolean;
@@ -152,7 +151,7 @@ type CarouselItemProps = {
   isExcludingTax: boolean;
   handleOpenDialog: (
     key: MarketplacePassDialogStateKey,
-    selectedItem?: PaymentPack | MarketplacePassPagePrivatePass | PaymentCombo,
+    selectedItem?: PaymentPack | PrivatePass | PaymentCombo,
   ) => void;
   addComboToCart: (comboId: number) => void;
 };
@@ -397,13 +396,13 @@ export class MarketPlacePassPage extends Component<Props, State> {
   };
 
   handleShowPrivatePassDetail = (id: number) => {
-    let privatePassList: MarketplacePassPagePrivatePass[] = [];
+    let privatePassList: PrivatePass[] = [];
 
     if (this.props.privatePassByCategory.length) {
       privatePassList = this.props.privatePassByCategory
         .map((category: PrivatePassCategoryWithPasses) => category.passes)
         .flat()
-        .filter((pass: MarketplacePassPagePrivatePass) =>
+        .filter((pass: PrivatePass) =>
           this.state.restrictedCategories.privatePass
             ? this.state.restrictedCategories.privatePass.some(
                 (category) => category === pass.category,
@@ -478,7 +477,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
 
   handleOpenDialog = (
     key: MarketplacePassDialogStateKey,
-    selectedItem?: PaymentPack | MarketplacePassPagePrivatePass | PaymentCombo,
+    selectedItem?: PaymentPack | PrivatePass | PaymentCombo,
   ) => {
     if (selectedItem) {
       return this.setState((prevState) => {
@@ -653,6 +652,10 @@ export class MarketPlacePassPage extends Component<Props, State> {
             this.state.isPaymentComboDetailsDialogOpen
           }
           isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
+          establishments={this.props.establishments}
+          metaActivities={this.props.metaActivities}
+          privateServices={this.props.privateServices}
+          privateSlots={this.props.privateSlots}
           addPaymentPackToCart={this.addPaymentPackToCart}
           addPrivatePassToCart={this.addPrivatePassToCart}
           addComboToCart={this.addComboToCart}
@@ -722,13 +725,15 @@ const mapStateToProps = (
   establishmentLoading: state.establishment.bulkRetrieve.loading,
   activityLoading: state.metaActivity.loading,
   paymentPackByCategory: groupByCategory(
-    withEstablishments(
-      withMetaActivities(excludeUnaccessiblePacks(getMarketplacePaymentPacks)),
-    ),
+    excludeUnaccessiblePacks(getMarketplacePaymentPacks),
   )(state, { memberTagList, authenticated }),
   privatePassByCategory: getPrivatePassByCategoryWithPasses(
-    withServices(getPrivatePassAsConsumer),
+    getPrivatePassAsConsumer,
   )(state),
+  establishments: getAllEstablishmentsDict(state),
+  metaActivities: getMetaActivityAbstractDict(state),
+  privateServices: _getPrivateServicesById(state),
+  privateSlots: getAllPrivateSlotsDict(state),
 });
 
 const mapDispatchToProps = {

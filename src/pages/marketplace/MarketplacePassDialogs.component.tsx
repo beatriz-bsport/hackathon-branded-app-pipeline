@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import MarketplacePaymentPackDetailsModal from '#libs/marketplace/components/MarketplacePaymentPackDetailModal';
 import MarketplacePaymentPackRestrictionModal from '#libs/marketplace/components/MarketplacePaymentPackRestrictionModal';
@@ -9,16 +9,20 @@ import MarketplacePaymentComboDetailsModal from '#libs/marketplace/components/Ma
 import {
   MarketplacePassDialogStateKey,
   MarketplacePassPagePaymentPack,
-  MarketplacePassPagePrivatePass,
   MarketplacePassPageDialogState,
 } from '#libs/marketplace/types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
+import { Establishment } from '#libs/establishment/types';
+import { MetaActivity } from '#libs/meta-activity/types';
+import {
+  PrivatePass,
+  PrivateService,
+  PrivateSlot,
+} from '#libs/private-service/types';
 
 type Props = {
-  dialogSelectedItem:
-    | (PaymentPack | MarketplacePassPagePrivatePass | PaymentCombo)
-    | null;
+  dialogSelectedItem: (PaymentPack | PrivatePass | PaymentCombo) | null;
   isPaymentPackDetailsDialogOpen: boolean;
   isPaymentPackCompatibilityDialogOpen: boolean;
   isPaymentPackRestrictionDialogOpen: boolean;
@@ -26,13 +30,25 @@ type Props = {
   isPrivatePassCompatibilityDialogOpen: boolean;
   isPaymentComboDetailsDialogOpen: boolean;
   isExcludingTax: boolean;
+  establishments: {
+    [key: string]: Establishment;
+  };
+  metaActivities: {
+    [key: string]: MetaActivity<number>;
+  };
+  privateServices: {
+    [key: string]: PrivateService;
+  };
+  privateSlots: {
+    [key: string]: PrivateSlot;
+  };
   addPaymentPackToCart: (packId: number) => void;
   addPrivatePassToCart: (packId: number) => void;
   addComboToCart: (comboId: number) => void;
   handleCloseDialog: (key: MarketplacePassDialogStateKey) => void;
   handleOpenDialog: (
     key: string,
-    selectedItem?: PaymentPack | MarketplacePassPagePrivatePass | PaymentCombo,
+    selectedItem?: PaymentPack | PrivatePass | PaymentCombo,
   ) => void;
 };
 
@@ -46,12 +62,68 @@ const MarketplacePassDialogs = (props: Props) => {
     isPrivatePassCompatibilityDialogOpen,
     isPaymentComboDetailsDialogOpen,
     isExcludingTax,
+    establishments,
+    metaActivities,
+    privateServices,
+    privateSlots,
     addPaymentPackToCart,
     addPrivatePassToCart,
     addComboToCart,
     handleCloseDialog,
     handleOpenDialog,
   } = props;
+
+  const paymentPackCompatibleEstablishments = useMemo(() => {
+    if (
+      dialogSelectedItem &&
+      (dialogSelectedItem as PaymentPack).establishments
+    ) {
+      return Object.values(establishments).filter(
+        (establishment: Establishment) =>
+          (dialogSelectedItem as PaymentPack).establishments.includes(
+            establishment.id,
+          ),
+      );
+    }
+    return null;
+  }, [dialogSelectedItem, establishments]);
+
+  const paymentPackCompatibleActivities = useMemo(() => {
+    if (
+      dialogSelectedItem &&
+      (dialogSelectedItem as PaymentPack).metaActivities
+    ) {
+      return Object.values(metaActivities).filter(
+        (metaActivity: MetaActivity) =>
+          (dialogSelectedItem as PaymentPack).metaActivities.includes(
+            metaActivity.id,
+          ),
+      );
+    }
+    return null;
+  }, [dialogSelectedItem, metaActivities]);
+
+  const privatePassCompatibleServices = useMemo(() => {
+    if (
+      dialogSelectedItem &&
+      (dialogSelectedItem as PrivatePass).private_services
+    ) {
+      return Object.values(privateServices)
+        .filter((privateService) =>
+          (dialogSelectedItem as PrivatePass).private_services.includes(
+            privateService.id,
+          ),
+        )
+        .map((privateService) => {
+          return {
+            ...privateService,
+            slots: privateService.slots.map((slot) => privateSlots[slot]),
+          };
+        })
+        .filter((privateService) => privateService.slots.length);
+    }
+    return null;
+  }, [dialogSelectedItem, privateServices, privateSlots]);
 
   const handleOpenPrivatePassCompatibilityDialog = useCallback(() => {
     handleOpenDialog(MarketplacePassPageDialogState.PrivatePassCompatibility);
@@ -118,20 +190,14 @@ const MarketplacePassDialogs = (props: Props) => {
           (dialogSelectedItem as MarketplacePassPagePaymentPack)?.categories ??
           []
         }
-        metaActivities={
-          (dialogSelectedItem as MarketplacePassPagePaymentPack)
-            ?.metaActivities ?? []
-        }
-        establishments={
-          (dialogSelectedItem as MarketplacePassPagePaymentPack)
-            ?.establishments ?? []
-        }
+        metaActivities={paymentPackCompatibleActivities}
+        establishments={paymentPackCompatibleEstablishments}
         isOpen={isPaymentPackCompatibilityDialogOpen}
         onDialogClose={handleClosePaymentPackCompatibilityDialog}
       />
 
       <MarketplacePrivatePassDetailsModal
-        privatePass={dialogSelectedItem as MarketplacePassPagePrivatePass}
+        privatePass={dialogSelectedItem as PrivatePass}
         isOpen={isPrivatePassDetailsDialogOpen && !!dialogSelectedItem}
         onDialogClose={handleClosePrivatePassDetailsDialog}
         isExcludingTax={isExcludingTax}
@@ -141,10 +207,7 @@ const MarketplacePassDialogs = (props: Props) => {
       />
 
       <MarketplacePrivatePassCompatibilityModal
-        compatiblePrivateServices={
-          (dialogSelectedItem as MarketplacePassPagePrivatePass)
-            ?.private_services ?? []
-        }
+        compatiblePrivateServices={privatePassCompatibleServices}
         isOpen={isPrivatePassCompatibilityDialogOpen && !!dialogSelectedItem}
         onDialogClose={handleClosePrivatePassCompatibilityDialog}
       />

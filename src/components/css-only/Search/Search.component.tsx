@@ -67,8 +67,8 @@ const Search: React.FC<Props> = ({
     (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       const fuse = new Fuse(data, fuseOptions);
 
-      setSearch(event.target.value);
-      const result = fuse.search(event.target.value);
+      setSearch(event.target.value.trim());
+      const result = fuse.search(event.target.value.trim());
       setSearchResult(result);
     },
     [data, fuseOptions],

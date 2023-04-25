@@ -339,7 +339,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
     searchResult: SearchItemData<BaseAdditionalData>[],
     searchText: string,
   ) => {
-    if (searchText !== this.state.passSearchResult.query) {
+    if (searchText.length && searchText !== this.state.passSearchResult.query) {
       this.setState({
         passSearchResult: {
           query: searchText,

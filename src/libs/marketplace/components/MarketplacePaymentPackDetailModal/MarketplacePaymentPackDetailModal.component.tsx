@@ -51,13 +51,15 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
   }) => {
     const { t } = useTranslation('marketplace');
 
-    const { modalRef } = useDialogClickAwayListener({ onDialogClose });
+    const { dialogRef, modalRef } = useDialogClickAwayListener({
+      onDialogClose,
+    });
     const handleAddToCart = () => onAddToCart(paymentPack.id);
 
     return (
       <>
         {isOpen && (
-          <div className="bs-pack-details-dialog ">
+          <div className="bs-pack-details-dialog " ref={dialogRef}>
             <Card
               size={CardSize.L}
               classes={{

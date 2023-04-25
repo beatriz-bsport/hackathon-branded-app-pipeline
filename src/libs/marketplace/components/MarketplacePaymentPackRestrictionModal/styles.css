@@ -15,9 +15,10 @@
 
 .bs-restrictions-modal {
   border: none;
-  background-color: #fff;
+  background-color: var(--color-background-paper);
   margin-right: var(--spacing-2);
   margin-left: var(--spacing-2);
+  color: var(--color-grey-dark);
 }
 
 .bs-restriction-modal__title {

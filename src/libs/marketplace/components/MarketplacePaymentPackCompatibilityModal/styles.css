@@ -16,9 +16,10 @@ li {
 }
 
 .bs-pack-compatibility-dialog {
-  background-color: #fff;
+  background-color: var(--color-background-paper);
   border: none;
   margin: 0 var(--spacing-2);
+  color: var(--color-grey-dark);
 }
 
 .bs-pack-compatibility-dialog__header__check-icon {

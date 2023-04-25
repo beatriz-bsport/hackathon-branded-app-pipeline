@@ -41,13 +41,13 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('marketplace');
 
-  const { modalRef } = useDialogClickAwayListener({ onDialogClose });
+  const { dialogRef, modalRef } = useDialogClickAwayListener({ onDialogClose });
   const handleAddToCart = () => onAddToCart(privatePass.id);
 
   return (
     <>
       {isOpen && (
-        <div className="bs-pass-details-dialog ">
+        <div className="bs-pass-details-dialog " ref={dialogRef}>
           <Card
             size={CardSize.L}
             classes={{

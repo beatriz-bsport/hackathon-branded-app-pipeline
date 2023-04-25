@@ -1,5 +1,9 @@
 .bs-pack-card {
-  background: linear-gradient(90deg, #f6f8fa 58%, #fff 42%);
+  background: linear-gradient(
+    90deg,
+    #f6f8fa 58%,
+    var(--color-background-paper) 42%
+  );
   border-radius: var(--border-radius-4);
   height: 260px;
 }
@@ -8,6 +12,10 @@
   display: flex;
   flex-direction: column;
   flex: 1;
+}
+
+.bs-pack-card__grid {
+  grid-template-columns: 58% 42%;
 }
 
 .bs-pack-card .bs-generic-card__content__grid {
@@ -75,6 +83,13 @@
   margin-block-start: 0;
   padding-inline-start: var(--spacing-3);
   margin-bottom: var(--spacing-1);
+  padding-left: 0;
+  margin-left: var(--spacing-1);
+  color: var(--color-grey-dark);
+  font-size: var(--subtitle1-fontSize);
+  font-weight: var(--h5-fontWeight);
+  letter-spacing: var(--subtitle1-letterSpacing);
+  line-height: var(--subtitle1-lineHeight);
 }
 
 .bs-pack-card__prices-container {
@@ -149,8 +164,12 @@
 }
 
 @media screen and (max-width: 749px) {
+  .bs-pack-card__list {
+    margin-left: var(--spacing-3);
+  }
+
   .bs-pack-card {
-    background: #ffffff;
+    background: var(--color-background-paper);
     height: 220px;
   }
 

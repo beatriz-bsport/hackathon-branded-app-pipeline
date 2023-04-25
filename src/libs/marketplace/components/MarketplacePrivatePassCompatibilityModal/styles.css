@@ -46,9 +46,10 @@ li {
 }
 
 .bs-pass-compatibility-dialog {
-  background-color: #fff;
+  background-color: var(--color-background-paper);
   border: none;
   margin: var(--spacing-2);
+  color: var(--color-grey-dark);
 }
 
 .bs-pass-compatibility-dialog__header__check-icon {
@@ -100,6 +101,7 @@ li {
 }
 
 .bs-pass-compatibility-dialog__footer__button {
+  text-align: center;
   cursor: pointer;
   width: 100%;
   height: 100%;

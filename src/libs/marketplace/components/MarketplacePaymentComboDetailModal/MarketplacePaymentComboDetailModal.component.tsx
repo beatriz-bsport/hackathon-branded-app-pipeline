@@ -45,12 +45,12 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
   onAddToCart,
 }) => {
   const { t } = useTranslation('marketplace');
-  const { modalRef } = useDialogClickAwayListener({ onDialogClose });
+  const { dialogRef, modalRef } = useDialogClickAwayListener({ onDialogClose });
 
   return (
     <>
       {isOpen && (
-        <div className="bs-combo-details-dialog">
+        <div className="bs-combo-details-dialog" ref={dialogRef}>
           <Card
             size={CardSize.L}
             classes={{

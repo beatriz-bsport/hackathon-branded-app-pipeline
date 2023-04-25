@@ -1,6 +1,7 @@
 .bs-combo-details-dialog__card {
   border: none;
   border-radius: var(--border-radius-2);
+  background-color: var(--color-background-paper);
 }
 
 .bs-combo-details-dialog {
@@ -33,7 +34,11 @@
 }
 
 .bs-combo-details-dialog__header {
-  background: linear-gradient(90deg, #f6f8fa 60%, #fff 40%);
+  background: linear-gradient(
+    90deg,
+    #f6f8fa 60%,
+    var(--color-background-paper) 40%
+  );
   border-top-left-radius: var(--border-radius-2);
   border-top-right-radius: var(--border-radius-2);
   padding: var(--spacing-3);
@@ -51,6 +56,7 @@
   line-height: var(--h5-lineHeight);
   margin: 0 var(--spacing-8) 0 0;
   font-weight: var(--h5-fontWeight);
+  color: var(--color-grey-dark);
 }
 
 .bs-combo-details-dialog__header__price-container {
@@ -86,7 +92,6 @@
 
 .bs-combo-details-dialog__grid {
   gap: 0;
-  background-color: #fff;
 }
 
 .bs-combo-details-dialog__description {
@@ -118,6 +123,7 @@
   margin: 0;
   font-size: var(--subtitle1-fontSize);
   font-weight: var(--h5-fontWeight);
+  color: var(--color-grey-dark);
 }
 
 .bs-combo-details-dialog__content-list ul {
@@ -134,7 +140,6 @@
 }
 
 .bs-combo-details-dialog__footer__item {
-  background-color: #fff;
   border-bottom-left-radius: var(--border-radius-2);
   border-bottom-right-radius: var(--border-radius-2);
   border-top: 1px solid var(--color-grey-light);

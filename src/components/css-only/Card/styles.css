@@ -1,38 +1,38 @@
 .bs-generic-card {
-    border: 2px solid #F1F3F4;
-    border-radius: var(--border-radius-2);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  border: 2px solid var(--color-grey-light);
+  border-radius: var(--border-radius-2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .size-m {
-    width: 389px
+  width: 389px;
 }
 
 .size-s {
-    width: 190px
+  width: 190px;
 }
 
 .size-l {
-    width: 580px
+  width: 580px;
 }
 
 .size-ml {
-    width: 490px;
+  width: 490px;
 }
 
 .size-xl {
-    width: 750px;
+  width: 750px;
 }
 
 .size-auto {
-    width: auto;
+  width: auto;
 }
 
 @media only screen and (max-width: 599px) {
-    .bs-generic-card {
-        width: 100%;
-    }
+  .bs-generic-card {
+    width: 100%;
+  }
 }

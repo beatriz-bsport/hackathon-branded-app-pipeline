@@ -1,5 +1,9 @@
 .bs-pass-card {
-  background: linear-gradient(120deg, #f6f8fa 50%, #ffffff 50%);
+  background: linear-gradient(
+    120deg,
+    #f6f8fa 50%,
+    var(--color-background-paper) 50%
+  );
   border-radius: var(--border-radius-4);
   height: 230px;
 }

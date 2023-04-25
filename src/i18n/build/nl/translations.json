@@ -656,7 +656,8 @@
             "cancel": "Sluiten",
             "discover": "Ontdek",
             "from_to": "van {{-from}} tot {{-to}}",
-            "offers": "{{ count }} sessie(s)"
+            "offers": "{{ count }} sessie(s)",
+            "paymentComboListTitle": "Pakketten"
         },
         "login": {
             "error": {
@@ -2865,6 +2866,7 @@
                 "Annuleren",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd"
@@ -5959,6 +5961,24 @@
                 "month_plural": "Elke {{ count }} maanden"
             },
             "chooseButton": "Kies"
+        },
+        "pass": {
+            "search": {
+                "goBack": "Terug naar de volledige lijst",
+                "result": "{{count}} resultaat voor \"{{queryText}}\"",
+                "result_plural": "{{count}} resultaten voor \"{{queryText}}\""
+            },
+            "filters": {
+                "placeholder": {
+                    "categories": "Categorie",
+                    "type": "Type"
+                },
+                "type": {
+                    "privatePass": "Afspraakkaart",
+                    "paymentPack": "Cursus kaart"
+                },
+                "noCategory": "Geen categorie"
+            }
         }
     },
     "selfCheckIn": {

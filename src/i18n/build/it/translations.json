@@ -983,7 +983,8 @@
             "discover": "Scopri",
             "bookGroups": "Prenota una sessione di gruppo",
             "cancel": "Chiudi",
-            "book": "Prenota"
+            "book": "Prenota",
+            "paymentComboListTitle": "Pacchetti"
         },
         "level": {
             "advanced": "Avanzato",
@@ -3313,7 +3314,7 @@
                 "message": "Esportando i dati potrete generare un excel per la durata selezionata. Anche questi dati saranno memorizzati e potranno essere utilizzati in seguito.",
                 "title": "Esportazione e conservazione dei dati"
             },
-            "buttonText": "Esportazione"
+            "buttonText": "Esporta"
         },
         "performance": {
             "table": {
@@ -7284,6 +7285,7 @@
                 "Cancella",
                 "Annullata",
                 "Annulla",
+                "Cancella",
                 "Cancella",
                 "Cancella"
             ]
@@ -12252,6 +12254,24 @@
                 "month_plural": "Ogni {{ count }} mesi"
             },
             "chooseButton": "Scegliere"
+        },
+        "pass": {
+            "search": {
+                "goBack": "Torna alla lista completa",
+                "result": "{{count}} risultato per \"{{queryText}}\"",
+                "result_plural": "{{count}} risultati per \"{{queryText}}\""
+            },
+            "filters": {
+                "placeholder": {
+                    "categories": "Categorie",
+                    "type": "TIpo"
+                },
+                "type": {
+                    "privatePass": "Pass per appuntamenti",
+                    "paymentPack": "Pass"
+                },
+                "noCategory": "Nessuna categoria"
+            }
         }
     },
     "event": {

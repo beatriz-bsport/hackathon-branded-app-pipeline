@@ -907,7 +907,8 @@
             "discover": "Entdecken",
             "bookGroups": "Buchen Sie eine Gruppensession",
             "cancel": "Schließen",
-            "book": "Buchen"
+            "book": "Buchen",
+            "paymentComboListTitle": "Pakete"
         },
         "calendar": {
             "pleaseSelectOffer": "Klicke auf einen Kurs, um die registrierten Mitglieder zu sehen",
@@ -4861,6 +4862,7 @@
         },
         "last_invoice_status": {
             "": [
+                "Stornieren",
                 "Stornieren",
                 "Stornieren",
                 "Stornieren"
@@ -11763,6 +11765,23 @@
             "comboItemList": {
                 "content": "Inhalt"
             }
+        },
+        "pass": {
+            "search": {
+                "goBack": "Zurück zur vollständigen Liste",
+                "result": "{{count}} Suchergebnis für \"{{queryText}}\"",
+                "result_plural": "{{count}} Suchergebnisse für \"{{queryText}}\""
+            },
+            "filters": {
+                "placeholder": {
+                    "categories": "Kategorien",
+                    "type": "Typ"
+                },
+                "type": {
+                    "privatePass": "Terminpass",
+                    "paymentPack": "Kurspass"
+                }
+            }
         }
     },
     "partnership": {
@@ -12159,7 +12178,7 @@
                 "shop": "Shop",
                 "subscription": "Abonnement",
                 "vod": "VOD",
-                "pass": "Kurspässe",
+                "pass": "Pässe",
                 "privateService": "Terminvereinbarungen",
                 "workshop": "Workshops",
                 "calendar": "Kalender",

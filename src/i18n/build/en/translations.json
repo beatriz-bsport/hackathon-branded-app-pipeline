@@ -963,7 +963,8 @@
             "bookGroups": "Events",
             "discover": "Discover",
             "from_to": "from {{-from}} to {{-to}}",
-            "offers": "{{ count }} sessions"
+            "offers": "{{ count }} sessions",
+            "paymentComboListTitle": "Packs"
         },
         "time": {
             "month": {
@@ -8228,7 +8229,7 @@
         "recap": {
             "willBecharged": " will be charged ",
             "every": " every ",
-            "month": "every ",
+            "month": "month ",
             "times": " times ",
             "forObject": " for ",
             "from": "From ",
@@ -9326,6 +9327,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
@@ -11566,6 +11568,24 @@
                 "month_plural": "Every {{ count }} months"
             },
             "chooseButton": "Choose"
+        },
+        "pass": {
+            "search": {
+                "goBack": "Go back to the full list",
+                "result": "{{count}} result for \"{{queryText}}\"",
+                "result_plural": "{{count}} results for \"{{queryText}}\""
+            },
+            "filters": {
+                "placeholder": {
+                    "categories": "Categories",
+                    "type": "Type"
+                },
+                "type": {
+                    "privatePass": "Appointment pass",
+                    "paymentPack": "Pass"
+                },
+                "noCategory": "No category"
+            }
         }
     },
     "selfCheckIn": {

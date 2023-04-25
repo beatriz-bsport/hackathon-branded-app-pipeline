@@ -1044,7 +1044,8 @@
             "bookGroups": "Reserva un grupo de sesiones",
             "discover": "Descubrir",
             "from_to": "del {{-from}} hasta el {{-to}}",
-            "offers": "{{ count }} sesiones"
+            "offers": "{{ count }} sesiones",
+            "paymentComboListTitle": "Packs"
         },
         "appbar": {
             "title": {
@@ -2297,7 +2298,7 @@
                 "shop": "Tienda",
                 "subscription": "Suscripción",
                 "vod": "VOD",
-                "pass": "Bono",
+                "pass": "Bonos",
                 "privateService": "Citas",
                 "workshop": "Talleres",
                 "calendar": "Calendario",
@@ -4888,6 +4889,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
+                "Cancelada",
                 "Cancelada"
             ]
         },
@@ -6108,6 +6110,24 @@
                 "month_plural": "Cada {{ count }} meses"
             },
             "chooseButton": "Seleccione"
+        },
+        "pass": {
+            "search": {
+                "goBack": "Volver a la lista completa",
+                "result": "{{count}} resultado para \"{{queryText}}\"",
+                "result_plural": "{{count}} resultados para \"{{queryText}}\""
+            },
+            "filters": {
+                "placeholder": {
+                    "categories": "Categorías",
+                    "type": "Tipo"
+                },
+                "type": {
+                    "privatePass": "Tarjeta de citas",
+                    "paymentPack": "Bono"
+                },
+                "noCategory": "Sin categoría"
+            }
         }
     },
     "notificationRule": {

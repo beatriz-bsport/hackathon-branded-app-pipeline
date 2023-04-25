@@ -25,6 +25,7 @@ export type Props = {
   isOpen: boolean;
   isExcludingTax: boolean;
   tax: number | undefined;
+  compatiblePrivateServices: number;
   onDialogClose: () => void;
   onAddToCart: (packId: number) => void;
   onShowCompatibilityDialog: () => void;
@@ -35,6 +36,7 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
   isOpen,
   isExcludingTax,
   tax,
+  compatiblePrivateServices,
   onDialogClose,
   onAddToCart,
   onShowCompatibilityDialog,
@@ -88,6 +90,7 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                     <Item rowStart={2}>
                       <PrivatePassDetailsList
                         privatePass={privatePass}
+                        compatiblePrivateServices={compatiblePrivateServices}
                         onShowCompatibilityDialog={onShowCompatibilityDialog}
                       />
                     </Item>

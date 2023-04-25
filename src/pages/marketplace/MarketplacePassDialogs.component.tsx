@@ -202,6 +202,7 @@ const MarketplacePassDialogs = (props: Props) => {
         onDialogClose={handleClosePrivatePassDetailsDialog}
         isExcludingTax={isExcludingTax}
         tax={dialogSelectedItem?.tax}
+        compatiblePrivateServices={privatePassCompatibleServices?.length ?? 0}
         onAddToCart={addPrivatePassToCart}
         onShowCompatibilityDialog={handleOpenPrivatePassCompatibilityDialog}
       />

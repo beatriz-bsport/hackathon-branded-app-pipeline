@@ -18,11 +18,12 @@ import { PrivatePass } from '#libs/private-service/types';
 
 export type Props = {
   privatePass: PrivatePass;
+  compatiblePrivateServices: number;
   onShowCompatibilityDialog: () => void;
 };
 
 const PrivatePassDetailsList: React.FC<Props> = React.memo(
-  ({ privatePass, onShowCompatibilityDialog }) => {
+  ({ privatePass, compatiblePrivateServices, onShowCompatibilityDialog }) => {
     const { t } = useTranslation('marketplace');
 
     const validityInfos = useValidityInfoForPrivatePassCard(privatePass);
@@ -45,14 +46,14 @@ const PrivatePassDetailsList: React.FC<Props> = React.memo(
             {validityInfos}
           </li>
         )}
-        {privatePass?.private_services?.length > 0 ? (
+        {compatiblePrivateServices > 0 ? (
           <li className="bs-pass-details-dialog__list__item">
             <span className="bs-pass-details-dialog__list__item__icon">
               <DoneIcon />
             </span>
             <span>
               {t('genericCardDetails.compatibility.compatible', {
-                count: privatePass.private_services.length,
+                count: compatiblePrivateServices,
               })}
             </span>
             <button

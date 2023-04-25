@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { compose, pure } from 'recompose';
@@ -44,14 +44,17 @@ const MarketplacePaymentPackCard = (props: Props) => {
 
   const formatedCredits = paymentPack.unlimited
     ? t('genericCard.credits.unlimited')
-    : t('genericCard.credits.availableCredit', { count: paymentPack.credits });
+    : t('genericCard.credits.availableCredit', {
+        count: paymentPack.credits,
+      });
 
-  const handleAddToCart = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    event.stopPropagation();
-    addToCart();
-  };
+  const handleAddToCart = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.stopPropagation();
+      addToCart();
+    },
+    [addToCart],
+  );
 
   return (
     <Card size={CardSize.AUTO} classes={{ 'bs-pass-card': 'bs-pass-card' }}>

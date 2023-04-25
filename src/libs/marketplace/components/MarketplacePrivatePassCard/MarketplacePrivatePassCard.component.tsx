@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { compose, pure } from 'recompose';
@@ -46,12 +46,13 @@ const PassCard: React.FC<Props> = ({
     theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM),
   );
 
-  const handleAddToCart = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    event.stopPropagation();
-    addToCart();
-  };
+  const handleAddToCart = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.stopPropagation();
+      addToCart();
+    },
+    [addToCart],
+  );
 
   return (
     <Card size={CardSize.AUTO} classes={{ 'bs-pass-card': 'bs-pass-card' }}>

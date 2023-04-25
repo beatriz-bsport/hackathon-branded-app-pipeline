@@ -14,10 +14,10 @@ import { useValidityInfoForPrivatePassCard } from '#libs/marketplace/utils/priva
 
 import './styles.list.css';
 
-import { MarketplacePassPagePrivatePass } from '#libs/marketplace/types';
+import { PrivatePass } from '#libs/private-service/types';
 
 export type Props = {
-  privatePass: MarketplacePassPagePrivatePass;
+  privatePass: PrivatePass;
   onShowCompatibilityDialog: () => void;
 };
 

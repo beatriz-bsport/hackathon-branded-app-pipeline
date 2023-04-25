@@ -18,10 +18,10 @@ import Item, {
 import Price, { Color } from '#components/css-only/Price';
 import PrivatePassDetailsList from './DetailList/PrivatePassDetailList.component';
 import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
-import { MarketplacePassPagePrivatePass } from '#libs/marketplace/types';
+import { PrivatePass } from '#libs/private-service/types';
 
 export type Props = {
-  privatePass: MarketplacePassPagePrivatePass;
+  privatePass: PrivatePass;
   isOpen: boolean;
   isExcludingTax: boolean;
   tax: number | undefined;

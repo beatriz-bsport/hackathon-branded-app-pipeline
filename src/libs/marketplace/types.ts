@@ -9,11 +9,7 @@ import {
   PaymentPack,
   PaymentPackCategoryWithPacks,
 } from '#libs/payment-packs/types';
-import {
-  PrivatePass,
-  PrivatePassCategoryWithPasses,
-  PrivateServiceWithSlots,
-} from '#libs/private-service/types';
+import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
 import { WidgetCustomCSS } from '#libs/theme/types';
 import { ErrorAndLoading } from '#libs/types';
 
@@ -160,13 +156,6 @@ export type MarketplacePassPagePaymentPack = PaymentPack & {
   categories: SCT[];
   metaActivities: MetaActivity[];
   establishments: Establishment[];
-};
-
-export type MarketplacePassPagePrivatePass = Omit<
-  PrivatePass,
-  'private_services'
-> & {
-  private_services: PrivateServiceWithSlots[];
 };
 
 export type MarketplacePassDialogStateKey =

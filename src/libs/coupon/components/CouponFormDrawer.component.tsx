@@ -21,6 +21,7 @@ type OwnProps = {
   processing?: boolean;
   onCancel: () => void;
   paymentPacks: Array<PaymentPack>;
+  allPaymentPacksById: Object;
   shopItems: Array<ShopItem>;
   privatePasses: Array<PrivatePass>;
   paymentCombos: Array<PaymentCombo>;

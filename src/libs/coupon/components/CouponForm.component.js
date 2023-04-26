@@ -86,6 +86,7 @@ type Props = {
   classes: Object,
 
   paymentPacks: Array<PaymentPack>,
+  allPaymentPacksById: Object,
   shopItems: Array<ShopItem>,
   privatePasses: Array<PrivatePass>,
   paymentCombos: Array<PaymentCombo>,
@@ -412,6 +413,7 @@ export class CouponForm extends React.Component<Props, State> {
   renderApply = () => {
     const {
       paymentPacks,
+      allPaymentPacksById,
       privatePasses,
       shopItems,
       paymentCombos,
@@ -478,7 +480,7 @@ export class CouponForm extends React.Component<Props, State> {
                   <PaymentPackListItem
                     disabled={!!initial?.coupon_template_instance}
                     key={`${id}-${i}`}
-                    pack={paymentPacks.find((pp) => pp.id === id)}
+                    pack={allPaymentPacksById[id]}
                     onDelete={() => {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,

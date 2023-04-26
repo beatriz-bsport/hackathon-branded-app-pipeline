@@ -46,7 +46,10 @@ import { fetchShopItemAsManager as fetchAllShop } from '#libs/shop/actions/shopi
 import { fetchPrivatePassList } from '#libs/private-service/actions';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import { fetchTags } from '#libs/tag/actions';
-import { getEnabled as getPaymentPacks } from '#libs/payment-packs/selectors';
+import {
+  getPaymentPackById,
+  getEnabled as getPaymentPacks,
+} from '#libs/payment-packs/selectors';
 import { getShopItemsAvailable as getShopItems } from '#libs/shop/selectors';
 import { getPrivatePassAvailable as getPrivatePass } from '#libs/private-service/selectors/private-pass';
 import { getPaymentComboList } from '#libs/payment-combo/selectors';
@@ -241,6 +244,7 @@ export class CouponList extends React.PureComponent<Props, State> {
           onCancel={this.onCloseFormDrawer}
           onClose={this.onCloseFormDrawer}
           paymentPacks={this.props.paymentPacks}
+          allPaymentPacksById={this.props.allPaymentPacksById}
           shopItems={this.props.shopItems}
           privatePasses={this.props.privatePasses}
           paymentCombos={this.props.paymentCombos}
@@ -305,6 +309,7 @@ const connector = connect(
     createOrUpdateLoading: state.coupon.coupon.createOrUpdate.loading,
     tagsLoading: state.tag.tag.loading || state.tag.group.loading,
     paymentPacks: getPaymentPacks(state),
+    allPaymentPacksById: getPaymentPackById(state),
     shopItems: getShopItems(state),
     paymentCombos: getPaymentComboList(state),
     privatePasses: getPrivatePass(state),

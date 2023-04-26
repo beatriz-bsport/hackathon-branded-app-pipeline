@@ -103,6 +103,7 @@ li {
   font-weight: var(--button-fontWeight);
   color: var(--color-grey-main);
   text-transform: uppercase;
+  text-align: center;
 }
 
 @media screen and (max-width: 570px) {

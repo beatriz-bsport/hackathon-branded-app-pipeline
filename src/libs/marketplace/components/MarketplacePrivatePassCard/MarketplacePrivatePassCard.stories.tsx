@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react'
 
-import MarketplacePrivatePassCard from '.'
+import { MarketplacePrivatePassCardForStorybook } from '.'
 
 import { private_services_passes_factory } from '#libs/private-service/factory';
 
@@ -12,7 +12,7 @@ const fakePrivatePass = private_services_passes_factory(1)
 const Template = (args: Props) => {
     return (
         <div className='pass-card'>
-            <MarketplacePrivatePassCard {...args}/>
+            <MarketplacePrivatePassCardForStorybook {...args}/>
         </div>
     );
 };
@@ -28,7 +28,7 @@ privatePassCard.args = {
 
 export default {
     title: 'Components/Marketplace/PassCards/Cards/PrivatePassCard',
-    component: MarketplacePrivatePassCard,
+    component: MarketplacePrivatePassCardForStorybook,
     parameters: {
         layout: 'centered',
         docs: {

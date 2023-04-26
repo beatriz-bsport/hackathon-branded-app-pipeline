@@ -1,12 +1,12 @@
 // @ts-nocheck
 import React from 'react';
-import MarketplacePrivatePassCompatibilityModal, {Props} from '.';
+import { MarketplacePrivatePassCompatibilityModalForStorybook, Props } from '.';
 import { private_services_factory } from '#libs/private-service/factory';
 
 const fakePrivateServices = private_services_factory(3)
 
 const Template = (args: Props) => {
-  return <MarketplacePrivatePassCompatibilityModal {...args} />;
+  return <MarketplacePrivatePassCompatibilityModalForStorybook {...args} />;
 };
 
 export const privatePassWithPrivateSlots = Template.bind({});
@@ -17,7 +17,7 @@ privatePassWithPrivateSlots.args = {
 
 export default {
   title: 'Components/Marketplace/PassCards/Modals/PrivatePassCompatibilityModal',
-  component: MarketplacePrivatePassCompatibilityModal,
+  component: MarketplacePrivatePassCompatibilityModalForStorybook,
   parameters: {
     docs: {
       page: null,

@@ -1,13 +1,13 @@
 // @ts-nocheck
 import React from 'react'
-import MarketplacePaymentPackRestrictionModal, {Props} from '.';
+import { MarketplacePaymentPackRestrictionModalForStorybook, Props } from '.';
 import FactoryBotPaymentPack from '#libs/payment-packs/factory'
 
 const fakePaymentPack = FactoryBotPaymentPack.PaymentPackFullDetails.create()
 
 
 const Template = (args: Props) => {
-    return <MarketplacePaymentPackRestrictionModal {...args} />
+    return <MarketplacePaymentPackRestrictionModalForStorybook {...args} />
     ;
 };
 
@@ -20,7 +20,7 @@ restrictionsModal.args = {
 
 export default {
     title: 'Components/Marketplace/PassCards/Modals/RestrictionModal',
-    component: MarketplacePaymentPackRestrictionModal,
+    component: MarketplacePaymentPackRestrictionModalForStorybook,
     parameters: {
         docs: {
             page: null,

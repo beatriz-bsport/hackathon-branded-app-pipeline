@@ -2,7 +2,6 @@
 import React, { useCallback } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import { compose, pure } from 'recompose';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Style from '@material-ui/icons/Style';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -139,8 +138,8 @@ const MarketplacePaymentPackCard = (props: Props) => {
     </Card>
   );
 };
+export const MarketplacePaymentPackCardForStorybook = marketplaceCssHoc()(
+  MarketplacePaymentPackCard,
+);
 
-export default compose<any, Props>(
-  marketplaceCssHoc(),
-  pure,
-)(MarketplacePaymentPackCard);
+export default React.memo(MarketplacePaymentPackCard);

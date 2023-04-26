@@ -149,7 +149,8 @@ const MarketplaceContractCard: React.FC<Props> = ({
   );
 };
 
-export default compose(
-  marketplaceCssHoc(),
-  React.memo,
-)(MarketplaceContractCard);
+export const MarketplaceContractCardForStorybook = marketplaceCssHoc()(
+  MarketplaceContractCard,
+);
+
+export default compose(React.memo)(MarketplaceContractCard);

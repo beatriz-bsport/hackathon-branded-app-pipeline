@@ -215,4 +215,6 @@ const Carousel = <T extends BaseData>(props: Props<T>) => {
   );
 };
 
-export default marketplaceCssHoc()(Carousel);
+export const CarouselForStorybook = marketplaceCssHoc()(Carousel);
+
+export default Carousel;

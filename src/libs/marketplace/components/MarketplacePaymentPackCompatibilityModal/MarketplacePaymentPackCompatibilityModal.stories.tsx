@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import MarketplacePaymentPackCompatibilityModal,{Props} from './index';
+import { MarketplacePaymentPackCompatibilityModalForStorybook, Props} from './index';
 
 import { factory_scts } from '#libs/category/factory';
 import {meta_activity_factory} from '#libs/meta-activity/factory'
@@ -15,7 +15,7 @@ const fakeMetaActivities = meta_activity_factory(random_int(5))
 const fakeEstablishments = establishment_factory(random_int(5))
 
 const Template = (args: Props) => {
-    return <MarketplacePaymentPackCompatibilityModal {...args} />;
+    return <MarketplacePaymentPackCompatibilityModalForStorybook {...args} />;
 };
 
 export const paymentPackWithCompatibilities = Template.bind({});
@@ -29,7 +29,7 @@ paymentPackWithCompatibilities.args = {
 
 export default {
     title: 'Components/Marketplace/PassCards/Modals/PaymentPackCompatibilityModal',
-    component: MarketplacePaymentPackCompatibilityModal,
+    component: MarketplacePaymentPackCompatibilityModalForStorybook,
     parameters: {
         docs: {
             page: null,

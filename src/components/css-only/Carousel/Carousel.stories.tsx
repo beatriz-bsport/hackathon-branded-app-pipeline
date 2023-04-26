@@ -3,7 +3,7 @@ import React from 'react';
 
 import { PaymentPackStorybookListFactory } from '#libs/payment-packs/factory';
 import { PaymentPack } from '#libs/payment-packs/types';
-import Carousel, { Props } from '#csscomponents/Carousel';
+import { Props, CarouselForStorybook } from '#csscomponents/Carousel';
 
 const CarouselTemplate = (args: Props<PaymentPack>) => <Carousel {...args} />;
 
@@ -61,7 +61,7 @@ PictureCarousel.args = {
 
 export default {
   title: 'Components/css-only/Carousel',
-  component: Carousel,
+  component: CarouselForStorybook,
   parameters: {
     docs: {
       page: null,

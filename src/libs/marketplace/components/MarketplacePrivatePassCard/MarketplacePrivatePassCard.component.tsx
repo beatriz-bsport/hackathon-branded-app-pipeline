@@ -2,7 +2,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { compose, pure } from 'recompose';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Style } from '@material-ui/icons';
@@ -34,7 +33,7 @@ export type Props = {
   onOpenDetailDialog: () => void;
 };
 
-const PassCard: React.FC<Props> = ({
+const MarketplacePrivatePassCard: React.FC<Props> = ({
   privatePass,
   isExcludingTax,
   addToCart,
@@ -141,4 +140,8 @@ const PassCard: React.FC<Props> = ({
   );
 };
 
-export default compose<any, Props>(marketplaceCssHoc(), pure)(PassCard);
+export const MarketplacePrivatePassCardForStorybook = marketplaceCssHoc()(
+  MarketplacePrivatePassCard,
+);
+
+export default React.memo(MarketplacePrivatePassCard);

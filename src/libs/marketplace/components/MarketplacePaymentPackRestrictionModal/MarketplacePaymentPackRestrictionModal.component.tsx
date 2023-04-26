@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { compose } from 'recompose';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Card, { CardSize } from '#components/css-only/Card';
@@ -109,7 +108,7 @@ const MarketplacePaymentPackRestrictionModal: React.FC<Props> = ({
   );
 };
 
-export default compose<any, Props>(
-  marketplaceCssHoc(),
-  React.memo,
-)(MarketplacePaymentPackRestrictionModal);
+export const MarketplacePaymentPackRestrictionModalForStorybook =
+  marketplaceCssHoc()(MarketplacePaymentPackRestrictionModal);
+
+export default React.memo(MarketplacePaymentPackRestrictionModal);

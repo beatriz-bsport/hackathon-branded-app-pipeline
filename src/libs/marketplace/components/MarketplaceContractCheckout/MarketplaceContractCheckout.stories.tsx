@@ -1,14 +1,15 @@
 // @ts-nocheck
 import React from 'react';
 import FactoryBot from '#libs/subscription/factory'
-import MarketplaceContractCheckout, {
+import {
+  MarketplaceContractCheckoutForStorybook,
     Props,
 } from '.';
 
 const fakeContract = FactoryBot.Contract.create();
 
 const ContractCheckoutTemplate = (args: Props) => (
-    <MarketplaceContractCheckout {...args} />
+    <MarketplaceContractCheckoutForStorybook {...args} />
 );
 
 export const BasicContractCheckout = ContractCheckoutTemplate.bind({});
@@ -27,7 +28,7 @@ ContractCheckoutWithUndefinedSubscription.args = {
 
 export default {
     title: 'Components/Marketplace/PassCards/Modals/MarketplaceContractCheckout',
-    component: MarketplaceContractCheckout,
+    component: MarketplaceContractCheckoutForStorybook,
     parameters: {
         docs: {
             page: null,

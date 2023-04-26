@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react'
-import MarketplacePaymentPackDetailsModal, { Props } from '.';
+import { MarketplacePaymentPackDetailsModalForStorybook, Props } from '.';
 
 import FactoryBotPaymentPack from '#libs/payment-packs/factory'
 
@@ -8,7 +8,7 @@ const fakepaymentPackFullDetails = FactoryBotPaymentPack.PaymentPackFullDetails.
 
 const Template = (args: Props) => {
     return (
-        <MarketplacePaymentPackDetailsModal {...args} />
+        <MarketplacePaymentPackDetailsModalForStorybook {...args} />
     );
 };
 
@@ -26,7 +26,7 @@ paymentPackDetailsModalFullDetails.args = {
 
 export default {
     title: 'Components/Marketplace/PassCards/Modals/PaymentPackDetailsModal',
-    component: MarketplacePaymentPackDetailsModal,
+    component: MarketplacePaymentPackDetailsModalForStorybook,
     parameters: {
         docs: {
             page: null,

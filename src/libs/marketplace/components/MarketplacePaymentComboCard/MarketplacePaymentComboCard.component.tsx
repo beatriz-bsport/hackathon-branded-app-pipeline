@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { compose } from 'recompose';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -130,7 +129,8 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
   );
 };
 
-export default compose<any, Props>(
-  marketplaceCssHoc(),
-  React.memo,
-)(MarketplacePaymentComboCard);
+export const MarketplacePaymentComboCardForStorybook = marketplaceCssHoc()(
+  MarketplacePaymentComboCard,
+);
+
+export default React.memo(MarketplacePaymentComboCard);

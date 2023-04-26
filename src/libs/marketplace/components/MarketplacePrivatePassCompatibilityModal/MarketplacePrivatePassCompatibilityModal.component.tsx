@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { compose } from 'recompose';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
@@ -158,7 +157,7 @@ const MarketplacePrivatePassCompatibilityModal: React.FC<Props> = ({
   );
 };
 
-export default compose<any, Props>(
-  marketplaceCssHoc(),
-  React.memo,
-)(MarketplacePrivatePassCompatibilityModal);
+export const MarketplacePrivatePassCompatibilityModalForStorybook =
+  marketplaceCssHoc()(MarketplacePrivatePassCompatibilityModal);
+
+export default React.memo(MarketplacePrivatePassCompatibilityModal);

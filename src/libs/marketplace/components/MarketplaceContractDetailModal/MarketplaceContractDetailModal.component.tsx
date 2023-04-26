@@ -9,7 +9,6 @@ import StarIcon from '@material-ui/icons/Star';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import ReplayIcon from '@material-ui/icons/Replay';
 
-import { compose } from 'recompose';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card, { CardSize } from '#csscomponents/Card';
@@ -311,4 +310,8 @@ const MarketplaceContractDetailModal: React.FC<Props> = ({
   );
 };
 
-export default compose(marketplaceCssHoc())(MarketplaceContractDetailModal);
+export const MarketplaceContractDetailModalForStorybook = marketplaceCssHoc()(
+  MarketplaceContractDetailModal,
+);
+
+export default MarketplaceContractDetailModal;

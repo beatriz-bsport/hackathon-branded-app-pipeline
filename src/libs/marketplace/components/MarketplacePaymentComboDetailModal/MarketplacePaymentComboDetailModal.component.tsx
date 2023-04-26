@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React from 'react';
-import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
 
 import './styles.css';
@@ -200,7 +199,7 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
   );
 };
 
-export default compose<any, Props>(
-  marketplaceCssHoc(),
-  React.memo,
-)(MarketplacePaymentComboDetailsModal);
+export const MarketplacePaymentComboDetailsModalForStorybook =
+  marketplaceCssHoc()(MarketplacePaymentComboDetailsModal);
+
+export default React.memo(MarketplacePaymentComboDetailsModal);

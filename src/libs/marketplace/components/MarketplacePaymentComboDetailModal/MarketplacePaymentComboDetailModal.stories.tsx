@@ -1,12 +1,12 @@
 // @ts-nocheck
 import React from 'react'
 import FactoryBotPaymentCombo from '#libs/payment-combo/factory'
-import MarketplacePaymentComboDetailsModal, {Props} from '.'
+import { Props, MarketplacePaymentComboDetailsModalForStorybook } from '.'
 
 const fakePaymentCombo = FactoryBotPaymentCombo.PaymentCombo.create()
 
 const ComboCardModalTemplate = (args: Props) => (
-    <MarketplacePaymentComboDetailsModal {...args} />
+    <MarketplacePaymentComboDetailsModalForStorybook {...args} />
 );
 
 export const ComboCardModal = ComboCardModalTemplate.bind({})
@@ -27,7 +27,7 @@ ComboCardModalWithUndefinedPaymentCombo.args = {
 
 export default {
     title: 'Components/Marketplace/PassCards/PaymentComboCard/Modal',
-    component: MarketplacePaymentComboDetailsModal,
+    component: MarketplacePaymentComboDetailsModalForStorybook,
     parameters: {
         docs: {
             page: null,

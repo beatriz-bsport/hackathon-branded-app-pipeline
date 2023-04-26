@@ -2,7 +2,7 @@
 import React from 'react'
 import FactoryBotPaymentPack from '#libs/payment-packs/factory'
 
-import MarketplacePaymentPackCard from '.'
+import { MarketplacePaymentPackCardForStorybook } from '.'
 
 import type { Props } from '.';
 
@@ -13,7 +13,7 @@ const fakepaymentPackWithoutDateRange = FactoryBotPaymentPack.PaymentPack.create
 const Template = (args: Props) => {
     return (
         <div className='pass-card'>
-            <MarketplacePaymentPackCard {...args} />
+            <MarketplacePaymentPackCardForStorybook {...args} />
         </div>
     );
 };
@@ -38,7 +38,7 @@ paymentPackCardWithDateRange.args = {
 
 export default {
     title: 'Components/Marketplace/PassCards/Cards/PaymentPackCard',
-    component: MarketplacePaymentPackCard,
+    component: MarketplacePaymentPackCardForStorybook,
     parameters: {
         layout: 'centered',
         docs: {

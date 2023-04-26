@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { compose } from 'recompose';
 import CategoryIcon from '@material-ui/icons/Category';
 import RoomIcon from '@material-ui/icons/Room';
 import StarIcon from '@material-ui/icons/Star';
@@ -175,7 +174,7 @@ const MarketplacePaymentPackCompatibilityModal: React.FC<Props> = ({
   );
 };
 
-export default compose<any, Props>(
-  marketplaceCssHoc(),
-  React.memo,
-)(MarketplacePaymentPackCompatibilityModal);
+export const MarketplacePaymentPackCompatibilityModalForStorybook =
+  marketplaceCssHoc()(MarketplacePaymentPackCompatibilityModal);
+
+export default React.memo(MarketplacePaymentPackCompatibilityModal);

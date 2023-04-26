@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React from 'react';
 import './styles.css';
-import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -175,7 +174,7 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
   );
 };
 
-export default compose<any, Props>(
-  marketplaceCssHoc(),
-  React.memo,
-)(MarketplacePrivatePassDetailsModal);
+export const MarketplacePrivatePassDetailsModalForStorybook =
+  marketplaceCssHoc()(MarketplacePrivatePassDetailsModal);
+
+export default React.memo(MarketplacePrivatePassDetailsModal);

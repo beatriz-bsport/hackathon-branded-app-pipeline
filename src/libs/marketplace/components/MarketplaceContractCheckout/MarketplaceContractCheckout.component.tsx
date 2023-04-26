@@ -215,7 +215,8 @@ const MarketplaceContractCheckout: React.FC<Props> = ({ contract }) => {
   );
 };
 
-export default compose(
-  marketplaceCssHoc(),
-  React.memo,
-)(MarketplaceContractCheckout);
+export const MarketplaceContractCheckoutForStorybook = marketplaceCssHoc()(
+  MarketplaceContractCheckout,
+);
+
+export default compose(React.memo)(MarketplaceContractCheckout);

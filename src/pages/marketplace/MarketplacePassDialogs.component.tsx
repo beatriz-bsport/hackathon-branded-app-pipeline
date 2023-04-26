@@ -76,7 +76,8 @@ const MarketplacePassDialogs = (props: Props) => {
   const paymentPackCompatibleEstablishments = useMemo(() => {
     if (
       dialogSelectedItem &&
-      (dialogSelectedItem as PaymentPack).establishments
+      (dialogSelectedItem as PaymentPack).establishments &&
+      establishments
     ) {
       return Object.values(establishments).filter(
         (establishment: Establishment) =>
@@ -91,7 +92,8 @@ const MarketplacePassDialogs = (props: Props) => {
   const paymentPackCompatibleActivities = useMemo(() => {
     if (
       dialogSelectedItem &&
-      (dialogSelectedItem as PaymentPack).metaActivities
+      (dialogSelectedItem as PaymentPack).metaActivities &&
+      metaActivities
     ) {
       return Object.values(metaActivities).filter(
         (metaActivity: MetaActivity) =>
@@ -106,7 +108,8 @@ const MarketplacePassDialogs = (props: Props) => {
   const privatePassCompatibleServices = useMemo(() => {
     if (
       dialogSelectedItem &&
-      (dialogSelectedItem as PrivatePass).private_services
+      (dialogSelectedItem as PrivatePass).private_services &&
+      privateServices
     ) {
       return Object.values(privateServices)
         .filter((privateService) =>

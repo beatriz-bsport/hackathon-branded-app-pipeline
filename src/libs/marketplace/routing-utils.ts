@@ -65,7 +65,7 @@ export const fromConfigToUrl = (
   } else if (component_type === 'playlist' && tabConfig.config.playlist) {
     path = `vod/playlist/${tabConfig.config.playlist.playlistId}`;
   } else if (component_type === 'workshop') {
-    let conf: any = tabConfig.config.calendar;
+    let conf: any = tabConfig.config.calendar || {};
 
     if (component_type === 'workshop') {
       if (tabConfig.config.workshop) {

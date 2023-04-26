@@ -46,7 +46,10 @@ import {
   getAllShopItemData,
   getShopItemsAvailable as getShopItems,
 } from '#libs/shop/selectors';
-import { getPrivatePassAvailable as getPrivatePass } from '#libs/private-service/selectors/private-pass';
+import {
+  getPrivatePassById,
+  getPrivatePassAvailable as getPrivatePass
+} from '#libs/private-service/selectors/private-pass';
 import { getPaymentComboList } from '#libs/payment-combo/selectors';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { ShopItem } from '#libs/shop/types';
@@ -81,6 +84,7 @@ type Props = {
   shopItems: Array<ShopItem>,
   allShopItemsById: Object,
   privatePasses: Array<PrivatePass>,
+  allPrivatePassesById: Object,
   paymentCombos: Array<PaymentCombo>,
   tagList: Array<Tag<TagGroupAPI>>,
   createOrUpdateLoading: boolean,
@@ -205,6 +209,7 @@ export class CouponCreate extends Component<Props, State> {
           shopItems={this.props.shopItems}
           allShopItemsById={this.props.allShopItemsById}
           privatePasses={this.props.privatePasses}
+          allPrivatePassesById={this.props.allPrivatePassesById}
           paymentCombos={this.props.paymentCombos}
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
@@ -243,6 +248,7 @@ const connector = connect(
     shopItems: getShopItems(state),
     allShopItemsById: getAllShopItemData(state),
     privatePasses: getPrivatePass(state),
+    allPrivatePassesById: getPrivatePassById(state),
     paymentCombos: getPaymentComboList(state),
     tagList: getAllTagsWithTagGroup(state),
   }),

@@ -25,6 +25,7 @@ type OwnProps = {
   shopItems: Array<ShopItem>;
   allShopItemsById: Object;
   privatePasses: Array<PrivatePass>;
+  allPrivatePassesById: Object;
   paymentCombos: Array<PaymentCombo>;
   tagList: Array<Tag<TagGroupAPI>>;
   tagsLoading: boolean;

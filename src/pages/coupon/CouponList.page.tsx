@@ -57,7 +57,10 @@ import {
   getAllShopItemData,
   getShopItemsAvailable as getShopItems,
 } from '#libs/shop/selectors';
-import { getPrivatePassAvailable as getPrivatePass } from '#libs/private-service/selectors/private-pass';
+import {
+  getPrivatePassById,
+  getPrivatePassAvailable as getPrivatePass,
+} from '#libs/private-service/selectors/private-pass';
 import { getPaymentComboList } from '#libs/payment-combo/selectors';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { OptionCallback } from '../../state/types';
@@ -254,6 +257,7 @@ export class CouponList extends React.PureComponent<Props, State> {
           shopItems={this.props.shopItems}
           allShopItemsById={this.props.allShopItemsById}
           privatePasses={this.props.privatePasses}
+          allPrivatePassesById={this.props.allPrivatePassesById}
           paymentCombos={this.props.paymentCombos}
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
@@ -322,6 +326,7 @@ const connector = connect(
     allShopItemsById: getAllShopItemData(state),
     paymentCombos: getPaymentComboList(state),
     privatePasses: getPrivatePass(state),
+    allPrivatePassesById: getPrivatePassById(state),
     tagList: getAllTagsWithTagGroup(state),
   }),
   {

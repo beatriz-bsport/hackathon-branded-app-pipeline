@@ -90,6 +90,7 @@ type Props = {
   shopItems: Array<ShopItem>,
   allShopItemsById: Object,
   privatePasses: Array<PrivatePass>,
+  allPrivatePassesById: Object,
   paymentCombos: Array<PaymentCombo>,
   tagList: Array<Tag<TagGroupAPI>>,
   tagsLoading: boolean,
@@ -424,6 +425,7 @@ export class CouponForm extends React.Component<Props, State> {
       paymentPacks,
       allPaymentPacksById,
       privatePasses,
+      allPrivatePassesById,
       shopItems,
       allShopItemsById,
       paymentCombos,
@@ -592,7 +594,7 @@ export class CouponForm extends React.Component<Props, State> {
                     disabled={!!initial?.coupon_template_instance}
                     key={`${id}-${i}`}
                     dense
-                    pass={privatePasses.find((pp) => pp.id === id)}
+                    pass={allPrivatePassesById[id]}
                     onDelete={() => {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,

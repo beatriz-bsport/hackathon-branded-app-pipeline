@@ -7702,7 +7702,7 @@
             }
         },
         "invoiceType": {
-            "reversed": "Invoice ( reverted)",
+            "reversed": "Invoice (reverted)",
             "return": "Refunded invoice",
             "credit_payment": "Receipt (balance adjustment)",
             "migration": "Migration",

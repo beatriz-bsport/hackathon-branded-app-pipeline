@@ -311,7 +311,7 @@
                 "coachLabel": "Insegnante",
                 "establishmentLabel": "Struttura",
                 "substituteEstablishmentLabel": "Stabilimento (luogo temporaneo)",
-                "warningPackonEdit": "Le modifiche alle sessioni potrebbero renderle incompatibili con determinate schede delle lezioni. Dopo la modifica, prenditi il tempo necessario per verificare che rimangano compatibili con eventuali cambiamenti di posizione / insegnante.",
+                "warningPackonEdit": "Le modifiche alle sessioni potrebbero renderle incompatibili con determinati pass. Dopo la modifica, prenditi il tempo necessario per verificare che rimangano compatibili con eventuali cambiamenti di posizione / insegnante.",
                 "deleteTitle": "Elimina sessione",
                 "cancelTitle": "Annulla la sessione",
                 "changeDate": "Cambia l'ora / la data",
@@ -579,8 +579,8 @@
                 "areYouSureCancelBookingOption": "Sei sicuro di voler annullare la tua scelta?",
                 "explainCancelBookingOption": "L'eliminazione è definitiva, se si sceglie un'altra opzione in questa sessione, il posto nella lista di attesa verrà reinizializzato."
             },
-            "myPaymentPacks": "Le mie schede delle lezioni",
-            "myPrivatePass": "I miei appuntamenti",
+            "myPaymentPacks": "I miei pass",
+            "myPrivatePass": "I miei pass per appuntamenti",
             "company": "Club",
             "booking": {
                 "myPrivateBooking": "Appuntamento",
@@ -613,7 +613,7 @@
             "podcast": "Podcast",
             "sequence": "Strategie",
             "consumer": {
-                "pass": "Schede del corso",
+                "pass": "Pass",
                 "bookings": "Le mie prenotazioni ",
                 "profile": "Il mio profilo",
                 "order": "I miei ordini"
@@ -746,7 +746,7 @@
             "revertImpossibleExplainSubscription": "Questa fattura fa parte di un abbonamento, non è possibile annullare una fattura ricevuta collegata a un abbonamento, ma è possibile interrompere l'abbonamento",
             "revertExplainPayment": "I pagamenti con carta verranno rimborsati sul conto del membro. Tutti gli altri metodi di pagamento verranno eliminati.",
             "revertExplainCredits": "Addebiti / crediti sul conto del membro verranno annullati.",
-            "revertExplainPacks": "Le schede del corso saranno cancellate e TUTTE le prenotazioni associate",
+            "revertExplainPacks": "I pass saranno cancellati così come TUTTE le prenotazioni associate",
             "revertExplainShop": "Gli acquisti in negozio verranno annullati e l'inventario ripristinato.",
             "invoiceReverted": "Fattura annullata",
             "finalize": "Finalizza la fattura",
@@ -924,7 +924,7 @@
             }
         },
         "marketplace": {
-            "passListTitle": "Schede delle lezioni di gruppo",
+            "passListTitle": "Pass",
             "shop": {
                 "noDescription": "Nessuna descrizione",
                 "addToCard": "Aggiungi al carrello",
@@ -1003,7 +1003,7 @@
                 "shopManager": "Il mio negozio",
                 "coachList": "Insegnanti",
                 "WorkshopActivityFormPage": "Modulo per workshop",
-                "paymentPackList": "Schede del corso",
+                "paymentPackList": "Pass",
                 "metaActivity": "Attività",
                 "workshopActivityList": "Workshop",
                 "metaActivityEditForm": "Modulo di attività",
@@ -1072,11 +1072,11 @@
             "gender": "Sesso",
             "sport": "Sport"
         },
-        "blockBooking": "Blocca la prenotazione per le nuove schede del corso del cliente",
+        "blockBooking": "Blocca le prenotazioni eseguite con i pass dei nuovi iscritti",
         "languageToolTip": "Disponibile sul marketplace",
         "visibilityOfIconToolTip": "Non visibile",
         "replaceCoach": "Cambia insegnante",
-        "onlyNewMember": "Blocca la prenotazione per le nuove schede del corso del cliente",
+        "onlyNewMember": "Blocca la prenotazione per i nuovi pass del cliente",
         "bookingStatistics": {
             "weekOf": "Settimana del {{date}}",
             "keys": {
@@ -1428,9 +1428,9 @@
             "favoriteTitle": "Suggerimento per la prenotazione",
             "optionTitle": "In lista d'attesa",
             "nextBookingTitle": "Le mie prossime sessioni",
-            "currentPassTitle": "Schede del corso attive",
+            "currentPassTitle": "Pass attivi",
             "showMore": "Vedi altro",
-            "noPackCurrentlyActive": "Nessuna carta valida in corso",
+            "noPackCurrentlyActive": "Nessun pass valido in corso",
             "noBooking": "Nessuna sessione imminente"
         },
         "navigation": {
@@ -1481,7 +1481,7 @@
         },
         "actions": {
             "goToCalendar": "Vedi il calendario completo",
-            "goToPass": "Vedi tutte le schede delle lezioni",
+            "goToPass": "Vedi tutti i pass",
             "goToSubscription": "Vedi tutti gli abbonamenti",
             "goToHome": "Vedere tutti i servizi"
         },
@@ -1530,7 +1530,7 @@
                 "title": "Sessioni"
             },
             "packs": {
-                "title": "Schede del corso"
+                "title": "Pass"
             },
             "closeMemberMatch": "Stai cercando questo membro?",
             "archived": "Membri archiviati"
@@ -1605,7 +1605,7 @@
                 "unavailableOnline": "Non disponibile per la vendita",
                 "availableOnline": "Disponibile alla vendita"
             },
-            "explainIfEmpty": "Crea qui pacchetti acquistabili dagli alunni che possono contenere schede lezioni, oggetti del negozio, ecc ...",
+            "explainIfEmpty": "Crea qui pacchetti acquistabili dagli alunni che possono contenere pass, oggetti del negozio, ecc ...",
             "buttons": {
                 "add": "Crea un pacchetto"
             }
@@ -1625,7 +1625,7 @@
             "content": "Contenuti",
             "selectorPlaceholder": {
                 "privatePass": "Pass per appuntamenti",
-                "paymentPack": "Schede delle lezioni di gruppo",
+                "paymentPack": "Pass",
                 "shopitem": "Negozio"
             },
             "title": "Modulo per pacchetto",
@@ -2086,7 +2086,7 @@
             "isFromDisabledShare": "Condivisione interrotta",
             "isOwnerOfShares": "Condividere (master card per appuntamenti)",
             "isFromShare": "Condividere da un altro account",
-            "warningShareUniversal": "Questa carta è universale, si prega di condividere la scheda del corso associato"
+            "warningShareUniversal": "Questa carta è universale, si prega di condividere il pass associato"
         },
         "availabilitySlot": {
             "form": {
@@ -2227,7 +2227,7 @@
                 "cancelledByRecurrenceOn": "Cancellazione ricorrente della prenotazione attiva "
             },
             "managerAdd": {
-                "compatiblePrivateConsumerPass": "Schede per appuntamento possedute:",
+                "compatiblePrivateConsumerPass": "Pass per appuntamenti disponibili:",
                 "title": "Nuova prenotazione",
                 "address": "Indirizzo",
                 "coachSelector": {
@@ -2245,11 +2245,11 @@
                     "11109": "Il pass inizia con la prima prenotazione, il ",
                     "11110": "Il pass è scaduto",
                     "11111": "Le date sono incompatibili",
-                    "privateService": "Scheda configurata come incompatibile con l'appuntamento in questione :",
+                    "privateService": "Pass configurato come incompatibile con l'appuntamento in questione :",
                     "close": "Chiudi"
                 },
-                "noUncompatiblePassToDisplay": "Nessuna scheda appuntamento non compatibile",
-                "nonCompatiblePrivateConsumerPass": "Pass appuntamenti posseduti non compatibili:"
+                "noUncompatiblePassToDisplay": "Nessun pass per appuntamenti non compatibile",
+                "nonCompatiblePrivateConsumerPass": "Pass per appuntamenti posseduto non compatibile:"
             },
             "delete": {
                 "consumer": {
@@ -2510,7 +2510,7 @@
                 "explain": "Sei sicuro di voler modificare le regole di utilizzo del pass? Questa modifica è retroattiva per gli acquisti già effettuati."
             },
             "excludedSlots": {
-                "helperText": "Selezionare le sessioni per le quali la scheda RDV è compatibile",
+                "helperText": "Selezionare le sessioni per le quali il pass per appuntamenti è compatibile",
                 "cancel": "Cancella",
                 "submit": "Salva",
                 "title": "Sessioni del {{ service }}",
@@ -2568,7 +2568,7 @@
                 },
                 "name": {
                     "label": "Nome",
-                    "helperText": "Nome della scheda del corso"
+                    "helperText": "Nome del pass"
                 },
                 "credits": {
                     "label": "Numero di crediti inclusi",
@@ -2833,7 +2833,7 @@
             }
         },
         "noPrivateService": "Un appuntamento è prenotabile nello slot che hai scelto, dal membro.",
-        "noPrivatePass": "Le schede degli appuntamenti consentono ai membri di fissare un appuntamento, definire prezzi e condizioni.",
+        "noPrivatePass": "I pass per gli appuntamenti consentono ai membri di fissare un appuntamento, definire prezzi e condizioni.",
         "customEvent": {
             "form": {
                 "actions": {
@@ -2869,7 +2869,7 @@
             "notReverted": "Fattura non annullata",
             "credits": "Credito",
             "expiration": "Validità",
-            "all": "Tutte le schede",
+            "all": "Tutti i pass",
             "isValidToday": "Valido"
         },
         "recurrenceRule": {
@@ -3013,7 +3013,7 @@
                 "titleManagerOnly": "Non disponibile per la vendita"
             },
             "form": {
-                "title": "Scheda del corso condiviso",
+                "title": "Pass condiviso",
                 "close": "Chiudere",
                 "submit": "Convalidare",
                 "actions": {
@@ -3035,7 +3035,7 @@
         },
         "seeAll": "Vedi tutti",
         "privatePassTemplateInstance": {
-            "privatePassSharedFromFranchisor": "Scheda del franchising",
+            "privatePassSharedFromFranchisor": "Pass del franchising",
             "privateConsumerPassSharedFromOtherFranchisee": "Condiviso dal franchisee",
             "form": {
                 "title": "Allestire i miei studi",
@@ -3352,7 +3352,7 @@
             "consumer": {
                 "profile": "Il mio profilo",
                 "order": "I miei ordini",
-                "pass": "Schede del corso",
+                "pass": "Pass",
                 "bookings": "Le mie prenotazioni ",
                 "subscriptions": "I miei abbonamenti",
                 "myAccount": "Il mio account"
@@ -3505,8 +3505,8 @@
                 "general": "Profilo"
             },
             "member": {
-                "giftcard": "Carta regalo",
-                "giftcard_plural": "Carta regalo ({{number}})",
+                "giftcard": "Gift card",
+                "giftcard_plural": "Gift card ({{number}})",
                 "paymentPack": "Pass",
                 "paymentPack_plural": "Pass ({{number}})",
                 "invoices": "Fatture e abbonamenti",
@@ -3671,9 +3671,9 @@
                 "acceptDoubleBooking": "Accetta la doppia prenotazione",
                 "calendar": {
                     "offerCard": {
-                        "helperText": "Cambia lo stile delle schede dei corsi",
+                        "helperText": "Cambia lo stile dei pass",
                         "placeholder": "Inserisci il codice CSS",
-                        "label": "Schede del corso"
+                        "label": "Pass"
                     },
                     "police": {
                         "placeholder": "Inserisci il codice CSS",
@@ -4163,7 +4163,7 @@
                 }
             },
             "switchPrivatePass": {
-                "error": "Impossibile modificare la scheda dell'appuntamento",
+                "error": "Impossibile modificare il pass per appuntamenti",
                 "success": "Carta d'appuntamento modificata"
             },
             "switchPaymentCombo": {
@@ -4464,16 +4464,16 @@
                 "success": "La tua fattura è stata trasferita a Quickbooks"
             },
             "applyGiftcard": {
-                "success": "Pagamento con carta regalo convalidata",
+                "success": "Pagamento con gift card convalidata",
                 "errors": {
-                    "45001": "Impossibile pagare questo conto con questa carta regalo",
-                    "45000": "Il codice di attivazione della carta non è corretto.",
-                    "45006": "La carta regalo è già stata attivata",
-                    "45007": "Impossibile riconoscere il membro che vuole attivare la carta.",
-                    "generic": "Impossibile attivare la carta regalo",
-                    "45003": "La carta regalo è stata disabilitata."
+                    "45001": "Impossibile pagare questo conto con questa gift card",
+                    "45000": "Il codice di attivazione della gift card non è corretto.",
+                    "45006": "La gift card è già stata attivata",
+                    "45007": "Impossibile riconoscere il membro che vuole attivare la gift card.",
+                    "generic": "Impossibile attivare la gift card",
+                    "45003": "La gift card è stata disabilitata."
                 },
-                "error": "Impossibile pagare l'importo richiesto con questa carta regalo"
+                "error": "Impossibile pagare l'importo richiesto con questa gift card"
             },
             "applyBalance": {
                 "success": "Il tuo saldo è stato applicato alla fattura.",
@@ -4813,8 +4813,8 @@
             "2015": "La sua tessera del corso non le permette più di prenotare questa settimana",
             "10001": "Stock insufficiente",
             "85000": "Una prenotazione è già in corso, attendi qualche istante",
-            "45004": "La carta regalo non è più disponibile per la vendita.",
-            "45005": "La carta regalo non è più disponibile per la vendita.",
+            "45004": "La gift card non è più disponibile per la vendita.",
+            "45005": "La gift card non è più disponibile per la vendita.",
             "85101": "Impossibile prenotare. Questo posto è stato prenotato da un altro membro. Si prega di riprovare scegliendo un altro punto.",
             "15002": "L'articolo è già stato aggiunto al carrello, attendere"
         },
@@ -5174,8 +5174,8 @@
                 "calendar": "Calendario",
                 "newsletter": "Newsletter",
                 "loginButton": "Pulsante di accesso",
-                "giftcard": "Carta regalo",
-                "paymentPackTemplate": "Scheda del corso condiviso",
+                "giftcard": "Gift card",
+                "paymentPackTemplate": "Pass condiviso",
                 "calendarV2": "Calendario"
             },
             "preview": "Anteprima",
@@ -5285,7 +5285,7 @@
                         "paymentPackEmpty": "Nessun pass offerto",
                         "invoice": "Le mie fatture",
                         "consumerPaymentPack": "Le mie carte",
-                        "paymentPack": "Schede del corso",
+                        "paymentPack": "Pass",
                         "contract": "Abbonamento"
                     },
                     "title": "Panoramica"
@@ -5349,7 +5349,7 @@
                     },
                     "disable_pass_on_fail_subscription_payment": {
                         "label": "Disabilita le carte se il pagamento fallisce.",
-                        "helperText": "Se il pagamento dell'abbonamento fallisce o viene dichiarato contestato, le schede dei corsi e degli appuntamenti per quella fattura saranno disattivate fino a quando la fattura non sarà riscossa"
+                        "helperText": "Se il pagamento dell'abbonamento fallisce o viene dichiarato contestato, i pass ed i pass per gli appuntamenti per quella fattura saranno disattivati fino a quando la fattura non sarà riscossa"
                     },
                     "nbRetriesSubscriptionPayments": {
                         "helperText": "Tra 0 e 5 tentativi",
@@ -5468,7 +5468,7 @@
                 "9": "Pass per appuntamenti",
                 "3": "Credito",
                 "undefined": "carta regalo",
-                "11": "carta regalo"
+                "11": "gift card"
             },
             "voucher": "Riduzione: {{voucher}}",
             "quantity": "Quantità",
@@ -5821,17 +5821,17 @@
             "title": "Informazioni"
         },
         "applyGiftcard": {
-            "giftcard": "Carta regalo",
+            "giftcard": "Gift card",
             "form": {
-                "amountToPay": "Importo pagato in carte regalo",
-                "usedGiftcard": "Carta regalo usata",
+                "amountToPay": "Importo pagato in gift card",
+                "usedGiftcard": "Gift card utilizzata",
                 "errors": {
                     "errorAmount": "Importo non valido."
                 }
             },
             "actions": {
                 "confirm": "Convalidare",
-                "apply": "Pagamento con carta regalo",
+                "apply": "Pagamento con gift card",
                 "cancel": "Chiudere"
             }
         },
@@ -5944,7 +5944,7 @@
         "subscription": {
             "freeze": {
                 "form": {
-                    "explain": "Il prossimo pagamento verrà posticipato di altrettanti giorni, lo stesso per le future schede didattiche",
+                    "explain": "Il prossimo pagamento verrà posticipato di altrettanti giorni, lo stesso per i futuri pass",
                     "title": "Metti in pausa",
                     "name": {
                         "label": "Motivo",
@@ -6978,7 +6978,7 @@
             "private_pass": "Pass per appuntamenti",
             "booking": "Prenotazione",
             "coupon": "Promozione",
-            "giftcard": "Carta regalo"
+            "giftcard": "Gift card"
         },
         "form": {
             "columns": "Colonne",
@@ -7018,7 +7018,7 @@
             "payment_sumup": "Totale pagamenti",
             "credit": "Saldo totale cliente",
             "basket": "Carrello",
-            "memberships": "Schede del corso",
+            "memberships": "Pass",
             "invoices": "Acquisti",
             "products": "Prodotti",
             "payments": "Pagamenti",
@@ -7030,8 +7030,8 @@
             "video": "Video",
             "unpaid_invoices": "Fatture non pagate",
             "video_purchase": "Acquisto video",
-            "consumer_giftcard": "Carte regalo acquistate",
-            "giftcard": "Carta regalo",
+            "consumer_giftcard": "Gift card acquistate",
+            "giftcard": "Gift card",
             "unpaid_private_bookings": "Prenotazioni non pagate (appuntamenti)",
             "payment_installments": "Pagamenti a rate",
             "expense": "Spese",
@@ -7113,7 +7113,7 @@
             "datetime": "Data",
             "establishment": "Stabilimento",
             "coach": "Insegnante",
-            "giftcard": "Carta regalo",
+            "giftcard": "Gift card",
             "video": "Video",
             "payment_pack": "Pass",
             "int": "Numero",
@@ -7706,8 +7706,8 @@
                     "header": "Avanzato"
                 },
                 "universalPass": {
-                    "deativatedTags": "Disabili per le carte universali",
-                    "helperText": "Le carte universali possono essere usate per prenotare lezioni di gruppo E appuntamenti. Una volta creata la scheda, verrà creata una scheda gemella nelle schede degli appuntamenti. Il numero di crediti su entrambe le carte sarà collegato. Quando si acquista una delle due carte, l'altra sarà automaticamente aggiunta al membro (senza costi aggiuntivi).",
+                    "deativatedTags": "Disattivato per i pass universali",
+                    "helperText": "I pass universali possono essere usati per prenotare lezioni di gruppo E appuntamenti. Una volta creato il pass, verrà creato un pass gemello nelle schede degli appuntamenti. Il numero di crediti su entrambi i pass sarà collegato. Quando si acquista una dei due pass, l'altro sarà automaticamente aggiunto al membro (senza costi aggiuntivi).",
                     "marketplaceLabel": "Carta universale. Può essere usato per corsi e appuntamenti.",
                     "label": "Carta universale",
                     "warningIsUniversalPass": "Questa mappa è una mappa universale, una mappa gemella è stata creata nelle mappe RDV. Tutti i campi modificati su questa mappa saranno modificati anche sulla mappa gemella (tranne la categoria). Lo stesso vale per le notifiche, le estensioni e le modifiche di credito."
@@ -7819,7 +7819,7 @@
             "notReverted": "Fattura non annullata",
             "credits": "Credito",
             "expiration": "Validità",
-            "all": "Tutte le schede",
+            "all": "Tutte le carte",
             "isValidToday": "Valido"
         },
         "multipleBookingTooltip": "Prenotazioni multiple",
@@ -7865,11 +7865,11 @@
             },
             "deleteModal": {
                 "title": "Cancellazione",
-                "content": "Sei sicuro di voler cancellare questa categoria? Tutti gli elementi che contiene saranno inseriti nella sezione delle schede di corso non categorizzate",
+                "content": "Sei sicuro di voler cancellare questa categoria? Tutti gli elementi che contiene saranno inseriti nella sezione dei pass non categorizzati",
                 "cancel": "Cancellare",
                 "confirm": "Confirmare"
             },
-            "category": "Categorie di schede dei corsi"
+            "category": "Categorie di pass"
         },
         "noCategory": {
             "empty": "Aucune catégorie",
@@ -7974,7 +7974,7 @@
             "penalityBlockDay": "Tipo di sanzione da applicare",
             "penalityType": "Tipo di sanzione da applicare",
             "penalityAccount": "Creare un deposito per il membro interessato",
-            "penalityBlock": "Bloccare temporaneamente la scheda del corso",
+            "penalityBlock": "Bloccare temporaneamente il pass",
             "penalityInfo": "Una penalità sarà applicata se ci sono {{penalityNumberCancel}} cancellazioni fuori tempo massimo in un periodo {{penalityNumberDay}}",
             "penalityNumberDay": "Numero di giorni",
             "penalityNumberCancel": "Numero di cancellazioni",
@@ -8013,7 +8013,7 @@
             "unlimited": "Limitato",
             "limited": "Limitato",
             "numberOfCredit": "Numero di crediti",
-            "namePaymentPack": "Nome della scheda del corso",
+            "namePaymentPack": "Nome del pass",
             "name": "Nome",
             "generalInfo": "Informazioni generali",
             "paymentPack": "Scheda del corso",
@@ -8059,7 +8059,7 @@
                 },
                 "submit": "Convalidare",
                 "close": "Chiudere",
-                "title": "Scheda del corso condiviso"
+                "title": "Pass condiviso"
             },
             "section": {
                 "titleManagerOnly": "Non disponibile per la vendita",
@@ -8069,7 +8069,7 @@
             "specification": {
                 "companySharedWithTitle": "Condiviso con gli studi"
             },
-            "pass": "Schede dei corsi di gruppo",
+            "pass": "Pass",
             "widget": {
                 "choose": "Scelta delle carte di corso condivise"
             }
@@ -8110,7 +8110,7 @@
             },
             "delete": {
                 "dialog": {
-                    "warningText": "Si prega di notare! Questa scheda è una carta universale, se la cancelli, anche la sua carta gemella sarà cancellata.",
+                    "warningText": "Attenzione! Questo pass è universale, se lo cancelli anche il suo pass gemello sarà cancellato.",
                     "title": "Cancellare la carta"
                 }
             }
@@ -8506,7 +8506,7 @@
             "privateConsumerPass": "Pass per appuntamenti",
             "vod": "VOD",
             "form": "Moduli",
-            "giftcard": "Carta regalo",
+            "giftcard": "Gift card",
             "programs": "Programmi",
             "basket": "Cesto"
         },
@@ -8734,7 +8734,7 @@
             "section": {
                 "contracts": "Abbonamenti",
                 "paymentPacks": "Compro una tessera",
-                "consumerPacks": "Le mie schede delle lezioni",
+                "consumerPacks": "I miei pass",
                 "paymentCombos": "Offerte promozionali",
                 "contract": "Voglio iscrivermi"
             },
@@ -8937,7 +8937,7 @@
                 "smartListHelperInclude": "Invia un'email solo se il membro appartiene a uno dei seguenti elenchi",
                 "smartListHelper": "Non inviare un'email se il membro appartiene a uno dei seguenti elenchi",
                 "advanced": "Avanzato",
-                "warning": "Non selezionando alcuna smartlist rischi di avvisare i membri che hanno già acquistato un'altra tessera",
+                "warning": "Non selezionando alcuna smartlist rischi di avvisare i membri che hanno già acquistato un altro pass",
                 "smartListSelection": "Scegli elenchi (opzionale)"
             },
             "addNotification": "Aggiungi una notifica",
@@ -9192,7 +9192,7 @@
                     "first": "crediti:",
                     "second": "e"
                 },
-                "infoIcon": "Le schede dei corsi illimitate saranno sempre incluse",
+                "infoIcon": "I pass illimitati saranno sempre inclusi",
                 "name": "Generale",
                 "first": "una delle carte del corso",
                 "has": "possiede",
@@ -9655,7 +9655,7 @@
         },
         "filterCategory": {
             "1": "Informazioni sui soci",
-            "2": "Schede del corso",
+            "2": "Pass",
             "4": "Acquisti",
             "3": "Prenotazioni"
         },
@@ -9673,8 +9673,8 @@
                 "helperText": "seleziona le carte dei corsi",
                 "helperSelectedText": "carte del corso selezionate",
                 "textFieldPlaceholder": "Cerca una tessera",
-                "helperAllSelectedText": "tutte le schede dei corsi",
-                "warning": "Seleziona almeno una carta del corso"
+                "helperAllSelectedText": "tutti i pass",
+                "warning": "Seleziona almeno un pass"
             },
             "metaActivities": {
                 "warning": "Seleziona almeno un'attività",
@@ -9951,7 +9951,7 @@
             },
             "selectorPlaceholder": {
                 "privatePass": "Seleziona le carte d'appuntamento (valido su tutte le carte se nessuna è selezionata)",
-                "paymentPack": "Seleziona le schede dei corsi (valido su tutte le lezioni se nessuna è selezionata)",
+                "paymentPack": "Seleziona i pass (valido su tutte le lezioni se nessun pass è selezionato)",
                 "shopitem": "Seleziona i prodotti dal negozio (valido su tutti i prodotti se nessuno è selezionato)",
                 "paymentCombo": "Seleziona i pacchetti (valido su tutti i prodotti se nessuno è selezionato)"
             },
@@ -9987,7 +9987,7 @@
                     "10": "Confezione"
                 },
                 "choicesFranchise": {
-                    "9": "Schede appuntamenti condivise",
+                    "9": "Pass per appuntamenti condivisi",
                     "1": "Pass condivisi"
                 }
             },
@@ -10814,7 +10814,7 @@
             "addWorkshopGroup": "Aggiungi un gruppo di sessioni"
         },
         "navigation": {
-            "goToPaymentPack": "Schede del corso"
+            "goToPaymentPack": "Pass"
         },
         "modal": {
             "delete": {
@@ -11473,7 +11473,7 @@
             "couponList": "Codici promozionali"
         },
         "paymentPack": {
-            "paymentPackList": "Schede del corso",
+            "paymentPackList": "Pass",
             "paymentPackFormPage": "Modulo del corso"
         },
         "video": {
@@ -11512,10 +11512,10 @@
         },
         "marketplace": {
             "marketplaceWorkshop": "Workshop",
-            "marketplacePass": "Schede del corso",
+            "marketplacePass": "Pass",
             "marketplaceShop": "Negozio",
             "marketplaceCalendar": "Calendario",
-            "marketplaceGiftcard": "Carte regalo"
+            "marketplaceGiftcard": "Gift card"
         },
         "dashboard": {
             "marketingDashboard": "Marketing",
@@ -11685,7 +11685,7 @@
         "resetModal": {
             "confirm": "Continua",
             "cancel": "Annulla",
-            "content": "Le impostazioni delle varie schede torneranno ai valori predefiniti, vuoi continuare?",
+            "content": "Le impostazioni dei vari pass torneranno ai valori predefiniti, vuoi continuare?",
             "title": "Reset delle impostazioni"
         },
         "save": "Salva",
@@ -12884,7 +12884,7 @@
                         "_label": "Promozioni"
                     },
                     "giftcardTemplates": {
-                        "_label": "Carta regalo"
+                        "_label": "Gift card"
                     }
                 },
                 "settings": {
@@ -13807,7 +13807,7 @@
     "giftcard": {
         "backgroundImage": {
             "dialog": {
-                "explain": "Aggiungete delle immagini per permettere ai vostri membri di personalizzare la loro carta regalo. Durante la creazione della loro carta i tuoi membri saranno in grado di scegliere un'immagine di sfondo sulla carta regalo.",
+                "explain": "Aggiungete delle immagini per permettere ai vostri membri di personalizzare la loro gift card. Durante la creazione della loro card i tuoi membri saranno in grado di scegliere un'immagine di sfondo sulla gift card.",
                 "actions": {
                     "close": "chiudere"
                 },
@@ -13823,7 +13823,7 @@
                     "label": "Illimitato"
                 },
                 "expiration_days": {
-                    "helperText": "La validità della carta inizia dalla data di invio dell'e-mail della carta regalo",
+                    "helperText": "La validità della gift card inizia dalla data di invio dell'e-mail relativa",
                     "label": "Durata della validità in giorni"
                 },
                 "price": {
@@ -13845,13 +13845,13 @@
                 "name": {
                     "label": "Nome"
                 },
-                "title": "Carta regalo",
+                "title": "Gift card",
                 "actions": {
                     "submit": "Convalidare",
                     "cancel": "Chiudere"
                 }
             },
-            "canNotUpdateBecauseShared": "Questa carta regalo è una carta condivisa dall'account franchisor. È stata definita dall'account franchisor e non può essere modificata."
+            "canNotUpdateBecauseShared": "Questa gift card è condivisa dall'account franchisor. È stata definita dall'account franchisor e non può essere modificata."
         },
         "giftcard": {
             "delete": {
@@ -13869,7 +13869,7 @@
                 "availablePaymentMethods": "Mezzi di pagamento disponibili",
                 "expirationDate": "Validità prima della scadenza : {{ expiration_days }} giorni"
             },
-            "configurationTitle": "Carta regalo"
+            "configurationTitle": "Gift card"
         },
         "link": {
             "copyLink": "Copia il link di acquisto",
@@ -13919,7 +13919,7 @@
             "value": "Valore",
             "isFrom": "Da ",
             "isFor": "Per l'attenzione di ",
-            "isEmpty": "Nessuna carta regalo",
+            "isEmpty": "Nessuna gift card",
             "linkedInvoice": "Fattura collegata",
             "list": {
                 "myGifted": "Carte regalo ricevute",
@@ -13930,44 +13930,44 @@
                     "submit": "inviare",
                     "close": "chiudere"
                 },
-                "content": "Puoi cambiare i destinatari della carta regalo. Si prega di notare che solo una persona può usarlo. Se l'e-mail non è stata ricevuta si può anche inviare questo link di attivazione:",
+                "content": "Puoi cambiare i destinatari della gift card. Si prega di notare che solo una persona può usarlo. Se l'e-mail non è stata ricevuta si può anche inviare questo link di attivazione:",
                 "title": "Inviare un'e-mail di invito",
-                "activationCodeLink": "L'e-mail di invito è stata inviata e non può più essere modificata, se non ha raggiunto il destinatario giusto puoi inoltrare questo link di attivazione per offrire la carta regalo: "
+                "activationCodeLink": "L'e-mail di invito è stata inviata e non può più essere modificata, se non ha raggiunto il destinatario giusto puoi inoltrare questo link di attivazione per offrire la gift card: "
             },
             "activation": {
-                "alreadyActivated": "Questa carta regalo è già stata utilizzata da un altro utente",
-                "activate": "Attivare la mia carta regalo",
-                "content3": "Se non hai effettuato l'accesso all'account corretto, effettua il logout per accedere all'account corretto. Se questa carta regalo non è per te, per favore non riscattarla.",
-                "content2": "Sarà automaticamente aggiunto come metodo di pagamento al suo carrello. Puoi trovare tutte le informazioni sulla tua carta regalo sul tuo profilo.",
-                "content1": "La tua carta regalo del valore di {{price}} è compatibile con tutti i prodotti del nostro negozio. Questa carta non ha una data di scadenza, per cui si prega di te stesso!",
-                "subtitle": "Sembra che qualcuno vi abbia fatto una sorpresa.",
-                "title": "Qualcuno voleva compiacerti!",
-                "content1withDate": "La tua carta regalo {{price}} è compatibile con tutti i prodotti del nostro negozio. Questa carta scade {{ expiration_days }} giorni dopo l'attivazione, quindi fatti un regalo!"
+                "alreadyActivated": "Questa gift card è già stata utilizzata da un altro utente",
+                "activate": "Attivare la mia gift card",
+                "content3": "Se non hai effettuato l'accesso all'account corretto, effettua il logout per accedere all'account corretto. Se questa gift card non è per te, per favore non riscattarla.",
+                "content2": "Sarà automaticamente aggiunto come metodo di pagamento al suo carrello. Puoi trovare tutte le informazioni sulla tua gift card sul tuo profilo.",
+                "content1": "La tua gift card del valore di {{price}} è compatibile con tutti i prodotti del nostro negozio. Questa card non ha una data di scadenza, buon divertimento!",
+                "subtitle": "Sembra che qualcuno ti abbia fatto una sorpresa.",
+                "title": "Qualcuno ha voluto farti qualcosa di carino!",
+                "content1withDate": "La tua gift card {{price}} è compatibile con tutti i prodotti del nostro negozio. Questa card scade {{ expiration_days }} giorni dopo l'attivazione, quindi fatti un regalo!"
             }
         },
         "list": {
             "actions": {
-                "create": "Creare una carta regalo",
-                "goToGiftcard": "Vedi tutte le carte regalo"
+                "create": "Creare una gift card",
+                "goToGiftcard": "Vedi tutte le gift card"
             },
             "addBackgroundImage": "Aggiungere immagini di personalizzazione",
-            "isEmpty": "Nessuna carta regalo disponibile",
+            "isEmpty": "Nessuna gift card disponibile",
             "archivedTitle": "Archiviato",
             "unavailableForSaleTitle": "Non disponibile per la vendita",
             "activeTitle": "Disponibile per la vendita",
             "visibility": "Non visibile",
-            "explainIfEmpty": "Le carte regalo consentono ai tuoi membri di offrire ai loro ospiti un importo da spendere nel tuo studio.",
+            "explainIfEmpty": "Le gift card consentono ai tuoi membri di offrire ai loro ospiti un importo da spendere nel tuo studio.",
             "unlimited": "Illimitato",
             "validity": "Valido {{ duration }} giorni"
         },
         "delete": {
             "submit": "Confermare",
             "cancel": "cancellare",
-            "content": "Vuoi davvero archiviare questa carta regalo? Non sarà più fatturabile tramite il back office. Puoi riattivarlo più tardi.",
-            "title": "Archiviare la carta regalo"
+            "content": "Vuoi davvero archiviare questa gift card? Non sarà più fatturabile tramite il back office. Puoi riattivarla più tardi.",
+            "title": "Archiviare la gift card"
         },
-        "search": "Cerca una carta regalo",
-        "widget": "Scegliere le carte regalo",
+        "search": "Cerca una gift card",
+        "widget": "Scegliere le gift card",
         "giftcardTemplate": {
             "template": {
                 "withoutTax": "Al netto delle imposte",
@@ -13977,16 +13977,16 @@
                 "validity": "Valido {{count}} giorno",
                 "validity_plural": "Valido {{count}} giorni",
                 "deleteInstanceContent2": "Infine, le card acquistate negli altri studi non saranno più utilizzabili nello studio disattivato, indipendentemente dalla data di acquisto.",
-                "deleteInstanceContent1": "Disabilitando questo studio dalla condivisione della carta regalo, tutti i membri che possiedono questa carta e l'hanno ricevuta da un membro che ha acquistato la carta in questo studio potranno comunque utilizzarla. Non potranno invece più utilizzarlo negli altri studi.",
-                "deleteTemplateContent": "Disattivando una carta regalo condivisa, i membri con questa carta potranno utilizzarla solo nello studio in cui è stata acquistata."
+                "deleteInstanceContent1": "Disabilitando questo studio dalla condivisione della gift card, tutti i membri che possiedono questa card e l'hanno ricevuta da un membro che la ha acquistata in questo studio potranno comunque utilizzarla. Non potranno invece più utilizzarlo negli altri studi.",
+                "deleteTemplateContent": "Disattivando una gift card condivisa, i membri potranno utilizzarla solo nello studio in cui è stata acquistata."
             },
             "listPage": {
-                "fuzzyPlaceholder": "Trova una carta regalo",
-                "addButton": "Crea una carta regalo condivisa",
-                "emptyLabel": "Nessuna carta regalo condivisa registrata"
+                "fuzzyPlaceholder": "Trova una gift card",
+                "addButton": "Crea una gift card condivisa",
+                "emptyLabel": "Nessuna gift card condivisa registrata"
             },
             "sharedCard": "Condiviso da un altro franchisee",
-            "giftcard": "Carta regalo"
+            "giftcard": "Gift card"
         }
     },
     "performanceTracking": {
@@ -14248,17 +14248,17 @@
             "compatibility": "Compatibilità",
             "seeAll": "vedere tutti",
             "packAvailableForAll": "Tutte le schede di corso compatibili",
-            "packAvailable": "{{length}} scheda del corso compatibile",
-            "packAvailable_plural": "{{length}} schede di corso compatibili",
-            "privatePassAvailableForAll": "Tutte le carte d'appuntamento compatibili",
-            "privatePassAvailable": "{{length}} scheda appuntamento compatibile",
-            "privatePassAvailable_plural": "{{length}} biglietti d'appuntamento compatibili",
+            "packAvailable": "{{length}} pass compatibile",
+            "packAvailable_plural": "{{length}} pass compatibili",
+            "privatePassAvailableForAll": "Tutti i pass per appuntamenti compatibili",
+            "privatePassAvailable": "{{length}} pass per appuntamenti compatibile",
+            "privatePassAvailable_plural": "{{length}} pass per appuntamenti compatibili",
             "comboAvailableForAll": "Tutti i pacchetti compatibili",
             "comboAvailable": "{{length}} pacchetto compatibile",
             "comboAvailable_plural": "{{length}} pacchetti compatibili",
             "giftcardAvailableForALl": "Tutte le carte regalo compatibili",
-            "giftcardAvailable": "{{length}} carta regalo compatibile",
-            "giftcardAvailable_plural": "{{length}} carte regalo compatibili",
+            "giftcardAvailable": "{{length}} gift card compatibile",
+            "giftcardAvailable_plural": "{{length}} gift card compatibili",
             "shopItemAvailableForALl": "Tutti i prodotti del negozio compatibili",
             "onlyWhenAllAvailable": "Offerto solo quando tutti gli articoli nel carrello sono compatibili",
             "whenOneAvailable": "Proposto non appena un oggetto nel cestino è compatibile",
@@ -14350,15 +14350,15 @@
                 "annual": "Annuale"
             },
             "compability": {
-                "selectPack": "Selezionare una scheda di corso",
-                "selectPrivatePass": "Selezionare una scheda di appuntamento",
+                "selectPack": "Selezionare un pass",
+                "selectPrivatePass": "Selezionare un pass per appuntamenti",
                 "selectCombo": "Seleziona un pacchetto",
                 "selectShopItem": "Selezionare un prodotto",
-                "selectGiftcard": "Seleziona una carta regalo",
-                "allPass": "Compatibile con tutte le carte di corso",
-                "pack": "Scheda del corso",
-                "privateBooking": "Carta d'appuntamento",
-                "allPrivateBooking": "Compatibile con tutte le carte di appuntamento",
+                "selectGiftcard": "Seleziona una gift card",
+                "allPass": "Compatibile con tutti i pass",
+                "pack": "Pass",
+                "privateBooking": "Pass per appuntamenti",
+                "allPrivateBooking": "Compatibile con tutti i pass per appuntamenti",
                 "combo": "Pacchetto",
                 "allCombo": "Compatibile con tutte le confezioni",
                 "shopItem": "Prodotti nel negozio",

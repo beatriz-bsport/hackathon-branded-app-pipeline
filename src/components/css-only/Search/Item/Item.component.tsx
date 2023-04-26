@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React from 'react';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { BaseAdditionalData, SearchItemData } from '../Search.component';
 import './style.css';
 
@@ -18,4 +17,4 @@ const Item: React.FC<Props> = ({ item, renderItem }) => {
   );
 };
 
-export default marketplaceCssHoc()(Item);
+export default Item;

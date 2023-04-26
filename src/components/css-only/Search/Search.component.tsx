@@ -5,7 +5,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useTranslation } from 'react-i18next';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { List } from '#components/css-only/Search';
 
 import './style.css';
@@ -130,4 +129,4 @@ const Search: React.FC<Props> = ({
   );
 };
 
-export default marketplaceCssHoc()(Search);
+export default Search;

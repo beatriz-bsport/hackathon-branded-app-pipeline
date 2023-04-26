@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React from 'react';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import {
   BaseAdditionalData,
   SearchItemData,
@@ -25,4 +24,4 @@ const List: React.FC<Props> = React.memo(({ items, renderItem }) => {
   );
 });
 
-export default marketplaceCssHoc()(List);
+export default List;

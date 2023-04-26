@@ -1,8 +1,6 @@
 // @ts-nocheck
 import React from 'react';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-
 import './styles.css';
 
 export type Props = {
@@ -65,4 +63,4 @@ const ClickableItem: React.FC<Props> = React.memo(
   },
 );
 
-export default marketplaceCssHoc()(ClickableItem);
+export default ClickableItem;

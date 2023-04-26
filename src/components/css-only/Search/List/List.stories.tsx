@@ -1,19 +1,14 @@
 // @ts-nocheck
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-
-import ClickableItem, { Props } from '#components/css-only/ClickableItem';
 import { PaymentPackStorybookListFactory } from '#libs/payment-packs/factory';
 import { PaymentPack } from '#libs/payment-packs/types';
-import List from '#components/css-only/Search/List';
+import { ListForStorybook, Props } from '#components/css-only/Search/List';
 
 const paymentPacks: Partial<PaymentPack>[] =
   PaymentPackStorybookListFactory(10);
 
 const CustomTemplate = (args: Props) => {
-  return <List {...args} />;
+  return <ListForStorybook {...args} />;
 };
 
 export const PaymentPackList = CustomTemplate.bind({});
@@ -24,7 +19,7 @@ PaymentPackList.args = {
 
 export default {
   title: 'Components/CssOnly/Search/List',
-  component: ClickableItem,
+  component: ListForStorybook,
   argTypes: {
     onClick: { action: 'onClick' },
     onActionClick: { actions: 'onActionClick' },

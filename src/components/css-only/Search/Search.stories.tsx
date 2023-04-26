@@ -3,7 +3,7 @@ import React from 'react';
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-import Search, { Props } from '#components/css-only/Search';
+import { Props, SearchForStorybook } from '#components/css-only/Search';
 import ClickableItem from '#components/css-only/ClickableItem';
 import { ContractStorybookListFactory } from '#libs/subscription/factory';
 import { Contract } from '#libs/subscription/types';
@@ -24,7 +24,7 @@ const CustomTemplateComponent = (args: Props) => {
   });
 
   return (
-    <Search
+    <SearchForStorybook
       data={contractItems}
       renderItem={(item: SearchItemData<BaseAdditionalData>) => (
         <ClickableItem {...item.additionalData} />
@@ -47,7 +47,7 @@ SubscriptionsSearch.args = {
 
 export default {
   title: 'Components/CssOnly/Search',
-  component: Search,
+  component: SearchForStorybook,
   argTypes: {
     showContractDetail: { action: 'showContractDetail' },
     addContractToBasket: { actions: 'addContractToBasket' },

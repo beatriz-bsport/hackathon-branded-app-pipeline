@@ -5,7 +5,10 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import { PaymentPackStorybookFactory } from '#libs/payment-packs/factory';
 import { PaymentPack } from '#libs/payment-packs/types';
-import Item, { Props } from '#components/css-only/Search/Item';
+import Item, {
+  Props,
+  ItemForStorybook,
+} from '#components/css-only/Search/Item';
 import ClickableItem from '#components/css-only/ClickableItem';
 import {
   getSearchItemIndicator,
@@ -23,7 +26,7 @@ export const ItemWithRenderProp = (args: Props) => {
   ]);
 
   return (
-    <Item
+    <ItemForStorybook
       renderItem={(item: Partial<PaymentPack>) => (
         <ClickableItem
           primary={item.name}
@@ -50,7 +53,7 @@ ItemWithRenderProp.args = {
 
 export default {
   title: 'Components/CssOnly/Search/Item',
-  component: Item,
+  component: ItemForStorybook,
   parameters: {
     docs: {
       page: null,

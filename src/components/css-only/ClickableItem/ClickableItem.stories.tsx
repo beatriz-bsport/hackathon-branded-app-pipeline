@@ -4,7 +4,10 @@ import { useTranslation } from 'react-i18next';
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-import ClickableItem, { Props } from '#components/css-only/ClickableItem';
+import {
+  Props,
+  ClickableItemForStorybook,
+} from '#components/css-only/ClickableItem';
 import { PaymentPackStorybookFactory } from '#libs/payment-packs/factory';
 import { PaymentPack } from '#libs/payment-packs/types';
 import {
@@ -25,7 +28,7 @@ export const PassClickableItem = (args: Props) => {
   ]);
 
   return (
-    <ClickableItem
+    <ClickableItemForStorybook
       secondary={getSearchItemIndicator(
         { item: paymentPack, itemType: ItemType.PAYMENT_PACK },
         t,
@@ -47,7 +50,7 @@ PassClickableItem.args = {
 
 export default {
   title: 'Components/CssOnly/ClickableItem',
-  component: ClickableItem,
+  component: ClickableItemForStorybook,
   argTypes: {
     onClick: { action: 'onClick' },
     onActionClick: { actions: 'onActionClick' },

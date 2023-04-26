@@ -142,8 +142,8 @@ export class AsyncSelectSpotForBlueprint extends React.PureComponent<
 
     const roomBlueprint = this.props.roomBlueprintById[offer?.room_blueprint];
 
-    const spotTypesIdOfBlueprint = roomBlueprint?.canvas.elements
-      .filter((element) => element.type === 'spot')
+    const spotTypesIdOfBlueprint = roomBlueprint?.canvas?.elements
+      ?.filter((element) => element.type === 'spot')
       .map((element) => element.data.spotTypeId || DEFAULT_SPOT_TYPE_ID);
 
     if (!this.state.open) {

@@ -31,7 +31,10 @@ import {
   fetchAllPaymentPacks,
   resetDisabledPaymentPack as resetDisabledPaymentPackAction,
 } from '../../libs/payment-packs/actions';
-import { fetchShopItemAsManager as fetchAllShop } from '#libs/shop/actions/shopitem';
+import {
+  fetchBulk as fetchSelectedShopItems,
+  fetchShopItemAsManager as fetchAllShop,
+} from '#libs/shop/actions/shopitem';
 import { fetchPrivatePassList } from '#libs/private-service/actions';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import { fetchTags } from '#libs/tag/actions';
@@ -39,7 +42,10 @@ import {
   getPaymentPackById,
   getEnabled as getPaymentPacks,
 } from '#libs/payment-packs/selectors';
-import { getShopItemsAvailable as getShopItems } from '#libs/shop/selectors';
+import {
+  getAllShopItemData,
+  getShopItemsAvailable as getShopItems,
+} from '#libs/shop/selectors';
 import { getPrivatePassAvailable as getPrivatePass } from '#libs/private-service/selectors/private-pass';
 import { getPaymentComboList } from '#libs/payment-combo/selectors';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
@@ -73,6 +79,7 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   allPaymentPacksById: Object,
   shopItems: Array<ShopItem>,
+  allShopItemsById: Object,
   privatePasses: Array<PrivatePass>,
   paymentCombos: Array<PaymentCombo>,
   tagList: Array<Tag<TagGroupAPI>>,
@@ -196,10 +203,12 @@ export class CouponCreate extends Component<Props, State> {
           paymentPacks={this.props.paymentPacks}
           allPaymentPacksById={this.props.allPaymentPacksById}
           shopItems={this.props.shopItems}
+          allShopItemsById={this.props.allShopItemsById}
           privatePasses={this.props.privatePasses}
           paymentCombos={this.props.paymentCombos}
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
+          fetchSelectedShopItems={this.props.fetchSelectedShopItems}
         />
       </div>
     );
@@ -232,6 +241,7 @@ const connector = connect(
     paymentPacks: getPaymentPacks(state),
     allPaymentPacksById: getPaymentPackById(state),
     shopItems: getShopItems(state),
+    allShopItemsById: getAllShopItemData(state),
     privatePasses: getPrivatePass(state),
     paymentCombos: getPaymentComboList(state),
     tagList: getAllTagsWithTagGroup(state),
@@ -248,6 +258,7 @@ const connector = connect(
     resetDiscounts,
     fetchAllPaymentPacks,
     fetchAllShop,
+    fetchSelectedShopItems,
     fetchPrivatePassList,
     fetchPaymentComboList,
     updateCouponAction: updateCoupon,

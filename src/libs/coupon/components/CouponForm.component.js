@@ -88,10 +88,15 @@ type Props = {
   paymentPacks: Array<PaymentPack>,
   allPaymentPacksById: Object,
   shopItems: Array<ShopItem>,
+  allShopItemsById: Object,
   privatePasses: Array<PrivatePass>,
   paymentCombos: Array<PaymentCombo>,
   tagList: Array<Tag<TagGroupAPI>>,
   tagsLoading: boolean,
+  fetchSelectedShopItems: (
+    companyId: Number | undefined,
+    ids: Number[],
+  ) => void,
 };
 type State = {
   with_expiration_date: boolean,
@@ -151,6 +156,10 @@ export class CouponForm extends React.Component<Props, State> {
 
   componentDidMount() {
     trackFormAdd(this.props.initial?.id);
+    this.props.fetchSelectedShopItems(
+      this.props.initial.company,
+      this.state.only_on_objects,
+    );
   }
 
   handleChange = (key: string, isEvent: boolean) => (value) => {
@@ -416,6 +425,7 @@ export class CouponForm extends React.Component<Props, State> {
       allPaymentPacksById,
       privatePasses,
       shopItems,
+      allShopItemsById,
       paymentCombos,
       t,
       classes,
@@ -530,7 +540,7 @@ export class CouponForm extends React.Component<Props, State> {
                     disabled={!!initial?.coupon_template_instance}
                     key={`${id}-${i}`}
                     dense
-                    shopitem={shopItems.find((si) => si.id === id)}
+                    shopitem={allShopItemsById[id]}
                     onDelete={() => {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,

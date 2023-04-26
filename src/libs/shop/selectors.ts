@@ -9,15 +9,15 @@ export const _getAllShopItemsId = (state: State) =>
 const _getShopItemsAsConsumerIds = (state: State) =>
   state.shop.shopItem.asConsumer.allIds;
 
-export const _getAllShopItemData = (state: State) => state.shop.shopItem.byId;
+export const getAllShopItemData = (state: State) => state.shop.shopItem.byId;
 
 const _getShopItemsAsConsumer = createSelector(
-  [_getShopItemsAsConsumerIds, _getAllShopItemData],
+  [_getShopItemsAsConsumerIds, getAllShopItemData],
   (ids, data) => ids.map((id) => data[id]),
 );
 
 export const _getAllShopItems = createSelector(
-  [_getAllShopItemsId, _getAllShopItemData],
+  [_getAllShopItemsId, getAllShopItemData],
   (ids, data) => ids.map((id) => data[id]),
 );
 
@@ -61,7 +61,7 @@ const _getShopItemFeaturedIds = (state: State) =>
   (state.shop.shopItem.featured || {}).allIds || [];
 
 export const getShopItemFeaturedList = createSelector(
-  [_getAllShopItemData, _getShopItemFeaturedIds],
+  [getAllShopItemData, _getShopItemFeaturedIds],
   (data, ids) => ids.map((id) => data[id]),
 );
 
@@ -72,7 +72,7 @@ export const getFreshShopIds = createSelector(_getAllShopItems, (es) =>
 const _getShopItemsId = (state: State) => state.shop.shopItem.bulk.allIds;
 
 const _getShopItemsBulk = createSelector(
-  [_getShopItemsId, _getAllShopItemData],
+  [_getShopItemsId, getAllShopItemData],
   (ids, data) => ids.map((id) => data[id]),
 );
 

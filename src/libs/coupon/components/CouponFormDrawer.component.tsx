@@ -23,10 +23,15 @@ type OwnProps = {
   paymentPacks: Array<PaymentPack>;
   allPaymentPacksById: Object;
   shopItems: Array<ShopItem>;
+  allShopItemsById: Object;
   privatePasses: Array<PrivatePass>;
   paymentCombos: Array<PaymentCombo>;
   tagList: Array<Tag<TagGroupAPI>>;
   tagsLoading: boolean;
+  fetchSelectedShopItems: (
+    companyId: Number | undefined,
+    ids: Number[],
+  ) => void;
 };
 type Props = OwnProps;
 

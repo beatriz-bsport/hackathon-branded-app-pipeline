@@ -6,7 +6,7 @@ import { getPaymentPackById } from '#libs/payment-packs/selectors';
 import { getGiftcardData } from '#libs/giftcard/selectors';
 import { getPaymenComboDataDict } from '../payment-combo/selectors';
 import { _getPrivatePassData } from '#libs/private-service/selectors/private-pass';
-import { _getAllShopItemData } from '../shop/selectors';
+import { getAllShopItemData } from '../shop/selectors';
 
 const getInstalmentPaymentAllIds = (state: RootState) =>
   state.instalmentPayment.allIds;
@@ -133,7 +133,7 @@ export const withPrivatePass = memoize(
 export const withShopItems = memoize(
   (selector: (state: RootState, id?: number) => any) =>
     createSelector(
-      [selector, _getAllShopItemData],
+      [selector, getAllShopItemData],
       (instalmentPaymentList, privatePassData) => {
         if (!instalmentPaymentList) {
           return instalmentPaymentList;

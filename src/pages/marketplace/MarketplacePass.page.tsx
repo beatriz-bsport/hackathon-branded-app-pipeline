@@ -17,6 +17,7 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
+import isEqual from 'lodash/isEqual';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import themeSelector from '#libs/theme/selectors';
 
@@ -32,7 +33,6 @@ import withQueryParams from '#hocs/with-query-params.hoc';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
   getMarketplacePaymentPacks,
-  excludeUnaccessiblePacks,
   groupByCategory,
 } from '#libs/payment-packs/selectors';
 // checkout
@@ -268,8 +268,14 @@ export class MarketPlacePassPage extends Component<Props, State> {
     if (
       this.props.privatePassByCategory?.length &&
       this.props.paymentPackByCategory?.length &&
-      (prevProps.paymentPackByCategory !== this.props.paymentPackByCategory ||
-        prevProps.privatePassByCategory !== this.props.privatePassByCategory)
+      (!isEqual(
+        prevProps.paymentPackByCategory,
+        this.props.paymentPackByCategory,
+      ) ||
+        !isEqual(
+          prevProps.privatePassByCategory,
+          this.props.privatePassByCategory,
+        ))
     ) {
       const availableCategories = getPassFilterAvailableCategories(
         this.props.paymentPackByCategory,
@@ -508,6 +514,15 @@ export class MarketPlacePassPage extends Component<Props, State> {
     });
   };
 
+  getCarouselRenderItem = (paymentCombo: PaymentCombo) => (
+    <CarouselItem
+      paymentCombo={paymentCombo}
+      isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
+      handleOpenDialog={this.handleOpenDialog}
+      addComboToCart={this.addComboToCart}
+    />
+  );
+
   render() {
     if (this.props.loading) {
       return <LinearProgress />;
@@ -528,16 +543,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
             >
               <Carousel
                 data={this.props.paymentComboList}
-                renderItem={(paymentCombo: PaymentCombo) => (
-                  <CarouselItem
-                    paymentCombo={paymentCombo}
-                    isExcludingTax={
-                      this.props.theme.is_tax_excluded_in_marketplace
-                    }
-                    handleOpenDialog={this.handleOpenDialog}
-                    addComboToCart={this.addComboToCart}
-                  />
-                )}
+                renderItem={this.getCarouselRenderItem}
               />
             </Grid>
           )}
@@ -729,9 +735,11 @@ const mapStateToProps = (
   loading: state.paymentPack.loading,
   establishmentLoading: state.establishment.bulkRetrieve.loading,
   activityLoading: state.metaActivity.loading,
-  paymentPackByCategory: groupByCategory(
-    excludeUnaccessiblePacks(getMarketplacePaymentPacks),
-  )(state, { memberTagList, authenticated }),
+  paymentPackByCategory: groupByCategory(getMarketplacePaymentPacks)(
+    state,
+    authenticated,
+    memberTagList,
+  ),
   privatePassByCategory: getPrivatePassByCategoryWithPasses(
     getPrivatePassAsConsumer,
   )(state),

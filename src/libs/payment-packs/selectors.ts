@@ -220,12 +220,23 @@ export const getAllPaymentPacks: PaymentPackArraySelector = createSelector(
 );
 
 export const getMarketplacePaymentPacks = createSelector(
-  [getAll, getSCTs],
-  (paymentPacks, SCTs) =>
-    paymentPacks.map((pp: PaymentPack) => ({
+  [
+    getAll,
+    getSCTs,
+    (_, authenticated: boolean) => authenticated,
+    (_, __, memberTagList: number[]) => memberTagList,
+  ],
+  (paymentPacks, SCTs, authenticated, memberTagList) => {
+    const paymentPacksWithCategories = paymentPacks.map((pp: PaymentPack) => ({
       ...pp,
       categories: SCTs.filter((sct) => pp.categories.includes(sct.id)),
-    })),
+    }));
+
+    return filterUnaccessiblePaymentPack(paymentPacksWithCategories, {
+      memberTagIdsList: memberTagList,
+      authenticated,
+    });
+  },
 );
 
 export const getActivityCompatiblePaymentPackAllIds = (state: RootState) =>

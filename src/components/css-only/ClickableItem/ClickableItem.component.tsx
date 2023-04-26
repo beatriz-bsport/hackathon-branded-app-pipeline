@@ -2,6 +2,7 @@
 import React from 'react';
 
 import './styles.css';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export type Props = {
   primary?: string;
@@ -62,5 +63,7 @@ const ClickableItem: React.FC<Props> = React.memo(
     );
   },
 );
+
+export const ClickableItemForStorybook = marketplaceCssHoc()(ClickableItem);
 
 export default ClickableItem;

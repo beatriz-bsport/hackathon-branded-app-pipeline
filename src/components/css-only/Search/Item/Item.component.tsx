@@ -3,6 +3,7 @@ import React from 'react';
 
 import { BaseAdditionalData, SearchItemData } from '../Search.component';
 import './style.css';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export type Props = {
   item: SearchItemData<BaseAdditionalData>;
@@ -16,5 +17,7 @@ const Item: React.FC<Props> = ({ item, renderItem }) => {
     </li>
   );
 };
+
+export const ItemForStorybook = marketplaceCssHoc()(Item);
 
 export default Item;

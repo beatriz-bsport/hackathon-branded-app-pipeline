@@ -8,6 +8,7 @@ import {
 import Item from '#components/css-only/Search/Item';
 
 import './styles.css';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export type Props = {
   items: SearchItemData<BaseAdditionalData>[];
@@ -23,5 +24,7 @@ const List: React.FC<Props> = React.memo(({ items, renderItem }) => {
     </ul>
   );
 });
+
+export const ListForStorybook = marketplaceCssHoc()(List);
 
 export default List;

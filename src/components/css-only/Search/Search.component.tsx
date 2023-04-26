@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { List } from '#components/css-only/Search';
 
 import './style.css';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export type FuseOptions = {
   shouldSort: boolean;
@@ -128,5 +129,7 @@ const Search: React.FC<Props> = ({
     </form>
   );
 };
+
+export const SearchForStorybook = marketplaceCssHoc()(Search);
 
 export default Search;

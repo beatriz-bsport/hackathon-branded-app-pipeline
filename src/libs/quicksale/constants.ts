@@ -29,3 +29,19 @@ export enum QuicksaleItemCardStyle {
   minHeight = '100px',
   aspectRatio = '1.8',
 }
+
+export enum QuicksaleSectionCardStyle {
+  minWidth = '180px',
+  minHeight = '100px',
+  aspectRatio = '1.8',
+  darkHoverBackground = 'rgba(0, 0, 0, 0.15)',
+  darkActiveBackground = 'rgba(0, 0, 0, 0.2)',
+  lightHoverBackground = 'rgba(255, 255, 255, 0.15)',
+  lightActiveBackground = 'rgba(255, 255, 255, 0.2)',
+}
+
+export enum EditableQuicksaleSectionKey {
+  name = 'section_name',
+  icon = 'section_icon',
+  color = 'section_color',
+}

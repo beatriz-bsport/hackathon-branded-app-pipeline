@@ -23,4 +23,11 @@ exports.default = {
       year_plural: 'tous les {{ recurrence_basis }} ans',
     },
   },
+  sectionCard: {
+    item: 'item',
+    item_plural: 'items',
+  },
+  iconSelector: {
+    searchPlaceholder: 'Chercher (recherche en anglais)',
+  },
 };

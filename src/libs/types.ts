@@ -1,4 +1,3 @@
-// @ts-nocheck
 export type ErrorAndLoading = {
   loading: boolean;
   error?: Error;
@@ -44,3 +43,9 @@ export type Period = {
   start: string;
   end: string;
 };
+
+export enum UserInteractionKey {
+  ENTER = 'Enter',
+  ESCAPE = 'Escape',
+  SPACE = ' ',
+}

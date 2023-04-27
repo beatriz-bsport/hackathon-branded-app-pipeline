@@ -9331,6 +9331,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -14057,7 +14058,7 @@
                     "title": "Reset settings"
                 },
                 "submit": "Save",
-                "selectAlert": "The widget customisation is only available on the workshops and the calendar for the moment",
+                "selectAlert": "The widget customisation is only available on the workshops, the calendar and the passes for the moment",
                 "preview": "Preview",
                 "spacingHelper": "Spacing is based on multiples of {{base}}px",
                 "roundingHelper": "Corners are rounded in multiples {{base}}px",

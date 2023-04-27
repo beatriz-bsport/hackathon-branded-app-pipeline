@@ -5768,7 +5768,8 @@
                     "explainSituation": "Il mandato associato a questo metodo di pagamento è scaduto. Ciò può essere dovuto a molteplici ragioni, troppi pagamenti falliti, una decisione unilaterale della banca, ecc. Il metodo di pagamento non è più utilizzabile, sarà necessario registrarne uno nuovo",
                     "title": "Mandato di addebito diretto scaduto o non valido!"
                 }
-            }
+            },
+            "unrecoverableError": "Errore durante il pagamento."
         },
         "mandate": {
             "content": "Consegnando il tuo IBAN e confermando il pagamento, autorizzi bsport e Stripe, il nostro sistema di pagamento, ad inviare le istruzioni di addebito alla tua banca in accordo con il calendario di pagamento. Potete chiedere un rimborso alla vostra banca secondo i termini del vostro contratto con quest'ultima. Un rimborso deve essere richiesto entro 8 settimane dopo il primo addebito.",
@@ -7287,7 +7288,8 @@
                 "Annulla",
                 "Cancella",
                 "Cancella",
-                "Cancella"
+                "Cancella",
+                "Annulla"
             ]
         },
         "payment_method_with_credit_account": {
@@ -12983,7 +12985,7 @@
                 "spacingHelper": "La spaziatura è basata su multipli di {{base}}px",
                 "roundingHelper": "Gli angoli hanno un arrotondamento in multipli di {{base}}px",
                 "preview": "Anteprima",
-                "selectAlert": "La personalizzazione dei widget è al momento disponibile solo su workshop e calendario",
+                "selectAlert": "La personalizzazione dei widget è al momento disponibile solo per workshop, calendario e mappe",
                 "submit": "Registrare",
                 "dialog": {
                     "title": "Ripristina le impostazioni",

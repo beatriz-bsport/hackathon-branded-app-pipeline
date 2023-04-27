@@ -7732,7 +7732,8 @@
                     "explainSituation": "The mandate associated with this payment method has expired. This can be due to a number of reasons: too many failed payments, a unilateral decision by the bank, etc. The payment method can no longer be used and you will have to register a new one.",
                     "title": "Expired or invalid direct debit mandate!"
                 }
-            }
+            },
+            "unrecoverableError": "Error during payment."
         },
         "mandate": {
             "content": "By completing this payment and by using your IBAN, you authorize BSPORT Solution and Stripe (our payment processor) to start billing you for all payments. You can request refunds through your bank and should be done within 8 weeks of the first payment.",
@@ -9327,6 +9328,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",

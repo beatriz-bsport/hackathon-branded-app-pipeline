@@ -1,12 +1,17 @@
 // @ts-nocheck
-// @flow
 import React, { useState, useEffect } from 'react';
 import {
   PaymentRequestButtonElement,
   useStripe,
 } from '@stripe/react-stripe-js';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY } from '@bsport/common/lib/master-data/payment-group';
 
-const CheckoutForm = (props: { clientSecret: string }) => {
+const CheckoutForm = (props: {
+  clientSecret: string;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
+}) => {
   const stripe = useStripe();
   const [paymentRequest, setPaymentRequest] = useState(null);
 
@@ -55,11 +60,19 @@ const CheckoutForm = (props: { clientSecret: string }) => {
                 );
                 if (error) {
                   // The payment failed -- ask your customer for a new payment method.
-                } else {
+                } else if (props.createPendingBookingsIfNecessary) {
                   // The payment has succeeded.
+                  props.createPendingBookingsIfNecessary({
+                    payment_group_method_identifier:
+                      PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+                  });
                 }
-              } else {
+              } else if (props.createPendingBookingsIfNecessary) {
                 // The payment has succeeded.
+                props.createPendingBookingsIfNecessary({
+                  payment_group_method_identifier:
+                    PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY,
+                });
               }
             }
           });

@@ -93,6 +93,9 @@ type Props = {
   instalmentPaymentSelectedId: number;
   onSelectInstalmentPayment: (id: number, options: OptionCallback) => void;
   checkItemsBasket: (basketId: string) => boolean;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
 
   fromApp: boolean;
   paymentGroupId: number;
@@ -160,6 +163,7 @@ export const PaymentStripe = ({
   instalmentPaymentSelectedId,
   onSelectInstalmentPayment,
   checkItemsBasket,
+  createPendingBookingsIfNecessary,
 
   fromApp,
   paymentGroupId,
@@ -351,6 +355,9 @@ export const PaymentStripe = ({
               paymentGroupId={paymentGroupId}
               saveForLaterBacsDebit={saveForLaterBacsDebit}
               setSaveForLaterBacsDebit={setSaveForLaterBacsDebit}
+              createPendingBookingsIfNecessary={
+                createPendingBookingsIfNecessary
+              }
             />
           </Elements>
         </div>

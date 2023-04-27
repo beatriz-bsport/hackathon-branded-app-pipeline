@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
 import { ButtonBase, Checkbox } from '@material-ui/core';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT } from '@bsport/common/lib/master-data/payment-group';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
@@ -47,6 +48,9 @@ interface PaymentStripeBacsDebitProps {
   snackbarSuccessMsg: (msg: string) => void;
   saveForLaterBacsDebit: boolean;
   setSaveForLaterBacsDebit: React.Dispatch<React.SetStateAction<Boolean>>;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
 }
 
 const PaymentStripeBacsDebit = ({
@@ -71,6 +75,7 @@ const PaymentStripeBacsDebit = ({
   snackbarSuccessMsg,
   saveForLaterBacsDebit,
   setSaveForLaterBacsDebit,
+  createPendingBookingsIfNecessary,
 }: PaymentStripeBacsDebitProps) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -163,7 +168,7 @@ const PaymentStripeBacsDebit = ({
     ) {
       setProcessing(false);
       // eslint-disable-next-line
-  window.alert(t('paymentPanel.actions.basketInconsistent'));
+      window.alert(t('paymentPanel.actions.basketInconsistent'));
       window.location.reload();
     }
   }, [basketId, basketTotalPriceCts, checkItemsBasket, t]);
@@ -199,9 +204,21 @@ const PaymentStripeBacsDebit = ({
       setProcessing(false);
     } else {
       setErrorMessage(null);
+      if (createPendingBookingsIfNecessary)
+        createPendingBookingsIfNecessary({
+          payment_group_method_identifier:
+            PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+        });
       onSuccess(() => setProcessing(false));
     }
-  }, [clientSecret, elements, onError, onSuccess, stripe]);
+  }, [
+    clientSecret,
+    elements,
+    onError,
+    onSuccess,
+    stripe,
+    createPendingBookingsIfNecessary,
+  ]);
 
   const submitPaymentWithPaymentMethodSelected = useCallback(async () => {
     if (fromApp) {

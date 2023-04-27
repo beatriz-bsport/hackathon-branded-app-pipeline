@@ -162,3 +162,13 @@ export const confirmPaymentByPaymentMethodIdWebview = async (
     },
   );
 };
+
+export const createPendingBookings = async (
+  basketId: string,
+  data: { payment_group_method_identifier?: number } = {},
+) => {
+  return postAuth(
+    `${API_V1_URI}/checkout/basket/${basketId}/create_pending_bookings/`,
+    data,
+  );
+};

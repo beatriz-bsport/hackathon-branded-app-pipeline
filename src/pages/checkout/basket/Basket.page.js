@@ -55,6 +55,7 @@ import PaymentStripe from '../../../libs/payment/components/payment-backend-stri
 import {
   getPaymentGroupStatus as getPaymentGroupStatusAPI,
   checkItemsBasket as checkItemsBasketAPI,
+  createPendingBookings as createPendingBookingsAPI,
 } from '../../../libs/payment/api';
 import { validateUnpaid as validateUnpaidAPI } from '../../../libs/checkout/api';
 
@@ -298,6 +299,22 @@ export class BasketPage extends React.Component<Props> {
     }
   };
 
+  createPendingBookingsIfNecessary = (
+    data: { payment_group_method_identifier?: number } = {},
+  ) => {
+    if (!this.props.basket) return;
+
+    const basketHasOfferData = (this.props.basket.checkout_items || []).some(
+      (checkoutItem) => checkoutItem?.extra_data?.offers_data?.length > 0,
+    );
+
+    if (basketHasOfferData) {
+      createPendingBookingsAPI(this.props.basket.id, data).catch((error) =>
+        console.error(error),
+      );
+    }
+  };
+
   render() {
     if (!this.props.basket || this.props.companyThemeLoading) {
       return (
@@ -411,6 +428,9 @@ export class BasketPage extends React.Component<Props> {
                   creditAccountBalance={this.props.creditAccountBalance}
                   checkItemsBasket={this.props.checkItemsBasket}
                   paymentGroupId={this.state.paymentGroupId}
+                  createPendingBookingsIfNecessary={
+                    this.createPendingBookingsIfNecessary
+                  }
                 />
               }
             />

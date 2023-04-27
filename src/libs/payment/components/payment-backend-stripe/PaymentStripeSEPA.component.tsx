@@ -13,6 +13,7 @@ import AddIcon from '@material-ui/icons/Add';
 /**
  * Use the CSS tab above to style your Element's container.
  */
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group';
 import { useStripe, useElements, IbanElement } from '@stripe/react-stripe-js';
 import Checkbox from '@material-ui/core/Checkbox';
 import { StripeError } from '@stripe/stripe-js';
@@ -176,6 +177,9 @@ type Props = {
   applyBalanceLoading?: boolean;
   forceSave?: boolean;
   checkItemsBasket: (basketId: string) => boolean;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
 };
 
 export const PaymentStripeSEPA = (props: Props) => {
@@ -324,6 +328,12 @@ export const PaymentStripeSEPA = (props: Props) => {
       if (props.onError) props.onError();
     } else {
       setError(null);
+
+      if (props.createPendingBookingsIfNecessary)
+        props.createPendingBookingsIfNecessary({
+          payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+        });
+
       props.onSuccess(() => setProcessing(false));
       // Show a confirmation message to your customer.
       // The PaymentIntent is in the 'processing' state.

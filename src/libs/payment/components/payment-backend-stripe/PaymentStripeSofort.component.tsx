@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import Checkbox from '@material-ui/core/Checkbox';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT } from '@bsport/common/lib/master-data/payment-group';
 import CountrySelector from '../../../../components/input/CountrySelector.component';
 import { verifyPriceBasket as verifyPriceBasketAPI } from '../../api';
 
@@ -25,6 +26,9 @@ type Props = {
   basketTotalPriceCts?: number;
   forceSave?: boolean;
   checkItemsBasket: (basketId: string) => boolean;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
 };
 
 export const PaymentStripeSofort = (props: Props) => {
@@ -92,6 +96,10 @@ export const PaymentStripeSofort = (props: Props) => {
     if (error) {
       setErrorMessage(error.message);
       setProcessing(false);
+    } else if (props.createPendingBookingsIfNecessary) {
+      props.createPendingBookingsIfNecessary({
+        payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
+      });
     }
   };
 

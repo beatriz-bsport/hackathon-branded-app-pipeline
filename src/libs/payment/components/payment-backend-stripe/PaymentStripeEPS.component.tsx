@@ -9,6 +9,7 @@ import TextInput from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_EPS } from '@bsport/common/lib/master-data/payment-group';
 import { verifyPriceBasket as verifyPriceBasketAPI } from '../../api';
 
 export const PaymentStripeEPS = (props: {
@@ -18,6 +19,9 @@ export const PaymentStripeEPS = (props: {
   basketId?: string;
   basketTotalPriceCts?: number;
   checkItemsBasket: (basketId: string) => boolean;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -82,6 +86,10 @@ export const PaymentStripeEPS = (props: {
       // Inform the customer that there was an error.
       setErrorMessage(error.message);
       setProcessing(false);
+    } else if (props.createPendingBookingsIfNecessary) {
+      props.createPendingBookingsIfNecessary({
+        payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_EPS,
+      });
     }
   };
 

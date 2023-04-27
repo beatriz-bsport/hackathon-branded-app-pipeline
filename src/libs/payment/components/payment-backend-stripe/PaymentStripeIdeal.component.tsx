@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL } from '@bsport/common/lib/master-data/payment-group';
 
 import { verifyPriceBasket as verifyPriceBasketAPI } from '../../api';
 
@@ -54,6 +55,9 @@ export const PaymentStripeIdeal = (props: {
   basketTotalPriceCts?: number;
   forceSave?: boolean;
   checkItemsBasket: (basketId: string) => boolean;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
 }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -122,6 +126,10 @@ export const PaymentStripeIdeal = (props: {
       // Show error to your customer.
       setErrorMessage(error.message);
       setProcessing(false);
+    } else if (props.createPendingBookingsIfNecessary) {
+      props.createPendingBookingsIfNecessary({
+        payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
+      });
     }
 
     // Otherwise the customer will be redirected away from your

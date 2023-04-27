@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import AddIcon from '@material-ui/icons/Add';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group';
 import StripeErrorCode from './StripeErrorCode.component';
 import PaymentMethodList from '../payment-method-list/PaymentMethodList.component';
 import {
@@ -48,6 +49,9 @@ type Props = {
   applyBalanceLoading?: boolean;
   forceSave?: boolean;
   checkItemsBasket: (basketId: string) => boolean;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
 };
 
 const CARD_ELEMENT_OPTIONS = {
@@ -171,6 +175,12 @@ export const StripePaymentCard = (props: Props) => {
       } else {
         // The payment has been processed!
         setError(null);
+
+        if (props.createPendingBookingsIfNecessary)
+          props.createPendingBookingsIfNecessary({
+            payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+          });
+
         if (result.paymentIntent.status === 'succeeded') {
           // Show a success message to your customer
           // There's a risk of the customer closing the window before callback

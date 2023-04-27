@@ -21,6 +21,7 @@ import {
 import {
   checkItemsBasket as checkItemsBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
+  createPendingBookings as createPendingBookingsAPI,
 } from '#libs/payment/api';
 import asyncComponent from '../../AsyncComponent';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -223,6 +224,22 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
     });
   };
 
+  createPendingBookingsIfNecessary = (
+    data: { payment_group_method_identifier?: number } = {},
+  ) => {
+    if (!this.props.basket) return;
+
+    const basketHasOfferData = (this.props.basket.checkout_items || []).some(
+      (checkoutItem) => checkoutItem?.extra_data?.offers_data?.length > 0,
+    );
+
+    if (basketHasOfferData) {
+      createPendingBookingsAPI(this.props.basket.id, data).catch(
+        (error: Error) => console.error(error),
+      );
+    }
+  };
+
   render() {
     const { classes, t } = this.props;
     if (!this.props.basket || !this.state.theme) {
@@ -343,6 +360,9 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             )}
             instalmentPaymentSelectedId={this.props.basket?.instalment_payment}
             onSelectInstalmentPayment={this.onSelectInstalmentPayment}
+            createPendingBookingsIfNecessary={
+              this.createPendingBookingsIfNecessary
+            }
             fromApp
             paymentGroupId={this.state.paymentGroupId}
           />

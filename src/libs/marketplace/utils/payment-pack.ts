@@ -17,20 +17,17 @@ export const useValidityInfoForPaymentPackCard = (paymentPack: PaymentPack) => {
   const { t } = useTranslation('marketplace');
   const validityInfo = useMemo(() => {
     if (paymentPack.validity_daterange) {
-      let start = '';
-      let end = '';
       try {
-        start = formatAsDate(JSON.parse(paymentPack.validity_daterange).lower);
-        end = formatAsDate(JSON.parse(paymentPack.validity_daterange).upper);
-      } catch (err) {
-        console.error(err);
-        Sentry.captureException(err);
+        const validityDateRange = JSON.parse(paymentPack.validity_daterange);
+        return t('genericCard.validForDuration.validFromTo', {
+          duration_date_start: formatAsDate(validityDateRange.lower),
+          duration_date_end: formatAsDate(validityDateRange.upper),
+          interpolation: { escapeValue: false },
+        });
+      } catch (error) {
+        Sentry.captureException(error);
+        return '';
       }
-      return t('genericCard.validForDuration.validFromTo', {
-        duration_date_start: start,
-        duration_date_end: end,
-        interpolation: { escapeValue: false },
-      });
     }
 
     if (

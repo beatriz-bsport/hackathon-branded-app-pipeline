@@ -327,7 +327,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
     () =>
       props.plannedPaymentEventList.filter(
         (plannedPayment) =>
-          plannedPayment.status !== PLANNED_PAYMENT_EVENT_STATUS_ERROR &&
+          plannedPayment.status !== PLANNED_PAYMENT_EVENT_STATUS_ERROR ||
           plannedPayment.error_recoverable_manually,
       ),
     [props.plannedPaymentEventList],

@@ -23,6 +23,5 @@ export const shouldPlannedPaymentEventBeDisplayed = (
   (ppe.processing && ppe.status === PLANNED_PAYMENT_EVENT_STATUS_REGISTERED) ||
   // Created for a specific future date, nothing triggered on Stripe for now.
   ppe.status === PLANNED_PAYMENT_EVENT_STATUS_PENDING ||
-  // Something went wrong with Stripe but can be manually re-triggered.
-  (ppe.status === PLANNED_PAYMENT_EVENT_STATUS_ERROR &&
-    ppe.error_recoverable_manually);
+  // Something went wrong with Stripe.
+  ppe.status === PLANNED_PAYMENT_EVENT_STATUS_ERROR;

@@ -162,6 +162,7 @@ exports.default = {
     lockedToday:
       "Le paiement est prévu aujourd'hui, vous ne pouvez plus le modifier",
     registerNowInitialData: 'Paiement initialement prévu le {{-date}}',
+    unrecoverableError: 'Erreur lors du paiement.',
     dialog: {
       invalidMandate: {
         title: 'Mandat de prélèvement expiré ou invalide!',

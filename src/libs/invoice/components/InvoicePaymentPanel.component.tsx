@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -23,12 +23,14 @@ import { PAYMENT_ENGINE_BSPORT } from '@bsport/common/lib/master-data/payment-gr
 import {
   PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
   PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
+  PLANNED_PAYMENT_EVENT_STATUS_ERROR,
 } from '@bsport/common/lib/master-data/planned-payment-event';
 import PaymentGroupRequiringActionListItem from './PaymentGroupRequiringActionListItem.component';
 import RedButton from '../../../components/button/RedButton.component';
 
 import PaymentListItemV2 from './PaymentListItemV2.component';
 import PlannedPaymentEventListItem from './PlannedPaymentEventListItem.component';
+import PlannedPaymentEventErrorListItem from './PlannedPaymentEventErrorListItem.component';
 
 import { PlannedPaymentEvent, Invoice } from '../types';
 import { Payment } from '#libs/payment/types';
@@ -310,15 +312,36 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
     );
 
   const is_reverse = props.invoice.source_invoice;
+
+  const plannedPaymentUnrecoverableErrorList = useMemo(
+    () =>
+      props.plannedPaymentEventList.filter(
+        (plannedPayment) =>
+          plannedPayment.status === PLANNED_PAYMENT_EVENT_STATUS_ERROR &&
+          !plannedPayment.error_recoverable_manually,
+      ),
+    [props.plannedPaymentEventList],
+  );
+
+  const plannedPaymentWithoutUnrecoverableErrorList = useMemo(
+    () =>
+      props.plannedPaymentEventList.filter(
+        (plannedPayment) =>
+          plannedPayment.status !== PLANNED_PAYMENT_EVENT_STATUS_ERROR &&
+          plannedPayment.error_recoverable_manually,
+      ),
+    [props.plannedPaymentEventList],
+  );
+
   return (
     <div className={classes.container}>
       <div className={classes.innerContainer}>
         <InvoicePaymentStatus
           invoice_type={props.invoice.invoice_type}
           hasPendingPlannedPaymentEvent={
-            props.plannedPaymentEventList &&
-            props.plannedPaymentEventList.length > 0 &&
-            props.plannedPaymentEventList.filter(
+            plannedPaymentWithoutUnrecoverableErrorList &&
+            plannedPaymentWithoutUnrecoverableErrorList.length > 0 &&
+            plannedPaymentWithoutUnrecoverableErrorList.filter(
               (ppe) => ppe.status !== PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
             ).length > 0
           }
@@ -360,6 +383,12 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
               invoiceVariant
             />
           ))}
+          {plannedPaymentUnrecoverableErrorList.map((p) => (
+            <PlannedPaymentEventErrorListItem
+              plannedPaymentError={p}
+              key={p.id}
+            />
+          ))}
           {props.invoice.is_fully_paid
             ? null
             : props.paymentGroupRequiringActionList.map((p) => (
@@ -371,16 +400,16 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
               ))}
         </div>
         {!props.plannedPaymentEventLoading &&
-          !!props.plannedPaymentEventList.length && (
+          !!plannedPaymentWithoutUnrecoverableErrorList.length && (
             <React.Fragment>
               <Typography variant="h6" className={classes.sectionTitle}>
                 {t('paymentPanel.plannedPaymentEvent.title', {
-                  count: props.plannedPaymentEventList.length,
+                  count: plannedPaymentWithoutUnrecoverableErrorList.length,
                 })}
               </Typography>
               <Divider className={classes.divider} />
               <div className={classes.listContainer}>
-                {props.plannedPaymentEventList.map((p) => (
+                {plannedPaymentWithoutUnrecoverableErrorList.map((p) => (
                   <PlannedPaymentEventListItem
                     plannedPaymentEvent={p}
                     requestSetupIntentSecret={props.requestSetupIntentSecret}

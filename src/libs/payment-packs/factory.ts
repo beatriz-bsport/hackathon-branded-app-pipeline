@@ -1,15 +1,10 @@
 // @ts-nocheck
 import FactoryBot from 'ya-factorybot';
 import faker from 'faker';
-import moment from 'moment-timezone';
 
-import { DATE_FORMAT } from '../../utils/datetime';
 import { PaymentPack } from '#libs/payment-packs/types';
 
 faker.locale = 'fr';
-
-const now = moment().format(DATE_FORMAT);
-const oneMonthLater = moment(now).add(1, 'M').format(DATE_FORMAT);
 
 FactoryBot.define('PaymentPackCategory', {
   id: FactoryBot.sequence(),
@@ -36,10 +31,7 @@ FactoryBot.define('PaymentPackWithDateRange', {
   price: Math.floor(Math.random() * 100),
   credits: Math.floor(Math.random() * 30),
   unlimited: Math.random() < 0.5,
-  validity_daterange: {
-    upper: oneMonthLater,
-    lower: now,
-  },
+  validity_daterange: `{"bounds": "[)", "lower": "2023-04-27", "upper": "2023-06-10"}`,
   start_date_method: Math.floor(Math.random() * 4),
 });
 

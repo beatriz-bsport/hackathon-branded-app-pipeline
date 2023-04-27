@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { useTranslation } from 'react-i18next';
+import * as Sentry from '@sentry/react';
 
 import {
   START_ON_PURCHASE,
@@ -16,9 +17,18 @@ export const useValidityInfoForPaymentPackCard = (paymentPack: PaymentPack) => {
   const { t } = useTranslation('marketplace');
   const validityInfo = useMemo(() => {
     if (paymentPack.validity_daterange) {
+      let start = '';
+      let end = '';
+      try {
+        start = formatAsDate(JSON.parse(paymentPack.validity_daterange).lower);
+        end = formatAsDate(JSON.parse(paymentPack.validity_daterange).upper);
+      } catch (err) {
+        console.error(err);
+        Sentry.captureException(err);
+      }
       return t('genericCard.validForDuration.validFromTo', {
-        duration_date_start: formatAsDate(paymentPack.validity_daterange.lower),
-        duration_date_end: formatAsDate(paymentPack.validity_daterange.upper),
+        duration_date_start: start,
+        duration_date_end: end,
         interpolation: { escapeValue: false },
       });
     }

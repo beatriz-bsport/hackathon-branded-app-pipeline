@@ -2066,15 +2066,15 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bsport/common@^2.4.80":
-  version "2.4.80"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-2.4.80.tgz#41eaf4f9c9ee8f7021006969a9d652b0198dc749"
-  integrity sha512-JsBKtS/Yykp+nrPEsjb+e7PiCnjhfI4WDq6DiSoFDXrLVOAZC4kM5MCwBsB7qd8ME3fUvak3huQWitHreS/Enw==
+"@bsport/common@^2.4.83":
+  version "2.4.83"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-2.4.83.tgz#61bfb38ae7f6bca1ab985c237335ca56fe92fbfb"
+  integrity sha512-uzmdc4lO7NRW9/WcUNsHEu0I2Ykq4DLE69XahCAi5/PC9zG6NmOW6OwSmrw4A89ZQBkQVrmiVsWtrx+rS5UtAQ==
   dependencies:
     "@types/node" "^14.14.21"
     eslint-plugin-babel "^5.3.1"
     memoize-one "^4.0.2"
-    moment-timezone "^0.5.32"
+    moment-timezone "0.5.40"
     tslint "^6.1.3"
     typescript "^4.1.3"
 
@@ -18668,10 +18668,10 @@ module-deps@^4.0.2, module-deps@^4.0.8:
     through2 "^2.0.0"
     xtend "^4.0.0"
 
-moment-timezone@^0.5.32:
-  version "0.5.34"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.34.tgz#a75938f7476b88f155d3504a9343f7519d9a405c"
-  integrity sha512-3zAEHh2hKUs3EXLESx/wsgw6IQdusOT8Bxm3D9UrHPQR7zlMmzwybC8zHEM1tQ4LJwP7fcxrWr8tuBg05fFCbg==
+moment-timezone@0.5.40:
+  version "0.5.40"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.40.tgz#c148f5149fd91dd3e29bf481abc8830ecba16b89"
+  integrity sha512-tWfmNkRYmBkPJz5mr9GVDn9vRlVZOTe6yqY92rFxiOdWXbjaR0+9LwQnZGGuNR63X456NqmEkbskte8tWL5ePg==
   dependencies:
     moment ">= 2.9.0"
 

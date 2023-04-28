@@ -92,13 +92,19 @@ type Props = {
   privatePasses: Array<PrivatePass>,
   allPrivatePassesById: Object,
   paymentCombos: Array<PaymentCombo>,
+  allPaymentCombosById: Object,
   tagList: Array<Tag<TagGroupAPI>>,
   tagsLoading: boolean,
   fetchSelectedShopItems: (
     companyId: Number | undefined,
     ids: Number[],
   ) => void,
+  fetchSelectedPaymentCombos: (
+    params: { company: Number, id__in?: Number[] },
+    options?: OptionCallback<PaymentCombo[]>,
+  ) => void,
 };
+
 type State = {
   with_expiration_date: boolean,
 } & Coupon;
@@ -158,6 +164,10 @@ export class CouponForm extends React.Component<Props, State> {
   componentDidMount() {
     trackFormAdd(this.props.initial?.id);
     this.props.fetchSelectedShopItems(
+      this.props.initial.company,
+      this.state.only_on_objects,
+    );
+    this.props.fetchSelectedPaymentCombos(
       this.props.initial.company,
       this.state.only_on_objects,
     );
@@ -429,6 +439,7 @@ export class CouponForm extends React.Component<Props, State> {
       shopItems,
       allShopItemsById,
       paymentCombos,
+      allPaymentCombosById,
       t,
       classes,
       initial,
@@ -644,9 +655,7 @@ export class CouponForm extends React.Component<Props, State> {
                     disabled={!!initial?.coupon_template_instance}
                     key={`${id}-${i}`}
                     dense
-                    paymentCombo={paymentCombos.find(
-                      (combo) => combo.id === id,
-                    )}
+                    paymentCombo={allPaymentCombosById[id]}
                     onDelete={() => {
                       const newObjects = this.state.only_on_objects.filter(
                         (ido) => ido !== id,

@@ -39,6 +39,13 @@ export const retrievePaymentCombo = async (
   return getAuth(`${PAYMENT_COMBO_ENDOINT}${id}/`);
 };
 
+export const fetchSelectedPaymentCombos = async (params: {
+  company: Number;
+  id__in?: Number[];
+}): Promise<AxiosResponse<PaginatedResponse<PaymentCombo>>> => {
+  return getAuth(`${PAYMENT_COMBO_ENDOINT}get_all/${buildUrlParams(params)}`);
+};
+
 export const deletePaymentCombo = async (
   id: number,
 ): Promise<AxiosResponse<PaymentCombo>> => {

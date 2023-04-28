@@ -47,7 +47,10 @@ import {
   fetchShopItemAsManager as fetchAllShop,
 } from '#libs/shop/actions/shopitem';
 import { fetchPrivatePassList } from '#libs/private-service/actions';
-import { fetchPaymentComboList } from '#libs/payment-combo/actions';
+import {
+  fetchSelectedPaymentCombos,
+  fetchPaymentComboList,
+} from '#libs/payment-combo/actions';
 import { fetchTags } from '#libs/tag/actions';
 import {
   getPaymentPackById,
@@ -61,7 +64,10 @@ import {
   getPrivatePassById,
   getPrivatePassAvailable as getPrivatePass,
 } from '#libs/private-service/selectors/private-pass';
-import { getPaymentComboList } from '#libs/payment-combo/selectors';
+import {
+  getPaymenComboDataDict,
+  getPaymentComboList,
+} from '#libs/payment-combo/selectors';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
@@ -72,6 +78,10 @@ type OwnProps = {
   closeDeleteModal: () => void;
   deleteCoupon: (id: string) => void;
   classes: Object;
+  fetchSelectedPaymentCombos: (
+    params: { company: Number; id__in?: Number[] },
+    options?: OptionCallback<PaymentCombo[]>,
+  ) => void;
 };
 
 type Props = OwnProps &
@@ -259,9 +269,11 @@ export class CouponList extends React.PureComponent<Props, State> {
           privatePasses={this.props.privatePasses}
           allPrivatePassesById={this.props.allPrivatePassesById}
           paymentCombos={this.props.paymentCombos}
+          allPaymentCombosById={this.props.allPaymentCombosById}
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
           fetchSelectedShopItems={this.props.fetchSelectedShopItems}
+          fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
         />
         <CouponDeleteModal
           open={!!this.props.couponToDelete}
@@ -325,6 +337,7 @@ const connector = connect(
     shopItems: getShopItems(state),
     allShopItemsById: getAllShopItemData(state),
     paymentCombos: getPaymentComboList(state),
+    allPaymentCombosById: getPaymenComboDataDict(state),
     privatePasses: getPrivatePass(state),
     allPrivatePassesById: getPrivatePassById(state),
     tagList: getAllTagsWithTagGroup(state),
@@ -338,6 +351,7 @@ const connector = connect(
     fetchSelectedShopItems,
     fetchPrivatePassList,
     fetchPaymentComboList,
+    fetchSelectedPaymentCombos,
     fetchTags,
     createCouponAction: createCoupon,
     updateCouponAction: updateCoupon,

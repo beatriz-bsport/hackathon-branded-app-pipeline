@@ -3,6 +3,7 @@ import React from 'react';
 import { compose } from 'recompose';
 
 import { useTranslation } from 'react-i18next';
+import { OptionCallback } from '../../../state/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import CouponForm from './CouponForm.component';
 import type { Coupon } from '../types';
@@ -27,11 +28,16 @@ type OwnProps = {
   privatePasses: Array<PrivatePass>;
   allPrivatePassesById: Object;
   paymentCombos: Array<PaymentCombo>;
+  allPaymentCombosById: Object;
   tagList: Array<Tag<TagGroupAPI>>;
   tagsLoading: boolean;
   fetchSelectedShopItems: (
     companyId: Number | undefined,
     ids: Number[],
+  ) => void;
+  fetchSelectedPaymentCombos: (
+    params: { company: Number; id__in?: Number[] },
+    options?: OptionCallback<PaymentCombo[]>,
   ) => void;
 };
 type Props = OwnProps;

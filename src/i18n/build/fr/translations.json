@@ -6952,7 +6952,7 @@
                 "description": "Admin, même accès que Owner mais peut être supprimé/créé"
             },
             "5": {
-                "description": "Accès uniquements aux rapports, utile pour vos comptables par exemple",
+                "description": "Accès uniquement aux rapports, utile pour vos comptables par exemple",
                 "name": "Rapports"
             }
         }

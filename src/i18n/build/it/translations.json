@@ -5004,7 +5004,8 @@
                 "50020": "Questa richiesta di sostituzione è stata rifiutata: impossibile eliminarla",
                 "80002": "Il valore 'Numero di giorni di richiesta in ritardo' deve essere maggiore del valore 'Numero di giorni di chiusura delle registrazioni'.",
                 "80003": "Parametri mancanti per i limiti delle richieste in ritardo.",
-                "500004": "Sei già un sostituto in questa sessione"
+                "500004": "Sei già un sostituto in questa sessione",
+                "50021": "Non è possibile specificare strutture e sedi contemporaneamente."
             },
             "disciplineGroup": {
                 "delete": {
@@ -7289,6 +7290,7 @@
                 "Cancella",
                 "Cancella",
                 "Cancella",
+                "Annulla",
                 "Annulla"
             ]
         },
@@ -14483,7 +14485,12 @@
                 "coaches": "Insegnante associato",
                 "close": "Cancella",
                 "submit": "Salva",
-                "coachRequired": "Seleziona almeno un insegnante"
+                "coachRequired": "Seleziona almeno un insegnante",
+                "establishmentSelectorError": "Non è possibile specificare strutture e sedi contemporaneamente",
+                "allEstablishments": "Tutte le strutture",
+                "pickEstablishment": "Lascia vuoto per selezionare tutto",
+                "locations": "Localizzazione",
+                "establishments": "Strutture"
             },
             "add": "Aggiungi un gruppo",
             "title": "Gruppi disciplinari",
@@ -14690,7 +14697,11 @@
             "allWorkshops": "Insegna tutti i workshops",
             "categories": "Categorie",
             "pickCategory": "Scegli una categoria",
-            "allCategories": "Insegna tutte le categorie"
+            "allCategories": "Insegna tutte le categorie",
+            "allEstablishments": "Tutte le strutture",
+            "pickEstablishment": "Lascia vuoto per selezionare tutto",
+            "locations": "Sedi",
+            "establishments": "Strutture"
         },
         "tooltip": {
             "seeAnswers": "Consulta l'elenco dei sostituti",

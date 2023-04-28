@@ -10067,7 +10067,7 @@
         "addPaymentPack": {
             "sumNotZero": "The final number of days can't be 0",
             "only_vod_access": "Restrict usage to Video On Demand",
-            "vodAccessCard": "Enable acces to Video On Demand",
+            "vodAccessCard": "Enable access to Video On Demand",
             "vod": "Video On Demand",
             "compatibility": "This pass will only be compatible with the selected sessions, activities, categories, and/or establishments.",
             "letBlank": "Leave this field empty to implement no restrictions",
@@ -15635,7 +15635,8 @@
                 "groupTypes": "Type of sessions / categories",
                 "required": "This field is required",
                 "nameHelperText": "Name of the discipline group",
-                "name": "Name"
+                "name": "Name",
+                "establishments": "Establishments"
             },
             "all": "All",
             "delete": {

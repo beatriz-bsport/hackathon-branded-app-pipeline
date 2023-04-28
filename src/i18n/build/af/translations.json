@@ -4205,7 +4205,6 @@
       "17": "Réservation annulée : crédit non remboursé (élèves)",
       "18": "Réservation annulée : crédit remboursé (élèves)",
       "19": "Inscription membre (manager)",
-      "20": "Demande de téléchargement de facture",
       "21": "Nouvelle réservation (élèves)",
       "22": "Confirmation facture",
       "24": "Abonnement créé",
@@ -4252,7 +4251,8 @@
       "905": "Nouvelle demande en retard (remplaçant)",
       "906": "Date de clôture repoussée (remplaçant)",
       "907": "Remplaçant trouvé (remplaçant)",
-      "987": "Tentative d'encaissement d'un paiement échelonné"
+      "987": "Tentative d'encaissement d'un paiement échelonné",
+      "undefined": "Demande de téléchargement de facture"
     },
     "franchise": {
       "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",

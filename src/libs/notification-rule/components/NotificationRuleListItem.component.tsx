@@ -277,11 +277,15 @@ export const NotificationRuleListItem = (props: Props) => {
                         <Checkbox
                           checked={!disabled}
                           onChange={onDisable}
-                          disabled={franchisedOwned || disableCheckboxes}
+                          disabled={
+                            franchisedOwned ||
+                            disableCheckboxes ||
+                            requiredTags.length > 0
+                          }
                         />
                       }
                       label={t('listItem.sendTransactionnalEmail')}
-                      disabled={disableCheckboxes}
+                      disabled={disableCheckboxes || requiredTags.length > 0}
                     />
                   </div>
                 </Tooltip>
@@ -290,11 +294,11 @@ export const NotificationRuleListItem = (props: Props) => {
                     <Checkbox
                       checked={sendCompany}
                       onChange={(ev) => onSendCompany(ev)}
-                      disabled={disableCheckboxes}
+                      disabled={disableCheckboxes || requiredTags.length > 0}
                     />
                   }
                   label={t('listItem.copyCarbon')}
-                  disabled={disableCheckboxes}
+                  disabled={disableCheckboxes || requiredTags.length > 0}
                 />
                 {hasNotificationUpsell && renderEmailSelector()}
               </div>
@@ -316,7 +320,9 @@ export const NotificationRuleListItem = (props: Props) => {
                           onChange={handleNotificationToggle}
                           disabled={
                             (rule?.push_notification_content ?? '') === '' ||
-                            (rule?.push_notification_title ?? '') === ''
+                            (rule?.push_notification_title ?? '') === '' ||
+                            disableCheckboxes ||
+                            requiredTags.length > 0
                           }
                         />
                       }
@@ -326,6 +332,7 @@ export const NotificationRuleListItem = (props: Props) => {
                       color="primary"
                       variant="outlined"
                       onClick={openDialog}
+                      disabled={disableCheckboxes || requiredTags.length > 0}
                     >
                       {t(
                         rule?.push_notification_content ||

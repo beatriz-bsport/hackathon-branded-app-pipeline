@@ -30,4 +30,7 @@ exports.default = {
   iconSelector: {
     searchPlaceholder: 'Chercher (recherche en anglais)',
   },
+  itemList: {
+    goBack: 'Retour',
+  },
 };

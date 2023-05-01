@@ -6890,7 +6890,8 @@
       }
     },
     "sectionCard": { "item": "item", "item_plural": "items" },
-    "iconSelector": { "searchPlaceholder": "Chercher (recherche en anglais)" }
+    "iconSelector": { "searchPlaceholder": "Chercher (recherche en anglais)" },
+    "itemList": { "goBack": "Retour" }
   },
   "relationship": {
     "connectedAs": {

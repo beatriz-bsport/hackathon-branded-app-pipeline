@@ -104,7 +104,7 @@ export const getSpotTypeMinimal = (
   const indexType = getSpotIndexType(roomBlueprint, spotId);
 
   const spotInformation =
-    spotType.customization === 'predefined'
+    spotType?.customization === 'predefined'
       ? {
           name: spotType?.name || null,
           prefix: spotType?.prefix,
@@ -114,7 +114,7 @@ export const getSpotTypeMinimal = (
           fill: spotType?.fill_color,
         }
       : {
-          name: spotType.name,
+          name: spotType?.name || null,
           shape: 'personalized',
           prefix: spotType?.prefix,
           indexType,

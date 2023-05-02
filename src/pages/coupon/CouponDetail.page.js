@@ -37,7 +37,7 @@ import {
 } from '#libs/shop/actions/shopitem';
 import { fetchPrivatePassList } from '#libs/private-service/actions';
 import {
-  fetchSelectedPaymentCombos,
+  fetchPaymentComboBulk as fetchSelectedPaymentCombos,
   fetchPaymentComboList,
 } from '#libs/payment-combo/actions';
 import { fetchTags } from '#libs/tag/actions';

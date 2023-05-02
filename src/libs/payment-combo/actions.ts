@@ -91,7 +91,10 @@ export const paymentComboBulkActions = {
   success: createAction<PaymentCombo[]>('PAYMENT_COMBO/BULK/SUCCESS'),
 };
 export function fetchPaymentComboBulk(
-  params: FetchPaymentComboListParams,
+  params: {
+    company: Number;
+    id__in?: Number[];
+  },
   options?: OptionCallback<PaymentCombo[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
@@ -99,7 +102,7 @@ export function fetchPaymentComboBulk(
     dispatch(paymentComboBulkActions.error(null));
 
     try {
-      const response = await fetchPaymentComboListAPI(params);
+      const response = await fetchSelectedPaymentCombosAPI(params);
       dispatch(paymentComboBulkActions.success(response.data));
       dispatch(paymentComboBulkActions.error(null));
       if (options && options.onSuccess) options.onSuccess(response.data);
@@ -110,39 +113,6 @@ export function fetchPaymentComboBulk(
     }
 
     dispatch(paymentComboBulkActions.isLoading(false));
-  };
-}
-
-export const selectedPaymentCombosActions = {
-  error: createAction<Error | null>('PAYMENT_COMBO/SELECTED/ERROR'),
-  isLoading: createAction<boolean>('PAYMENT_COMBO/SELECTED/IS_LOADING'),
-  success: createAction<PaginatedResponse<PaymentCombo>>(
-    'PAYMENT_COMBO/SELECTED/SUCCESS',
-  ),
-};
-export function fetchSelectedPaymentCombos(
-  params: {
-    company: Number;
-    id__in?: Number[];
-  },
-  options?: OptionCallback<PaginatedResponse<PaymentCombo>>,
-): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(selectedPaymentCombosActions.isLoading(true));
-    dispatch(selectedPaymentCombosActions.error(null));
-
-    try {
-      const response = await fetchSelectedPaymentCombosAPI(params);
-      dispatch(selectedPaymentCombosActions.success(response.data));
-      dispatch(selectedPaymentCombosActions.error(null));
-      if (options && options.onSuccess) options.onSuccess(response.data);
-    } catch (error) {
-      console.error(error);
-      dispatch(selectedPaymentCombosActions.error(error));
-      if (options && options.onError) options.onError(error);
-    }
-
-    dispatch(selectedPaymentCombosActions.isLoading(false));
   };
 }
 

@@ -11,7 +11,6 @@ import {
   paymentComboPurchaseListActions,
   paymentComboForBookingActions,
   relatedPrivatePassBulkActions,
-  selectedPaymentCombosActions,
 } from './actions';
 
 import type { PaginatedResponse } from '../../state/types';
@@ -131,27 +130,6 @@ export default handleActions<ImmutablePaymentComboState, any>(
       return state.set('error', payload);
     },
     [paymentComboBulkActions.success.toString()]: (
-      state,
-      { payload }: { payload: PaymentCombo[] },
-    ) => {
-      return state.merge(
-        {
-          byId: payload.reduce<PayloadReduceType<PaymentCombo>>((acc, cV) => {
-            acc[cV.id] = cV;
-            return acc;
-          }, {}),
-        },
-        { deep: true },
-      );
-    },
-
-    [selectedPaymentCombosActions.error.toString()]: (
-      state,
-      { payload }: { payload: Error },
-    ) => {
-      return state.set('error', payload);
-    },
-    [selectedPaymentCombosActions.success.toString()]: (
       state,
       { payload }: { payload: PaymentCombo[] },
     ) => {

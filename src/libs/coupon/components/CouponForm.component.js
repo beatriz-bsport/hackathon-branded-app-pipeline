@@ -163,14 +163,16 @@ export class CouponForm extends React.Component<Props, State> {
 
   componentDidMount() {
     trackFormAdd(this.props.initial?.id);
-    this.props.fetchSelectedShopItems(
-      this.props.initial.company,
-      this.state.only_on_objects,
-    );
-    this.props.fetchSelectedPaymentCombos(
-      this.props.initial.company,
-      this.state.only_on_objects,
-    );
+    if (this.props.initial) {
+      this.props.fetchSelectedShopItems(
+        this.props.initial.company,
+        this.state.only_on_objects,
+      );
+      this.props.fetchSelectedPaymentCombos(
+        this.props.initial.company,
+        this.state.only_on_objects,
+      );
+    }
   }
 
   handleChange = (key: string, isEvent: boolean) => (value) => {

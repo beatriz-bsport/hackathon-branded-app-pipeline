@@ -39,6 +39,8 @@ export const retrievePaymentCombo = async (
   return getAuth(`${PAYMENT_COMBO_ENDOINT}${id}/`);
 };
 
+/* New Endpoint : ../payment_combo/get_all/{params}
+/* Allows to fetch disabled payment combos with their ids */
 export const fetchSelectedPaymentCombos = async (params: {
   company: Number;
   id__in?: Number[];

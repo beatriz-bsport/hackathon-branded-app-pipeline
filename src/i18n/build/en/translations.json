@@ -9334,6 +9334,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -13473,7 +13474,8 @@
                 "50008": "The closing date cannot be postponed after the session date.",
                 "50007": "Impossible to create these substitution requests: you don't have enough overdue requests left.",
                 "50000": "This session has already passed",
-                "undefined": "This substitution request was rejected: impossible to delete it"
+                "undefined": "This substitution request was rejected: impossible to delete it",
+                "50021": "You cannot specify establihments and locations at the same time."
             },
             "cancelReplacementRequest": {
                 "error": "An error occurred while deleting the request.",
@@ -15606,7 +15608,11 @@
             "customRules": "Customize the rules",
             "disciplineGroup": "Discipline groups",
             "description": "Indicate which sessions are taught by your teacher. If a substitution request is made in one of these session, that teacher will be notified by email. If nothing is selected, this teacher will not be notified.",
-            "title": "Substitution"
+            "title": "Substitution",
+            "allEstablishments": "All establishments",
+            "pickEstablishment": "Leave blank to select all",
+            "locations": "Locations",
+            "establishments": "Establishments"
         },
         "compatibleCoaches": {
             "categories": "Categories",
@@ -15636,7 +15642,11 @@
                 "required": "This field is required",
                 "nameHelperText": "Name of the discipline group",
                 "name": "Name",
-                "establishments": "Establishments"
+                "establishments": "Establishments",
+                "locations": "Locations",
+                "establishmentSelectorError": "You cannot specify establishments and locations at the same time",
+                "allEstablishments": "All establishments",
+                "pickEstablishment": "Leave blank to select all"
             },
             "all": "All",
             "delete": {

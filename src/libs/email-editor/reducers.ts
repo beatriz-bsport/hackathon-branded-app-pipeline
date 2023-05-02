@@ -64,6 +64,8 @@ const initialState: Immutable.Immutable<EmailTemplateState> =
     currentTemplateMetaData: {
       required_tags_list: [],
       related_notification_rule_events: [],
+      loading: false,
+      error: null,
     },
   });
 

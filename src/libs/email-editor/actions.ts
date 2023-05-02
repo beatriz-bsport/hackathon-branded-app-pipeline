@@ -285,9 +285,7 @@ export function emailDesignCreate(
     } catch (error) {
       dispatch(createEmailDesignAction.error(error));
       dispatch(snackbarError('email.create.error'));
-      if (error?.response?.status === 499 && options?.onError) {
-        options.onError(error);
-      }
+      if (options?.onError) options.onError(error);
     }
     dispatch(createEmailDesignAction.loading(false));
   };
@@ -341,8 +339,7 @@ export function emailTemplateUpdate(
       console.error(error);
       dispatch(updateEmailTemplateAction.error(error));
       dispatch(snackbarError('email.update.error'));
-      if (error?.response?.status === 499 && options?.onError)
-        options.onError(error);
+      if (options?.onError) options.onError(error);
     }
     dispatch(updateEmailTemplateAction.loading(false));
   };

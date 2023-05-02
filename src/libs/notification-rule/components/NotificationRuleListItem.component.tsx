@@ -1,6 +1,6 @@
 // @ts-nocheck
 // @flow
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import classNames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -12,6 +12,7 @@ import { FormControlLabel, Typography, Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import { AxiosError } from 'axios';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import Tooltip from '../../../components/Tooltip.component';
 import { NotificationRule } from '../types';
@@ -21,6 +22,8 @@ import NotificationForm from './NotificationForm.component';
 import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
 import { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import RequiredTags from '#components/notification/RequiredTags.component';
+import { OptionCallback } from '../../../state/types';
 
 const {
   EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS,
@@ -40,7 +43,7 @@ type Props = {
       push_notification_content?: string;
       is_notification_push_active?: boolean;
     },
-    options?: { onError: (error?: Error) => void; onSuccess: () => void },
+    options?: OptionCallback,
   ) => void;
   onDeleteNotificationRule: (id: number) => void;
 
@@ -86,18 +89,21 @@ export const NotificationRuleListItem = (props: Props) => {
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
-  const handleTagsError = (error: Error) => {
-    if (
-      error.response?.data.error_code &&
-      error.response?.data.error_code === EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS
-    ) {
-      setShowAlert(true);
-    }
-  };
+  const handleTagsError = useCallback(
+    (error: AxiosError) => {
+      if (
+        error.response?.data.error_code &&
+        error.response?.data.error_code === EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS
+      ) {
+        setShowAlert(true);
+      }
+    },
+    [setShowAlert],
+  );
 
-  const hideAlert = () => {
+  const hideAlert = useCallback(() => {
     setShowAlert(false);
-  };
+  }, [setShowAlert]);
 
   const handleShowEmail = () => {
     if (rule && !rule.email_design) {
@@ -107,27 +113,37 @@ export const NotificationRuleListItem = (props: Props) => {
     }
   };
 
-  const handleChangeEmail = (option: any) => {
-    if (!option) {
-      return onDeleteNotificationRule(rule.id);
-    }
-    if (rule?.company) {
+  const handleChangeEmail = useCallback(
+    (option: any) => {
+      if (!option) {
+        return onDeleteNotificationRule(rule.id);
+      }
+      if (rule?.company) {
+        return updateNotification(
+          {
+            ...rule,
+            email_design: option.value,
+          },
+          { onError: handleTagsError, onSuccess: hideAlert },
+        );
+      }
       return updateNotification(
         {
-          ...rule,
+          notification_event: event,
           email_design: option.value,
         },
         { onError: handleTagsError, onSuccess: hideAlert },
       );
-    }
-    return updateNotification(
-      {
-        notification_event: event,
-        email_design: option.value,
-      },
-      { onError: handleTagsError, onSuccess: hideAlert },
-    );
-  };
+    },
+    [
+      onDeleteNotificationRule,
+      updateNotification,
+      handleTagsError,
+      hideAlert,
+      event,
+      rule,
+    ],
+  );
 
   const renderEmailSelector = () => (
     <>
@@ -174,75 +190,83 @@ export const NotificationRuleListItem = (props: Props) => {
     setDialogIsOpen(true);
   };
 
-  const handleSubmit = ({
-    push_notification_title,
-    push_notification_content,
-  }: {
-    push_notification_title: string;
-    push_notification_content: string;
-  }) => {
-    let is_notification_push_active;
-    if (
-      rule.push_notification_title === '' &&
-      rule.push_notification_content === '' &&
-      rule.is_notification_push_active === false
-    ) {
-      is_notification_push_active = true;
-    }
-    setDialogIsOpen(false);
-    if (rule?.company || rule?.companies) {
+  const handleSubmit = useCallback(
+    ({
+      push_notification_title,
+      push_notification_content,
+    }: {
+      push_notification_title: string;
+      push_notification_content: string;
+    }) => {
+      let is_notification_push_active;
+      if (
+        rule.push_notification_title === '' &&
+        rule.push_notification_content === '' &&
+        rule.is_notification_push_active === false
+      ) {
+        is_notification_push_active = true;
+      }
+      setDialogIsOpen(false);
+      if (rule?.company || rule?.companies) {
+        return updateNotification(
+          {
+            ...rule,
+            push_notification_title,
+            push_notification_content,
+            is_notification_push_active,
+          },
+          { onError: handleTagsError, onSuccess: hideAlert },
+        );
+      }
       return updateNotification(
         {
-          ...rule,
+          notification_event: event,
           push_notification_title,
           push_notification_content,
           is_notification_push_active,
         },
         { onError: handleTagsError, onSuccess: hideAlert },
       );
-    }
-    return updateNotification(
-      {
-        notification_event: event,
-        push_notification_title,
-        push_notification_content,
-        is_notification_push_active,
-      },
-      { onError: handleTagsError, onSuccess: hideAlert },
-    );
-  };
+    },
+    [
+      rule,
+      event,
+      setDialogIsOpen,
+      updateNotification,
+      handleTagsError,
+      hideAlert,
+    ],
+  );
 
-  const handleNotificationToggle = (_: any, value: boolean) => {
-    setDialogIsOpen(false);
-    if (rule?.company || rule?.companies) {
+  const handleNotificationToggle = useCallback(
+    (_: any, value: boolean) => {
+      setDialogIsOpen(false);
+      if (rule?.company || rule?.companies) {
+        return updateNotification(
+          {
+            ...rule,
+            is_notification_push_active: value,
+          },
+          { onError: handleTagsError, onSuccess: hideAlert },
+        );
+      }
       return updateNotification(
         {
-          ...rule,
+          notification_event: event,
           is_notification_push_active: value,
         },
         { onError: handleTagsError, onSuccess: hideAlert },
       );
-    }
-    return updateNotification(
-      {
-        notification_event: event,
-        is_notification_push_active: value,
-      },
-      { onError: handleTagsError, onSuccess: hideAlert },
-    );
-  };
-
-  const renderRequiredTagsList = () => {
-    return (
-      <ul className={classes.listStyle}>
-        {props.requiredTags.map((tag) => (
-          <li key={tag}>
-            <Typography>{t(`tag.requiredTags.${tag}`)}</Typography>
-          </li>
-        ))}
-      </ul>
-    );
-  };
+    },
+    [
+      setDialogIsOpen,
+      rule,
+      event,
+      updateNotification,
+      handleTagsError,
+      hideAlert,
+    ],
+  );
 
   return (
     <FeatureListProvider>
@@ -367,7 +391,7 @@ export const NotificationRuleListItem = (props: Props) => {
                     <Typography>
                       {t('listItem.infoBoxErrorMessageFirstLine')}
                     </Typography>
-                    {renderRequiredTagsList()}
+                    <RequiredTags requiredTagsList={props.requiredTags} />
                     <Typography>
                       {t('listItem.infoBoxErrorMessageLastLine')}
                     </Typography>

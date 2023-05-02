@@ -266,7 +266,7 @@ exports.default = {
       name: 'Modification de compte',
       tags: {
         new_email: 'Nouvel email de connexion',
-        old_email: 'Actuel email de connexion',
+        old_email: 'Ancien email de connexion',
         manage_changing_email_link: "Lien de gestion du changement d'email",
         login_link: 'Lien de connexion espace personnel',
       },
@@ -275,7 +275,7 @@ exports.default = {
       reset_password_url: 'Lien réinitialisation mot de passe',
       email_confirmation_url: "Lien confirmation d'email",
       new_email: 'Nouvel email de connexion',
-      old_email: 'Actuel email de connexion',
+      old_email: 'Ancien email de connexion',
       activate_giftcard_url: 'Lien activation carte cadeau',
       message_is_from: 'Membre envoyant la carte cadeau',
       giftcard_message: 'Message de la carte cadeau',
@@ -403,7 +403,7 @@ exports.default = {
       restrictedAccess:
         "Cette configuration est paramétrisée pour des franchisés auxquels vous n'avez pas accès. Certains champs ne sont pas modifiables",
       description:
-        'Le template choisi sera utilisé pour l’email transactionnel “{{name}}“ pour l’ensemble des franchisés sélectionnés ici.',
+        'Le template choisi sera utilisé pour l’email transactionnel “{{-name}}“ pour l’ensemble des franchisés sélectionnés ici.',
       name: 'Nom',
       pickTemplate: 'Choisir un template',
       useFor: 'Utiliser pour ',

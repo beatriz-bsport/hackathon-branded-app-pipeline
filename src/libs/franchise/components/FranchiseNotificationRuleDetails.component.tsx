@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Alert from '@material-ui/lab/Alert/Alert';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
@@ -15,6 +15,7 @@ import {
 } from '../../email-editor/types';
 import { FranchiseCompleteNotificationRule } from '../../notification-rule/types';
 import { FranchiseCompany } from '../types';
+import { OptionCallback } from '../../../state/types';
 
 type OwnProps = {
   emailDesignList: EmailTemplateSummary[];
@@ -28,13 +29,11 @@ type OwnProps = {
     id: number,
   ) => (
     data: Omit<FranchiseCompleteNotificationRule, 'id'>,
-    closeModal: () => void,
-    showAlert: () => void,
+    options: OptionCallback,
   ) => void;
   handleCreate: (
     data: Omit<FranchiseCompleteNotificationRule, 'id'>,
-    closeModal: () => void,
-    showAlert: () => void,
+    options: OptionCallback,
   ) => void;
   handleFetchPreview: (emailId: number) => void;
   selectedPreviewEmail?: number;
@@ -62,8 +61,7 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
 
   const [create, setCreate] = useState(false);
 
-  const [showAlertForCreation, setShowAlertForCreation] =
-    useState<boolean>(false);
+  const [showAlertForCreation, setShowAlertForCreation] = useState(false);
 
   const usedCompanies = rules.reduce<number[]>(
     (acc, rule) => [...acc, ...rule.companies],
@@ -83,6 +81,34 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
     },
     [companies, usedCompanies],
   );
+
+  const closeModal = useCallback(() => {
+    setCreate(false);
+  }, [setCreate]);
+
+  const showAlert = useCallback(
+    () => setShowAlertForCreation(true),
+    [setShowAlertForCreation],
+  );
+
+  const handleSubmit: (
+    data: Omit<FranchiseCompleteNotificationRule, 'id'>,
+  ) => void = useCallback(
+    (data) => {
+      handleCreate(data, { onError: showAlert, onSuccess: closeModal });
+    },
+    [handleCreate, showAlert, closeModal],
+  );
+
+  const onModalClose = useCallback(() => {
+    setCreate(false);
+    setShowAlertForCreation(false);
+  }, [setCreate, setShowAlertForCreation]);
+
+  const onClickAddConfiguration = useCallback(() => {
+    setCreate(true);
+    setShowAlertForCreation(false);
+  }, [setCreate, setShowAlertForCreation]);
 
   return (
     <>
@@ -105,10 +131,7 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
                 className={classes.button}
                 variant="contained"
                 color="primary"
-                onClick={() => {
-                  setCreate(true);
-                  setShowAlertForCreation(false);
-                }}
+                onClick={onClickAddConfiguration}
                 disabled={
                   getAvailableCompanies().filter((c) => c.isAllowed).length ===
                   0
@@ -150,10 +173,7 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
                   className={classes.emptyButton}
                   variant="outlined"
                   color="primary"
-                  onClick={() => {
-                    setCreate(true);
-                    setShowAlertForCreation(false);
-                  }}
+                  onClick={onClickAddConfiguration}
                 >
                   {t('franchise.addConfiguration')}
                 </Button>
@@ -167,21 +187,8 @@ export const FranchiseNotificationRuleDetails = (props: Props) => {
           open
           companies={getAvailableCompanies()}
           emailTemplates={emailDesignList}
-          onSubmit={(data) => {
-            handleCreate(
-              data,
-              () => {
-                setCreate(false);
-              },
-              () => {
-                setShowAlertForCreation(true);
-              },
-            );
-          }}
-          onClose={() => {
-            setCreate(false);
-            setShowAlertForCreation(false);
-          }}
+          onSubmit={handleSubmit}
+          onClose={onModalClose}
           notification_event={notificationId}
           previewEmail={previewEmail?.[selectedPreviewEmail]}
           refreshEmailPreview={handleFetchPreview}

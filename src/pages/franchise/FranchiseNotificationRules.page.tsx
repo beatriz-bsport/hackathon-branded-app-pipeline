@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
@@ -41,6 +41,7 @@ import { getFranchiseCompanies } from '#libs/franchise/selectors';
 import FranchiseNotificationRuleList from '#libs/franchise/components/FranchiseNotificationRuleList.component';
 import FranchiseNotificationRuleDetails from '#libs/franchise/components/FranchiseNotificationRuleDetails.component';
 import { NotificationRule } from '#libs/notification-rule/types';
+import { OptionCallback } from '../../state/types';
 
 const {
   EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS,
@@ -100,68 +101,63 @@ export const FranchiseNotificationRule = (props: Props) => {
 
   const [selectedPreviewEmail, setSelectedPreviewEmail] = useState(null);
 
-  if (loading || Object.keys({ ...eventListWithRule }).length === 0) {
-    return <LinearProgress />;
-  }
-
   const handleFetchPreview = (emailId: number) => {
     setSelectedPreviewEmail(emailId);
 
     fetchEmailDesignDetail(emailId);
   };
 
-  const handleCreate = (
-    data: Omit<NotificationRule, 'id'>,
-    closeModal: () => void,
-    showAlert: () => void,
-  ) => {
-    createOrUpdateNotificationRule(data, {
-      onError: (error: Error) => {
-        if (
-          error.response?.data.error_code ===
-          EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS
-        ) {
-          showAlert();
-        }
-      },
-      onSuccess: () => {
-        closeModal();
-      },
-    });
-  };
+  const handleCreate = useCallback(
+    (data: Omit<NotificationRule, 'id'>, options: OptionCallback) => {
+      createOrUpdateNotificationRule(data, {
+        onError: (error: Error) => {
+          if (
+            error.response?.data.error_code ===
+              EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS &&
+            options?.onError
+          ) {
+            options.onError();
+          }
+        },
+        onSuccess: options?.onSuccess,
+      });
+    },
+    [createOrUpdateNotificationRule],
+  );
 
   const handleDelete = (id: number) => () => {
     deleteNotificationRule(id);
   };
 
-  const handleEdit =
+  const handleEdit = useCallback(
     (id: number) =>
-    (
-      data: Omit<NotificationRule, 'id'>,
-      closeModal: () => void,
-      showAlert: () => void,
-    ) => {
-      createOrUpdateNotificationRule(
-        { ...data, id },
-        {
-          onError: (error: Error) => {
-            if (
-              error.response?.data.error_code ===
-              EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS
-            ) {
-              showAlert();
-            }
+      (data: Omit<NotificationRule, 'id'>, options: OptionCallback) => {
+        createOrUpdateNotificationRule(
+          { ...data, id },
+          {
+            onError: (error: Error) => {
+              if (
+                error.response?.data.error_code ===
+                  EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS &&
+                options?.onError
+              ) {
+                options.onError();
+              }
+            },
+            onSuccess: options?.onSuccess,
           },
-          onSuccess: () => {
-            closeModal();
-          },
-        },
-      );
-    };
+        );
+      },
+    [createOrUpdateNotificationRule],
+  );
 
   const handleNavigation = (id: number) => () => {
     navigateToNotification(id);
   };
+
+  if (loading || Object.keys({ ...eventListWithRule }).length === 0) {
+    return <LinearProgress />;
+  }
 
   return (
     <div className={classes.page}>

@@ -1,3 +1,5 @@
+import { ErrorAndLoading } from '../../state/types';
+
 // @ts-nocheck
 export type EmailTemplateSummary = {
   id: number;
@@ -68,9 +70,7 @@ export type EmailTemplateState = {
   currentTemplateMetaData?: {
     required_tags_list?: string[];
     related_notification_rule_events?: number[];
-    loading?: boolean;
-    error?: Error;
-  };
+  } & ErrorAndLoading;
 };
 
 export type FranchisorSavedFilter = {

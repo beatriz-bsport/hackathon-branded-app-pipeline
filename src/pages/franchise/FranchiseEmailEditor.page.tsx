@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
@@ -33,6 +33,7 @@ import { fetchTagList as fetchTagListAction } from '#libs/notification-rule/acti
 import { getTagCategories } from '#libs/notification-rule/selectors';
 import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions';
 import { FranchiseCompany } from '#libs/franchise/types';
+import type { OptionCallback } from '../../state/types';
 
 type OwnProps = {
   id: number;
@@ -75,63 +76,67 @@ const FranchiseEmailEditor = (props: Props) => {
     fetchCurrentTemplateMetadata(id);
   }, [fetchCurrentTemplateMetadata, id]);
 
-  const onSave = (
-    emailId: number,
-    data: EmailTemplate,
-    availableCompanies: number[],
-    handleError?: (error?: Error) => void,
-    handleSuccess?: () => void,
-  ) => {
-    emailTemplateUpdate(
-      emailId,
-      {
-        ...data,
-        franchise_id,
-        available_for_companies: availableCompanies,
-      },
-      {
-        onSuccess: (templateId: number) => {
-          goToListDetail(templateId);
-          if (handleSuccess) {
-            handleSuccess();
-          }
+  const onSave = useCallback(
+    (
+      emailId: number,
+      data: EmailTemplate,
+      availableCompanies: number[],
+      options?: OptionCallback,
+    ) => {
+      emailTemplateUpdate(
+        emailId,
+        {
+          ...data,
+          franchise_id,
+          available_for_companies: availableCompanies,
         },
-        onError: (error: Error) => {
-          if (handleError) {
-            handleError(error);
-          }
+        {
+          onSuccess: (templateId: number) => {
+            goToListDetail(templateId);
+            if (options?.onSuccess) {
+              options.onSuccess();
+            }
+          },
+          onError: (error: Error) => {
+            if (options?.onError) {
+              options.onError(error);
+            }
+          },
         },
-      },
-    );
-  };
+      );
+    },
+    [emailTemplateUpdate, goToListDetail, franchise_id],
+  );
 
-  const onAutoSave = (
-    emailId: number,
-    data: EmailTemplate,
-    availableCompanies?: number[],
-    handleError?: (error?: Error) => void,
-    handleSuccess?: () => void,
-  ) => {
-    emailTemplateUpdate(
-      emailId,
-      {
-        ...data,
-        franchise_id,
-      },
-      {
-        onSuccess: () => {
-          if (handleSuccess) {
-            handleSuccess();
-          }
+  const onAutoSave = useCallback(
+    (
+      emailId: number,
+      data: EmailTemplate,
+      availableCompanies?: number[],
+      options: OptionCallback,
+    ) => {
+      emailTemplateUpdate(
+        emailId,
+        {
+          ...data,
+          franchise_id,
         },
-        onError: (error: Error) => {
-          if (handleError) {
-            handleError(error);
-          }
+        {
+          onSuccess: () => {
+            if (options?.onSuccess) {
+              options.onSuccess();
+            }
+          },
+          onError: (error: Error) => {
+            if (options?.onError) {
+              options.onError(error);
+            }
+          },
         },
-      },
-    );
-  };
+      );
+    },
+    [emailTemplateUpdate, franchise_id],
+  );
 
   const emailToEdit = React.useMemo(
     () => ({

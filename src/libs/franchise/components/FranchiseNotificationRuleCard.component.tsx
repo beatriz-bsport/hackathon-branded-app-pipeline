@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import {
@@ -30,6 +30,7 @@ import {
 import FranchiseNotificationRuleFormModal from './FranchiseNotificationRuleFormModal.component';
 import { FranchiseCompleteNotificationRule } from '../../notification-rule/types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
+import { OptionCallback } from '../../../state/types';
 
 export type OwnProps = {
   rule: FranchiseCompleteNotificationRule;
@@ -41,8 +42,7 @@ export type OwnProps = {
   onDelete: () => void;
   onEdit: (
     data: Omit<FranchiseCompleteNotificationRule, 'id'>,
-    closeModal: () => void,
-    showAlert: () => void,
+    options: OptionCallback,
   ) => void;
   requiredTagsByEvent: { [key: number]: string[] };
 };
@@ -67,8 +67,7 @@ const FranchiseNotificationRuleCard = (props: Props) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [selectedEmailId, setSelectedEmailId] = useState(rule.email_design);
-  const [showAlertForEdition, setShowAlertForEdition] =
-    useState<boolean>(false);
+  const [showAlertForEdition, setShowAlertForEdition] = useState(false);
 
   useEffect(() => {
     fetchPreview(selectedEmailId);
@@ -93,17 +92,27 @@ const FranchiseNotificationRuleCard = (props: Props) => {
     setIsDeleting(false);
   };
 
-  const handleEdit = (data: Omit<FranchiseCompleteNotificationRule, 'id'>) => {
-    onEdit(
-      data,
-      () => {
-        setIsEditing(false);
-      },
-      () => {
-        setShowAlertForEdition(true);
-      },
-    );
-  };
+  const setIsEditingToFalse = useCallback(() => {
+    setIsEditing(false);
+  }, [setIsEditing]);
+
+  const showAlert = useCallback(() => {
+    setShowAlertForEdition(true);
+  }, [setShowAlertForEdition]);
+
+  const handleSubmit: (
+    data: Omit<FranchiseCompleteNotificationRule, 'id'>,
+  ) => void = useCallback(
+    (data) => {
+      onEdit(data, { onError: showAlert, onSuccess: setIsEditingToFalse });
+    },
+    [onEdit, showAlert, setIsEditingToFalse],
+  );
+
+  const onCloseModal: () => void = useCallback(() => {
+    setIsEditing(false);
+    setShowAlertForEdition(false);
+  }, [setIsEditing, setShowAlertForEdition]);
 
   const allowedEdit = useMemo(
     () =>
@@ -197,11 +206,8 @@ const FranchiseNotificationRuleCard = (props: Props) => {
           companies={companies}
           restrictedAccess={restrictedAccess}
           emailTemplates={emailDesignList}
-          onSubmit={handleEdit}
-          onClose={() => {
-            setIsEditing(false);
-            setShowAlertForEdition(false);
-          }}
+          onSubmit={handleSubmit}
+          onClose={onCloseModal}
           notification_event={rule.notification_event}
           previewEmail={previewEmail?.[selectedEmailId]}
           refreshEmailPreview={handleFetchPreview}

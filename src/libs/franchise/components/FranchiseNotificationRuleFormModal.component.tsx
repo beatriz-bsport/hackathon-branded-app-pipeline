@@ -36,6 +36,7 @@ import {
 import { FranchiseCompleteNotificationRule } from '../../notification-rule/types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 import InfoBox from '#components/box/InfoBox.component';
+import RequiredTags from '#components/notification/RequiredTags.component';
 
 export type OwnProps = {
   rule?: FranchiseCompleteNotificationRule;
@@ -87,18 +88,6 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
   );
 
   const [showPreview, setShowPreview] = useState(false);
-
-  const renderRequiredTagsList = () => {
-    return (
-      <ul className={classes.listStyle}>
-        {props.requiredTagsByEvent[props.notification_event].map((tag) => (
-          <li key={tag}>
-            <Typography>{t(`tag.requiredTags.${tag}`)}</Typography>
-          </li>
-        ))}
-      </ul>
-    );
-  };
 
   return (
     <>
@@ -172,7 +161,11 @@ const FranchiseNotificationRuleFormModal = (props: Props) => {
                   <Typography>
                     {t('listItem.infoBoxErrorMessageFirstLine')}
                   </Typography>
-                  {renderRequiredTagsList()}
+                  <RequiredTags
+                    requiredTagsList={
+                      props.requiredTagsByEvent[props.notification_event]
+                    }
+                  />
                   <Typography>
                     {t('listItem.infoBoxErrorMessageLastLine')}
                   </Typography>

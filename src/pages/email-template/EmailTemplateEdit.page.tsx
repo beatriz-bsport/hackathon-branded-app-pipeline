@@ -36,6 +36,7 @@ import { RootState } from '../../reducers';
 import { EmailTemplate } from '#libs/email-editor/types';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { OptionCallback } from '../../state/types';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -74,8 +75,7 @@ export class MarketingEmail extends Component<Props> {
     id: number,
     data: EmailTemplate,
     availableCompanies?: number[],
-    handleError?: (error?: Error) => void,
-    handleSuccess?: () => void,
+    options?: OptionCallback,
   ) => {
     if (this.props.create === 1) {
       this.props.emailDesignCreate(
@@ -86,13 +86,13 @@ export class MarketingEmail extends Component<Props> {
         {
           onSuccess: () => {
             trackFormSuccess();
-            if (handleSuccess) {
-              handleSuccess();
+            if (options?.onSuccess) {
+              options.onSuccess();
             }
           },
           onError: (error: Error) => {
-            if (handleError) {
-              handleError(error);
+            if (options?.onError) {
+              options.onError(error);
             }
           },
         },
@@ -109,11 +109,11 @@ export class MarketingEmail extends Component<Props> {
           onSuccess: () => {
             trackFormSuccess(id);
             this.props.goToDetailList(id);
-            if (handleSuccess) {
-              handleSuccess();
+            if (options?.onSuccess) {
+              options.onSuccess();
             }
           },
-          onError: handleError,
+          onError: options?.onError,
         },
       );
     }

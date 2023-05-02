@@ -1,6 +1,6 @@
 // @ts-nocheck
 // @flow
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -53,6 +53,7 @@ import NotificationRuleListItem from '#libs/notification-rule/components/Notific
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import { OptionCallback } from '../../state/types';
 
 const BIRTHDAY_NOTIFICATION = {
   kind: 0,
@@ -155,22 +156,25 @@ const NotificationRuleDetail = (props: Props) => {
     ? settingsData[0].settings
     : {};
 
-  const handleUpdateNotification = (
-    rule: {
-      notification_event: number;
-      email_design?: number;
-      push_notification_title?: string;
-      push_notification_content?: string;
-      is_notification_push_active?: boolean;
-    },
-    options?: { onError: (error?: Error) => void; onSuccess: () => void },
-  ) => {
-    if (rule.email_design) {
-      fetchEmailDesignDetail(rule.email_design);
-    }
+  const handleUpdateNotification = useCallback(
+    (
+      rule: {
+        notification_event: number;
+        email_design?: number;
+        push_notification_title?: string;
+        push_notification_content?: string;
+        is_notification_push_active?: boolean;
+      },
+      options?: OptionCallback,
+    ) => {
+      if (rule.email_design) {
+        fetchEmailDesignDetail(rule.email_design);
+      }
 
-    createOrUpdateNotificationRule(rule, options);
-  };
+      createOrUpdateNotificationRule(rule, options);
+    },
+    [fetchEmailDesignDetail, createOrUpdateNotificationRule],
+  );
 
   const handleUpdate = (
     newNotificationRuleSettings: Record<number, NotificationRuleSettings>,

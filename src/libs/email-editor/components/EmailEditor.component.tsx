@@ -25,6 +25,8 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 import { Alert } from '@material-ui/lab';
 import isEqual from 'lodash/isEqual';
+import { AxiosError } from 'axios';
+import { OptionCallback } from '../../../state/types';
 import Checkbox from '../../../components/input/Checkbox.component';
 import {
   EmailTemplate,
@@ -39,6 +41,7 @@ import CategorySelector from '#components/ordering/CategorySelector.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { createUrl } from '../../../utils/createUrlHandlers';
+import RequiredTags from '#components/notification/RequiredTags.component';
 
 const {
   EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS,
@@ -58,15 +61,13 @@ export type OwnProps = {
     id: number,
     data: Omit<EmailTemplate, 'id'>,
     availableCompanies?: number[],
-    onError?: (error?: Error) => void,
-    onSuccess?: () => void,
+    options?: OptionCallback,
   ) => void;
   autoSaveEmail?: (
     id: number,
     data: Omit<EmailTemplate, 'id'>,
     availableCompanies?: number[],
-    onError?: (error?: Error) => void,
-    onSuccess?: () => void,
+    options?: OptionCallback,
   ) => void;
   displayEmptyError: (msg: string) => void;
   goToList: () => void;
@@ -180,8 +181,7 @@ export class EmailEditorPanel extends Component<Props, State> {
         this.state.selectedCompanies?.map((opt) =>
           parseInt(opt?.value ?? '', 10),
         ),
-        this.showAlertBox,
-        this.hideAlertBox,
+        { onSuccess: this.hideAlertBox, onError: this.showAlertBox },
       );
     });
   };
@@ -205,8 +205,7 @@ export class EmailEditorPanel extends Component<Props, State> {
         this.state.selectedCompanies?.map((opt) =>
           parseInt(opt?.value ?? '', 10),
         ),
-        this.showAlertBox,
-        this.hideAlertBox,
+        { onSuccess: this.hideAlertBox, onError: this.showAlertBox },
       );
     });
   };
@@ -303,7 +302,7 @@ export class EmailEditorPanel extends Component<Props, State> {
     this.setState({ openRequiredTagsModal: false });
   };
 
-  showAlertBox = (error: Error) => {
+  showAlertBox = (error: AxiosError) => {
     if (
       error.response?.data.error_code === EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS
     ) {
@@ -313,20 +312,6 @@ export class EmailEditorPanel extends Component<Props, State> {
 
   hideAlertBox = () => {
     this.setState({ showAlert: false });
-  };
-
-  renderRequiredTagsList = () => {
-    return (
-      <ul className={this.props.classes.listStyle}>
-        {this.props.requiredTags.map((tag) => (
-          <li key={tag}>
-            <Typography>
-              {this.props.t(`notificationRule:tag.requiredTags.${tag}`)}
-            </Typography>
-          </li>
-        ))}
-      </ul>
-    );
   };
 
   render() {
@@ -433,7 +418,39 @@ export class EmailEditorPanel extends Component<Props, State> {
         </div>
         {this.props.requiredTags?.length > 0 &&
           this.props.relatedNotificationRuleEvents?.length > 0 &&
-          (!this.state.showAlert ? (
+          (this.state.showAlert ? (
+            <Alert
+              severity="error"
+              icon={false}
+              classes={{ message: classes.MuiAlertMessage }}
+              className={classes.alertBox}
+            >
+              <div className={classes.buttonsContainer}>
+                <div className={classes.row}>
+                  <div className={classes.column}>
+                    <ErrorOutlineIcon className={classes.iconColorRed} />
+                  </div>
+                  <div className={classes.column}>
+                    <Typography>
+                      {t('emailTemplate:editor.alertBoxTextFirstLine', {
+                        names: this.props.relatedNotificationRuleEvents
+                          .map((notification_event) => {
+                            return t(
+                              `notificationRule:eventType.${notification_event}`,
+                            );
+                          })
+                          .join(', '),
+                      })}
+                    </Typography>
+                    <RequiredTags requiredTagsList={this.props.requiredTags} />
+                    <Typography>
+                      {t('emailTemplate:editor.infoBoxTextLastLine')}
+                    </Typography>
+                  </div>
+                </div>
+              </div>
+            </Alert>
+          ) : (
             <Alert
               severity="info"
               icon={false}
@@ -472,45 +489,15 @@ export class EmailEditorPanel extends Component<Props, State> {
                   <DialogTitle>
                     {t('emailTemplate:editor.dialogWindowTitle')}
                   </DialogTitle>
-                  <DialogContent>{this.renderRequiredTagsList()}</DialogContent>
+                  <DialogContent>
+                    <RequiredTags requiredTagsList={this.props.requiredTags} />
+                  </DialogContent>
                   <DialogActions>
                     <Button size="small" onClick={this.closeModalRequiredTags}>
                       {t('emailTemplate:editor.closeButton')}
                     </Button>
                   </DialogActions>
                 </Dialog>
-              </div>
-            </Alert>
-          ) : (
-            <Alert
-              severity="error"
-              icon={false}
-              classes={{ message: classes.MuiAlertMessage }}
-              className={classes.alertBox}
-            >
-              <div className={classes.buttonsContainer}>
-                <div className={classes.row}>
-                  <div className={classes.column}>
-                    <ErrorOutlineIcon className={classes.iconColorRed} />
-                  </div>
-                  <div className={classes.column}>
-                    <Typography>
-                      {t('emailTemplate:editor.alertBoxTextFirstLine', {
-                        names: this.props.relatedNotificationRuleEvents
-                          .map((notification_event) => {
-                            return t(
-                              `notificationRule:eventType.${notification_event}`,
-                            );
-                          })
-                          .join(', '),
-                      })}
-                    </Typography>
-                    {this.renderRequiredTagsList()}
-                    <Typography>
-                      {t('emailTemplate:editor.infoBoxTextLastLine')}
-                    </Typography>
-                  </div>
-                </div>
               </div>
             </Alert>
           ))}

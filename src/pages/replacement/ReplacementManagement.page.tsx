@@ -670,6 +670,7 @@ const useStyles = makeStyles((theme) => ({
   innerFlexContainer: {
     display: 'flex',
     alignItems: 'center',
+    flex: 10,
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {

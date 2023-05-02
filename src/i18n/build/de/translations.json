@@ -4865,6 +4865,7 @@
                 "Stornieren",
                 "Stornieren",
                 "Stornieren",
+                "Stornieren",
                 "Stornieren"
             ]
         }
@@ -5743,7 +5744,8 @@
                 "50020": "Diese Vertretungsanfrage wurde abgelehnt: Löschen nicht möglich",
                 "50000": "Die Session ist bereits vorbei",
                 "50007": "Sie können diese Vertretungsanfragen nicht stellen, weil Sie nicht genügend ausstehende überfällige Anfragen haben.",
-                "50008": "Der Anmeldeschluss kann nicht über das Datum der Session hinaus verschoben werden."
+                "50008": "Der Anmeldeschluss kann nicht über das Datum der Session hinaus verschoben werden.",
+                "50021": "Sie können nicht gleichzeitig Niederlassungen und Standorte angeben."
             },
             "disciplineGroup": {
                 "create": {
@@ -6259,7 +6261,8 @@
                     "cancel": "Abbrechen",
                     "confirm": "Weiter"
                 }
-            }
+            },
+            "unrecoverableError": "Fehler bei der Zahlung."
         },
         "mandate": {
             "content": "Indem Du Deine IBAN angibst und Deine Zahlung bestätigst, ermächtigst Du bsport und Stripe, unser Zahlungssystem, Lastschriftanweisungen gemäß dem Zahlungsplan an Deine Bank zu senden. Du kannst bei Deiner Bank eine Rückerstattung gemäß den Bedingungen Deiner Bank beantragen. Eine Rückerstattung muss innerhalb von 8 Wochen nach der ersten Abbuchung beantragt werden.",
@@ -11780,7 +11783,8 @@
                 "type": {
                     "privatePass": "Terminpass",
                     "paymentPack": "Kurspass"
-                }
+                },
+                "noCategory": "Keine Kategorie"
             }
         }
     },
@@ -12932,7 +12936,7 @@
                 "reset": "zurücksetzen",
                 "spacingHelper": "Die Abstände basieren auf Vielfachen von {{base}}px",
                 "roundingHelper": "Ecken werden in Vielfachen von {{base}}px gerundet",
-                "selectAlert": "Die Widget-Anpassung ist derzeit nur für Workshops und den Kalender verfügbar",
+                "selectAlert": "Die Widget-Anpassung ist im Moment nur für die Workshops, den Kalender und die Pässe verfügbar",
                 "dialog": {
                     "title": "Einstellungen zurücksetzen",
                     "content": "Achtung Sie sind dabei, alle bereits angepassten Felder zurückzusetzen.",
@@ -14489,7 +14493,12 @@
                 "pickActivity": "Eine Aktivität wählen",
                 "allActivities": "Unterrichtet alle Aktivitäten",
                 "workshops": "Workshops",
-                "pickWorkshop": "Workshop wählen"
+                "pickWorkshop": "Workshop wählen",
+                "establishmentSelectorError": "Sie können nicht gleichzeitig Niederlassungen und Standorte angeben",
+                "allEstablishments": "Alle Niederlassungen",
+                "pickEstablishment": "Leer lassen, um alles zu wählen",
+                "locations": "Standorte",
+                "establishments": "Niederlassungen"
             },
             "add": "Eine Gruppe hinzuzufügen",
             "title": "Disziplingruppen",
@@ -14578,7 +14587,11 @@
             "allWorkshops": "Unterrichtet alle Workshops",
             "categories": "Kategorien",
             "pickCategory": "Kategorie wählen",
-            "allCategories": "Unterrichtet alle Kategorien"
+            "allCategories": "Unterrichtet alle Kategorien",
+            "allEstablishments": "Alle Niederlassungen",
+            "pickEstablishment": "Leer lassen, um alles auszuwählen",
+            "locations": "Standorte",
+            "establishments": "Niederlassungen"
         },
         "delete": {
             "title": "Anfrage stornieren",

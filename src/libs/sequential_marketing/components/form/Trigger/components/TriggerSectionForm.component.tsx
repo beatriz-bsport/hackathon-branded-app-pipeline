@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -18,7 +18,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import useCadenceFormContext from '../hooks';
 import useCadenceFormStyles from '../hooks/styles.hook';
 
-import { CheckboxField } from '#components/forms';
+import { CheckboxFieldWithAction } from '#components/forms';
 
 import { RuleBetweenEntryEvent } from '../../../../constants';
 
@@ -82,13 +82,26 @@ export const TriggerSectionForm: React.FC<Props> = ({
     }
   };
 
-  const handleDisplaySmartlistAsTriggerFilter = () => {
+  const handleEventsCheckboxClick = useCallback(() => {
+    setTriggerEventKind(null);
+  }, [setTriggerEventKind]);
+
+  const handleSmartlistsCheckboxClick = useCallback(() => {
+    setTriggerSmartListSelected(null);
+  }, [setTriggerSmartListSelected]);
+
+  const handleDisplaySmartlistAsTriggerFilter = useCallback(() => {
     setDisplaySmartlistAsTriggerFilter(!displaySmartlistAsTriggerFilter);
     setFieldValue('trigger_has_smartlist', !values.trigger_has_smartlist);
     if (!displaySmartlistAsTriggerFilter) {
       setTriggerSmartListSelected(null);
     }
-  };
+  }, [
+    displaySmartlistAsTriggerFilter,
+    setFieldValue,
+    setTriggerSmartListSelected,
+    values.trigger_has_smartlist,
+  ]);
 
   React.useEffect(() => {
     // The Smartlist selected on the form will always be used in the filtering configuration
@@ -108,7 +121,40 @@ export const TriggerSectionForm: React.FC<Props> = ({
     ) {
       setDisplaySmartlistAsTriggerFilter(true);
     }
-  }, [values]);
+  }, [
+    values.trigger_event_kind,
+    values.trigger_has_event,
+    values.trigger_has_smartlist,
+    values.trigger_smartlist_selected,
+  ]);
+
+  React.useEffect(() => {
+    // When a smartlist is selected but none event is selected
+    // the logic trigger must be set on OR and not on AND as it is by default
+
+    const smartlistWithoutEvent =
+      !values.trigger_has_event && values.trigger_has_smartlist;
+
+    if (smartlistWithoutEvent) {
+      setFieldValue(
+        'trigger_logic_between_event_and_smartlist',
+        RuleBetweenEntryEvent.OR_RULE_BETWEEN_ENTRY_EVENT,
+      );
+    }
+
+    // If an event and a smartlist are selected at the same time
+    // the logic trigger must be set on AND by default
+
+    const hasEventAndSmartlist =
+      values.trigger_has_event && values.trigger_has_smartlist;
+
+    if (hasEventAndSmartlist) {
+      setFieldValue(
+        'trigger_logic_between_event_and_smartlist',
+        RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT,
+      );
+    }
+  }, [setFieldValue, values.trigger_has_event, values.trigger_has_smartlist]);
 
   const alertInfotext = React.useMemo(() => {
     if (cadenceEntry) {
@@ -153,10 +199,11 @@ export const TriggerSectionForm: React.FC<Props> = ({
         <FormGroup>
           <Typography variant="body1">{triggerLabel}</Typography>
           <div className={classes.paddingLeft2}>
-            <CheckboxField
+            <CheckboxFieldWithAction
               id="select_entry_type_event"
               name="trigger_has_event"
               label={t('cadence.form.trigger.trigger_event_kind_label')}
+              handleOnChange={handleEventsCheckboxClick}
             />
           </div>
           <Collapse in={values.trigger_has_event}>
@@ -177,10 +224,11 @@ export const TriggerSectionForm: React.FC<Props> = ({
           <div
             className={classNames(classes.paddingLeft2, classes.paddingBottom2)}
           >
-            <CheckboxField
+            <CheckboxFieldWithAction
               id="select_entry_type_smartlist"
               name="trigger_has_smartlist"
               label={t('cadence.form.trigger.trigger_smartlist_kind_label')}
+              handleOnChange={handleSmartlistsCheckboxClick}
             />
           </div>
           <Collapse in={values.trigger_has_smartlist}>

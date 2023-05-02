@@ -151,7 +151,7 @@ const CadenceTriggerFormSchema = Yup.object().shape({
     .test(
       'Check For Empty Trigger',
       'marketing:cadence.form.error.triggerCannotBeEmpty',
-      function CheckForEmprtyTrigger(item) {
+      function CheckForEmptyTrigger(item) {
         if (!item) {
           return true;
         }
@@ -295,6 +295,7 @@ const formikFormWrapper = withFormik<ComponentProps & FormProps, Values>({
   },
   enableReinitialize: true,
   validationSchema: CadenceTriggerFormSchema,
+  validateOnMount: true,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(values, {
       onSuccess: () => setSubmitting(false),

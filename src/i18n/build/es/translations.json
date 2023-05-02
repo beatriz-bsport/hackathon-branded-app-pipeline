@@ -4892,7 +4892,8 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
-                "Cancelado"
+                "Cancelado",
+                "Cancelada"
             ]
         },
         "payment_method_with_credit_account": {
@@ -9490,7 +9491,7 @@
             "selectAll": "Seleccionar todo"
         },
         "cancel": "Cancelar",
-        "confirm": "Comfirmar",
+        "confirm": "Confirmar",
         "disconnectInfo": "Volver a la página de inicio de sesión",
         "disconnect": "Cerrar la sesión",
         "activate": "Activar",
@@ -10435,7 +10436,8 @@
                 "50009": "No puedes rechazar esta solicitud porque ya se haya asignado un profesor.",
                 "50008": "La fecha de cierre no puede moverse después de la fecha de la sesión.",
                 "50007": "Imposible crear estas solicitudes de sustitución: no te quedan suficientes solicitudes atrasadas.",
-                "undefined": "Esta solicitud de sustitución ha sido denegada: imposible de suprimir"
+                "undefined": "Esta solicitud de sustitución ha sido denegada: imposible de suprimir",
+                "50021": "No se pueden especificar establecimientos y ubicaciones al mismo tiempo."
             },
             "cancelReplacementRequest": {
                 "error": "Se ha producido un error al eliminar la solicitud.",
@@ -14695,7 +14697,12 @@
                 "groupTypes": "Tipo de clases / categorías",
                 "required": "Este campo es obligatorio",
                 "nameHelperText": "Nombre del grupo de disciplina",
-                "name": "Nombre"
+                "name": "Nombre",
+                "establishmentSelectorError": "No se pueden especificar establecimientos y ubicaciones al mismo tiempo",
+                "allEstablishments": "Todos los establecimientos",
+                "pickEstablishment": "Dejar en blanco para seleccionar todo",
+                "locations": "Ubicaciones",
+                "establishments": "Establecimientos"
             },
             "all": "Todo"
         },
@@ -14792,7 +14799,11 @@
             "customRules": "Personalizar las reglas",
             "disciplineGroup": "Grupo de disciplina",
             "description": "Indica qué clases enseña tu profesor. Si se solicita una sustitución en una de esas clases, se notificará a ese profesor por correo electrónico. Si no se selecciona nada, este profesor no será notificado.",
-            "title": "Sustitución"
+            "title": "Sustitución",
+            "allEstablishments": "Todos los establecimientos",
+            "pickEstablishment": "Dejar en blanco para seleccionar todo",
+            "locations": "Ubicaciones",
+            "establishments": "Establecimientos"
         },
         "compatibleCoaches": {
             "categories": "Categorías",

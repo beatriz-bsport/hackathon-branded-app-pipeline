@@ -2870,6 +2870,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
+                "Geannuleerd",
                 "Geannuleerd"
             ]
         },
@@ -10123,7 +10124,8 @@
                 "50008": "De sluitingsdatum kan niet worden verschoven na de datum van de sessie.",
                 "50007": "Niet mogelijk om deze vervangingsverzoeken aan te maken: je hebt niet genoeg achterstallige verzoeken over.",
                 "50000": "Deze sessie is al afgelopen",
-                "undefined": "Dit vervangingsverzoek is afgewezen: onmogelijk te verwijderen"
+                "undefined": "Dit vervangingsverzoek is afgewezen: onmogelijk te verwijderen",
+                "50021": "U kunt niet tegelijkertijd instellingen en locaties opgeven."
             },
             "cancelReplacementRequest": {
                 "error": "Er is een fout opgetreden bij het verwijderen van het verzoek.",
@@ -10953,14 +10955,14 @@
             "showLessText": "Toon minder",
             "showMoreText": "Toon meer"
         },
-        "close": "Sluiten",
+        "close": "Sluit",
         "selector": {
             "validate": "Bevestigen",
             "unselectAll": "Deselecteer alles",
             "selectAll": "Selecteer alles"
         },
         "cancel": "Annuleren",
-        "confirm": "Bevestigen",
+        "confirm": "Bevestig",
         "disconnectInfo": "Terug naar de inlogpagina",
         "disconnect": "Afmelden",
         "activate": "Activeren",
@@ -14561,7 +14563,11 @@
             "customRules": "De regels aanpassen",
             "disciplineGroup": "Discipline groepen",
             "description": "Geef aan welke sessies door jouw instructeurs worden gegeven. Als een vervangingsverzoek wordt gedaan in een van deze sessies, wordt die instructeur per e-mail op de hoogte gebracht. Als er niets is geselecteerd, wordt deze instructeur niet op de hoogte gebracht.",
-            "title": "Vervanging"
+            "title": "Vervanging",
+            "allEstablishments": "Alle instellingen",
+            "pickEstablishment": "Laat leeg om alles te selecteren",
+            "locations": "Locaties",
+            "establishments": "Vestigingen"
         },
         "compatibleCoaches": {
             "categories": "Categorieën",
@@ -14590,7 +14596,12 @@
                 "groupTypes": "Soort sessies / categorieën",
                 "required": "Dit veld is verplicht",
                 "nameHelperText": "Naam van de disciplinegroep",
-                "name": "Naam"
+                "name": "Naam",
+                "establishmentSelectorError": "U kunt niet tegelijkertijd vestigingen en locaties opgeven",
+                "allEstablishments": "Alle instellingen",
+                "pickEstablishment": "Laat leeg om alles te selecteren",
+                "locations": "Locaties",
+                "establishments": "Vestigingen"
             },
             "all": "Alle",
             "delete": {

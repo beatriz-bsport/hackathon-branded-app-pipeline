@@ -1142,6 +1142,60 @@ export const MultipleCheckboxField = (props: Props) => {
   );
 };
 
+type CheckboxFieldWithActionProps = Props & {
+  reverted?: boolean,
+  disabled?: boolean,
+  label?: string,
+  helperText?: string,
+  classes?: { [key: string]: string },
+  handleOnChange: () => void,
+};
+
+export const CheckboxFieldWithAction = (
+  props: CheckboxFieldWithActionProps,
+) => {
+  const { reverted, disabled, label, helperText, classes, handleOnChange } =
+    props;
+
+  const onChangeCheckboxFieldWithAction = React.useCallback(
+    (setValue, name, value) => () => {
+      setValue(name, value);
+      handleOnChange();
+    },
+    [handleOnChange],
+  );
+
+  return (
+    <FormControl>
+      <Field {...props}>
+        {({ field, form: { setFieldValue }, meta: { touched, error } }) => (
+          <FormControlLabel
+            label={label}
+            id="checkbox"
+            helperText={helperText}
+            classes={classes}
+            control={
+              <Checkbox
+                disabled={!!disabled}
+                checked={reverted ? !field.value : field.value}
+                {...props}
+                {...field}
+                onChange={onChangeCheckboxFieldWithAction(
+                  setFieldValue,
+                  field.name,
+                  !field.value,
+                )}
+                error={!!(touched && error)}
+              />
+            }
+          />
+        )}
+      </Field>
+      <FormHelperText style={{ marginTop: -8 }}>{helperText}</FormHelperText>
+    </FormControl>
+  );
+};
+
 type SwitchFieldProps = {
   name: string,
   disabled: boolean,

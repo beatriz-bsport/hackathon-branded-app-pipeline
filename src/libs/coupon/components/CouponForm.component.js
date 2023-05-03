@@ -86,13 +86,13 @@ type Props = {
   classes: Object,
 
   paymentPacks: Array<PaymentPack>,
-  allPaymentPacksById: Object,
+  allPaymentPacksById: { [key: number]: PaymentPack },
   shopItems: Array<ShopItem>,
-  allShopItemsById: Object,
+  allShopItemsById: { [key: number]: ShopItem },
   privatePasses: Array<PrivatePass>,
-  allPrivatePassesById: Object,
+  allPrivatePassesById: { [key: number]: PrivatePass },
   paymentCombos: Array<PaymentCombo>,
-  allPaymentCombosById: Object,
+  allPaymentCombosById: { [key: number]: PaymentCombo },
   tagList: Array<Tag<TagGroupAPI>>,
   tagsLoading: boolean,
   fetchSelectedShopItems: (

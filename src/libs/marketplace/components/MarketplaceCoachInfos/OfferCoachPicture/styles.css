@@ -1,0 +1,9 @@
+.bs-card-offer__content__coach__avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+
+.bs-card-offer__content__coach__avatar--reverse {
+  order: 1;
+}

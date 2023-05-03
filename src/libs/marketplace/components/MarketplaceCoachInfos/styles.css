@@ -1,0 +1,26 @@
+.coach_container {
+  width: 118px;
+  height: 22px;
+  left: 16px;
+  top: 68px;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 166%;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.4px;
+  color: #687586;
+}
+
+.coach_container__name {
+  text-align: start;
+}
+
+.coach_container__left__icon {
+  color: #687586;
+  max-width: 24px;
+  max-height: 24px;
+}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';

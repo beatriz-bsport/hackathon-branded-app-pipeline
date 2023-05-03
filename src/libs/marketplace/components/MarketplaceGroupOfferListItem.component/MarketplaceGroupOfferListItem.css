@@ -17,6 +17,10 @@
   padding: var(--spacing-2);
 }
 
+.bs-offer-list-group-item--without-color {
+  border-left-color: var(--color-grey-light);
+}
+
 .bs-offer-list-group-item__offer__subtitle,
 .bs-offer-list-group-item__left__subtitle {
   font-size: var(--body1-fontSize);
@@ -320,4 +324,3 @@
 .bs-offer-dialog__content__inner {
   padding: var(--spacing-3);
 }
-

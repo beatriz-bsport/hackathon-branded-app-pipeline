@@ -5,13 +5,7 @@ import moment from 'moment-timezone';
 import uniqBy from 'lodash/uniqBy';
 import classNames from 'classnames';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
-import {
-  Avatar,
-  CardMedia,
-  Dialog,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core';
+import { CardMedia, Dialog, useMediaQuery, useTheme } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import RoomIcon from '@material-ui/icons/Room';
 
@@ -24,7 +18,6 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup } from '#libs/group-offer/types';
 import MarketPlaceLevel from '#libs/marketplace/components/MarketplaceLevelCSSOnly';
 import { Level } from '#libs/level/types';
-import { DEFAULT_AVATAR } from '#libs/associated-coach/utils';
 import MarketplaceOfferListItem from '../MarketplaceOfferListItemCSSOnly';
 import {
   getBookingButtonTraduction,
@@ -32,6 +25,8 @@ import {
   getPositionOfOfferInTheList,
 } from '../../utils';
 import './MarketplaceGroupOfferListItem.css';
+import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoachInfos';
+import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
 
 export type Props = {
   showOfferFilling: boolean;
@@ -224,12 +219,17 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
       <div
         className={classNames('bs-offer-list-group-item', {
           'bs-offer-list-group-item--mobile': isMobile,
+          'bs-offer-list-group-item--without-color':
+            !theme?.show_activity_color || !metaActivity.color,
         })}
         style={{
-          borderLeftWidth: metaActivity.color !== '' ? 5 : 1,
+          borderLeftWidth:
+            theme?.show_activity_color && metaActivity.color ? 5 : 1,
           borderLeftStyle: 'solid',
           borderLeftColor:
-            metaActivity.color !== '' ? metaActivity.color : '#E0E5EC',
+            theme?.show_activity_color &&
+            metaActivity.color &&
+            metaActivity.color,
         }}
       >
         <div className="bs-offer-list-group-item__left">
@@ -263,16 +263,17 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
             const establishment = getEstablishment(offer.establishment);
             if (!establishment) return null;
             return (
-              <div
+              <MarketplaceEstablishmentTitle
                 key={establishment.id}
-                className="bs-offer-list-group-item__left__subtitle"
-              >
-                <RoomIcon
-                  color="disabled"
-                  className="bs-offer-list-group-item__left__icon"
-                />
-                {establishment?.title}
-              </div>
+                establishment={establishment}
+                theme={theme}
+                icon={
+                  <RoomIcon
+                    color="disabled"
+                    className="bs-offer-list-group-item__left__icon"
+                  />
+                }
+              />
             );
           })}
           {!hideCoach &&
@@ -283,25 +284,28 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
               const coach = getCoach(offer.coach_override || offer.coach);
               if (!coach) return null;
               return (
-                <div
-                  className="bs-offer-list-group-item__offer__subtitle"
+                <MarketplaceCoachInfos
                   key={coach.id}
-                >
-                  <Avatar
-                    src={coach ? coach.photo || DEFAULT_AVATAR : ''}
-                    className="bs-offer-list-group-item__offer__coach"
-                  />
-                  {coach.name +
-                    (offer.coach_override
-                      ? ` (${t('marketplace.substituted')})`
-                      : '')}
-                </div>
+                  theme={theme}
+                  hideCoach={hideCoach}
+                  coach={coach}
+                  offer={offer}
+                  classes={{
+                    'bs-offer-list-group-item__offer__subtitle':
+                      'bs-offer-list-group-item__offer__subtitle',
+                  }}
+                  coachPictureClasses={{
+                    'bs-offer-list-group-item__offer__coach':
+                      'bs-offer-list-group-item__offer__coach',
+                  }}
+                />
               );
             })}
         </div>
         <div className="bs-offer-list-group-item__right">
           <div className="bs-offer-list-group-item__right__row">
             <MarketPlaceLevel
+              hideLevel={!theme.show_level}
               customLevel={customLevel}
               className="bs-offer-list-group-item__right__row__level"
             />

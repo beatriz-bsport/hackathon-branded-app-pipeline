@@ -3,7 +3,6 @@ import React from 'react';
 import { pure } from 'recompose';
 import './MarketplaceCardOfferCSSOnly.css';
 import GroupIcon from '@material-ui/icons/Group';
-import { Theme } from '@material-ui/core/styles/createTheme';
 import classNames from 'classnames';
 import { ArrowLeft } from '@material-ui/icons';
 import MaleIcon from '../../../../components/icons/MaleIcon.component';
@@ -15,6 +14,9 @@ import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly';
 import { useOfferHours } from '../../hooks';
 import { Coach } from '#libs/associated-coach/types';
 import { AVAILABLE_BOOKING_ELEMENTS_IDS } from '#libs/marketplace/constants';
+import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoachInfos';
+import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
+import { Theme } from '#libs/theme/types';
 
 type OwnProps = {
   offer: Offer_FULL;
@@ -39,6 +41,9 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
   const isVariantCoachHighlighted = props.variant === 'coach';
 
   const { offer, coach } = props;
+
+  const offerHours = useOfferHours(offer, offer.establishment, props.theme);
+
   const metaActivity = offer.meta_activity;
 
   const handleBook = () => {
@@ -72,7 +77,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
       onClick={handleClick}
       disabled={props.isBookingDisabled}
     >
-      {metaActivity.color && (
+      {props.theme?.show_activity_color && metaActivity.color && (
         <ArrowLeft
           className="arrow-down"
           style={{ borderTopColor: metaActivity.color }}
@@ -98,10 +103,11 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
                 isVariantCoachHighlighted,
             })}
           >
-            {useOfferHours(offer, offer.establishment, props.theme)}
+            {offerHours}
           </div>
           <div className="bs-card-offer__content__status">
             <MarketplaceLevel
+              hideLevel={!props.theme.show_level}
               customLevel={props.getLevel[offer.custom_level]}
               className="bs-card-offer__content__status__level"
             />
@@ -111,38 +117,28 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
               ''
             )}
           </div>
-
-          <div className="bs-card-offer__content__establishment">
-            {offer.establishment.title}
-          </div>
-          {!props.hideCoach ? (
-            <div
-              className={classNames('bs-card-offer__content__coach', {
-                'bs-card-offer__content__coach--time-highlighted':
-                  isVariantTimeHighlighted,
-                'bs-card-offer__content__coach--coach-highlighted':
-                  isVariantCoachHighlighted,
-              })}
-            >
-              <div
-                className={classNames('bs-card-offer__content__coach__name', {
-                  'bs-card-offer__content__coach__name--coach-highlighted':
-                    isVariantCoachHighlighted,
-                })}
-              >
-                {coach.name}
-              </div>
-              {coach && coach.photo && (
-                <img
-                  alt=""
-                  src={coach.photo}
-                  className="bs-card-offer__content__coach__avatar"
-                />
-              )}
-            </div>
-          ) : (
-            ''
-          )}
+          <MarketplaceCoachInfos
+            theme={props.theme}
+            hideCoach={props.hideCoach}
+            coach={coach}
+            offer={offer}
+            reverse
+            classes={{
+              'bs-card-offer__content__coach': 'bs-card-offer__content__coach',
+              'bs-card-offer__content__coach--time-highlighted':
+                isVariantTimeHighlighted,
+              'bs-card-offer__content__coach--coach-highlighted':
+                isVariantCoachHighlighted,
+            }}
+          />
+          <MarketplaceEstablishmentTitle
+            establishment={offer.establishment}
+            theme={props.theme}
+            classes={{
+              'bs-card-offer__content__establishment':
+                'bs-card-offer__content__establishment',
+            }}
+          />
         </div>
       </div>
       <div className="bs-card-offer__bottom">

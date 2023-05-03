@@ -40,12 +40,7 @@ type Props = {
 
 export const MarketplaceActivityV2 = (props: Props) => {
   const { offer, customLevel, theme, hideCoach } = props;
-  const { t } = useTranslation([
-    'metaActivity',
-    'marketplace',
-    'coach',
-    'datetime',
-  ]);
+  const { t } = useTranslation(['metaActivity', 'marketplace', 'coach']);
   const handleBook = () => {
     props.onClickBook(offer);
   };
@@ -65,6 +60,8 @@ export const MarketplaceActivityV2 = (props: Props) => {
   const effectiveCoach = offer.coach_override || offer.coach;
 
   const isMobile = ['xs', 'sm'].includes(props.width);
+
+  const offerHours = useOfferHours(offer, offer.establishment, theme);
 
   return (
     <div className="bs-activity">
@@ -119,7 +116,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
             </div>
             <div className="bs-activity__top__content__time__hour">
               <ScheduleIcon />
-              {useOfferHours(offer, offer.establishment, theme)}
+              {offerHours}
             </div>
           </div>
           <div className="bs-activity__top__content__location">

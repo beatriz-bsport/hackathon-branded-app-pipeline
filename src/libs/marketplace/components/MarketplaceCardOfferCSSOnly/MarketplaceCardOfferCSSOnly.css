@@ -150,7 +150,6 @@
   align-items: center;
   letter-spacing: 0.4px;
   gap: var(--spacing-1);
-  display: flex;
   color: var(--color-grey-main);
   justify-content: space-between;
 }

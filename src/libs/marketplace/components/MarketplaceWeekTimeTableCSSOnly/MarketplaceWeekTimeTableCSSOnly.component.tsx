@@ -13,7 +13,10 @@ import memoize from 'memoize-one';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { DATE_FORMAT } from '../../../../utils/datetime';
+import {
+  DATE_FORMAT,
+  formatAsDateWithWeekday,
+} from '../../../../utils/datetime';
 import { Moment } from '../../../../i18n';
 import MarketPlaceCardOfferV2 from '../MarketplaceCardOfferCSSOnly';
 import './MarketplaceWeekTimeTableCSSOnly.css';
@@ -245,12 +248,19 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   };
 
   renderDayOffersListVersion = (main_date: string) => {
+    const { t } = this.props;
     const day_offers = this.getOffersByDay(main_date);
+    const mainDateFormated = formatAsDateWithWeekday(
+      main_date,
+      this.props.theme,
+      t,
+      'DD MMMM',
+    );
 
     return (
       <div className="bs-week__listMode__content__day">
         <div className="bs-week__listMode__content__day__date">
-          {moment(main_date).format('dddd DD MMMM')}
+          {mainDateFormated}
         </div>
 
         <div className="bs-week__listMode__content__day__offers">

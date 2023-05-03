@@ -1,16 +1,16 @@
 // @ts-nocheck
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import InfoIcon from '@material-ui/icons/Info';
 import GroupIcon from '@material-ui/icons/Group';
 import classNames from 'classnames';
 
-import { Avatar, useMediaQuery, useTheme } from '@material-ui/core';
+import { useMediaQuery, useTheme } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import RoomIcon from '@material-ui/icons/Room';
 
 import moment from 'moment-timezone';
-import { formatAsDate } from '../../../../utils/datetime';
+import { useTranslation } from 'react-i18next';
+import { formatAsDateWithWeekday } from '../../../../utils/datetime';
 import MaleIcon from '#components/icons/MaleIcon.component';
 import FemaleIcon from '#components/icons/FemaleIcon.component';
 
@@ -30,6 +30,8 @@ import { AVAILABLE_BOOKING_ELEMENTS_IDS } from '#libs/marketplace/constants';
 import { Level } from '#libs/level/types';
 
 import './MarketplaceOfferListItemCSSOnly.css';
+import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoachInfos';
+import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
 
 export const DISABLE_BOOKING_ELEMENTS_IDS = [
   'book-button--disabled',
@@ -82,7 +84,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   position = [],
   withoutBookButton,
 }) => {
-  const { t } = useTranslation('translation');
+  const { t } = useTranslation();
   const muiTheme = useTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
 
@@ -125,7 +127,14 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       ? moment.tz.guess()
       : establishment?.tzname || theme.timezone_name || 'Europe/Paris';
 
-    if (offer?.date_start) return formatAsDate(offer?.date_start, timezoneName);
+    if (offer?.date_start)
+      return formatAsDateWithWeekday(
+        offer?.date_start,
+        theme,
+        t,
+        'LL',
+        timezoneName,
+      );
 
     return '';
   })();
@@ -143,12 +152,14 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
         'bs-offer-list-item--isNotWorkshop': !isWorkshop,
       })}
       style={{
-        borderLeftWidth: offer.meta_activity.color ? 5 : 2,
-        borderLeftColor: offer.meta_activity.color
-          ? offer.meta_activity.color
-          : getComputedStyle(document.documentElement).getPropertyValue(
-              '--color-grey-light',
-            ),
+        borderLeftWidth:
+          theme?.show_activity_color && offer.meta_activity.color ? 5 : 2,
+        borderLeftColor:
+          theme?.show_activity_color && offer.meta_activity.color
+            ? offer.meta_activity.color
+            : getComputedStyle(document.documentElement).getPropertyValue(
+                '--color-grey-light',
+              ),
       }}
       disabled={isBookingDisabled}
     >
@@ -214,55 +225,38 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 )}
               </div>
             )}
-            {establishment && (
-              <div
-                className={classNames(
-                  'bs-offer-list-item__content__offer__left__establishment',
-                  {
-                    'bs-offer-list-item__content__offer__left__establishment--time-highlighted':
-                      isVariantTimeHighlighted,
-                  },
-                )}
-              >
-                <RoomIcon className="bs-offer-list-item__content__offer__left__icon" />
-                <div
-                  className={classNames(
+            <div className="bs-offer-list-item__content__offer__left__establishment">
+              <MarketplaceEstablishmentTitle
+                establishment={establishment}
+                theme={theme}
+                classes={{
+                  'bs-offer-list-item__content__offer__left__establishment__name':
                     'bs-offer-list-item__content__offer__left__establishment__name',
-                    {
-                      'bs-offer-list-item__content__offer__left__establishment__name--coach-highlighted':
-                        isVariantCoachHighlighted,
-                    },
-                  )}
-                >
-                  {establishment?.title}
-                </div>
-              </div>
-            )}
-            {!hideCoach && coach && (
-              <div
-                className={classNames(
+                  'bs-offer-list-item__content__offer__left__establishment__name--coach-highlighted':
+                    isVariantCoachHighlighted &&
+                    'bs-offer-list-item__content__offer__left__establishment__name--coach-highlighted',
+                }}
+                icon={
+                  <RoomIcon className="bs-offer-list-item__content__offer__left__icon" />
+                }
+              />
+            </div>
+            <MarketplaceCoachInfos
+              theme={theme}
+              hideCoach={hideCoach}
+              coach={coach}
+              offer={offer}
+              classes={{
+                'bs-offer-list-item__content__offer__left__coach':
                   'bs-offer-list-item__content__offer__left__coach',
-                  {
-                    'bs-offer-list-item__content__offer__left__coach--time-highlighted':
-                      isVariantTimeHighlighted,
-                    'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
-                      isVariantCoachHighlighted,
-                  },
-                )}
-              >
-                <Avatar
-                  src={coach ? coach.photo : ''}
-                  className="bs-offer-list-item__content__offer__left__icon"
-                />
-                <div className="bs-offer-list-item__content__offer__left__coach__name">
-                  {coach.name &&
-                    coach.name +
-                      (offer.coach_override
-                        ? ` (${t('translation:marketplace.substitute')})`
-                        : '')}
-                </div>
-              </div>
-            )}
+                'bs-offer-list-item__content__offer__left__coach--time-highlighted':
+                  isVariantTimeHighlighted &&
+                  'bs-offer-list-item__content__offer__left__coach--time-highlighted',
+                'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
+                  isVariantCoachHighlighted &&
+                  'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
+              }}
+            />
           </div>
           <div className="bs-offer-list-item__content__offer__right">
             <div className="bs-offer-list-item__content__offer__right__top">
@@ -291,6 +285,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 )}
                 {offer.custom_level && (
                   <MarketPlaceLevel
+                    hideLevel={!theme.show_level}
                     className="bs-offer-list-item__content__offer__right__top__level"
                     customLevel={getLevel[offer.custom_level]}
                   />

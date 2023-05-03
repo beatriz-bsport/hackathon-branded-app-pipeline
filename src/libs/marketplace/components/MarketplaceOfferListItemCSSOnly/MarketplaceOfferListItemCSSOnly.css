@@ -107,7 +107,6 @@
   display: flex;
   gap: var(--spacing-1);
   align-items: center;
-  min-height: var(--spacing-2);
 }
 
 .bs-offer-list-item__content__offer__left__establishment__name {
@@ -115,10 +114,11 @@
   line-height: var(--body1-lineHeight);
   font-weight: var(--fontWeightRegular);
   text-align: left;
-
+  display: flex;
   color: var(--color-grey-main);
   overflow: visible;
 }
+
 .bs-offer-list-item__content__offer__left__establishment__name--coach-highlighted {
   white-space: normal;
   min-width: var(--spacing-6);

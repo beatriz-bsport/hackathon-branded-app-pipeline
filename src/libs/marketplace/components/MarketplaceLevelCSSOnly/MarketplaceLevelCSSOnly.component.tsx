@@ -15,15 +15,21 @@ export type Props = {
   customLevel: Level;
   className?: string;
   activityDialog?: boolean;
+  hideLevel?: boolean;
 };
 
 const MarketplaceLevelCSSOnly: React.FC<Props> = ({
   customLevel,
   className,
   activityDialog,
+  hideLevel,
 }) => {
   const { t } = useTranslation('offer');
   const theme = useTheme();
+
+  if (hideLevel) {
+    return <></>;
+  }
 
   const levelColor = customLevel
     ? getLevelColor(customLevel.id, customLevel.color, theme)

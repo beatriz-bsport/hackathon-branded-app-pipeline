@@ -1,14 +1,11 @@
 // @ts-nocheck
 import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
-
-import { formatAsTime } from '../../utils/datetime';
 import Config from '../../config';
-import { Offer, Offer_FULL } from '#libs/offer/types';
-import { Establishment } from '#libs/establishment/types';
-import { Theme } from '#libs/theme/types';
-import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
-import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
+
+import type { Offer, Offer_FULL } from '#libs/offer/types';
+import type { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
+import type { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
 
 export function isOfferInThePast(offer: Offer | Offer_FULL) {
   if (!offer) return false;
@@ -248,51 +245,6 @@ const getBookingButtonTraductionForOfferGroupSetAsFullBookingOnly = (
     text = t('translation:marketplace.bookButton.notBookableYet');
   }
   return text;
-};
-export const getOfferHours = (
-  offer: Offer_FULL,
-  establishment: Establishment,
-  theme: Theme,
-) => {
-  if (offer.date_start && establishment?.tzname) {
-    const tz = offer.meta_activity?.is_broadcast
-      ? moment.tz.guess()
-      : establishment.tzname;
-
-    const startMoment = moment(offer?.date_start).tz(tz);
-    const startHour = formatAsTime(startMoment, tz);
-
-    const endMoment = moment(offer?.date_start)
-      .add(moment.duration(offer?.duration_minute, 'minutes'))
-      .tz(tz);
-
-    if (!endMoment.isSame(startMoment, 'day')) {
-      return startHour;
-    }
-    const endHour = formatAsTime(endMoment, tz);
-
-    return `${startHour} - ${endHour}`;
-  }
-
-  if (offer.date_start) {
-    const tz = offer.meta_activity?.is_broadcast
-      ? moment.tz.guess()
-      : theme.timezone_name;
-    const startMoment = moment(offer?.date_start).tz(tz);
-    const startHour = startMoment.format('HH:mm');
-
-    const endMoment = moment(offer?.date_start)
-      .add(moment.duration(offer?.duration_minute, 'minutes'))
-      .tz(tz);
-    const endHour = endMoment.format('HH:mm');
-
-    if (!endMoment.isSame(startMoment, 'day')) {
-      return startHour;
-    }
-
-    return `${startHour} - ${endHour}`;
-  }
-  return '';
 };
 
 export const getPositionOfOfferInTheList = (offers: Offer[], index: number) => {

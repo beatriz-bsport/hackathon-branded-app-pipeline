@@ -12,7 +12,7 @@ import MarketplaceBookButton from '../MarketplaceBookButtonCSSOnly';
 import MarketplaceLevel from '../MarketplaceLevelCSSOnly';
 import { Offer_FULL } from '#libs/offer/types';
 import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly';
-import { getOfferHours } from '../../utils';
+import { useOfferHours } from '../../hooks';
 import { Coach } from '#libs/associated-coach/types';
 import { AVAILABLE_BOOKING_ELEMENTS_IDS } from '#libs/marketplace/constants';
 
@@ -98,7 +98,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
                 isVariantCoachHighlighted,
             })}
           >
-            {getOfferHours(offer, offer.establishment, props.theme)}
+            {useOfferHours(offer, offer.establishment, props.theme)}
           </div>
           <div className="bs-card-offer__content__status">
             <MarketplaceLevel

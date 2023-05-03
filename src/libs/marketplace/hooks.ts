@@ -1,5 +1,12 @@
 import { useCallback, useMemo } from 'react';
 
+import moment from 'moment-timezone';
+
+import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
+
+import { useTranslation } from 'react-i18next';
+import { formatAsTime, formatMinutes } from '../../utils/datetime';
+
 import {
   PaymentPack,
   PaymentPackCategoryWithPacks,
@@ -13,6 +20,11 @@ import {
   MarketplacePassSearchHookOptions,
 } from '#libs/marketplace/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
+import type { Establishment } from '#libs/establishment/types';
+import type { Theme } from '#libs/theme/types';
+import { Offer } from '#libs/offer/types';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { Coach } from '#libs/associated-coach/types';
 
 /**
  * Marketplace filter hook for pass page - returns the associated filtered list according to pass filters
@@ -231,4 +243,71 @@ export const useMarketplacePassFlatLists = (
   }, [privatePassByCategory, restrictedPrivatePassCategories]);
 
   return { filteredPaymentPackList, filteredPrivatePassList };
+};
+
+export const useOfferHours = (
+  offer: Offer<Coach, Establishment, MetaActivity>,
+  establishment: Establishment,
+  theme: Theme,
+) => {
+  const { t } = useTranslation('datetime');
+  if (offer.date_start && establishment?.tzname) {
+    const tz = offer.meta_activity?.is_broadcast
+      ? moment.tz.guess()
+      : establishment.tzname;
+
+    const startMoment = moment(offer?.date_start).tz(tz);
+    const startHour = formatAsTime(startMoment, tz);
+
+    const duration = moment.duration(offer?.duration_minute, 'minutes');
+    const durationInMinutes = duration.asMinutes();
+    const readableDuration = formatMinutes(durationInMinutes, t);
+
+    const endMoment = moment(offer?.date_start).add(duration).tz(tz);
+
+    if (!endMoment.isSame(startMoment, 'day')) {
+      return startHour;
+    }
+    const endHour = formatAsTime(endMoment, tz);
+
+    switch (theme?.session_time_display) {
+      case MarketPlaceSessionTimeDisplay.ONLY_STARTING_TIME:
+        return `${startHour}`;
+      case MarketPlaceSessionTimeDisplay.STARTING_TIME_AND_DURATION:
+        return `${startHour} - ${readableDuration}`;
+      default:
+        return `${startHour} - ${endHour}`;
+    }
+  }
+
+  if (offer.date_start) {
+    const tz = offer.meta_activity?.is_broadcast
+      ? moment.tz.guess()
+      : theme.timezone_name;
+    const startMoment = moment(offer?.date_start).tz(tz);
+    const startHour = startMoment.format('HH:mm');
+
+    const duration = moment.duration(offer?.duration_minute, 'minutes');
+    const durationInMinutes = duration.asMinutes();
+    const readableDuration = formatMinutes(durationInMinutes, t);
+
+    const endMoment = moment(offer?.date_start)
+      .add(moment.duration(offer?.duration_minute, 'minutes'))
+      .tz(tz);
+    const endHour = endMoment.format('HH:mm');
+
+    if (!endMoment.isSame(startMoment, 'day')) {
+      return startHour;
+    }
+
+    switch (theme?.session_time_display) {
+      case MarketPlaceSessionTimeDisplay.ONLY_STARTING_TIME:
+        return `${startHour}`;
+      case MarketPlaceSessionTimeDisplay.STARTING_TIME_AND_DURATION:
+        return `${startHour} - ${readableDuration}`;
+      default:
+        return `${startHour} - ${endHour}`;
+    }
+  }
+  return '';
 };

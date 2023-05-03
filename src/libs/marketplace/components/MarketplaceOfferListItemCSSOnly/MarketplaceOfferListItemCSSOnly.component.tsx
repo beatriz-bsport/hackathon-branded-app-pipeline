@@ -19,7 +19,7 @@ import { Coach } from '#libs/associated-coach/types';
 import { CompanyTheme } from '#libs/theme/types';
 import { Establishment } from '#libs/establishment/types';
 
-import { getOfferHours } from '#libs/marketplace/utils';
+import { useOfferHours } from '#libs/marketplace/hooks';
 
 import MarketplaceBookButtonV2 from '#libs/marketplace/components/MarketplaceBookButtonCSSOnly';
 import { MetaActivity } from '#libs/meta-activity/types';
@@ -88,6 +88,8 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
 
   const isVariantTimeHighlighted = variant === 'time';
   const isVariantCoachHighlighted = variant === 'coach';
+
+  const offerHours = useOfferHours(offer, establishment, theme);
 
   if (loading) {
     return (
@@ -179,8 +181,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 },
               )}
             >
-              {(showDate ? `${date} ` : '') +
-                getOfferHours(offer, establishment, theme)}
+              {(showDate ? `${date} ` : '') + offerHours}
             </div>
             {isMobile && (
               <div

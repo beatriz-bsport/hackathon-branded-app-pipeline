@@ -20,7 +20,7 @@ import { Offer_FULL } from '#libs/offer/types';
 import MarketplaceLevel from '../MarketplaceLevelCSSOnly/MarketplaceLevelCSSOnly.component';
 import MarketplaceBookButtonV2 from '../MarketplaceBookButtonCSSOnly/MarketplaceBookButtonCSSOnlyForDialog.component';
 import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly/MarketplaceBroadcastCSSOnly.component';
-import { getOfferHours } from '../../utils';
+import { useOfferHours } from '../../hooks';
 import { Level } from '#libs/level/types';
 import { Theme } from '#libs/theme/types';
 import Map from '#components/map/Map.component';
@@ -119,7 +119,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
             </div>
             <div className="bs-activity__top__content__time__hour">
               <ScheduleIcon />
-              {getOfferHours(offer, offer.establishment, theme)}
+              {useOfferHours(offer, offer.establishment, theme)}
             </div>
           </div>
           <div className="bs-activity__top__content__location">

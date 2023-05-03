@@ -52,7 +52,7 @@ export const ExitConfigurationSection: React.FC<Props> = ({ withExit }) => {
             control={
               <Radio
                 checked={!!values.is_exit_success}
-                onClick={() => handleSwitchToExitSuccess()}
+                onClick={handleSwitchToExitSuccess}
               />
             }
             label={t('cadence.form.exit.exit_success_label')}
@@ -62,7 +62,7 @@ export const ExitConfigurationSection: React.FC<Props> = ({ withExit }) => {
             control={
               <Radio
                 checked={!!values.is_exit_fail}
-                onClick={() => handleSwitchToExitFail()}
+                onClick={handleSwitchToExitFail}
               />
             }
             label={t('cadence.form.exit.exit_fail_label')}

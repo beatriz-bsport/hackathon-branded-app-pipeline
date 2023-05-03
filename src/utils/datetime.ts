@@ -2,11 +2,45 @@
 import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
 
+import { MarketPlaceDaysFormatDisplay } from '@bsport/common/lib/master-data/personalization';
+
+import type { Theme } from '#libs/theme/types';
+
 export const DATE_FORMAT = 'YYYY-MM-DD';
 
 export function formatAsDate(date: string, tzname?: string) {
   const momentDate = tzname ? moment(date).tz(tzname) : moment(date);
   return momentDate.format('L');
+}
+
+/*
+ Format date following the LL format with month as word  e.g : March 16, 1990, or 16 March 1990 depending on the locale.
+ We also inject the weekday at the beging of the formated date. It follows the rules set by theme.days_format_display
+ - Default = Friday March 16, 1990
+ - One letter = March 16, 1990 -> As having a date like S March 16, 1990 is not clear, we don't display the day
+ - Three letters = Fri March 16, 1990
+ */
+export function formatAsDateWithWeekday(
+  date: string,
+  theme: Theme,
+  t: TFunction,
+  format: string,
+  tzname?: string,
+) {
+  const momentDate = tzname ? moment(date).tz(tzname) : moment(date);
+  const formattedDate = momentDate.format(format);
+  const dayOfTheWeek = momentDate.day();
+  const readableDayOfTheWeek = t(`datetime:time.weekdayNumber.${dayOfTheWeek}`);
+  switch (theme?.days_format_display) {
+    case MarketPlaceDaysFormatDisplay.ONE_LETTER:
+      return formattedDate;
+    case MarketPlaceDaysFormatDisplay.THREE_LETTERS:
+      return `${readableDayOfTheWeek
+        .slice(0, 3)
+        .toUpperCase()} ${formattedDate}`;
+    default:
+      return `${readableDayOfTheWeek} ${formattedDate}`;
+  }
 }
 
 export function formatAsTime(date: string | moment.Moment, tzname?: string) {

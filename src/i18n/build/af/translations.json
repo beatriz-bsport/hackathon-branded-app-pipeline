@@ -165,7 +165,8 @@
         "isAlreadyOnWaitingList": "Vous êtes inscrit en liste d'attente, nous vous préviendrons par email lorsqu'une place sera disponible.",
         "isAlreadyRegistered": "La séance est complète, félicitations vous êtes bien inscrit !",
         "isFull": "La séance est complète, vous pouvez vous inscrire en liste d'attente, vous serez prévenu par email lorsqu'une place se libèrera.",
-        "registerOption": "M'inscrire en liste d'attente"
+        "registerOption": "M'inscrire en liste d'attente",
+        "waitingListLockedByPendingBookings": "D'autres personnes sont en train de réserver, l'inscription sur la liste d'attente est actuellement indisponible. Veuillez réessayer dans quelques minutes pour vérifier si une place s'est libérée."
       },
       "offer": {
         "isDisabled": "La séance a été malheureusement été annulée.",
@@ -349,7 +350,8 @@
           "7": "Ratio homme/femme déséquilibré",
           "9": "Vous essayez de réserver plus de séances futures que ce qui est permis par votre club",
           "6002": "Liste d'attente pleine",
-          "6003": "Déjà inscrit sur liste"
+          "6003": "Déjà inscrit sur liste",
+          "6005": "Liste d'attente"
         },
         "blockedByTags": "Inscription non autorisée"
       },

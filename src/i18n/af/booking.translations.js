@@ -3,6 +3,7 @@ const {
   OFFER_WAITING_LIST_STATUS_FULL,
   OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
   OFFER_WAITING_LIST_STATUS_CONVERTIBLE,
+  OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS,
 } = require('@bsport/common/lib/master-data/waiting-list-status');
 const {
   OFFER_BOOKABLE_STATUS_BOOKABLE,
@@ -160,6 +161,8 @@ exports.default = {
       isFull:
         "La séance est complète, vous pouvez vous inscrire en liste d'attente, vous serez prévenu par email lorsqu'une place se libèrera.",
       registerOption: "M'inscrire en liste d'attente",
+      waitingListLockedByPendingBookings:
+        "D'autres personnes sont en train de réserver, l'inscription sur la liste d'attente est actuellement indisponible. Veuillez réessayer dans quelques minutes pour vérifier si une place s'est libérée.",
     },
     offer: {
       isDisabled: 'La séance a été malheureusement été annulée.',
@@ -374,6 +377,7 @@ exports.default = {
       },
       waiting_list_status: {
         [OFFER_WAITING_LIST_STATUS_OPEN]: "Liste d'attente",
+        [OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS]: "Liste d'attente",
         [OFFER_WAITING_LIST_STATUS_FULL]: "Liste d'attente pleine",
         [OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED]: 'Inscrit sur liste',
         [OFFER_WAITING_LIST_STATUS_CONVERTIBLE]: 'Réservation disponible!',

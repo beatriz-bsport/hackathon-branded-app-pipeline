@@ -84,6 +84,7 @@ export const CadenceWinSetupForm: React.FC<InitialWinComponentProps> = ({
         onSubmit={handleSubmitForm}
         viewMode={viewMode}
         cadenceExitSuccess
+        noEmptyTrigger
       />
     </div>
   );

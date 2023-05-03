@@ -85,6 +85,7 @@ export const CadenceLoseSetupForm: React.FC<InitialLoseComponentProps> = ({
         withTimeout
         viewMode={viewMode}
         cadenceExitFail
+        noEmptyTrigger
       />
     </div>
   );

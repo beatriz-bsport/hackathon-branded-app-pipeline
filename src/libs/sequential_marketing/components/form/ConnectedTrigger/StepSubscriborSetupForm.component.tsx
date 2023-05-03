@@ -65,6 +65,7 @@ export const StepSubscriborSetupForm: React.FC<
         withExit={toExit || withExit}
         forceAndLogicForTriggerAndSmartList
         viewMode={viewMode}
+        noEmptyTrigger
       />
     </div>
   );

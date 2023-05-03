@@ -69,6 +69,7 @@ export const CadenceEntrySetupForm: React.FC<InitialEntryComponentProps> = ({
         onSubmit={handleSubmitForm}
         viewMode={viewMode}
         cadenceEntry
+        noEmptyTrigger
       />
     </div>
   );

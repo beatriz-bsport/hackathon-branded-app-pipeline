@@ -438,8 +438,11 @@ const styles = (theme: Theme): any => ({
     whiteSpace: 'pre-line',
     textAlign: 'center',
     width: 408,
-    background: alpha(theme.palette.background.default, 0.7),
-    borderRadius: 180,
+    background: alpha(theme.palette.background.default, 0.75),
+    boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.1)',
+    backdropFilter: 'blur(4px)',
+    borderRadius: '16px',
+    padding: '10px 0px',
     [theme.breakpoints.down('xs')]: {
       width: '100%',
       paddingLeft: theme.spacing(5),

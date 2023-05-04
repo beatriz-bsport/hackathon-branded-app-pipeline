@@ -105,6 +105,7 @@ export const CadenceInitialSetupForm: React.FC<InitialSetUpComponentProps> = ({
         <TriggerForm
           smartlists={smartlists}
           onSubmit={handleSubmitEntryForm}
+          formValues={formValuesSubmitted}
           cadenceEntry
           noEmptyTrigger
         />
@@ -115,6 +116,7 @@ export const CadenceInitialSetupForm: React.FC<InitialSetUpComponentProps> = ({
           smartlists={smartlists}
           onSubmit={handleSubmitWinForm}
           onCancel={handleCancelWinForm}
+          formValues={formValuesSubmitted}
           cadenceExitSuccess
           noEmptyTrigger
         />
@@ -125,6 +127,7 @@ export const CadenceInitialSetupForm: React.FC<InitialSetUpComponentProps> = ({
           smartlists={smartlists}
           onSubmit={handleSubmitLoseStep}
           onCancel={handleCancelLoseStep}
+          formValues={formValuesSubmitted}
           withTimeout
           cadenceExitFail
           noEmptyTrigger

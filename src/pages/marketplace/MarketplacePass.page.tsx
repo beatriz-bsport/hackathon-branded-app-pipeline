@@ -304,7 +304,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
 
     if (!this.props.authenticated) {
       this.props.requestSignUp();
-    } else {
+    } else if (this.props.currentBasket) {
       this.handleCloseDialog(MarketplacePassPageDialogState.PaymentComboDetail);
       this.props.pushComboCheckout(comboId, this.props.currentBasket.id);
       this.props.toggleCurrentBasketOpen(true);
@@ -319,7 +319,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
 
     if (!this.props.authenticated) {
       this.props.requestSignUp();
-    } else {
+    } else if (this.props.currentBasket) {
       this.handleCloseDialog(MarketplacePassPageDialogState.PaymentPackDetail);
       this.props.pushPackCheckout(packId, this.props.currentBasket.id);
       this.props.toggleCurrentBasketOpen(true);
@@ -334,7 +334,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
 
     if (!this.props.authenticated) {
       this.props.requestSignUp();
-    } else {
+    } else if (this.props.currentBasket) {
       this.handleCloseDialog(MarketplacePassPageDialogState.PrivatePassDetail);
       this.props.pushPrivatePassCheckout(packId, this.props.currentBasket.id);
       this.props.toggleCurrentBasketOpen(true);

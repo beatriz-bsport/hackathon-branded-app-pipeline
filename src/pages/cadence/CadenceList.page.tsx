@@ -63,6 +63,12 @@ export class CadenceDetailPage extends Component<Props> {
     this.handleResetCadenceToEdit();
   };
 
+  handleCloseCreationFormAndGoToCadencePage = (id: number) => {
+    this.props.setOpenCreationForm(false);
+    this.handleResetCadenceToEdit();
+    if (id) this.props.goToCadencePage(id);
+  };
+
   handleResetCadenceToEdit = () => this.props.setCadenceToEdit(null);
 
   handleSetCadenceToArchive = (cadence: Cadence) =>
@@ -79,9 +85,9 @@ export class CadenceDetailPage extends Component<Props> {
   ) => {
     if (!data?.id) {
       return this.props.createCadence(data, {
-        onSuccess: () => {
+        onSuccess: (cadenceId: number) => {
           options && options.onSuccess && options.onSuccess();
-          this.handleCloseCreationForm();
+          this.handleCloseCreationFormAndGoToCadencePage(cadenceId);
         },
         onError: () => {
           options && options.onError && options.onError();
@@ -245,10 +251,10 @@ const mapWithHandlers = {
   },
   createCadence:
     (props: ConnectedPropsAndState) =>
-    (data: { name: string }, options?: OptionCallback) => {
+    (data: { name: string }, options?: OptionCallback<number>) => {
       props.createCadenceAction(data, {
-        onSuccess: () => {
-          options && options.onSuccess && options.onSuccess();
+        onSuccess: (cadence) => {
+          options && options.onSuccess && options.onSuccess(cadence?.id);
         },
         onError: () => {
           options && options.onError && options.onError();

@@ -93,10 +93,7 @@ export const CadenceList: React.FC<Props> = ({
           onClick={() => setCollapseOpen(!collapseOpen)}
         >
           {collapseOpen ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-          <Typography
-            variant="h5"
-            color={collapseOpen ? 'textPrimary' : 'textSecondary'}
-          >
+          <Typography variant="h5" color="textSecondary">
             {`${t('cadence.archive.archivedHeader')}${'\u00A0'}(${
               cadences?.length || 0
             })${'\u00A0'}`}
@@ -170,13 +167,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-Start',
     width: '100%',
-    paddingBottom: theme.spacing(1),
+    paddingBottom: theme.spacing(2),
     paddingTop: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     gap: theme.spacing(1),
+    borderRadius: theme.spacing(1),
   },
   whiteSection: {
     backgroundColor: 'white',
+    borderRadius: theme.spacing(1),
   },
 }));
 

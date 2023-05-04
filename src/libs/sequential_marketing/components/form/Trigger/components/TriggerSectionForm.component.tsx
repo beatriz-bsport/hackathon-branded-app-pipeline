@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -103,7 +103,7 @@ export const TriggerSectionForm: React.FC<Props> = ({
     values.trigger_has_smartlist,
   ]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // The Smartlist selected on the form will always be used in the filtering configuration
     // but the FrontEnd can 'display it' as an event (EmptyTrigger with Filtering are display like this)
     // so here we make sure that if trigger_has_event and the event if configured then we display the
@@ -128,7 +128,7 @@ export const TriggerSectionForm: React.FC<Props> = ({
     values.trigger_smartlist_selected,
   ]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     // When a smartlist is selected but none event is selected
     // the logic trigger must be set on OR and not on AND as it is by default
 
@@ -141,20 +141,40 @@ export const TriggerSectionForm: React.FC<Props> = ({
         RuleBetweenEntryEvent.OR_RULE_BETWEEN_ENTRY_EVENT,
       );
     }
+  }, [setFieldValue, values.trigger_has_event, values.trigger_has_smartlist]);
 
-    // If an event and a smartlist are selected at the same time
-    // the logic trigger must be set on AND by default
+  const [prevHasEvent, setPrevHasEvent] = useState(values.trigger_has_event);
+  const [prevHasSmartlist, setPrevHasSmartlist] = useState(
+    values.trigger_has_smartlist,
+  );
+
+  useEffect(() => {
+    // If an event there is a change and a smartlist are
+    // selected at the same time the logic trigger must be
+    // set on AND by default
 
     const hasEventAndSmartlist =
       values.trigger_has_event && values.trigger_has_smartlist;
+    const valuesHaveChanged =
+      prevHasEvent !== values.trigger_has_event ||
+      prevHasSmartlist !== values.trigger_has_smartlist;
 
-    if (hasEventAndSmartlist) {
+    if (hasEventAndSmartlist && valuesHaveChanged) {
       setFieldValue(
         'trigger_logic_between_event_and_smartlist',
         RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT,
       );
     }
-  }, [setFieldValue, values.trigger_has_event, values.trigger_has_smartlist]);
+
+    setPrevHasEvent(values.trigger_has_event);
+    setPrevHasSmartlist(values.trigger_has_smartlist);
+  }, [
+    prevHasEvent,
+    prevHasSmartlist,
+    setFieldValue,
+    values.trigger_has_event,
+    values.trigger_has_smartlist,
+  ]);
 
   const alertInfotext = React.useMemo(() => {
     if (cadenceEntry) {
@@ -181,6 +201,16 @@ export const TriggerSectionForm: React.FC<Props> = ({
     }
     return t('cadence.form.trigger.labels.step');
   }, [cadenceEntry, cadenceExitSuccess, cadenceExitFail, t]);
+
+  const helperText = React.useMemo(() => {
+    if (
+      values.trigger_logic_between_event_and_smartlist ===
+      RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT
+    ) {
+      return t('cadence.form.trigger.event_and_smartlist_helper');
+    }
+    return t('cadence.form.trigger.event_or_smartlist_helper');
+  }, [t, values.trigger_logic_between_event_and_smartlist]);
 
   if (!forceAndLogicForTriggerAndSmartList) {
     return (
@@ -279,7 +309,7 @@ export const TriggerSectionForm: React.FC<Props> = ({
               </div>
             </div>
             <Typography variant="caption" color="textSecondary">
-              {t('cadence.form.trigger.event_and_smartlist_helper')}
+              {helperText}
             </Typography>
           </Collapse>
         </FormGroup>

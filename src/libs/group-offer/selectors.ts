@@ -11,7 +11,7 @@ export const getGroupPreview = (state: RootState) =>
 
 export const getGroupListCount = (state: RootState) => state.groupOffer.count;
 
-const _getGroupData = (state: RootState) => state.groupOffer.byId;
+export const getGroupData = (state: RootState) => state.groupOffer.byId;
 
 export const getGroupDataById = (state: RootState, id: number) =>
   state.groupOffer.byId?.[id] ?? [];
@@ -19,7 +19,7 @@ export const getGroupDataById = (state: RootState, id: number) =>
 const _getGroupListIds = (state: RootState) => state.groupOffer.allIds;
 
 export const getGroupList = createSelector(
-  [_getGroupListIds, _getGroupData],
+  [_getGroupListIds, getGroupData],
   (groupListIds, groupListById) => {
     return groupListIds.map((groupId) => groupListById[groupId]);
   },
@@ -36,7 +36,7 @@ export const getOffersListByGroup = createCachedSelector(
 )((state: RootState, groupId: number) => groupId);
 
 export const withGroup = memoize((selector: (state: RootState) => Offer) =>
-  createSelector([selector, _getGroupData], (offer, groupData) => {
+  createSelector([selector, getGroupData], (offer, groupData) => {
     if (!offer) return offer;
     if (Array.isArray(offer)) {
       return offer.map((o) => ({
@@ -55,7 +55,7 @@ const _getSimilarGroupIds = (state: RootState) =>
   state.groupOffer.similar.allIds;
 
 export const getSimilarGroups = createSelector(
-  [_getSimilarGroupIds, _getGroupData],
+  [_getSimilarGroupIds, getGroupData],
   (groups, groupsData) => {
     return groups.map((id) => groupsData[id]);
   },

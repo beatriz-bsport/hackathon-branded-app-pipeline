@@ -13,11 +13,11 @@ import {
   getBookingButtonTraduction,
   firstOfferInGroupLocksBookingBecauseInPast,
 } from '../../utils';
-import { Offer_FULL } from '#libs/offer/types';
+import { Offer } from '#libs/offer/types';
 import './MarketplaceBookButtonCSSOnly.css';
 
 type Props = {
-  offer: Offer_FULL;
+  offer: Offer;
   className?: string;
   isRegistered?: boolean;
 };

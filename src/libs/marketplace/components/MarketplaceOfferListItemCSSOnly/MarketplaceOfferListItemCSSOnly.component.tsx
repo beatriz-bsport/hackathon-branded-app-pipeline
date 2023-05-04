@@ -41,7 +41,9 @@ export const DISABLE_BOOKING_ELEMENTS_IDS = [
 
 export type Props = {
   showOfferFilling: boolean;
-  offer: Offer<Coach, Establishment, MetaActivity>;
+  offer: Offer;
+  genderCount: Object;
+  metaActivity: MetaActivity;
   variant?: MarketplaceCalendarVariant;
   theme: CompanyTheme;
   hideCoach: boolean;
@@ -72,7 +74,9 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   onBookOption,
   onBook,
   coach,
+  genderCount,
   establishment,
+  metaActivity,
   withoutCTA = false,
   isRegistered = false,
   getLevel,
@@ -123,7 +127,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   };
 
   const date = (() => {
-    const timezoneName = offer?.meta_activity?.is_broadcast
+    const timezoneName = metaActivity?.is_broadcast
       ? moment.tz.guess()
       : establishment?.tzname || theme.timezone_name || 'Europe/Paris';
 
@@ -153,10 +157,10 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       })}
       style={{
         borderLeftWidth:
-          theme?.show_activity_color && offer.meta_activity.color ? 5 : 2,
+          theme?.show_activity_color && metaActivity?.color ? 5 : 2,
         borderLeftColor:
-          theme?.show_activity_color && offer.meta_activity.color
-            ? offer.meta_activity.color
+          theme?.show_activity_color && metaActivity?.color
+            ? metaActivity?.color
             : getComputedStyle(document.documentElement).getPropertyValue(
                 '--color-grey-light',
               ),
@@ -178,7 +182,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   },
                 )}
               >
-                {offer.meta_activity.name}
+                {metaActivity?.name}
               </div>
             )}
             <div
@@ -214,13 +218,13 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   <div className="bs-offer-list-item__content__offer__right__top__gender">
                     <div className="bs-offer-list-item__content__offer__right__top__gender__sex">
                       <MaleIcon isMobile />
-                      <div>{offer.male || 0}</div>
+                      <div>{genderCount.nb_bookedmale || 0}</div>
                     </div>
                     <div className="bs-offer-list-item__content__offer__right__top__gender__sex">
                       <FemaleIcon isMobile />
-                      <div>{offer.female || 0}</div>
+                      <div>{genderCount.nb_booked_female || 0}</div>
                     </div>
-                    <div>+ {offer.other || 0}</div>
+                    <div>+ {genderCount.nb_booked_other || 0}</div>
                   </div>
                 )}
               </div>
@@ -272,15 +276,15 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                     {showOfferGender && (
                       <div className="bs-offer-list-item__content__offer__right__top__gender">
                         <MaleIcon />
-                        <div>{offer.male || 0}</div>
+                        <div>{genderCount.nb_booked_male || 0}</div>
                         <FemaleIcon />
-                        <div>{offer.female || 0}</div>
-                        <div>+ {offer.other || 0}</div>
+                        <div>{genderCount.nb_booked_female || 0}</div>
+                        <div>+ {genderCount.nb_booked_other || 0}</div>
                       </div>
                     )}
                   </div>
                 )}
-                {offer.meta_activity && offer.meta_activity.is_broadcast && (
+                {metaActivity && metaActivity.is_broadcast && (
                   <MarketplaceBroadcast />
                 )}
                 {offer.custom_level && (

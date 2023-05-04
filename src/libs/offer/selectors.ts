@@ -321,11 +321,11 @@ export const getListCalendarOfferFromNow = createSelector(
       .filter((o) => moment(o.date_start).isSameOrAfter(moment())),
 );
 
-const _getBookedGenderOffer = (state: RootState) =>
+export const getBookedGenderOffer = (state: RootState) =>
   state.offer.genderCount.byId;
 
 export const withGender = memoize((selector: (State) => any) =>
-  createSelector([selector, _getBookedGenderOffer], (offers, genderData) => {
+  createSelector([selector, getBookedGenderOffer], (offers, genderData) => {
     if (!offers) return null;
     if (!Array.isArray(offers)) {
       return {

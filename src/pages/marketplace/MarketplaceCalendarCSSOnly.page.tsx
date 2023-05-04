@@ -27,6 +27,7 @@ import { getPureMetaActivities } from '#libs/meta-activity/selectors';
 import {
   withGroup,
   getOffersListByGroup as getOffersListByGroupSelector,
+  getGroupData,
 } from '#libs/group-offer/selectors';
 import { isOfferInThePast } from '../../libs/marketplace/utils';
 
@@ -66,6 +67,7 @@ import {
   withGender,
   getBookedOffers,
   getNextAvailableOffer,
+  getBookedGenderOffer,
 } from '#libs/offer/selectors';
 import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '#libs/associated-coach/actions';
 import {
@@ -136,7 +138,7 @@ type Props = OwnProps &
 type FinalProps = Props & WithHandlerType<typeof mapWithHandlers>;
 type State = {
   offerId: number | null;
-  offer: Offer | Offer_FULL | null;
+  offer: Offer | null;
   displayGroupPopup: (Offer_FULL & { redirect: string }) | null;
 };
 
@@ -205,7 +207,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       company: this.props.companyId,
       min_date,
       max_date,
-      ...(this.props.username ? { username: encodeURI(this.props.username) } : {}),
+      ...(this.props.username
+        ? { username: encodeURI(this.props.username) }
+        : {}),
       ...this.props.filters,
       ...optionalParams,
       with_tags: true,
@@ -235,7 +239,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   openOfferDialog = (offerId: number) => {
     this.setState({
       offerId,
-      offer: this.props.offers.find((o: any) => o.id === offerId),
+      offer: this.props.allMarketplaceOffers.find((o: any) => o.id === offerId),
     });
   };
 
@@ -310,7 +314,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   render() {
     const {
-      offers,
       filters,
       establishments,
       coaches,
@@ -350,8 +353,20 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           open={!!this.state.offerId}
           offerId={this.state.offerId}
           offer={this.state.offer}
+          theme={this.state.theme}
+          metaActivities={
+            this.props.theme.show_workshops_customer
+              ? withWorkshops
+              : metaActivities
+          }
+          establishments={
+            filters.establishment_group__in?.length
+              ? filteredEstablishments
+              : establishments
+          }
+          coaches={coaches}
           onClose={this.closeOfferDialog}
-          customLevel={this.state.offer?.customLevel}
+          customLevels={this.props.customLevels}
           hideCoach={this.props.theme && this.props.theme.hideCoach}
           onClickBook={this.goToBook}
           onClickBookOption={this.props.goToBookOption}
@@ -361,7 +376,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           }
         />
         <MarketplaceCalendarComponent
-          offers={offers}
+          allMarketplaceOffers={this.props.allMarketplaceOffers}
+          genderCount={this.props.genderCount}
+          group={this.props.group}
           companyId={this.props.companyId}
           showOfferFilling={this.props.theme.show_offers_filling}
           hideCoach={this.props.theme.hideCoach}
@@ -420,15 +437,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 /* eslint-enable */
 
 const mapStateToProps = (state: RootState) => ({
-  offers: withCustomLevel(
-    withCoach(
-      withGroup(
-        withMetaActivity(
-          withEstablishment(withGender(getMarketplaceOfferList)),
-        ),
-      ),
-    ),
-  )(state),
+  allMarketplaceOffers: getMarketplaceOfferList(state),
+  genderCount: getBookedGenderOffer(state),
   loading: state.offer.marketplace.loading,
   events: state.offer.calendar,
   coachLoading: state.coach.loading,
@@ -439,7 +449,7 @@ const mapStateToProps = (state: RootState) => ({
   metaActivities: getPureMetaActivities(state),
   workshops: getWorkshops(state),
   theme: themeSelectors.getTheme(state),
-
+  group: getGroupData(state),
   currentBasket: getCurrentBasket(state),
   establishmentGroupList: groupWithEstablishment(
     getAssociatedEstablishmentGroup,

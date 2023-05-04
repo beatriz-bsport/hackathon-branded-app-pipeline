@@ -9,15 +9,19 @@ import EventBusyIcon from '@material-ui/icons/EventBusy';
 import { pure } from 'recompose';
 import MarketplaceWeekTimetableV2 from '../MarketplaceWeekTimeTableCSSOnly/MarketplaceWeekTimeTableCSSOnly.component';
 import MarketplaceFilterComponent from '../MarketplaceFilterCSSOnly/MarketplaceFilterCSSOnly.component';
-import type { EstablishmentGroup } from '../../../establishment/types';
+import type {
+  Establishment,
+  EstablishmentGroup,
+} from '../../../establishment/types';
 import './MarketplaceCalendarCSSOnly.css';
 import { Level } from '#libs/level/types';
 import { MetaActivity } from '#libs/meta-activity/types';
-import { Offer, Offer_FULL } from '#libs/offer/types';
+import { Offer } from '#libs/offer/types';
 import { Theme } from '#libs/theme/types';
 import MarketplaceDatePicker from '../MarketplaceDatePicker';
 import { MarketplaceCommonFilter } from '#libs/marketplace/types';
 import { formatAsTime } from '../../../../utils/datetime';
+import { Coach } from '#libs/associated-coach/types';
 
 const LoadingIndicator = () => (
   <div className="bs-calendar--loading">
@@ -28,11 +32,13 @@ const LoadingIndicator = () => (
 type Props = {
   onSelectDate: () => void;
   selectedDate: any;
-  offers: Array<Offer_FULL>;
+  allMarketplaceOffers: Array<Offer>;
+  genderCount: Object;
+  group: Object;
   loading: boolean;
   onClickOffer: () => void;
-  coaches: any[];
-  establishments: any[];
+  coaches: Array<Coach>;
+  establishments: Array<Establishment>;
   metaActivities: Array<MetaActivity>;
   setFilters: (any) => void;
   filters: any;
@@ -71,9 +77,8 @@ export const MarketplaceCalendar = (props: Props) => {
   const {
     onSelectDate,
     selectedDate,
-    offers,
+    allMarketplaceOffers,
     coaches,
-    establishments,
     metaActivities,
     loading,
     setFilters,
@@ -84,7 +89,7 @@ export const MarketplaceCalendar = (props: Props) => {
     groupSessionByPeriod,
   } = props;
 
-  const weekOffers = offers.filter((offer) =>
+  const weekOffers = allMarketplaceOffers.filter((offer) =>
     moment(offer.date_start).isSame(selectedDate, 'week'),
   );
   const refContainer = useRef(null);
@@ -159,7 +164,7 @@ export const MarketplaceCalendar = (props: Props) => {
       {!forceDayDisplayOnly && (
         <MarketplaceFilterComponent
           coaches={coaches}
-          establishments={establishments}
+          establishments={props.establishments}
           hideCoach={props.hideCoach}
           metaActivities={metaActivities}
           filters={filters}
@@ -174,7 +179,12 @@ export const MarketplaceCalendar = (props: Props) => {
       {!loading && (
         <>
           <MarketplaceWeekTimetableV2
-            offers={props.offers}
+            allMarketplaceOffers={allMarketplaceOffers}
+            establishments={props.establishments}
+            genderCount={props.genderCount}
+            group={props.group}
+            metaActivities={metaActivities}
+            coaches={props.coaches}
             showOfferFilling={props.showOfferFilling}
             showOfferGender={props.showOfferGender}
             hideCoach={props.hideCoach}

@@ -16,7 +16,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import INSTAGRAM_PNG from '../../../../public/images/instagram.png';
 import FACEBOOK_PNG from '../../../../public/images/facebook.png';
 import { formatMinutes } from '../../../../utils/datetime';
-import { Offer_FULL } from '#libs/offer/types';
+import { Offer } from '#libs/offer/types';
 import MarketplaceLevel from '../MarketplaceLevelCSSOnly/MarketplaceLevelCSSOnly.component';
 import MarketplaceBookButtonV2 from '../MarketplaceBookButtonCSSOnly/MarketplaceBookButtonCSSOnlyForDialog.component';
 import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly/MarketplaceBroadcastCSSOnly.component';
@@ -26,20 +26,26 @@ import { Theme } from '#libs/theme/types';
 import Map from '#components/map/Map.component';
 
 import './MarketplaceActivity.css';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { Establishment } from '#libs/establishment/types';
+import { Coach } from '#libs/associated-coach/types';
 
 type Props = {
-  offer: Offer_FULL;
-  customLevel: Level;
+  offer: Offer;
+  metaActivities: Array<MetaActivity>;
+  establishments: Array<Establishment>;
+  coaches: Array<Coach>;
+  customLevels: Array<Level>;
   onClose: () => void;
   theme: Theme;
-  onClickBook: (offer: Offer_FULL) => void;
-  onClickBookOption: (offer: Offer_FULL) => void;
+  onClickBook: (offer: Offer) => void;
+  onClickBookOption: (offer: Offer) => void;
   hideCoach: boolean;
   width: string;
 };
 
 export const MarketplaceActivityV2 = (props: Props) => {
-  const { offer, customLevel, theme, hideCoach } = props;
+  const { offer, hideCoach } = props;
   const { t } = useTranslation(['metaActivity', 'marketplace', 'coach']);
   const handleBook = () => {
     props.onClickBook(offer);
@@ -51,17 +57,31 @@ export const MarketplaceActivityV2 = (props: Props) => {
 
   const [mobileMapModalOpen, setMobileMapModalOpen] = useState(false);
 
-  const establishment = offer.establishment;
-  const { location } = offer.establishment || { location: null };
+  const establishment = props.establishments.find(
+    (est) => est.id === offer.establishment,
+  );
+  const { location } = establishment || { location: null };
 
   const center = location ? [location.latitude, location.longitude] : null;
   const markers = location ? [establishment] : [];
 
-  const effectiveCoach = offer.coach_override || offer.coach;
-
   const isMobile = ['xs', 'sm'].includes(props.width);
 
   const offerHours = useOfferHours(offer, offer.establishment, theme);
+
+  const metaActivity = props.metaActivities.find(
+    (act) => act.id === offer.meta_activity,
+  );
+
+  const coach = props.coaches.find((c) => c.id === offer.coach);
+
+  const effectiveCoach = offer.coach_override
+    ? props.coaches.find((c) => c.id === offer.coach_override)
+    : coach;
+
+  const customLevel = props.customLevels.find(
+    (level) => level.id === offer.custom_level,
+  );
 
   return (
     <div className="bs-activity">
@@ -99,7 +119,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
         className="bs-activity__top"
         style={
           {
-            '--background-image': `url(${offer.meta_activity.cover_main})`,
+            '--background-image': `url(${metaActivity?.cover_main})`,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
           } as CSSProperties
@@ -107,7 +127,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
       >
         <div className="bs-activity__top__content">
           <div className="bs-activity__top__content__title">
-            {offer.meta_activity.name}
+            {metaActivity?.name}
           </div>
           <div className="bs-activity__top__content__time">
             <div className="bs-activity__top__content__time__day">
@@ -123,7 +143,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
             <LocationOnIcon />
             {!isMobile ? (
               <div className="bs-activity__top__content__location__address">
-                {offer.establishment.location.address}
+                {establishment.location.address}
               </div>
             ) : (
               <button
@@ -133,7 +153,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
                 className="bs-activity__top__content__location__address--clickable"
                 type="button"
               >
-                {offer.establishment.location.address}
+                {establishment.location.address}
               </button>
             )}
           </div>
@@ -143,7 +163,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
               customLevel={customLevel}
               activityDialog
             />
-            {offer.meta_activity && offer.meta_activity.is_broadcast && (
+            {metaActivity && metaActivity?.is_broadcast && (
               <MarketplaceBroadcast activityDialog />
             )}
           </div>
@@ -166,34 +186,28 @@ export const MarketplaceActivityV2 = (props: Props) => {
               {t('marketplace:calendar.description')}
             </div>
             <div className="bs-activity__middle__top__description__full">
-              {offer.meta_activity.description}
+              {metaActivity?.description}
             </div>
           </div>
         </div>
-        {offer.meta_activity.last_discard_minutes ||
-        offer.meta_activity.last_booking_minutes ? (
+        {metaActivity?.last_discard_minutes ||
+        metaActivity?.last_booking_minutes ? (
           <div className="bs-activity__middle__conditions">
             <div className="bs-activity__middle__conditions__title">
               {t('marketplace:calendar.conditions')}
             </div>
             <ul className="bs-activity__middle__conditions__full">
-              {offer.meta_activity.last_discard_minutes ? (
+              {metaActivity?.last_discard_minutes ? (
                 <li>
                   {t('metaActivity:settings.lastDiscardBeforeMinutesFull', {
-                    m: formatMinutes(
-                      offer.meta_activity.last_discard_minutes,
-                      t,
-                    ),
+                    m: formatMinutes(metaActivity?.last_discard_minutes, t),
                   })}
                 </li>
               ) : null}
-              {offer.meta_activity.last_booking_minutes ? (
+              {metaActivity?.last_booking_minutes ? (
                 <li>
                   {t('metaActivity:settings.lastBookingBeforeMinutesFull', {
-                    m: formatMinutes(
-                      offer.meta_activity.last_booking_minutes,
-                      t,
-                    ),
+                    m: formatMinutes(metaActivity?.last_booking_minutes, t),
                   })}
                 </li>
               ) : null}
@@ -208,12 +222,12 @@ export const MarketplaceActivityV2 = (props: Props) => {
             {offer.coach_override && (
               <div className="bs-activity__middle__coach__overrider__personality">
                 <Avatar
-                  src={offer.coach?.photo || ''}
+                  src={coach?.photo || ''}
                   className="bs-activity__middle__coach__overrider__personality__avatar"
                 />
                 <div className="bs-activity__middle__coach__overrider__personality__right">
                   <div className="bs-activity__middle__coach__overrider__personality__right__name">
-                    {offer.coach.name}
+                    {coach.name}
                   </div>
 
                   <div className="bs-activity__middle__coach__overrider__personality__right__override">

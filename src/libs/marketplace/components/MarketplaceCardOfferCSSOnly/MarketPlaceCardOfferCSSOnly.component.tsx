@@ -9,27 +9,32 @@ import MaleIcon from '../../../../components/icons/MaleIcon.component';
 import FemaleIcon from '../../../../components/icons/FemaleIcon.component';
 import MarketplaceBookButton from '../MarketplaceBookButtonCSSOnly';
 import MarketplaceLevel from '../MarketplaceLevelCSSOnly';
-import { Offer_FULL } from '#libs/offer/types';
+import { Offer } from '#libs/offer/types';
 import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly';
 import { useOfferHours } from '../../hooks';
 import { Coach } from '#libs/associated-coach/types';
+import { Establishment } from '#libs/establishment/types';
 import { AVAILABLE_BOOKING_ELEMENTS_IDS } from '#libs/marketplace/constants';
 import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoachInfos';
 import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
 import { Theme } from '#libs/theme/types';
+import { MetaActivity } from '#libs/meta-activity/types';
 
 type OwnProps = {
-  offer: Offer_FULL;
-  coach: Coach;
+  offer: Offer;
+  genderCount: Object;
+  metaActivities: Array<MetaActivity>;
+  establishments: Array<Establishment>;
+  coaches: Array<Coach>;
   theme: Theme;
   variant?: 'activityName' | 'coach' | 'time';
   isRegistered: boolean;
   showOfferFilling: boolean;
   showOfferGender: boolean;
   hideCoach: boolean;
-  onClickBook: (offer: Offer_FULL) => void;
+  onClickBook: (offer: Offer) => void;
   onClickOffer: (id: number) => void;
-  onClickBookOption: (offer: Offer_FULL) => void;
+  onClickBookOption: (offer: Offer) => void;
   getLevel: (id: number) => void;
   isBookingDisabled: boolean;
 };
@@ -40,11 +45,9 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
   const isVariantTimeHighlighted = props.variant === 'time';
   const isVariantCoachHighlighted = props.variant === 'coach';
 
-  const { offer, coach } = props;
+  const { offer, establishments, metaActivities, coaches } = props;
 
   const offerHours = useOfferHours(offer, offer.establishment, props.theme);
-
-  const metaActivity = offer.meta_activity;
 
   const handleBook = () => {
     props.onClickBook(offer);
@@ -67,6 +70,22 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
     (props.showOfferFilling || props.showOfferGender) &&
     window.innerWidth < 1850;
 
+  const establishment = establishments
+    ? establishments.find((est) => est.id === offer.establishment)
+    : undefined;
+
+  const metaActivity = metaActivities
+    ? metaActivities.find((act) => act.id === offer.meta_activity)
+    : undefined;
+
+  const offerCoachId = offer.coach_override
+    ? offer.coach_override
+    : offer.coach;
+
+  const coach = coaches
+    ? props.coaches.find((c) => c.id === offerCoachId)
+    : undefined;
+
   return (
     <button
       type="button"
@@ -77,10 +96,10 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
       onClick={handleClick}
       disabled={props.isBookingDisabled}
     >
-      {props.theme?.show_activity_color && metaActivity.color && (
+      {props.theme?.show_activity_color && metaActivity?.color && (
         <ArrowLeft
           className="arrow-down"
-          style={{ borderTopColor: metaActivity.color }}
+          style={{ borderTopColor: metaActivity?.color }}
         />
       )}
       <div className="bs-card-offer__content">
@@ -93,7 +112,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
                 isVariantCoachHighlighted,
             })}
           >
-            {metaActivity.name}
+            {metaActivity?.name}
           </div>
           <div
             className={classNames('bs-card-offer__content__time', {
@@ -156,15 +175,15 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
               <div className="bs-card-offer__content__bottom__left__gender">
                 <div className="bs-card-offer__content__bottom__left__gender__sex">
                   <MaleIcon />
-                  <div>{offer.male ?? 0}</div>
+                  <div>{props.genderCount.nb_booked_male ?? 0}</div>
                 </div>
                 <div className="bs-card-offer__content__bottom__left__gender__sex">
                   <FemaleIcon />
-                  <div>{offer.female ?? 0}</div>
+                  <div>{props.genderCount.nb_booked_female ?? 0}</div>
                 </div>
                 <div className="bs-card-offer__content__bottom__left__gender__other">
                   <div>+</div>
-                  <div>{offer.other ?? 0}</div>
+                  <div>{props.genderCount.nb_booked_other ?? 0}</div>
                 </div>
               </div>
             ) : (

@@ -36,6 +36,7 @@ type OwnProps = {
     companyId: Number | undefined,
     ids: Number[],
   ) => void;
+  fetchSelectedPrivatePasses: (ids: Number[]) => void;
   fetchSelectedPaymentCombos: (
     params: { company: Number; id__in?: Number[] },
     options?: OptionCallback<PaymentCombo[]>,

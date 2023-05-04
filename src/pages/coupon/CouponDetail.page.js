@@ -36,7 +36,10 @@ import {
   fetchBulk as fetchSelectedShopItems,
   fetchShopItemAsManager as fetchAllShop,
 } from '#libs/shop/actions/shopitem';
-import { fetchPrivatePassList } from '#libs/private-service/actions';
+import {
+  fetchPrivateSlotBulk as fetchSelectedPrivatePasses,
+  fetchPrivatePassList,
+} from '#libs/private-service/actions';
 import {
   fetchPaymentComboBulk as fetchSelectedPaymentCombos,
   fetchPaymentComboList,
@@ -85,6 +88,7 @@ type Props = {
   fetchSelectedPaymentPacks: (ids: Number[]) => void,
   fetchAllShop: () => void,
   fetchPrivatePassList: () => void,
+  fetchSelectedPrivatePasses: (ids: Number[]) => void,
   fetchPaymentComboList: () => void,
   fetchSelectedPaymentCombos: (
     params: { company: Number, id__in?: Number[] },
@@ -229,6 +233,7 @@ export class CouponCreate extends Component<Props, State> {
           tagsLoading={this.props.tagsLoading}
           fetchSelectedPaymentPacks={this.props.fetchSelectedPaymentPacks}
           fetchSelectedShopItems={this.props.fetchSelectedShopItems}
+          fetchSelectedPrivatePasses={this.props.fetchSelectedPrivatePasses}
           fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
         />
       </div>
@@ -284,6 +289,7 @@ const connector = connect(
     fetchAllShop,
     fetchSelectedShopItems,
     fetchPrivatePassList,
+    fetchSelectedPrivatePasses,
     fetchPaymentComboList,
     fetchSelectedPaymentCombos,
     updateCouponAction: updateCoupon,

@@ -100,6 +100,7 @@ type Props = {
     companyId: Number | undefined,
     ids: Number[],
   ) => void,
+  fetchSelectedPrivatePasses: (ids: Number[]) => void,
   fetchSelectedPaymentCombos: (
     params: { company: Number, id__in?: Number[] },
     options?: OptionCallback<PaymentCombo[]>,
@@ -170,6 +171,7 @@ export class CouponForm extends React.Component<Props, State> {
         this.props.initial.company,
         this.props.initial.only_on_objects,
       );
+      this.props.fetchSelectedPrivatePasses(this.props.initial.only_on_objects);
       this.props.fetchSelectedPaymentCombos(
         this.props.initial.company,
         this.props.initial.only_on_objects,

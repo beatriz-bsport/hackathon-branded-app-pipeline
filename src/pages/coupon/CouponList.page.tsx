@@ -47,7 +47,10 @@ import {
   fetchBulk as fetchSelectedShopItems,
   fetchShopItemAsManager as fetchAllShop,
 } from '#libs/shop/actions/shopitem';
-import { fetchPrivatePassList } from '#libs/private-service/actions';
+import {
+  fetchPrivateSlotBulk as fetchSelectedPrivatePasses,
+  fetchPrivatePassList,
+} from '#libs/private-service/actions';
 import {
   fetchPaymentComboBulk as fetchSelectedPaymentCombos,
   fetchPaymentComboList,
@@ -275,6 +278,7 @@ export class CouponList extends React.PureComponent<Props, State> {
           tagsLoading={this.props.tagsLoading}
           fetchSelectedPaymentPacks={this.props.fetchSelectedPaymentPacks}
           fetchSelectedShopItems={this.props.fetchSelectedShopItems}
+          fetchSelectedPrivatePasses={this.props.fetchSelectedPrivatePasses}
           fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
         />
         <CouponDeleteModal
@@ -353,6 +357,7 @@ const connector = connect(
     fetchAllShop,
     fetchSelectedShopItems,
     fetchPrivatePassList,
+    fetchSelectedPrivatePasses,
     fetchPaymentComboList,
     fetchSelectedPaymentCombos,
     fetchTags,

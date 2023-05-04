@@ -96,7 +96,7 @@ type Props = {
   deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
 };
 
-export const CadenceToolePanel: React.FC<Props> = ({
+export const CadenceToolsPanel: React.FC<Props> = ({
   mode,
   loading,
   cadence,
@@ -313,4 +313,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CadenceToolePanel;
+export default CadenceToolsPanel;

@@ -74,7 +74,6 @@ import {
   fetchAllOffers as fetchAllOffersAction,
   deleteOffer as deleteOfferAction,
   fetchSimilarOffers as fetchSimilarOffersAction,
-  fetchSimilarOffersWithReset as fetchSimilarOffersWithResetAction,
   disableMassOffers,
   retrieveNumberOfMassDisabledOfferAction,
   retrieveNumberOfMassDisabledOfferInGroup as retrieveNumberOfMassDisabledOfferInGroupAction,
@@ -128,7 +127,6 @@ import type { Offer, Coach } from '#api/types';
 import type { OfferFilter } from '#libs/offer/types';
 
 import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
-import OfferEditForm from '#libs/offer/OfferEditForm.component';
 import MassDisablerDialog from '#libs/offer/components/MassDisablerDialog.component';
 import OfferFormWithActivity from '#libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '#libs/offer/DeleteOfferForm.component';
@@ -172,6 +170,7 @@ import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/paymen
 
 import RollCallDrawer from '#libs/offer/components/RollCallDrawer.component';
 import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollCallDialog.component';
+import OfferEditForm from '#libs/offer/OfferEditForm.component';
 
 const styles = (theme) => ({
   container: {
@@ -286,11 +285,6 @@ type Props = {
   fetchAllEstablishmentGroup: (companyId: number) => void,
 
   fetchSimilarOffers: (offerId: number) => void,
-  fetchSimilarOffersWithReset: (
-    offerId: number,
-    params?: any,
-    options?: OptionCallback<Offer[]>,
-  ) => void,
 
   snackbarSuccess: (string) => void,
   snackbarError: (string) => void,
@@ -683,6 +677,29 @@ export class Planning extends PureComponent<Props, State> {
     );
   };
 
+  getIsWherebyIntegrationEnabled = () => {
+    return (
+      this.props.theme &&
+      this.props.theme.is_whereby_integration_enabled &&
+      this.props.theme.is_whereby_integration_allowed
+    );
+  };
+
+  getAllowGuestMaster = () => {
+    return (
+      this.props.theme.allow_guest_activatable && this.props.theme.allow_guest
+    );
+  };
+
+  getEditFormLoading = () => {
+    return (
+      this.props.coachesLoading ||
+      this.props.establishmentsLoading ||
+      this.props.activitiesLoading ||
+      this.props.similarOfferLoading
+    );
+  };
+
   renderNoOfferSelected = () => {
     const { t, classes } = this.props;
     return (
@@ -711,16 +728,11 @@ export class Planning extends PureComponent<Props, State> {
   renderEditModal = () => {
     const {
       coaches,
-      coachesLoading,
       availableEstablishments,
       allEstablishments,
-      establishmentsLoading,
       fetchSimilarOffers,
-      fetchSimilarOffersWithReset,
       similarOfferLoading,
       similarOffers,
-      similarOffersPage,
-      similarOffersCount,
       roomBlueprints,
       allRoomBlueprints,
       allTagsWithTagGroup,
@@ -734,6 +746,8 @@ export class Planning extends PureComponent<Props, State> {
           onClose={this.onCancelModal}
           title={this.props.t('translation:common.offers')}
           subtitle={this.props.t('translation:common.offerEdition')}
+          withoutPadding
+          withoutHeaderContainer
         >
           <OfferEditForm
             offer={selectedOffer}
@@ -743,16 +757,13 @@ export class Planning extends PureComponent<Props, State> {
             allEstablishments={allEstablishments}
             roomBlueprints={roomBlueprints}
             allRoomBlueprints={allRoomBlueprints}
-            is_whereby_integration_enabled={this.getIsWherebyIntegrationEnabled()}
-            loading={coachesLoading || establishmentsLoading}
-            onConfirm={this.onConfirmModal}
+            isWherebyIntegrationEnabled={this.getIsWherebyIntegrationEnabled()}
+            isLoading={this.getEditFormLoading()}
+            onSubmit={this.onConfirmModal}
             onCancel={this.onCancelModal}
             processing={this.props.editOfferProcessing}
             fetchSimilarOffers={fetchSimilarOffers}
-            fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
             similarOffers={similarOffers}
-            similarOffersPage={similarOffersPage}
-            similarOffersCount={similarOffersCount}
             similarOfferLoading={similarOfferLoading}
             coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
             showPartnership={this.props.showPartnership}
@@ -765,6 +776,7 @@ export class Planning extends PureComponent<Props, State> {
             deleteLevel={this.props.deleteLevel}
             allowGuestMaster={this.getAllowGuestMaster()}
             zoomAppDetail={this.props.zoomAppDetail}
+            editableCoachPaymentRule
           />
         </GenericResponsiveDrawer>
       );
@@ -1585,7 +1597,6 @@ export default compose(
       fetchAllOffers: fetchAllOffersAction,
       deleteOffer: deleteOfferAction,
       fetchSimilarOffers: fetchSimilarOffersAction,
-      fetchSimilarOffersWithReset: fetchSimilarOffersWithResetAction,
       setCalendarFilter: setCalendarFilterAction,
       fetchFilteredMembers: fetchFilteredMembersAction,
       fetchBookingsByOffer: fetchBookingsByOfferAction,

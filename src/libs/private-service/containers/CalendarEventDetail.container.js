@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { compose, withStateHandlers, withHandlers, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
 import EditIcon from '@material-ui/icons/Edit';
@@ -24,7 +23,6 @@ import uniq from 'lodash/uniq';
 import {
   retrieveOfferAsManager as retrieveOfferAsManagerAction,
   fetchSimilarOffers as fetchSimilarOffersAction,
-  fetchSimilarOffersWithReset as fetchSimilarOffersWithResetAction,
   editOffers as editOffersActions,
 } from '#libs/offer/actions';
 import DeleteOfferForm from '../../offer/DeleteOfferForm.component';
@@ -172,11 +170,6 @@ type Props = {
   fetchRoomBlueprints: () => void,
 
   fetchSimilarOffers: (offerId: number) => void,
-  fetchSimilarOffersWithReset: (
-    offerId: number,
-    params?: any,
-    options?: OptionCallback<Offer[]>,
-  ) => void,
   similarOfferLoading: boolean,
   similarOffers: Array<Offer>,
 
@@ -641,57 +634,54 @@ export class CalendarEventDetail extends React.Component<Props, State> {
             onClose={this.props.closeDisablePrivateBookingModal}
           />
         ) : null}
-        {offer && offer.establishment && offer.coach ? (
-          <GenericResponsiveDrawer
-            open={this.props.offerEditModalOpen}
-            onClose={this.props.closeOfferEditModal}
-            title={this.props.t('translation:common.offers')}
-            subtitle={this.props.t('translation:common.offerEdition')}
-          >
-            {this.props.offerEditLoading ? (
-              <LinearProgress />
-            ) : (
-              <OfferEditForm
-                offer={offer}
-                coaches={filteredCoaches}
-                availableEstablishments={this.props.availableEstablishments}
-                allEstablishments={this.props.allEstablishments}
-                roomBlueprints={this.props.roomBlueprints}
-                allRoomBlueprints={this.props.allRoomBlueprints}
-                metaActivities={this.props.metaActivities}
-                is_whereby_integration_enabled={
-                  this.props.theme &&
-                  this.props.theme.is_whereby_integration_enabled &&
-                  this.props.theme.is_whereby_integration_allowed
-                }
-                onConfirm={this.updateOffer}
-                onCancel={this.props.closeOfferEditModal}
-                processing={this.props.offerProcessing}
-                fetchSimilarOffers={() =>
-                  this.props.fetchSimilarOffers(this.props.offer.id)
-                }
-                companyId={this.props.companyId}
-                similarOffers={this.props.similarOffers}
-                similarOfferLoading={this.props.similarOfferLoading}
-                coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
-                tagList={this.props.allTagsWithTagGroup}
-                allCustomLevels={this.props.allCustomLevels}
-                activeCustomLevels={this.props.activeCustomLevels}
-                fetchLevelList={this.handleFetchLevel}
-                updateLevel={this.props.updateLevel}
-                createLevel={this.props.createLevel}
-                deleteLevel={this.props.deleteLevel}
-                allowGuestMaster={
-                  this.props.theme.allow_guest_activatable &&
-                  this.props.theme.allow_guest
-                }
-                fetchSimilarOffersWithReset={
-                  this.props.fetchSimilarOffersWithReset
-                }
-              />
-            )}
-          </GenericResponsiveDrawer>
-        ) : null}
+
+        <GenericResponsiveDrawer
+          open={this.props.offerEditModalOpen}
+          onClose={this.props.closeOfferEditModal}
+          title={this.props.t('translation:common.offers')}
+          subtitle={this.props.t('translation:common.offerEdition')}
+          withoutPadding
+          withoutHeaderContainer
+        >
+          <OfferEditForm
+            isLoading={
+              this.props.offerEditLoading ||
+              this.props.similarOfferLoading ||
+              !offer
+            }
+            offer={offer}
+            coaches={filteredCoaches}
+            availableEstablishments={this.props.availableEstablishments}
+            allEstablishments={this.props.allEstablishments}
+            roomBlueprints={this.props.roomBlueprints}
+            allRoomBlueprints={this.props.allRoomBlueprints}
+            metaActivities={this.props.metaActivities}
+            isWherebyIntegrationEnabled={
+              this.props.theme &&
+              this.props.theme.is_whereby_integration_enabled &&
+              this.props.theme.is_whereby_integration_allowed
+            }
+            onSubmit={this.updateOffer}
+            onCancel={this.props.closeOfferEditModal}
+            processing={this.props.offerProcessing}
+            fetchSimilarOffers={this.props.fetchSimilarOffers}
+            companyId={this.props.companyId}
+            similarOffers={this.props.similarOffers}
+            coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
+            tagList={this.props.allTagsWithTagGroup}
+            allCustomLevels={this.props.allCustomLevels}
+            activeCustomLevels={this.props.activeCustomLevels}
+            fetchLevelList={this.handleFetchLevel}
+            updateLevel={this.props.updateLevel}
+            createLevel={this.props.createLevel}
+            deleteLevel={this.props.deleteLevel}
+            allowGuestMaster={
+              this.props.theme.allow_guest_activatable &&
+              this.props.theme.allow_guest
+            }
+            editableCoachPaymentRule
+          />
+        </GenericResponsiveDrawer>
       </div>
     );
   }
@@ -735,11 +725,11 @@ const styles = (theme) => ({
 const OfferEditorContainer = compose(
   connect(
     (state) => ({
-      similarOfferLoading:
-        state.offer.similarOffers.loading ||
-        state.metaActivity.loading ||
-        state.establishment.loading,
-      offerEditLoading: state.establishment.loading || state.coach.loading,
+      similarOfferLoading: state.offer.similarOffers.loading,
+      offerEditLoading:
+        state.establishment.loading ||
+        state.coach.loading ||
+        state.metaActivity.loading,
       similarOffers: getSimilarsOffers(state),
       coaches: getActiveCoaches(state),
       coachesSelectedInRole: getCoachesSelectedInRole(state),
@@ -946,7 +936,6 @@ export default compose(
       // Invoices Stuff
       goToInvoice: (uuid: number) => push(`/invoice/${uuid}/`),
       fetchMember,
-      fetchSimilarOffersWithReset: fetchSimilarOffersWithResetAction,
       fetchInvoiceList: fetchInvoiceListAction,
       applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
       snackbarSuccess,

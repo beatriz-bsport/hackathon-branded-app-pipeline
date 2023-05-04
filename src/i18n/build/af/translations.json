@@ -4503,10 +4503,6 @@
             "roomBlueprint": "Permet à vos élèves de réserver l'emplacement qu'ils souhaitent dans la salle"
           }
         },
-            "credits": "Nombre de crédit de carte de cours nécessaire pour réserver",
-            "roomBlueprint": "Permet à vos élèves de réserver l'emplacement qu'ils souhaitent dans la salle"
-          }
-        },
         "credits": { "title": "Crédits", "field": { "creditCount": "Nombre de crédits" } },
         "dateTime": {
           "title": "Horaires et date",
@@ -4549,7 +4545,7 @@
         },
         "tags": {
           "title": "Tags",
-          "helperText": "Utilisez les tags pour rendre la séance réservable uniquement à un groupe de membres souhaité. Vous sélectionnez des tags pour rendre la séance réservable seulement aux membres possédant un des tags choisis. Ou bien vous pouvez sélectionner des tags pour rendre la séance non réservable seulement aux membres possèdant un des tags sélectionnés.",
+          "helperText": "Utilisez les tags pour rendre la séance réservable uniquement à un groupe de membres souhaité. Vous sélectionnez des tags pour rendre la séance réservable seulement aux membres possédant un des tags choisis. Ou bien vous pouvez sélectionner des tags pour rendre la séance non réservable seulement aux membres possédant un des tags sélectionnés.",
           "field": { "whitelistTags": "Autorisé", "blacklistTags": "Non-Autorisé" },
           "placeholder": "Laisser vide pour autoriser tous les membres"
         },

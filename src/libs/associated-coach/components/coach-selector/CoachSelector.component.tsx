@@ -82,8 +82,8 @@ export const CoachSelector: React.FC<Props> = ({
       }
       return 1;
     });
-    const enabledCoaches = coachOptions.filter((coach) => !coach.disabled);
-    const disabledCoaches = coachOptions.filter((coach) => coach.disabled);
+    const enabledCoaches = coachOptions?.filter((c) => !c.disabled) ?? [];
+    const disabledCoaches = coachOptions?.filter((c) => c.disabled) ?? [];
     if (!sortDisabled || disabledCoaches.length === 0) {
       return coachOptions.map((coach) => ({
         value: associatedCoachOutputOptions

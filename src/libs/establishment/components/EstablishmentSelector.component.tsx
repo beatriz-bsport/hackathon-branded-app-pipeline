@@ -85,6 +85,9 @@ const Group = ({ children, ...props }) => {
 export const getGroupedEstablishmentOptions = (
   establishments: Array<Establishment>,
 ) => {
+  if (!(establishments && establishments.length)) {
+    return [];
+  }
   establishments.sort((e, e_) => {
     if (e.title.toUpperCase() < e_.title.toUpperCase()) {
       return -1;
@@ -119,12 +122,14 @@ export const getGroupedEstablishmentOptions = (
 };
 
 const getEstablishmentList = (establishments: Array<Establishment>) => {
-  return establishments.map((est) => {
-    return {
-      label: est.title,
-      value: est.id,
-    };
-  });
+  return establishments
+    ? establishments.map((est) => {
+        return {
+          label: est.title,
+          value: est.id,
+        };
+      })
+    : [];
 };
 
 const controlStyle = (controlError: boolean, colorError: string) => {
@@ -275,7 +280,9 @@ export function EstablishmentSelector(props: Props) {
         closeMenuOnSelect={!!closeMenuOnSelect}
         isMulti={!noMulti}
         placeholder={placeholder || t(isRequired ? 'roomRequired' : 'room')}
-        options={getGroupedEstablishmentOptions([...establishments])}
+        options={getGroupedEstablishmentOptions(
+          establishments ? [...establishments] : null,
+        )}
         styles={{
           ...establishmentStyles,
           ...controlStyle(

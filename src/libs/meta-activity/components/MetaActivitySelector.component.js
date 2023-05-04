@@ -22,8 +22,11 @@ const getMetaActivityOptions = (metaActivities: Array<MetaActivity>) => {
     }));
 };
 
-const metaActivityStyles = {
-  control: (styles) => ({ ...styles, backgroundColor: 'white' }),
+const getMetaActivityStyles = (controlBackground) => ({
+  control: (styles) => ({
+    ...styles,
+    backgroundColor: controlBackground ?? 'white',
+  }),
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
@@ -74,11 +77,12 @@ const metaActivityStyles = {
       color: 'white',
     },
   }),
-};
+});
 
 export default withTranslation(['metaActivity'])(
   ({
     t,
+    id,
     metaActivities,
     noMulti,
     disabled,
@@ -88,6 +92,7 @@ export default withTranslation(['metaActivity'])(
     variant,
     isLoading,
     onChange,
+    controlBackground,
   }) => {
     let placeholder = t('metaActivity');
 
@@ -100,6 +105,7 @@ export default withTranslation(['metaActivity'])(
     return (
       <div style={{ zIndex: 9999 }}>
         <Select
+          id={id}
           closeMenuOnSelect={closeMenuOnSelect}
           isMulti={!noMulti}
           placeholder={placeholder}
@@ -115,7 +121,7 @@ export default withTranslation(['metaActivity'])(
                 ])
               : undefined
           }
-          styles={metaActivityStyles}
+          styles={getMetaActivityStyles(controlBackground)}
           menuPortalTarget={document.querySelector('body')}
           isLoading={isLoading}
         />

@@ -4483,6 +4483,8 @@
       "filter": { "validated": "Appel validé", "notValidated": "Appel non validé", "placeholder": "Statut de l’appel" }
     },
     "form": {
+      "stepper": { "step": { "INFOS": "Séance", "SETTINGS": "Paramètres de modifications" } },
+      "groupedOffer": { "warning": "Attention cette séance fait partie du groupe de séance {{ name }}" },
       "section": {
         "specificities": {
           "title": "Caractéristiques",
@@ -4501,6 +4503,11 @@
             "roomBlueprint": "Permet à vos élèves de réserver l'emplacement qu'ils souhaitent dans la salle"
           }
         },
+            "credits": "Nombre de crédit de carte de cours nécessaire pour réserver",
+            "roomBlueprint": "Permet à vos élèves de réserver l'emplacement qu'ils souhaitent dans la salle"
+          }
+        },
+        "credits": { "title": "Crédits", "field": { "creditCount": "Nombre de crédits" } },
         "dateTime": {
           "title": "Horaires et date",
           "field": {
@@ -4522,6 +4529,7 @@
           "title": "Professeur",
           "field": {
             "coach": { "title": "Professeur", "placeholder": "Sélectionner un professeur" },
+            "coachOverride": { "title": "Remplaçant", "placeholder": "Sélectionner professeur remplaçant" },
             "coachPaymentRule": { "title": "Règle de rémunération", "placeholder": "Sélectionner une règle" }
           }
         },
@@ -4534,14 +4542,29 @@
               "title": "Marketplace",
               "availableOnPartnership": "Sur les marketplaces (ClassPass, OneFit...)",
               "partnerMaxBookingCount": "Nombre maximum de réservation marketplace (OneFit uniquement)"
-            }
+            },
+            "isNotifyConsumers": "Voulez-vous informer vos clients de cette modification ?",
+            "isModifyRecursively": "Voulez-vous modifier les séances similaires selon ces nouvelles conditions ?"
           }
         },
         "tags": {
           "title": "Tags",
-          "helperText": "Utilisez les tags pour rendre la séance réservable uniquement à un groupe de membres souhaité. Vous sélectionnez des tags pour rendre la séance réservable seulement aux membres possédant un des tags choisis. Ou bien vous pouvez sélectionner des tags pour rendre la séance non réservable seulement aux membres possédant un des tags sélectionnés.",
+          "helperText": "Utilisez les tags pour rendre la séance réservable uniquement à un groupe de membres souhaité. Vous sélectionnez des tags pour rendre la séance réservable seulement aux membres possédant un des tags choisis. Ou bien vous pouvez sélectionner des tags pour rendre la séance non réservable seulement aux membres possèdant un des tags sélectionnés.",
           "field": { "whitelistTags": "Autorisé", "blacklistTags": "Non-Autorisé" },
           "placeholder": "Laisser vide pour autoriser tous les membres"
+        },
+        "similarOffers": {
+          "title": "Sélectionnez les séances qui seront modifiées",
+          "selectAll": "Tout sélectionner",
+          "unselectAll": "Tout désélectionner",
+          "info": "Les changements sur les séances risquent de les rendre incompatibles avec certaines cartes de cours. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatibles avec les éventuels changements de lieu / professeur."
+        },
+        "coachOverride": {
+          "title": "Changement professeur remplaçant",
+          "field": {
+            "isCoachOverridePropagate": "Appliquer les changements sur le professeur remplaçant aux séances sélectionnées"
+          },
+          "info": "En cochant cette case les changements appliqués au professeur remplaçant de cette séance seront appliqués à toutes les séances similaires. Sinon ils ne seront appliqués qu’à cette séance."
         }
       },
       "dialog": { "recurrencePreview": "Prévisualisation", "createLevel": "Créer un niveau" },
@@ -4560,7 +4583,10 @@
           "dateIntervalEnd": "La date de fin ne peut pas être avant la date de début"
         }
       },
-      "warnings": { "effectif": "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?" }
+      "warnings": {
+        "effectif": "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
+        "editOfferInitialCredits": "Les réservations anciennes ne prennent pas en compte les modifications des crédits"
+      }
     }
   },
   "order": {

@@ -211,6 +211,16 @@ exports.default = {
     },
   },
   form: {
+    stepper: {
+      step: {
+        INFOS: 'Séance',
+        SETTINGS: 'Paramètres de modifications',
+      },
+    },
+    groupedOffer: {
+      warning:
+        'Attention cette séance fait partie du groupe de séance {{ name }}',
+    },
     section: {
       specificities: {
         title: 'Caractéristiques',
@@ -233,6 +243,12 @@ exports.default = {
             'Nombre de crédits de carte de cours nécessaires pour réserver',
           roomBlueprint:
             "Permet à vos élèves de réserver l'emplacement qu'ils souhaitent dans la salle",
+        },
+      },
+      credits: {
+        title: 'Crédits',
+        field: {
+          creditCount: 'Nombre de crédits',
         },
       },
       dateTime: {
@@ -263,6 +279,10 @@ exports.default = {
             title: 'Professeur',
             placeholder: 'Sélectionner un professeur',
           },
+          coachOverride: {
+            title: 'Remplaçant',
+            placeholder: 'Sélectionner professeur remplaçant',
+          },
           coachPaymentRule: {
             title: 'Règle de rémunération',
             placeholder: 'Sélectionner une règle',
@@ -281,6 +301,10 @@ exports.default = {
             partnerMaxBookingCount:
               'Nombre maximum de réservation marketplace (OneFit uniquement)',
           },
+          isNotifyConsumers:
+            'Voulez-vous informer vos clients de cette modification ?',
+          isModifyRecursively:
+            'Voulez-vous modifier les séances similaires selon ces nouvelles conditions ?',
         },
       },
       tags: {
@@ -292,6 +316,20 @@ exports.default = {
           blacklistTags: 'Non-Autorisé',
         },
         placeholder: 'Laisser vide pour autoriser tous les membres',
+      },
+      similarOffers: {
+        title: 'Sélectionnez les séances qui seront modifiées',
+        selectAll: 'Tout sélectionner',
+        unselectAll: 'Tout désélectionner',
+        info: "Les changements sur les séances risquent de les rendre incompatibles avec certaines cartes de cours. Après la modification veuillez prendre le temps de vérifier qu'ils resteront compatibles avec les éventuels changements de lieu / professeur.",
+      },
+      coachOverride: {
+        title: 'Changement professeur remplaçant',
+        field: {
+          isCoachOverridePropagate:
+            'Appliquer les changements sur le professeur remplaçant aux séances sélectionnées',
+        },
+        info: 'En cochant cette case les changements appliqués au professeur remplaçant de cette séance seront appliqués à toutes les séances similaires. Sinon ils ne seront appliqués qu’à cette séance.',
       },
     },
     dialog: {
@@ -320,6 +358,8 @@ exports.default = {
     warnings: {
       effectif:
         "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
+      editOfferInitialCredits:
+        'Les réservations anciennes ne prennent pas en compte les modifications des crédits',
     },
   },
 };

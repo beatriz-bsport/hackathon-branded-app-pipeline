@@ -3,7 +3,10 @@ import { makeStyles } from '@material-ui/styles';
 import chroma from 'chroma-js';
 import { useMemo } from 'react';
 
-const useOfferFormStyles = () => {
+const useOfferFormStyles = (
+  withoutSectionIconContainerMargin?: boolean,
+  isDisabledSectionIcon?: boolean,
+) => {
   const theme = useTheme();
 
   const sectionIconBackground = useMemo(() => {
@@ -21,13 +24,17 @@ const useOfferFormStyles = () => {
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: theme.spacing(1),
-      background: sectionIconBackground,
+      background: isDisabledSectionIcon
+        ? theme.palette.grey[50]
+        : sectionIconBackground,
       width: '44px',
       height: '44px',
-      marginRight: theme.spacing(1.25),
+      marginRight: withoutSectionIconContainerMargin ? 0 : theme.spacing(1.25),
     },
     sectionIcon: {
-      color: theme.palette.primary.main,
+      color: isDisabledSectionIcon
+        ? theme.palette.grey[400]
+        : theme.palette.primary.main,
     },
     formFieldColumns: {
       display: 'grid',
@@ -51,6 +58,12 @@ const useOfferFormStyles = () => {
     },
     bigWidth: {
       width: '250px',
+      [theme.breakpoints.down('xs')]: {
+        width: '100%',
+      },
+    },
+    xBigWidth: {
+      width: '350px',
       [theme.breakpoints.down('xs')]: {
         width: '100%',
       },
@@ -166,6 +179,14 @@ const useOfferFormStyles = () => {
       gap: theme.spacing(2),
       display: 'flex',
       justifyContent: 'flex-end',
+    },
+    coachOverrideModeRadioGroup: {
+      marginTop: theme.spacing(2),
+    },
+    groupedOfferAlert: {
+      margin: `${theme.spacing(4)}px ${theme.spacing(4)}px ${theme.spacing(
+        1,
+      )}px`,
     },
   }));
 

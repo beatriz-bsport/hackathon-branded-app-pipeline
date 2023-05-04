@@ -381,6 +381,8 @@ exports.default = {
     form: {
       cancel: 'Annuler',
       submit: 'Créer',
+      updateSubmit: 'Valider',
+      delete: 'Supprimer',
       edit: 'Modifier',
       createCadenceHelper:
         "Grâce aux cadences, ciblez au mieux les actions marketing que vous envoyez à vos membres en fonction de leur comportement sur la plateforme. Créez une séquence d'actions que vos membres doivent remplir pour obtenir par exemple certaines promotions ou certains tags.",
@@ -426,6 +428,8 @@ exports.default = {
         or_rule_between_triggers: 'Ou',
         event_and_smartlist_helper:
           "Les membres devront correspondre à l'événement et faire partie de la smartlist pour rentrer dans la cadence",
+        event_or_smartlist_helper:
+          "Les membres devront correspondre à l'événement ou bien faire partie de la smartlist pour rentrer dans la cadence",
         marketing_actions: 'Actions marketing',
         select_marketing_actions_helper:
           'Sélectionnez une ou plusieurs actions à effectuer quand un membre est gagné. Cette option est facultative.',
@@ -491,6 +495,8 @@ exports.default = {
       },
       error: {
         triggerCannotBeEmpty: "Vous devez sélectionner un type d'entrée.",
+        timeoutMustBeStrictPositive:
+          "La limite de temps doit être d'au moins 1 jour.",
       },
     },
     howTo: {
@@ -545,15 +551,16 @@ exports.default = {
       start: 'Entrée',
       exit: 'Sortie',
       trigger: 'Déclencheur',
-
       timeout: {
         timout_days_chip: '{{ days }} jours',
       },
-
       events: {
         purchase_chip: 'Achat',
-        book_chip: 'Reservation',
-        label: 'Achat',
+        book_chip: 'Réservation',
+        basket_chip: 'Panier',
+        invoice_chip: 'Facturation',
+        billing_plan_chip: 'Souscription',
+        label: 'Évènement',
       },
       smartlist: {
         label: 'Smartlist',

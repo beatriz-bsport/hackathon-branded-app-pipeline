@@ -165,17 +165,34 @@ export class CouponForm extends React.Component<Props, State> {
 
   componentDidMount() {
     trackFormAdd(this.props.initial?.id);
+
     if (this.props.initial && this.props.initial.only_on_objects.length) {
-      this.props.fetchSelectedPaymentPacks(this.props.initial.only_on_objects);
-      this.props.fetchSelectedShopItems(
-        this.props.initial.company,
-        this.props.initial.only_on_objects,
-      );
-      this.props.fetchSelectedPrivatePasses(this.props.initial.only_on_objects);
-      this.props.fetchSelectedPaymentCombos(
-        this.props.initial.company,
-        this.props.initial.only_on_objects,
-      );
+      switch (this.props.initial.applies_to) {
+        case BUYABLE_ITEM_PASS:
+          this.props.fetchSelectedPaymentPacks(
+            this.props.initial.only_on_objects,
+          );
+          break;
+        case BUYABLE_ITEM_SHOP_ITEM:
+          this.props.fetchSelectedShopItems(
+            this.props.initial.company,
+            this.props.initial.only_on_objects,
+          );
+          break;
+        case BUYABLE_ITEM_PRIVATE_PASS:
+          this.props.fetchSelectedPrivatePasses(
+            this.props.initial.only_on_objects,
+          );
+          break;
+        case BUYABLE_ITEM_COMBO_ITEM:
+          this.props.fetchSelectedPaymentCombos(
+            this.props.initial.company,
+            this.props.initial.only_on_objects,
+          );
+          break;
+        default:
+          break;
+      }
     }
   }
 

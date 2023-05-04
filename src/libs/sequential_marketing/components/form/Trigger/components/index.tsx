@@ -41,6 +41,13 @@ import type { Cadence } from '#libs/sequential_marketing/types';
 import type { OptionCallback } from '../../../../../../state/types';
 
 import { TRIGGER_DETAULT_TIMEOUT_DAYS } from '#libs/sequential_marketing/components/form/Trigger/utils';
+import {
+  CADENCE_STEPPER_ENTRY_STEP,
+  CADENCE_STEPPER_WIN_STEP,
+  CADENCE_STEPPER_LOSE_STEP,
+  StepChoice,
+} from '#libs/sequential_marketing/components/form/CadenceSettingsFormStepper.component.tsx';
+import { FormValues } from '#libs/sequential_marketing/serializers/types';
 
 export type ComponentProps = {
   viewMode?: boolean;
@@ -61,6 +68,7 @@ export type ComponentProps = {
   cadenceExitSuccess?: boolean;
   cadenceExitFail?: boolean;
   noEmptyTrigger?: boolean;
+  formValues?: FormValues;
 };
 
 export type FormProps = {
@@ -161,6 +169,18 @@ const CadenceTriggerFormSchema = Yup.object().shape({
         );
       },
     ),
+  trigger_destination_timeout_days: Yup.number()
+    .nullable(false)
+    .test(
+      'Check For Timeout Value',
+      'marketing:cadence.form.error.timeoutMustBeStrictPositive',
+      function CheckForTimeoutValue(days) {
+        if (!days) {
+          return true;
+        }
+        return days > 0;
+      },
+    ),
 });
 
 export const CadenceTriggerForm: React.FC<ComponentProps> = ({
@@ -219,8 +239,9 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
                 value={timeoutValue}
                 onChange={handleChangeTimeOut}
                 InputProps={{
-                  inputProps: { step: 1, min: 0 },
+                  inputProps: { step: 1, min: 1 },
                 }}
+                error={timeoutValue < 1}
               />
             </div>
             <div className={classes.timeoutInpoutText}>
@@ -229,6 +250,13 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
               </Typography>
             </div>
           </div>
+          {timeoutValue < 1 && (
+            <div className={classes.timeoutInputErrorText}>
+              <Typography variant="caption" color="error">
+                {t('cadence.form.error.timeoutMustBeStrictPositive')}
+              </Typography>
+            </div>
+          )}
           <Typography variant="caption" color="textSecondary">
             {t('cadence.form.trigger.trigger_timeout_explain_value_selected')}
           </Typography>
@@ -270,10 +298,50 @@ const formikFormWrapper = withFormik<ComponentProps & FormProps, Values>({
     withTimeout,
     withExit,
     noEmptyTrigger,
+    cadenceEntry,
+    cadenceExitSuccess,
+    cadenceExitFail,
+    formValues,
   }: ComponentProps & FormProps) => {
     if (initial) {
       return {
         ...initial,
+        noEmptyTrigger: !!noEmptyTrigger,
+      };
+    }
+
+    if (formValues) {
+      // This function returns the current step of the form
+      // during the initial setup form or 0 if no step is set
+      const getStep = () => {
+        switch (true) {
+          case cadenceEntry:
+            return CADENCE_STEPPER_ENTRY_STEP;
+          case cadenceExitSuccess:
+            return CADENCE_STEPPER_WIN_STEP;
+          case cadenceExitFail:
+            return CADENCE_STEPPER_LOSE_STEP;
+          default:
+            return 0;
+        }
+      };
+
+      const step: StepChoice | 0 = getStep();
+
+      return {
+        withTimeout: !!withTimeout,
+        trigger_has_event: formValues[step]?.trigger_has_event ?? false,
+        trigger_event_kind: formValues[step]?.trigger_event_kind ?? null,
+        trigger_has_smartlist: formValues[step]?.trigger_has_smartlist ?? false,
+        trigger_smartlist_selected:
+          formValues[step]?.trigger_smartlist_selected ?? null,
+        trigger_logic_between_event_and_smartlist:
+          formValues[step]?.trigger_logic_between_event_and_smartlist ??
+          RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT,
+        ...(withExit ? { is_exit_success: true, is_exit_fail: false } : {}),
+        ...(withTimeout
+          ? { trigger_destination_timeout_days: TRIGGER_DETAULT_TIMEOUT_DAYS }
+          : {}),
         noEmptyTrigger: !!noEmptyTrigger,
       };
     }

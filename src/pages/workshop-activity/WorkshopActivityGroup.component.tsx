@@ -37,7 +37,6 @@ import OfferCard from '#components/offer/OfferCard.component';
 import MetaActivityGroupsFilter from '#libs/meta-activity/components/MetaActivityGroupsFilter.component';
 import GroupCard from '#libs/group-offer/components/GroupCard.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import OfferEditForm from '#libs/offer/OfferEditForm.component';
 import { Offer } from '#libs/offer/types';
 import DeleteOfferForm from '#libs/offer/DeleteOfferForm.component';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
@@ -45,6 +44,7 @@ import BackofficeLinearProgress from '#components/navigation/BackofficeLinearPro
 import usePagination from '../../hooks/usePagination';
 import { OffersGroup, OffersGroupFilter } from '#libs/group-offer/types';
 import { workshopActivityGroupConnector } from './WorkshopActivityGroup.page';
+import OfferEditForm from '#libs/offer/OfferEditForm.component';
 
 const PAGE_SIZE_OPTIONS = [5, 10, 25, 50];
 
@@ -683,26 +683,31 @@ const WorkshopActivityGroup: React.FC<Props> = ({
             onClose={handleCloseEditModal}
             title={t('translation:common.offers')}
             subtitle={t('translation:common.offerEdition')}
+            withoutPadding
+            withoutHeaderContainer
           >
             <OfferEditForm
+              isLoading={
+                coachesLoading ||
+                metaActivityLoading ||
+                establishmentsLoading ||
+                similarOfferLoading
+              }
               offer={selectedOffer}
               coaches={coaches}
               availableEstablishments={availableEstablishments}
               allEstablishments={allEstablishments}
               roomBlueprints={availableRoomBlueprints}
               allRoomBlueprints={allRoomBlueprints}
-              is_whereby_integration_enabled={
+              isWherebyIntegrationEnabled={
                 theme?.is_whereby_integration_enabled &&
                 theme?.is_whereby_integration_allowed
               }
-              loading={coachesLoading || establishmentsLoading}
-              onConfirm={onEditOffer}
+              onSubmit={onEditOffer}
               onCancel={handleCloseEditModal}
               processing={editOfferProcessing}
               fetchSimilarOffers={fetchSimilarOffers}
-              fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
               similarOffers={similarOffers}
-              similarOfferLoading={similarOfferLoading}
               coachPaymentRulesByKind={coachPaymentRulesByKind}
               showPartnership={theme.has_partnership}
               tagList={allTagsWithTagGroup}
@@ -713,6 +718,8 @@ const WorkshopActivityGroup: React.FC<Props> = ({
               createLevel={createLevel}
               deleteLevel={deleteLevel}
               zoomAppDetail={zoomAppDetail}
+              editableCoachPaymentRule
+              isOfferInGroup
             />
           </GenericResponsiveDrawer>
         )}

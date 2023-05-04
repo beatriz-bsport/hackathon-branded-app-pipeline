@@ -70,11 +70,6 @@ export type Props = {
   resetPreview: () => void;
   onClose?: () => void;
   zoomAppDetail: ZoomApp;
-  fetchSimilarOffersWithReset: (
-    offerId: number,
-    params?: any,
-    options?: OptionCallback<Offer[]>,
-  ) => void;
 };
 
 const STEP_METACTIVITY_SELECT = 0;
@@ -105,7 +100,6 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
   generatePreview,
   createGroupOffers,
   zoomAppDetail,
-  fetchSimilarOffersWithReset,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -334,7 +328,6 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
               deleteLevel={deleteLevel}
               open={open}
               zoomAppDetail={zoomAppDetail}
-              fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
             />
           </div>
         )}

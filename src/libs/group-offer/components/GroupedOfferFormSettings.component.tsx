@@ -92,11 +92,6 @@ type OuterProps = {
   deleteLevel: (id: number, options?: OptionCallback) => void;
   handlePreviousStep: () => void;
   zoomAppDetail: ZoomApp;
-  fetchSimilarOffersWithReset: (
-    offerId: number,
-    params?: any,
-    options?: OptionCallback<Offer[]>,
-  ) => void;
 };
 
 type Values = {
@@ -200,7 +195,6 @@ export const GroupedOfferFormSettings: React.FC<
   handlePreviousStep,
   resetForm,
   zoomAppDetail,
-  fetchSimilarOffersWithReset,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -580,7 +574,6 @@ export const GroupedOfferFormSettings: React.FC<
         handleEditOffer={handleEditOffer}
         handleAddOffer={handleAddOffer}
         zoomAppDetail={zoomAppDetail}
-        fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
       />
     </>
   );
@@ -609,11 +602,6 @@ const OfferDialogs: React.FC<{
   }) => void;
   handleAddOffer: () => void;
   zoomAppDetail: ZoomApp;
-  fetchSimilarOffersWithReset: (
-    offerId: number,
-    params?: any,
-    options?: OptionCallback<Offer[]>,
-  ) => void;
 }> = ({
   theme,
   coaches,
@@ -631,7 +619,6 @@ const OfferDialogs: React.FC<{
   handleEditOffer,
   handleAddOffer,
   zoomAppDetail,
-  fetchSimilarOffersWithReset,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -676,32 +663,30 @@ const OfferDialogs: React.FC<{
         title={t('translation:common.offers')}
         subtitle={t('translation:common.offerEdition')}
         className={classes.paperInset}
+        withoutPadding
+        withoutHeaderContainer
       >
-        <div className={classes.editOfer}>
-          <OfferEditForm
-            offer={offerEdited}
-            metaActivities={[metaActivity]}
-            coaches={coaches}
-            availableEstablishments={availableEstablishments}
-            allEstablishments={allEstablishments}
-            roomBlueprints={availableRoomBlueprints}
-            allRoomBlueprints={allRoomBlueprints}
-            is_whereby_integration_enabled={isWherebyIntegrationEnabled}
-            loading={false}
-            processing={false}
-            fetchSimilarOffers={null}
-            fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
-            similarOffers={[]}
-            similarOfferLoading={false}
-            coachPaymentRulesByKind={coachPaymentRulesByKind}
-            showPartnership={theme.has_partnership}
-            tagList={tagList}
-            onConfirm={handleEditOffer}
-            onCancel={handleResetEdit}
-            zoomAppDetail={zoomAppDetail}
-            isOfferInGroup
-          />
-        </div>
+        <OfferEditForm
+          offer={offerEdited}
+          metaActivities={[metaActivity]}
+          coaches={coaches}
+          availableEstablishments={availableEstablishments}
+          allEstablishments={allEstablishments}
+          roomBlueprints={availableRoomBlueprints}
+          allRoomBlueprints={allRoomBlueprints}
+          isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
+          processing={false}
+          isLoading={!offerEdited}
+          similarOffers={[]}
+          coachPaymentRulesByKind={coachPaymentRulesByKind}
+          showPartnership={theme.has_partnership}
+          tagList={tagList}
+          onSubmit={handleEditOffer}
+          onCancel={handleResetEdit}
+          zoomAppDetail={zoomAppDetail}
+          editableCoachPaymentRule
+          isOfferInGroup
+        />
       </GenericResponsiveDrawer>
     </>
   );
@@ -888,10 +873,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   paperInset: {
     paddingLeft: theme.spacing(8),
     boxShadow: 'none',
-  },
-  editOfer: {
-    margin: theme.spacing(2),
-    marginLeft: theme.spacing(4),
   },
   coachAvatar: {
     marginRight: theme.spacing(2),

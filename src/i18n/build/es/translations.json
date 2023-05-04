@@ -4893,6 +4893,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelado",
+                "Cancelada",
                 "Cancelada"
             ]
         },
@@ -5559,7 +5560,8 @@
                 "isFull": "La sesión está llena, puedes registrarse en la lista de espera, te le notificará por email cuando haya un espacio disponible.",
                 "isAlreadyOnWaitingList": "Está inscrito en la lista de espera, le informaremos por correo electrónico cuando haya una plaza disponible.",
                 "isAlreadyRegistered": "La sesión está llena, ¡felicidades, estás bien registrado!",
-                "waitingListOpen": "La sesión está completa, pero puede inscribirse en la lista de espera. Le informaremos por correo electrónico cuando haya una plaza disponible"
+                "waitingListOpen": "La sesión está completa, pero puede inscribirse en la lista de espera. Le informaremos por correo electrónico cuando haya una plaza disponible",
+                "waitingListLockedByPendingBookings": "Otras personas están reservando, la lista de espera no está disponible en este momento. Por favor, inténtelo de nuevo en unos minutos para ver si hay una plaza disponible."
             },
             "section": {
                 "paymentCombos": "Ofertas promocionales",
@@ -5802,7 +5804,8 @@
                     "6002": "Lista de espera completa",
                     "7": "Proporción desequilibrada entre hombres y mujeres",
                     "6003": "Liste d'attente complète",
-                    "9": "Está intentando reservar más sesiones futuras de las que permite su club"
+                    "9": "Está intentando reservar más sesiones futuras de las que permite su club",
+                    "6005": "Lista de espera"
                 },
                 "bookable_status": {
                     "4": "Sesión no disponible",
@@ -6145,7 +6148,8 @@
             "invoice": "Facturación",
             "payment_pack": "Penalizaciones",
             "recurrent_private_booking": "Cita periódica",
-            "replacement_request": "Sustitución"
+            "replacement_request": "Sustitución",
+            "giftcard": "Tarjetas regalo"
         },
         "eventType": {
             "14": "Cancelación de la inscripción en la lista de espera (mánager)",
@@ -6202,7 +6206,13 @@
             "907": "Sustituto encontrado (sustituto)",
             "705": "Notificación de ausencia",
             "704": "No se presenta: se ha añadido una multa al saldo de la cuenta interna (para miembros)",
-            "703": "No se presenta: el pase ha sido bloqueado temporalmente (para miembros)"
+            "703": "No se presenta: el pase ha sido bloqueado temporalmente (para miembros)",
+            "20": "Solicitud de descarga de facturas",
+            "301": "Restablecer contraseña de miembro",
+            "302": "Validación del email del miembro",
+            "303": "Fusión de dos cuentas de estudio",
+            "304": "Activación de la tarjeta regalo",
+            "305": "Cambio del email del miembro desde el backoffice"
         },
         "tag": {
             "BookingOption": {
@@ -6274,7 +6284,9 @@
                 "tags": {
                     "unsubscribe_link": "Enlace para cancelar la suscripción a la newsletter",
                     "lastname": "Nombre estudiante",
-                    "firstname": "Nombre estudiante"
+                    "firstname": "Nombre estudiante",
+                    "reset_password_url": "Enlace para restablecer la contraseña",
+                    "email_confirmation_url": "Enlace de confirmación de correo electrónico"
                 },
                 "name": "Miembro"
             },
@@ -6348,6 +6360,37 @@
                     "invoice_date": "Fecha de facturación",
                     "invoice_download_link": "Enlace de descarga"
                 }
+            },
+            "GiftCard": {
+                "name": "Tarjeta regalo",
+                "tags": {
+                    "activate_giftcard_url": "Enlace de activación de la tarjeta regalo",
+                    "message_is_from": "Miembro que envía la tarjeta regalo",
+                    "message_is_for": "Destinatario de la tarjeta regalo",
+                    "giftcard_message": "Mensaje de la tarjeta regalo",
+                    "giftcard_value": "Valor de la tarjeta regalo",
+                    "giftcard_name": "Nombre de la tarjeta regalo"
+                }
+            },
+            "EmailChange": {
+                "name": "Modificación de la cuenta",
+                "tags": {
+                    "new_email": "Nuevo email de acceso",
+                    "old_email": "Email de acceso antiguo",
+                    "manage_changing_email_link": "Enlace para la gestión de cambios de e-mail",
+                    "login_link": "Enlace de acceso al espacio personal"
+                }
+            },
+            "requiredTags": {
+                "reset_password_url": "Enlace para restablecer la contraseña",
+                "email_confirmation_url": "Enlace de confirmación de e-mail",
+                "new_email": "Nuevo email de acceso",
+                "old_email": "Email de acceso antiguo",
+                "activate_giftcard_url": "Enlace de activación de la tarjeta regalo",
+                "message_is_from": "Miembro que envía la tarjeta regalo",
+                "giftcard_message": "Mensaje de la tarjeta regalo",
+                "giftcard_value": "Valor de la tarjeta regalo",
+                "manage_changing_email_link": "Enlace de gestión de cambios de e-mail"
             }
         },
         "emailDesign": {
@@ -6414,7 +6457,9 @@
             "mailToSend": "Correo a enviar",
             "copyCarbon": "Recibir una copia del email",
             "sendTransactionnalEmail": "Enviar un email transaccional",
-            "transactionnalEmail": "Email transaccional"
+            "transactionnalEmail": "Email transaccional",
+            "infoBoxErrorMessageFirstLine": "Este correo debe contener las siguientes variables:",
+            "infoBoxErrorMessageLastLine": "Asegúrate de añadirlas a tu plantilla para poder guardarla"
         },
         "preview": {
             "email": "Email",
@@ -9830,7 +9875,8 @@
         "notificationRule": {
             "createOrUpdate": {
                 "error": "No es posible guardar",
-                "success": "Modificado exitosamente"
+                "success": "Modificado exitosamente",
+                "errorLackRequiredVariables": "No se ha podido registrar esta plantilla"
             }
         },
         "activity": {
@@ -11340,7 +11386,13 @@
             "exportHtml": "Exportar HTML",
             "selectorPlaceholder": "Selección de franquiciados",
             "shareWithHelper": "La plantilla no puede ser modificada por los franquiciados",
-            "shareWith": "Compartir con"
+            "shareWith": "Compartir con",
+            "showRequiredTags": "Ver las variables",
+            "infoBoxTextFirstLine": "Este correo electrónico está vinculado al correo electrónico transaccional '{{-names}}'. Algunas variables son obligatorias.",
+            "alertBoxTextFirstLine": "Este correo electrónico está vinculado al correo electrónico transaccional '{{-names}}'. Debe contener las siguientes variables: ",
+            "infoBoxTextLastLine": "Asegúrate de añadirlos a tu plantilla para poder guardarla.",
+            "dialogWindowTitle": "Variables obligatorias",
+            "closeButton": "Cerrar"
         },
         "no_subject": "Ningún objeto",
         "preview": "Vista previa de correo",

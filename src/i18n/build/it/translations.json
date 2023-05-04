@@ -1184,7 +1184,9 @@
                 "tags": {
                     "firstname": "Nome dello studente",
                     "lastname": "Nome dello studente",
-                    "unsubscribe_link": "Annulla l'iscrizione alla newsletter"
+                    "unsubscribe_link": "Annulla l'iscrizione alla newsletter",
+                    "reset_password_url": "Link per reimpostare la password",
+                    "email_confirmation_url": "Link di conferma email"
                 }
             },
             "Booking": {
@@ -1263,6 +1265,37 @@
                     "invoice_date": "Data di fatturazione",
                     "invoice_download_link": "Link per scaricare"
                 }
+            },
+            "GiftCard": {
+                "tags": {
+                    "activate_giftcard_url": "Link di attivazione della gift card",
+                    "message_is_from": "Membro che invia la gift card",
+                    "message_is_for": "Destinatario della gift card",
+                    "giftcard_message": "Messaggio nella gift card",
+                    "giftcard_value": "Valore della gift card",
+                    "giftcard_name": "Nome della gift card"
+                },
+                "name": "Gift card"
+            },
+            "EmailChange": {
+                "tags": {
+                    "manage_changing_email_link": "Link per la gestione delle modifiche della email",
+                    "new_email": "Nuova e-mail di accesso",
+                    "old_email": "Email di accesso precedente",
+                    "login_link": "Link di accesso all'area personale"
+                },
+                "name": "Modifica dell'account"
+            },
+            "requiredTags": {
+                "giftcard_message": "Messaggio nella gift card",
+                "reset_password_url": "Link reset password",
+                "email_confirmation_url": "Link per la verifica della email",
+                "new_email": "Nuova email di accesso",
+                "old_email": "Email di accesso precedente",
+                "activate_giftcard_url": "Link di attivazione della gift card",
+                "message_is_from": "Membro che invia la gift card",
+                "giftcard_value": "Valore della gift card",
+                "manage_changing_email_link": "Link per la gestione delle modifiche all'email"
             }
         },
         "eventType": {
@@ -1320,7 +1353,13 @@
             "101": "Promemoria corso online in 15 min (insegnanti)",
             "705": "Avviso di assenza",
             "704": "Assenza: addebito conto cliente (studenti)",
-            "703": "Assenze: carta bloccata (studenti)"
+            "703": "Assenze: carta bloccata (studenti)",
+            "303": "Unire due account studio",
+            "20": "Richiesta di download della fattura",
+            "301": "Reimpostazione della password utente",
+            "302": "Convalida della email utente",
+            "304": "Attivazione della gift card",
+            "305": "Modifica della email del membro dal backoffice"
         },
         "ruleGroup": {
             "private_booking": "Appuntamento",
@@ -1333,7 +1372,8 @@
             "invoice": "Fatturazione",
             "payment_pack": "Badge",
             "recurrent_private_booking": "Appuntamento ricorrente",
-            "replacement_request": "Sostituzione"
+            "replacement_request": "Sostituzione",
+            "giftcard": "Gift card"
         },
         "emailDesign": {
             "placeholder": "Generato da bsport",
@@ -1383,7 +1423,7 @@
                 "useFor": "Utilizzare per ",
                 "pickTemplate": "Scegliere un modello",
                 "name": "Nome",
-                "description": "Il modello scelto sarà usato per l'email transazionale \"{{name}}\" per tutti gli affiliati selezionati qui.",
+                "description": "Il modello scelto sarà usato per l'email transazionale \"{{-name}}\" per tutti gli affiliati selezionati qui.",
                 "title": "Configurazione",
                 "restrictedAccess": "Questa configurazione è impostata per i franchise a cui non hai accesso. Alcuni campi non sono modificabili"
             },
@@ -1399,7 +1439,9 @@
             "mailToSend": "Posta da inviare",
             "copyCarbon": "Ricevere una copia dell'e-mail",
             "sendTransactionnalEmail": "Inviare un'email transazionale",
-            "transactionnalEmail": "Email transazionali"
+            "transactionnalEmail": "Email transazionali",
+            "infoBoxErrorMessageFirstLine": "Questa email deve contenere le seguenti variabili:",
+            "infoBoxErrorMessageLastLine": "Assicurati di aggiungerli al tuo modello in modo da poterlo salvare"
         },
         "preview": {
             "email": "Email",
@@ -4629,7 +4671,8 @@
         "notificationRule": {
             "createOrUpdate": {
                 "success": "Modificato con successo",
-                "error": "Impossibile salvare"
+                "error": "Impossibile salvare",
+                "errorLackRequiredVariables": "Questo modello non può essere salvato"
             }
         },
         "privatePass": {
@@ -7291,6 +7334,7 @@
                 "Cancella",
                 "Cancella",
                 "Annulla",
+                "Annulla",
                 "Annulla"
             ]
         },
@@ -8366,7 +8410,13 @@
             "exportHtml": "Esporta HTML",
             "selectorPlaceholder": "Selezione dei franchisee",
             "shareWithHelper": "Il modello non può essere modificato dagli affiliati",
-            "shareWith": "Condividi con"
+            "shareWith": "Condividi con",
+            "infoBoxTextFirstLine": "Questa email è collegata all'email transazionale '{{-names}}'. Alcune variabili sono obbligatorie.",
+            "showRequiredTags": "Vedi variabili",
+            "alertBoxTextFirstLine": "Questa email è collegata all'email transazionale '{{-names}}'. Deve contenere le seguenti variabili: ",
+            "infoBoxTextLastLine": "Assicurati di aggiungerli al tuo modello in modo da poterlo salvare.",
+            "dialogWindowTitle": "Variabili obbligatorie",
+            "closeButton": "Chiudi"
         },
         "preview": "Anteprima mail",
         "editTitle": "Modifica modello",
@@ -8761,7 +8811,8 @@
                 "registerOption": "Iscrivimi nella lista di attesa",
                 "isAlreadyOnWaitingList": "Sei già in lista d'attesa, ti avviseremo via e-mail quando ci sarà un posto disponibile.",
                 "isAlreadyRegistered": "La sessione è piena, congratulazioni, sei ben registrato!",
-                "waitingListOpen": "La sessione è piena, ma è possibile registrarsi nella lista d'attesa. Ti avviseremo via e-mail quando si renderà disponibile un posto"
+                "waitingListOpen": "La sessione è piena, ma è possibile registrarsi nella lista d'attesa. Ti avviseremo via e-mail quando si renderà disponibile un posto",
+                "waitingListLockedByPendingBookings": "Altri utenti stanno prenotando, la lista d'attesa non è al momento disponibile. Riprova tra qualche minuto per vedere se si è liberato un posto."
             },
             "recurrent": {
                 "backToRegistererChoice": "Indietro",
@@ -9032,7 +9083,8 @@
                     "6": "Rapporto donna/uomo sbilanciato",
                     "5": "Già registrato",
                     "4": "Registrazioni chiuse",
-                    "9": "Cerchi di prenotare più sessioni future di quelle consentite dal tuo club"
+                    "9": "Cerchi di prenotare più sessioni future di quelle consentite dal tuo club",
+                    "6005": "Lista d'attesa"
                 },
                 "blockedByTags": "Registrazione non autorizzata"
             },

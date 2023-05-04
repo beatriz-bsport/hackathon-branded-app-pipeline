@@ -217,7 +217,13 @@
             "907": "Vervanging gevonden (substituut)",
             "705": "Waarschuwing voor afwezigheid",
             "704": "Afwezigheid: klantenrekening gedebiteerd (leden)",
-            "703": "Afwezigheid: geblokkeerde kaart (leden)"
+            "703": "Afwezigheid: geblokkeerde kaart (leden)",
+            "20": "Verzoek om factuur te downloaden",
+            "301": "Wachtwoord opnieuw instellen",
+            "302": "Validatie van e-mail van leden",
+            "303": "Samenvoeging van twee studiorekeningen",
+            "304": "Cadeaubon activering",
+            "305": "Wijziging van e-mail van leden vanuit de backoffice"
         },
         "tag": {
             "BookingOption": {
@@ -289,7 +295,9 @@
                 "tags": {
                     "lastname": "Achternaam lid",
                     "firstname": "Voornaam lid",
-                    "unsubscribe_link": "Uitschrijven voor de nieuwsbrief"
+                    "unsubscribe_link": "Uitschrijven voor de nieuwsbrief",
+                    "reset_password_url": "Link naar wachtwoord reset",
+                    "email_confirmation_url": "E-mail bevestigingslink"
                 },
                 "name": "Lid"
             },
@@ -363,6 +371,37 @@
                     "invoice_date": "Factuurdatum",
                     "invoice_download_link": "Download link"
                 }
+            },
+            "GiftCard": {
+                "tags": {
+                    "activate_giftcard_url": "Cadeaubon activeringslink",
+                    "message_is_from": "Lid dat de cadeaubon verstuurt",
+                    "message_is_for": "Ontvanger van de cadeaubon",
+                    "giftcard_message": "Bericht van de cadeaubon",
+                    "giftcard_value": "Waarde van de cadeaubon",
+                    "giftcard_name": "Naam van de cadeaubon"
+                },
+                "name": "Cadeaubon"
+            },
+            "EmailChange": {
+                "name": "Wijziging van de rekening",
+                "tags": {
+                    "new_email": "Nieuwe aanmeldingsmail",
+                    "old_email": "Oude login e-mail",
+                    "manage_changing_email_link": "E-mail link voor wijzigingsbeheer",
+                    "login_link": "Persoonlijke ruimte login link"
+                }
+            },
+            "requiredTags": {
+                "reset_password_url": "Link naar wachtwoord reset",
+                "email_confirmation_url": "E-mail bevestigingslink",
+                "new_email": "Nieuwe aanmeldingsmail",
+                "old_email": "Oude login e-mail",
+                "activate_giftcard_url": "Cadeaubon activeringslink",
+                "message_is_from": "Lid dat de cadeaubon verstuurt",
+                "giftcard_message": "Bericht van de cadeaubon",
+                "giftcard_value": "Waarde van de cadeaubon",
+                "manage_changing_email_link": "E-mail link voor wijzigingsbeheer"
             }
         },
         "emailDesign": {
@@ -381,7 +420,8 @@
             "invoice": "Facturatie",
             "payment_pack": "Sancties",
             "recurrent_private_booking": "Periodieke afspraken",
-            "replacement_request": "Vervanging"
+            "replacement_request": "Vervanging",
+            "giftcard": "Cadeaubon"
         },
         "pageTitle": "Transactionele berichten",
         "caption": {
@@ -426,7 +466,7 @@
                 "useFor": "Gebruik voor ",
                 "pickTemplate": "Selecteer een sjabloon",
                 "name": "Naam",
-                "description": "Het gekozen sjabloon wordt voor \"{{name}}\" van alle geselecteerde studio's gebruikt.",
+                "description": "De gekozen template zal worden gebruikt voor de transactionele e-mail \" {{-name}}\" voor alle hier geselecteerde franchisenemers.",
                 "title": "[Formulier] Melding",
                 "restrictedAccess": "Deze configuratie is samengesteld door het Master-Account. Sommige velden kunnen daarom niet bewerkt worden."
             },
@@ -442,7 +482,9 @@
             "mailToSend": "Selecteer de te versturen e-mail",
             "copyCarbon": "Ontvang kopieën van deze e-mails",
             "sendTransactionnalEmail": "Een transactionele e-mail versturen",
-            "transactionnalEmail": "Transactionele e-mail"
+            "transactionnalEmail": "Transactionele e-mail",
+            "infoBoxErrorMessageFirstLine": "Deze mail moet de volgende variabelen bevatten:",
+            "infoBoxErrorMessageLastLine": "Zorg ervoor dat u ze toevoegt aan uw sjabloon zodat u het kunt opslaan"
         },
         "preview": {
             "email": "E-mail",
@@ -2871,6 +2913,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
+                "Geannuleerd",
                 "Geannuleerd"
             ]
         },
@@ -4999,7 +5042,13 @@
             "exportHtml": "Als HTML exporteren",
             "selectorPlaceholder": "Selecteer studio's",
             "shareWithHelper": "De gekoppelde studio's kunnen deze sjablonen niet bewerken.",
-            "shareWith": "Delen met"
+            "shareWith": "Delen met",
+            "showRequiredTags": "Zie de variabelen",
+            "infoBoxTextFirstLine": "Deze e-mail is gekoppeld aan de transactionele e-mail '{{-names}}'. Sommige variabelen zijn verplicht.",
+            "alertBoxTextFirstLine": "Deze e-mail is gekoppeld aan de transactionele e-mail '{{-names}}'. Het moet de volgende variabelen bevatten : ",
+            "infoBoxTextLastLine": "Zorg ervoor dat u ze toevoegt aan uw sjabloon, zodat u het kunt opslaan.",
+            "dialogWindowTitle": "Verplichte variabelen",
+            "closeButton": "Sluiten"
         },
         "copy": "kopie",
         "autoSave": "Automatische back-ups maken",
@@ -5365,7 +5414,8 @@
                 "isAlreadyOnWaitingList": "Je staat op de wachtlijst. We informeren je wanneer er een plaats vrijkomt.",
                 "isFull": "Deze sessie is volgeboekt. Schrijf je op de wachtlijst in en we sturen je een bericht zodra er een plaats vrijkomt.",
                 "isAlreadyRegistered": "Je reservering is voltooid. De sessie is nu vol.",
-                "waitingListOpen": "Deze sessie is vol. Schrijf je in op de wachtlijst en je ontvangt een bericht zodra er een plaats vrijkomt."
+                "waitingListOpen": "Deze sessie is vol. Schrijf je in op de wachtlijst en je ontvangt een bericht zodra er een plaats vrijkomt.",
+                "waitingListLockedByPendingBookings": "Andere mensen zijn aan het boeken, de wachtlijst is momenteel niet beschikbaar. Probeer het over een paar minuten opnieuw om te zien of er een plaats beschikbaar is."
             },
             "offer": {
                 "isDisabled": "Deze sessie is geannuleerd.",
@@ -5663,7 +5713,8 @@
                     "6": "Onevenwichtige man/vrouw-verhouding",
                     "5": "Heeft",
                     "4": "Gesloten",
-                    "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden."
+                    "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden.",
+                    "6005": "Wachtlijst"
                 },
                 "bookable_status": {
                     "4": "Deze sessie is niet beschikbaar",
@@ -9595,7 +9646,8 @@
         "notificationRule": {
             "createOrUpdate": {
                 "success": "Succesvol gewijzigd",
-                "error": "Kan niet opslaan"
+                "error": "Kan niet opslaan",
+                "errorLackRequiredVariables": "Deze sjabloon kon niet worden geregistreerd"
             }
         },
         "role": {

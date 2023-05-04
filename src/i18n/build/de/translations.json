@@ -5372,7 +5372,8 @@
         "notificationRule": {
             "createOrUpdate": {
                 "success": "Erfolgreich geändert",
-                "error": "Es ist unmöglich, das zu speichern"
+                "error": "Es ist unmöglich, das zu speichern",
+                "errorLackRequiredVariables": "Diese Vorlage konnte nicht gespeichert werden"
             }
         },
         "shop": {
@@ -7118,7 +7119,8 @@
                 "isAlreadyOnWaitingList": "Du bist auf der Warteliste registriert, wir werden Dich per E-Mail benachrichtigen, wenn ein Platz frei ist.",
                 "registerOption": "Mich auf die Warteliste einschreiben",
                 "isAlreadyRegistered": "Der Kurs ist voll, herzlichen Glückwunsch, Du bist eingeschrieben!",
-                "waitingListOpen": "Der Kurs ist voll, Du kannst dich jedoch auf der Warteliste registrieren. Wir werden Dich per E-Mail benachrichtigen, sobald ein Platz verfügbar ist"
+                "waitingListOpen": "Der Kurs ist voll, Du kannst dich jedoch auf der Warteliste registrieren. Wir werden Dich per E-Mail benachrichtigen, sobald ein Platz verfügbar ist",
+                "waitingListLockedByPendingBookings": "Andere Personen buchen gerade, die Warteliste ist derzeit nicht verfügbar. Bitte versuchen Sie es in ein paar Minuten erneut, um zu sehen, ob ein Platz frei geworden ist."
             },
             "offer": {
                 "isDisabled": "Der Kurs wurde leider abgesagt.",
@@ -7407,7 +7409,8 @@
                     "7": "Unausgewogenes Verhältnis zwischen Männern und Frauen",
                     "6002": "Vollständige Warteliste",
                     "6003": "Bereits aufgelistet",
-                    "9": "Sie versuchen, mehr zukünftige Sessions zu buchen, als Ihr Studio erlaubt"
+                    "9": "Sie versuchen, mehr zukünftige Sessions zu buchen, als Ihr Studio erlaubt",
+                    "6005": "Warteliste"
                 },
                 "bookable_status": {
                     "4": "Kurs nicht verfügbar",
@@ -9982,7 +9985,13 @@
             "905": "Neuer verspäteter Antrag (Vertretung)",
             "906": "Abschlussdatum verschoben (Vertretung)",
             "907": "Vertretung gefunden (Vertretung)",
-            "903": "Eine andere Vertretung wurde gefunden (Vertretung)"
+            "903": "Eine andere Vertretung wurde gefunden (Vertretung)",
+            "20": "Anfrage zum Herunterladen einer Rechnung",
+            "301": "Passwort für Mitglied zurücksetzen",
+            "302": "E-Mail-Überprüfung für Mitglieder",
+            "303": "Zusammenlegung von zwei Konten des Studios",
+            "304": "Aktivierung der Geschenkkarte",
+            "305": "Änderung der Mitglieds-E-Mail aus dem Backoffice"
         },
         "tag": {
             "BookingOption": {
@@ -10035,7 +10044,9 @@
                 "tags": {
                     "lastname": "Nachname des Schülers",
                     "firstname": "Vorname des Schülers",
-                    "unsubscribe_link": "Link zur Newsletter-Abmeldung"
+                    "unsubscribe_link": "Link zur Newsletter-Abmeldung",
+                    "reset_password_url": "Link zum Zurücksetzen des Passwortes",
+                    "email_confirmation_url": "Link zur Bestätigung der E-Mail-Adresse"
                 },
                 "name": "Teilnehmer"
             },
@@ -10128,6 +10139,37 @@
                     "invoice_date": "Rechnungsdatum",
                     "invoice_download_link": "Link zum Download"
                 }
+            },
+            "GiftCard": {
+                "name": "Geschenkkarte",
+                "tags": {
+                    "giftcard_message": "Nachricht der Geschenkkarte",
+                    "activate_giftcard_url": "Link zur Aktivierung der Geschenkkarte",
+                    "message_is_from": "Mitglied, das die Geschenkkarte versendet",
+                    "message_is_for": "Empfänger der Geschenkkarte",
+                    "giftcard_value": "Wert der Geschenkkarte",
+                    "giftcard_name": "Name der Geschenkkarte"
+                }
+            },
+            "EmailChange": {
+                "tags": {
+                    "login_link": "Login-Link persönlicher Bereich",
+                    "new_email": "Neue Login-E-Mail",
+                    "old_email": "Alte Login-E-Mail",
+                    "manage_changing_email_link": "Link zur Verwaltung von E-Mail-Änderungen"
+                },
+                "name": "Account bearbeiten"
+            },
+            "requiredTags": {
+                "message_is_from": "Mitglied, das die Geschenkkarte versendet",
+                "reset_password_url": "Link zum Zurücksetzen des Passworts",
+                "email_confirmation_url": "Link zur Bestätigung der E-Mail-Adresse",
+                "new_email": "Neue Login-E-Mail",
+                "old_email": "Alte Login-E-Mail",
+                "activate_giftcard_url": "Aktivierungslink für die Geschenkkarte",
+                "giftcard_message": "Nachricht der Geschenkkarte",
+                "giftcard_value": "Wert der Geschenkkarte",
+                "manage_changing_email_link": "Link zur Verwaltung von E-Mail-Änderungen"
             }
         },
         "emailDesign": {
@@ -10146,7 +10188,8 @@
             "invoice": "Abrechnung",
             "payment_pack": "Sanktionen",
             "recurrent_private_booking": "Wiederkehrende Verabredung",
-            "replacement_request": "Vertretung"
+            "replacement_request": "Vertretung",
+            "giftcard": "Geschenkkarte"
         },
         "pageTitle": "Transaktions-E-Mails",
         "caption": {
@@ -10191,7 +10234,7 @@
                 "useFor": "Verwendung für ",
                 "pickTemplate": "Wählen Sie eine Vorlage",
                 "name": "Name",
-                "description": "Die gewählte Vorlage wird für die Transaktions-E-Mail \"{{name}}\" für alle hier ausgewählten Franchisenehmer verwendet.",
+                "description": "Die gewählte Vorlage wird für die Transaktions-E-Mail \"{{-name}}\" für alle hier ausgewählten Franchisenehmer verwendet.",
                 "title": "Konfiguration",
                 "restrictedAccess": "Diese Konfiguration wird für Franchisenehmer eingerichtet, auf die Sie keinen Zugriff haben. Einige Felder sind nicht bearbeitbar"
             },
@@ -10207,7 +10250,9 @@
             "mailToSend": "Zu sendende Mail",
             "copyCarbon": "Eine Kopie der E-Mail erhalten",
             "sendTransactionnalEmail": "Senden einer Transaktions-E-Mail",
-            "transactionnalEmail": "Transaktions-E-Mail"
+            "transactionnalEmail": "Transaktions-E-Mail",
+            "infoBoxErrorMessageLastLine": "Stellen Sie sicher, dass Sie sie zu Ihrer Vorlage hinzufügen, damit sie gespeichert werden können",
+            "infoBoxErrorMessageFirstLine": "Diese E-Mail muss die folgenden Variablen enthalten:"
         },
         "preview": {
             "email": "E-Mail",
@@ -11209,7 +11254,13 @@
             "exportHtml": "HTML exportieren",
             "selectorPlaceholder": "Auswahl der Franchisenehmer",
             "shareWithHelper": "Die Vorlage kann von den Franchisenehmern nicht geändert werden",
-            "shareWith": "Teilen mit"
+            "shareWith": "Teilen mit",
+            "showRequiredTags": "Siehe die Variablen",
+            "infoBoxTextFirstLine": "Diese E-Mail ist mit der Transaktions-E-Mail \"{{-names}}\" verknüpft. Einige Variablen sind erforderlich.",
+            "infoBoxTextLastLine": "Stellen Sie sicher, dass Sie sie zu Ihrer Vorlage hinzufügen, damit sie gespeichert werden können.",
+            "alertBoxTextFirstLine": "Diese E-Mail ist mit der Transaktions-E-Mail \"{{-names}}\" verknüpft. Sie muss die folgenden Variablen enthalten: ",
+            "dialogWindowTitle": "Variablen erforderlich",
+            "closeButton": "Schließen"
         },
         "no_subject": "Kein Betreff",
         "preview": "Vorschau der E-Mail",
@@ -11705,7 +11756,7 @@
             "autoRenewal": "Automatische Verlängerung",
             "billingInterval": {
                 "month": "Monat",
-                "month_plural": "Alle {{ Anzahl }} Monate",
+                "month_plural": "Alle {{ count }} Monate",
                 "week": "Woche",
                 "week_plural": "Every {{ count }} weeks",
                 "year": "Jahr",

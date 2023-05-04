@@ -2058,7 +2058,8 @@
             "invoice": "Billing",
             "payment_pack": "Penalties",
             "recurrent_private_booking": "Recurring appointments",
-            "replacement_request": "Substitution"
+            "replacement_request": "Substitution",
+            "giftcard": "Gift cards"
         },
         "emailDesign": {
             "placeholder": "Standard BSPORT template",
@@ -2082,7 +2083,9 @@
                 "tags": {
                     "firstname": "First name",
                     "lastname": "Last name",
-                    "unsubscribe_link": "Unsubscribe from the newsletter"
+                    "unsubscribe_link": "Unsubscribe from the newsletter",
+                    "reset_password_url": "Password reset link",
+                    "email_confirmation_url": "Email confirmation link"
                 }
             },
             "Booking": {
@@ -2209,6 +2212,37 @@
                     "invoice_date": "Billing date",
                     "invoice_download_link": "Download link"
                 }
+            },
+            "GiftCard": {
+                "tags": {
+                    "giftcard_message": "Gift card message",
+                    "activate_giftcard_url": "Gift card activation link",
+                    "message_is_from": "Member sending the gift card",
+                    "message_is_for": "Recipient of the gift card",
+                    "giftcard_value": "Gift card value",
+                    "giftcard_name": "Gift card name"
+                },
+                "name": "Gift card"
+            },
+            "requiredTags": {
+                "reset_password_url": "Password reset link",
+                "email_confirmation_url": "Email confirmation link",
+                "new_email": "New login email",
+                "old_email": "Old login email",
+                "activate_giftcard_url": "Gift card activation link",
+                "message_is_from": "Member sending the gift card",
+                "giftcard_message": "Gift card message",
+                "giftcard_value": "Gift card value",
+                "manage_changing_email_link": "Email change management link"
+            },
+            "EmailChange": {
+                "name": "Account modification",
+                "tags": {
+                    "new_email": "New login email",
+                    "old_email": "Old login email",
+                    "manage_changing_email_link": "Email change management link",
+                    "login_link": "Personal space login link"
+                }
             }
         },
         "eventType": {
@@ -2266,7 +2300,13 @@
             "907": "Substitute found (substitute)",
             "705": "Notification of absence",
             "704": "No show: a fine has been added to the internal account balance (for members)",
-            "703": "No show: the pass has been temporarily blocked (for members)"
+            "703": "No show: the pass has been temporarily blocked (for members)",
+            "301": "Reset member password",
+            "303": "Merger of two studio accounts",
+            "20": "Request for invoice download",
+            "302": "Member email validation",
+            "304": "Gift card activation",
+            "305": "Change of member email from the backoffice"
         },
         "messages": {
             "createOrUpdate": {
@@ -2316,7 +2356,7 @@
                 "useFor": "Use for ",
                 "pickTemplate": "Select a template",
                 "name": "Name",
-                "description": "The chosen template with be use for all the studios' \"{{name}}\" transactional emails .",
+                "description": "The chosen template with be use for all the studios' \"{{-name}}\" transactional emails .",
                 "title": "[Form] Configuration",
                 "restrictedAccess": "This configuration is set up for franchisees to which you do not have access. Some fields are not editable"
             },
@@ -2333,7 +2373,9 @@
             "mailToSend": "Select the email that will be sent",
             "copyCarbon": "Receive a copy of this email",
             "sendTransactionnalEmail": "Send a transactional email",
-            "transactionnalEmail": "Transactional email"
+            "transactionnalEmail": "Transactional email",
+            "infoBoxErrorMessageFirstLine": "This mail must contain the following variables:",
+            "infoBoxErrorMessageLastLine": "Make sure you add them to your template so you can save it"
         },
         "preview": {
             "email": "Email",
@@ -9335,6 +9377,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -10612,7 +10655,13 @@
             "exportHtml": "Export HTML",
             "selectorPlaceholder": "Select studios",
             "shareWithHelper": "Sub Accounts can't edit this template.",
-            "shareWith": "Share with"
+            "shareWith": "Share with",
+            "infoBoxTextFirstLine": "This email is linked to the transactional email '{{-names}}'. Some variables are mandatory.",
+            "alertBoxTextFirstLine": "This email is linked to the transactional email '{{-names}}'. It must contain the following variables: ",
+            "showRequiredTags": "See the variables",
+            "infoBoxTextLastLine": "Make sure you add them to your template so you can save it.",
+            "dialogWindowTitle": "Mandatory variables",
+            "closeButton": "Close"
         },
         "autoSave": "Automatic back-up",
         "leaveAlert": "Are you sure that you want to leave this page?",
@@ -10984,7 +11033,8 @@
                 "isFull": "This session is full. Join the waitlist and we'll let you know when a spot becomes available.",
                 "registerOption": "Join waitlist",
                 "isAlreadyRegistered": "Congrats, your booking has been completed. The session is now full.",
-                "waitingListOpen": "This session is full. Join the waitlist and you'll receive a message once a spot becomes available."
+                "waitingListOpen": "This session is full. Join the waitlist and you'll receive a message once a spot becomes available.",
+                "waitingListLockedByPendingBookings": "Other people are booking, the waiting list is currently unavailable. Please try again in a few minutes to see if a place has become available."
             },
             "offer": {
                 "isDisabled": "This session has been cancelled.",
@@ -11272,7 +11322,8 @@
                     "6": "Unbalanced male / female ratio",
                     "5": "Already registered",
                     "4": "Closed",
-                    "9": "It's not allowed to exceed the maximum amount of future bookings"
+                    "9": "It's not allowed to exceed the maximum amount of future bookings",
+                    "6005": "Waiting list"
                 },
                 "bookable_status": {
                     "4": "Session unavailable",
@@ -12734,7 +12785,8 @@
         "notificationRule": {
             "createOrUpdate": {
                 "error": "Impossible to save",
-                "success": "Successfully saved"
+                "success": "Successfully saved",
+                "errorLackRequiredVariables": "This template could not be registered"
             }
         },
         "activity": {

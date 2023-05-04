@@ -29,6 +29,7 @@ import CouponDetail from '../../libs/coupon/components/CouponDetail.component';
 import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component';
 import {
   fetchAllPaymentPacks,
+  fetchPaymentPackBulk as fetchSelectedPaymentPacks,
   resetDisabledPaymentPack as resetDisabledPaymentPackAction,
 } from '../../libs/payment-packs/actions';
 import {
@@ -81,6 +82,7 @@ type Props = {
   resetDiscounts: () => void,
   fetchTags: () => void,
   fetchAllPaymentPacks: () => void,
+  fetchSelectedPaymentPacks: (ids: Number[]) => void,
   fetchAllShop: () => void,
   fetchPrivatePassList: () => void,
   fetchPaymentComboList: () => void,
@@ -225,6 +227,7 @@ export class CouponCreate extends Component<Props, State> {
           allPaymentCombosById={this.props.allPaymentCombosById}
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
+          fetchSelectedPaymentPacks={this.props.fetchSelectedPaymentPacks}
           fetchSelectedShopItems={this.props.fetchSelectedShopItems}
           fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
         />
@@ -277,6 +280,7 @@ const connector = connect(
     push: pushRouter,
     resetDiscounts,
     fetchAllPaymentPacks,
+    fetchSelectedPaymentPacks,
     fetchAllShop,
     fetchSelectedShopItems,
     fetchPrivatePassList,

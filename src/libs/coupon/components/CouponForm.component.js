@@ -95,6 +95,7 @@ type Props = {
   allPaymentCombosById: { [key: number]: PaymentCombo },
   tagList: Array<Tag<TagGroupAPI>>,
   tagsLoading: boolean,
+  fetchSelectedPaymentPacks: (ids: Number[]) => void,
   fetchSelectedShopItems: (
     companyId: Number | undefined,
     ids: Number[],
@@ -164,6 +165,7 @@ export class CouponForm extends React.Component<Props, State> {
   componentDidMount() {
     trackFormAdd(this.props.initial?.id);
     if (this.props.initial && this.props.initial.only_on_objects.length) {
+      this.props.fetchSelectedPaymentPacks(this.props.initial.only_on_objects);
       this.props.fetchSelectedShopItems(
         this.props.initial.company,
         this.props.initial.only_on_objects,

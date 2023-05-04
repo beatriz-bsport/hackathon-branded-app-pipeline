@@ -31,6 +31,7 @@ type OwnProps = {
   allPaymentCombosById: { [key: number]: PaymentCombo };
   tagList: Array<Tag<TagGroupAPI>>;
   tagsLoading: boolean;
+  fetchSelectedPaymentPacks: (ids: Number[]) => void;
   fetchSelectedShopItems: (
     companyId: Number | undefined,
     ids: Number[],

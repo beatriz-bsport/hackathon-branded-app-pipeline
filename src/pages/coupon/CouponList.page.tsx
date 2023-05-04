@@ -40,6 +40,7 @@ import type { PaymentCombo } from '#libs/payment-combo/types';
 import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component';
 import {
   fetchPaymentPackList as fetchPaymentPackListAction,
+  fetchPaymentPackBulk as fetchSelectedPaymentPacks,
   resetDisabledPaymentPack as resetDisabledPaymentPackAction,
 } from '#libs/payment-packs/actions';
 import {
@@ -272,6 +273,7 @@ export class CouponList extends React.PureComponent<Props, State> {
           allPaymentCombosById={this.props.allPaymentCombosById}
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
+          fetchSelectedPaymentPacks={this.props.fetchSelectedPaymentPacks}
           fetchSelectedShopItems={this.props.fetchSelectedShopItems}
           fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
         />
@@ -347,6 +349,7 @@ const connector = connect(
     deleteCouponAction: deleteCoupon,
     goToCoupon: (id: string) => push(`/coupon/${id}/`),
     fetchPaymentPackList: fetchPaymentPackListAction,
+    fetchSelectedPaymentPacks,
     fetchAllShop,
     fetchSelectedShopItems,
     fetchPrivatePassList,

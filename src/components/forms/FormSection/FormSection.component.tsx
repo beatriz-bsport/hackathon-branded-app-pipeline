@@ -1,20 +1,23 @@
 // @ts-nocheck
 import React, { useState, useCallback } from 'react';
 
-import { Box, Divider, IconProps, makeStyles } from '@material-ui/core';
+import { IconProps, Theme, makeStyles } from '@material-ui/core';
 import Collapse from '@material-ui/core/Collapse';
+import Divider from '@material-ui/core/Divider';
+import Box from '@material-ui/core/Box';
 
 import FormSectionTitle from '../FormSectionTitle';
 
 type Props = {
   id?: string;
   children: React.ReactNode;
-  sectionTitle: string;
-  sectionIcon: React.ComponentType<IconProps>;
+  sectionTitle?: string;
+  sectionIcon?: React.ComponentType<IconProps>;
   sectionIconStyle?: IconProps['color'];
   sectionIconContainerStyle?: string;
   sectionCustomIconStyle?: string;
   isCollapse?: boolean;
+  noPadding?: boolean;
 };
 
 const FormSection = React.memo((props: Props) => {
@@ -27,8 +30,9 @@ const FormSection = React.memo((props: Props) => {
     sectionCustomIconStyle,
     id,
     isCollapse,
+    noPadding,
   } = props;
-  const classes = useStyle();
+  const classes = useStyle({ noPadding });
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpandSection = useCallback(
@@ -62,13 +66,15 @@ const FormSection = React.memo((props: Props) => {
   return (
     <div id={id}>
       <Box className={classes.container}>
-        <FormSectionTitle
-          Icon={sectionIcon}
-          title={sectionTitle}
-          iconStyle={sectionIconStyle}
-          iconContainerStyle={sectionIconContainerStyle}
-          customIconStyle={sectionCustomIconStyle}
-        />
+        {sectionTitle && (
+          <FormSectionTitle
+            Icon={sectionIcon}
+            title={sectionTitle}
+            iconStyle={sectionIconStyle}
+            iconContainerStyle={sectionIconContainerStyle}
+            customIconStyle={sectionCustomIconStyle}
+          />
+        )}
         {children}
       </Box>
       <Divider />
@@ -76,19 +82,19 @@ const FormSection = React.memo((props: Props) => {
   );
 });
 
-const useStyle = makeStyles((theme) => ({
-  container: {
-    paddingRight: theme.spacing(4.25),
-    paddingLeft: theme.spacing(4.25),
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
+const useStyle = makeStyles<Theme, Props>((theme) => ({
+  container: ({ noPadding }) => ({
+    paddingRight: noPadding ? 0 : theme.spacing(4.25),
+    paddingLeft: noPadding ? 0 : theme.spacing(4.25),
+    paddingTop: noPadding ? 0 : theme.spacing(3),
+    paddingBottom: noPadding ? 0 : theme.spacing(3),
     '& > *:not(:last-child)': {
       marginBottom: theme.spacing(3),
     },
     '& > *:last-child': {
       marginBottom: theme.spacing(0),
     },
-  },
+  }),
   collapseContainer: {
     '& > *:not(:last-child)': {
       marginBottom: theme.spacing(3),

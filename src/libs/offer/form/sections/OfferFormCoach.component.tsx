@@ -1,10 +1,12 @@
 import React, { useCallback, useMemo } from 'react';
 
-import { FitnessCenter } from '@material-ui/icons';
+import FitnessCenter from '@material-ui/icons/FitnessCenter';
 import { useFormikContext } from 'formik';
 import { COACH_PAYMENT_RULE_FOR_SESSION } from '@bsport/common/lib/master-data/coach_payment_rule';
 import { useTranslation } from 'react-i18next';
-import { Typography, useMediaQuery, useTheme } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core';
 
 import FormSection from '#components/forms/FormSection';
 import OfferFormField from '#libs/offer/form/OfferFormField.component';
@@ -20,20 +22,33 @@ type Props = {
   coaches: Coach[];
   editableCoachPaymentRule: boolean;
   coachPaymentRulesByKind: { [kind: number]: CoachPaymentRule[] };
+  isEditOffer?: boolean;
 };
 
 const OfferFormCoach = (props: Props) => {
-  const { coaches, editableCoachPaymentRule, coachPaymentRulesByKind } = props;
+  const {
+    coaches,
+    editableCoachPaymentRule,
+    coachPaymentRulesByKind,
+    isEditOffer,
+  } = props;
   const classes = useOfferFormStyles();
   const { t } = useTranslation('offer');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const { values, errors, setFieldValue } = useFormikContext<OfferFormValues>();
-  const { coach, coachPaymentRule } = values;
+  const { coach, coachPaymentRule, coachOverride } = values;
 
   const handleSelectCoach = useCallback(
     (newCoach: { value: number; label: string }) => {
       setFieldValue('coach', newCoach?.value ?? null);
+    },
+    [setFieldValue],
+  );
+
+  const handleSelectCoachOverride = useCallback(
+    (newCoach: { value: number; label: string }) => {
+      setFieldValue('coachOverride', newCoach?.value ?? null);
     },
     [setFieldValue],
   );
@@ -52,11 +67,29 @@ const OfferFormCoach = (props: Props) => {
     return null;
   }, [coach, coaches]);
 
+  const availableCoachOverride = useMemo(
+    () =>
+      coaches
+        ? coaches.filter((currentCoach) => currentCoach.id !== coach)
+        : null,
+    [coach, coaches],
+  );
+
+  const selectedCoachOverride = useMemo(
+    () =>
+      coaches && coachOverride
+        ? [coaches.find((coachValue) => coachValue.id === coachOverride).id]
+        : null,
+    [coachOverride, coaches],
+  );
+
   const selectedPaymentRule = useMemo(() => {
     const paymentRules: number[] = [];
-    const selectedRule = coachPaymentRulesByKind[
-      COACH_PAYMENT_RULE_FOR_SESSION
-    ]?.find((rule) => rule?.id === coachPaymentRule);
+    const selectedRule = coachPaymentRulesByKind
+      ? coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]?.find(
+          (rule) => rule?.id === coachPaymentRule,
+        )
+      : null;
 
     if (selectedRule) {
       paymentRules.push(selectedRule.id);
@@ -64,17 +97,25 @@ const OfferFormCoach = (props: Props) => {
     return paymentRules;
   }, [coachPaymentRule, coachPaymentRulesByKind]);
 
+  const coachPaymentRulesList = useMemo(
+    () =>
+      coachPaymentRulesByKind
+        ? coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]
+        : [],
+    [coachPaymentRulesByKind],
+  );
+
   return (
     <FormSection
       id="offer-form-coach-section"
-      sectionTitle={t('offer:form.section.coach.title')}
+      sectionTitle={t('form.section.coach.title')}
       sectionIcon={FitnessCenter}
       sectionCustomIconStyle={classes.sectionIcon}
       sectionIconContainerStyle={classes.sectionIconContainer}
     >
       <OfferFormField
         id="offer-form-coach-field"
-        label={t('offer:form.section.coach.field.coach.title')}
+        label={t('form.section.coach.field.coach.title')}
         isRequired
         isError={!!errors.coach}
         isFlexColumn={isMobile}
@@ -82,7 +123,7 @@ const OfferFormCoach = (props: Props) => {
         <div className={classes.errorContainer}>
           <CoachSelector
             id="offer-form-coach-selector"
-            placeholder={t('offer:form.section.coach.field.coach.placeholder')}
+            placeholder={t('form.section.coach.field.coach.placeholder')}
             coaches={coaches}
             noMulti
             closeMenuOnSelect
@@ -100,19 +141,39 @@ const OfferFormCoach = (props: Props) => {
         </div>
       </OfferFormField>
 
+      {isEditOffer && (
+        <OfferFormField
+          id="offer-form-coach-override-field"
+          label={t('form.section.coach.field.coachOverride.title')}
+          isFlexColumn={isMobile}
+        >
+          <CoachSelector
+            id="offer-form-coach-override-selector"
+            placeholder={t(
+              'form.section.coach.field.coachOverride.placeholder',
+            )}
+            coaches={availableCoachOverride}
+            noMulti
+            isClearable
+            closeMenuOnSelect
+            selectedCoaches={selectedCoachOverride}
+            selectOption={handleSelectCoachOverride}
+            selectorClass={classes.xBigWidth}
+          />
+        </OfferFormField>
+      )}
+
       {editableCoachPaymentRule && (
         <OfferFormField
-          label={t('offer:form.section.coach.field.coachPaymentRule.title')}
+          label={t('form.section.coach.field.coachPaymentRule.title')}
           isFlexColumn={isMobile}
         >
           <CoachPaymentRuleSelectorStyled
             id="offer-form-coach-payment-rule-selector"
-            coachPaymentRulesList={
-              coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]
-            }
+            coachPaymentRulesList={coachPaymentRulesList}
             selectedRules={selectedPaymentRule}
             placeholder={t(
-              'offer:form.section.coach.field.coachPaymentRule.placeholder',
+              'form.section.coach.field.coachPaymentRule.placeholder',
             )}
             disabled={!coach}
             onChange={handleSelectPaymentRule}

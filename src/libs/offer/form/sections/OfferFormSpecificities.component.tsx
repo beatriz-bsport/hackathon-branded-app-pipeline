@@ -1,14 +1,14 @@
+// @ts-nocheck
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { Info, People } from '@material-ui/icons';
-import {
-  TextField,
-  Tooltip,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import Info from '@material-ui/icons/Info';
+import People from '@material-ui/icons/People';
+import { useTheme } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Alert from '@material-ui/lab/Alert';
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -23,12 +23,14 @@ import OfferFormSelector from '#libs/offer/form/OfferFormSelector.component';
 import SpotSchedulingHelper from '#libs/spot-scheduling/utils';
 import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook ';
 import OfferFormTooltip from '#libs/offer/form/OfferFormTooltip.dialog';
+import MetaActivitySelector from '../../../meta-activity/components/MetaActivitySelector.component';
 
 import { OfferFormValues } from '#libs/offer/types';
 import { Level, LevelFilterSet } from '#libs/level/types';
 import { Establishment } from '#libs/establishment/types';
 import { ZoomApp } from '#libs/zoom-app/types';
 import { RoomBlueprint } from '#libs/spot-scheduling/types';
+import { MetaActivity } from '#libs/meta-activity/types';
 import {
   OptionCallback,
   OptionPaginatedCallback,
@@ -44,6 +46,9 @@ type Props = {
   zoomAppDetail: ZoomApp;
   roomBlueprints: RoomBlueprint[];
   isOfferInGroup?: boolean;
+  isEditOffer?: boolean;
+  metaActivities?: MetaActivity[];
+  initialOfferCredits?: number;
   fetchLevelList: (
     params?: LevelFilterSet,
     options?: OptionPaginatedCallback<Level>,
@@ -68,8 +73,14 @@ const OfferFormSpecificities = (props: Props) => {
   const { values, errors, setFieldValue, handleChange } =
     useFormikContext<OfferFormValues>();
   const { zoomAppEnabled } = useFeaturesProvider();
-  const { effectif, waitingListMaxSize, credits, establishment, level } =
-    values;
+  const {
+    effectif,
+    waitingListMaxSize,
+    credits,
+    establishment,
+    level,
+    selectedMetaActivity,
+  } = values;
   const {
     activeCustomLevels,
     allCustomLevels,
@@ -79,6 +90,9 @@ const OfferFormSpecificities = (props: Props) => {
     roomBlueprints,
     isWherebyIntegrationEnabled,
     isOfferInGroup,
+    isEditOffer,
+    metaActivities,
+    initialOfferCredits,
     fetchLevelList,
     updateLevel,
     createLevel,
@@ -118,7 +132,7 @@ const OfferFormSpecificities = (props: Props) => {
         };
       };
       return [...roomBlueprints]
-        .filter((blueprint) => blueprint.establishment === establishment)
+        ?.filter((blueprint) => blueprint.establishment === establishment)
         .map(mapBlueprintsToOptions);
     }
 
@@ -158,6 +172,13 @@ const OfferFormSpecificities = (props: Props) => {
     [],
   );
 
+  const handleSelectMetaActivity = useCallback(
+    ({ value }: { value: number }) => {
+      setFieldValue('selectedMetaActivity', value);
+    },
+    [setFieldValue],
+  );
+
   return (
     <FormSection
       id="offer-form-specificities-section"
@@ -166,6 +187,21 @@ const OfferFormSpecificities = (props: Props) => {
       sectionCustomIconStyle={classes.sectionIcon}
       sectionIconContainerStyle={classes.sectionIconContainer}
     >
+      {isEditOffer && (
+        <MetaActivitySelector
+          id="offer-form-edit-meta-activity-selector"
+          metaActivities={metaActivities ?? []}
+          closeMenuOnSelect
+          selectedMetaActivities={
+            selectedMetaActivity ? [selectedMetaActivity] : undefined
+          }
+          noMulti
+          selectOption={handleSelectMetaActivity}
+          controlBackground={isOfferInGroup && '#F2F2F2'}
+          disabled={isOfferInGroup}
+        />
+      )}
+
       <div className={classes.formFieldColumns}>
         <OfferFormField
           id="offer-form-effectif-field"
@@ -221,33 +257,32 @@ const OfferFormSpecificities = (props: Props) => {
         </OfferFormField>
       </div>
 
-      {!isOfferInGroup && (
-        <OfferFormField
-          id="offer-form-level-field"
-          label={t('form.section.specificities.field.level')}
-          isRequired
-          isFlexColumn={isMobile}
-        >
-          <LevelSelector
-            id="offer-form-level-selector"
-            name="level"
-            noLabel
-            inScrollBar
-            selectedLevel={level}
-            onSelect={handleSelectLevel}
-            customLevels={activeCustomLevels}
-            memoryLevels={allCustomLevels}
-            fetchLevelList={fetchLevelList}
-            onEditLevel={updateLevel}
-            onCreateLevel={createLevel}
-            onDeleteLevel={deleteLevel}
-            selectorClass={classNames({ [classes.bigWidth]: !isMobile })}
-            containerStyle={classes.levelSelector}
-            buttonContainerStyle={classes.levelSelectorAdd}
-            error={!!errors.level}
-          />
-        </OfferFormField>
-      )}
+      <OfferFormField
+        id="offer-form-level-field"
+        label={t('form.section.specificities.field.level')}
+        isRequired
+        isFlexColumn={isMobile}
+      >
+        <LevelSelector
+          id="offer-form-level-selector"
+          name="level"
+          noLabel
+          inScrollBar
+          selectedLevel={level}
+          onSelect={handleSelectLevel}
+          customLevels={activeCustomLevels}
+          memoryLevels={allCustomLevels}
+          fetchLevelList={fetchLevelList}
+          onEditLevel={updateLevel}
+          onCreateLevel={createLevel}
+          onDeleteLevel={deleteLevel}
+          selectorClass={classNames({ [classes.bigWidth]: !isMobile })}
+          containerStyle={classes.levelSelector}
+          buttonContainerStyle={classes.levelSelectorAdd}
+          error={!!errors.level}
+          isDisabled={isOfferInGroup}
+        />
+      </OfferFormField>
 
       <OfferFormField
         id="offer-form-establishment-field"
@@ -358,6 +393,12 @@ const OfferFormSpecificities = (props: Props) => {
 
       {(credits === 0 || credits > 5) && (
         <Alert severity="warning">{t('form.warnings.effectif')}</Alert>
+      )}
+
+      {isEditOffer && credits > initialOfferCredits && (
+        <Alert severity="warning">
+          {t('form.warnings.editOfferInitialCredits')}
+        </Alert>
       )}
 
       {isBroadcast && !isWherebyIntegrationEnabled && (

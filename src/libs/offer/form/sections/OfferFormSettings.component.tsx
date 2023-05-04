@@ -1,13 +1,11 @@
 import React, { useCallback } from 'react';
 
-import { Tune } from '@material-ui/icons';
-import {
-  FormControlLabel,
-  Switch,
-  Typography,
-  useTheme,
-  useMediaQuery,
-} from '@material-ui/core';
+import Tune from '@material-ui/icons/Tune';
+import { useTheme } from '@material-ui/core';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography';
+import Switch from '@material-ui/core/Switch';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -24,10 +22,12 @@ type Props = {
   allowGuestMaster: boolean;
   showPartnership: boolean;
   isOfferInGroup?: boolean;
+  isEditOffer?: boolean;
 };
 
 const OfferFormSettings = (props: Props) => {
-  const { allowGuestMaster, showPartnership, isOfferInGroup } = props;
+  const { allowGuestMaster, showPartnership, isOfferInGroup, isEditOffer } =
+    props;
   const classes = useOfferFormStyles();
   const { t } = useTranslation('offer');
   const theme = useTheme();
@@ -63,6 +63,7 @@ const OfferFormSettings = (props: Props) => {
               color="secondary"
             />
           }
+          disabled={isEditOffer && isOfferInGroup}
         />
 
         {allowGuestMaster && (
@@ -81,18 +82,17 @@ const OfferFormSettings = (props: Props) => {
             {t('form.section.settings.field.partnership.title')}
           </Typography>
 
-          {!isOfferInGroup && (
-            <SwitchField
-              id="offer-form-available-partnership-switch"
-              name="availableOnPartnership"
-              label={t(
-                'form.section.settings.field.partnership.availableOnPartnership',
-              )}
-              switchColor="secondary"
-            />
-          )}
+          <SwitchField
+            id="offer-form-available-partnership-switch"
+            name="availableOnPartnership"
+            label={t(
+              'form.section.settings.field.partnership.availableOnPartnership',
+            )}
+            switchColor="secondary"
+            disabled={isEditOffer && isOfferInGroup}
+          />
 
-          {availableOnPartnership && (
+          {availableOnPartnership && !isEditOffer && (
             <OfferFormField
               label={t(
                 'form.section.settings.field.partnership.partnerMaxBookingCount',

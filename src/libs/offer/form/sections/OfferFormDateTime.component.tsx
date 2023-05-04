@@ -6,11 +6,14 @@ import {
   DateRange,
   RemoveRedEye,
 } from '@material-ui/icons';
-import { Button, Typography, useTheme, useMediaQuery } from '@material-ui/core';
+import { useTheme } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import TimePicker from 'material-ui-pickers/TimePicker';
 import moment, { Moment } from 'moment-timezone';
-import { Alert } from '@material-ui/lab';
+import Alert from '@material-ui/lab/Alert';
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -34,10 +37,11 @@ import { getOfferRecurrenceDates } from '#libs/offer/utils';
 type Props = {
   timezone: string;
   isOfferInGroup?: boolean;
+  isEditOffer?: boolean;
 };
 
 const OfferFormDateTime = (props: Props) => {
-  const { timezone, isOfferInGroup } = props;
+  const { timezone, isOfferInGroup, isEditOffer } = props;
   const { t } = useTranslation(['offer', 'translation']);
   const classes = useOfferFormStyles();
   const theme = useTheme();
@@ -328,119 +332,125 @@ const OfferFormDateTime = (props: Props) => {
         </div>
       </OfferFormField>
 
-      <div className={classes.formFieldColumns}>
-        <SwitchField
-          id="offer-form-recurrence-switch"
-          name="isRecurrence"
-          label={t('offer:form.section.dateTime.field.recurrence.title')}
-          switchColor="secondary"
-        />
-
-        {isRecurrence && (
-          <OfferFormField
-            id="offer-form-date-end-field"
-            label={t('offer:form.section.dateTime.field.dateIntervalEnd')}
-            isRequired
-            isError={!!errors.dateIntervalEnd}
-          >
-            <div className={classes.errorContainer}>
-              <MuiPickersUtilsProvider
-                utils={MomentUtils}
-                moment={moment}
-                locale={moment.locale()}
-              >
-                <DatePicker
-                  id="offer-form-date-end-input"
-                  className={classes.dateInput}
-                  format="L"
-                  variant="outlined"
-                  size="small"
-                  keyboard
-                  required
-                  error={!!errors.dateIntervalEnd}
-                  value={dateIntervalEnd}
-                  minDate={dateIntervalStart}
-                  onChange={handleChangeDateEnd}
-                  placeholder={datePickerPlaceholder}
-                  mask={getDatePickerMask}
-                  InputProps={{
-                    classes: {
-                      adornedEnd: classes.dateInputAdornedEnd,
-                    },
-                  }}
-                  helperText={null}
-                  keyboardIcon={<CalendarToday />}
-                />
-              </MuiPickersUtilsProvider>
-
-              {!!errors.dateIntervalEnd &&
-                typeof errors.dateIntervalEnd === 'string' && (
-                  <Typography variant="caption" color="error">
-                    {t(errors.dateIntervalEnd)}
-                  </Typography>
-                )}
-            </div>
-          </OfferFormField>
-        )}
-      </div>
-
-      {isRecurrence && (
-        <OfferFormField
-          id="offer-form-recurrence-field"
-          label={t('offer:form.section.dateTime.field.recurrence.title')}
-          isRequired
-          isError={!!errors.recurrence}
-          isFlexColumn={isMobile}
-        >
-          <div className={classNames(classes.bigWidth, classes.errorContainer)}>
-            <OfferFormSelector
-              id="offer-form-recurrence-selector"
-              name="recurrence"
-              options={availableRecurrenceOptions}
-              className={classes.bigWidth}
-              placeholder={t(
-                'offer:form.section.dateTime.field.recurrence.placeholder',
-              )}
-              isError={!!errors.recurrence}
+      {!isEditOffer && (
+        <>
+          <div className={classes.formFieldColumns}>
+            <SwitchField
+              id="offer-form-recurrence-switch"
+              name="isRecurrence"
+              label={t('offer:form.section.dateTime.field.recurrence.title')}
+              switchColor="secondary"
             />
 
-            {!!errors.recurrence && (
-              <Typography variant="caption" color="error">
-                {t(errors.recurrence)}
-              </Typography>
+            {isRecurrence && (
+              <OfferFormField
+                id="offer-form-date-end-field"
+                label={t('offer:form.section.dateTime.field.dateIntervalEnd')}
+                isRequired
+                isError={!!errors.dateIntervalEnd}
+              >
+                <div className={classes.errorContainer}>
+                  <MuiPickersUtilsProvider
+                    utils={MomentUtils}
+                    moment={moment}
+                    locale={moment.locale()}
+                  >
+                    <DatePicker
+                      id="offer-form-date-end-input"
+                      className={classes.dateInput}
+                      format="L"
+                      variant="outlined"
+                      size="small"
+                      keyboard
+                      required
+                      error={!!errors.dateIntervalEnd}
+                      value={dateIntervalEnd}
+                      minDate={dateIntervalStart}
+                      onChange={handleChangeDateEnd}
+                      placeholder={datePickerPlaceholder}
+                      mask={getDatePickerMask}
+                      InputProps={{
+                        classes: {
+                          adornedEnd: classes.dateInputAdornedEnd,
+                        },
+                      }}
+                      helperText={null}
+                      keyboardIcon={<CalendarToday />}
+                    />
+                  </MuiPickersUtilsProvider>
+
+                  {!!errors.dateIntervalEnd &&
+                    typeof errors.dateIntervalEnd === 'string' && (
+                      <Typography variant="caption" color="error">
+                        {t(errors.dateIntervalEnd)}
+                      </Typography>
+                    )}
+                </div>
+              </OfferFormField>
             )}
           </div>
-        </OfferFormField>
-      )}
 
-      {isRecurrence && recurrence === OFFER_RECURRENCE.WEEKLY && (
-        <OfferFormWeeklyRecurrenceDays
-          id="offer-form-recurrence-week-days"
-          timezone={timezone}
-        />
-      )}
-
-      {isRecurrence && (
-        <Alert
-          severity="info"
-          action={
-            isMobile ? (
-              <RemoveRedEye onClick={handleOpenRecurrencePreviewDialog} />
-            ) : (
-              <Button
-                color="inherit"
-                startIcon={<RemoveRedEye />}
-                onClick={handleOpenRecurrencePreviewDialog}
+          {isRecurrence && (
+            <OfferFormField
+              id="offer-form-recurrence-field"
+              label={t('offer:form.section.dateTime.field.recurrence.title')}
+              isRequired
+              isError={!!errors.recurrence}
+              isFlexColumn={isMobile}
+            >
+              <div
+                className={classNames(classes.bigWidth, classes.errorContainer)}
               >
-                {t('offer:form.section.dateTime.field.recurrence.preview')}
-              </Button>
-            )
-          }
-        >
-          {t('offer:form.section.dateTime.field.recurrence.previewCount', {
-            count: offerRecurrencePreviewCount,
-          })}
-        </Alert>
+                <OfferFormSelector
+                  id="offer-form-recurrence-selector"
+                  name="recurrence"
+                  options={availableRecurrenceOptions}
+                  className={classes.bigWidth}
+                  placeholder={t(
+                    'offer:form.section.dateTime.field.recurrence.placeholder',
+                  )}
+                  isError={!!errors.recurrence}
+                />
+
+                {!!errors.recurrence && (
+                  <Typography variant="caption" color="error">
+                    {t(errors.recurrence)}
+                  </Typography>
+                )}
+              </div>
+            </OfferFormField>
+          )}
+
+          {isRecurrence && recurrence === OFFER_RECURRENCE.WEEKLY && (
+            <OfferFormWeeklyRecurrenceDays
+              id="offer-form-recurrence-week-days"
+              timezone={timezone}
+            />
+          )}
+
+          {isRecurrence && (
+            <Alert
+              severity="info"
+              action={
+                isMobile ? (
+                  <RemoveRedEye onClick={handleOpenRecurrencePreviewDialog} />
+                ) : (
+                  <Button
+                    color="inherit"
+                    startIcon={<RemoveRedEye />}
+                    onClick={handleOpenRecurrencePreviewDialog}
+                  >
+                    {t('offer:form.section.dateTime.field.recurrence.preview')}
+                  </Button>
+                )
+              }
+            >
+              {t('offer:form.section.dateTime.field.recurrence.previewCount', {
+                count: offerRecurrencePreviewCount,
+              })}
+            </Alert>
+          )}
+        </>
       )}
     </FormSection>
   );

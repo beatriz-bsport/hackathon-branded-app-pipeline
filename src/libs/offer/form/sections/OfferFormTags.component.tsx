@@ -3,7 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import LabelIcon from '@material-ui/icons/Label';
 import BlockIcon from '@material-ui/icons/Block';
 import CheckIcon from '@material-ui/icons/Check';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { useFormikContext } from 'formik';
 

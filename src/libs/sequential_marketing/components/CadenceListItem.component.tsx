@@ -13,7 +13,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
-import DragHandleIcon from '@material-ui/icons/DragHandle';
+import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import Typography from '@material-ui/core/Typography';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -62,75 +62,71 @@ export const CadenceListItem: React.FC<Props> = ({
         [classes.spacedItems]: !dense,
       })}
     >
-      <ListItem>
+      <ListItem
+        button={!!onClick}
+        selected={cadence?.id === selectedId}
+        classes={{ root: classes.listItemOutter }}
+        onClick={() => onClick && onClick(cadence)}
+      >
         {sortable && (
-          <div className={classes.draggableHandle}>
-            <div {...attributes} {...listeners} style={{ zIndex: 999 }}>
-              <DragHandleIcon />
-            </div>
-          </div>
+          <IconButton {...listeners} {...attributes} style={{ zIndex: 999 }}>
+            <DragIndicatorIcon />
+          </IconButton>
         )}
-        <ListItem
-          button={!!onClick}
-          selected={cadence?.id === selectedId}
-          classes={{ root: classes.listItemOutter }}
-          onClick={() => onClick && onClick(cadence)}
-        >
-          <div className={classes.leftItem}>
-            {!withoutIndex && (
-              <div className={classes.indexContainer}>
-                <Typography color="primary" variant="h6">
-                  {cadence.priority_index}
-                </Typography>
-              </div>
-            )}
-            <Typography variant="body1" color="textSecondary">
-              {cadence.name}
-            </Typography>
-          </div>
-          <div className={classes.listItemAction}>
-            {onShow && (
-              <IconButton
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onShow(cadence);
-                }}
-              >
-                <VisibilityIcon />
-              </IconButton>
-            )}
-            {onEdit && (
-              <IconButton
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onEdit(cadence);
-                }}
-              >
-                <EditIcon />
-              </IconButton>
-            )}
-            {onDelete && (
-              <IconButton
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onDelete(cadence);
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
-            )}
-            {onRestore && (
-              <IconButton
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onRestore(cadence);
-                }}
-              >
-                <RestoreFromTrashIcon />
-              </IconButton>
-            )}
-          </div>
-        </ListItem>
+        <div className={classes.leftItem}>
+          {!withoutIndex && (
+            <div className={classes.indexContainer}>
+              <Typography color="primary" variant="h6">
+                {cadence.priority_index}
+              </Typography>
+            </div>
+          )}
+          <Typography variant="body1" color="textSecondary">
+            {cadence.name}
+          </Typography>
+        </div>
+        <div className={classes.listItemAction}>
+          {onShow && (
+            <IconButton
+              onClick={(e) => {
+                e.stopPropagation();
+                onShow(cadence);
+              }}
+            >
+              <VisibilityIcon />
+            </IconButton>
+          )}
+          {onEdit && (
+            <IconButton
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit(cadence);
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          )}
+          {onDelete && (
+            <IconButton
+              onClick={(e) => {
+                e.stopPropagation();
+                onDelete(cadence);
+              }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          )}
+          {onRestore && (
+            <IconButton
+              onClick={(e) => {
+                e.stopPropagation();
+                onRestore(cadence);
+              }}
+            >
+              <RestoreFromTrashIcon />
+            </IconButton>
+          )}
+        </div>
       </ListItem>
     </div>
   );
@@ -148,6 +144,7 @@ const useListItemStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    borderRadius: theme.spacing(1),
   },
   spacedItems: {
     paddingBottom: theme.spacing(2),
@@ -160,11 +157,6 @@ const useListItemStyles = makeStyles((theme: Theme) => ({
     flexWrap: 'wrap',
     gap: theme.spacing(1),
   },
-  draggableHandle: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
   listItemAction: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -175,7 +167,10 @@ const useListItemStyles = makeStyles((theme: Theme) => ({
   },
   indexContainer: {
     borderRadius: theme.spacing(1),
-    padding: theme.spacing(0.5),
+    textAlign: 'center',
+    verticalAlign: 'middle',
+    width: theme.spacing(4),
+    height: theme.spacing(4),
     backgroundColor: chroma(theme.palette.primary.main).alpha(0.09).hex(),
   },
   skeletonBackground: {

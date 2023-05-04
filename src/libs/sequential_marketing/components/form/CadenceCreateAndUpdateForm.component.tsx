@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -48,14 +48,26 @@ export const CadenceCreateAndUpdateForm: React.FC<ComponentProps> = ({
 
   const { isSubmitting, isValid }: FormikValues = useFormikContext();
 
+  const title = useMemo(
+    () =>
+      initial?.id && initial?.name
+        ? t('cadence.form.updateTitle')
+        : t('cadence.form.title'),
+    [initial, t],
+  );
+
+  const submitButtonText = useMemo(
+    () =>
+      initial?.id && initial?.name
+        ? t('cadence.form.updateSubmit')
+        : t('cadence.form.submit'),
+    [initial, t],
+  );
+
   return (
     <GenericResponsiveDialog maxWidth="sm" open={open}>
       {loading && <LinearProgress />}
-      <DialogTitle>
-        {initial?.id && initial?.name
-          ? t('cadence.form.updateTitle')
-          : t('cadence.form.title')}
-      </DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <Form>
           <TextField
@@ -70,7 +82,7 @@ export const CadenceCreateAndUpdateForm: React.FC<ComponentProps> = ({
               disabled={isSubmitting || !isValid || loading}
               color="primary"
             >
-              {isSubmitting ? <CircularProgress /> : t('cadence.form.submit')}
+              {isSubmitting ? <CircularProgress /> : submitButtonText}
             </Submit>
           </DialogActions>
         </Form>

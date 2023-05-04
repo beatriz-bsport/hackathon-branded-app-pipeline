@@ -9,7 +9,7 @@ import {
   patchAuth,
   buildUrlParams,
 } from '../../http';
-import { Offer, OfferCreate, OfferFilterData } from './types';
+import { OfferCreate, OfferEdit, OfferFilterData } from './types';
 
 export async function createOffers(data: OfferCreate) {
   return postAuth(`${API_V1_URI}/offer/create_similar_offers/`, data);
@@ -20,7 +20,7 @@ export async function editOffers({
   data,
 }: {
   offerId: number;
-  data: Offer;
+  data: OfferEdit;
 }) {
   return putAuth(`${API_V1_URI}/offer/${offerId}/`, data);
 }

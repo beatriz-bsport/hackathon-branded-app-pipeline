@@ -55,6 +55,7 @@ import {
   OfferStatus,
   Offer,
   OfferCreate,
+  OfferEdit,
 } from './types';
 
 export const similarOffers = {
@@ -1023,7 +1024,7 @@ export const editOffersActions = {
 
 export function editOffers(
   offerId: number,
-  offer: Offer,
+  offer: OfferEdit,
   options?: OptionBackgroundCallback,
 ) {
   return async (dispatch: Dispatch) => {

@@ -243,21 +243,22 @@ export type OfferState = ErrorAndLoading & {
 };
 
 export type OfferFormValues = {
+  dates?: number[];
   effectif: number;
-  waitingListMaxSize: number;
+  waitingListMaxSize?: number;
   level: number;
   establishment: number;
   broadcastLink: string | null;
   credits: number;
   dateIntervalStart: Moment;
-  dateIntervalEnd: Moment | null;
+  dateIntervalEnd?: Moment | null;
   durationMinute: number;
-  isRecurrence: boolean;
-  recurrence:
+  isRecurrence?: boolean;
+  recurrence?:
     | OFFER_RECURRENCE.WEEKLY
     | OFFER_RECURRENCE.MONTHLY
     | OFFER_RECURRENCE.DAILY;
-  recurrenceWeekDay: {
+  recurrenceWeekDay?: {
     '1': boolean;
     '2': boolean;
     '3': boolean;
@@ -266,13 +267,13 @@ export type OfferFormValues = {
     '6': boolean;
     '7': boolean;
   };
-  calendarSelectedDate: string;
-  isRecurrenceWeekDayDialogOpen: boolean;
+  calendarSelectedDate?: string;
+  isRecurrenceWeekDayDialogOpen?: boolean;
   coach: number;
   coachPaymentRule: number | null;
   isManagerOnly: boolean;
   allowGuestOffer: boolean;
-  partnerMaxBookingCount: number | null;
+  partnerMaxBookingCount?: number | null;
   availableOnPartnership: boolean;
   selectedWhitelistTags: number[];
   selectedBlacklistTags: number[];
@@ -282,6 +283,16 @@ export type OfferFormValues = {
   isOfferInGroup: boolean;
   isZoomAppEnabled: boolean;
   isShowPartnership: boolean;
+  // edit offer
+  isEditOffer?: boolean;
+  selectedMetaActivity?: number;
+  isNotifyConsumers?: boolean;
+  isModifyRecursively?: boolean;
+  coachOverride?: number | null;
+  creditPriceOverride?: number;
+  selectedSimilarOffers?: number[];
+  isCoachOverridePropagate?: boolean;
+  coachOverridePropagateMode?: number;
 };
 
 export type OfferFormRecurrenceWeekDay =
@@ -312,4 +323,23 @@ export type OfferCreate = {
   blacklist_tags: number[];
   allow_guest_offer: boolean;
   room_blueprint?: number;
+};
+
+export type OfferEdit = Omit<
+  OfferCreate,
+  'dates' | 'credits' | 'partner_max_booking_count'
+> & {
+  id: number;
+  notifyConsumers: boolean;
+  available_on_partnership: boolean;
+  manager_only: boolean;
+  modifyAllDates: boolean;
+  custom_selection: boolean;
+  custom_selection_ids: number[];
+  allow_guest_offer: boolean;
+  propagate_coach_override_value: number;
+  meta_activity: number;
+  credit_price_override?: number;
+  date_start: Moment;
+  coach_override: number | null;
 };

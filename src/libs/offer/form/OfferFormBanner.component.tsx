@@ -14,12 +14,13 @@ import Tooltip from '#components/Tooltip.component';
 type Props = {
   name?: string;
   picture?: string;
+  isEditOffer?: boolean;
   onCancel: () => void;
   onBannerGoBack?: () => void;
 };
 
 const OfferFormBanner = (props: Props) => {
-  const { name, picture, onCancel, onBannerGoBack } = props;
+  const { name, picture, isEditOffer, onCancel, onBannerGoBack } = props;
   const classes = useStyles();
   const { t } = useTranslation('common');
 
@@ -57,7 +58,11 @@ const OfferFormBanner = (props: Props) => {
         <div className={classes.titleContainerText}>
           <Typography variant="h4">{t('translation:common.offers')}</Typography>
           <Typography variant="body1">
-            {t('translation:common.offerCreation')}
+            {t(
+              isEditOffer
+                ? 'translation:common.offerEdition'
+                : 'translation:common.offerCreation',
+            )}
           </Typography>
         </div>
       </div>

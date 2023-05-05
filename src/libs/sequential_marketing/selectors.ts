@@ -76,21 +76,28 @@ export const getDisabledStepsList = createSelector([getStepsList], (stepList) =>
 );
 
 export const withSteps = memoize((selector: Selector<Cadence>) =>
-  createSelector([selector, _getStepById], (cadences, stepsData) => {
-    if (!cadences) {
-      return cadences;
-    }
-    if (Array.isArray(cadences)) {
-      return cadences.map((cadence) => ({
-        ...cadence,
-        steps: cadence.steps?.map((_step: number) => stepsData[_step]),
-      }));
-    }
-    return {
-      ...cadences,
-      steps: cadences.steps?.map((_step) => stepsData[_step]),
-    };
-  }),
+  createSelector(
+    [selector, _getStepById, _getStepAllIIds],
+    (cadences, stepsData, stepIds) => {
+      if (!cadences) {
+        return cadences;
+      }
+      if (Array.isArray(cadences)) {
+        return cadences.map((cadence) => ({
+          ...cadence,
+          steps: cadence.steps
+            ?.filter((_stepId) => stepIds.includes(_stepId))
+            .map((_step: number) => stepsData[_step]),
+        }));
+      }
+      return {
+        ...cadences,
+        steps: cadences.steps
+          ?.filter((_stepId) => stepIds.includes(_stepId))
+          .map((_step) => stepsData[_step]),
+      };
+    },
+  ),
 );
 
 export const withSmartLists = memoize((selector: Selector<Cadence>) =>

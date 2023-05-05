@@ -36,7 +36,7 @@ import { getAvailableEstablishmentList } from '../libs/establishment/selectors';
 import { fetchEstablishments } from '../libs/establishment/actions';
 import { fetchAllCoachPaymentRules } from '../libs/coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../libs/coach-payment-rules/selectors';
-import OfferForm from '#libs/offer/OfferForm.component';
+import OfferCreateForm from '#libs/offer/OfferCreateForm.component';
 import { fetchZoomApp } from '#libs/zoom-app/actions';
 import zoomAppSelectors from '#libs/zoom-app/selectors';
 import {
@@ -117,7 +117,7 @@ export class OfferFormPage extends Component<Props, {}> {
       <Grid container className={classes.container}>
         <Grid item xs={12} lg={7}>
           <Paper>
-            <OfferForm
+            <OfferCreateForm
               onSubmit={this.createOffers}
               metaActivity={metaActivity}
               coaches={this.props.coaches}

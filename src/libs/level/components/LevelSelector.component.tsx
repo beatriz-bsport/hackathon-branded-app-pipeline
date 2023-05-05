@@ -79,16 +79,14 @@ export const LevelSelector: React.FC<Props> = ({
 
   const handleModalSubmit = useCallback(
     ({
-      id,
       values,
       options,
     }: {
-      id?: number;
       values: Omit<Level, 'id'>;
       options: OptionCallback<Level>;
     }) => {
-      if (id) {
-        onEditLevel(id, values, {
+      if (values.id) {
+        onEditLevel(values.id, values, {
           onSuccess: () => {
             setEditLevelId(null);
             setIsModalOpen(false);
@@ -172,12 +170,12 @@ export const LevelSelector: React.FC<Props> = ({
                   (level) => level.id === itemProps.data.value,
                 )}
                 isSelected={itemProps.isSelected}
-                onEditLevel={(id) => {
-                  setEditLevelId(id);
+                onEditLevel={(levelId) => {
+                  setEditLevelId(levelId);
                   setIsModalOpen(true);
                 }}
-                onDeleteLevel={(id) => {
-                  setDeleteLevelId(id);
+                onDeleteLevel={(levelId) => {
+                  setDeleteLevelId(levelId);
                 }}
                 withEdit
               />

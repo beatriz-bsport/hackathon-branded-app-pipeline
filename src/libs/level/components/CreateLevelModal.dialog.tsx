@@ -1,8 +1,8 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import * as Yup from 'yup';
-import { Form, Formik } from 'formik';
+import { Form, Formik, useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 import {
   makeStyles,
@@ -54,11 +54,13 @@ export const CreateLevelModal = (props: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const classes = useStyles();
+  const { setSubmitting } = useFormikContext<InitialFormikValues>();
 
-  const handleSubmit = (
-    values: InitialFormikValues,
-    { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void },
-  ) => {
+  const handleFinishSubmitting = useCallback(() => {
+    setSubmitting(false);
+  }, [setSubmitting]);
+
+  const handleSubmit = (values: InitialFormikValues) => {
     onSubmit({
       id: initial?.id,
       values: {
@@ -66,12 +68,8 @@ export const CreateLevelModal = (props: Props) => {
         ...values,
       },
       options: {
-        onSuccess: () => {
-          setSubmitting(false);
-        },
-        onError: () => {
-          setSubmitting(false);
-        },
+        onSuccess: handleFinishSubmitting,
+        onError: handleFinishSubmitting,
       },
     });
   };

@@ -28,7 +28,14 @@ export function getOfferRecurrenceDates(
   const { recurrence, recurrenceWeekDay, dateIntervalStart, dateIntervalEnd } =
     formikValues;
 
-  if (!recurrence) {
+  if (
+    !recurrence ||
+    recurrence !==
+      (OFFER_RECURRENCE.WEEKLY ||
+        OFFER_RECURRENCE.MONTHLY ||
+        OFFER_RECURRENCE.DAILY) ||
+    moment(dateIntervalEnd).diff(moment(), 'years', true) > 3
+  ) {
     return [dateIntervalStart];
   }
 
@@ -68,7 +75,7 @@ export function _generateRecurrenceDates(
   const dateIteration = moment(start).tz(timezone);
 
   while (dateIteration.isSameOrBefore(end, 'day')) {
-    if (recurrence === 'week') {
+    if (recurrence === OFFER_RECURRENCE.WEEKLY) {
       [0, 1, 2, 3, 4, 5, 6].forEach((i) => {
         const currentDateOfTheWeek = dateIteration.clone().add(i, 'day');
         if (

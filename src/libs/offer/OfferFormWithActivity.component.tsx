@@ -1,6 +1,6 @@
 // @ts-nocheck
 // @flow
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
@@ -9,7 +9,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import { Moment } from 'moment-timezone';
 
 import { OfferCreate } from '#libs/offer/types';
-import OfferForm from '#libs/offer/OfferForm.component';
+import OfferCreateForm from '#libs/offer/OfferCreateForm.component';
 import MetaActivitySelectorWithCard from '#libs/meta-activity/components/MetaActivitySelectorWithCard.component';
 import { RoomBlueprint } from '#libs/spot-scheduling/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
@@ -87,12 +87,17 @@ export const OfferFormWithActivity: React.FC<Props> = ({
   const [selectedMetaActivity, setSelectedMetaActivty] =
     useState<MetaActivity | null>(null);
 
-  const handleSelectActivity = (activity: MetaActivity) =>
-    setSelectedMetaActivty(activity);
+  const handleSelectActivity = useCallback(
+    (activity: MetaActivity) => setSelectedMetaActivty(activity),
+    [],
+  );
 
-  const handleSubmit = (data: OfferCreate) => {
-    onSubmit(selectedMetaActivity.id, data);
-  };
+  const handleSubmit = useCallback(
+    (data: OfferCreate) => {
+      selectedMetaActivity && onSubmit(selectedMetaActivity.id, data);
+    },
+    [onSubmit, selectedMetaActivity],
+  );
 
   const handleGoBack = () => setSelectedMetaActivty(null);
 
@@ -118,7 +123,7 @@ export const OfferFormWithActivity: React.FC<Props> = ({
   }
 
   return (
-    <OfferForm
+    <OfferCreateForm
       metaActivity={selectedMetaActivity}
       selectedDate={selectedDate}
       activeCustomLevels={activeCustomLevels}

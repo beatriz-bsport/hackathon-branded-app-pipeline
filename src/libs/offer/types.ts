@@ -281,6 +281,7 @@ export type OfferFormValues = {
   isMetaActivityBroadcast: boolean;
   isOfferInGroup: boolean;
   isZoomAppEnabled: boolean;
+  isShowPartnership: boolean;
 };
 
 export type OfferFormRecurrenceWeekDay =

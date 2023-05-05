@@ -42,7 +42,7 @@ import {
   IntervalRecurrenceSelectField,
 } from '#components/forms';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-import OfferForm from '#libs/offer/OfferForm.component';
+import OfferCreateForm from '#libs/offer/OfferCreateForm.component';
 import OfferEditForm from '#libs/offer/OfferEditForm.component';
 
 import { CompanyTheme } from '#libs/theme/types';
@@ -651,7 +651,7 @@ const OfferDialogs: React.FC<{
         withoutPadding
         withoutHeaderContainer
       >
-        <OfferForm
+        <OfferCreateForm
           selectedDate={moment()}
           coaches={coaches}
           timezone={theme.timezone_name}

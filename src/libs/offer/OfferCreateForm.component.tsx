@@ -1,7 +1,7 @@
-// @ts-nocheck
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
-import { Button, CircularProgress } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import AddIcon from '@material-ui/icons/Add';
 import { withFormik, useFormikContext, FormikProps, Form } from 'formik';
 import moment, { Moment } from 'moment-timezone';
@@ -15,7 +15,7 @@ import OfferFormDateTime from '#libs/offer/form/sections/OfferFormDateTime.compo
 import OfferFormCoach from '#libs/offer/form/sections/OfferFormCoach.component';
 import OfferFormSettings from '#libs/offer/form/sections/OfferFormSettings.component';
 import OfferFormTags from '#libs/offer/form/sections/OfferFormTags.component';
-import OfferFormValidationSchema from '#libs/offer/form/ValidationSchema';
+import OfferFormCreationValidationSchema from '#libs/offer/form/CreationValidationSchema';
 import { useOfferFormStyles } from '#libs/offer/hooks';
 import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook ';
 import { getIsoWeekDay, getOfferRecurrenceDates } from '#libs/offer/utils';
@@ -74,7 +74,7 @@ type FormProps = {
 
 type Props = ComponentProps & FormikProps<OfferFormValues>;
 
-export const OfferForm = (props: Props) => {
+export const OfferCreateForm = (props: Props) => {
   const {
     metaActivity,
     isOfferInGroup,
@@ -104,9 +104,13 @@ export const OfferForm = (props: Props) => {
   } = props;
   const { t } = useTranslation('common');
   const classes = useOfferFormStyles();
-  const { values, setFieldValue, handleSubmit } =
+  const { values, isValid, dirty, setFieldValue, setErrors, handleSubmit } =
     useFormikContext<OfferFormValues>();
   const { zoomAppEnabled } = useFeaturesProvider();
+
+  useEffect(() => {
+    setFieldValue('isZoomAppEnabled', zoomAppEnabled, false);
+  }, [setFieldValue, setErrors, showPartnership, zoomAppEnabled]);
 
   const handleDeleteLevel = useCallback(
     (deleteLevelId: number) => {
@@ -120,17 +124,6 @@ export const OfferForm = (props: Props) => {
       });
     },
     [deleteLevel, fetchLevelList, setFieldValue, values.level],
-  );
-
-  const updateValuesAndSubmit = useCallback(
-    (submitEvent: React.FormEvent<HTMLFormElement>) => {
-      // set has zoom upsell
-      if (zoomAppEnabled) {
-        setFieldValue('isZoomAppEnabled', zoomAppEnabled);
-      }
-      handleSubmit(submitEvent);
-    },
-    [handleSubmit, setFieldValue, zoomAppEnabled],
   );
 
   const submitButtonStartIcon = useMemo(() => {
@@ -149,7 +142,7 @@ export const OfferForm = (props: Props) => {
   }
 
   return (
-    <Form onSubmit={updateValuesAndSubmit} data-testid="offer-form" noValidate>
+    <Form onSubmit={handleSubmit} data-testid="offer-form" noValidate>
       <OfferFormRecurrencePreview timezone={timezone} />
 
       {!hideBanner && (
@@ -197,7 +190,7 @@ export const OfferForm = (props: Props) => {
       <div className={classes.buttonsContainer} id="offer-form-actions">
         <Button onClick={onCancel}>{onCancelText ?? t('cancel')}</Button>
         <Button
-          disabled={processing}
+          disabled={processing || !isValid || !dirty}
           variant="contained"
           color="primary"
           type="submit"
@@ -253,11 +246,11 @@ const formikFormWrapper = withFormik<
       isMetaActivityBroadcast: props.metaActivity?.is_broadcast,
       isZoomAppEnabled: false,
       isOfferInGroup: props.isOfferInGroup,
+      isShowPartnership: props.showPartnership,
     };
   },
   enableReinitialize: true,
-  validationSchema: OfferFormValidationSchema,
-  validateOnChange: false,
+  validationSchema: OfferFormCreationValidationSchema,
   validateOnBlur: false,
   handleSubmit: (values, { props: { timezone, onSubmit } }) => {
     const {
@@ -314,4 +307,4 @@ const formikFormWrapper = withFormik<
   },
 });
 
-export default formikFormWrapper(OfferForm);
+export default formikFormWrapper(OfferCreateForm);

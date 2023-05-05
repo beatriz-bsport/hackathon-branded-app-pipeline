@@ -7,11 +7,11 @@ import {
   OFFER_RECURRENCE,
 } from '#libs/offer/constants';
 
-const OfferFormValidationSchema = Yup.object().shape({
+const OfferFormCreateValidationSchema = Yup.object().shape({
   effectif: Yup.number()
     .typeError('offer:form.errors.required')
     .required('offer:form.errors.required')
-    .min(2, 'offer:form.errors.minTwo')
+    .min(0, 'offer:form.errors.minZero')
     .test({
       name: 'isGreaterThanBlueprintSpot',
       test: function isGreaterThanBlueprintSpot() {
@@ -137,7 +137,8 @@ const OfferFormValidationSchema = Yup.object().shape({
     test: function lessThanEffectif() {
       if (
         this.parent.availableOnPartnership &&
-        this.parent.partnerMaxBookingCount > this.parent.effectif
+        this.parent.partnerMaxBookingCount > this.parent.effectif &&
+        this.parent.isShowPartnership
       ) {
         return this.createError({
           message: 'offer:form.errors.field.partnerMaxBookingCount',
@@ -149,4 +150,4 @@ const OfferFormValidationSchema = Yup.object().shape({
   }),
 });
 
-export default OfferFormValidationSchema;
+export default OfferFormCreateValidationSchema;

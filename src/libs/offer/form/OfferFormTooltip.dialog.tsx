@@ -2,12 +2,13 @@ import React from 'react';
 
 import {
   Button,
-  Dialog,
   DialogActions,
   DialogContent,
   Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 type Props = {
   isOpen: boolean;
@@ -20,14 +21,19 @@ const OfferFormTooltip = (props: Props) => {
   const { t } = useTranslation('common');
 
   return (
-    <Dialog open={isOpen} onClose={onClose} maxWidth="xs">
+    <GenericResponsiveDialog
+      open={isOpen}
+      onClose={onClose}
+      noFullScreen
+      maxWidth="xs"
+    >
       <DialogContent>
         <Typography>{children}</Typography>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>{t('close')}</Button>
       </DialogActions>
-    </Dialog>
+    </GenericResponsiveDialog>
   );
 };
 export default OfferFormTooltip;

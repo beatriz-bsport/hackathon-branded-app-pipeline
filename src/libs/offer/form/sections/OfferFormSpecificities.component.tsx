@@ -61,7 +61,7 @@ const OfferFormSpecificities = (props: Props) => {
   const [selectedTooltipDialog, setSelectedTooltipDialog] = useState<
     'credit' | 'spotScheduling' | 'broadcastLink' | null
   >(null);
-  const { t } = useTranslation(['form', 'offer']);
+  const { t } = useTranslation('offer');
   const classes = useOfferFormStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -161,7 +161,7 @@ const OfferFormSpecificities = (props: Props) => {
   return (
     <FormSection
       id="offer-form-specificities-section"
-      sectionTitle={t('offer:form.section.specificities.title')}
+      sectionTitle={t('form.section.specificities.title')}
       sectionIcon={People}
       sectionCustomIconStyle={classes.sectionIcon}
       sectionIconContainerStyle={classes.sectionIconContainer}
@@ -169,7 +169,7 @@ const OfferFormSpecificities = (props: Props) => {
       <div className={classes.formFieldColumns}>
         <OfferFormField
           id="offer-form-effectif-field"
-          label={t('offer:form.section.specificities.field.effectif')}
+          label={t('form.section.specificities.field.effectif')}
           isRequired
           isError={!!errors.effectif}
         >
@@ -182,7 +182,7 @@ const OfferFormSpecificities = (props: Props) => {
               error={!!errors.effectif}
               variant="outlined"
               size="small"
-              InputProps={{ inputProps: { min: 2 } }}
+              InputProps={{ inputProps: { min: 0 } }}
               placeholder="20"
               inputClass={classes.mediumWidth}
             />
@@ -198,7 +198,7 @@ const OfferFormSpecificities = (props: Props) => {
         </OfferFormField>
 
         <OfferFormField
-          label={t('offer:form.section.specificities.field.waitingListMaxSize')}
+          label={t('form.section.specificities.field.waitingListMaxSize')}
           isRequired
           isError={!!errors.waitingListMaxSize}
         >
@@ -224,7 +224,7 @@ const OfferFormSpecificities = (props: Props) => {
       {!isOfferInGroup && (
         <OfferFormField
           id="offer-form-level-field"
-          label={t('offer:form.section.specificities.field.level')}
+          label={t('form.section.specificities.field.level')}
           isRequired
           isFlexColumn={isMobile}
         >
@@ -251,7 +251,7 @@ const OfferFormSpecificities = (props: Props) => {
 
       <OfferFormField
         id="offer-form-establishment-field"
-        label={t('offer:form.section.specificities.field.establishment')}
+        label={t('form.section.specificities.field.establishment')}
         isRequired
         isError={!!errors.establishment}
         isFlexColumn={isMobile}
@@ -283,9 +283,7 @@ const OfferFormSpecificities = (props: Props) => {
       {establishment && !!getAvailableRoomBlueprints().length && (
         <OfferFormField
           id="offer-form-spot-scheduling-field"
-          label={t(
-            'offer:form.section.specificities.field.roomBlueprint.title',
-          )}
+          label={t('form.section.specificities.field.roomBlueprint.title')}
           isFlexColumn={isMobile}
         >
           <div
@@ -298,16 +296,14 @@ const OfferFormSpecificities = (props: Props) => {
               options={getAvailableRoomBlueprints()}
               className={classes.bigWidth}
               placeholder={t(
-                'offer:form.section.specificities.field.roomBlueprint.placeholder',
+                'form.section.specificities.field.roomBlueprint.placeholder',
               )}
               onSelectedOption={handleSetRoomBlueprintSpot}
               isClearable
             />
 
             <Tooltip
-              title={t(
-                'offer:form.section.specificities.tooltip.roomBlueprint',
-              )}
+              title={t('form.section.specificities.tooltip.roomBlueprint')}
               className={classes.tooltip}
               onClick={handleDisplaySpotSchedulingTooltip}
             >
@@ -319,14 +315,14 @@ const OfferFormSpecificities = (props: Props) => {
             isOpen={selectedTooltipDialog === 'spotScheduling'}
             onClose={handleCloseTooltipDialog}
           >
-            {t('offer:form.section.specificities.tooltip.roomBlueprint')}
+            {t('form.section.specificities.tooltip.roomBlueprint')}
           </OfferFormTooltip>
         </OfferFormField>
       )}
 
       <OfferFormField
         id="offer-form-credits-field"
-        label={t('offer:form.section.specificities.field.credits')}
+        label={t('form.section.specificities.field.credits')}
         isRequired
         isError={!!errors.credits}
       >
@@ -345,7 +341,7 @@ const OfferFormSpecificities = (props: Props) => {
         />
 
         <Tooltip
-          title={t('offer:form.section.specificities.tooltip.credits')}
+          title={t('form.section.specificities.tooltip.credits')}
           className={classes.tooltip}
           onClick={handleDisplayCreditTooltip}
         >
@@ -356,18 +352,18 @@ const OfferFormSpecificities = (props: Props) => {
           isOpen={selectedTooltipDialog === 'credit'}
           onClose={handleCloseTooltipDialog}
         >
-          {t('offer:form.section.specificities.tooltip.credits')}
+          {t('form.section.specificities.tooltip.credits')}
         </OfferFormTooltip>
       </OfferFormField>
 
       {(credits === 0 || credits > 5) && (
-        <Alert severity="warning">{t('offer:form.warnings.effectif')}</Alert>
+        <Alert severity="warning">{t('form.warnings.effectif')}</Alert>
       )}
 
       {isBroadcast && !isWherebyIntegrationEnabled && (
         <OfferFormField
           id="offer-form-broadcast-link-field"
-          label={t('offer:form.section.specificities.field.broadcastLink')}
+          label={t('form.section.specificities.field.broadcastLink')}
           isRequired
           isError={!!errors.broadcastLink}
         >
@@ -385,16 +381,14 @@ const OfferFormSpecificities = (props: Props) => {
                 zoomAppEnabled && !zoomAppDetail?.is_disabled,
             })}
             helperText={
-              isBroadcastErrorRequired ? t('offer:form.errors.required') : null
+              isBroadcastErrorRequired ? t('form.errors.required') : null
             }
           />
 
           {zoomAppEnabled && !zoomAppDetail?.is_disabled && (
             <>
               <Tooltip
-                title={t(
-                  'offer:form.section.specificities.tooltip.broadcastLink',
-                )}
+                title={t('form.section.specificities.tooltip.broadcastLink')}
                 className={classes.tooltip}
                 onClick={handleDisplayBroadcastLinkTooltip}
               >
@@ -405,7 +399,7 @@ const OfferFormSpecificities = (props: Props) => {
                 isOpen={selectedTooltipDialog === 'broadcastLink'}
                 onClose={handleCloseTooltipDialog}
               >
-                {t('offer:form.section.specificities.tooltip.broadcastLink')}
+                {t('form.section.specificities.tooltip.broadcastLink')}
               </OfferFormTooltip>
             </>
           )}

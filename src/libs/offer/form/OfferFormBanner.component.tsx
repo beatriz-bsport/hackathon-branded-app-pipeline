@@ -119,7 +119,7 @@ const useStyles = makeStyles((theme) => ({
       paddingBottom: theme.spacing(2),
       paddingLeft: theme.spacing(3),
       paddingRight: theme.spacing(3),
-      height: 'inherit',
+      height: 'auto',
     },
   },
   gradientContainer: {

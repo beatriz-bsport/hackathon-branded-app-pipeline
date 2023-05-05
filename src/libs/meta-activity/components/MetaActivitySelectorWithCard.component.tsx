@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { ChangeEvent, useCallback, useState, useMemo } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 
 import Fuse, { FuseOptions } from 'fuse.js';
 import { Theme, makeStyles } from '@material-ui/core';
@@ -22,12 +22,12 @@ type VirtualizedRowProps = {
   onChange: () => void;
 };
 
-const VirtualizedRow = (props: VirtualizedRowProps) => {
+const VirtualizedRow = React.memo((props: VirtualizedRowProps) => {
   const { metaActivity, onChange } = props;
   return (
     <MetaActivityListItem metaActivity={metaActivity} onClick={onChange} />
   );
-};
+});
 
 const MetaActivitySelectorWithCard = (props: Props) => {
   const { metaActivities, placeholder, isLoading, onChange } = props;
@@ -35,10 +35,8 @@ const MetaActivitySelectorWithCard = (props: Props) => {
   const [fuzzySearchActivities, setFuzzySearchActivities] = useState(null);
   const classes = useStyles();
 
-  const virtualizedListItemsCount = useMemo(
-    () => fuzzySearchActivities?.length ?? metaActivities?.length,
-    [fuzzySearchActivities?.length, metaActivities?.length],
-  );
+  const virtualizedListItemsCount =
+    fuzzySearchActivities?.length ?? metaActivities?.length;
 
   const changeSearch = useCallback(
     (fuse: Fuse<MetaActivity, FuseOptions<MetaActivity>>) =>

@@ -1,6 +1,6 @@
 // @ts-nocheck
 // @flow
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import classNames from 'classnames';
@@ -46,8 +46,9 @@ export function NumericInput(props: Props) {
     inputClass,
   } = props;
 
-  const handleOnChange = onChange
-    ? (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (onChange) {
         if (isPositive) {
           return parseInt(event.target.value) >= 0
             ? onChange(event)
@@ -55,7 +56,10 @@ export function NumericInput(props: Props) {
         }
         return onChange(event);
       }
-    : onChange;
+      return onChange;
+    },
+    [isPositive, onChange],
+  );
 
   return (
     <TextField

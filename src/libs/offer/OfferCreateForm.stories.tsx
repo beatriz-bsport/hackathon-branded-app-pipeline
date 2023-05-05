@@ -8,9 +8,9 @@ import { Grid, Paper } from '@material-ui/core';
 import { expect } from '@storybook/jest';
 import i18n from 'i18next';
 
-import OfferFormWithFormik, {
-  OfferForm,
-} from '#libs/offer/OfferForm.component';
+import OfferCreateFormWithFormik, {
+  OfferCreateForm,
+} from '#libs/offer/OfferCreateForm.component';
 import { OFFER_RECURRENCE } from '#libs/offer/constants';
 import {
   newStoryFromTemplate,
@@ -21,7 +21,7 @@ import {
 import { meta_activity_factory } from '#libs/meta-activity/factory';
 import { tagListFactory } from '#libs/tag/factory';
 import withFormik from '@bbbtech/storybook-formik';
-import OfferFormValidationSchema from '#libs/offer/form/ValidationSchema';
+import OfferFormValidationSchema from '#libs/offer/form/CreationValidationSchema';
 import { OfferFormValues } from '#libs/offer/types';
 import { establishment_factory } from '#libs/establishment/factory';
 import { coachesFactory } from '#libs/associated-coach/factories';
@@ -98,11 +98,12 @@ const initialValues: OfferFormValues = {
   isOfferInGroup: false,
   roomBlueprintSlots: null,
   isZoomAppEnabled: true,
+  isShowPartnership: true,
 };
 
-const OfferFormMeta: Meta<typeof OfferForm> = {
-  title: 'library/Offer/OfferForm',
-  component: OfferFormWithFormik,
+const OfferFormMeta: Meta<typeof OfferCreateForm> = {
+  title: 'library/Offer/OfferCreateForm',
+  component: OfferCreateFormWithFormik,
   decorators: [withFormik],
   parameters: {
     formik: {
@@ -141,10 +142,10 @@ const OfferFormMeta: Meta<typeof OfferForm> = {
 
 export default OfferFormMeta;
 
-const OfferFormTemplate: ComponentStory<typeof OfferForm> = (args) => (
+const OfferFormTemplate: ComponentStory<typeof OfferCreateForm> = (args) => (
   <Grid item xs={12} lg={6}>
     <Paper>
-      <OfferForm {...args} />
+      <OfferCreateForm {...args} />
     </Paper>
   </Grid>
 );

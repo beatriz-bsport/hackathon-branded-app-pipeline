@@ -11,7 +11,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
 import { mapFormData } from '../../../pages/form.utils';
 import MetaActivityForm from './MetaActivityForm.component';
-import OfferForm from '../../offer/OfferForm.component';
+import OfferCreateForm from '../../offer/OfferCreateForm.component';
 import CompatiblePaymentPacks from './MetaActivityCompatiblePacks.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { OptionCallback } from '../../../state/types';
@@ -191,7 +191,7 @@ export class MetaActivityCreateDrawer extends Component<Props> {
   );
 
   renderOfferStep = () => (
-    <OfferForm
+    <OfferCreateForm
       hideBanner
       onSubmit={
         this.props.isWorkshop

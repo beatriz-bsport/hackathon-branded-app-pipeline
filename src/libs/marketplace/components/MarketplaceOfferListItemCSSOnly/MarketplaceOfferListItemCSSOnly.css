@@ -68,6 +68,11 @@
   display: flex;
 }
 
+.bs-offer-list-item__content__offer__left__time--without-date {
+  font-size: var(--body2-fontSize);
+  line-height: var(--body2-lineHeight);
+}
+
 .bs-offer-list-item__content__offer__left__time--time-highlighted {
   order: -2;
   font-weight: var(--fontWeightMedium);

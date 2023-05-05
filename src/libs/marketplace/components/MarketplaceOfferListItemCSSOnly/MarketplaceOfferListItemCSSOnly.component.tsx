@@ -182,15 +182,15 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
               </div>
             )}
             <div
-              className={classNames(
-                'bs-offer-list-item__content__offer__left__time',
-                {
-                  'bs-offer-list-item__content__offer__left__time--time-highlighted':
-                    isVariantTimeHighlighted,
-                  'bs-offer-list-item__content__offer__left__time--coach-highlighted':
-                    isVariantCoachHighlighted,
-                },
-              )}
+              className={classNames({
+                'bs-offer-list-item__content__offer__left__time--time-highlighted':
+                  isVariantTimeHighlighted,
+                'bs-offer-list-item__content__offer__left__time--coach-highlighted':
+                  isVariantCoachHighlighted,
+                'bs-offer-list-item__content__offer__left__time--without-date':
+                  !showDate,
+                'bs-offer-list-item__content__offer__left__time': showDate,
+              })}
             >
               {(showDate ? `${date} ` : '') + offerHours}
             </div>

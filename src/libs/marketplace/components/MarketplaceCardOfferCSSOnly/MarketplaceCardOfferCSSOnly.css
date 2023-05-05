@@ -91,11 +91,11 @@
 
 .bs-card-offer__content__time {
   align-self: flex-start;
-  font-family: var(--h5-fontFamily);
+  font-family: var(--body2-fontFamily);
   font-style: normal;
   font-weight: var(--fontWeightRegular);
-  font-size: var(--h5-fontSize);
-  line-height: var(--h5-lineHeight);
+  font-size: var(--body2-fontSize);
+  line-height: var(--body2-lineHeight);
 }
 
 .bs-card-offer__content__time--time-highlighted {

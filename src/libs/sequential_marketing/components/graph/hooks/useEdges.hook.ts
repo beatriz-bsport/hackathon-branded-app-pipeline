@@ -88,7 +88,7 @@ export const useEdgesRenderer = ({
         target: 'NewFakerNode',
         animated: true,
         label: t('cadence.graph.nodeElement.edgeLabelForNodeCreation'),
-        style: { stroke: green[400], 'stroke-width': 2 },
+        style: { stroke: green[400], strokeWidth: 2 },
       };
     }
     return null;
@@ -104,7 +104,7 @@ export const useEdgesRenderer = ({
 export default useEdgesRenderer;
 
 const baseEdgeStyle = {
-  'stroke-width': 2,
+  strokeWidth: 2,
 };
 
 const getEdgeStyle = ({

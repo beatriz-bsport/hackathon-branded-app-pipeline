@@ -9,6 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { useTranslation } from 'react-i18next';
+import isEqual from 'lodash/isEqual';
 import Tooltip from '../../../components/Tooltip.component';
 import DashboardChipRow from './DashboardChipRow.component';
 
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export type Props = {
   graph: DataSourceDashboardGraph;
   children: React.ReactNode;
-  onEdit: () => void;
+  onEdit: (graph: DataSourceDashboardGraph) => void;
   onDelete: (graph: DataSourceDashboardGraph) => void;
   loadingData: boolean;
   loadingSettings?: boolean;
@@ -71,6 +72,8 @@ export const DashboardGraphWrapper: React.FC<Props> = ({
 
   const handleDelete = useCallback(() => onDelete(graph), [graph, onDelete]);
 
+  const handleEdit = useCallback(() => onEdit(graph), [graph, onEdit]);
+
   return (
     <>
       <Paper className={classes.paperContainer} elevation={2}>
@@ -83,7 +86,7 @@ export const DashboardGraphWrapper: React.FC<Props> = ({
               <Tooltip title={t('graphActions.edit')}>
                 <IconButton
                   size="small"
-                  onClick={onEdit}
+                  onClick={handleEdit}
                   disabled={!!loadingSettings}
                 >
                   <EditIcon color="primary" />
@@ -103,7 +106,7 @@ export const DashboardGraphWrapper: React.FC<Props> = ({
           </div>
           <DashboardChipRow
             graph={graph}
-            onClick={onEdit}
+            onClick={handleEdit}
             disabled={!!loadingSettings}
           />
         </div>
@@ -120,4 +123,4 @@ export const DashboardGraphWrapper: React.FC<Props> = ({
   );
 };
 
-export default React.memo(DashboardGraphWrapper);
+export default React.memo(DashboardGraphWrapper, isEqual);

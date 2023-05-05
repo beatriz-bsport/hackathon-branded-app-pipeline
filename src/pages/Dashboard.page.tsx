@@ -22,9 +22,9 @@ import { prepareGraphPropsForDisplay } from '#libs/dashboard/utils';
 
 import DashboardTabBar from '#libs/dashboard/components/DashboardTabBar.component';
 import DashboardGraphFormDrawer from '#libs/dashboard/components/DashboardGraphForm.drawer';
-import { TemporalBarChart } from '#components/graph/TemporalBarChart.component';
-import { TemporalAreaChart } from '#components/graph/TemporalAreaChart.component';
-import { TimeslotGridChart } from '#components/graph/TimeslotGridChart.component';
+import TemporalBarChart from '#components/graph/TemporalBarChart.component';
+import TemporalAreaChart from '#components/graph/TemporalAreaChart.component';
+import TimeslotGridChart from '#components/graph/TimeslotGridChart.component';
 import PieChart from '#components/graph/PieChart.component';
 import QualitativeBarChart from '#components/graph/QualitativeBarChart.component';
 import withTitle from '../hocs/with-title.hoc';
@@ -77,6 +77,7 @@ type AllConnectedProps = WithStateProps &
 type Props = WithStateProps &
   AllConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
+  WithHandlerType<typeof mapWithHandlersPrepareGraphPropsForDisplay> &
   WithStyles<typeof styles> &
   withDatatypeDynamicDataProps;
 
@@ -138,6 +139,31 @@ export class DashboardPage extends Component<Props> {
     this.props.addNewgraph(formData, options);
   };
 
+  onEditDashboardGraph = (graph: DataSourceDashboardGraph) => {
+    this.props.setGraphToEdit(graph);
+    this.openDrawer();
+  };
+
+  handleResetBottomActionButtons = () => {
+    if (!this.props.dashboardSettingsLoading) {
+      this.props.setResetDialogOpen(true);
+    }
+  };
+
+  handleCreateBottomActionButtons = () => {
+    if (!this.props.dashboardSettingsLoading) {
+      this.openDrawer();
+    }
+  };
+
+  onCancelResetModal = () => {
+    this.props.setResetDialogOpen(false);
+  };
+
+  onConfirmResetModal = () => {
+    this.props.setResetDialogOpen(false);
+  };
+
   render() {
     const {
       dashboardSettings,
@@ -153,36 +179,11 @@ export class DashboardPage extends Component<Props> {
       graphMetadata,
       deleteGraph,
       isDrawerOpen,
-      setGraphToEdit,
+      generateGraphPropsForDisplay,
       t,
     } = this.props;
 
-    // Partial graphs because prepareGraphPropsForDisplay is memoized
-    const partialDashboardGraphs =
-      dashboardTab?.graphs?.map((graph: DataSourceDashboardGraph) => {
-        const {
-          uuid,
-          title,
-          dashboard_graph_identifier,
-          graph_family,
-          graph_params,
-          chart_component,
-        } = graph;
-        return {
-          uuid,
-          title,
-          dashboard_graph_identifier,
-          graph_family,
-          graph_params,
-          chart_component,
-        };
-      }) ?? [];
-
-    const graphPropsForDisplay = prepareGraphPropsForDisplay(
-      t,
-      partialDashboardGraphs,
-      graphMetadata ?? [],
-    );
+    const graphPropsForDisplay = generateGraphPropsForDisplay();
 
     return (
       <>
@@ -223,10 +224,7 @@ export class DashboardPage extends Component<Props> {
                     <Grid item xs={12} lg={6} key={graph.uuid}>
                       <DashboardGraphWrapper
                         graph={graph}
-                        onEdit={() => {
-                          setGraphToEdit(graph);
-                          this.openDrawer();
-                        }}
+                        onEdit={this.onEditDashboardGraph}
                         onDelete={deleteGraph}
                         loadingData={graphData[graph.uuid].loading}
                         loadingSettings={dashboardSettingsLoading}
@@ -255,16 +253,10 @@ export class DashboardPage extends Component<Props> {
           <DialogTitle>{t('resetModal.title')}</DialogTitle>
           <DialogContent>{t('resetModal.content')}</DialogContent>
           <DialogActions>
-            <Button onClick={() => this.props.setResetDialogOpen(false)}>
+            <Button onClick={this.onCancelResetModal}>
               {t('resetModal.cancel')}
             </Button>
-            <Button
-              color="primary"
-              onClick={() => {
-                this.props.resetSettings();
-                this.props.setResetDialogOpen(false);
-              }}
-            >
+            <Button color="primary" onClick={this.onConfirmResetModal}>
               {t('resetModal.confirm')}
             </Button>
           </DialogActions>
@@ -273,18 +265,15 @@ export class DashboardPage extends Component<Props> {
         <BottomActionButtons
           onCreateLabel={t('customChart.addChart')}
           resetLabel={t('resetModal.title')}
-          onCreate={!dashboardSettingsLoading && this.openDrawer}
-          onReset={
-            !dashboardSettingsLoading &&
-            (() => this.props.setResetDialogOpen(true))
-          }
+          onCreate={this.handleCreateBottomActionButtons}
+          onReset={this.handleResetBottomActionButtons}
         />
 
         {isDrawerOpen && (
           <DashboardGraphFormDrawer
             open
             onClose={this.closeDrawer}
-            graphMetadata={this.props.graphMetadata}
+            graphMetadata={graphMetadata}
             handleGetDynamicDataForFilters={
               this.props.handleGetDynamicDataForFilters
             }
@@ -423,6 +412,36 @@ const mapWithHandlers = {
   },
 };
 
+const mapWithHandlersPrepareGraphPropsForDisplay = {
+  generateGraphPropsForDisplay: (props: AllConnectedProps) => () => {
+    const partialDashboardGraphs =
+      props.dashboardTab?.graphs?.map((graph: DataSourceDashboardGraph) => {
+        const {
+          uuid,
+          title,
+          dashboard_graph_identifier,
+          graph_family,
+          graph_params,
+          chart_component,
+        } = graph;
+        return {
+          uuid,
+          title,
+          dashboard_graph_identifier,
+          graph_family,
+          graph_params,
+          chart_component,
+        };
+      }) ?? [];
+
+    return prepareGraphPropsForDisplay(
+      props.t,
+      partialDashboardGraphs,
+      props.graphMetadata ?? [],
+    );
+  },
+};
+
 const styles = (theme: Theme) => ({
   container: {
     marginBottom: theme.spacing(4),
@@ -466,5 +485,6 @@ export default compose(
   graphDataConnector,
   withDatatypeDynamicData,
   withHandlers(mapWithHandlers),
+  withHandlers(mapWithHandlersPrepareGraphPropsForDisplay),
   withTitle(({ t }: { t: TFunction }) => t('titles:dashboard.dashboard')),
 )(DashboardPage);

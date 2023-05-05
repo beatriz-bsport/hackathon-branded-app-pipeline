@@ -11,6 +11,7 @@ import {
   ResponsiveContainer,
   Label,
 } from 'recharts';
+import isEqual from 'lodash/isEqual';
 import { dateFormatter, numberFormatter } from '#libs/statistics/utils';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import TemporalCustomYLabel from './TemporalCustomYLabel.component';
@@ -109,4 +110,4 @@ export function TemporalBarChart(props: Props) {
   );
 }
 
-export default TemporalBarChart;
+export default React.memo(TemporalBarChart, isEqual);

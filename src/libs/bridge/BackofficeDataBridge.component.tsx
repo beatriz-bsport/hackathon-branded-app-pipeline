@@ -17,6 +17,7 @@ import { getEnv } from '../../utils/env';
 type OwnProps = {
   companyId: number,
   companyName: string,
+  isBackofficePreview?: boolean,
 };
 
 type Props = OwnProps &
@@ -56,9 +57,11 @@ class WidgetBridge extends React.PureComponent<Props> {
   }
 
   render() {
-    const { companyId, companyName } = this.props;
+    const { companyId, companyName, isBackofficePreview } = this.props;
     const { PUBLIC_URL } = getEnv();
-    const url = `${PUBLIC_URL}/widget/${companyName}/${companyId}/bridge?context=widget`;
+    const url = `${PUBLIC_URL}/widget/${companyName}/${companyId}/bridge?context=widget${
+      isBackofficePreview ? '&isBackofficePreview=true' : ''
+    }`;
     const key = `${companyId}-${companyName}`;
 
     if (this.state.currentState !== IS_MASTER) {

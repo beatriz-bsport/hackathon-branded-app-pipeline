@@ -27,6 +27,8 @@ import {
   EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
 } from 'bsport-saas/src/libs/exportable-components/constants';
 
+import WidgetTracker from 'bsport-saas/src/components/WidgetTracker.component';
+
 // eslint-disable-next-line
 import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
 import { fetchSCT } from 'bsport-saas/src/libs/category/actions';
@@ -172,6 +174,7 @@ class BsportWidget extends Component<Props> {
       franchiseId,
       franchisor,
       styles,
+      isBackofficePreview,
     } = this.props;
     if (
       !this.props.theme ||
@@ -192,6 +195,7 @@ class BsportWidget extends Component<Props> {
 
     return (
       <div className={classes.container}>
+        <WidgetTracker isBackofficePreview={isBackofficePreview} />
         <React.Suspense fallback={<CircularProgress />}>
           <MuiThemeProvider
             theme={
@@ -232,6 +236,7 @@ class BsportWidget extends Component<Props> {
             <WidgetBridge
               companyId={companyId}
               companyName={this.props.theme.company_name}
+              isBackofficePreview={isBackofficePreview}
             />
 
             {this.props.showFab && !window.bsportModalUrlOpen && (

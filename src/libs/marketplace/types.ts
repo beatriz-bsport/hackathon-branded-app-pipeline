@@ -95,6 +95,7 @@ export type WidgetConfig = {
   showFab: boolean;
   fullScreenPopup: boolean;
   styles: WidgetCustomCSS;
+  isBackofficePreview?: boolean;
 };
 
 export type MarketplaceSettings = {

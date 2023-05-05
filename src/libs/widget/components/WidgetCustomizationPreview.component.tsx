@@ -73,6 +73,7 @@ const WidgetCustomizationPreview: React.FC<Props> = ({
     uuid,
     responsiveIframe: true,
     styles,
+    isBackofficePreview: true,
   });
 
   return (

@@ -138,6 +138,7 @@ export class WidgetCodeStringGenerator {
     uuid?: string | null;
     fullScreenPopup: boolean;
     styles: any;
+    isBackofficePreview?: boolean;
   }) {
     const componentConfig = args.config[args.componentType];
 
@@ -184,6 +185,10 @@ export class WidgetCodeStringGenerator {
       componentConfig,
       3,
     )}}
+                }${
+                  args.isBackofficePreview
+                    ? ', "isBackofficePreview": true'
+                    : ''
                 }  
             })
     </script>

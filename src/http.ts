@@ -9,6 +9,15 @@ import { setTransactionId } from './sentry/transaction';
 import i18n from './i18n';
 
 const storage = window.localStorage;
+const sessionStorage = window.sessionStorage;
+
+const getIsFromWidget = () => {
+  return sessionStorage.getItem('bsport-from-widget') === 'true';
+};
+
+const getIsFromBridge = () => {
+  return sessionStorage.getItem('bsport-from-bridge') === 'true';
+};
 
 export const BASE_URI: string = Config.REACT_APP_BASE_URI;
 export const API_URI: string = `${BASE_URI}/api-v0`;
@@ -261,6 +270,7 @@ export async function get(
         'X-Session-ID': setSessionId(),
         'X-React-Referrer': window.location.href,
         ...(headers || {}),
+        ...(getIsFromWidget() ? { 'X-bsport-from-widget': 'true' } : {}),
       },
       cancelToken,
     });
@@ -291,6 +301,7 @@ export async function getAuth(
       'X-Session-ID': setSessionId(),
       'X-React-Referrer': window.location.href,
       Authorization: `Token ${token_}`,
+      ...(getIsFromBridge() ? { 'X-bsport-from-bridge': 'true' } : {}),
     },
     cancelToken,
   );

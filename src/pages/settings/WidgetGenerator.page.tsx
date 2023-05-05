@@ -228,6 +228,7 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
       showFab: this.state.containerConfig.showFab,
       uuid: this.state.uuid,
       responsiveIframe: this.state.containerConfig.responsiveIframe,
+      isBackofficePreview: true,
     });
 
     return codeStringPreview;

@@ -4,6 +4,12 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import moment from 'moment-timezone';
 
+import {
+  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+  BsportRequestFromHeaderValue,
+} from '../../constants';
+
+import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
 import { RootState } from '../../reducers';
 import { fetchCurrentBasket } from '../../libs/checkout/actions';
 import { getCurrentBasket } from '../../libs/checkout/selectors';
@@ -23,7 +29,10 @@ import { fetchOfferRegisteredIds } from '../../libs/offer/actions';
 type OwnProps = {
   companyId: number;
   companyName: string;
+  isBackofficePreview?: boolean;
 };
+
+const storage = window.sessionStorage;
 
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
@@ -40,6 +49,9 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
   componentWillUnmount() {
     window.removeEventListener('message', this.handleMessages);
     window.removeEventListener('storage', this.onStorageChange);
+    if (!this.props.isBackofficePreview) {
+      storage?.removeItem(BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION);
+    }
   }
 
   onStorageChange = () => {
@@ -52,6 +64,12 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
 
   componentDidMount() {
     this.sendAuthenticationResponse();
+    if (!this.props.isBackofficePreview) {
+      storage?.setItem(
+        BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+        BsportRequestFromHeaderValue.BRIDGE,
+      );
+    }
   }
 
   sendAuthenticationResponse = () => {
@@ -239,5 +257,10 @@ export default compose(
     companyId: 'companyId:number',
     companyName: 'companyName',
   }),
+  withQueryParamsToProps([
+    'isBackofficePreview',
+    'isBackofficePreview',
+    'boolean',
+  ]),
   connect(mapStateToProps, mapDispatchToProps),
 )(BridgeWidgetPage);

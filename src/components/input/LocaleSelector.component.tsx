@@ -28,7 +28,7 @@ import MT_FLAG from './flags/MT.png';
 import CH_FLAG from './flags/CH.png';
 import NO_FLAG from './flags/NO.png';
 import FI_FLAG from './flags/FI.png';
-// import SE_FLAG from './flags/SE.png';
+import SE_FLAG from './flags/SE.png';
 import DK_FLAG from './flags/DK.png';
 import LU_FLAG from './flags/LU.png';
 import CA_FLAG from './flags/CA.png';
@@ -191,14 +191,12 @@ export const LOCALE_LIST: Array<Locale> = [
     currencyCode: 'nok',
     currencyDisplay: 'kr.',
   },
-  /*
   {
     locale: 'en_SE',
     icon: SE_FLAG,
     currencyCode: 'sek',
     currencyDisplay: 'kr.',
   },
-  */
   {
     locale: 'en_DK',
     icon: DK_FLAG,

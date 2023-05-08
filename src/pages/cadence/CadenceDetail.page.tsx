@@ -132,7 +132,7 @@ export class CadenceDetailPage extends Component<Props> {
         this.props.setRightPanelMode(
           CadencePanelMode.CADENCE_PANEL_INTIAL_PARAMETERS,
         );
-      } else {
+      } else if (!this.props.selectedStepIdForEdition) {
         this.props.setRightPanelMode(CadencePanelMode.CADENCE_PANEL_HOW_TO);
       }
     }
@@ -209,7 +209,12 @@ export class CadenceDetailPage extends Component<Props> {
   };
 
   handleSubmitNewStepWithTrigger = (data: Values, options?: OptionCallback) => {
-    this.props.subscribeStepToStep(data, options);
+    this.props.subscribeStepToStep(data, {
+      onSuccess: (step_id: number) => {
+        options.onSuccess();
+        this.handleSelectedStepForEdition(step_id);
+      },
+    });
   };
 
   handleSubmitEditConnectedTrigger = (
@@ -457,13 +462,18 @@ const StateHandlersSetter = {
 };
 
 const mapRefreshAllHandler = {
-  retrieveCadence: (props: OwnProps & ConnectedPropsAndState) => () => {
-    props.retrieveCadenceAction(props.cadenceId, {
-      onSuccess: (cadence) => {
-        props.fetchCadenceStepListAction({ id__in: cadence.steps });
-      },
-    });
-  },
+  retrieveCadence:
+    (props: OwnProps & ConnectedPropsAndState) =>
+    (options?: OptionCallback) => {
+      props.retrieveCadenceAction(props.cadenceId, {
+        onSuccess: (cadence) => {
+          props.fetchCadenceStepListAction(
+            { id__in: cadence.steps },
+            { onSuccess: options?.onSuccess },
+          );
+        },
+      });
+    },
 };
 
 const mapWithHandlers = {
@@ -612,7 +622,7 @@ const mapWithHandlers = {
 
   subscribeStepToStep:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (data: Values, options?: OptionCallback) => {
+    (data: Values, options?: OptionCallback<number>) => {
       if (props.stepForSubscription?.id) {
         // TODO : Need to find a way to position correctly element on creation
         props.subscribeStepToStepAction(
@@ -625,10 +635,18 @@ const mapWithHandlers = {
               : {}),
           },
           {
-            onSuccess: () => {
+            onSuccess: (step) => {
               props.resetSubscriptionDestination();
-              options && options.onSuccess && options.onSuccess();
-              props.retrieveCadence();
+              props.retrieveCadence({
+                onSuccess: () => {
+                  options &&
+                    options.onSuccess &&
+                    options.onSuccess(
+                      step.connected_trigger?.destination_config
+                        ?.destination_id,
+                    );
+                },
+              });
             },
             onError: () => {
               props.resetSubscriptionDestination();

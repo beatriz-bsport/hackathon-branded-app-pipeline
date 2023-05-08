@@ -25,7 +25,7 @@ type Props = {
   establishments: Establishment[];
   allEstablishments: Establishment[];
   establishmentGroupList: Array<EstablishmentGroup>;
-  metaActivities: MetaActivity[];
+  metaActivities: { [key: number]: MetaActivity };
   filters: MarketPlaceFilter;
   setFilters: (key: string) => (value: any) => void;
   variant: 'activity' | 'workshop';
@@ -84,16 +84,18 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
     [establishments],
   );
 
-  const metaActivitiesOption = useMemo(
-    () =>
-      metaActivities
+  const metaActivitiesOption = useMemo(() => {
+    const defaultArray = [];
+    if (Object.values(metaActivities)) {
+      return Object.values(metaActivities)
         .filter((ma) => ma.customer_enabled)
         .map((ma) => ({
           label: ma.name,
           value: ma.id,
-        })),
-    [metaActivities],
-  );
+        }));
+    }
+    return defaultArray;
+  }, [metaActivities]);
 
   const disabledEstablishmentOptions = useMemo(() => {
     const options: { label: string; value: number }[] = [];

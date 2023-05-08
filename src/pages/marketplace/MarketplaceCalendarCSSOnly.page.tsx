@@ -23,7 +23,10 @@ import { getPaymentComboListAvailableOnline } from '#libs/payment-combo/selector
 import { DATE_FORMAT } from '../../utils/datetime';
 import themeSelectors from '#libs/theme/selectors';
 import { getCoaches } from '#libs/associated-coach/selectors';
-import { getPureMetaActivities } from '#libs/meta-activity/selectors';
+import {
+  getMetaActivitiesDict as getMetaActivitiesWorkshopsDict,
+  getPureMetaActivitiesDict,
+} from '#libs/meta-activity/selectors';
 import {
   withGroup,
   getOffersListByGroup as getOffersListByGroupSelector,
@@ -234,6 +237,41 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     if (filtersPropsChanged || selectedWeekChanged) {
       this.fetchData();
     }
+    const filtersEstablishmentsChanged = !isEqual(
+      prevProps.filters.establishment_group__in,
+      this.props.filters.establishment_group__in,
+    );
+    const establishmentsChanged = !isEqual(
+      prevProps.establishments,
+      this.props.establishments,
+    );
+    if (filtersEstablishmentsChanged || establishmentsChanged) {
+      let filteredEstablishments: Array<Establishment> = [
+        ...this.props.establishments,
+      ];
+
+      if (this.props.filters.establishment_group__in?.length) {
+        const filteredEstablishmentIds: Array<number> = establishmentGroupList
+          .filter((eg: EstablishmentGroup) =>
+            filters.establishment_group__in.includes(eg.id),
+          )
+          .flatMap((eg: EstablishmentGroup) => eg.establishment)
+          .map((e: Establishment) => e.id);
+
+        const uniqueEstIds = filters.establishments?.length
+          ? [
+              ...new Set(
+                filteredEstablishmentIds.concat(filters.establishments),
+              ),
+            ]
+          : filteredEstablishmentIds;
+
+        filteredEstablishments = this.props.establishments.filter(
+          (e: Establishment) => uniqueEstIds.includes(e.id),
+        );
+      }
+      this.setState({ filteredEstablishments: filteredEstablishments });
+    }
   }
 
   openOfferDialog = (offerId: number) => {
@@ -323,29 +361,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       establishmentGroupList,
       loading,
       metaActivities,
-      workshops,
       compactMode,
     } = this.props;
-
-    let filteredEstablishments: Array<Establishment> = [...establishments];
-    if (filters.establishment_group__in?.length) {
-      const filteredEstablishmentIds: Array<number> = establishmentGroupList
-        .filter((eg: EstablishmentGroup) =>
-          filters.establishment_group__in.includes(eg.id),
-        )
-        .flatMap((eg: EstablishmentGroup) => eg.establishment)
-        .map((e: Establishment) => e.id);
-
-      const uniqueEstIds = filters.establishments?.length
-        ? [...new Set(filteredEstablishmentIds.concat(filters.establishments))]
-        : filteredEstablishmentIds;
-
-      filteredEstablishments = [...establishments].filter((e: Establishment) =>
-        uniqueEstIds.includes(e.id),
-      );
-    }
-
-    const withWorkshops = [...metaActivities, ...workshops];
 
     return (
       <>
@@ -356,12 +373,12 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           theme={this.state.theme}
           metaActivities={
             this.props.theme.show_workshops_customer
-              ? withWorkshops
+              ? this.props.metaActivitiesWorkshops
               : metaActivities
           }
           establishments={
             filters.establishment_group__in?.length
-              ? filteredEstablishments
+              ? this.state.filteredEstablishments
               : establishments
           }
           coaches={coaches}
@@ -397,10 +414,14 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           coaches={coaches}
           customLevels={customLevels}
           activeCustomLevels={activeCustomLevels}
-          establishments={filteredEstablishments}
+          establishments={
+            filters.establishment_group__in?.length
+              ? this.state.filteredEstablishments
+              : establishments
+          }
           metaActivities={
             this.props.theme.show_workshops_customer
-              ? withWorkshops
+              ? this.props.metaActivitiesWorkshops
               : metaActivities
           }
           filtersOpen={this.props.otherParams.filtersOpen === 'true'}
@@ -446,8 +467,8 @@ const mapStateToProps = (state: RootState) => ({
   activityLoading: state.metaActivity.loading,
   coaches: getCoaches(state),
   establishments: getAllEstablishments(state),
-  metaActivities: getPureMetaActivities(state),
-  workshops: getWorkshops(state),
+  metaActivities: getPureMetaActivitiesDict(state),
+  metaActivitiesWorkshops: getMetaActivitiesWorkshopsDict(state),
   theme: themeSelectors.getTheme(state),
   group: getGroupData(state),
   currentBasket: getCurrentBasket(state),

@@ -23,7 +23,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 type OwnProps = {
   offer: Offer;
   genderCount: Object;
-  metaActivities: Array<MetaActivity>;
+  metaActivities: { [key: number]: MetaActivity };
   establishments: Array<Establishment>;
   coaches: Array<Coach>;
   theme: Theme;
@@ -75,7 +75,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
     : undefined;
 
   const metaActivity = metaActivities
-    ? metaActivities.find((act) => act.id === offer.meta_activity)
+    ? metaActivities[offer.meta_activity]
     : undefined;
 
   const offerCoachId = offer.coach_override

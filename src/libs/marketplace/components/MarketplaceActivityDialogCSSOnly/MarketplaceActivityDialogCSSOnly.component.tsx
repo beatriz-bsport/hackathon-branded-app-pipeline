@@ -19,7 +19,7 @@ import { Level } from '#libs/level/types';
 type Props = {
   theme: Theme;
   open: boolean;
-  metaActivities: Array<MetaActivity>;
+  metaActivities: { [key: number]: MetaActivity };
   establishments: Array<Establishment>;
   coaches: Array<Coach>;
   customLevels: Array<Level>;

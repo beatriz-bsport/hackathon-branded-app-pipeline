@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
-import pickBy from 'lodash/pickBy';
 
 import memoize from 'memoize-one';
 import type { MetaActivity } from './types';
@@ -13,12 +12,42 @@ export const getMetaActivityAbstractDict = (state: RootState) =>
 
 export const getPureMetaActivitiesDict = createSelector(
   getMetaActivityAbstractDict,
-  (data) => pickBy(data, (v) => !v.is_workshop),
+  (data) => {
+    const defaultDict = {};
+    if (Object.values(data)) {
+      const metaActivities = Object.values(data).filter((v) => !v.is_workshop);
+      return Immutable<{ [key: number]: MetaActivity }>(
+        metaActivities.reduce(
+          (acc: { [key: number]: MetaActivity }, act: MetaActivity) => {
+            acc[act.id] = act;
+            return acc;
+          },
+          {},
+        ),
+      );
+    }
+    return defaultDict;
+  },
 );
 
 export const getMetaActivitiesDict = createSelector(
   getMetaActivityAbstractDict,
-  (data) => pickBy(data),
+  (data) => {
+    const defaultDict = {};
+    if (Object.values(data)) {
+      const metaActivities = Object.values(data);
+      return Immutable<{ [key: number]: MetaActivity }>(
+        metaActivities.reduce(
+          (acc: { [key: number]: MetaActivity }, act: MetaActivity) => {
+            acc[act.id] = act;
+            return acc;
+          },
+          {},
+        ),
+      );
+    }
+    return defaultDict;
+  },
 );
 
 export const getMetaActivityLoading = (state: RootState) =>
@@ -96,7 +125,22 @@ export const getPageDisabledPureMetaActivities = createSelector(
 
 export const getWorkshopActivitiesDict = createSelector(
   getMetaActivityAbstractDict,
-  (data) => pickBy(data, (v) => v.is_workshop),
+  (data) => {
+    const defaultDict = {};
+    if (Object.values(data)) {
+      const metaActivities = Object.values(data).filter((v) => v.is_workshop);
+      return Immutable<{ [key: number]: MetaActivity }>(
+        metaActivities.reduce(
+          (acc: { [key: number]: MetaActivity }, act: MetaActivity) => {
+            acc[act.id] = act;
+            return acc;
+          },
+          {},
+        ),
+      );
+    }
+    return defaultDict;
+  },
 );
 
 export const getWorkshopActivitiesIdList = (state: RootState) =>

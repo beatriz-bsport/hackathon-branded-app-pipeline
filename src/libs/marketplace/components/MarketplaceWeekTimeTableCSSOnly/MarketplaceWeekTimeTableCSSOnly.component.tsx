@@ -302,9 +302,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
               : undefined;
 
             const metaActivity = this.props.metaActivities
-              ? this.props.metaActivities.find(
-                  (act) => act.id === offer.meta_activity,
-                )
+              ? this.props.metaActivities[offer.meta_activity]
               : undefined;
 
             const offerCoachId = offer.coach_override

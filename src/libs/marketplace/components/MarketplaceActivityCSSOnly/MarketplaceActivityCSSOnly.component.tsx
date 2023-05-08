@@ -69,9 +69,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
 
   const offerHours = useOfferHours(offer, offer.establishment, theme);
 
-  const metaActivity = props.metaActivities.find(
-    (act) => act.id === offer.meta_activity,
-  );
+  const metaActivity = props.metaActivities[offer.meta_activity];
 
   const coach = props.coaches.find((c) => c.id === offer.coach);
 

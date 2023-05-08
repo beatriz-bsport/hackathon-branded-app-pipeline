@@ -39,7 +39,7 @@ type Props = {
   onClickOffer: () => void;
   coaches: Array<Coach>;
   establishments: Array<Establishment>;
-  metaActivities: Array<MetaActivity>;
+  metaActivities: { [key: number]: MetaActivity };
   setFilters: (any) => void;
   filters: any;
   forceDayDisplayOnly: boolean;

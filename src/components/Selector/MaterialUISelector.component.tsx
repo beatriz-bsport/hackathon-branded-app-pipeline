@@ -52,6 +52,7 @@ type BaseProps<T extends OptionTypeBase> = {
   inScrollBar?: boolean;
   isMenuListPaddingDisabled?: boolean;
   isMenuListVirtualized?: boolean;
+  isSearchable?: boolean;
   leftIcon?: React.ReactNode;
   withoutPortal?: Boolean;
   defaultNumberShown?: number;
@@ -103,6 +104,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     inScrollBar,
     isMenuListPaddingDisabled,
     isMenuListVirtualized,
+    isSearchable,
     defaultNumberShown,
     withoutSelectAll,
     chipsRenderer,
@@ -203,6 +205,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
           inScrollBar={inScrollBar}
           isMenuListPaddingDisabled={isMenuListPaddingDisabled}
           isMenuListVirtualized={isMenuListVirtualized}
+          isSearchable={isSearchable}
           classes={{ ...classes, ...(props?.classes ?? {}) }}
           onChange={handleChange}
           options={options}

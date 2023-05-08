@@ -46,6 +46,7 @@ exports.default = {
       selectAll: 'Tout sélectionner',
       unselectAll: 'Tout désélectionner',
       noResult: 'Aucun résultat',
+      withoutCategory: 'Sans catégorie',
     },
   },
 };

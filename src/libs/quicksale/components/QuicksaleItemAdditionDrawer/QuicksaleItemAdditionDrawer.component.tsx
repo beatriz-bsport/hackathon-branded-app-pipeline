@@ -23,6 +23,7 @@ import {
 import { QuicksaleItemColor } from '../../constants';
 import ColorPicker from '../ColorPicker';
 import ListItem, { SimpleItemListAction } from './AdditionDrawerListItem';
+import QuicksaleItemGroupAdditionDrawer from './QuicksaleItemGroupAdditionDrawer';
 import useStyle from './hook';
 
 type ItemListAction =
@@ -289,6 +290,13 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
           )}
         </Paper>
       </Popper>
+
+      <QuicksaleItemGroupAdditionDrawer
+        open={isObjectGroupDrawerOpen}
+        onClose={closeObjectGroupDrawer}
+        availableItems={availableItems}
+        addToSelectedItems={addToSelectedItems}
+      />
     </GenericResponsiveDrawer>
   );
 };

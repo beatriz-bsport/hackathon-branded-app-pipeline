@@ -6906,7 +6906,8 @@
         "objectType": "Type d'objet",
         "selectAll": "Tout sélectionner",
         "unselectAll": "Tout désélectionner",
-        "noResult": "Aucun résultat"
+        "noResult": "Aucun résultat",
+        "withoutCategory": "Sans catégorie"
       }
     }
   },

@@ -12,3 +12,4 @@ light / medium / high / critical
 
 # Screenshot or logs if applicable
 
+# QA testing notion link

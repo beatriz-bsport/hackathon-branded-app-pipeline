@@ -351,7 +351,7 @@
           "9": "Vous essayez de réserver plus de séances futures que ce qui est permis par votre club",
           "6002": "Liste d'attente pleine",
           "6003": "Déjà inscrit sur liste",
-          "6005": "Liste d'attente"
+          "undefined": "Liste d'attente"
         },
         "blockedByTags": "Inscription non autorisée"
       },
@@ -4323,7 +4323,6 @@
       "17": "Réservation annulée : crédit non remboursé (élèves)",
       "18": "Réservation annulée : crédit remboursé (élèves)",
       "19": "Inscription membre (manager)",
-      "20": "Demande de téléchargement de facture",
       "21": "Nouvelle réservation (élèves)",
       "22": "Confirmation facture",
       "24": "Abonnement créé",
@@ -4336,11 +4335,6 @@
       "102": "Annulation séance (professeurs)",
       "103": "Séance modifiée (professeurs)",
       "300": "Kick (non-validé dans les temps trop de fois)",
-      "301": "Réinitialisation mot de passe membre",
-      "302": "Validation d'email membre",
-      "303": "Fusion de deux comptes du studio",
-      "304": "Activation de carte cadeau",
-      "305": "Changement d'email membre depuis le backoffice",
       "400": "Rendez-vous annulé - hors-délai (professeur)",
       "401": "Rendez-vous annulé - remboursé (professeur)",
       "402": "Nouveau rendez-vous (professeur)",
@@ -4370,7 +4364,8 @@
       "905": "Nouvelle demande en retard (remplaçant)",
       "906": "Date de clôture repoussée (remplaçant)",
       "907": "Remplaçant trouvé (remplaçant)",
-      "987": "Tentative d'encaissement d'un paiement échelonné"
+      "987": "Tentative d'encaissement d'un paiement échelonné",
+      "undefined": "Demande de téléchargement de facture"
     },
     "franchise": {
       "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",
@@ -9353,11 +9348,11 @@
         "50013": "Vous ne pouvez plus répondre à cette demande de remplacement.",
         "50015": "Vous ne pouvez pas répondre à votre propre demande de remplacement",
         "50020": "Cette demande de remplacement a été refusée: impossible de la supprimer",
-        "50021": "Vous ne pouvez pas spécifier des établissements et des localisations en même temps.",
         "80002": "La valeur 'Nombre de jours demande en retard' doit être supérieure à la valeur 'Nombre de jours clôture des inscriptions.",
         "80003": "Paramètres manquants pour les limites de demandes en retard.",
         "500001": "Une demande de remplacement existe déjà",
-        "500004": "Vous êtes déjà remplaçant sur cette séance"
+        "500004": "Vous êtes déjà remplaçant sur cette séance",
+        "undefined": "Vous ne pouvez pas spécifier des établissements et des localisations en même temps."
       }
     },
     "accessDenied": { "general": { "title": "Accès refusé", "message": "Vous ne pouvez pas accéder à l'espace demandé" } },

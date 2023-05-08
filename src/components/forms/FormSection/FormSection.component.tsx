@@ -1,7 +1,6 @@
-// @ts-nocheck
 import React, { useState, useCallback } from 'react';
 
-import { IconProps, Theme, makeStyles } from '@material-ui/core';
+import { SvgIconProps, Theme, makeStyles } from '@material-ui/core';
 import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
@@ -12,12 +11,13 @@ type Props = {
   id?: string;
   children: React.ReactNode;
   sectionTitle?: string;
-  sectionIcon?: React.ComponentType<IconProps>;
-  sectionIconStyle?: IconProps['color'];
+  sectionIcon?: React.ComponentType<SvgIconProps>;
+  sectionIconStyle?: SvgIconProps['color'];
   sectionIconContainerStyle?: string;
   sectionCustomIconStyle?: string;
   isCollapse?: boolean;
   noPadding?: boolean;
+  spacing?: number;
 };
 
 const FormSection = React.memo((props: Props) => {
@@ -31,9 +31,10 @@ const FormSection = React.memo((props: Props) => {
     id,
     isCollapse,
     noPadding,
+    spacing,
   } = props;
+  const classes = useStyle({ noPadding, spacing });
   const [isExpanded, setIsExpanded] = useState(false);
-  const classes = useStyle({ noPadding, isCollapse, isExpanded });
 
   const toggleExpandSection = useCallback(
     () => setIsExpanded((prevExpanded) => !prevExpanded),
@@ -82,27 +83,29 @@ const FormSection = React.memo((props: Props) => {
   );
 });
 
-const useStyle = makeStyles<Theme, Props>((theme) => ({
-  container: ({ noPadding, isCollapse, isExpanded }) => ({
-    paddingRight: noPadding ? 0 : theme.spacing(4.25),
-    paddingLeft: noPadding ? 0 : theme.spacing(4.25),
-    paddingTop: noPadding ? 0 : theme.spacing(3),
-    paddingBottom: noPadding ? 0 : theme.spacing(3),
-    '& > *:not(:last-child)': {
-      marginBottom: isCollapse && !isExpanded ? 0 : theme.spacing(3),
-    },
-    '& > *:last-child': {
-      marginBottom: theme.spacing(0),
-    },
+const useStyle = makeStyles<Theme, { noPadding?: boolean; spacing?: number }>(
+  (theme) => ({
+    container: ({ noPadding, spacing }) => ({
+      paddingRight: noPadding ? 0 : theme.spacing(4.25),
+      paddingLeft: noPadding ? 0 : theme.spacing(4.25),
+      paddingTop: noPadding ? 0 : theme.spacing(3),
+      paddingBottom: noPadding ? 0 : theme.spacing(3),
+      '& > *:not(:last-child)': {
+        marginBottom: theme.spacing(spacing ?? 2),
+      },
+      '& > *:last-child': {
+        marginBottom: theme.spacing(0),
+      },
+    }),
+    collapseContainer: ({ spacing }) => ({
+      '& > *:not(:last-child)': {
+        marginBottom: theme.spacing(spacing ?? 3),
+      },
+      '& > *:last-child': {
+        marginBottom: theme.spacing(0),
+      },
+    }),
   }),
-  collapseContainer: {
-    '& > *:not(:last-child)': {
-      marginBottom: theme.spacing(3),
-    },
-    '& > *:last-child': {
-      marginBottom: theme.spacing(0),
-    },
-  },
-}));
+);
 
 export default FormSection;

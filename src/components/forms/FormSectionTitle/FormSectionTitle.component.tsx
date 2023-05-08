@@ -1,16 +1,14 @@
-// @ts-nocheck
 import React from 'react';
 
-import { IconProps, makeStyles, Typography } from '@material-ui/core';
+import { SvgIconProps, makeStyles, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import classNames from 'classnames';
 
 type Props = {
-  Icon: React.ComponentType<IconProps>;
+  Icon: React.ComponentType<SvgIconProps>;
   title: string;
-  iconStyle?: IconProps['color'];
+  iconStyle?: SvgIconProps['color'];
   customIconStyle?: string;
   iconContainerStyle?: string;
   isCollapse?: boolean;
@@ -35,17 +33,9 @@ const FormSectionTitle = React.memo((props: Props) => {
     return (
       <Button className={classes.expandButton} onClick={onToggleExpandSection}>
         <div className={classes.sectionTitleContainer}>
-          <div
-            className={classNames(
-              { [classes.iconContainer]: !iconContainerStyle },
-              iconContainerStyle,
-            )}
-          >
+          <div className={iconContainerStyle ?? classes.iconContainer}>
             <Icon
-              className={classNames(
-                { [classes.icon]: !customIconStyle },
-                customIconStyle,
-              )}
+              className={customIconStyle ?? classes.icon}
               color={iconStyle}
             />
           </div>
@@ -61,19 +51,8 @@ const FormSectionTitle = React.memo((props: Props) => {
 
   return (
     <div className={classes.sectionTitleContainer}>
-      <div
-        className={classNames(
-          { [classes.iconContainer]: !iconContainerStyle },
-          iconContainerStyle,
-        )}
-      >
-        <Icon
-          className={classNames(
-            { [classes.icon]: !customIconStyle },
-            customIconStyle,
-          )}
-          color={iconStyle}
-        />
+      <div className={iconContainerStyle ?? classes.iconContainer}>
+        <Icon className={customIconStyle ?? classes.icon} color={iconStyle} />
       </div>
       <Typography className={classes.text}>{title}</Typography>
     </div>

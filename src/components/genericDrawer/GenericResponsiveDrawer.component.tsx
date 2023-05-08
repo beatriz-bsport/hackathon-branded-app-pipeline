@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -22,13 +21,13 @@ type OwnProps = {
   withoutPadding?: boolean;
   subtitle?: string;
   width?: string;
-  className?: string;
+  customClasses?: { [className: string]: string };
   flexContent?: boolean;
   mobileMinWidth?: string;
   withoutHeaderContainer?: boolean;
   trackingObjectIdentifier?: SegmentAnalyticsFormObjectIdentifier;
   trackingObjectId?: number;
-  forwardedContainerRef?: HTMLDivElement;
+  forwardedContainerRef?: React.RefObject<HTMLDivElement>;
 };
 type Props = OwnProps;
 
@@ -38,7 +37,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
   title,
   subtitle,
   width,
-  className,
+  customClasses,
   anchor = 'right',
   withoutPadding = false,
   flexContent,
@@ -66,49 +65,74 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
     <Drawer
       anchor={anchor}
       open={open}
-      classes={{ paper: classNames(classes.paper, className) }}
+      classes={{ paper: classNames(classes.paper, customClasses?.drawer) }}
       ModalProps={{
         hideBackdrop: false,
         disableEnforceFocus: true,
       }}
       onClose={close}
     >
-      <div ref={forwardedContainerRef} className={classes.relative}>
+      <div
+        ref={forwardedContainerRef}
+        className={classNames(classes.relative, customClasses?.container)}
+      >
         {!withoutHeaderContainer && (
-          <div className={classes.firstRow}>
+          <div className={classNames(classes.firstRow, customClasses?.header)}>
             {onClose && (
               <div
-                className={classNames(classes.topCancel, {
-                  [classes.topCancelLeft]: anchor === 'left',
-                  [classes.topCancelRight]: anchor === 'right',
-                })}
+                className={classNames(
+                  classes.topCancel,
+                  customClasses?.topCancel,
+                  {
+                    [classes.topCancelLeft]: anchor === 'left',
+                    [classes.topCancelRight]: anchor === 'right',
+                  },
+                )}
               >
                 <Tooltip title={t('cancel')}>
-                  <IconButton onClick={close} className={classes.cancelButton}>
-                    <HighlightOffIcon className={classes.cancelButtonIcon} />
+                  <IconButton
+                    onClick={close}
+                    className={classNames(
+                      classes.cancelButton,
+                      customClasses?.cancelButton,
+                    )}
+                  >
+                    <HighlightOffIcon
+                      className={classNames(
+                        classes.cancelButtonIcon,
+                        customClasses?.cancelButtonIcon,
+                      )}
+                    />
                   </IconButton>
                 </Tooltip>
               </div>
             )}
             {title && (
               <div
-                className={
-                  (classes.titleContainer,
-                  classNames(classes.title, {
-                    [classes.titleLeft]: anchor === 'right' && onClose,
-                  }))
-                }
+                className={classNames(classes.title, customClasses?.title, {
+                  [classes.titleLeft]: anchor === 'right' && onClose,
+                })}
               >
-                <Typography variant="h4">{title}</Typography>
+                <Typography
+                  variant="h4"
+                  className={customClasses?.titleTypography}
+                >
+                  {title}
+                </Typography>
                 {subtitle && (
-                  <Typography variant="body1">{subtitle}</Typography>
+                  <Typography
+                    variant="body1"
+                    className={customClasses?.subtitleTypography}
+                  >
+                    {subtitle}
+                  </Typography>
                 )}
               </div>
             )}
           </div>
         )}
         <div
-          className={classNames(classes.content, {
+          className={classNames(classes.content, customClasses?.content, {
             [classes.padding]: !withoutPadding,
             [classes.flex]: flexContent,
             [classes.contentResized]: !!mobileMinWidth,

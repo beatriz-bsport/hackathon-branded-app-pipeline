@@ -625,7 +625,6 @@ const OfferDialogs: React.FC<{
   zoomAppDetail,
 }) => {
   const { t } = useTranslation('metaActivity');
-  const classes = useStyles();
 
   const isWherebyIntegrationEnabled =
     theme?.is_whereby_integration_enabled &&
@@ -638,7 +637,6 @@ const OfferDialogs: React.FC<{
         onClose={handleCloseOffersModal}
         title={t('translation:common.offers')}
         subtitle={t('translation:common.offerCreation')}
-        className={classes.paperInset}
         withoutPadding
         withoutHeaderContainer
       >
@@ -666,7 +664,6 @@ const OfferDialogs: React.FC<{
         onClose={handleResetEdit}
         title={t('translation:common.offers')}
         subtitle={t('translation:common.offerEdition')}
-        className={classes.paperInset}
         withoutPadding
         withoutHeaderContainer
       >
@@ -896,10 +893,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   buttonAdd: {
     display: 'flex',
-  },
-  paperInset: {
-    paddingLeft: theme.spacing(8),
-    boxShadow: 'none',
   },
   coachAvatar: {
     marginRight: theme.spacing(2),

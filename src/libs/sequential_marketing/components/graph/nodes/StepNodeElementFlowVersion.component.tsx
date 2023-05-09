@@ -16,7 +16,7 @@ type FlowProps = {
 export const StepNodeElementFlowVersion: React.FC<FlowProps> = ({ data }) => {
   return (
     <>
-      <Handle type="target" position={Position.Top} isConnectable={false} />
+      <Handle type="target" position={Position.Top} isConnectable />
       <StepNodeElement
         step={data.step}
         handleSelectStepForSubscription={data.handleSelectStepForSubscription}

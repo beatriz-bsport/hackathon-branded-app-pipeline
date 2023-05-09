@@ -26,6 +26,7 @@ import {
   fetchMarketingActions as fetchMarketingActionsAction,
   upsertStepMarketingAtions as upsertStepMarketingAtionsAction,
   deleteStepMarketingAction as deleteStepMarketingActionAction,
+  deleteConnectedTrigger as deleteConnectedTriggerAction,
 } from '#libs/sequential_marketing/actions';
 
 import { getAllSmartList } from '../../libs/smart-list/selectors';
@@ -308,6 +309,7 @@ export class CadenceDetailPage extends Component<Props> {
               cadenceEditMode={this.props.cadenceEditMode}
               handleSelectedStepForEdition={this.handleSelectedStepForEdition}
               deleteCadenceStep={this.props.deleteCadenceStepAction}
+              deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
             />
           </div>
         </div>
@@ -751,6 +753,7 @@ const connector = connect(
     fetchMarketingActionsAction,
     upsertStepMarketingAtionsAction,
     deleteStepMarketingActionAction,
+    deleteConnectedTriggerAction,
   },
 );
 const styles = (theme: Theme) =>

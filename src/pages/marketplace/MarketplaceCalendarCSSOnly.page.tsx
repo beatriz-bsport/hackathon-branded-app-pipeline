@@ -253,17 +253,20 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       ];
 
       if (this.props.filters.establishment_group__in?.length) {
-        const filteredEstablishmentIds: Array<number> = establishmentGroupList
-          .filter((eg: EstablishmentGroup) =>
-            filters.establishment_group__in.includes(eg.id),
-          )
-          .flatMap((eg: EstablishmentGroup) => eg.establishment)
-          .map((e: Establishment) => e.id);
+        const filteredEstablishmentIds: Array<number> =
+          this.props.establishmentGroupList
+            .filter((eg: EstablishmentGroup) =>
+              this.props.filters.establishment_group__in.includes(eg.id),
+            )
+            .flatMap((eg: EstablishmentGroup) => eg.establishment)
+            .map((e: Establishment) => e.id);
 
-        const uniqueEstIds = filters.establishments?.length
+        const uniqueEstIds = this.props.filters.establishments?.length
           ? [
               ...new Set(
-                filteredEstablishmentIds.concat(filters.establishments),
+                filteredEstablishmentIds.concat(
+                  this.props.filters.establishments,
+                ),
               ),
             ]
           : filteredEstablishmentIds;

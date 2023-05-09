@@ -20,7 +20,9 @@ import {
 } from './types';
 
 import { PaginatedResponse } from '../../state/types';
+
 // CADENCE
+
 export const retrieveCadence = async (
   id: number,
 ): Promise<AxiosResponse<Cadence>> => {
@@ -103,6 +105,7 @@ export const patchInitialCadenceConfiguration = async (
 };
 
 // CADENCE STEP
+
 export const retrieveCadenceStep = async (
   id: number,
 ): Promise<AxiosResponse<CadenceStep>> => {
@@ -172,6 +175,8 @@ export const subscribeStepToStep = async (
   );
 };
 
+// Connected Triggers
+
 export const updateConnectedTrigger = async (
   cadenceId: number,
   connectedTriggerUUID: string,
@@ -182,6 +187,15 @@ export const updateConnectedTrigger = async (
     {
       ...data,
     },
+  );
+};
+
+export const deleteConnectedTrigger = async (
+  cadenceId: number,
+  connectedTriggerUUID: string,
+): Promise<AxiosResponse> => {
+  return deleteAuth(
+    `${API_V1_URI}/sequential_marketing/cadence/${cadenceId}/connected_trigger/${connectedTriggerUUID}/`,
   );
 };
 

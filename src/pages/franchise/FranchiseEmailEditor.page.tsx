@@ -97,11 +97,7 @@ const FranchiseEmailEditor = (props: Props) => {
               options.onSuccess();
             }
           },
-          onError: (error: Error) => {
-            if (options?.onError) {
-              options.onError(error);
-            }
-          },
+          onError: options?.onError,
         },
       );
     },
@@ -122,16 +118,8 @@ const FranchiseEmailEditor = (props: Props) => {
           franchise_id,
         },
         {
-          onSuccess: () => {
-            if (options?.onSuccess) {
-              options.onSuccess();
-            }
-          },
-          onError: (error: Error) => {
-            if (options?.onError) {
-              options.onError(error);
-            }
-          },
+          onSuccess: options?.onSuccess,
+          onError: options?.onError,
         },
       );
     },

@@ -90,11 +90,7 @@ export class MarketingEmail extends Component<Props> {
               options.onSuccess();
             }
           },
-          onError: (error: Error) => {
-            if (options?.onError) {
-              options.onError(error);
-            }
-          },
+          onError: options?.onError,
         },
       );
       this.props.goToList();
@@ -123,20 +119,11 @@ export class MarketingEmail extends Component<Props> {
     id: number,
     data: any,
     availableCompanies?: number[],
-    handleError?: (error?: Error) => void,
-    handleSuccess?: () => void,
+    options?: OptionCallback,
   ) => {
     this.props.emailTemplateUpdate(id, data, {
-      onSuccess: () => {
-        if (handleSuccess) {
-          handleSuccess();
-        }
-      },
-      onError: (error: Error) => {
-        if (handleError) {
-          handleError(error);
-        }
-      },
+      onSuccess: options?.onSuccess,
+      onError: options?.onError,
     });
   };
 

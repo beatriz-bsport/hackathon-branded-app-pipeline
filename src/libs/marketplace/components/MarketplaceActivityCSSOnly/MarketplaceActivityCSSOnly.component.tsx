@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState, CSSProperties } from 'react';
+import React, { useState, useMemo, CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 
@@ -45,8 +45,13 @@ type Props = {
 };
 
 export const MarketplaceActivityV2 = (props: Props) => {
-  const { offer, hideCoach } = props;
-  const { t } = useTranslation(['metaActivity', 'marketplace', 'coach']);
+  const { offer, establishments, coaches, customLevels, hideCoach } = props;
+  const { t } = useTranslation([
+    'metaActivity',
+    'marketplace',
+    'coach',
+    'datetime',
+  ]);
   const handleBook = () => {
     props.onClickBook(offer);
   };
@@ -57,8 +62,9 @@ export const MarketplaceActivityV2 = (props: Props) => {
 
   const [mobileMapModalOpen, setMobileMapModalOpen] = useState(false);
 
-  const establishment = props.establishments.find(
-    (est) => est.id === offer.establishment,
+  const establishment = useMemo(
+    () => establishments.find((est) => est.id === offer.establishment),
+    [establishments, offer.establishment],
   );
   const { location } = establishment || { location: null };
 
@@ -71,14 +77,22 @@ export const MarketplaceActivityV2 = (props: Props) => {
 
   const metaActivity = props.metaActivities[offer.meta_activity];
 
-  const coach = props.coaches.find((c) => c.id === offer.coach);
+  const coach = useMemo(
+    () => coaches.find((c) => c.id === offer.coach),
+    [coaches, offer.coach],
+  );
 
-  const effectiveCoach = offer.coach_override
-    ? props.coaches.find((c) => c.id === offer.coach_override)
-    : coach;
+  const effectiveCoach = useMemo(
+    () =>
+      offer.coach_override
+        ? coaches.find((c) => c.id === offer.coach_override)
+        : coach,
+    [coaches, coach, offer.coach_override],
+  );
 
-  const customLevel = props.customLevels.find(
-    (level) => level.id === offer.custom_level,
+  const customLevel = useMemo(
+    () => customLevels.find((level) => level.id === offer.custom_level),
+    [customLevels, offer.custom_level],
   );
 
   return (

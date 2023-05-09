@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
 
@@ -89,8 +89,12 @@ export const MarketplaceCalendar = (props: Props) => {
     groupSessionByPeriod,
   } = props;
 
-  const weekOffers = offers.filter((offer) =>
-    moment(offer.date_start).isSame(selectedDate, 'week'),
+  const weekOffers = useMemo(
+    () =>
+      offers.filter((offer) =>
+        moment(offer.date_start).isSame(selectedDate, 'week'),
+      ),
+    [offers, selectedDate],
   );
   const refContainer = useRef(null);
 

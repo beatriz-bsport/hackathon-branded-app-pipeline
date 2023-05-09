@@ -23,8 +23,9 @@ import ConnectedTriggerNodeElement from './ConnectedTriggerNodeElement.component
 type FlowVersionProps = {
   data: {
     step: CadenceStep<number, number, StepConnectedTriggerConfig<SmartList>>;
-    trigger: CadenceStep<number, number, StepConnectedTriggerConfig<SmartList>>;
+    trigger: StepConnectedTriggerConfig<SmartList>;
     onCardClick: () => void;
+    onDelete: () => void;
     faker?: boolean;
     disabled?: boolean;
     resetFaker: () => void;
@@ -49,8 +50,8 @@ export const ConnectedTriggerNodeElementFlowVersion: React.FC<
         <div className={classes.disabledOverLay} />
       )}
 
-      {data.faker && (
-        <div className={classes.buttonTopRight}>
+      {data.faker ? (
+        <div className={classes.buttonTopRightFaker}>
           <ToolTip title={t('cadence.graph.nodeElement.cancelOnGoingCreation')}>
             <IconButton
               onClick={() => data.resetFaker()}
@@ -62,9 +63,23 @@ export const ConnectedTriggerNodeElementFlowVersion: React.FC<
             </IconButton>
           </ToolTip>
         </div>
+      ) : (
+        <div className={classes.buttonTopRightDelete}>
+          <ToolTip title={t('cadence.graph.nodeElement.deleteTrigger')}>
+            <IconButton
+              onClick={data.onDelete}
+              classes={{ root: classes.overrideIconButton }}
+              size="small"
+              color="default"
+            >
+              <DeleteIcon fontSize="small" />
+            </IconButton>
+          </ToolTip>
+        </div>
       )}
       <ConnectedTriggerNodeElement
         connectedTrigger={data.trigger}
+        isFaker={data.faker}
         onClick={data.onCardClick}
       />
       {!data.faker && (
@@ -94,7 +109,7 @@ const useFlowStyles = makeStyles(() => ({
     transform: 'translate(-50%,-50%)',
     '-ms-transform': 'translate(-50%,-50%)',
   },
-  buttonTopRight: {
+  buttonTopRightFaker: {
     position: 'absolute',
     zIndex: 2000,
     top: 0,
@@ -102,8 +117,16 @@ const useFlowStyles = makeStyles(() => ({
     transform: 'translate(50%,-50%)',
     '-ms-transform': 'translate(50%,-50%)',
   },
+  buttonTopRightDelete: {
+    position: 'absolute',
+    zIndex: 2000,
+    top: '15%',
+    right: '15%',
+    transform: 'translate(50%,-50%)',
+    '-ms-transform': 'translate(50%,-50%)',
+  },
   overrideIconButton: {
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255, 255, 255, .7)',
     boxShadow: '0px 4px 8px 0px #00000014',
     '&:hover': {
       backgroundColor: 'white',

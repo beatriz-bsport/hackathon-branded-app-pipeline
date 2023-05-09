@@ -32,5 +32,20 @@ exports.default = {
   },
   itemList: {
     goBack: 'Retour',
+    additionDrawer: {
+      title: 'Interface de vente',
+      simpleObjectsSubtitle: 'Ajouter des objets',
+      objectGroupsSubtitle: "Ajouter un groupe d'objets",
+      objectsAddition: "Ajout d'objets",
+      tilesColor: 'Couleur des tuiles',
+      search: 'Rechercher',
+      cancel: 'Annuler',
+      add: 'Ajouter',
+      category: 'Catégorie',
+      objectType: "Type d'objet",
+      selectAll: 'Tout sélectionner',
+      unselectAll: 'Tout désélectionner',
+      noResult: 'Aucun résultat',
+    },
   },
 };

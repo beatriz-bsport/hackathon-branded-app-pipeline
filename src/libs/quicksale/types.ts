@@ -25,3 +25,16 @@ export type QuicksaleCardInfo = {
   color: QuicksaleItemColor;
   sectionId: string;
 };
+
+type QuicksaleItemsByCategory = {
+  id: number | null;
+  name: string;
+  items: Array<QuicksaleCardInfo>;
+};
+
+export type QuicksaleItemsByItemIdentifierByCategory = {
+  [key in QuicksaleBasketItem]: {
+    hasCategories: boolean;
+    itemsByCategory: Array<QuicksaleItemsByCategory>;
+  };
+};

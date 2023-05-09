@@ -51,6 +51,7 @@ export type Props = {
   resetAllSelection: () => void;
   handleSelectedStepForEdition: (stepId: number) => void;
   deleteCadenceStep: (stepId: number) => void;
+  deleteConnectedTrigger: (triggerId: string) => void;
 };
 
 export const useGraph = ({
@@ -65,6 +66,7 @@ export const useGraph = ({
   resetAllSelection,
   handleSelectedStepForEdition,
   deleteCadenceStep,
+  deleteConnectedTrigger,
 }: Props) => {
   const [nodes, setNodes] = React.useState([]);
   const [edges, setEdges] = React.useState([]);
@@ -106,6 +108,7 @@ export const useGraph = ({
       handleGetNodeConnectedEgdes,
       handleSelectedStepForEdition,
       deleteCadenceStep,
+      deleteConnectedTrigger,
     });
   const onNodeDragStop = (
     // eslint-disable-next-line @typescript-eslint/no-unused-vars

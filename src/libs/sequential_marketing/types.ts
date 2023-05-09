@@ -154,6 +154,10 @@ export type CadenceState = {
     byStepId: { [id: number]: StepMarketingActions[] };
     upsert: ErrorAndLoading;
   } & ErrorAndLoading;
+  trigger: {
+    allIds: [];
+    byId: { [id: number]: StepConnectedTriggerConfig };
+  } & ErrorAndLoading;
 } & ErrorAndLoading;
 
 export enum StepMarketingActionsKind {

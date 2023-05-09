@@ -2,6 +2,7 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import memoize from 'lodash/memoize';
+import Immutable from 'seamless-immutable';
 import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 import { RouteChildrenProps, withRouter } from 'react-router';
@@ -271,8 +272,10 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
             ]
           : filteredEstablishmentIds;
 
-        filteredEstablishments = this.props.establishments.filter(
-          (e: Establishment) => uniqueEstIds.includes(e.id),
+        filteredEstablishments = Immutable<Array<Establishment>>(
+          this.props.establishments.filter((e: Establishment) =>
+            uniqueEstIds.includes(e.id),
+          ),
         );
       }
       this.setState({ filteredEstablishments: filteredEstablishments });

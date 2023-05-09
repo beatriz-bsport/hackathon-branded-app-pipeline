@@ -5,7 +5,7 @@ import { Tag } from '#libs/tag/types';
 import { Establishment } from '#libs/establishment/types';
 import { Level } from '#libs/level/types';
 import { coachFactory } from '#libs/associated-coach/factories';
-import FactoryBot from '../tag/factory';
+import { tagListFactory } from '../tag/factory';
 import { establishment_factory } from '#libs/establishment/factory';
 import { levelFactory } from '#libs/level/factories';
 
@@ -21,15 +21,10 @@ function randomDate(start: Date, end: Date) {
   );
 }
 
-export function offerFactory(): Offer<
-  Coach,
-  Establishment,
-  number,
-  number,
-  Tag,
-  number,
-  Level
-> {
+export function offerFactory(overrideData?: {
+  level?: Partial<Level>;
+  credits?: number;
+}): Offer<Coach, Establishment, number, number, Tag, number, Level> {
   const level = levelFactory();
   const date_start = randomDate(
     new Date(2022, 0, 1, 0, 0),
@@ -50,6 +45,7 @@ export function offerFactory(): Offer<
     company: random_int(1000),
     activity: random_int(1000),
     title: 'Title of offer',
+    broadcast_link: '',
     available: true,
     duration_minute: random_int(90),
     id: random_int(1000),
@@ -62,8 +58,8 @@ export function offerFactory(): Offer<
     date_end: date_end.toString(),
     date_start: date_start.toString(),
     effectif: random_int(100),
-    level,
-    level_id: level.id,
+    level: overrideData?.level ?? level,
+    level_id: overrideData?.level?.id ?? level.id,
     meta_activity_id: random_int(1000),
     name: `Activity for ${level.name}`,
     nb_option: random_int(10),
@@ -71,15 +67,15 @@ export function offerFactory(): Offer<
     parent_category: random_int(1000),
     price: random_int(50),
     price_coach: random_int(20),
-    credit_price: random_int(3),
+    credit_price: overrideData?.credits ?? random_int(3),
     is_full: false,
     establishment_override: establishment_factory(1)[0],
     establishment: establishment_factory(1)[0],
     meta_activity: random_int(1000),
-    timezone_name: 'UTC+1',
+    timezone_name: 'Europe/Paris',
     room_blueprint: random_int(100),
-    whitelist_tags: FactoryBot.Tag.create(random_int(3)),
-    blacklist_tags: FactoryBot.Tag.create(random_int(3)),
+    whitelist_tags: tagListFactory(3),
+    blacklist_tags: tagListFactory(3),
     group: random_int(100),
   };
 }

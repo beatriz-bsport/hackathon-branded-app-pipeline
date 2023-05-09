@@ -143,6 +143,7 @@ type State = {
   offerId: number | null;
   offer: Offer | null;
   displayGroupPopup: (Offer_FULL & { redirect: string }) | null;
+  filteredEstablishments: Array<Establishment> | null;
 };
 
 export class MarketplaceCalendar extends Component<FinalProps, State> {
@@ -150,6 +151,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     offerId: null,
     offer: null,
     displayGroupPopup: null,
+    filteredEstablishments: null,
   };
 
   fetchData = () => {

@@ -16,6 +16,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import {
   DATE_FORMAT,
   formatAsDateWithWeekday,
+  formatWeekDay,
 } from '../../../../utils/datetime';
 import { Moment } from '../../../../i18n';
 import MarketPlaceCardOfferV2 from '../MarketplaceCardOfferCSSOnly';
@@ -371,8 +372,11 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                     })}
                   >
                     {window.innerWidth < 500
-                      ? `${currentDate.format('dd')}`
-                      : `${currentDate.format('dddd')}`}
+                      ? currentDate.format('dd')
+                      : formatWeekDay(
+                          currentDate.format('dddd'),
+                          this.props.theme,
+                        )}
                   </div>
                   <div
                     className={classNames('bs-week__header__date__monthDay', {

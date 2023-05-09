@@ -156,3 +156,17 @@ export function sortByDate<T, K extends keyof T>(values: T[], key?: K) {
 
   return [...values].sort((a, b) => (moment(a).isBefore(moment(b)) ? -1 : 1));
 }
+
+/*
+Format the weekday according to the days_format_display settings from personalization form 
+*/
+export function formatWeekDay(weekDay: string, theme: Theme) {
+  switch (theme?.days_format_display) {
+    case MarketPlaceDaysFormatDisplay.ONE_LETTER:
+      return weekDay.slice(0, 1);
+    case MarketPlaceDaysFormatDisplay.THREE_LETTERS:
+      return weekDay.slice(0, 3).toUpperCase();
+    default:
+      return weekDay;
+  }
+}

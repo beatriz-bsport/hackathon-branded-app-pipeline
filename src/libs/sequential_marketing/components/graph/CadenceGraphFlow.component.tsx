@@ -59,6 +59,7 @@ type Props = {
   cadenceEditMode: boolean;
   handleSelectedStepForEdition: (stepId: number) => void;
   deleteCadenceStep: (stepId: number) => void;
+  deleteConnectedTrigger: (triggerId: string) => void;
 };
 
 export const Flow: React.FC<Props> = ({
@@ -74,6 +75,7 @@ export const Flow: React.FC<Props> = ({
   cadenceEditMode,
   handleSelectedStepForEdition,
   deleteCadenceStep,
+  deleteConnectedTrigger,
 }) => {
   const [disabledMode, setDisabledMode] = React.useState(true);
   const [displayDisabledTriggers, setDisplayDisabledTriggers] =
@@ -100,6 +102,7 @@ export const Flow: React.FC<Props> = ({
     resetAllSelection,
     handleSelectedStepForEdition,
     deleteCadenceStep,
+    deleteConnectedTrigger,
   });
 
   const onNodesChange = React.useCallback(

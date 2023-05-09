@@ -25,6 +25,7 @@ import {
   updateCadenceStepConnectedTriggerCanvasPosition as updateCadenceStepConnectedTriggerCanvasPositionAPI,
   subscribeStepToStep as subscribeStepToStepAPI,
   updateConnectedTrigger as updateConnectedTriggerAPI,
+  deleteConnectedTrigger as deleteConnectedTriggerAPI,
   updateCadenceStep as updateCadenceStepAPI,
   deleteCadenceStep as deleteCadenceStepAPI,
 
@@ -637,6 +638,41 @@ export function updateConnectedTrigger(
     }
 
     dispatch(subscribeStepToStepActions.isLoading(false));
+  };
+}
+
+export const deleteConnectedTriggerActions = {
+  isLoading: createAction('CONNECTED_TRIGGER/DELETE/IS_LOADING'),
+  error: createAction('CONNECTED_TRIGGER/DELETE/ERROR'),
+  success: createAction('CONNECTED_TRIGGER/DELETE/SUCCESS'),
+};
+
+export function deleteConnectedTrigger(
+  cadenceId: number,
+  connectedTriggerUUID: string,
+  sourceStepId: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(deleteConnectedTriggerActions.isLoading(true));
+    dispatch(deleteConnectedTriggerActions.error(null));
+
+    try {
+      await deleteConnectedTriggerAPI(cadenceId, connectedTriggerUUID);
+      dispatch(
+        deleteConnectedTriggerActions.success({
+          connected_trigger_uuid: connectedTriggerUUID,
+          source_id: sourceStepId,
+        }),
+      );
+      options && options.onSuccess && options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(deleteConnectedTriggerActions.error(err));
+      options && options.onError && options.onError();
+    }
+
+    dispatch(deleteConnectedTriggerActions.isLoading(false));
   };
 }
 

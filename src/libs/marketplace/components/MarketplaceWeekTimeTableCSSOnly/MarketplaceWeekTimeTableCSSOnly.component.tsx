@@ -212,6 +212,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
               return (
                 <div className="bs-week__cardMode__offerRow__offer-wrapper">
                   <MarketPlaceCardOfferV2
+                    key={o.id}
                     showOfferFilling={this.props.showOfferFilling}
                     hideCoach={this.props.hideCoach}
                     showOfferGender={this.props.showOfferGender}

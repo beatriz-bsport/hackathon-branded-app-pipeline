@@ -54,7 +54,7 @@ export const convertSubscribeStepToStepPayload = (
     is_exit_fail,
   } = data;
   // /!\ In this case no bullshit, if the trigger has an event and smartlist the smartlist IS a filter
-  // if no event then the smartlist is defining an emptty trigger with smartlist filter
+  // if no event then the smartlist is defining an empty trigger with smartlist filter
 
   return {
     ...((is_exit_fail || is_exit_success) ?? false
@@ -70,12 +70,12 @@ export const convertSubscribeStepToStepPayload = (
                       x:
                         sourceStep?.canvas?.positions?.x &&
                         typeof sourceStep?.canvas?.positions?.x === 'string'
-                          ? parseFloat(sourceStep?.canvas?.positions?.x)
+                          ? parseFloat(sourceStep?.canvas?.positions?.x) + 400
                           : 0,
                       y:
-                        sourceStep?.canvas?.positions?.x &&
-                        typeof sourceStep?.canvas?.positions?.x === 'string'
-                          ? parseFloat(sourceStep?.canvas?.positions?.x) + 400
+                        sourceStep?.canvas?.positions?.y &&
+                        typeof sourceStep?.canvas?.positions?.y === 'string'
+                          ? parseFloat(sourceStep?.canvas?.positions?.y) + 400
                           : 0,
                     },
                   },
@@ -101,12 +101,12 @@ export const convertSubscribeStepToStepPayload = (
           x:
             sourceStep?.canvas?.positions?.x &&
             typeof sourceStep?.canvas?.positions?.x === 'string'
-              ? parseFloat(sourceStep?.canvas?.positions?.x)
+              ? parseFloat(sourceStep?.canvas?.positions?.x) + 230
               : 0,
           y:
-            sourceStep?.canvas?.positions?.x &&
-            typeof sourceStep?.canvas?.positions?.x === 'string'
-              ? parseFloat(sourceStep?.canvas?.positions?.x) + 200
+            sourceStep?.canvas?.positions?.y &&
+            typeof sourceStep?.canvas?.positions?.y === 'string'
+              ? parseFloat(sourceStep?.canvas?.positions?.y) + 230
               : 0,
         },
       },

@@ -21,6 +21,7 @@ import {
   activateCadenceActions,
   shutOffCadenceActions,
   upsertInitialCadenceConfigurationActions,
+
   // STEPS
   retrieveCadenceStepActions,
   fetchCadenceStepListActions,
@@ -34,6 +35,9 @@ import {
   fetchStepMarketingActions,
   upsertStepMarketingActionsActions,
   deleteStepMarketingActionsActions,
+
+  // TRIGGERS
+  deleteConnectedTriggerActions,
 } from './actions';
 
 type ImmutableCadenceState = Immutable.Immutable<CadenceState>;
@@ -48,7 +52,7 @@ const initialState: ImmutableCadenceState = Immutable<CadenceState>({
   },
   step: {
     allIds: [],
-    byId: [],
+    byId: {},
     loading: false,
     error: null,
     subscribe: {
@@ -66,6 +70,12 @@ const initialState: ImmutableCadenceState = Immutable<CadenceState>({
       loading: false,
       error: null,
     },
+  },
+  trigger: {
+    allIds: [],
+    byId: {},
+    loading: false,
+    error: null,
   },
   loading: false,
   error: null,
@@ -524,6 +534,38 @@ export default handleActions<ImmutableCadenceState, any>(
             (ma) => ma.id !== payload.id,
           ),
         );
+    },
+    [deleteConnectedTriggerActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['trigger', 'loading'], payload);
+    },
+    [deleteConnectedTriggerActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['trigger', 'error'], payload);
+    },
+    [deleteConnectedTriggerActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: { connected_trigger_uuid: string; source_id: number } },
+    ) => {
+      return state.setIn(
+        ['step', 'byId', payload.source_id, 'exits'],
+        state.step.byId[payload.source_id].exits.map((trigger) => {
+          if (trigger.uuid === payload.connected_trigger_uuid) {
+            const new_trigger: StepConnectedTriggerConfig<number> = {
+              ...trigger,
+              disabled: true,
+            };
+            return new_trigger;
+          }
+          return trigger;
+        }),
+      );
     },
   },
   initialState,

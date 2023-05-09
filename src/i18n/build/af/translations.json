@@ -3114,7 +3114,8 @@
           "addElement": "Ajouter un déclencheur",
           "edgeLabelForNodeCreation": "En cours de création",
           "cancelOnGoingCreation": "Annuler la création",
-          "deleteStep": "Supprimer l'étape"
+          "deleteStep": "Supprimer l'étape",
+          "deleteTrigger": "Supprimer le déclencheur"
         },
         "alert": {
           "cadenceIsActive": "Votre cadence est en cours merci de mettre votre cadence en pause pour pouvoir la modifier.",

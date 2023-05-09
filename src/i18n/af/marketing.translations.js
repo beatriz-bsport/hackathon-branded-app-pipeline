@@ -574,6 +574,7 @@ exports.default = {
         edgeLabelForNodeCreation: 'En cours de création',
         cancelOnGoingCreation: 'Annuler la création',
         deleteStep: "Supprimer l'étape",
+        deleteTrigger: "Supprimer le déclencheur",
       },
       alert: {
         cadenceIsActive:

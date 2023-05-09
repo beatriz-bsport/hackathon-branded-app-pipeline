@@ -285,7 +285,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   openOfferDialog = (offerId: number) => {
     this.setState({
       offerId,
-      offer: this.props.allMarketplaceOffers.find((o: any) => o.id === offerId),
+      offer: this.props.offers.find((o: any) => o.id === offerId),
     });
   };
 
@@ -401,7 +401,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           }
         />
         <MarketplaceCalendarComponent
-          allMarketplaceOffers={this.props.allMarketplaceOffers}
+          offers={this.props.offers}
           genderCount={this.props.genderCount}
           group={this.props.group}
           companyId={this.props.companyId}
@@ -466,7 +466,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 /* eslint-enable */
 
 const mapStateToProps = (state: RootState) => ({
-  allMarketplaceOffers: getMarketplaceOfferList(state),
+  offers: getMarketplaceOfferList(state),
   genderCount: getBookedGenderOffer(state),
   loading: state.offer.marketplace.loading,
   events: state.offer.calendar,

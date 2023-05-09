@@ -50,7 +50,7 @@ type Props = {
   activityLoading: boolean;
   coachLoading: boolean;
   establishmentLoading: boolean;
-  allMarketplaceOffers: Array<Offer>;
+  offers: Array<Offer>;
   establishments: Array<Establishment>;
   genderCount: Object;
   group: Object;
@@ -71,16 +71,13 @@ type State = {
   panelsStatus: Array<boolean>;
 };
 
-const getWeekOffers = (
-  selectedDate: string,
-  allMarketplaceOffers: Array<Offer>,
-) => {
+const getWeekOffers = (selectedDate: string, offers: Array<Offer>) => {
   const date_start = Moment(selectedDate, DATE_FORMAT).clone().startOf('week');
   const weekdays = Moment.weekdays(true);
   // split offers par week days
   return weekdays.map((_: any, i) => {
     const currentDate = Moment(date_start).add(i, 'days');
-    return allMarketplaceOffers.filter(
+    return offers.filter(
       (o) =>
         currentDate.weekday() === i &&
         Moment(o.date_start).isSame(currentDate, 'day'),
@@ -115,36 +112,34 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
    * function that split offers into day periods [morning, afternoon, evening]
    */
 
-  getOffersByPeriod = memoize(
-    (date: string, allMarketplaceOffers: Array<Offer>) => {
-      const morning: Array<Array<Offer>> = [];
-      const afternoon: Array<Array<Offer>> = [];
-      const evening: Array<Array<Offer>> = [];
-      const weekOffers = getWeekOffers(date, allMarketplaceOffers);
-      (weekOffers || []).map((dayOffers: Array<Offer>, i) => {
-        morning[i] = dayOffers.filter(
-          (offer: Offer) =>
-            Moment(offer.date_start).format('HH') < SPLIT_AFTERNOON,
-        );
+  getOffersByPeriod = memoize((date: string, offers: Array<Offer>) => {
+    const morning: Array<Array<Offer>> = [];
+    const afternoon: Array<Array<Offer>> = [];
+    const evening: Array<Array<Offer>> = [];
+    const weekOffers = getWeekOffers(date, offers);
+    (weekOffers || []).map((dayOffers: Array<Offer>, i) => {
+      morning[i] = dayOffers.filter(
+        (offer: Offer) =>
+          Moment(offer.date_start).format('HH') < SPLIT_AFTERNOON,
+      );
 
-        afternoon[i] = dayOffers.filter((offer: Offer) => {
-          const offerStarHour = Moment(offer.date_start).format('HH');
-          return (
-            offerStarHour >= SPLIT_AFTERNOON && offerStarHour < SPLIT_EVENNING
-          );
-        });
-        evening[i] = dayOffers.filter(
-          (offer: Offer) =>
-            Moment(offer.date_start).format('HH') >= SPLIT_EVENNING,
+      afternoon[i] = dayOffers.filter((offer: Offer) => {
+        const offerStarHour = Moment(offer.date_start).format('HH');
+        return (
+          offerStarHour >= SPLIT_AFTERNOON && offerStarHour < SPLIT_EVENNING
         );
-        return true;
       });
-      return [morning, afternoon, evening];
-    },
-  );
+      evening[i] = dayOffers.filter(
+        (offer: Offer) =>
+          Moment(offer.date_start).format('HH') >= SPLIT_EVENNING,
+      );
+      return true;
+    });
+    return [morning, afternoon, evening];
+  });
 
   getOffersByDay = memoize((date: string) => {
-    const day_offers = this.props.allMarketplaceOffers.filter((offer) => {
+    const day_offers = this.props.offers.filter((offer) => {
       return moment(offer.date_start).isSame(date, 'day');
     });
     return day_offers;
@@ -250,10 +245,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   };
 
   renderOffersCardVersion = (offers: Array<Array<Array<Offer>>>) => {
-    const weekOffers = getWeekOffers(
-      this.props.date,
-      this.props.allMarketplaceOffers,
-    );
+    const weekOffers = getWeekOffers(this.props.date, this.props.offers);
     const offersRows = this.periodByRow(weekOffers);
 
     return (
@@ -371,10 +363,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
 
     const weekDays = Moment.weekdaysShort(true);
 
-    const offers = this.getOffersByPeriod(
-      date,
-      this.props.allMarketplaceOffers,
-    );
+    const offers = this.getOffersByPeriod(date, this.props.offers);
     const start_date = moment(date, DATE_FORMAT).clone().startOf('week');
     const main_date = moment(date).clone();
     const isCardModeDisplay = !(this.props.isCompact && !this.props.isLarge);

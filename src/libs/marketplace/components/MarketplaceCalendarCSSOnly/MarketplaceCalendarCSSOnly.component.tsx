@@ -32,7 +32,7 @@ const LoadingIndicator = () => (
 type Props = {
   onSelectDate: () => void;
   selectedDate: any;
-  allMarketplaceOffers: Array<Offer>;
+  offers: Array<Offer>;
   genderCount: Object;
   group: Object;
   loading: boolean;
@@ -77,7 +77,7 @@ export const MarketplaceCalendar = (props: Props) => {
   const {
     onSelectDate,
     selectedDate,
-    allMarketplaceOffers,
+    offers,
     coaches,
     metaActivities,
     loading,
@@ -89,7 +89,7 @@ export const MarketplaceCalendar = (props: Props) => {
     groupSessionByPeriod,
   } = props;
 
-  const weekOffers = allMarketplaceOffers.filter((offer) =>
+  const weekOffers = offers.filter((offer) =>
     moment(offer.date_start).isSame(selectedDate, 'week'),
   );
   const refContainer = useRef(null);
@@ -179,7 +179,7 @@ export const MarketplaceCalendar = (props: Props) => {
       {!loading && (
         <>
           <MarketplaceWeekTimetableV2
-            allMarketplaceOffers={allMarketplaceOffers}
+            offers={offers}
             establishments={props.establishments}
             genderCount={props.genderCount}
             group={props.group}

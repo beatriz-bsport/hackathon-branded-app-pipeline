@@ -163,6 +163,7 @@ type NodeRendererProps = {
   handleGetNodeConnectedEgdes: (nodeId: string) => void;
   handleSelectedStepForEdition: (stepId: number) => void;
   deleteCadenceStep: (stepId: number) => void;
+  deleteConnectedTrigger: (triggerId: string) => void;
 };
 
 export const useNodeElementsRecorder = ({
@@ -178,6 +179,7 @@ export const useNodeElementsRecorder = ({
   handleGetNodeConnectedEgdes,
   handleSelectedStepForEdition,
   deleteCadenceStep,
+  deleteConnectedTrigger,
 }: NodeRendererProps) => {
   const handleSelectEntryStepForSubscription = React.useCallback(
     () => enterSubscriptionMode(storedEntryStep),
@@ -246,12 +248,23 @@ export const useNodeElementsRecorder = ({
           cadence,
           onCardClick: () =>
             onClickConnectedTrigger(triggerNode.step, triggerNode.trigger),
+          onDelete: () =>
+            deleteConnectedTrigger(
+              cadence.id,
+              triggerNode.trigger.uuid,
+              triggerNode.trigger.destination_config.source_id,
+            ),
           disabled: triggerNode.trigger.disabled,
         },
       }));
     }
     return [];
-  }, [storedTriggers, cadence, onClickConnectedTrigger]);
+  }, [
+    storedTriggers,
+    cadence,
+    onClickConnectedTrigger,
+    deleteConnectedTrigger,
+  ]);
 
   // The fakeNodeElement consumes the storedStepNodeFakerSource to draw a fake node
   // knowing from which source(aka node of the graph) it must de displayed.

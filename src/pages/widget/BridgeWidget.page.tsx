@@ -32,8 +32,6 @@ type OwnProps = {
   isBackofficePreview?: boolean;
 };
 
-const storage = window.sessionStorage;
-
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
@@ -50,7 +48,9 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
     window.removeEventListener('message', this.handleMessages);
     window.removeEventListener('storage', this.onStorageChange);
     if (!this.props.isBackofficePreview) {
-      storage?.removeItem(BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION);
+      window?.sessionStorage?.removeItem(
+        BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+      );
     }
   }
 
@@ -65,7 +65,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
   componentDidMount() {
     this.sendAuthenticationResponse();
     if (!this.props.isBackofficePreview) {
-      storage?.setItem(
+      window?.sessionStorage?.setItem(
         BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
         BsportRequestFromHeaderValue.BRIDGE,
       );

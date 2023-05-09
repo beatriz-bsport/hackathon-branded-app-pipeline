@@ -1,5 +1,4 @@
 // @ts-nocheck
-// @flow
 import React from 'react';
 
 import { withRouter, Switch, Redirect, Route } from 'react-router-dom';
@@ -11,6 +10,10 @@ import { connect } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
 import { withTranslation } from 'react-i18next';
+import {
+  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+  BsportRequestFromHeaderValue,
+} from '../../constants';
 import { RootState } from '../../reducers';
 import { parseQueryString } from '../../http';
 import { fetchCompanyTheme } from '#libs/theme/actions';
@@ -82,6 +85,10 @@ type Props = {
 
 export class LoginRouter extends React.Component<Props> {
   componentDidMount() {
+    window?.sessionStorage?.setItem(
+      BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+      BsportRequestFromHeaderValue.SAAS_LOGIN_ROUTER,
+    );
     if (this.props.membership) {
       this.props.fetchCompanyTheme(this.props.membership);
     } else {
@@ -113,6 +120,12 @@ export class LoginRouter extends React.Component<Props> {
     if (this.props.loginProcessing) {
       this.props.disconnect();
     }
+  }
+
+  componentWillUnmount() {
+    window?.sessionStorage?.removeItem(
+      BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+    );
   }
 
   render() {

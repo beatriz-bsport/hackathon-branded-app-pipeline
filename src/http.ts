@@ -6,17 +6,25 @@ import * as Sentry from '@sentry/react';
 import Config from './config';
 import { setSessionId } from './sentry/session';
 import { setTransactionId } from './sentry/transaction';
+import {
+  BSPORT_REQUEST_FROM_HEADER,
+  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+} from './constants';
 import i18n from './i18n';
 
 const storage = window.localStorage;
 const sessionStorage = window.sessionStorage;
 
-const getIsFromWidget = () => {
-  return sessionStorage.getItem('bsport-from-widget') === 'true';
-};
-
-const getIsFromBridge = () => {
-  return sessionStorage.getItem('bsport-from-bridge') === 'true';
+const getBsportRequestFromHeader = () => {
+  try {
+    const storedValue = sessionStorage.getItem(
+      BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+    );
+    return storedValue ? { [BSPORT_REQUEST_FROM_HEADER]: storedValue } : {};
+  } catch (err) {
+    console.error(err);
+    return {};
+  }
 };
 
 export const BASE_URI: string = Config.REACT_APP_BASE_URI;
@@ -119,6 +127,8 @@ export async function postBase(
     'X-React-Referrer': window.location.href,
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    'X-bsport-log-collection': 'true',
+    ...getBsportRequestFromHeader(),
   };
 
   try {
@@ -148,6 +158,8 @@ export async function post(
     'X-React-Referrer': window.location.href,
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    'X-bsport-log-collection': 'true',
+    ...getBsportRequestFromHeader(),
   };
 
   try {
@@ -178,6 +190,8 @@ export async function put(
     'X-React-Referrer': window.location.href,
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    'X-bsport-log-collection': 'true',
+    ...getBsportRequestFromHeader(),
   };
 
   try {
@@ -207,6 +221,8 @@ export async function patch(
     'X-React-Referrer': window.location.href,
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    'X-bsport-log-collection': 'true',
+    ...getBsportRequestFromHeader(),
   };
 
   try {
@@ -236,6 +252,8 @@ export async function delete_(
     'X-React-Referrer': window.location.href,
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    'X-bsport-log-collection': 'true',
+    ...getBsportRequestFromHeader(),
   };
   try {
     const response = await axios({
@@ -269,8 +287,9 @@ export async function get(
         'X-Timezone-Name': getTimezoneName(),
         'X-Session-ID': setSessionId(),
         'X-React-Referrer': window.location.href,
+        'X-bsport-log-collection': 'true',
         ...(headers || {}),
-        ...(getIsFromWidget() ? { 'X-bsport-from-widget': 'true' } : {}),
+        ...getBsportRequestFromHeader(),
       },
       cancelToken,
     });
@@ -301,7 +320,6 @@ export async function getAuth(
       'X-Session-ID': setSessionId(),
       'X-React-Referrer': window.location.href,
       Authorization: `Token ${token_}`,
-      ...(getIsFromBridge() ? { 'X-bsport-from-bridge': 'true' } : {}),
     },
     cancelToken,
   );

@@ -6,6 +6,8 @@ import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 
 import { withTranslation } from 'react-i18next';
+import { BsportRequestFromHeaderValue } from '../../constants';
+import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 import asyncComponent from '../../AsyncComponent';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { getAuthToken } from '../../http';
@@ -38,6 +40,8 @@ type Props = {
 };
 
 export const ConsumerRouter = (props: Props) => {
+  useSaasRouterTracker(BsportRequestFromHeaderValue.SAAS_CONSUMER_ROUTER);
+
   if (
     !props.authenticated &&
     props.companyId &&

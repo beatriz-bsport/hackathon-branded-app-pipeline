@@ -8,6 +8,8 @@ import { Route, Switch } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
 import { useTranslation } from 'react-i18next';
+import { BsportRequestFromHeaderValue } from '../../constants';
+import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 import asyncComponent from '../../AsyncComponent';
 import withQueryParams from '#hocs/with-query-params.hoc';
 import themeSelectors from '#libs/theme/selectors';
@@ -32,6 +34,8 @@ type Props = {
 };
 
 export const ConfirmEmailRouter = (props: Props) => {
+  useSaasRouterTracker(BsportRequestFromHeaderValue.SAAS_EMAIL_CONFIRMATION);
+
   const { refreshValidationEmailStatus, theme } = props;
   useTranslation(namespaces);
 

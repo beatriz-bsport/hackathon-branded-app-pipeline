@@ -15,6 +15,10 @@ import {
   UNREAD_COMMUNICATION,
   // @ts-ignore
 } from '@bsport/common/lib/master-data/alerting_kind';
+import {
+  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+  BsportRequestFromHeaderValue,
+} from '../constants';
 import Intercom from '#components/intercom/Intercom.component';
 import i18n from '../i18n/index';
 import {
@@ -444,6 +448,10 @@ export class Backoffice extends Component<Props, State> {
   }
 
   componentDidMount() {
+    window?.sessionStorage?.setItem(
+      BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+      BsportRequestFromHeaderValue.SAAS_BACKOFFICE,
+    );
     getSegmentAnalyticsToWindow();
     this.props.fetchCompanyTheme();
     this.props.fetchCompanyRoles();
@@ -620,6 +628,9 @@ export class Backoffice extends Component<Props, State> {
   };
 
   componentWillUnmount() {
+    window?.sessionStorage?.removeItem(
+      BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+    );
     if (this.refreshInterval) {
       clearInterval(this.refreshInterval);
     }

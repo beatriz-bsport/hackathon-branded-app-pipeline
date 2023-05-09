@@ -5,6 +5,9 @@ import { withTranslation } from 'react-i18next';
 import { Switch, Route } from 'react-router-dom';
 import namespaces from '../../../i18n/namespaces.json';
 
+import { BsportRequestFromHeaderValue } from '../../../constants';
+
+import useSaasRouterTracker from '../../../hooks/useSaasRouterTracker';
 import asyncComponent from '../../../AsyncComponent';
 
 const MarketplaceAsManager = asyncComponent(
@@ -32,6 +35,8 @@ const DEPRECATEDShopItemPreCheckoutPage = asyncComponent(
 );
 
 export const DeprecatedPages = (props: { is_manager: boolean }) => {
+  useSaasRouterTracker(BsportRequestFromHeaderValue.SAAS_DEPRECATED_PAYMENT);
+
   if (props.is_manager) {
     return <MarketplaceAsManager />;
   }

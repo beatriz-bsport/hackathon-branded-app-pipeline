@@ -1,5 +1,4 @@
 // @ts-nocheck
-// @flow
 import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -8,6 +7,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 import { MuiThemeProvider } from '@material-ui/core';
 
+import { BsportRequestFromHeaderValue } from '../../constants';
 import asyncComponent from '../../AsyncComponent';
 import { getAuthToken } from '../../http';
 
@@ -21,6 +21,7 @@ import { getTempPasswordState } from '../../libs/login/selectors';
 import { getFranchiseId, getFranchisor } from '../../libs/franchise/selectors';
 import { RootState } from '../../reducers';
 import { DrawerContext } from '../../context';
+import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 
 import FranchiseDrawer from '../../components/navigation/FranchiseDrawer.component';
 
@@ -104,6 +105,8 @@ const FranchiseRouter = (props: Props) => {
     pushRouter,
     franchisePermissions,
   } = props;
+
+  useSaasRouterTracker(BsportRequestFromHeaderValue.SAAS_FRANCHISE_BACKOFFICE);
 
   useEffect(() => {
     fetchFranchise();

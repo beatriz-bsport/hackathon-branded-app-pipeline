@@ -1,11 +1,14 @@
 // @ts-nocheck
-// @flow
 
 import React from 'react';
 import { Route, Switch } from 'react-router';
 import { connect } from 'react-redux';
 
 import { withTranslation } from 'react-i18next';
+import {
+  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+  BsportRequestFromHeaderValue,
+} from '../../constants';
 import asyncComponent from '../../AsyncComponent';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import { RootState } from '../../reducers';
@@ -25,6 +28,19 @@ const MarketplaceCustomForm = asyncComponent(
 type Props = { is_manager: boolean; is_franchisor: boolean };
 
 export class MarketplaceRouter extends React.Component<Props> {
+  componentDidMount() {
+    window?.sessionStorage?.setItem(
+      BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+      BsportRequestFromHeaderValue.SAAS_MARKETPLACE_ROUTER,
+    );
+  }
+
+  componentWillUnmount() {
+    window?.sessionStorage?.removeItem(
+      BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
+    );
+  }
+
   render() {
     if (this.props.is_manager || this.props.is_franchisor) {
       return <MarketplaceAsManager />;

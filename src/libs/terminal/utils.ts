@@ -9,7 +9,7 @@ export const getStripeTerminalMinAmountCts = (companyId?: number) => {
     ) {
       return 200;
     }
-    if ([1196, 1166].includes(companyId)) {
+    if ([1196, 1166, 797].includes(companyId)) {
       return 100;
     }
   }

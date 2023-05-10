@@ -84,7 +84,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
     : offer.coach;
 
   const coach = useMemo(
-    () => (coaches ? coaches.find((c) => c.id === offerCoachId) : undefined),
+    () => coaches?.find((c) => c.id === offerCoachId),
     [coaches, offerCoachId],
   );
 

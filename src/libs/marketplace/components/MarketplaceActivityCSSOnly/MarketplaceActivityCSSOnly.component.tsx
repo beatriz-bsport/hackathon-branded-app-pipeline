@@ -155,7 +155,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
             <LocationOnIcon />
             {!isMobile ? (
               <div className="bs-activity__top__content__location__address">
-                {establishment.location.address}
+                {establishment?.location.address}
               </div>
             ) : (
               <button
@@ -165,7 +165,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
                 className="bs-activity__top__content__location__address--clickable"
                 type="button"
               >
-                {establishment.location.address}
+                {establishment?.location.address}
               </button>
             )}
           </div>
@@ -239,7 +239,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
                 />
                 <div className="bs-activity__middle__coach__overrider__personality__right">
                   <div className="bs-activity__middle__coach__overrider__personality__right__name">
-                    {coach.name}
+                    {coach?.name}
                   </div>
 
                   <div className="bs-activity__middle__coach__overrider__personality__right__override">

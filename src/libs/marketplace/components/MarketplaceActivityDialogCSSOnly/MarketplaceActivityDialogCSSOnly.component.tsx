@@ -1,6 +1,3 @@
-// @ts-nocheck
-// @flow
-
 import React from 'react';
 
 import withMobileDialog from '@material-ui/core/withMobileDialog';

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useMemo } from 'react';
 import { pure } from 'recompose';
 import './MarketplaceCardOfferCSSOnly.css';
 import GroupIcon from '@material-ui/icons/Group';
@@ -70,9 +70,10 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
     (props.showOfferFilling || props.showOfferGender) &&
     window.innerWidth < 1850;
 
-  const establishment = establishments
-    ? establishments.find((est) => est.id === offer.establishment)
-    : undefined;
+  const establishment = useMemo(
+    () => establishments.find((est) => est.id === offer.establishment),
+    [establishments, offer.establishment],
+  );
 
   const metaActivity = metaActivities
     ? metaActivities[offer.meta_activity]
@@ -82,9 +83,10 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
     ? offer.coach_override
     : offer.coach;
 
-  const coach = coaches
-    ? props.coaches.find((c) => c.id === offerCoachId)
-    : undefined;
+  const coach = useMemo(
+    () => (coaches ? coaches.find((c) => c.id === offerCoachId) : undefined),
+    [coaches, offerCoachId],
+  );
 
   return (
     <button

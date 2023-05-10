@@ -3,11 +3,8 @@ import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
 import Config from '../../config';
 import { Offer, Offer_FULL } from '#libs/offer/types';
-import { Establishment } from '#libs/establishment/types';
-import { Theme } from '#libs/theme/types';
 import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
 import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
-import { MetaActivity } from '#libs/meta-activity/types';
 
 export function isOfferInThePast(offer: Offer | Offer_FULL) {
   if (!offer) return false;

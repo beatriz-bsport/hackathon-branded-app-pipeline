@@ -24,7 +24,6 @@ import type { Establishment } from '#libs/establishment/types';
 import type { Theme } from '#libs/theme/types';
 import { Offer } from '#libs/offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
-import { Coach } from '#libs/associated-coach/types';
 
 /**
  * Marketplace filter hook for pass page - returns the associated filtered list according to pass filters

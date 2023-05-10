@@ -70,6 +70,17 @@ export class ResetPassword extends Component<Props, State> {
     );
   };
 
+  getRedirectUrlWithParams = () => {
+    const loginPathParams = {};
+    if (this.props.membership) {
+      loginPathParams.membership = this.props.membership;
+    }
+    if (this.props.franchisorId) {
+      loginPathParams.franchisor = this.props.franchisorId;
+    }
+    return `/login${buildUrlParams(loginPathParams)}`;
+  };
+
   getSendingButton = () => (
     <div
       style={{
@@ -80,18 +91,7 @@ export class ResetPassword extends Component<Props, State> {
     >
       <Link
         style={{ textDecoration: 'none' }}
-        to={`/login${buildUrlParams({
-          ...(this.props.membership
-            ? {
-                membership: this.props.membership,
-              }
-            : {}),
-          ...(this.props.franchisorId
-            ? {
-                franchisor: this.props.franchisorId,
-              }
-            : {}),
-        })}`}
+        to={this.getRedirectUrlWithParams()}
       >
         <Button>{this.props.t('resetPassword.actions.cancel')}</Button>
       </Link>
@@ -174,7 +174,7 @@ export class ResetPassword extends Component<Props, State> {
     const { classes } = this.props;
     const { hasSent, redirectLogin } = this.state;
     if (redirectLogin) {
-      return <Redirect to="/" />;
+      return <Redirect to={this.getRedirectUrlWithParams()} />;
     }
     return (
       <form onSubmit={this.onSubmit} className={classes.container}>

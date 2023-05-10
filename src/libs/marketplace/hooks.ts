@@ -246,68 +246,80 @@ export const useMarketplacePassFlatLists = (
 };
 
 export const useOfferHours = (
-  offer: Offer<Coach, Establishment, MetaActivity>,
+  offer: Offer,
   establishment: Establishment,
+  metaActivity: MetaActivity,
   theme: Theme,
 ) => {
   const { t } = useTranslation('datetime');
-  if (offer.date_start && establishment?.tzname) {
-    const tz = offer.meta_activity?.is_broadcast
-      ? moment.tz.guess()
-      : establishment.tzname;
+  const memoizedOfferHours = useMemo(() => {
+    if (offer.date_start && establishment?.tzname) {
+      const tz = metaActivity?.is_broadcast
+        ? moment.tz.guess()
+        : establishment?.tzname;
 
-    const startMoment = moment(offer?.date_start).tz(tz);
-    const startHour = formatAsTime(startMoment, tz);
+      const startMoment = moment(offer?.date_start).tz(tz);
+      const startHour = formatAsTime(startMoment, tz);
 
-    const duration = moment.duration(offer?.duration_minute, 'minutes');
-    const durationInMinutes = duration.asMinutes();
-    const readableDuration = formatMinutes(durationInMinutes, t);
+      const duration = moment.duration(offer?.duration_minute, 'minutes');
+      const durationInMinutes = duration.asMinutes();
+      const readableDuration = formatMinutes(durationInMinutes, t);
 
-    const endMoment = moment(offer?.date_start).add(duration).tz(tz);
+      const endMoment = moment(offer?.date_start).add(duration).tz(tz);
 
-    if (!endMoment.isSame(startMoment, 'day')) {
-      return startHour;
-    }
-    const endHour = formatAsTime(endMoment, tz);
+      if (!endMoment.isSame(startMoment, 'day')) {
+        return startHour;
+      }
+      const endHour = formatAsTime(endMoment, tz);
 
-    switch (theme?.session_time_display) {
-      case MarketPlaceSessionTimeDisplay.ONLY_STARTING_TIME:
-        return `${startHour}`;
-      case MarketPlaceSessionTimeDisplay.STARTING_TIME_AND_DURATION:
-        return `${startHour} - ${readableDuration}`;
-      default:
-        return `${startHour} - ${endHour}`;
-    }
-  }
-
-  if (offer.date_start) {
-    const tz = offer.meta_activity?.is_broadcast
-      ? moment.tz.guess()
-      : theme.timezone_name;
-    const startMoment = moment(offer?.date_start).tz(tz);
-    const startHour = startMoment.format('HH:mm');
-
-    const duration = moment.duration(offer?.duration_minute, 'minutes');
-    const durationInMinutes = duration.asMinutes();
-    const readableDuration = formatMinutes(durationInMinutes, t);
-
-    const endMoment = moment(offer?.date_start)
-      .add(moment.duration(offer?.duration_minute, 'minutes'))
-      .tz(tz);
-    const endHour = endMoment.format('HH:mm');
-
-    if (!endMoment.isSame(startMoment, 'day')) {
-      return startHour;
+      switch (theme?.session_time_display) {
+        case MarketPlaceSessionTimeDisplay.ONLY_STARTING_TIME:
+          return `${startHour}`;
+        case MarketPlaceSessionTimeDisplay.STARTING_TIME_AND_DURATION:
+          return `${startHour} - ${readableDuration}`;
+        default:
+          return `${startHour} - ${endHour}`;
+      }
     }
 
-    switch (theme?.session_time_display) {
-      case MarketPlaceSessionTimeDisplay.ONLY_STARTING_TIME:
-        return `${startHour}`;
-      case MarketPlaceSessionTimeDisplay.STARTING_TIME_AND_DURATION:
-        return `${startHour} - ${readableDuration}`;
-      default:
-        return `${startHour} - ${endHour}`;
+    if (offer.date_start) {
+      const tz = metaActivity?.is_broadcast
+        ? moment.tz.guess()
+        : theme?.timezone_name;
+      const startMoment = moment(offer?.date_start).tz(tz);
+      const startHour = startMoment.format('HH:mm');
+
+      const duration = moment.duration(offer?.duration_minute, 'minutes');
+      const durationInMinutes = duration.asMinutes();
+      const readableDuration = formatMinutes(durationInMinutes, t);
+
+      const endMoment = moment(offer?.date_start)
+        .add(moment.duration(offer?.duration_minute, 'minutes'))
+        .tz(tz);
+      const endHour = endMoment.format('HH:mm');
+
+      if (!endMoment.isSame(startMoment, 'day')) {
+        return startHour;
+      }
+
+      switch (theme?.session_time_display) {
+        case MarketPlaceSessionTimeDisplay.ONLY_STARTING_TIME:
+          return `${startHour}`;
+        case MarketPlaceSessionTimeDisplay.STARTING_TIME_AND_DURATION:
+          return `${startHour} - ${readableDuration}`;
+        default:
+          return `${startHour} - ${endHour}`;
+      }
     }
-  }
-  return '';
+    return '';
+  }, [
+    offer.date_start,
+    offer?.duration_minute,
+    establishment?.tzname,
+    metaActivity?.is_broadcast,
+    t,
+    theme?.session_time_display,
+    theme?.timezone_name,
+  ]);
+  return memoizedOfferHours;
 };

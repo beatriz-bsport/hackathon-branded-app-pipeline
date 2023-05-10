@@ -95,7 +95,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   const isVariantTimeHighlighted = variant === 'time';
   const isVariantCoachHighlighted = variant === 'coach';
 
-  const offerHours = useOfferHours(offer, establishment, theme);
+  const offerHours = useOfferHours(offer, establishment, metaActivity, theme);
 
   if (loading) {
     return (

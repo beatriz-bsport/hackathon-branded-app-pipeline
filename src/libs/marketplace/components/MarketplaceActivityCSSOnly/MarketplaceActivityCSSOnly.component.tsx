@@ -45,7 +45,8 @@ type Props = {
 };
 
 export const MarketplaceActivityV2 = (props: Props) => {
-  const { offer, establishments, coaches, customLevels, hideCoach } = props;
+  const { offer, establishments, coaches, customLevels, hideCoach, theme } =
+    props;
   const { t } = useTranslation([
     'metaActivity',
     'marketplace',
@@ -73,9 +74,9 @@ export const MarketplaceActivityV2 = (props: Props) => {
 
   const isMobile = ['xs', 'sm'].includes(props.width);
 
-  const offerHours = useOfferHours(offer, offer.establishment, theme);
-
   const metaActivity = props.metaActivities[offer.meta_activity];
+
+  const offerHours = useOfferHours(offer, establishment, metaActivity, theme);
 
   const coach = useMemo(
     () => coaches.find((c) => c.id === offer.coach),

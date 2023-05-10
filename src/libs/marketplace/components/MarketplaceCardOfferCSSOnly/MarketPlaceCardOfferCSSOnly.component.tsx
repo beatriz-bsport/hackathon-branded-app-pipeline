@@ -45,9 +45,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
   const isVariantTimeHighlighted = props.variant === 'time';
   const isVariantCoachHighlighted = props.variant === 'coach';
 
-  const { offer, establishments, metaActivities, coaches } = props;
-
-  const offerHours = useOfferHours(offer, offer.establishment, props.theme);
+  const { offer, establishments, metaActivities, coaches, theme } = props;
 
   const handleBook = () => {
     props.onClickBook(offer);
@@ -87,6 +85,8 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
     () => coaches?.find((c) => c.id === offerCoachId),
     [coaches, offerCoachId],
   );
+
+  const offerHours = useOfferHours(offer, establishment, metaActivity, theme);
 
   return (
     <button

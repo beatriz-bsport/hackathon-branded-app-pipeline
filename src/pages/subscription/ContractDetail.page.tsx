@@ -209,7 +209,9 @@ export class ContractDetailPage extends Component<Props> {
       icon: <PauseIcon />,
       color: 'secondary',
       disabled: !!this.props.contract?.month_billing_day,
-      popOverTitle: t('subscription.freeze.disabledReasons.month_billing_day'),
+      popOverTitle: this.props.contract?.month_billing_day
+        ? t('subscription.freeze.disabledReasons.month_billing_day')
+        : null,
     },
   ]);
 

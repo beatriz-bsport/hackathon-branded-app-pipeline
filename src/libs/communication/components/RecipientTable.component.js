@@ -93,7 +93,7 @@ type Props = {
 
 export class RecipientTable extends React.Component<Props> {
   componentDidMount() {
-    this.fetchRecipientList(1, { ordering: '' });
+    this.props.fetchRecipientList(1, { ordering: '' });
   }
 
   fetchRecipientList = (page, params) => {

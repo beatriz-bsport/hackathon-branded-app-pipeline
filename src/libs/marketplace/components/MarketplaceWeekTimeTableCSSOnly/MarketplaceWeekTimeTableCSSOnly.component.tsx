@@ -1,7 +1,7 @@
 // @ts-nocheck
 // @flow
 
-import React, { PureComponent, useMemo } from 'react';
+import React, { PureComponent } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, TFunction } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
@@ -107,6 +107,17 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   handleBookOption = (offer: Offer) => () => {
     this.props.onClickBookOption(offer);
   };
+
+  getEstablishment = memoize(
+    (establishments: Array<Establishment>, establishmentId: number) =>
+      establishments
+        ? establishments.find((est) => est.id === establishmentId)
+        : undefined,
+  );
+
+  getCoach = memoize((coaches: Array<Coach>, coachId: number) =>
+    coaches ? coaches.find((c) => c.id === coachId) : undefined,
+  );
 
   /**
    * function that split offers into day periods [morning, afternoon, evening]
@@ -290,12 +301,9 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
             const genderData = this.props.genderCount[offer.id];
             const groupData = this.props.group[offer.group];
 
-            const establishment = useMemo(
-              () =>
-                establishments
-                  ? establishments.find((est) => est.id === offer.establishment)
-                  : undefined,
-              [establishments, offer.establishment],
+            const establishment = this.getEstablishment(
+              establishments,
+              offer.establishment,
             );
 
             const metaActivity = this.props.metaActivities
@@ -306,13 +314,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
               ? offer.coach_override
               : offer.coach;
 
-            const coachData = useMemo(
-              () =>
-                coaches
-                  ? coaches.find((c) => c.id === offerCoachId)
-                  : undefined,
-              [coaches, offerCoachId],
-            );
+            const coachData = this.getCoach(coaches, offerCoachId);
 
             return (
               <MarketPlaceOfferListItemComponent

@@ -78,11 +78,9 @@ export const useCadenceFormContext = ({
         value: values.trigger_smartlist_selected,
       });
     }
-    if (!values.trigger_destination_timeout_days) {
-      setTimeOutValue(TRIGGER_DETAULT_TIMEOUT_DAYS);
-    } else {
-      setTimeOutValue(values.trigger_destination_timeout_days);
-    }
+    setTimeOutValue(
+      values.trigger_destination_timeout_days ?? TRIGGER_DETAULT_TIMEOUT_DAYS,
+    );
     if (
       !values.trigger_logic_between_event_and_smartlist ||
       values.trigger_logic_between_event_and_smartlist ===

@@ -3896,7 +3896,7 @@
             },
             "popover": {
                 "delete": "Löschen",
-                "edit": "Neu taufen"
+                "edit": "Umbenennen"
             },
             "form": {
                 "dialog": {
@@ -4862,6 +4862,7 @@
         },
         "last_invoice_status": {
             "": [
+                "Stornieren",
                 "Stornieren",
                 "Stornieren",
                 "Stornieren",

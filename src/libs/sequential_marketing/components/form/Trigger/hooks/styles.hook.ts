@@ -137,6 +137,11 @@ export const useCadenceFormStyles = makeStyles((theme: Theme) => ({
   timeoutInpoutText: {
     flex: 9,
   },
+  timeoutInputErrorText: {
+    padding: theme.spacing(0),
+    paddingBottom: theme.spacing(1),
+    margin: theme.spacing(0),
+  },
   tagSelector: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(10),

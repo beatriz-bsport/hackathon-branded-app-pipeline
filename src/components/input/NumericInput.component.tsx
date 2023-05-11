@@ -1,6 +1,4 @@
-// @ts-nocheck
-// @flow
-import React, { useCallback } from 'react';
+import React, { FocusEventHandler, useCallback } from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import classNames from 'classnames';
@@ -12,18 +10,18 @@ type Props = {
   disabled?: boolean;
   error?: boolean;
   fullWidth?: boolean;
-  margin?: number;
+  margin?: 'none' | 'normal' | 'dense';
   label?: string;
   InputProps: any;
   helperText?: string;
-  variant?: string;
+  variant?: 'standard' | 'filled' | 'outlined';
   isPositive?: boolean;
   id?: string;
   name?: string;
   size?: 'medium' | 'small';
   placeholder?: string;
   inputClass?: string;
-  onBlur?: (event: React.SyntheticEvent<HTMLInputElement>) => void;
+  onBlur?: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
 
 export function NumericInput(props: Props) {

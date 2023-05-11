@@ -6,7 +6,7 @@ const OfferEditFormValidationSchema = Yup.object().shape({
   effectif: Yup.number()
     .typeError('offer:form.errors.required')
     .required('offer:form.errors.required')
-    .min(2, 'offer:form.errors.minTwo')
+    .min(0, 'offer:form.errors.minZero')
     .test({
       name: 'isGreaterThanBlueprintSpot',
       test: function isGreaterThanBlueprintSpot() {

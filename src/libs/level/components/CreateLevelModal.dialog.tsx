@@ -60,19 +60,22 @@ export const CreateLevelModal = (props: Props) => {
     setSubmitting(false);
   }, [setSubmitting]);
 
-  const handleSubmit = (values: InitialFormikValues) => {
-    onSubmit({
-      id: initial?.id,
-      values: {
-        ...(initial ?? {}),
-        ...values,
-      },
-      options: {
-        onSuccess: handleFinishSubmitting,
-        onError: handleFinishSubmitting,
-      },
-    });
-  };
+  const handleSubmit = useCallback(
+    (values: InitialFormikValues) => {
+      onSubmit({
+        id: initial?.id,
+        values: {
+          ...(initial ?? {}),
+          ...values,
+        },
+        options: {
+          onSuccess: handleFinishSubmitting,
+          onError: handleFinishSubmitting,
+        },
+      });
+    },
+    [handleFinishSubmitting, initial, onSubmit],
+  );
 
   return (
     <Dialog

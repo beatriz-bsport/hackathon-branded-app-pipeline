@@ -92,14 +92,15 @@ const SimilarOfferCheckbox = (props: SimilarOfferCheckboxProps) => {
     [selectedSimilarOffers, setFieldValue, similarOfferId],
   );
 
-  const getIsOfferChecked = useCallback(() => {
-    return selectedSimilarOffers.includes(similarOfferId);
-  }, [selectedSimilarOffers, similarOfferId]);
+  const isOfferChecked = useMemo(
+    () => selectedSimilarOffers.includes(similarOfferId),
+    [selectedSimilarOffers, similarOfferId],
+  );
 
   return (
     <div className={classes.alignCenter}>
       <Checkbox
-        checked={getIsOfferChecked()}
+        checked={isOfferChecked}
         onChange={handleCheckSimilarOffer}
         disabled={isDisabled}
       />
@@ -116,7 +117,7 @@ const SimilarOffersList = (props: Props) => {
     offerId,
     isCoachOverrideWarning,
   } = props;
-  const [similarOffersList, setSimilarOffersList] = useState([]);
+  const [similarOffersList, setSimilarOffersList] = useState<Offer[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const { values } = useFormikContext<OfferFormValues>();
   const theme = useTheme();

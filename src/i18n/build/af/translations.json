@@ -4483,8 +4483,8 @@
       "filter": { "validated": "Appel validé", "notValidated": "Appel non validé", "placeholder": "Statut de l’appel" }
     },
     "form": {
-      "stepper": { "step": { "INFOS": "Séance", "SETTINGS": "Paramètres de modifications" } },
-      "groupedOffer": { "warning": "Attention cette séance fait partie du groupe de séance {{ name }}" },
+      "stepper": { "step": { "INFOS": "Séance", "SETTINGS": "Paramètres de modification" } },
+      "groupedOffer": { "warning": "Attention cette séance fait partie du groupe de séances {{ name }}" },
       "section": {
         "specificities": {
           "title": "Caractéristiques",

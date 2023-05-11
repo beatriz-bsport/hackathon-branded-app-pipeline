@@ -214,12 +214,12 @@ exports.default = {
     stepper: {
       step: {
         INFOS: 'Séance',
-        SETTINGS: 'Paramètres de modifications',
+        SETTINGS: 'Paramètres de modification',
       },
     },
     groupedOffer: {
       warning:
-        'Attention cette séance fait partie du groupe de séance {{ name }}',
+        'Attention cette séance fait partie du groupe de séances {{ name }}',
     },
     section: {
       specificities: {

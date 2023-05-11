@@ -26,6 +26,10 @@ type Props = {
   offerId: number;
   mapContainerClassName?: string;
   fullScreen: boolean;
+  onClickBook: (offer: Offer) => void;
+  onClickBookOption: (offer: Offer) => void;
+  hideCoach: boolean;
+  width: string;
 };
 
 export function MarketplaceActivityDialog(props: Props) {

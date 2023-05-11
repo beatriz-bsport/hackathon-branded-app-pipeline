@@ -76,7 +76,7 @@ const OfferFormSettings = (props: Props) => {
         )}
       </div>
 
-      {showPartnership && (
+      {showPartnership && (!isEditOffer || (isEditOffer && isOfferInGroup)) && (
         <div className={classes.settingsMarketplaceContainer}>
           <Typography variant="subtitle1" className={classes.mediumFontWeight}>
             {t('form.section.settings.field.partnership.title')}
@@ -119,7 +119,7 @@ const OfferFormSettings = (props: Props) => {
             </OfferFormField>
           )}
 
-          {errors.partnerMaxBookingCount && (
+          {availableOnPartnership && errors.partnerMaxBookingCount && (
             <Typography variant="caption" color="error">
               {t(errors.partnerMaxBookingCount)}
             </Typography>

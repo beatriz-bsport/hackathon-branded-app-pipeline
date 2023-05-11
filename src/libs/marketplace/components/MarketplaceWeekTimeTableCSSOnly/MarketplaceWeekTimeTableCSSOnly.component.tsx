@@ -231,6 +231,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                     metaActivities={this.props.metaActivities}
                     establishments={this.props.establishments}
                     coaches={this.props.coaches}
+                    genderCount={this.props.genderCount}
                     onClickOffer={this.props.onClickOffer}
                     onClickBook={this.props.onClickBook}
                     onClickBookOption={this.props.onClickBookOption}

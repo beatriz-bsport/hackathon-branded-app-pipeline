@@ -45,7 +45,8 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
   const isVariantTimeHighlighted = props.variant === 'time';
   const isVariantCoachHighlighted = props.variant === 'coach';
 
-  const { offer, establishments, metaActivities, coaches, theme } = props;
+  const { offer, establishments, metaActivities, coaches, theme, genderCount } =
+    props;
 
   const handleBook = () => {
     props.onClickBook(offer);
@@ -85,6 +86,8 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
     () => coaches?.find((c) => c.id === offerCoachId),
     [coaches, offerCoachId],
   );
+
+  const genderCountOffer = genderCount ? genderCount[offer.id] : undefined;
 
   const offerHours = useOfferHours(offer, establishment, metaActivity, theme);
 
@@ -177,15 +180,15 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
               <div className="bs-card-offer__content__bottom__left__gender">
                 <div className="bs-card-offer__content__bottom__left__gender__sex">
                   <MaleIcon />
-                  <div>{props.genderCount.nb_booked_male ?? 0}</div>
+                  <div>{genderCountOffer?.nb_booked_male ?? 0}</div>
                 </div>
                 <div className="bs-card-offer__content__bottom__left__gender__sex">
                   <FemaleIcon />
-                  <div>{props.genderCount.nb_booked_female ?? 0}</div>
+                  <div>{genderCountOffer?.nb_booked_female ?? 0}</div>
                 </div>
                 <div className="bs-card-offer__content__bottom__left__gender__other">
                   <div>+</div>
-                  <div>{props.genderCount.nb_booked_other ?? 0}</div>
+                  <div>{genderCountOffer?.nb_booked_other ?? 0}</div>
                 </div>
               </div>
             ) : (

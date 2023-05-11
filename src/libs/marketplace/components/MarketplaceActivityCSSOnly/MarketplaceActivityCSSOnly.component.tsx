@@ -32,7 +32,7 @@ import { Coach } from '#libs/associated-coach/types';
 
 type Props = {
   offer: Offer;
-  metaActivities: Array<MetaActivity>;
+  metaActivities: { [key: number]: MetaActivity };
   establishments: Array<Establishment>;
   coaches: Array<Coach>;
   customLevels: Array<Level>;

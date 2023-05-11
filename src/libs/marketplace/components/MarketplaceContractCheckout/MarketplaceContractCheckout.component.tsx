@@ -27,17 +27,21 @@ import type { ContractWithPaymentPack } from '#libs/subscription/types';
 
 export type Props = {
   contract: ContractWithPaymentPack;
+  onChoose: (contractId: number) => void;
 };
 
-const MarketplaceContractCheckout: React.FC<Props> = ({ contract }) => {
+const MarketplaceContractCheckout: React.FC<Props> = ({
+  contract,
+  onChoose,
+}) => {
   const { t } = useTranslation('marketplace');
 
   const [isExpanded, setIsExpanded] = React.useState(false);
 
-  const handleExpandContent = React.useCallback(
-    () => setIsExpanded((previousExpanded) => !previousExpanded),
-    [setIsExpanded],
-  );
+  const handleOnChoose = React.useCallback(() => {
+    setIsExpanded((previousExpanded) => !previousExpanded);
+    onChoose(contract?.id);
+  }, [setIsExpanded, contract?.id, onChoose]);
 
   const [showMoreDescription, setShowMoreDescription] = React.useState(false);
 
@@ -139,7 +143,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({ contract }) => {
                 type="button"
                 className="bs-contract-checkout__right-button"
                 disabled={isExpanded}
-                onClick={handleExpandContent}
+                onClick={handleOnChoose}
               >
                 {t('contractCard.chooseButton')}
               </button>

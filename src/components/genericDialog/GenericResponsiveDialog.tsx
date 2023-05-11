@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Theme } from '@material-ui/core/styles';
 import { makeStyles, useTheme } from '@material-ui/styles';
@@ -11,11 +10,21 @@ type OwnProps = {
   fullScreenBreakpoint?: Breakpoint;
   onClose?: () => void;
   padding?: boolean;
+  noFullScreen?: boolean;
 };
+
 type Props = OwnProps;
+
 export const GenericResponsiveDialog: React.FC<Props> = (props) => {
-  const { children, open, maxWidth, fullScreenBreakpoint, onClose, padding } =
-    props;
+  const {
+    children,
+    open,
+    maxWidth,
+    fullScreenBreakpoint,
+    onClose,
+    padding,
+    noFullScreen,
+  } = props;
   const theme: Theme = useTheme();
   const classes = useStyles({ padding });
   const fullScreen = useMediaQuery(
@@ -27,7 +36,7 @@ export const GenericResponsiveDialog: React.FC<Props> = (props) => {
       open={open}
       maxWidth={maxWidth}
       fullWidth
-      fullScreen={fullScreen}
+      fullScreen={noFullScreen ? false : fullScreen}
       scroll="body"
       onClose={onClose}
       classes={{ paper: classes.modal }}

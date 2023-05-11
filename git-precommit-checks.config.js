@@ -54,5 +54,11 @@ module.exports = {
         '😫 It look like your importing to much of lodash use name imported ex: import omit from "lodash/omit"',
       regex: /^.* from 'lodash'/,
     },
+    {
+      filter: /\.(ts|tsx)$/,
+      message:
+        '😫 You are breaking the widget, why ? SyntaxError: /builds/bsport/bsport-widget/node_modules/bsport-saas/src/libs/offer/constants.ts: /builds/bsport/bsport-widget/node_modules/bsport-saas/src/libs/offer/constants.ts: \'const\' enums are not supported',
+      regex: /const enum/,
+    },
   ],
 };

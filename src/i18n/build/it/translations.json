@@ -7358,6 +7358,7 @@
                 "Annulla",
                 "Annulla",
                 "Annulla",
+                "Annulla",
                 "Annulla"
             ]
         },
@@ -11529,7 +11530,8 @@
             "copyLink": "Copia il link"
         },
         "params": "Parametri",
-        "ok": "OK"
+        "ok": "OK",
+        "back": "Indietro"
     },
     "titles": {
         "metaActivity": {
@@ -12566,7 +12568,143 @@
             }
         },
         "pendingReplacementRequest": "È aperta una richiesta di sostituzione",
-        "recurrenceIndex": "Gruppo n°{{ index }} della ricorrenza"
+        "recurrenceIndex": "Gruppo n°{{ index }} della ricorrenza",
+        "form": {
+            "warnings": {
+                "editOfferInitialCredits": "Le vecchie prenotazioni non tengono conto delle modifiche dei crediti",
+                "effectif": "Attenzione, non stai inserendo un prezzo. Sei sicuro del valore?"
+            },
+            "errors": {
+                "field": {
+                    "dateIntervalEnd": "La data di fine non può essere precedente alla data di inizio",
+                    "durationMinute": "La durata di una sessione deve essere maggiore di 0 minuti",
+                    "broadcastLink": "Il link è sbagliato. Deve iniziare con http:// o https:// e non contenere spazi",
+                    "partnerMaxBookingCount": "Il numero di posti qui è maggiore del numero di posti nella sessione",
+                    "effectif": "Il valore è maggiore del numero massimo di posti"
+                },
+                "dateTooFar": "Impossibile creare sessioni che si svolgono tra più di 3 anni",
+                "dateFormat": "Formato data non valido",
+                "minTwo": "Il valore deve essere maggiore o uguale a 2",
+                "minZero": "Il valore deve essere maggiore o uguale a 0",
+                "positiveNumber": "Il valore deve essere maggiore di 0",
+                "required": "Campo incompleto"
+            },
+            "dialog": {
+                "createLevel": "Crea un livello",
+                "recurrencePreview": "Previsualizzazione"
+            },
+            "section": {
+                "coachOverride": {
+                    "info": "Selezionando questa casella le modifiche apportate al supplente di questa sessione verranno applicate a tutte le sessioni simili. Se non si seleziona, saranno applicate solo a questa sessione.",
+                    "field": {
+                        "isCoachOverridePropagate": "Applicare le modifiche riguardanti il supplente alle sessioni selezionate"
+                    },
+                    "title": "Cambio insegnante supplente"
+                },
+                "similarOffers": {
+                    "info": "Le modifiche alle sessioni possono renderle incompatibili con alcuni pass. Dopo la modifica, si prega di verificare che i pass siano compatibili con eventuali cambiamenti di sede/insegnante.",
+                    "unselectAll": "Deseleziona tutto",
+                    "selectAll": "Seleziona tutto",
+                    "title": "Selezionare le sessioni da modificare"
+                },
+                "tags": {
+                    "placeholder": "Lasciare vuoto per permettere a tutti i membri",
+                    "field": {
+                        "blacklistTags": "Non autorizzato",
+                        "whitelistTags": "Autorizzato"
+                    },
+                    "helperText": "Usa i tag per rendere la sessione prenotabile solo a un gruppo desiderato di membri. È possibile selezionare i tag per rendere la sessione prenotabile solo ai membri con uno dei tag selezionati. Oppure si possono selezionare i tag per rendere la sessione non prenotabile solo ai membri con uno dei tag selezionati.",
+                    "title": "Tag"
+                },
+                "settings": {
+                    "field": {
+                        "isModifyRecursively": "Vuoi modificare tutte le sessioni simili in base a queste nuove condizioni?",
+                        "isNotifyConsumers": "Vuoi informare i tuoi clienti di questo cambiamento?",
+                        "partnership": {
+                            "partnerMaxBookingCount": "Numero massimo di prenotazioni del marketplace (solo OneFit)",
+                            "availableOnPartnership": "Sui marketplace (ClassPass, OneFit...)",
+                            "title": "Marketplace"
+                        },
+                        "allowGuestOffer": "Consenti la prenotazione per un ospite",
+                        "isManagerOnly": "Disponibile per la prenotazione (web+app)"
+                    },
+                    "title": "Parametri"
+                },
+                "coach": {
+                    "field": {
+                        "coachPaymentRule": {
+                            "placeholder": "Seleziona una regola",
+                            "title": "Regola retributiva"
+                        },
+                        "coachOverride": {
+                            "placeholder": "Selezionare un insegnante sostitutivo",
+                            "title": "Sostituto"
+                        },
+                        "coach": {
+                            "placeholder": "Selezionare un insegnante",
+                            "title": "Insegnante"
+                        }
+                    },
+                    "title": "Insegnante"
+                },
+                "dateTime": {
+                    "field": {
+                        "recurrence": {
+                            "previewCount": "Verrà creata {{count}} sessione",
+                            "previewCount_plural": "Verranno create {{count}} sessioni",
+                            "preview": "Anteprima",
+                            "option": {
+                                "monthly": "Mensile",
+                                "weekly": "Settimanale",
+                                "daily": "Quotidiana"
+                            },
+                            "placeholder": "Seleziona una ricorrenza",
+                            "title": "Ricorrenza"
+                        },
+                        "dateIntervalEnd": "Data di fine",
+                        "dateIntervalStart": "Data del corso",
+                        "durationMinute": "Durata",
+                        "dateIntervalStartTime": "Orario di inizio"
+                    },
+                    "title": "Ora e data"
+                },
+                "credits": {
+                    "field": {
+                        "creditCount": "Numero di crediti"
+                    },
+                    "title": "Crediti"
+                },
+                "specificities": {
+                    "tooltip": {
+                        "credits": "Numero di crediti nel pass necessari per la prenotazione",
+                        "roomBlueprint": "Permettere agli studenti di prenotare la postazione che desiderano nella sala",
+                        "broadcastLink": "Il link verrà generato automaticamente per ZOOM da bsport"
+                    },
+                    "field": {
+                        "roomBlueprint": {
+                            "placeholder": "Seleziona un piano",
+                            "title": "Spot scheduling"
+                        },
+                        "broadcastLink": "Link della videoconferenza",
+                        "establishment": "Stabilimento",
+                        "credits": "Crediti",
+                        "level": "Livello",
+                        "waitingListMaxSize": "Lista d'attesa",
+                        "effectif": "Posti disponibili"
+                    },
+                    "title": "Specifiche"
+                }
+            },
+            "groupedOffer": {
+                "warning": "Attenzione questa sessione fa parte del gruppo di sessioni {{ name }}"
+            },
+            "stepper": {
+                "step": {
+                    "SETTINGS": "Impostazioni",
+                    "INFOS": "Sessione"
+                }
+            }
+        }
     },
     "role": {
         "userRoles": "Contabilità del personale",
@@ -13546,7 +13684,8 @@
                         "step": "Impostate qui il trigger per la fase successiva. Per passare alla fase successiva, i membri dovranno soddisfare i criteri indicati di seguito.",
                         "cadence": "Definite qui i trigger per l'inserimento della cadenza. Per avviare la sequenza di marketing, i membri dovranno corrispondere ai criteri indicati di seguito."
                     },
-                    "title": "Trigger"
+                    "title": "Trigger",
+                    "event_or_smartlist_helper": "I membri dovranno corrispondere all'evento o far parte della smartlist per entrare nella Cadence"
                 },
                 "next": "Seguente",
                 "previous": "Precedente",
@@ -13566,8 +13705,11 @@
                 "submit": "Crea",
                 "cancel": "Cancella",
                 "error": {
-                    "triggerCannotBeEmpty": "È necessario selezionare un tipo di voce."
-                }
+                    "triggerCannotBeEmpty": "È necessario selezionare un tipo di voce.",
+                    "timeoutMustBeStrictPositive": "Il limite di tempo deve essere di almeno 1 giorno."
+                },
+                "delete": "Elimina",
+                "updateSubmit": "Conferma"
             },
             "cadenceIndexHelper": "L'ordine delle cadenze definisce l'ordine di priorità, se un membro può inserire 2 diverse cadenze, inizierà con la più alta nell'elenco.",
             "marketingElement": "Azioni di marketing",
@@ -13588,7 +13730,8 @@
                     "deleteStep": "Elimina passaggio",
                     "cancelOnGoingCreation": "Annulla creazione",
                     "edgeLabelForNodeCreation": "In creazione",
-                    "addElement": "Aggiungi un trigger"
+                    "addElement": "Aggiungi un trigger",
+                    "deleteTrigger": "Cancellare l'attivazione"
                 },
                 "tools": {
                     "showDisabledTriggers": "Mostra trigger disattivati",
@@ -13605,9 +13748,12 @@
                     "label": "Smartlist"
                 },
                 "events": {
-                    "label": "Acquista",
+                    "label": "Evento",
                     "book_chip": "Prenotazione",
-                    "purchase_chip": "Acquista"
+                    "purchase_chip": "Acquista",
+                    "billing_plan_chip": "Quota",
+                    "invoice_chip": "Fatturazione",
+                    "basket_chip": "Carrello"
                 },
                 "timeout": {
                     "timout_days_chip": "{{ days }} giorni"

@@ -2914,6 +2914,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
+                "Geannuleerd",
                 "Geannuleerd"
             ]
         },
@@ -5004,6 +5005,142 @@
                 "notValidated": "Oproep niet geldig",
                 "validated": "Beroep geldig verklaard",
                 "placeholder": "Status van het gesprek"
+            }
+        },
+        "form": {
+            "warnings": {
+                "editOfferInitialCredits": "Oudere reserveringen houden geen rekening met wijzigingen in kredieten",
+                "effectif": "Wees voorzichtig, je voert geen prijs in. Ben je zeker van de waarde?"
+            },
+            "errors": {
+                "field": {
+                    "dateIntervalEnd": "De einddatum kan niet voor de begindatum liggen",
+                    "durationMinute": "De duur van een sessie moet groter zijn dan 0 minuten",
+                    "broadcastLink": "De link is verkeerd. Hij moet beginnen met http:// of https:// en geen spaties bevatten.",
+                    "partnerMaxBookingCount": "Het aantal zitplaatsen hier is groter dan het aantal zitplaatsen in de zitting",
+                    "effectif": "De waarde is hoger dan het maximum aantal plaatsen"
+                },
+                "dateTooFar": "Onmogelijk om sessies te maken die in meer dan 3 jaar plaatsvinden",
+                "dateFormat": "Ongeldig datumformaat",
+                "minTwo": "De waarde moet groter zijn dan of gelijk aan 2",
+                "minZero": "De waarde moet groter zijn dan of gelijk aan 0",
+                "positiveNumber": "De waarde moet groter zijn dan 0",
+                "required": "In compleet veld"
+            },
+            "dialog": {
+                "createLevel": "Een niveau creëren",
+                "recurrencePreview": "Voorbeeld"
+            },
+            "section": {
+                "coachOverride": {
+                    "info": "Als u dit vakje aanvinkt, worden de wijzigingen die op de vervangende leraar van deze sessie zijn toegepast, toegepast op alle vergelijkbare sessies. Anders worden ze alleen op deze sessie toegepast.",
+                    "field": {
+                        "isCoachOverridePropagate": "De wijzigingen van de vervangende leraar toepassen op de geselecteerde sessies"
+                    },
+                    "title": "Verandering van leraar"
+                },
+                "similarOffers": {
+                    "info": "Wijzigingen in sessies kunnen deze incompatibel maken met sommige leskaarten. Neem na de wijziging de tijd om te controleren of ze compatibel blijven met eventuele wijzigingen van vestiging / leraar.",
+                    "unselectAll": "Alles deselecteren",
+                    "selectAll": "Selecteer alle",
+                    "title": "Selecteer de sessies die zullen worden gewijzigd"
+                },
+                "tags": {
+                    "placeholder": "Laat leeg om alle leden toe te laten",
+                    "field": {
+                        "blacklistTags": "Niet toegestaan",
+                        "whitelistTags": "Geautoriseerd"
+                    },
+                    "helperText": "Gebruik tags om de sessie alleen boekbaar te maken voor een gewenste groep leden. U selecteert tags om de sessie alleen boekbaar te maken voor leden met een van de geselecteerde tags. Of u kunt tags selecteren om de sessie alleen boekbaar te maken voor leden met een van de geselecteerde tags.",
+                    "title": "Tags"
+                },
+                "settings": {
+                    "field": {
+                        "isModifyRecursively": "Wilt u soortgelijke sessies veranderen volgens deze nieuwe voorwaarden?",
+                        "isNotifyConsumers": "Wilt u uw klanten informeren over deze verandering?",
+                        "partnership": {
+                            "partnerMaxBookingCount": "Maximaal aantal Marketplace (alleen OneFit)",
+                            "availableOnPartnership": "Op marketplaces (ClassPass, OneFit...)",
+                            "title": "Marketplace"
+                        },
+                        "allowGuestOffer": "De reservering voor een gast autoriseren",
+                        "isManagerOnly": "Beschikbaar voor reservering (web+app)"
+                    },
+                    "title": "Instellingen"
+                },
+                "coach": {
+                    "field": {
+                        "coachPaymentRule": {
+                            "placeholder": "Selecteer een regel",
+                            "title": "Vergoedingsregel"
+                        },
+                        "coachOverride": {
+                            "placeholder": "Selecteer vervangende leraar",
+                            "title": "Vervanging"
+                        },
+                        "coach": {
+                            "placeholder": "Selecteer een leraar",
+                            "title": "Leraar"
+                        }
+                    },
+                    "title": "Leraar"
+                },
+                "dateTime": {
+                    "field": {
+                        "recurrence": {
+                            "previewCount": "{{count}} sessie zal worden gecreëerd",
+                            "previewCount_plural": "{{count}} sessies zullen worden gecreëerd",
+                            "preview": "Voorbeeld",
+                            "option": {
+                                "monthly": "Maandelijks",
+                                "weekly": "Wekelijks",
+                                "daily": "Dagelijks"
+                            },
+                            "placeholder": "Selecteer een herhaling",
+                            "title": "Herhaling"
+                        },
+                        "dateIntervalEnd": "Einddatum",
+                        "dateIntervalStart": "Datum van de les",
+                        "durationMinute": "Duur",
+                        "dateIntervalStartTime": "Begin tijd"
+                    },
+                    "title": "Tijd en datum"
+                },
+                "credits": {
+                    "field": {
+                        "creditCount": "Nummer of kredieten"
+                    },
+                    "title": "Kredieten"
+                },
+                "specificities": {
+                    "tooltip": {
+                        "roomBlueprint": "Laat uw leerlingen de plek in de zaal reserveren die ze willen",
+                        "credits": "Aantal vereiste kredieten voor boeking",
+                        "broadcastLink": "De link wordt automatisch gegenereerd voor ZOOM door bsport"
+                    },
+                    "field": {
+                        "roomBlueprint": {
+                            "placeholder": "Selecteer een plan",
+                            "title": "Spot planning"
+                        },
+                        "broadcastLink": "Link naar de livestream",
+                        "establishment": "Vestiging",
+                        "credits": "Kredieten",
+                        "level": "Niveau",
+                        "waitingListMaxSize": "De wachtlijst",
+                        "effectif": "Beschikbare plaatsen"
+                    },
+                    "title": "Kenmerken"
+                }
+            },
+            "groupedOffer": {
+                "warning": "Deze sessie maakt deel uit van de {{ naam }}} groep van sessies."
+            },
+            "stepper": {
+                "step": {
+                    "SETTINGS": "Wijziging van de instellingen",
+                    "INFOS": "Sessie"
+                }
             }
         }
     },
@@ -11055,7 +11192,8 @@
         },
         "download": "Download",
         "ok": "OK",
-        "params": "Parameters"
+        "params": "Parameters",
+        "back": "Retour"
     },
     "workshop": {
         "modal": {
@@ -11416,6 +11554,28 @@
                     "title": "Absentie (no-show)",
                     "errorValidatedTime": "De tijd die verstrijkt voordat een lid als niet aanwezig wordt beschouwd, moet groter zijn dan 0.",
                     "errorEmailTime": "De tijd die verstrijkt voordat de e-mail om het lid te waarschuwen dat hij/zij niet zal komen moet groter zijn dan 0."
+                },
+                "daysFormatSelector": {
+                    "oneLetter": "1 letter",
+                    "threeLetters": "3 letters",
+                    "fullWord": "Volledig woord",
+                    "label": "Weergave formaat van de dag"
+                },
+                "showActivityColor": "De kleur van de activiteit weergeven",
+                "sessionDatesDisplayOptions": {
+                    "onlyShowStartingTime": "Alleen starttijd weergeven",
+                    "showDuration": "Toon duur",
+                    "showEndingTime": "Eindtijd weergeven",
+                    "label": "Weergaveopties voor de planning"
+                },
+                "showLevel": "Niveau weergeven",
+                "showEstablishment": "Locatie bekijken",
+                "coachDisplayOptions": {
+                    "showCoachFirstNameWithPicture": "Voornaam en foto",
+                    "showCoachFullNameWithoutPicture": "Volledige naam zonder foto",
+                    "onlyShowCoachFirstName": "Alleen de voornaam van de leraar",
+                    "showCoachFullNameWithPicture": "Volledige naam en foto",
+                    "label": "Weergavemogelijkheden voor leraren informatie"
                 }
             },
             "gtmId": {
@@ -13572,7 +13732,8 @@
                         "step": "Stel hier de trigger voor de volgende stap in. De leden moeten aan de onderstaande criteria voldoen om naar de volgende fase over te gaan.",
                         "cadence": "Definieer hier de triggers voor het invoeren van de cadans. Leden moeten aan de onderstaande criteria voldoen om de marketingreeks te starten."
                     },
-                    "title": "Triggers"
+                    "title": "Triggers",
+                    "event_or_smartlist_helper": "De leden moeten bij het evenement passen of deel uitmaken van de smartlist om in de cadence te passen"
                 },
                 "exit": {
                     "exit_fail_label": "Verloren",
@@ -13580,7 +13741,8 @@
                     "title": "Uitgang"
                 },
                 "error": {
-                    "triggerCannotBeEmpty": "U moet een invoertype kiezen."
+                    "triggerCannotBeEmpty": "U moet een invoertype kiezen.",
+                    "timeoutMustBeStrictPositive": "De termijn moet minstens 1 dag bedragen."
                 },
                 "next": "Volgende",
                 "previous": "Vorige",
@@ -13598,7 +13760,9 @@
                 "createCadenceHelper": "Dankzij de cadans kunt u de marketingacties die u naar uw leden stuurt, afstemmen op hun gedrag op het platform. Maak een reeks acties die uw leden moeten voltooien om bijvoorbeeld bepaalde promoties of tags te verkrijgen.",
                 "edit": "Bewerken",
                 "submit": "Aanmaken",
-                "cancel": "Annuleren"
+                "cancel": "Annuleren",
+                "delete": "Verwijder",
+                "updateSubmit": "Valideer"
             },
             "graph": {
                 "alert": {
@@ -13609,7 +13773,8 @@
                     "deleteStep": "De stap verwijderen",
                     "cancelOnGoingCreation": "Annuleren",
                     "edgeLabelForNodeCreation": "In process",
-                    "addElement": "Een trigger toevoegen"
+                    "addElement": "Een trigger toevoegen",
+                    "deleteTrigger": "De aanleiding verwijderen"
                 },
                 "tools": {
                     "showDisabledTriggers": "Uitgeschakelde triggers tonen",
@@ -13626,9 +13791,12 @@
                     "label": "Smartlist"
                 },
                 "events": {
-                    "label": "Aankoop",
+                    "label": "Evenement",
                     "book_chip": "Reservering",
-                    "purchase_chip": "Aankoop"
+                    "purchase_chip": "Aankoop",
+                    "billing_plan_chip": "Abonnement",
+                    "invoice_chip": "Factuur",
+                    "basket_chip": "Winkelmand"
                 },
                 "timeout": {
                     "timout_days_chip": "{{ days }} dagen"

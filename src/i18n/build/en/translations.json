@@ -5608,7 +5608,8 @@
         },
         "download": "Download",
         "ok": "OK",
-        "params": "Settings"
+        "params": "Settings",
+        "back": "Back"
     },
     "workshop": {
         "search": "Search a workshop",
@@ -9401,6 +9402,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -10639,6 +10641,142 @@
                 "placeholder": "Roll call status",
                 "notValidated": "Roll call not validated",
                 "validated": "Validated roll call"
+            }
+        },
+        "form": {
+            "warnings": {
+                "editOfferInitialCredits": "Older bookings do not take into account changes in credits",
+                "effectif": "Be careful, you are not entering a price. Are you sure of the value?"
+            },
+            "errors": {
+                "field": {
+                    "dateIntervalEnd": "The end date cannot be before the start date",
+                    "durationMinute": "The duration of a session must be greater than 0 minutes",
+                    "broadcastLink": "The link is wrong. It should start with http:// or https:// and not contain any spaces",
+                    "partnerMaxBookingCount": "The number of places here is greater than the number of places in the session",
+                    "effectif": "The value is higher than the maximum number of places"
+                },
+                "dateTooFar": "Impossible to create sessions taking place in more than 3 years",
+                "dateFormat": "Invalid date format",
+                "minTwo": "The value must be greater than or equal to 2",
+                "minZero": "The value must be greater than or equal to 0",
+                "positiveNumber": "The value must be greater than 0",
+                "required": "Incomplete field"
+            },
+            "dialog": {
+                "createLevel": "Create a level",
+                "recurrencePreview": "Preview"
+            },
+            "section": {
+                "coachOverride": {
+                    "info": "If you tick this box, the changes applied to the substitution teacher in this session will be applied to all similar sessions. Otherwise, they will only be applied to this session.",
+                    "field": {
+                        "isCoachOverridePropagate": "Apply the substitution teacher changes to the selected sessions"
+                    },
+                    "title": "Change of substitute teacher"
+                },
+                "similarOffers": {
+                    "info": "Changes to sessions may make them incompatible with some passes. After the change please take the time to check that they will remain compatible with any changes in establishment / teacher.",
+                    "unselectAll": "Deselect all",
+                    "selectAll": "Select all",
+                    "title": "Select the sessions that will be modified"
+                },
+                "tags": {
+                    "placeholder": "Leave blank to allow all members",
+                    "field": {
+                        "blacklistTags": "Not allowed",
+                        "whitelistTags": "Allowed"
+                    },
+                    "helperText": "Use tags to make the session bookable only to a desired group of members. You select tags to make the session bookable only to members with one of the selected tags. Or you can select tags to make the session unbookable only to members with one of the selected tags.",
+                    "title": "Tags"
+                },
+                "settings": {
+                    "field": {
+                        "isModifyRecursively": "Do you want to modify similar sessions according to these new conditions?",
+                        "isNotifyConsumers": "Do you want to inform your customers of this change?",
+                        "partnership": {
+                            "partnerMaxBookingCount": "Maximum number of marketplace bookings (OneFit only)",
+                            "availableOnPartnership": "On marketplaces (ClassPass, OneFit...)",
+                            "title": "Marketplace"
+                        },
+                        "allowGuestOffer": "Allow booking for a guest",
+                        "isManagerOnly": "Available for booking (web+app)"
+                    },
+                    "title": "Settings"
+                },
+                "coach": {
+                    "field": {
+                        "coachPaymentRule": {
+                            "placeholder": "Select a rule",
+                            "title": "Payroll rule"
+                        },
+                        "coachOverride": {
+                            "placeholder": "Select a substitute",
+                            "title": "Substitute"
+                        },
+                        "coach": {
+                            "placeholder": "Select a teacher",
+                            "title": "Teacher"
+                        }
+                    },
+                    "title": "Teacher"
+                },
+                "dateTime": {
+                    "field": {
+                        "recurrence": {
+                            "previewCount": "{{count}} session will be created",
+                            "previewCount_plural": "{{count}} sessions will be created",
+                            "preview": "Preview",
+                            "option": {
+                                "monthly": "Monthly",
+                                "weekly": "Weekly",
+                                "daily": "Daily"
+                            },
+                            "placeholder": "Select a recurrence",
+                            "title": "Recurrence"
+                        },
+                        "dateIntervalEnd": "End date",
+                        "dateIntervalStart": "Date of the class",
+                        "durationMinute": "Duration",
+                        "dateIntervalStartTime": "Start time"
+                    },
+                    "title": "Time and date"
+                },
+                "credits": {
+                    "field": {
+                        "creditCount": "Number of credits"
+                    },
+                    "title": "Credits"
+                },
+                "specificities": {
+                    "tooltip": {
+                        "roomBlueprint": "Allows your students to book the spot they want in the room",
+                        "credits": "Number of pass credits required for booking",
+                        "broadcastLink": "The link will be generated automatically for ZOOM by bsport"
+                    },
+                    "field": {
+                        "roomBlueprint": {
+                            "placeholder": "Select a plan",
+                            "title": "Spot scheduling"
+                        },
+                        "broadcastLink": "Link to the livestream",
+                        "establishment": "Establishment",
+                        "credits": "Credits",
+                        "level": "Level",
+                        "waitingListMaxSize": "Waiting list",
+                        "effectif": "Available slots"
+                    },
+                    "title": "Characteristics"
+                }
+            },
+            "groupedOffer": {
+                "warning": "Be careful this session is part of the  group of sessions {{ name }}"
+            },
+            "stepper": {
+                "step": {
+                    "SETTINGS": "Modification settings",
+                    "INFOS": "Session"
+                }
             }
         }
     },
@@ -14519,11 +14657,13 @@
                         "step": "The entry in this step is done via :",
                         "cadence": "The entry in the cadence is done via :"
                     },
-                    "title": "Triggers"
+                    "title": "Triggers",
+                    "event_or_smartlist_helper": "Members will have to match the event or be part of the smartlist to fit into the cadence"
                 },
                 "win_step": "Won",
                 "error": {
-                    "triggerCannotBeEmpty": "You have to select an input type."
+                    "triggerCannotBeEmpty": "You have to select an input type.",
+                    "timeoutMustBeStrictPositive": "The time limit must be at least 1 day."
                 },
                 "marketing_action": {
                     "form": {
@@ -14593,7 +14733,9 @@
                 "createCadenceHelper": "Thanks to the cadences, target the marketing actions you send to your members according to their behavior on the platform. Create a sequence of actions that your members must complete to obtain certain promotions or tags, for example.",
                 "edit": "Edit",
                 "submit": "Create",
-                "cancel": "Cancel"
+                "cancel": "Cancel",
+                "delete": "Delete",
+                "updateSubmit": "Validate"
             },
             "svgText": {
                 "action_name": "{ Nom de l'action marketing }",
@@ -14613,7 +14755,8 @@
                     "deleteStep": "Delete the step",
                     "cancelOnGoingCreation": "Cancel the creation",
                     "edgeLabelForNodeCreation": "Creating",
-                    "addElement": "Add a trigger"
+                    "addElement": "Add a trigger",
+                    "deleteTrigger": "Delete the trigger"
                 },
                 "tools": {
                     "showDisabledTriggers": "Display disabled triggers",
@@ -14630,9 +14773,12 @@
                     "label": "Smartlist"
                 },
                 "events": {
-                    "label": "Purchase",
+                    "label": "Event",
                     "book_chip": "Booking",
-                    "purchase_chip": "Purchase"
+                    "purchase_chip": "Purchase",
+                    "billing_plan_chip": "Subscription",
+                    "invoice_chip": "Billing",
+                    "basket_chip": "Basket"
                 },
                 "timeout": {
                     "timout_days_chip": "{{ days }} days"

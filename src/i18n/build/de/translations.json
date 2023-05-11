@@ -2821,7 +2821,29 @@
                     "title": "Anmeldung"
                 },
                 "hideSessionWithTagsNotEligible": "Sessions, auf die das Mitglied keinen Zugriff hat, nicht mit Tags anzeigen",
-                "errorURL": "Bitte geben Sie eine gültige URL an, bevor Sie das Formular speichern"
+                "errorURL": "Bitte geben Sie eine gültige URL an, bevor Sie das Formular speichern",
+                "daysFormatSelector": {
+                    "oneLetter": "ein Buchstabe",
+                    "threeLetters": "drei Buchstaben",
+                    "fullWord": "Ganzes Wort",
+                    "label": "Format des Tages anzeigen"
+                },
+                "showActivityColor": "Farbe der AKtivität anzeigen",
+                "sessionDatesDisplayOptions": {
+                    "onlyShowStartingTime": "Nur Startzeit anzeigen",
+                    "showDuration": "Dauer anzeigen",
+                    "showEndingTime": "Endzeit anzeigen",
+                    "label": "Optionen für die Anzeige von Zeitplänen"
+                },
+                "showLevel": "Anzeige des Levels",
+                "showEstablishment": "Anzeige der Einrichtung",
+                "coachDisplayOptions": {
+                    "showCoachFirstNameWithPicture": "Vornahme und Bild",
+                    "showCoachFullNameWithoutPicture": "Vollständiger Name ohne Bild",
+                    "onlyShowCoachFirstName": "Nur Vorname der Lehrkraft",
+                    "showCoachFullNameWithPicture": "Vollständiger Name und Bild",
+                    "label": "Optionen für die Anzeige der Lehrerinfo"
+                }
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -4867,7 +4889,8 @@
                 "Stornieren",
                 "Stornieren",
                 "Stornieren",
-                "Stornieren"
+                "Stornieren",
+                "Abbrechen"
             ]
         }
     },
@@ -7886,7 +7909,8 @@
             "copyLink": "Link kopieren"
         },
         "params": "Einstellungen",
-        "ok": "OK"
+        "ok": "OK",
+        "back": "Zurück"
     },
     "coupon": {
         "detail": {
@@ -12111,7 +12135,143 @@
             }
         },
         "recurrenceIndex": "Wiederholung: {{ index }}",
-        "pendingReplacementRequest": "Ein Antrag auf Vertretung ist offen"
+        "pendingReplacementRequest": "Ein Antrag auf Vertretung ist offen",
+        "form": {
+            "warnings": {
+                "editOfferInitialCredits": "Ältere Buchungen berücksichtigen keine Kreditänderungen",
+                "effectif": "Achtung: Sie geben hier keinen Preis ein. Sind Sie sich über den Wert sicher?"
+            },
+            "errors": {
+                "field": {
+                    "dateIntervalEnd": "Das Enddatum kann nicht vor dem Startdatum liegen",
+                    "durationMinute": "Die Dauer einer Session muss größer als 0 Minuten sein",
+                    "broadcastLink": "Der Link ist falsch. Er sollte mit http:// oder https:// beginnen und keine Leerzeichen enthalten",
+                    "partnerMaxBookingCount": "Die Anzahl der Plätze hier ist größer als die Anzahl der Plätze in der Session",
+                    "effectif": "Der Wert ist höher als die maximale Anzahl von Plätzen"
+                },
+                "dateTooFar": "Es ist nicht möglich, Sessions zu erstellen, die in mehr als 3 Jahren stattfinden",
+                "dateFormat": "Ungültiges Format",
+                "minTwo": "Der Wert muss größer als oder gleich 2 sein",
+                "minZero": "Der Wert muss größer als oder gleich 0 sein",
+                "positiveNumber": "Der Wert muss größer als 0 sein",
+                "required": "Unvollständiges Feld"
+            },
+            "dialog": {
+                "createLevel": "Level erstellen",
+                "recurrencePreview": "Vorschau"
+            },
+            "section": {
+                "coachOverride": {
+                    "info": "Wenn Sie dieses Kästchen ankreuzen, werden die Änderungen, die für den Vertretungslehrer in dieser Session vorgenommen wurden, auf alle ähnlichen Sessions angewandt. Andernfalls werden sie nur auf diese Session angewandt.",
+                    "field": {
+                        "isCoachOverridePropagate": "Änderungen am Vertretungslehrer auf die ausgewählten Sessions anwenden"
+                    },
+                    "title": "Wechsel des Vertretungslehrers"
+                },
+                "similarOffers": {
+                    "info": "Änderungen an den Sessions können dazu führen, dass sie mit einigen Pässen nicht kompatibel sind. Nach der Änderung nehmen Sie sich bitte die Zeit, um zu überprüfen, ob sie mit allen Änderungen in der Einrichtung / Lehrer kompatibel bleiben.",
+                    "unselectAll": "Alle deselektieren",
+                    "selectAll": "Alle auswählen",
+                    "title": "Wählen Sie die Sessions aus, die geändert werden sollen"
+                },
+                "tags": {
+                    "helperText": "Verwenden Sie Tags, um die Session nur für eine bestimmte Gruppe von Mitgliedern buchbar zu machen. Sie wählen Tags aus, um die Session nur für Mitglieder mit einem der ausgewählten Tags buchbar zu machen. Sie können auch Tags auswählen, um die Session nur für Mitglieder mit einem der ausgewählten Tags unbuchbar zu machen.",
+                    "placeholder": "Leer lassen, um alle Mitglieder zu autorisieren",
+                    "field": {
+                        "blacklistTags": "Nicht autorisiert",
+                        "whitelistTags": "Autorisiert"
+                    },
+                    "title": "Tags"
+                },
+                "settings": {
+                    "field": {
+                        "isModifyRecursively": "Möchten Sie ähnliche Sitzungen gemäß diesen neuen Bedingungen ändern?",
+                        "isNotifyConsumers": "Möchten Sie Ihre Kunden über diese Änderung informieren?",
+                        "partnership": {
+                            "partnerMaxBookingCount": "Maximale Anzahl von Marketplace-Buchungen (nur OneFit)",
+                            "availableOnPartnership": "Über die Marketplaces (ClassPass, OneFit...)",
+                            "title": "Marketplace"
+                        },
+                        "allowGuestOffer": "Buchung für einen Gast zulassen",
+                        "isManagerOnly": "Verfügbar für Buchungen (Web + App)"
+                    },
+                    "title": "Einstellungen"
+                },
+                "coach": {
+                    "field": {
+                        "coachPaymentRule": {
+                            "placeholder": "Regel auswählen",
+                            "title": "Gehaltsregel"
+                        },
+                        "coachOverride": {
+                            "placeholder": "Vertretung auswählen",
+                            "title": "Vertretung"
+                        },
+                        "coach": {
+                            "placeholder": "Lehrer auswählen",
+                            "title": "Lehrer"
+                        }
+                    },
+                    "title": "Lehrer"
+                },
+                "dateTime": {
+                    "field": {
+                        "recurrence": {
+                            "previewCount": "{{count}} Session wird erstellt",
+                            "previewCount_plural": "{{count}} Sessions werden erstellt",
+                            "preview": "Vorschau",
+                            "option": {
+                                "monthly": "Monatlich",
+                                "weekly": "Wöchentlich",
+                                "daily": "Täglich"
+                            },
+                            "placeholder": "Wiederholung auswählen",
+                            "title": "Wiederholung"
+                        },
+                        "dateIntervalEnd": "Enddatum",
+                        "dateIntervalStart": "Datum des Kurses",
+                        "durationMinute": "Dauer",
+                        "dateIntervalStartTime": "Startzeit"
+                    },
+                    "title": "Datum & Uhrzeit"
+                },
+                "credits": {
+                    "field": {
+                        "creditCount": "Anzahl der Credits"
+                    },
+                    "title": "Credits"
+                },
+                "specificities": {
+                    "tooltip": {
+                        "roomBlueprint": "Ermöglicht Ihren Schülern, den von ihnen gewünschten Platz im Raum zu buchen",
+                        "credits": "Anzahl der für die Buchung erforderlichen Kurspass-Credits",
+                        "broadcastLink": "Der Link wird automatisch für ZOOM von bsport generiert"
+                    },
+                    "field": {
+                        "roomBlueprint": {
+                            "placeholder": "Plan auswählen",
+                            "title": "Spot-Scheduling"
+                        },
+                        "broadcastLink": "Link zum Livestream",
+                        "establishment": "Einrichtung",
+                        "credits": "Credits",
+                        "level": "Level",
+                        "waitingListMaxSize": "Warteliste",
+                        "effectif": "Verfügbare Slots"
+                    },
+                    "title": "Eigenschaften"
+                }
+            },
+            "groupedOffer": {
+                "warning": "Achtung diese Session ist Teil der Gruppensession {{ name }}"
+            },
+            "stepper": {
+                "step": {
+                    "SETTINGS": "Ändern der EInstellungen",
+                    "INFOS": "Session"
+                }
+            }
+        }
     },
     "settings": {
         "active_campaign": {
@@ -13371,7 +13531,8 @@
                     "trigger_timeout_title": "Zeitlimit",
                     "trigger_event_kind_label": "Ein Ereignis",
                     "and_rule_between_triggers": "Und",
-                    "trigger_timeout_select_label": "Tage maximal in der Liste"
+                    "trigger_timeout_select_label": "Tage maximal in der Liste",
+                    "event_or_smartlist_helper": "Die Mitglieder müssen zum Ereignis passen oder Teil der Smartlist sein, um in die Kadenz zu passen"
                 },
                 "marketing_action": {
                     "select_tag": "Tag wählen",
@@ -13441,12 +13602,15 @@
                     "100": "Kaufen"
                 },
                 "error": {
-                    "triggerCannotBeEmpty": "Sie müssen eine Eingabeart auswählen."
+                    "triggerCannotBeEmpty": "Sie müssen eine Eingabeart auswählen.",
+                    "timeoutMustBeStrictPositive": "Die Frist muss mindestens einen Tag betragen."
                 },
                 "modify_name_label": "Name bearbeiten",
                 "entry_step": "Eingang",
                 "win_step": "Gewonnen",
-                "lose_step": "Verloren"
+                "lose_step": "Verloren",
+                "delete": "Löschen",
+                "updateSubmit": "Bestätigen"
             },
             "shutOff": "Pausieren",
             "editMode": "Bearbeiten",
@@ -13503,9 +13667,12 @@
                     "timout_days_chip": "{{ Tage }} Tage"
                 },
                 "events": {
-                    "book_chip": "Reservierung",
-                    "label": "Kauf",
-                    "purchase_chip": "Kaufen"
+                    "book_chip": "Buchung",
+                    "label": "Veranstaltung",
+                    "purchase_chip": "Kaufen",
+                    "billing_plan_chip": "Abonnement",
+                    "invoice_chip": "Rechnungsstellung",
+                    "basket_chip": "Warenkorb"
                 },
                 "start": "Eingang",
                 "exit": "Ausgang",
@@ -13527,7 +13694,8 @@
                     "addElement": "Auslöser hinzufügen",
                     "edgeLabelForNodeCreation": "In Vorbereitung",
                     "cancelOnGoingCreation": "Erstellung abbrechen",
-                    "deleteStep": "Schritt löschen"
+                    "deleteStep": "Schritt löschen",
+                    "deleteTrigger": "Auslöser entfernen"
                 },
                 "alert": {
                     "cadenceIsActive": "Ihr Kurs ist im Gange, halten Sie ihn an, damit Sie ihn ändern können.",

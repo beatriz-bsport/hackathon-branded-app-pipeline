@@ -4894,6 +4894,7 @@
                 "Cancelada",
                 "Cancelado",
                 "Cancelada",
+                "Cancelada",
                 "Cancelada"
             ]
         },
@@ -5159,6 +5160,142 @@
                 "notValidated": "Solicitud no validada",
                 "validated": "Solicitud validada",
                 "placeholder": "Estado del pase de lista"
+            }
+        },
+        "form": {
+            "warnings": {
+                "editOfferInitialCredits": "Las reservas antiguas no tienen en cuenta los cambios en los créditos",
+                "effectif": "Tenga cuidado, no está introduciendo un precio. ¿Está seguro del valor?"
+            },
+            "errors": {
+                "field": {
+                    "dateIntervalEnd": "La fecha final no puede ser anterior a la fecha de inicio",
+                    "durationMinute": "La duración de una sesión debe ser superior a 0 minutos",
+                    "broadcastLink": "El enlace es incorrecto. Debe empezar por http:// o https:// y no contener espacios.",
+                    "partnerMaxBookingCount": "El número de plazas aquí es mayor que el número de plazas en la sesión",
+                    "effectif": "El valor es superior al número máximo de plazas"
+                },
+                "dateTooFar": "Imposible crear sesiones que tengan lugar en más de 3 años",
+                "dateFormat": "Formato de fecha inválido",
+                "minTwo": "El valor debe ser mayor o igual a 2",
+                "minZero": "El valor debe ser mayor o igual a 0",
+                "positiveNumber": "El valor debe ser superior a 0",
+                "required": "Campo incompleto"
+            },
+            "dialog": {
+                "createLevel": "Crear un nivel",
+                "recurrencePreview": "Vista previa"
+            },
+            "section": {
+                "coachOverride": {
+                    "info": "Si marca esta casilla, los cambios aplicados al profesor sustituto en esta sesión se aplicarán a todas las sesiones similares. En caso contrario, sólo se aplicarán a esta sesión.",
+                    "field": {
+                        "isCoachOverridePropagate": "Aplicar los cambios del profesor sustituto a las sesiones seleccionadas"
+                    },
+                    "title": "Cambio de profesor sustituto"
+                },
+                "similarOffers": {
+                    "info": "Los cambios en las sesiones pueden hacerlas incompatibles con algunos pases. Después del cambio por favor tómese el tiempo para comprobar que seguirán siendo compatibles con cualquier cambio de establecimiento / profesor.",
+                    "unselectAll": "Deseleccionar todas",
+                    "selectAll": "Seleccionar todas",
+                    "title": "Seleccione las sesiones que se modificarán"
+                },
+                "tags": {
+                    "placeholder": "Dejar en blanco para permitir todos los miembros",
+                    "field": {
+                        "blacklistTags": "No autorizado",
+                        "whitelistTags": "Autorizado"
+                    },
+                    "helperText": "Utilice etiquetas para que la sesión sólo pueda ser reservada por el grupo de usuarios que desee. Puede seleccionar etiquetas para que sólo puedan reservar la sesión los usuarios que tengan una de las etiquetas seleccionadas. También puede seleccionar etiquetas para que la sesión sólo puedan reservarla los miembros que tengan una de las etiquetas seleccionadas.",
+                    "title": "Etiquetas"
+                },
+                "settings": {
+                    "field": {
+                        "isModifyRecursively": "¿Desea modificar sesiones similares en función de estas nuevas condiciones?",
+                        "isNotifyConsumers": "¿Quiere informar a sus clientes de este cambio?",
+                        "partnership": {
+                            "partnerMaxBookingCount": "Número máximo de reservas en el marketplace (sólo OneFit)",
+                            "availableOnPartnership": "En los marketplaces (ClassPass, OneFit...)",
+                            "title": "Marketplace"
+                        },
+                        "allowGuestOffer": "Permitir reservar para invitados",
+                        "isManagerOnly": "Disponible para reservas (web+app)"
+                    },
+                    "title": "Parámetros"
+                },
+                "coach": {
+                    "field": {
+                        "coachPaymentRule": {
+                            "placeholder": "Selecciona una regla",
+                            "title": "Regla de remuneración"
+                        },
+                        "coachOverride": {
+                            "placeholder": "Selecciona un sustituto",
+                            "title": "Sustituto"
+                        },
+                        "coach": {
+                            "placeholder": "Selecciona un profesor",
+                            "title": "Profesor"
+                        }
+                    },
+                    "title": "Profesor"
+                },
+                "dateTime": {
+                    "field": {
+                        "recurrence": {
+                            "previewCount": "{{count}} sesión será creada",
+                            "previewCount_plural": "{{count}} sesiones serán creadas",
+                            "preview": "Vista previa",
+                            "option": {
+                                "weekly": "Semanal",
+                                "monthly": "Mensual",
+                                "daily": "A diario"
+                            },
+                            "placeholder": "Seleccione una recurrencia",
+                            "title": "Recurrencia"
+                        },
+                        "dateIntervalEnd": "Fecha final",
+                        "dateIntervalStart": "Fecha de la clase",
+                        "durationMinute": "Duración",
+                        "dateIntervalStartTime": "Hora de inicio"
+                    },
+                    "title": "Fecha y hora"
+                },
+                "credits": {
+                    "field": {
+                        "creditCount": "Número de créditos"
+                    },
+                    "title": "Créditos"
+                },
+                "specificities": {
+                    "tooltip": {
+                        "roomBlueprint": "Permite a sus alumnos reservar el sitio que deseen en la sala",
+                        "credits": "Número de créditos de bono necesarios para la reserva",
+                        "broadcastLink": "El enlace se generará automáticamente para ZOOM por bsport"
+                    },
+                    "field": {
+                        "roomBlueprint": {
+                            "placeholder": "Seleccione un plano",
+                            "title": "Plano del establecimiento"
+                        },
+                        "broadcastLink": "Enlace a la retransmisión en directo",
+                        "establishment": "Establecimiento",
+                        "credits": "Créditos",
+                        "level": "Nivel",
+                        "waitingListMaxSize": "Lista de espera",
+                        "effectif": "Plazas disponibles"
+                    },
+                    "title": "Características"
+                }
+            },
+            "groupedOffer": {
+                "warning": "Atención, esta sesión forma parte del grupo de sesiones {{ name }}."
+            },
+            "stepper": {
+                "step": {
+                    "SETTINGS": "Parámetros de modificación",
+                    "INFOS": "Sesión"
+                }
             }
         }
     },
@@ -8453,6 +8590,28 @@
                     "title": "Ausencia (no se presenta)",
                     "errorValidatedTime": "El tiempo transcurrido antes de que la reserva de un socio se considere como no presentada debe ser superior a 0",
                     "errorEmailTime": "El tiempo transcurrido antes de enviar el correo electrónico para avisar al socio de que su reserva se considerará como no presentada debe ser superior a 0"
+                },
+                "daysFormatSelector": {
+                    "oneLetter": "1 letra",
+                    "threeLetters": "3 letras",
+                    "fullWord": "Palabra entera",
+                    "label": "Mostrar formato del día"
+                },
+                "showActivityColor": "Mostrar el color de la actividad",
+                "sessionDatesDisplayOptions": {
+                    "onlyShowStartingTime": "Mostrar sólo la hora de inicio",
+                    "showDuration": "Mostrar duración",
+                    "showEndingTime": "Mostrar hora final",
+                    "label": "Opciones de visualización del horario"
+                },
+                "showLevel": "Mostrar el nivel",
+                "showEstablishment": "Mostrar el establecimiento",
+                "coachDisplayOptions": {
+                    "showCoachFirstNameWithPicture": "Nombre y foto",
+                    "showCoachFullNameWithoutPicture": "Nombre completo sin foto",
+                    "onlyShowCoachFirstName": "Sólo el nombre del profesor",
+                    "showCoachFullNameWithPicture": "Nombre completo y foto",
+                    "label": "Opciones de visualización de la información sobre el profesor"
                 }
             },
             "submit": "Guardar",
@@ -9577,7 +9736,8 @@
         },
         "download": "Descargar",
         "ok": "OK",
-        "params": "Parámetros"
+        "params": "Parámetros",
+        "back": "Volver"
     },
     "snackbar": {
         "invoice": {
@@ -13571,7 +13731,8 @@
                         "step": "Defina aquí el desencadenante llevando al próximo paso. Los miembros tendrán que corresponder a los criterios indicados a continuación para pasar al paso siguiente.",
                         "cadence": "Defina aquí los desencadenantes de ingreso a la cadencia. Los miembros habrán de corresponder a los criterios indicados a continuación para ingresar la secuencia marketing."
                     },
-                    "title": "Desencadenantes"
+                    "title": "Desencadenantes",
+                    "event_or_smartlist_helper": "Los miembros tendrán que coincidir con el evento o formar parte de la smartlist para incluirse en la cadencia"
                 },
                 "previous": "Anterior",
                 "next": "Siguiente",
@@ -13591,7 +13752,8 @@
                 "submit": "Crear",
                 "cancel": "Cancelar",
                 "error": {
-                    "triggerCannotBeEmpty": "Tiene que seleccionar un tipo de ingreso."
+                    "triggerCannotBeEmpty": "Tiene que seleccionar un tipo de ingreso.",
+                    "timeoutMustBeStrictPositive": "El plazo debe ser de al menos 1 día."
                 },
                 "marketing_action": {
                     "form": {
@@ -13606,7 +13768,9 @@
                     "3": "Notificación push",
                     "2": "Mensaje de texto",
                     "1": "Correo electrónico"
-                }
+                },
+                "delete": "Borrar",
+                "updateSubmit": "Validar"
             },
             "cadenceIndexHelper": "El orden de las cadencias define el orden de prioridad, si un miembro puede ingresar 2 cadencias diferentes, empezará por la más alta en la lista.",
             "marketingElement": "Acciones de marketing",
@@ -13627,7 +13791,8 @@
                     "deleteStep": "Eliminar el paso",
                     "cancelOnGoingCreation": "Cancelar la creación",
                     "edgeLabelForNodeCreation": "En proceso de creación",
-                    "addElement": "Añadir un desencadenante"
+                    "addElement": "Añadir un desencadenante",
+                    "deleteTrigger": "Eliminar el desencadenante"
                 },
                 "tools": {
                     "showDisabledTriggers": "Mostrar los desencadenantes desactivados",
@@ -13644,9 +13809,12 @@
                     "label": "Smartlist"
                 },
                 "events": {
-                    "label": "Compra",
+                    "label": "Evento",
                     "book_chip": "Reserva",
-                    "purchase_chip": "Compra"
+                    "purchase_chip": "Compra",
+                    "billing_plan_chip": "Cuota",
+                    "invoice_chip": "Facturación",
+                    "basket_chip": "Cesta"
                 },
                 "timeout": {
                     "timout_days_chip": "{{ days }} días"

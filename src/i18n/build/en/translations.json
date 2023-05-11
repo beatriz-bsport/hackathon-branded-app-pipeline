@@ -5300,6 +5300,28 @@
                     "daysBeforeNoShow": "Consider the member as (no-show) <0/> <1/> after the roll call on sessions where they are listed as absent.",
                     "alert": "These settings only apply to no-show penalties on unlimited passes. To trigger the following counts, you must call the roll for each session.",
                     "title": "No show"
+                },
+                "daysFormatSelector": {
+                    "oneLetter": "1 letter",
+                    "threeLetters": "3 letters",
+                    "fullWord": "Whole word",
+                    "label": "Display format of the day"
+                },
+                "showActivityColor": "Display the colour of the activity",
+                "sessionDatesDisplayOptions": {
+                    "onlyShowStartingTime": "Display start time only",
+                    "showDuration": "Display duration",
+                    "showEndingTime": "Display end time",
+                    "label": "Schedule display options"
+                },
+                "showLevel": "Display the level",
+                "showEstablishment": "Display the establishment",
+                "coachDisplayOptions": {
+                    "showCoachFirstNameWithPicture": "First name and photo",
+                    "showCoachFullNameWithoutPicture": "Full name without photo",
+                    "onlyShowCoachFirstName": "Teacher's first name only",
+                    "showCoachFullNameWithPicture": "Full name and photo",
+                    "label": "Display options for teacher information"
                 }
             },
             "cover": {
@@ -9370,6 +9392,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",

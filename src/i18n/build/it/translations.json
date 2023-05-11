@@ -3875,6 +3875,28 @@
                     "daysBeforeNoShowHelpText": "Tale parametro consente di applicare sanzioni sulle assenze dei membri con pass illimitato.",
                     "sendMailHelpText": "Per attivare/disattivare l'email, vai su Impostazioni> Email transazionali> Penalità> Notifica assenza",
                     "error": "L'email di notifica dell'assenza non può essere inviata dopo che il membro è considerato no show."
+                },
+                "daysFormatSelector": {
+                    "oneLetter": "1 lettera",
+                    "threeLetters": "3 lettere",
+                    "fullWord": "Parola intera",
+                    "label": "Formato di visualizzazione del giorno"
+                },
+                "showActivityColor": "Mostra il colore dell'attività",
+                "sessionDatesDisplayOptions": {
+                    "onlyShowStartingTime": "Mostra solamente l'orario d'inizio",
+                    "showDuration": "Mostra la durata",
+                    "showEndingTime": "Mostra l'orario di fine sessione",
+                    "label": "Opzioni di visualizzazione delle sessioni"
+                },
+                "showEstablishment": "Mostra lo stabilimento",
+                "showLevel": "Mostra il livello",
+                "coachDisplayOptions": {
+                    "showCoachFirstNameWithPicture": "Nome e foto",
+                    "showCoachFullNameWithoutPicture": "Nome completo senza foto",
+                    "onlyShowCoachFirstName": "Solo il nome dell'insegnante",
+                    "showCoachFullNameWithPicture": "Nome completo e foto",
+                    "label": "Opzioni di visualizzazione delle informazioni dell'insegnante"
                 }
             },
             "instagramURL": {
@@ -7333,6 +7355,7 @@
                 "Cancella",
                 "Cancella",
                 "Cancella",
+                "Annulla",
                 "Annulla",
                 "Annulla",
                 "Annulla"

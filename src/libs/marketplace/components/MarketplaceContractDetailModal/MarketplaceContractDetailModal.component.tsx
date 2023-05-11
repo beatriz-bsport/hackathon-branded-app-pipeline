@@ -9,6 +9,7 @@ import StarIcon from '@material-ui/icons/Star';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import ReplayIcon from '@material-ui/icons/Replay';
 
+import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card, { CardSize } from '#csscomponents/Card';
@@ -93,6 +94,10 @@ const MarketplaceContractDetailModal: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('marketplace');
 
+  const { dialogRef, modalRef } = useDialogClickAwayListener({
+    onDialogClose,
+  });
+
   const [showMoreDescription, setShowMoreDescription] =
     React.useState<boolean>(false);
   const [showMoreLegalContract, setShowMoreLegalContract] =
@@ -113,7 +118,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = ({
   return (
     <>
       {isOpen && !!contract && (
-        <div className="bs-contract-details-dialog">
+        <div className="bs-contract-details-dialog" ref={dialogRef}>
           <Card
             size={CardSize.L}
             classes={{
@@ -121,7 +126,10 @@ const MarketplaceContractDetailModal: React.FC<Props> = ({
                 'bs-contract-details-dialog__card',
             }}
           >
-            <div className="bs-contract-details-dialog__container">
+            <div
+              className="bs-contract-details-dialog__container"
+              ref={modalRef}
+            >
               <Content
                 padding
                 classes={{

@@ -282,6 +282,8 @@ const MarketplaceContractDetailModal: React.FC<Props> = ({
                   classes={{
                     'bs-contract-details-dialog__item':
                       'bs-contract-details-dialog__item',
+                    'bs-contract-details-dialog__footer-item':
+                      'bs-contract-details-dialog__footer-item',
                   }}
                 >
                   <div className="bs-contract-details-dialog__footer__buttons">

@@ -18,6 +18,13 @@
   line-height: var(--h5-lineHeight);
   color: var(--color-grey-dark);
   margin-bottom: var(--spacing-1);
+  white-space: pre-line;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
 }
 
 .bs-contract-card__title__icon {

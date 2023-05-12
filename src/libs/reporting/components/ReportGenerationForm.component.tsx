@@ -69,7 +69,40 @@ type DownloadButtonProps = {
   values: any;
 };
 
-const CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES = ['billing_plan'];
+const CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES = [
+  'billing_plan',
+  'members',
+  'activities',
+  'activityByEst',
+  'activityByCoach',
+  'workshop',
+  'offers',
+  'subscription',
+  'privateService',
+  'dayBookings',
+  'first_booking',
+  'bookings',
+  'first_attendance',
+  'first_privatebooking',
+  'private_bookings',
+  'unpaid_private_bookings',
+  'private_cpasses_expired',
+  'memberships',
+  'private_cpasses',
+  'universal_passes',
+  'discount',
+  'consumer_giftcard',
+  'shop',
+  'cashbook',
+  'expense',
+  'payments',
+  'payment_sumup',
+  'on_spot_payments',
+  'dispute',
+  'payment_installments',
+  'video_purchase',
+  'invoices',
+];
 
 const ReportGenerationSchema = Yup.object().shape({
   dateStart: Yup.date().required('required'),

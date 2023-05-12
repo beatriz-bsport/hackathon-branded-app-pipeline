@@ -12,7 +12,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import { SvgIconComponent } from '@material-ui/icons';
 
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import { CadenceMarketingActionsEnum } from '#libs/sequential_marketing/constants';
+import { CadenceMarketingActionsEnum } from '#libs/sequential_marketingDEPRECATED/constants';
 
 type Props = {
   item: CadenceMarketingActionsEnum;

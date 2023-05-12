@@ -12,26 +12,26 @@ import Button from '@material-ui/core/Button';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../reducers';
-import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
+import CadenceCreateAndUpdateForm from '#libs/sequential_marketingDEPRECATED/components/form/CadenceCreateAndUpdateForm.component';
 import {
   fetchCadenceList as fetchCadenceListAction,
   createCadence as createCadenceAction,
   updateCadence as updateCadenceAction,
   archiveCadence as archiveCadenceAction,
   restoreCadence as restoreCadenceAction,
-} from '#libs/sequential_marketing/actions';
+} from '#libs/sequential_marketingDEPRECATED/actions';
 
 import { WithHandlerType } from '../../utils/types';
 import {
   getEnabledCadencesList,
   getDisabledCadencesList,
   withSteps,
-} from '#libs/sequential_marketing/selectors';
+} from '#libs/sequential_marketingDEPRECATED/selectors';
 import { OptionCallback } from '../../state/types';
-import type { Cadence } from '#libs/sequential_marketing/types';
-import CadenceList from '#libs/sequential_marketing/components/CadenceList.component';
-import CadenceManagerFab from '#libs/sequential_marketing/components/CadenceManagerFab.components';
-import CadenceArchiveDialog from '#libs/sequential_marketing/components/CadenceArchivedDialog.component';
+import type { Cadence } from '#libs/sequential_marketingDEPRECATED/types';
+import CadenceList from '#libs/sequential_marketingDEPRECATED/components/CadenceList.component';
+import CadenceManagerFab from '#libs/sequential_marketingDEPRECATED/components/CadenceManagerFab.components';
+import CadenceArchiveDialog from '#libs/sequential_marketingDEPRECATED/components/CadenceArchivedDialog.component';
 
 const CADENCE_PAGE_SIZE = 100;
 type OwnProps = {

@@ -67,7 +67,7 @@ import { RolePermission } from '#libs/role/types';
 import ToolTip from '#components/Tooltip.component';
 import ResponsiveDrawerItem from './ResponsiveDrawerItem.component';
 
-import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketing/constants';
+import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketingDEPRECATED/constants';
 
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {

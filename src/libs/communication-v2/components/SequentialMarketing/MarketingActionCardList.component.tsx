@@ -18,7 +18,7 @@ import {
   CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
   CADENCE_MARKETING_ACTION_CHOICES,
   CadenceMarketingActionsEnum,
-} from '#libs/sequential_marketing/constants';
+} from '#libs/sequential_marketingDEPRECATED/constants';
 
 import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook ';
 import MarketingActionCard from './MarketingActionCard.component';

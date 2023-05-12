@@ -27,14 +27,14 @@ import {
   upsertStepMarketingAtions as upsertStepMarketingAtionsAction,
   deleteStepMarketingAction as deleteStepMarketingActionAction,
   deleteConnectedTrigger as deleteConnectedTriggerAction,
-} from '#libs/sequential_marketing/actions';
+} from '#libs/sequential_marketingDEPRECATED/actions';
 
 import { getAllSmartList } from '../../libs/smart-list/selectors';
 
 import {
   CadenceDestinationEnum,
   CadencePanelMode,
-} from '#libs/sequential_marketing/constants';
+} from '#libs/sequential_marketingDEPRECATED/constants';
 import { WithHandlerType } from '../../utils/types';
 import {
   getCadenceOnlyActiveCTs,
@@ -44,7 +44,7 @@ import {
   getStepMarketingActionsByStepId,
   getStepMarketingActionsLoading,
   getStepMarketingActionsUpsertLoading,
-} from '#libs/sequential_marketing/selectors';
+} from '#libs/sequential_marketingDEPRECATED/selectors';
 import { OptionCallback } from '../../state/types';
 import type {
   Cadence,
@@ -52,17 +52,17 @@ import type {
   CadenceStep,
   StepConnectedTriggerConfig,
   StepMarketingActions,
-} from '#libs/sequential_marketing/types';
-import CadenceDetailHeader from '#libs/sequential_marketing/components/CadenceDetailHeader.component';
-import CadenceToolsPanel from '#libs/sequential_marketing/components/CadenceToolsPanel.component';
+} from '#libs/sequential_marketingDEPRECATED/types';
+import CadenceDetailHeader from '#libs/sequential_marketingDEPRECATED/components/CadenceDetailHeader.component';
+import CadenceToolsPanel from '#libs/sequential_marketingDEPRECATED/components/CadenceToolsPanel.component';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
-import CadenceGraphFlow from '#libs/sequential_marketing/components/graph/CadenceGraphFlow.component';
+import CadenceGraphFlow from '#libs/sequential_marketingDEPRECATED/components/graph/CadenceGraphFlow.component';
 import {
   CADENCE_STEPPER_ENTRY_STEP,
   CADENCE_STEPPER_WIN_STEP,
   CADENCE_STEPPER_LOSE_STEP,
-} from '#libs/sequential_marketing/components/form/CadenceSettingsFormStepper.component';
-import type { Values } from '#libs/sequential_marketing/components/form/Trigger/components';
+} from '#libs/sequential_marketingDEPRECATED/components/form/CadenceSettingsFormStepper.component';
+import type { Values } from '#libs/sequential_marketingDEPRECATED/components/form/Trigger/components';
 import {
   emailTemplatesSummaries,
   emailTemplateDetail,
@@ -73,7 +73,7 @@ import {
 } from '#libs/email-editor/selectors';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
-import { NodeIdentifiersEnum } from '#libs/sequential_marketing/components/graph/hooks';
+import { NodeIdentifiersEnum } from '#libs/sequential_marketingDEPRECATED/components/graph/hooks';
 
 export const drawerWidth = 400;
 export const headerHeight = 110;

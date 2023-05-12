@@ -28,11 +28,11 @@ import {
   CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
   CADENCE_MARKETING_ACTION_CHOICES,
   CadenceMarketingActionsEnum,
-} from '#libs/sequential_marketing/constants';
+} from '#libs/sequential_marketingDEPRECATED/constants';
 
 import useMarketingActionsFormContext, {
   MarketingActionData,
-} from '#libs/sequential_marketing/components/form/StepMarketingActionsForm/useMarketingActions.hook';
+} from '#libs/sequential_marketingDEPRECATED/components/form/StepMarketingActionsForm/useMarketingActions.hook';
 import type {
   EmailTemplate,
   EmailTemplateDetail,
@@ -43,7 +43,7 @@ import MarketingActionList from './MarketingActionCardList.component';
 import {
   StepMarketingActions,
   StepMarketingActionsKind,
-} from '#libs/sequential_marketing/types';
+} from '#libs/sequential_marketingDEPRECATED/types';
 import { OptionCallback } from '../../../../state/types';
 
 type Props = {

@@ -77,7 +77,7 @@ import zoomAppReducers from '#libs/zoom-app/reducers';
 import terminalReducers from '#libs/terminal/reducers';
 import datatypeFilteringReducers from '#libs/datatype-filtering/reducers';
 import tutorialReducers from '#libs/platform-tutorial/reducers';
-import CadenceReducers from '#libs/sequential_marketing/reducers';
+import CadenceReducers from '#libs/sequential_marketingDEPRECATED/reducers';
 
 import { BackgroundDialogState } from '#libs/background-dialog/types';
 import { BackgroundTaskState } from '#libs/background-task/types';
@@ -135,7 +135,7 @@ import { DatatypeFilteringState } from '#libs/datatype-filtering/types';
 import { TutorialState } from '#libs/platform-tutorial/types';
 import { ReplacementRequestState } from '#libs/replacement-request/types';
 import { PaymentComboState } from '#libs/payment-combo/types';
-import { CadenceState } from '#libs/sequential_marketing/types';
+import { CadenceState } from '#libs/sequential_marketingDEPRECATED/types';
 import { WaitingListState } from '#libs/waiting-list/types';
 import { InvoiceState } from '#libs/invoice/types';
 

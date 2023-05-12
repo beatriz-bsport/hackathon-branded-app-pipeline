@@ -42,6 +42,7 @@ import type { ShopItem, Provision } from '../../libs/shop/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import themeSelectors from '../../libs/theme/selectors';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { SHOPITEM_PER_PAGE } from '#libs/shop/constants';
 
 type Props = {
   id: number,
@@ -82,7 +83,7 @@ export class ShopItemDetail extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchShopItem(this.props.id);
-    this.props.fetchProvisions(this.props.id, 1, 10);
+    this.props.fetchProvisions(this.props.id, 1, SHOPITEM_PER_PAGE);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -132,6 +133,9 @@ export class ShopItemDetail extends Component<Props, State> {
     });
   };
 
+  handleRequestProvisionPage = (page: number) =>
+    this.props.fetchProvisions(this.props.id, page, SHOPITEM_PER_PAGE);
+
   render() {
     return (
       <Grid container spacing={2} className={this.props.classes.container}>
@@ -179,10 +183,8 @@ export class ShopItemDetail extends Component<Props, State> {
               loading={this.props.provision.loading}
               nbItems={this.props.provision.count}
               page={this.props.provision.page}
-              itemPerPage={10}
-              onPageRequested={(page) =>
-                this.props.fetchProvisions(this.props.id, page, 10)
-              }
+              itemPerPage={SHOPITEM_PER_PAGE}
+              onPageRequested={this.handleRequestProvisionPage}
             />
           </Paper>
         </Grid>

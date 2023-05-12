@@ -257,7 +257,8 @@ export default handleActions(
     ) => {
       return state
         .setIn(['provision', 'items'], payload.results)
-        .setIn(['provision', 'count'], payload.count);
+        .setIn(['provision', 'count'], payload.count)
+        .setIn(['provision', 'page'], payload.page);
     },
     [provisionByShopItemActions.isLoading.toString()]: (
       state: ShopState,

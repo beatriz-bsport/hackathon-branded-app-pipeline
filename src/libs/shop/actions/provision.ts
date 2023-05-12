@@ -15,7 +15,7 @@ export const provisionByShopItemActions = {
 
 export function fetchProvisions(
   shopitemId: number,
-  page?: number,
+  page: number,
   page_size?: number,
 ) {
   return async (dispatch: Dispatch) => {

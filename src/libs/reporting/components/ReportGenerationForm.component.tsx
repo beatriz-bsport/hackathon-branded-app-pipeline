@@ -14,14 +14,13 @@ import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Submit, Actions, defaultHandleSubmit } from '#components/forms';
+import { Submit, defaultHandleSubmit } from '#components/forms';
 import DateRangeSelector from '#components/date/DateRangeSelector.component';
 import DatePickerSelector from '#components/date/DatePickerSelector.component';
 import ReportFilterConfigSelector from './ReportFilterConfigSelector.component';
@@ -265,13 +264,8 @@ const ReportGenerationForm: React.FC<Props> = ({
         </DialogActions>
       </Dialog>
       <Form>
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          alignItems="center"
-        >
-          <Grid item>
+        <div className={classes.flexRow}>
+          <div className={classes.datePickerContainer}>
             {reportConfiguration.date_type === 'range' && (
               <DateRangeSelector
                 date_start={moment(values.dateStart).unix()}
@@ -300,30 +294,27 @@ const ReportGenerationForm: React.FC<Props> = ({
                 }}
               />
             )}
-          </Grid>
-
-          <Grid item>
-            <Actions>
-              <DownloadButton
-                values={values}
-                handleExcelExportation={handleExcelExportation}
-                isSubmitting_={isSubmitting_}
-              />
-              <Submit disabled={isSubmitting_}>{t('common.generate')}</Submit>
-            </Actions>
-          </Grid>
-        </Grid>
-        {CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES.includes(
-          reportConfiguration?.category,
-        ) && (
-          <Alert
-            severity="info"
-            classes={{ root: classes.alertIcon }}
-            className={classes.alert}
-          >
-            {t(`reporting:helperText.${reportConfiguration.category}`)}
-          </Alert>
-        )}
+            {CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES.includes(
+              reportConfiguration?.category,
+            ) && (
+              <Alert
+                severity="info"
+                classes={{ root: classes.alertIcon }}
+                className={classes.alert}
+              >
+                {t(`reporting:helperText.${reportConfiguration.category}`)}
+              </Alert>
+            )}
+          </div>
+          <div className={classes.buttonsContainer}>
+            <DownloadButton
+              values={values}
+              handleExcelExportation={handleExcelExportation}
+              isSubmitting_={isSubmitting_}
+            />
+            <Submit disabled={isSubmitting_}>{t('common.generate')}</Submit>
+          </div>
+        </div>
         <div className={classes.reportFilterConfig}>
           <ReportFilterConfigSelector
             reportFilterConfigs={reportFilterConfigs}
@@ -358,8 +349,30 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
   },
   alert: {
-    marginBottom: theme.spacing(2),
-    width: '30%',
+    maxWidth: '550px',
+  },
+  datePickerContainer: {
+    display: 'flex',
+    flex: 15,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginRight: theme.spacing(2),
+    gap: theme.spacing(2),
+    [theme.breakpoints.down('md')]: {
+      flexWrap: 'wrap',
+    },
+  },
+  buttonsContainer: {
+    justifyContent: 'flex-end',
+  },
+  flexRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    [theme.breakpoints.down('md')]: {
+      alignItems: 'flex-start',
+    },
   },
 }));
 

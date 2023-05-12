@@ -4,13 +4,10 @@ import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 import { pure } from 'recompose';
 
-import {
-  ButtonBase,
-  Divider,
-  FormLabel,
-  makeStyles,
-  Theme,
-} from '@material-ui/core';
+import { makeStyles, Theme } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import FormLabel from '@material-ui/core/FormLabel';
 import AddIcon from '@material-ui/icons/Add';
 import classNames from 'classnames';
 
@@ -190,14 +187,18 @@ export const LevelSelector: React.FC<Props> = ({
           placeholder={t('offer:levels.select.placeholder')}
           headerListRenderer={() => (
             <div className={classes.buttonSelectWrapper}>
-              <ButtonBase
+              <Button
                 color="primary"
+                size="small"
                 onClick={handleOpenModal}
-                className={classes.buttonSelect}
+                className={classNames(
+                  classes.buttonSelect,
+                  buttonContainerStyle,
+                )}
               >
                 <AddIcon className={classes.icon} />
                 {t('levels.select.add')}
-              </ButtonBase>
+              </Button>
               <Divider />
             </div>
           )}
@@ -222,20 +223,21 @@ export const LevelSelector: React.FC<Props> = ({
           className={classNames(selectorClass)}
         />
         {!isDisabled && (
-          <ButtonBase
+          <Button
             color="primary"
+            size="small"
             onClick={handleOpenModal}
             className={classNames(
+              buttonContainerStyle,
+              classes.fitContentOnMobile,
               {
                 [classes.button]: !buttonContainerStyle,
-                buttonContainerStyle,
               },
-              classes.fitContentOnMobile,
             )}
           >
             <AddIcon className={classes.icon} />
             {t('levels.select.add')}
-          </ButtonBase>
+          </Button>
         )}
       </div>
 

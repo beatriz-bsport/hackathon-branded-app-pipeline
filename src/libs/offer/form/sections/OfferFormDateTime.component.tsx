@@ -430,6 +430,7 @@ const OfferFormDateTime = (props: Props) => {
 
           {isRecurrence && (
             <Alert
+              className={classes.recurrencePreviewAlert}
               severity="info"
               action={
                 isMobile ? (
@@ -455,4 +456,5 @@ const OfferFormDateTime = (props: Props) => {
     </FormSection>
   );
 };
+
 export default OfferFormDateTime;

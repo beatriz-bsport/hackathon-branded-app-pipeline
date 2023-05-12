@@ -32,8 +32,8 @@ const FormSection = React.memo((props: Props) => {
     isCollapse,
     noPadding,
   } = props;
-  const classes = useStyle({ noPadding });
   const [isExpanded, setIsExpanded] = useState(false);
+  const classes = useStyle({ noPadding, isCollapse, isExpanded });
 
   const toggleExpandSection = useCallback(
     () => setIsExpanded((prevExpanded) => !prevExpanded),
@@ -83,13 +83,13 @@ const FormSection = React.memo((props: Props) => {
 });
 
 const useStyle = makeStyles<Theme, Props>((theme) => ({
-  container: ({ noPadding }) => ({
+  container: ({ noPadding, isCollapse, isExpanded }) => ({
     paddingRight: noPadding ? 0 : theme.spacing(4.25),
     paddingLeft: noPadding ? 0 : theme.spacing(4.25),
     paddingTop: noPadding ? 0 : theme.spacing(3),
     paddingBottom: noPadding ? 0 : theme.spacing(3),
     '& > *:not(:last-child)': {
-      marginBottom: theme.spacing(3),
+      marginBottom: isCollapse && !isExpanded ? 0 : theme.spacing(3),
     },
     '& > *:last-child': {
       marginBottom: theme.spacing(0),

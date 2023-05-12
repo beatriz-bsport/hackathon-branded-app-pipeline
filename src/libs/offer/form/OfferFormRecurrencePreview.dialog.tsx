@@ -36,6 +36,7 @@ export const OfferFormRecurrencePreview = (props: Props) => {
   const { t } = useTranslation(['offer', 'common']);
   const offerFormClasses = useOfferFormStyles();
   const classes = useStyles();
+  const formClasses = useOfferFormStyles();
 
   const offerDates = useMemo(
     () =>
@@ -110,7 +111,7 @@ export const OfferFormRecurrencePreview = (props: Props) => {
           />
         </MuiPickersUtilsProvider>
 
-        <Alert severity="info">
+        <Alert severity="info" className={formClasses.recurrencePreviewAlert}>
           {t('offer:form.section.dateTime.field.recurrence.previewCount', {
             count: offerDates.length,
           })}

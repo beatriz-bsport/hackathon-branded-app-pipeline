@@ -90,7 +90,10 @@ const useOfferFormStyles = (
       },
     },
     levelSelectorAdd: {
-      margin: 0,
+      color: theme.palette.primary.main,
+      padding: 0,
+      textTransform: 'none',
+      fontWeight: 400,
       [theme.breakpoints.down('xs')]: {
         width: 'fit-content',
       },
@@ -187,6 +190,16 @@ const useOfferFormStyles = (
       margin: `${theme.spacing(4)}px ${theme.spacing(4)}px ${theme.spacing(
         1,
       )}px`,
+    },
+    recurrencePreviewAlert: {
+      gap: theme.spacing(1.5),
+      width: 'fit-content',
+      '&.MuiAlert-icon': {
+        margin: 0,
+      },
+      '&.MuiAlert-action': {
+        margin: 0,
+      },
     },
   }));
 

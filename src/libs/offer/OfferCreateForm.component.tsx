@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import AddIcon from '@material-ui/icons/Add';
 import { withFormik, useFormikContext, FormikProps, Form } from 'formik';
 import moment, { Moment } from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
@@ -130,7 +129,7 @@ export const OfferCreateForm = (props: Props) => {
     if (processing) {
       return <CircularProgress size={24} color="secondary" />;
     }
-    return <AddIcon />;
+    return null;
   }, [processing]);
 
   if (isLoading) {

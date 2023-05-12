@@ -112,7 +112,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   buttonBase: {
     minWidth: 'inherit',
-    textTransform: 'lowercase',
+    textTransform: 'capitalize',
     borderRadius: theme.spacing(3),
     fontWeight: 400,
   },

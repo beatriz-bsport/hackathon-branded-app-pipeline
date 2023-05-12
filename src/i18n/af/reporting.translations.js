@@ -695,7 +695,7 @@ exports.default = {
     workshop:
       "Les ateliers qui apparaissent sont ceux pour lesquels une séance est prévue dans l'intervalle de date sélectionné.",
     offers: 'Les séances sont filtrées sur la date à laquelle elles ont lieu.',
-    subscription: "Les factures sont filtrées sur leur date d'écéance.",
+    subscription: "Les factures sont filtrées sur leur date d'échéance.",
     privateService:
       'Les rendez-vous sont filtrés sur la date à laquelle ils ont lieu.',
     dayBookings:
@@ -711,7 +711,7 @@ exports.default = {
     private_bookings:
       'Les réservations sont filtrées sur la date du rendez-vous correspondant.',
     unpaid_private_bookings:
-      'Les réservations non payées sont filtrées sur la date de la séance correpsondante.',
+      'Les réservations non payées sont filtrées sur la date de la séance correspondante.',
     private_cpasses_expired:
       "Les cartes de rendez-vous expirées sont filtrées sur leur date d'expiration.",
     memberships:
@@ -728,11 +728,11 @@ exports.default = {
     cashbook:
       "Sur la période sélectionnée, retrouvez pour chaque jour l'évolution de la caisse.",
     expense: 'Les dépenses sont filtrées par la date de leur échéance.',
-    payments: 'Les paiments sont filtrés sur la date de la transaction.',
+    payments: 'Les paiements sont filtrés sur la date de la transaction.',
     payment_sumup:
       'Sur la période sélectionnée, retrouvez pour chaque jour le total des transactions réalisées.',
     on_spot_payments:
-      'Les paiments sont filtrés sur la date de la transaction.',
+      'Les paiements sont filtrés sur la date de la transaction.',
     dispute: 'Les litiges sont filtrés sur la date de la transaction.',
     payment_installments:
       "Les paiements sont filtrés sur leur date d'échéance.",

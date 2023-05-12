@@ -699,11 +699,11 @@ exports.default = {
     privateService:
       'Les rendez-vous sont filtrés sur la date à laquelle ils ont lieu.',
     dayBookings:
-      'Les réservations sont filtrées par rapport à la date de la séance correspondante.',
+      'Les réservations sont filtrées sur la date de la séance correspondante.',
     first_booking:
       'Les premières réservations sont filtrées sur la date de la séance correspondante.',
     bookings:
-      'Les réservations sont filtrées par rapport à la date de la séance correspondante.',
+      'Les réservations sont filtrées sur la date de la séance correspondante.',
     first_attendance:
       'Les premières présences sont filtrées sur la date de la séance auxquelles elles ont eu lieu.',
     first_privatebooking:
@@ -714,6 +714,8 @@ exports.default = {
       'Les réservations non payées sont filtrées sur la date de la séance correspondante.',
     private_cpasses_expired:
       "Les cartes de rendez-vous expirées sont filtrées sur leur date d'expiration.",
+    expired_pass:
+      "Les cartes de cours expirées sont filtrées sur leur date d'expiration.",
     memberships:
       'Les cartes de cours qui apparaissent sont celles valides à cette date.',
     private_cpasses:
@@ -727,7 +729,7 @@ exports.default = {
     shop: "Pour chacun de vos articles, retrouvez l'évolution de leur stock entre la date de début et de fin de l'intervalle sélectionné.",
     cashbook:
       "Sur la période sélectionnée, retrouvez pour chaque jour l'évolution de la caisse.",
-    expense: 'Les dépenses sont filtrées par la date de leur échéance.',
+    expense: 'Les dépenses sont filtrées sur la date de leur échéance.',
     payments: 'Les paiements sont filtrés sur la date de la transaction.',
     payment_sumup:
       'Sur la période sélectionnée, retrouvez pour chaque jour le total des transactions réalisées.',

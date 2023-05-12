@@ -86,6 +86,7 @@ const CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES = [
   'private_bookings',
   'unpaid_private_bookings',
   'private_cpasses_expired',
+  'expired_pass',
   'memberships',
   'private_cpasses',
   'universal_passes',

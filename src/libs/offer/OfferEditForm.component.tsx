@@ -252,17 +252,16 @@ export const OfferEditForm = (props: Props) => {
       {isWarningStep && (
         <>
           <OfferFormEditSettings similarOffersLength={similarOffers?.length} />
-          {values.isModifyRecursively &&
-            values.coachOverride &&
-            similarOffers?.length > 1 && (
-              <>
-                <OfferFormEditSimilarOffers
-                  similarOffers={similarOffers}
-                  similarOffersLoading={similarOffersLoading}
-                  coaches={coaches}
-                  offerCoach={offer?.coach}
-                  offerId={offer?.id}
-                />
+          {values.isModifyRecursively && similarOffers?.length > 1 && (
+            <>
+              <OfferFormEditSimilarOffers
+                similarOffers={similarOffers}
+                similarOffersLoading={similarOffersLoading}
+                coaches={coaches}
+                offerCoach={offer?.coach}
+                offerId={offer?.id}
+              />
+              {values.coachOverride && (
                 <OfferFormEditCoachOverride
                   similarOffers={similarOffers}
                   similarOffersLoading={similarOffersLoading}
@@ -270,8 +269,9 @@ export const OfferEditForm = (props: Props) => {
                   offerId={offer?.id}
                   offerCoachOverrideId={offer?.coach_override?.id}
                 />
-              </>
-            )}
+              )}
+            </>
+          )}
         </>
       )}
 

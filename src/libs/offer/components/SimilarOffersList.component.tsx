@@ -244,8 +244,12 @@ const SimilarOffersList = (props: Props) => {
 
                       <OfferItem
                         date={getNewOfferDate(similarOffer.date_start)}
-                        coachName={getCoachName(coachOverride)}
-                        coachPicture={getCoachPhoto(coachOverride)}
+                        coachName={getCoachName(
+                          coachOverride ?? similarOffer.coach,
+                        )}
+                        coachPicture={getCoachPhoto(
+                          coachOverride ?? similarOffer.coach,
+                        )}
                         isAlignItemsEnd
                       />
                     </>

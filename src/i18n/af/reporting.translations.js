@@ -682,7 +682,7 @@ exports.default = {
   },
   helperText: {
     franchise_shared_pass:
-      "Ce rapport vous permet d'analyser les réservations faites avec les cartes partagées. Lorsqu'une carte partagée est achetée dans un studio, le rapport indique le nombre de réservations réalisées avec cette carte dans un autre studio. Le nombre de séances réservées comprends les réservations de cours collectifs, ateliers et rendez-vous.",
+      "Ce rapport vous permet d'analyser les réservations faites avec les cartes partagées sur la période sélectionnée. Lorsqu'une carte partagée est achetée dans un studio, le rapport indique le nombre de réservations réalisées avec cette carte dans un autre studio. Le nombre de séances réservées comprends les réservations de cours collectifs, ateliers et rendez-vous.",
     billing_plan:
       'Les souscriptions sont filtrées sur la date de première facturation.',
     members: "Les membres sont filtrés sur leur date d'inscription.",

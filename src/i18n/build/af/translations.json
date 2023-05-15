@@ -7561,7 +7561,7 @@
       "part2": "Vous pouvez dès à présent exporter le rapport et le traiter sur excel ensuite. Les dates indiquées ainsi que la vue filtrée appliquée seront prises en compte dans l'export."
     },
     "helperText": {
-      "franchise_shared_pass": "Ce rapport vous permet d'analyser les réservations faites avec les cartes partagées. Lorsqu'une carte partagée est achetée dans un studio, le rapport indique le nombre de réservations réalisées avec cette carte dans un autre studio. Le nombre de séances réservées comprends les réservations de cours collectifs, ateliers et rendez-vous.",
+      "franchise_shared_pass": "Ce rapport vous permet d'analyser les réservations faites avec les cartes partagées sur la période sélectionnée. Lorsqu'une carte partagée est achetée dans un studio, le rapport indique le nombre de réservations réalisées avec cette carte dans un autre studio. Le nombre de séances réservées comprends les réservations de cours collectifs, ateliers et rendez-vous.",
       "billing_plan": "Les souscriptions sont filtrées sur la date de première facturation.",
       "members": "Les membres sont filtrés sur leur date d'inscription.",
       "activities": "Les activités qui apparaissent sont celles pour lesquelles une séance est prévue dans l'intervalle de date sélectionné.",

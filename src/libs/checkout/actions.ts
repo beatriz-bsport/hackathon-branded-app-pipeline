@@ -52,16 +52,6 @@ export function fetchCurrentBasket(
         options.onSuccess(response.data);
       }
     } catch (error) {
-      if (
-        error.response?.status === 499 &&
-        error.response?.data?.error_code === BASKET_LOCK_ACQUISITION_FAILURE
-      ) {
-        dispatch(
-          snackbarError(
-            `requestCurrentBasket.${BASKET_LOCK_ACQUISITION_FAILURE}`,
-          ),
-        );
-      }
       dispatch(currentBasket.error(error));
       if (options && options.onError) options.onError(error);
     }

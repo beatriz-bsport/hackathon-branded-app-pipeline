@@ -73,6 +73,7 @@ type ComponentProps = {
     meta_activity: MetaActivity;
     whitelist_tags: Tag[];
     blacklist_tags: Tag[];
+    credits?: number;
   };
   metaActivities: MetaActivity[];
   similarOffersLoading: boolean;
@@ -172,14 +173,14 @@ export const OfferEditForm = (props: Props) => {
       : onCancel();
   }, [isWarningStep, onCancel]);
 
-  const updateValuesAndSubmit = useCallback(
+  const handleNext = useCallback(
     (submitEvent: React.FormEvent<HTMLFormElement>) => {
       submitEvent.preventDefault();
       if (editCurrentStep === OFFER_EDIT_FORM_STEPS.GATHER_INFO && offer) {
         // if first step, trigger form validation first
         validateForm().then(() => {
           if (!Object.keys(errors).length) {
-            setEditCurrentStep(1);
+            setEditCurrentStep(OFFER_EDIT_FORM_STEPS.SHOW_WARNING);
           }
         });
       } else {
@@ -221,11 +222,7 @@ export const OfferEditForm = (props: Props) => {
   }
 
   return (
-    <Form
-      onSubmit={updateValuesAndSubmit}
-      data-testid="offer-edit-form"
-      noValidate
-    >
+    <Form onSubmit={handleNext} data-testid="offer-edit-form" noValidate>
       {!hideBanner && (
         <OfferFormBanner
           name={offer?.meta_activity.name ?? metaActivity?.name}
@@ -347,7 +344,7 @@ const formikFormWrapper = withFormik<
     level: props.offer?.custom_level,
     establishment: props.offer?.establishment.id,
     broadcastLink: props.offer?.broadcast_link,
-    credits: props.offer?.credit_price,
+    credits: props.offer?.credit_price || props.offer?.credits,
     dateIntervalStart: moment(props.offer?.date_start),
     durationMinute: props.offer?.duration_minute,
     coach: props.offer?.coach.id,
@@ -433,8 +430,10 @@ const formikFormWrapper = withFormik<
       date_start: dateIntervalStart,
     };
 
-    if (credits !== offer.credit_price) {
+    if (offer.credit_price && credits !== offer.credit_price) {
       offerData.credit_price_override = credits;
+    } else {
+      offerData.credits = credits;
     }
 
     if (roomBlueprint) {

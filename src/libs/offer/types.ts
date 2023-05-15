@@ -342,4 +342,5 @@ export type OfferEdit = Omit<
   credit_price_override?: number;
   date_start: Moment;
   coach_override: number | null;
+  credits?: number;
 };

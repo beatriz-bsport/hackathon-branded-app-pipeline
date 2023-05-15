@@ -80,6 +80,7 @@ import tutorialReducers from '#libs/platform-tutorial/reducers';
 import CadenceReducers from '#libs/sequential_marketingDEPRECATED/reducers';
 import CadenceWIPReducers from '#libs/sequential_marketing/reducers';
 import exportableComponentsReducers from '#libs/exportable-components/reducers';
+import quicksaleReducers from '#libs/quicksale/reducers';
 
 import { BackgroundDialogState } from '#libs/background-dialog/types';
 import { BackgroundTaskState } from '#libs/background-task/types';
@@ -225,6 +226,7 @@ const rootReducer = (history: any) =>
     cadence: CadenceReducers,
     cadenceWIP: CadenceWIPReducers,
     exportableComponents: exportableComponentsReducers,
+    quicksale: quicksaleReducers,
   });
 
 export type RootState = {

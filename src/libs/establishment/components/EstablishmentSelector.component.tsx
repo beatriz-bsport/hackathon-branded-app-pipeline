@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { FocusEventHandler } from 'react';
 import chroma from 'chroma-js';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -225,6 +225,7 @@ export type OwnProps = {
     suggestion: EstablishmentSelectOption[] | EstablishmentSelectOption,
   ) => void;
   selectMultipleOptions?: (itemsValueList: Array<number>) => void;
+  onBlur?: FocusEventHandler<HTMLSelectElement>;
   selectedEstablishments: Array<number> | null;
   disabled?: boolean;
   noMulti: boolean;
@@ -265,6 +266,7 @@ export function EstablishmentSelector(props: Props) {
     selectorClass,
     hideError,
     id,
+    onBlur,
   } = props;
   const roomsSelected =
     selectedEstablishments && !nullCurrentValue
@@ -309,6 +311,7 @@ export function EstablishmentSelector(props: Props) {
         isLoading={isLoading}
         name={name}
         className={classNames(selectorClass)}
+        onBlur={onBlur}
       />
 
       {isRequired && requiredValueIsMissing && !hideError && (

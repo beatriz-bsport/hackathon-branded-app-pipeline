@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useCallback } from 'react';
+import React, { FocusEventHandler, useCallback } from 'react';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
 import Select, {
@@ -40,6 +40,7 @@ type Props = {
   selectorClass?: string;
   error?: string;
   isError?: boolean;
+  onBlur?: FocusEventHandler<HTMLSelectElement>;
 };
 
 export const CoachSelector: React.FC<Props> = ({
@@ -58,6 +59,7 @@ export const CoachSelector: React.FC<Props> = ({
   selectorClass,
   error,
   isError,
+  onBlur,
 }) => {
   const { t } = useTranslation('coach');
 
@@ -138,6 +140,7 @@ export const CoachSelector: React.FC<Props> = ({
         }
         isLoading={isLoading}
         className={selectorClass}
+        onBlur={onBlur}
       />
 
       {error && (

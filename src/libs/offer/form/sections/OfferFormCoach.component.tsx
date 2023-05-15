@@ -36,7 +36,8 @@ const OfferFormCoach = (props: Props) => {
   const { t } = useTranslation('offer');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-  const { values, errors, setFieldValue } = useFormikContext<OfferFormValues>();
+  const { values, touched, errors, setFieldValue, handleBlur } =
+    useFormikContext<OfferFormValues>();
   const { coach, coachPaymentRule, coachOverride } = values;
 
   const handleSelectCoach = useCallback(
@@ -129,11 +130,12 @@ const OfferFormCoach = (props: Props) => {
             closeMenuOnSelect
             selectedCoaches={selectedCoaches}
             selectOption={handleSelectCoach}
+            onBlur={handleBlur}
             selectorClass={classes.bigWidth}
-            isError={!!errors.coach}
+            isError={!!errors.coach && touched.coach}
           />
 
-          {!!errors.coach && (
+          {!!errors.coach && touched.coach && (
             <Typography variant="caption" color="error">
               {t(errors.coach)}
             </Typography>

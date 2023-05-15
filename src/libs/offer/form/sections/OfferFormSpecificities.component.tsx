@@ -70,7 +70,7 @@ const OfferFormSpecificities = (props: Props) => {
   const classes = useOfferFormStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-  const { values, errors, setFieldValue, handleChange } =
+  const { values, touched, errors, setFieldValue, handleChange, handleBlur } =
     useFormikContext<OfferFormValues>();
   const { zoomAppEnabled } = useFeaturesProvider();
   const {
@@ -207,7 +207,7 @@ const OfferFormSpecificities = (props: Props) => {
           id="offer-form-effectif-field"
           label={t('form.section.specificities.field.effectif')}
           isRequired
-          isError={!!errors.effectif}
+          isError={!!errors.effectif && touched.effectif}
         >
           <div className={classes.errorContainer}>
             <NumericInput
@@ -215,15 +215,16 @@ const OfferFormSpecificities = (props: Props) => {
               name="effectif"
               value={effectif}
               onChange={handleChange}
-              error={!!errors.effectif}
+              error={!!errors.effectif && touched.effectif}
               variant="outlined"
               size="small"
               InputProps={{ inputProps: { min: 0 } }}
               placeholder="20"
               inputClass={classes.mediumWidth}
+              onBlur={handleBlur}
             />
 
-            {!!errors.effectif && (
+            {!!errors.effectif && touched.effectif && (
               <div>
                 <Typography variant="caption" color="error">
                   {t(errors.effectif)}
@@ -236,15 +237,20 @@ const OfferFormSpecificities = (props: Props) => {
         <OfferFormField
           label={t('form.section.specificities.field.waitingListMaxSize')}
           isRequired
-          isError={!!errors.waitingListMaxSize}
+          isError={!!errors.waitingListMaxSize && touched.waitingListMaxSize}
         >
           <NumericInput
             id="offer-form-waiting-list-input"
             name="waitingListMaxSize"
             value={waitingListMaxSize}
             onChange={handleChange}
-            error={!!errors.waitingListMaxSize}
-            helperText={t(errors.waitingListMaxSize)}
+            onBlur={handleBlur}
+            error={!!errors.waitingListMaxSize && touched.waitingListMaxSize}
+            helperText={
+              !!errors.waitingListMaxSize &&
+              touched.waitingListMaxSize &&
+              t(errors.waitingListMaxSize)
+            }
             variant="outlined"
             size="small"
             InputProps={{ inputProps: { min: 0, max: 100 } }}
@@ -303,11 +309,14 @@ const OfferFormSpecificities = (props: Props) => {
             placeholder={t('establishment:search')}
             selectorClass={classes.bigWidth}
             isRequired
-            requiredValueIsMissing={!!errors.establishment}
+            requiredValueIsMissing={
+              !!errors.establishment && touched.establishment
+            }
             hideError
+            onBlur={handleBlur}
           />
 
-          {!!errors.establishment && (
+          {!!errors.establishment && touched.establishment && (
             <Typography variant="caption" color="error">
               {t(errors.establishment)}
             </Typography>
@@ -359,20 +368,21 @@ const OfferFormSpecificities = (props: Props) => {
         id="offer-form-credits-field"
         label={t('form.section.specificities.field.credits')}
         isRequired
-        isError={!!errors.credits}
+        isError={!!errors.credits && touched.credits}
       >
         <NumericInput
           id="offer-form-credits-input"
           name="credits"
           value={credits}
           onChange={handleChange}
-          error={!!errors.credits}
-          helperText={t(errors.credits)}
+          error={!!errors.credits && touched.credits}
+          helperText={!!errors.credits && touched.credits && t(errors.credits)}
           variant="outlined"
           size="small"
           InputProps={{ inputProps: { min: 0 } }}
           placeholder="1"
           inputClass={classes.mediumWidth}
+          onBlur={handleBlur}
         />
 
         <Tooltip
@@ -415,14 +425,17 @@ const OfferFormSpecificities = (props: Props) => {
             name="broadcastLink"
             placeholder="https://zoom.us/123456789"
             disabled={zoomAppEnabled && !zoomAppDetail?.is_disabled}
-            error={!!errors.broadcastLink}
+            error={!!errors.broadcastLink && touched.broadcastLink}
             onChange={handleChange}
+            onBlur={handleBlur}
             className={classNames(classes.bigWidth, {
               [classes.disabledInput]:
                 zoomAppEnabled && !zoomAppDetail?.is_disabled,
             })}
             helperText={
-              isBroadcastErrorRequired ? t('form.errors.required') : null
+              isBroadcastErrorRequired && touched.broadcastLink
+                ? t('form.errors.required')
+                : null
             }
           />
 

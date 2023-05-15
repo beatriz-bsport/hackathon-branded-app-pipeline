@@ -5,10 +5,11 @@ import { Theme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import classNames from 'classnames';
+import { Immutable } from 'seamless-immutable';
 
 import PassSearch from '#components/css-only/Search/PassSearch';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import { MarketplaceCategoryPassFilterOption } from '#libs/marketplace/types';
 import { useMarketplacePassFlatLists } from '#libs/marketplace/hooks';
 
@@ -19,11 +20,13 @@ import {
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
 import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
+import Select from '#components/css-only/Select';
+import MarketplaceFilter from '#libs/marketplace/components/MarketplaceFilter/MarketplaceFilter.component';
 
 type Props = {
   searchFiltersState: {
-    type: MarketplaceCategoryPassFilterOption;
-    selectedCategories: MarketplaceCategoryPassFilterOption[];
+    type: string;
+    selectedCategories: (number | null)[];
     allCategories: MarketplaceCategoryPassFilterOption[];
   };
   searchResultState: {
@@ -36,9 +39,9 @@ type Props = {
   hidePaymentPack: boolean;
   hidePrivatePass: boolean;
   hidePaymentCombo: boolean;
-  paymentPackByCategory: PaymentPackCategoryWithPacks[];
+  paymentPackByCategory: Immutable<PaymentPackCategoryWithPacks[]>;
   restrictedPaymentPackCategories: number[];
-  privatePassByCategory: PrivatePassCategoryWithPasses[];
+  privatePassByCategory: Immutable<PrivatePassCategoryWithPasses[]>;
   restrictedPrivatePassCategories: number[];
   isExcludingTax: boolean;
   addPaymentPackToCart: (packId: number) => void;
@@ -52,18 +55,8 @@ type Props = {
   onShowPrivatePassDetail: (id: number) => void;
   onShowPaymentComboDetail: (id: number) => void;
   onClearSearchResult: () => void;
-  onChangeType: (option: MarketplaceCategoryPassFilterOption) => void;
-  onChangeCategory: (options: MarketplaceCategoryPassFilterOption[]) => void;
-};
-
-const SelectedCategoriesCount = ({ count }: { count: number }) => {
-  const classes = useStyles();
-
-  if (!count) {
-    return <></>;
-  }
-
-  return <span className={classes.selectedCategoriesCount}>{count}</span>;
+  onChangeType: (value: string) => void;
+  onChangeCategory: (options: number[]) => void;
 };
 
 const MarketplacePassFilters: React.FC<Props> = (props) => {
@@ -117,6 +110,20 @@ const MarketplacePassFilters: React.FC<Props> = (props) => {
     ],
   );
 
+  const searchFilterTypeOptions = useMemo(
+    () => [
+      {
+        label: t('marketplace:pass.filters.type.paymentPack'),
+        value: 'paymentPack',
+      },
+      {
+        label: t('marketplace:pass.filters.type.privatePass'),
+        value: 'privatePass',
+      },
+    ],
+    [t],
+  );
+
   return (
     <>
       <div className={classes.searchContainer}>
@@ -135,43 +142,29 @@ const MarketplacePassFilters: React.FC<Props> = (props) => {
           addPaymentComboToBasket={addComboToCart}
         />
 
-        <div className={classes.searchFilters}>
+        <div
+          className={classNames(
+            classes.searchFilters,
+            'bs-marketplace-pass-filters',
+          )}
+        >
           {!hidePaymentPack && !hidePrivatePass && (
-            <MaterialUISelector
-              onChange={onChangeType}
-              isMulti={false}
-              value={searchFiltersState.type}
+            <Select
               placeholder={t('marketplace:pass.filters.placeholder.type')}
-              options={[
-                {
-                  label: t('marketplace:pass.filters.type.paymentPack'),
-                  value: 'paymentPack',
-                },
-                {
-                  label: t('marketplace:pass.filters.type.privatePass'),
-                  value: 'privatePass',
-                },
-              ]}
+              value={searchFiltersState.type}
+              options={searchFilterTypeOptions}
               isClearable
+              onChange={onChangeType}
             />
           )}
 
           {!!searchFiltersState.allCategories?.length && (
-            <MaterialUISelector
-              leftIcon={
-                searchFiltersState.selectedCategories?.length ? (
-                  <SelectedCategoriesCount
-                    count={searchFiltersState.selectedCategories.length}
-                  />
-                ) : null
-              }
-              onChange={onChangeCategory}
-              isClearable={false}
-              controlShouldRenderValue={false}
-              isMulti
-              value={searchFiltersState.selectedCategories}
-              placeholder={t('marketplace:pass.filters.placeholder.categories')}
+            <MarketplaceFilter
+              text={t('marketplace:pass.filters.placeholder.categories')}
               options={searchFiltersState.allCategories}
+              selectedOptions={searchFiltersState.selectedCategories}
+              onSelect={onChangeCategory}
+              levelVariant={false}
             />
           )}
         </div>
@@ -214,7 +207,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   searchFilters: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(2, 250px)',
+    gridTemplateColumns: 'repeat(2, auto)',
+    alignItems: 'center',
     gap: theme.spacing(2),
     [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.MD)]: {
       gridTemplateColumns: '250px 350px',

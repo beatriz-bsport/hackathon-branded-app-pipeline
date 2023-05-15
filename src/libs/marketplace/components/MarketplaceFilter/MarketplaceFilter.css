@@ -2,6 +2,10 @@
 /* Filter */
 /*  */
 
+.bs-marketplace-pass-filters {
+  position: relative;
+}
+
 .bs-marketplace-filter {
   display: flex;
   align-items: center;
@@ -21,6 +25,10 @@
   position: relative;
   background-color: var(--color-background-paper);
   font-family: var(--fontFamily);
+}
+
+.bs-marketplace-pass-filters .bs-marketplace-filter {
+  height: 40px;
 }
 
 .bs-marketplace-filter:hover,
@@ -105,6 +113,10 @@
   min-width: calc(max(25vw, 280px));
 
   margin-top: var(--spacing-6);
+}
+
+.bs-marketplace-pass-filters .bs-marketplace-filter__menu {
+  margin-top: var(--spacing-1);
 }
 
 .bs-marketplace-filter__menu__list {

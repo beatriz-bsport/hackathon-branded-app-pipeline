@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component, useCallback } from 'react';
 
 import { compose, withHandlers } from 'recompose';
@@ -29,7 +28,9 @@ import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import MarketplacePaymentPackList from '#libs/marketplace/components/MarketplacePaymentPackList.component';
 import MarketplacePrivatePassList from '#libs/marketplace/components/MarketplacePrivatePassList.component';
 
+// @ts-ignore
 import withQueryParams from '#hocs/with-query-params.hoc';
+// @ts-ignore
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
   getMarketplacePaymentPacks,
@@ -134,8 +135,8 @@ type State = {
     privatePass: number[] | null;
   };
   passSearchFilters: {
-    type: number;
-    selectedCategories: number[];
+    type: string;
+    selectedCategories: (number | '')[];
     allCategories: MarketplaceCategoryPassFilterOption[];
   };
   passSearchResult: {
@@ -470,7 +471,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
     });
   };
 
-  handlePassFilterChangeCategory = (options: number | ''[]) => {
+  handlePassFilterChangeCategory = (options: (number | '')[]) => {
     this.setState((prevState: State) => {
       return {
         ...prevState,

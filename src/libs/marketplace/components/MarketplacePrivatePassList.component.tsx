@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import { Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { Immutable } from 'seamless-immutable';
 
 import Analytics from '../../../components/analytics/Analytics.component';
 
@@ -17,13 +18,12 @@ import {
   PrivatePass,
   PrivatePassCategoryWithPasses,
 } from '#libs/private-service/types';
-import { MarketplaceCategoryPassFilterOption } from '#libs/marketplace/types';
 
 type Props = {
-  privatePassByCategory: PrivatePassCategoryWithPasses[];
+  privatePassByCategory: Immutable<PrivatePassCategoryWithPasses[]>;
   restrictedPrivatePassCategories?: number[];
   isExcludingTax: boolean;
-  selectedCategories: MarketplaceCategoryPassFilterOption[];
+  selectedCategories: (number | null)[];
   searchedPrivatePass: number[] | null;
   onAddBasket: (privatePassId: number) => void;
   setSelectedPass: (id: number) => void;

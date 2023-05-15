@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import { Theme, useMediaQuery, useTheme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { Immutable } from 'seamless-immutable';
 
 import Analytics from '../../../components/analytics/Analytics.component';
 
@@ -16,13 +17,12 @@ import {
   PaymentPack,
   PaymentPackCategoryWithPacks,
 } from '#libs/payment-packs/types';
-import { MarketplaceCategoryPassFilterOption } from '#libs/marketplace/types';
 
 type Props = {
-  paymentPackByCategory: PaymentPackCategoryWithPacks[];
+  paymentPackByCategory: Immutable<PaymentPackCategoryWithPacks[]>;
   restrictedPaymentPackCategories?: number[];
   isExcludingTax: boolean;
-  selectedCategories: MarketplaceCategoryPassFilterOption[];
+  selectedCategories: (number | null)[];
   searchedPaymentPack: number[] | null;
   pushPackCheckout: (id: number) => void;
   setSelectedPass: (id: number) => void;

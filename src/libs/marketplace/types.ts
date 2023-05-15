@@ -129,7 +129,7 @@ export type MarketPlaceFilter = {
 
 export type MarketplaceCategoryPassFilterOption = {
   label: string;
-  value: number;
+  value: number | string;
 };
 
 export type MarketplacePassFiltersHookOptions = {

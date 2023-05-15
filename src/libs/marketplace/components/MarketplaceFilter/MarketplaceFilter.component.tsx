@@ -20,7 +20,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 import './MarketplaceFilter.css';
 
-type Option = { value: number; label: string };
+type Option = { value: number | string; label: string };
 export type Props = {
   text: string;
   options: (

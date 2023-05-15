@@ -7,14 +7,8 @@ import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/pe
 import { useTranslation } from 'react-i18next';
 import { formatAsTime, formatMinutes } from '../../utils/datetime';
 
-import {
-  PaymentPack,
-  PaymentPackCategoryWithPacks,
-} from '#libs/payment-packs/types';
-import {
-  PrivatePass,
-  PrivatePassCategoryWithPasses,
-} from '#libs/private-service/types';
+import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
+import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
 import {
   MarketplacePassFiltersHookOptions,
   MarketplacePassSearchHookOptions,
@@ -58,22 +52,15 @@ export const useMarketplacePassFilters = (
     // handle filter by category case
     if (selectedCategories?.length) {
       filteredPaymentPackByCategory = filteredPaymentPackByCategory.filter(
-        (category) =>
-          selectedCategories.find((selected) => {
-            /*
-             * Handle the empty category case:
-             * if having no category name, then its the "No category" option
-             * -> we always return true so its correctly added ('' === '')
-             * {
-             *   label: t('marketplace:pass.filters.noCategory'),
-             *   value: '',
-             * }
-             */
-            if (!category.name) {
-              return selected.value === category.name;
-            }
-            return parseInt(selected.value) === category.id;
-          }),
+        (category) => {
+          // Handle the empty category case
+          if (!category.id && selectedCategories.includes(null)) {
+            return true;
+          }
+          return selectedCategories.find(
+            (selected) => selected === category.id,
+          );
+        },
       );
     }
 
@@ -120,22 +107,15 @@ export const useMarketplacePassFilters = (
     // handle filter by category case
     if (selectedCategories?.length) {
       filteredPrivatePassByCategory = filteredPrivatePassByCategory.filter(
-        (category) =>
-          selectedCategories.find((selected) => {
-            /*
-             * Handle the empty category case:
-             * if having no category name, then its the "No category" option
-             * -> we always return true so its correctly added ('' === '')
-             * {
-             *   label: t('marketplace:pass.filters.noCategory'),
-             *   value: '',
-             * }
-             */
-            if (!category.name) {
-              return selected.value === category.name;
-            }
-            return parseInt(selected.value) === category.id;
-          }),
+        (category) => {
+          // Handle the empty category case
+          if (!category.id && selectedCategories.includes(null)) {
+            return true;
+          }
+          return selectedCategories.find(
+            (selected) => selected === category.id,
+          );
+        },
       );
     }
 
@@ -216,11 +196,10 @@ export const useMarketplacePassFlatLists = (
   const filteredPaymentPackList = useMemo(() => {
     if (paymentPackByCategory?.length) {
       return paymentPackByCategory
-        .map((category: PaymentPackCategoryWithPacks) => category.packs)
-        .flat()
-        .filter((pack: PaymentPack) =>
+        .flatMap((category) => category.packs)
+        .filter((pack) =>
           restrictedPaymentPackCategories
-            ? restrictedPaymentPackCategories.some((p) => p === pack.category)
+            ? restrictedPaymentPackCategories.some((id) => id === pack.category)
             : pack,
         );
     }
@@ -230,11 +209,10 @@ export const useMarketplacePassFlatLists = (
   const filteredPrivatePassList = useMemo(() => {
     if (privatePassByCategory?.length) {
       return privatePassByCategory
-        .map((category: PrivatePassCategoryWithPasses) => category.passes)
-        .flat()
-        .filter((pass: PrivatePass) =>
+        .flatMap((category) => category.passes)
+        .filter((pass) =>
           restrictedPrivatePassCategories
-            ? restrictedPrivatePassCategories.some((p) => p === pass.category)
+            ? restrictedPrivatePassCategories.some((id) => id === pass.category)
             : pass,
         );
     }

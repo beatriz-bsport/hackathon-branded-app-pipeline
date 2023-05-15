@@ -2,6 +2,8 @@
 import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
 import Fuse from 'fuse.js';
+import { Immutable } from 'seamless-immutable';
+
 import Config from '../../config';
 import { Offer, Offer_FULL } from '#libs/offer/types';
 import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
@@ -344,8 +346,8 @@ export const getParsedPassRestrictedCategories = (
 
 // pass page category filter - get all of the available categories
 export const getPassFilterAvailableCategories = (
-  paymentPackByCategory: PaymentPackCategoryWithPacks[],
-  privatePassByCategory: PrivatePassCategoryWithPasses[],
+  paymentPackByCategory: Immutable<PaymentPackCategoryWithPacks[]>,
+  privatePassByCategory: Immutable<PrivatePassCategoryWithPasses[]>,
   restrictedCategories: {
     paymentPack: number[] | null;
     privatePass: number[] | null;
@@ -363,7 +365,7 @@ export const getPassFilterAvailableCategories = (
     .map((category: PaymentPackCategoryWithPacks) => {
       return {
         label: category.name,
-        value: category.id?.toString(),
+        value: category.id,
       };
     });
 
@@ -378,16 +380,17 @@ export const getPassFilterAvailableCategories = (
     .map((category: PrivatePassCategoryWithPasses) => {
       return {
         label: category.name,
-        value: category.id?.toString(),
+        value: category.id,
       };
     });
 
+  // add the option "No category" with all other options
   const availableCategories = [
     ...parsedPaymentPackCategories,
     ...parsedPrivatePassCategories,
     {
       label: t('marketplace:pass.filters.noCategory'),
-      value: '',
+      value: null,
     },
   ];
 

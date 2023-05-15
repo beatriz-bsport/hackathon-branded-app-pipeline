@@ -1,4 +1,5 @@
-// @ts-nocheck
+import { Immutable } from 'seamless-immutable';
+
 import { Coach } from '#libs/associated-coach/types';
 import { SCT } from '#libs/category/types';
 import { Establishment } from '#libs/establishment/types';
@@ -128,11 +129,11 @@ export type MarketPlaceFilter = {
 
 export type MarketplaceCategoryPassFilterOption = {
   label: string;
-  value: string;
+  value: number;
 };
 
 export type MarketplacePassFiltersHookOptions = {
-  selectedCategories?: MarketplaceCategoryPassFilterOption[];
+  selectedCategories?: Array<number | string>;
 
   paymentPackByCategory?: PaymentPackCategoryWithPacks[];
   restrictedPaymentPackCategories?: number[];
@@ -147,9 +148,9 @@ export type MarketplacePassFiltersHookOptions = {
 };
 
 export type MarketplacePassSearchHookOptions = {
-  paymentPackByCategory: PaymentPackCategoryWithPacks[];
+  paymentPackByCategory: Immutable<PaymentPackCategoryWithPacks[]>;
   restrictedPaymentPackCategories: number[];
-  privatePassByCategory: PrivatePassCategoryWithPasses[];
+  privatePassByCategory: Immutable<PrivatePassCategoryWithPasses[]>;
   restrictedPrivatePassCategories: number[];
 };
 

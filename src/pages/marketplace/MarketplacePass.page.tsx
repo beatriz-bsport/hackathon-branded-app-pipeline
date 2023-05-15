@@ -134,8 +134,8 @@ type State = {
     privatePass: number[] | null;
   };
   passSearchFilters: {
-    type: MarketplaceCategoryPassFilterOption;
-    selectedCategories: MarketplaceCategoryPassFilterOption[];
+    type: number;
+    selectedCategories: number[];
     allCategories: MarketplaceCategoryPassFilterOption[];
   };
   passSearchResult: {
@@ -458,9 +458,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
     });
   };
 
-  handlePassFilterChangeType = (
-    option: MarketplaceCategoryPassFilterOption,
-  ) => {
+  handlePassFilterChangeType = (option: string) => {
     this.setState((prevState: State) => {
       return {
         ...prevState,
@@ -472,9 +470,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
     });
   };
 
-  handlePassFilterChangeCategory = (
-    options: MarketplaceCategoryPassFilterOption[],
-  ) => {
+  handlePassFilterChangeCategory = (options: number | ''[]) => {
     this.setState((prevState: State) => {
       return {
         ...prevState,
@@ -602,7 +598,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
             )}
 
           {!hidePaymentPack &&
-            this.state.passSearchFilters.type?.value !== 'privatePass' && (
+            this.state.passSearchFilters.type !== 'privatePass' && (
               <div className={this.props.classes.marketplaceList}>
                 <MarketplacePaymentPackList
                   setSelectedPass={this.handleShowPaymentPackDetail}
@@ -623,7 +619,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
             )}
 
           {!hidePrivatePass &&
-            this.state.passSearchFilters.type?.value !== 'paymentPack' && (
+            this.state.passSearchFilters.type !== 'paymentPack' && (
               <div className={this.props.classes.marketplaceList}>
                 <MarketplacePrivatePassList
                   setSelectedPass={this.handleShowPrivatePassDetail}

@@ -142,6 +142,7 @@ import { SequentialMarketingState as SequentialMarketingStateWIP } from '#libs/s
 import { WaitingListState } from '#libs/waiting-list/types';
 import { InvoiceState } from '#libs/invoice/types';
 import { ExportableComponentsState } from '#libs/exportable-components/types';
+import { QuicksaleState } from '#libs/quicksale/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -280,6 +281,7 @@ export type RootState = {
   poll: PollState;
   privateService: PrivateServiceState;
   quickbooks: QuickbooksState;
+  quicksale: QuicksaleState;
   relationship: any;
   reminder: any;
   replacementRequest: ReplacementRequestState;

@@ -203,6 +203,7 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                 ...offer,
                 meta_activity: metaActivity,
               }}
+              metaActivity={metaActivity}
               establishment={getEstablishment(offer.establishment)}
               coach={getCoach(offer.coach_override || offer.coach)}
               customLevel={getLevel[offer.custom_level]}

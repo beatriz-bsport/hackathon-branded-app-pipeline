@@ -156,7 +156,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
             }}
           />
           <MarketplaceEstablishmentTitle
-            establishment={offer.establishment}
+            establishment={establishment}
             theme={props.theme}
             classes={{
               'bs-card-offer__content__establishment':

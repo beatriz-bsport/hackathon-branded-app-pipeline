@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import { push as pushRouter } from 'connected-react-router';
@@ -19,16 +18,15 @@ import {
   updateCadence as updateCadenceAction,
   archiveCadence as archiveCadenceAction,
   restoreCadence as restoreCadenceAction,
-} from '#libs/sequential_marketingDEPRECATED/actions';
+} from '#libs/sequential_marketing/actions';
 
 import { WithHandlerType } from '../../utils/types';
 import {
   getEnabledCadencesList,
-  getDisabledCadencesList,
-  withSteps,
-} from '#libs/sequential_marketingDEPRECATED/selectors';
+  getArchivedCadencesList,
+} from '#libs/sequential_marketing/selectors';
 import { OptionCallback } from '../../state/types';
-import type { Cadence } from '#libs/sequential_marketingDEPRECATED/types';
+import type { Cadence } from '#libs/sequential_marketing/types';
 import CadenceList from '#libs/sequential_marketingDEPRECATED/components/CadenceList.component';
 import CadenceManagerFab from '#libs/sequential_marketingDEPRECATED/components/CadenceManagerFab.components';
 import CadenceArchiveDialog from '#libs/sequential_marketingDEPRECATED/components/CadenceArchivedDialog.component';
@@ -66,7 +64,9 @@ export class CadenceDetailPage extends Component<Props> {
   handleCloseCreationFormAndGoToCadencePage = (id: number) => {
     this.props.setOpenCreationForm(false);
     this.handleResetCadenceToEdit();
-    if (id) this.props.goToCadencePage(id);
+    if (id) {
+      this.props.goToCadencePage(id);
+    }
   };
 
   handleResetCadenceToEdit = () => this.props.setCadenceToEdit(null);
@@ -313,8 +313,8 @@ const connector = connect(
   (state: RootState) => ({
     cadenceLoading: state.cadence.cadence.loading,
     stepLoading: state.cadence.step.loading,
-    cadencesList: withSteps(getEnabledCadencesList)(state),
-    cadenceArchivedList: withSteps(getDisabledCadencesList)(state),
+    cadencesList: getEnabledCadencesList(state),
+    cadenceArchivedList: getArchivedCadencesList(state),
   }),
   {
     fetchCadenceListAction,

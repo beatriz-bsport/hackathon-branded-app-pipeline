@@ -78,6 +78,7 @@ import terminalReducers from '#libs/terminal/reducers';
 import datatypeFilteringReducers from '#libs/datatype-filtering/reducers';
 import tutorialReducers from '#libs/platform-tutorial/reducers';
 import CadenceReducers from '#libs/sequential_marketingDEPRECATED/reducers';
+import CadenceWIPReducers from '#libs/sequential_marketing/reducers';
 
 import { BackgroundDialogState } from '#libs/background-dialog/types';
 import { BackgroundTaskState } from '#libs/background-task/types';
@@ -136,6 +137,7 @@ import { TutorialState } from '#libs/platform-tutorial/types';
 import { ReplacementRequestState } from '#libs/replacement-request/types';
 import { PaymentComboState } from '#libs/payment-combo/types';
 import { CadenceState } from '#libs/sequential_marketingDEPRECATED/types';
+import { CadenceState as cadenceStateWIP } from '#libs/sequential_marketing/types';
 import { WaitingListState } from '#libs/waiting-list/types';
 import { InvoiceState } from '#libs/invoice/types';
 
@@ -218,6 +220,7 @@ const rootReducer = (history: any) =>
     tutorial: tutorialReducers,
     replacementRequest: replacementRequestReducer,
     cadence: CadenceReducers,
+    cadenceWIP: CadenceWIPReducers,
   });
 
 export type RootState = {
@@ -298,6 +301,7 @@ export type RootState = {
   terminal: TerminalState;
   datatypeFiltering: DatatypeFilteringState;
   cadence: CadenceState;
+  cadenceWIP: cadenceStateWIP;
 };
 
 export default (history: any) => (state: any, action: any) => {

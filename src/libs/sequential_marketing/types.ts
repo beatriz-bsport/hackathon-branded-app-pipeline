@@ -1,9 +1,12 @@
+import { ErrorAndLoading } from '#libs/types';
+
 import type {
   TriggerIdentifier,
   Events,
   FilterIdentifier,
   DestinationKind,
   DestinationStatus,
+  MarketingActionKind,
 } from './constants';
 
 // ========== BACKEND MODELS & JSON SPECIFICATIONS ==========
@@ -14,8 +17,8 @@ export type Cadence = {
   active: boolean;
   archived: boolean;
   priority_index: number;
-  entries: TriggerConfig[];
-  cadence_exits: TriggerConfig[];
+  entries: ConnectedTrigger[];
+  cadence_exits: ConnectedTrigger[];
   steps: number[];
   entrypoint_step_id: number;
 };
@@ -27,7 +30,7 @@ export type CadenceStep = {
   name: string;
   is_entrypoint: boolean;
   disabled: boolean;
-  exits: any;
+  exits: ConnectedTrigger[];
   canvas: GraphCanvas;
 };
 
@@ -86,6 +89,29 @@ export type ConnectedTrigger = {
   canvas: GraphCanvas;
 };
 
+export type StepMarketingActionsCommunicationSpec = {
+  email_design: number | null;
+  text_content: string | null;
+  subject: string | null;
+  communication_kind: MarketingActionKind;
+};
+
+export type StepMarketingActionsTagSpec = {
+  tag_id: number | null;
+};
+
+export type StepMarketingActions = {
+  id: number;
+  company: number;
+  cadence_step: number;
+  name: string;
+  disabled: boolean;
+  kind: MarketingActionKind;
+  action_spec:
+    | StepMarketingActionsCommunicationSpec
+    | StepMarketingActionsTagSpec;
+};
+
 // ========== API QUERY PARAMS==========
 export type CadenceQueryParams = {
   id__in?: number[];
@@ -95,3 +121,33 @@ export type CadenceQueryParams = {
 export type CadenceStepQueryParams = {
   id__in?: number[];
 };
+
+export type StepMarketingActionsParams = {
+  id__in?: number;
+  cadence?: number;
+  cadence_step?: number;
+  kind?: MarketingActionKind;
+};
+
+// ========== REDUX STATE ==========
+export type CadenceState = {
+  cadence: {
+    allIds: Array<number>;
+    byId: { [id: number]: Cadence };
+  } & ErrorAndLoading;
+  step: {
+    allIds: Array<number>;
+    byId: { [id: number]: CadenceStep };
+    subscribe: ErrorAndLoading;
+  } & ErrorAndLoading;
+  marketingActions: {
+    allIds: [];
+    byId: { [id: number]: StepMarketingActions };
+    byStepId: { [id: number]: StepMarketingActions[] };
+    upsert: ErrorAndLoading;
+  } & ErrorAndLoading;
+  trigger: {
+    allIds: [];
+    byId: { [id: number]: ConnectedTrigger };
+  } & ErrorAndLoading;
+} & ErrorAndLoading;

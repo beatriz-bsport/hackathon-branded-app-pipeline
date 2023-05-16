@@ -8,7 +8,8 @@ import {
 
 import {
   CADENCE_MARKETING_ACTION_CHOICES,
-  CadenceMarketingActionsEnum,
+  MarketingActions,
+  MarketingActionKind,
 } from './marketing_actions';
 
 import {
@@ -29,7 +30,8 @@ export {
   CADENCE_EVENT_GROUPED_BY_CATEGORY,
   CADENCE_EVENT_ALL_CHOICES,
   // MARKETING ACTIONS
-  CadenceMarketingActionsEnum,
+  MarketingActions,
+  MarketingActionKind,
   CADENCE_MARKETING_ACTION_CHOICES,
   // TRIGGER
   TriggerIdentifier,

@@ -103,7 +103,7 @@ export const OfferCreateForm = (props: Props) => {
   } = props;
   const { t } = useTranslation('common');
   const classes = useOfferFormStyles();
-  const { values, isValid, dirty, setFieldValue, setErrors, handleSubmit } =
+  const { values, isValid, setFieldValue, setErrors, handleSubmit } =
     useFormikContext<OfferFormValues>();
   const { zoomAppEnabled } = useFeaturesProvider();
 
@@ -189,7 +189,7 @@ export const OfferCreateForm = (props: Props) => {
       <div className={classes.buttonsContainer} id="offer-form-actions">
         <Button onClick={onCancel}>{onCancelText ?? t('cancel')}</Button>
         <Button
-          disabled={processing || !isValid || !dirty}
+          disabled={processing || !isValid}
           variant="contained"
           color="primary"
           type="submit"

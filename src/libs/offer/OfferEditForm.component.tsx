@@ -369,7 +369,7 @@ const formikFormWrapper = withFormik<
     isCoachOverridePropagate: true,
     isShowPartnership: props.showPartnership,
   }),
-  enableReinitialize: false,
+  enableReinitialize: true,
   validationSchema: OfferEditFormValidationSchema,
   validateOnBlur: false,
   handleSubmit: (values, { props: { offer, similarOffers, onSubmit } }) => {

@@ -11,7 +11,8 @@ import Button from '@material-ui/core/Button';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import withTitle from '#hocs/with-title.hoc';
 import { RootState } from '../../reducers';
-import CadenceCreateAndUpdateForm from '#libs/sequential_marketingDEPRECATED/components/form/CadenceCreateAndUpdateForm.component';
+import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
+
 import {
   fetchCadenceList as fetchCadenceListAction,
   createCadence as createCadenceAction,
@@ -21,15 +22,17 @@ import {
 } from '#libs/sequential_marketing/actions';
 
 import { WithHandlerType } from '../../utils/types';
+
 import {
   getEnabledCadencesList,
   getArchivedCadencesList,
 } from '#libs/sequential_marketing/selectors';
+
 import { OptionCallback } from '../../state/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
-import CadenceList from '#libs/sequential_marketingDEPRECATED/components/CadenceList.component';
+import CadenceList from '#libs/sequential_marketing/components/CadenceList.component';
 import CadenceManagerFab from '#libs/sequential_marketingDEPRECATED/components/CadenceManagerFab.components';
-import CadenceArchiveDialog from '#libs/sequential_marketingDEPRECATED/components/CadenceArchivedDialog.component';
+import CadenceArchiveDialog from '#libs/sequential_marketing/components/CadenceArchivedDialog.component';
 
 const CADENCE_PAGE_SIZE = 100;
 type OwnProps = {
@@ -105,6 +108,10 @@ export class CadenceDetailPage extends Component<Props> {
     });
   };
 
+  handleGoToCadencePage = (cadence: Cadence) => {
+    cadence?.id && this.props.goToCadencePage(cadence.id);
+  };
+
   render() {
     const {
       classes,
@@ -139,7 +146,7 @@ export class CadenceDetailPage extends Component<Props> {
             <Button
               variant="outlined"
               color="secondary"
-              onClick={() => this.handleOpenCreationForm()}
+              onClick={this.handleOpenCreationForm}
             >
               <AddIcon className={classes.addIcon} />
               {t('cadence.form.addACadence')}
@@ -147,7 +154,7 @@ export class CadenceDetailPage extends Component<Props> {
           </div>
           <CadenceCreateAndUpdateForm
             open={this.props.openCreationForm}
-            onCancel={() => this.handleCloseCreationForm()}
+            onCancel={this.handleCloseCreationForm}
             onSubmit={this.handleUpsertCadence}
             loading={this.props.cadenceLoading}
           />
@@ -171,7 +178,7 @@ export class CadenceDetailPage extends Component<Props> {
             <CadenceList
               cadences={cadencesList}
               cadenceLoading={cadenceLoading}
-              onClickItem={(cadence) => this.props.goToCadencePage(cadence?.id)}
+              onClickItem={this.handleGoToCadencePage}
               onShow={this.props.goToCadencePage}
               onEdit={this.handleSetCadenceToEdit}
               onDelete={this.handleSetCadenceToArchive}
@@ -199,7 +206,7 @@ export class CadenceDetailPage extends Component<Props> {
         <CadenceCreateAndUpdateForm
           open={this.props.openCreationForm || !!this.props.cadenceToEdit}
           initial={this.props.cadenceToEdit}
-          onCancel={() => this.handleCloseCreationForm()}
+          onCancel={this.handleCloseCreationForm}
           onSubmit={this.handleUpsertCadence}
           loading={this.props.cadenceLoading}
         />
@@ -209,7 +216,7 @@ export class CadenceDetailPage extends Component<Props> {
           onCancel={this.handleResetCadenceToArchive}
           onConfirm={this.props.archiveCadence}
         />
-        <CadenceManagerFab onAdd={() => this.handleOpenCreationForm()} />
+        <CadenceManagerFab onAdd={this.handleOpenCreationForm} />
       </>
     );
   }
@@ -311,7 +318,7 @@ const mapWithHandlers = {
 };
 const connector = connect(
   (state: RootState) => ({
-    cadenceLoading: state.cadence.cadence.loading,
+    cadenceLoading: state.cadenceWIP.cadence.loading,
     stepLoading: state.cadence.step.loading,
     cadencesList: getEnabledCadencesList(state),
     cadenceArchivedList: getArchivedCadencesList(state),

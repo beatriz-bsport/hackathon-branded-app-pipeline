@@ -99,7 +99,6 @@ const OfferFormSettings = (props: Props) => {
               )}
               isRequired
               isError={!!errors.partnerMaxBookingCount}
-              isFlexColumn={isMobile}
             >
               <NumericInput
                 id="offer-form-partner-max-booking-input"

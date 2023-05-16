@@ -354,7 +354,6 @@ const OfferFormDateTime = (props: Props) => {
                 label={t('offer:form.section.dateTime.field.recurrence.title')}
                 isRequired
                 isError={!!errors.recurrence}
-                isFlexColumn={isMobile}
               >
                 <div
                   className={classNames(

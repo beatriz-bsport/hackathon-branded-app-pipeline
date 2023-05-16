@@ -267,7 +267,6 @@ const OfferFormSpecificities = (props: Props) => {
         id="offer-form-level-field"
         label={t('form.section.specificities.field.level')}
         isRequired
-        isFlexColumn={isMobile}
       >
         <LevelSelector
           id="offer-form-level-selector"
@@ -295,7 +294,6 @@ const OfferFormSpecificities = (props: Props) => {
         label={t('form.section.specificities.field.establishment')}
         isRequired
         isError={!!errors.establishment}
-        isFlexColumn={isMobile}
       >
         <div className={classes.errorContainer}>
           <EstablishmentSelector
@@ -328,7 +326,6 @@ const OfferFormSpecificities = (props: Props) => {
         <OfferFormField
           id="offer-form-spot-scheduling-field"
           label={t('form.section.specificities.field.roomBlueprint.title')}
-          isFlexColumn={isMobile}
         >
           <div
             id="offer-form-spot-scheduling-field-container"

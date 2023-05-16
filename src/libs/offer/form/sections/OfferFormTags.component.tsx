@@ -103,7 +103,6 @@ const OfferFormTags = (props: Props) => {
 
       <OfferFormField
         label={t('form.section.tags.field.whitelistTags')}
-        isFlexColumn
         icon={<CheckIcon className={classes.tagSelectorIcon} />}
       >
         <div className={classes.fullWidth}>
@@ -123,7 +122,6 @@ const OfferFormTags = (props: Props) => {
 
       <OfferFormField
         label={t('form.section.tags.field.blacklistTags')}
-        isFlexColumn
         icon={<BlockIcon className={classes.tagSelectorIcon} />}
       >
         <div className={classes.fullWidth}>

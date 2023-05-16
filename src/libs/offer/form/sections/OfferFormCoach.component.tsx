@@ -119,7 +119,6 @@ const OfferFormCoach = (props: Props) => {
         label={t('form.section.coach.field.coach.title')}
         isRequired
         isError={!!errors.coach}
-        isFlexColumn={isMobile}
       >
         <div className={classes.errorContainer}>
           <CoachSelector
@@ -147,7 +146,6 @@ const OfferFormCoach = (props: Props) => {
         <OfferFormField
           id="offer-form-coach-override-field"
           label={t('form.section.coach.field.coachOverride.title')}
-          isFlexColumn={isMobile}
         >
           <CoachSelector
             id="offer-form-coach-override-selector"
@@ -168,7 +166,6 @@ const OfferFormCoach = (props: Props) => {
       {editableCoachPaymentRule && (
         <OfferFormField
           label={t('form.section.coach.field.coachPaymentRule.title')}
-          isFlexColumn={isMobile}
         >
           <CoachPaymentRuleSelectorStyled
             id="offer-form-coach-payment-rule-selector"

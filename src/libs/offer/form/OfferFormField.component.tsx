@@ -8,14 +8,12 @@ type Props = {
   isRequired?: boolean;
   label: string;
   icon?: React.ReactNode;
-  isFlexColumn?: boolean;
   children: React.ReactNode;
   isError?: boolean;
 };
 
 const OfferFormField = (props: Props) => {
-  const { id, isRequired, label, icon, isFlexColumn, children, isError } =
-    props;
+  const { id, isRequired, label, icon, children, isError } = props;
   const classes = useStyles();
 
   return (
@@ -28,7 +26,6 @@ const OfferFormField = (props: Props) => {
       <Typography
         variant="body1"
         className={classNames({
-          // [classes.typographyContainer]: true, // isFlexColumn,
           [classes.label]: !icon,
         })}
       >

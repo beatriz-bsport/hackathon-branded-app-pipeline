@@ -248,7 +248,7 @@ const formikFormWrapper = withFormik<
       isShowPartnership: props.showPartnership,
     };
   },
-  enableReinitialize: true,
+  enableReinitialize: false,
   validationSchema: OfferFormCreationValidationSchema,
   validateOnBlur: false,
   handleSubmit: (values, { props: { timezone, onSubmit } }) => {

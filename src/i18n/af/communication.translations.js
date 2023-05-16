@@ -337,6 +337,21 @@ exports.default = {
       becauseNeverUsed:
         "Vous n'avez pas encore envoyé de communication sur ce canal.",
     },
+    item: {
+      markAsRead: 'Marquer comme non lu',
+      addToFavorite: 'Ajouter aux favoris',
+      removeFavorite: 'Retirer des favoris',
+      mute: 'Mettre en silencieux',
+      unmute: 'Réactiver',
+      archive: 'Archiver',
+      unarchive: 'Restaurer',
+      minutes: 'min',
+      hours: 'h',
+      days: 'j',
+      weeks: 'sem',
+      year: '{{count}}\u00A0an',
+      year_plural: '{{count}}\u00A0ans',
+    },
   },
   generic: {
     communication: 'Communication',

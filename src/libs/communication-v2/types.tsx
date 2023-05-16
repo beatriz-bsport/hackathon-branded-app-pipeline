@@ -173,3 +173,19 @@ export type CommunicationProvider = {
 export type CommunicationProviderSettings = {
   is_two_way_email_activated: boolean;
 };
+
+export type CommunicationThread = {
+  id: number;
+  name: string;
+  cover?: string;
+  subtitle?: string;
+  lastCommunicationDate: string;
+  lastCommunicationContent: string;
+  hasBeenRead: boolean;
+  isMuted: boolean;
+  isFavorite: boolean;
+  isDisabled: boolean;
+  relatedObjectKind: string;
+  relatedObjectId: number;
+  numberOfUnreadAnswers: number;
+};

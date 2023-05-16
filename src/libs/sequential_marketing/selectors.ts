@@ -58,6 +58,11 @@ export const getStepsList = createSelector(
   (ids, data) => ids.map((_id) => data[_id]),
 );
 
+export const getCadenceStepList = createSelector(
+  [getStepsList, (_, cadenceId: number) => cadenceId],
+  (stepList, id) => stepList.filter((step) => step?.cadence === id),
+);
+
 export const getEnabledStepsList = createSelector([getStepsList], (stepList) =>
   stepList.filter((step) => !step.disabled),
 );

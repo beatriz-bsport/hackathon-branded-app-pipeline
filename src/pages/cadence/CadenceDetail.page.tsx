@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { push as pushRouter } from 'connected-react-router';
 import classNames from 'classnames';
@@ -7,6 +6,7 @@ import { compose, withStateHandlers, withHandlers } from 'recompose';
 import { Theme, WithStyles, createStyles, withStyles } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import withTitle from '#hocs/with-title.hoc';
+// @ts-expect-error : Not typed hoc
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
 import {
@@ -27,34 +27,34 @@ import {
   upsertStepMarketingAtions as upsertStepMarketingAtionsAction,
   deleteStepMarketingAction as deleteStepMarketingActionAction,
   deleteConnectedTrigger as deleteConnectedTriggerAction,
-} from '#libs/sequential_marketingDEPRECATED/actions';
-
-import { getAllSmartList } from '../../libs/smart-list/selectors';
+} from '#libs/sequential_marketing/actions';
 
 import {
-  CadenceDestinationEnum,
+  getAllSmartList,
+  getSmartListDict,
+} from '../../libs/smart-list/selectors';
+
+import {
+  DestinationStatus,
   CadencePanelMode,
-} from '#libs/sequential_marketingDEPRECATED/constants';
+} from '#libs/sequential_marketing/constants';
 import { WithHandlerType } from '../../utils/types';
 import {
   getCadenceOnlyActiveCTs,
-  withSteps,
-  withSmartLists,
+  getCadenceStepList,
   getCadenceStep,
   getStepMarketingActionsByStepId,
   getStepMarketingActionsLoading,
   getStepMarketingActionsUpsertLoading,
-} from '#libs/sequential_marketingDEPRECATED/selectors';
+} from '#libs/sequential_marketing/selectors';
 import { OptionCallback } from '../../state/types';
 import type {
   Cadence,
-  CadenceConnectedTriggerConfig,
+  ConnectedTrigger,
   CadenceStep,
-  StepConnectedTriggerConfig,
   StepMarketingActions,
-} from '#libs/sequential_marketingDEPRECATED/types';
-import CadenceDetailHeader from '#libs/sequential_marketingDEPRECATED/components/CadenceDetailHeader.component';
-import CadenceToolsPanel from '#libs/sequential_marketingDEPRECATED/components/CadenceToolsPanel.component';
+} from '#libs/sequential_marketing/types';
+import CadenceDetailHeader from '#libs/sequential_marketing/components/CadenceDetailHeader.component';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import CadenceGraphFlow from '#libs/sequential_marketingDEPRECATED/components/graph/CadenceGraphFlow.component';
 import {
@@ -141,22 +141,20 @@ export class CadenceDetailPage extends Component<Props> {
   getCadenceMinimalConfigurationState = () => {
     const cadenceWinConfigured =
       (this.props.cadence?.exits || []).filter(
-        (exit: CadenceConnectedTriggerConfig) =>
-          exit?.destination_config?.status ===
-          CadenceDestinationEnum.CADENCE_DESTINATION_STATUS_EXIT_SUCCESS_STATUS,
+        (exit: ConnectedTrigger) =>
+          exit?.destination_config?.status === DestinationStatus.WIN,
       ).length !== 0;
 
     const cadenceLoseConfigured =
       (this.props.cadence?.exits || []).filter(
-        (exit: CadenceConnectedTriggerConfig) =>
-          exit?.destination_config?.status ===
-          CadenceDestinationEnum.CADENCE_DESTINATION_STATUS_EXIT_FAIL_STATUS,
+        (exit: ConnectedTrigger) =>
+          exit?.destination_config?.status === DestinationStatus.FAIL,
       ).length !== 0;
 
     const cadenceEntryConfigured =
       !!this.props.cadence?.entries &&
       this.props.cadence?.entries?.filter(
-        (entry: CadenceConnectedTriggerConfig) => !entry.disabled,
+        (entry: ConnectedTrigger) => !entry.disabled,
       )?.length !== 0;
     return {
       cadenceWinConfigured,
@@ -226,7 +224,7 @@ export class CadenceDetailPage extends Component<Props> {
 
   handleClickConnectedTrigger = (
     step: CadenceStep,
-    trigger: CadenceConnectedTriggerConfig,
+    trigger: ConnectedTrigger,
   ) => {
     this.displayEditTriggerForm();
     this.props.setTriggerForEdition(step, trigger);
@@ -289,6 +287,7 @@ export class CadenceDetailPage extends Component<Props> {
                 cadenceMinimalConfigurationState={
                   this.props.cadenceMinimalConfigurationState
                 }
+                smartlistById={this.props.smartlistById}
               />
             </div>
           </div>
@@ -301,7 +300,7 @@ export class CadenceDetailPage extends Component<Props> {
               updateConnectedTriggerPosition={
                 this.props.updateCadenceStepConnectedTriggerCanvasPosition
               }
-              onClickEntryStep={this.props.onClickStepItem}
+              onClickEntryStep={this.props.onClickEntryStep}
               handleSelectStepForSubscription={
                 this.handleSelectStepForSubscription
               }
@@ -326,45 +325,7 @@ export class CadenceDetailPage extends Component<Props> {
                 classes.whiteGreyBorderContainer,
               )}
             >
-              <CadenceToolsPanel
-                loading={this.props.loading}
-                cadence={this.props.cadence}
-                mode={this.props.rightPanelMode}
-                smartlists={this.props.smartlists}
-                getEmails={this.props.fetchEmailTemplatesSummaries}
-                emails={this.props.emailTemplatesList}
-                getEmailDetail={this.props.fetchEmailTemplateDetail}
-                emailDetails={this.props.emailTemplatesDetails}
-                emailListLoading={this.props.emailListLoading}
-                emailDetailLoading={this.props.emailDetailLoading}
-                setUpFormSubmit={this.setInitialCadenceConfiguration}
-                updateInitialConfiguration={
-                  this.props.updateInitialCadenceConfiguration
-                }
-                handleSubmitNewStepWithTrigger={
-                  this.handleSubmitNewStepWithTrigger
-                }
-                handleSubmitEditConnectedTrigger={
-                  this.handleSubmitEditConnectedTrigger
-                }
-                subscriptionDestinationConfig={
-                  this.props.subscriptionDestinationConfig
-                }
-                tagList={this.props.allTagsWithTagGroup}
-                triggerForEdition={this.props.triggerForEdition}
-                cadenceEditMode={this.props.cadenceEditMode}
-                updateCadenceStepName={this.props.updateCadenceStepName}
-                stepForEdition={this.props.stepForEdition}
-                getStepMarketingActions={this.props.getStepMarketingActions}
-                upsertStepMarketingAtions={this.props.upsertStepMarketingAtions}
-                stepMarketingActionsLoading={
-                  this.props.stepMarketingActionsLoading
-                }
-                stepMarketingActionsUpsertLoading={
-                  this.props.stepMarketingActionsUpsertLoading
-                }
-                deleteStepMarketingAction={this.props.deleteStepMarketingAction}
-              />
+              {/* Tool Panel Place Holder */}
             </div>
           </div>
         </div>
@@ -388,11 +349,12 @@ type StateHandlerInit = {
   };
   stepNodeFakerSource: CadenceStep | null;
   triggerForEdition: {
-    trigger: StepConnectedTriggerConfig | null;
+    trigger: ConnectedTrigger | null;
     step: CadenceStep | null;
   };
   cadenceEditMode: boolean;
 };
+
 const StateHandlersInit: StateHandlerInit = {
   rightPanelMode: CadencePanelMode.CADENCE_PANEL_HOW_TO,
   stepForSubscription: null,
@@ -445,7 +407,7 @@ const StateHandlersSetter = {
   }),
 
   setTriggerForEdition:
-    () => (step: CadenceStep, trigger: CadenceConnectedTriggerConfig) => {
+    () => (step: CadenceStep, trigger: ConnectedTrigger) => {
       return {
         triggerForEdition: {
           step,
@@ -610,10 +572,10 @@ const mapWithHandlers = {
       );
     },
 
-  onClickStepItem:
+  onClickEntryStep:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (step: CadenceStep) => {
-      if (step?.is_entry_step) {
+      if (step?.is_entrypoint) {
         props.setRightPanelMode(
           CadencePanelMode.CADENCE_PANEL_ENTRY_PARAMETERS,
         );
@@ -727,17 +689,17 @@ const mapWithHandlers = {
       props.deleteStepMarketingActionAction(data);
     },
 };
+
 const connector = connect(
   (
     state: RootState,
     { cadenceId, selectedStepIdForEdition }: OwnProps & StateHandlerType,
   ) => ({
-    cadence: withSmartLists(withSteps(getCadenceOnlyActiveCTs))(
-      state,
-      cadenceId,
-    ),
-    loading: state.cadence.cadence.loading || state.cadence.step.loading,
+    cadence: getCadenceOnlyActiveCTs(state, cadenceId),
+    steps: getCadenceStepList(state, cadenceId),
+    loading: state.cadenceWIP.cadence.loading || state.cadenceWIP.step.loading,
     smartlists: getAllSmartList(state),
+    smartlistById: getSmartListDict(state),
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     emailTemplatesList: getAllEmailTemplatesSummaries(state),
     emailTemplatesDetails: getEmailTemplatesDetail(state),
@@ -774,6 +736,7 @@ const connector = connect(
     deleteConnectedTriggerAction,
   },
 );
+
 const styles = (theme: Theme) =>
   createStyles({
     pageContainer: {
@@ -842,6 +805,7 @@ const styles = (theme: Theme) =>
       height: `calc(100vh - ${headerHeight}px)`,
     },
   });
+
 export default compose(
   routerParamsToProps({ cadenceId: 'cadenceId:number' }),
   withTranslation('marketing'),

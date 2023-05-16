@@ -22,8 +22,8 @@ import {
   EVENT_BILLING_PLAN_RENEW,
 } from '@bsport/common/lib/master-data/events';
 
-// Edge case below regarding string enums with computed values - Issue : https://github.com/microsoft/TypeScript/issues/40793
-// And ts-ignore not available by block : https://github.com/Microsoft/TypeScript/issues/19573
+// Edge case below regarding string enums with computed values - Issue : https://gitlab.com/bsport/bsport-saas/-/issues/1714
+// And ts-ignore not available by block : https://gitlab.com/bsport/bsport-saas/-/issues/1713
 export enum Events {
   // PURCHASE
   // @ts-ignore
@@ -81,7 +81,10 @@ export enum EventsCategory {
 
 export const CADENCE_EVENT_ALL_CHOICES = Object.values(Events);
 
-export const CADENCE_EVENT_GROUPED_BY_CATEGORY = {
+export const CADENCE_EVENT_GROUPED_BY_CATEGORY: Record<
+  EventsCategory,
+  Events[]
+> = {
   [EventsCategory.CADENCE_EVENT_PURCHASE_CATEGORY]: [
     Events.CADENCE_EVENT_PURCHASE_PAYMENT_PACK,
   ],

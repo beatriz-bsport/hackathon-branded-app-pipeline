@@ -1,11 +1,9 @@
 import React, { useCallback } from 'react';
 
 import Tune from '@material-ui/icons/Tune';
-import { useTheme } from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -30,8 +28,6 @@ const OfferFormSettings = (props: Props) => {
     props;
   const classes = useOfferFormStyles();
   const { t } = useTranslation('offer');
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const { values, errors, handleChange, setFieldValue } =
     useFormikContext<OfferFormValues>();
   const { partnerMaxBookingCount, availableOnPartnership } = values;

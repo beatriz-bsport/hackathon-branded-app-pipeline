@@ -5,8 +5,6 @@ import { useFormikContext } from 'formik';
 import { COACH_PAYMENT_RULE_FOR_SESSION } from '@bsport/common/lib/master-data/coach_payment_rule';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core';
 
 import FormSection from '#components/forms/FormSection';
 import OfferFormField from '#libs/offer/form/OfferFormField.component';
@@ -34,8 +32,6 @@ const OfferFormCoach = (props: Props) => {
   } = props;
   const classes = useOfferFormStyles();
   const { t } = useTranslation('offer');
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const { values, touched, errors, setFieldValue, handleBlur } =
     useFormikContext<OfferFormValues>();
   const { coach, coachPaymentRule, coachOverride } = values;

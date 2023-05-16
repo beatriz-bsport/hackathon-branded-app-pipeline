@@ -247,12 +247,15 @@ const OfferFormDateTime = (props: Props) => {
                 id="offer-form-duration-hours-input"
                 name="durationMinute"
                 value={getHours(durationMinute)}
-                variant="outlined"
                 size="small"
                 placeholder="1"
+                disableUnderline
                 onChange={handleChangeHours}
                 inputClass={classes.smallWidth}
-                InputProps={{ inputProps: { min: 0, max: 23 } }}
+                InputProps={{
+                  disableUnderline: true,
+                  inputProps: { min: 0, max: 23 },
+                }}
                 error={!!errors.durationMinute}
               />
               {t('translation:common.hourSmall')}
@@ -263,12 +266,15 @@ const OfferFormDateTime = (props: Props) => {
                 id="offer-form-duration-minutes-input"
                 name="durationMinute"
                 value={getMinutes(durationMinute)}
-                variant="outlined"
                 size="small"
                 placeholder="00"
                 onChange={handleChangeMinutes}
                 inputClass={classes.smallWidth}
-                InputProps={{ inputProps: { min: 0, max: 59 } }}
+                disableUnderline
+                InputProps={{
+                  disableUnderline: true,
+                  inputProps: { min: 0, max: 59 },
+                }}
                 error={!!errors.durationMinute}
               />
               {t('translation:common.minuteSmall')}
@@ -334,14 +340,47 @@ const OfferFormDateTime = (props: Props) => {
 
       {!isEditOffer && (
         <>
-          <div className={classes.formFieldColumns}>
-            <SwitchField
-              id="offer-form-recurrence-switch"
-              name="isRecurrence"
-              label={t('offer:form.section.dateTime.field.recurrence.title')}
-              switchColor="secondary"
-            />
+          <SwitchField
+            id="offer-form-recurrence-switch"
+            name="isRecurrence"
+            label={t('offer:form.section.dateTime.field.recurrence.title')}
+            switchColor="secondary"
+          />
 
+          <div className={classes.formFieldColumns}>
+            {isRecurrence && (
+              <OfferFormField
+                id="offer-form-recurrence-field"
+                label={t('offer:form.section.dateTime.field.recurrence.title')}
+                isRequired
+                isError={!!errors.recurrence}
+                isFlexColumn={isMobile}
+              >
+                <div
+                  className={classNames(
+                    classes.bigWidth,
+                    classes.errorContainer,
+                  )}
+                >
+                  <OfferFormSelector
+                    id="offer-form-recurrence-selector"
+                    name="recurrence"
+                    options={availableRecurrenceOptions}
+                    className={classes.bigWidth}
+                    placeholder={t(
+                      'offer:form.section.dateTime.field.recurrence.placeholder',
+                    )}
+                    isError={!!errors.recurrence}
+                  />
+
+                  {!!errors.recurrence && (
+                    <Typography variant="caption" color="error">
+                      {t(errors.recurrence)}
+                    </Typography>
+                  )}
+                </div>
+              </OfferFormField>
+            )}
             {isRecurrence && (
               <OfferFormField
                 id="offer-form-date-end-field"
@@ -389,37 +428,6 @@ const OfferFormDateTime = (props: Props) => {
               </OfferFormField>
             )}
           </div>
-
-          {isRecurrence && (
-            <OfferFormField
-              id="offer-form-recurrence-field"
-              label={t('offer:form.section.dateTime.field.recurrence.title')}
-              isRequired
-              isError={!!errors.recurrence}
-              isFlexColumn={isMobile}
-            >
-              <div
-                className={classNames(classes.bigWidth, classes.errorContainer)}
-              >
-                <OfferFormSelector
-                  id="offer-form-recurrence-selector"
-                  name="recurrence"
-                  options={availableRecurrenceOptions}
-                  className={classes.bigWidth}
-                  placeholder={t(
-                    'offer:form.section.dateTime.field.recurrence.placeholder',
-                  )}
-                  isError={!!errors.recurrence}
-                />
-
-                {!!errors.recurrence && (
-                  <Typography variant="caption" color="error">
-                    {t(errors.recurrence)}
-                  </Typography>
-                )}
-              </div>
-            </OfferFormField>
-          )}
 
           {isRecurrence && recurrence === OFFER_RECURRENCE.WEEKLY && (
             <OfferFormWeeklyRecurrenceDays

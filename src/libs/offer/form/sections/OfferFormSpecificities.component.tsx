@@ -370,35 +370,47 @@ const OfferFormSpecificities = (props: Props) => {
         isRequired
         isError={!!errors.credits && touched.credits}
       >
-        <NumericInput
-          id="offer-form-credits-input"
-          name="credits"
-          value={credits}
-          onChange={handleChange}
-          error={!!errors.credits && touched.credits}
-          helperText={!!errors.credits && touched.credits && t(errors.credits)}
-          variant="outlined"
-          size="small"
-          InputProps={{ inputProps: { min: 0 } }}
-          placeholder="1"
-          inputClass={classes.mediumWidth}
-          onBlur={handleBlur}
-        />
-
-        <Tooltip
-          title={t('form.section.specificities.tooltip.credits')}
-          className={classes.tooltip}
-          onClick={handleDisplayCreditTooltip}
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}
         >
-          <Info />
-        </Tooltip>
+          <NumericInput
+            id="offer-form-credits-input"
+            name="credits"
+            value={credits}
+            onChange={handleChange}
+            isError={!!errors.credits && touched.credits}
+            helperText={
+              !!errors.credits && touched.credits && t(errors.credits)
+            }
+            variant="outlined"
+            size="small"
+            InputProps={{ inputProps: { min: 0 } }}
+            placeholder="1"
+            inputClass={classes.mediumWidth}
+            onBlur={handleBlur}
+          />
 
-        <OfferFormTooltip
-          isOpen={selectedTooltipDialog === 'credit'}
-          onClose={handleCloseTooltipDialog}
-        >
-          {t('form.section.specificities.tooltip.credits')}
-        </OfferFormTooltip>
+          <Tooltip
+            title={t('form.section.specificities.tooltip.credits')}
+            className={classes.tooltip}
+            onClick={handleDisplayCreditTooltip}
+          >
+            <Info />
+          </Tooltip>
+
+          <OfferFormTooltip
+            isOpen={selectedTooltipDialog === 'credit'}
+            onClose={handleCloseTooltipDialog}
+          >
+            {t('form.section.specificities.tooltip.credits')}
+          </OfferFormTooltip>
+        </div>
       </OfferFormField>
 
       {(credits === 0 || credits > 5) && (

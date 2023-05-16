@@ -21,16 +21,15 @@ const OfferFormField = (props: Props) => {
   return (
     <div
       id={id}
-      className={classNames(classes.formFieldContainer, {
-        [classes.flexColumn]: isFlexColumn,
-        [classes.alignItemsCenter]: !isError && !isFlexColumn,
+      className={classNames(classes.formFieldContainer, classes.flexColumn, {
         [classes.alignItemsBaseline]: isError,
       })}
     >
       <Typography
         variant="body1"
         className={classNames({
-          [classes.typographyContainer]: icon && isFlexColumn,
+          // [classes.typographyContainer]: true, // isFlexColumn,
+          [classes.label]: !icon,
         })}
       >
         {icon && icon}
@@ -58,12 +57,14 @@ const useStyles = makeStyles((theme) => ({
   alignItemsBaseline: {
     alignItems: 'baseline',
   },
-  alignItemsCenter: {
-    alignItems: 'center',
-  },
   typographyContainer: {
     display: 'flex',
     alignItems: 'center',
+  },
+  label: {
+    fontSize: '0.9rem',
+    fontWeight: 400,
+    marginBottom: -6,
   },
 }));
 

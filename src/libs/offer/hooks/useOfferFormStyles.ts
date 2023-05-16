@@ -105,6 +105,14 @@ const useOfferFormStyles = (
       display: 'flex',
       alignItems: 'center',
       gap: theme.spacing(1),
+      border: '1px solid rgba(0, 0, 0, 0.2)',
+      borderRadius: 4,
+      padding: theme.spacing(1),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+      '&:hover': {
+        borderColor: 'black',
+      },
     },
     durationFieldInputWithIndicator: {
       display: 'flex',

@@ -283,7 +283,10 @@ export const BackOfficeDrawer: React.FC<Props> = ({
     openWelcometutorialDialog,
   ]);
   React.useEffect(() => {
-    if (location.pathname.startsWith('/cadence/')) {
+    if (
+      location.pathname.startsWith('/cadence/') &&
+      !location.pathname === '/cadence/wip'
+    ) {
       setDrawerIconsOnly(true);
       setHideAppBar(true);
     } else {

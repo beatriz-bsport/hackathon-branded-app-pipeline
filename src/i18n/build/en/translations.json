@@ -2929,7 +2929,22 @@
                 "becauseNeverUsed": "You have not yet sent any communication on this channel.",
                 "becauseOfFilters": "No results matching the filters."
             },
-            "filterOutCommunicationSent": "The communication you just sent is hidden by the active filters."
+            "filterOutCommunicationSent": "The communication you just sent is hidden by the active filters.",
+            "item": {
+                "year": "{{count}} year",
+                "year_plural": "{{count}} years",
+                "weeks": "week",
+                "days": "d",
+                "hours": "h",
+                "minutes": "min",
+                "unarchive": "Restore",
+                "archive": "Archive",
+                "unmute": "Reactivate",
+                "mute": "Mute",
+                "removeFavorite": "Remove from favourites",
+                "addToFavorite": "Add to favourites",
+                "markAsRead": "Mark as unread"
+            }
         },
         "sentStatus": {
             "fail": "An error occurred while sending",
@@ -9393,6 +9408,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",

@@ -35,7 +35,6 @@ import {
   OptionCallback,
   OptionPaginatedCallback,
 } from '../../../../state/types';
-import { OFFER_BROADCAST_LINK_MISSING } from '#libs/offer/constants';
 
 type Props = {
   activeCustomLevels: Level[];
@@ -109,11 +108,6 @@ const OfferFormSpecificities = (props: Props) => {
     }
     return null;
   }, [availableEstablishments, establishment]);
-
-  const isBroadcastErrorRequired = useMemo(
-    () => errors.broadcastLink === OFFER_BROADCAST_LINK_MISSING,
-    [errors.broadcastLink],
-  );
 
   const handleSelectEstablishment = useCallback(
     (newEstablishment: { label: string; value: number }) => {
@@ -424,7 +418,6 @@ const OfferFormSpecificities = (props: Props) => {
         <OfferFormField
           id="offer-form-broadcast-link-field"
           label={t('form.section.specificities.field.broadcastLink')}
-          isRequired
           isError={!!errors.broadcastLink}
         >
           <TextField
@@ -441,11 +434,6 @@ const OfferFormSpecificities = (props: Props) => {
               [classes.disabledInput]:
                 zoomAppEnabled && !zoomAppDetail?.is_disabled,
             })}
-            helperText={
-              isBroadcastErrorRequired && touched.broadcastLink
-                ? t('form.errors.required')
-                : null
-            }
           />
 
           {zoomAppEnabled && !zoomAppDetail?.is_disabled && (
@@ -469,7 +457,7 @@ const OfferFormSpecificities = (props: Props) => {
         </OfferFormField>
       )}
 
-      {!!errors.broadcastLink && !isBroadcastErrorRequired && (
+      {!!errors.broadcastLink && (
         <Typography variant="caption" color="error">
           {t(errors.broadcastLink)}
         </Typography>

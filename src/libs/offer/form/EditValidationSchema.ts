@@ -38,15 +38,17 @@ const OfferEditFormValidationSchema = Yup.object().shape({
     .typeError('offer:form.errors.required')
     .required('offer:form.errors.required'),
   broadcastLink: Yup.string()
-    .when(
-      ['isMetaActivityBroadcast', 'isZoomAppEnabled'],
-      (isMetaActivityBroadcast, isZoomAppEnabled, schema) => {
-        if (isMetaActivityBroadcast && !isZoomAppEnabled) {
-          return schema.required('offer:form.errors.required');
-        }
-        return schema;
-      },
-    )
+    // KEEPING FOR REFERENCE
+    //
+    // .when(
+    //   ['isMetaActivityBroadcast', 'isZoomAppEnabled'],
+    //   (isMetaActivityBroadcast, isZoomAppEnabled, schema) => {
+    //     if (isMetaActivityBroadcast && !isZoomAppEnabled) {
+    //       return schema.required('offer:form.errors.required');
+    //     }
+    //     return schema;
+    //   },
+    // )
     .url('offer:form.errors.field.broadcastLink'),
   credits: Yup.number()
     .typeError('offer:form.errors.required')

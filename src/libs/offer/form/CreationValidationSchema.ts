@@ -2,10 +2,7 @@ import * as Yup from 'yup';
 import moment from 'moment-timezone';
 
 import { isDateTooFar } from '#libs/offer/utils';
-import {
-  OFFER_BROADCAST_LINK_MISSING,
-  OFFER_RECURRENCE,
-} from '#libs/offer/constants';
+import { OFFER_RECURRENCE } from '#libs/offer/constants';
 
 const OfferFormCreateValidationSchema = Yup.object().shape({
   effectif: Yup.number()
@@ -38,15 +35,17 @@ const OfferFormCreateValidationSchema = Yup.object().shape({
     .typeError('offer:form.errors.required')
     .required('offer:form.errors.required'),
   broadcastLink: Yup.string()
-    .when(
-      ['isMetaActivityBroadcast', 'isZoomAppEnabled'],
-      (isMetaActivityBroadcast, isZoomAppEnabled, schema) => {
-        if (isMetaActivityBroadcast && !isZoomAppEnabled) {
-          return schema.required(OFFER_BROADCAST_LINK_MISSING);
-        }
-        return schema;
-      },
-    )
+    // KEEPING FOR REFERENCE
+    //
+    // .when(
+    //   ['isMetaActivityBroadcast', 'isZoomAppEnabled'],
+    //   (isMetaActivityBroadcast, isZoomAppEnabled, schema) => {
+    //     if (isMetaActivityBroadcast && !isZoomAppEnabled) {
+    //       return schema.required(OFFER_BROADCAST_LINK_MISSING);
+    //     }
+    //     return schema;
+    //   },
+    // )
     .url('offer:form.errors.field.broadcastLink'),
   credits: Yup.number()
     .typeError('offer:form.errors.required')

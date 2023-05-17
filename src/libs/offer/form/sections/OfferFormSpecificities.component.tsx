@@ -4,7 +4,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 import Info from '@material-ui/icons/Info';
 import People from '@material-ui/icons/People';
 import { useTheme } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -24,6 +23,7 @@ import SpotSchedulingHelper from '#libs/spot-scheduling/utils';
 import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook ';
 import OfferFormTooltip from '#libs/offer/form/OfferFormTooltip.dialog';
 import MetaActivitySelector from '../../../meta-activity/components/MetaActivitySelector.component';
+import { TextField } from '../../../../components/forms';
 
 import { OfferFormValues } from '#libs/offer/types';
 import { Level, LevelFilterSet } from '#libs/level/types';

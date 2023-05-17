@@ -70,7 +70,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
     window.innerWidth < 1850;
 
   const establishment = useMemo(
-    () => establishments.find((est) => est.id === offer.establishment),
+    () => establishments?.find((est) => est.id === offer.establishment),
     [establishments, offer.establishment],
   );
 

@@ -752,6 +752,7 @@ export class Planning extends PureComponent<Props, State> {
           <OfferEditForm
             offer={selectedOffer}
             metaActivities={this.props.metaActivities}
+            metaActivity={selectedOffer.meta_activity}
             coaches={coaches}
             availableEstablishments={availableEstablishments}
             allEstablishments={allEstablishments}

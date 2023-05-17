@@ -452,12 +452,16 @@ export class PrivateCalendar extends React.Component<Props, State> {
 
   dateClick = (eventSlotSelected: EventSlot) => {
     const start = moment.tz(eventSlotSelected.dateStr, this.props.timezone);
+    const zoomLevel =
+      this.props.scheduleFilter.zoomLevel === 0
+        ? 0.5
+        : this.props.scheduleFilter.zoomLevel;
 
     this.setState({
       eventSlotSelected: {
         ...eventSlotSelected,
         startStr: start.format(),
-        endStr: start.add(30, 'minutes').format(),
+        endStr: start.add(30 * zoomLevel, 'minutes').format(),
       },
     });
   };

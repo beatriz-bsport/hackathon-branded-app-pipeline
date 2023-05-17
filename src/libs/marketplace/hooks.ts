@@ -284,7 +284,7 @@ export const useOfferHours = (
     if (offer.date_start) {
       const tz = metaActivity?.is_broadcast
         ? moment.tz.guess()
-        : theme?.timezone_name;
+        : theme?.timezone_name || moment.tz.guess();
       const startMoment = moment(offer?.date_start).tz(tz);
       const startHour = startMoment.format('HH:mm');
 

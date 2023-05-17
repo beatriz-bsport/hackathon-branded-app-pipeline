@@ -112,7 +112,7 @@ const styles = (theme) => ({
   leftIcon: { marginRight: theme.spacing(1) },
 });
 
-export class CoachPrivateCalendar extends React.Component<Props, State> {
+export class EstablishmentCalendar extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -367,4 +367,4 @@ export default compose(
   withTitle(({ establishment }) => {
     return establishment ? `${establishment.title}` : '';
   }),
-)(CoachPrivateCalendar);
+)(EstablishmentCalendar);

@@ -218,13 +218,13 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   <div className="bs-offer-list-item__content__offer__right__top__gender">
                     <div className="bs-offer-list-item__content__offer__right__top__gender__sex">
                       <MaleIcon isMobile />
-                      <div>{genderCount.nb_bookedmale || 0}</div>
+                      <div>{genderCount?.nb_booked_male || 0}</div>
                     </div>
                     <div className="bs-offer-list-item__content__offer__right__top__gender__sex">
                       <FemaleIcon isMobile />
-                      <div>{genderCount.nb_booked_female || 0}</div>
+                      <div>{genderCount?.nb_booked_female || 0}</div>
                     </div>
-                    <div>+ {genderCount.nb_booked_other || 0}</div>
+                    <div>+ {genderCount?.nb_booked_other || 0}</div>
                   </div>
                 )}
               </div>
@@ -276,10 +276,10 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                     {showOfferGender && (
                       <div className="bs-offer-list-item__content__offer__right__top__gender">
                         <MaleIcon />
-                        <div>{genderCount.nb_booked_male || 0}</div>
+                        <div>{genderCount?.nb_booked_male || 0}</div>
                         <FemaleIcon />
-                        <div>{genderCount.nb_booked_female || 0}</div>
-                        <div>+ {genderCount.nb_booked_other || 0}</div>
+                        <div>{genderCount?.nb_booked_female || 0}</div>
+                        <div>+ {genderCount?.nb_booked_other || 0}</div>
                       </div>
                     )}
                   </div>

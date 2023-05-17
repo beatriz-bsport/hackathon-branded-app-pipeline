@@ -38,6 +38,7 @@ const OfferEditFormValidationSchema = Yup.object().shape({
     .typeError('offer:form.errors.required')
     .required('offer:form.errors.required'),
   broadcastLink: Yup.string()
+    .nullable()
     // KEEPING FOR REFERENCE
     //
     // .when(

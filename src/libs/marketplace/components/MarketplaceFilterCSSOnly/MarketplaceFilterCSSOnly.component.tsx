@@ -100,7 +100,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
   const disabledEstablishmentOptions = useMemo(() => {
     const options: { label: string; value: number }[] = [];
     filters?.establishments?.forEach((id: number) => {
-      if (!establishments.find((est: Establishment) => est.id === id)) {
+      if (!establishments?.find((est: Establishment) => est.id === id)) {
         const label = (allEstablishments ?? []).find(
           (est: Establishment) => est.id === id,
         )?.title;

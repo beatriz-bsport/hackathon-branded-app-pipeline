@@ -72,7 +72,7 @@ const OfferFormSettings = (props: Props) => {
         )}
       </div>
 
-      {showPartnership && (!isEditOffer || (isEditOffer && isOfferInGroup)) && (
+      {showPartnership && availableOnPartnership && (
         <div className={classes.settingsMarketplaceContainer}>
           <Typography variant="subtitle1" className={classes.mediumFontWeight}>
             {t('form.section.settings.field.partnership.title')}
@@ -85,40 +85,35 @@ const OfferFormSettings = (props: Props) => {
               'form.section.settings.field.partnership.availableOnPartnership',
             )}
             switchColor="secondary"
-            disabled={isEditOffer && isOfferInGroup}
           />
 
-          {availableOnPartnership && !isEditOffer && (
-            <OfferFormField
-              label={t(
-                'form.section.settings.field.partnership.partnerMaxBookingCount',
-              )}
-              isRequired
-              isError={!!errors.partnerMaxBookingCount}
-            >
-              <NumericInput
-                id="offer-form-partner-max-booking-input"
-                name="partnerMaxBookingCount"
-                value={partnerMaxBookingCount}
-                onChange={handleChange}
-                error={!!errors.partnerMaxBookingCount}
-                variant="outlined"
-                size="small"
-                InputProps={{ inputProps: { min: 0 } }}
-                placeholder="5"
-                inputClass={classNames(classes.mediumWidth, {
-                  [classes.disabledInput]: isOfferInGroup,
-                })}
-                disabled={isOfferInGroup}
-              />
-            </OfferFormField>
-          )}
+          <OfferFormField
+            label={t(
+              'form.section.settings.field.partnership.partnerMaxBookingCount',
+            )}
+            isRequired
+            isError={!!errors.partnerMaxBookingCount}
+          >
+            <NumericInput
+              id="offer-form-partner-max-booking-input"
+              name="partnerMaxBookingCount"
+              value={partnerMaxBookingCount}
+              onChange={handleChange}
+              error={!!errors.partnerMaxBookingCount}
+              variant="outlined"
+              size="small"
+              InputProps={{ inputProps: { min: 0 } }}
+              placeholder="5"
+              inputClass={classNames(classes.mediumWidth, {
+                [classes.disabledInput]: isOfferInGroup,
+              })}
+              disabled={isOfferInGroup}
+            />
+          </OfferFormField>
 
-          {availableOnPartnership && errors.partnerMaxBookingCount && (
-            <Typography variant="caption" color="error">
-              {t(errors.partnerMaxBookingCount)}
-            </Typography>
-          )}
+          <Typography variant="caption" color="error">
+            {t(errors.partnerMaxBookingCount)}
+          </Typography>
         </div>
       )}
     </FormSection>

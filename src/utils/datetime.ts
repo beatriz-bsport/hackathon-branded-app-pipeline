@@ -30,7 +30,9 @@ export function formatAsDateWithWeekday(
   const momentDate = tzname ? moment(date).tz(tzname) : moment(date);
   const formattedDate = momentDate.format(format);
   const dayOfTheWeek = momentDate.day();
-  const readableDayOfTheWeek = t(`datetime:time.weekdayNumber.${dayOfTheWeek}`);
+  const readableDayOfTheWeek = t(
+    `datetime:time.weekdayNumber.${(dayOfTheWeek - 1) % 7}`,
+  );
   switch (theme?.days_format_display) {
     case MarketPlaceDaysFormatDisplay.ONE_LETTER:
       return formattedDate;

@@ -368,6 +368,9 @@ const formikFormWrapper = withFormik<
       PropagateCoachOverrideToSimilarOffers.PROPAGATE_TO_OFFERS_WITH_SAME_COACH_OVERRIDE_ONLY,
     isCoachOverridePropagate: true,
     isShowPartnership: props.showPartnership,
+    partnerMaxBookingCount: props.isOfferInGroup
+      ? 0
+      : props.offer?.partner_max_booking_count ?? 0,
   }),
   enableReinitialize: true,
   validationSchema: OfferEditFormValidationSchema,

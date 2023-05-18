@@ -1893,7 +1893,22 @@
                 "becauseNeverUsed": "Non hai ancora inviato una comunicazione su questo canale.",
                 "becauseOfFilters": "Nessun risultato corrispondente ai filtri."
             },
-            "filterOutCommunicationSent": "La comunicazione appena inviata viene nascosta dai filtri attivi."
+            "filterOutCommunicationSent": "La comunicazione appena inviata viene nascosta dai filtri attivi.",
+            "item": {
+                "year": "{{count}} anno",
+                "year_plural": "{{count}} anni",
+                "weeks": "set",
+                "days": "g",
+                "hours": "h",
+                "minutes": "min",
+                "unarchive": "Ripristina",
+                "archive": "Archivia",
+                "unmute": "Riattiva",
+                "mute": "Silenzia",
+                "removeFavorite": "Rimuovi dai preferiti",
+                "addToFavorite": "Aggiungi ai preferiti",
+                "markAsRead": "Contrassegna come non letto"
+            }
         },
         "sentStatus": {
             "fail": "Si è verificato un errore durante l'invio",
@@ -7340,8 +7355,40 @@
             "part2": "Ora puoi esportare il rapporto ed elaborarlo successivamente in Excel. Le date indicate e la visualizzazione filtrata applicata verranno prese in considerazione nell'esportazione."
         },
         "helperText": {
-            "franchise_shared_pass": "Questo report consente di analizzare le prenotazioni effettuate con le carte condivise. Quando viene acquistata una carta condivisa in uno studio, il report mostra il numero di prenotazioni effettuate con questa carta in un altro studio. Il numero di sessioni prenotate include prenotazioni per lezioni di gruppo, workshop e appuntamenti.",
-            "billing_plan": "Gli abbonamenti vengono filtrati alla data della prima fatturazione."
+            "franchise_shared_pass": "Questo report consente di analizzare le prenotazioni effettuate con pass condivisi nel periodo selezionato. Quando viene acquistata un pass condiviso in uno studio, il report mostra il numero di prenotazioni effettuate con questo pass in un altro studio. Il numero di sessioni prenotate include prenotazioni per lezioni di gruppo, workshop e appuntamenti.",
+            "billing_plan": "Gli abbonamenti vengono filtrati alla data della prima fatturazione.",
+            "invoices": "Gli acquisti vengono filtrati in base alla data di emissione della relativa fattura.",
+            "video_purchase": "I video vengono filtrati in base alla data di acquisto.",
+            "payment_installments": "I pagamenti vengono filtrati in base alla data di scadenza.",
+            "dispute": "Le dispute vengono filtrate in base alla data di transazione.",
+            "on_spot_payments": "I pagamenti vengono filtrati in base alla data di transazione.",
+            "payment_sumup": "Nel periodo selezionato, trova per ogni giorno il totale delle transazioni effettuate.",
+            "payments": "I pagamenti vengono filtrati in base alla data della transazione.",
+            "expense": "Le spese vengono filtrate in base alla data di scadenza.",
+            "cashbook": "Nel periodo selezionato, trova per ogni giorno l'evoluzione del libro cassa.",
+            "shop": "Per ciascuno dei tuoi articoli, trova lo sviluppo del loro stock tra la data di inizio e la data di fine dell'intervallo selezionato.",
+            "consumer_giftcard": "Le gift card vengono filtrate in base alla data in cui sono state acquistate.",
+            "discount": "Le promozioni vengono filtrate in base alla data in cui sono state utilizzate.",
+            "universal_passes": "I pass universali che compaiono sono quelli validi in quella data.",
+            "private_cpasses": "I pass per appuntamenti che compaiono sono quelli validi in quella data.",
+            "memberships": "I pass che compaiono sono quelli validi in quella data.",
+            "expired_pass": "I pass scaduti vengono filtrati in base alla data di scadenza.",
+            "private_cpasses_expired": "I pass per appuntamenti scaduti vengono filtrati in base alla data di scadenza.",
+            "unpaid_private_bookings": "Le prenotazioni non pagate vengono filtrate in base alla data della sessione corrispondente.",
+            "private_bookings": "Le prenotazioni vengono filtrate in base alla data dell'appuntamento corrispondente.",
+            "first_privatebooking": "Le prime prenotazioni vengono filtrate in base alla data dell'appuntamento corrispondente.",
+            "first_attendance": "Le prime presenze vengono filtrate in base alla data della sessione in cui si sono svolte.",
+            "bookings": "Le prenotazioni vengono filtrate in base alla data della sessione corrispondente.",
+            "first_booking": "Le prime prenotazioni vengono filtrate in base alla data della sessione corrispondente.",
+            "dayBookings": "Le prenotazioni vengono filtrate in base alla data della sessione corrispondente.",
+            "privateService": "Gli appuntamenti vengono filtrati in base alla data in cui avranno luogo.",
+            "subscription": "Le fatture sono filtrate in base alla data di scadenza.",
+            "offers": "Le sessioni sono filtrate in base alla data di svolgimento.",
+            "workshop": "I workshop visualizzati sono quelli per i quali è pianificata una sessione nell'intervallo di date selezionato.",
+            "activityByCoach": "Le attività e gli insegnanti visualizzati sono quelli per i quali è pianificata una sessione nell'intervallo di date selezionato.",
+            "activityByEst": "Le attività e gli stabilimenti che appaiono sono quelli per i quali è programmata una sessione nell'intervallo di date selezionato.",
+            "activities": "Le attività visualizzate sono quelle per le quali è pianificata una sessione nell'intervallo di date selezionato.",
+            "members": "I membri sono filtrati in base alla loro data di iscrizione."
         },
         "last_invoice_status": {
             "": [
@@ -7355,6 +7402,7 @@
                 "Cancella",
                 "Cancella",
                 "Cancella",
+                "Annulla",
                 "Annulla",
                 "Annulla",
                 "Annulla",

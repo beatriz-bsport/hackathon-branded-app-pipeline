@@ -4870,7 +4870,39 @@
         },
         "helperText": {
             "billing_plan": "Abonnements werden nach dem Datum der ersten Rechnungsstellung gefiltert.",
-            "franchise_shared_pass": "Mit diesem Bericht können Sie Buchungen analysieren, die mit geteilten Karten vorgenommen wurden. Wenn eine gemeinsam genutzte Karte in einem Studio erworben wird, zeigt der Bericht die Anzahl der Buchungen, die mit dieser Karte in einem anderen Studio vorgenommen wurden. Die Anzahl der gebuchten Sessions umfasst Buchungen für Gruppenkurse, Workshops und Termine."
+            "franchise_shared_pass": "Mit diesem Bericht können Sie die Buchungen analysieren, die mit gemeinsam genutzten Pässen im ausgewählten Zeitraum vorgenommen wurden. Wenn ein gemeinsamer Pass in einem Studio erworben wurde, zeigt der Bericht die Anzahl der Buchungen, die mit diesem Pass in einem anderen Studio vorgenommen wurden. Die Anzahl der gebuchten Sitzungen umfasst Buchungen für Aktivitäten, Workshops und Termine.",
+            "invoices": "Einkäufe werden nach dem Ausstellungsdatum der zugehörigen Rechnung gefiltert.",
+            "video_purchase": "Videos werden nach dem Kaufdatum gefiltert.",
+            "payment_installments": "Zahlungen werden nach ihrem Fälligkeitsdatum gefiltert.",
+            "dispute": "Streitfälle werden nach dem Datum der Transaktion gefiltert.",
+            "on_spot_payments": "Zahlungen werden nach dem Datum der Transaktion gefiltert.",
+            "payment_sumup": "Für den ausgewählten Zeitraum finden Sie für jeden Tag die Summe der getätigten Transaktionen.",
+            "payments": "Zahlungen werden nach dem Datum der Transaktion gefiltert.",
+            "expense": "Ausgaben werden nach Fälligkeit gefiltert.",
+            "cashbook": "Für den ausgewählten Zeitraum finden Sie für jeden Tag die Entwicklung der Kasse.",
+            "shop": "Für jeden Ihrer Artikel finden Sie die Entwicklung des Bestands zwischen dem Start- und Enddatum des ausgewählten Intervalls.",
+            "consumer_giftcard": "Die Geschenkkarten werden nach dem Kaufdatum gefiltert.",
+            "discount": "Die Angebote werden nach dem Datum gefiltert, an dem sie genutzt wurden.",
+            "universal_passes": "Es werden nur die an diesem Tag gültigen Universalpässe angezeigt.",
+            "private_cpasses": "Die angezeigten Terminpässe sind diejenigen, die an diesem Tag gültig sind.",
+            "memberships": "Es werden nur die an diesem Tag gültigen Pässe angezeigt.",
+            "expired_pass": "Abgelaufene Kurspässe werden nach ihrem Ablaufdatum gefiltert.",
+            "private_cpasses_expired": "Abgelaufene Terminpässe werden nach Ablauf ihres Gültigkeitsdatums gefiltert.",
+            "unpaid_private_bookings": "Unbezahlte Buchungen werden nach dem Datum der entsprechenden Session gefiltert.",
+            "private_bookings": "Die Buchungen werden nach dem Datum des entsprechenden Termins gefiltert.",
+            "first_privatebooking": "Die ersten Buchungen werden nach dem Datum des entsprechenden Termins gefiltert.",
+            "first_attendance": "Die Erstbesuche werden nach dem Datum der Session gefiltert, in der sie stattgefunden haben.",
+            "bookings": "Die Buchungen werden nach dem Datum der entsprechenden Sitzung gefiltert.",
+            "first_booking": "Die ersten Buchungen werden nach dem Datum der entsprechenden Sitzung gefiltert.",
+            "dayBookings": "Die Buchungen werden nach dem Datum der entsprechenden Sitzung gefiltert.",
+            "privateService": "Die Termine werden nach dem Datum gefiltert, an dem sie stattfinden.",
+            "subscription": "Rechnungen werden nach ihrem Fälligkeitsdatum gefiltert.",
+            "offers": "Die Sessions werden nach dem Datum gefiltert, an dem sie stattfinden.",
+            "workshop": "Es werden nur die Workshops angezeigt, für die im ausgewählten Datumsbereich eine Session geplant ist.",
+            "activityByCoach": "Die Aktivitäten und Lehrer, die angezeigt werden, sind diejenigen, für die eine Session im ausgewählten Datumsbereich geplant ist.",
+            "activityByEst": "Es werden nur die Aktivitäten und Einrichtungen angezeigt, für die im ausgewählten Datumsbereich eine Session geplant ist.",
+            "activities": "Es werden nur die Aktivitäten angezeigt, für die im ausgewählten Datumsbereich eine Session geplant ist.",
+            "members": "Die Mitglieder werden nach ihrem Anmeldedatum gefiltert."
         },
         "franchiseWarning": {
             "part1": "Aufgrund der großen Datenmenge kann es einige Minuten dauern, bis der Bericht erstellt wird.",
@@ -4890,7 +4922,8 @@
                 "Stornieren",
                 "Stornieren",
                 "Stornieren",
-                "Abbrechen"
+                "Abbrechen",
+                "Storniert"
             ]
         }
     },
@@ -9306,7 +9339,22 @@
                 "becauseOfFilters": "Keine Ergebnisse, die mit den Filtern übereinstimmen.",
                 "becauseNeverUsed": "Sie haben noch keine Kommunikation auf diesem Kanal gesendet."
             },
-            "filterOutCommunicationSent": "Die Kommunikation, die Sie gerade gesendet haben, wird von den aktiven Filtern verdeckt."
+            "filterOutCommunicationSent": "Die Kommunikation, die Sie gerade gesendet haben, wird von den aktiven Filtern verdeckt.",
+            "item": {
+                "year": "{{count}} Jahr",
+                "year_plural": "{{count}} Jahre",
+                "weeks": "Woche",
+                "days": "d",
+                "hours": "h",
+                "minutes": "min",
+                "unarchive": "Wiederherstellen",
+                "archive": "Archivieren",
+                "unmute": "reaktivieren",
+                "mute": "stummschalten",
+                "removeFavorite": "von Favoriten entfernen",
+                "addToFavorite": "zu Favoriten hinzufügen",
+                "markAsRead": "als ungelesen markieren"
+            }
         },
         "sentStatus": {
             "fail": "Beim Senden ist ein Fehler aufgetreten",

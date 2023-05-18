@@ -694,7 +694,7 @@
                 "title": "Sólo con cita previa"
             },
             "schedule": "Horario",
-            "email_template": "Emails",
+            "email_template": "Plantillas",
             "smart_list": "Smartlists",
             "requestTempPassword": "Permitir el acceso",
             "marketing_automation": "Marketing Auto",
@@ -4876,7 +4876,39 @@
         },
         "helperText": {
             "franchise_shared_pass": "Este informe permite analizar las reservas realizadas con tarjetas compartidas. Cuando se compra una tarjeta compartida en un estudio, el informe muestra el número de reservas realizadas con esta tarjeta en otro estudio. El número de sesiones reservadas incluye las reservas de actividades, talleres y citas.",
-            "billing_plan": "Las suscripciones se filtran en la primera fecha de facturación."
+            "billing_plan": "Las suscripciones se filtran en la primera fecha de facturación.",
+            "invoices": "Las compras se filtran en la fecha de emisión de la factura asociada.",
+            "video_purchase": "Los vídeos se filtran por fecha de compra.",
+            "payment_installments": "Los pagos se filtran por fecha de vencimiento.",
+            "dispute": "Los litigios se filtran en función de la fecha de la transacción.",
+            "on_spot_payments": "Los pagos se filtran en función de la fecha de la transacción.",
+            "payment_sumup": "Para el periodo seleccionado, encuentre el número total de transacciones para cada día.",
+            "payments": "Los pagos se filtran en función de la fecha de la transacción.",
+            "expense": "Los gastos se filtran por fecha de vencimiento.",
+            "cashbook": "Para el periodo seleccionado, puede ver la evolución del libro mayor para cada día.",
+            "shop": "Para cada uno de sus artículos, encuentre la evolución de sus existencias entre la fecha de inicio y la fecha final del intervalo seleccionado.",
+            "consumer_giftcard": "Las tarjetas regalo se filtran según la fecha de compra.",
+            "discount": "Las promociones se filtran en función de la fecha en que se utilizaron.",
+            "universal_passes": "Los bonos universales que aparecen son los válidos en esa fecha.",
+            "private_cpasses": "Las tarjetas de citas que aparecen son las válidas en esa fecha.",
+            "memberships": "Los bonos que aparecen son los válidos en esa fecha.",
+            "expired_pass": "Los pases caducados se filtran en función de su fecha de caducidad.",
+            "private_cpasses_expired": "Los pases de cita caducados se filtran en su fecha de caducidad.",
+            "unpaid_private_bookings": "Las reservas impagadas se filtran en la fecha de la sesión correspondiente.",
+            "private_bookings": "Las reservas se filtran en la fecha de la cita correspondiente.",
+            "first_privatebooking": "Las primeras reservas se filtran en la fecha de la cita correspondiente.",
+            "first_attendance": "Las primeras asistencias se filtran en la fecha de la sesión en la que tuvieron lugar.",
+            "bookings": "Las reservas se filtran en la fecha de la sesión correspondiente.",
+            "first_booking": "Las primeras reservas se filtran en la fecha de la sesión correspondiente.",
+            "dayBookings": "Las reservas se filtran en la fecha de la sesión correspondiente.",
+            "privateService": "Las citas se filtran en la fecha en que tienen lugar.",
+            "subscription": "Las facturas se filtran por fecha de vencimiento.",
+            "offers": "Las sesiones se filtran en función de la fecha en que tienen lugar.",
+            "workshop": "Los talleres que aparecen son aquellos para los que hay programada una sesión en el intervalo de fechas seleccionado.",
+            "activityByCoach": "Las actividades y profesores que aparecen son aquellos para los que hay programada una sesión en el intervalo de fechas seleccionado.",
+            "activityByEst": "Las actividades y establecimientos que aparecen son aquellos para los que está prevista una sesión en el intervalo de fechas seleccionado.",
+            "activities": "Las actividades que aparecen son aquellas para las que hay programada una sesión en el intervalo de fechas seleccionado.",
+            "members": "Los miembros son filtrados en función de su fecha de inscripción."
         },
         "franchiseWarning": {
             "part2": "Ahora puedes exportar el informe y procesarlo posteriormente en Excel. Las fechas indicadas y la vista filtrada aplicada se tendrán en cuenta en la exportación.",
@@ -4893,6 +4925,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelado",
+                "Cancelada",
                 "Cancelada",
                 "Cancelada",
                 "Cancelada"
@@ -8316,7 +8349,22 @@
                 "becauseNeverUsed": "Todavía no has enviado ninguna comunicación por este canal.",
                 "becauseOfFilters": "No hay resultados que coincidan con los filtros."
             },
-            "filterOutCommunicationSent": "La comunicación que acabas de enviar queda oculta por los filtros activos."
+            "filterOutCommunicationSent": "La comunicación que acabas de enviar queda oculta por los filtros activos.",
+            "item": {
+                "year": "{{count}} año",
+                "year_plural": "{{count}} años",
+                "weeks": "sem",
+                "days": "d",
+                "hours": "h",
+                "minutes": "min",
+                "unarchive": "Restablecer",
+                "archive": "Archivar",
+                "unmute": "Reactivar",
+                "mute": "Silenciar",
+                "removeFavorite": "Eliminar de favoritos",
+                "addToFavorite": "Añadir a favoritos",
+                "markAsRead": "Marcar como no leído"
+            }
         },
         "sentStatus": {
             "fail": "Se produjo un error al enviar",
@@ -9205,7 +9253,7 @@
                     "_label": "Emails transaccionales "
                 },
                 "emailTemplates": {
-                    "_label": "Emails"
+                    "_label": "Plantillas"
                 },
                 "products": {
                     "couponTemplates": {
@@ -11796,7 +11844,7 @@
             "invoice": "Facturas",
             "workshopActivities": "Talleres",
             "order": "Pedidos",
-            "email_template": "Emails",
+            "email_template": "Plantillas",
             "smart_list": "Smartlists",
             "sequence": "Estrategias",
             "consumer": {
@@ -11909,7 +11957,7 @@
             "staff": "Staff",
             "widgets": "Widget",
             "notificationRules": "Emails transaccionales",
-            "emailTemplates": "Emails",
+            "emailTemplates": "Plantillas",
             "products": {
                 "couponTemplates": "Promociones",
                 "privatePassTemplates": "Tarjetas de cita",

@@ -75,7 +75,7 @@ const OfferFormCoach = (props: Props) => {
   const selectedCoachOverride = useMemo(
     () =>
       coaches && coachOverride
-        ? [coaches.find((coachValue) => coachValue.id === coachOverride).id]
+        ? [coaches.find((coachValue) => coachValue.id === coachOverride)?.id]
         : null,
     [coachOverride, coaches],
   );

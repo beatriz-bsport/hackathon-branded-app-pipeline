@@ -201,3 +201,181 @@ export function fetchMemberTagList(
     dispatch(fetchMemberTagListActions.isLoading(false));
   };
 }
+
+// Franchise stuff (template)
+
+export const tagTemplateListActions = {
+  error: createAction('TAG_TEMPLATE/LIST/ERROR'),
+  isLoading: createAction('TAG_TEMPLATE/LIST/IS_LOADING'),
+  success: createAction('TAG_TEMPLATE/LIST/SUCCESS'),
+};
+
+export const tagGroupTemplateListActions = {
+  error: createAction('TAG_GROUP_TEMPLATE/LIST/ERROR'),
+  isLoading: createAction('TAG_GROUP_TEMPLATE/LIST/IS_LOADING'),
+  success: createAction('TAG_GROUP_TEMPLATE/LIST/SUCCESS'),
+};
+
+export const tagGroupTemplateCreateOrUpdateActions = {
+  error: createAction('TAG_GROUP_TEMPLATE/CREATE_OR_UPDATE/ERROR'),
+  isLoading: createAction('TAG_GROUP_TEMPLATE/CREATE_OR_UPDATE/IS_LOADING'),
+  success: createAction('TAG_GROUP_TEMPLATE/CREATE_OR_UPDATE/SUCCESS'),
+};
+
+export const tagTemplateCreateOrUpdateActions = {
+  error: createAction('TAG_TEMPLATE/CREATE_OR_UPDATE/ERROR'),
+  isLoading: createAction('TAG_TEMPLATE/CREATE_OR_UPDATE/IS_LOADING'),
+  success: createAction('TAG_TEMPLATE/CREATE_OR_UPDATE/SUCCESS'),
+};
+
+export function fetchTagTemplates(): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchAllGroupTemplates());
+    dispatch(fetchAllTagTemplates());
+  };
+}
+
+export function fetchAllGroupTemplates(options?: OptionCallback): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(tagGroupTemplateListActions.isLoading(true));
+    dispatch(tagGroupTemplateListActions.error(null));
+
+    try {
+      const response = await api.fetchAllGroupTemplates();
+      dispatch(tagGroupTemplateListActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(tagGroupTemplateListActions.error(error));
+      if (options && options.onError) {
+        options.onSuccess(error);
+      }
+    }
+
+    dispatch(tagGroupTemplateListActions.isLoading(false));
+  };
+}
+
+export function fetchAllTagTemplates(): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(tagTemplateListActions.isLoading(true));
+    dispatch(tagTemplateListActions.error(null));
+
+    try {
+      const response = await api.fetchAllTagTemplates();
+      dispatch(tagTemplateListActions.success(response.data));
+    } catch (error) {
+      console.error(error);
+      dispatch(tagTemplateListActions.error(error));
+    }
+
+    dispatch(tagTemplateListActions.isLoading(false));
+  };
+}
+
+export const tagTemplateUsageActions = {
+  error: createAction('TAG_TEMPLATE/USAGE/ERROR'),
+  isLoading: createAction('TAG_TEMPLATE/USAGE/IS_LOADING'),
+  success: createAction('TAG_TEMPLATE/USAGE/SUCCESS'),
+};
+
+export function fetchTagTemplateUsage(): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(tagTemplateUsageActions.isLoading(true));
+    dispatch(tagTemplateUsageActions.error(null));
+
+    try {
+      const response = await api.fetchTagTemplateUsage();
+      dispatch(tagTemplateUsageActions.success(response.data));
+    } catch (error) {
+      dispatch(tagTemplateUsageActions.error(error));
+    }
+
+    dispatch(tagTemplateUsageActions.isLoading(false));
+  };
+}
+
+export function createOrUpdateTagTemplate(
+  data: any,
+  callback?: (tagTemplateId: number) => void,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(tagTemplateCreateOrUpdateActions.isLoading(true));
+    dispatch(tagTemplateCreateOrUpdateActions.error(null));
+    const apiCall = data.id ? api.updateTagTemplate : api.createTagTemplate;
+    try {
+      const response = await apiCall(data);
+      dispatch(tagTemplateCreateOrUpdateActions.success(response.data));
+      if (typeof callback === 'function') {
+        callback(response.data.id);
+      }
+    } catch (error) {
+      dispatch(tagTemplateCreateOrUpdateActions.error(error));
+    }
+    dispatch(tagTemplateCreateOrUpdateActions.isLoading(false));
+  };
+}
+
+export function createOrUpdateTagGroupTemplate(
+  data: any,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(tagGroupTemplateCreateOrUpdateActions.isLoading(true));
+    dispatch(tagGroupTemplateCreateOrUpdateActions.error(null));
+    const apiCall = data.id
+      ? api.updateTagGroupTemplate
+      : api.createTagGroupTemplate;
+    try {
+      const response = await apiCall(data);
+      dispatch(tagGroupTemplateCreateOrUpdateActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(tagGroupTemplateCreateOrUpdateActions.error(error));
+    }
+    dispatch(tagGroupTemplateCreateOrUpdateActions.isLoading(false));
+  };
+}
+
+export function deleteTagGroupTemplate(
+  id: number,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(tagGroupTemplateCreateOrUpdateActions.isLoading(true));
+    dispatch(tagGroupTemplateCreateOrUpdateActions.error(null));
+
+    try {
+      await api.deleteTagGroupTemplate(id);
+      dispatch(fetchAllGroupTemplates());
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (error) {
+      dispatch(tagGroupTemplateCreateOrUpdateActions.error(error));
+      if (options && options.onError) {
+        options.onError();
+      }
+    }
+    dispatch(tagGroupTemplateCreateOrUpdateActions.isLoading(false));
+  };
+}
+
+export function deleteTagTemplate(id: number): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(tagTemplateCreateOrUpdateActions.isLoading(true));
+    dispatch(tagTemplateCreateOrUpdateActions.error(null));
+
+    try {
+      await api.deleteTagTemplate(id);
+      dispatch(fetchAllTagTemplates());
+    } catch (error) {
+      console.error(error);
+      dispatch(tagTemplateCreateOrUpdateActions.error(error));
+    }
+    dispatch(tagTemplateCreateOrUpdateActions.isLoading(false));
+  };
+}

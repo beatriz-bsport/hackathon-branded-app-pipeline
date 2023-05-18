@@ -54,6 +54,46 @@ const fetchMemberTagList = async (companyId: number) => {
   );
 };
 
+// Franchise stuff (aka templates)
+
+const TAG_TEMPLATE_URI = `${API_URI}/tagging/tag-template/`;
+const TAG_GROUP_TEMPLATE_URI = `${API_URI}/tagging/tag-group-template/`;
+
+const fetchAllGroupTemplates = async () => {
+  return getAuth(TAG_GROUP_TEMPLATE_URI);
+};
+
+const fetchAllTagTemplates = async () => {
+  return getAuth(TAG_TEMPLATE_URI);
+};
+
+const deleteTagTemplate = async (id: number) => {
+  return deleteAuth(`${TAG_TEMPLATE_URI}${id}/`);
+};
+
+const deleteTagGroupTemplate = async (id: number) => {
+  return deleteAuth(`${TAG_GROUP_TEMPLATE_URI}${id}/`);
+};
+
+const createTagGroupTemplate = async (data: any) => {
+  return postAuth(TAG_GROUP_TEMPLATE_URI, data);
+};
+
+const createTagTemplate = async (data: any) => {
+  return postAuth(TAG_TEMPLATE_URI, data);
+};
+
+const updateTagTemplate = async (data: any) => {
+  return putAuth(`${TAG_TEMPLATE_URI}${data.id}/`, data);
+};
+
+const updateTagGroupTemplate = async (data: any) => {
+  return putAuth(`${TAG_GROUP_TEMPLATE_URI}${data.id}/`, data);
+};
+const fetchTagTemplateUsage = async () => {
+  return getAuth(`${TAG_TEMPLATE_URI}usage/`);
+};
+
 export default {
   fetchAllGroups,
   fetchAllTags,
@@ -65,4 +105,13 @@ export default {
   deleteTagGroup,
   fetchTagUsage,
   fetchMemberTagList,
+  fetchAllGroupTemplates,
+  fetchAllTagTemplates,
+  createTagTemplate,
+  createTagGroupTemplate,
+  updateTagTemplate,
+  updateTagGroupTemplate,
+  deleteTagTemplate,
+  deleteTagGroupTemplate,
+  fetchTagTemplateUsage,
 };

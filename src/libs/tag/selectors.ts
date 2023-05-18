@@ -80,4 +80,24 @@ export const withTags = memoize((selector: (state: RootState) => any) =>
     }));
   }),
 );
+
 export default { getMemberTagGroups, getMemberTags, getMemberTagsWithTagGroup };
+
+const _getTagTemplates = (state: RootState) => state.tag.tagTemplate.items;
+const _getGroupTemplates = (state: RootState) => state.tag.groupTemplate.items;
+
+export const getTagTemplatesDict = (state: RootState) =>
+  state.tag.tagTemplate.byId;
+export const getTagGroupTemplatesDict = (state: RootState) =>
+  state.tag.group.byId;
+export const getTagGroupTemplateList = (state: RootState) =>
+  state.tag.groupTemplate.items;
+export const getAllTemplate: (state: RootState) => Array<TagGroup> =
+  createSelector(
+    [_getTagTemplates, _getGroupTemplates],
+    (tagTemplates, groupTemplates) =>
+      groupTemplates.map((g) => ({
+        ...g,
+        tags: tagTemplates.filter((t) => t.group_template === g.id),
+      })),
+  );

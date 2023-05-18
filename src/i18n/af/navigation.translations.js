@@ -137,6 +137,7 @@ exports.default = {
   franchiseMenu: {
     franchises: 'Franchisés',
     members: 'Membres',
+    tag: 'Tags',
     products: {
       label: 'Produits',
       paymentPackTemplates: 'Cartes de cours',

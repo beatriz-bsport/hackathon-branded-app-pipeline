@@ -16,6 +16,21 @@ export type TagGroup = {
   kind: number;
 };
 
+export type TagTemplate<TG = number> = {
+  id: number;
+  name: string;
+  group?: TG;
+  color: string;
+  icon: string;
+};
+
+export type TagGroupTemplate = {
+  id: number;
+  name: string;
+  tags: TagTemplate[];
+  kind: number;
+};
+
 export type TagGroupAPI = {
   id: number;
   name: string;
@@ -38,6 +53,21 @@ export type TagState = {
     loading: boolean;
     error: Error;
     byId: { [key: string]: TagGroupAPI };
+  };
+  tagTemplate: ErrorAndLoading & {
+    byId: { [key: string]: TagTemplate };
+    items: TagTemplate[];
+    createOrUpdate: ErrorAndLoading;
+  };
+  groupTemplate: ErrorAndLoading & {
+    byId: { [key: string]: TagGroupTemplate };
+    items: TagGroupTemplate[];
+    createOrUpdate: ErrorAndLoading;
+  };
+  tagTemplateUsage: {
+    loading: boolean;
+    error: Error;
+    byId: { [key: string]: TagGroupTemplate };
   };
   marketPlaceMemberTag: {
     loading: boolean;

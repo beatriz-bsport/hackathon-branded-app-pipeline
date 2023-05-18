@@ -9,6 +9,11 @@ import {
   tagCreateOrUpdateActions,
   tagUsageActions,
   fetchMemberTagListActions,
+  tagGroupTemplateListActions,
+  tagGroupTemplateCreateOrUpdateActions,
+  tagTemplateListActions,
+  tagTemplateCreateOrUpdateActions,
+  tagTemplateUsageActions,
 } from './actions';
 
 import type { TagState } from './types';
@@ -35,6 +40,31 @@ const initialState: Immutable.Immutable<TagState> = Immutable<TagState>({
     },
   },
   tagUsage: {
+    loading: false,
+    error: null,
+    byId: {},
+  },
+  tagTemplate: {
+    items: [],
+    byId: {},
+    loading: false,
+    error: null,
+    createOrUpdate: {
+      loading: false,
+      error: null,
+    },
+  },
+  groupTemplate: {
+    items: [],
+    byId: {},
+    loading: false,
+    error: null,
+    createOrUpdate: {
+      loading: false,
+      error: null,
+    },
+  },
+  tagTemplateUsage: {
     loading: false,
     error: null,
     byId: {},
@@ -152,6 +182,117 @@ export default handleActions(
         ['marketPlaceMemberTag', 'tagIdsList'],
         payload.map((tag) => tag.id),
       );
+    },
+    // TAG TEMPLATE
+    // --------
+    [tagTemplateListActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['tagTemplate', 'loading'], payload);
+    },
+    [tagTemplateListActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['tagTemplate', 'error'], payload);
+    },
+    [tagTemplateListActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['tagTemplate', 'items'], payload).merge(
+        {
+          tagTemplate: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
+    },
+    [tagTemplateUsageActions.success.toString()]: (state, { payload }) => {
+      return state.merge(
+        {
+          tagTemplateUsage: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
+    },
+    [tagTemplateUsageActions.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['tagTemplateUsage', 'loading'], payload);
+    },
+    [tagTemplateUsageActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['tagTemplateUsage', 'error'], payload);
+    },
+    [tagTemplateCreateOrUpdateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['tagTemplate', 'createOrUpdate', 'loading'], payload);
+    },
+    [tagTemplateCreateOrUpdateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['tagTemplate', 'createOrUpdate', 'error'], payload);
+    },
+    [tagTemplateCreateOrUpdateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      let idx = state.tagTemplate.items.findIndex((t) => t.id === payload.id);
+      if (idx === -1) {
+        idx = state.tagTemplate.items.length;
+      }
+      return state.setIn(['tagTemplate', 'items', idx], payload);
+    },
+    // GROUP TEMPLATE
+    // --------
+    [tagGroupTemplateListActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['groupTemplate', 'loading'], payload);
+    },
+    [tagGroupTemplateListActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['groupTemplate', 'error'], payload);
+    },
+    [tagGroupTemplateListActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(['groupTemplate', 'items'], payload).merge(
+        {
+          groupTemplate: {
+            byId: payload.reduce((acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            }, {}),
+          },
+        },
+        { deep: true },
+      );
+    },
+    [tagGroupTemplateCreateOrUpdateActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['groupTemplate', 'createOrUpdate', 'loading'],
+        payload,
+      );
+    },
+    [tagGroupTemplateCreateOrUpdateActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['groupTemplate', 'createOrUpdate', 'error'], payload);
+    },
+    [tagGroupTemplateCreateOrUpdateActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      let idx = state.groupTemplate.items.findIndex((g) => g.id === payload.id);
+      if (idx === -1) {
+        idx = state.groupTemplate.items.length;
+      }
+      return state.setIn(['groupTemplate', 'items', idx], payload);
     },
   },
   initialState,

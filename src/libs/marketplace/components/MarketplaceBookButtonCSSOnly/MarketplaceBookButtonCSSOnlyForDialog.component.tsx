@@ -12,10 +12,12 @@ import {
 } from '../../utils';
 import { Offer_FULL } from '#libs/offer/types';
 import './MarketplaceBookButtonCSSOnlyForDialog.css';
+import { OffersGroup } from '#libs/group-offer/types';
 
 type Props = {
   offer: Offer_FULL;
   isRegistered?: boolean;
+  group?: OffersGroup;
   onClickBook: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onClickBookOption: (
     ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -25,6 +27,7 @@ type Props = {
 const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
   offer,
   isRegistered,
+  group,
   onClickBook,
   onClickBookOption,
 }) => {
@@ -35,8 +38,8 @@ const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
     () =>
       !offer.available ||
       !isOfferInThePast(offer) ||
-      firstOfferInGroupLocksBookingBecauseInPast(offer),
-    [offer],
+      firstOfferInGroupLocksBookingBecauseInPast(offer, group),
+    [group, offer],
   );
   return (
     <button

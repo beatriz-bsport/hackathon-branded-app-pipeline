@@ -29,6 +29,7 @@ import './MarketplaceActivity.css';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
+import { OffersGroup } from '#libs/group-offer/types';
 
 type Props = {
   offer: Offer;
@@ -42,11 +43,19 @@ type Props = {
   onClickBookOption: (offer: Offer) => void;
   hideCoach: boolean;
   width: string;
+  group: { [key: number]: OffersGroup };
 };
 
 export const MarketplaceActivityV2 = (props: Props) => {
-  const { offer, establishments, coaches, customLevels, hideCoach, theme } =
-    props;
+  const {
+    offer,
+    establishments,
+    coaches,
+    customLevels,
+    hideCoach,
+    theme,
+    group,
+  } = props;
   const { t } = useTranslation([
     'metaActivity',
     'marketplace',
@@ -95,6 +104,13 @@ export const MarketplaceActivityV2 = (props: Props) => {
     () => customLevels.find((level) => level.id === offer.custom_level),
     [customLevels, offer.custom_level],
   );
+
+  const groupData = useMemo(() => {
+    if (offer?.group && group) {
+      return group[offer.group];
+    }
+    return null;
+  }, [group, offer.group]);
 
   return (
     <div className="bs-activity">
@@ -307,6 +323,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
           </Button>
           <MarketplaceBookButtonV2
             offer={offer}
+            group={groupData}
             onClickBook={handleBook}
             onClickBookOption={handleBookOption}
           />

@@ -19,6 +19,7 @@ import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoach
 import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
 import { Theme } from '#libs/theme/types';
 import { MetaActivity } from '#libs/meta-activity/types';
+import { OffersGroup } from '#libs/group-offer/types';
 
 type OwnProps = {
   offer: Offer;
@@ -37,6 +38,7 @@ type OwnProps = {
   onClickBookOption: (offer: Offer) => void;
   getLevel: (id: number) => void;
   isBookingDisabled: boolean;
+  group?: OffersGroup;
 };
 
 type Props = OwnProps;
@@ -45,8 +47,15 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
   const isVariantTimeHighlighted = props.variant === 'time';
   const isVariantCoachHighlighted = props.variant === 'coach';
 
-  const { offer, establishments, metaActivities, coaches, theme, genderCount } =
-    props;
+  const {
+    offer,
+    establishments,
+    metaActivities,
+    coaches,
+    theme,
+    genderCount,
+    group,
+  } = props;
 
   const handleBook = () => {
     props.onClickBook(offer);
@@ -210,6 +219,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
           <div className="bs-card-offer__content__bottom__buttonContainer">
             <MarketplaceBookButton
               offer={offer}
+              group={group}
               isRegistered={props.isRegistered}
             />
           </div>

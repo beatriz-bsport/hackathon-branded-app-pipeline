@@ -5,6 +5,7 @@ import Config from '../../config';
 import { Offer, Offer_FULL } from '#libs/offer/types';
 import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
 import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
+import { OffersGroup } from '#libs/group-offer/types';
 
 export function isOfferInThePast(offer: Offer | Offer_FULL) {
   if (!offer) return false;
@@ -12,12 +13,17 @@ export function isOfferInThePast(offer: Offer | Offer_FULL) {
 }
 export function firstOfferInGroupLocksBookingBecauseInPast(
   offerInGroup: Offer_FULL,
+  offerGroup?: OffersGroup,
 ) {
+  if (offerGroup?.first_offer_date) {
+    return moment(offerGroup.first_offer_date).isSameOrBefore(moment());
+  }
   if (!offerInGroup?.group || offerInGroup.group.allow_booking_after_start) {
     return false;
   }
   return moment(offerInGroup.group.first_offer_date).isSameOrBefore(moment());
 }
+
 export function isOfferBookableYet(offer: Offer_FULL) {
   if (offer.meta_activity && !offer.meta_activity.first_booking_minutes_until) {
     return true;

@@ -212,6 +212,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
         {offersRows.map((row, idx) => (
           <React.Fragment key={`row-${row?.[0]?.id ?? idx}`}>
             {row.map((o: Offer, index) => {
+              const groupData = this.props.group?.[o?.group];
               if (o === undefined) {
                 return (
                   <div
@@ -228,6 +229,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                     hideCoach={this.props.hideCoach}
                     showOfferGender={this.props.showOfferGender}
                     offer={o}
+                    group={groupData}
                     metaActivities={this.props.metaActivities}
                     establishments={this.props.establishments}
                     coaches={this.props.coaches}
@@ -244,7 +246,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                     isBookingDisabled={
                       !o.available ||
                       !isOfferInThePast(o) ||
-                      firstOfferInGroupLocksBookingBecauseInPast(o)
+                      firstOfferInGroupLocksBookingBecauseInPast(o, groupData)
                     }
                     variant={this.props.variant}
                   />

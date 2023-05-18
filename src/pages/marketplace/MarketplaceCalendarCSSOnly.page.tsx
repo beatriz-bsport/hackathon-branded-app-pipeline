@@ -390,6 +390,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
               : establishments
           }
           coaches={coaches}
+          group={this.props.group}
           onClose={this.closeOfferDialog}
           customLevels={this.props.customLevels}
           hideCoach={this.props.theme && this.props.theme.hideCoach}

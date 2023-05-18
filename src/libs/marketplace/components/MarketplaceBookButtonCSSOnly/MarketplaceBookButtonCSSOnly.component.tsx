@@ -15,15 +15,18 @@ import {
 } from '../../utils';
 import { Offer } from '#libs/offer/types';
 import './MarketplaceBookButtonCSSOnly.css';
+import { OffersGroup } from '#libs/group-offer/types';
 
 type Props = {
   offer: Offer;
+  group: OffersGroup;
   className?: string;
   isRegistered?: boolean;
 };
 
 const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
   offer,
+  group,
   className,
   isRegistered,
 }) => {
@@ -32,8 +35,8 @@ const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
   const offerIsInThePast = useMemo(() => !isOfferInThePast(offer), [offer]);
 
   const firstOfferInGroupIsInThePast = useMemo(
-    () => firstOfferInGroupLocksBookingBecauseInPast(offer),
-    [offer],
+    () => firstOfferInGroupLocksBookingBecauseInPast(offer, group),
+    [group, offer],
   );
 
   const isDisabled =

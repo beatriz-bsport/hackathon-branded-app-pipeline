@@ -12,6 +12,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Level } from '#libs/level/types';
+import { OffersGroup } from '#libs/group-offer/types';
 
 type Props = {
   theme: Theme;
@@ -30,6 +31,7 @@ type Props = {
   onClickBookOption: (offer: Offer) => void;
   hideCoach: boolean;
   width: string;
+  group: { [key: number]: OffersGroup };
 };
 
 export function MarketplaceActivityDialog(props: Props) {

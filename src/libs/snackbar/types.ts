@@ -1,4 +1,3 @@
-// @ts-nocheck
 export type SnackKind = 'success' | 'error' | 'info' | 'warning';
 
 export type Snack = { id: number; message: string; kind: SnackKind };
@@ -12,6 +11,7 @@ export type BackgroundSnack = {
 };
 
 export type SnackbarState = {
-  messages: Array<Snack>;
+  topMessages: Array<Snack>;
+  bottomMessages: Array<Snack>;
   backgroundMessages: Array<BackgroundSnack>;
 };

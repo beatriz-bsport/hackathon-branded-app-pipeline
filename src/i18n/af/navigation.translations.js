@@ -107,6 +107,7 @@ exports.default = {
       forms: 'Formulaire membre',
       coachUserspace: 'Espace professeur',
       mobilePersonalization: 'Personalisation app',
+      quicksale: 'Interface de vente',
     },
     tutorial: 'Tutoriel',
     tutorialInfo: 'Retrouvez notre guide de démarrage dans l’onglet Tutoriel.',
@@ -238,6 +239,10 @@ exports.default = {
       campaign: 'Campagne',
       statistics: 'Statistiques',
       layout: 'Personnalisation',
+    },
+    quicksale: {
+      configuration: 'Personnalisation des catégories',
+      access: "Création d'accès",
     },
   },
 };

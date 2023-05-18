@@ -49,4 +49,21 @@ exports.default = {
       withoutCategory: 'Sans catégorie',
     },
   },
+  cardListPage: {
+    preview: 'Prévisualisation',
+    save: 'Sauvegarder',
+    possibleActions:
+      "Vous pouvez effectuer des actions au survol des tuiles à l'aide de la souris. Vous pourrez ainsi :",
+    editIcon: "Modifier l'icône",
+    editName: 'Modifier le nom',
+    editColor: 'Modifier la couleur',
+    moveTile: 'Déplacer la tuile',
+    deleteTile: 'Supprimer la tuile',
+    newSection: 'Nouvelle catégorie',
+    categoryModalTitle: 'Couleur de la catégorie',
+    categoryModalSubtitle: 'Palette de couleur',
+    archivedCategories: 'Catégories archivées',
+    categoryArchivedSnackbar: 'La catégorie a été archivée',
+  },
+  pageTitle: 'Interface de vente',
 };

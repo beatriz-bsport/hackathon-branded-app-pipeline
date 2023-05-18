@@ -4013,7 +4013,8 @@
         "platform_billing": "Abonnement bsport",
         "forms": "Formulaire membre",
         "coachUserspace": "Espace professeur",
-        "mobilePersonalization": "Personalisation app"
+        "mobilePersonalization": "Personalisation app",
+        "quicksale": "Interface de vente"
       },
       "tutorial": "Tutoriel",
       "tutorialInfo": "Retrouvez notre guide de démarrage dans l’onglet Tutoriel.",
@@ -4105,7 +4106,8 @@
       "widget": { "create": "Général", "customize": "Personnalisation", "customizeCss": "CSS personnalisé" },
       "replacement": { "management": "Gestion", "disciplineGroup": "Groupes de disciplines" },
       "franchise": { "staff": { "staffAccount": "Comptes staff", "role": "Rôles" } },
-      "customForm": { "general": "Contenu", "campaign": "Campagne", "statistics": "Statistiques", "layout": "Personnalisation" }
+      "customForm": { "general": "Contenu", "campaign": "Campagne", "statistics": "Statistiques", "layout": "Personnalisation" },
+      "quicksale": { "configuration": "Personnalisation des catégories", "access": "Création d'accès" }
     }
   },
   "notificationRule": {
@@ -6913,7 +6915,23 @@
         "noResult": "Aucun résultat",
         "withoutCategory": "Sans catégorie"
       }
-    }
+    },
+    "cardListPage": {
+      "preview": "Prévisualisation",
+      "save": "Sauvegarder",
+      "possibleActions": "Vous pouvez effectuer des actions au survol des tuiles à l'aide de la souris. Vous pourrez ainsi :",
+      "editIcon": "Modifier l'icône",
+      "editName": "Modifier le nom",
+      "editColor": "Modifier la couleur",
+      "moveTile": "Déplacer la tuile",
+      "deleteTile": "Supprimer la tuile",
+      "newSection": "Nouvelle catégorie",
+      "categoryModalTitle": "Couleur de la catégorie",
+      "categoryModalSubtitle": "Palette de couleur",
+      "archivedCategories": "Catégories archivées",
+      "categoryArchivedSnackbar": "La catégorie a été archivée"
+    },
+    "pageTitle": "Interface de vente"
   },
   "relationship": {
     "connectedAs": {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { SnackKind, BackgroundSnackKind } from './types';
 import { Dispatch } from '../../state/types';
@@ -80,3 +79,34 @@ export function deleteBackgroundSnackbar(uuid: string) {
 export const backgroundSnackbarSuccess = displayBackgroundSnackbar('success');
 export const backgroundSnackbarError = displayBackgroundSnackbar('error');
 export const backgroundSnackbarWarning = displayBackgroundSnackbar('warning');
+
+export const bottomSnackbarDisplay = createAction('BOTTOM_SNACKBAR/DISPLAY');
+export const bottomSnackbarDestroy = createAction('BOTTOM_SNACKBAR/DESTROY');
+
+const bottomId = 0;
+export function displayBottomSnackbar(kind: SnackKind) {
+  return (message: string) => async (dispatch: Dispatch) => {
+    const myId = bottomId + 1;
+    dispatch(bottomSnackbarDisplay({ id: myId, message, kind }));
+    await sleep(5000);
+    dispatch(bottomSnackbarDestroy(myId));
+  };
+}
+
+export function deleteBottomSnackbar(snackbarId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(bottomSnackbarDestroy(snackbarId));
+  };
+}
+
+export const bottomSnackbarSuccess = displayBottomSnackbar('success');
+export const bottomSnackbarError = displayBottomSnackbar('error');
+export const bottomSnackbarInfo = displayBottomSnackbar('info');
+export const bottomSnackbarWarning = displayBottomSnackbar('warning');
+
+export const bottomSnackbar = {
+  success: bottomSnackbarSuccess,
+  error: bottomSnackbarError,
+  info: bottomSnackbarInfo,
+  warning: bottomSnackbarWarning,
+};

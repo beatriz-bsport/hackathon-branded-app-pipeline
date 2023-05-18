@@ -25,6 +25,7 @@ import type { Cadence } from '#libs/sequential_marketing/types';
 import { SmartList } from '#libs/smart-list/types';
 
 import { DestinationStatus } from '#libs/sequential_marketing/constants';
+import { isMinimalCadenceConfigurationCompleted } from '#libs/sequential_marketing/utils';
 
 type Props = {
   cadence: Cadence;
@@ -84,9 +85,7 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
 
     React.useEffect(() => {
       if (
-        cadenceMinimalConfigurationState.cadenceEntryConfigured &&
-        cadenceMinimalConfigurationState.cadenceWinConfigured &&
-        cadenceMinimalConfigurationState.cadenceLoseConfigured
+        isMinimalCadenceConfigurationCompleted(cadenceMinimalConfigurationState)
       ) {
         setCanbeActivated(true);
       } else {

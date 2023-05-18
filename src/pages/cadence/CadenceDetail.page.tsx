@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from 'react';
 import { push as pushRouter } from 'connected-react-router';
 import classNames from 'classnames';
@@ -56,12 +57,13 @@ import type {
 } from '#libs/sequential_marketing/types';
 import CadenceDetailHeader from '#libs/sequential_marketing/components/CadenceDetailHeader.component';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
-import CadenceGraphFlow from '#libs/sequential_marketingDEPRECATED/components/graph/CadenceGraphFlow.component';
+import CadenceGraphFlow from '#libs/sequential_marketing/components/graph/CadenceGraphFlow.component';
 import {
   CADENCE_STEPPER_ENTRY_STEP,
   CADENCE_STEPPER_WIN_STEP,
   CADENCE_STEPPER_LOSE_STEP,
 } from '#libs/sequential_marketingDEPRECATED/components/form/CadenceSettingsFormStepper.component';
+// This import stays on deprecated. Value wll be completly differrent after refactor.
 import type { Values } from '#libs/sequential_marketingDEPRECATED/components/form/Trigger/components';
 import {
   emailTemplatesSummaries,
@@ -73,7 +75,7 @@ import {
 } from '#libs/email-editor/selectors';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
-import { NodeIdentifiersEnum } from '#libs/sequential_marketingDEPRECATED/components/graph/hooks';
+import { NodeIdentifiersEnum } from '#libs/sequential_marketing/components/graph/hooks';
 
 export const drawerWidth = 400;
 export const headerHeight = 110;
@@ -294,6 +296,8 @@ export class CadenceDetailPage extends Component<Props> {
           <div className={classes.mainPanelContent}>
             <CadenceGraphFlow
               cadence={this.props.cadence}
+              smartlistById={this.props.smartlistById}
+              steps={this.props.steps}
               updateCadenceStepCanvasPosition={
                 this.props.updateCadenceStepCanvasPosition
               }

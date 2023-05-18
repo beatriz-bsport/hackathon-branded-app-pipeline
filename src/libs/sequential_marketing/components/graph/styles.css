@@ -1,0 +1,80 @@
+.react-flow__controls{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border:none;
+    box-shadow: none !important;
+    bottom: 60px !important;
+    /* Important for box shadow to work */
+    padding: 10px;
+    padding-bottom: 25px;
+}
+
+.collapsable {
+    overflow: hidden;
+    transition: max-height 200ms ease-in-out;
+    transition: padding 0 ease-in;
+}
+.collapsed{
+    max-height: 0px;
+    padding: 0px;
+}
+.react-flow__controls_bottom_fab{
+    bottom: 20px;
+    left: 12px;
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 50px;
+}
+
+.react-flow__controls button {
+    color: var(--text-color);
+    border-bottom: none;
+    width: 25px;
+    height: 25px;
+    /* Important to hide shadow collision with siblings */
+    overflow: hidden;
+    /* box-shadow h v blur spread color : v set intentionnaly to 10px to be hidden in overflow */
+    box-shadow: 3px 10px 10px -2px rgb(0 0 0 / 0.2);
+    
+}
+
+.react-flow__controls_bottom_fab button{
+    background-color: white;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+.react-flow__controls button:first-child {
+    border-radius: 25px 25px 0 0;
+}
+
+.react-flow__controls button:last-child {
+    border-radius: 0 0 25px 25px;
+    
+}
+
+@keyframes shake {
+    0% { transform: rotate(0) }
+    15% { transform: rotate(10deg) }
+    30% { transform: rotate(-10deg) }
+    45% { transform: rotate(8deg) }
+    60% { transform: rotate(-8deg) }
+    75% { transform: rotate(4deg) }
+    85% { transform: rotate(-4deg) }
+    92% { transform: rotate(1deg) }
+    100% { transform: rotate(0) }
+}
+
+.react-flow__controls-interactive:hover>svg, 
+.react-flow__controls-fitview:hover>svg, 
+.react-flow__controls-zoomout:hover>svg, 
+.react-flow__controls-zoomin:hover>svg{
+    animation: shake 0.8s;
+    animation-iteration-count: 1;    
+}

@@ -101,7 +101,7 @@ export const TriggerText = ({
       if (
         connected_trigger_config?.filtering_config?.smartlist_pk &&
         connected_trigger_config?.filtering_config?.smartlist_pk ===
-          smartlist.id
+          smartlist?.id
       ) {
         return smartlist.name;
       }

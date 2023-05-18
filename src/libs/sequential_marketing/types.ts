@@ -35,7 +35,7 @@ export type CadenceStep = {
 };
 
 export type GraphCanvas = {
-  positions: {
+  position: {
     x: string;
     y: string;
   };
@@ -81,7 +81,6 @@ export type DestinationConfig = {
 };
 
 export type ConnectedTrigger = {
-  uuid?: string;
   trigger_config: TriggerConfig;
   destination_config: DestinationConfig;
   filtering_config: FilteringConfig;

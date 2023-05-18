@@ -52,7 +52,7 @@ import {
 } from '../../../../libs/payment-packs/actions';
 import {
   fetchPaymentComboForBooking,
-  fetchPaymentComboBulk as fetchPaymentComboBulkAction,
+  fetchPaymentComboList as fetchPaymentComboListAction,
 } from '../../../../libs/payment-combo/actions';
 import {
   fetchConsumerPaymentPackForBooking,
@@ -438,30 +438,38 @@ const mapHandlers = {
     ({
       fetchContractForBooking,
       fetchPaymentPackBulk,
-      fetchPaymentComboBulk,
+      fetchPaymentComboList,
     }: OwnAndConnectedProps) =>
     (offer, company) => {
       fetchContractForBooking(offer, company, {
         onSuccess: (contractList) => {
           fetchPaymentPackBulk(contractList.map((c) => c.payment_pack));
-          fetchPaymentComboBulk(
-            {
-              company,
-              id__in: uniq(contractList.map((c) => c.payment_combo)),
-            },
-            {
-              onSuccess: (paymentComboList: Array<PaymentCombo>) => {
-                const paymentPackIds = paymentComboList.reduce(
-                  (allIds: Array<number>, combo: PaymentCombo) => [
-                    ...allIds,
-                    ...combo.payment_packs.map((pp) => pp.id),
-                  ],
-                  [],
-                );
-                fetchPaymentPackBulk(paymentPackIds);
+          const uniqPaymentComboIds = uniq(
+            contractList.map((c) => c.payment_combo),
+          ).filter((id) => !!id);
+          if (uniqPaymentComboIds.length) {
+            fetchPaymentComboList(
+              {
+                company,
+                id__in: uniqPaymentComboIds,
               },
-            },
-          );
+              {
+                onSuccess: (paymentComboList: Array<PaymentCombo>) => {
+                  const paymentPackIds = paymentComboList.reduce(
+                    (allIds: Array<number>, combo: PaymentCombo) => [
+                      ...allIds,
+                      ...combo.payment_packs.map((pp) => pp.id),
+                    ],
+                    [],
+                  );
+                  paymentPackIds.filter((id) => !!id);
+                  if (paymentPackIds.length) {
+                    fetchPaymentPackBulk(paymentPackIds);
+                  }
+                },
+              },
+            );
+          }
         },
       });
     },
@@ -509,7 +517,7 @@ const mapDispatchToProps = {
   replace: replaceAction,
   fetchConsumerPaymentPackForBooking,
   fetchPaymentPackBulk: fetchPaymentPackBulkAction,
-  fetchPaymentComboBulk: fetchPaymentComboBulkAction as (
+  fetchPaymentComboList: fetchPaymentComboListAction as (
     params: any,
     options: OptionCallback<Array<PaymentCombo>>,
   ) => void,

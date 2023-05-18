@@ -11,12 +11,12 @@ const useStyle = makeStyles<
 >((theme) => ({
   cardTitleContainer: ({ color }) => ({
     height: theme.spacing(5),
+    width: '100%',
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
     borderRadius: theme.spacing(1),
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
     cursor: 'pointer',
     overflow: 'hidden',
     '&:hover': {

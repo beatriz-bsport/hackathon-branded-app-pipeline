@@ -1,8 +1,8 @@
-// @ts-nocheck
 import React, { useMemo, useCallback, memo, useRef } from 'react';
 import Immutable from 'seamless-immutable';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
@@ -21,6 +21,9 @@ type Props = {
   onChange: (tab: string) => void;
   scrollToTopOnChange?: boolean;
   scrollOptions?: ScrollToOptions;
+  customClasses?: { [className: string]: string };
+  dense?: boolean;
+  fullHeight?: boolean;
 };
 
 const TabsGenerator: React.FC<{
@@ -29,8 +32,16 @@ const TabsGenerator: React.FC<{
   tab: string;
   defaultTab: string;
   handleChangeTab: (_: React.SyntheticEvent, newTab: string) => void;
+  customClasses?: { [className: string]: string };
 }> = memo(
-  ({ tabsData, isTabIntoTabsDataValue, tab, defaultTab, handleChangeTab }) => {
+  ({
+    tabsData,
+    isTabIntoTabsDataValue,
+    tab,
+    defaultTab,
+    handleChangeTab,
+    customClasses,
+  }) => {
     const { t } = useTranslation('navigation');
     return (
       <Tabs
@@ -38,9 +49,11 @@ const TabsGenerator: React.FC<{
         variant="scrollable"
         value={isTabIntoTabsDataValue ? tab : defaultTab}
         onChange={handleChangeTab}
+        className={customClasses?.tabs}
       >
         {tabsData?.map((tabValue) => (
           <Tab
+            className={customClasses?.tab}
             key={tabValue.value}
             label={`${t(tabValue.label, {
               // we want to use the singular (i.e. 'count: 1') only when tabValue.count is falsy (=== 0, undefined or null)
@@ -64,10 +77,13 @@ const ContentWithAppBar: React.FC<Props> = memo(
     children,
     scrollToTopOnChange,
     scrollOptions,
+    customClasses,
+    dense,
+    fullHeight,
   }) => {
     const fieldRef = React.useRef<HTMLDivElement>(null);
 
-    const classes = useStyles({ pageHeight });
+    const classes = useStyles({ pageHeight, dense, fullHeight });
 
     const isTabsDataNullOrEmpty = !tabsData?.length;
 
@@ -108,25 +124,43 @@ const ContentWithAppBar: React.FC<Props> = memo(
 
     const defaultTab = tabsData[0].value;
     return (
-      <div className={classes.container}>
-        <AppBar position="static" color="default">
+      <div className={classNames(classes.container, customClasses?.container)}>
+        <AppBar
+          position="static"
+          color="default"
+          className={customClasses?.appBar}
+        >
           <TabsGenerator
             tabsData={tabsData}
             isTabIntoTabsDataValue={isTabIntoTabsDataValue}
             tab={tab}
             defaultTab={defaultTab}
             handleChangeTab={handleChangeTab}
+            customClasses={customClasses}
           />
         </AppBar>
-        <div className={classes.content} ref={fieldRef}>
-          <div className={classes.insideContent}>{children}</div>
+        <div
+          className={classNames(classes.content, customClasses?.content)}
+          ref={fieldRef}
+        >
+          <div
+            className={classNames(
+              classes.insideContent,
+              customClasses?.insideContent,
+            )}
+          >
+            {children}
+          </div>
         </div>
       </div>
     );
   },
 );
 
-const useStyles = makeStyles<Theme, { pageHeight: number }>((theme) => ({
+const useStyles = makeStyles<
+  Theme,
+  { pageHeight: number; dense?: boolean; fullHeight?: boolean }
+>((theme) => ({
   container: {
     marginTop: theme.spacing(-3),
     width: '100vw',
@@ -145,14 +179,19 @@ const useStyles = makeStyles<Theme, { pageHeight: number }>((theme) => ({
     overflow: 'auto',
     maxHeight: ({ pageHeight }) => pageHeight - APP_HEIGHT,
   },
-  insideContent: {
-    marginBottom: theme.spacing(8),
-    [theme.breakpoints.up('md')]: {
-      margin: theme.spacing(2),
-      marginBottom: theme.spacing(8),
-    },
-    marginTop: theme.spacing(2),
-  },
+  insideContent: ({ pageHeight, dense, fullHeight }) => ({
+    ...(dense
+      ? {}
+      : {
+          marginBottom: theme.spacing(8),
+          [theme.breakpoints.up('md')]: {
+            margin: theme.spacing(2),
+            marginBottom: theme.spacing(8),
+          },
+          marginTop: theme.spacing(2),
+        }),
+    ...(fullHeight ? { '& > *': { height: pageHeight - APP_HEIGHT } } : {}),
+  }),
 }));
 
 ContentWithAppBar.defaultProps = {

@@ -1242,4 +1242,8 @@ exports.default = {
       success: 'Votre cadence a été mise à jour',
     },
   },
+  quicksaleConfiguration: {
+    updated: 'Configuration sauvegardée',
+    error: 'Une erreur est survenue lors de la sauvegarde',
+  },
 };

@@ -45,3 +45,5 @@ export enum EditableQuicksaleSectionKey {
   icon = 'section_icon',
   color = 'section_color',
 }
+
+export const DEFAULT_SECTION_ICON = 'Category';

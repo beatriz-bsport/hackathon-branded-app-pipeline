@@ -3,6 +3,7 @@ exports.default = {
     subtitle: {
       credit: 'crédit',
       credit_plural: 'crédits',
+      unlimited: 'illimités',
       product: 'produit',
       product_plural: 'produits',
       paymentPack: 'Carte de cours',
@@ -52,18 +53,34 @@ exports.default = {
   cardListPage: {
     preview: 'Prévisualisation',
     save: 'Sauvegarder',
-    possibleActions:
+    possibleActionsShort:
+      "Vous pouvez effectuer des actions au survol des tuiles à l'aide de la souris...",
+    possibleActionsFull:
       "Vous pouvez effectuer des actions au survol des tuiles à l'aide de la souris. Vous pourrez ainsi :",
+    seeMore: 'Voir plus',
+    seeLess: 'Voir moins',
     editIcon: "Modifier l'icône",
     editName: 'Modifier le nom',
     editColor: 'Modifier la couleur',
     moveTile: 'Déplacer la tuile',
+    archiveSection: 'Archiver la catégorie',
     deleteTile: 'Supprimer la tuile',
+    addSection:
+      'Vous pouvez également ajouter une catégorie en cliquant sur la tuile + en dernière position.',
+    addItems:
+      'Vous pouvez également ajouter des objets en cliquant sur la tuile + en dernière position.',
     newSection: 'Nouvelle catégorie',
     categoryModalTitle: 'Couleur de la catégorie',
     categoryModalSubtitle: 'Palette de couleur',
     archivedCategories: 'Catégories archivées',
     categoryArchivedSnackbar: 'La catégorie a été archivée',
+  },
+  pageLeavePrompt: {
+    title: 'Modifications non sauvegardées',
+    description:
+      "Attention, vous n'avez pas effectué de sauvegarde. Vous vous apprêtez à perdre tous les changements apportés. Souhaitez-vous sauvegarder votre travail ?",
+    save: 'Sauvegarder',
+    discard: 'Quitter sans sauvegarder',
   },
   pageTitle: 'Interface de vente',
 };

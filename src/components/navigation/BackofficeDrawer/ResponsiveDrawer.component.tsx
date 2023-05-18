@@ -60,6 +60,7 @@ import {
   UPSELL_IDENTIFIER_CLOCK_IN,
   UPSELL_IDENTIFIER_CUSTOM_APP,
   UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
+  UPSELL_IDENTIFIER_QUICKSALE,
 } from '#libs/platform-billing/upsell-identifiers';
 
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
@@ -557,6 +558,15 @@ const ResponsiveDrawer: React.FC<Props> = ({
             dense: true,
             text: t('backofficeMenu.settings.platform_billing'),
           },
+          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_QUICKSALE)
+            ? [
+                {
+                  to: '/settings/quicksale',
+                  dense: true,
+                  text: t('backofficeMenu.settings.quicksale'),
+                },
+              ]
+            : []),
         ],
       },
       ...(checkRequiredPermissions('navigationMenu.tutorial', permissions) &&

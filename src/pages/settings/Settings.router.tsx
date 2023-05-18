@@ -32,6 +32,7 @@ import MarketplaceSettings from './MarketplaceSettings.page';
 import CustomSignUpConfiguration from './CustomSignUpConfiguration.page';
 import WidgetRouter from './SettingsWidget.router';
 import QuickBookPage from './QuickBooks.page';
+import Quicksale from './quicksale';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -136,6 +137,10 @@ export const Settings = () => {
         exact
         path="/settings/coach-userspace"
         component={CoachPlaceSettingsPage}
+      />
+      <Route
+        path={['/settings/quicksale/:tab', '/settings/quicksale']}
+        component={Quicksale}
       />
       <Route
         path="/settings"

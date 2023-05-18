@@ -374,6 +374,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     [theme.breakpoints.down('md')]: {
       alignItems: 'flex-start',
     },
+    marginBottom: theme.spacing(1),
   },
 }));
 

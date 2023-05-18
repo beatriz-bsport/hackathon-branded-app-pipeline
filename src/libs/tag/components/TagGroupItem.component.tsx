@@ -52,7 +52,7 @@ type OwnProps = {
   onUpdateTag: (tag: Tag) => void;
   onDeleteTag: (tag: Tag) => void;
 
-  onSelectTag: (tag: Tag) => void;
+  onSelectTag?: (tag: Tag) => void;
   selectedTag: Tag;
 };
 
@@ -270,11 +270,14 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                       borderLeft:
                         tag.color !== '' ? `5px solid ${tag.color}` : '0px',
                     }}
-                    hover
-                    onClick={(ev) => {
-                      ev.preventDefault();
-                      this.props.onSelectTag(tag);
-                    }}
+                    hover={!!this.props.onSelectTag}
+                    onClick={
+                      this.props.onSelectTag &&
+                      ((ev) => {
+                        ev.preventDefault();
+                        this.props.onSelectTag(tag);
+                      })
+                    }
                   >
                     <TableCell component="th" scope="row">
                       <div className={classes.iconAndName}>
@@ -310,15 +313,17 @@ class TagGroupItem extends React.PureComponent<Props, State> {
                       >
                         <DeleteIcon />
                       </IconButton>
-                      <IconButton
-                        onClick={(ev) => {
-                          ev.stopPropagation();
-                          this.props.onSelectTag(tag);
-                        }}
-                        className={classes.tagButton}
-                      >
-                        <ArrowForwardIcon color="primary" />
-                      </IconButton>
+                      {this.props.onSelectTag && (
+                        <IconButton
+                          onClick={(ev) => {
+                            ev.stopPropagation();
+                            this.props.onSelectTag(tag);
+                          }}
+                          className={classes.tagButton}
+                        >
+                          <ArrowForwardIcon color="primary" />
+                        </IconButton>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}

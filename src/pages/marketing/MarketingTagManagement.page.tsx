@@ -260,7 +260,7 @@ class MarketingTagManagement extends React.PureComponent<Props> {
       onSuccess: () => {
         trackFormSuccess(data?.id);
         this.props.fetchAllGroups({
-          onSuccess: () => this.scrollToGroupName(),
+          onSuccess: this.scrollToGroupName,
         });
       },
     });

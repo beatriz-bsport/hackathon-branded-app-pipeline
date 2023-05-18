@@ -46,6 +46,7 @@ import {
   Widgets,
   Work,
   Redeem,
+  Label,
 } from '@material-ui/icons';
 import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import ScheduleIcon from '@material-ui/icons/Schedule';
@@ -401,12 +402,7 @@ export const FranchiseDrawer = (props: Props) => {
     <div className={classes.scrollable}>
       <div>
         <div className={classes.toolbar}>
-          <Grid
-            container
-            style={{ paddingTop: 10 }}
-            justify="center"
-            alignItems="center"
-          >
+          <Grid container style={{ paddingTop: 10 }} alignItems="center">
             <Hidden smDown>
               <img height={40} src={cover ?? LOGO_ASSET} alt="bsport logo" />
             </Hidden>
@@ -573,6 +569,11 @@ const getNavigationItems = (props: {
       icon: Email,
       to: '/f/email-template',
       text: 'franchiseMenu.emailTemplates',
+    },
+    {
+      icon: Label,
+      to: '/f/marketing/tags',
+      text: 'franchiseMenu.tag',
     },
     {
       to: '/f/settings/notification-rule',

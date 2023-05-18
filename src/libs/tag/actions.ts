@@ -4,6 +4,7 @@ import { createAction } from 'redux-actions';
 import api from './api';
 
 import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import { TagGroupTemplate } from './types';
 
 export const tagListActions = {
   error: createAction('TAG/LIST/ERROR'),
@@ -184,7 +185,7 @@ export const fetchMemberTagListActions = {
 };
 export function fetchMemberTagList(
   companyId: number,
-  options?: OptionCallback,
+  options?: OptionCallback<TagGroupTemplate>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchMemberTagListActions.isLoading(true));

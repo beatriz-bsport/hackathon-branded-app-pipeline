@@ -27,6 +27,7 @@ import FranchiseDrawer from '../../components/navigation/FranchiseDrawer.compone
 import FranchiseStaffRoleRouter from './staff/FranchiseStaffRole.router';
 import { fetchFranchiseRoles as fetchFranchiseRolesAction } from '#libs/role/actions';
 import { getFranchisePermissions } from '#libs/role/selectors';
+import GenericDialog from '#components/genericDialog/GenericDialog';
 
 const FranchiseMemberDetails = asyncComponent(
   () => import('./FranchiseMemberDetails.page'),
@@ -69,6 +70,9 @@ const FranchiseCouponTemplateRouter = asyncComponent(
 );
 const FranchiseGiftcardTemplateRouter = asyncComponent(
   () => import('./giftcard-template/FranchiseGiftcardTemplate.router'),
+);
+const FranchiseMarketingRouter = asyncComponent(
+  () => import('./marketing/FranchiseMarketing.router'),
 );
 const WidgetGeneratorPage = asyncComponent(
   () => import('../settings/WidgetGenerator.page'),
@@ -157,6 +161,7 @@ const FranchiseRouter = (props: Props) => {
             />
             <Route path="/f/settings/theme" component={FranchiseTheme} />
             <Route path="/f/email-template" component={EmailTemplate} />
+            <Route path="/f/marketing" component={FranchiseMarketingRouter} />
             <Route path="/f/settings/widget" component={WidgetGeneratorPage} />
             <Route
               exact
@@ -200,6 +205,7 @@ const FranchiseRouter = (props: Props) => {
             <Redirect to="/f/franchises" />
           </Switch>
         </FranchiseDrawer>
+        <GenericDialog />
       </DrawerContext.Provider>
     </MuiThemeProvider>
   );

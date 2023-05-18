@@ -74,6 +74,7 @@ type ComponentProps = {
     whitelist_tags: Tag[];
     blacklist_tags: Tag[];
     credits?: number;
+    available_on_partnership: boolean;
   };
   metaActivities: MetaActivity[];
   similarOffersLoading: boolean;
@@ -351,7 +352,9 @@ const formikFormWrapper = withFormik<
     coachPaymentRule: props.offer?.coach_payment_rule_id ?? null,
     isManagerOnly: props.offer?.manager_only,
     allowGuestOffer: props.offer?.allow_guest_offer,
-    availableOnPartnership: !props.isOfferInGroup,
+    availableOnPartnership: props.isOfferInGroup
+      ? false
+      : props.offer?.available_on_partnership,
     selectedWhitelistTags: props.offer?.whitelist_tags.map((tag) => tag.id),
     selectedBlacklistTags: props.offer?.blacklist_tags.map((tag) => tag.id),
     roomBlueprint: props.offer?.room_blueprint ?? null,

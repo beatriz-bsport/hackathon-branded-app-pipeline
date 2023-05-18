@@ -77,6 +77,29 @@ const OfferEditFormValidationSchema = Yup.object().shape({
     .typeError('offer:form.errors.required')
     .required('offer:form.errors.required')
     .positive('offer:form.errors.positiveNumber'),
+  partnerMaxBookingCount: Yup.number()
+    .when('isShowPartnership', (isShowPartnership, schema) => {
+      if (isShowPartnership) {
+        return schema.required('offer:form.errors.required');
+      }
+      return schema;
+    })
+    .test({
+      name: 'shouldBeLessThanEffectif',
+      test: function lessThanEffectif() {
+        if (
+          this.parent.availableOnPartnership &&
+          this.parent.partnerMaxBookingCount > this.parent.effectif &&
+          this.parent.isShowPartnership
+        ) {
+          return this.createError({
+            message: 'offer:form.errors.field.partnerMaxBookingCount',
+            path: this.path,
+          });
+        }
+        return true;
+      },
+    }),
 });
 
 export default OfferEditFormValidationSchema;

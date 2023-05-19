@@ -345,7 +345,10 @@ const formikFormWrapper = withFormik<
     level: props.offer?.custom_level,
     establishment: props.offer?.establishment.id,
     broadcastLink: props.offer?.broadcast_link,
-    credits: props.offer?.credit_price || props.offer?.credits,
+    credits:
+      props.offer?.credit_price !== undefined
+        ? props.offer?.credit_price
+        : props.offer?.credits,
     dateIntervalStart: moment(props.offer?.date_start),
     durationMinute: props.offer?.duration_minute,
     coach: props.offer?.coach.id,
@@ -436,7 +439,7 @@ const formikFormWrapper = withFormik<
       date_start: dateIntervalStart,
     };
 
-    if (offer.credit_price && credits !== offer.credit_price) {
+    if (offer.credit_price !== undefined && credits !== offer.credit_price) {
       offerData.credit_price_override = credits;
     } else {
       offerData.credits = credits;

@@ -1,7 +1,3 @@
-:root {
-    --carousel-animation-duration: 400ms;
-}
-
 @keyframes righttozerofirst {
     from {
         translate: -100%;
@@ -185,6 +181,7 @@
     width: 100%;
     min-height: 50px;
     gap: var(--spacing-2);
+    --carousel-animation-duration: 400ms;
 }
 
 .bs-carousel__navigation__button {

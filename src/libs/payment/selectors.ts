@@ -71,3 +71,14 @@ export const getIncrementalPayoutList = createSelector(
   [_getIncrementalPayoutListIds, _getIncrementalPayoutData],
   (ids, data) => ids.map((id) => data[id]),
 );
+
+const _getStripeBalanceAvailable = (state: RootState) =>
+  state.paymentBackend.balance.amountAvailable;
+
+const _getStripeBalancePending = (state: RootState) =>
+  state.paymentBackend.balance.amountPending;
+
+export const getStripeBalanceTotal = createSelector(
+  [_getStripeBalanceAvailable, _getStripeBalancePending],
+  (availableBalance, pendingBalance) => availableBalance + pendingBalance,
+);

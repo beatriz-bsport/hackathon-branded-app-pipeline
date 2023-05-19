@@ -76,6 +76,7 @@ export type Theme = {
   gender_max_shift_for_booking: number;
   max_future_booking: number;
   basket_expiration_days: number;
+  refund_blocking_limit: number;
   schedule_timerange_begin: string;
   schedule_timerange_end: string;
   vod_providers: Array<number>;
@@ -87,6 +88,7 @@ export type Theme = {
   has_coach_access_to_calendar: boolean;
   has_coach_access_to_compensation: boolean;
   has_coach_access_to_replacement_request: boolean;
+  churn_last_paid_month: Date;
   confirm_email_url_redirection: string;
   requires_email_confirmation_when_signing_up: boolean;
   hide_intercom: boolean;
@@ -100,6 +102,7 @@ export type Theme = {
   session_time_display: MarketPlaceSessionTimeDisplay;
   coach_display: MarketPlaceCoachDisplay;
   days_format_display: MarketPlaceDaysFormatDisplay;
+  is_auto_debit_activated: boolean;
 };
 
 export type ThemeState = {

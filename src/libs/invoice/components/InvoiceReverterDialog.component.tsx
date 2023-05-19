@@ -35,10 +35,14 @@ import {
 import { fetchInvoiceAllowedReverseTypes as fetchInvoiceAllowedReverseTypesAPI } from '#libs/invoice/api';
 
 import type { Payment } from '#libs/payment/types';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
+
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 type Props = {
   open?: boolean;
   onClose: () => void;
+  onOpen: () => void;
   onSubmit: (
     reverse_type: InvoiceReverseMethod,
     payment_method_to_reverse: number,
@@ -46,9 +50,24 @@ type Props = {
   ) => void;
   payments: Array<Payment>;
   invoice: Invoice;
+  isAutoDebitActivated?: boolean;
+  isInChurn: boolean;
+  refundBlockingLimit?: number;
+  stripeBalanceSum?: number;
 };
 
-export const InvoiceReverterDialog = (props: Props) => {
+export const InvoiceReverterDialog = ({
+  open,
+  onClose,
+  onOpen,
+  onSubmit,
+  payments,
+  invoice,
+  isAutoDebitActivated,
+  isInChurn,
+  refundBlockingLimit,
+  stripeBalanceSum,
+}: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
 
@@ -61,6 +80,14 @@ export const InvoiceReverterDialog = (props: Props) => {
     PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
   );
 
+  const [
+    isConfirmWhenAutoDebitModalOpened,
+    setIsConfirmWhenAutoDebitModalOpened,
+  ] = React.useState<boolean>(false);
+
+  const [isBlockedModalOpened, setIsBlockedModalOpened] =
+    React.useState<boolean>(false);
+
   const [allowedReverseMethods, setAllowedReverseMethods] =
     React.useState<InvoiceAllowedReverseMethods>({});
   const [allowedReverseMethodsLoading, setAllowedReverseMethodsLoading] =
@@ -69,7 +96,7 @@ export const InvoiceReverterDialog = (props: Props) => {
   React.useEffect(() => {
     const fetchAllowedReverseTypes = async () => {
       setAllowedReverseMethodsLoading(true);
-      fetchInvoiceAllowedReverseTypesAPI(props.invoice.uuid)
+      fetchInvoiceAllowedReverseTypesAPI(invoice.uuid)
         .then((response) => {
           setAllowedReverseMethods(response.data);
           // Init reverseMethod with the first allowed method
@@ -90,8 +117,8 @@ export const InvoiceReverterDialog = (props: Props) => {
         .catch((err) => console.error(err));
     };
 
-    if (props.open) fetchAllowedReverseTypes();
-  }, [props.invoice.uuid, props.open]);
+    if (open) fetchAllowedReverseTypes();
+  }, [invoice.uuid, open]);
 
   const reverseOnPaymentMethodAllowed = React.useMemo(
     () => allowedReverseMethods[REVERSE_ON_PAYMENT_METHOD]?.allowed,
@@ -103,11 +130,69 @@ export const InvoiceReverterDialog = (props: Props) => {
     [allowedReverseMethods],
   );
 
+  const currencyDisplay = React.useMemo(() => getCurrencyDisplay(), []);
+
+  const refundAmount = (invoice.amount_paid_cts / 100).toFixed(2);
+
+  const isReachingRefundLimit = isInChurn
+    ? stripeBalanceSum - invoice.amount_paid_cts / 100 < 0
+    : stripeBalanceSum - invoice.amount_paid_cts / 100 < -refundBlockingLimit;
+
+  const submitReverseInvoice = React.useCallback(() => {
+    setProcessing(true);
+    onSubmit(reverseMethod, paymentMethodSelected, {
+      onSuccess: () => setProcessing(false),
+      onError: () => setProcessing(false),
+    });
+  }, [onSubmit, paymentMethodSelected, reverseMethod]);
+
+  const handleCloseAutoDebitModal = React.useCallback(() => {
+    onOpen();
+    setIsConfirmWhenAutoDebitModalOpened(false);
+  }, [onOpen]);
+
+  const handleSubmitAutoDebitModal = React.useCallback(() => {
+    setIsConfirmWhenAutoDebitModalOpened(false);
+    submitReverseInvoice();
+  }, [submitReverseInvoice]);
+
+  const handleCloseBlockedModal = React.useCallback(() => {
+    onOpen();
+    setIsBlockedModalOpened(false);
+  }, [onOpen]);
+
+  const onClickConfirm = React.useCallback(() => {
+    if (
+      !allowedReverseMethodsLoading &&
+      payments.length !== 0 &&
+      reverseMethod === REVERSE_ON_PAYMENT_METHOD &&
+      isReachingRefundLimit
+    ) {
+      onClose();
+      if (isAutoDebitActivated) {
+        setIsConfirmWhenAutoDebitModalOpened(true);
+      } else {
+        // In this case the client is going to reach the refund limit if the invoice is refunded, so the refund is blocked.
+        setIsBlockedModalOpened(true);
+      }
+    } else {
+      submitReverseInvoice();
+    }
+  }, [
+    allowedReverseMethodsLoading,
+    isAutoDebitActivated,
+    isReachingRefundLimit,
+    onClose,
+    payments.length,
+    reverseMethod,
+    submitReverseInvoice,
+  ]);
+
   const actionButtons = (
     <DialogActions>
       <Button
         disabled={processing}
-        onClick={props.onClose}
+        onClick={onClose}
         className={classes.textSecondary}
       >
         {t('revert.dialog.actions.cancel')}
@@ -118,13 +203,7 @@ export const InvoiceReverterDialog = (props: Props) => {
         <Button
           color="primary"
           disabled={allowedReverseMethodsLoading}
-          onClick={() => {
-            setProcessing(true);
-            props.onSubmit(reverseMethod, paymentMethodSelected, {
-              onSuccess: () => setProcessing(false),
-              onError: () => setProcessing(false),
-            });
-          }}
+          onClick={onClickConfirm}
         >
           {t('revert.dialog.actions.confirm')}
         </Button>
@@ -134,7 +213,7 @@ export const InvoiceReverterDialog = (props: Props) => {
 
   if (allowedReverseMethodsLoading)
     return (
-      <Dialog open={!!props.open}>
+      <Dialog open={!!open}>
         <DialogTitle>{t('revert.dialog.title')}</DialogTitle>
         <DialogContent>
           <div className={classes.loadingContainer}>
@@ -145,9 +224,9 @@ export const InvoiceReverterDialog = (props: Props) => {
       </Dialog>
     );
 
-  if (props.payments.length === 0)
+  if (payments.length === 0)
     return (
-      <Dialog open={!!props.open}>
+      <Dialog open={!!open}>
         <DialogTitle>{t('revert.dialog.title')}</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -159,99 +238,163 @@ export const InvoiceReverterDialog = (props: Props) => {
     );
 
   return (
-    <Dialog open={!!props.open}>
-      <DialogTitle>{t('revert.dialog.title')}</DialogTitle>
-      <DialogContent>
-        {!reverseOnPaymentMethodAllowed &&
-          allowedReverseMethods[REVERSE_ON_PAYMENT_METHOD]?.error_code ===
-            INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE && (
-            <Alert severity="warning" className={classes.warning}>
-              {t('revert.warning.interac')}
-            </Alert>
-          )}
-
-        <div
-          className={classNames(classes.radioContainer, {
-            [classes.disabledContainer]: !reverseOnPaymentMethodAllowed,
-          })}
-        >
-          <div className={classes.row}>
-            <Radio
-              checked={reverseMethod === REVERSE_ON_PAYMENT_METHOD}
-              disabled={!reverseOnPaymentMethodAllowed || processing}
-              onChange={() => {
-                handleChangeReverseMethod(REVERSE_ON_PAYMENT_METHOD);
-              }}
-              value={REVERSE_ON_PAYMENT_METHOD}
-            />
-            <Typography>
-              {t(`revert.content.label.${REVERSE_ON_PAYMENT_METHOD}`)}
-            </Typography>
-          </div>
-          <Typography variant="caption">
-            {t(`revert.content.explain.${REVERSE_ON_PAYMENT_METHOD}`)}
-          </Typography>
-        </div>
-
-        {reverseOnDebtAllowed && (
-          <div className={classes.radioContainer}>
+    <>
+      <GenericResponsiveDialog open={!!open}>
+        <DialogTitle>{t('revert.dialog.title')}</DialogTitle>
+        <DialogContent>
+          {!reverseOnPaymentMethodAllowed &&
+            allowedReverseMethods[REVERSE_ON_PAYMENT_METHOD]?.error_code ===
+              INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE && (
+              <Alert severity="warning" className={classes.warning}>
+                {t('revert.warning.interac')}
+              </Alert>
+            )}
+          <div
+            className={classNames(classes.radioContainer, {
+              [classes.disabledContainer]: !reverseOnPaymentMethodAllowed,
+            })}
+          >
             <div className={classes.row}>
               <Radio
-                checked={reverseMethod === REVERSE_ON_DEBT}
-                disabled={processing}
-                onChange={() => handleChangeReverseMethod(REVERSE_ON_DEBT)}
-                value={REVERSE_ON_DEBT}
+                checked={reverseMethod === REVERSE_ON_PAYMENT_METHOD}
+                disabled={!reverseOnPaymentMethodAllowed || processing}
+                onChange={() => {
+                  handleChangeReverseMethod(REVERSE_ON_PAYMENT_METHOD);
+                }}
+                value={REVERSE_ON_PAYMENT_METHOD}
               />
               <Typography>
-                {t(`revert.content.label.${REVERSE_ON_DEBT}`)}
+                {t(`revert.content.label.${REVERSE_ON_PAYMENT_METHOD}`)}
               </Typography>
             </div>
             <Typography variant="caption">
-              {t(`revert.content.explain.${REVERSE_ON_DEBT}`)}
+              {t(`revert.content.explain.${REVERSE_ON_PAYMENT_METHOD}`)}
             </Typography>
           </div>
-        )}
+          {reverseOnDebtAllowed && (
+            <div className={classes.radioContainer}>
+              <div className={classes.row}>
+                <Radio
+                  checked={reverseMethod === REVERSE_ON_DEBT}
+                  disabled={processing}
+                  onChange={() => handleChangeReverseMethod(REVERSE_ON_DEBT)}
+                  value={REVERSE_ON_DEBT}
+                />
+                <Typography>
+                  {t(`revert.content.label.${REVERSE_ON_DEBT}`)}
+                </Typography>
+              </div>
+              <Typography variant="caption">
+                {t(`revert.content.explain.${REVERSE_ON_DEBT}`)}
+              </Typography>
+            </div>
+          )}
+          <div className={classes.radioContainer}>
+            <div className={classes.row}>
+              <Radio
+                checked={reverseMethod === REVERSE_ON_NEW_PAYMENT_METHOD}
+                disabled={processing}
+                onChange={() =>
+                  handleChangeReverseMethod(REVERSE_ON_NEW_PAYMENT_METHOD)
+                }
+                value={REVERSE_ON_NEW_PAYMENT_METHOD}
+              />
+              <Typography>
+                {t(`revert.content.label.${REVERSE_ON_NEW_PAYMENT_METHOD}`)}
+              </Typography>
+            </div>
+            <Typography variant="caption">
+              {t(`revert.content.explain.${REVERSE_ON_NEW_PAYMENT_METHOD}`)}
+            </Typography>
+            <Collapse in={reverseMethod === REVERSE_ON_NEW_PAYMENT_METHOD}>
+              <Select
+                id="payment-method-select"
+                value={`${paymentMethodSelected}`}
+                style={{ minWidth: 200, marginTop: 16 }}
+                onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
+                  selectPaymentMethod(parseInt(ev.target.value, 10))
+                }
+              >
+                {PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT].map(
+                  (pm) => (
+                    <MenuItem value={pm} key={pm}>
+                      {t(`paymentMethod.label.${pm}`)}
+                    </MenuItem>
+                  ),
+                )}
+              </Select>
+            </Collapse>
+          </div>
 
-        <div className={classes.radioContainer}>
-          <div className={classes.row}>
-            <Radio
-              checked={reverseMethod === REVERSE_ON_NEW_PAYMENT_METHOD}
-              disabled={processing}
-              onChange={() =>
-                handleChangeReverseMethod(REVERSE_ON_NEW_PAYMENT_METHOD)
-              }
-              value={REVERSE_ON_NEW_PAYMENT_METHOD}
-            />
-            <Typography>
-              {t(`revert.content.label.${REVERSE_ON_NEW_PAYMENT_METHOD}`)}
-            </Typography>
-          </div>
-          <Typography variant="caption">
-            {t(`revert.content.explain.${REVERSE_ON_NEW_PAYMENT_METHOD}`)}
+          {actionButtons}
+        </DialogContent>
+      </GenericResponsiveDialog>
+
+      <GenericResponsiveDialog
+        maxWidth="sm"
+        open={isConfirmWhenAutoDebitModalOpened}
+        onClose={handleCloseAutoDebitModal}
+        className={classes.container}
+      >
+        <DialogTitle id="form-dialog-title">
+          {t('revert.autoDebitDialog.title')}
+        </DialogTitle>
+        <DialogContent className={classes.helperText}>
+          <Alert severity="warning" className={classes.alert}>
+            {t('revert.blockedDialog.alert', {
+              // In the case where the company is in churn, the refund limit is 0 (under it, they will be debited)
+              refundBlockingLimit: 0,
+              currencyDisplay,
+            })}
+          </Alert>
+          <Typography>
+            {t('revert.autoDebitDialog.helper', {
+              refundAmount,
+              currencyDisplay,
+            })}
           </Typography>
-          <Collapse in={reverseMethod === REVERSE_ON_NEW_PAYMENT_METHOD}>
-            <Select
-              id="payment-method-select"
-              value={`${paymentMethodSelected}`}
-              style={{ minWidth: 200, marginTop: 16 }}
-              onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
-                selectPaymentMethod(parseInt(ev.target.value, 10))
-              }
-            >
-              {PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT].map(
-                (pm) => (
-                  <MenuItem value={pm} key={pm}>
-                    {t(`paymentMethod.label.${pm}`)}
-                  </MenuItem>
-                ),
-              )}
-            </Select>
-          </Collapse>
-        </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseAutoDebitModal} color="secondary">
+            {t('revert.dialog.actions.cancel')}
+          </Button>
+          <Button onClick={handleSubmitAutoDebitModal} color="primary">
+            {t('revert.dialog.actions.confirm')}
+          </Button>
+        </DialogActions>
+      </GenericResponsiveDialog>
 
-        {actionButtons}
-      </DialogContent>
-    </Dialog>
+      <GenericResponsiveDialog
+        maxWidth="sm"
+        open={isBlockedModalOpened}
+        onClose={handleCloseBlockedModal}
+        className={classes.container}
+      >
+        <DialogTitle id="form-dialog-title">
+          {t('revert.blockedDialog.title')}
+        </DialogTitle>
+        <DialogContent className={classes.helperText}>
+          <Alert severity="warning" className={classes.alert}>
+            {t('revert.blockedDialog.alert', {
+              // In the case where the company is in churn, the refund limit is 0
+              refundBlockingLimit: isInChurn ? 0 : refundBlockingLimit,
+              currencyDisplay,
+            })}
+          </Alert>
+          <Typography>
+            {t('revert.blockedDialog.helper', {
+              stripeBalanceSum,
+              currencyDisplay,
+            })}
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseBlockedModal} color="secondary">
+            {t('revert.dialog.actions.cancel')}
+          </Button>
+        </DialogActions>
+      </GenericResponsiveDialog>
+    </>
   );
 };
 
@@ -284,6 +427,12 @@ const useStyles = makeStyles((theme) => ({
   },
   textSecondary: {
     color: theme.palette.text.secondary,
+  },
+  alert: {
+    marginBottom: theme.spacing(3),
+  },
+  helperText: {
+    whiteSpace: 'pre-line',
   },
 }));
 

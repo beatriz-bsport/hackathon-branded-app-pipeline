@@ -26,12 +26,14 @@ import {
 import {
   getPaymentGroupRequiringActionList,
   getSavedPaymentMethodList,
+  getStripeBalanceTotal,
 } from '#libs/payment/selectors';
 import { formatAsDate } from '../../utils/datetime';
 import {
   fetchMember,
   fetchMemberBulkById as fetchMemberBulkByIdAction,
 } from '#libs/member/actions';
+import { fetchCompanyTheme } from '#libs/theme/actions';
 import {
   fetchSpecificInvoice as fetchInvoiceAction,
   fetchInvoiceItemList,
@@ -58,6 +60,7 @@ import {
   updatePaymentGroupPriceCts,
   fetchPaymentGroupList as fetchPaymentGroupListAction,
   fetchPaymentMethodList as fetchPaymentMethodListAction,
+  fetchStripeBalance as fetchStripeBalanceAction,
   detachPaymentMethod,
 } from '#libs/payment/actions';
 
@@ -117,6 +120,7 @@ type Props = {
   fetchMember: (number) => void,
   editCustomFooter: (footer: string, options?: OptionCallback) => void,
   fetchPaymentList: (params: any) => void,
+  fetchCompanyTheme: () => void,
   invoice: Invoice,
   member: Member,
   openPaymentDialog: () => void,
@@ -211,6 +215,7 @@ type Props = {
     amount: number,
     options?: OptionCallback,
   ) => void,
+  stripeBalanceSum: number,
   stripeReaders: StripeReader[],
   fetchStripeReaders: () => void,
 };
@@ -236,6 +241,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
     this.props.fetchCompanyUserRoles();
     this.props.fetchEstablishments();
     this.props.fetchStripeReaders();
+    this.props.fetchCompanyTheme();
   }
 
   fetchInvoiceData = () => {
@@ -709,6 +715,13 @@ export class InvoiceDetail extends React.Component<Props, State> {
             onSubmit={this.props.revertInvoice}
             open={this.props.revertDialogOpen}
             onClose={this.props.closeRevertDialog}
+            onOpen={this.props.openRevertDialog}
+            isAutoDebitActivated={
+              this.props.companyTheme.is_auto_debit_activated
+            }
+            isInChurn={!!this.props.companyTheme.churn_last_paid_month}
+            refundBlockingLimit={this.props.companyTheme.refund_blocking_limit}
+            stripeBalanceSum={this.props.stripeBalanceSum}
           />
           <CheckPermission requiredPermissions="member.retrieve">
             {this.props.invoice.member && (
@@ -829,6 +842,7 @@ export default compose(
       detachPaymentMethodLoading:
         state.paymentBackend.detachPaymentMethod.loading,
       plannedPaymentEventLoading: state.invoice.planned_payment_event.loading,
+      stripeBalanceSum: getStripeBalanceTotal(state),
       stripeReaders: getStripeReaders(state),
     }),
     {
@@ -841,6 +855,7 @@ export default compose(
       fetchPlannedPaymentEventList,
       fetchMember,
       fetchCompanyUserRoles,
+      fetchCompanyTheme,
       revertInvoice: revertInvoiceAction,
       detachPaymentMethodAction: detachPaymentMethod,
       goToMemberPage: (id) => pushRouter(`/member/${id}/`),
@@ -865,6 +880,7 @@ export default compose(
       fetchGiftcardBulk: fetchGiftcardBulkAction,
       applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
       fetchMemberBulkById: fetchMemberBulkByIdAction,
+      fetchStripeBalance: fetchStripeBalanceAction,
       fetchStripeReaders,
     },
   ),

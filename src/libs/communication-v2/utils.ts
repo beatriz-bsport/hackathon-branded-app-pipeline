@@ -20,6 +20,7 @@ import {
   COMMUNICATION_SEND_PARAMETER_MANUAL,
   COMMUNICATION_SRC_OR_DST_SENT,
   COMMUNICATION_SRC_OR_DST_RECEIVED,
+  COMMUNICATION_CHANNEL_CADENCE,
 } from '@bsport/common/lib/master-data/communication-filters';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import {
@@ -105,6 +106,10 @@ export const getFieldChoicesByIdentifier = memoize(
             label: t(
               `filter.choicesLabels.${COMMUNICATION_CHANNEL_MESSAGE_DIRECT}`,
             ),
+          },
+          {
+            value: COMMUNICATION_CHANNEL_CADENCE,
+            label: t(`filter.choicesLabels.${COMMUNICATION_CHANNEL_CADENCE}`),
           },
         ];
       case COMMUNICATION_FILTER_IDENTIFIER_RECIPIENT:
@@ -524,6 +529,8 @@ export const getChannelFromMetadata = (metadata: CommunicationMetadata) => {
         return COMMUNICATION_CHANNEL_SMARTLIST;
       case 'member_id':
         return COMMUNICATION_CHANNEL_MESSAGE_DIRECT;
+      case 'cadence_marketing_action_id':
+        return COMMUNICATION_CHANNEL_CADENCE;
       default:
         return undefined;
     }

@@ -30,10 +30,11 @@ export function getOfferRecurrenceDates(
 
   if (
     !recurrence ||
-    recurrence !==
-      (OFFER_RECURRENCE.WEEKLY ||
-        OFFER_RECURRENCE.MONTHLY ||
-        OFFER_RECURRENCE.DAILY) ||
+    ![
+      OFFER_RECURRENCE.WEEKLY,
+      OFFER_RECURRENCE.MONTHLY,
+      OFFER_RECURRENCE.DAILY,
+    ].includes(recurrence) ||
     moment(dateIntervalEnd).diff(moment(), 'years', true) > 3
   ) {
     return [dateIntervalStart];
@@ -63,10 +64,11 @@ export function _generateRecurrenceDates(
 
   if (
     !recurrence ||
-    recurrence !==
-      (OFFER_RECURRENCE.WEEKLY ||
-        OFFER_RECURRENCE.MONTHLY ||
-        OFFER_RECURRENCE.DAILY) ||
+    ![
+      OFFER_RECURRENCE.WEEKLY,
+      OFFER_RECURRENCE.MONTHLY,
+      OFFER_RECURRENCE.DAILY,
+    ].includes(recurrence) ||
     moment(end).diff(moment(), 'years', true) > 3
   ) {
     return [start];
@@ -87,10 +89,11 @@ export function _generateRecurrenceDates(
         }
       });
     } else {
-      dates.push(dateIteration);
+      dates.push(dateIteration.clone());
     }
 
     dateIteration.add(1, recurrence);
   }
+
   return dates;
 }

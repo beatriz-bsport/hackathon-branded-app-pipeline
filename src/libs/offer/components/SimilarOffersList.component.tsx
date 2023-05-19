@@ -122,7 +122,7 @@ const SimilarOffersList = (props: Props) => {
   const { values } = useFormikContext<OfferFormValues>();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-  const { coachOverride, dateIntervalStart } = values;
+  const { coach, coachOverride, dateIntervalStart } = values;
   const classes = useStyles();
 
   useEffect(() => {
@@ -146,7 +146,7 @@ const SimilarOffersList = (props: Props) => {
   const getCoachName = useCallback(
     (coachId: number) => {
       if (coachId && coaches) {
-        return coaches.find((coach) => coach.id === coachId)?.name;
+        return coaches.find((coachValue) => coachValue.id === coachId)?.name;
       }
       return '';
     },
@@ -156,7 +156,7 @@ const SimilarOffersList = (props: Props) => {
   const getCoachPhoto = useCallback(
     (coachId: number) => {
       if (coachId && coaches) {
-        return coaches.find((coach) => coach.id === coachId)?.photo;
+        return coaches.find((coachValue) => coachValue.id === coachId)?.photo;
       }
       return '';
     },
@@ -229,12 +229,16 @@ const SimilarOffersList = (props: Props) => {
                     coachName={
                       isCoachOverrideWarning
                         ? getCoachName(similarOffer.coach_override)
-                        : getCoachName(offerCoach.id)
+                        : getCoachName(
+                            coach !== offerCoach.id ? coach : offerCoach.id,
+                          )
                     }
                     coachPicture={
                       isCoachOverrideWarning
                         ? getCoachPhoto(similarOffer.coach_override)
-                        : getCoachPhoto(offerCoach.id)
+                        : getCoachPhoto(
+                            coach !== offerCoach.id ? coach : offerCoach.id,
+                          )
                     }
                   />
 
@@ -244,12 +248,8 @@ const SimilarOffersList = (props: Props) => {
 
                       <OfferItem
                         date={getNewOfferDate(similarOffer.date_start)}
-                        coachName={getCoachName(
-                          coachOverride ?? similarOffer.coach,
-                        )}
-                        coachPicture={getCoachPhoto(
-                          coachOverride ?? similarOffer.coach,
-                        )}
+                        coachName={getCoachName(coachOverride)}
+                        coachPicture={getCoachPhoto(coachOverride)}
                         isAlignItemsEnd
                       />
                     </>

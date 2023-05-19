@@ -209,6 +209,12 @@ const useOfferFormStyles = (
         margin: 0,
       },
     },
+    fieldWithTooltip: {
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+    },
   }));
 
   const classes = useStyles();

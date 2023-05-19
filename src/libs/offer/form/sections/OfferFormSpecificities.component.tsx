@@ -361,15 +361,7 @@ const OfferFormSpecificities = (props: Props) => {
         isRequired
         isError={!!errors.credits && touched.credits}
       >
-        <div
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-          }}
-        >
+        <div className={classes.fieldWithTooltip}>
           <NumericInput
             id="offer-form-credits-input"
             name="credits"
@@ -420,40 +412,42 @@ const OfferFormSpecificities = (props: Props) => {
           label={t('form.section.specificities.field.broadcastLink')}
           isError={!!errors.broadcastLink}
         >
-          <TextField
-            id="offer-form-broadcast-link-input"
-            variant="outlined"
-            size="small"
-            name="broadcastLink"
-            placeholder="https://zoom.us/123456789"
-            disabled={zoomAppEnabled && !zoomAppDetail?.is_disabled}
-            error={!!errors.broadcastLink && touched.broadcastLink}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className={classNames(classes.bigWidth, {
-              [classes.disabledInput]:
-                zoomAppEnabled && !zoomAppDetail?.is_disabled,
-            })}
-          />
+          <div className={classes.fieldWithTooltip}>
+            <TextField
+              id="offer-form-broadcast-link-input"
+              variant="outlined"
+              size="small"
+              name="broadcastLink"
+              placeholder="https://zoom.us/123456789"
+              disabled={zoomAppEnabled && !zoomAppDetail?.is_disabled}
+              error={!!errors.broadcastLink && touched.broadcastLink}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={classNames(classes.bigWidth, {
+                [classes.disabledInput]:
+                  zoomAppEnabled && !zoomAppDetail?.is_disabled,
+              })}
+            />
 
-          {zoomAppEnabled && !zoomAppDetail?.is_disabled && (
-            <>
-              <Tooltip
-                title={t('form.section.specificities.tooltip.broadcastLink')}
-                className={classes.tooltip}
-                onClick={handleDisplayBroadcastLinkTooltip}
-              >
-                <Info />
-              </Tooltip>
+            {zoomAppEnabled && !zoomAppDetail?.is_disabled && (
+              <>
+                <Tooltip
+                  title={t('form.section.specificities.tooltip.broadcastLink')}
+                  className={classes.tooltip}
+                  onClick={handleDisplayBroadcastLinkTooltip}
+                >
+                  <Info />
+                </Tooltip>
 
-              <OfferFormTooltip
-                isOpen={selectedTooltipDialog === 'broadcastLink'}
-                onClose={handleCloseTooltipDialog}
-              >
-                {t('form.section.specificities.tooltip.broadcastLink')}
-              </OfferFormTooltip>
-            </>
-          )}
+                <OfferFormTooltip
+                  isOpen={selectedTooltipDialog === 'broadcastLink'}
+                  onClose={handleCloseTooltipDialog}
+                >
+                  {t('form.section.specificities.tooltip.broadcastLink')}
+                </OfferFormTooltip>
+              </>
+            )}
+          </div>
         </OfferFormField>
       )}
 

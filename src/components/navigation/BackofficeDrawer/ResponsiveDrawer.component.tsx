@@ -392,9 +392,8 @@ const ResponsiveDrawer: React.FC<Props> = ({
             icon: LabelIcon,
             text: t('backofficeMenu.tags'),
           },
-          ...(!['production', 'staging'].includes(
-            Config.REACT_APP_SENTRY_ENVIRONMENT,
-          ) || SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS.includes(companyId)
+          ...(!['production'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) ||
+          SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS.includes(companyId)
             ? [
                 {
                   to: '/cadence',

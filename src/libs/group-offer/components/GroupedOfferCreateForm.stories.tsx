@@ -69,6 +69,7 @@ const THEME = {
   consumer_regularize_debt: true,
   allow_consumer_to_use_internal_account: false,
   accept_double_booking: false,
+  accept_double_booking_workshop: false,
   gtmId: '',
   facebookPixelId: '',
   stripe_pk_key: 'pk_test_lFB5CxcyTCaQcS00MiE1ebEO',

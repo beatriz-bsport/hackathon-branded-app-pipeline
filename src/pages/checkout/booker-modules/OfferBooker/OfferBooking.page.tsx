@@ -416,6 +416,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
       this.state.selectedOffers,
       this.state.selectedPack,
       this.props.theme.accept_double_booking,
+      this.props.theme.accept_double_booking_workshop,
     );
     const blockedByTags =
       this.props.offerStatusById[this.props?.id]?.blocked_by_tags;
@@ -439,6 +440,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
           offer,
           this.props.offerStatusById,
           this.props.theme.accept_double_booking,
+          this.props.theme.accept_double_booking_workshop,
         );
         return (
           offer &&
@@ -512,6 +514,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
             offerData.offer,
             this.props.offerStatusById,
             this.props.theme.accept_double_booking,
+            this.props.theme.accept_double_booking_workshop,
           ).isBookable,
       )
       .map((offerData) => {
@@ -544,6 +547,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
             offerData.offer,
             this.props.offerStatusById,
             this.props.theme.accept_double_booking,
+            this.props.theme.accept_double_booking_workshop,
           ).isWaitingList,
       )
       .map((offerData) => ({
@@ -673,6 +677,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
       this.props.offer ? [{ offer: this.props.offer }] : [],
       this.state.selectedPack,
       this.props.theme.accept_double_booking,
+      this.props.theme.accept_double_booking_workshop,
     );
     return areWaitingList && !areBookable;
   };
@@ -691,6 +696,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
       this.props.offer,
       this.props.offerStatusById,
       this.props.theme.accept_double_booking,
+      this.props.theme.accept_double_booking_workshop,
     );
 
     const offerIsReady =
@@ -844,6 +850,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
                     offerStatusById={this.props.offerStatusById}
                     hideCoach={this.props.theme.hideCoach}
                     acceptDoubleBooking={this.props.theme.accept_double_booking}
+                    acceptDoubleBookingWorkshop={
+                      this.props.theme.accept_double_booking_workshop
+                    }
                     isRegisteringForWaitingList={isRegisteringForWaitingList}
                     onRemoveGuest={this.removeGuest}
                     additionalGuestList={this.state.additionalGuestList}
@@ -933,6 +942,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
               onClickShowMore={this.fetchSimilarOffers}
               hasMoreSimilarOffer={this.props.hasMoreSimilarOffer}
               acceptDoubleBooking={this.props.theme.accept_double_booking}
+              acceptDoubleBookingWorkshop={
+                this.props.theme.accept_double_booking_workshop
+              }
             />
           )}
           {!!this.state.offersWaitingForSpotSelection.length && (

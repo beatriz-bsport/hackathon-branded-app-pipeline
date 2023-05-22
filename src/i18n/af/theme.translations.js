@@ -79,7 +79,10 @@ exports.default = {
           "L'heure de début de l'emploi du temps doit être plus tôt que l'heure de fin",
       },
       hideCoach: 'Cacher les infos professeurs sur les interfaces client',
-      acceptDoubleBooking: 'Accepter la double réservation',
+      acceptDoubleBookingMetaActivity:
+        'Accepter la double réservation pour les activités',
+      acceptDoubleBookingWorkshop:
+        'Accepter la double réservation pour les ateliers',
       hiddenFromMarketplace: "Apparaître sur l'application bsport",
       hideBuyablePassIfSuperfluous:
         'Cacher les cartes de cours, abonnements et packs achetables au moment de la réservation si le membre possède déjà une carte compatible',

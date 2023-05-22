@@ -52,6 +52,7 @@ export type Theme = {
   consumer_regularize_debt: boolean;
   allow_consumer_to_use_internal_account: boolean;
   accept_double_booking: boolean;
+  accept_double_booking_workshop: boolean;
   allow_guest: boolean;
   allow_guest_activatable: boolean;
   allow_guest_frequency: string;

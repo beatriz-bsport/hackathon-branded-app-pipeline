@@ -52,6 +52,7 @@ import { CompanyTheme } from '../types';
 interface FormikValues {
   show_offers_filling: boolean;
   accept_double_booking: boolean;
+  accept_double_booking_workshop: boolean;
   allow_guest: boolean;
   allow_guest_max_number: number;
   allow_guest_frequency: string;
@@ -253,7 +254,13 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
           />
           <SwitchField
             name="accept_double_booking"
-            label={t('forms.themePersonalization.acceptDoubleBooking')}
+            label={t(
+              'forms.themePersonalization.acceptDoubleBookingMetaActivity',
+            )}
+          />
+          <SwitchField
+            name="accept_double_booking_workshop"
+            label={t('forms.themePersonalization.acceptDoubleBookingWorkshop')}
           />
           <div>
             <FormControlLabel
@@ -895,6 +902,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 const ThemePersonalizeFormSchema = Yup.object().shape({
   show_offers_filling: Yup.boolean().required(),
   accept_double_booking: Yup.boolean().required(),
+  accept_double_booking_workshop: Yup.boolean().required(),
   show_studio_on_general_app: Yup.boolean().required(),
   coach_can_edit_attendance: Yup.boolean().required(),
   default_attendance: Yup.boolean().required(),
@@ -1030,6 +1038,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       return {
         show_offers_filling: theme.show_offers_filling,
         accept_double_booking: theme.accept_double_booking,
+        accept_double_booking_workshop: theme.accept_double_booking_workshop,
         allow_guest: theme.allow_guest,
         allow_guest_frequency: theme.allow_guest_frequency,
         allow_guest_max_number: theme.allow_guest_max_number,
@@ -1082,6 +1091,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
     return {
       show_offers_filling: false,
       accept_double_booking: false,
+      accept_double_booking_workshop: false,
       allow_guest: true,
       allow_guest_frequency: 'week',
       allow_guest_max_number: 1,
@@ -1123,6 +1133,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
     const keys: (keyof FormikValues)[] = [
       'show_offers_filling',
       'accept_double_booking',
+      'accept_double_booking_workshop',
       'allow_guest',
       'allow_guest_frequency',
       'allow_guest_max_number',

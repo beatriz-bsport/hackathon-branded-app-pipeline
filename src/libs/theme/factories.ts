@@ -32,6 +32,7 @@ FactoryBot.define('companyTheme', {
   locale: 'fr_FR',
   show_offers_filling: false,
   accept_double_booking: false,
+  accept_double_booking_workshop: false,
   allow_guest: true,
   allow_guest_frequency: 'week',
   allow_guest_max_number: 1,

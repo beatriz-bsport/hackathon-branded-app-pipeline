@@ -38,6 +38,8 @@ type OwnProps = {
   hasMoreSimilarOffer: boolean;
   onClickShowMore: () => void;
   offerStatusById: { [key: string]: OfferStatus };
+  acceptDoubleBooking?: boolean;
+  acceptDoubleBookingWorkshop?: boolean;
 };
 
 type Props = OwnProps &
@@ -71,6 +73,7 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
         o,
         this.props.offerStatusById,
         this.props.acceptDoubleBooking,
+        this.props.acceptDoubleBookingWorkshop,
       );
 
       if (
@@ -184,6 +187,7 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
                 o,
                 this.props.offerStatusById,
                 this.props.acceptDoubleBooking,
+                this.props.acceptDoubleBookingWorkshop,
               );
 
             const isSelected = Boolean(

@@ -46,6 +46,7 @@ type OwnProps = {
   onAddAdditionalGuest: (guest: AdditionalGuest) => void;
   isRegisteringForWaitingList: boolean;
   acceptDoubleBooking?: boolean;
+  acceptDoubleBookingWorkshop?: boolean;
   hideGenericOffer?: boolean;
   onRemoveGuest: (idx: number) => void;
   numberBookingGuestLeft?: number;
@@ -111,6 +112,7 @@ class OfferListSummary extends React.PureComponent<Props> {
         offer,
         this.props.offerStatusById,
         this.props.acceptDoubleBooking,
+        this.props.acceptDoubleBookingWorkshop,
       );
 
     const hasCustomLevel =
@@ -209,6 +211,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                 offerData.offer,
                 this.props.offerStatusById,
                 this.props.acceptDoubleBooking,
+                this.props.acceptDoubleBookingWorkshop,
               );
               return (
                 <React.Fragment key={offerData.offer.id}>

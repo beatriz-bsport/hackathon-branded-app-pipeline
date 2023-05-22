@@ -7370,6 +7370,19 @@
             "3": "Dispute lost",
             "2": "Dispute won",
             "1": "Dispute processing"
+        },
+        "stripeBalance": {
+            "pendingBalance": "Balance in process",
+            "availableBalance": "Available balance",
+            "nullPendingBalanceText": "None",
+            "dialog": {
+                "close": "Close",
+                "alert": "Note that when you make a direct refund, this money is taken directly from your Stripe account. This can cause it to go into the negative.",
+                "secondPart": "Your \"available balance\" is therefore the amount of online payments that has not yet been paid to you.",
+                "thirdPart": "Your \"balance in process\" is the amount that will arrive on your available balance.",
+                "firstPart": "At bsport we use the Stripe service to manage all your online payments. The amounts of these are kept on Stripe and then transferred to your account (section \"My collections\")."
+            },
+            "title": "Stripe balance"
         }
     },
     "invoice": {
@@ -7616,6 +7629,15 @@
             },
             "warning": {
                 "interac": "At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards."
+            },
+            "blockedDialog": {
+                "helper": "Your Stripe balance of {{ stripeBalanceSum}} {{ currencyDisplay }} is insufficient to process the refund. Please try again after a few days so that payments can be collected.\n\nYou can follow the amount of your balance live in Settings > Bsport subscription.",
+                "alert": "Be careful, with this refund you will exceed the authorized overdraft limit of {{refundBlockingLimit }} {{currencyDisplay}}.",
+                "title": "Insufficient Stripe balance"
+            },
+            "autoDebitDialog": {
+                "helper": "Your studio is currently in the process of closing your Bsport account.\n\nBy clicking on confirm, the invoice will be refunded. Your Stripe balance will be debited by {{refundAmount}} {{ currencyDisplay }}. However, to reset your Stripe balance to 0 {{ currencyDisplay }} you will be automatically debited for the difference directly from your bank account indicated in Settings > Company.\n\nIf you don't want to exceed your overdraft limit, you can wait for your Stripe balance to rise again. You can follow the amount of your balance live in Settings > Subscription bsport.",
+                "title": "Insufficient Stripe balance"
             }
         },
         "table": {
@@ -9440,6 +9462,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",

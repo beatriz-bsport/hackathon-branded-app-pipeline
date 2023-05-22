@@ -2310,6 +2310,9 @@
                     "1": "Un avoir sera généré et incrémentera d'autant le solde client. Utilisez cette méthode pour générer un avoir.",
                     "2": "Choisissez vous-même le moyen de remboursement. Utilisez cette méthode pour un remboursement chèque / virement manuel / espèces."
                 }
+            },
+            "autoDebitDialog": {
+                "helper": "Votre studio est actuellement en procédure de clôture de compte Bsport.\n\nEn cliquant sur confirmer, la facture sera bien remboursée. Votre solde Stripe sera prélevé de {{refundAmount}} {{ currencyDisplay }}. Cependant pour remettre votre solde Stripe à 0 {{ currencyDisplay }} vous serez automatiquement débité de la différence directement sur votre compte bancaire indiqué dans Paramètres > Entreprise.\n\nSi vous ne souhaitez pas dépasser votre limite de découvert, vous pouvez attendre que votre solde Stripe remonte. Vous pouvez suivre en direct le montant de votre solde dans Paramètres > Abonnement bsport."
             }
         },
         "quickbooks": {

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { COACH_PAYMENT_RULE_FOR_SESSION } from '@bsport/common/lib/master-data/coach_payment_rule';
 
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
@@ -21,6 +20,7 @@ import { getCurrencyDisplay } from '../../theme/selectors';
 import type { CoachPaymentRule } from '../types';
 import Figure from '../../../components/graph/Figure.component';
 import { MaterialStyleType } from '../../../utils/types';
+import { COACH_PAYMENT_RULE_FOR_ACTIVITIES } from '#libs/coach-payment-rules/constants.ts';
 
 type OwnProps = {
   open: boolean;
@@ -62,7 +62,7 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
     coachPaymentRule,
   } = props;
   const initialFieldsState: FieldsState =
-    coachPaymentRule.kind === COACH_PAYMENT_RULE_FOR_SESSION
+    COACH_PAYMENT_RULE_FOR_ACTIVITIES.includes(coachPaymentRule.kind)
       ? {
           confirmed_bookings: 0,
           cancelled_bookings: 0,
@@ -84,7 +84,7 @@ export const CoachPaymentRuleSimulationDrawer = (props: Props) => {
         {t('coach_payment_rules.Simulator.helper')}
       </Typography>
       <div className={classes.dialogContent}>
-        {coachPaymentRule.kind === COACH_PAYMENT_RULE_FOR_SESSION ? (
+        {COACH_PAYMENT_RULE_FOR_ACTIVITIES.includes(coachPaymentRule.kind) ? (
           <div className={classes.dialogFields}>
             <TextField
               id="confirmed_bookings"

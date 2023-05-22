@@ -104,6 +104,7 @@ export type Theme = {
   coach_display: MarketPlaceCoachDisplay;
   days_format_display: MarketPlaceDaysFormatDisplay;
   is_auto_debit_activated: boolean;
+  show_free_session_label: boolean;
 };
 
 export type ThemeState = {

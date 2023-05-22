@@ -6,6 +6,8 @@ import { createSelector } from 'reselect';
 import {
   COACH_PAYMENT_RULE_FOR_SESSION,
   COACH_PAYMENT_RULE_FOR_APPOINTMENT,
+  COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY,
+  COACH_PAYMENT_RULE_FOR_WORKSHOP,
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
@@ -51,6 +53,26 @@ export const CoachPaymentRuleByKindSelector = createSelector(
         })),
       [COACH_PAYMENT_RULE_FOR_APPOINTMENT]: values(coachPaymentRulesItems)
         .filter((rule) => rule.kind === COACH_PAYMENT_RULE_FOR_APPOINTMENT)
+        .map((rule: CoachPaymentRule) => ({
+          ...rule,
+          coaches: compact(
+            rule.private_associated_coach.map((coachId: number) =>
+              allCoaches.find((coach) => coach.associated_coach_id === coachId),
+            ),
+          ),
+        })),
+      [COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY]: values(coachPaymentRulesItems)
+        .filter((rule) => rule.kind === COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY)
+        .map((rule: CoachPaymentRule) => ({
+          ...rule,
+          coaches: compact(
+            rule.private_associated_coach.map((coachId: number) =>
+              allCoaches.find((coach) => coach.associated_coach_id === coachId),
+            ),
+          ),
+        })),
+      [COACH_PAYMENT_RULE_FOR_WORKSHOP]: values(coachPaymentRulesItems)
+        .filter((rule) => rule.kind === COACH_PAYMENT_RULE_FOR_WORKSHOP)
         .map((rule: CoachPaymentRule) => ({
           ...rule,
           coaches: compact(

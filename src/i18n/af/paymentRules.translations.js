@@ -31,11 +31,15 @@ exports.default = {
   },
   fabButton: {
     addNewForSession: 'Cours collectifs & Ateliers',
+    addNewForGroupActivity: 'Cours collectifs',
+    addNewForWorkshop: 'Ateliers',
     addNewForRDV: 'Rendez-vous',
     addNewPaymentRuleGroup: 'Groupe de rémunération',
   },
   tabs: {
     session: 'Cours Collectifs & Ateliers',
+    groupActivity: 'Cours Collectifs',
+    workshop: 'Ateliers',
     appointment: 'Rendez-Vous',
     all: 'Tous les cours',
     groups: 'Groupes de rémunérations',

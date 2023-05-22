@@ -588,7 +588,15 @@ const mapWithHandlers = {
 
 export const CalendarDataContainer = compose(
   marketplaceCssHoc(),
-  withTranslation(),
+  withTranslation([
+    'metaActivity',
+    'marketplace',
+    'establishment',
+    'coach',
+    'datetime',
+    'translation',
+    'offer',
+  ]),
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers(mapWithHandlers),
 );

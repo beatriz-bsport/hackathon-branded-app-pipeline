@@ -187,7 +187,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
           >
             {panelsStatus[i] ? <ExpandLess /> : <ExpandMore />}
             <p className="bs-week__cardMode__dayPart">
-              {t(`dayParts.${DAY_PARTS[i]}`)}
+              {t(`translation:dayParts.${DAY_PARTS[i]}`)}
             </p>
           </IconButton>
         </div>
@@ -467,4 +467,6 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   }
 }
 
-export default withTranslation()(MarketplaceWeekTimetable);
+export default withTranslation(['translation', 'datetime'])(
+  MarketplaceWeekTimetable,
+);

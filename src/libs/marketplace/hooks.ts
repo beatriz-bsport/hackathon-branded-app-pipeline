@@ -250,7 +250,7 @@ export const useOfferHours = (
   metaActivity: MetaActivity,
   theme: Theme,
 ) => {
-  const { t } = useTranslation('datetime');
+  const { t } = useTranslation(['datetime']);
   const memoizedOfferHours = useMemo(() => {
     if (offer.date_start && establishment?.tzname) {
       const tz = metaActivity?.is_broadcast

@@ -61,6 +61,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
     'marketplace',
     'coach',
     'datetime',
+    'translation',
   ]);
   const handleBook = () => {
     props.onClickBook(offer);

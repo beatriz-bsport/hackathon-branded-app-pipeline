@@ -121,7 +121,7 @@ export const MarketplaceCalendar = (props: Props) => {
           <div className="bs-calendar--no-offer--no-next">
             <EventBusyIcon className="bs-calendar--no-offer--no-next__icon" />
             <div className="bs-calendar--no-offer--no-next__text">
-              {props.t('slotSearcher.emptyState')}
+              {props.t('privateService:slotSearcher.emptyState')}
             </div>
           </div>
         )}
@@ -136,11 +136,11 @@ export const MarketplaceCalendar = (props: Props) => {
               {!moment(nextAvailableOffer.date_start).isBefore(
                 moment(selectedDate),
               )
-                ? props.t('slotSearcher.nextOffer', {
+                ? props.t('privateService:slotSearcher.nextOffer', {
                     date: moment(nextAvailableOffer.date_start).format('L'),
                     hour: formatAsTime(nextAvailableOffer.date_start),
                   })
-                : props.t('slotSearcher.previousOffer', {
+                : props.t('privateService:slotSearcher.previousOffer', {
                     date: moment(nextAvailableOffer.date_start).format('L'),
                     hour: formatAsTime(nextAvailableOffer.date_start),
                   })}

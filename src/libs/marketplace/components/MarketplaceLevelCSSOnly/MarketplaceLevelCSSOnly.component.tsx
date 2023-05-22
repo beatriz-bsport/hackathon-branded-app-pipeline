@@ -24,7 +24,7 @@ const MarketplaceLevelCSSOnly: React.FC<Props> = ({
   activityDialog,
   hideLevel,
 }) => {
-  const { t } = useTranslation('offer');
+  const { t } = useTranslation(['offer', 'translation']);
   const theme = useTheme();
 
   if (hideLevel) {

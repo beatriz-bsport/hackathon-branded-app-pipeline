@@ -42,7 +42,7 @@ const MarketplaceBroadcastCSSOnly: React.FC<Props> = ({
         })}
       >
         <div className={classNames('bs-broadcast__text', className)}>
-          {t('calendar.broadcast')}
+          {t('marketplace:calendar.broadcast')}
         </div>
         <VideocamIcon className="bs-broadcast__videocam" />
       </div>

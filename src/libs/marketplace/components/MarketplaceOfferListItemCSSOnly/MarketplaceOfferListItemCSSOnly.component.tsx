@@ -88,7 +88,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   position = [],
   withoutBookButton,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['datetime']);
   const muiTheme = useTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
 

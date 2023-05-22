@@ -292,6 +292,8 @@ exports.default = {
         threeLetters: '3 lettres',
         oneLetter: '1 lettre',
       },
+      showFreeSessionLabel:
+        'Ajouter un label à chaque session dont le prix en crédit est égal à 0',
     },
     cover: {
       label: 'Logo',

@@ -4380,6 +4380,7 @@
     "recurrenceIndex": "Groupe n°{{ index }} de la récurrence",
     "disabled": "Annulée",
     "credit_price": " Crédit",
+    "isFree": "Gratuit",
     "booking": { "confirmed": "Confirmé(s)", "fillRate": "Taux de remplissage", "waiting": "Liste d'attente" },
     "extraordinaryEstablishment": "(lieu temporaire)",
     "substitute": "Remplaçant",
@@ -10322,7 +10323,8 @@
           "fullWord": "Mot entier",
           "threeLetters": "3 lettres",
           "oneLetter": "1 lettre"
-        }
+        },
+        "showFreeSessionLabel": "Ajouter un label à chaque session dont le prix en crédit est égal à 0"
       },
       "cover": { "label": "Logo", "helperText": "Privilégiez les png avec fond transparent" },
       "primary_color": { "label": "Couleur principale", "helperText": "Privilégiez une couleur, évitez le monochrome" },

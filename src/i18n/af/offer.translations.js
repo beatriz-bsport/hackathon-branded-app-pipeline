@@ -20,6 +20,7 @@ exports.default = {
   recurrenceIndex: 'Groupe n°{{ index }} de la récurrence',
   disabled: 'Annulée',
   credit_price: ' Crédit',
+  isFree: 'Gratuit',
   booking: {
     confirmed: 'Confirmé(s)',
     fillRate: 'Taux de remplissage',

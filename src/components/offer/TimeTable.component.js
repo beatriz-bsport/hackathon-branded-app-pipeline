@@ -14,6 +14,8 @@ import VirtualizeListAutoSize from '#components/virtualize/VirtualListAutoSize.c
 import ValidationRollCallButton from '#libs/offer/components/ValidationRollCallButton.component';
 import ValidationRollCallText from '#libs/offer/components/ValidationRollCallText.component';
 
+import type { Theme as CompanyTheme } from '#libs/theme/types';
+
 type Props = {
   loading: boolean,
   offers: Array<Offer>,
@@ -29,6 +31,7 @@ type Props = {
   openRollCallDrawer?: (index: number, offer: Offer) => void,
   openConfirmationRollCallDialog?: () => void,
   displayCoachInfoOnHover?: boolean,
+  companyTheme: CompanyTheme,
 };
 
 export class TimeTable extends React.PureComponent<Props, State> {
@@ -56,6 +59,7 @@ export class TimeTable extends React.PureComponent<Props, State> {
       }}
       isRollCallMandatory={!!this.props.isRollCallMandatory}
       displayCoachInfoOnHover={this.props.displayCoachInfoOnHover}
+      companyTheme={this.props.companyTheme}
     />
   );
 

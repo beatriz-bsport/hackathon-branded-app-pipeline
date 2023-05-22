@@ -39,10 +39,14 @@ import type { Offer } from '../../api/types';
 import { PermissionContext } from '../../context';
 import CheckPermission from '../../libs/role/components/CheckPermission.component';
 import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
+import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
+
 import { getRecurrenceTrad } from '#libs/group-offer/utils';
 import { formatAsDatetimeAdapted, formatAsTime } from '../../utils/datetime';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 import OfferCardStastitics from '../../libs/offer/components/OfferCardStastistics.compant';
+
+import type { Theme as CompanyTheme } from '#libs/theme/types';
 
 type Props = {
   t: TFunction,
@@ -63,6 +67,7 @@ type Props = {
   showOfferGender?: boolean,
   showVaccinationStatus: boolean,
   onModifyTags?: (offer: Offer) => void,
+  companyTheme?: CompanyTheme,
 };
 
 type State = {
@@ -79,11 +84,12 @@ export class OfferCard extends Component<Props, State> {
   }
 
   getHeader = () => {
-    const { classes, t, offer } = this.props;
+    const { classes, t, offer, companyTheme } = this.props;
     const {
       available,
       name,
       parent_category,
+      credit_price,
       credit_price_override,
       customLevel,
       meta_activity,
@@ -116,6 +122,12 @@ export class OfferCard extends Component<Props, State> {
             {linked_hybrid_offer_id && (
               <OfferIconHybridIndicator iconProps={{ fontSize: 'large' }} />
             )}
+            <FreeOfferChip
+              credits={credit_price}
+              creditsOverride={credit_price_override}
+              companyTheme={companyTheme}
+              size="large"
+            />
             <Level customLevel={customLevel} />
           </div>
         </ListItem>

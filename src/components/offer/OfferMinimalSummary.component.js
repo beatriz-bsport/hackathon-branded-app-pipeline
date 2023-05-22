@@ -31,6 +31,9 @@ import type { Offer } from '../../api/types';
 import { DEFAULT_AVATAR } from '../../libs/associated-coach/utils';
 import RollCallChip from '../../libs/offer/components/RollCallChip.component';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
+import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
+
+import type { Theme as CompanyTheme } from '#libs/theme/types';
 
 const styles = (theme) => ({
   relativeContainer: { position: 'relative' },
@@ -91,6 +94,7 @@ type Props = {
   openRollCallDrawer: () => void,
   isRollCallMandatory: boolean,
   displayCoachInfoOnHover?: boolean,
+  companyTheme: CompanyTheme,
 };
 
 const getFillingInfo = (offer: Offer) => {
@@ -180,6 +184,7 @@ export function OfferMinimalSummary(props: Props) {
     fixedHeight,
     getHasPendingReplacementRequest,
     displayCoachInfoOnHover,
+    companyTheme,
   } = props;
 
   const [tagManagementDialog, setTagManagementDialog] = useState(false);
@@ -204,6 +209,8 @@ export function OfferMinimalSummary(props: Props) {
     date_start,
     whitelist_tags,
     blacklist_tags,
+    credit_price,
+    credit_price_override,
   } = offer;
 
   const disabledAvatarProps = {
@@ -361,6 +368,12 @@ export function OfferMinimalSummary(props: Props) {
                       >
                         {formattedName}
                       </Typography>
+                      <FreeOfferChip
+                        credits={credit_price}
+                        creditsOverride={credit_price_override}
+                        companyTheme={companyTheme}
+                        size="small"
+                      />
                     </div>
                   }
                   secondary={`${dateFormatter(

@@ -1379,6 +1379,7 @@ export class Planning extends PureComponent<Props, State> {
                   className={classes.offerList}
                   virtualized
                   isRollCallMandatory={this.props.theme.is_roll_call_mandatory}
+                  companyTheme={this.props.theme}
                   openRollCallDrawer={this.openRollCallDrawer}
                   openConfirmationRollCallDialog={
                     this.openConfirmationRollCallDialog
@@ -1440,6 +1441,7 @@ export class Planning extends PureComponent<Props, State> {
                   }
                   showVaccinationStatus={this.props.showVaccinationStatus}
                   onModifyTags={this.onModifyTags}
+                  companyTheme={this.props.theme}
                 />
               </div>
             </Grid>

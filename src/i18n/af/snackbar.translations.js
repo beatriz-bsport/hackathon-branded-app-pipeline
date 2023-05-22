@@ -623,11 +623,14 @@ exports.default = {
   role: {
     update: {
       success: 'Autorisations modifiées',
+      successCommission: 'Le taux de commission a bien été modifié',
     },
     error: {
       generic: 'Impossible de modifier cette autorisation',
       errorEmail:
         'Cet email est déjà utilisé pour un compte élève ou professeur',
+      errorCommission:
+        'La valeur que vous avez saisie doit être entre 0 et 100',
     },
     noMasterControl: {
       overbookingNotAllowed:

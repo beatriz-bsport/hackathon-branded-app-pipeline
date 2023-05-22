@@ -20,6 +20,7 @@ import {
   createFranchiseRole as createFranchiseRoleAPI,
   updateFranchiseRole as updateFranchiseRoleAPI,
   deleteFranchiseRole as deleteFranchiseRoleAPI,
+  updateUserCommission as updateUserCommissionAPI,
 } from './api';
 import {
   Dispatch,
@@ -35,6 +36,7 @@ import {
   Role,
   UserRoleData,
   RedirectionParameters,
+  UserRole,
 } from './types';
 
 import { getPermissions } from './selectors';
@@ -66,6 +68,12 @@ export const userRoleUpdate = {
 export const userRoleDelete = {
   error: createAction('ROLE/USER/DELETE/ERROR'),
   success: createAction('ROLE/USER/DELETE/SUCCESS'),
+};
+
+export const userCommissionUpdate = {
+  error: createAction('ROLE/USER/COMMISSION_UPDATE/ERROR'),
+  isLoading: createAction('ROLE/USER/COMMISSION_UPDATE/IS_LOADING'),
+  success: createAction('ROLE/USER/COMMISSION_UPDATE/SUCCESS'),
 };
 
 export function fetchCompanyUserRoles(options?: OptionCallback) {
@@ -547,5 +555,32 @@ export function redirectIfAllowed(
     } catch (error) {
       console.error(error);
     }
+  };
+}
+
+export function updateUserCommission(
+  userId: number,
+  params: {
+    commission?: number;
+  },
+  options?: OptionCallback<UserRole>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(userCommissionUpdate.isLoading(true));
+    dispatch(userCommissionUpdate.error(null));
+
+    try {
+      const response = await updateUserCommissionAPI(userId, params);
+      const commissionValue = response.data;
+      dispatch(userCommissionUpdate.success(commissionValue));
+      dispatch(snackbarSuccess(`role.update.successCommission`));
+      options?.onSuccess && options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(userCommissionUpdate.error(err));
+      dispatch(snackbarError('role.error.errorCommission'));
+      options?.onError && options.onError();
+    }
+    dispatch(userCommissionUpdate.isLoading(false));
   };
 }

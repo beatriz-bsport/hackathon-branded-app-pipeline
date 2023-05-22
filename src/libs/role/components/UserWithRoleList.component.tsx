@@ -39,6 +39,7 @@ type OwnProps = {
   users: Array<UserRole<number, FranchiseRole>>;
   openCreateStaffDialog: boolean;
   setOpenCreateStaffDialog: (value: boolean) => void;
+  updateCommission: (userId: number, params: { commission: number }) => void;
 };
 
 type Props = OwnProps &
@@ -90,6 +91,9 @@ export const UserWithRoleList = (props: Props) => {
             isFranchisor={props.isFranchisor}
             roles={props.roles}
             user={user}
+            handleCommissionChange={(commissionValue) =>
+              props.updateCommission(user.id, { commission: commissionValue })
+            }
           />
         </div>
       ))}

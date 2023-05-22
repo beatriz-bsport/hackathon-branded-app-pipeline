@@ -61,6 +61,7 @@ exports.default = {
       selectFranchiseesDisabled:
         'This setting is only for custom role (not Admin or Owner)',
       ifEmptySelectAll: 'Laisser vide pout tout sélectionner',
+      commissionHeader: 'Taux de commission',
     },
     role: {
       create: {

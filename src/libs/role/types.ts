@@ -202,6 +202,7 @@ export type UserRole<R = number, FR = number> = {
   franchise_role_identifier: number | null;
   coaches_selected_in_role?: number[];
   allowed_franchisees?: number[];
+  commission: number;
 };
 
 export type RoleState = ErrorAndLoading & {

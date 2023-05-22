@@ -7656,7 +7656,8 @@
         "selectCoach": "Selectionner les professeurs",
         "selectFranchisees": "Sélectionner des franchisés",
         "selectFranchiseesDisabled": "This setting is only for custom role (not Admin or Owner)",
-        "ifEmptySelectAll": "Laisser vide pout tout sélectionner"
+        "ifEmptySelectAll": "Laisser vide pout tout sélectionner",
+        "commissionHeader": "Taux de commission"
       },
       "role": {
         "create": {
@@ -8919,10 +8920,11 @@
       }
     },
     "role": {
-      "update": { "success": "Autorisations modifiées" },
+      "update": { "success": "Autorisations modifiées", "successCommission": "Le taux de commission a bien été modifié" },
       "error": {
         "generic": "Impossible de modifier cette autorisation",
-        "errorEmail": "Cet email est déjà utilisé pour un compte élève ou professeur"
+        "errorEmail": "Cet email est déjà utilisé pour un compte élève ou professeur",
+        "errorCommission": "La valeur que vous avez saisie doit être entre 0 et 100"
       },
       "noMasterControl": {
         "overbookingNotAllowed": "Vous ne pouvez pas dépasser le nombre maximum de réservations.",

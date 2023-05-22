@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { AxiosResponse } from 'axios';
 import {
   API_V1_URI,
   getAuth,
@@ -14,6 +15,7 @@ import {
   RolePermission,
   Role,
   UserRoleData,
+  UserRole,
 } from './types';
 import { DeepPartial } from '../../utils/types';
 
@@ -130,4 +132,15 @@ export const updateFranchiseRole = async (
 
 export const deleteFranchiseRole = async (id: number) => {
   return deleteAuth(`${API_V1_URI}/role/franchise_role/${id}/`);
+};
+
+export const updateUserCommission = async (
+  userId: number,
+  params: {
+    commission: number;
+  },
+): Promise<AxiosResponse<UserRole>> => {
+  return patchAuth(`${API_V1_URI}/role/user/${userId}/`, {
+    staff_commission_percentage: params.commission,
+  });
 };

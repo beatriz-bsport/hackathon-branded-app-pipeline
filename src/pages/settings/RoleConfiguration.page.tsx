@@ -22,6 +22,7 @@ import {
   createCompanyRole,
   updateCompanyRole,
   deleteCompanyRole,
+  updateUserCommission,
 } from '#libs/role/actions';
 import {
   getUsersWithRole,
@@ -105,6 +106,7 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
             hasOwnerPermission={hasOwnerPermission}
             openCreateStaffDialog={this.state.openCreateStaffDialog}
             setOpenCreateStaffDialog={this.setOpenCreateStaffDialog}
+            updateCommission={this.props.updateUserCommission}
           />
         </Paper>
         <Typography variant="h5" className={classes.sectionTitle}>
@@ -204,6 +206,7 @@ const mapDispatchToProps = {
   updateCompanyRole,
   deleteCompanyRole,
   fetchAssociatedCoachesList,
+  updateUserCommission,
 };
 
 export default compose(

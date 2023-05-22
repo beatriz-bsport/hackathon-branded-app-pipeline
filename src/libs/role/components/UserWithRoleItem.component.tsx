@@ -12,7 +12,9 @@ import {
   Typography,
   withStyles,
 } from '@material-ui/core';
+
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 
 // @ts-ignore
@@ -60,6 +62,7 @@ type OwnProps = {
   isFranchisor?: boolean;
   roles?: Role[];
   user: UserRole;
+  handleCommissionChange: (commissionValue: number) => void;
 };
 
 type Props = OwnProps &
@@ -68,6 +71,7 @@ type Props = OwnProps &
 
 type State = {
   selectedObjects?: SelectFieldItem[];
+  commission?: number;
 };
 
 class UserWithRoleItem extends React.Component<Props, State> {
@@ -75,6 +79,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
     super(props);
     this.state = {
       selectedObjects: null,
+      commission: this.props.user.staff_commission_percentage,
     };
   }
 
@@ -109,6 +114,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
       franchiseeList,
       franchiseeListLoading,
       isFranchisor,
+      handleCommissionChange,
     } = this.props;
 
     const selectedObjectsInitial = (() => {
@@ -167,35 +173,68 @@ class UserWithRoleItem extends React.Component<Props, State> {
       }
     };
 
+    const handleOnCommissionChange = (ev) => {
+      this.setState({ commission: ev.target.value });
+    };
+    const handleOnCommissionFocus = () => {
+      handleCommissionChange(this.state.commission);
+    };
+
     return (
       <div className={classes.roleFieldContainer}>
-        <TextField className={classes.roleField} disabled value={user.email} />
-        <TextField
-          className={classes.roleField}
-          disabled
-          value={`${user.first_name} ${user.last_name}`}
-        />
-        <FormControl>
-          <Select
+        <div className={classes.userRoleFieldContainer}>
+          <TextField
             className={classes.roleField}
-            disabled={isRoleIn([OWNER_ROLE, CHECKIN_APP_ROLE])}
-            value={roleId || 0}
-            onChange={handleOnRoleChange}
-            name="role"
-          >
-            {(isFranchisor ? franchiseRoles : roles).map((role) => {
-              return (
-                <MenuItem
-                  disabled={disableRoleMenuItem(role)}
-                  key={role.id}
-                  value={role.id}
-                >
-                  {getRoleName(role, t)}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
+            disabled
+            value={user.email}
+          />
+          <TextField
+            className={classes.roleField}
+            disabled
+            value={`${user.first_name} ${user.last_name}`}
+          />
+          <FormControl>
+            <Select
+              className={classes.roleField}
+              disabled={isRoleIn([OWNER_ROLE, CHECKIN_APP_ROLE])}
+              value={roleId || 0}
+              onChange={handleOnRoleChange}
+              name="role"
+            >
+              {(isFranchisor ? franchiseRoles : roles).map((role) => {
+                return (
+                  <MenuItem
+                    disabled={disableRoleMenuItem(role)}
+                    key={role.id}
+                    value={role.id}
+                  >
+                    {getRoleName(role, t)}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          {!isRoleIn([OWNER_ROLE]) && (
+            <TextField
+              castAsNumber
+              label={t('forms.user.commissionHeader')}
+              className={classes.roleField}
+              disabled={!hasOwnerPermission}
+              value={`${this.state.commission}`}
+              InputProps={{
+                inputProps: { min: 0, max: 100, step: 1 },
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <p>%</p>
+                  </InputAdornment>
+                ),
+              }}
+              type="number"
+              onChange={handleOnCommissionChange}
+              onBlur={handleOnCommissionFocus}
+            />
+          )}
+        </div>
         {!isRoleIn([OWNER_ROLE]) && hasOwnerPermission && (
           <DeleteButton t={t} deleteUser={deleteUser} />
         )}
@@ -237,6 +276,12 @@ class UserWithRoleItem extends React.Component<Props, State> {
 }
 
 const styles = (theme: Theme) => ({
+  userRoleFieldContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    flexWrap: 'wrap',
+  },
   roleFieldContainer: {
     display: 'flex',
     flexDirection: 'row',

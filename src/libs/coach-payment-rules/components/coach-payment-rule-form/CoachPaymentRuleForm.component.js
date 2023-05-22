@@ -32,7 +32,6 @@ import {
   BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
   BONUS_COACH_PAYMENT_RULE_EVERY_BOOKING,
   BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE,
-  COACH_PAYMENT_RULE_FOR_SESSION,
   COACH_PAYMENT_RULE_FOR_APPOINTMENT,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import {
@@ -53,10 +52,12 @@ import {
 } from '../../utils';
 import coachPaymentRuleFieldsSchema from './schemaValidation';
 import mapInitalPropsToValues from './mapPropsToValues';
+import { COACH_PAYMENT_RULE_FOR_ACTIVITIES } from '../../constants';
 
 type Props = { t: TFunction, classes: * } & CoachPaymentRule & {
     onSubmit: (CoachPaymentRule) => void,
   };
+
 export function CoachPaymentRuleFields(props: Props) {
   const { t, classes, setFieldValue } = props;
   const [anchorEl, setAnchorEl] = useState(null);
@@ -105,7 +106,7 @@ export function CoachPaymentRuleFields(props: Props) {
         required
       />
       <AlertError name="name" />
-      {props.values.kind === COACH_PAYMENT_RULE_FOR_SESSION && (
+      {COACH_PAYMENT_RULE_FOR_ACTIVITIES.includes(props.values.kind) && (
         <React.Fragment>
           <FormControlLabel
             control={
@@ -197,7 +198,7 @@ export function CoachPaymentRuleFields(props: Props) {
         <AlertError name="percentage_base_confirmed_bookings" />
       </Collapse>
 
-      {props.values.kind === COACH_PAYMENT_RULE_FOR_SESSION && (
+      {COACH_PAYMENT_RULE_FOR_ACTIVITIES.includes(props.values.kind) && (
         <React.Fragment>
           <FieldArray name="bonus_for_confirmed_bookings">
             {({
@@ -523,7 +524,7 @@ export function CoachPaymentRuleFields(props: Props) {
             fullWidth
           />
         </Collapse>
-        {props.values.kind === COACH_PAYMENT_RULE_FOR_SESSION && (
+        {COACH_PAYMENT_RULE_FOR_ACTIVITIES.includes(props.values.kind) && (
           <FieldArray name="bonus_for_cancelled_bookings">
             {({
               remove,
@@ -783,7 +784,7 @@ export function CoachPaymentRuleFields(props: Props) {
           </FormHelperText>
         </FormGroup>
       </Collapse>
-      {props.values.kind === COACH_PAYMENT_RULE_FOR_SESSION && (
+      {COACH_PAYMENT_RULE_FOR_ACTIVITIES.includes(props.values.kind) && (
         <React.Fragment>
           <div className={classes.row}>
             <Typography className={classes.limitsTitle} variant="h6">
@@ -887,16 +888,17 @@ export const CoachPaymentRuleFormHoc = withFormik({
       values.remuneration_on_cancellation
         ? {
             bonus_coach_payment: values.bonus_for_cancelled_bookings.concat(
-              values.kind === COACH_PAYMENT_RULE_FOR_SESSION
+              COACH_PAYMENT_RULE_FOR_ACTIVITIES.includes(values.kind)
                 ? values.bonus_for_confirmed_bookings
                 : [],
             ),
           }
         : {
-            bonus_coach_payment:
-              values.kind === COACH_PAYMENT_RULE_FOR_SESSION
-                ? values.bonus_for_confirmed_bookings
-                : [],
+            bonus_coach_payment: COACH_PAYMENT_RULE_FOR_ACTIVITIES.includes(
+              values.kind,
+            )
+              ? values.bonus_for_confirmed_bookings
+              : [],
           }),
     };
     if (values.percentage_base_confirmed_bookings !== 0) {
@@ -923,7 +925,7 @@ export const CoachPaymentRuleFormHoc = withFormik({
         }),
       );
     }
-    if (values.kind === COACH_PAYMENT_RULE_FOR_SESSION) {
+    if (COACH_PAYMENT_RULE_FOR_ACTIVITIES.includes(values.kind)) {
       valuesWithConcatBonuses.base_remuneration_for_cancellation = 0;
     }
     const {

@@ -5,11 +5,13 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 
+import { withTranslation } from 'react-i18next';
 import asyncComponent from '../../AsyncComponent';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { getAuthToken } from '../../http';
 import { fetchMarketplaceSettings } from '#libs/marketplace/actions';
 import { getFranchiseId } from '#libs/franchise/selectors';
+import namespaces from '../../i18n/namespaces.json';
 
 const ConsumerHome = asyncComponent(() => import('./ConsumerHome.page'));
 const ConsumerSpacePreSelector = asyncComponent(() =>
@@ -100,6 +102,7 @@ export const ConsumerRouter = (props: Props) => {
 
 export default compose(
   routerParamsToProps({ companyId: 'companyId:number' }),
+  withTranslation(namespaces),
   connect(
     (state) => ({
       authenticated: state.auth.authenticated,

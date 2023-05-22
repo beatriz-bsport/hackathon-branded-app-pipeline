@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
 import asyncComponent from '../AsyncComponent';
 import { getAuthToken } from '../http';
 import { RootState } from '../reducers';
@@ -14,6 +15,8 @@ import { disconnect as disconnectAction } from '../actions/auth.actions';
 import withQueryParams from '../hocs/with-query-params.hoc';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 
+import namespaces from '../i18n/namespaces.json';
+
 const ConsumerHome = asyncComponent(() => import('./consumer/Consumer.router'));
 const CoachHome = asyncComponent(
   () => import('./coach-userspace/CoachProfile.page'),
@@ -22,8 +25,10 @@ const Backoffice = asyncComponent(() => import('./Backoffice.component'));
 const FranchiseHome = asyncComponent(
   () => import('./franchise/Franchise.router'),
 );
+
 type RouterProps = { companyId: number };
 type Props = ConnectedProps<typeof connector> & RouterProps;
+
 export const UserspaceSwitcher = (props: Props) => {
   const {
     authenticated,
@@ -36,6 +41,7 @@ export const UserspaceSwitcher = (props: Props) => {
     companyId,
     has_completed_account_configuration_on_boarding,
   } = props;
+  useTranslation(namespaces);
   const [tokenChangedInOtherTab, setTokenChangedInOtherTab] = useState(false);
   const [authToken, setAuthToken] = useState(getAuthToken());
   useEffect(() => {

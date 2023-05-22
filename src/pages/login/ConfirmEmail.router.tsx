@@ -7,6 +7,7 @@ import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import { Route, Switch } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
+import { useTranslation } from 'react-i18next';
 import asyncComponent from '../../AsyncComponent';
 import withQueryParams from '#hocs/with-query-params.hoc';
 import themeSelectors from '#libs/theme/selectors';
@@ -16,6 +17,8 @@ import LoginBackgroundComponent from '#libs/login/components/LoginBackground.com
 import LanguageButton from '../../components/button/LanguageButton.component';
 import { Theme } from '#libs/theme/types';
 import { refreshValidationEmailStatus as refreshValidationEmailStatusAction } from '#libs/login/actions';
+
+import namespaces from '../../i18n/namespaces.json';
 
 const ConfirmingEmailPage = asyncComponent(
   () => import('./ConfirmingEmail.page'),
@@ -30,6 +33,7 @@ type Props = {
 
 export const ConfirmEmailRouter = (props: Props) => {
   const { refreshValidationEmailStatus, theme } = props;
+  useTranslation(namespaces);
 
   let src: string = 'https://cdn.bsport.io/bsport_logo_txt.png';
   let alt: string = 'bsport-logo';

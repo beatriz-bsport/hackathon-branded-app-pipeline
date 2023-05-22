@@ -1,8 +1,9 @@
 // @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { withTranslation } from 'react-i18next';
 import { Switch, Route } from 'react-router-dom';
+import namespaces from '../../../i18n/namespaces.json';
 
 import asyncComponent from '../../../AsyncComponent';
 
@@ -68,6 +69,8 @@ export const DeprecatedPages = (props: { is_manager: boolean }) => {
   );
 };
 
-export default connect((state) => ({
-  is_manager: state.auth.is_manager,
-}))(DeprecatedPages);
+export default withTranslation(namespaces)(
+  connect((state) => ({
+    is_manager: state.auth.is_manager,
+  }))(DeprecatedPages),
+);

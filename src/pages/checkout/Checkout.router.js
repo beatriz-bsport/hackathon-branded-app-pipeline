@@ -5,11 +5,13 @@ import { compose } from 'recompose';
 
 import { Redirect, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
 import asyncComponent from '../../AsyncComponent';
 import Analytics from '../../components/analytics/Analytics.component';
 import { fetchProfile } from '../../libs/consumer-space/actions';
+import namespaces from '../../i18n/namespaces.json';
 
 const MarketplaceAsManager = asyncComponent(() =>
   import('../marketplace/MarketplaceAsManager.page'),
@@ -180,6 +182,7 @@ const styles = () => ({
 
 export default compose(
   withStyles(styles),
+  withTranslation(namespaces),
   routerParamsToProps({ companyId: 'companyId:number' }),
   connect(
     (state) => ({

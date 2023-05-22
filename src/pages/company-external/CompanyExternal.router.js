@@ -4,6 +4,9 @@ import { goBack } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
+import { withTranslation } from 'react-i18next';
+import namespaces from '../../i18n/namespaces.json';
+
 import CompanyExternalAddMember from './CompanyExternalAddMember.page';
 
 const GoBackComponent = connect(null, { goBack })(
@@ -20,4 +23,4 @@ export const CompanyExternalRouter = () => (
   </Switch>
 );
 
-export default CompanyExternalRouter;
+export default withTranslation(namespaces)(CompanyExternalRouter);

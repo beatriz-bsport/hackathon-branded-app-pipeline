@@ -27,6 +27,7 @@ import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { fetchEstablishments } from '../../libs/establishment/actions';
 import { fetchPaymentPackList as fetchPaymentPackListAction } from '../../libs/payment-packs/actions';
 import { getAllEstablishments } from '../../libs/establishment/selectors';
+import namespaces from '../../i18n/namespaces.json';
 
 import CheckInAppBar from '../../libs/check-in/components/CheckInAppBar.component';
 import CheckInSignout from '../../libs/check-in/components/CheckInSignout.component';
@@ -159,7 +160,7 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withTranslation(['selfCheckIn']),
+  withTranslation(namespaces),
   withState('signoutOpen', 'setSignoutOpen', false),
   connect(
     (state) => ({

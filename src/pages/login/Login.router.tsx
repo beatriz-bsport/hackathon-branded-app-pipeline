@@ -10,6 +10,7 @@ import { withProps, compose } from 'recompose';
 import { connect } from 'react-redux';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
+import { withTranslation } from 'react-i18next';
 import { RootState } from '../../reducers';
 import { parseQueryString } from '../../http';
 import { fetchCompanyTheme } from '#libs/theme/actions';
@@ -31,6 +32,7 @@ import {
 } from '#libs/franchise/selectors';
 import { FranchiseDetails } from '#libs/franchise/types';
 import LanguageButton from '../../components/button/LanguageButton.component';
+import namespaces from '../../i18n/namespaces.json';
 
 const Signout = asyncComponent(() => import('./Signout.page'));
 
@@ -228,6 +230,7 @@ const styles = (theme) => ({
 export default compose<any, Props>(
   withRouter,
   withStyles(styles),
+  withTranslation(namespaces),
   withProps((props: Props) => ({
     membership: parseQueryString(props.location.search).membership,
     franchisor: parseQueryString(props.location.search).franchisor,

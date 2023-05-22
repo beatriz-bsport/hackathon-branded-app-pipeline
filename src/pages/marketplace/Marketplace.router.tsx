@@ -5,9 +5,11 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import { connect } from 'react-redux';
 
+import { withTranslation } from 'react-i18next';
 import asyncComponent from '../../AsyncComponent';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 import { RootState } from '../../reducers';
+import namespaces from '../../i18n/namespaces.json';
 
 const MarketplaceResolver = asyncComponent(
   () => import('./MarketplaceResolver.page'),
@@ -53,7 +55,9 @@ export class MarketplaceRouter extends React.Component<Props> {
   }
 }
 
-export default connect((state: RootState) => ({
-  is_manager: state.auth.is_manager,
-  is_franchisor: state.auth.is_franchisor,
-}))(MarketplaceRouter);
+export default withTranslation(namespaces)(
+  connect((state: RootState) => ({
+    is_manager: state.auth.is_manager,
+    is_franchisor: state.auth.is_franchisor,
+  }))(MarketplaceRouter),
+);

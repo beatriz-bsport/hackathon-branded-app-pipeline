@@ -6,6 +6,7 @@ import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 
+import { withTranslation } from 'react-i18next';
 import asyncComponent from '../../AsyncComponent';
 import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
 
@@ -13,6 +14,7 @@ import { getFranchiseId } from '../../libs/franchise/selectors';
 import { RootState } from '../../reducers';
 import { DrawerContext } from '../../context';
 import withThemeProvider from '#hocs/company-themifier.hoc';
+import namespaces from '../../i18n/namespaces.json';
 
 import { retrieveMyAssociatedCoachProfile as retrieveMyAssociatedCoachProfileAction } from '#libs/associated-coach/actions';
 import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
@@ -159,6 +161,7 @@ const connector = connect(
 export default compose<any, OwnProps>(
   mapRouterParamsToProps({ companyId: 'companyId:number' }),
   connector,
+  withTranslation(namespaces),
   withHandlers({
     disconnect:
       ({ signout, companyId }) =>

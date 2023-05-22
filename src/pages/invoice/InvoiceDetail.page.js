@@ -33,7 +33,7 @@ import {
   fetchMember,
   fetchMemberBulkById as fetchMemberBulkByIdAction,
 } from '#libs/member/actions';
-import { fetchCompanyTheme } from '#libs/theme/actions';
+import { refreshCompanyTheme } from '#libs/theme/actions';
 import {
   fetchSpecificInvoice as fetchInvoiceAction,
   fetchInvoiceItemList,
@@ -120,7 +120,7 @@ type Props = {
   fetchMember: (number) => void,
   editCustomFooter: (footer: string, options?: OptionCallback) => void,
   fetchPaymentList: (params: any) => void,
-  fetchCompanyTheme: () => void,
+  refreshCompanyTheme: () => void,
   invoice: Invoice,
   member: Member,
   openPaymentDialog: () => void,
@@ -241,7 +241,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
     this.props.fetchCompanyUserRoles();
     this.props.fetchEstablishments();
     this.props.fetchStripeReaders();
-    this.props.fetchCompanyTheme();
+    this.props.refreshCompanyTheme();
   }
 
   fetchInvoiceData = () => {
@@ -855,7 +855,7 @@ export default compose(
       fetchPlannedPaymentEventList,
       fetchMember,
       fetchCompanyUserRoles,
-      fetchCompanyTheme,
+      refreshCompanyTheme,
       revertInvoice: revertInvoiceAction,
       detachPaymentMethodAction: detachPaymentMethod,
       goToMemberPage: (id) => pushRouter(`/member/${id}/`),

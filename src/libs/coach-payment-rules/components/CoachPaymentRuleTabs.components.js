@@ -5,6 +5,8 @@ import { withTranslation, TFunction } from 'react-i18next';
 import {
   COACH_PAYMENT_RULE_FOR_SESSION,
   COACH_PAYMENT_RULE_FOR_APPOINTMENT,
+  COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY,
+  COACH_PAYMENT_RULE_FOR_WORKSHOP,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import CoachPaymentRuleTable from './CoachPaymentRuleTable.component';
 import CoachPaymentRuleGroupTable from './CoachPaymentRuleGroupTable.component';
@@ -15,24 +17,28 @@ type Props = {
   items: Object<CoachPaymentRule[]>,
   coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>,
 };
+
 const CoachPaymentRuleTabPanel = (props: Props) => {
   return <CoachPaymentRuleTable {...props} />;
 };
 
+const COACH_PAYMENT_RULE_GROUP = 4;
+
 export const CoachPaymentRuleTabs = (props: Props) => {
   const { t, items, coachPaymentRuleGroups } = props;
   const [value, setValue] = useState(COACH_PAYMENT_RULE_FOR_SESSION);
-
   const handleChange = (event, newValue) => setValue(newValue);
 
   const renderTabPanel = () => {
     if (
       value === COACH_PAYMENT_RULE_FOR_SESSION ||
-      value === COACH_PAYMENT_RULE_FOR_APPOINTMENT
+      value === COACH_PAYMENT_RULE_FOR_APPOINTMENT ||
+      value === COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY ||
+      value === COACH_PAYMENT_RULE_FOR_WORKSHOP
     ) {
       return <CoachPaymentRuleTabPanel {...props} items={items[value]} />;
     }
-    if (value === 2) {
+    if (value === COACH_PAYMENT_RULE_GROUP) {
       return <CoachPaymentRuleGroupTable {...props} />;
     }
     return null;
@@ -51,18 +57,35 @@ export const CoachPaymentRuleTabs = (props: Props) => {
             items ? items[COACH_PAYMENT_RULE_FOR_SESSION].length : 0
           })`}
           index={COACH_PAYMENT_RULE_FOR_SESSION}
+          value={COACH_PAYMENT_RULE_FOR_SESSION}
+        />
+        <Tab
+          label={`${t('tabs.groupActivity')}(${
+            items ? items[COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY]?.length : 0
+          })`}
+          index={COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY}
+          value={COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY}
+        />
+        <Tab
+          label={`${t('tabs.workshop')}(${
+            items ? items[COACH_PAYMENT_RULE_FOR_WORKSHOP]?.length : 0
+          })`}
+          index={COACH_PAYMENT_RULE_FOR_WORKSHOP}
+          value={COACH_PAYMENT_RULE_FOR_WORKSHOP}
         />
         <Tab
           label={`${t('tabs.appointment')}(${
             items ? items[COACH_PAYMENT_RULE_FOR_APPOINTMENT].length : 0
           })`}
           index={COACH_PAYMENT_RULE_FOR_APPOINTMENT}
+          value={COACH_PAYMENT_RULE_FOR_APPOINTMENT}
         />
         <Tab
           label={`${t('tabs.groups')}(${
             coachPaymentRuleGroups ? coachPaymentRuleGroups.length : 0
           })`}
-          index={2}
+          index={COACH_PAYMENT_RULE_GROUP}
+          value={COACH_PAYMENT_RULE_GROUP}
         />
       </Tabs>
       {renderTabPanel()}

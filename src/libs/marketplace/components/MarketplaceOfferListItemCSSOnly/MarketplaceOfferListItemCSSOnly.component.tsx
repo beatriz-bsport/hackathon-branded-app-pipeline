@@ -32,6 +32,7 @@ import { Level } from '#libs/level/types';
 import './MarketplaceOfferListItemCSSOnly.css';
 import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoachInfos';
 import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
+import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
 
 export const DISABLE_BOOKING_ELEMENTS_IDS = [
   'book-button--disabled',
@@ -294,6 +295,11 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                     customLevel={getLevel[offer.custom_level]}
                   />
                 )}
+                <FreeOfferChip
+                  companyTheme={theme}
+                  credits={offer?.credit_price}
+                  creditsOverride={offer?.credit_price_override}
+                />
               </div>
               {!isWorkshop && !isMobile && (
                 <InfoIcon

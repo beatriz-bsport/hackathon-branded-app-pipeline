@@ -22,7 +22,7 @@ import MarketplaceBookButtonV2 from '../MarketplaceBookButtonCSSOnly/Marketplace
 import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly/MarketplaceBroadcastCSSOnly.component';
 import { useOfferHours } from '../../hooks';
 import { Level } from '#libs/level/types';
-import { Theme } from '#libs/theme/types';
+import { Theme as CompanyTheme } from '#libs/theme/types';
 import Map from '#components/map/Map.component';
 
 import './MarketplaceActivity.css';
@@ -30,6 +30,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 import { OffersGroup } from '#libs/group-offer/types';
+import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
 
 type Props = {
   offer: Offer;
@@ -38,7 +39,7 @@ type Props = {
   coaches: Array<Coach>;
   customLevels: Array<Level>;
   onClose: () => void;
-  theme: Theme;
+  companyTheme: CompanyTheme;
   onClickBook: (offer: Offer) => void;
   onClickBookOption: (offer: Offer) => void;
   hideCoach: boolean;
@@ -53,7 +54,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
     coaches,
     customLevels,
     hideCoach,
-    theme,
+    companyTheme,
     group,
   } = props;
   const { t } = useTranslation([
@@ -86,7 +87,12 @@ export const MarketplaceActivityV2 = (props: Props) => {
 
   const metaActivity = props.metaActivities[offer.meta_activity];
 
-  const offerHours = useOfferHours(offer, establishment, metaActivity, theme);
+  const offerHours = useOfferHours(
+    offer,
+    establishment,
+    metaActivity,
+    companyTheme,
+  );
 
   const coach = useMemo(
     () => coaches.find((c) => c.id === offer.coach),
@@ -188,6 +194,11 @@ export const MarketplaceActivityV2 = (props: Props) => {
             )}
           </div>
           <div className="bs-activity__top__content__status">
+            <FreeOfferChip
+              companyTheme={companyTheme}
+              credits={offer?.credit_price}
+              creditsOverride={offer?.credit_price_override}
+            />
             <MarketplaceLevel
               className="bs-activity__top__content__status__level"
               customLevel={customLevel}

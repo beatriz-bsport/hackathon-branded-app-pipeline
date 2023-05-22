@@ -20,6 +20,7 @@ import MarketplaceEstablishmentTitle from '#libs/marketplace/components/Marketpl
 import { Theme } from '#libs/theme/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup } from '#libs/group-offer/types';
+import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
 
 type OwnProps = {
   offer: Offer;
@@ -215,6 +216,11 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
             ) : (
               ''
             )}
+            <FreeOfferChip
+              companyTheme={props.theme}
+              credits={offer?.credit_price}
+              creditsOverride={offer?.credit_price_override}
+            />
           </div>
           <div className="bs-card-offer__content__bottom__buttonContainer">
             <MarketplaceBookButton

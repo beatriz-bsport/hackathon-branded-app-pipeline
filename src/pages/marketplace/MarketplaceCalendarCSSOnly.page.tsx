@@ -378,7 +378,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           open={!!this.state.offerId}
           offerId={this.state.offerId}
           offer={this.state.offer}
-          theme={this.state.theme}
+          companyTheme={this.props.theme}
           metaActivities={
             this.props.theme.show_workshops_customer
               ? this.props.metaActivitiesWorkshops

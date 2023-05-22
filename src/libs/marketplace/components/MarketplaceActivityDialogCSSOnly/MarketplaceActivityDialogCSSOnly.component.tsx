@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import MarketplaceActivityV2 from '../MarketplaceActivityCSSOnly';
 import { Offer } from '#libs/offer/types';
 import './MarketplaceActivityDialogCSSOnly.css';
-import { Theme } from '#libs/theme/types';
+import { Theme as CompanyTheme } from '#libs/theme/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
@@ -15,7 +15,7 @@ import { Level } from '#libs/level/types';
 import { OffersGroup } from '#libs/group-offer/types';
 
 type Props = {
-  theme: Theme;
+  companyTheme: CompanyTheme;
   open: boolean;
   metaActivities: { [key: number]: MetaActivity };
   establishments: Array<Establishment>;

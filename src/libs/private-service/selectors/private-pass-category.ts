@@ -1,9 +1,14 @@
 // @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
+import Immutable from 'seamless-immutable';
+
 import { RootState } from '../../../reducers';
-import { PrivatePassSelector } from './private-pass';
-import { PrivatePass } from '../types';
+import { PrivatePass, PrivatePassCategoryWithPasses } from '../types';
+
+export type PrivatePassByCategorySelector<LPP = number> = (
+  state: RootState,
+) => Array<PrivatePass<LPP>> | PrivatePass<LPP>;
 
 const _getAllPrivatePassCategoryIds = (state: RootState) =>
   state.privateService.privatePassCategory.allIds;
@@ -21,11 +26,11 @@ export const getPrivatePassCategories = createSelector(
 );
 
 export const getPrivatePassByCategoryWithPasses = memoize(
-  (selector: PrivatePassSelector) =>
+  (selector: PrivatePassByCategorySelector) =>
     createSelector(
       [selector, _getAllPrivatePassCategoryIds, _getPrivatePassCategoryById],
       (privatePassList, privatePassCategoryIds, privatePassCategoryById) => {
-        return [
+        return Immutable<PrivatePassCategoryWithPasses[]>([
           ...privatePassCategoryIds.map((categoryId) => ({
             ...privatePassCategoryById[categoryId],
             passes: privatePassList.filter(
@@ -40,7 +45,7 @@ export const getPrivatePassByCategoryWithPasses = memoize(
               (pass: PrivatePass) => !pass.category,
             ),
           },
-        ];
+        ]);
       },
     ),
 );

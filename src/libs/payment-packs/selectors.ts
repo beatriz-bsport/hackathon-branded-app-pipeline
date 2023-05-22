@@ -10,6 +10,7 @@ import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-acti
 import { getAllTagsWithTagGroup } from '../tag/selectors';
 import {
   PaymentPack,
+  PaymentPackCategoryWithPacks,
   PaymentPackTemplate,
   PaymentPackTemplateAPI,
   PaymentPackTemplateInstance,
@@ -227,10 +228,14 @@ export const getMarketplacePaymentPacks = createSelector(
     (_, __, memberTagList: number[]) => memberTagList,
   ],
   (paymentPacks, SCTs, authenticated, memberTagList) => {
-    const paymentPacksWithCategories = paymentPacks.map((pp: PaymentPack) => ({
-      ...pp,
-      categories: SCTs.filter((sct) => pp.categories.includes(sct.id)),
-    }));
+    const paymentPacksWithCategories: PaymentPack[] = paymentPacks.map(
+      (paymentPack: PaymentPack) => ({
+        ...paymentPack,
+        categories: SCTs.filter((sct) =>
+          paymentPack.categories.includes(sct.id),
+        ),
+      }),
+    );
 
     return filterUnaccessiblePaymentPack(paymentPacksWithCategories, {
       memberTagIdsList: memberTagList,
@@ -287,7 +292,7 @@ export const groupByCategory = memoize((selector: PaymentPackArraySelector) =>
   createSelector(
     [getPaymentPackCategoryAllIds, getPaymentPackCategoryById, selector],
     (categoryIdList, categoryData, packList) => {
-      return Immutable([
+      return Immutable<PaymentPackCategoryWithPacks[]>([
         ...categoryIdList.map((catId: number) => ({
           ...categoryData[catId],
           packs: packList.filter((e) => e.category === catId),
@@ -465,4 +470,26 @@ export const withLinkedPrivatePass = memoize((selector: PaymentPackSelector) =>
       }));
     },
   ),
+);
+
+export const getPaymentPackCategoriesWithPacks = createSelector(
+  [
+    getMarketplacePaymentPacks,
+    getPaymentPackCategoryAllIds,
+    getPaymentPackCategoryById,
+  ],
+  (paymentPackList, categoryIdList, categoryData) => {
+    return Immutable<PaymentPackCategoryWithPacks[]>([
+      ...categoryIdList.map((catId: number) => ({
+        ...categoryData[catId],
+        packs: paymentPackList.filter((e) => e.category === catId),
+      })),
+      {
+        id: null,
+        name: '',
+        category_ordering: Number.MAX_SAFE_INTEGER,
+        packs: paymentPackList.filter((pack) => !pack.category),
+      },
+    ]);
+  },
 );

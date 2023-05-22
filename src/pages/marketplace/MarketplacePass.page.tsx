@@ -32,10 +32,7 @@ import MarketplacePrivatePassList from '#libs/marketplace/components/Marketplace
 import withQueryParams from '#hocs/with-query-params.hoc';
 // @ts-ignore
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import {
-  getMarketplacePaymentPacks,
-  groupByCategory,
-} from '#libs/payment-packs/selectors';
+import { getPaymentPackCategoriesWithPacks } from '#libs/payment-packs/selectors';
 // checkout
 // -----------------------------
 import { addItemToBasket } from '#libs/checkout/actions';
@@ -63,7 +60,6 @@ import { RootState } from '../../reducers';
 
 import { fetchMemberTagList } from '#libs/tag/actions';
 import { getMemberTagsIdsList } from '#libs/tag/selectors';
-import type { Tag } from '#libs/tag/types';
 import { getPrivatePassByCategoryWithPasses } from '#libs/private-service/selectors/private-pass-category';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import {
@@ -71,14 +67,8 @@ import {
   MarketplacePassDialogStateKey,
   MarketplacePassPageDialogState,
 } from '#libs/marketplace/types';
-import {
-  PaymentPack,
-  PaymentPackCategoryWithPacks,
-} from '#libs/payment-packs/types';
-import {
-  PrivatePass,
-  PrivatePassCategoryWithPasses,
-} from '#libs/private-service/types';
+import { PaymentPack } from '#libs/payment-packs/types';
+import { PrivatePass } from '#libs/private-service/types';
 import Carousel from '#components/css-only/Carousel';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import MarketplacePaymentComboCard from '#libs/marketplace/components/MarketplacePaymentComboCard';
@@ -136,7 +126,7 @@ type State = {
   };
   passSearchFilters: {
     type: string;
-    selectedCategories: (number | '')[];
+    selectedCategories: (number | null)[];
     allCategories: MarketplaceCategoryPassFilterOption[];
   };
   passSearchResult: {
@@ -386,9 +376,8 @@ export class MarketPlacePassPage extends Component<Props, State> {
 
     if (this.props.paymentPackByCategory.length) {
       paymentPackList = this.props.paymentPackByCategory
-        .map((category: PaymentPackCategoryWithPacks) => category.packs)
-        .flat()
-        .filter((pack: PaymentPack) =>
+        .flatMap((category) => category.packs)
+        .filter((pack) =>
           this.state.restrictedCategories.paymentPack?.length
             ? this.state.restrictedCategories.paymentPack.some(
                 (category) => category === pack.category,
@@ -412,9 +401,8 @@ export class MarketPlacePassPage extends Component<Props, State> {
 
     if (this.props.privatePassByCategory.length) {
       privatePassList = this.props.privatePassByCategory
-        .map((category: PrivatePassCategoryWithPasses) => category.passes)
-        .flat()
-        .filter((pass: PrivatePass) =>
+        .flatMap((category) => category.passes)
+        .filter((pass) =>
           this.state.restrictedCategories.privatePass
             ? this.state.restrictedCategories.privatePass.some(
                 (category) => category === pass.category,
@@ -471,7 +459,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
     });
   };
 
-  handlePassFilterChangeCategory = (options: (number | '')[]) => {
+  handlePassFilterChangeCategory = (options: number[]) => {
     this.setState((prevState: State) => {
       return {
         ...prevState,
@@ -716,7 +704,7 @@ const mapMemberInfoStateToProps = (
   {
     memberTagList,
     authenticated,
-  }: { memberTagList: Array<Tag>; authenticated: boolean },
+  }: { memberTagList: number[]; authenticated: boolean },
 ) => ({
   memberTagList: memberTagList || getMemberTagsIdsList(state),
   authenticated: authenticated || state.auth.authenticated,
@@ -726,7 +714,7 @@ const mapStateToProps = (
   {
     memberTagList,
     authenticated,
-  }: { memberTagList: Array<Tag>; authenticated: boolean },
+  }: { memberTagList: number[]; authenticated: boolean },
 ) => ({
   currentBasket: getCurrentBasket(state),
   theme: themeSelector.getTheme(state),
@@ -734,7 +722,7 @@ const mapStateToProps = (
   loading: state.paymentPack.loading,
   establishmentLoading: state.establishment.bulkRetrieve.loading,
   activityLoading: state.metaActivity.loading,
-  paymentPackByCategory: groupByCategory(getMarketplacePaymentPacks)(
+  paymentPackByCategory: getPaymentPackCategoriesWithPacks(
     state,
     authenticated,
     memberTagList,

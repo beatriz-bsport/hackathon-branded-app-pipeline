@@ -88,6 +88,7 @@ interface FormikValues {
   session_time_display: MarketPlaceSessionTimeDisplay;
   coach_display: MarketPlaceCoachDisplay;
   days_format_display: MarketPlaceDaysFormatDisplay;
+  show_free_session_label: boolean;
 }
 type Props = {
   theme: CompanyTheme;
@@ -625,6 +626,10 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             name="show_activity_color"
             label={t('forms.themePersonalization.showActivityColor')}
           />
+          <SwitchField
+            name="show_free_session_label"
+            label={t('forms.themePersonalization.showFreeSessionLabel')}
+          />
           <div className={classes.selector}>
             <InputLabel shrink>
               {t('forms.themePersonalization.sessionDatesDisplayOptions.label')}
@@ -998,6 +1003,7 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
   session_time_display: Yup.number().required(),
   coach_display: Yup.number().required(),
   days_format_display: Yup.number().required(),
+  show_free_session_label: Yup.boolean().required(),
 });
 
 const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
@@ -1086,6 +1092,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         session_time_display: theme.session_time_display,
         coach_display: theme.coach_display,
         days_format_display: theme.days_format_display,
+        show_free_session_label: theme.show_free_session_label,
       };
     }
     return {
@@ -1125,6 +1132,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       session_time_display: MarketPlaceSessionTimeDisplay.DEFAULT,
       coach_display: MarketPlaceCoachDisplay.DEFAULT,
       days_format_display: MarketPlaceDaysFormatDisplay.DEFAULT,
+      show_free_session_label: false,
     };
   },
   validationSchema: ThemePersonalizeFormSchema,
@@ -1166,6 +1174,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'session_time_display',
       'coach_display',
       'days_format_display',
+      'show_free_session_label',
     ];
     keys.forEach((key) => {
       if (key === 'show_studio_on_general_app') {

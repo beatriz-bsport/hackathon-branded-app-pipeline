@@ -7246,6 +7246,7 @@
       "credit_price": "Coût en crédit",
       "credits": "Crédits totaux",
       "date_bought": "Date d'achat",
+      "date_canceled": "Date d'annulation",
       "date_created": "Date de création",
       "date_expiration": "Date d'expiration",
       "date_first_privatebooking": "Date premier RDV",

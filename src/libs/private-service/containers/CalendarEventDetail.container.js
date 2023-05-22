@@ -44,6 +44,8 @@ import {
   composeBookingsWithMemberProgram,
 } from '../selectors/private-booking';
 import { fetchCompanyUserRoles } from '#libs/role/actions';
+import zoomAppSelectors from '#libs/zoom-app/selectors';
+import { fetchZoomApp as fetchZoomAppAction } from '#libs/zoom-app/actions';
 import {
   fetchPrivateBooking as fetchPrivateBookingAction,
   fetchPrivateSlot as fetchPrivateSlotAction,
@@ -153,6 +155,7 @@ import {
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { Tag, TagGroup } from '#libs/tag/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { ZoomApp } from '../../zoom-app/types';
 
 type Props = {
   offerId: number,
@@ -262,6 +265,8 @@ type Props = {
   createLevel: (data: Level, options?: OptionCallback<Level>) => void,
   deleteLevel: (id: number, options?: OptionCallback) => void,
   getHasPendingReplacementRequest: (offerId: number) => boolean,
+  fetchZoomApp: (companyId: number) => void,
+  zoomAppDetail: ZoomApp,
 };
 
 type State = {
@@ -281,6 +286,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchActivitiesCompany(this.props.theme.company);
+    this.props.fetchZoomApp(this.props.theme.company);
     this.props.fetchCompanyUserRoles();
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
@@ -661,6 +667,8 @@ export class CalendarEventDetail extends React.Component<Props, State> {
               this.props.theme.is_whereby_integration_enabled &&
               this.props.theme.is_whereby_integration_allowed
             }
+            metaActivity={offer?.meta_activity}
+            zoomAppDetail={this.props.zoomAppDetail}
             onSubmit={this.updateOffer}
             onCancel={this.props.closeOfferEditModal}
             processing={this.props.offerProcessing}
@@ -742,6 +750,7 @@ const OfferEditorContainer = compose(
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       activeCustomLevels: getActiveCustomLevels(state),
       allCustomLevels: getAllCustomLevels(state),
+      zoomAppDetail: zoomAppSelectors.getZoomApp(state),
     }),
     {
       fetchSimilarOffers: fetchSimilarOffersAction,
@@ -949,6 +958,7 @@ export default compose(
         fetchConsumerGiftcardReceivedListAction,
       fetchGiftcardBulk: fetchGiftcardBulkAction,
       editOffers: editOffersActions,
+      fetchZoomApp: fetchZoomAppAction,
     },
   ),
   withHandlers({

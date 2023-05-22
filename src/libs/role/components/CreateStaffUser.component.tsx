@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from '@material-ui/core/MenuItem';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -51,6 +52,7 @@ type State = {
   first_name: string;
   last_name: string;
   coaches: SelectFieldItem[];
+  staff_commission_percentage: number;
 };
 
 export class CreateStaffUser extends React.Component<Props, State> {
@@ -61,12 +63,24 @@ export class CreateStaffUser extends React.Component<Props, State> {
     last_name: '',
     first_name: '',
     coaches: [],
+    staff_commission_percentage: 0.0,
+  };
+
+  handleOnCommissionChange = (ev) => {
+    this.setState({ staff_commission_percentage: ev.target.value });
   };
 
   onSubmit = (ev: any) => {
     ev.preventDefault();
-    const { email, password, role, last_name, first_name, coaches } =
-      this.state;
+    const {
+      email,
+      password,
+      role,
+      last_name,
+      first_name,
+      coaches,
+      staff_commission_percentage,
+    } = this.state;
     if (!email || !password || !role) return;
     const coaches_in_role_ids =
       !Object.values(COMMON_ROLES).includes(role) && coaches
@@ -79,6 +93,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
       last_name,
       first_name,
       coaches_in_role_ids,
+      staff_commission_percentage,
     });
     this.setState({
       email: null,
@@ -87,6 +102,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
       last_name: '',
       first_name: '',
       coaches: [],
+      staff_commission_percentage: 0,
     });
   };
 
@@ -134,6 +150,24 @@ export class CreateStaffUser extends React.Component<Props, State> {
                 }
               />
             </div>
+            <TextField
+              id="textfield_role_commission"
+              fullWidth
+              castAsNumber
+              label={t('forms.user.commissionHeader')}
+              className={classes.field}
+              value={`${this.state.staff_commission_percentage}`}
+              InputProps={{
+                inputProps: { min: 0, max: 100, step: 1 },
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <p>%</p>
+                  </InputAdornment>
+                ),
+              }}
+              type="number"
+              onChange={this.handleOnCommissionChange}
+            />
             <FormControl className={classes.field}>
               <InputLabel htmlFor="rol-help" shrink>
                 {t('forms.user.create.role.selectRole.topLabel')}

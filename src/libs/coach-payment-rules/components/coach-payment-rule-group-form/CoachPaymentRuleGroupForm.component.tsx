@@ -25,8 +25,10 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ClearIcon from '@material-ui/icons/Clear';
 
 import {
-  COACH_PERFORMANCE_FOR_SESSION,
-  COACH_PERFORMANCE_FOR_APPOINTMENT,
+  COACH_PAYMENT_RULE_FOR_APPOINTMENT,
+  COACH_PAYMENT_RULE_FOR_SESSION,
+  COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY,
+  COACH_PAYMENT_RULE_FOR_WORKSHOP,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import { TextField, AlertError } from '../../../../components/forms';
 
@@ -107,9 +109,11 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                     <Grid item xs={6}>
                       <CoachPaymentRuleSelectorStyled
                         id="session_coach_payment_rule"
-                        coachPaymentRulesList={
-                          rulesByKind[COACH_PERFORMANCE_FOR_SESSION]
-                        }
+                        coachPaymentRulesList={rulesByKind[
+                          COACH_PAYMENT_RULE_FOR_SESSION
+                        ].concat(
+                          rulesByKind[COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY],
+                        )}
                         selectedRules={[session_coach_payment_rule]}
                         placeholder={t('paymentRules:label')}
                         onChange={(item: { value: number; label: string }) => {
@@ -147,9 +151,9 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                     <Grid item xs={6}>
                       <CoachPaymentRuleSelectorStyled
                         id="workshop_coach_payment_rule"
-                        coachPaymentRulesList={
-                          rulesByKind[COACH_PERFORMANCE_FOR_SESSION]
-                        }
+                        coachPaymentRulesList={rulesByKind[
+                          COACH_PAYMENT_RULE_FOR_SESSION
+                        ].concat(rulesByKind[COACH_PAYMENT_RULE_FOR_WORKSHOP])}
                         selectedRules={[workshop_coach_payment_rule]}
                         placeholder={t('paymentRules:label')}
                         onChange={(item: { value: number; label: string }) => {
@@ -189,7 +193,7 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                       <CoachPaymentRuleSelectorStyled
                         id="private_service_coach_payment_rule"
                         coachPaymentRulesList={
-                          rulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT]
+                          rulesByKind[COACH_PAYMENT_RULE_FOR_APPOINTMENT]
                         }
                         selectedRules={[private_service_coach_payment_rule]}
                         placeholder={t('paymentRules:label')}
@@ -287,7 +291,7 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                                       id="private_service_coach_payment_rule"
                                       coachPaymentRulesList={
                                         rulesByKind[
-                                          COACH_PERFORMANCE_FOR_APPOINTMENT
+                                          COACH_PAYMENT_RULE_FOR_APPOINTMENT
                                         ]
                                       }
                                       selectedRules={[

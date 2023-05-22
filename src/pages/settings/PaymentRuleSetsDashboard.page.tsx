@@ -12,6 +12,8 @@ import Paper from '@material-ui/core/Paper';
 import {
   COACH_PAYMENT_RULE_FOR_SESSION,
   COACH_PAYMENT_RULE_FOR_APPOINTMENT,
+  COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY,
+  COACH_PAYMENT_RULE_FOR_WORKSHOP,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import {
   upsertCoachPaymentRule as upsertCoachPaymentRuleAction,
@@ -34,7 +36,7 @@ import {
 } from '../../libs/coach-payment-rules/selectors';
 import { fetchAssociatedCoachBulk } from '../../libs/associated-coach/actions';
 import CoachPaymentRuleFormDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleFormDrawer.component';
-import CoachPaymentRuleGroupFormDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleGroupFormDrawer.component.tsx';
+import CoachPaymentRuleGroupFormDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleGroupFormDrawer.component';
 import CoachPaymentRuleTabs from '../../libs/coach-payment-rules/components/CoachPaymentRuleTabs.components';
 import CoachPaymentRuleSimulationDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleSimulationDrawer.component';
 import type {
@@ -119,6 +121,31 @@ export class PaymentRulesDashboard extends Component<Props> {
     this.props.handleOpen();
   };
 
+  handleAddNewForSession = () => {
+    this.props.setRuleTypeCreation(COACH_PAYMENT_RULE_FOR_SESSION);
+    this.props.handleOpen();
+  };
+
+  handleAddNewForGroupActivity = () => {
+    this.props.setRuleTypeCreation(COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY);
+    this.props.handleOpen();
+  };
+
+  handleAddNewForWorkshop = () => {
+    this.props.setRuleTypeCreation(COACH_PAYMENT_RULE_FOR_WORKSHOP);
+    this.props.handleOpen();
+  };
+
+  handleAddNewForAppointment = () => {
+    this.props.setRuleTypeCreation(COACH_PAYMENT_RULE_FOR_APPOINTMENT);
+    this.props.handleOpen();
+  };
+
+  handleAddNewPaymentRuleGroup = () => {
+    this.props.setInitialGroup(null);
+    this.props.handleOpenGroup();
+  };
+
   render() {
     const { classes, t } = this.props;
     return (
@@ -127,26 +154,23 @@ export class PaymentRulesDashboard extends Component<Props> {
           items={[
             {
               label: t('fabButton.addNewForSession'),
-              onClick: () => {
-                this.props.setRuleTypeCreation(COACH_PAYMENT_RULE_FOR_SESSION);
-                this.props.handleOpen();
-              },
+              onClick: this.handleAddNewForSession,
+            },
+            {
+              label: t('fabButton.addNewForGroupActivity'),
+              onClick: this.handleAddNewForGroupActivity,
+            },
+            {
+              label: t('fabButton.addNewForWorkshop'),
+              onClick: this.handleAddNewForWorkshop,
             },
             {
               label: t('fabButton.addNewForRDV'),
-              onClick: () => {
-                this.props.setRuleTypeCreation(
-                  COACH_PAYMENT_RULE_FOR_APPOINTMENT,
-                );
-                this.props.handleOpen();
-              },
+              onClick: this.handleAddNewForAppointment,
             },
             {
               label: t('fabButton.addNewPaymentRuleGroup'),
-              onClick: () => {
-                this.props.setInitialGroup(null);
-                this.props.handleOpenGroup();
-              },
+              onClick: this.handleAddNewPaymentRuleGroup,
             },
           ]}
         />

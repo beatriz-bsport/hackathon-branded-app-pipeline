@@ -5300,6 +5300,10 @@
             "notAllowed": "Non-Autorisé",
             "notAllowedFor": "Non-autorisé pour",
             "doNotSelectToAllowAllMembers": "Laisser vide pour autoriser à tous les membres"
+          },
+          "teacherDirectBilling": {
+            "label": "Sessions prises en compte dans le paiement du professeur",
+            "helperText": "Par défaut, les sessions seront facturées au studio et comptabilisées dans le paiement du professeur par le studio. En désactivant ce paramètre, le professeur sera facturé directement et les sessions associées ne seront pas prises en compte lors de son paiement."
           }
         },
         "universalPass": {
@@ -6495,7 +6499,11 @@
           "helperText": "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jours, elle sera rendue invalide."
         },
         "actions": { "submit": "Enregistrer", "cancel": "Annuler" },
-        "selector": { "privateService": "Ajouter un rendez-vous compatible" }
+        "selector": { "privateService": "Ajouter un rendez-vous compatible" },
+        "teacherDirectBilling": {
+          "label": "Rendez-vous pris en compte dans le paiement du professeur",
+          "helperText": "Par défaut, les rendez-vous seront facturées au studio et comptabilisées dans le paiement du professeur par le studio. En désactivant ce paramètre, le professeur sera facturé directement et les rendez-vous associés ne seront pas pris en compte lors de son paiement."
+        }
       },
       "disabledTitle": "Cartes de RDV archivées",
       "listItem": { "unusableByStaff": "Invisible pour le staff" }

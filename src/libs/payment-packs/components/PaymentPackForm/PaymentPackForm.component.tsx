@@ -30,7 +30,7 @@ import UniversalPassFormPrivateserviceCompatibility from '../../../universal-pas
 import { SCT } from '#libs/category/types';
 import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
-import PaymentPackFormTag from './PaymentPackFormTag.component';
+import PaymentPackFormAdvancedOptions from './PaymentPackFormAdvancedOptions.component';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { Actions } from '#components/forms';
 import { Moment } from '../../../../i18n';
@@ -187,6 +187,7 @@ export const PaymentPackForm = (props: Props) => {
                 ),
                 apply_penalties:
                   initial?.penalty_active || initial?.no_show_penalty_active,
+                applies_for_payroll: initial?.applies_for_payroll,
               }
             : {
                 id: null,
@@ -240,6 +241,7 @@ export const PaymentPackForm = (props: Props) => {
                 linked_private_pass_compatibility: [],
                 allow_guest_pass: true,
                 unusable_by_staff: false,
+                applies_for_payroll: true,
               }
         }
         onSubmit={(values, actions) => {
@@ -347,6 +349,7 @@ export const PaymentPackForm = (props: Props) => {
             'is_universal_pass',
             'allow_guest_pass',
             'is_usable_by_staff',
+            'applies_for_payroll',
           ];
           const data = pick(sanithizedValues, keys);
           onSubmit(data, {
@@ -424,7 +427,7 @@ export const PaymentPackForm = (props: Props) => {
                 </>
               )}
               <div className={classes.formContainer}>
-                <PaymentPackFormTag
+                <PaymentPackFormAdvancedOptions
                   tagList={tagList}
                   disabledUniversalPassFields={disabledUniversalPassFields}
                 />
@@ -728,4 +731,5 @@ const paymentPackSchema = Yup.object().shape({
   blacklist_tags: Yup.array().of(Yup.number()),
   allow_guest_pass: Yup.boolean(),
   unusable_by_staff: Yup.boolean(),
+  applies_for_payroll: Yup.boolean().required(),
 });

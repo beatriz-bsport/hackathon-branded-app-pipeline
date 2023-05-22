@@ -488,6 +488,11 @@ exports.default = {
           doNotSelectToAllowAllMembers:
             'Laisser vide pour autoriser à tous les membres',
         },
+        teacherDirectBilling: {
+          label: 'Sessions prises en compte dans le paiement du professeur',
+          helperText:
+            'Par défaut, les sessions seront facturées au studio et comptabilisées dans le paiement du professeur par le studio. En désactivant ce paramètre, le professeur sera facturé directement et les sessions associées ne seront pas prises en compte lors de son paiement.',
+        },
       },
       universalPass: {
         warningIsUniversalPass:

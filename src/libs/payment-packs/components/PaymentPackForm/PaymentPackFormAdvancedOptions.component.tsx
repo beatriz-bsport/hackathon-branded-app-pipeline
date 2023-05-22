@@ -13,12 +13,13 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 import { PaymentPackFormValues } from '../../types';
 import { Tag, TagGroup } from '#libs/tag/types';
+import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
 
 type Props = {
   tagList: Array<Tag<TagGroup>>;
   disabledUniversalPassFields: boolean;
 };
-export const PaymentPackFormTag = (props: Props) => {
+export const PaymentPackFormAdvancedOptions = (props: Props) => {
   const { tagList, disabledUniversalPassFields } = props;
   const { t } = useTranslation('paymentPack');
   const [openAdvancedOptions, setOpenAdvancedOptions] =
@@ -44,7 +45,7 @@ export const PaymentPackFormTag = (props: Props) => {
           {openAdvancedOptions ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         </ButtonBase>
         <Collapse in={openAdvancedOptions}>
-          <div className={classes.tagSection}>
+          <div className={classes.section}>
             <Typography className={classes.title}>
               {`${t('form.paymentPack.advancedOptions.tag.header')}\u00A0`}
               <Typography variant="caption" color="error">
@@ -146,6 +147,20 @@ export const PaymentPackFormTag = (props: Props) => {
               </div>
             </Collapse>
           </div>
+
+          <div className={classes.section}>
+            <SwitchField
+              name="applies_for_payroll"
+              label={t(
+                'form.paymentPack.advancedOptions.teacherDirectBilling.label',
+              )}
+            />
+            <Typography variant="caption" className={classes.helperText}>
+              {t(
+                'form.paymentPack.advancedOptions.teacherDirectBilling.helperText',
+              )}
+            </Typography>
+          </div>
         </Collapse>
       </div>
     </>
@@ -170,10 +185,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
   tagSelector: {
     paddingBottom: theme.spacing(2),
   },
-  tagSectionHeader: {
-    paddingBottom: theme.spacing(1),
-  },
-  tagSection: {
+  section: {
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(2),
@@ -190,4 +202,4 @@ const useStyles = makeStyles<Theme>((theme) => ({
     flexDirection: 'column',
   },
 }));
-export default PaymentPackFormTag;
+export default PaymentPackFormAdvancedOptions;

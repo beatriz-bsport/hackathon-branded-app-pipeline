@@ -163,6 +163,7 @@ export type PrivatePass<LPP = number | null> = {
   linked_payment_pack?: LPP;
   description?: string;
   is_usable_by_staff: boolean;
+  applies_for_payroll: boolean;
 };
 
 export type PrivatePassWithDetailedPrivateServices = PrivatePass & {

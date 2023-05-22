@@ -89,6 +89,8 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   allow_guest_pass?: boolean;
   is_universal_pass: boolean;
   is_usable_by_staff: boolean;
+
+  applies_for_payroll: boolean;
 };
 
 export type ConsumerPaymentPack = {

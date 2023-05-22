@@ -791,6 +791,11 @@ exports.default = {
       selector: {
         privateService: 'Ajouter un rendez-vous compatible',
       },
+      teacherDirectBilling: {
+        label: 'Rendez-vous pris en compte dans le paiement du professeur',
+        helperText:
+          'Par défaut, les rendez-vous seront facturées au studio et comptabilisées dans le paiement du professeur par le studio. En désactivant ce paramètre, le professeur sera facturé directement et les rendez-vous associés ne seront pas pris en compte lors de son paiement.',
+      },
     },
     disabledTitle: 'Cartes de RDV archivées',
     listItem: {

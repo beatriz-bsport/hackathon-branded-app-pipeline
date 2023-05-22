@@ -96,6 +96,7 @@ export interface FormikValues {
   linked_payment_pack_establishments: Array<number>;
   linked_payment_pack_metaActivities: Array<number>;
   unusable_by_staff: boolean;
+  applies_for_payroll: boolean;
 }
 type Props = {
   provincialTax: number;
@@ -328,6 +329,11 @@ export const PrivatePassForm = (props: Props) => {
             name="unusable_by_staff"
             label={t('privatePass.listItem.unusableByStaff')}
             disabled={!!props.initial?.template_instance}
+          />
+          <SwitchField
+            name="applies_for_payroll"
+            label={t('privatePass.form.teacherDirectBilling.label')}
+            helperText={t('privatePass.form.teacherDirectBilling.helperText')}
           />
         </div>
       </div>
@@ -843,6 +849,7 @@ export const PrivatePassSchema = Yup.object().shape({
     .of(Yup.number())
     .nullable(true),
   unusable_by_staff: Yup.boolean().required(),
+  applies_for_payroll: Yup.boolean().required(),
 });
 
 export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
@@ -860,6 +867,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         linked_payment_pack_metaActivities:
           initial.linked_payment_pack?.metaActivities || [],
         unusable_by_staff: !initial.is_usable_by_staff,
+        applies_for_payroll: initial.applies_for_payroll,
       };
 
     return {
@@ -883,6 +891,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
       linked_payment_pack_establishments: [],
       linked_payment_pack_metaActivities: [],
       unusable_by_staff: false,
+      applies_for_payroll: true,
     };
   },
   enableReinitialize: true,

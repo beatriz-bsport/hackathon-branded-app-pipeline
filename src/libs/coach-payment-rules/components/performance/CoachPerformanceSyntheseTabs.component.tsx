@@ -9,8 +9,10 @@ import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import {
-  COACH_PERFORMANCE_FOR_SESSION,
-  COACH_PERFORMANCE_FOR_APPOINTMENT,
+  COACH_PAYMENT_RULE_FOR_SESSION,
+  COACH_PAYMENT_RULE_FOR_APPOINTMENT,
+  COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY,
+  COACH_PAYMENT_RULE_FOR_WORKSHOP,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 
 import {
@@ -179,9 +181,11 @@ export const CoachPerformanceSynthese = (props: Props) => {
               {t('paymentRules:select.coachPaymentRuleForSessions')}
             </Typography>
             <CoachPaymentRuleSelectorStyled
-              coachPaymentRulesList={
-                coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
-              }
+              coachPaymentRulesList={coachPaymentRulesByKind[
+                COACH_PAYMENT_RULE_FOR_SESSION
+              ].concat(
+                coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY],
+              )}
               selectedRules={[memoSelectedSessionRule]}
               placeholder={t('paymentRules:label')}
               disabled={!!coach.coach_payment_rule_group_id}
@@ -196,9 +200,11 @@ export const CoachPerformanceSynthese = (props: Props) => {
             </Typography>
 
             <CoachPaymentRuleSelectorStyled
-              coachPaymentRulesList={
-                coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
-              }
+              coachPaymentRulesList={coachPaymentRulesByKind[
+                COACH_PAYMENT_RULE_FOR_SESSION
+              ].concat(
+                coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_WORKSHOP],
+              )}
               selectedRules={[memoSelectedWorkShopRule]}
               placeholder={t('paymentRules:label')}
               disabled={!!coach.coach_payment_rule_group_id}
@@ -214,7 +220,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
 
             <CoachPaymentRuleSelectorStyled
               coachPaymentRulesList={
-                coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT]
+                coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_APPOINTMENT]
               }
               selectedRules={[memoSelectedPrivateServiceRule]}
               placeholder={t('paymentRules:label')}

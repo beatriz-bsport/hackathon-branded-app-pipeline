@@ -7,8 +7,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import {
-  COACH_PERFORMANCE_FOR_SESSION,
-  COACH_PERFORMANCE_FOR_APPOINTMENT,
+  COACH_PAYMENT_RULE_FOR_SESSION,
+  COACH_PAYMENT_RULE_FOR_APPOINTMENT,
+  COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY,
+  COACH_PAYMENT_RULE_FOR_WORKSHOP,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 
 import {
@@ -87,9 +89,11 @@ export const CoachPerformanceSynthese = (props: Props) => {
               {t('paymentRules:select.coachPaymentRuleForSessions')}
             </Typography>
             <CoachPaymentRuleSelectorStyled
-              coachPaymentRulesList={
-                coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
-              }
+              coachPaymentRulesList={coachPaymentRulesByKind[
+                COACH_PAYMENT_RULE_FOR_SESSION
+              ].concat(
+                coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY],
+              )}
               selectedRules={[
                 coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
                   ? coachPaymentRuleGroupsDict[
@@ -116,9 +120,11 @@ export const CoachPerformanceSynthese = (props: Props) => {
             </Typography>
 
             <CoachPaymentRuleSelectorStyled
-              coachPaymentRulesList={
-                coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_SESSION]
-              }
+              coachPaymentRulesList={coachPaymentRulesByKind[
+                COACH_PAYMENT_RULE_FOR_SESSION
+              ].concat(
+                coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_WORKSHOP],
+              )}
               selectedRules={[
                 coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict
                   ? coachPaymentRuleGroupsDict[
@@ -146,7 +152,7 @@ export const CoachPerformanceSynthese = (props: Props) => {
 
             <CoachPaymentRuleSelectorStyled
               coachPaymentRulesList={
-                coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT]
+                coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_APPOINTMENT]
               }
               selectedRules={[
                 coach.coach_payment_rule_group_id && coachPaymentRuleGroupsDict

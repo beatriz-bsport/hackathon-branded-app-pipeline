@@ -17,9 +17,11 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import HelpCircleOutlinedIcon from '@material-ui/icons/HelpOutline';
 
+import { Typography } from '@material-ui/core';
 import Tooltip from '#components/Tooltip.component';
 import AvatarField from '#components/forms/AvatarField.component';
 import {
+  AlertError,
   TextField,
   PhoneField,
   DateField,
@@ -60,6 +62,9 @@ type InitialValues = {
   color: string;
   birthday: string;
   description: string;
+  notes: string;
+  date_joined_company: string | null;
+  date_left_company: string | null;
   facebook_url: string;
   instagram_url: string;
 };
@@ -153,13 +158,48 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
               initialFocusedDate="1990/01/01"
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} className={classes.largeTopMargin}>
             <TextField
               fullWidth
               multiline
+              variant="outlined"
+              minRows={2}
+              helperText={t('form.descriptionHelperText')}
               name="description"
               label={t('form.description')}
             />
+          </Grid>
+          <Grid item xs={12} className={classes.largeBottomMargin}>
+            <TextField
+              fullWidth
+              multiline
+              helperText={t('form.notesHelperText')}
+              name="notes"
+              label={t('form.notes')}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography>{t('form.workingDateSection')}</Typography>
+          </Grid>
+          <Grid item xs={12} md={6} className={classes.largeBottomMargin}>
+            <DateField
+              format="L"
+              name="date_joined_company"
+              label={t('form.startWorking')}
+              clearable
+              allowNullValue
+            />
+            <AlertError name="date_joined_company" />{' '}
+          </Grid>
+          <Grid item xs={12} md={6} className={classes.largeBottomMargin}>
+            <DateField
+              format="L"
+              name="date_left_company"
+              label={t('form.endWorking')}
+              clearable
+              allowNullValue
+            />
+            <AlertError name="date_left_company" />
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField name="facebook_url" label="Facebook URL" fullWidth />
@@ -215,6 +255,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     left: '50%',
     transform: 'translateX(-50%)',
   },
+  largeBottomMargin: {
+    marginBottom: theme.spacing(4),
+  },
+  largeTopMargin: {
+    marginTop: theme.spacing(1),
+  },
 }));
 
 const CoachSchema = (props: Props) =>
@@ -231,6 +277,25 @@ const CoachSchema = (props: Props) =>
     color: Yup.string().nullable(false),
     birthday: Yup.string().nullable(true),
     description: Yup.string().nullable(false),
+    notes: Yup.string().nullable(true),
+    date_joined_company: Yup.string().nullable(true),
+    date_left_company: Yup.string()
+      .nullable(true)
+      .test(
+        'is-after-start',
+        'errors.end_before_start',
+        function checkIsAfterStart(date_left_company) {
+          const { date_joined_company } = this.parent;
+
+          return (
+            date_left_company === null ||
+            date_joined_company === null ||
+            moment(date_joined_company).isSameOrBefore(
+              moment(date_left_company),
+            )
+          );
+        },
+      ),
     facebook_url: Yup.string().nullable(false),
     instagram_url: Yup.string().nullable(false),
   });
@@ -248,12 +313,23 @@ export const CoachFormHOC = withFormik({
       color: '',
       birthday: null,
       description: '',
+      notes: null,
+      date_joined_company: null,
+      date_left_company: null,
       facebook_url: '',
       instagram_url: '',
     },
   validationSchema: CoachSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
-    const { avatar, birthday, phone, email } = values;
+    const {
+      avatar,
+      birthday,
+      phone,
+      email,
+      notes,
+      date_joined_company,
+      date_left_company,
+    } = values;
     const data = {
       ...values,
       avatar: typeof avatar !== 'string' ? avatar : undefined,
@@ -261,6 +337,13 @@ export const CoachFormHOC = withFormik({
         (values && birthday && moment(birthday).format('DD/MM/YYYY')) || '',
       phone: phone || undefined,
       email: (email && email.toLowerCase()) ?? '',
+      notes: notes ?? '',
+      date_joined_company: date_joined_company
+        ? moment(date_joined_company).format('YYYY-MM-DD')
+        : undefined,
+      date_left_company: date_left_company
+        ? moment(date_left_company).format('YYYY-MM-DD')
+        : undefined,
     };
     onSubmit(data, {
       onSuccess: () => {

@@ -314,7 +314,9 @@ const useDateFieldStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
   },
 }));
-export const DateField = (props: DateFieldProps) => {
+export const DateField = (
+  props: DateFieldProps & { allowNullValue?: boolean },
+) => {
   const { t } = useTranslation();
   const classes = useDateFieldStyles();
   const now = moment().startOf('year').add(-30, 'years').format('YYYY-MM-DD');
@@ -336,7 +338,7 @@ export const DateField = (props: DateFieldProps) => {
             {...field}
             {...props}
             style={{ minWidth: 120 }}
-            value={field.value || now}
+            value={props.allowNullValue ? field.value : field.value || now}
             onChange={(date) => {
               props?.onChange?.(date);
               setFieldTouched(props.name);

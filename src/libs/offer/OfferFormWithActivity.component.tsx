@@ -98,6 +98,16 @@ export const OfferFormWithActivity: React.FC<Props> = ({
   );
 
   const handleGoBack = () => setSelectedMetaActivty(null);
+  // A bit dirty but too many places to change the props otherwise
+  const metaActivitiesWithoutBroadcastAndHybrid = React.useMemo(() => {
+    return metaActivities?.filter(
+      (metaActivity) =>
+        !(
+          metaActivity?.is_broadcast &&
+          metaActivity?.metadata?.linked_hybrid_meta_activity_id
+        ),
+    );
+  }, [metaActivities]);
 
   if (!selectedMetaActivity) {
     return (
@@ -105,7 +115,7 @@ export const OfferFormWithActivity: React.FC<Props> = ({
         <OfferFormBanner onCancel={onCancel} />
 
         <MetaActivitySelectorWithCard
-          metaActivities={metaActivities}
+          metaActivities={metaActivitiesWithoutBroadcastAndHybrid}
           placeholder={t('metaActivity:search')}
           onChange={handleSelectActivity}
           isLoading={activitiesLoading}

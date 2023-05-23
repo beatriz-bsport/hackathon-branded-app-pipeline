@@ -21,6 +21,7 @@ type Props = {
   editableCoachPaymentRule: boolean;
   coachPaymentRulesByKind: { [kind: number]: CoachPaymentRule[] };
   isEditOffer?: boolean;
+  disabled?: boolean;
 };
 
 const OfferFormCoach = (props: Props) => {
@@ -29,6 +30,7 @@ const OfferFormCoach = (props: Props) => {
     editableCoachPaymentRule,
     coachPaymentRulesByKind,
     isEditOffer,
+    disabled,
   } = props;
   const classes = useOfferFormStyles();
   const { t } = useTranslation('offer');
@@ -128,6 +130,7 @@ const OfferFormCoach = (props: Props) => {
             onBlur={handleBlur}
             selectorClass={classes.bigWidth}
             isError={!!errors.coach && touched.coach}
+            isDisabled={!!disabled}
           />
 
           {!!errors.coach && touched.coach && (
@@ -155,6 +158,7 @@ const OfferFormCoach = (props: Props) => {
             selectedCoaches={selectedCoachOverride}
             selectOption={handleSelectCoachOverride}
             selectorClass={classes.xBigWidth}
+            isDisabled={!!disabled}
           />
         </OfferFormField>
       )}
@@ -170,7 +174,7 @@ const OfferFormCoach = (props: Props) => {
             placeholder={t(
               'form.section.coach.field.coachPaymentRule.placeholder',
             )}
-            disabled={!coach}
+            disabled={!coach || !!disabled}
             onChange={handleSelectPaymentRule}
             noMulti
             isClearable

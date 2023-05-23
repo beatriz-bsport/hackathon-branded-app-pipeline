@@ -38,10 +38,11 @@ type Props = {
   timezone: string;
   isOfferInGroup?: boolean;
   isEditOffer?: boolean;
+  disabled?: boolean;
 };
 
 const OfferFormDateTime = (props: Props) => {
-  const { timezone, isOfferInGroup, isEditOffer } = props;
+  const { timezone, isOfferInGroup, isEditOffer, disabled } = props;
   const { t } = useTranslation(['offer', 'translation']);
   const classes = useOfferFormStyles();
   const theme = useTheme();
@@ -234,6 +235,7 @@ const OfferFormDateTime = (props: Props) => {
               },
             }}
             keyboardIcon={<AccessTime />}
+            disabled={!!disabled}
           />
         </OfferFormField>
 
@@ -256,6 +258,7 @@ const OfferFormDateTime = (props: Props) => {
                   inputProps: { min: 0, max: 23 },
                 }}
                 error={!!errors.durationMinute}
+                disabled={!!disabled}
               />
               {t('translation:common.hourSmall')}
             </div>
@@ -274,6 +277,7 @@ const OfferFormDateTime = (props: Props) => {
                   inputProps: { min: 0, max: 59 },
                 }}
                 error={!!errors.durationMinute}
+                disabled={!!disabled}
               />
               {t('translation:common.minuteSmall')}
             </div>
@@ -324,6 +328,7 @@ const OfferFormDateTime = (props: Props) => {
               }}
               helperText={null}
               keyboardIcon={<CalendarToday />}
+              disabled={!!disabled}
             />
           </MuiPickersUtilsProvider>
 

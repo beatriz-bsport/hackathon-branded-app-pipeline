@@ -194,7 +194,7 @@ const OfferFormSpecificities = (props: Props) => {
           noMulti
           selectOption={handleSelectMetaActivity}
           controlBackground={isOfferInGroup && '#F2F2F2'}
-          disabled={isOfferInGroup}
+          disabled={isOfferInGroup || isHybrid}
         />
       )}
 
@@ -281,7 +281,7 @@ const OfferFormSpecificities = (props: Props) => {
           containerStyle={classes.levelSelector}
           buttonContainerStyle={classes.levelSelectorAdd}
           error={!!errors.level}
-          isDisabled={isOfferInGroup}
+          isDisabled={isOfferInGroup || (isHybrid && isBroadcast)}
         />
       </OfferFormField>
 
@@ -408,7 +408,7 @@ const OfferFormSpecificities = (props: Props) => {
         </Alert>
       )}
 
-      {!isBroadcast && !isEditOffer && (
+      {!isBroadcast && !isEditOffer && !isOfferInGroup && (
         <OfferFormField
           id="offer-form-broadcast-link-field"
           label={t('form.section.specificities.field.hybridSection')}

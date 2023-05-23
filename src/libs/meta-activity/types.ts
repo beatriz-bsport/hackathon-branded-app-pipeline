@@ -37,6 +37,9 @@ export type MetaActivity<T = number> = {
   category: number;
   ordering_in_category: number;
   custom_restriction_rule: Array<MetaActivityCustomRestriction<T>>;
+  metadata: {
+    linked_hybrid_meta_activity_id?: number;
+  };
 };
 export type MetaActivityCustomRestriction<T = number> = {
   tags: Array<T>;

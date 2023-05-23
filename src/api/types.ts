@@ -140,6 +140,7 @@ export type Offer = {
   whitelist_tags: Array<number>;
   blacklist_tags: Array<number>;
   allow_guest_offer: boolean;
+  linked_hybrid_session_id: number | null;
 };
 
 export type MetaActivity = {

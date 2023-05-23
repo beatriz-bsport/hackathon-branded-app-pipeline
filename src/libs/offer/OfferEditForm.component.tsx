@@ -249,7 +249,11 @@ export const OfferEditForm = (props: Props) => {
           })}
         </Alert>
       )}
-
+      {values?.isHybrid && metaActivity?.is_broadcast && (
+        <Alert severity="info" className={classes.groupedOfferAlert}>
+          {t('offer:form.section.specificities.field.hybridEditHelper')}
+        </Alert>
+      )}
       {isWarningStep && (
         <>
           <OfferFormEditSettings similarOffersLength={similarOffers?.length} />
@@ -300,6 +304,7 @@ export const OfferEditForm = (props: Props) => {
             timezone={offer?.timezone_name ?? timezone}
             isOfferInGroup={isOfferInGroup}
             isEditOffer
+            disabled={values.isHybrid && offer?.meta_activity?.is_broadcast}
           />
 
           <OfferFormCoach
@@ -307,6 +312,7 @@ export const OfferEditForm = (props: Props) => {
             coachPaymentRulesByKind={coachPaymentRulesByKind}
             editableCoachPaymentRule={editableCoachPaymentRule}
             isEditOffer
+            disabled={values.isHybrid && offer?.meta_activity?.is_broadcast}
           />
 
           <OfferFormSettings
@@ -377,6 +383,7 @@ const formikFormWrapper = withFormik<
     selectedSimilarOffers: props.similarOffers?.map((offer) => offer.id) ?? [],
     selectedWhitelistTags: props.offer?.whitelist_tags.map((tag) => tag.id),
     waitingListMaxSize: props.offer?.waiting_list_max_size,
+    isHybrid: !!props.offer?.linked_hybrid_session_id,
   }),
   enableReinitialize: true,
   validationSchema: OfferEditFormValidationSchema,

@@ -16,6 +16,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import LabelIcon from '@material-ui/icons/Label';
 import FolderIcon from '@material-ui/icons/Folder';
 
+import { makeStyles } from '@material-ui/styles';
 import {
   formatMinutes,
   formatAsDatetime,
@@ -88,6 +89,7 @@ type Props = {
   getHasPendingReplacementRequest?: (offerId: number) => boolean,
   openRollCallDrawer: () => void,
   isRollCallMandatory: boolean,
+  displayCoachInfoOnHover?: boolean,
 };
 
 const getFillingInfo = (offer: Offer) => {
@@ -131,6 +133,36 @@ const getFillingInfo = (offer: Offer) => {
   return [fillingInfo, fillingInfoProps, formattedFillingRate];
 };
 
+const coachTooltipUseStyle = makeStyles(() => ({
+  italic: { fontStyle: 'italic' },
+  bold: { fontWeight: 'bold' },
+}));
+
+const CoachTooltipTitle: React.FC<{ coach?: Coach }> = (props) => {
+  const { coach } = props;
+  const classes = coachTooltipUseStyle();
+
+  return (
+    <React.Fragment>
+      {coach && coach?.name && (
+        <Typography display="block" className={classes.bold} variant="caption">
+          {coach.name}
+        </Typography>
+      )}
+      {coach && coach?.notes && (
+        <Typography
+          display="block"
+          align="left"
+          className={classes.italic}
+          variant="caption"
+        >
+          {coach.notes}
+        </Typography>
+      )}
+    </React.Fragment>
+  );
+};
+
 export function OfferMinimalSummary(props: Props) {
   const {
     noDate,
@@ -146,6 +178,7 @@ export function OfferMinimalSummary(props: Props) {
     showTags,
     fixedHeight,
     getHasPendingReplacementRequest,
+    displayCoachInfoOnHover,
   } = props;
 
   const [tagManagementDialog, setTagManagementDialog] = useState(false);
@@ -239,7 +272,15 @@ export function OfferMinimalSummary(props: Props) {
               <Hidden smDown>
                 <Grid item>
                   {coach_override && isCoach ? (
-                    <Tooltip title={coach_override.name}>
+                    <Tooltip
+                      title={
+                        displayCoachInfoOnHover ? (
+                          <CoachTooltipTitle coach={coach_override} />
+                        ) : (
+                          ''
+                        )
+                      }
+                    >
                       <div>
                         <Avatar
                           src={
@@ -251,7 +292,15 @@ export function OfferMinimalSummary(props: Props) {
                       </div>
                     </Tooltip>
                   ) : (
-                    <Tooltip title={coach ? coach.name : ''}>
+                    <Tooltip
+                      title={
+                        displayCoachInfoOnHover ? (
+                          <CoachTooltipTitle coach={coach} />
+                        ) : (
+                          ''
+                        )
+                      }
+                    >
                       <div>
                         <IconButton disableRipple disabled={!!coach_override}>
                           <Avatar
@@ -266,7 +315,15 @@ export function OfferMinimalSummary(props: Props) {
               </Hidden>
               <Grid item style={coach_override ? { marginLeft: -30 } : {}}>
                 {coach_override && !isCoach ? (
-                  <Tooltip title={coach_override ? coach_override.name : ''}>
+                  <Tooltip
+                    title={
+                      displayCoachInfoOnHover ? (
+                        <CoachTooltipTitle coach={coach_override} />
+                      ) : (
+                        ''
+                      )
+                    }
+                  >
                     <IconButton disableRipple>
                       <Avatar
                         src={

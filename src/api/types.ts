@@ -73,11 +73,13 @@ export type Offer = {
     id: number;
     name: string;
     photo: string;
+    notes?: string;
   };
   coach: {
     id: number;
     name: string;
     photo: string;
+    notes?: string;
   };
   cover_main: string;
   date_end: string;

@@ -40,6 +40,9 @@ export type Coach = {
   is_teaching_all_workshops: boolean;
   is_teaching_all_categories: boolean;
   discipline_group: number;
+  date_joined_company?: string;
+  date_left_company?: string;
+  notes?: string;
 };
 
 export type CoachPerformance = {

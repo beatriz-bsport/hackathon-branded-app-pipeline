@@ -28,6 +28,7 @@ type Props = {
   isRollCallMandatory?: boolean,
   openRollCallDrawer?: (index: number, offer: Offer) => void,
   openConfirmationRollCallDialog?: () => void,
+  displayCoachInfoOnHover?: boolean,
 };
 
 export class TimeTable extends React.PureComponent<Props, State> {
@@ -54,6 +55,7 @@ export class TimeTable extends React.PureComponent<Props, State> {
           this.props.openRollCallDrawer(index, offer);
       }}
       isRollCallMandatory={!!this.props.isRollCallMandatory}
+      displayCoachInfoOnHover={this.props.displayCoachInfoOnHover}
     />
   );
 

@@ -44,7 +44,15 @@ type Props = {
   timezone: string,
 };
 export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
-  const { consumerPaymentPack, setNbDays, timezone } = props;
+  const {
+    consumerPaymentPack,
+    setNbDays,
+    timezone,
+    setNote,
+    onSubmit,
+    note,
+    nbDays,
+  } = props;
 
   // CLEAN ME : Declare an enum in a TS file and import it here
   const EXTENSION_OPTIONS = [
@@ -76,10 +84,8 @@ export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
 
   const newDate = React.useMemo(
     () =>
-      moment(consumerPaymentPack?.ending_date)
-        .tz(timezone)
-        .add(props.nbDays, 'days'),
-    [consumerPaymentPack?.ending_date, timezone, props.nbDays],
+      moment(consumerPaymentPack?.ending_date).tz(timezone).add(nbDays, 'days'),
+    [consumerPaymentPack?.ending_date, timezone, nbDays],
   );
 
   const handleSelectDate = React.useCallback(
@@ -88,6 +94,22 @@ export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
       setNbDays(numberOfDaysToAdd);
     },
     [endingDate, setNbDays],
+  );
+
+  const handleChangeNumericInput = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) =>
+      setNbDays(event.target.value),
+    [setNbDays],
+  );
+
+  const handleChangeNote = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => setNote(event.target.value),
+    [setNote],
+  );
+
+  const handleSubmit = React.useCallback(
+    () => onSubmit({ note, nb_days: nbDays }),
+    [onSubmit, note, nbDays],
   );
 
   return (
@@ -116,10 +138,10 @@ export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
           </Grid>
           {selectedExtensionOption === 'numericInput' && (
             <NumericInput
-              value={props.nbDays}
+              value={nbDays}
               fullWidth
               label={props.t('extension.create.nbDays.label')}
-              onChange={(ev) => setNbDays(ev.target.value)}
+              onChange={handleChangeNumericInput}
               InputProps={{
                 inputProps: { step: 1, min: 0 },
               }}
@@ -137,11 +159,11 @@ export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
           )}
           <TextField
             variant="outlined"
-            value={props.note}
+            value={note}
             fullWidth
             inputProps={{ maxLength: 42 }}
             label={props.t('extension.create.note.label')}
-            onChange={(ev) => props.setNote(ev.target.value)}
+            onChange={handleChangeNote}
             className={props.classes.field}
           />
           {props.consumerPaymentPack ? (
@@ -169,9 +191,7 @@ export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
         </Button>
         <Button
           color="primary"
-          onClick={() =>
-            props.onSubmit({ note: props.note, nb_days: props.nbDays })
-          }
+          onClick={handleSubmit}
           disabled={props.processing}
         >
           {props.t('extension.create.submit')}

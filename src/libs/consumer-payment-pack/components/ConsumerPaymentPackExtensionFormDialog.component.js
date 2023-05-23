@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { withTranslation, TFunction } from 'react-i18next';
 
 import moment from 'moment-timezone';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,12 +11,15 @@ import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import { compose, withState } from 'recompose';
 
-import { withTranslation, TFunction } from 'react-i18next';
 import { formatAsDate } from '../../../utils/datetime';
 import NumericInput from '../../../components/input/NumericInput.component';
 import type { ConsumerPaymentPack } from '../types';
@@ -36,21 +40,65 @@ type Props = {
   processing: boolean,
 };
 export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
+  // CLEAN ME : Declare an enum in a TS file and import it here
+  const EXTENSION_OPTIONS = [
+    {
+      label: props.t('extension.options.addNumberOfDays'),
+      value: 'numericInput',
+    },
+    {
+      label: props.t('extension.options.selectNewEndDate'),
+      value: 'datePicker',
+    },
+  ];
+
+  const [selectedExtensionOption, setSelectedExtensionOption] = React.useState(
+    EXTENSION_OPTIONS[0].value,
+  );
+
+  const handleSelectOption = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSelectedExtensionOption(event.target.value);
+    },
+    [setSelectedExtensionOption],
+  );
+
   return (
     <Dialog open={props.open}>
       {props.processing && <LinearProgress />}
       <DialogTitle>{props.t('extension.create.title')}</DialogTitle>
       <DialogContent>
         <div className={props.classes.content}>
-          <NumericInput
-            value={props.nbDays}
-            fullWidth
-            label={props.t('extension.create.nbDays.label')}
-            onChange={(ev) => props.setNbDays(ev.target.value)}
-            InputProps={{
-              inputProps: { step: 1, min: 0 },
-            }}
-          />
+          <Grid item xs={12}>
+            <RadioGroup
+              value={selectedExtensionOption}
+              onChange={handleSelectOption}
+            >
+              {EXTENSION_OPTIONS.map(({ value, label: l }) => (
+                <div key={value}>
+                  <FormControlLabel
+                    key={value}
+                    value={value}
+                    control={<Radio />}
+                    label={l}
+                    disabled={props.processing}
+                  />
+                </div>
+              ))}
+            </RadioGroup>
+          </Grid>
+          {selectedExtensionOption === 'numericInput' && (
+            <NumericInput
+              value={props.nbDays}
+              fullWidth
+              label={props.t('extension.create.nbDays.label')}
+              onChange={(ev) => props.setNbDays(ev.target.value)}
+              InputProps={{
+                inputProps: { step: 1, min: 0 },
+              }}
+              disabled={props.processing}
+            />
+          )}
           <TextField
             variant="outlined"
             value={props.note}

@@ -505,6 +505,8 @@ exports.default = {
         explainCreditBack:
           'Retourner les crédits dépensés aux clients sur leur carte de cours',
         explainNotify: 'Envoyer une alerte aux clients ayant réservé',
+        explainDeleteLinkedHybridSession:
+          'Annuler les sessions hybrides (sessions ayant lieux sur place et en ligne)',
         explainModalities:
           'Attention, cette modification est définitive. Votre séance ne sera plus visible par les clients finaux. Vous pourrez toujours y accéder.',
       },

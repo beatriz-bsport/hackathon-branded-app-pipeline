@@ -29,7 +29,11 @@ type Props = {
   offerWasCancelled: ?boolean,
   processing: ?boolean,
   onHardDelete: (data: any) => void,
-  onCancelOffer: ({ cashback: boolean, notify: boolean }) => void,
+  onCancelOffer: ({
+    cashback: boolean,
+    notify: boolean,
+    cancelLinkedHybridSession: boolean,
+  }) => void,
   fetchSimilarOffers: () => void,
   similarOfferLoading: boolean,
   similarOffers: Array<Offer>,
@@ -46,6 +50,7 @@ type State = {
   cashback: boolean,
   deleteAll: boolean,
   similarOffersWithSelectedStatus: Array<Object>,
+  cancelLinkedHybridSession: boolean,
 };
 
 // TODO : FIX ME : https://gitlab.com/bsport/bsport-saas/-/issues/1347
@@ -55,6 +60,7 @@ export class DeleteOfferForm extends Component<Props, State> {
     cashback: true,
     deleteAll: false,
     force: false,
+    cancelLinkedHybridSession: true,
     similarOffersWithSelectedStatus: (this.props.similarOffers || []).map(
       (so) => ({
         ...so,
@@ -121,13 +127,17 @@ export class DeleteOfferForm extends Component<Props, State> {
     this.setState({ cashback: event.target.checked });
   };
 
+  onCancelHybridSessionSwitch = (event: Object) => {
+    this.setState({ cancelLinkedHybridSession: event.target.checked });
+  };
+
   onNotifySwitch = (event: Object) => {
     this.setState({ notify: event.target.checked });
   };
 
   onConfirm = () => {
     const { offerWasCancelled } = this.props;
-    const { notify, cashback } = this.state;
+    const { notify, cashback, cancelLinkedHybridSession } = this.state;
     let { deleteAll } = this.state;
     if (offerWasCancelled) {
       deleteAll =
@@ -169,6 +179,7 @@ export class DeleteOfferForm extends Component<Props, State> {
       deleteAll,
       custom_selection,
       custom_selection_ids,
+      cancelLinkedHybridSession,
     });
   };
 
@@ -256,7 +267,8 @@ export class DeleteOfferForm extends Component<Props, State> {
         </div>
       );
     }
-    const { notify, cashback, deleteAll } = this.state;
+    const { notify, cashback, deleteAll, cancelLinkedHybridSession } =
+      this.state;
     return (
       <div>
         {this.props.offer.group?.name && (
@@ -318,6 +330,17 @@ export class DeleteOfferForm extends Component<Props, State> {
             {t('form.offer.delete.explainNotify')}
           </Typography>
         </div>
+        {this.props.offer?.linked_hybrid_session_id && (
+          <div className={classes.row}>
+            <Switch
+              checked={cancelLinkedHybridSession}
+              onChange={this.onCancelHybridSessionSwitch}
+            />
+            <Typography className={classes.explainNotify}>
+              {t('form.offer.delete.explainDeleteLinkedHybridSession')}
+            </Typography>
+          </div>
+        )}
         {similarOffersWithSelectedStatus &&
           similarOffersWithSelectedStatus.length > 1 && (
             <RecursionToogle

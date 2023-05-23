@@ -30,6 +30,7 @@ import ReplacementRequestPendingChip from '#libs/replacement-request/components/
 import type { Offer } from '../../api/types';
 import { DEFAULT_AVATAR } from '../../libs/associated-coach/utils';
 import RollCallChip from '../../libs/offer/components/RollCallChip.component';
+import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 
 const styles = (theme) => ({
   relativeContainer: { position: 'relative' },
@@ -340,8 +341,15 @@ export function OfferMinimalSummary(props: Props) {
                 <ListItemText
                   primary={
                     <div className={classes.offerTitleText}>
-                      {offer.is_broadcast && (
-                        <VideocamIcon className={classes.videocamIcon} />
+                      {offer.is_broadcast &&
+                        !offer?.linked_hybrid_session_id && (
+                          <VideocamIcon className={classes.videocamIcon} />
+                        )}
+                      {offer?.linked_hybrid_session_id && (
+                        <OfferIconHybridIndicator
+                          className={classes.videocamIcon}
+                          iconProps={{ fontSize: 'large' }}
+                        />
                       )}
                       {offer.group && (
                         <FolderIcon className={classes.videocamIcon} />

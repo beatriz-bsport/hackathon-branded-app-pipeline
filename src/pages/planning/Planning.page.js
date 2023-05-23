@@ -629,6 +629,7 @@ export class Planning extends PureComponent<Props, State> {
     deleteAll: ?boolean,
     custom_selection: ?boolean,
     custom_selection_ids: ?Array<number>,
+    cancelLinkedHybridSession: ?boolean,
     force: boolean,
   }) => {
     this.props.disableOffer(data, {
@@ -892,6 +893,7 @@ export class Planning extends PureComponent<Props, State> {
               custom_selection,
               custom_selection_ids,
               force,
+              cancelLinkedHybridSession,
             }) =>
               this.onCancelOffer({
                 offerId: selectedOffer.id,
@@ -901,6 +903,7 @@ export class Planning extends PureComponent<Props, State> {
                 custom_selection,
                 custom_selection_ids,
                 force,
+                cancelLinkedHybridSession,
               })
             }
             onHardDelete={(data) =>

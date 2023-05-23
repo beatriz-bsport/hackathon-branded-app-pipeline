@@ -43,6 +43,7 @@ import CheckPermission from '../../libs/role/components/CheckPermission.componen
 import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
 import { getRecurrenceTrad } from '#libs/group-offer/utils';
 import { formatAsDatetimeAdapted, formatAsTime } from '../../utils/datetime';
+import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 
 type Props = {
   t: TFunction,
@@ -86,6 +87,7 @@ export class OfferCard extends Component<Props, State> {
       credit_price_override,
       customLevel,
       meta_activity,
+      linked_hybrid_session_id,
     } = offer;
 
     return (
@@ -110,7 +112,12 @@ export class OfferCard extends Component<Props, State> {
               {t('offer:disabled')}
             </Typography>
           )}
-          <Level customLevel={customLevel} />
+          <div className={classes.levelAndHybridRow}>
+            {linked_hybrid_session_id && (
+              <OfferIconHybridIndicator iconProps={{ fontSize: 'large' }} />
+            )}
+            <Level customLevel={customLevel} />
+          </div>
         </ListItem>
       </div>
     );
@@ -588,6 +595,13 @@ const styles = (theme) => ({
     justifyContent: 'center',
     padding: theme.spacing(2),
     width: '100%',
+  },
+  levelAndHybridRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: theme.spacing(1),
   },
 });
 

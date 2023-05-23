@@ -3668,7 +3668,13 @@
         }
       }
     },
-    "communication": "Communication"
+    "communication": "Communication",
+    "resetPassword": {
+      "dialogTitle": "Réinitialisation de mot de passe",
+      "dialogContent": "Vous êtes sur le point d'envoyer les instructions de réinitialisation de mot de passe à {{memberEmail}}",
+      "confirmation": "Instructions correctement envoyées à {{memberEmail}}",
+      "error": "Erreur lors de l'envoi des instructions de réinitialisation de mot de passe"
+    }
   },
   "membership": {
     "selector": {

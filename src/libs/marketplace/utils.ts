@@ -1,11 +1,16 @@
 // @ts-nocheck
 import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
+import Fuse from 'fuse.js';
 import Config from '../../config';
 import { Offer, Offer_FULL } from '#libs/offer/types';
 import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
 import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
 import { OffersGroup } from '#libs/group-offer/types';
+
+import { Establishment } from '#libs/establishment/types';
+import { Coach } from '#libs/associated-coach/types';
+import { MetaActivity } from '#libs/meta-activity/types';
 
 export function isOfferInThePast(offer: Offer | Offer_FULL) {
   if (!offer) return false;
@@ -47,6 +52,46 @@ export function urlToMarketplaceTab(
 ) {
   return `${urlToMarketplace(companyName, companyId)}/${path}`;
 }
+
+export const doTextSearch = (
+  searchText: string,
+  coaches: Array<Coach>,
+  establishments: Array<Establishment>,
+  metaActivities: Array<MetaActivity>,
+) => {
+  let estIds = null;
+  let actIds = null;
+  let coachIds = null;
+  if (searchText) {
+    const fuseEstablishments = new Fuse(establishments, {
+      shouldSort: true,
+      threshold: 0.3,
+      distance: 100,
+      keys: ['title'],
+    });
+    const resultEstablishments = fuseEstablishments.search(searchText);
+    estIds = resultEstablishments.map((est) => est.id);
+
+    const fuseMetaActivities = new Fuse(metaActivities, {
+      shouldSort: true,
+      threshold: 0.3,
+      distance: 100,
+      keys: ['name'],
+    });
+    const resultMetaActivities = fuseMetaActivities.search(searchText);
+    actIds = resultMetaActivities.map((act) => act.id);
+
+    const fuseCoaches = new Fuse(coaches, {
+      shouldSort: true,
+      threshold: 0.3,
+      distance: 100,
+      keys: ['name'],
+    });
+    const resultCoaches = fuseCoaches.search(searchText);
+    coachIds = resultCoaches.map((coach) => coach.id);
+  }
+  return [coachIds, estIds, actIds];
+};
 
 export class WidgetCodeStringGenerator {
   static indent(code: string, indentCount: number) {

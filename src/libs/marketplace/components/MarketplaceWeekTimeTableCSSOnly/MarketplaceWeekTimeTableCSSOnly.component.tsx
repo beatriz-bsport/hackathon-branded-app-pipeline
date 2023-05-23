@@ -38,7 +38,6 @@ const SPLIT_EVENNING = 17;
 const DAY_PARTS = ['morning', 'afternoon', 'evening'];
 type Props = {
   loading: boolean;
-  classes: Object;
   onClickOffer: () => void;
   onClickBook: (offer: Offer_FULL) => void;
   onClickBookOption: (offer: Offer_FULL) => void;
@@ -65,6 +64,7 @@ type Props = {
   variant?: 'activityName' | 'coach' | 'time';
   showDayParts: boolean;
   forceDayDisplayOnly: boolean;
+  searchedOffers: Offer[] | null;
 };
 
 type State = {
@@ -381,7 +381,19 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   };
 
   render() {
-    const { offers, loading, date } = this.props;
+    const { loading, date } = this.props;
+
+    if (this.props.searchedOffers && !this.props.searchedOffers.length) {
+      return (
+        <div className="bs-week__search__noResult">
+          {this.props.t('search:noResult')}
+        </div>
+      );
+    }
+
+    const offers = this.props.searchedOffers
+      ? this.props.searchedOffers
+      : this.props.offers;
 
     const weekDays = Moment.weekdaysShort(true);
     const periodOffers = this.getOffersByPeriod(date, offers);
@@ -472,6 +484,4 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   }
 }
 
-export default withTranslation(['translation', 'datetime'])(
-  MarketplaceWeekTimetable,
-);
+export default withTranslation()(MarketplaceWeekTimetable);

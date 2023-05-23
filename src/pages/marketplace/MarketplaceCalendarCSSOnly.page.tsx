@@ -15,11 +15,9 @@ import { TFunction } from 'i18next';
 import withQueryParams from '#hocs/with-query-params.hoc';
 import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
 import { addItemToBasket as addItemToBasketAction } from '#libs/checkout/actions';
-import { getWorkshops } from '#libs/meta-activity/selectors';
 import MarketplaceCalendarComponent from '#libs/marketplace/components/MarketplaceCalendarCSSOnly/MarketplaceCalendarCSSOnly.component';
 import MarketplaceActivityDialogV2 from '#libs/marketplace/components/MarketplaceActivityDialogCSSOnly/MarketplaceActivityDialogCSSOnly.component';
 import { getCurrentBasket } from '#libs/checkout/selectors';
-import { getPaymentComboListAvailableOnline } from '#libs/payment-combo/selectors';
 
 import { DATE_FORMAT } from '../../utils/datetime';
 import themeSelectors from '#libs/theme/selectors';
@@ -29,7 +27,6 @@ import {
   getPureMetaActivitiesDict,
 } from '#libs/meta-activity/selectors';
 import {
-  withGroup,
   getOffersListByGroup as getOffersListByGroupSelector,
   getGroupData,
 } from '#libs/group-offer/selectors';
@@ -38,7 +35,6 @@ import { isOfferInThePast } from '../../libs/marketplace/utils';
 import {
   getAllEstablishments,
   getAssociatedEstablishmentGroup,
-  getAvailableEstablishmentList,
   withEstablishment as groupWithEstablishment,
 } from '#libs/establishment/selectors';
 
@@ -65,10 +61,6 @@ import {
 } from '#libs/offer/actions';
 import {
   getMarketplaceOfferList,
-  withMetaActivity,
-  withCoach,
-  withEstablishment,
-  withGender,
   getBookedOffers,
   getNextAvailableOffer,
   getBookedGenderOffer,
@@ -93,6 +85,7 @@ import { Level } from '#libs/level/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
 import { buildUrlParams } from '../../http';
+import { doTextSearch } from '#libs/marketplace/utils';
 import uniq from 'lodash/uniq';
 
 type OwnProps = {
@@ -145,6 +138,7 @@ type State = {
   offer: Offer | null;
   displayGroupPopup: (Offer_FULL & { redirect: string }) | null;
   filteredEstablishments: Array<Establishment> | null;
+  offerSearchResult: { query: string; offerList: Offer[] | null };
 };
 
 export class MarketplaceCalendar extends Component<FinalProps, State> {
@@ -153,6 +147,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     offer: null,
     displayGroupPopup: null,
     filteredEstablishments: null,
+    offerSearchResult: { query: '', offerList: null },
   };
 
   fetchData = () => {
@@ -232,7 +227,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     this.fetchData();
   }
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     const filtersPropsChanged = !isEqual(prevProps.filters, this.props.filters);
     const selectedWeekChanged = !moment(prevProps.otherParams.date)
       .startOf('week')
@@ -248,6 +243,21 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       prevProps.establishments,
       this.props.establishments,
     );
+
+    const offersChanged = !isEqual(
+      prevProps.offers.map((o) => o.id),
+      this.props.offers.map((o) => o.id),
+    );
+
+    const searchQueryChanged = !isEqual(
+      prevState.offerSearchResult.query,
+      this.state.offerSearchResult.query,
+    );
+
+    if (offersChanged || searchQueryChanged) {
+      this.handleSearchFilter(this.state.offerSearchResult.query);
+    }
+
     if (filtersEstablishmentsChanged || establishmentsChanged) {
       let filteredEstablishments: Array<Establishment> = [
         ...this.props.establishments,
@@ -358,6 +368,55 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     }
   };
 
+  handleClearSearchResult = () => {
+    this.setState({
+      offerSearchResult: {
+        query: '',
+        offerList: null,
+      },
+    });
+  };
+
+  handleSearch = (searchText: string) => {
+    this.setState({
+      offerSearchResult: {
+        query: searchText,
+      },
+    });
+  };
+
+  handleSearchFilter = (searchText: string) => {
+    if (searchText) {
+      const metaActivities = this.props.theme.show_workshops_customer
+        ? this.props.metaActivitiesWorkshops
+        : this.props.metaActivities;
+      const establishments = this.props.filters.establishment_group__in?.length
+        ? this.state.filteredEstablishments
+        : this.props.establishments;
+
+      const [searchedCoaches, searchedEstablishments, searchedMetaActivities] =
+        doTextSearch(
+          searchText,
+          this.props.coaches,
+          establishments,
+          Object.values(metaActivities),
+        );
+
+      const searchResult = this.props.offers.filter(
+        (offer) =>
+          searchedEstablishments.includes(offer.establishment) ||
+          searchedMetaActivities.includes(offer.meta_activity) ||
+          searchedCoaches.includes(offer.coach),
+      );
+
+      this.setState({
+        offerSearchResult: { query: searchText, offerList: searchResult },
+      });
+    } else {
+      this.handleClearSearchResult();
+    }
+  };
+
   render() {
     const {
       filters,
@@ -402,6 +461,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           }
         />
         <MarketplaceCalendarComponent
+          onSearch={this.handleSearch}
+          onClearInput={this.handleClearSearchResult}
+          searchedOffers={this.state.offerSearchResult?.offerList}
           offers={this.props.offers}
           genderCount={this.props.genderCount}
           group={this.props.group}

@@ -18,6 +18,7 @@ import { getLevelColor, getLevelTrad } from '#libs/level/utils';
 import './MarketplaceFilterCSSOnly.css';
 import { getGroupedEstablishmentOptions } from '#libs/establishment/components/EstablishmentSelector.component';
 import { Theme } from '#libs/theme/types';
+import MarketplaceCalendarSearch from '#libs/marketplace/components/MarketplaceCalendarSearchCSSOnly/MarketplaceCalendarSearchCSSOnly.component';
 
 type Props = {
   coaches: Coach[];
@@ -32,6 +33,8 @@ type Props = {
   showMultiLocalization: boolean;
   customLevels: Level[];
   theme: Theme;
+  onSearch: (searchText: string) => void;
+  onClearInput: () => void;
 };
 
 const MarketplaceFilterCSSOnly: React.FC<Props> = ({
@@ -47,6 +50,8 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
   hideCoach,
   filters,
   theme,
+  onSearch,
+  onClearInput,
 }) => {
   const { t } = useTranslation([
     'coach',
@@ -140,6 +145,10 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
 
   return (
     <div className="bs-marketplace-filters__list">
+      <MarketplaceCalendarSearch
+        onSearch={onSearch}
+        onClearInput={onClearInput}
+      />
       <MarketplaceFilter
         text={metaActivityTitle}
         options={metaActivitiesOption}

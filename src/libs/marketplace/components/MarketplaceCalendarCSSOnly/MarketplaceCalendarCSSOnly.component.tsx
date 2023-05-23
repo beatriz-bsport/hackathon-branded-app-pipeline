@@ -71,6 +71,9 @@ type Props = {
     max_date: string;
     filters?: Array<MarketplaceCommonFilter>;
   }) => void;
+  onSearch: (searchText: string) => void;
+  onClearInput: () => void;
+  searchedOffers: Offer[];
 };
 
 export const MarketplaceCalendar = (props: Props) => {
@@ -87,6 +90,9 @@ export const MarketplaceCalendar = (props: Props) => {
     compactMode = null,
     nextAvailableOffer,
     groupSessionByPeriod,
+    onSearch,
+    onClearInput,
+    searchedOffers,
   } = props;
 
   const weekOffers = useMemo(
@@ -167,6 +173,9 @@ export const MarketplaceCalendar = (props: Props) => {
       )}
       {!forceDayDisplayOnly && (
         <MarketplaceFilterComponent
+          onSearch={onSearch}
+          onClearInput={onClearInput}
+          offers={offers}
           coaches={coaches}
           establishments={props.establishments}
           hideCoach={props.hideCoach}
@@ -183,6 +192,7 @@ export const MarketplaceCalendar = (props: Props) => {
       {!loading && (
         <>
           <MarketplaceWeekTimetableV2
+            searchedOffers={searchedOffers}
             offers={offers}
             establishments={props.establishments}
             genderCount={props.genderCount}

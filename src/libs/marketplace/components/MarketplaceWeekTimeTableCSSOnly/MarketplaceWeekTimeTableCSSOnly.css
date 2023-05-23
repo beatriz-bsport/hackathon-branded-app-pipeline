@@ -152,6 +152,19 @@
   overflow: hidden;
 }
 
+.bs-week__search__noResult {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--spacing-4);
+  padding-bottom: var(--spacing-2);
+  font-size: var(--h6-fontSize);
+  font-family: var(--h6-fontFamily);
+  font-weight: var(--fontWeightMedium);
+  color: var(--color-secondary-main);
+}
+
 @media (max-width: 570px), (max-device-width: 570px) {
   .bs-week {
     margin-top: 0px;

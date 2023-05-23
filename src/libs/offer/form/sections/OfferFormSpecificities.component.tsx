@@ -24,7 +24,7 @@ import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook 
 import OfferFormTooltip from '#libs/offer/form/OfferFormTooltip.dialog';
 import MetaActivitySelector from '../../../meta-activity/components/MetaActivitySelector.component';
 import { TextField } from '../../../../components/forms';
-
+import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
 import { OfferFormValues } from '#libs/offer/types';
 import { Level, LevelFilterSet } from '#libs/level/types';
 import { Establishment } from '#libs/establishment/types';
@@ -35,6 +35,7 @@ import {
   OptionCallback,
   OptionPaginatedCallback,
 } from '../../../../state/types';
+import { HYBRID_OFFER_DEFAULT_EFFECTIF_FOR_ONLINE_SESSION } from '#libs/offer/constants';
 
 type Props = {
   activeCustomLevels: Level[];
@@ -79,6 +80,7 @@ const OfferFormSpecificities = (props: Props) => {
     establishment,
     level,
     selectedMetaActivity,
+    isHybrid,
   } = values;
   const {
     activeCustomLevels,
@@ -406,6 +408,27 @@ const OfferFormSpecificities = (props: Props) => {
         </Alert>
       )}
 
+      {!isBroadcast && !isEditOffer && (
+        <OfferFormField
+          id="offer-form-broadcast-link-field"
+          label={t('form.section.specificities.field.hybridSection')}
+        >
+          <SwitchField
+            id="offer-form-available-partnership-switch"
+            name="isHybrid"
+            label={t('form.section.specificities.field.hybridLabel')}
+            switchColor="secondary"
+          />
+          {isHybrid && (
+            <Alert severity="info" className={classes.centerAlert}>
+              {t('form.section.specificities.field.hybridHelper', {
+                onlineOfferDefaultEffectif:
+                  HYBRID_OFFER_DEFAULT_EFFECTIF_FOR_ONLINE_SESSION,
+              })}
+            </Alert>
+          )}
+        </OfferFormField>
+      )}
       {isBroadcast && !isWherebyIntegrationEnabled && (
         <OfferFormField
           id="offer-form-broadcast-link-field"

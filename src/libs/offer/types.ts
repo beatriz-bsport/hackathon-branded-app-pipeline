@@ -293,6 +293,7 @@ export type OfferFormValues = {
   selectedSimilarOffers?: number[];
   isCoachOverridePropagate?: boolean;
   coachOverridePropagateMode?: number;
+  isHybrid: boolean;
 };
 
 export type OfferFormRecurrenceWeekDay =
@@ -323,6 +324,7 @@ export type OfferCreate = {
   blacklist_tags: number[];
   allow_guest_offer: boolean;
   room_blueprint?: number;
+  isHybrid: boolean;
 };
 
 export type OfferEdit = Omit<OfferCreate, 'dates' | 'credits'> & {

@@ -246,6 +246,7 @@ const formikFormWrapper = withFormik<
       isZoomAppEnabled: false,
       isOfferInGroup: props.isOfferInGroup,
       isShowPartnership: props.showPartnership,
+      isHybrid: false,
     };
   },
   enableReinitialize: false,
@@ -269,6 +270,7 @@ const formikFormWrapper = withFormik<
       selectedWhitelistTags,
       selectedBlacklistTags,
       allowGuestOffer,
+      isHybrid,
     } = values;
 
     const offer: OfferCreate = {
@@ -296,6 +298,7 @@ const formikFormWrapper = withFormik<
       whitelist_tags: selectedWhitelistTags,
       blacklist_tags: selectedBlacklistTags,
       allow_guest_offer: allowGuestOffer,
+      isHybrid,
     };
 
     if (roomBlueprint) {

@@ -215,6 +215,9 @@ const useOfferFormStyles = (
       alignItems: 'center',
       justifyContent: 'flex-start',
     },
+    centerAlert: {
+      alignItems: 'center',
+    },
   }));
 
   const classes = useStyles();

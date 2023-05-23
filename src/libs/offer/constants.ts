@@ -37,3 +37,5 @@ export enum OFFER_RECURRENCE {
   MONTHLY = 'month',
   DAILY = 'day',
 }
+
+export const HYBRID_OFFER_DEFAULT_EFFECTIF_FOR_ONLINE_SESSION = 100;

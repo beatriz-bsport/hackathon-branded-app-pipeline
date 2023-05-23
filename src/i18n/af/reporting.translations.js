@@ -369,6 +369,8 @@ exports.default = {
     src_gender: 'Sexe acheteur',
     src_lastname: 'Nom acheteur',
     src_phonenumber: 'Téléphone acheteur',
+    staff_commission_amount: 'Frais de commission du staff TTC',
+    staff_commission_amount_notax: 'Frais de commission du staff HT',
     start_date_date: 'Date de début',
     start_date_time: 'Heure de début',
     start_date: 'Date complète de début',

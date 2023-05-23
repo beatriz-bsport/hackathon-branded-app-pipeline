@@ -340,43 +340,43 @@ const formikFormWrapper = withFormik<
   OfferFormValues
 >({
   mapPropsToValues: (props: ComponentProps & FormProps) => ({
-    effectif: props.offer?.effectif,
-    waitingListMaxSize: props.offer?.waiting_list_max_size,
-    level: props.offer?.custom_level,
-    establishment: props.offer?.establishment.id,
+    allowGuestOffer: props.offer?.allow_guest_offer,
+    availableOnPartnership: props.isOfferInGroup
+      ? false
+      : props.offer?.available_on_partnership,
     broadcastLink: props.offer?.broadcast_link,
+    coach: props.offer?.coach.id,
+    coachOverride: props.offer?.coach_override?.id ?? null,
+    coachOverridePropagateMode:
+      PropagateCoachOverrideToSimilarOffers.PROPAGATE_TO_OFFERS_WITH_SAME_COACH_OVERRIDE_ONLY,
+    coachPaymentRule: props.offer?.coach_payment_rule_id ?? null,
     credits:
       props.offer?.credit_price !== undefined
         ? props.offer?.credit_price
         : props.offer?.credits,
     dateIntervalStart: moment(props.offer?.date_start),
     durationMinute: props.offer?.duration_minute,
-    coach: props.offer?.coach.id,
-    coachPaymentRule: props.offer?.coach_payment_rule_id ?? null,
-    isManagerOnly: props.offer?.manager_only,
-    allowGuestOffer: props.offer?.allow_guest_offer,
-    availableOnPartnership: props.isOfferInGroup
-      ? false
-      : props.offer?.available_on_partnership,
-    selectedWhitelistTags: props.offer?.whitelist_tags.map((tag) => tag.id),
-    selectedBlacklistTags: props.offer?.blacklist_tags.map((tag) => tag.id),
-    roomBlueprint: props.offer?.room_blueprint ?? null,
-    roomBlueprintSlots: null,
-    isMetaActivityBroadcast: !!props.offer?.broadcast_link,
-    isZoomAppEnabled: false,
-    isOfferInGroup: props.isOfferInGroup,
-    selectedMetaActivity: props.offer?.meta_activity.id,
-    isNotifyConsumers: false,
-    isModifyRecursively: false,
-    coachOverride: props.offer?.coach_override?.id ?? null,
-    selectedSimilarOffers: props.similarOffers?.map((offer) => offer.id) ?? [],
-    coachOverridePropagateMode:
-      PropagateCoachOverrideToSimilarOffers.PROPAGATE_TO_OFFERS_WITH_SAME_COACH_OVERRIDE_ONLY,
+    effectif: props.offer?.effectif,
+    establishment: props.offer?.establishment.id,
     isCoachOverridePropagate: true,
+    isManagerOnly: props.offer?.manager_only,
+    isMetaActivityBroadcast: !!props.offer?.broadcast_link,
+    isModifyRecursively: false,
+    isNotifyConsumers: false,
+    isOfferInGroup: props.isOfferInGroup,
     isShowPartnership: props.showPartnership,
+    isZoomAppEnabled: false,
+    level: props.offer?.custom_level,
     partnerMaxBookingCount: props.isOfferInGroup
       ? 0
       : props.offer?.partner_max_booking_count ?? 0,
+    roomBlueprint: props.offer?.room_blueprint ?? null,
+    roomBlueprintSlots: null,
+    selectedBlacklistTags: props.offer?.blacklist_tags.map((tag) => tag.id),
+    selectedMetaActivity: props.offer?.meta_activity.id,
+    selectedSimilarOffers: props.similarOffers?.map((offer) => offer.id) ?? [],
+    selectedWhitelistTags: props.offer?.whitelist_tags.map((tag) => tag.id),
+    waitingListMaxSize: props.offer?.waiting_list_max_size,
   }),
   enableReinitialize: true,
   validationSchema: OfferEditFormValidationSchema,

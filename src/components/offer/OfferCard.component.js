@@ -44,11 +44,13 @@ import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPa
 import { getRecurrenceTrad } from '#libs/group-offer/utils';
 import { formatAsDatetimeAdapted, formatAsTime } from '../../utils/datetime';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
+import OfferCardStastitics from './OfferCardStastistics.compant';
 
 type Props = {
   t: TFunction,
   classes: Object,
   offer: Offer,
+  linkedHybridSession?: Offer,
   noHeader: ?boolean,
   onEditButtonClick: () => void,
   onDeleteButtonClick: () => void,
@@ -119,83 +121,6 @@ export class OfferCard extends Component<Props, State> {
             <Level customLevel={customLevel} />
           </div>
         </ListItem>
-      </div>
-    );
-  };
-
-  getStatsBody = () => {
-    const { classes, t, bookings } = this.props;
-    const { nb_bookings, nb_option, waiting_list_max_size, effectif, group } =
-      this.props.offer;
-
-    const nbBookings =
-      nb_bookings ||
-      bookings?.filter((b) => b.booking_status_code === BOOKING_STATUS_OK.id)
-        ?.length ||
-      0;
-    const occupancyRate = parseInt((nbBookings / effectif) * 100, 10) || 0;
-    const nbOptions = nb_option || 0;
-    return (
-      <div className={classes.statContainer}>
-        <div className={classNames(classes.rightBorder, classes.stat)}>
-          <div>
-            <Typography variant="h3" color="primary" align="center">
-              {nbBookings}
-              {`/${effectif}`}
-            </Typography>
-          </div>
-          {this.props.showOfferGender ? (
-            <Typography
-              variant="caption"
-              align="center"
-              className={classes.statName}
-            >
-              {t('offer:booking.confirmed')} (&#9792;{this.props.offer.female}
-              {`/${this.props.offer.male}`}&#9794;{'+'}
-              {this.props.offer.other})
-            </Typography>
-          ) : (
-            <Typography
-              variant="caption"
-              align="center"
-              className={classes.statName}
-            >
-              {' '}
-              {t('offer:booking.confirmed')}
-            </Typography>
-          )}
-        </div>
-        <div className={classNames(classes.rightBorder, classes.stat)}>
-          <Typography variant="h3" color="secondary" align="center">
-            {occupancyRate} %
-          </Typography>
-          <Typography
-            align="center"
-            variant="caption"
-            className={classes.statName}
-          >
-            {t('offer:booking.fillRate')}
-          </Typography>
-        </div>
-        {!group && (
-          <div className={classes.stat}>
-            <Typography
-              variant="h3"
-              color={nbOptions ? 'error' : 'secondary'}
-              align="center"
-            >
-              {nbOptions}
-              {`/${waiting_list_max_size}`}
-            </Typography>
-            <Typography
-              variant="caption"
-              align="center"
-              className={classes.statName}
-            >
-              {t('offer:booking.waiting')}
-            </Typography>
-          </div>
-        )}
       </div>
     );
   };
@@ -291,7 +216,12 @@ export class OfferCard extends Component<Props, State> {
           />
           <Paper square className={available ? null : classes.disabledPaper}>
             {noHeader ? null : this.getHeader()}
-            {this.getStatsBody()}
+            <OfferCardStastitics
+              offer={this.props.offer}
+              linkedHybridSession={this.props.linkedHybridSession}
+              bookings={this.props.bookings}
+              showOfferGender={this.props.showOfferGender}
+            />
             <Divider />
             <div className={classes.row}>
               <ListItem>
@@ -510,24 +440,6 @@ const styles = (theme) => ({
     paddingRight: theme.spacing(1),
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(1) * 1,
-  },
-  stat: {
-    flex: 3,
-    paddingBottom: theme.spacing(2),
-    paddingTop: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  rightBorder: {
-    borderRight: '1px solid #EEEEEE',
-  },
-  statContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderTop: '1px solid #EEEEEE',
   },
   editButtonContainer: {
     margin: theme.spacing(2),

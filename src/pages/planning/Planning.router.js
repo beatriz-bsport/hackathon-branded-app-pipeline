@@ -156,9 +156,18 @@ const PlanningWithDateAndOffer = compose(
     const selectedOffer = offerId
       ? offers.find((offer) => offer.id === offerId)
       : null;
+
+    const hybridOfferLinkedToSelectedOffer =
+      offerId && selectedOffer
+        ? offers.find(
+            (offer) =>
+              offer && offer.linked_hybrid_session_id === selectedOffer.id,
+          )
+        : null;
     return {
       date: date.format('YYYY-MM-DD'),
       selectedOffer,
+      hybridOfferLinkedToSelectedOffer,
     };
   }),
 )(Planning);

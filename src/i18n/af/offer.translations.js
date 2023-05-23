@@ -1,4 +1,6 @@
 exports.default = {
+  broadcast: 'Visioconférence',
+  onSite: 'Au studio',
   deleteImpossibleTitle: 'Impossible de supprimer la séance',
   deleteImpossibleText:
     "Vous ne pouvez pas supprimer cette séance parce qu'elle a des réservations en cours.",
@@ -237,6 +239,8 @@ exports.default = {
             "En choisissant cette option une séance en ligne sera créée avec un effectif pour defaut de {{ onlineOfferDefaultEffectif }}. Vous pourrez éditer les informations de l'offre en ligne après création (Lien de diffusion, effectif, prix, etc...)",
           hybridEditHelper:
             'Vous éditez une session en ligne liée à une session sur place. Afin de modifier certaines informations vous devez éditier la séance sur place.',
+          hybridManagementHelper:
+            "Vous pouvez gérer les réservations associées à cette séance jumelée, à la fois en salle et en ligne, en cliquant sur l'icône ci-après pour ouvrir un nouvel onglet de gestion.",
           roomBlueprint: {
             title: 'Spot scheduling',
             placeholder: 'Sélectionner un plan',

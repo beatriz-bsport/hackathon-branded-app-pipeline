@@ -240,7 +240,7 @@ type Props = {
   classes: Object,
   date: string,
   selectedOffer: Offer,
-
+  hybridOfferLinkedToSelectedOffer: Offer | null,
   theme: ?CompanyTheme,
 
   timetableLoading: boolean,
@@ -1309,6 +1309,7 @@ export class Planning extends PureComponent<Props, State> {
       offerByDayLoading,
       width,
       selectedOffer,
+      hybridOfferLinkedToSelectedOffer,
     } = this.props;
     const events_ = this.getDayOffers(events);
 
@@ -1419,6 +1420,7 @@ export class Planning extends PureComponent<Props, State> {
                 <OfferCard
                   snackbarSuccess={this.props.snackbarSuccess}
                   offer={selectedOffer}
+                  linkedHybridSession={hybridOfferLinkedToSelectedOffer}
                   companyId={this.props.companyId}
                   onEditButtonClick={this.openEditModal}
                   onDeleteButtonClick={this.openDeleteModal}

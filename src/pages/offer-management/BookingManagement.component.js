@@ -15,11 +15,13 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
-
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import MailIcon from '@material-ui/icons/Mail';
 import SendIcon from '@material-ui/icons/Send';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import moment from 'moment-timezone';
@@ -54,6 +56,7 @@ import Config from '../../config';
 import ValidationRollCallButton from '#libs/offer/components/ValidationRollCallButton.component';
 import ValidationRollCallText from '#libs/offer/components/ValidationRollCallText.component';
 import { formatAsTime } from '../../utils/datetime';
+import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
   const member = membersList.find((m) => m.id === id);
@@ -333,6 +336,13 @@ export class BookingManagement extends React.PureComponent<Props, State> {
     this.setState({ noShowChipMessageDialogIsOpen: false });
   };
 
+  openLinkedHybridOfferManagementPage = (e) => {
+    e.stopPropagation();
+    if (this.props.offer?.linked_hybrid_session_id) {
+      window.open(`/offer/${this.props.offer?.linked_hybrid_session_id}`);
+    }
+  };
+
   render() {
     const { offer, classes, t, onProgramDetailsClick } = this.props;
     return (
@@ -391,105 +401,153 @@ export class BookingManagement extends React.PureComponent<Props, State> {
         </Dialog>
 
         {!!offer && (
-          <Paper className={classes.autoScroll}>
-            <div className={classes.fullWidthRow}>
-              {offer.meta_activity_color ? (
-                <div
-                  style={{
-                    width: '100%',
-                    height: '5px',
-                    backgroundColor: offer.meta_activity_color,
-                  }}
-                />
-              ) : null}
-              <div>
-                <div className={classes.bookingsHeader}>
-                  <div />
+          <>
+            {offer?.linked_hybrid_session_id && (
+              <div className={classes.alertHybridSection}>
+                <Alert
+                  severity="info"
+                  icon={
+                    <OfferIconHybridIndicator
+                      iconProps={{ fontSize: 'large' }}
+                    />
+                  }
+                  action={
+                    <IconButton
+                      onClick={this.openLinkedHybridOfferManagementPage}
+                      color="primary"
+                    >
+                      <OpenInNewIcon />
+                    </IconButton>
+                  }
+                >
+                  <AlertTitle>
+                    {t('offer:form.section.specificities.field.hybridSection')}
+                  </AlertTitle>
+                  {t(
+                    'offer:form.section.specificities.field.hybridManagementHelper',
+                  )}
+                </Alert>
+              </div>
+            )}
+            <Paper className={classes.autoScroll}>
+              <div className={classes.fullWidthRow}>
+                {offer.meta_activity_color ? (
                   <div
                     style={{
-                      display: 'flex',
-                      justifyContent: 'flex-end',
-                      flexDirection: 'row',
+                      width: '100%',
+                      height: '5px',
+                      backgroundColor: offer.meta_activity_color,
                     }}
-                  >
-                    <CheckPermission requiredPermissions="member.retrieve">
-                      <IconButton
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          this.props.openMailDialog();
-                        }}
-                        color="primary"
-                        disabled={this.props.bookingLoading}
-                      >
-                        <MailIcon />
-                      </IconButton>
-                      {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
-                        Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
-                        Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-                        this.props.companyId === 498) && (
-                        <BottomActionsButtonCustom
-                          buttonsProperties={[
-                            {
-                              onClick: (e) => {
-                                e.stopPropagation();
-                                this.props.openCommunicationDrawer();
-                              },
-                              color: 'primary',
-                              disabled:
-                                this.props.bookingLoading || this.props.loading,
-                              icon: <SendIcon />,
-                              text: t('communication:generic.communication'),
-                              keepTextUnderSelectedMinWidth: true,
-                              badgeValue: this.props.numberOfUnreadAnswers,
-                            },
-                          ]}
-                          minWidth="xs"
-                        />
-                      )}
-                    </CheckPermission>
-                    <PermissionContext.Consumer>
-                      {(permissions) => (
-                        <>
-                          {permissions?.member?.create && (
-                            <IconButton
-                              onClick={this.props.openAddMemberModal}
-                              color="primary"
-                            >
-                              <PersonAddIcon />
-                            </IconButton>
-                          )}
-                          <SearchMember
-                            onChange={this.onSearchMemberChange}
-                            anonimize={!permissions?.member?.search}
-                            value={this.props.searchedText}
-                            onReset={this.props.clearSearch}
-                            memberHistoryAnchor={this.state.memberHistoryAnchor}
-                            memberHistory={this.props.memberHistory || []}
-                            setMemberHistoryAnchor={this.setMemberHistoryAnchor}
-                            onClickRegister={this.onSearchMemberClickRegister}
-                            permissions={permissions}
-                          />
-                        </>
-                      )}
-                    </PermissionContext.Consumer>
-                  </div>
-                </div>
-                <Divider />
-                {this.props.isRollCallMandatory && (
-                  <div className={classes.rollCallContainer}>
-                    <div className={classes.rollCallButton}>
-                      <ValidationRollCallButton
-                        nbRollCallsLeftToValidate={
-                          this.props.offer.roll_call_needs_validation ? 1 : 0
-                        }
-                        onClick={this.props.onRollCallButtonClick}
-                      />
-                    </div>
-                    <Hidden smUp>
-                      <div className={classes.rollCallText}>
-                        <ButtonBase
-                          onClick={this.openLastValidatedRollCallDialog}
+                  />
+                ) : null}
+                <div>
+                  <div className={classes.bookingsHeader}>
+                    <div />
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        flexDirection: 'row',
+                      }}
+                    >
+                      <CheckPermission requiredPermissions="member.retrieve">
+                        <IconButton
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            this.props.openMailDialog();
+                          }}
+                          color="primary"
+                          disabled={this.props.bookingLoading}
                         >
+                          <MailIcon />
+                        </IconButton>
+                        {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
+                          Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
+                          Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+                          this.props.companyId === 498) && (
+                          <BottomActionsButtonCustom
+                            buttonsProperties={[
+                              {
+                                onClick: (e) => {
+                                  e.stopPropagation();
+                                  this.props.openCommunicationDrawer();
+                                },
+                                color: 'primary',
+                                disabled:
+                                  this.props.bookingLoading ||
+                                  this.props.loading,
+                                icon: <SendIcon />,
+                                text: t('communication:generic.communication'),
+                                keepTextUnderSelectedMinWidth: true,
+                                badgeValue: this.props.numberOfUnreadAnswers,
+                              },
+                            ]}
+                            minWidth="xs"
+                          />
+                        )}
+                      </CheckPermission>
+                      <PermissionContext.Consumer>
+                        {(permissions) => (
+                          <>
+                            {permissions?.member?.create && (
+                              <IconButton
+                                onClick={this.props.openAddMemberModal}
+                                color="primary"
+                              >
+                                <PersonAddIcon />
+                              </IconButton>
+                            )}
+                            <SearchMember
+                              onChange={this.onSearchMemberChange}
+                              anonimize={!permissions?.member?.search}
+                              value={this.props.searchedText}
+                              onReset={this.props.clearSearch}
+                              memberHistoryAnchor={
+                                this.state.memberHistoryAnchor
+                              }
+                              memberHistory={this.props.memberHistory || []}
+                              setMemberHistoryAnchor={
+                                this.setMemberHistoryAnchor
+                              }
+                              onClickRegister={this.onSearchMemberClickRegister}
+                              permissions={permissions}
+                            />
+                          </>
+                        )}
+                      </PermissionContext.Consumer>
+                    </div>
+                  </div>
+                  <Divider />
+                  {this.props.isRollCallMandatory && (
+                    <div className={classes.rollCallContainer}>
+                      <div className={classes.rollCallButton}>
+                        <ValidationRollCallButton
+                          nbRollCallsLeftToValidate={
+                            this.props.offer.roll_call_needs_validation ? 1 : 0
+                          }
+                          onClick={this.props.onRollCallButtonClick}
+                        />
+                      </div>
+                      <Hidden smUp>
+                        <div className={classes.rollCallText}>
+                          <ButtonBase
+                            onClick={this.openLastValidatedRollCallDialog}
+                          >
+                            <ValidationRollCallText
+                              nbRollCallsLeftToValidate={
+                                this.props.offer.roll_call_needs_validation
+                                  ? 1
+                                  : 0
+                              }
+                              lastValidatedRollCallDate={
+                                this.props.offer.date_roll_call_last_modified
+                              }
+                            />
+                          </ButtonBase>
+                        </div>
+                      </Hidden>
+                      <Hidden xsDown>
+                        <div className={classes.rollCallText}>
                           <ValidationRollCallText
                             nbRollCallsLeftToValidate={
                               this.props.offer.roll_call_needs_validation
@@ -500,226 +558,224 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                               this.props.offer.date_roll_call_last_modified
                             }
                           />
-                        </ButtonBase>
-                      </div>
-                    </Hidden>
-                    <Hidden xsDown>
-                      <div className={classes.rollCallText}>
-                        <ValidationRollCallText
-                          nbRollCallsLeftToValidate={
-                            this.props.offer.roll_call_needs_validation ? 1 : 0
+                        </div>
+                      </Hidden>
+                    </div>
+                  )}
+                  <div className={classes.bookingOrderingContainer}>
+                    <RadioGroup
+                      value={this.props.booking_ordering}
+                      onChange={(ev) =>
+                        this.props.onChangeBookingOrdering(ev.target.value)
+                      }
+                    >
+                      <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        <FormControlLabel
+                          value={BOOKING_DATE_ORDER}
+                          control={<Radio />}
+                          label={
+                            <Typography variant="caption">
+                              {t('offer:offerManagement.bookingOrder.date')}
+                            </Typography>
                           }
-                          lastValidatedRollCallDate={
-                            this.props.offer.date_roll_call_last_modified
+                        />
+                        <FormControlLabel
+                          value={BOOKING_FIRSTNAME_ORDER}
+                          control={<Radio />}
+                          label={
+                            <Typography variant="caption">
+                              {t(
+                                'offer:offerManagement.bookingOrder.firstname',
+                              )}
+                            </Typography>
+                          }
+                        />
+                        <FormControlLabel
+                          value={BOOKING_LASTNAME_ORDER}
+                          control={<Radio />}
+                          label={
+                            <Typography variant="caption">
+                              {t('offer:offerManagement.bookingOrder.lastname')}
+                            </Typography>
                           }
                         />
                       </div>
-                    </Hidden>
+                    </RadioGroup>
                   </div>
-                )}
-                <div className={classes.bookingOrderingContainer}>
-                  <RadioGroup
-                    value={this.props.booking_ordering}
-                    onChange={(ev) =>
-                      this.props.onChangeBookingOrdering(ev.target.value)
-                    }
-                  >
-                    <div style={{ display: 'flex', flexDirection: 'row' }}>
-                      <FormControlLabel
-                        value={BOOKING_DATE_ORDER}
-                        control={<Radio />}
-                        label={
-                          <Typography variant="caption">
-                            {t('offer:offerManagement.bookingOrder.date')}
-                          </Typography>
-                        }
-                      />
-                      <FormControlLabel
-                        value={BOOKING_FIRSTNAME_ORDER}
-                        control={<Radio />}
-                        label={
-                          <Typography variant="caption">
-                            {t('offer:offerManagement.bookingOrder.firstname')}
-                          </Typography>
-                        }
-                      />
-                      <FormControlLabel
-                        value={BOOKING_LASTNAME_ORDER}
-                        control={<Radio />}
-                        label={
-                          <Typography variant="caption">
-                            {t('offer:offerManagement.bookingOrder.lastname')}
-                          </Typography>
-                        }
-                      />
-                    </div>
-                  </RadioGroup>
-                </div>
-              </div>
-              <Divider />
-              <Collapse in={!!this.props.searchedText}>
-                <div className={classes.resultListContainer}>
-                  <PermissionContext>
-                    {(permissions) => (
-                      <ResultList
-                        items={this.props.searchedMembers}
-                        loading={this.props.memberSearchLoading}
-                        renderListComponent={this.renderSearchedMember}
-                        redirectToMember={permissions?.member?.retrieve}
-                        showVaccinationStatus={this.props.showVaccinationStatus}
-                      />
-                    )}
-                  </PermissionContext>
                 </div>
                 <Divider />
-              </Collapse>
-              {this.props.bookingLoading || this.props.offerLoading ? (
-                <LinearProgress />
-              ) : (
-                <div className={classes.bookingSubHeader}>
-                  <Typography variant="caption" color="primary">
-                    {this.getNbAttendant()} {t('translation:offer.attendant')}
-                  </Typography>
-                  <Typography variant="caption" color="error">
-                    {this.getNbNonAttendant()}{' '}
-                    {t('translation:offer.nonAttendant')}
-                  </Typography>
-                  <Typography variant="caption">
-                    {`${
-                      this.getNbAttendant() + this.getNbNonAttendant()
-                    }/${this.getMaxBookings()} ${t(
-                      'translation:offer.maxBookingsNb',
-                    )}`}
-                  </Typography>
-                </div>
-              )}
-              <PermissionContext.Consumer>
-                {(permissions) => (
-                  <>
-                    <BookingTable
-                      programList={this.props.programList}
-                      redirectToMember={permissions?.member?.retrieve}
-                      newTab
-                      members={this.props.members}
-                      loading={this.props.loading}
-                      bookings={this.props.bookings}
-                      confirmBookingAttendance={
-                        this.props.confirmBookingAttendance
-                      }
-                      discardBookingAttendance={
-                        this.props.discardBookingAttendance
-                      }
-                      showQuickInvoiceButton
-                      showRevertBookingButton
-                      handleRevert={this.handleBookingRevert}
-                      onQuickInvoiceClick={this.props.addToQuickInvoicePanel}
-                      spotSchedulingEnabled={!!this.props.offer.room_blueprint}
-                      onClickChangeSpot={this.props.onClickChangeSpot}
-                      showVaccinationStatus={this.props.showVaccinationStatus}
-                      refresh={this.props.refresh}
-                      onProgramDetailsClick={onProgramDetailsClick}
-                      dateRollCallLastModified={
-                        this.props.offer.date_roll_call_last_modified
-                      }
-                      onClickWarningIcon={this.openStatusChangedDialog}
-                      onClickNoShowChip={this.openNoShowChipMessageDialog}
-                      isRollCallMandatory={this.props.isRollCallMandatory}
-                    />
-                  </>
-                )}
-              </PermissionContext.Consumer>
-
-              {this.props.bookingOptionsPending &&
-              this.props.bookingOptionsPending.length ? (
-                <WaitingListControlHeader
-                  switchWaitingListFreeze={() =>
-                    this.props.switchWaitingListFreeze(
-                      this.props.offer.id,
-                      !this.props.offer.waiting_list_disabled,
-                    )
-                  }
-                  bookingOptionsPending={this.props.bookingOptionsPending}
-                  isDisabled={this.props.offer.waiting_list_disabled}
-                />
-              ) : null}
-              <List disablePadding>
-                {this.props.bookingOptionsPending.map((bo) => (
-                  <BookingOptionForManager
-                    option={bo}
-                    onDiscard={(e) => {
-                      e.stopPropagation();
-                      this.props.discardOption(bo.id);
-                    }}
-                    disabled={moment(this.props.offer.date_start).isBefore(
-                      moment(),
-                    )}
-                    member={this.props.members.find((m) => m.id === bo.member)}
-                    onClickRegister={(e) => {
-                      e.stopPropagation();
-                      const member = getMemberFromId(
-                        bo.member,
-                        this.props.members,
-                      );
-                      this.props.registerOption(bo.id, {
-                        name: member.name,
-                        photo: member.photo,
-                        id: bo.member,
-                      });
-                    }}
-                  />
-                ))}
-              </List>
-              {!!this.props.recurrenceRuleBookingList.length && (
-                <div>
-                  <div className={classes.containerRecurrentBooking}>
-                    <div className={classes.titleRecurrenceRule}>
-                      <Typography variant="caption">
-                        {t('booking:recurrenceRule.recurrentBookings')}
-                      </Typography>
-                    </div>
-                    <Divider />
-                    <List disablePadding>
-                      {this.props.recurrenceRuleBookingList.map((r) => (
-                        <PermissionContext>
-                          {(permissions) => (
-                            <RecurrenceRuleBookingListItem
-                              key={r.id}
-                              recurrenceRuleBooking={r}
-                              onDelete={
-                                this.props.onDeleteRecurrenceRuleBooking
-                              }
-                              onClick={
-                                r.member && permissions?.member?.retrieve
-                                  ? () =>
-                                      this.props.goToMemberBooking(r.member.id)
-                                  : null
-                              }
-                            />
-                          )}
-                        </PermissionContext>
-                      ))}
-                    </List>
+                <Collapse in={!!this.props.searchedText}>
+                  <div className={classes.resultListContainer}>
+                    <PermissionContext>
+                      {(permissions) => (
+                        <ResultList
+                          items={this.props.searchedMembers}
+                          loading={this.props.memberSearchLoading}
+                          renderListComponent={this.renderSearchedMember}
+                          redirectToMember={permissions?.member?.retrieve}
+                          showVaccinationStatus={
+                            this.props.showVaccinationStatus
+                          }
+                        />
+                      )}
+                    </PermissionContext>
                   </div>
-                </div>
-              )}
-            </div>
-            <div className={this.props.classes.bookButtonWideContainer}>
-              {this.hasNext() && (
-                <Button
-                  className={this.props.classes.bookButtonWide}
-                  color="primary"
-                  onClick={this.goNext}
-                >
-                  {t('booking:recurrenceRule.showMore', {
-                    count:
-                      this.props.recurrentBookingCount -
-                      this.props.recurrentBookingItemPerPage *
-                        this.props.recurrentBookingCurrentPage,
-                  })}
-                </Button>
-              )}
-            </div>
-          </Paper>
+                  <Divider />
+                </Collapse>
+                {this.props.bookingLoading || this.props.offerLoading ? (
+                  <LinearProgress />
+                ) : (
+                  <div className={classes.bookingSubHeader}>
+                    <Typography variant="caption" color="primary">
+                      {this.getNbAttendant()} {t('translation:offer.attendant')}
+                    </Typography>
+                    <Typography variant="caption" color="error">
+                      {this.getNbNonAttendant()}{' '}
+                      {t('translation:offer.nonAttendant')}
+                    </Typography>
+                    <Typography variant="caption">
+                      {`${
+                        this.getNbAttendant() + this.getNbNonAttendant()
+                      }/${this.getMaxBookings()} ${t(
+                        'translation:offer.maxBookingsNb',
+                      )}`}
+                    </Typography>
+                  </div>
+                )}
+                <PermissionContext.Consumer>
+                  {(permissions) => (
+                    <>
+                      <BookingTable
+                        programList={this.props.programList}
+                        redirectToMember={permissions?.member?.retrieve}
+                        newTab
+                        members={this.props.members}
+                        loading={this.props.loading}
+                        bookings={this.props.bookings}
+                        confirmBookingAttendance={
+                          this.props.confirmBookingAttendance
+                        }
+                        discardBookingAttendance={
+                          this.props.discardBookingAttendance
+                        }
+                        showQuickInvoiceButton
+                        showRevertBookingButton
+                        handleRevert={this.handleBookingRevert}
+                        onQuickInvoiceClick={this.props.addToQuickInvoicePanel}
+                        spotSchedulingEnabled={
+                          !!this.props.offer.room_blueprint
+                        }
+                        onClickChangeSpot={this.props.onClickChangeSpot}
+                        showVaccinationStatus={this.props.showVaccinationStatus}
+                        refresh={this.props.refresh}
+                        onProgramDetailsClick={onProgramDetailsClick}
+                        dateRollCallLastModified={
+                          this.props.offer.date_roll_call_last_modified
+                        }
+                        onClickWarningIcon={this.openStatusChangedDialog}
+                        onClickNoShowChip={this.openNoShowChipMessageDialog}
+                        isRollCallMandatory={this.props.isRollCallMandatory}
+                      />
+                    </>
+                  )}
+                </PermissionContext.Consumer>
+
+                {this.props.bookingOptionsPending &&
+                this.props.bookingOptionsPending.length ? (
+                  <WaitingListControlHeader
+                    switchWaitingListFreeze={() =>
+                      this.props.switchWaitingListFreeze(
+                        this.props.offer.id,
+                        !this.props.offer.waiting_list_disabled,
+                      )
+                    }
+                    bookingOptionsPending={this.props.bookingOptionsPending}
+                    isDisabled={this.props.offer.waiting_list_disabled}
+                  />
+                ) : null}
+                <List disablePadding>
+                  {this.props.bookingOptionsPending.map((bo) => (
+                    <BookingOptionForManager
+                      option={bo}
+                      onDiscard={(e) => {
+                        e.stopPropagation();
+                        this.props.discardOption(bo.id);
+                      }}
+                      disabled={moment(this.props.offer.date_start).isBefore(
+                        moment(),
+                      )}
+                      member={this.props.members.find(
+                        (m) => m.id === bo.member,
+                      )}
+                      onClickRegister={(e) => {
+                        e.stopPropagation();
+                        const member = getMemberFromId(
+                          bo.member,
+                          this.props.members,
+                        );
+                        this.props.registerOption(bo.id, {
+                          name: member.name,
+                          photo: member.photo,
+                          id: bo.member,
+                        });
+                      }}
+                    />
+                  ))}
+                </List>
+                {!!this.props.recurrenceRuleBookingList.length && (
+                  <div>
+                    <div className={classes.containerRecurrentBooking}>
+                      <div className={classes.titleRecurrenceRule}>
+                        <Typography variant="caption">
+                          {t('booking:recurrenceRule.recurrentBookings')}
+                        </Typography>
+                      </div>
+                      <Divider />
+                      <List disablePadding>
+                        {this.props.recurrenceRuleBookingList.map((r) => (
+                          <PermissionContext>
+                            {(permissions) => (
+                              <RecurrenceRuleBookingListItem
+                                key={r.id}
+                                recurrenceRuleBooking={r}
+                                onDelete={
+                                  this.props.onDeleteRecurrenceRuleBooking
+                                }
+                                onClick={
+                                  r.member && permissions?.member?.retrieve
+                                    ? () =>
+                                        this.props.goToMemberBooking(
+                                          r.member.id,
+                                        )
+                                    : null
+                                }
+                              />
+                            )}
+                          </PermissionContext>
+                        ))}
+                      </List>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div className={this.props.classes.bookButtonWideContainer}>
+                {this.hasNext() && (
+                  <Button
+                    className={this.props.classes.bookButtonWide}
+                    color="primary"
+                    onClick={this.goNext}
+                  >
+                    {t('booking:recurrenceRule.showMore', {
+                      count:
+                        this.props.recurrentBookingCount -
+                        this.props.recurrentBookingItemPerPage *
+                          this.props.recurrentBookingCurrentPage,
+                    })}
+                  </Button>
+                )}
+              </div>
+            </Paper>
+          </>
         )}
       </div>
     );
@@ -842,6 +898,9 @@ const styles = (theme) => ({
   },
   bold: {
     fontWeight: 500,
+  },
+  alertHybridSection: {
+    paddingBottom: theme.spacing(1),
   },
 });
 

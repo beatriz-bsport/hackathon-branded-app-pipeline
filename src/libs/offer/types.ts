@@ -130,6 +130,7 @@ export type Offer<
   roll_call_needs_validation: boolean;
   date_roll_call_last_modified?: string;
   linked_hybrid_session_id: number | null;
+  is_broadcast: boolean;
 };
 
 export type Offer_FULL = Offer<

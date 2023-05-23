@@ -2,7 +2,11 @@ import React, { useCallback, useMemo } from 'react';
 
 import FitnessCenter from '@material-ui/icons/FitnessCenter';
 import { useFormikContext } from 'formik';
-import { COACH_PAYMENT_RULE_FOR_SESSION } from '@bsport/common/lib/master-data/coach_payment_rule';
+import {
+  COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY,
+  COACH_PAYMENT_RULE_FOR_SESSION,
+  COACH_PAYMENT_RULE_FOR_WORKSHOP,
+} from '@bsport/common/lib/master-data/coach_payment_rule';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 
@@ -22,6 +26,7 @@ type Props = {
   coachPaymentRulesByKind: { [kind: number]: CoachPaymentRule[] };
   isEditOffer?: boolean;
   disabled?: boolean;
+  isWorkshop?: boolean;
 };
 
 const OfferFormCoach = (props: Props) => {
@@ -31,6 +36,7 @@ const OfferFormCoach = (props: Props) => {
     coachPaymentRulesByKind,
     isEditOffer,
     disabled,
+    isWorkshop,
   } = props;
   const classes = useOfferFormStyles();
   const { t } = useTranslation('offer');
@@ -82,27 +88,36 @@ const OfferFormCoach = (props: Props) => {
     [coachOverride, coaches],
   );
 
+  const coachPaymentRulesList = useMemo(() => {
+    if (coachPaymentRulesByKind) {
+      if (isWorkshop === undefined) {
+        return coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION].concat(
+          coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY],
+        ).concat(coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_WORKSHOP]);
+      }
+      if (isWorkshop) {
+        return coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION].concat(
+          coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_WORKSHOP],
+        );
+      }
+      return coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION].concat(
+        coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY],
+      );
+    }
+    return [];
+  }, [coachPaymentRulesByKind, isWorkshop]);
+
   const selectedPaymentRule = useMemo(() => {
     const paymentRules: number[] = [];
-    const selectedRule = coachPaymentRulesByKind
-      ? coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]?.find(
-          (rule) => rule?.id === coachPaymentRule,
-        )
+    const selectedRule = coachPaymentRulesList
+      ? coachPaymentRulesList?.find((rule) => rule?.id === coachPaymentRule)
       : null;
 
     if (selectedRule) {
       paymentRules.push(selectedRule.id);
     }
     return paymentRules;
-  }, [coachPaymentRule, coachPaymentRulesByKind]);
-
-  const coachPaymentRulesList = useMemo(
-    () =>
-      coachPaymentRulesByKind
-        ? coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]
-        : [],
-    [coachPaymentRulesByKind],
-  );
+  }, [coachPaymentRule, coachPaymentRulesList]);
 
   return (
     <FormSection

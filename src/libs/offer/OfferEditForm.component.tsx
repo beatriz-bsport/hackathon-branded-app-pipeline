@@ -313,6 +313,7 @@ export const OfferEditForm = (props: Props) => {
             editableCoachPaymentRule={editableCoachPaymentRule}
             isEditOffer
             disabled={values.is_hybrid && offer?.meta_activity?.is_broadcast}
+            isWorkshop={metaActivity?.is_workshop}
           />
 
           <OfferFormSettings

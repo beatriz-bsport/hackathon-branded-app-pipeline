@@ -174,6 +174,7 @@ export const OfferCreateForm = (props: Props) => {
         coaches={coaches}
         coachPaymentRulesByKind={coachPaymentRulesByKind}
         editableCoachPaymentRule={editableCoachPaymentRule}
+        isWorkshop={metaActivity?.is_workshop}
       />
 
       {!isOfferInGroup && (

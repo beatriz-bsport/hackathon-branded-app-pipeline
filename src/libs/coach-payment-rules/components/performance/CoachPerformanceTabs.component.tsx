@@ -6,8 +6,12 @@ import Tab from '@material-ui/core/Tab';
 import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
+  COACH_PERFORMANCE_FOR_GROUP_ACTIVITY,
+  COACH_PERFORMANCE_FOR_WORKSHOP,
   COACH_PAYMENT_RULE_FOR_SESSION,
   COACH_PAYMENT_RULE_FOR_APPOINTMENT,
+  COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY,
+  COACH_PAYMENT_RULE_FOR_WORKSHOP,
   COACH_PERFORMANCE_FOR_ALL,
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import Typography from '@material-ui/core/Typography';
@@ -59,12 +63,48 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
       props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_SESSION]) ||
     [];
 
+  const coachGroupActivityPaymentRulesList = React.useMemo(
+    () =>
+      (!props.hideRuleSetter &&
+        !props.asCoach &&
+        props.coachPaymentRulesByKind &&
+        props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY]) ||
+      [],
+    [props.asCoach, props.coachPaymentRulesByKind, props.hideRuleSetter],
+  );
+
+  const coachWorkshopPaymentRulesList = React.useMemo(
+    () =>
+      (!props.hideRuleSetter &&
+        !props.asCoach &&
+        props.coachPaymentRulesByKind &&
+        props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_WORKSHOP]) ||
+      [],
+    [props.asCoach, props.coachPaymentRulesByKind, props.hideRuleSetter],
+  );
+
   const coachPrivateServicePaymentRulesList =
     (!props.hideRuleSetter &&
       !props.asCoach &&
       props.coachPaymentRulesByKind &&
-      props.coachPaymentRulesByKind[COACH_PERFORMANCE_FOR_APPOINTMENT]) ||
+      props.coachPaymentRulesByKind[COACH_PAYMENT_RULE_FOR_APPOINTMENT]) ||
     [];
+
+  const coachGroupActivityPerformances = React.useMemo(
+    () =>
+      props.coachWithPerformance?.performance[
+        COACH_PERFORMANCE_FOR_SESSION
+      ]?.filter((coachPerformance) => !coachPerformance.is_workshop),
+    [props.coachWithPerformance?.performance],
+  );
+
+  const coachWorkshopPerformances = React.useMemo(
+    () =>
+      props.coachWithPerformance?.performance[
+        COACH_PERFORMANCE_FOR_SESSION
+      ]?.filter((coachPerformance) => coachPerformance.is_workshop),
+    [props.coachWithPerformance?.performance],
+  );
 
   const handlePdfExportationSession = React.useCallback(
     () =>
@@ -90,11 +130,37 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
     return (
       <CoachPerformanceSessionTable
         performances={
-          props.coachWithPerformance?.performance[
-            COACH_PAYMENT_RULE_FOR_SESSION
-          ]
+          props.coachWithPerformance?.performance[COACH_PERFORMANCE_FOR_SESSION]
         }
         coachPaymentRulesList={coachSessionPaymentRulesList}
+        coach={props.coachWithPerformance}
+        setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
+        hideRuleSetter={props.hideRuleSetter}
+        asCoach={props.asCoach}
+        handlePdfExportation={handlePdfExportationSession}
+        disablePdfButton={!handlePdfExportation}
+      />
+    );
+  }
+  if (props.value === COACH_PERFORMANCE_FOR_GROUP_ACTIVITY) {
+    return (
+      <CoachPerformanceSessionTable
+        performances={coachGroupActivityPerformances}
+        coachPaymentRulesList={coachGroupActivityPaymentRulesList}
+        coach={props.coachWithPerformance}
+        setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
+        hideRuleSetter={props.hideRuleSetter}
+        asCoach={props.asCoach}
+        handlePdfExportation={handlePdfExportationSession}
+        disablePdfButton={!handlePdfExportation}
+      />
+    );
+  }
+  if (props.value === COACH_PERFORMANCE_FOR_WORKSHOP) {
+    return (
+      <CoachPerformanceSessionTable
+        performances={coachWorkshopPerformances}
+        coachPaymentRulesList={coachWorkshopPaymentRulesList}
         coach={props.coachWithPerformance}
         setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
         hideRuleSetter={props.hideRuleSetter}
@@ -226,12 +292,12 @@ export const CoachPerformanceTabs = (props: TabProps) => {
   const { performance } = coachWithPerformance;
   const { t } = useTranslation(['paymentRules', 'coachPerformance']);
   const classes = useStyles();
-  const [value, setValue] = useState<0 | 1 | 2>(0);
+  const [value, setValue] = useState<0 | 1 | 2 | 3 | 4>(0);
   const [oldestUpdate, setOldestUpdate] = React.useState<number | null>(null);
 
   const handleChange = (
-    event: React.MouseEvent<HTMLElement>,
-    newValue: 0 | 1 | 2,
+    _event: React.MouseEvent<HTMLElement>,
+    newValue: 0 | 1 | 2 | 3 | 4,
   ) => {
     setValue(newValue);
   };
@@ -253,6 +319,7 @@ export const CoachPerformanceTabs = (props: TabProps) => {
       );
     }
   }, [coachWithPerformance, loading]);
+
   return (
     <div>
       <Tabs
@@ -268,6 +335,26 @@ export const CoachPerformanceTabs = (props: TabProps) => {
               : 0
           })`}
           value={COACH_PERFORMANCE_FOR_SESSION}
+        />
+        <Tab
+          label={`${t('tabs.groupActivity')}(${
+            performance[COACH_PERFORMANCE_FOR_SESSION]
+              ? performance[COACH_PERFORMANCE_FOR_SESSION].filter(
+                  (coachPerformance) => !coachPerformance.is_workshop,
+                ).length ?? 0
+              : 0
+          })`}
+          value={COACH_PERFORMANCE_FOR_GROUP_ACTIVITY}
+        />
+        <Tab
+          label={`${t('tabs.workshop')}(${
+            performance[COACH_PERFORMANCE_FOR_SESSION]
+              ? performance[COACH_PERFORMANCE_FOR_SESSION].filter(
+                  (coachPerformance) => coachPerformance.is_workshop,
+                ).length ?? 0
+              : 0
+          })`}
+          value={COACH_PERFORMANCE_FOR_WORKSHOP}
         />
         <Tab
           label={`${t('tabs.appointment')}(${

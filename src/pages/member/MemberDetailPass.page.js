@@ -526,6 +526,7 @@ export class MemberDetailPass extends Component<Props, State> {
               },
             );
           }}
+          timezone={this.props.timezone}
         />
         <RevertBookingDialog
           handleBookingDeletion={(data, options) => {

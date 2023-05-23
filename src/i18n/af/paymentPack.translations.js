@@ -282,6 +282,9 @@ exports.default = {
       nbDays: {
         label: 'Nombre de jours additionnels',
       },
+      datePicker: {
+        label: 'Nouvelle date',
+      },
     },
     options: {
       addNumberOfDays:

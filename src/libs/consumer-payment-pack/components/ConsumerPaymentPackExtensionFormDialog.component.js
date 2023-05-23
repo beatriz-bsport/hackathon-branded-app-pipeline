@@ -3,6 +3,7 @@ import React from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import moment from 'moment-timezone';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -22,6 +23,8 @@ import { compose, withState } from 'recompose';
 
 import { formatAsDate } from '../../../utils/datetime';
 import NumericInput from '../../../components/input/NumericInput.component';
+import DateInput from '#components/input/DateInput.component';
+
 import type { ConsumerPaymentPack } from '../types';
 
 type Props = {
@@ -38,8 +41,11 @@ type Props = {
   t: TFunction,
   classes: Object,
   processing: boolean,
+  timezone: string,
 };
 export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
+  const { consumerPaymentPack, setNbDays, timezone } = props;
+
   // CLEAN ME : Declare an enum in a TS file and import it here
   const EXTENSION_OPTIONS = [
     {
@@ -61,6 +67,27 @@ export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
       setSelectedExtensionOption(event.target.value);
     },
     [setSelectedExtensionOption],
+  );
+
+  const endingDate = React.useMemo(
+    () => moment(consumerPaymentPack?.ending_date).tz(timezone),
+    [consumerPaymentPack?.ending_date, timezone],
+  );
+
+  const newDate = React.useMemo(
+    () =>
+      moment(consumerPaymentPack?.ending_date)
+        .tz(timezone)
+        .add(props.nbDays, 'days'),
+    [consumerPaymentPack?.ending_date, timezone, props.nbDays],
+  );
+
+  const handleSelectDate = React.useCallback(
+    (selectedDate: moment.Moment) => {
+      const numberOfDaysToAdd = selectedDate.diff(endingDate, 'days');
+      setNbDays(numberOfDaysToAdd);
+    },
+    [endingDate, setNbDays],
   );
 
   return (
@@ -92,10 +119,19 @@ export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
               value={props.nbDays}
               fullWidth
               label={props.t('extension.create.nbDays.label')}
-              onChange={(ev) => props.setNbDays(ev.target.value)}
+              onChange={(ev) => setNbDays(ev.target.value)}
               InputProps={{
                 inputProps: { step: 1, min: 0 },
               }}
+              disabled={props.processing}
+            />
+          )}
+          {selectedExtensionOption === 'datePicker' && consumerPaymentPack && (
+            <DateInput
+              value={newDate}
+              onChange={handleSelectDate}
+              minDate={consumerPaymentPack?.ending_date}
+              label={props.t('extension.create.datePicker.label')}
               disabled={props.processing}
             />
           )}
@@ -116,12 +152,7 @@ export const ConsumerPaymentPackExtensionFormDialog = (props: Props) => {
               </Typography>
               <Typography variant="subtitle2">
                 {props.t('extension.create.explain.newDate') +
-                  formatAsDate(
-                    moment(props.consumerPaymentPack.ending_date).add(
-                      'days',
-                      props.nbDays,
-                    ),
-                  )}
+                  formatAsDate(newDate)}
               </Typography>
             </div>
           ) : null}

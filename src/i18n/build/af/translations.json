@@ -5160,6 +5160,10 @@
         "warning": "Vérifiez que la nouvelle date ne fait pas dépasser ce pass sur une nouvelle période fiscale. Si c'est le cas, vérifiez avec votre comptable la pertinence de cette opération.",
         "note": { "label": "Notes" },
         "nbDays": { "label": "Nombre de jours additionnels" }
+      },
+      "options": {
+        "addNumberOfDays": "Étendre la validité en ajoutant un certain nombre de jours",
+        "selectNewEndDate": "Définir une nouvelle date de fin de validité"
       }
     },
     "form": {

@@ -283,6 +283,11 @@ exports.default = {
         label: 'Nombre de jours additionnels',
       },
     },
+    options: {
+      addNumberOfDays:
+        'Étendre la validité en ajoutant un certain nombre de jours',
+      selectNewEndDate: 'Définir une nouvelle date de fin de validité',
+    },
   },
   form: {
     paymentPack: {

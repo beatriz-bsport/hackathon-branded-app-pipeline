@@ -451,13 +451,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           variant={this.props.variant}
         />
         {this.state.displayGroupPopup && (
-          <GroupRulePopup
+          <GroupRulePopupContained
             open
-            loading={this.props.offerGroupLoading}
             selectedOffer={this.state.displayGroupPopup}
             onClose={this.handleCloseGroupPopup}
             onSubmit={this.handleContinueGroupPopup}
-            getOffersListByGroup={this.props.getOffersListByGroup}
           />
         )}
       </>
@@ -465,6 +463,13 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   }
 }
 /* eslint-enable */
+
+const GroupRulePopupContained = connect((state: RootState) => ({
+  getOffersListByGroup: memoize((id) =>
+    getOffersListByGroupSelector(state, id),
+  ),
+  offerGroupLoading: state.offer.groups.loading,
+}))(GroupRulePopup);
 
 const mapStateToProps = (state: RootState) => ({
   offers: getMarketplaceOfferList(state),
@@ -490,10 +495,6 @@ const mapStateToProps = (state: RootState) => ({
   activeCustomLevels: getActiveCustomLevels(state),
   getLevel: getLevelsDetails(state),
   customLevels: getAllCustomLevels(state),
-  getOffersListByGroup: memoize((id) =>
-    getOffersListByGroupSelector(state, id),
-  ),
-  offerGroupLoading: state.offer.groups.loading,
 });
 
 const mapDispatchToProps = {

@@ -9,9 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { compose, withProps } from 'recompose';
 
-import { withTranslation } from 'react-i18next';
 import asyncComponent from './AsyncComponent';
-import namespaces from './i18n/namespaces.json';
 import Banner from './components/navigation/Banner.component';
 import Config from './config';
 import IEMessage from './components/IEMessage.component';
@@ -221,7 +219,6 @@ export default compose(
   withProps(({ queryParams }) => ({
     companyId: parseInt(queryParams?.membership),
   })),
-  withTranslation(namespaces),
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),
 )(Root);

@@ -25,6 +25,7 @@ const PAYMENT_GRAPH_IDENTIFIER = 'graph_payments';
 const BILLING_PLAN_GRAPH_IDENTIFIER = 'graph_billing_plan';
 const SUBSCRIPTION_GRAPH_IDENTIFIER = 'graph_subscriptions';
 const DISPUTE_GRAPH_IDENTIFIER = 'graph_dispute';
+const INVOICE_GRAPH_IDENTIFIER = 'graph_invoice_items';
 
 exports.default = {
   save: 'Sauvegarder',
@@ -227,6 +228,7 @@ exports.default = {
       [SUBSCRIPTION_GRAPH_IDENTIFIER]: 'Factures souscriptions',
       [BILLING_PLAN_GRAPH_IDENTIFIER]: 'Souscriptions',
       [DISPUTE_GRAPH_IDENTIFIER]: 'Litiges',
+      [INVOICE_GRAPH_IDENTIFIER]: 'Achats',
     },
     accumulate: {
       total: 'Accumuler',
@@ -260,10 +262,18 @@ exports.default = {
     is_recurrent_booking: 'Réservation récurrente',
     last_invoice_status: 'Statut du dernier paiement',
     source_device: 'Origine',
+    franchisor_commission_amount_notax:
+      'Pourcentage de commission franchisé HT',
+    franchisor_commission_amount: 'Pourcentage de commission franchisé TTC',
+    total_price_notax: 'Montant facturé HT',
+    total_price: 'Montant facturé TTC',
+    invoice_date_created: "Date d'émission de la facture",
+    author: 'Auteur',
     privatebooking_pk: 'Nombre de RDV',
     payment_pk: 'Nombre de paiements',
     plannedinvoice_pk: 'Nombre de factures',
     billingplan_pk: "Nombre d'abonnements",
+    invoiceitem_pk: "Nombre d'objets",
     booking_effectif_timeslots: 'Effectif moyen',
     activity_kind: 'Type de cours',
     is_workshop: 'Atelier',

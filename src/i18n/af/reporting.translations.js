@@ -245,9 +245,8 @@ exports.default = {
     fee: 'Frais',
     first_name: 'Prénom',
     full_address: 'Adresse complète',
-    franchisor_commission_amount: 'Pourcentage de commission franchisé TTC',
-    franchisor_commission_amount_notax:
-      'Pourcentage de commission franchisé HT',
+    franchisor_commission_amount: 'Frais de commission franchisée  TTC',
+    franchisor_commission_amount_notax: 'Frais de commission franchisée HT',
     gender: 'Sexe',
     id: 'ID',
     identifier: 'Identifiant',

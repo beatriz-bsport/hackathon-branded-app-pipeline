@@ -99,6 +99,7 @@ const initialValues: OfferFormValues = {
   roomBlueprintSlots: null,
   isZoomAppEnabled: true,
   isShowPartnership: true,
+  is_hybrid: false,
 };
 
 const OfferFormMeta: Meta<typeof OfferCreateForm> = {

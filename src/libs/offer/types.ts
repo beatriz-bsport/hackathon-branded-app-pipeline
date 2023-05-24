@@ -129,7 +129,7 @@ export type Offer<
   other?: number;
   roll_call_needs_validation: boolean;
   date_roll_call_last_modified?: string;
-  linked_hybrid_session_id: number | null;
+  linked_hybrid_offer_id: number | null;
   is_broadcast: boolean;
 };
 
@@ -295,7 +295,7 @@ export type OfferFormValues = {
   selectedSimilarOffers?: number[];
   isCoachOverridePropagate?: boolean;
   coachOverridePropagateMode?: number;
-  isHybrid: boolean;
+  is_hybrid: boolean;
 };
 
 export type OfferFormRecurrenceWeekDay =
@@ -326,10 +326,14 @@ export type OfferCreate = {
   blacklist_tags: number[];
   allow_guest_offer: boolean;
   room_blueprint?: number;
-  isHybrid: boolean;
+  is_hybrid: boolean;
 };
 
-export type OfferEdit = Omit<OfferCreate, 'dates' | 'credits'> & {
+export type OfferEdit = Omit<
+  OfferCreate,
+  'dates' | 'credits' | 'partner_max_booking_count',
+  'is_hybrid'
+> & {
   id: number;
   notifyConsumers: boolean;
   available_on_partnership: boolean;

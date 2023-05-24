@@ -1,11 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-import classNames from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 import { withTranslation, TFunction } from 'react-i18next';
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 
 import Typography from '@material-ui/core/Typography';
 import FolderIcon from '@material-ui/icons/Folder';
@@ -44,7 +42,7 @@ import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPa
 import { getRecurrenceTrad } from '#libs/group-offer/utils';
 import { formatAsDatetimeAdapted, formatAsTime } from '../../utils/datetime';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
-import OfferCardStastitics from './OfferCardStastistics.compant';
+import OfferCardStastitics from '../../libs/offer/components/OfferCardStastistics.compant';
 
 type Props = {
   t: TFunction,
@@ -89,7 +87,7 @@ export class OfferCard extends Component<Props, State> {
       credit_price_override,
       customLevel,
       meta_activity,
-      linked_hybrid_session_id,
+      linked_hybrid_offer_id,
     } = offer;
 
     return (
@@ -115,7 +113,7 @@ export class OfferCard extends Component<Props, State> {
             </Typography>
           )}
           <div className={classes.levelAndHybridRow}>
-            {linked_hybrid_session_id && (
+            {linked_hybrid_offer_id && (
               <OfferIconHybridIndicator iconProps={{ fontSize: 'large' }} />
             )}
             <Level customLevel={customLevel} />

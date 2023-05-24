@@ -338,8 +338,8 @@ export class BookingManagement extends React.PureComponent<Props, State> {
 
   openLinkedHybridOfferManagementPage = (e) => {
     e.stopPropagation();
-    if (this.props.offer?.linked_hybrid_session_id) {
-      window.open(`/offer/${this.props.offer?.linked_hybrid_session_id}`);
+    if (this.props.offer?.linked_hybrid_offer_id) {
+      window.open(`/offer/${this.props.offer?.linked_hybrid_offer_id}`);
     }
   };
 
@@ -402,7 +402,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
 
         {!!offer && (
           <>
-            {offer?.linked_hybrid_session_id && (
+            {offer?.linked_hybrid_offer_id && (
               <div className={classes.alertHybridSection}>
                 <Alert
                   severity="info"

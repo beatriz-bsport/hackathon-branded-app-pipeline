@@ -80,7 +80,7 @@ const OfferFormSpecificities = (props: Props) => {
     establishment,
     level,
     selectedMetaActivity,
-    isHybrid,
+    is_hybrid,
   } = values;
   const {
     activeCustomLevels,
@@ -194,7 +194,7 @@ const OfferFormSpecificities = (props: Props) => {
           noMulti
           selectOption={handleSelectMetaActivity}
           controlBackground={isOfferInGroup && '#F2F2F2'}
-          disabled={isOfferInGroup || isHybrid}
+          disabled={isOfferInGroup || is_hybrid}
         />
       )}
 
@@ -281,7 +281,7 @@ const OfferFormSpecificities = (props: Props) => {
           containerStyle={classes.levelSelector}
           buttonContainerStyle={classes.levelSelectorAdd}
           error={!!errors.level}
-          isDisabled={isOfferInGroup || (isHybrid && isBroadcast)}
+          isDisabled={isOfferInGroup || (is_hybrid && isBroadcast)}
         />
       </OfferFormField>
 
@@ -415,11 +415,11 @@ const OfferFormSpecificities = (props: Props) => {
         >
           <SwitchField
             id="offer-form-available-partnership-switch"
-            name="isHybrid"
+            name="is_hybrid"
             label={t('form.section.specificities.field.hybridLabel')}
             switchColor="secondary"
           />
-          {isHybrid && (
+          {is_hybrid && (
             <Alert severity="info" className={classes.centerAlert}>
               {t('form.section.specificities.field.hybridHelper', {
                 onlineOfferDefaultEffectif:

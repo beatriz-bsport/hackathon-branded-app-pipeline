@@ -161,7 +161,7 @@ const PlanningWithDateAndOffer = compose(
       offerId && selectedOffer
         ? offers.find(
             (offer) =>
-              offer && offer.linked_hybrid_session_id === selectedOffer.id,
+              offer && offer.linked_hybrid_offer_id === selectedOffer.id,
           )
         : null;
     return {

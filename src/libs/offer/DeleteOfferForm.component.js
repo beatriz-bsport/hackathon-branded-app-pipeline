@@ -330,7 +330,7 @@ export class DeleteOfferForm extends Component<Props, State> {
             {t('form.offer.delete.explainNotify')}
           </Typography>
         </div>
-        {this.props.offer?.linked_hybrid_session_id && (
+        {this.props.offer?.linked_hybrid_offer_id && (
           <div className={classes.row}>
             <Switch
               checked={cancelLinkedHybridSession}

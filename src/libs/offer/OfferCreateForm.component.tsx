@@ -222,7 +222,7 @@ const formikFormWrapper = withFormik<
       durationMinute: 60,
       effectif: null,
       establishment: null,
-      isHybrid: false,
+      is_hybrid: false,
       isManagerOnly: false,
       isMetaActivityBroadcast: props.metaActivity?.is_broadcast,
       isOfferInGroup: props.isOfferInGroup,
@@ -270,7 +270,7 @@ const formikFormWrapper = withFormik<
       selectedWhitelistTags,
       selectedBlacklistTags,
       allowGuestOffer,
-      isHybrid,
+      is_hybrid,
     } = values;
 
     const offer: OfferCreate = {
@@ -298,7 +298,7 @@ const formikFormWrapper = withFormik<
       whitelist_tags: selectedWhitelistTags,
       blacklist_tags: selectedBlacklistTags,
       allow_guest_offer: allowGuestOffer,
-      isHybrid,
+      is_hybrid,
     };
 
     if (roomBlueprint) {

@@ -341,11 +341,10 @@ export function OfferMinimalSummary(props: Props) {
                 <ListItemText
                   primary={
                     <div className={classes.offerTitleText}>
-                      {offer.is_broadcast &&
-                        !offer?.linked_hybrid_session_id && (
-                          <VideocamIcon className={classes.videocamIcon} />
-                        )}
-                      {offer?.linked_hybrid_session_id && (
+                      {offer.is_broadcast && !offer?.linked_hybrid_offer_id && (
+                        <VideocamIcon className={classes.videocamIcon} />
+                      )}
+                      {offer?.linked_hybrid_offer_id && (
                         <OfferIconHybridIndicator
                           className={classes.videocamIcon}
                           iconProps={{ fontSize: 'large' }}

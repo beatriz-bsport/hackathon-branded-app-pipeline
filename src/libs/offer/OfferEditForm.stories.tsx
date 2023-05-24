@@ -93,7 +93,8 @@ const initialValues: OfferFormValues = {
     PropagateCoachOverrideToSimilarOffers.PROPAGATE_TO_OFFERS_WITH_SAME_COACH_OVERRIDE_ONLY,
   isCoachOverridePropagate: true,
   isShowPartnership: false,
-  is_hybrid:false,
+  is_hybrid: false,
+  additionalCoaches: [],
 };
 
 const OfferEditFormMeta: Meta<typeof OfferEditForm> = {

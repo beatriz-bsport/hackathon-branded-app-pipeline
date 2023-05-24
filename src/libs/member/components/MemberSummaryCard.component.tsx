@@ -33,6 +33,7 @@ import { compose, withState } from 'recompose';
 
 import { Theme } from '@material-ui/core/styles';
 import createStyles from '@material-ui/core/styles/createStyles';
+import { Cake } from '@material-ui/icons';
 
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import CreditMemberBadge from './CreditMemberBadge.component';
@@ -99,23 +100,38 @@ export class MemberSummaryCard extends Component<Props> {
 
     const age = moment().diff(moment(member.consumer.birthday), 'years');
 
+    const isBirthday = member
+      ? moment().date() === moment(member.consumer.birthday).date() &&
+        moment().month() === moment(member.consumer.birthday).month()
+      : false;
+
     return (
       <List dense>
         <ListItem>
           <TodayIcon />
           <ListItemText
             className={this.props.classes.listItemText}
-            primary={`${
-              member.consumer.birthday
-                ? t('member:birth.bornIn', {
-                    context: member.consumer.gender,
-                    date: moment(member.consumer.birthday).format('L'),
-                    age,
-                  })
-                : t('member:birth.unknown', {
-                    context: member.consumer.gender,
-                  })
-            }`}
+            primary={
+              <div className={this.props.classes.rowInfo}>
+                <div>
+                  {' '}
+                  {`${
+                    member.consumer.birthday
+                      ? t('member:birth.bornIn', {
+                          context: member.consumer.gender,
+                          date: moment(member.consumer.birthday).format('L'),
+                          age,
+                        })
+                      : t('member:birth.unknown', {
+                          context: member.consumer.gender,
+                        })
+                  }`}
+                </div>
+                <div>
+                  {isBirthday && <Cake fontSize="small" color="secondary" />}
+                </div>
+              </div>
+            }
           />
         </ListItem>
         <ListItem>
@@ -460,6 +476,9 @@ const styles = (theme: Theme) =>
     rowInfo: {
       display: 'flex',
       alignItems: 'center',
+      '&>*': {
+        marginRight: theme.spacing(0.5),
+      },
     },
     listItemText: {
       marginLeft: theme.spacing(2),

@@ -13,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import LockIcon from '@material-ui/icons/Lock';
 import Hidden from '@material-ui/core/Hidden';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import TodayIcon from '@material-ui/icons/Today';
@@ -84,6 +85,7 @@ type OwnProps = {
   showVaccinationStatus: boolean;
   favoriteEstablishmentGroupList?: Array<EstablishmentGroup>;
   resolvedGenericTags: ResolvedGenericTags;
+  handleOpenResetPasswordDialog: () => void;
 };
 
 type Props = OwnProps & WithTranslation & WithStyles<typeof styles>;
@@ -341,6 +343,16 @@ export class MemberSummaryCard extends Component<Props> {
             <Button onClick={this.props.goToMember} color="primary">
               <Hidden xsDown>{t('common.show')}</Hidden>
               <ArrowForwardIcon className={this.props.classes.rightIcon} />
+            </Button>
+          ) : null}
+          {this.props.handleOpenResetPasswordDialog &&
+          this.props.member?.email ? (
+            <Button
+              onClick={this.props.handleOpenResetPasswordDialog}
+              color="primary"
+            >
+              <Hidden xsDown>{t('member:resetPassword.button')}</Hidden>
+              <LockIcon className={this.props.classes.rightIcon} />
             </Button>
           ) : null}
         </div>

@@ -396,5 +396,6 @@ exports.default = {
     confirmation: 'Instructions correctement envoyées à {{memberEmail}}',
     error:
       "Erreur lors de l'envoi des instructions de réinitialisation de mot de passe",
+    button: 'Réinitialiser le mot de passe',
   },
 };

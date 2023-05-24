@@ -3673,7 +3673,8 @@
       "dialogTitle": "Réinitialisation de mot de passe",
       "dialogContent": "Vous êtes sur le point d'envoyer les instructions de réinitialisation de mot de passe à {{memberEmail}}",
       "confirmation": "Instructions correctement envoyées à {{memberEmail}}",
-      "error": "Erreur lors de l'envoi des instructions de réinitialisation de mot de passe"
+      "error": "Erreur lors de l'envoi des instructions de réinitialisation de mot de passe",
+      "button": "Réinitialiser le mot de passe"
     }
   },
   "membership": {

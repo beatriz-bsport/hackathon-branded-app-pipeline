@@ -117,6 +117,7 @@ import {
   withReceiver,
   onlyUsable,
 } from '#libs/giftcard/selectors';
+import { resetPassword } from '../../actions/auth.actions';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
@@ -124,6 +125,7 @@ import {
 import type { ConsumerGiftcard } from '#libs/giftcard/types';
 import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
 import PaymentModal from '#libs/payment/components/PaymentModal.component';
+import MemberResetPasswordDialog from '#libs/member/components/MemberResetPasswordDialog.component';
 import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 
@@ -142,6 +144,9 @@ type State = {
   fileToUpload: number;
   fileToDelete: number;
   paymentMethodType: string;
+  isResetPasswordEmailSent: boolean;
+  isResetPasswordDialogOpen: boolean;
+  isResetPasswordError: boolean;
 };
 
 export class MemberDetailPage extends React.Component<Props> {
@@ -153,6 +158,9 @@ export class MemberDetailPage extends React.Component<Props> {
     fileToDelete: null,
     paymentMethodType:
       this.props.companyTheme.currency === 'eur' ? 'sepa_debit' : 'card',
+    isResetPasswordEmailSent: false,
+    isResetPasswordDialogOpen: false,
+    isResetPasswordError: false,
   };
 
   componentDidMount() {
@@ -336,6 +344,41 @@ export class MemberDetailPage extends React.Component<Props> {
   handleMemberSelected = (id: number) =>
     this.props.mergeInto(this.props.id, id);
 
+  handleOpenResetPasswordDialog = () => {
+    this.setState({ isResetPasswordDialogOpen: true });
+  };
+
+  handleCloseResetPasswordDialog = () => {
+    this.setState(
+      {
+        isResetPasswordDialogOpen: false,
+      },
+      () =>
+        this.setState({
+          isResetPasswordEmailSent: false,
+          isResetPasswordError: false,
+        }),
+    );
+  };
+
+  handleResetPassword = () => {
+    if (this.props.member?.email) {
+      this.props.resetPassword(
+        this.props.member.email,
+        this.props.companyId,
+        null,
+        {
+          onSuccess: () => {
+            this.setState({ isResetPasswordEmailSent: true });
+          },
+          onError: () => {
+            this.setState({ isResetPasswordError: true });
+          },
+        },
+      );
+    }
+  };
+
   render() {
     const stripeRegion = getStripeRegion();
     const companyCountry = getCompanyCountry();
@@ -372,6 +415,7 @@ export class MemberDetailPage extends React.Component<Props> {
             sendCommunication={this.props.sendCommunication}
             showVaccinationStatus={this.props.showVaccinationStatus}
             resolvedGenericTags={this.props.resolvedGenericTags}
+            handleOpenResetPasswordDialog={this.handleOpenResetPasswordDialog}
           />
           <MemberBillingProblemCard
             invoiceLoading={this.props.invoiceLoading}
@@ -512,6 +556,15 @@ export class MemberDetailPage extends React.Component<Props> {
           onClose={this.handleCloseTagGroupDialog}
           onSubmit={this.handleSubmitTagGroupDialog}
         />
+        <MemberResetPasswordDialog
+          open={this.state.isResetPasswordDialogOpen}
+          email={this.props.member?.email}
+          emailSent={this.state.isResetPasswordEmailSent}
+          loading={this.props.resetLoading}
+          error={this.state.isResetPasswordError}
+          onResetPassword={this.handleResetPassword}
+          onClose={this.handleCloseResetPasswordDialog}
+        />
       </Grid>
     );
   }
@@ -561,6 +614,7 @@ const connector = connect(
     )(state),
     stripeReaders: getStripeReaders(state),
     resolvedGenericTags: getResolvedGenericTags(state),
+    resetLoading: state.auth.resetPassword.loading,
   }),
   {
     fetchInvoiceList: fetchInvoiceListAction,
@@ -621,6 +675,7 @@ const connector = connect(
     applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
     fetchMemberBulkById: fetchMemberBulkByIdAction,
     fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
+    resetPassword,
   },
 );
 

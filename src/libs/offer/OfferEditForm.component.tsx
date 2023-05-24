@@ -68,6 +68,7 @@ type ComponentProps = {
   offer: Omit<Offer, 'whitelist_tags' | 'blacklist_tags'> & {
     group?: OffersGroup;
     coach: Coach;
+    additional_coaches: number[];
     timezone_name: string;
     establishment: Establishment;
     meta_activity: MetaActivity;
@@ -135,6 +136,7 @@ export const OfferEditForm = (props: Props) => {
     onCancel,
     onBannerGoBack,
   } = props;
+
   const [editCurrentStep, setEditCurrentStep] = useState(
     OFFER_EDIT_FORM_STEPS.GATHER_INFO,
   );
@@ -374,6 +376,7 @@ const formikFormWrapper = withFormik<
     isShowPartnership: props.showPartnership,
     isZoomAppEnabled: false,
     level: props.offer?.custom_level,
+    additionalCoaches: props.offer?.additional_coaches ?? [],
     partnerMaxBookingCount: props.isOfferInGroup
       ? 0
       : props.offer?.partner_max_booking_count ?? 0,
@@ -397,6 +400,7 @@ const formikFormWrapper = withFormik<
       establishment,
       roomBlueprint,
       coach,
+      additionalCoaches,
       credits,
       durationMinute,
       broadcastLink,
@@ -424,6 +428,7 @@ const formikFormWrapper = withFormik<
     const offerData: OfferEdit = {
       establishment,
       coach,
+      additional_coaches: additionalCoaches,
       effectif,
       waiting_list_max_size: waitingListMaxSize,
       level,

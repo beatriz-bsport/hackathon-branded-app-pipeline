@@ -272,6 +272,7 @@ export type OfferFormValues = {
   calendarSelectedDate?: string;
   isRecurrenceWeekDayDialogOpen?: boolean;
   coach: number;
+  additionalCoaches: number[];
   coachPaymentRule: number | null;
   isManagerOnly: boolean;
   allowGuestOffer: boolean;
@@ -312,6 +313,7 @@ export type OfferCreate = {
   dates: number[];
   establishment: number;
   coach: number;
+  additional_coaches: number[];
   effectif: number;
   partner_max_booking_count: number;
   waiting_list_max_size: number;
@@ -348,4 +350,5 @@ export type OfferEdit = Omit<
   date_start: Moment;
   coach_override: number | null;
   credits?: number;
+  additional_coaches: number[];
 };

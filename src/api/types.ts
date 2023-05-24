@@ -81,6 +81,11 @@ export type Offer = {
     photo: string;
     notes?: string;
   };
+  additionalCoaches: {
+    id: number;
+    name: string;
+    photo: string;
+  }[];
   cover_main: string;
   date_end: string;
   date_start: string;

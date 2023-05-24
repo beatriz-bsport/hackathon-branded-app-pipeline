@@ -19,6 +19,7 @@ import CoachPaymentRuleSelectorStyled from '#libs/coach-payment-rules/components
 import { OfferFormValues } from '#libs/offer/types';
 import { Coach } from '#libs/associated-coach/types';
 import { CoachPaymentRule } from '#libs/coach-payment-rules/types';
+import Config from '../../../../config';
 
 type Props = {
   coaches: Coach[];
@@ -42,11 +43,23 @@ const OfferFormCoach = (props: Props) => {
   const { t } = useTranslation('offer');
   const { values, touched, errors, setFieldValue, handleBlur } =
     useFormikContext<OfferFormValues>();
-  const { coach, coachPaymentRule, coachOverride } = values;
+  const { coach, additionalCoaches, coachPaymentRule, coachOverride } = values;
 
   const handleSelectCoach = useCallback(
     (newCoach: { value: number; label: string }) => {
       setFieldValue('coach', newCoach?.value ?? null);
+    },
+    [setFieldValue],
+  );
+
+  const handleMultiSelectCoach = useCallback(
+    (newCoaches: { value: number; label: string }[]) => {
+      setFieldValue(
+        'additionalCoaches',
+        newCoaches
+          .map((coachData) => coachData?.value ?? null)
+          .filter((_coach) => !!_coach),
+      );
     },
     [setFieldValue],
   );
@@ -71,6 +84,24 @@ const OfferFormCoach = (props: Props) => {
     }
     return null;
   }, [coach, coaches]);
+
+  const availableMainCoaches = useMemo(() => {
+    return coaches.filter((_coach) => !additionalCoaches.includes(_coach.id));
+  }, [coaches, additionalCoaches]);
+
+  const availableAdditionalCoaches = useMemo(() => {
+    return coaches.filter((_coach) => _coach.id !== coach);
+  }, [coaches, coach]);
+
+  const selectedAdditionalCoaches = useMemo(() => {
+    if (additionalCoaches && coaches) {
+      return additionalCoaches.map(
+        (coachId) =>
+          coaches.find((coachValue) => coachValue.id === coachId)?.id,
+      );
+    }
+    return null;
+  }, [coaches, additionalCoaches]);
 
   const availableCoachOverride = useMemo(
     () =>
@@ -137,9 +168,9 @@ const OfferFormCoach = (props: Props) => {
           <CoachSelector
             id="offer-form-coach-selector"
             placeholder={t('form.section.coach.field.coach.placeholder')}
-            coaches={coaches}
-            noMulti
+            coaches={availableMainCoaches}
             closeMenuOnSelect
+            noMulti
             selectedCoaches={selectedCoaches}
             selectOption={handleSelectCoach}
             onBlur={handleBlur}
@@ -155,6 +186,35 @@ const OfferFormCoach = (props: Props) => {
           )}
         </div>
       </OfferFormField>
+      {!!coach && Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && (
+        <OfferFormField
+          id="offer-form-coach-field"
+          label={t('form.section.coach.field.additionalCoaches.title')}
+          isRequired
+          isError={!!errors.coach}
+        >
+          <div className={classes.errorContainer}>
+            <CoachSelector
+              id="offer-form-coach-selector"
+              placeholder={t('form.section.coach.field.coach.placeholder')}
+              coaches={availableAdditionalCoaches}
+              closeMenuOnSelect
+              selectedCoaches={selectedAdditionalCoaches}
+              selectOption={handleMultiSelectCoach}
+              onBlur={handleBlur}
+              selectorClass={classes.bigWidth}
+              isError={!!errors.coach && touched.coach}
+              isDisabled={!!disabled}
+            />
+
+            {!!errors.coach && touched.coach && (
+              <Typography variant="caption" color="error">
+                {t(errors.coach)}
+              </Typography>
+            )}
+          </div>
+        </OfferFormField>
+      )}
 
       {isEditOffer && (
         <OfferFormField

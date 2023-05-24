@@ -15,14 +15,15 @@ import OfflineBolt from '@material-ui/icons/OfflineBolt';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme } from '@material-ui/core/styles/';
 
+import moment from 'moment-timezone';
+import { Cake } from '@material-ui/icons';
+
 import type { Tag, TagGroup } from '#libs/tag/types';
 import type { Member } from '#libs/member/types';
 import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
 import VaccinationBadge from './VaccinationBadge.component';
 import AvatarWithBadge from './AvatarWithBadge.component';
 import MemberProgramDetailDialog from '../../performance-tracking/components/member-program/MemberProgramDetail.dialog';
-import moment from 'moment';
-import { Cake } from '@material-ui/icons';
 
 type Props = {
   member: Member<Tag<TagGroup>>;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { TFunction } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 
 import Divider from '@material-ui/core/Divider';
@@ -11,14 +11,11 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core';
 
 import { SmartListPopupSending } from '../types';
-import { FetchRecipientsParams } from '#libs/member/types';
 
 export const MEMBER_PAGE_SIZE = 10;
 
 type Props = {
   smartListPopup: SmartListPopupSending;
-  t: TFunction;
-  fetchMembers: (params: FetchRecipientsParams) => void;
   openPreview: (smartListPopup: SmartListPopupSending) => void;
   openMemberList: (smartListPopup: SmartListPopupSending) => void;
   noDivider?: boolean;
@@ -26,33 +23,29 @@ type Props = {
 
 const SmartListPopupListItem: React.FC<Props> = ({
   smartListPopup,
-  t,
-  fetchMembers,
   openPreview,
   openMemberList,
   noDivider,
 }) => {
   const classes = useStyle();
+  const { t } = useTranslation(['communication']);
 
   const openPreviewDialog = React.useCallback(
     () => openPreview(smartListPopup),
     [openPreview, smartListPopup],
   );
 
-  const openMemberListDialog = React.useCallback(() => {
-    fetchMembers({
-      id__in: smartListPopup.member_ids.slice(0, MEMBER_PAGE_SIZE),
-      page_size: MEMBER_PAGE_SIZE,
-    });
-    openMemberList(smartListPopup);
-  }, [fetchMembers, openMemberList, smartListPopup]);
+  const openMemberListDialog = React.useCallback(
+    () => openMemberList(smartListPopup),
+    [openMemberList, smartListPopup],
+  );
 
   return (
     <div>
       {!noDivider && <Divider />}
       <div className={classes.listItemContainer}>
         <Typography variant="caption" className={classes.listItemDate}>
-          {moment(smartListPopup.custom_app_popup_link.date_created).format(
+          {moment(smartListPopup?.custom_app_popup_link?.date_created).format(
             'LLLL',
           )}
         </Typography>
@@ -60,12 +53,12 @@ const SmartListPopupListItem: React.FC<Props> = ({
         <div className={classes.listItemInfo}>
           <div className={classes.listItemTitleAndRecipients}>
             <Typography variant="h6" color="primary">
-              {smartListPopup.custom_app_popup_link.name}
+              {smartListPopup?.custom_app_popup_link?.name}
             </Typography>
             <div className={classes.recipients}>
               <Typography variant="body1">
                 {`${t('smartListPopup.recipients')}: ${
-                  smartListPopup.member_ids.length
+                  smartListPopup?.member_ids.length ?? 0
                 }`}
               </Typography>
               <IconButton onClick={openMemberListDialog}>
@@ -126,4 +119,4 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-export default SmartListPopupListItem;
+export default React.memo(SmartListPopupListItem);

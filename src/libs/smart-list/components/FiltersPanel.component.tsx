@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import memoize from 'memoize-one';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { createStyles, Theme } from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
@@ -20,6 +21,9 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
+import SmartphoneIcon from '@material-ui/icons/Smartphone';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import IconButton from '@material-ui/core/IconButton';
 
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -66,6 +70,12 @@ import { PaymentPack } from '#libs/payment-packs/types';
 import { Level } from '#libs/level/types';
 import { CustomForm } from '#libs/custom-form/types';
 import { createUrl } from '../../../utils/createUrlHandlers';
+import CustomMobilePopupDialogDialog from '#libs/settings/components/CustomMobilePopupDialog.dialog';
+import SmartListPopupSendingDrawerComponent from '#libs/communication-v2/components/SmartListPopupSendingDrawer.component';
+import { SmartListPopupSending } from '#libs/communication-v2/types';
+import { FetchRecipientsParams, Member } from '#libs/member/types';
+import { UpsellSumup } from '#libs/company/types';
+import { UPSELL_IDENTIFIER_CUSTOM_APP } from '#libs/platform-billing/upsell-identifiers';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -114,6 +124,7 @@ const filtersList = {
 const filtersCategory = [MEMBER_INFO, PAYMENT_PACK, BOOKING, BUY];
 
 type Props = {
+  smartListId: number;
   classes: any;
   loading: boolean;
   smartList: any;
@@ -149,6 +160,17 @@ type Props = {
   smartListUpdate: (id: number, smartlist: SmartList) => void;
   customLevels: Level[];
   customForms: CustomForm[];
+  sendSmartListPopup: (param: {
+    id: string;
+    values: FormData;
+    options?: OptionCallback;
+  }) => void;
+  smartListPopupList: Array<SmartListPopupSending>;
+  smartListPopupLoading: boolean;
+  fetchCommunicationsPaginatedMembers: (params: FetchRecipientsParams) => void;
+  memberLoading: boolean;
+  memberList?: Array<Member>;
+  featureList: Array<UpsellSumup>;
 } & WithTranslation;
 
 type State = {
@@ -158,6 +180,8 @@ type State = {
   displayCategoryFilters: any;
   isSmartListExporting: boolean;
   anchorEl: HTMLElement;
+  openCustomMobilePopupDialog: boolean;
+  openSmartListPopupHistoryDialog: boolean;
 };
 export class FiltersPanel extends Component<Props, State> {
   state: State = {
@@ -167,6 +191,8 @@ export class FiltersPanel extends Component<Props, State> {
     displayCategoryFilters: null,
     isSmartListExporting: false,
     anchorEl: null,
+    openCustomMobilePopupDialog: false,
+    openSmartListPopupHistoryDialog: false,
   };
 
   handleFilterChange = (filter: any) => {
@@ -222,12 +248,40 @@ export class FiltersPanel extends Component<Props, State> {
     this.setState({ isSmartListExporting: false });
   };
 
+  openCustomMobilePopupDialog = () =>
+    this.setState({ openCustomMobilePopupDialog: true });
+
+  closeCustomMobilePopupDialog = () =>
+    this.setState({ openCustomMobilePopupDialog: false });
+
+  openSmartListPopupHistoryDialog = () =>
+    this.setState({ openSmartListPopupHistoryDialog: true });
+
+  closeSmartListPopupHistoryDialog = () =>
+    this.setState({ openSmartListPopupHistoryDialog: false });
+
+  onSmartListPopupSend = (param: {
+    id: string;
+    values: FormData;
+    options?: OptionCallback;
+  }) => {
+    this.closeCustomMobilePopupDialog();
+    this.props.sendSmartListPopup(param);
+  };
+
   render() {
     const { classes, t, filters } = this.props;
+
+    const hasCustomAppUpsell = memoize((featureList: Array<UpsellSumup>) =>
+      featureList
+        .map((feature) => feature.upsell_identifier)
+        .includes(UPSELL_IDENTIFIER_CUSTOM_APP),
+    );
+
     return (
       <div>
         <div className={classes.buttonsRow}>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className={classes.sendCommunicationButtons}>
             <Button
               onClick={this.props.onRequestEmail}
               color="secondary"
@@ -245,7 +299,43 @@ export class FiltersPanel extends Component<Props, State> {
             ) : (
               ''
             )}
+            {hasCustomAppUpsell(this.props.featureList) && (
+              <div className={classes.smartListPopupButtonContainer}>
+                <Button
+                  onClick={this.openCustomMobilePopupDialog}
+                  color="secondary"
+                  variant="outlined"
+                  className={classes.smartListPopupButton}
+                >
+                  <SmartphoneIcon className={this.props.classes.leftIcon} />
+                  {t('popup.sendPopup')}
+                </Button>
+                <IconButton
+                  color="primary"
+                  className={classes.smartListPopupListButton}
+                  onClick={this.openSmartListPopupHistoryDialog}
+                >
+                  <VisibilityIcon />
+                </IconButton>
+              </div>
+            )}
           </div>
+          <CustomMobilePopupDialogDialog
+            initial={null}
+            open={this.state.openCustomMobilePopupDialog}
+            onClose={this.closeCustomMobilePopupDialog}
+            onSubmit={this.onSmartListPopupSend}
+          />
+          <SmartListPopupSendingDrawerComponent
+            smartListId={this.props.smartListId}
+            smartListPopupList={this.props.smartListPopupList}
+            open={this.state.openSmartListPopupHistoryDialog}
+            onClose={this.closeSmartListPopupHistoryDialog}
+            loading={this.props.smartListPopupLoading}
+            fetchMembers={this.props.fetchCommunicationsPaginatedMembers}
+            memberLoading={this.props.memberLoading}
+            membersToDisplay={this.props.memberList}
+          />
           <div>
             <Button
               onClick={(event: React.MouseEvent<HTMLElement>) => {
@@ -484,7 +574,6 @@ const styles = createStyles((theme: Theme) => ({
     marginLeft: theme.spacing(1),
   },
   sendEmailButton: {
-    marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
   },
   buttonsRow: {
@@ -505,6 +594,23 @@ const styles = createStyles((theme: Theme) => ({
     alignItems: 'center',
     flexDirection: 'row',
     paddingTop: theme.spacing(2),
+  },
+  smartListPopupButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: theme.spacing(1),
+    alignItems: 'center',
+  },
+  smartListPopupButton: {
+    height: 'fit-content',
+  },
+  smartListPopupListButton: {
+    padding: 0,
+  },
+  sendCommunicationButtons: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
   },
 }));
 

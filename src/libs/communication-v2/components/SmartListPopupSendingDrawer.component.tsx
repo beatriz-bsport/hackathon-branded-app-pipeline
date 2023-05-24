@@ -62,6 +62,7 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
   // Pop-up preview
   const [smartListPopupToPreview, setSmartListPopupToPreview] =
     React.useState<SmartListPopupSending | null>(null);
+
   const closePreview = React.useCallback(
     () => setSmartListPopupToPreview(null),
     [],
@@ -70,12 +71,25 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
   // Pop-up member list
   const [smartListPopupToShowMembers, setSmartListPopupToShowMembers] =
     React.useState<SmartListPopupSending | null>(null);
+
+  const openMemberList = React.useCallback(
+    (smartListPopup: SmartListPopupSending) => {
+      fetchMembers({
+        id__in: (smartListPopup?.member_ids ?? []).slice(0, MEMBER_PAGE_SIZE),
+        page_size: MEMBER_PAGE_SIZE,
+      });
+      setSmartListPopupToShowMembers(smartListPopup);
+    },
+    [fetchMembers],
+  );
+
   const [memberListPage, setMemberListPage] = React.useState(1);
+
   const handleChangePage = React.useCallback(
     (_: React.ChangeEvent<unknown> | null, page: number = 1) => {
       fetchMembers({
         id__in:
-          smartListPopupToShowMembers?.member_ids.slice(
+          (smartListPopupToShowMembers?.member_ids ?? []).slice(
             (page - 1) * MEMBER_PAGE_SIZE,
             page * MEMBER_PAGE_SIZE,
           ) ?? [],
@@ -85,6 +99,7 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
     },
     [fetchMembers, smartListPopupToShowMembers?.member_ids],
   );
+
   const closeMemberList = React.useCallback(
     () => setSmartListPopupToShowMembers(null),
     [],
@@ -125,10 +140,8 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
               <SmartListPopupListItem
                 key={smartListPopup.id}
                 smartListPopup={smartListPopup}
-                t={t}
-                fetchMembers={fetchMembers}
                 openPreview={setSmartListPopupToPreview}
-                openMemberList={setSmartListPopupToShowMembers}
+                openMemberList={openMemberList}
                 noDivider={index === 0}
               />
             ))
@@ -148,23 +161,20 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
 
       {/* Preview */}
       <GenericResponsiveDialog
-        open={smartListPopupToPreview !== null}
+        open={!!smartListPopupToPreview}
         onClose={closePreview}
         padding
       >
         <DialogTitle>{t('smartListPopup.previewTitle')}</DialogTitle>
         <div className={classes.previewInner}>
           <div className={classes.previewTitle}>
-            {smartListPopupToPreview?.custom_app_popup_link.name}
+            {smartListPopupToPreview?.custom_app_popup_link?.name}
             <CloseIcon />
           </div>
           <img
             alt="some-cover"
-            src={getUrl(smartListPopupToPreview?.custom_app_popup_link.image)}
-            style={{
-              width: '100%',
-              objectFit: 'cover',
-            }}
+            src={getUrl(smartListPopupToPreview?.custom_app_popup_link?.image)}
+            className={classes.previewImage}
           />
           <div className={classes.previewBottom}>
             <Button
@@ -185,15 +195,15 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
 
       {/* Recipient list */}
       <GenericResponsiveDialog
-        open={smartListPopupToShowMembers !== null}
+        open={!!smartListPopupToShowMembers}
         onClose={closeMemberList}
         maxWidth="sm"
       >
         <DialogTitle>
           {`${t('smartListPopup.memberListTitle')} - ${moment(
-            smartListPopupToShowMembers?.custom_app_popup_link.date_created,
+            smartListPopupToShowMembers?.custom_app_popup_link?.date_created,
           ).format('L')} - ${moment(
-            smartListPopupToShowMembers?.custom_app_popup_link.date_created,
+            smartListPopupToShowMembers?.custom_app_popup_link?.date_created,
           ).format('LT')}`}
         </DialogTitle>
         <Typography variant="subtitle1" className={classes.recipientsAmount}>
@@ -205,7 +215,7 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
         {memberLoading ? (
           <CircularProgress />
         ) : (
-          (membersToDisplay ?? []).map((member) => (
+          filteredMembersToDisplay.map((member) => (
             <div className={classes.memberListItem} key={member.id}>
               <Avatar src={member.photo} />
               <Typography variant="body1">{member.name}</Typography>
@@ -300,6 +310,10 @@ const useStyle = makeStyles((theme) => ({
     marginLeft: theme.spacing(3),
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(0.5),
+  },
+  previewImage: {
+    width: '100%',
+    objectFit: 'cover',
   },
 }));
 

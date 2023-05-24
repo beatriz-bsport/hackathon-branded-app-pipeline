@@ -160,9 +160,14 @@ import { getAllCustomForm } from '#libs/custom-form/selectors';
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_SMARTLIST } from '#libs/communication-v2/constants';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
-import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
+import {
+  getUnreadAnswersCount as getUnreadAnswersCountAction,
+  fetchSmartListPopupSendings,
+  sendSmartListPopup,
+} from '#libs/communication-v2/actions';
 
 import Config from '../../config';
+import { getSmartListPopupSendingList } from '#libs/communication-v2/selectors';
 
 type OwnProps = {
   id: number;
@@ -222,6 +227,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     this.handleFetchLevel();
     this.props.fetchResolvedGenericTags();
     this.props.getUnreadAnswersCountAction(params);
+    this.props.fetchSmartListPopupSendings({ smartlist_id: this.props.id });
   }
 
   handleFetchLevel = () => {
@@ -408,6 +414,15 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           fetchBulkItems={fetchBulkItems}
           onRequestEmail={() => this.props.setOpenSendEmail(true)}
           smartListUpdate={this.props.smartListUpdate}
+          sendSmartListPopup={this.props.sendSmartListPopup}
+          smartListPopupList={this.props.smartListPopupList}
+          smartListPopupLoading={this.props.smartListPopupLoading}
+          fetchCommunicationsPaginatedMembers={
+            this.props.fetchCommunicationsPaginatedMembers
+          }
+          memberLoading={this.props.members.loading}
+          memberList={this.props.members.displayItems}
+          featureList={this.props.featureList}
         />
         <AutomatedCampaignPanel
           onAdd={this.onAddAutomatedCampaign}
@@ -712,6 +727,13 @@ const connector = connect(
 
     // OTHERS
     companyId: state.theme.theme.company,
+
+    // START-UP POP-UP
+    smartListPopupList: getSmartListPopupSendingList(state),
+    smartListPopupLoading: state.communicationV2.smartListPopupSending.loading,
+
+    // UPSELLS
+    featureList: state.company.feature.data.upsell,
   }),
   {
     // SMARTLIST
@@ -783,6 +805,10 @@ const connector = connect(
     // CUSTOM FORM
     fetchAllCustomForm,
     fetchCustomFormBulk,
+
+    // START-UP POP-UP
+    fetchSmartListPopupSendings,
+    sendSmartListPopup,
   },
 );
 

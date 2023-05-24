@@ -366,4 +366,18 @@ exports.default = {
         "Attention, les réponses par mail des membres n'apparaitront plus dans votre boîte mail mais directement sur la plateforme.",
     },
   },
+  smartListPopup: {
+    drawerTitle: 'Historique des pop-ups de démarrage',
+    close: 'Fermer',
+    preview: 'Prévisualiser',
+    previewTitle: 'Aperçu',
+    cancelPreview: 'Annuler',
+    recipients: 'Destinataires ',
+    recipient: 'destinataire',
+    recipient_plural: 'destinataires',
+    see: 'Voir',
+    seeRecipients: 'Voir les destinataires',
+    noSmartListPopup: 'Aucune pop-up de démarrage',
+    memberListTitle: 'Pop-up de démarrage',
+  },
 };

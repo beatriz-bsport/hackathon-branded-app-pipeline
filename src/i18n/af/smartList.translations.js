@@ -180,6 +180,9 @@ exports.default = {
     sendSuccess: "Mail en cours d'envoi",
     sendError: "Problème lors de l'envoi du mail",
   },
+  popup: {
+    sendPopup: 'Envoyer une pop-up',
+  },
   detail: {
     tab: {
       member: 'Général',

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import { getMemberListData } from '#libs/member/selectors';
 import { RootState } from '../../reducers';
@@ -83,3 +82,14 @@ export const getIsTwoWayEmailActivated = (state: RootState): boolean => {
   if (provider) isTwoWayEmailActivated = provider.is_two_way_email_activated;
   return isTwoWayEmailActivated;
 };
+
+const getSmartListPopupSendingIds = (state: RootState) =>
+  state.communicationV2.smartListPopupSending.allIds;
+
+const getSmartListPopupSendingById = (state: RootState) =>
+  state.communicationV2.smartListPopupSending.byId;
+
+export const getSmartListPopupSendingList = createSelector(
+  [getSmartListPopupSendingIds, getSmartListPopupSendingById],
+  (ids, data) => ids.map((id) => data[id]),
+);

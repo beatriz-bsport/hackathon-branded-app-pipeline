@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { AxiosResponse } from 'axios';
 import {
   API_V1_URI,
@@ -13,6 +12,8 @@ import {
   CommunicationContext,
   CommunicationProvider,
   CommunicationProviderSettings,
+  SmartListPopupSending,
+  SmartListPopupToSend,
 } from './types';
 import { FetchRecipientsParams } from '#libs/member/types';
 
@@ -105,3 +106,15 @@ export const updateCommunicationProviderSettings = async (
   // idem
   return patchAuth(`${API_V1_URI}/communication/provider/${kind}/0/`, data);
 };
+
+export const fetchSmartListPopupSendings = async (): Promise<
+  AxiosResponse<Array<SmartListPopupSending>>
+> => getAuth(`${API_V1_URI}/mobile_app/smartlist_popup_sending/`);
+
+export const sendSmartListPopup = async (
+  data: SmartListPopupToSend,
+): Promise<AxiosResponse<SmartListPopupSending>> =>
+  postAuth(
+    `${API_V1_URI}/mobile_app/smartlist_popup_sending/send_smartlist_popup/`,
+    data,
+  );

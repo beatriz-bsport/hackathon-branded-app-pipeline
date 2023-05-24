@@ -1183,4 +1183,9 @@ exports.default = {
       error: 'Impossible de sauvegarder les modifications',
     },
   },
+  smartListPopup: {
+    send: {
+      error: "Une erreur est survenue lors de l'envoi de votre pop-up.",
+    },
+  },
 };

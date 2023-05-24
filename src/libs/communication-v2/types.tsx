@@ -1,11 +1,25 @@
-// @ts-nocheck
 import { ErrorAndLoading, GenericListReducerI } from '#libs/types';
 import { Member, MemberFilter } from '#libs/member/types';
+import { CustomMobilePopup } from '#libs/settings/types';
 
 export type CommunicationProviderState = {
   provider?: CommunicationProvider;
   update: ErrorAndLoading;
 } & ErrorAndLoading;
+
+export type SmartListPopupSending = {
+  id: number;
+  custom_app_popup_link: CustomMobilePopup;
+  member_ids: Array<number>;
+  smartlist?: number;
+};
+
+export type SmartListPopupToSend = {
+  name: string;
+  link: string;
+  image: string;
+  smartlist_id?: number;
+};
 
 export type CommunicationState = {
   recipient: {
@@ -24,6 +38,10 @@ export type CommunicationState = {
     email: CommunicationProviderState;
     sms: CommunicationProviderState;
     push_notification: CommunicationProviderState;
+  };
+  smartListPopupSending: ErrorAndLoading & {
+    byId: { [id: number]: SmartListPopupSending };
+    allIds: Array<number>;
   };
 };
 

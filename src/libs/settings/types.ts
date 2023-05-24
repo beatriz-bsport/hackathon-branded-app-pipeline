@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { MuiIconName } from '#components/input/muiIcon/MuiIconNameType';
 import { ErrorAndLoading } from '#libs/types';
 
@@ -11,10 +10,11 @@ export type CustomShopRedirection = {
 };
 
 export type CustomMobilePopup = {
-  id: string;
+  id: number;
   name: string;
   image: string;
   link: string;
+  date_created: string;
 };
 
 export type SettingsState = {

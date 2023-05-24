@@ -10,9 +10,15 @@ import {
   getUnreadAnswersCountActions,
   fetchCommunicationProviderSettingsActions,
   updateCommunicationProviderSettingsActions,
+  smartListPopupSendingActions,
 } from './actions';
 
-import type { CommunicationState, Recipient, Communication } from './types';
+import {
+  CommunicationState,
+  Recipient,
+  Communication,
+  SmartListPopupSending,
+} from './types';
 import { COMMUNICATION_KIND } from './constants';
 
 const initialState: Immutable.Immutable<CommunicationState> =
@@ -76,6 +82,12 @@ const initialState: Immutable.Immutable<CommunicationState> =
           error: null,
         },
       },
+    },
+    smartListPopupSending: {
+      loading: false,
+      error: null,
+      byId: {},
+      allIds: [],
     },
   });
 
@@ -280,6 +292,48 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
         ['company_communication_provider', payload.kind, 'update', 'loading'],
         payload.loading,
       );
+    },
+    [smartListPopupSendingActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['smartListPopupSending', 'loading'], payload);
+    },
+    [smartListPopupSendingActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error },
+    ) => {
+      return state.setIn(['smartListPopupSending', 'error'], payload);
+    },
+    [smartListPopupSendingActions.success.toString()]: (
+      state,
+      { payload }: { payload: Array<SmartListPopupSending> },
+    ) => {
+      return state
+        .merge(
+          {
+            smartListPopupSending: {
+              byId: payload.reduce(
+                (
+                  acc: { [id: number]: SmartListPopupSending },
+                  smartListPopupSending: SmartListPopupSending,
+                ) => ({
+                  ...acc,
+                  [smartListPopupSending.id]: smartListPopupSending,
+                }),
+                {},
+              ),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(
+          ['smartListPopupSending', 'allIds'],
+          payload.map(
+            (smartListPopupSending: SmartListPopupSending) =>
+              smartListPopupSending.id,
+          ),
+        );
     },
   },
   initialState,

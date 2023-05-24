@@ -1,7 +1,11 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import type {
+  Dispatch,
+  ThunkAction,
+  OptionCallback,
+  OptionBackgroundCallback,
+} from '../../state/types';
 
 import {
   fetchCommunicationSentList as fetchCommunicationSentListAPI,
@@ -13,6 +17,8 @@ import {
   getUnreadAnswersCount as getUnreadAnswersCountAPI,
   fetchCommunicationProviderSettings as fetchCommunicationProviderSettingsAPI,
   updateCommunicationProviderSettings as updateCommunicationProviderSettingsAPI,
+  fetchSmartListPopupSendings as fetchSmartListPopupSendingsAPI,
+  sendSmartListPopup as sendSmartListPopupAPI,
 } from './api';
 import {
   FetchCommunicationParams,
@@ -21,8 +27,11 @@ import {
   Recipient,
   CommunicationContext,
   CommunicationProviderSettings,
+  SmartListPopupToSend,
 } from './types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from './constants';
+import { monitorBackgroundTask } from '#libs/background-task/actions';
+import { RootState } from '../../reducers';
 
 // --------- SEND COMMUNICATION ---------
 
@@ -344,5 +353,63 @@ export function updateCommunicationProviderSettings(
         kind,
       }),
     );
+  };
+}
+
+export const smartListPopupSendingActions = {
+  error: createAction('SMARTLIST_POPUP_SENDING/FETCH/ERROR'),
+  loading: createAction('SMARTLIST_POPUP_SENDING/FETCH/LOADING'),
+  success: createAction('SMARTLIST_POPUP_SENDING/FETCH/SUCCESS'),
+};
+
+export function fetchSmartListPopupSendings(): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(smartListPopupSendingActions.loading(true));
+    dispatch(smartListPopupSendingActions.error(null));
+    try {
+      const response = await fetchSmartListPopupSendingsAPI();
+      dispatch(smartListPopupSendingActions.success(response.data));
+    } catch (error) {
+      dispatch(smartListPopupSendingActions.error(error));
+    }
+    dispatch(smartListPopupSendingActions.loading(false));
+  };
+}
+
+export function sendSmartListPopup(
+  data: SmartListPopupToSend,
+  options?: OptionBackgroundCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(smartListPopupSendingActions.loading(true));
+    dispatch(smartListPopupSendingActions.error(null));
+
+    try {
+      const response = await sendSmartListPopupAPI(data);
+      if (response.status === 200) {
+        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+        if (options) {
+          options.onSuccess?.();
+
+          dispatch(
+            monitorBackgroundTask(backgroundTaskUuid, {
+              onSuccess: async () => {
+                await fetchSmartListPopupSendings()(dispatch, getState);
+                options.onBackgroundSuccess?.();
+              },
+              onError: (error) => {
+                dispatch(smartListPopupSendingActions.error(error));
+                options.onBackgroundError?.();
+              },
+            }),
+          );
+        } else dispatch(monitorBackgroundTask(backgroundTaskUuid));
+      }
+    } catch (error) {
+      dispatch(smartListPopupSendingActions.error(error));
+      dispatch(snackbarError('smartListPopup.send.error'));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(smartListPopupSendingActions.loading(false));
   };
 }

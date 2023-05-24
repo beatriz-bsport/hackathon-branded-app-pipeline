@@ -981,6 +981,20 @@
         "title": "Recevoir les réponses par email sur la plateforme",
         "description": "Attention, les réponses par mail des membres n'apparaitront plus dans votre boîte mail mais directement sur la plateforme."
       }
+    },
+    "smartListPopup": {
+      "drawerTitle": "Historique des pop-ups de démarrage",
+      "close": "Fermer",
+      "preview": "Prévisualiser",
+      "previewTitle": "Aperçu",
+      "cancelPreview": "Annuler",
+      "recipients": "Destinataires ",
+      "recipient": "destinataire",
+      "recipient_plural": "destinataires",
+      "see": "Voir",
+      "seeRecipients": "Voir les destinataires",
+      "noSmartListPopup": "Aucune pop-up de démarrage",
+      "memberListTitle": "Pop-up de démarrage"
     }
   },
   "consumerSpace": {
@@ -8358,6 +8372,7 @@
       "sendSuccess": "Mail en cours d'envoi",
       "sendError": "Problème lors de l'envoi du mail"
     },
+    "popup": { "sendPopup": "Envoyer une pop-up" },
     "detail": {
       "tab": { "member": "Général", "campaign": "Campagnes", "statistic": "Statistique" },
       "statTitle": "Statistiques"
@@ -9257,7 +9272,8 @@
       }
     },
     "accessDenied": { "general": { "title": "Accès refusé", "message": "Vous ne pouvez pas accéder à l'espace demandé" } },
-    "communicationProviderSettings": { "update": { "success": "Modifications enregistrées", "error": "Impossible de sauvegarder les modifications" } }
+    "communicationProviderSettings": { "update": { "success": "Modifications enregistrées", "error": "Impossible de sauvegarder les modifications" } },
+    "smartListPopup": { "send": { "error": "Une erreur est survenue lors de l'envoi de votre pop-up." } }
   },
   "spotScheduling": {
     "toolsMenu": {

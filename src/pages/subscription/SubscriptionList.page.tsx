@@ -74,6 +74,10 @@ type Props = OwnProps &
 const PLANNED_INVOICE_PAGE_SIZE = 10;
 
 export class SubscriptionList extends React.Component<Props> {
+  onEventClick = (event: SubscriptionEvent) => {
+    this.props.goToSubscription(event.subscription?.id);
+  };
+
   render() {
     return (
       <div className={this.props.classes.container}>
@@ -100,7 +104,7 @@ export class SubscriptionList extends React.Component<Props> {
                 page={this.props.eventPage}
                 eventSpec={COMPANY_EVENTS}
                 fetchEventList={this.props.fetchSubscriptionEventList}
-                onEventClick={this.props.goToSubscription}
+                onEventClick={this.onEventClick}
               />
             </Paper>
           </Grid>

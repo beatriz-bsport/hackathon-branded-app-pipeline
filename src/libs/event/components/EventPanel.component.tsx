@@ -13,36 +13,32 @@ import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { OptionCallback } from '../../../state/types';
-import {
-  EventListParams,
-  SubscriptionEvent,
-  SubscriptionEventSpec,
-} from '../types';
+import { EventListParams, GenericEvent, GenericEventSpec } from '../types';
 import EventListItem from './EventListItem.component';
 import PaginatedListBase from '#components/PaginatedListBase.component';
+import { WithHandlerType } from '../../../utils/types';
 
 type OwnProps = {
   fetchEventList: (params: EventListParams, options?: OptionCallback) => void;
-  eventSpec: SubscriptionEventSpec;
+  eventSpec: GenericEventSpec;
   loading: boolean;
   page: number;
-  onEventClick?: (id: number) => void;
-  eventList: Array<SubscriptionEvent>;
+  onEventClick?: (event: GenericEvent) => void;
+  eventList: Array<GenericEvent>;
   extraFetchParams?: any;
 };
 
-type WithHandlerType = {
-  fetchEventPage: (page: number, eventTypeList?: Array<string>) => void;
-};
-
-type Props = OwnProps & WithTranslation & WithStyles & WithHandlerType;
+type Props = OwnProps &
+  WithTranslation &
+  WithStyles &
+  WithHandlerType<typeof handlers>;
 
 type State = {
   actionFilterList: Array<string>;
   openFilters?: HTMLElement;
 };
 
-export class SubscriptionEventPanel extends React.Component<Props, State> {
+export class GenericEventPanel extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -137,7 +133,7 @@ export class SubscriptionEventPanel extends React.Component<Props, State> {
           items={this.props.eventList}
           page={this.props.page}
           onPageRequested={this.fetchEventPageFiltered}
-          renderItem={(event: SubscriptionEvent) => (
+          renderItem={(event: GenericEvent) => (
             <EventListItem
               event={event}
               eventSpec={this.props.eventSpec}
@@ -172,18 +168,20 @@ const styles: any = (theme: Theme) => ({
   },
 });
 
+const handlers = {
+  fetchEventPage:
+    ({ fetchEventList, eventSpec, extraFetchParams }) =>
+    (page: number, eventTypeList?: Array<string>) =>
+      fetchEventList({
+        page,
+        page_size: 10,
+        event_types: eventTypeList || Object.keys(eventSpec),
+        ...(extraFetchParams || {}),
+      }),
+};
+
 export default compose<any, OwnProps>(
   withTranslation(['event']),
   withStyles(styles),
-  withHandlers({
-    fetchEventPage:
-      ({ fetchEventList, eventSpec, extraFetchParams }) =>
-      (page: number, eventTypeList?: Array<string>) =>
-        fetchEventList({
-          page,
-          page_size: 10,
-          event_types: eventTypeList || Object.keys(eventSpec),
-          ...(extraFetchParams || {}),
-        }),
-  }),
-)(SubscriptionEventPanel);
+  withHandlers(handlers),
+)(GenericEventPanel);

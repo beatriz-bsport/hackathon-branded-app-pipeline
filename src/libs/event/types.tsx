@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { TFunction } from 'i18next';
+import { ReactNode } from 'react';
 import { Subscription } from '#libs/subscription/types';
 
 type SubscriptionEventPauseData = {
@@ -79,7 +80,7 @@ export type EventState = {
       page: number;
       error: boolean;
       loading: boolean;
-      items: Array<SubscriptionEvent>;
+      items: Array<GenericEvent>;
     };
   };
 };
@@ -91,3 +92,24 @@ export type EventListParams = {
   object_id?: number;
   event_types?: Array<string>;
 };
+
+export type GenericEvent<T> = {
+  company_event: string;
+  company_id: number;
+  date: number;
+  event_type: string;
+  identifier: string;
+  uuid: string;
+} & T;
+
+export type GenericEventSpec<T> = Record<
+  string,
+  {
+    getPrimaryText: (event?: GenericEvent<T>, t?: TFunction) => string;
+    getSecondaryText?: (event?: GenericEvent<T>, t?: TFunction) => string;
+    titlePrefix?: (event?: GenericEvent<T>, t?: TFunction) => string; // prefix to add before the primaryText
+    icon: ReactNode;
+    i18nText: string; // translation key
+    disableOnClick?: boolean;
+  }
+>;

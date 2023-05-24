@@ -6,46 +6,64 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InfoIcon from '@material-ui/icons/Info';
-import { SubscriptionEvent, SubscriptionEventSpec } from '../types';
+import { GenericEvent, GenericEventSpec } from '../types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
-type OwnProps = {
-  event: SubscriptionEvent;
-  onEventClick?: (id: number) => void;
-  eventSpec: SubscriptionEventSpec;
+type Props = {
+  event: GenericEvent;
+  onEventClick?: (event: GenericEvent) => void;
+  eventSpec: GenericEventSpec;
 };
 
-type Props = OwnProps;
+export const GenericEventListItem = (props: Props) => {
+  const { event, eventSpec, onEventClick } = props;
+  const { t } = useTranslation(['subscription', 'checkout', 'member']);
 
-export const SubscriptionEventListItem = (props: Props) => {
-  const { t } = useTranslation(['subscription', 'checkout']);
-  const onClick =
-    props.onEventClick && props.event.subscription
-      ? () => props.onEventClick(props.event.subscription.id)
-      : null;
+  const eventType = event?.event_type;
 
-  const company_event = props.eventSpec[props.event.event_type];
-  if (!company_event) return null;
-  const secondaryContent = formatAsDatetimeAdapted(
-    moment(props.event.date * 1000),
-    'LLLL',
+  // Dictionary of utils to retrieve different data from the event
+  // The utils to get translation must specify the translation module :
+  // "subscription:", "checkout:" or "member:"
+  const eventTypeUtils = eventSpec[eventType];
+  const disableOnClick = !!eventTypeUtils?.disableOnClick;
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const onClick = React.useCallback(
+    onEventClick && !disableOnClick ? () => onEventClick(event) : null,
+    [onEventClick, disableOnClick, event],
   );
-  const icon = company_event?.icon || <InfoIcon />;
+
+  if (!event || !eventType) return null;
+
+  // Icon
+  const icon = eventTypeUtils.icon || <InfoIcon />;
+
+  // First line
+  const titlePrefix = eventTypeUtils?.titlePrefix
+    ? eventTypeUtils.titlePrefix(event, t)
+    : '';
+  const primaryText = eventTypeUtils?.getPrimaryText
+    ? eventTypeUtils.getPrimaryText(event, t)
+    : event;
+
+  // Second Line
+  const defaultSecondaryText = formatAsDatetimeAdapted(
+    moment(event.date * 1000),
+    'LLLL',
+  ); // event date
+  const secondaryText = eventTypeUtils?.getSecondaryText
+    ? eventTypeUtils.getSecondaryText(event, t)
+    : defaultSecondaryText;
 
   return (
     <ListItem dense button={!!onClick} onClick={onClick}>
       <ListItemIcon>{icon}</ListItemIcon>
       <ListItemText
-        primary={
-          (company_event?.titlePrefix || (() => ''))(props.event) +
-          (company_event?.getPrimaryText || ((e) => e))(props.event, t)
-        }
-        secondary={
-          company_event?.getSecondaryText?.(props.event, t) || secondaryContent
-        }
+        primary={titlePrefix + primaryText}
+        secondary={secondaryText}
       />
     </ListItem>
   );
 };
 
-export default SubscriptionEventListItem;
+export default GenericEventListItem;

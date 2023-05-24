@@ -35,7 +35,7 @@ import {
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_OK,
 } from '@bsport/common/lib/master-data/booking_status_code';
-import { EventSeat, OfflineBolt } from '@material-ui/icons';
+import { Cake, EventSeat, OfflineBolt } from '@material-ui/icons';
 import WarningIcon from '@material-ui/icons/Warning';
 import { BookingStatusCodeText } from '../utils';
 import AvatarWithBadge from '#libs/member/components/AvatarWithBadge.component';
@@ -641,6 +641,12 @@ export class BookingItemForManager extends Component<Props, State> {
     if (booking.booking_status_code !== 0) {
       classes = this.props.classes.cancelled;
     }
+
+    const isBirthday = this.props.member
+      ? moment().date() === moment(this.props.member.birthday).date() &&
+        moment().month() === moment(this.props.member.birthday).month()
+      : false;
+
     return this.wrapToolTip(
       <div>
         <ListItem
@@ -673,6 +679,9 @@ export class BookingItemForManager extends Component<Props, State> {
                       <Typography variant="body2">
                         {this.getHeading()}
                       </Typography>
+                      {isBirthday && (
+                        <Cake fontSize="small" color="secondary" />
+                      )}
                       <Typography variant="caption" color="secondary">
                         {this.getArchivedStatus()}
                       </Typography>

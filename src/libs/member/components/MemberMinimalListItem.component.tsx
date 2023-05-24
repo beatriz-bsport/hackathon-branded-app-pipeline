@@ -21,6 +21,8 @@ import type { PerformanceTrackingProgram } from '#libs/performance-tracking/type
 import VaccinationBadge from './VaccinationBadge.component';
 import AvatarWithBadge from './AvatarWithBadge.component';
 import MemberProgramDetailDialog from '../../performance-tracking/components/member-program/MemberProgramDetail.dialog';
+import moment from 'moment';
+import { Cake } from '@material-ui/icons';
 
 type Props = {
   member: Member<Tag<TagGroup>>;
@@ -81,6 +83,12 @@ export const MemberMinimalListItem: React.FC<Props> = ({
         {p.children}
       </VaccinationBadge>
     );
+
+  const isBirthday = member
+    ? moment().date() === moment(member.birthday).date() &&
+      moment().month() === moment(member.birthday).month()
+    : false;
+
   return (
     <>
       <ListItem
@@ -103,6 +111,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
               <Typography>
                 {member.name + (firstBooking ? ' ★' : '')}
               </Typography>
+              {isBirthday && <Cake fontSize="small" color="secondary" />}
               <Typography color="secondary" variant="caption">
                 {member.archived ? `${'\u00A0'}(${t('archived')})` : ''}
               </Typography>
@@ -160,6 +169,9 @@ const useStyles = makeStyles<Theme>((theme) => ({
   flexDiv: {
     display: 'flex',
     alignItems: 'center',
+    '&>*': {
+      marginRight: theme.spacing(0.5),
+    },
   },
 }));
 

@@ -12,12 +12,18 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Grid from '@material-ui/core/Grid';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 
 import { compose, withState } from 'recompose';
 
 import { withTranslation, TFunction } from 'react-i18next';
 import { formatAsDate } from '../../../../utils/datetime';
 import NumericInput from '../../../../components/input/NumericInput.component';
+import DateInput from '#components/input/DateInput.component';
+
 import type { PrivateConsumerPass } from '../../types';
 import { getExpirationDate } from '../../utils';
 
@@ -35,8 +41,86 @@ type Props = {
   t: TFunction,
   classes: Object,
   processing: Boolean,
+  timezone: string,
 };
 export const PrivateConsumerPassExtensionCreateDialog = (props: Props) => {
+  const {
+    privateConsumerPass,
+    setNbDays,
+    timezone,
+    setNote,
+    onSubmit,
+    note,
+    nbDays,
+  } = props;
+
+  // CLEAN ME : Declare an enum in a TS file and import it here
+  const EXTENSION_OPTIONS = [
+    {
+      label: props.t('consumerPass.extension.options.addNumberOfDays'),
+      value: 'numericInput',
+    },
+    {
+      label: props.t('consumerPass.extension.options.selectNewEndDate'),
+      value: 'datePicker',
+    },
+  ];
+
+  const [selectedExtensionOption, setSelectedExtensionOption] = React.useState(
+    EXTENSION_OPTIONS[0].value,
+  );
+
+  const handleSelectOption = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSelectedExtensionOption(event.target.value);
+    },
+    [setSelectedExtensionOption],
+  );
+
+  const endingDate = React.useMemo(
+    () =>
+      privateConsumerPass &&
+      moment(getExpirationDate(privateConsumerPass)).tz(timezone),
+    [privateConsumerPass, timezone],
+  );
+
+  const newDate = React.useMemo(
+    () =>
+      privateConsumerPass &&
+      moment(getExpirationDate(privateConsumerPass))
+        .tz(timezone)
+        .add(nbDays, 'days'),
+    [privateConsumerPass, timezone, nbDays],
+  );
+
+  const handleSelectDate = React.useCallback(
+    (selectedDate: moment.Moment) => {
+      const numberOfDaysToAdd = selectedDate.diff(endingDate, 'days');
+      setNbDays(numberOfDaysToAdd);
+    },
+    [endingDate, setNbDays],
+  );
+
+  const handleChangeNumericInput = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) =>
+      setNbDays(event.target.value),
+    [setNbDays],
+  );
+
+  const handleChangeNote = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => setNote(event.target.value),
+    [setNote],
+  );
+
+  const handleSubmit = React.useCallback(
+    () => onSubmit({ note, nb_days: nbDays }),
+    [onSubmit, note, nbDays],
+  );
+
+  if (!privateConsumerPass) {
+    return null;
+  }
+
   return (
     <Dialog open={props.open}>
       {props.processing && <LinearProgress />}
@@ -45,38 +129,65 @@ export const PrivateConsumerPassExtensionCreateDialog = (props: Props) => {
       </DialogTitle>
       <DialogContent>
         <div className={props.classes.content}>
-          <NumericInput
-            value={props.nbDays}
-            fullWidth
-            label={props.t('consumerPass.extension.create.nbDays.label')}
-            onChange={(ev) => props.setNbDays(ev.target.value)}
-            InputProps={{
-              inputProps: { step: 1, min: 0 },
-            }}
-          />
+          <Grid item xs={12}>
+            <RadioGroup
+              value={selectedExtensionOption}
+              onChange={handleSelectOption}
+            >
+              {EXTENSION_OPTIONS.map(({ value, label: l }) => (
+                <div key={value}>
+                  <FormControlLabel
+                    key={value}
+                    value={value}
+                    control={<Radio />}
+                    label={l}
+                    disabled={props.processing}
+                  />
+                </div>
+              ))}
+            </RadioGroup>
+          </Grid>
+          {selectedExtensionOption === 'numericInput' && (
+            <NumericInput
+              value={nbDays}
+              fullWidth
+              label={props.t('consumerPass.extension.create.nbDays.label')}
+              onChange={handleChangeNumericInput}
+              InputProps={{
+                inputProps: { step: 1, min: 0 },
+              }}
+            />
+          )}
+          {selectedExtensionOption === 'datePicker' &&
+            !!privateConsumerPass && (
+              <DateInput
+                value={newDate}
+                onChange={handleSelectDate}
+                minDate={endingDate}
+                label={props.t(
+                  'consumerPass.extension.create.datePicker.label',
+                )}
+                disabled={props.processing}
+              />
+            )}
           <TextField
             variant="outlined"
             value={props.note}
             fullWidth
             inputProps={{ maxLength: 42 }}
             label={props.t('consumerPass.extension.create.note.label')}
-            onChange={(ev) => props.setNote(ev.target.value)}
+            onChange={handleChangeNote}
             className={props.classes.field}
           />
-          {props.privateConsumerPass ? (
+          {privateConsumerPass ? (
             <div className={props.classes.dateExplainer}>
               <Typography variant="subtitle2">
                 {props.t('consumerPass.extension.create.explain.oldDate') +
-                  formatAsDate(getExpirationDate(props.privateConsumerPass))}
+                  formatAsDate(getExpirationDate(privateConsumerPass))}
               </Typography>
               <Typography variant="subtitle2">
                 {props.t('consumerPass.extension.create.explain.newDate') +
-                  formatAsDate(
-                    moment(getExpirationDate(props.privateConsumerPass)).add(
-                      'days',
-                      props.nbDays,
-                    ),
-                  )}
+                  formatAsDate(newDate)}
               </Typography>
             </div>
           ) : null}
@@ -95,9 +206,7 @@ export const PrivateConsumerPassExtensionCreateDialog = (props: Props) => {
         </Button>
         <Button
           color="primary"
-          onClick={() =>
-            props.onSubmit({ note: props.note, nb_days: props.nbDays })
-          }
+          onClick={handleSubmit}
           disabled={props.processing}
         >
           {props.t('consumerPass.extension.create.submit')}

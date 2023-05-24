@@ -597,6 +597,14 @@ exports.default = {
         nbDays: {
           label: 'Nombre de jours additionnels',
         },
+        datePicker: {
+          label: 'Nouvelle date',
+        },
+      },
+      options: {
+        addNumberOfDays:
+          'Étendre la validité en ajoutant un certain nombre de jours',
+        selectNewEndDate: 'Définir une nouvelle date de fin de validité',
       },
     },
     actions: {

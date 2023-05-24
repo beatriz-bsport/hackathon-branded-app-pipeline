@@ -111,6 +111,7 @@ type Props = {
   updateFiltersSettings: () => void,
   userFiltersLoading: boolean,
   privateConsumerPassExtensionCreationLoading: boolean,
+  timezone: string,
 };
 
 export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
@@ -296,6 +297,7 @@ export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
               },
             );
           }}
+          timezone={this.props.timezone}
         />
       </Grid>
     );
@@ -338,6 +340,7 @@ export default compose(
       userFilters: state.dashboardSettings.managerFiltersSettings.data.filters,
       userFiltersLoading:
         state.dashboardSettings.managerFiltersSettings.loading,
+      timezone: state.theme.theme.timezone_name,
     }),
     {
       fetchPrivateConsumerPassList,

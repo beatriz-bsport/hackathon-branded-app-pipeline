@@ -1,3 +1,5 @@
+const { MEMBER_EVENTS } = require('@bsport/common/lib/master-data/events');
+
 exports.default = {
   search: {
     createMember: 'Ajouter un membre',
@@ -397,5 +399,51 @@ exports.default = {
     error:
       "Erreur lors de l'envoi des instructions de réinitialisation de mot de passe",
     button: 'Réinitialiser le mot de passe',
+  },
+  events: {
+    [MEMBER_EVENTS.basket_paid]: {
+      filter: 'Paniers payés',
+      primaryText: 'Un panier de {{ amount }} a été payé. ',
+    },
+    [MEMBER_EVENTS.booking_registered]: {
+      filter: 'Réservations',
+      primaryText:
+        '{{ source }} a réservé la séance {{- offerName }} du {{- offerDate }}.',
+      sourceManager: 'Le manager {{ managerName }}',
+    },
+    [MEMBER_EVENTS.custom_form_filled]: {
+      filter: 'Formulaire de profil édité',
+      primaryText:
+        "Le formulaire d'édition de profil {{ formName }} a été rempli.",
+    },
+    [MEMBER_EVENTS.giftcard_used]: {
+      filter: 'Cartes cadeaux utilisées',
+      primaryText: 'La carte cadeau {{- giftcardName }} a été activée.',
+    },
+    [MEMBER_EVENTS.invoice_paid]: {
+      filter: 'Factures payées',
+      primaryText:
+        'La facture n°{{ invoiceUUID }} a été payée à hauteur de {{ amount }}.',
+    },
+    [MEMBER_EVENTS.login_successful]: {
+      filter: 'Connexions réussies',
+      primaryText: 'Une connexion réussie {{ source }} a été enregistrée.',
+      sourceApp: "depuis l'application",
+      sourceMarketplace: 'depuis la marketplace',
+    },
+    [MEMBER_EVENTS.private_booking_registered]: {
+      filter: 'Rendez-vous',
+      primaryText:
+        '{{ source }} a réservé le rendez-vous {{- privateServiceName }} - {{- privateSlotName }} du {{- privateServiceDate }}.',
+      sourceManager: 'Le manager {{ managerName }}',
+    },
+    [MEMBER_EVENTS.tag_applied]: {
+      filter: 'Tags appliqués',
+      primaryText: 'Le tag {{ tagName }} a été appliqué.',
+    },
+    [MEMBER_EVENTS.vod_bought]: {
+      filter: 'VOD achetées',
+      primaryText: 'La VOD {{- VODName }} a été achetée.',
+    },
   },
 };

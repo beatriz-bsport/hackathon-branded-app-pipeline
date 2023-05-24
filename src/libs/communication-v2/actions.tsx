@@ -27,11 +27,9 @@ import {
   Recipient,
   CommunicationContext,
   CommunicationProviderSettings,
-  SmartListPopupToSend,
 } from './types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from './constants';
 import { monitorBackgroundTask } from '#libs/background-task/actions';
-import { RootState } from '../../reducers';
 
 // --------- SEND COMMUNICATION ---------
 
@@ -362,12 +360,14 @@ export const smartListPopupSendingActions = {
   success: createAction('SMARTLIST_POPUP_SENDING/FETCH/SUCCESS'),
 };
 
-export function fetchSmartListPopupSendings(): ThunkAction {
+export function fetchSmartListPopupSendings(params: {
+  smartlist_id: number;
+}): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(smartListPopupSendingActions.loading(true));
     dispatch(smartListPopupSendingActions.error(null));
     try {
-      const response = await fetchSmartListPopupSendingsAPI();
+      const response = await fetchSmartListPopupSendingsAPI(params);
       dispatch(smartListPopupSendingActions.success(response.data));
     } catch (error) {
       dispatch(smartListPopupSendingActions.error(error));
@@ -377,34 +377,29 @@ export function fetchSmartListPopupSendings(): ThunkAction {
 }
 
 export function sendSmartListPopup(
-  data: SmartListPopupToSend,
+  data: FormData,
   options?: OptionBackgroundCallback,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState: () => RootState) => {
+  return async (dispatch: Dispatch) => {
     dispatch(smartListPopupSendingActions.loading(true));
     dispatch(smartListPopupSendingActions.error(null));
 
     try {
       const response = await sendSmartListPopupAPI(data);
-      if (response.status === 200) {
-        const backgroundTaskUuid = response.headers['x-background-task-uuid'];
-        if (options) {
-          options.onSuccess?.();
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      if (options) {
+        options.onSuccess?.();
 
-          dispatch(
-            monitorBackgroundTask(backgroundTaskUuid, {
-              onSuccess: async () => {
-                await fetchSmartListPopupSendings()(dispatch, getState);
-                options.onBackgroundSuccess?.();
-              },
-              onError: (error) => {
-                dispatch(smartListPopupSendingActions.error(error));
-                options.onBackgroundError?.();
-              },
-            }),
-          );
-        } else dispatch(monitorBackgroundTask(backgroundTaskUuid));
-      }
+        dispatch(
+          monitorBackgroundTask(backgroundTaskUuid, {
+            onSuccess: () => options.onBackgroundSuccess?.(),
+            onError: (error) => {
+              dispatch(smartListPopupSendingActions.error(error));
+              options.onBackgroundError?.();
+            },
+          }),
+        );
+      } else dispatch(monitorBackgroundTask(backgroundTaskUuid));
     } catch (error) {
       dispatch(smartListPopupSendingActions.error(error));
       dispatch(snackbarError('smartListPopup.send.error'));

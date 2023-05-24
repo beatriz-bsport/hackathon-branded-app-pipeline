@@ -14,13 +14,6 @@ export type SmartListPopupSending = {
   smartlist?: number;
 };
 
-export type SmartListPopupToSend = {
-  name: string;
-  link: string;
-  image: string;
-  smartlist_id?: number;
-};
-
 export type CommunicationState = {
   recipient: {
     byId: { [id: number]: Recipient<number> };

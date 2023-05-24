@@ -13,7 +13,6 @@ import {
   CommunicationProvider,
   CommunicationProviderSettings,
   SmartListPopupSending,
-  SmartListPopupToSend,
 } from './types';
 import { FetchRecipientsParams } from '#libs/member/types';
 
@@ -107,12 +106,17 @@ export const updateCommunicationProviderSettings = async (
   return patchAuth(`${API_V1_URI}/communication/provider/${kind}/0/`, data);
 };
 
-export const fetchSmartListPopupSendings = async (): Promise<
-  AxiosResponse<Array<SmartListPopupSending>>
-> => getAuth(`${API_V1_URI}/mobile_app/smartlist_popup_sending/`);
+export const fetchSmartListPopupSendings = async (params: {
+  smartlist_id: number;
+}): Promise<AxiosResponse<Array<SmartListPopupSending>>> =>
+  getAuth(
+    `${API_V1_URI}/mobile_app/smartlist_popup_sending/${buildUrlParams(
+      params,
+    )}`,
+  );
 
 export const sendSmartListPopup = async (
-  data: SmartListPopupToSend,
+  data: FormData,
 ): Promise<AxiosResponse<SmartListPopupSending>> =>
   postAuth(
     `${API_V1_URI}/mobile_app/smartlist_popup_sending/send_smartlist_popup/`,

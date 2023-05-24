@@ -387,6 +387,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     return (
       <div>
         <FiltersPanel
+          smartListId={this.props.id}
           exportMemberTable={() => getMemberTable(this.props.id)}
           smartList={this.props.smartlist}
           filters={this.props.smartlist_filters}
@@ -885,6 +886,23 @@ const mapWithHandlers = {
           },
         });
       }
+    },
+  sendSmartListPopup:
+    (props: OwnAndConnectedProps) =>
+    async (param: {
+      id: string;
+      values: FormData;
+      options?: OptionCallback;
+    }) => {
+      param.values.append('smartlist_id', props.id);
+      props.sendSmartListPopup(param.values, {
+        ...param.options,
+        onBackgroundSuccess: async () => {
+          await props.fetchSmartListPopupSendings({
+            smartlist_id: props.id,
+          });
+        },
+      });
     },
 };
 

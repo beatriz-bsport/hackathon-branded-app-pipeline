@@ -1,0 +1,306 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import moment from 'moment-timezone';
+
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import Divider from '@material-ui/core/Divider';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Alert from '@material-ui/lab/Alert';
+import Pagination from '@material-ui/lab/Pagination';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+
+import { SmartListPopupSending } from '#libs/communication-v2/types';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { createUrl } from '../../../utils/createUrlHandlers';
+import { FetchRecipientsParams, Member } from '#libs/member/types';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import SmartListPopupListItem, {
+  MEMBER_PAGE_SIZE,
+} from './SmartListPopupListItem.component';
+
+const getUrl = (value: string | any) => {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  if (typeof value === 'object') {
+    return createUrl(value);
+  }
+
+  return null;
+};
+
+type Props = {
+  smartListId: number;
+  open: boolean;
+  onClose: () => void;
+  fetchMembers: (params: FetchRecipientsParams) => void;
+  smartListPopupList?: Array<SmartListPopupSending>;
+  memberLoading: boolean;
+  membersToDisplay?: Array<Member>;
+  loading?: boolean;
+};
+
+const SmartListPopupSendingDrawer: React.FC<Props> = ({
+  smartListId,
+  open,
+  onClose,
+  fetchMembers,
+  smartListPopupList,
+  memberLoading,
+  membersToDisplay,
+  loading,
+}) => {
+  const { t } = useTranslation(['communication']);
+  const classes = useStyle();
+
+  // Pop-up preview
+  const [smartListPopupToPreview, setSmartListPopupToPreview] =
+    React.useState<SmartListPopupSending | null>(null);
+  const closePreview = React.useCallback(
+    () => setSmartListPopupToPreview(null),
+    [],
+  );
+
+  // Pop-up member list
+  const [smartListPopupToShowMembers, setSmartListPopupToShowMembers] =
+    React.useState<SmartListPopupSending | null>(null);
+  const [memberListPage, setMemberListPage] = React.useState(1);
+  const handleChangePage = React.useCallback(
+    (_: React.ChangeEvent<unknown> | null, page: number = 1) => {
+      fetchMembers({
+        id__in:
+          smartListPopupToShowMembers?.member_ids.slice(
+            (page - 1) * MEMBER_PAGE_SIZE,
+            page * MEMBER_PAGE_SIZE,
+          ) ?? [],
+        page_size: MEMBER_PAGE_SIZE,
+      });
+      setMemberListPage(page);
+    },
+    [fetchMembers, smartListPopupToShowMembers?.member_ids],
+  );
+  const closeMemberList = React.useCallback(
+    () => setSmartListPopupToShowMembers(null),
+    [],
+  );
+
+  const filteredMembersToDisplay = React.useMemo(
+    () =>
+      (membersToDisplay ?? []).filter((member) =>
+        (smartListPopupToShowMembers?.member_ids ?? []).includes(member.id),
+      ),
+    [membersToDisplay, smartListPopupToShowMembers?.member_ids],
+  );
+
+  const smartListPopupsToDisplay = React.useMemo(
+    () =>
+      (smartListPopupList ?? []).filter(
+        (smartListPopup) => smartListPopup?.smartlist === smartListId,
+      ),
+    [smartListPopupList, smartListId],
+  );
+
+  return (
+    <GenericResponsiveDrawer
+      open={open}
+      onClose={onClose}
+      title={t('smartListPopup.drawerTitle')}
+      withoutPadding
+    >
+      <Divider className={classes.topDivider} />
+      {loading ? (
+        <div className={classes.loading}>
+          <CircularProgress />
+        </div>
+      ) : (
+        <div className={classes.listContainer}>
+          {smartListPopupsToDisplay.length > 0 ? (
+            smartListPopupsToDisplay.map((smartListPopup, index) => (
+              <SmartListPopupListItem
+                key={smartListPopup.id}
+                smartListPopup={smartListPopup}
+                t={t}
+                fetchMembers={fetchMembers}
+                openPreview={setSmartListPopupToPreview}
+                openMemberList={setSmartListPopupToShowMembers}
+                noDivider={index === 0}
+              />
+            ))
+          ) : (
+            <div className={classes.noResult}>
+              <Alert severity="info" className={classes.noResultInfo}>
+                {t('smartListPopup.noSmartListPopup')}
+              </Alert>
+            </div>
+          )}
+        </div>
+      )}
+      <Divider />
+      <DialogActions className={classes.dialogActions}>
+        <Button onClick={onClose}>{t('smartListPopup.close')}</Button>
+      </DialogActions>
+
+      {/* Preview */}
+      <GenericResponsiveDialog
+        open={smartListPopupToPreview !== null}
+        onClose={closePreview}
+        padding
+      >
+        <DialogTitle>{t('smartListPopup.previewTitle')}</DialogTitle>
+        <div className={classes.previewInner}>
+          <div className={classes.previewTitle}>
+            {smartListPopupToPreview?.custom_app_popup_link.name}
+            <CloseIcon />
+          </div>
+          <img
+            alt="some-cover"
+            src={getUrl(smartListPopupToPreview?.custom_app_popup_link.image)}
+            style={{
+              width: '100%',
+              objectFit: 'cover',
+            }}
+          />
+          <div className={classes.previewBottom}>
+            <Button
+              className={classes.previewBottomButton}
+              variant="contained"
+              color="primary"
+            >
+              {t('smartListPopup.preview')}
+            </Button>
+          </div>
+        </div>
+        <DialogActions>
+          <Button color="secondary" onClick={closePreview}>
+            {t('smartListPopup.cancelPreview')}
+          </Button>
+        </DialogActions>
+      </GenericResponsiveDialog>
+
+      {/* Recipient list */}
+      <GenericResponsiveDialog
+        open={smartListPopupToShowMembers !== null}
+        onClose={closeMemberList}
+        maxWidth="sm"
+      >
+        <DialogTitle>
+          {`${t('smartListPopup.memberListTitle')} - ${moment(
+            smartListPopupToShowMembers?.custom_app_popup_link.date_created,
+          ).format('L')} - ${moment(
+            smartListPopupToShowMembers?.custom_app_popup_link.date_created,
+          ).format('LT')}`}
+        </DialogTitle>
+        <Typography variant="subtitle1" className={classes.recipientsAmount}>
+          {`${smartListPopupToShowMembers?.member_ids.length ?? 0} ${t(
+            'smartListPopup.recipient',
+            { count: smartListPopupToShowMembers?.member_ids.length ?? 0 },
+          )}`}
+        </Typography>
+        {memberLoading ? (
+          <CircularProgress />
+        ) : (
+          (membersToDisplay ?? []).map((member) => (
+            <div className={classes.memberListItem} key={member.id}>
+              <Avatar src={member.photo} />
+              <Typography variant="body1">{member.name}</Typography>
+            </div>
+          ))
+        )}
+        {smartListPopupToShowMembers?.member_ids.length > MEMBER_PAGE_SIZE && (
+          <Pagination
+            page={memberListPage}
+            count={Math.ceil(
+              smartListPopupToShowMembers?.member_ids.length / MEMBER_PAGE_SIZE,
+            )}
+            onChange={handleChangePage}
+            className={classes.pagination}
+          />
+        )}
+        <DialogActions>
+          <Button color="secondary" onClick={closeMemberList}>
+            {t('smartListPopup.close')}
+          </Button>
+        </DialogActions>
+      </GenericResponsiveDialog>
+    </GenericResponsiveDrawer>
+  );
+};
+
+const useStyle = makeStyles((theme) => ({
+  dialogActions: {
+    margin: theme.spacing(4),
+    padding: 0,
+  },
+  topDivider: {
+    marginTop: theme.spacing(2),
+  },
+  previewInner: {
+    background: '#FFFFFF',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    boxShadow: theme.shadows[5],
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3.25),
+  },
+  previewTitle: {
+    display: 'flex',
+    padding: theme.spacing(2),
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    fontSize: 22,
+  },
+  previewBottom: {
+    padding: theme.spacing(2),
+  },
+  previewBottomButton: {
+    width: '100%',
+    padding: theme.spacing(2),
+  },
+  listContainer: {
+    padding: theme.spacing(3),
+    paddingRight: theme.spacing(4),
+    paddingLeft: theme.spacing(4),
+  },
+  loading: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    padding: theme.spacing(5),
+  },
+  noResult: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    padding: theme.spacing(2),
+  },
+  noResultInfo: {
+    borderRadius: theme.spacing(3),
+  },
+  pagination: {
+    display: 'flex',
+    justifyContent: 'center',
+    margin: theme.spacing(1.625),
+  },
+  memberListItem: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.spacing(2.625),
+    padding: theme.spacing(0.75),
+    paddingLeft: theme.spacing(4),
+  },
+  recipientsAmount: {
+    fontWeight: 500,
+    marginLeft: theme.spacing(3),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(0.5),
+  },
+}));
+
+export default React.memo(SmartListPopupSendingDrawer);

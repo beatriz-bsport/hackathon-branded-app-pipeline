@@ -113,3 +113,79 @@ export type GenericEventSpec<T> = Record<
     disableOnClick?: boolean;
   }
 >;
+
+export type MemberEvent = {
+  data: MemberEventBasketPaid &
+    MemberEventBookingRegistered &
+    MemberEventCustomFormFilled &
+    MemberEventGiftcardUsed &
+    MemberEventInvoicePaid &
+    MemberEventLoginSuccessful &
+    MemberEventPrivateBookingRegistered &
+    MemberEventTagApplied &
+    MemberEventVODBought;
+};
+
+type MemberEventBasketPaid = {
+  basket_id?: string;
+  invoice_uuid?: string;
+  amount?: string;
+};
+
+type MemberEventBookingRegistered = {
+  booker_name?: string;
+  booking_id?: number;
+  by_manager?: boolean;
+  nb_booked_offers?: number;
+  offer_date_str?: string;
+  offer_id?: number;
+  offer_name?: string;
+  spot_id?: number;
+  source_device?: string;
+};
+
+type MemberEventCustomFormFilled = {
+  custom_form_filled_id?: number;
+  custom_form_name?: string;
+};
+
+type MemberEventGiftcardUsed = {
+  consumer_giftcard_id?: number;
+  giftcard_name?: string;
+};
+
+type MemberEventInvoicePaid = {
+  amount?: string;
+  invoice_uuid?: string;
+};
+
+type MemberEventLoginSuccessful = {
+  from_mobile_app?: boolean;
+};
+
+type MemberEventPrivateBookingRegistered = {
+  booker_name?: string;
+  by_manager?: boolean;
+  private_booking_id?: number;
+  private_service_date_str?: string;
+  private_service_id: number;
+  private_service_name?: string;
+  private_slot_id?: number;
+  private_slot_name?: string;
+  source_device?: string;
+};
+
+type MemberEventTagApplied = {
+  member_tag_id?: number;
+  tag_group_name?: string;
+  tag_id?: number;
+  tag_name?: string;
+};
+
+type MemberEventVODBought = {
+  member_pass_id?: string;
+  member_pass_type?: string;
+  video_purchase?: number;
+  vod_id?: number;
+  vod_name?: string;
+};

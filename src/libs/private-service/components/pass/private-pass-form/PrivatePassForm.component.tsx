@@ -97,6 +97,7 @@ export interface FormikValues {
   linked_payment_pack_metaActivities: Array<number>;
   unusable_by_staff: boolean;
   applies_for_payroll: boolean;
+  on_behalf_of_teacher: boolean;
 }
 type Props = {
   provincialTax: number;
@@ -332,8 +333,13 @@ export const PrivatePassForm = (props: Props) => {
           />
           <SwitchField
             name="applies_for_payroll"
-            label={t('privatePass.form.teacherDirectBilling.label')}
-            helperText={t('privatePass.form.teacherDirectBilling.helperText')}
+            label={t('privatePass.form.appliesForPayroll.label')}
+            helperText={t('privatePass.form.appliesForPayroll.helperText')}
+          />
+          <SwitchField
+            name="on_behalf_of_teacher"
+            label={t('privatePass.form.onBehalfOfTeacher.label')}
+            helperText={t('privatePass.form.onBehalfOfTeacher.helperText')}
           />
         </div>
       </div>
@@ -850,6 +856,7 @@ export const PrivatePassSchema = Yup.object().shape({
     .nullable(true),
   unusable_by_staff: Yup.boolean().required(),
   applies_for_payroll: Yup.boolean().required(),
+  on_behalf_of_teacher: Yup.boolean().required(),
 });
 
 export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
@@ -868,6 +875,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
           initial.linked_payment_pack?.metaActivities || [],
         unusable_by_staff: !initial.is_usable_by_staff,
         applies_for_payroll: initial.applies_for_payroll,
+        on_behalf_of_teachr: initial.on_behalf_of_teacher,
       };
 
     return {
@@ -892,6 +900,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
       linked_payment_pack_metaActivities: [],
       unusable_by_staff: false,
       applies_for_payroll: true,
+      on_behalf_of_teacher: false,
     };
   },
   enableReinitialize: true,

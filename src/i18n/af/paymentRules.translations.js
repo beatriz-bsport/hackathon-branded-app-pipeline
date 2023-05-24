@@ -102,7 +102,11 @@ exports.default = {
     fixedBonusbyInterval: 'Ajouter un bonus fixe par intervalle',
     bonusForEachReservationInInterval:
       "Ajouter un bonus pour chaque réservation de l'intervalle",
-    excludePaymentPack: 'Exclure les réservations de certaines cartes',
+    excludePaymentPack: {
+      title: 'Exclure les réservations de certaines cartes',
+      warning:
+        "Si vous avez déjà exclu des cartes de cours de la rémunération avec le paramètre 'Sessions prises en compte dans le calcul de la rémunération du professeur', vous n'avez pas besoin de les repréciser ici.",
+    },
     paymentPackPlaceHolder: 'Selectionner des cartes de cours',
     Bonuses: {
       bonus: 'Bonus',

@@ -294,6 +294,7 @@ exports.default = {
     next_booking: 'Prochaine réservation',
     no_show: 'No show',
     note: 'Note',
+    on_behalf_of_teacher: 'Paiement entièrement reversé au professeur',
     paid: 'Encaissé',
     pass: 'Carte de cours',
     payment_amount_by_payment_method: 'Encaissement par méthode de paiement',

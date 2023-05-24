@@ -152,12 +152,12 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
             <SwitchField
               name="applies_for_payroll"
               label={t(
-                'form.paymentPack.advancedOptions.teacherDirectBilling.label',
+                'form.paymentPack.advancedOptions.appliesForPayroll.label',
               )}
             />
             <Typography variant="caption" className={classes.helperText}>
               {t(
-                'form.paymentPack.advancedOptions.teacherDirectBilling.helperText',
+                'form.paymentPack.advancedOptions.appliesForPayroll.helperText',
               )}
             </Typography>
           </div>

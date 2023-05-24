@@ -41,6 +41,7 @@ import {
   CheckboxField,
   AlertError,
 } from '../../../../components/forms';
+import InfoBox from '#components/box/InfoBox.component';
 import PopoverCoachPaymentRuleForm from '../PopoverCoachPaymentRuleForm.component';
 import PaymentPackSelector from '../../../payment-packs/components/PaymentPackSelector.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
@@ -788,13 +789,17 @@ export function CoachPaymentRuleFields(props: Props) {
         <React.Fragment>
           <div className={classes.row}>
             <Typography className={classes.limitsTitle} variant="h6">
-              {t('coach_payment_rules.excludePaymentPack')}
+              {t('coach_payment_rules.excludePaymentPack.title')}
             </Typography>
             <IconButton onClick={toogleExcludePaymentPack}>
               <ExpandMoreIcon />
             </IconButton>
           </div>
           <Collapse in={openExcludePaymentPack}>
+            <InfoBox
+              content={t('coach_payment_rules.excludePaymentPack.warning')}
+              variant="contained"
+            />
             <FieldArray name="excluded_payment_packs">
               {({
                 push,

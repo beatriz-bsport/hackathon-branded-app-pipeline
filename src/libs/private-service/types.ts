@@ -164,6 +164,7 @@ export type PrivatePass<LPP = number | null> = {
   description?: string;
   is_usable_by_staff: boolean;
   applies_for_payroll: boolean;
+  on_behalf_of_teacher: boolean;
 };
 
 export type PrivatePassWithDetailedPrivateServices = PrivatePass & {

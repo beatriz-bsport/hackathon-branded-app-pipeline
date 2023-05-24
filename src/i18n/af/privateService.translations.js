@@ -791,10 +791,16 @@ exports.default = {
       selector: {
         privateService: 'Ajouter un rendez-vous compatible',
       },
-      teacherDirectBilling: {
-        label: 'Rendez-vous pris en compte dans le paiement du professeur',
+      appliesForPayroll: {
+        label:
+          'Rendez-vous pris en compte dans le calcul de la rémunération du professeur',
         helperText:
-          'Par défaut, les rendez-vous seront facturées au studio et comptabilisées dans le paiement du professeur par le studio. En désactivant ce paramètre, le professeur sera facturé directement et les rendez-vous associés ne seront pas pris en compte lors de son paiement.',
+          "Par défaut, les rendez-vous sont facturés au studio et comptabilisés dans le récapitulatif et la rémunération du professeur. En désactivant ce paramètre, les rendez-vous associés à cette carte n'apparaîtront plus dans le récapitulatif du professeur.",
+      },
+      onBehalfOfTeacher: {
+        label: 'Paiement entièrement reversé au professeur',
+        helperText:
+          "Ce paramètre permet d'indiquer que les revenus associés aux rendez-vous de cette carte reviendront entièrement au professeur. Cette information sera visible dans vos rapports d'achat (CA) colonne 'Paiement entièrement reversé au professeur'.",
       },
     },
     disabledTitle: 'Cartes de RDV archivées',

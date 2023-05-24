@@ -9,13 +9,13 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
 
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import withQueryParams from '../../hocs/with-query-params.hoc';
-import TaskList from '../../libs/reminder/components/TaskList.component';
-import { getUsersWithRole } from '../../libs/role/selectors';
+import TaskList from '#libs/reminder/components/TaskList.component';
+import { getUsersWithRole } from '#libs/role/selectors';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { snackbarWarning, snackbarSuccess } from '../../libs/snackbar/actions';
+import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
 import {
   createOrUpdateNote as createOrUpdateMemberNote,
   deleteNote,
@@ -29,85 +29,87 @@ import {
   adjustCreditWithoutPaymentNote,
   retrieveMemberPendingEmail,
   fetchMemberBulkById as fetchMemberBulkByIdAction,
-} from '../../libs/member/actions';
+  fetchMemberEventList as fetchMemberEventListAction,
+} from '#libs/member/actions';
 import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import {
   getSearchedMembers,
   getMemberDetail,
   getFilteredSearchedMembers,
-} from '../../libs/member/selectors';
-import MemberSummaryCard from '../../libs/member/components/MemberSummaryCard.component';
-import TagDeleteDialog from '../../libs/tag/components/TagDeleteDialog.component';
-import TagGroupDeleteDialog from '../../libs/tag/components/TagGroupDeleteDialog.component';
-import MemberCRM from '../../libs/member/components/MemberCRM.component';
-import ModalDeleteFile from '../../components/ModalConfirm.component';
-import MemberSearchModal from '../../libs/member/components/MemberSearchModal.component';
-import FileUploadDialog from '../../components/FileUploadDialog';
-import MemberBillingProblemCard from '../../libs/member/components/MemberBillingProblemCard.component';
-import { getMemberTagGroups } from '../../libs/tag/selectors';
+  getMemberEventState,
+} from '#libs/member/selectors';
+import MemberSummaryCard from '#libs/member/components/MemberSummaryCard.component';
+import TagDeleteDialog from '#libs/tag/components/TagDeleteDialog.component';
+import TagGroupDeleteDialog from '#libs/tag/components/TagGroupDeleteDialog.component';
+import MemberCRM from '#libs/member/components/MemberCRM.component';
+import ModalDeleteFile from '#components/ModalConfirm.component';
+import MemberSearchModal from '#libs/member/components/MemberSearchModal.component';
+import FileUploadDialog from '#components/FileUploadDialog';
+import MemberBillingProblemCard from '#libs/member/components/MemberBillingProblemCard.component';
+import { getMemberTagGroups } from '#libs/tag/selectors';
 import {
   fetchTags,
   createOrUpdateTag,
   createOrUpdateTagGroup,
   deleteTagGroup,
   deleteTag,
-} from '../../libs/tag/actions';
+} from '#libs/tag/actions';
 import { getStripeReaders } from '#libs/terminal/selectors';
 
 import {
   fetchPaymentMethodList,
   detachPaymentMethod,
-} from '../../libs/payment/actions';
-import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+} from '#libs/payment/actions';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
 import {
   fetchTaskListByMember as fetchTaskListByMemberAction,
   createOrUpdateTask as createOrUpdateTaskAction,
   updateTaskStatus,
-} from '../../libs/reminder/actions';
+} from '#libs/reminder/actions';
 import type { OptionCallback } from '../../state/types';
-import { memberTaskListSelector } from '../../libs/reminder/selectors';
-import { fetchCompanyUserRoles } from '../../libs/role/actions';
+import { memberTaskListSelector } from '#libs/reminder/selectors';
+import { fetchCompanyUserRoles } from '#libs/role/actions';
 
 import {
   // fetchInvoiceItemList as fetchInvoiceItemListAction,
   fetchInvoiceList as fetchInvoiceListAction,
   applyBalanceToUnpaid,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
-} from '../../libs/invoice/actions';
+} from '#libs/invoice/actions';
 
-import { withInvoiceItem, getInvoiceList } from '../../libs/invoice/selectors';
+import { withInvoiceItem, getInvoiceList } from '#libs/invoice/selectors';
 
-import { sendCommunication } from '../../libs/communication/actions';
+import { sendCommunication } from '#libs/communication/actions';
 import {
   emailTemplateDetail,
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '../../libs/email-editor/actions';
+} from '#libs/email-editor/actions';
 
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
-} from '../../libs/email-editor/selectors';
+} from '#libs/email-editor/selectors';
 import {
   fetchEstablishments,
   fetchAllEstablishmentGroup,
-} from '../../libs/establishment/actions';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+} from '#libs/establishment/actions';
+import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
 import themeSelectors, {
   getStripeRegion,
   getCompanyCountry,
-} from '../../libs/theme/selectors';
+} from '#libs/theme/selectors';
 import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
-import { fetchModelBasedAnswer } from '../../libs/custom-form/actions';
+import { fetchModelBasedAnswer } from '#libs/custom-form/actions';
 import {
   CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP,
   MODEL_BASED_QUESTION_FAVORITE,
-} from '../../libs/custom-form/utils';
+} from '#libs/custom-form/utils';
 import {
   getFavoriteEstablishmentGroupList,
   showVaccinationStatus,
-} from '../../libs/custom-form/selectors';
+} from '#libs/custom-form/selectors';
 import { Tag } from '#libs/tag/types';
 import { MemberUploadedFile } from '#libs/member/types';
 import {
@@ -121,13 +123,16 @@ import { resetPassword } from '../../actions/auth.actions';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,
-} from '../../libs/giftcard/actions';
+} from '#libs/giftcard/actions';
 import type { ConsumerGiftcard } from '#libs/giftcard/types';
 import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.component';
 import PaymentModal from '#libs/payment/components/PaymentModal.component';
 import MemberResetPasswordDialog from '#libs/member/components/MemberResetPasswordDialog.component';
 import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#libs/terminal/constants';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
+import { getMemberEventPath } from '#libs/member/events.utils';
+import MemberEventPanel from '#libs/member/components/MemberEventPanel.component';
+import { GenericEvent, MemberEvent } from '#libs/event/types';
 
 type Props = RouterParamsProps &
   ConnectProps &
@@ -379,6 +384,11 @@ export class MemberDetailPage extends React.Component<Props> {
     }
   };
 
+  onMemberEventClick = (event: GenericEvent<MemberEvent>) => {
+    const eventDetailPath = getMemberEventPath(event, this.props.id);
+    this.props.goToEventDetail(eventDetailPath);
+  };
+
   render() {
     const stripeRegion = getStripeRegion();
     const companyCountry = getCompanyCountry();
@@ -492,6 +502,14 @@ export class MemberDetailPage extends React.Component<Props> {
             snackbarSuccessMsg={this.props.snackbarSuccessMsg}
             openAddPaymentMethodDialog={this.openAddPaymentMethodDialog}
             companyId={this.props.companyTheme.company}
+          />
+          <MemberEventPanel
+            eventList={this.props.eventList}
+            eventListLoading={this.props.eventListLoading}
+            eventListPage={this.props.eventListPage}
+            fetchEventList={this.props.fetchMemberEventList}
+            memberId={this.props.id}
+            onEventClick={this.onMemberEventClick}
           />
         </Grid>
         {this.props.member?.id && !!companyCountry && !!stripeRegion && (
@@ -615,6 +633,10 @@ const connector = connect(
     stripeReaders: getStripeReaders(state),
     resolvedGenericTags: getResolvedGenericTags(state),
     resetLoading: state.auth.resetPassword.loading,
+    // Events
+    eventList: getMemberEventState(state).items,
+    eventListLoading: getMemberEventState(state).loading,
+    eventListPage: getMemberEventState(state).page,
   }),
   {
     fetchInvoiceList: fetchInvoiceListAction,
@@ -676,6 +698,8 @@ const connector = connect(
     fetchMemberBulkById: fetchMemberBulkByIdAction,
     fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
     resetPassword,
+    fetchMemberEventList: fetchMemberEventListAction,
+    goToEventDetail: (eventDetailPath: string) => routerPush(eventDetailPath),
   },
 );
 

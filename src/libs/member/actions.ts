@@ -54,6 +54,9 @@ import {
   GenericListRepo,
   GenericRepo,
 } from '../../utils/reduxHelper';
+import { COMPANY_EVENTS } from './events.utils';
+import { fetchEventList } from '#libs/event/actions';
+import { EventListParams } from '#libs/event/types';
 
 export const actionTypes = {
   START_FETCH_MEMBER: 'START_FETCH_MEMBER',
@@ -1133,3 +1136,19 @@ export function retrieveMemberPendingEmail(
     dispatch(retrieveMemberPendingEmailRequestActions.isLoading(false));
   };
 }
+
+export const fetchMemberEventList = (
+  params: EventListParams = {},
+  options: OptionCallback,
+) =>
+  fetchEventList(
+    'member',
+    {
+      ...params,
+      event_types:
+        params.event_types && params.event_types.length
+          ? params.event_types
+          : Object.keys(COMPANY_EVENTS),
+    },
+    options,
+  );

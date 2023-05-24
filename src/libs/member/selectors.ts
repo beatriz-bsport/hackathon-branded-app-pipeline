@@ -16,6 +16,7 @@ import {
   getMetricDict,
   getProgramDict,
 } from '#libs/performance-tracking/selector';
+import { getEventState } from '#libs/event/selectors';
 
 export const getMemberDetailData = (state: RootState) =>
   state.member.detailData;
@@ -230,3 +231,7 @@ export const getIncrementalSearchedMembers = createSelector(
   [_getIncrementalSearchedMemberIds, getMemberDict],
   (ids, data) => ids.map((id) => data[id]).filter((m) => !!m),
 );
+
+// Events
+export const getMemberEventState = (state: RootState) =>
+  getEventState(state.event, 'member');

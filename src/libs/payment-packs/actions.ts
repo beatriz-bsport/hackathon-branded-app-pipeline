@@ -415,6 +415,7 @@ export function fetchPaymentPackForBooking(
         as_consumer: true,
         page,
         page_size,
+        include_expired: false,
       });
       dispatch(paymentPackForBookingActions.success(response.data));
       if (options && options.onSuccess) {

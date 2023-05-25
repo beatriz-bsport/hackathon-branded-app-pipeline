@@ -15,10 +15,13 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import WarningIcon from '@material-ui/icons/Warning';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import InfoIcon from '@material-ui/icons/Info';
+import InputLabel from '@material-ui/core/InputLabel';
 import { PaymentPack, PaymentPackFormValues } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
   SwitchField,
+  DateField,
 } from '../../../../components/forms';
 import { SCT } from '#libs/category/types';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
@@ -28,6 +31,7 @@ import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input'
 import SCTChip from '#libs/category/components/SCTChip.component';
 import type { PrivatePass } from '#libs/private-service/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
+import ToolTip from '#components/Tooltip.component';
 
 type Props = {
   categoryList: Array<SCT>;
@@ -154,6 +158,29 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 <Typography>{t('addPaymentPack.allowGuest')}</Typography>
               </div>
             )}
+            <div className={classes.row}>
+              <SwitchField
+                name="expiration_date_active"
+                disabled={!!initial?.template_instance}
+              />
+              <Typography>
+                {t('addPaymentPack.expiration_date.label')}
+              </Typography>
+              <ToolTip title={t('addPaymentPack.expiration_date.tooltip')}>
+                <InfoIcon color="disabled" className={classes.infoIcon} />
+              </ToolTip>
+            </div>
+            <Collapse in={values.expiration_date_active}>
+              <InputLabel className={classes.inputLabelExpirationDate}>
+                {t('addPaymentPack.expiration_date.helperText')}
+              </InputLabel>
+              <DateField
+                name="expiration_date"
+                disabled={!!initial?.template_instance}
+                format="L"
+                allowNullValue
+              />
+            </Collapse>
           </div>
         </Grid>
         <Grid item xs={6}>
@@ -365,5 +392,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
   icon: {
     color: '#868686',
   },
+  infoIcon: { marginLeft: theme.spacing(3) },
+  inputLabelExpirationDate: { marginTop: theme.spacing(1), fontSize: 12 },
 }));
 export default PaymentPackFormRestrictions;

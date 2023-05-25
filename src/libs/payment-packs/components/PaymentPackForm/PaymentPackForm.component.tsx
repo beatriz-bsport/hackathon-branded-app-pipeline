@@ -242,6 +242,8 @@ export const PaymentPackForm = (props: Props) => {
                 allow_guest_pass: true,
                 unusable_by_staff: false,
                 applies_for_payroll: true,
+                expiration_date: null,
+                expiration_date_active: false,
               }
         }
         onSubmit={(values, actions) => {
@@ -304,6 +306,9 @@ export const PaymentPackForm = (props: Props) => {
             sanithizedValues.penalty_active = false;
             sanithizedValues.no_show_penalty_active = false;
           }
+          if (!values.expiration_date_active) {
+            sanithizedValues.expiration_date = null;
+          }
           const keys = [
             'name',
             'price',
@@ -350,6 +355,7 @@ export const PaymentPackForm = (props: Props) => {
             'allow_guest_pass',
             'is_usable_by_staff',
             'applies_for_payroll',
+            'expiration_date',
           ];
           const data = pick(sanithizedValues, keys);
           onSubmit(data, {
@@ -732,4 +738,5 @@ const paymentPackSchema = Yup.object().shape({
   allow_guest_pass: Yup.boolean(),
   unusable_by_staff: Yup.boolean(),
   applies_for_payroll: Yup.boolean().required(),
+  expiration_date: Yup.date(),
 });

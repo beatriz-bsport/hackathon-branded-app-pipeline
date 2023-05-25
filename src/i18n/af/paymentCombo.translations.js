@@ -68,6 +68,12 @@ exports.default = {
       helperText:
         'Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement par carte sera proposé.',
     },
+    expiration_date: {
+      label: "Date limite d'achat",
+      helperText: 'Disponible jusqu’au',
+      tooltip:
+        'Passée la date choisie, le pack n’apparaîtra plus à la vente pour les clients.',
+    },
   },
   detail: {
     containsNProducts: 'Contient {{ n }} produits',

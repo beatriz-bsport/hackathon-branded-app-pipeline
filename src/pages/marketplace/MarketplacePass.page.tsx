@@ -243,6 +243,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
     this.props.fetchPaymentComboList({
       company: this.props.companyId,
       manager_only: false,
+      include_expired: false,
     });
     this.props.fetchPaymentPacks({
       company: this.props.companyId,
@@ -250,6 +251,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
       disabled: false,
       as_consumer: true,
       page_size: 300,
+      include_expired: false,
     });
     this.props.fetchPrivatePassAsConsumerList(this.props.companyId);
     this.props.fetchAllPaymentPackCategory(this.props.companyId);

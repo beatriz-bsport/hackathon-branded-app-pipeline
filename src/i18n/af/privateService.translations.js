@@ -802,6 +802,12 @@ exports.default = {
         helperText:
           "Ce paramètre permet d'indiquer que les revenus associés aux rendez-vous de cette carte reviendront entièrement au professeur. Cette information sera visible dans vos rapports d'achat (CA) colonne 'Paiement entièrement reversé au professeur'.",
       },
+      expiration_date: {
+        label: "Date limite d'achat",
+        helperText: 'Disponible jusqu’au',
+        tooltip:
+          'Passée la date choisie, la carte de rendez-vous n’apparaîtra plus à la vente pour les clients.',
+      },
     },
     disabledTitle: 'Cartes de RDV archivées',
     listItem: {

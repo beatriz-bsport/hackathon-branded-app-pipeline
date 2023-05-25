@@ -230,6 +230,7 @@ const PaymentPackTemplateSchema = Yup.object().shape({
       return true;
     },
   ),
+  expiration_date: Yup.date(),
 });
 
 export const PaymentPackTemplateFormikHOC = withFormik({
@@ -275,6 +276,8 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         no_show_penalty_kind: 'block',
         no_show_penalty_days_blocked: 7,
         no_show_penalty_amount: 10,
+        expiration_date: null,
+        expiration_date_active: false,
       },
       (initial && {
         ...initial,
@@ -298,6 +301,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         apply_penalties:
           initial?.penalty_active || initial?.no_show_penalty_active,
         unusable_by_staff: !initial.is_usable_by_staff,
+        expiration_date_active: !!initial?.expiration_date,
       }) ||
         {},
     ),
@@ -337,6 +341,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
       'no_show_penalty_amount',
       'no_show_penalty_days_blocked',
       'is_usable_by_staff',
+      'expiration_date',
     ];
     const data = pick(
       { ...values, is_usable_by_staff: !values.unusable_by_staff },
@@ -390,6 +395,10 @@ export const PaymentPackTemplateFormikHOC = withFormik({
     data.max_bookings_per_month = values.max_bookings_per_month || null;
     data.max_bookings_per_week = values.max_bookings_per_week || null;
     data.max_purchase_per_member = values.max_purchase_per_member || null;
+
+    if (!values.expiration_date_active) {
+      data.expiration_date = null;
+    }
 
     onSubmit(data, {
       onSuccess: () => setSubmitting(false),

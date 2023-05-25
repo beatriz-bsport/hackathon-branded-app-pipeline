@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
 import InfoIcon from '@material-ui/icons/Info';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import InputLabel from '@material-ui/core/InputLabel';
 
 import {
   START_ON_PURCHASE,
@@ -20,6 +21,7 @@ import {
 
 import * as Yup from 'yup';
 import { Form, withFormik, FormikProps } from 'formik';
+import ToolTip from '#components/Tooltip.component';
 
 import {
   IntegerField,
@@ -28,6 +30,7 @@ import {
   SwitchField,
   PriceField,
   RadioGroupField,
+  DateField,
 } from '../../../../../components/forms';
 import { PrivatePassWithCompatibility } from '../../../types';
 import { getValidityInfo } from '../../../utils';
@@ -132,6 +135,21 @@ export const PrivatePassTemplateForm = (props: Props) => {
             label={t('privatePass.listItem.unusableByStaff')}
           />
         </div>
+        <div className={classes.rowExpirationDate}>
+          <SwitchField
+            name="expiration_date_active"
+            label={t('privatePass.form.expiration_date.label')}
+          />
+          <ToolTip title={t('privatePass.form.expiration_date.tooltip')}>
+            <InfoIcon color="disabled" />
+          </ToolTip>
+        </div>
+        <Collapse in={props.values.expiration_date_active}>
+          <InputLabel className={classes.inputLabelExpirationDate}>
+            {t('privatePass.form.expiration_date.helperText')}
+          </InputLabel>
+          <DateField name="expiration_date" format="L" allowNullValue />
+        </Collapse>
       </div>
 
       <Divider className={classes.divider} />
@@ -300,6 +318,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   firstBooking: {
     marginTop: theme.spacing(2),
   },
+  rowExpirationDate: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  inputLabelExpirationDate: { marginTop: theme.spacing(1), fontSize: 12 },
 }));
 
 export const PrivatePassSchema = Yup.object().shape({
@@ -313,6 +337,7 @@ export const PrivatePassSchema = Yup.object().shape({
   start_date_method: Yup.number().required().integer().min(0).max(2),
   expiration_days_before_first_use: Yup.number(),
   unusable_by_staff: Yup.boolean().required(),
+  expiration_date: Yup.date(),
 });
 
 export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
@@ -322,6 +347,7 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
         ...initial,
         start_date_method: `${initial.start_date_method}`,
         unusable_by_staff: !initial.is_usable_by_staff,
+        expiration_date_active: !!initial?.expiration_date,
       };
 
     return {
@@ -336,13 +362,21 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
       start_date_method: `${START_ON_PURCHASE}`,
       expiration_days_before_first_use: 365,
       unusable_by_staff: false,
+      expiration_date: null,
+      expiration_date_active: false,
     };
   },
   enableReinitialize: true,
   validationSchema: PrivatePassSchema,
   handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
     onSubmit(
-      { ...values, is_usable_by_staff: !values.unusable_by_staff },
+      {
+        ...values,
+        is_usable_by_staff: !values.unusable_by_staff,
+        expiration_date: values.expiration_date_active
+          ? values.expiration_date
+          : null,
+      },
       {
         onSuccess: () => {
           trackFormSuccess(initial?.id);

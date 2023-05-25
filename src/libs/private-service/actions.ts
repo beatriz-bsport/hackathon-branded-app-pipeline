@@ -1329,6 +1329,7 @@ export function fetchPrivatePassAsConsumerList(company?: number) {
       const response = await fetchPrivatePassListAPI({
         company,
         manager_only: false,
+        include_expired: false,
       });
       dispatch(privatePassAsConsumerListActions.success(response.data));
     } catch (err) {

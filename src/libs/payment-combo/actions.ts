@@ -227,6 +227,7 @@ export function fetchPaymentComboForBooking(
         available: true,
         company,
         offer,
+        include_expired: false,
       });
       dispatch(paymentComboForBookingActions.success(response.data));
       dispatch(paymentComboForBookingActions.error(null));

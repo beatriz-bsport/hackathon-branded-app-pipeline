@@ -39,17 +39,19 @@ import {
   useFormikContext,
 } from 'formik';
 import WarningIcon from '@material-ui/icons/Warning';
+import InputLabel from '@material-ui/core/InputLabel';
+import {
+  DateField,
+  PriceField,
+  TextField,
+  SwitchField,
+  IntegerField,
+  PercentField,
+  RadioGroupField,
+} from '#components/forms';
 import { OptionCallback } from '../../../../../state/types';
 import PaymentMethodSelectorField from '../../../../payment/components/PaymentMethodSelectorField.component';
 
-import {
-  IntegerField,
-  TextField,
-  PercentField,
-  SwitchField,
-  PriceField,
-  RadioGroupField,
-} from '../../../../../components/forms';
 import {
   PrivatePassCategory,
   PrivateServiceWithSlots,
@@ -60,7 +62,7 @@ import {
   CompatiblePrivateService,
 } from '../../../types';
 import { getValidityInfo, filterPrivateService } from '../../../utils';
-import PrivatePassCategorySelector from '../../../../payment-packs/components/category/PaymentPackCategorySelector.component';
+import PrivatePassCategorySelector from '#libs/payment-packs/components/category/PaymentPackCategorySelector.component';
 import { PrivateServiceListItem } from '../../service/PrivateServiceListItem.component';
 import { PrivateServiceSelector } from '../../service/PrivateServiceSelector.component';
 import { PrivateSlotSelectionDialog } from '../../slot/PrivateSlotSelectionDialog.component';
@@ -73,6 +75,8 @@ import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+import ToolTip from '#components/Tooltip.component';
 
 export interface FormikValues {
   name: string | null;
@@ -341,6 +345,27 @@ export const PrivatePassForm = (props: Props) => {
             label={t('privatePass.form.onBehalfOfTeacher.label')}
             helperText={t('privatePass.form.onBehalfOfTeacher.helperText')}
           />
+          <div className={classes.rowExpirationDate}>
+            <SwitchField
+              name="expiration_date_active"
+              label={t('privatePass.form.expiration_date.label')}
+              disabled={!!props.initial?.template_instance}
+            />
+            <ToolTip title={t('privatePass.form.expiration_date.tooltip')}>
+              <InfoIcon color="disabled" />
+            </ToolTip>
+          </div>
+          <Collapse in={values.expiration_date_active}>
+            <InputLabel className={classes.inputLabelExpirationDate}>
+              {t('privatePass.form.expiration_date.helperText')}
+            </InputLabel>
+            <DateField
+              name="expiration_date"
+              format="L"
+              allowNullValue
+              disabled={!!props.initial?.template_instance}
+            />
+          </Collapse>
         </div>
       </div>
 
@@ -824,6 +849,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   redIcon: {
     color: 'red',
   },
+  rowExpirationDate: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  inputLabelExpirationDate: { marginTop: theme.spacing(1), fontSize: 12 },
 }));
 
 export const PrivatePassSchema = Yup.object().shape({
@@ -857,6 +888,7 @@ export const PrivatePassSchema = Yup.object().shape({
   unusable_by_staff: Yup.boolean().required(),
   applies_for_payroll: Yup.boolean().required(),
   on_behalf_of_teacher: Yup.boolean().required(),
+  expiration_date: Yup.date(),
 });
 
 export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
@@ -876,6 +908,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         unusable_by_staff: !initial.is_usable_by_staff,
         applies_for_payroll: initial.applies_for_payroll,
         on_behalf_of_teachr: initial.on_behalf_of_teacher,
+        expiration_date_active: initial?.expiration_date,
       };
 
     return {
@@ -901,6 +934,8 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
       unusable_by_staff: false,
       applies_for_payroll: true,
       on_behalf_of_teacher: false,
+      expiration_date: null,
+      expiration_date_active: false,
     };
   },
   enableReinitialize: true,
@@ -920,6 +955,9 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
           }
         : {}),
       is_usable_by_staff: !values.unusable_by_staff,
+      expiration_date: values.expiration_date_active
+        ? values.expiration_date
+        : null,
     };
     onSubmit(newValues, {
       onSuccess: () => {

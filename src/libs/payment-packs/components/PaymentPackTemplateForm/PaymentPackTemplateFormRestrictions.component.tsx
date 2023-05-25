@@ -9,14 +9,18 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
+import InfoIcon from '@material-ui/icons/Info';
+import InputLabel from '@material-ui/core/InputLabel';
 import { PaymentPack, PaymentPackFormValues } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
   SwitchField,
+  DateField,
 } from '../../../../components/forms';
 import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
 import type { PrivatePass } from '#libs/private-service/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
+import ToolTip from '#components/Tooltip.component';
 
 type Props = {
   initial: PaymentPack<PrivatePass>;
@@ -115,6 +119,21 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 label={t('addPaymentPack.unusableByStaff')}
               />
             </div>
+            <div className={classes.row}>
+              <SwitchField
+                name="expiration_date_active"
+                label={t('addPaymentPack.expiration_date.label')}
+              />
+              <ToolTip title={t('addPaymentPack.expiration_date.tooltip')}>
+                <InfoIcon color="disabled" />
+              </ToolTip>
+            </div>
+            <Collapse in={values.expiration_date_active}>
+              <InputLabel className={classes.inputLabelExpirationDate}>
+                {t('addPaymentPack.expiration_date.helperText')}
+              </InputLabel>
+              <DateField name="expiration_date" format="L" allowNullValue />
+            </Collapse>
           </div>
         </Grid>
         <Grid item xs={12}>
@@ -169,5 +188,6 @@ const useStyles = makeStyles<Theme>((theme) => ({
   vodSection: {
     paddingTop: theme.spacing(2),
   },
+  inputLabelExpirationDate: { marginTop: theme.spacing(1), fontSize: 12 },
 }));
 export default PaymentPackFormRestrictions;

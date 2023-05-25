@@ -659,6 +659,12 @@ exports.default = {
       'Restreindre l’utilisation de la carte à de la VOD uniquement',
     sumNotZero: 'le nombre de jour final ne peut être nul',
     allowGuest: 'Compatible avec la réservation pour un invité',
+    expiration_date: {
+      label: "Date limite d'achat",
+      helperText: 'Disponible jusqu’au',
+      tooltip:
+        'Passée la date choisie, la carte n’apparaîtra plus à la vente pour les clients.',
+    },
   },
   disabled: 'Désactivé',
   disableConsumer: 'Bloquer',

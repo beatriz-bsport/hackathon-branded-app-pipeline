@@ -10,6 +10,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
+import InfoIcon from '@material-ui/icons/Info';
+import Collapse from '@material-ui/core/Collapse';
 import PaymentMethodSelectorField from '../../payment/components/PaymentMethodSelectorField.component';
 import { provincialTaxHelperText } from '../../theme/utils';
 import {
@@ -17,7 +20,9 @@ import {
   PriceField,
   PercentField,
   CheckboxField,
+  DateField,
 } from '../../../components/forms';
+import ToolTip from '#components/Tooltip.component';
 
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
@@ -261,6 +266,22 @@ export const PaymentComboForm: React.FC<Props> = ({
         name="unusable_by_staff"
         label={t('form.unusableByStaff.label')}
       />
+      <div className={classes.row}>
+        <SwitchField
+          name="expiration_date_active"
+          label={t('form.expiration_date.label')}
+        />
+        <ToolTip title={t('form.expiration_date.tooltip')}>
+          <InfoIcon color="disabled" />
+        </ToolTip>
+      </div>
+
+      <Collapse in={values.expiration_date_active}>
+        <InputLabel className={classes.inputLabelExpirationDate}>
+          {t('form.expiration_date.helperText')}
+        </InputLabel>
+        <DateField name="expiration_date" format="L" allowNullValue />
+      </Collapse>
 
       <div className={classes.fieldset}>
         <PaymentMethodSelectorField
@@ -299,6 +320,12 @@ const useStyles = makeStyles((theme) => ({
   helperTextError: {
     color: theme.palette.error.main,
   },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  inputLabelExpirationDate: { marginTop: theme.spacing(1), fontSize: 12 },
 }));
 
 export const PaymentComboFieldsSchema = Yup.object().shape({
@@ -316,6 +343,7 @@ export const PaymentComboFieldsSchema = Yup.object().shape({
   shop_item_ids: Yup.array().of(Yup.number()),
   private_pass_ids: Yup.array().of(Yup.number()),
   unusable_by_staff: Yup.boolean(),
+  expiration_date: Yup.date(),
 });
 
 export const PaymentComboFormHoc = withFormik({
@@ -328,6 +356,7 @@ export const PaymentComboFormHoc = withFormik({
         private_pass_ids: repeatQuantity(initial.private_passes),
         new_member_only: initial.new_member_only,
         unusable_by_staff: !initial.is_usable_by_staff,
+        expiration_date_active: !!initial?.expiration_date,
       };
     }
     return {
@@ -344,6 +373,8 @@ export const PaymentComboFormHoc = withFormik({
       private_pass_ids: [],
       available_payment_method_identifiers: [CB.id],
       unusable_by_staff: false,
+      expiration_date: null,
+      expiration_date_active: false,
     };
   },
   validationSchema: PaymentComboFieldsSchema,
@@ -355,6 +386,9 @@ export const PaymentComboFormHoc = withFormik({
       ...valuesFormik,
       max_purchase_per_member: valuesFormik.max_purchase_per_member || '0',
       is_usable_by_staff: !valuesFormik.unusable_by_staff,
+      expiration_date: valuesFormik.expiration_date_active
+        ? valuesFormik.expiration_date
+        : null,
     };
 
     onSubmit(

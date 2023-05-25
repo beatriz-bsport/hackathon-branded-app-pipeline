@@ -277,6 +277,7 @@ export type PaymentPackFormValues<LPP = number> = {
   linked_private_pass_compatibility: Array<CompatiblePrivateService>;
   allow_guest_pass?: boolean;
   unusable_by_staff?: boolean;
+  expiration_date: string;
 };
 
 // TODO: HARMONIZE PP and PPT FORM VALUES

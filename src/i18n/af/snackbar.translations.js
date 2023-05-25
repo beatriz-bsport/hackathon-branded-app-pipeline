@@ -12,6 +12,9 @@ const {
   SPOT_NOT_AVAILABLE,
   PAYMENT_COMBO_CANT_BE_BOUGHT_HAS_REACHED_MAX_PURCHASE,
   PAYMENT_COMBO_CANT_BE_BOUGHT_NEW_ONLY_ONLY,
+  PAYMENT_COMBO_CANT_BE_BOUGHT_DATE_EXPIRED,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_DATE_EXPIRED,
+  PRIVATE_PASS_CAN_NOT_BE_BOUGHT_DATE_EXPIRED,
   PAYMENT_PACK_CAN_NOT_BE_BOUGHT_NEW_MEMBER_ONLY,
   PAYMENT_PACK_CAN_NOT_BE_BOUGHT_MAX_PURCHASE_REACHED,
   PAYMENT_PACK_CAN_NOT_BE_BOUGHT_MANAGER_ONLY,
@@ -138,6 +141,12 @@ exports.default = {
       'Vous ne pouvez plus acheter ce pack',
     [PAYMENT_COMBO_CANT_BE_BOUGHT_NEW_ONLY_ONLY]:
       "Ce pack n'est disponible que pour les nouveaux membres",
+    [PAYMENT_COMBO_CANT_BE_BOUGHT_DATE_EXPIRED]:
+      "Ce pack ne peut plus être acheté car sa date d'expiration est dépassée",
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_DATE_EXPIRED]:
+      "Cette carte ne peut plus être achetée car sa date d'expiration est dépassée",
+    [PRIVATE_PASS_CAN_NOT_BE_BOUGHT_DATE_EXPIRED]:
+      "Cette carte de rendez-vous ne peut plus être achetée car sa date d'expiration est dépassée",
     [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_NEW_MEMBER_ONLY]:
       "Cette carte de cours n'est disponible que pour les nouveaux membres",
     [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_MAX_PURCHASE_REACHED]:

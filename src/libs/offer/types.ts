@@ -325,10 +325,7 @@ export type OfferCreate = {
   room_blueprint?: number;
 };
 
-export type OfferEdit = Omit<
-  OfferCreate,
-  'dates' | 'credits' | 'partner_max_booking_count'
-> & {
+export type OfferEdit = Omit<OfferCreate, 'dates' | 'credits'> & {
   id: number;
   notifyConsumers: boolean;
   available_on_partnership: boolean;

@@ -406,6 +406,8 @@ const formikFormWrapper = withFormik<
       selectedSimilarOffers,
       coachOverridePropagateMode,
       isCoachOverridePropagate,
+      partnerMaxBookingCount,
+      isOfferInGroup,
     } = values;
 
     const isAllSimilarOfferSelected =
@@ -437,6 +439,7 @@ const formikFormWrapper = withFormik<
         : PropagateCoachOverrideToSimilarOffers.NO_PROPAGATION,
       meta_activity: selectedMetaActivity,
       date_start: dateIntervalStart,
+      partner_max_booking_count: isOfferInGroup ? 0 : partnerMaxBookingCount,
     };
 
     if (offer.credit_price !== undefined && credits !== offer.credit_price) {

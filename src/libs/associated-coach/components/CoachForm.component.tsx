@@ -21,7 +21,6 @@ import { Typography } from '@material-ui/core';
 import Tooltip from '#components/Tooltip.component';
 import AvatarField from '#components/forms/AvatarField.component';
 import {
-  AlertError,
   TextField,
   PhoneField,
   DateField,
@@ -189,7 +188,6 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
               clearable
               allowNullValue
             />
-            <AlertError name="date_joined_company" />{' '}
           </Grid>
           <Grid item xs={12} md={6} className={classes.largeBottomMargin}>
             <DateField
@@ -197,9 +195,9 @@ export const CoachForm: React.FC<Props & FormikProps<InitialValues>> = ({
               name="date_left_company"
               label={t('form.endWorking')}
               clearable
+              bottomError
               allowNullValue
             />
-            <AlertError name="date_left_company" />
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField name="facebook_url" label="Facebook URL" fullWidth />

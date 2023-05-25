@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import CoachSummaryBanner from './coach-detail/CoachSummaryBanner.component';
-import Description from './coach-detail/Description.component';
+import CoachInformation from './coach-detail/CoachInformation.component';
 import CoachPaymentRuleBanner from './coach-detail/CoachPaymentRuleBanner.component';
 import CoachSpaceConfiguration from './coach-detail/CoachSpaceConfiguration.component';
 import AssociatedCoachDisciplineGroupConfiguration from './coach-detail/AssociatedCoachDisciplineGroupConfiguration.component';
@@ -144,7 +144,7 @@ export const CoachDetail: React.FC<Props> = ({
         </Paper>
       </div>
       <div className={classes.description}>
-        <Description coach={coach} startUpdateCoach={startUpdateCoach} />
+        <CoachInformation coach={coach} startUpdateCoach={startUpdateCoach} />
       </div>
       <div className={classes.remplacement}>
         <FeatureListProvider>

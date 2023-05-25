@@ -31,8 +31,11 @@ exports.default = {
   description: 'Description',
   pleaseFill: 'Veuillez renseigner un professeur',
   numberCoaches: '{{ number }} professeurs',
-
+  workingDateSection: "Période d'activité dans le studio",
+  dateJoinedCompany: 'Date de début',
+  dateLeftCompany: 'Date de fin',
   emptyDescription: 'Aucune description fournie',
+  emptyNotes: 'Aucune note',
   selector: {
     label: 'Professeur',
     enabled: 'Professeurs actifs',

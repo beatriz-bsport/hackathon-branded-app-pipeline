@@ -388,3 +388,10 @@ div.bs-offer-list-item__content__offer__left__bottom__icons__avatar {
     line-height: var(--h6-lineHeight);
   }
 }
+
+.bs-offer-list-item__popover__coach {
+    display: 'flex';
+    min-width: '100px';
+    flex-direction: 'column';
+    gap: '10px';
+}

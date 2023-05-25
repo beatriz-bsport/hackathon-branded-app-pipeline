@@ -34,7 +34,7 @@ import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoach
 import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
 import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
 
-import Tooltip from '#components/Tooltip.component';
+import PopOver from '#components/Popover';
 
 export const DISABLE_BOOKING_ELEMENTS_IDS = [
   'book-button--disabled',
@@ -319,25 +319,35 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                           'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
                       }}
                     />
-                    <Tooltip
-                      title={additionalCoaches.map((additionalCoach) => (
-                        <MarketplaceCoachInfos
-                          key={`addtional_coach${additionalCoach?.id}`}
-                          theme={theme}
-                          hideCoach={hideCoach}
-                          coach={additionalCoach}
-                          offer={offer}
-                          classes={{
-                            'bs-offer-list-item__content__offer__left__coach':
-                              'bs-offer-list-item__content__offer__left__coach',
-                          }}
-                        />
-                      ))}
+                    <PopOver
+                      title={
+                        <div className="bs-offer-list-item__popover__coach">
+                          {additionalCoaches.map((additionalCoach) => (
+                            <MarketplaceCoachInfos
+                              key={`addtional_coach${additionalCoach?.id}`}
+                              theme={theme}
+                              hideCoach={hideCoach}
+                              coach={additionalCoach}
+                              offer={offer}
+                              classes={{
+                                'bs-offer-list-item__content__offer__left__coach':
+                                  'bs-offer-list-item__content__offer__left__coach',
+                                'bs-offer-list-item__content__offer__left__coach--time-highlighted':
+                                  isVariantTimeHighlighted &&
+                                  'bs-offer-list-item__content__offer__left__coach--time-highlighted',
+                                'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
+                                  isVariantCoachHighlighted &&
+                                  'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
+                              }}
+                            />
+                          ))}
+                        </div>
+                      }
                     >
                       <div className="bs-offer-list-item__content__offer__left__coaches__number">
                         +{additionalCoaches?.length}
                       </div>
-                    </Tooltip>
+                    </PopOver>
                   </div>
                 )}
               </div>

@@ -172,12 +172,12 @@ class UserWithRoleItem extends React.Component<Props, State> {
     };
 
     const handleOnCommissionChange = (ev) => {
-      let parseValue = Number.parseFloat(ev.target.value.toString());
-      parseValue = parseFloat(parseValue.toFixed(2));
-      if (parseValue > 100) {
-        parseValue = 100;
+      let parsedValue = Number.parseFloat(ev.target.value.toString());
+      parsedValue = parseFloat(parsedValue.toFixed(2));
+      if (parsedValue > 100) {
+        parsedValue = 100;
       }
-      this.setState({ commission: parseValue });
+      this.setState({ commission: parsedValue });
     };
 
     const handleOnCommissionFocus = () => {

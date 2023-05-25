@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { createStyles, Theme } from '@material-ui/core/styles';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Divider } from '@material-ui/core';
@@ -54,6 +55,7 @@ type State = {
   selectedFranchisees: SelectFieldItem[];
   selectedRoleIsAdmin: boolean;
   missingFields: { email: boolean; password: boolean; selectedRole: boolean };
+  staff_commission_percentage: number;
 };
 
 const FRANCHISE_STAFF_USER_NAME_MAX_LENGTH = 150;
@@ -72,6 +74,7 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
       password: false,
       selectedRole: false,
     },
+    staff_commission_percentage: 0,
   };
 
   onSubmit = (ev: any) => {
@@ -83,6 +86,7 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
       last_name,
       first_name,
       selectedFranchisees,
+      staff_commission_percentage,
     } = this.state;
     if (!email || !password || !selectedRole) {
       this.setState({
@@ -105,6 +109,7 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
       last_name,
       first_name,
       franchisees_in_role_ids,
+      staff_commission_percentage,
     });
     this.setState({
       email: null,
@@ -113,7 +118,19 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
       last_name: '',
       first_name: '',
       selectedFranchisees: [],
+      staff_commission_percentage: 0,
     });
+  };
+
+  handleOnCommissionChange = (ev) => {
+    let parsedValue = Number.parseFloat(ev.target.value.toString());
+    parsedValue = parseFloat(parsedValue.toFixed(2));
+    if (parsedValue > 100) {
+      parsedValue = 100;
+    } else if (Number.isNaN(parsedValue)) {
+      parsedValue = 0;
+    }
+    this.setState({ staff_commission_percentage: parsedValue });
   };
 
   handleSelectRole = (item: SelectFieldItem) => {
@@ -201,6 +218,24 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
                 }
               />
             </div>
+            <TextField
+              id="textfield_franchise_role_commission"
+              fullWidth
+              castAsNumber
+              label={t('forms.user.commissionHeader')}
+              className={classes.field}
+              value={`${this.state.staff_commission_percentage}`}
+              InputProps={{
+                inputProps: { min: 0, max: 100, step: 1 },
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <p>%</p>
+                  </InputAdornment>
+                ),
+              }}
+              type="number"
+              onChange={this.handleOnCommissionChange}
+            />
             <Divider className={classes.divider} />
             <div className={classes.infoText}>
               <Alert severity="info" className={classes.alertInfo}>

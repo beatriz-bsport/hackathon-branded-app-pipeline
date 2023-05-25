@@ -45,6 +45,10 @@ import { getRecurrenceTrad } from '#libs/group-offer/utils';
 import { formatAsDatetimeAdapted, formatAsTime } from '../../utils/datetime';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 import OfferCardStastitics from '../../libs/offer/components/OfferCardStastistics.compant';
+import { ADDITIONAL_COACHES_MAX_DISPLAY } from '../../libs/offer/constants';
+import CustomAvatarGroup from '../CustomAvatarGroup.component';
+import Tooltip from '../Tooltip.component';
+import { AdditionalCoachesTooltipTitle } from '../../libs/associated-coach/components/CoachToolTip.component';
 
 import type { Theme as CompanyTheme } from '#libs/theme/types';
 
@@ -212,6 +216,14 @@ export class OfferCard extends Component<Props, State> {
     const { available } = offer;
     if (offer) {
       const coach = offer.coach_override || offer.coach || null;
+      const allImageLinks =
+        offer?.additional_coaches?.map(
+          (offerCoach) => offerCoach?.photo ?? '',
+        ) || [];
+      const slicedImageLinks =
+        allImageLinks.length > ADDITIONAL_COACHES_MAX_DISPLAY
+          ? allImageLinks.slice(0, ADDITIONAL_COACHES_MAX_DISPLAY)
+          : allImageLinks;
       return (
         <div style={{ width: '100%' }}>
           <PaymentPackTagsDialog
@@ -255,6 +267,33 @@ export class OfferCard extends Component<Props, State> {
                     <Avatar src={coach.photo} />{' '}
                   </ListItemAvatar>
                   <ListItemText primary={coach.name} />
+                </ListItem>
+              </div>
+            )}
+            {offer?.additional_coaches?.length > 0 && (
+              <div className={classes.row}>
+                <ListItem>
+                  <Tooltip
+                    title={
+                      <AdditionalCoachesTooltipTitle
+                        coaches={offer.additional_coaches}
+                      />
+                    }
+                  >
+                    <ListItemAvatar
+                      className={classes.additionalCoachAvatarList}
+                    >
+                      <CustomAvatarGroup
+                        imgLinks={slicedImageLinks}
+                        imgStyle={classes.additionalCoachAvatar}
+                      />{' '}
+                    </ListItemAvatar>
+                  </Tooltip>
+                  <ListItemText
+                    primary={t('offer:additionalCoaches', {
+                      count: offer.additional_coaches?.length,
+                    })}
+                  />
                 </ListItem>
               </div>
             )}
@@ -524,6 +563,14 @@ const styles = (theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     gap: theme.spacing(1),
+  },
+  additionalCoachAvatarList: {
+    marginRight: theme.spacing(2),
+  },
+  additionalCoachAvatar: {
+    height: theme.spacing(5),
+    width: theme.spacing(5),
+    marginRight: theme.spacing(0),
   },
 });
 

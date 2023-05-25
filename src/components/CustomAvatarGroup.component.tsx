@@ -6,9 +6,10 @@ import AvatarGroup from '@material-ui/lab/AvatarGroup';
 
 type Props = {
   imgLinks: Array<string | null>;
+  imgStyle?: string;
 };
 
-const CustomAvatarGroup: React.FC<Props> = ({ imgLinks }) => {
+const CustomAvatarGroup: React.FC<Props> = ({ imgLinks, imgStyle }) => {
   const classes = useStyles();
 
   return (
@@ -22,7 +23,7 @@ const CustomAvatarGroup: React.FC<Props> = ({ imgLinks }) => {
             src={imgLink}
             alt={imgLink}
             key={`${idx}-${imgLink}`}
-            className={classes.img}
+            className={imgStyle ?? classes.img}
           />
         );
       })}

@@ -402,13 +402,14 @@ export function OfferMinimalSummary(props: Props) {
                   <Tooltip
                     title={
                       <AdditionalCoachesTooltipTitle
+                        mainCoachName={actualCoachName}
                         coaches={additional_coaches}
                       />
                     }
                   >
                     <div>
-                      {t('offer:additionalCoaches', {
-                        count: additional_coaches?.length,
+                      {t('offer:allCoaches', {
+                        count: additional_coaches?.length + 1,
                       })}
                     </div>
                   </Tooltip>

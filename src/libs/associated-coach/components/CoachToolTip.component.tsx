@@ -31,13 +31,19 @@ export const CoachToolTip: React.FC<Props> = React.memo(({ coach }) => {
 });
 
 type AdditionalCoachesToolTipProps = {
+  mainCoachName?: string;
   coaches: Coach[];
 };
 
 export const AdditionalCoachesTooltipTitle: React.FC<AdditionalCoachesToolTipProps> =
-  React.memo(({ coaches }) => {
+  React.memo(({ mainCoachName, coaches }) => {
     return (
       <>
+        {mainCoachName && (
+          <Typography display="block" variant="caption">
+            {`* ${mainCoachName}`}
+          </Typography>
+        )}
         {coaches &&
           coaches.map((coach) => (
             <Typography display="block" variant="caption">

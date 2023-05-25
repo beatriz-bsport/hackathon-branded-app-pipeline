@@ -16,7 +16,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import LabelIcon from '@material-ui/icons/Label';
 import FolderIcon from '@material-ui/icons/Folder';
 
-import { makeStyles } from '@material-ui/styles';
 import {
   formatMinutes,
   formatAsDatetime,
@@ -32,7 +31,9 @@ import { DEFAULT_AVATAR } from '../../libs/associated-coach/utils';
 import RollCallChip from '../../libs/offer/components/RollCallChip.component';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
-
+import CoachToolTip, {
+  AdditionalCoachesTooltipTitle,
+} from '../../libs/associated-coach/components/CoachToolTip.component';
 import type { Theme as CompanyTheme } from '#libs/theme/types';
 
 const styles = (theme) => ({
@@ -138,36 +139,6 @@ const getFillingInfo = (offer: Offer) => {
   return [fillingInfo, fillingInfoProps, formattedFillingRate];
 };
 
-const coachTooltipUseStyle = makeStyles(() => ({
-  italic: { fontStyle: 'italic' },
-  bold: { fontWeight: 'bold' },
-}));
-
-const CoachTooltipTitle: React.FC<{ coach?: Coach }> = (props) => {
-  const { coach } = props;
-  const classes = coachTooltipUseStyle();
-
-  return (
-    <React.Fragment>
-      {coach && coach?.name && (
-        <Typography display="block" className={classes.bold} variant="caption">
-          {coach.name}
-        </Typography>
-      )}
-      {coach && coach?.notes && (
-        <Typography
-          display="block"
-          align="left"
-          className={classes.italic}
-          variant="caption"
-        >
-          {coach.notes}
-        </Typography>
-      )}
-    </React.Fragment>
-  );
-};
-
 export function OfferMinimalSummary(props: Props) {
   const {
     noDate,
@@ -204,6 +175,7 @@ export function OfferMinimalSummary(props: Props) {
     establishment_override,
     duration_minute,
     coach,
+    additional_coaches,
     coach_override,
     available,
     date_start,
@@ -244,6 +216,7 @@ export function OfferMinimalSummary(props: Props) {
         secondary: classes.noWrap,
       }
     : {};
+
   return (
     <>
       <PaymentPackTagsDialog
@@ -283,7 +256,7 @@ export function OfferMinimalSummary(props: Props) {
                     <Tooltip
                       title={
                         displayCoachInfoOnHover ? (
-                          <CoachTooltipTitle coach={coach_override} />
+                          <CoachToolTip coach={coach_override} />
                         ) : (
                           ''
                         )
@@ -303,7 +276,7 @@ export function OfferMinimalSummary(props: Props) {
                     <Tooltip
                       title={
                         displayCoachInfoOnHover ? (
-                          <CoachTooltipTitle coach={coach} />
+                          <CoachToolTip coach={coach} />
                         ) : (
                           ''
                         )
@@ -326,7 +299,7 @@ export function OfferMinimalSummary(props: Props) {
                   <Tooltip
                     title={
                       displayCoachInfoOnHover ? (
-                        <CoachTooltipTitle coach={coach_override} />
+                        <CoachToolTip coach={coach_override} />
                       ) : (
                         ''
                       )
@@ -418,15 +391,41 @@ export function OfferMinimalSummary(props: Props) {
             />
           </Grid>
           <Grid item xs={2} className={classes.relativeContainer}>
-            <ListItemText
-              primary={
-                showCoachName
-                  ? actualCoachName
-                  : (currentEstablishment || {}).title
-              }
-              secondary={actualCoachName}
-              classes={textClasses}
-            />
+            {additional_coaches?.length > 0 ? (
+              <ListItemText
+                primary={
+                  showCoachName
+                    ? actualCoachName
+                    : (currentEstablishment || {}).title
+                }
+                secondary={
+                  <Tooltip
+                    title={
+                      <AdditionalCoachesTooltipTitle
+                        additionalCoaches={additional_coaches}
+                      />
+                    }
+                  >
+                    <div>
+                      {t('offer:additionalCoaches', {
+                        count: additional_coaches?.length,
+                      })}
+                    </div>
+                  </Tooltip>
+                }
+                classes={textClasses}
+              />
+            ) : (
+              <ListItemText
+                primary={
+                  showCoachName
+                    ? actualCoachName
+                    : (currentEstablishment || {}).title
+                }
+                secondary={actualCoachName}
+                classes={textClasses}
+              />
+            )}
           </Grid>
           <Grid item xs={1} className={classes.chipContainer}>
             {hasPendingReplacementRequest && (

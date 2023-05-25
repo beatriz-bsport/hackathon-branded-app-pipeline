@@ -217,6 +217,7 @@ type Props = {
   ) => void,
   stripeBalanceSum: number,
   stripeReaders: StripeReader[],
+  fetchStripeBalance: () => void,
   fetchStripeReaders: () => void,
 };
 
@@ -242,6 +243,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
     this.props.fetchEstablishments();
     this.props.fetchStripeReaders();
     this.props.refreshCompanyTheme();
+    this.props.fetchStripeBalance();
   }
 
   fetchInvoiceData = () => {

@@ -21,6 +21,7 @@ import {
   updateFranchiseRole as updateFranchiseRoleAPI,
   deleteFranchiseRole as deleteFranchiseRoleAPI,
   updateUserCommission as updateUserCommissionAPI,
+  updateFranchiseUserCommission as updateFranchiseUserCommissionAPI,
 } from './api';
 import {
   Dispatch,
@@ -581,5 +582,38 @@ export function updateUserCommission(
       options?.onError && options.onError();
     }
     dispatch(userCommissionUpdate.isLoading(false));
+  };
+}
+
+export const franchiseUserCommissionUpdate = {
+  error: createAction('FRANCHISE_ROLE/USER/COMMISSION_UPDATE/ERROR'),
+  isLoading: createAction('FRANCHISE_ROLE/USER/COMMISSION_UPDATE/IS_LOADING'),
+  success: createAction('FRANCHISE_ROLE/USER/COMMISSION_UPDATE/SUCCESS'),
+};
+
+export function updateFranchiseUserCommission(
+  userId: number,
+  params: {
+    commission?: number;
+  },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(franchiseUserCommissionUpdate.isLoading(true));
+    dispatch(franchiseUserCommissionUpdate.error(null));
+
+    try {
+      const response = await updateFranchiseUserCommissionAPI(userId, params);
+      const commissionValue = response.data;
+      dispatch(franchiseUserCommissionUpdate.success(commissionValue));
+      dispatch(snackbarSuccess(`role.update.successCommission`));
+      options?.onSuccess && options.onSuccess();
+    } catch (err) {
+      console.error(err);
+      dispatch(franchiseUserCommissionUpdate.error(err));
+      dispatch(snackbarError('role.error.errorCommission'));
+      options?.onError && options.onError();
+    }
+    dispatch(franchiseUserCommissionUpdate.isLoading(false));
   };
 }

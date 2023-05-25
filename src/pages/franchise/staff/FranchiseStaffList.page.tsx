@@ -17,6 +17,7 @@ import {
   updateFranchiseUserRole,
   deleteStaffFranchiseUser,
   createStaffFranchiseUser,
+  updateFranchiseUserCommission,
 } from '#libs/role/actions';
 import { fetchFranchise } from '#libs/franchise/actions';
 import {
@@ -80,6 +81,7 @@ export class FranchiseStaffConfiguration extends React.Component<Props, State> {
           users={users}
           openCreateStaffDialog={this.state.openCreateStaffDialog}
           setOpenCreateStaffDialog={this.setOpenCreateStaffDialog}
+          updateCommission={this.props.updateFranchiseUserCommission}
         />
         <BottomActionsButtonCustom
           buttonsProperties={[
@@ -139,6 +141,7 @@ const mapDispatchToProps = {
   updateFranchiseUserRole,
   createStaffFranchiseUser,
   deleteStaffFranchiseUser,
+  updateFranchiseUserCommission,
 };
 
 export default compose(

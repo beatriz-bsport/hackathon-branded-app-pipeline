@@ -15,6 +15,7 @@ import {
   franchiseRoleList,
   franchiseRoleUpdate,
   franchiseUserRoleListPaginated,
+  franchiseUserCommissionUpdate,
 } from './actions';
 
 import type { RoleState } from './types';
@@ -221,6 +222,23 @@ export default handleActions<Immutable.Immutable<RoleState>>(
         'users',
         state.users.filter((u) => u.id !== payload),
       );
+    },
+    [franchiseUserCommissionUpdate.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      const index = state.users.findIndex((user) => user.id === payload.id);
+      const index_ = index >= 0 ? index : state.users.length;
+      return state.setIn(['users', index_], payload);
+    },
+    [franchiseUserCommissionUpdate.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['createOrUpdate', 'loading'], payload);
+    },
+    [franchiseUserCommissionUpdate.error.toString()]: (state, { payload }) => {
+      return state.setIn(['createOrUpdate', 'error'], payload);
     },
     [franchiseRoleList.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['franchiseRole', 'loading'], payload);

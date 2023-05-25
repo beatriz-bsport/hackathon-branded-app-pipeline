@@ -144,3 +144,14 @@ export const updateUserCommission = async (
     staff_commission_percentage: params.commission,
   });
 };
+
+export const updateFranchiseUserCommission = async (
+  userId: number,
+  params: {
+    commission: number;
+  },
+): Promise<AxiosResponse<UserRole>> => {
+  return patchAuth(`${API_V1_URI}/role/franchise_user/${userId}/`, {
+    staff_commission_percentage: params.commission,
+  });
+};

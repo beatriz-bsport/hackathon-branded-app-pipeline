@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { TFunction } from 'i18next';
 import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+import { OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
 import { getPrice } from '#libs/theme/utils';
 import { Basket, PrepaidLine } from './types';
 import {
@@ -71,6 +72,10 @@ export const getBookingErrorMessage = (t: TFunction, codeError?: number) => {
       return t('validation.sections.errorExplain.guestNotEnoughSpot');
     case SPOT_NOT_AVAILABLE:
       return t(`canNotBuyErrorCode.${SPOT_NOT_AVAILABLE}`);
+    case OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK:
+      return t(
+        `snackbar:canNotBuyErrorCode.${OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK}`,
+      );
     default:
       return t('validation.sections.errorExplain.generic');
   }

@@ -122,7 +122,7 @@ export class ValidationCheckout extends React.Component<Props> {
           <Typography className={classes.confirmation}>
             {getBookingErrorMessage(
               this.props.t,
-              this.props.offerNotBookableIdWithErrorCodeList[0][1],
+              this.props.offerNotBookableIdWithErrorCodeList[0],
             )}
           </Typography>
         </div>

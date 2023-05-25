@@ -97,6 +97,14 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
     [coaches, offerCoachId],
   );
 
+  const additionalCoaches = useMemo(
+    () =>
+      offer.additional_coaches.map((coachId) =>
+        coaches?.find((c) => c.id === coachId),
+      ),
+    [coaches, offer.additional_coaches],
+  );
+
   const genderCountOffer = genderCount ? genderCount[offer.id] : undefined;
 
   const offerHours = useOfferHours(offer, establishment, metaActivity, theme);
@@ -165,6 +173,24 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
                 isVariantCoachHighlighted,
             }}
           />
+          {additionalCoaches?.length > 0 &&
+            additionalCoaches.map((additionalCoach) => (
+              <MarketplaceCoachInfos
+                theme={props.theme}
+                hideCoach={props.hideCoach}
+                coach={additionalCoach}
+                offer={offer}
+                reverse
+                classes={{
+                  'bs-card-offer__content__coach':
+                    'bs-card-offer__content__coach',
+                  'bs-card-offer__content__coach--time-highlighted':
+                    isVariantTimeHighlighted,
+                  'bs-card-offer__content__coach--coach-highlighted':
+                    isVariantCoachHighlighted,
+                }}
+              />
+            ))}
           <MarketplaceEstablishmentTitle
             establishment={establishment}
             theme={props.theme}

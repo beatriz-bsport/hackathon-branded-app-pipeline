@@ -539,6 +539,7 @@ const mapWithHandlers = {
             [
               ...offerList.map((o: any) => o.coach),
               ...offerList.map((o: any) => o.coach_override),
+              ...offerList.flatMap((o: any) => o.additional_coaches),
             ],
             props.companyId,
           );

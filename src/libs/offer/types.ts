@@ -99,6 +99,7 @@ export type Offer<
   waiting_list_max_size: number;
   coach_override?: C;
   coach: C;
+  additional_coaches: C[];
   cover_main: string;
   date_end: string;
   date_start: string;

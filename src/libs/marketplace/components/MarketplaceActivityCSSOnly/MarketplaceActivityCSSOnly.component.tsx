@@ -30,7 +30,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 import { OffersGroup } from '#libs/group-offer/types';
-import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
+import FreeOfferChip from '#csscomponents/FreeOfferChip';
 
 type Props = {
   offer: Offer;
@@ -206,6 +206,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
               companyTheme={companyTheme}
               credits={offer?.credit_price}
               creditsOverride={offer?.credit_price_override}
+              whiteText
             />
             <MarketplaceLevel
               className="bs-activity__top__content__status__level"

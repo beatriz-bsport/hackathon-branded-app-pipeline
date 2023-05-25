@@ -20,7 +20,7 @@ import MarketplaceEstablishmentTitle from '#libs/marketplace/components/Marketpl
 import { Theme } from '#libs/theme/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup } from '#libs/group-offer/types';
-import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
+import FreeOfferChip from '#csscomponents/FreeOfferChip';
 
 type OwnProps = {
   offer: Offer;

@@ -22,6 +22,7 @@ import {
   WAITING_LIST_DYNAMIC_UNORDERED,
   WAITING_LIST_DYNAMIC_ORDERED,
 } from '@bsport/common/lib/master-data/waiting-list-dynamic';
+import Switch from '@material-ui/core/Switch';
 import NumericInput from '../../../components/input/NumericInput.component';
 
 import {
@@ -75,7 +76,8 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
       propsConfig.auto_consume_pack === stateConfig.auto_consume_pack &&
       propsConfig.last_delay_before_auto_consume ===
         stateConfig.last_delay_before_auto_consume &&
-      propsConfig.is_option_blocking === stateConfig.is_option_blocking
+      propsConfig.is_option_blocking === stateConfig.is_option_blocking &&
+      propsConfig.check_credit === stateConfig.check_credit
     );
   };
 
@@ -311,6 +313,28 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
               color="textSecondary"
             >
               {t('form.is_option_blocking.helper')}
+            </Typography>
+          </div>
+
+          <div className={classes.field}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={this.state.configuration.check_credit}
+                  onChange={(event) =>
+                    this.handleChange('check_credit')(event.target.checked)
+                  }
+                  value={this.state.configuration.check_credit}
+                />
+              }
+              label={t('form.check_credit.label')}
+            />
+            <Typography
+              variant="caption"
+              className={classes.helperText}
+              color="textSecondary"
+            >
+              {t('form.check_credit.helper')}
             </Typography>
           </div>
 

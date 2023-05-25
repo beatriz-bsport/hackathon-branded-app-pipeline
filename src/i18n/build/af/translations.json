@@ -8774,12 +8774,12 @@
       "10001": "Stock insuffisant",
       "11114": "Cette carte de rendez-vous ne peut plus être achetée car sa date d'expiration est dépassée",
       "15002": "L'objet est déjà en train d'être ajouté au panier, veuillez patienter",
+      "23001": "Aucune carte de cours ne vous permet de vous ajouter à la file d'attente pour cette offre",
       "45004": "La carte cadeau n'est plus disponible à la vente.",
       "45005": "La carte cadeau n'est plus disponible à la vente.",
       "85000": "Une réservation est déjà en cours, veuillez patienter quelques instants",
       "85101": "Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.",
-      "generic": "Impossible de réserver",
-      "undefined": "Aucune carte de cours ne vous permet de vous ajouter à la file d'attente pour cette offre"
+      "generic": "Impossible de réserver"
     },
     "requestCurrentBasket": { "15002": "La récupération des informations du panier est déjà en cours" },
     "refreshInternalAccountPrepaidLines": { "15002": "Une opération est déjà en cours, veuillez patienter quelques instants" },
@@ -11801,7 +11801,11 @@
         "helper": "Si une place se libère, l'élève dispose d'un temps proportionnel au temps restant avant la séance."
       },
       "submit": "Enregistrer",
-      "auto_cancellation_type": { "title": "Gestion de la liste d'attente" }
+      "auto_cancellation_type": { "title": "Gestion de la liste d'attente" },
+      "check_credit": {
+        "label": "Vérifier que le client a une carte de cours compatible avec l'offre et suffisamment créditée",
+        "helper": "Un client ne pourra être ajouté à une file d'attente tant qu'il ne dispose pas d'une carte de cours compatible avec l'offre concernée et étant suffisamment créditée pour effectuer la réservation"
+      }
     },
     "explainWaitingListConf": "ex: Il reste 3h avant la séance, l'élève dispose de {{ nbMinutesBeforeBookingOptionExpire }} minutes pour valider sa réservation avant de laisser sa place.",
     "dialog": {

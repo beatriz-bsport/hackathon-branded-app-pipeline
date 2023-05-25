@@ -20,6 +20,7 @@ export type WaitingListConfiguration = {
   autokick_delay: number;
   dynamic: number;
   is_option_blocking: boolean;
+  check_credit: boolean;
   no_notification_utc_interval_hour_start: number;
   no_notification_utc_interval_hour_end: number;
 };

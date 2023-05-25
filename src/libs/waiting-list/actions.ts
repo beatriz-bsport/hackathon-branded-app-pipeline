@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { createAction } from 'redux-actions';
 
+import { OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
 import {
   fetchConfiguration as fetchConfigurationAPI,
   patchConfiguration as patchConfigurationAPI,
@@ -27,10 +28,6 @@ import {
   WaitingListBookingOptionQueryParams,
   WaitingListConfiguration,
 } from './types';
-
-const {
-  OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
-} = require('@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined');
 
 export const configurationDetail = {
   error: createAction<Error>('WAITING_LIST_CONFIGURATION/DETAIL/ERROR'),

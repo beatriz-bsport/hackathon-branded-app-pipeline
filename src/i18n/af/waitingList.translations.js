@@ -61,6 +61,12 @@ exports.default = {
     auto_cancellation_type: {
       title: "Gestion de la liste d'attente",
     },
+    check_credit: {
+      label:
+        "Vérifier que le client a une carte de cours compatible avec l'offre et suffisamment créditée",
+      helper:
+        "Un client ne pourra être ajouté à une file d'attente tant qu'il ne dispose pas d'une carte de cours compatible avec l'offre concernée et étant suffisamment créditée pour effectuer la réservation",
+    },
   },
   explainWaitingListConf:
     "ex: Il reste 3h avant la séance, l'élève dispose de {{ nbMinutesBeforeBookingOptionExpire }} minutes pour valider sa réservation avant de laisser sa place.",

@@ -8778,7 +8778,8 @@
       "45005": "La carte cadeau n'est plus disponible à la vente.",
       "85000": "Une réservation est déjà en cours, veuillez patienter quelques instants",
       "85101": "Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.",
-      "generic": "Impossible de réserver"
+      "generic": "Impossible de réserver",
+      "undefined": "Aucune carte de cours ne vous permet de vous ajouter à la file d'attente pour cette offre"
     },
     "requestCurrentBasket": { "15002": "La récupération des informations du panier est déjà en cours" },
     "refreshInternalAccountPrepaidLines": { "15002": "Une opération est déjà en cours, veuillez patienter quelques instants" },

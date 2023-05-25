@@ -116,6 +116,10 @@ const {
   DST_PRIVATE_CONSUMER_PASS_CANNOT_BE_SHARED_AGAIN,
 } = require('@bsport/common/lib/master-data/error-codes/shared-pass');
 
+const {
+  OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
+} = require('@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined');
+
 exports.default = {
   canNotBuyErrorCode: {
     generic: 'Impossible de réserver',
@@ -188,6 +192,8 @@ exports.default = {
       'Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.',
     [BASKET_LOCK_ACQUISITION_FAILURE]:
       "L'objet est déjà en train d'être ajouté au panier, veuillez patienter",
+    [OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK]:
+      "Aucune carte de cours ne vous permet de vous ajouter à la file d'attente pour cette offre",
   },
   requestCurrentBasket: {
     [BASKET_LOCK_ACQUISITION_FAILURE]:

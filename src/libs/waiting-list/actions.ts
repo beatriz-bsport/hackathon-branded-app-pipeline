@@ -28,6 +28,10 @@ import {
   WaitingListConfiguration,
 } from './types';
 
+const {
+  OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
+} = require('@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined');
+
 export const configurationDetail = {
   error: createAction<Error>('WAITING_LIST_CONFIGURATION/DETAIL/ERROR'),
   isLoading: createAction<boolean>(
@@ -177,6 +181,16 @@ export function registerToWaitingList(
         dispatch(
           snackbarError(
             'role.noMasterControl.overbookingNotAllowedInWaitingList',
+          ),
+        );
+      } else if (
+        err.response?.status === 499 &&
+        err.response?.data?.error_code ===
+          OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK
+      ) {
+        dispatch(
+          snackbarError(
+            `canNotBuyErrorCode.${OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK}`,
           ),
         );
       }

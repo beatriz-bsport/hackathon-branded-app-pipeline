@@ -260,6 +260,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
               whitelist_tags: o.whitelist_tags,
               recurrence_id: o.recurrence_id,
               room_blueprint: o.room_blueprint,
+              additional_coaches: o.additional_coaches,
             })),
           };
           return acc;

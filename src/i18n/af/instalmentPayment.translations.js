@@ -151,5 +151,33 @@ exports.default = {
       giftcard: 'Cartes cadeaux',
       allGiftcard: 'Compatible avec toutes les cartes cadeaux',
     },
+    customInstalmentAmount: {
+      label: 'Personnaliser le montant de la première échéance',
+      type: {
+        amount: 'Montant fixe',
+        percent: 'En pourcentage du prix total du panier',
+      },
+      amountHelperText: {
+        amount: 'Montant',
+        percent: 'Pourcentage',
+      },
+    },
+    partialPaymentRadio: {
+      disabled: 'Payer la totalité du panier sur plusieurs échéances',
+      enabled: {
+        label: 'Payer partiellement le panier',
+        helperText:
+          "Le membre ne paie immédiatement qu'une partie du montant total de son panier, le reste sera débité sur son acompte interne",
+      },
+    },
+  },
+  configurationOption: {
+    payLater: 'Payez seulement {{amount}}',
+    payLaterRemainder:
+      'Le reste du montant à charge ({{remainder}}) sera prélevé sur votre solde interne',
+  },
+  validation: {
+    percentRange: 'Le pourcentage doit être compris entre 1 et 100',
+    amountMin: 'Le montant doit être supérieur à 1',
   },
 };

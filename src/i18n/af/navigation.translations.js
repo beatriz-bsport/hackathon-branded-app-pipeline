@@ -15,7 +15,7 @@ exports.default = {
       expand: 'Étendre',
       shrink: 'Replier',
     },
-    instalmentPayment: 'Paiements en plusieurs fois',
+    instalmentPayment: 'Facilités de paiement',
     programs: 'Programmes',
     cashBookTooltip: 'Livret de caisse',
     addMemberTooltip: 'Ajouter membre',

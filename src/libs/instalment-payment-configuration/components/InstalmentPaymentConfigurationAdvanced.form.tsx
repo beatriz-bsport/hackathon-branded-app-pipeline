@@ -1,19 +1,39 @@
-// @ts-nocheck
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { ButtonBase, Collapse, Grid, Typography } from '@material-ui/core';
+import { useFormikContext } from 'formik';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { PriceField, SwitchField } from '../../../components/forms';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { InstalmentPaymentApi } from '#libs/instalment-payment-configuration/types';
+import {
+  CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT,
+  CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT,
+} from '#libs/instalment-payment-configuration/constants';
+import {
+  PriceField,
+  SwitchField,
+  RadioGroupField,
+  TextField,
+  // @ts-ignore
+} from '../../../components/forms';
 
 export const InstalmentPaymentAdvancedForm = () => {
   const { t } = useTranslation('instalmentPayment');
   const classes = useStyles();
   const [openAdvancedOptions, setOpenAdvancedOptions] =
     useState<boolean>(false);
+
+  const toggleOpenAdvancedOptions = useCallback(
+    () => setOpenAdvancedOptions(!openAdvancedOptions),
+    [setOpenAdvancedOptions, openAdvancedOptions],
+  );
+
+  const { values } = useFormikContext<InstalmentPaymentApi>();
+
   return (
     <>
       <div className={classes.advancedOptionsSection}>
@@ -21,7 +41,7 @@ export const InstalmentPaymentAdvancedForm = () => {
           <Grid item xs={12}>
             <div className={classes.row}>
               <ButtonBase
-                onClick={() => setOpenAdvancedOptions(!openAdvancedOptions)}
+                onClick={toggleOpenAdvancedOptions}
                 className={classes.advancedOptionsHeader}
               >
                 <SettingsIcon className={classes.icon} />
@@ -56,6 +76,66 @@ export const InstalmentPaymentAdvancedForm = () => {
                 </div>
               </Grid>
             </div>
+
+            {!values.partial_payment_enabled && (
+              <div className={classes.padding}>
+                <SwitchField
+                  name="custom_first_instalment_enabled"
+                  label={t('form.customInstalmentAmount.label')}
+                />
+
+                {values.custom_first_instalment_enabled && (
+                  <RadioGroupField
+                    className={classes.radioGroup}
+                    name="custom_first_instalment_type"
+                    choices={[
+                      {
+                        label: t('form.customInstalmentAmount.type.amount'),
+                        value: CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT.toString(),
+                      },
+                      {
+                        label: t('form.customInstalmentAmount.type.percent'),
+                        value: CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT.toString(),
+                      },
+                    ]}
+                  />
+                )}
+
+                {values.custom_first_instalment_enabled &&
+                  values.custom_first_instalment_type.toString() ===
+                    CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT.toString() && (
+                    <TextField
+                      fullWidth
+                      name="custom_first_instalment_percent"
+                      label={t(
+                        'form.customInstalmentAmount.amountHelperText.percent',
+                      )}
+                      type="number"
+                      required
+                      max={100}
+                      InputProps={{
+                        inputProps: { min: 0, max: 100, step: 1 },
+                        endAdornment: (
+                          <InputAdornment position="end">%</InputAdornment>
+                        ),
+                      }}
+                    />
+                  )}
+
+                {values.custom_first_instalment_enabled &&
+                  values.custom_first_instalment_type.toString() ===
+                    CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT.toString() && (
+                    <PriceField
+                      fullWidth
+                      name="custom_first_instalment_amount"
+                      label={t(
+                        'form.customInstalmentAmount.amountHelperText.amount',
+                      )}
+                      required
+                    />
+                  )}
+              </div>
+            )}
           </Collapse>
         </Grid>
       </div>
@@ -86,6 +166,9 @@ const useStyles = makeStyles<Theme>((theme) => ({
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(2),
     paddingTop: theme.spacing(2),
+  },
+  radioGroup: {
+    marginBottom: theme.spacing(1),
   },
 }));
 export default InstalmentPaymentAdvancedForm;

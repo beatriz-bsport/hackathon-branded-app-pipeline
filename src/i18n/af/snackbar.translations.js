@@ -120,6 +120,12 @@ const {
   OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
 } = require('@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined');
 
+const {
+  CUSTOM_INSTALMENT_FIRST_INSTALMENT_AMOUNT_ERROR,
+  CUSTOM_INSTALMENT_FIRST_INSTALMENT_PERCENT_ERROR,
+  INSTALMENT_PARTIAL_PAYMENT_REQUIRES_ONLY_ONE_BILLING_ERROR,
+} = require('@bsport/common/lib/master-data/error-codes/instalment-payment');
+
 exports.default = {
   canNotBuyErrorCode: {
     generic: 'Impossible de réserver',
@@ -1197,6 +1203,14 @@ exports.default = {
       success: 'Modifications enregistrées',
       error: 'Impossible de sauvegarder les modifications',
     },
+  },
+  instalmentPayment: {
+    [CUSTOM_INSTALMENT_FIRST_INSTALMENT_AMOUNT_ERROR]:
+      'Le montant de la première échance doit être positif',
+    [CUSTOM_INSTALMENT_FIRST_INSTALMENT_PERCENT_ERROR]:
+      'Le pourcentage du montant total doit être compris entre 0 et 100',
+    [INSTALMENT_PARTIAL_PAYMENT_REQUIRES_ONLY_ONE_BILLING_ERROR]:
+      "Le nombre d'encaissements doit être égal à 1 pour activer l'option 'Payer partiellement'",
   },
   smartListPopup: {
     send: {

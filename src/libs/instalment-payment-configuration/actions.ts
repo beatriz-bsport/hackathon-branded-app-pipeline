@@ -69,7 +69,11 @@ export function createOrUpdateInstalmentPayment(
     } catch (error) {
       dispatch(instalmentPaymentCreateOrUpdateActions.error(error));
       options?.onError && options.onError(error);
-      if (data.id) {
+      if (error.response?.status === 499 && error.response.data?.error_code) {
+        dispatch(
+          snackbarError(`instalmentPayment.${error.response.data.error_code}`),
+        );
+      } else if (data.id) {
         dispatch(snackbarError('instalmentPayment:action.edit.error'));
       } else {
         dispatch(snackbarError('instalmentPayment:action.create.error'));

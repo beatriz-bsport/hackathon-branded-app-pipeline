@@ -1,21 +1,23 @@
-// @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import * as Yup from 'yup';
-import { Formik, FormikProps } from 'formik';
+import { Formik, FormikHelpers, FormikProps } from 'formik';
 
 import { Button, Divider, LinearProgress } from '@material-ui/core';
 
-import {
-  PaymentCombo,
-  ShopItem,
-} from '@bsport/common/lib/master-data/available-payment.type';
+import { ShopItem } from '@bsport/common/lib/master-data/available-payment.type';
+
+import { PaymentCombo } from '#libs/payment-combo/types';
 import { OptionCallback } from '../../../state/types';
 import { InstalmentPaymentApi } from '../types';
-import { MONTHLY } from '../constants';
+import {
+  CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT,
+  CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT,
+  MONTHLY,
+} from '#libs/instalment-payment-configuration/constants';
 
 import { PaymentPack } from '#libs/payment-packs/types';
 import { Giftcard } from '#libs/giftcard/types';
@@ -74,39 +76,59 @@ export const InstalmentPaymentForm = (props: Props) => {
   const { t } = useTranslation('instalmentPayment');
   const initialValues = initial;
 
+  const handleSumit = useCallback(
+    (
+      values: InstalmentPaymentApi,
+      actions: FormikHelpers<InstalmentPaymentApi>,
+    ) => {
+      const formattedData = { ...values };
+
+      if (values.partial_payment_enabled) formattedData.number_of_billing = 1;
+
+      if (
+        values.custom_first_instalment_type.toString() !==
+        CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT.toString()
+      ) {
+        formattedData.custom_first_instalment_amount = 20;
+      }
+
+      if (
+        values.custom_first_instalment_type.toString() !==
+        CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT.toString()
+      ) {
+        formattedData.custom_first_instalment_percent = 20;
+      }
+
+      submit(formattedData, {
+        onSuccess: () => {
+          trackFormSuccess(initial?.id);
+          actions.setSubmitting(false);
+          closeDialog && closeDialog();
+          resetInitial && resetInitial();
+        },
+        onError: () => {
+          actions.setSubmitting(false);
+          closeDialog && closeDialog();
+          resetInitial && resetInitial();
+        },
+      });
+    },
+    [submit, initial?.id, closeDialog, resetInitial],
+  );
+
   return (
     <div>
       <Formik
         enableReinitialize
         validationSchema={instalmentPaymentSchema}
         initialValues={initialValues}
-        onSubmit={(values, actions) => {
-          submit(values, {
-            onSuccess: () => {
-              trackFormSuccess(initial?.id);
-              actions.setSubmitting(false);
-              closeDialog && closeDialog();
-              resetInitial && resetInitial();
-            },
-            onError: () => {
-              actions.setSubmitting(false);
-              closeDialog && closeDialog();
-              resetInitial && resetInitial();
-            },
-          });
-        }}
+        onSubmit={handleSumit}
       >
         {(formikProps: FormikProps<InstalmentPaymentApi>) => {
           return (
             <form onSubmit={formikProps.handleSubmit}>
               <div className={classes.container}>
-                <InstalmentPaymentGeneralInfoForm
-                  recurrency={formikProps.values.recurrency}
-                  frequency={formikProps.values.frequency}
-                  number_of_billing={formikProps.values.number_of_billing}
-                  hideFee
-                  isInDrawer
-                />
+                <InstalmentPaymentGeneralInfoForm />
                 <Divider className={classes.divider} />
                 <InstalmentPaymentCompabilityForm
                   setFieldValue={formikProps.setFieldValue}
@@ -150,6 +172,7 @@ export const InstalmentPaymentForm = (props: Props) => {
                     color="primary"
                     type="submit"
                     variant="contained"
+                    disabled={!formikProps.isValid || formikProps.isSubmitting}
                     onClick={() => {
                       trackFormSubmitIntent(initial?.id);
                     }}
@@ -187,6 +210,11 @@ InstalmentPaymentForm.defaultProps = {
     is_available_on_all_giftcard: false,
     shop_item_list: [],
     is_available_on_all_shop_item: false,
+    custom_first_instalment_enabled: false,
+    custom_first_instalment_type: 0,
+    custom_first_instalment_percent: 20,
+    custom_first_instalment_amount: 20,
+    partial_payment_enabled: false,
   } as InstalmentPaymentApi,
 };
 
@@ -211,4 +239,38 @@ export default InstalmentPaymentForm;
 const instalmentPaymentSchema = Yup.object().shape({
   name: Yup.string().required('common:form.requiredField'),
   frequency: Yup.number().min(1),
+  custom_first_instalment_amount: Yup.number().test(
+    'amountGreaterThan1',
+    'instalmentPayment:validation.amountMin',
+    function test(item) {
+      if (
+        (this.parent.custom_first_instalment_enabled ||
+          this.parent.partial_payment_enabled) &&
+        this.parent.custom_first_instalment_type.toString() ===
+          CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT.toString()
+      ) {
+        return item >= 1;
+      }
+      return true;
+    },
+  ),
+  custom_first_instalment_percent: Yup.number().test(
+    'percentBetween1And100',
+    'instalmentPayment:validation.percentRange',
+    function test(item) {
+      if (
+        (this.parent.custom_first_instalment_enabled ||
+          this.parent.partial_payment_enabled) &&
+        this.parent.custom_first_instalment_type.toString() ===
+          CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT.toString()
+      ) {
+        return item >= 1 && item < 100;
+      }
+      return true;
+    },
+  ),
+  number_of_billing: Yup.number().when('custom_first_instalment_enabled', {
+    is: true,
+    then: Yup.number().min(2),
+  }),
 });

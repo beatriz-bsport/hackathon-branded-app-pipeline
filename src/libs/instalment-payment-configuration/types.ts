@@ -1,9 +1,17 @@
-// @ts-nocheck
 import { ShopItem } from '@bsport/common/lib/master-data/available-payment.type';
 import { Giftcard } from '#libs/giftcard/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
+import {
+  CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT,
+  CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT,
+} from '#libs/instalment-payment-configuration/constants';
+
+export enum CustomFirstInstalmentType {
+  AMOUNT = CUSTOM_FIRST_INSTALMENT_TYPE_AMOUNT,
+  PERCENT = CUSTOM_FIRST_INSTALMENT_TYPE_PERCENT,
+}
 
 export type InstalmentPayment = {
   id?: number;
@@ -26,6 +34,11 @@ export type InstalmentPayment = {
   is_available_on_all_giftcard: boolean;
   shop_item_list: Array<ShopItem>;
   is_available_on_all_shop_item: boolean;
+  custom_first_instalment_enabled: boolean;
+  custom_first_instalment_type: CustomFirstInstalmentType;
+  custom_first_instalment_percent: number;
+  custom_first_instalment_amount: string;
+  partial_payment_enabled: boolean;
 };
 
 export type InstalmentPaymentApi = {
@@ -49,6 +62,11 @@ export type InstalmentPaymentApi = {
   shop_item_list: Array<number>;
   is_available_on_all_shop_item: boolean;
   is_disabled: boolean;
+  custom_first_instalment_enabled: boolean;
+  custom_first_instalment_type: CustomFirstInstalmentType;
+  custom_first_instalment_percent: number;
+  custom_first_instalment_amount: number;
+  partial_payment_enabled: boolean;
 };
 
 export type InstalmentPaymentState = {

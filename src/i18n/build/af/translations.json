@@ -3865,7 +3865,7 @@
     },
     "backofficeMenu": {
       "toggle": { "expand": "Étendre", "shrink": "Replier" },
-      "instalmentPayment": "Paiements en plusieurs fois",
+      "instalmentPayment": "Facilités de paiement",
       "programs": "Programmes",
       "cashBookTooltip": "Livret de caisse",
       "addMemberTooltip": "Ajouter membre",
@@ -9304,6 +9304,11 @@
     },
     "accessDenied": { "general": { "title": "Accès refusé", "message": "Vous ne pouvez pas accéder à l'espace demandé" } },
     "communicationProviderSettings": { "update": { "success": "Modifications enregistrées", "error": "Impossible de sauvegarder les modifications" } },
+    "instalmentPayment": {
+      "16000": "Le montant de la première échance doit être positif",
+      "16001": "Le pourcentage du montant total doit être compris entre 0 et 100",
+      "16002": "Le nombre d'encaissements doit être égal à 1 pour activer l'option 'Payer partiellement'"
+    },
     "smartListPopup": { "send": { "error": "Une erreur est survenue lors de l'envoi de votre pop-up." } }
   },
   "spotScheduling": {
@@ -12068,7 +12073,27 @@
         "allShopItem": "Compatible avec tous les produits du magasin",
         "giftcard": "Cartes cadeaux",
         "allGiftcard": "Compatible avec toutes les cartes cadeaux"
+      },
+      "customInstalmentAmount": {
+        "label": "Personnaliser le montant de la première échéance",
+        "type": { "amount": "Montant fixe", "percent": "En pourcentage du prix total du panier" },
+        "amountHelperText": { "amount": "Montant", "percent": "Pourcentage" }
+      },
+      "partialPaymentRadio": {
+        "disabled": "Payer la totalité du panier sur plusieurs échéances",
+        "enabled": {
+          "label": "Payer partiellement le panier",
+          "helperText": "Le membre ne paie immédiatement qu'une partie du montant total de son panier, le reste sera débité sur son acompte interne"
+        }
       }
+    },
+    "configurationOption": {
+      "payLater": "Payez seulement {{amount}}",
+      "payLaterRemainder": "Le reste du montant à charge ({{remainder}}) sera prélevé sur votre solde interne"
+    },
+    "validation": {
+      "percentRange": "Le pourcentage doit être compris entre 1 et 100",
+      "amountMin": "Le montant doit être supérieur à 1"
     }
   },
   "tutorial": {

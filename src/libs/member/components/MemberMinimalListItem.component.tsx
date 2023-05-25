@@ -86,8 +86,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
     );
 
   const isBirthday = member
-    ? moment().date() === moment(member.birthday).date() &&
-      moment().month() === moment(member.birthday).month()
+    ? moment().format('MM-DD') === moment(member.birthday).format('MM-DD')
     : false;
 
   return (

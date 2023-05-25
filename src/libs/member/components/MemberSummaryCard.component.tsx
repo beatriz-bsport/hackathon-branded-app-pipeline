@@ -101,8 +101,8 @@ export class MemberSummaryCard extends Component<Props> {
     const age = moment().diff(moment(member.consumer.birthday), 'years');
 
     const isBirthday = member
-      ? moment().date() === moment(member.consumer.birthday).date() &&
-        moment().month() === moment(member.consumer.birthday).month()
+      ? moment().format('MM-DD') ===
+        moment(member.consumer.birthday).format('MM-DD')
       : false;
 
     return (

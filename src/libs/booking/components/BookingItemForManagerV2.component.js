@@ -643,8 +643,8 @@ export class BookingItemForManager extends Component<Props, State> {
     }
 
     const isBirthday = this.props.member
-      ? moment().date() === moment(this.props.member.birthday).date() &&
-        moment().month() === moment(this.props.member.birthday).month()
+      ? moment().format('MM-DD') ===
+        moment(this.props.member.birthday).format('MM-DD')
       : false;
 
     return this.wrapToolTip(

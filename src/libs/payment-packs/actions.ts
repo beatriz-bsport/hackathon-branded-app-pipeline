@@ -467,7 +467,10 @@ export const listAllPaymentPackCategoryActions = {
   success: createAction('PAYMENT_PACK_CATEGORY/LIST/SUCCESS'),
 };
 
-export function fetchAllPaymentPackCategory(companyId?: number) {
+export function fetchAllPaymentPackCategory(
+  companyId?: number,
+  options?: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(listAllPaymentPackCategoryActions.error(null));
     dispatch(listAllPaymentPackCategoryActions.isLoading(true));
@@ -475,8 +478,12 @@ export function fetchAllPaymentPackCategory(companyId?: number) {
       const response = await fetchAllPaymentPackCategoryAPI({
         ...(companyId ? { companyId } : {}),
       });
-      const paymentPacks = response.data;
-      dispatch(listAllPaymentPackCategoryActions.success(paymentPacks));
+      const paymentPacksCategories = response.data;
+      dispatch(
+        listAllPaymentPackCategoryActions.success(paymentPacksCategories),
+      );
+      if (options && options.onSuccess)
+        options.onSuccess(paymentPacksCategories);
     } catch (err) {
       console.error(err);
       dispatch(listAllPaymentPackCategoryActions.error(err));

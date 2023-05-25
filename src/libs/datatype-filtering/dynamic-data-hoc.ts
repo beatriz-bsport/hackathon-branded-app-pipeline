@@ -4,7 +4,10 @@ import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import type { RootState } from '../../reducers';
 import { getPageMetaActivities } from '#libs/meta-activity/selectors';
-import { getAll as getAllPaymentPack } from '#libs/payment-packs/selectors';
+import {
+  getAll as getAllPaymentPack,
+  getAllPaymentPackCategory,
+} from '#libs/payment-packs/selectors';
 import { getAllCoaches } from '#libs/associated-coach/selectors';
 import {
   getAllEstablishments,
@@ -13,6 +16,7 @@ import {
 import { getAllMembers } from '#libs/member/selectors';
 import { getPrivatePassListBase } from '#libs/private-service/selectors/private-pass';
 import { _getPrivateServices as getPrivateServices } from '#libs/private-service/selectors/private-service';
+import { getPrivatePassCategories } from '#libs/private-service/selectors/private-pass-category';
 import { getAllPrivateSlots } from '#libs/private-service/selectors/private-slot';
 import { getAllGiftcardList } from '#libs/giftcard/selectors';
 import { getAllCoupons } from '#libs/coupon/selectors';
@@ -30,7 +34,10 @@ import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#libs/role/actions';
 import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#libs/meta-activity/actions';
 import { refreshFilteredMembers as refreshFilteredMembersAction } from '#libs/member/actions';
-import { fetchPaymentPackList as fetchPaymentPackListAction } from '#libs/payment-packs/actions';
+import {
+  fetchPaymentPackList as fetchPaymentPackListAction,
+  fetchAllPaymentPackCategory as fetchAllPaymentPackCategoryAction,
+} from '#libs/payment-packs/actions';
 import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
   fetchEstablishments as fetchEstablishmentsAction,
@@ -40,6 +47,7 @@ import {
   fetchAllPrivateServices as fetchAllPrivateServicesAction,
   fetchAllPrivateSlots as fetchAllPrivateSlotsAction,
   fetchPrivatePassList as fetchPrivatePassListAction,
+  fetchAllPrivatePassCategory as fetchAllPrivatePassCategoryAction,
 } from '#libs/private-service/actions';
 import { fetchGiftcardList as fetchGiftcardListAction } from '#libs/giftcard/actions';
 import { fetchCoupons as fetchCouponsAction } from '#libs/coupon/actions';
@@ -81,6 +89,8 @@ const connector = connect(
     subshops: getSubShopsByCompany(state, getTheme(state).company),
     staffs: getUsersWithRole(state),
     franchiseCompanies: getFranchiseCompanies(state),
+    paymentPackCategories: getAllPaymentPackCategory(state),
+    privatePassCategories: getPrivatePassCategories(state),
   }),
   {
     // Actions for dynamic data
@@ -102,6 +112,8 @@ const connector = connect(
     fetchAllSubShop: fetchAllSubShopAction,
     fetchCompanyUserRoles: fetchCompanyUserRolesAction,
     fetchFranchise: fetchFranchiseAction,
+    fetchAllPaymentPackCategory: fetchAllPaymentPackCategoryAction,
+    fetchAllPrivatePassCategory: fetchAllPrivatePassCategoryAction,
   },
 );
 
@@ -138,6 +150,13 @@ export default function withDatatypeDynamicData(
                     },
                   },
                 );
+                break;
+              case 'payment_pack_category':
+                props.fetchAllPaymentPackCategory(props.companyId, {
+                  onSuccess: () => {
+                    props.setDynamicDataHasBeenLoaded('payment_pack_category');
+                  },
+                });
                 break;
               case 'coach':
                 props.fetchAssociatedCoachesList(
@@ -201,6 +220,13 @@ export default function withDatatypeDynamicData(
                     },
                   },
                 );
+                break;
+              case 'private_pass_category':
+                props.fetchAllPrivatePassCategory(props.companyId, {
+                  onSuccess: () => {
+                    props.setDynamicDataHasBeenLoaded('private_pass_category');
+                  },
+                });
                 break;
               case 'giftcard':
                 props.fetchGiftcardList(
@@ -283,6 +309,11 @@ export default function withDatatypeDynamicData(
                 label: p.name,
                 value: p.id,
               }));
+            case 'payment_pack_category':
+              return props.paymentPackCategories.map((paymentPackCategory) => ({
+                label: paymentPackCategory.name,
+                value: paymentPackCategory.id,
+              }));
             case 'coach':
               return props.coaches.map((c) => ({
                 label: c.name,
@@ -315,6 +346,11 @@ export default function withDatatypeDynamicData(
                   label: pp.name,
                   value: pp.id,
                 }));
+            case 'private_pass_category':
+              return props.privatePassCategories.map((privatePassCategory) => ({
+                label: privatePassCategory.name,
+                value: privatePassCategory.id,
+              }));
             case 'giftcard':
               return props.giftCards.map((gc) => ({
                 label: gc.name,

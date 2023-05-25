@@ -352,7 +352,9 @@ const DatatypeFilterConfigValueList: React.FC<{
       case 'establishment':
       case 'giftcard':
       case 'payment_pack':
+      case 'payment_pack_category':
       case 'private_pass':
+      case 'private_pass_category':
       case 'private_service':
       case 'private_slot':
       case 'subshop':
@@ -555,6 +557,7 @@ const DatatypeFilterConfigValueList: React.FC<{
     [
       'activity',
       'payment_pack',
+      'payment_pack_category',
       'coach',
       'establishment',
       'billing_group',
@@ -566,6 +569,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       'giftcard',
       'video',
       'contract',
+      'private_pass_category',
       'company',
       'staff',
     ].includes(datatype) &&

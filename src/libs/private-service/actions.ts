@@ -2633,7 +2633,10 @@ export const listAllPrivatePassCategoryActions = {
   success: createAction('PRIVATE_PASS_CATEGORY/LIST/SUCCESS'),
 };
 
-export function fetchAllPrivatePassCategory(companyId?: number) {
+export function fetchAllPrivatePassCategory(
+  companyId?: number,
+  options?: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(listAllPrivatePassCategoryActions.error(null));
     dispatch(listAllPrivatePassCategoryActions.isLoading(true));
@@ -2641,6 +2644,7 @@ export function fetchAllPrivatePassCategory(companyId?: number) {
       const response = await fetchAllPrivatePassCategoryAPI({ companyId });
       const privatePasses = response.data;
       dispatch(listAllPrivatePassCategoryActions.success(privatePasses));
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
       dispatch(listAllPrivatePassCategoryActions.error(err));

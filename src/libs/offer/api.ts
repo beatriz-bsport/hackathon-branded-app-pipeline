@@ -105,6 +105,7 @@ export async function disableOffer({
   custom_selection,
   custom_selection_ids,
   force,
+  cancel_linked_hybrid_offer,
 }: {
   offerId: number;
   notify?: boolean;
@@ -113,6 +114,7 @@ export async function disableOffer({
   custom_selection?: boolean;
   custom_selection_ids?: Array<number>;
   force: boolean;
+  cancel_linked_hybrid_offer?: boolean;
 }) {
   return patchAuth(`${API_URI}/saas/offer/${offerId}/disable/`, {
     available: false,
@@ -122,6 +124,7 @@ export async function disableOffer({
     custom_selection,
     custom_selection_ids,
     force,
+    cancel_linked_hybrid_offer,
   });
 }
 

@@ -1181,6 +1181,7 @@ export function disableOffer(
     custom_selection?: boolean;
     custom_selection_ids?: Array<number>;
     force: boolean;
+    cancel_linked_hybrid_offer?: boolean;
   },
   options: OptionBackgroundCallback,
 ) {

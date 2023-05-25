@@ -599,12 +599,18 @@ export class CalendarEventDetail extends React.Component<Props, State> {
               <DeleteOfferForm
                 offer={offer}
                 offerWasCancelled={!offer.available}
-                onCancelOffer={({ cashback, notify, deleteAll }) =>
+                onCancelOffer={({
+                  cashback,
+                  notify,
+                  deleteAll,
+                  cancel_linked_hybrid_offer,
+                }) =>
                   this.onCancelOffer({
                     offerId: offer.id,
                     cashback,
                     notify,
                     deleteAll,
+                    cancel_linked_hybrid_offer,
                   })
                 }
                 onHardDelete={this.onHardDeleteOffer}

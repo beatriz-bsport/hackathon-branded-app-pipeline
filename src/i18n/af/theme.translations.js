@@ -293,7 +293,7 @@ exports.default = {
         oneLetter: '1 lettre',
       },
       showFreeSessionLabel:
-        'Ajouter un label à chaque session dont le prix en crédit est égal à 0',
+        'Indiquer les sessions à 0 crédit avec le label GRATUIT',
     },
     cover: {
       label: 'Logo',

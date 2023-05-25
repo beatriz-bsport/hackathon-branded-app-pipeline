@@ -10459,7 +10459,7 @@
           "threeLetters": "3 lettres",
           "oneLetter": "1 lettre"
         },
-        "showFreeSessionLabel": "Ajouter un label à chaque session dont le prix en crédit est égal à 0"
+        "showFreeSessionLabel": "Indiquer les sessions à 0 crédit avec le label GRATUIT"
       },
       "cover": { "label": "Logo", "helperText": "Privilégiez les png avec fond transparent" },
       "primary_color": { "label": "Couleur principale", "helperText": "Privilégiez une couleur, évitez le monochrome" },

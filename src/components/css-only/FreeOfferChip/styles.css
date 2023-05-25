@@ -1,0 +1,18 @@
+.bs-free-offer-chip {
+  display: flex;
+  padding: var(--spacing-1);
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: var(--border-radius-1);
+  color: var(--color-primary-contrastText);
+  background-color: rgba(76, 175, 80, 0.1);
+  font-size: var(--body2-fontSize);
+  font-weight: var(--fontWeightMedium);
+  align-items: center;
+  min-height: var(--spacing-3);
+}
+
+.--white-text {
+  color: white;
+  background-color: var(--color-success-main);
+}

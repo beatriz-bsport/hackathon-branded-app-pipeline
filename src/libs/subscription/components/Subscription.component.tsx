@@ -43,7 +43,7 @@ type Props = {
   requestPrivatePassSwitch: () => void;
   requestPaymentComboSwitch: () => void;
   requestPaymentMethodSwitch: () => void;
-  requestScheduledStop: (plannedInvoiceId?: number) => void;
+  requestScheduledStop: (plannedInvoiceId?: number, stopNote?: string) => void;
 
   goToInvoice: (uuid: string) => void;
   goToSubscribe: (id: number) => void;

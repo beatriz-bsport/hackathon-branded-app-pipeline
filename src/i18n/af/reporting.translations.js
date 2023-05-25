@@ -337,6 +337,7 @@ exports.default = {
     plan_auto_renewal: 'Renouvellement tacite',
     plan_date_end: 'Date de fin de facturation',
     plan_date_start: 'Date de première facturation',
+    plan_note: 'Notes',
     plan_status: "Statut de l'abonnement",
     plan_flat_fee: 'Frais de dossier',
     plan_recurrent_price: 'Montant du paiement récurrent',

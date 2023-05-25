@@ -136,6 +136,7 @@ const ReportTable: React.FC<TableProps> = ({
                       <TableCell
                         key={columnsConfigs[i]?.identifier}
                         {...(cellProps || {})}
+                        className={classes.cell}
                       >
                         {value}
                       </TableCell>
@@ -187,6 +188,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexShrink: 0,
     marginLeft: theme.spacing(2.5),
   },
+  cell: { whiteSpace: 'pre-line' },
 }));
 
 export default ReportTable;

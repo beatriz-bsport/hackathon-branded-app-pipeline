@@ -203,6 +203,12 @@ export const SubscriptionSummary = (props: Props) => {
           <Typography variant="body2">{t('parameters.note')}</Typography>
           {subscription.note}
         </div>
+        {!!subscription.stop_note && (
+          <div className={classes.field}>
+            <Typography variant="body2">{t('parameters.stopNote')}</Typography>
+            {subscription.stop_note}
+          </div>
+        )}
         {contractTermsDateAccepted && (
           <div className={classes.field}>
             <Typography variant="body2" className={classes.contractTerms}>

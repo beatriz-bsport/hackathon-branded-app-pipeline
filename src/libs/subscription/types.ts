@@ -50,6 +50,7 @@ export type Subscription<
   nb_interval: number;
   next_billing_date: string;
   note: string;
+  stop_note: string;
   pauses: Array<SubscriptionPause>;
   payment_combo: PaymentComboType;
   payment_engine: number;

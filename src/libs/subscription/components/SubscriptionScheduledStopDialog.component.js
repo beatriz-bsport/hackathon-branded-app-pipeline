@@ -9,6 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -27,6 +28,8 @@ type Props = {
   setSelectedInvoice: (any) => void,
   loading: boolean,
   onSubmit: (id: number) => void,
+  stopNote: string,
+  setStopNote: (note: string) => void,
 };
 
 const SubscriptionScheduledStopDialog = (props: Props) => {
@@ -39,7 +42,22 @@ const SubscriptionScheduledStopDialog = (props: Props) => {
     setSelectedInvoice,
     loading,
     onSubmit,
+    stopNote,
+    setStopNote,
+    onCancel,
   } = props;
+
+  const handleNoteChange = React.useCallback(
+    (event) => {
+      setStopNote(event.target.value);
+    },
+    [setStopNote],
+  );
+
+  const handleSubmit = React.useCallback(() => {
+    onSubmit(selectedInvoice.id, stopNote);
+    onCancel();
+  }, [onCancel, onSubmit, selectedInvoice?.id, stopNote]);
 
   if (loading) {
     return (
@@ -58,6 +76,13 @@ const SubscriptionScheduledStopDialog = (props: Props) => {
         </Typography>
       </DialogTitle>
       <DialogContent>
+        <TextField
+          label={t('subscription.scheduledStop.notePlaceholder')}
+          placeholder={t('subscription.scheduledStop.notePlaceholder')}
+          value={stopNote}
+          onChange={handleNoteChange}
+          fullWidth
+        />
         <Typography className={classes.explainText}>
           {t('subscription.scheduledStop.explain')}
         </Typography>
@@ -79,10 +104,7 @@ const SubscriptionScheduledStopDialog = (props: Props) => {
           {t('subscription.freeze.form.cancel')}
         </Button>
         <Button
-          onClick={() => {
-            onSubmit(selectedInvoice.id);
-            props.onCancel();
-          }}
+          onClick={handleSubmit}
           disabled={!selectedInvoice}
           color="primary"
         >
@@ -96,9 +118,11 @@ const SubscriptionScheduledStopDialog = (props: Props) => {
 const useStyles = makeStyles((theme) => ({
   explainText: {
     marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
   },
 }));
 
 export default compose(
   withState('selectedInvoice', 'setSelectedInvoice', null),
+  withState('stopNote', 'setStopNote', ''),
 )(SubscriptionScheduledStopDialog);

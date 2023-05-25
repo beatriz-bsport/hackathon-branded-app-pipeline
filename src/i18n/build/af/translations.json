@@ -7339,6 +7339,7 @@
       "plan_auto_renewal": "Renouvellement tacite",
       "plan_date_end": "Date de fin de facturation",
       "plan_date_start": "Date de première facturation",
+      "plan_note": "Notes",
       "plan_status": "Statut de l'abonnement",
       "plan_flat_fee": "Frais de dossier",
       "plan_recurrent_price": "Montant du paiement récurrent",
@@ -9510,6 +9511,7 @@
       },
       "scheduledStop": {
         "title": "Programmer l'arrêt de la souscription",
+        "notePlaceholder": "Raison",
         "explain": "Choisissez le dernier encaissement de la souscription.",
         "listItem": "Arrêt programmé de la souscription",
         "summary": "Le dernier encaissement programmé sera daté du {{-date}}, il correspondera à la dernière carte valide."
@@ -9817,6 +9819,7 @@
     },
     "parameters": {
       "note": "Note",
+      "stopNote": "Note d'annulation",
       "autoRenew": "Renouvellement automatique",
       "parameters": "Paramètres",
       "payment_method": { "0": "Carte", "1": "Virement SEPA", "2": "A crédit", "label": "Moyen de paiement" },

@@ -132,9 +132,12 @@ export class SubscriptionDetail extends Component<Props> {
           requestUpdatePrice={this.props.updatePlannedInvoicePrice}
           plannedInvoiceUpdateLoading={this.props.plannedInvoiceUpdateLoading}
           cancelPause={this.props.cancelPause}
-          requestScheduledStop={(plannedInvoiceId?: number) => {
+          requestScheduledStop={(
+            plannedInvoiceId?: number,
+            stopNote?: string,
+          ) => {
             if (plannedInvoiceId) {
-              this.props.flagPlannedInvoiceAsLast(plannedInvoiceId);
+              this.props.flagPlannedInvoiceAsLast(plannedInvoiceId, stopNote);
             } else {
               this.props.setScheduledStopDialogOpen(true);
             }
@@ -487,14 +490,16 @@ const mapWithHandlers2 = {
     },
   flagPlannedInvoiceAsLast:
     ({ flagPlannedInvoiceAsLast, fetchSubscription }: BeforeHandlerProps) =>
-    (id: number) => {
-      flagPlannedInvoiceAsLast(id, { onSuccess: () => fetchSubscription() });
+    (id: number, note?: string) => {
+      flagPlannedInvoiceAsLast(id, note, {
+        onSuccess: fetchSubscription,
+      });
     },
   unflagPlannedInvoiceAsLast:
     ({ unflagPlannedInvoiceAsLast, fetchSubscription }: BeforeHandlerProps) =>
     (id: number) => {
       unflagPlannedInvoiceAsLast(id, {
-        onSuccess: () => fetchSubscription(),
+        onSuccess: fetchSubscription,
       });
     },
   updatePlannedInvoicePrice:

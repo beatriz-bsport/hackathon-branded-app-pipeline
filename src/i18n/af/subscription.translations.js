@@ -154,6 +154,7 @@ exports.default = {
     },
     scheduledStop: {
       title: "Programmer l'arrêt de la souscription",
+      notePlaceholder: 'Raison',
       explain: 'Choisissez le dernier encaissement de la souscription.',
       listItem: 'Arrêt programmé de la souscription',
       summary:
@@ -568,6 +569,7 @@ exports.default = {
   },
   parameters: {
     note: 'Note',
+    stopNote: "Note d'annulation",
     autoRenew: 'Renouvellement automatique',
     parameters: 'Paramètres',
     payment_method: {

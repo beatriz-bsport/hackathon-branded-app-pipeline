@@ -15,6 +15,7 @@ import {
   PauseRequestData,
   ContractPauseRequestData,
   SubscriptionQueryParams,
+  PlannedInvoice,
 } from './types';
 
 const fetchAll = async (params: SubscriptionQueryParams) => {
@@ -185,8 +186,14 @@ export const switchSubscriptionPaymentMethod = async (
   );
 };
 
-export const flagPlannedInvoiceAsLast = async (id: number) => {
-  return putAuth(`${API_URI}/subscription/planned-invoice/${id}/flag_as_last/`);
+export const flagPlannedInvoiceAsLast = async (
+  id: number,
+  note?: string,
+): Promise<AxiosResponse<PlannedInvoice>> => {
+  return putAuth(
+    `${API_URI}/subscription/planned-invoice/${id}/flag_as_last/`,
+    { note },
+  );
 };
 
 export const unflagPlannedInvoiceAsLast = async (id: number) => {

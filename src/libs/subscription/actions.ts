@@ -709,10 +709,14 @@ export function fetchContractForBooking(
   };
 }
 
-export function flagPlannedInvoiceAsLast(id: number, options: OptionCallback) {
+export function flagPlannedInvoiceAsLast(
+  id: number,
+  note?: string,
+  options: OptionCallback,
+): Promise<void> {
   return async (dispatch: Dispatch) => {
     try {
-      await flagPlannedInvoiceAsLastAPI(id);
+      await flagPlannedInvoiceAsLastAPI(id, note);
       if (options && options.onSuccess) options.onSuccess();
       dispatch(snackbarSuccess('subscriptionScheduledStop.create.success'));
     } catch (error) {

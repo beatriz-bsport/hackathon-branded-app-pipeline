@@ -429,7 +429,9 @@ export default compose(
     flagPlannedInvoiceAsLast:
       ({ flagPlannedInvoiceAsLast, fetchSubscription }) =>
       (id) => {
-        flagPlannedInvoiceAsLast(id, { onSuccess: () => fetchSubscription() });
+        flagPlannedInvoiceAsLast(id, '', {
+          onSuccess: () => fetchSubscription(),
+        });
       },
     unflagPlannedInvoiceAsLast:
       ({ unflagPlannedInvoiceAsLast, fetchSubscription }) =>

@@ -10,6 +10,12 @@ import UndoIcon from '@material-ui/icons/Undo';
 import TodayIcon from '@material-ui/icons/Today';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 import { useTranslation } from 'react-i18next';
 import {
@@ -214,7 +220,7 @@ const EndItem = (props: {
   );
 };
 
-const PlannedInvoiceEditMenu = (props: {
+type PlannedInvoiceEditMenuProps = {
   plannedInvoice: PlannedInvoice;
   goToInvoice: (uuid: string) => void;
   disableActions?: boolean;
@@ -225,60 +231,126 @@ const PlannedInvoiceEditMenu = (props: {
   onRequestDateChange: (plannedInvoice: PlannedInvoice) => void;
   onRequestScheduledStop: (plannedInvoiceId?: number) => void;
   disableDateModification: boolean;
-}) => {
+};
+
+const PlannedInvoiceEditMenu = ({
+  plannedInvoice,
+  goToInvoice,
+  disableActions,
+  onClose,
+  anchor,
+  open,
+  onRequestPriceChange,
+  onRequestDateChange,
+  onRequestScheduledStop,
+  disableDateModification,
+}: PlannedInvoiceEditMenuProps) => {
   const { t } = useTranslation(['subscription']);
   const isPast =
-    moment(props.plannedInvoice.date).isBefore(moment()) ||
-    props.plannedInvoice.status !== PENDING.id;
+    moment(plannedInvoice.date).isBefore(moment()) ||
+    plannedInvoice.status !== PENDING.id;
+
+  const [stopNote, setStopNote] = React.useState<string>('');
+
+  const handleNoteChange = React.useCallback(
+    (event) => {
+      setStopNote(event.target.value);
+    },
+    [setStopNote],
+  );
+
+  const [
+    isOpenRequestScheduledStopDialog,
+    setIsOpenRequestScheduledStopDialog,
+  ] = React.useState<boolean>(false);
+
+  const handleRequestScheduledStop = React.useCallback(() => {
+    setIsOpenRequestScheduledStopDialog(true);
+  }, []);
+  const handleCancelScheduledStop = React.useCallback(() => {
+    setIsOpenRequestScheduledStopDialog(false);
+  }, []);
+
+  const handleSubmitRequestScheduledStop = React.useCallback(() => {
+    setIsOpenRequestScheduledStopDialog(false);
+    onRequestScheduledStop(plannedInvoice.id, stopNote);
+  }, [onRequestScheduledStop, plannedInvoice.id, stopNote]);
+
   return (
-    <Menu onClose={props.onClose} anchorEl={props.anchor} open={props.open}>
-      <MenuItem onClick={() => props.goToInvoice(props.plannedInvoice.uuid)}>
-        <ListItemIcon>
-          <ArrowForwardIcon fontSize="small" />
-        </ListItemIcon>
-        <Typography variant="inherit">
-          {t('subscription.actions.showInvoice')}
-        </Typography>
-      </MenuItem>
-      <MenuItem
-        disabled={
-          isPast || props.disableActions || props.disableDateModification
-        }
-        onClick={() => props.onRequestDateChange(props.plannedInvoice)}
-      >
-        <ListItemIcon>
-          <TodayIcon fontSize="small" />
-        </ListItemIcon>
-        <Typography variant="inherit">
-          {t('subscription.actions.changeDate')}
-        </Typography>
-      </MenuItem>
-      <MenuItem
-        disabled={isPast || props.disableActions}
-        onClick={() => props.onRequestPriceChange(props.plannedInvoice)}
-      >
-        <ListItemIcon>
-          <EuroSymbolIcon fontSize="small" />
-        </ListItemIcon>
-        <Typography variant="inherit">
-          {t('subscription.actions.changePrice')}
-        </Typography>
-      </MenuItem>
-      <MenuItem
-        onClick={() => props.onRequestScheduledStop(props.plannedInvoice.id)}
-        disabled={
-          props.disableActions ||
-          moment(props.plannedInvoice.date).isBefore(moment().add(-31, 'days'))
-        }
-      >
-        <ListItemIcon>
-          <StopIcon fontSize="small" />
-        </ListItemIcon>
-        <Typography variant="inherit">
-          {t('subscription.actions.stop')}
-        </Typography>
-      </MenuItem>
-    </Menu>
+    <>
+      <Menu onClose={onClose} anchorEl={anchor} open={open}>
+        <MenuItem onClick={() => goToInvoice(plannedInvoice.uuid)}>
+          <ListItemIcon>
+            <ArrowForwardIcon fontSize="small" />
+          </ListItemIcon>
+          <Typography variant="inherit">
+            {t('subscription.actions.showInvoice')}
+          </Typography>
+        </MenuItem>
+        <MenuItem
+          disabled={isPast || disableActions || disableDateModification}
+          onClick={() => onRequestDateChange(plannedInvoice)}
+        >
+          <ListItemIcon>
+            <TodayIcon fontSize="small" />
+          </ListItemIcon>
+          <Typography variant="inherit">
+            {t('subscription.actions.changeDate')}
+          </Typography>
+        </MenuItem>
+        <MenuItem
+          disabled={isPast || disableActions}
+          onClick={() => onRequestPriceChange(plannedInvoice)}
+        >
+          <ListItemIcon>
+            <EuroSymbolIcon fontSize="small" />
+          </ListItemIcon>
+          <Typography variant="inherit">
+            {t('subscription.actions.changePrice')}
+          </Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={handleRequestScheduledStop}
+          disabled={
+            disableActions ||
+            moment(plannedInvoice.date).isBefore(moment().add(-31, 'days'))
+          }
+        >
+          <ListItemIcon>
+            <StopIcon fontSize="small" />
+          </ListItemIcon>
+          <Typography variant="inherit">
+            {t('subscription.actions.stop')}
+          </Typography>
+        </MenuItem>
+      </Menu>
+      {isOpenRequestScheduledStopDialog && (
+        <Dialog open={isOpenRequestScheduledStopDialog}>
+          <DialogTitle>
+            <Typography variant="h6">
+              {t('subscription.scheduledStop.title')}
+            </Typography>
+          </DialogTitle>
+          <DialogContent>
+            <TextField
+              label={t('subscription.scheduledStop.notePlaceholder')}
+              placeholder={t('subscription.scheduledStop.notePlaceholder')}
+              value={stopNote}
+              onChange={handleNoteChange}
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCancelScheduledStop}>
+              {t('subscription.freeze.form.cancel')}
+            </Button>
+            <Button onClick={handleSubmitRequestScheduledStop} color="primary">
+              {t('subscription.freeze.form.submit')}
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
+    </>
   );
 };
 
@@ -289,7 +361,7 @@ const PlannedInvoiceItem = (props: {
   disableDateModification: boolean;
   onRequestPriceChange: (plannedInvoice: PlannedInvoice) => void;
   onRequestDateChange: (plannedInvoice: PlannedInvoice) => void;
-  onRequestScheduledStop: (plannedInvoiceId?: number) => void;
+  onRequestScheduledStop: (plannedInvoiceId?: number, stopNote: string) => void;
 }) => {
   const { plannedInvoice } = props;
   const classes = useStyles();
@@ -372,7 +444,7 @@ type Props = {
     },
     options?: OptionCallback<Subscription>,
   ) => void;
-  onRequestScheduledStop: (plannedInvoiceId?: number) => void;
+  onRequestScheduledStop: (plannedInvoiceId?: number, stopNote: string) => void;
   pauseList: Array<SubscriptionPause>;
   cancelPause: (id: number, options?: OptionCallback<Subscription>) => void;
   updatePause: (data: PauseRequestData, options: OptionCallback<any>) => void;

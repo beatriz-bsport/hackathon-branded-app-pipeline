@@ -2876,6 +2876,19 @@
             "3": "Litigio perdido",
             "2": "Litigio resuelto",
             "1": "Litigio en curso"
+        },
+        "stripeBalance": {
+            "pendingBalance": "Saldo en curso",
+            "availableBalance": "Saldo disponible",
+            "nullPendingBalanceText": "Ninguno",
+            "dialog": {
+                "close": "Cerrar",
+                "alert": "Ten en cuenta que cuando realizas un reembolso directo, este dinero se toma directamente de tu cuenta de Stripe. Esto puede hacer que entre en negativo.",
+                "thirdPart": "Su \"saldo en curso\" es el importe que llegará a su saldo disponible.",
+                "secondPart": "Su \"saldo disponible\" es, por tanto, el importe de los pagos en línea que aún no se le ha abonado.",
+                "firstPart": "En bsport utilizamos el servicio Stripe para gestionar todos tus pagos online. Los importes de estos se guardan en Stripe y luego se transfieren a tu cuenta (sección \"Mis cobros\")."
+            },
+            "title": "Saldo en Stripe"
         }
     },
     "invoice": {
@@ -3122,6 +3135,15 @@
             },
             "warning": {
                 "interac": "Se ha realizado al menos un pago con una tarjeta Interac en esta factura. No se admiten reembolsos directos para tarjetas Interac."
+            },
+            "blockedDialog": {
+                "helper": "Tu saldo de Stripe de {{ stripeBalanceSum}} {{ currencyDisplay }} es insuficiente para procesar el reembolso. Por favor, inténtalo de nuevo pasados unos días para que se puedan cobrar los pagos.\n\nPuedes seguir el importe de tu saldo en directo en Ajustes > Suscripción Bsport.",
+                "alert": "Ten cuidado, con este reembolso superarás el límite de descubierto autorizado de {{refundBlockingLimit }} {{currencyDisplay}}.",
+                "title": "Saldo insuficiente de Stripe"
+            },
+            "autoDebitDialog": {
+                "helper": "Su estudio está actualmente en proceso de cerrar su cuenta Bsport.\n\nAl hacer clic en confirmar, la factura será reembolsada. Su saldo de Stripe se cargará en {{refundAmount}}. {{ currencyDisplay }}. Sin embargo, para restablecer tu saldo de Stripe a 0 {{ currencyDisplay }} se te cargará automáticamente la diferencia directamente en tu cuenta bancaria indicada en Configuración > Empresa.\n\nSi no quieres sobrepasar tu límite de descubierto, puedes esperar a que tu saldo de Stripe vuelva a subir. Puedes seguir el importe de tu saldo en directo en Ajustes > Suscripción bsport.\n\nTraducción realizada con la versión gratuita del traductor www.DeepL.com/Translator",
+                "title": "Saldo insuficiente de Stripe"
             }
         },
         "table": {
@@ -5316,7 +5338,12 @@
                         "credits": "Créditos",
                         "level": "Nivel",
                         "waitingListMaxSize": "Lista de espera",
-                        "effectif": "Plazas disponibles"
+                        "effectif": "Plazas disponibles",
+                        "hybridManagementHelper": "Puede gestionar las reservas asociadas a esta sesión hermanada, tanto en la sala como en línea, haciendo clic en el icono siguiente para abrir una nueva pestaña de gestión.",
+                        "hybridEditHelper": "Está editando una sesión en línea vinculada a una sesión presencial. Para modificar algunos datos, debe editar la sesión presencial.",
+                        "hybridHelper": "Al elegir esta opción se creará una sesión online con una afiliación por defecto de {{onlineOfferDefaultEffective }}. Podrá editar la información de la oferta en línea una vez creada (Enlace de difusión, afiliación, precio, etc.).",
+                        "hybridLabel": "Esta sesión es presencial y en línea.",
+                        "hybridSection": "Sesión híbrida"
                     },
                     "title": "Características"
                 }
@@ -5330,7 +5357,10 @@
                     "INFOS": "Sesión"
                 }
             }
-        }
+        },
+        "isFree": "Gratis",
+        "onSite": "En el estudio",
+        "broadcast": "Videoconferencia"
     },
     "member": {
         "date_joined": "Fecha de registro",
@@ -10970,7 +11000,10 @@
                 },
                 "submit": "Crear",
                 "cancel": "Cancelar",
-                "title": "Extensión de una tarjeta"
+                "title": "Extensión de una tarjeta",
+                "datePicker": {
+                    "label": "Nueva fecha"
+                }
             },
             "delete": {
                 "confirm": "Confirmar",
@@ -10979,7 +11012,11 @@
                 "title": "Supresión de la extensión"
             },
             "addedOn": "Añadido el ",
-            "nbDaysAdded": "+{{nb_days}}j"
+            "nbDaysAdded": "+{{nb_days}}j",
+            "options": {
+                "addNumberOfDays": "Ampliar la validez añadiendo un número de días",
+                "selectNewEndDate": "Fijar una nueva fecha de fin de validez"
+            }
         },
         "search": "Buscar una tarjeta",
         "notification": {
@@ -11964,7 +12001,8 @@
                 "paymentPackTemplates": "Bonos",
                 "label": "Productos",
                 "giftcardTemplates": "Tarjetas de regalo"
-            }
+            },
+            "tag": "Etiquetas"
         },
         "multiSession": {
             "current": "Sesión actual",

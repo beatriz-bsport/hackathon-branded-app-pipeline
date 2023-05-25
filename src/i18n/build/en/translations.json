@@ -1434,7 +1434,8 @@
                     "buttonHardDelete": "Delete",
                     "explainForceDanger": "Attention: bookings will permanently be deleted. If you haven't refunded members' credits, they will be lost entirely. Please carefully review the bookings before deleting them.",
                     "force": "Delete all sessions including the associated bookings",
-                    "advanced": "Advanced"
+                    "advanced": "Advanced",
+                    "explainDeleteLinkedHybridSession": "Cancel hybrid sessions (sessions held on site and online)"
                 },
                 "explainNotificationOnEdit": "Notify enrolled members",
                 "explainRecursiveOfferEdit": "Select the sessions that will be modified",
@@ -1687,7 +1688,13 @@
                 "week": "Weeks",
                 "day": "Days",
                 "hour": "Hours"
-            }
+            },
+            "endWorking": "End date",
+            "startWorking": "Start date",
+            "workingDateSection": "Period of activity in the studio",
+            "notesHelperText": "Notes are private: they will only appear on the Backoffice for staff members authorised to modify them",
+            "notes": "Notes",
+            "descriptionHelperText": "The teacher's description will be visible to members when booking"
         },
         "shop": {
             "noProvisionUpdates": "No stock available",
@@ -3403,7 +3410,10 @@
                     },
                     "submit": "Add",
                     "cancel": "Cancel",
-                    "title": "[Form] Extend validity"
+                    "title": "[Form] Extend validity",
+                    "datePicker": {
+                        "label": "New date"
+                    }
                 },
                 "delete": {
                     "confirm": "Confirm",
@@ -3412,7 +3422,11 @@
                     "title": "Delete the extension of the validity"
                 },
                 "addedOn": "Added on: ",
-                "nbDaysAdded": "+{{nb_days}} day(s)"
+                "nbDaysAdded": "+{{nb_days}} day(s)",
+                "options": {
+                    "selectNewEndDate": "Set a new end of validity date",
+                    "addNumberOfDays": "Extend the validity by adding a number of days"
+                }
             },
             "isFromDisabledShare": "Sharing has been disabled",
             "isOwnerOfShares": "Shared (Master Appointment Pass)",
@@ -4776,7 +4790,8 @@
                 "selectCoach": "Select teachers",
                 "ifEmptySelectAll": "Leave empty to select all",
                 "selectFranchisees": "Select studios",
-                "selectFranchiseesDisabled": "This setting is only for custom role (not Admin or Owner)"
+                "selectFranchiseesDisabled": "This setting is only for custom role (not Admin or Owner)",
+                "commissionHeader": "Commission rate"
             },
             "role": {
                 "delete": {
@@ -5337,7 +5352,10 @@
                     "onlyShowCoachFirstName": "Teacher's first name only",
                     "showCoachFullNameWithPicture": "Full name and photo",
                     "label": "Display options for teacher information"
-                }
+                },
+                "showFreeSessionLabel": "Indicate sessions with 0 credits with the label FREE",
+                "acceptDoubleBookingWorkshop": "Accept double booking for workshops",
+                "acceptDoubleBookingMetaActivity": "Accept double booking for activities"
             },
             "cover": {
                 "label": "Logo",
@@ -7060,12 +7078,16 @@
             "all": "All activities",
             "appointment": "Appointments",
             "session": "Group activities & Workshops",
-            "groups": "Payroll group"
+            "groups": "Payroll group",
+            "workshop": "Workshops",
+            "groupActivity": "Group classes"
         },
         "fabButton": {
             "addNewForRDV": "Appointments",
             "addNewForSession": "Group activities & Workshops",
-            "addNewPaymentRuleGroup": "Payroll group"
+            "addNewPaymentRuleGroup": "Payroll group",
+            "addNewForWorkshop": "Workshops",
+            "addNewForGroupActivity": "Group classes"
         },
         "paymentRules": "Payment rules",
         "coach_payment_rule_groups": {
@@ -8093,7 +8115,8 @@
                 "title": "Cancel this subscription",
                 "explain": "Choose the last payment for the subscription.",
                 "listItem": "Stop this subscription",
-                "summary": "The last payment will be processed on {{-date}}, which corresponds to the last valid pass."
+                "summary": "The last payment will be processed on {{-date}}, which corresponds to the last valid pass.",
+                "notePlaceholder": "Reason"
             },
             "invoice": {
                 "label": "Invoice {{uuid}} : {{price}}"
@@ -8406,7 +8429,8 @@
             },
             "paymentCombo": "Pack",
             "payment_combo": "Pack",
-            "contractTermsAccepted": "<0>Terms</0> have been accepted on the {{- dateAccepted}}."
+            "contractTermsAccepted": "<0>Terms</0> have been accepted on the {{- dateAccepted}}.",
+            "stopNote": "Cancellation note"
         },
         "schedule": {
             "provisionalTitle": "Provisional schedule",
@@ -9080,7 +9104,13 @@
             "no_show": "No show",
             "is_no_show": "No show",
             "date_roll_call_last_modified": "Date of last modification of the roll call",
-            "payment_method_bacs_debit": "Bacs Direct Debit"
+            "payment_method_bacs_debit": "Bacs Direct Debit",
+            "staff_commission_amount_notax": "Staff commission fee excl. VAT",
+            "staff_commission_amount": "Staff commission fee incl. VAT",
+            "product_category": "Category of product",
+            "plan_note": "Notes",
+            "franchisor_commission_amount_notax": "Franchisee commission percentage excl. VAT",
+            "franchisor_commission_amount": "Franchisee commission percentage incl. VAT"
         },
         "yes": "Yes",
         "no": "No",
@@ -9333,7 +9363,9 @@
             "disputeStatus": "Dispute status",
             "invoice_status": "Last payment status",
             "billing_plan_status": "Subscription status",
-            "payment_method_with_credit_account": "Payment method"
+            "payment_method_with_credit_account": "Payment method",
+            "private_pass_category": "Appointment pass category",
+            "payment_pack_category": "Pass category"
         },
         "presetValuesByIdentifier": {
             "gender": {
@@ -9462,6 +9494,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
@@ -9702,7 +9735,14 @@
                 "warning": "Please check that the new date is included in the same fiscal year as the old one. If not, please check with your accounting this operation is correct.",
                 "nbDays": {
                     "label": "Nb of additional days"
+                },
+                "datePicker": {
+                    "label": "New date"
                 }
+            },
+            "options": {
+                "selectNewEndDate": "Set a new end of validity date",
+                "addNumberOfDays": "Extend the validity by adding a number of days"
             }
         },
         "form": {
@@ -10836,7 +10876,12 @@
                         "credits": "Credits",
                         "level": "Level",
                         "waitingListMaxSize": "Waiting list",
-                        "effectif": "Available slots"
+                        "effectif": "Available slots",
+                        "hybridManagementHelper": "You can manage the bookings associated with this twinned session, both in the room and online, by clicking on the icon below to open a new management tab.",
+                        "hybridEditHelper": "You are editing an online session linked to an on-site session. In order to modify some information you need to edit the on-site session.",
+                        "hybridHelper": "By choosing this option an online session will be created with a default membership of {{onlineOfferDefaultEffective }}. You will be able to edit the information of the online offer after it has been created (Broadcast link, membership, price, etc.)",
+                        "hybridLabel": "This session is both on location and online.",
+                        "hybridSection": "Hybrid session"
                     },
                     "title": "Characteristics"
                 }
@@ -10850,7 +10895,10 @@
                     "INFOS": "Session"
                 }
             }
-        }
+        },
+        "isFree": "Free",
+        "onSite": "At the studio",
+        "broadcast": "Videoconferencing"
     },
     "emailTemplate": {
         "modal": {
@@ -13001,10 +13049,12 @@
         "role": {
             "error": {
                 "errorEmail": "This email is already used for a teacher or member account",
-                "generic": "Cannot change this permission"
+                "generic": "Cannot change this permission",
+                "errorCommission": "The value you entered must be between 0 and 100"
             },
             "update": {
-                "success": "Modified permissions"
+                "success": "Modified permissions",
+                "successCommission": "The commission rate has been modified"
             },
             "noMasterControl": {
                 "overrideCoachNotAllowed": "You cannot force an appointment with this teacher.",
@@ -13952,7 +14002,8 @@
                 "paymentPackTemplates": "Passes",
                 "label": "Products",
                 "giftcardTemplates": "Gift cards"
-            }
+            },
+            "tag": "Tags"
         },
         "multiSession": {
             "previousSession": " You were connected as: {{name}}",

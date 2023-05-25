@@ -6123,6 +6123,10 @@
             },
             "warning": {
                 "interac": "At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards."
+            },
+            "autoDebitDialog": {
+                "helper": "Ihr Studio ist gerade dabei, Ihr Bsport-Konto zu schließen.\n\nWenn Sie auf Bestätigen klicken, wird die Rechnung zurückerstattet. Ihr Stripe-Guthaben wird mit {{refundAmount}} belastet. {{ currencyDisplay }}. Um Ihr Stripe-Guthaben jedoch auf 0 {{ currencyDisplay }} zurückzusetzen, wird der Differenzbetrag automatisch direkt von Ihrem unter Einstellungen > Unternehmen angegebenen Bankkonto abgebucht.\n\nWenn Sie Ihr Überziehungslimit nicht überschreiten wollen, können Sie warten, bis Ihr Stripe-Saldo wieder ansteigt. Sie können die Höhe Ihres Guthabens live in Einstellungen > Abonnement bsport verfolgen.",
+                "title": "Unzureichendes Strip-Guthaben"
             }
         },
         "balance": {

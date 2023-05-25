@@ -12269,6 +12269,10 @@
             },
             "warning": {
                 "interac": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten."
+            },
+            "autoDebitDialog": {
+                "helper": "Uw studio is momenteel bezig met het afsluiten van haar Bsport account.\n\nDoor op bevestigen te klikken wordt de factuur terugbetaald. Uw Stripe-saldo wordt gedebiteerd met {{refundAmount}} {{ currencyDisplay }}. Als u uw Stripe-saldo echter wilt terugzetten op 0 {{ currencyDisplay }} wordt het verschil automatisch rechtstreeks van uw bankrekening gedebiteerd die is aangegeven in Instellingen > Bedrijf.\n\nAls u uw debetlimiet niet wilt overschrijden, kunt u wachten tot uw Stripe-saldo weer stijgt. U kunt uw saldo live volgen in Instellingen > bsportabonnement.\n\nVertaald met www.DeepL.com/Translator (gratis versie)",
+                "title": "Onvoldoende Stripe saldo"
             }
         },
         "table": {

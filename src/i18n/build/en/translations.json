@@ -1815,7 +1815,7 @@
             "show": "Show",
             "loading": "Loading...",
             "add": "Add",
-            "notes": "Notes",
+            "notes": "Note",
             "establishments": "Establishments",
             "buy": "Purchase",
             "uploadOneImage": {
@@ -1851,7 +1851,8 @@
             "filter": "Filter",
             "offerEdition": "Edit session",
             "selectAnActivity": "Select an activity",
-            "offerCreation": "Create session"
+            "offerCreation": "Create session",
+            "information": "Details"
         },
         "members": {
             "form": {
@@ -2964,6 +2965,20 @@
             },
             "submit": "Save",
             "title": "Chat settings"
+        },
+        "smartListPopup": {
+            "memberListTitle": "Start-up pop-up",
+            "noSmartListPopup": "No startup pop-up",
+            "seeRecipients": "View recipients",
+            "see": "See",
+            "recipient": "recipient",
+            "recipient_plural": "recipients",
+            "recipients": "Recipients ",
+            "cancelPreview": "Cancel",
+            "previewTitle": "Preview",
+            "preview": "Preview",
+            "close": "Close",
+            "drawerTitle": "History of startup pop-ups"
         }
     },
     "privateService": {
@@ -3570,6 +3585,14 @@
                     "helperText": "Universal passes may be used for group activities and appointments. Twin passes are created for every universal pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.",
                     "label": "Universal pass",
                     "warningIsUniversalPass": "Twin passes are automatically created for a universal pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes."
+                },
+                "onBehalfOfTeacher": {
+                    "helperText": "This setting allows you to indicate that the income associated with appointments on this pass will be paid in full to the teacher. This information will be visible in your purchase reports (CA) in the 'Payment paid entirely to the teacher' column.",
+                    "label": "Full payment to the teacher"
+                },
+                "appliesForPayroll": {
+                    "helperText": "By default, appointments are billed to the studio and included in the teacher's summary and payroll. If you deactivate this setting, the appointments associated with this pass will no longer appear in the teacher's summary.",
+                    "label": "Appointments taken into account when calculating the teacher's payroll"
                 }
             },
             "validForDuration": {
@@ -7049,7 +7072,10 @@
                 "forInterval": "for the whole range"
             },
             "paymentPackPlaceHolder": "Select passes",
-            "excludePaymentPack": "Exclude specific passes",
+            "excludePaymentPack": {
+                "warning": "If you have already excluded passes from the payroll with the 'Sessions taken into account when calculating the teacher's payroll' parameter, you do not need to specify them again here.",
+                "title": "Exclude bookings for certain passes"
+            },
             "bonusForEachReservationInInterval": "Add a bonus for each individual booking in this range",
             "fixedBonusbyInterval": "Add a bonus for the whole range",
             "cancellationBaseHelper": "By ticking this box the teacher will not receive any bonus payment on the marginal value of cancelled bookings.",
@@ -8034,7 +8060,11 @@
             "info": "We've detected that you're also an Teacher at this studio. Would you like to access the Member View or the Teacher View?",
             "access": "Access"
         },
-        "numberCoaches": "{{ number }} teachers"
+        "numberCoaches": "{{ number }} teachers",
+        "emptyNotes": "No notes",
+        "dateLeftCompany": "End date",
+        "dateJoinedCompany": "Start date",
+        "workingDateSection": "Studio activity period"
     },
     "subscription": {
         "events": {
@@ -9110,7 +9140,8 @@
             "product_category": "Category of product",
             "plan_note": "Notes",
             "franchisor_commission_amount_notax": "Franchisee commission percentage excl. VAT",
-            "franchisor_commission_amount": "Franchisee commission percentage incl. VAT"
+            "franchisor_commission_amount": "Franchisee commission percentage incl. VAT",
+            "on_behalf_of_teacher": "Payment paid entirely to the teacher"
         },
         "yes": "Yes",
         "no": "No",
@@ -9494,6 +9525,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
@@ -9916,7 +9948,11 @@
                         "doNotSelectToAllowAllMembers": "Leave empty to allow all members",
                         "helperText": "Use tags to make the pass only available to specific members in your MarketPlace, on your widgets, and on your mobile app. You can select to only display these passes to members with specific tags, or you can choose to not display the pass to specific tags at all. "
                     },
-                    "header": "Advanced"
+                    "header": "Advanced",
+                    "appliesForPayroll": {
+                        "helperText": "By default, sessions are billed to the studio and included in the teacher's payroll and remuneration by the studio. By deactivating this setting, sessions associated with this pass will no longer appear in the teacher's payroll.",
+                        "label": "Sessions taken into account in calculating the teacher's remuneration"
+                    }
                 },
                 "universalPass": {
                     "deativatedTags": "Deactivated for universal passes",
@@ -12810,6 +12846,9 @@
                 "0": "Archived and Non-archived"
             },
             "helperText": "Select which members you'd like to display in this Smartlist"
+        },
+        "popup": {
+            "sendPopup": "Send a pop-up"
         }
     },
     "coachPerformance": {
@@ -13858,6 +13897,11 @@
         },
         "removeItem": {
             "15002": "The item is already being removed from the basket, please wait"
+        },
+        "smartListPopup": {
+            "send": {
+                "error": "An error has occurred while sending your pop-up."
+            }
         }
     },
     "navigation": {

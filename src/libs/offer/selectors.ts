@@ -151,6 +151,10 @@ export const withCoach = memoize((selector: (state: RootState) => any) =>
         coach_override: offers.coach_override
           ? coachData[offers.coach_override]
           : null,
+        additional_coaches:
+          offers?.additional_coaches?.map(
+            (coachId) => coachData[coachId] || coachId,
+          ) ?? [],
       };
     }
     return offers.map((o) => ({
@@ -159,6 +163,10 @@ export const withCoach = memoize((selector: (state: RootState) => any) =>
       coach_override: o.coach_override
         ? coachData[o.coach_override] || o.coach_override
         : null,
+      additional_coaches:
+        o?.additional_coaches?.map(
+          (coachId) => coachData[coachId] || coachId,
+        ) ?? [],
     }));
   }),
 );

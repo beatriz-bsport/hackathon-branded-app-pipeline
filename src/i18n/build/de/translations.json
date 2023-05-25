@@ -108,7 +108,8 @@
             },
             "paymentCombo": "Pack",
             "payment_combo": "Paket",
-            "contractTermsAccepted": "Die <0>Nutzungsbedingungen</0> wurden am {{- dateAccepted}} akzeptiert."
+            "contractTermsAccepted": "Die <0>Nutzungsbedingungen</0> wurden am {{- dateAccepted}} akzeptiert.",
+            "stopNote": "Hinweis zur Stornierung"
         },
         "paymentMethod": {
             "card": "Kreditkarte",
@@ -378,7 +379,8 @@
                 "title": "Plane die Beendigung des Abonnements",
                 "explain": "Wähle die letzte Zahlung für das Abonnement.",
                 "listItem": "Geplante Kündigung des Abonnements",
-                "summary": "Die zuletzt programmierte Zahlung ist mit {{-date}} datiert und entspricht der zuletzt gültigen Karte."
+                "summary": "Die zuletzt programmierte Zahlung ist mit {{-date}} datiert und entspricht der zuletzt gültigen Karte.",
+                "notePlaceholder": "Begründung"
             },
             "invoice": {
                 "label": "Rechnung {{uuid}}: {{price}}"
@@ -1253,7 +1255,8 @@
                     "explainHardDelete": "Soll dieser Kurs von der Liste entfernt werden? Achtung! Dieser Kurs wird dann unsichtbar. Diese Aktion ist unwiderruflich! Wenn es Buchungen für diesen Kurs gibt, wird dieser nicht gelöscht.",
                     "explainForceDanger": "Achtung: Die Buchungen werden endgültig gelöscht. Wenn Sie die Guthaben der Mitglieder nicht zurückerstattet haben, gehen sie vollständig verloren. Bitte überprüfen Sie die Buchungen sorgfältig, bevor Sie sie löschen.",
                     "force": "Löschen, auch wenn Reservierungen aufgezeichnet werden",
-                    "advanced": "Erweitert"
+                    "advanced": "Erweitert",
+                    "explainDeleteLinkedHybridSession": "Hybrid-Session stornieren (Sessions vor Ort und online)"
                 },
                 "broadcast_link": {
                     "error": "Der Link ist falsch. Er muss mit http:// oder https:// beginnen und darf keine Leerzeichen enthalten",
@@ -1578,7 +1581,13 @@
             "emailError": "Das angegebene E-Mail-Format ist ungültig.",
             "datePicker": {
                 "rangeError": "Es ist nicht möglich, Sessions zu erstellen, die in mehr als drei Jahren stattfinden"
-            }
+            },
+            "workingDateSection": "Zeitraum der Aktivität im Studio",
+            "descriptionHelperText": "Die Beschreibung des Lehrers wird für die Mitglieder bei der Buchung sichtbar sein",
+            "notesHelperText": "Notizen sind privat: Sie erscheinen nur im Backoffice für Mitarbeiter, die berechtigt sind, sie zu bearbeiten",
+            "startWorking": "Startdatum",
+            "endWorking": "Enddatum",
+            "notes": "Notizen"
         },
         "booking": {
             "revertBookingExplain": {
@@ -2843,7 +2852,10 @@
                     "onlyShowCoachFirstName": "Nur Vorname der Lehrkraft",
                     "showCoachFullNameWithPicture": "Vollständiger Name und Bild",
                     "label": "Optionen für die Anzeige der Lehrerinfo"
-                }
+                },
+                "acceptDoubleBookingMetaActivity": "Doppelte Buchungen für Aktivitäten akzeptieren",
+                "acceptDoubleBookingWorkshop": "Doppelte Buchungen für Aktivitäten akzeptieren",
+                "showFreeSessionLabel": "Kennzeichnen Sie Sitzungen mit 0 Credits mit dem Label FREE"
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -3063,7 +3075,8 @@
                 "selectFranchiseesDisabled": "Diese Einstellung gilt nur für benutzerdefinierte Aufgaben (nicht Admin oder Eigentümer)",
                 "selectCoach": "Lehrkraft auswählen",
                 "selectFranchisees": "Niederlassung auswählen",
-                "ifEmptySelectAll": "Leer lassen, um alle auszuwählen"
+                "ifEmptySelectAll": "Leer lassen, um alle auszuwählen",
+                "commissionHeader": "Provisionssatz"
             },
             "role": {
                 "delete": {
@@ -3847,6 +3860,9 @@
                 "submit": "Erstellen",
                 "note": {
                     "label": "Anmerkungen"
+                },
+                "datePicker": {
+                    "label": "Neues Datum"
                 }
             },
             "addedOn": "Hinzugefügt, am ",
@@ -3856,7 +3872,11 @@
                 "cancel": "Abbrechen",
                 "confirm": "Bestätigen"
             },
-            "nbDaysAdded": "+ {{nb_days}} Tag(e)"
+            "nbDaysAdded": "+ {{nb_days}} Tag(e)",
+            "options": {
+                "addNumberOfDays": "Gültigkeit durch Hinzufügen einer bestimmten Anzahl von Tagen erweitern",
+                "selectNewEndDate": "Neues Enddatum festlegen"
+            }
         },
         "search": "Eine Karte suchen",
         "notificationToolTip": "Für diese Karte sind Benachrichtigungen definiert",
@@ -4584,7 +4604,13 @@
             "nb_planned_invoices": "Anzahl der Zahlungseingänge insgesamt",
             "payout_date_created": "Datum der Überweisung",
             "payment_legal_identifier": "Referenz-Rechnung",
-            "payment_method_bacs_debit": "Bacs-Lastschriftverfahren"
+            "payment_method_bacs_debit": "Bacs-Lastschriftverfahren",
+            "plan_note": "Notizen",
+            "staff_commission_amount_notax": "Personalprovision ohne MwSt.",
+            "franchisor_commission_amount": "Prozentsatz der Franchisenehmerprovision inkl. MwSt.",
+            "product_category": "Kategorie des Produkts",
+            "staff_commission_amount": "Mitarbeiterprovisionen inkl. MwSt.",
+            "franchisor_commission_amount_notax": "Prozentsatz der Franchisenehmerprovision ohne MwSt."
         },
         "no": "Nein",
         "yes": "Ja",
@@ -4791,7 +4817,9 @@
             "staff": "Mitarbeiter",
             "company": "Studio",
             "disputeStatus": "Status Streitfall",
-            "coupon": "Promotion"
+            "coupon": "Promotion",
+            "payment_pack_category": "Pass-Kategorie",
+            "private_pass_category": "Terminpass-Kategorie"
         },
         "presetValuesByDatatype": {
             "payment_method": {
@@ -4923,7 +4951,8 @@
                 "Stornieren",
                 "Stornieren",
                 "Abbrechen",
-                "Storniert"
+                "Storniert",
+                "Stornieren"
             ]
         }
     },
@@ -5207,10 +5236,12 @@
         "role": {
             "error": {
                 "errorEmail": "Diese E-Mail wird bereits für ein Schüler- oder Lehrkraftkonto verwendet",
-                "generic": "Es ist unmöglich, dieses Erlaubnis zu ändern"
+                "generic": "Es ist unmöglich, dieses Erlaubnis zu ändern",
+                "errorCommission": "Der von Ihnen eingegebene Wert muss zwischen 0 und 100 liegen"
             },
             "update": {
-                "success": "Erlaubnisse geändert"
+                "success": "Erlaubnisse geändert",
+                "successCommission": "Der Provisionssatz wurde erfolgreich geändert"
             },
             "noMasterControl": {
                 "overbookingNotAllowed": "Sie können die maximale Anzahl an Buchungen nicht überschreiten.",
@@ -6127,6 +6158,11 @@
             "autoDebitDialog": {
                 "helper": "Ihr Studio ist gerade dabei, Ihr Bsport-Konto zu schließen.\n\nWenn Sie auf Bestätigen klicken, wird die Rechnung zurückerstattet. Ihr Stripe-Guthaben wird mit {{refundAmount}} belastet. {{ currencyDisplay }}. Um Ihr Stripe-Guthaben jedoch auf 0 {{ currencyDisplay }} zurückzusetzen, wird der Differenzbetrag automatisch direkt von Ihrem unter Einstellungen > Unternehmen angegebenen Bankkonto abgebucht.\n\nWenn Sie Ihr Überziehungslimit nicht überschreiten wollen, können Sie warten, bis Ihr Stripe-Saldo wieder ansteigt. Sie können die Höhe Ihres Guthabens live in Einstellungen > Abonnement bsport verfolgen.",
                 "title": "Unzureichendes Strip-Guthaben"
+            },
+            "blockedDialog": {
+                "title": "",
+                "helper": "",
+                "alert": ""
             }
         },
         "balance": {
@@ -6666,6 +6702,19 @@
             "1": "Streitfall in Bearbeitung",
             "2": "Streitfall gewonnen",
             "3": "Streitfall verloren"
+        },
+        "stripeBalance": {
+            "dialog": {
+                "firstPart": "Bei bsport verwenden wir den Stripe-Service, um alle Ihre Online-Zahlungen zu verwalten. Die Beträge dieser werden bei Stripe gespeichert und dann auf Ihr Konto zurücküberwiesen (Abschnitt \"Meine Zahlungseingänge\").",
+                "secondPart": "Ihr \"verfügbarer Saldo\" entspricht also dem Betrag der Online-Zahlungen, der Ihnen noch nicht ausgezahlt wurde.",
+                "thirdPart": "Ihr \"Saldo in Bearbeitung\" entspricht dem Betrag, der auf Ihr verfügbares Guthaben eingehen wird.",
+                "alert": "Beachten Sie, dass bei einer direkten Rückerstattung dieses Geld direkt von Ihrem Stripe-Konto abgebucht wird. Dadurch kann es ins Minus rutschen.",
+                "close": "Schließen"
+            },
+            "availableBalance": "Verfügbares Guthaben",
+            "pendingBalance": "Guthaben in Bearbeitung",
+            "title": "Stripe-Saldo",
+            "nullPendingBalanceText": "Keine"
         }
     },
     "paymentRules": {
@@ -6801,12 +6850,16 @@
             "all": "Alle Kurse",
             "appointment": "Privatkurs",
             "session": "Gruppenkurse & Workshops",
-            "groups": "Vergütungsgruppe"
+            "groups": "Vergütungsgruppe",
+            "groupActivity": "Gruppenkurse",
+            "workshop": "Workshops"
         },
         "fabButton": {
             "addNewForRDV": "Privatkurs",
             "addNewForSession": "Gruppenkurse & Workshops",
-            "addNewPaymentRuleGroup": "Vergütungsgruppe"
+            "addNewPaymentRuleGroup": "Vergütungsgruppe",
+            "addNewForGroupActivity": "Gruppenkurse",
+            "addNewForWorkshop": "Workshops"
         },
         "paymentRules": "Vergütungsregeln",
         "search": "Suche nach einem Vergütungssystem (optional)",
@@ -8780,7 +8833,10 @@
                     "submit": "Erstellen",
                     "cancel": "Abbrechen",
                     "title": "Verlängerung einer Karte",
-                    "warning": "Prüfe, ob das neue Datum nicht dazu führt, dass dieser Kurspass in einer neuen Finanzperiode überschreitet. Wenn dies der Fall ist, erkundige dich bei Deinem Buchhalter, ob dies angemessen ist."
+                    "warning": "Prüfe, ob das neue Datum nicht dazu führt, dass dieser Kurspass in einer neuen Finanzperiode überschreitet. Wenn dies der Fall ist, erkundige dich bei Deinem Buchhalter, ob dies angemessen ist.",
+                    "datePicker": {
+                        "label": "Neues Datum"
+                    }
                 },
                 "delete": {
                     "confirm": "Bestätigen",
@@ -8789,7 +8845,11 @@
                     "title": "Verlängerung löschen"
                 },
                 "addedOn": "Hinzugefügt, am ",
-                "nbDaysAdded": "+ {{nb_days}} Tag(e)"
+                "nbDaysAdded": "+ {{nb_days}} Tag(e)",
+                "options": {
+                    "selectNewEndDate": "Setzen Sie ein neues Enddatum für die Gültigkeit",
+                    "addNumberOfDays": "Verlängern Sie die Gültigkeit um eine Anzahl von Tagen"
+                }
             },
             "isFromDisabledShare": "Gemeinsame Nutzung beendet",
             "isOwnerOfShares": "Geteilt (Terminpass)",
@@ -11220,7 +11280,8 @@
             "notificationRules": "Transaktions-E-Mails",
             "widgets": "Widget",
             "staff": "Mitarbeiter",
-            "settings": "Einstellungen"
+            "settings": "Einstellungen",
+            "tag": ""
         },
         "multiSession": {
             "current": "Aktuelle Session",
@@ -12309,7 +12370,12 @@
                         "credits": "Credits",
                         "level": "Level",
                         "waitingListMaxSize": "Warteliste",
-                        "effectif": "Verfügbare Slots"
+                        "effectif": "Verfügbare Slots",
+                        "hybridLabel": "Diese Session findet sowohl vor Ort als auch online statt.",
+                        "hybridHelper": "Wenn Sie diese Option wählen, wird eine Online-Session mit einer Standardbesetzung von {{ onlineOfferDefaultEffective }} erstellt. Sie können die Informationen des Onlineangebots nach der Erstellung bearbeiten (Verbreitungslink, Mitgliederzahl, Preis, etc.)",
+                        "hybridSection": "Hybrid-Session",
+                        "hybridEditHelper": "Sie bearbeiten eine Online-Session, die mit einer Vor-Ort-Session verknüpft ist. Um einige Informationen zu ändern, müssen Sie die Vor-Ort-Session bearbeiten.",
+                        "hybridManagementHelper": "Sie können die Buchungen, die mit dieser Partnerschaftssitzung verbunden sind, sowohl im Raum als auch online verwalten, indem Sie auf das Symbol unten klicken, um eine neue Verwaltungsseite zu öffnen."
                     },
                     "title": "Eigenschaften"
                 }
@@ -12323,7 +12389,10 @@
                     "INFOS": "Session"
                 }
             }
-        }
+        },
+        "broadcast": "Videokonferenzen",
+        "onSite": "Im Studio",
+        "isFree": "Gratis"
     },
     "settings": {
         "active_campaign": {

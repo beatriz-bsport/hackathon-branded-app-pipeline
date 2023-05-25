@@ -90,7 +90,7 @@
             },
             "buy": "Comprar",
             "establishments": "Lugares",
-            "notes": "Notas",
+            "notes": "Nota",
             "add": "Añadir",
             "loading": "Cargando...",
             "show": "Ver",
@@ -169,7 +169,8 @@
             "filter": "Filtrar",
             "selectAnActivity": "Seleccionar una actividad",
             "offerCreation": "Crear una sesión",
-            "see": "Ver"
+            "see": "Ver",
+            "information": "Detalles"
         },
         "pagination": {
             "rowPerPage": "Elementos por página",
@@ -436,7 +437,8 @@
                     "explainModalities": "Tiene en cuenta que esta modificación es final. Tu sesión ya no será visible para los clientes finales. Todavía podrás acceder a él.",
                     "force": "Borrar incluso si las reservas ya están registradas",
                     "advanced": "Avanzado",
-                    "explainForceDanger": "Tenga en cuenta que las reservas se eliminarán de forma permanente. Si no ha devuelto el crédito, perderá todo rastro de su uso. Por favor, compruebe cuidadosamente el estado de sus reservas y bonos antes de eliminarlas."
+                    "explainForceDanger": "Tenga en cuenta que las reservas se eliminarán de forma permanente. Si no ha devuelto el crédito, perderá todo rastro de su uso. Por favor, compruebe cuidadosamente el estado de sus reservas y bonos antes de eliminarlas.",
+                    "explainDeleteLinkedHybridSession": "Anular las sesiones híbridas (sesiones presenciales y en línea)"
                 },
                 "broadcast_link": {
                     "error": "El enlace está mal. Debe comenzar con http:// o https:// y no contener ningún espacio",
@@ -596,7 +598,13 @@
                 "week": "Semanas",
                 "day": "Días",
                 "hour": "Horas"
-            }
+            },
+            "endWorking": "Fecha final",
+            "notes": "Notas",
+            "notesHelperText": "Las notas son privadas: sólo aparecerán en el Backoffice para los miembros del personal autorizados a modificarlas",
+            "startWorking": "Fecha de inicio",
+            "descriptionHelperText": "La descripción del profesor será visible para los miembros cuando hagan la reserva",
+            "workingDateSection": "Período de actividad en el estudio"
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -3513,7 +3521,11 @@
             "info": "Hemos detectado que usted es profesor en este estudio. ¿Desea acceder a su área de estudiantes o a su área de profesores?",
             "access": "Acceso"
         },
-        "numberCoaches": "{{ number }} Profesores"
+        "numberCoaches": "{{ number }} Profesores",
+        "workingDateSection": "Período de actividad en el estudio",
+        "dateJoinedCompany": "Fecha de inicio",
+        "dateLeftCompany": "Fecha de finalización",
+        "emptyNotes": "Sin notas"
     },
     "subscription": {
         "table": {
@@ -3596,7 +3608,8 @@
             },
             "paymentCombo": "Pack",
             "payment_combo": "Pack",
-            "contractTermsAccepted": "<0>Términos</0> han sido aceptados en la {{- fechaAceptada}}."
+            "contractTermsAccepted": "<0>Términos</0> han sido aceptados en la {{- fechaAceptada}}.",
+            "stopNote": "Nota de cancelación"
         },
         "schedule": {
             "provisionalTitle": "Calendario estimativo",
@@ -3965,7 +3978,8 @@
                 "title": "Programe la terminación de la suscripción",
                 "listItem": "Terminación programada de la suscripción",
                 "summary": "El último pago programado tendrá la fecha {{-date}}, corresponderá a la última tarjeta válida.",
-                "explain": "Elija el último pago de la suscripción."
+                "explain": "Elija el último pago de la suscripción.",
+                "notePlaceholder": "Razón"
             },
             "invoice": {
                 "label": "Factura {{uuid}} : {{price}}"
@@ -4566,7 +4580,13 @@
             "no_show": "No se presenta",
             "is_no_show": "Ausente (no se presenta)",
             "date_roll_call_last_modified": "Fecha de la última modificación de la toma de lista",
-            "payment_method_bacs_debit": "Bacs Direct Debit"
+            "payment_method_bacs_debit": "Bacs Direct Debit",
+            "franchisor_commission_amount_notax": "Porcentaje de comisión del franquiciado sin IVA",
+            "product_category": "Categoría de producto",
+            "plan_note": "Notas",
+            "franchisor_commission_amount": "Porcentaje de comisión del franquiciado incl. IVA",
+            "staff_commission_amount": "Comisiones de personal incl. IVA",
+            "staff_commission_amount_notax": "Comisión de personal sin IVA"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -4749,7 +4769,9 @@
             "disputeStatus": "Estado del litigio",
             "invoice_status": "Estado del último pago",
             "billing_plan_status": "Estado de la suscripción",
-            "payment_method_with_credit_account": "Método de pago"
+            "payment_method_with_credit_account": "Método de pago",
+            "payment_pack_category": "Categoría de bono",
+            "private_pass_category": "Categoria de tarjeta de citas"
         },
         "filter": {
             "form": {
@@ -4947,6 +4969,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelado",
+                "Cancelada",
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
@@ -7456,7 +7479,10 @@
                     },
                     "submit": "Crear",
                     "cancel": "Cancelar",
-                    "title": "Extension de una tarjeta"
+                    "title": "Extension de una tarjeta",
+                    "datePicker": {
+                        "label": "Nueva fecha"
+                    }
                 },
                 "delete": {
                     "confirm": "Confirmar",
@@ -7465,7 +7491,11 @@
                     "title": "Supresión de la extensión"
                 },
                 "addedOn": "Añadido el ",
-                "nbDaysAdded": "+{{nb_days}}j"
+                "nbDaysAdded": "+{{nb_days}}j",
+                "options": {
+                    "addNumberOfDays": "Ampliar la validez añadiendo un número de días",
+                    "selectNewEndDate": "Fijar una nueva fecha de fin de validez"
+                }
             },
             "isFromDisabledShare": "Se ha dejado de compartir",
             "isOwnerOfShares": "Compartido (tarjeta de cita maestra)",
@@ -8690,7 +8720,10 @@
                     "onlyShowCoachFirstName": "Sólo el nombre del profesor",
                     "showCoachFullNameWithPicture": "Nombre completo y foto",
                     "label": "Opciones de visualización de la información sobre el profesor"
-                }
+                },
+                "acceptDoubleBookingMetaActivity": "Aceptar la doble reserva de actividades",
+                "showFreeSessionLabel": "Indicar las sesiones con 0 créditos con la etiqueta GRATUITO",
+                "acceptDoubleBookingWorkshop": "Aceptar reservas dobles para los"
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -8943,7 +8976,8 @@
                 "selectCoach": "Seleccionar a los profesores",
                 "ifEmptySelectAll": "Dejar vacío para seleccionar todo",
                 "selectFranchisees": "Selección de franquicias",
-                "selectFranchiseesDisabled": "Esta configuración es sólo para el papel personalizado (no para el de Admin o Owner)"
+                "selectFranchiseesDisabled": "Esta configuración es sólo para el papel personalizado (no para el de Admin o Owner)",
+                "commissionHeader": "Tasa de comisión"
             },
             "role": {
                 "delete": {
@@ -9468,13 +9502,17 @@
             "all": "Todos los cursos",
             "appointment": "Citas previas",
             "session": "Clases de grupo y talleres",
-            "groups": "Grupo de remuneración"
+            "groups": "Grupo de remuneración",
+            "workshop": "Talleres",
+            "groupActivity": "Clases en grupo"
         },
         "paymentRules": "Reglas de remuneración",
         "fabButton": {
             "addNewForRDV": "Citas previas",
             "addNewForSession": "Clases de grupo y talleres",
-            "addNewPaymentRuleGroup": "Grupo de remuneración"
+            "addNewPaymentRuleGroup": "Grupo de remuneración",
+            "addNewForGroupActivity": "Clases en grupo",
+            "addNewForWorkshop": "Talleres"
         },
         "coach_payment_rule_groups": {
             "modal": {
@@ -10096,10 +10134,12 @@
         "role": {
             "error": {
                 "errorEmail": "Este email ya se usa para una cuenta de estudiante o profesor",
-                "generic": "No es posible modificar este permiso"
+                "generic": "No es posible modificar este permiso",
+                "errorCommission": "El valor introducido debe estar comprendido entre 0 y 100"
             },
             "update": {
-                "success": "Permisos modificados"
+                "success": "Permisos modificados",
+                "successCommission": "Se ha modificado el porcentaje de comisión"
             },
             "noMasterControl": {
                 "changeDateCoachUnaivalable": "Imposible reservar en esta fecha: el profesor no está disponible.",

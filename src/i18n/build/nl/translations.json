@@ -989,7 +989,8 @@
                     "buttonHardDelete": "Verwijderen",
                     "explainForceDanger": "Waarschuwing: alle reserveringen worden definitief verwijderd. Terugbetaalde credits worden niet getraceerd. Controleer zorgvuldig de status van de reserveringen en producten voordat er iets verwijderd wordt.",
                     "force": "Alle geselecteerde sessies inclusief de bijbehorende reserveringen verwijderen",
-                    "advanced": "Geavanceerd"
+                    "advanced": "Geavanceerd",
+                    "explainDeleteLinkedHybridSession": "Annuleer hybride sessies (sessies die op locatie en online plaatsvinden)"
                 },
                 "explainNotificationOnEdit": "Ingeschreven leden informeren",
                 "explainRecursiveOfferEdit": "Wil je alle vergelijkbare sessies wijzigen?",
@@ -1242,7 +1243,13 @@
                 "week": "Weken",
                 "day": "Dagen",
                 "hour": "Uren"
-            }
+            },
+            "descriptionHelperText": "De beschrijving van de leraar zal zichtbaar zijn voor de leden wanneer een boeking wordt gemaakt",
+            "notesHelperText": "Notities zijn privé: ze verschijnen alleen op de Backoffice voor personeelsleden die gemachtigd zijn ze te bewerken",
+            "workingDateSection": "Periode van activiteit in de studio",
+            "endWorking": "Einddatum",
+            "notes": "Notes",
+            "startWorking": "Startdatum"
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -1559,7 +1566,8 @@
             "offerCreation": "Sessies toevoegen",
             "selectAnActivity": "Selecteer een activiteit",
             "filter": "Filter",
-            "see": "Zie"
+            "see": "Zie",
+            "information": "Details"
         },
         "members": {
             "form": {
@@ -2628,7 +2636,13 @@
             "no_show": "No show",
             "is_no_show": "Afwezig (no show)",
             "date_roll_call_last_modified": "Datum van laatste wijziging van de oproep",
-            "payment_method_bacs_debit": "Bacs Automatische Incasso"
+            "payment_method_bacs_debit": "Bacs Automatische Incasso",
+            "franchisor_commission_amount": "Provisiepercentage franchisenemer (incl. BTW)",
+            "product_category": "Productcategorie",
+            "staff_commission_amount_notax": "Personeelscommissie exclusief BTW",
+            "plan_note": "Notes",
+            "franchisor_commission_amount_notax": "Franchisenemerscommissie percentage voor belasting",
+            "staff_commission_amount": "Personeelscommissie inclusief belasting"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2831,7 +2845,9 @@
             "disputeStatus": "Status van het geschil",
             "invoice_status": "Status van de laatste betaling",
             "billing_plan_status": "Abonnementsstatus",
-            "payment_method_with_credit_account": "Wijze van betaling"
+            "payment_method_with_credit_account": "Wijze van betaling",
+            "payment_pack_category": "Cursus kaart categorie",
+            "private_pass_category": "Categorie afsprakenkaart"
         },
         "presetValuesByDatatype": {
             "source_device": {
@@ -2955,6 +2971,7 @@
                 "Annuleren",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
@@ -3196,7 +3213,14 @@
                     "label": "Aantal extra dagen"
                 },
                 "title": "Leskaart verlengen",
-                "cancel": "Annuleren"
+                "cancel": "Annuleren",
+                "datePicker": {
+                    "label": "Nieuwe datum"
+                }
+            },
+            "options": {
+                "addNumberOfDays": "De geldigheid verlengen door een bepaald aantal dagen toe te voegen",
+                "selectNewEndDate": "Stel een nieuwe vervaldatum in"
             }
         },
         "form": {
@@ -5176,7 +5200,12 @@
                         "credits": "Kredieten",
                         "level": "Niveau",
                         "waitingListMaxSize": "De wachtlijst",
-                        "effectif": "Beschikbare plaatsen"
+                        "effectif": "Beschikbare plaatsen",
+                        "hybridHelper": "Door deze optie te kiezen, wordt een online sessie aangemaakt met een standaard headcount van {{ onlineOfferDefaultEffectif }}. U kunt de informatie voor de online aanbieding bewerken zodra deze is aangemaakt (distributielink, aantal deelnemers, prijs, enz.)",
+                        "hybridEditHelper": "U bewerkt een online sessie die gekoppeld is aan een sessie op locatie. Om bepaalde informatie te wijzigen, moet u de on-site sessie bewerken.",
+                        "hybridSection": "Hybride sessie",
+                        "hybridManagementHelper": "U kunt de boekingen in verband met deze gekoppelde sessie beheren, zowel in de zaal als online, door op het onderstaande pictogram te klikken om een nieuw beheerstabblad te openen.",
+                        "hybridLabel": "Deze sessie is zowel binnen als online."
                     },
                     "title": "Kenmerken"
                 }
@@ -5190,7 +5219,10 @@
                     "INFOS": "Sessie"
                 }
             }
-        }
+        },
+        "isFree": "Gratis",
+        "broadcast": "Videoconferenties",
+        "onSite": "In de studio"
     },
     "emailTemplate": {
         "editTitle": "E-mail bewerken",
@@ -6714,7 +6746,8 @@
                 "title": "[Formulier] Beëindiging",
                 "explain": "Selecteer de laatste betaling voor dit abonnement:",
                 "summary": "De laatste betaling wordt op {{-date}} verwerkt en dit komt overeen met de laatste kaart.",
-                "listItem": "Geplande beëindiging van dit abonnement"
+                "listItem": "Geplande beëindiging van dit abonnement",
+                "notePlaceholder": "Reden"
             },
             "invoice": {
                 "label": "Factuur: {{uuid}} - {{price}}"
@@ -6879,7 +6912,8 @@
             },
             "paymentCombo": "Pakket",
             "payment_combo": "Pakket",
-            "contractTermsAccepted": "<0>Voorwaarden</0> zijn geaccepteerd op {{- dateAccepted}}."
+            "contractTermsAccepted": "<0>Voorwaarden</0> zijn geaccepteerd op {{- dateAccepted}}.",
+            "stopNote": "Annulering"
         },
         "cancel": "annuleren",
         "plannedInvoiceStatus": {
@@ -8157,7 +8191,10 @@
                     },
                     "submit": "Aanmaken",
                     "cancel": "Annuleren",
-                    "title": "[Formulier] Geldigheid verlengen"
+                    "title": "[Formulier] Geldigheid verlengen",
+                    "datePicker": {
+                        "label": "Nieuwe datum"
+                    }
                 },
                 "delete": {
                     "confirm": "Bevestigen",
@@ -8166,7 +8203,11 @@
                     "title": "Geldigheidsverlenging verwijderen"
                 },
                 "addedOn": "Toegevoegd op ",
-                "nbDaysAdded": "+{{nb_days}} dagen"
+                "nbDaysAdded": "+{{nb_days}} dagen",
+                "options": {
+                    "addNumberOfDays": "De geldigheid verlengen door een bepaald aantal dagen toe te voegen",
+                    "selectNewEndDate": "Stel een nieuwe vervaldatum in"
+                }
             },
             "isFromDisabledShare": "Delen is uitgezet",
             "isOwnerOfShares": "Gedeeld (mastercard voor afspraken)",
@@ -9148,12 +9189,16 @@
             "all": "Selecteer alles",
             "appointment": "Afspraken",
             "session": "Groepsactiviteiten & Workshops",
-            "groups": "Payroll-regel groepen"
+            "groups": "Payroll-regel groepen",
+            "groupActivity": "Groepscursussen",
+            "workshop": "Workshops"
         },
         "fabButton": {
             "addNewForRDV": "Afspraken",
             "addNewForSession": "Groepsactiviteiten & Workshops",
-            "addNewPaymentRuleGroup": "Payroll-regel groep"
+            "addNewPaymentRuleGroup": "Payroll-regel groep",
+            "addNewForGroupActivity": "Groepslessen",
+            "addNewForWorkshop": "Workshops"
         },
         "paymentRules": "Payroll-regels",
         "coach_payment_rule_groups": {
@@ -9455,6 +9500,19 @@
             "3": "Geschil verloren",
             "2": "Geschil gewonnen",
             "1": "Behandeling van geschillen"
+        },
+        "stripeBalance": {
+            "title": "Stripe saldo",
+            "dialog": {
+                "firstPart": "Bij bsport gebruiken we de dienst Stripe om al uw online betalingen te beheren. De bedragen daarvan worden bij Stripe opgeslagen en vervolgens naar uw rekening overgemaakt (\"Mijn collecties\").",
+                "close": "Sluiten",
+                "secondPart": "Uw \"beschikbare saldo\" komt dus overeen met het bedrag aan online betalingen dat nog niet aan u is uitbetaald.",
+                "thirdPart": "Uw \"saldo in behandeling\" komt overeen met het bedrag dat zal worden toegevoegd aan uw beschikbare saldo.",
+                "alert": "Merk op dat wanneer je een directe terugbetaling doet, dit geld direct van je Stripe rekening wordt gehaald. Hierdoor kan deze negatief worden."
+            },
+            "nullPendingBalanceText": "Geen",
+            "availableBalance": "Beschikbaar saldo",
+            "pendingBalance": "Saldo wordt verwerkt"
         }
     },
     "snackbar": {
@@ -9838,10 +9896,12 @@
         "role": {
             "error": {
                 "generic": "Kan deze machtiging niet wijzigen",
-                "errorEmail": "Deze e-mail wordt al gebruikt voor een account van een lid of instructeur"
+                "errorEmail": "Deze e-mail wordt al gebruikt voor een account van een lid of instructeur",
+                "errorCommission": "De ingevoerde waarde moet tussen 0 en 100 liggen"
             },
             "update": {
-                "success": "Machtigingen gewijzigd"
+                "success": "Machtigingen gewijzigd",
+                "successCommission": "Het commissiepercentage is gewijzigd"
             },
             "noMasterControl": {
                 "changeDateCoachUnaivalable": "Deze instructeur is niet beschikbaar voor deze reservering",
@@ -10504,7 +10564,11 @@
             "info": "Het lijkt erop dat je tevens een Instructeur bij deze studio bent. Wil je nu de Ledenweergave of de Instructeursweergave betreden?",
             "access": "Toegang"
         },
-        "numberCoaches": "{{ number }} instructeur(s)"
+        "numberCoaches": "{{ number }} instructeur(s)",
+        "workingDateSection": "Periode van activiteit in de studio",
+        "dateJoinedCompany": "Startdatum",
+        "dateLeftCompany": "Einddatum",
+        "emptyNotes": "Geen notities"
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -11624,7 +11688,10 @@
                     "onlyShowCoachFirstName": "Alleen de voornaam van de leraar",
                     "showCoachFullNameWithPicture": "Volledige naam en foto",
                     "label": "Weergavemogelijkheden voor leraren informatie"
-                }
+                },
+                "showFreeSessionLabel": "Voeg een label toe aan elke sessie met een kredietprijs van 0",
+                "acceptDoubleBookingMetaActivity": "Accepteer dubbele boekingen voor activiteiten",
+                "acceptDoubleBookingWorkshop": "Accepteer dubbele boekingen voor workshops"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -12273,6 +12340,11 @@
             "autoDebitDialog": {
                 "helper": "Uw studio is momenteel bezig met het afsluiten van haar Bsport account.\n\nDoor op bevestigen te klikken wordt de factuur terugbetaald. Uw Stripe-saldo wordt gedebiteerd met {{refundAmount}} {{ currencyDisplay }}. Als u uw Stripe-saldo echter wilt terugzetten op 0 {{ currencyDisplay }} wordt het verschil automatisch rechtstreeks van uw bankrekening gedebiteerd die is aangegeven in Instellingen > Bedrijf.\n\nAls u uw debetlimiet niet wilt overschrijden, kunt u wachten tot uw Stripe-saldo weer stijgt. U kunt uw saldo live volgen in Instellingen > bsportabonnement.\n\nVertaald met www.DeepL.com/Translator (gratis versie)",
                 "title": "Onvoldoende Stripe saldo"
+            },
+            "blockedDialog": {
+                "title": "Onvoldoende Stripe saldo",
+                "alert": "Waarschuwing: met deze terugbetaling overschrijdt u de toegestane debetlimiet van {{refundBlockingLimit }} {{currencyDisplay}}.",
+                "helper": "Uw Stripe-saldo van {{ stripeBalanceSum}} {{ currencyDisplay }} is onvoldoende om de terugbetaling te verwerken. Probeer het na een paar dagen opnieuw, zodat de betalingen kunnen worden geïnd.\n\nU kunt uw saldo live volgen in Instellingen > Bsportabonnement."
             }
         },
         "table": {
@@ -12596,7 +12668,8 @@
                 "selectCoach": "Selecteer de instructeurs",
                 "ifEmptySelectAll": "Laat dit veld leeg om alles te selecteren.",
                 "selectFranchisees": "Selecteer studio's",
-                "selectFranchiseesDisabled": "Deze instelling is alleen voor aangepaste rollen (niet Admin of Systeembeheerder)"
+                "selectFranchiseesDisabled": "Deze instelling is alleen voor aangepaste rollen (niet Admin of Systeembeheerder)",
+                "commissionHeader": "Commissietarieven"
             },
             "role": {
                 "delete": {
@@ -13103,7 +13176,8 @@
                 "paymentPackTemplates": "Leskaarten",
                 "label": "Producten",
                 "giftcardTemplates": "Cadeaubonnen"
-            }
+            },
+            "tag": "Tags"
         },
         "multiSession": {
             "current": "Huidige sessie",

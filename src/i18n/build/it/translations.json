@@ -58,7 +58,7 @@
             },
             "buy": "Comprare",
             "establishments": "Luoghi",
-            "notes": "Appunti",
+            "notes": "Nota",
             "add": "Inserisci",
             "loading": "Caricamento in corso...",
             "show": "Vedi",
@@ -130,7 +130,8 @@
             "offerCreation": "Creare una sessione",
             "selectAnActivity": "Selezionare un'attività",
             "filter": "Filtro",
-            "see": "Vedi"
+            "see": "Vedi",
+            "information": "Dettagli"
         },
         "offer": {
             "noPackAvailableForOfferPurchase": "Nessuna tessera compatibile con questa sessione!",
@@ -332,7 +333,8 @@
                     "explainModalities": "Questa modifica è definitiva. La tua sessione non sarà più visibile ai clienti finali. Puoi ancora accedervi.",
                     "explainForceDanger": "Attenzione ! Le prenotazione saranno cancellate definitivamente. Se non hai rimborsato il credito, perderai ogni traccia del suo utilizzo. Ti preghiamo di controllare lo stato delle tue prenotazioni e delle tue tessere prima della cancellazione.",
                     "force": "Cancellare anche se le prenotazioni sono registrate",
-                    "advanced": "Avanzato"
+                    "advanced": "Avanzato",
+                    "explainDeleteLinkedHybridSession": "Annullare le sessioni ibride (sessioni in presenza e online)"
                 },
                 "explainPartnership": "Sui marketplaces (ClassPass, OneFit...)",
                 "explainManagerOnly": "Disponibile per la prenotazione (web+app)",
@@ -551,7 +553,13 @@
                 "month": "Mesi",
                 "year": "Anni",
                 "hour": "Ore"
-            }
+            },
+            "descriptionHelperText": "La descrizione dell'insegnante sarà visibile agli iscritti al momento della prenotazione",
+            "notes": "Note",
+            "notesHelperText": "Le note sono private: appariranno nel Backoffice solo per i membri dello staff autorizzati a modificarle",
+            "workingDateSection": "Periodo di attività in studio",
+            "startWorking": "Data di inizio",
+            "endWorking": "Data di fine"
         },
         "marketing": {
             "dashboard": "Pannello di controllo",
@@ -2127,7 +2135,14 @@
                     "explain": {
                         "oldDate": "Vecchia data: ",
                         "newDate": "Nuova data: "
+                    },
+                    "datePicker": {
+                        "label": "Nuova data"
                     }
+                },
+                "options": {
+                    "addNumberOfDays": "Estendi la validità aggiungendo un numero di giorni",
+                    "selectNewEndDate": "Imposta una nuova data di scadenza"
                 }
             },
             "actions": {
@@ -3540,7 +3555,8 @@
                 "privatePassTemplates": "Pass per appuntamenti",
                 "paymentPackTemplates": "Pass",
                 "label": "Prodotti"
-            }
+            },
+            "tag": "Tag"
         },
         "multiSession": {
             "current": "Sessione corrente",
@@ -3912,7 +3928,10 @@
                     "onlyShowCoachFirstName": "Solo il nome dell'insegnante",
                     "showCoachFullNameWithPicture": "Nome completo e foto",
                     "label": "Opzioni di visualizzazione delle informazioni dell'insegnante"
-                }
+                },
+                "acceptDoubleBookingWorkshop": "Accetta doppia prenotazione per i workshop",
+                "showFreeSessionLabel": "Aggiungi un'etichetta a ogni sessione il cui prezzo in crediti è uguale a 0",
+                "acceptDoubleBookingMetaActivity": "Accetta doppia prenotazione per le attività"
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -4277,10 +4296,12 @@
         "role": {
             "error": {
                 "errorEmail": "Questa email è già utilizzata per un account allievo o insegnante",
-                "generic": "Non è possibile modificare questa autorizzazione"
+                "generic": "Non è possibile modificare questa autorizzazione",
+                "errorCommission": "Il valore inserito deve essere compreso tra 0 e 100"
             },
             "update": {
-                "success": "Autorizzazioni modificate"
+                "success": "Autorizzazioni modificate",
+                "successCommission": "Il tasso di commissione è stato modificato"
             },
             "noMasterControl": {
                 "overbookingNotAllowed": "Non puoi superare il numero massimo di prenotazioni.",
@@ -5653,6 +5674,15 @@
             },
             "warning": {
                 "interac": "Almeno un pagamento è stato effettuato con una carta Interac su questa fattura. I rimborsi diretti non sono supportati per le carte Interac."
+            },
+            "blockedDialog": {
+                "alert": "Attenzione, con questo rimborso supererai il limite di scoperto autorizzato di {{ refundBlockingLimit }} {{currencyDisplay}}.",
+                "title": "Saldo Stripe insufficiente",
+                "helper": "Il tuo saldo Stripe di {{ stripeBalanceSum}} {{ currencyDisplay }} non è sufficiente per elaborare il rimborso. Si prega di riprovare dopo alcuni giorni per l'elaborazione dei pagamenti.\n\nPuoi seguire l'importo del tuo saldo in tempo reale in Impostazioni > Abbonamento Bsport."
+            },
+            "autoDebitDialog": {
+                "title": "Saldo Stripe insufficiente",
+                "helper": "Lo studio sta avviando la procedura di chiusura del tuo account Bsport.\n\nCliccando su conferma la fattura verrà rimborsata. Il tuo saldo Stripe verrà detratto da {{refundAmount}} {{ currencyDisplay }}. Tuttavia, per azzerare il tuo saldo Stripe {{ currencyDisplay }} ti verrà automaticamente addebitata la differenza direttamente sul tuo conto bancario indicato in Impostazioni > Azienda.\n\nSe non vuoi superare il limite di scoperto, puoi aspettare che il tuo saldo Stripe aumenti. Puoi seguire l'importo del tuo saldo in tempo reale in Impostazioni > Abbonamento bsport."
             }
         },
         "table": {
@@ -6020,7 +6050,11 @@
             "info": "Abbiamo rilevato che lei è un insegnante in questo studio. Vuoi avere accesso alla tua area studenti o alla tua area insegnanti?",
             "access": "Accesso"
         },
-        "numberCoaches": "{{ number }} insegnanti"
+        "numberCoaches": "{{ number }} insegnanti",
+        "workingDateSection": "Periodo di attività in studio",
+        "dateJoinedCompany": "Data di inizio",
+        "dateLeftCompany": "Data di fine",
+        "emptyNotes": "Nessuna nota"
     },
     "subscription": {
         "subscription": {
@@ -6080,7 +6114,8 @@
                 "summary": "L'ultimo incasso programmato sarà datato dal {{-date}}, che corrisponderà all'ultima tessera valida.",
                 "title": "Programma la risoluzione dell'iscrizione",
                 "explain": "Scegli l'ultimo pagamento dell'iscrizione.",
-                "listItem": "Risoluzione dell'iscrizione programmata"
+                "listItem": "Risoluzione dell'iscrizione programmata",
+                "notePlaceholder": "Motivazione"
             },
             "invoice": {
                 "label": "Fattura {{uuid}} {{price}}"
@@ -6163,7 +6198,8 @@
             },
             "paymentCombo": "Pacchetto",
             "payment_combo": "Confezione",
-            "contractTermsAccepted": "I <0>termini legali</0> sono stati accettati in data {{-dateAccepted}}."
+            "contractTermsAccepted": "I <0>termini legali</0> sono stati accettati in data {{-dateAccepted}}.",
+            "stopNote": "Nota di cancellazione"
         },
         "contract": {
             "registerManager": {
@@ -7020,7 +7056,13 @@
             "is_no_show": "Assente (no show)",
             "date_roll_call_last_modified": "Data dell'ultima modifica dell'appello",
             "no_show": "No show",
-            "payment_method_bacs_debit": "Bacs Direct Debit"
+            "payment_method_bacs_debit": "Bacs Direct Debit",
+            "staff_commission_amount": "Costi provvigionali del personale IVA inclusa",
+            "product_category": "Categoria di prodotto",
+            "plan_note": "Note",
+            "staff_commission_amount_notax": "Costi provvigionali del personale IVA inclusa",
+            "franchisor_commission_amount": "Percentuale IVA inclusa della commissione franchise",
+            "franchisor_commission_amount_notax": "Percentuale IVA inclusa della commissione franchise"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -7203,7 +7245,9 @@
             "percent": "Percentuale",
             "invoice_status": "Stato dell'ultimo pagamento",
             "billing_plan_status": "Stato dell'abbonamento",
-            "payment_method_with_credit_account": "Metodo di pagamento"
+            "payment_method_with_credit_account": "Metodo di pagamento",
+            "payment_pack_category": "Categoria di pass",
+            "private_pass_category": "Categoria di pass per appuntamenti"
         },
         "presetValuesByDatatype": {
             "payment_method": {
@@ -7407,7 +7451,8 @@
                 "Annulla",
                 "Annulla",
                 "Annulla",
-                "Annulla"
+                "Annulla",
+                "Annullato"
             ]
         },
         "payment_method_with_credit_account": {
@@ -7624,6 +7669,9 @@
                 "submit": "Creare",
                 "note": {
                     "label": "Annotazioni"
+                },
+                "datePicker": {
+                    "label": "Nuova data"
                 }
             },
             "nbDaysAdded": "+ {{nb_days}}g",
@@ -7633,6 +7681,10 @@
                 "explain": "Sei sicuro di voler eliminare l'estensione di validità?",
                 "cancel": "Annulla",
                 "confirm": "Conferma"
+            },
+            "options": {
+                "addNumberOfDays": "Estendi la validità aggiungendo un numero di giorni",
+                "selectNewEndDate": "Imposta una nuova data di scadenza"
             }
         },
         "actions": {
@@ -10873,6 +10925,19 @@
             "3": "Controversia persa",
             "2": "Controversia risolta",
             "1": "Contenzioso in corso"
+        },
+        "stripeBalance": {
+            "title": "Saldo Stripe",
+            "dialog": {
+                "firstPart": "In bsport utilizziamo il servizio Stripe per gestire tutti i tuoi pagamenti online. Gli importi vengono conservati su Stripe e poi trasferiti sul tuo account (sezione \"Le mie ricevute\").",
+                "close": "Chiudi",
+                "alert": "Attenzione, quando effettui un rimborso diretto, questo denaro viene addebitato direttamente sul tuo account Stripe. Il che può trasformarlo in negativo.",
+                "secondPart": "Il tuo \"saldo disponibile\" è quindi l'importo dei pagamenti online che non ti è stato ancora versato.",
+                "thirdPart": "Il tuo \"saldo in elaborazione\" è l'importo che arriverà sul tuo saldo disponibile."
+            },
+            "nullPendingBalanceText": "Nullo",
+            "availableBalance": "Saldo disponibile",
+            "pendingBalance": "Saldo in elaborazione"
         }
     },
     "selfCheckIn": {
@@ -11468,12 +11533,16 @@
             "groups": "Gruppi di retribuzione",
             "all": "Tutti i corsi",
             "appointment": "Appuntamenti",
-            "session": "Attività e workshop"
+            "session": "Attività e workshop",
+            "groupActivity": "Attività",
+            "workshop": "Workshop"
         },
         "fabButton": {
             "addNewForRDV": "Appuntamenti",
             "addNewPaymentRuleGroup": "Gruppo di retribuzione",
-            "addNewForSession": "Attività e workshop"
+            "addNewForSession": "Attività e workshop",
+            "addNewForGroupActivity": "Attività",
+            "addNewForWorkshop": "Workshop"
         },
         "paymentRules": "Regole di retribuzione",
         "search": "Cerca una regole di retribuzione (facoltativo)",
@@ -12738,7 +12807,12 @@
                         "credits": "Crediti",
                         "level": "Livello",
                         "waitingListMaxSize": "Lista d'attesa",
-                        "effectif": "Posti disponibili"
+                        "effectif": "Posti disponibili",
+                        "hybridHelper": "Scegliendo questa opzione verrà creata una sessione online con un numero di slot predefinito di {{ onlineOfferDefaultEffectif }}. È possibile modificare le informazioni della sessione online dopo la creazione (link, numero di slot, prezzo, ecc....)",
+                        "hybridManagementHelper": "Puoi gestire le prenotazioni associate a questa sessione ibrida, sia in sala che online, cliccando sull'icona sottostante per aprire una nuova scheda di gestione.",
+                        "hybridLabel": "Questa sessione è sia in presenza che online.",
+                        "hybridEditHelper": "Stai modificando una sessione online collegata a una sessione in presenza. Per modificare alcune informazioni è necessario modificare quest'ultima.",
+                        "hybridSection": "Sessione ibrida"
                     },
                     "title": "Specifiche"
                 }
@@ -12752,7 +12826,10 @@
                     "INFOS": "Sessione"
                 }
             }
-        }
+        },
+        "isFree": "Gratis",
+        "broadcast": "Videoconferenza",
+        "onSite": "Nello studio"
     },
     "role": {
         "userRoles": "Contabilità del personale",
@@ -12810,7 +12887,8 @@
                 "selectCoach": "Seleziona l'insegnante",
                 "selectFranchisees": "Seleziona lo studio",
                 "selectFranchiseesDisabled": "Questa impostazione è solo per il ruolo personalizzato (non amministratore o proprietario)",
-                "ifEmptySelectAll": "Lascia vuoto per selezionare tutto"
+                "ifEmptySelectAll": "Lascia vuoto per selezionare tutto",
+                "commissionHeader": "Tasso di commissione"
             },
             "role": {
                 "delete": {

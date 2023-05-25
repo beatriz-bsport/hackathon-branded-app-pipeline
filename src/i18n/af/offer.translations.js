@@ -136,6 +136,7 @@ exports.default = {
       },
     },
   },
+  additionalCoaches: '{{count}} professeurs',
   warningOfferFull: 'Le nombre maximum de réservations a déjà été atteint',
   maximumNumber: 'Nombre maximum de réservations',
   maximumNumberDescription:

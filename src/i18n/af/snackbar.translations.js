@@ -103,6 +103,7 @@ const {
 const {
   INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
   INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER,
+  CANNOT_REFUND_INVOICE_EXCEPTION_ERROR_CODE,
 } = require('@bsport/common/lib/master-data/error-codes/payment');
 
 const {
@@ -282,6 +283,8 @@ exports.default = {
           "Impossible d'annuler une facture avec des paiements Interac.",
         [INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER]:
           "Impossible de rembourser en avoir une facture d'ajustement de solde.",
+        [CANNOT_REFUND_INVOICE_EXCEPTION_ERROR_CODE]:
+          'Impossible de rembourser cette facture.',
       },
     },
     applyBalance: {

@@ -8888,7 +8888,8 @@
       "revert": {
         "errors": {
           "14100": "Impossible d'annuler une facture avec des paiements Interac.",
-          "14101": "Impossible de rembourser en avoir une facture d'ajustement de solde."
+          "14101": "Impossible de rembourser en avoir une facture d'ajustement de solde.",
+          "14102": "Impossible de rembourser cette facture."
         }
       },
       "applyBalance": {

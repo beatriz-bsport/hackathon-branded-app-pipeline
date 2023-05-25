@@ -402,7 +402,7 @@ export function OfferMinimalSummary(props: Props) {
                   <Tooltip
                     title={
                       <AdditionalCoachesTooltipTitle
-                        additionalCoaches={additional_coaches}
+                        coaches={additional_coaches}
                       />
                     }
                   >

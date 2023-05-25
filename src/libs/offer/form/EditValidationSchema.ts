@@ -73,13 +73,18 @@ const OfferEditFormValidationSchema = Yup.object().shape({
   durationMinute: Yup.number()
     .required('offer:form.errors.required')
     .positive('offer:form.errors.field.durationMinute'),
-  // coach: Yup.number()
-  //   .typeError('offer:form.errors.required')
-  //   .required('offer:form.errors.required')
-  //   .positive('offer:form.errors.positiveNumber'),
+  coach: Yup.number()
+    .typeError('offer:form.errors.required')
+    .required('offer:form.errors.required')
+    .positive('offer:form.errors.positiveNumber'),
   additionalCoaches: Yup.array<number>()
     .typeError('offer:form.errors.required')
-    .required('offer:form.errors.required'),
+    .test({
+      name: 'canBeSetIfMainCoachSet',
+      test: function canBeSetIfMainCoachSet(item: number[]) {
+        return !!this.parent.coach && !item?.includes(this.parent.coach);
+      },
+    }),
   partnerMaxBookingCount: Yup.number()
     .when('isShowPartnership', (isShowPartnership, schema) => {
       if (isShowPartnership) {

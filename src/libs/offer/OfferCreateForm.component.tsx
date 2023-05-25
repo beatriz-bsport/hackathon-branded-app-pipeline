@@ -287,7 +287,7 @@ const formikFormWrapper = withFormik<
         timezone,
       ).map((d: Moment) => d.unix()),
       establishment,
-      coach: additionalCoaches[0] ?? coach,
+      coach,
       additional_coaches: additionalCoaches,
       effectif,
       partner_max_booking_count: partnerMaxBookingCount,

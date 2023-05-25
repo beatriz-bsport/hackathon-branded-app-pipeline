@@ -10,7 +10,7 @@ type Props = {
 export const CoachToolTip: React.FC<Props> = React.memo(({ coach }) => {
   const classes = useStyles();
   return (
-    <React.Fragment>
+    <>
       {coach && coach?.name && (
         <Typography display="block" className={classes.bold} variant="caption">
           {coach.name}
@@ -26,7 +26,7 @@ export const CoachToolTip: React.FC<Props> = React.memo(({ coach }) => {
           {coach.notes}
         </Typography>
       )}
-    </React.Fragment>
+    </>
   );
 });
 
@@ -37,20 +37,24 @@ type AdditionalCoachesToolTipProps = {
 export const AdditionalCoachesTooltipTitle: React.FC<AdditionalCoachesToolTipProps> =
   React.memo(({ coaches }) => {
     return (
-      <React.Fragment>
+      <>
         {coaches &&
           coaches.map((coach) => (
             <Typography display="block" variant="caption">
               {coach?.name}
             </Typography>
           ))}
-      </React.Fragment>
+      </>
     );
   });
 
 export default CoachToolTip;
 
 const useStyles = makeStyles(() => ({
-  italic: { fontStyle: 'italic' },
-  bold: { fontWeight: 'bold' },
+  italic: {
+    fontStyle: 'italic',
+  },
+  bold: {
+    fontWeight: 'bold',
+  },
 }));

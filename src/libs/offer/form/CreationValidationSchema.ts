@@ -133,7 +133,6 @@ const OfferFormCreateValidationSchema = Yup.object().shape({
     .positive('offer:form.errors.positiveNumber'),
   additionalCoaches: Yup.array<number>()
     .typeError('offer:form.errors.required')
-    .required('offer:form.errors.required')
     .test({
       name: 'canBeSetIfMainCoachSet',
       test: function canBeSetIfMainCoachSet(item: number[]) {

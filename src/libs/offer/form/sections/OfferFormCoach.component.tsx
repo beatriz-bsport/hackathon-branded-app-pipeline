@@ -189,20 +189,21 @@ const OfferFormCoach = (props: Props) => {
       {!!coach && Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && (
         <OfferFormField
           id="offer-form-coach-field"
-          label={t('form.section.coach.field.additionalCoaches.title')}
-          isRequired
+          label={t('form.section.coach.additionalCoaches.title')}
           isError={!!errors.coach}
         >
           <div className={classes.errorContainer}>
             <CoachSelector
               id="offer-form-coach-selector"
-              placeholder={t('form.section.coach.field.coach.placeholder')}
+              placeholder={t(
+                'form.section.coach.additionalCoaches.field.placeHolder',
+              )}
               coaches={availableAdditionalCoaches}
               closeMenuOnSelect
               selectedCoaches={selectedAdditionalCoaches}
               selectOption={handleMultiSelectCoach}
               onBlur={handleBlur}
-              selectorClass={classes.bigWidth}
+              selectorClass={classes.xBigWidth}
               isError={!!errors.coach && touched.coach}
               isDisabled={!!disabled}
             />

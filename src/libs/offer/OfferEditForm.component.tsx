@@ -68,7 +68,7 @@ type ComponentProps = {
   offer: Omit<Offer, 'whitelist_tags' | 'blacklist_tags'> & {
     group?: OffersGroup;
     coach: Coach;
-    additional_coaches: number[];
+    additional_coaches: Coach[];
     timezone_name: string;
     establishment: Establishment;
     meta_activity: MetaActivity;
@@ -349,6 +349,8 @@ const formikFormWrapper = withFormik<
   OfferFormValues
 >({
   mapPropsToValues: (props: ComponentProps & FormProps) => ({
+    additionalCoaches:
+      props.offer?.additional_coaches?.map((coach) => coach?.id) ?? [],
     allowGuestOffer: props.offer?.allow_guest_offer,
     availableOnPartnership: props.isOfferInGroup
       ? false
@@ -376,7 +378,6 @@ const formikFormWrapper = withFormik<
     isShowPartnership: props.showPartnership,
     isZoomAppEnabled: false,
     level: props.offer?.custom_level,
-    additionalCoaches: props.offer?.additional_coaches ?? [],
     partnerMaxBookingCount: props.isOfferInGroup
       ? 0
       : props.offer?.partner_max_booking_count ?? 0,

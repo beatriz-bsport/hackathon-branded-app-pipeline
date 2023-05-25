@@ -136,7 +136,9 @@ exports.default = {
       },
     },
   },
-  additionalCoaches: '{{count}} professeurs',
+  allCoaches: '{{count}} professeurs',
+  additionalCoaches: '{{count}} professeur supplémentaire',
+  additionalCoaches_plural: '{{count}} professeurs supplémentaires',
   warningOfferFull: 'Le nombre maximum de réservations a déjà été atteint',
   maximumNumber: 'Nombre maximum de réservations',
   maximumNumberDescription:
@@ -298,6 +300,12 @@ exports.default = {
           coachPaymentRule: {
             title: 'Règle de rémunération',
             placeholder: 'Sélectionner une règle',
+          },
+        },
+        additionalCoaches: {
+          title: 'Professeur(s) supplémentaire(s)',
+          field: {
+            placeHolder: 'Sélectionner des professeurs supplémentaires',
           },
         },
       },

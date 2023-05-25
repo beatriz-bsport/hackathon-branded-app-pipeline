@@ -1,6 +1,10 @@
 exports.default = {
   selector: {
     coach: { placeholder: 'Professeur' },
+    additionalCoaches: {
+      placeholder: 'Professeur supplémentaire',
+      placeholder_plural: 'Professeurs supplémentaires',
+    },
     level: { placeholder: 'Niveau' },
     establishment: { placeholder: 'Salle' },
   },

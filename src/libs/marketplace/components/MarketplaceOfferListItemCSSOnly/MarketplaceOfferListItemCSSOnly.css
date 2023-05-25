@@ -140,6 +140,24 @@
   color: var(--color-grey-main);
 }
 
+.bs-offer-list-item__content__offer__left__coaches__row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.bs-offer-list-item__content__offer__left__coaches__number {
+  display: flex;
+  margin-left: var(--spacing-1);
+  gap: var(--spacing-1);
+  align-items: center;
+  min-height: var(--spacing-2);
+  font-size: var(--body1-fontSize);
+  line-height: var(--body1-lineHeight);
+  font-weight: var(--fontWeightMedium);
+  color: var(--color-primary-main);
+}
+
 .bs-offer-list-item__content__offer__left__coach__name {
   text-align: start;
 }

@@ -319,6 +319,10 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
 
             const coachData = this.getCoach(coaches, offerCoachId);
 
+            const additionalCoachesData = offer.additional_coaches.map(
+              (coachId) => this.getCoach(coaches, coachId),
+            );
+
             return (
               <MarketPlaceOfferListItemComponent
                 key={`list-item-${offer.id}`}
@@ -328,6 +332,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 group={groupData}
                 metaActivity={metaActivity}
                 coach={coachData}
+                additionalCoaches={additionalCoachesData}
                 getLevel={this.props.getLevel}
                 onClick={this.props.onClickOffer}
                 onBook={this.handleBook(offer)}

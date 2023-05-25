@@ -34,6 +34,7 @@ export type Props = {
   offerDetailsloading: boolean;
   bookedOffers: number[];
   hideCoach: boolean;
+  coaches: Coach[];
   onBookOption: (offer: Offer) => void;
   onBook: (offer: Offer) => void;
   onLoadMoreOffer: (page: number) => void;
@@ -206,6 +207,9 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               metaActivity={metaActivity}
               establishment={getEstablishment(offer.establishment)}
               coach={getCoach(offer.coach_override || offer.coach)}
+              additionalCoaches={offer.additional_coaches.map((coachId) =>
+                getCoach(coachId),
+              )}
               customLevel={getLevel[offer.custom_level]}
               showOfferFilling={showOfferFilling}
               showOfferGender={showOfferGender}

@@ -34,6 +34,8 @@ import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoach
 import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
 import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
 
+import Tooltip from '#components/Tooltip.component';
+
 export const DISABLE_BOOKING_ELEMENTS_IDS = [
   'book-button--disabled',
   'book-button__inner--disabled',
@@ -54,6 +56,7 @@ export type Props = {
   onBook: (id: number) => void;
   establishment: Establishment;
   coach: Coach;
+  additionalCoaches?: Coach[];
   withoutCTA: boolean;
   isRegistered?: boolean;
   showOfferGender: boolean;
@@ -75,6 +78,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   onBookOption,
   onBook,
   coach,
+  additionalCoaches,
   genderCount,
   establishment,
   metaActivity,
@@ -246,22 +250,98 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 }
               />
             </div>
-            <MarketplaceCoachInfos
-              theme={theme}
-              hideCoach={hideCoach}
-              coach={coach}
-              offer={offer}
-              classes={{
-                'bs-offer-list-item__content__offer__left__coach':
-                  'bs-offer-list-item__content__offer__left__coach',
-                'bs-offer-list-item__content__offer__left__coach--time-highlighted':
-                  isVariantTimeHighlighted &&
-                  'bs-offer-list-item__content__offer__left__coach--time-highlighted',
-                'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
-                  isVariantCoachHighlighted &&
-                  'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
-              }}
-            />
+            {additionalCoaches?.length < 1 ? (
+              <MarketplaceCoachInfos
+                theme={theme}
+                hideCoach={hideCoach}
+                coach={coach}
+                offer={offer}
+                classes={{
+                  'bs-offer-list-item__content__offer__left__coach':
+                    'bs-offer-list-item__content__offer__left__coach',
+                  'bs-offer-list-item__content__offer__left__coach--time-highlighted':
+                    isVariantTimeHighlighted &&
+                    'bs-offer-list-item__content__offer__left__coach--time-highlighted',
+                  'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
+                    isVariantCoachHighlighted &&
+                    'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
+                }}
+              />
+            ) : (
+              <div>
+                {isWorkshop ? (
+                  <div>
+                    <MarketplaceCoachInfos
+                      theme={theme}
+                      hideCoach={hideCoach}
+                      coach={coach}
+                      offer={offer}
+                      classes={{
+                        'bs-offer-list-item__content__offer__left__coach':
+                          'bs-offer-list-item__content__offer__left__coach',
+                        'bs-offer-list-item__content__offer__left__coach--time-highlighted':
+                          isVariantTimeHighlighted &&
+                          'bs-offer-list-item__content__offer__left__coach--time-highlighted',
+                        'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
+                          isVariantCoachHighlighted &&
+                          'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
+                      }}
+                    />
+                    {additionalCoaches.map((additionalCoach) => (
+                      <MarketplaceCoachInfos
+                        key={`addtional_coach${additionalCoach?.id}`}
+                        theme={theme}
+                        hideCoach={hideCoach}
+                        coach={additionalCoach}
+                        offer={offer}
+                        classes={{
+                          'bs-offer-list-item__content__offer__left__coach':
+                            'bs-offer-list-item__content__offer__left__coach',
+                        }}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="bs-offer-list-item__content__offer__left__coaches__row">
+                    <MarketplaceCoachInfos
+                      theme={theme}
+                      hideCoach={hideCoach}
+                      coach={coach}
+                      offer={offer}
+                      classes={{
+                        'bs-offer-list-item__content__offer__left__coach':
+                          'bs-offer-list-item__content__offer__left__coach',
+                        'bs-offer-list-item__content__offer__left__coach--time-highlighted':
+                          isVariantTimeHighlighted &&
+                          'bs-offer-list-item__content__offer__left__coach--time-highlighted',
+                        'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
+                          isVariantCoachHighlighted &&
+                          'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
+                      }}
+                    />
+                    <Tooltip
+                      title={additionalCoaches.map((additionalCoach) => (
+                        <MarketplaceCoachInfos
+                          key={`addtional_coach${additionalCoach?.id}`}
+                          theme={theme}
+                          hideCoach={hideCoach}
+                          coach={additionalCoach}
+                          offer={offer}
+                          classes={{
+                            'bs-offer-list-item__content__offer__left__coach':
+                              'bs-offer-list-item__content__offer__left__coach',
+                          }}
+                        />
+                      ))}
+                    >
+                      <div className="bs-offer-list-item__content__offer__left__coaches__number">
+                        +{additionalCoaches?.length}
+                      </div>
+                    </Tooltip>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           <div className="bs-offer-list-item__content__offer__right">
             <div className="bs-offer-list-item__content__offer__right__top">

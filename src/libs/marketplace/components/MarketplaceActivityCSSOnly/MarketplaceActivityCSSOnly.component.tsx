@@ -107,6 +107,14 @@ export const MarketplaceActivityV2 = (props: Props) => {
     [coaches, coach, offer.coach_override],
   );
 
+  const additionalCoaches = useMemo(
+    () =>
+      offer.additional_coaches.map((coachId) =>
+        coaches?.find((c) => c.id === coachId),
+      ),
+    [coaches, offer.additional_coaches],
+  );
+
   const customLevel = useMemo(
     () => customLevels.find((level) => level.id === offer.custom_level),
     [customLevels, offer.custom_level],
@@ -322,6 +330,59 @@ export const MarketplaceActivityV2 = (props: Props) => {
             <div className="bs-activity__middle__coach__description">
               {effectiveCoach.description ? effectiveCoach.description : null}
             </div>
+          </div>
+        )}
+        {additionalCoaches?.length > 0 && (
+          <div className="bs-activity__middle__coach">
+            <div className="bs-activity__middle__coach__title">
+              {t('marketplace:selector.additionalCoaches.placeholder', {
+                count: additionalCoaches?.length,
+              })}
+            </div>
+            {additionalCoaches.map((additionalCoach) => (
+              <div className="bs-activity__middle__coach__main">
+                <div className="bs-activity__middle__coach__main__personality">
+                  <Avatar
+                    src={additionalCoach?.photo || ''}
+                    className="bs-activity__middle__coach__main__personality__avatar"
+                  />
+                  <div className="bs-activity__middle__coach__main__personality__right">
+                    <div className="bs-activity__middle__coach__main__personality__right__name">
+                      {additionalCoach.name}
+                    </div>
+                    {offer.coach_override && (
+                      <div className="bs-activity__middle__coach__main__personality__right__override">
+                        {t('coach:overrider')}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="bs-activity__middle__coach__main__social">
+                  {additionalCoach.instagram_url && (
+                    <a href={additionalCoach.instagram_url}>
+                      <Icon>
+                        <img
+                          className="bs-activity__middle__coach__main__social__icon"
+                          src={INSTAGRAM_PNG}
+                          alt=""
+                        />
+                      </Icon>
+                    </a>
+                  )}
+                  {additionalCoach.facebook_url && (
+                    <a href={additionalCoach.facebook_url}>
+                      <Icon>
+                        <img
+                          src={FACEBOOK_PNG}
+                          alt=""
+                          className="bs-activity__middle__coach__main__social__icon"
+                        />
+                      </Icon>
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>

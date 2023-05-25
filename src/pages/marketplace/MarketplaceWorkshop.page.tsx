@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { useState, useEffect, useCallback } from 'react';
 import memoize from 'lodash/memoize';
+import { uniq } from 'lodash/omit';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
@@ -198,12 +199,26 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
                 },
               );
             }
+            // Handling Coach in additional coaches that are not teaching workshop in the future.
+            const additionalCoacheIds = offers.results.flatMap(
+              (_offer) => _offer.additional_coaches,
+            );
+            const unidIds = uniq(additionalCoacheIds);
+
+            if (unidIds.length > 0) {
+              fetchAssociatedCoachesList({
+                company: companyId,
+                page_size: null,
+                id__in: unidIds,
+              });
+            }
           },
         },
       );
     },
     [
       companyId,
+      fetchAssociatedCoachesList,
       fetchGroupsOfferBulk,
       fetchMarketplaceOfferByMetaActivityList,
       fetchOfferBulk,

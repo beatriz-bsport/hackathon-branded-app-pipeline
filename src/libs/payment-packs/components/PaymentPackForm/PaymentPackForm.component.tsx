@@ -309,6 +309,11 @@ export const PaymentPackForm = (props: Props) => {
           if (!values.expiration_date_active) {
             sanithizedValues.expiration_date = null;
           }
+          if (values.expiration_date) {
+            sanithizedValues.expiration_date = moment(
+              values.expiration_date,
+            ).format('YYYY-MM-DD');
+          }
           const keys = [
             'name',
             'price',

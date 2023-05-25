@@ -399,6 +399,11 @@ export const PaymentPackTemplateFormikHOC = withFormik({
     if (!values.expiration_date_active) {
       data.expiration_date = null;
     }
+    if (values.expiration_date) {
+      data.expiration_date = moment(values.expiration_date).format(
+        'YYYY-MM-DD',
+      );
+    }
 
     onSubmit(data, {
       onSuccess: () => setSubmitting(false),

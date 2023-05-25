@@ -8,6 +8,7 @@ import { withFormik, FieldArray, useFormikContext } from 'formik';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import moment from 'moment-timezone';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -390,6 +391,11 @@ export const PaymentComboFormHoc = withFormik({
         ? valuesFormik.expiration_date
         : null,
     };
+    if (valuesFormik.expiration_date) {
+      valuesFormikBase.expiration_date = moment(
+        valuesFormik.expiration_date,
+      ).format('YYYY-MM-DD');
+    }
 
     onSubmit(
       omit(valuesFormikBase, ['payment_packs', 'private_passes', 'shop_items']),

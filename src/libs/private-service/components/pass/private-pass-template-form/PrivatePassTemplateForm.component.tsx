@@ -14,6 +14,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import InputLabel from '@material-ui/core/InputLabel';
 
+import moment from 'moment-timezone';
 import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
@@ -373,10 +374,12 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
       {
         ...values,
         is_usable_by_staff: !values.unusable_by_staff,
-        expiration_date: values.expiration_date_active
-          ? values.expiration_date
-          : null,
+        expiration_date:
+          values.expiration_date_active && values.expiration_date
+            ? moment(values.expiration_date).format('YYYY-MM-DD')
+            : null,
       },
+
       {
         onSuccess: () => {
           trackFormSuccess(initial?.id);

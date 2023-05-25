@@ -25,6 +25,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
 
+import moment from 'moment-timezone';
 import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
@@ -102,6 +103,7 @@ export interface FormikValues {
   unusable_by_staff: boolean;
   applies_for_payroll: boolean;
   on_behalf_of_teacher: boolean;
+  expiration_date?: string;
 }
 type Props = {
   provincialTax: number;
@@ -955,9 +957,10 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
           }
         : {}),
       is_usable_by_staff: !values.unusable_by_staff,
-      expiration_date: values.expiration_date_active
-        ? values.expiration_date
-        : null,
+      expiration_date:
+        values.expiration_date_active && values.expiration_date
+          ? moment(values.expiration_date).format('YYYY-MM-DD')
+          : null,
     };
     onSubmit(newValues, {
       onSuccess: () => {

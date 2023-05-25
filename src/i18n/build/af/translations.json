@@ -9307,7 +9307,8 @@
     "instalmentPayment": {
       "16000": "Le montant de la première échance doit être positif",
       "16001": "Le pourcentage du montant total doit être compris entre 0 et 100",
-      "16002": "Le nombre d'encaissements doit être égal à 1 pour activer l'option 'Payer partiellement'"
+      "16002": "Le nombre d'encaissements doit être égal à 1 pour activer l'option 'Payer partiellement'",
+      "16003": "Le nombre d'encaissements doit être supérieur à 2 pour activer l'option 'Personnaliser le premier montant'"
     },
     "smartListPopup": { "send": { "error": "Une erreur est survenue lors de l'envoi de votre pop-up." } }
   },

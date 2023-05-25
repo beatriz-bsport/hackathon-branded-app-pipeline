@@ -1,16 +1,13 @@
-// @ts-nocheck
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Theme } from '@material-ui/core/styles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Radio, Typography, Collapse } from '@material-ui/core';
 import moment from 'moment-timezone';
-import chroma from 'chroma-js';
 import classNames from 'classnames';
 import { InstalmentPayment } from '../types';
 import InstalmentPaymentMultiplyIcon from './InstalmentPaymentConfigurationMultiplyIcon.component';
 import { DAILY, MONTHLY, WEEKLY } from '../constants';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { useBasketInstalmentPaymentOptionStyle } from '#libs/instalment-payment-configuration/hooks';
 
 type OwnProps = {
   checked: boolean;
@@ -22,34 +19,25 @@ type OwnProps = {
 };
 type ShortandMoment = 'y' | 'd' | 'w' | 'M';
 type Props = OwnProps;
-export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
-  const { t } = useTranslation(['instalmentPayment']);
-  const { checked, instalmentPayment, basketPrice } = props;
-  const classes = useStyles({ checked });
-  if (instalmentPayment === null) {
-    return (
-      <div className={classes.container}>
-        <div className={classes.row}>
-          <Radio
-            onChange={props.onSelect}
-            color="primary"
-            disabled={props.disabled}
-            checked={checked}
-          />
-          <Typography>{t('paymentAllInOnce')}</Typography>
-          <InstalmentPaymentMultiplyIcon multiplyFactor={1} />
-        </div>
-      </div>
-    );
-  }
 
-  if (!instalmentPayment) {
-    return null;
-  }
-  const { recurrency, frequency, number_of_billing } = instalmentPayment;
+export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
+  const { checked, instalmentPayment, basketPrice, disabled, onSelect } = props;
+
+  const { t } = useTranslation(['instalmentPayment']);
+  const classes = useBasketInstalmentPaymentOptionStyle({ checked });
+
+  const {
+    recurrency,
+    frequency,
+    number_of_billing,
+    custom_first_instalment_amount,
+    custom_first_instalment_enabled,
+    custom_first_instalment_percent,
+    custom_first_instalment_type,
+    partial_payment_enabled,
+  } = instalmentPayment;
 
   let shorthandRecurrency = 'y' as ShortandMoment;
-
   switch (recurrency) {
     case DAILY:
       shorthandRecurrency = 'd';
@@ -64,36 +52,102 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
     default:
       break;
   }
-  const instalmentDateList = new Array(number_of_billing)
-    .fill(0)
-    .map((item, index) =>
+
+  const instalmentDateList = useMemo(() => {
+    return new Array(number_of_billing).fill(0).map((item, index) =>
       moment()
         .add(frequency * index, shorthandRecurrency)
         .format('L'),
     );
-  const instalmentAmount = (basketPrice / number_of_billing).toFixed(2);
-  const lastInstalmentAmount = (
-    basketPrice -
-    parseFloat(instalmentAmount) * (number_of_billing - 1)
-  ).toFixed(2);
+  }, [frequency, number_of_billing, shorthandRecurrency]);
+
+  const firstInstalmentAmount = useMemo(() => {
+    const hasCustomfirstPayment =
+      custom_first_instalment_enabled || partial_payment_enabled;
+
+    if (!hasCustomfirstPayment)
+      return (basketPrice / number_of_billing).toFixed(2);
+    if (custom_first_instalment_type === 0)
+      return custom_first_instalment_amount;
+    return ((custom_first_instalment_percent / 100) * basketPrice).toFixed(2);
+  }, [
+    custom_first_instalment_amount,
+    custom_first_instalment_enabled,
+    custom_first_instalment_percent,
+    custom_first_instalment_type,
+    partial_payment_enabled,
+    basketPrice,
+    number_of_billing,
+  ]);
+
+  const otherInstalmentsAmount = useMemo(() => {
+    if (number_of_billing === 1) return '0';
+    return (
+      Math.trunc(
+        ((basketPrice - parseFloat(firstInstalmentAmount)) /
+          (number_of_billing - 1)) *
+          100,
+      ) / 100
+    ).toFixed(2);
+  }, [number_of_billing, basketPrice, firstInstalmentAmount]);
+
+  const lastInstalmentAmount = useMemo(() => {
+    if (number_of_billing === 1) return '0';
+    return (
+      basketPrice -
+      parseFloat(firstInstalmentAmount) -
+      parseFloat(otherInstalmentsAmount) * (number_of_billing - 2)
+    ).toFixed(2);
+  }, [
+    basketPrice,
+    firstInstalmentAmount,
+    otherInstalmentsAmount,
+    number_of_billing,
+  ]);
+
+  const instalmentAmountList = new Array(number_of_billing)
+    .fill(0)
+    .map((item, index) => {
+      switch (index) {
+        case 0:
+          return firstInstalmentAmount;
+        case number_of_billing - 1:
+          return lastInstalmentAmount;
+        default:
+          return otherInstalmentsAmount;
+      }
+    });
+
+  const handleChange = useCallback(() => {
+    if (!checked && !!onSelect) {
+      onSelect(instalmentPayment.id);
+    }
+  }, [checked, onSelect, instalmentPayment.id]);
 
   return (
     <div className={classes.container}>
       <div className={classes.row}>
         <Radio
-          disabled={props.disabled}
-          onChange={() => {
-            if (!checked && !!props.onSelect) {
-              props.onSelect(instalmentPayment.id);
-            }
-          }}
+          disabled={disabled}
+          onChange={handleChange}
           color="primary"
           checked={checked}
         />
-        <Typography>{instalmentPayment.name}</Typography>
-        <InstalmentPaymentMultiplyIcon
-          multiplyFactor={instalmentPayment.number_of_billing}
-        />
+
+        {partial_payment_enabled && (
+          <Typography>
+            {t('configurationOption.payLater', {
+              amount: getCurrencyDisplayWithPrice(firstInstalmentAmount),
+            })}
+          </Typography>
+        )}
+
+        {!partial_payment_enabled && (
+          <>
+            <Typography>{instalmentPayment.name}</Typography>
+            <InstalmentPaymentMultiplyIcon multiplyFactor={number_of_billing} />
+          </>
+        )}
       </div>
       <Collapse in={checked}>
         <div
@@ -101,55 +155,34 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
             [classes.paddingLeftMobile]: !!props?.withPaddingLeft,
           })}
         >
-          {instalmentDateList.map((date, index) => (
-            <div className={classes.row}>
-              <Typography variant="caption">{date}</Typography>
-              <Typography variant="caption" color="textSecondary">
-                {`${t(':')} ${getCurrencyDisplayWithPrice(
-                  index === instalmentDateList.length - 1
-                    ? lastInstalmentAmount
-                    : instalmentAmount,
-                )}`}
-              </Typography>
-            </div>
-          ))}
-          {/*
-          <div className={classes.row}>
-            <Typography variant="subtitle1">{t('basket.fee')}</Typography>
-            <Typography>
-              {getCurrencyDisplayWithPrice(instalmentPayment.fee)}
+          {partial_payment_enabled && (
+            <Typography variant="caption">
+              {t('configurationOption.payLaterRemainder', {
+                remainder: getCurrencyDisplayWithPrice(
+                  basketPrice - parseFloat(firstInstalmentAmount),
+                ),
+              })}
             </Typography>
-            </div>
-            */}
+          )}
+
+          {!partial_payment_enabled && (
+            <>
+              {instalmentDateList.map((date, index) => (
+                <div className={classes.row} key={date}>
+                  <Typography variant="caption">{date}</Typography>
+                  <Typography variant="caption" color="textSecondary">
+                    {`${t(':')} ${getCurrencyDisplayWithPrice(
+                      instalmentAmountList[index],
+                    )}`}
+                  </Typography>
+                </div>
+              ))}{' '}
+            </>
+          )}
         </div>
       </Collapse>
     </div>
   );
 };
-const useStyles = makeStyles<Theme, { checked: boolean }>((theme: Theme) => ({
-  container: (props: { checked: boolean }) => ({
-    backgroundColor: props.checked
-      ? chroma(theme.palette.primary.main).alpha(0.05).hex()
-      : 'unset',
-    border: '1px solid #D4D4D4',
-    borderRadius: '4px',
-    display: 'flex',
-    flexDirection: 'column',
-    padding: theme.spacing(1),
-  }),
-  column: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: theme.spacing(1),
-    paddingLeft: theme.spacing(6),
-  },
-  paddingLeftMobile: {
-    paddingLeft: theme.spacing(2),
-  },
-  row: {
-    display: 'flex',
-    gap: theme.spacing(1),
-    alignItems: 'center',
-  },
-}));
+
 export default BasketInstalmentPaymentOption;

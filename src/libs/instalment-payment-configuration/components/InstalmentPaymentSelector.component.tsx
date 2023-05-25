@@ -1,8 +1,8 @@
-// @ts-nocheck
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import BasketInstalmentEmptyPlaceholder from '#libs/instalment-payment-configuration/components/BasketInstalmentEmptyPlaceholder.component';
 import BasketInstalmentPaymentOption from './BasketInstalmentPaymentConfigurationOption.component';
 import { InstalmentPayment } from '../types';
 import { OptionCallback } from '../../../state/types';
@@ -39,11 +39,9 @@ const InstalmentPaymentSelector = (props: Props) => {
     <div className={classes.row}>
       {processing && <LinearProgress />}
       {!!(props.instalmentPaymentConfigurationList || []).length && (
-        <BasketInstalmentPaymentOption
-          instalmentPayment={null}
+        <BasketInstalmentEmptyPlaceholder
           disabled={processing}
           checked={props.instalmentPaymentConfigurationSelectedId === null}
-          basketPrice={props.basketPriceCts / 100}
           onSelect={() => {
             setProcessing(true);
             props.onSelectInstalmentPayment(null, {
@@ -51,7 +49,6 @@ const InstalmentPaymentSelector = (props: Props) => {
               onError: () => setProcessing(false),
             });
           }}
-          withPaddingLeft={props.fromApp}
         />
       )}
       {(props.instalmentPaymentConfigurationList || []).map((ipc) => (

@@ -124,6 +124,7 @@ const {
   CUSTOM_INSTALMENT_FIRST_INSTALMENT_AMOUNT_ERROR,
   CUSTOM_INSTALMENT_FIRST_INSTALMENT_PERCENT_ERROR,
   INSTALMENT_PARTIAL_PAYMENT_REQUIRES_ONLY_ONE_BILLING_ERROR,
+  INSTALMENT_CUSTOM_FIRST_INSTALMENT_REQUIRES_AT_LEAST_TWO_BILLINGS_ERROR,
 } = require('@bsport/common/lib/master-data/error-codes/instalment-payment');
 
 exports.default = {
@@ -1211,6 +1212,8 @@ exports.default = {
       'Le pourcentage du montant total doit être compris entre 0 et 100',
     [INSTALMENT_PARTIAL_PAYMENT_REQUIRES_ONLY_ONE_BILLING_ERROR]:
       "Le nombre d'encaissements doit être égal à 1 pour activer l'option 'Payer partiellement'",
+    [INSTALMENT_CUSTOM_FIRST_INSTALMENT_REQUIRES_AT_LEAST_TWO_BILLINGS_ERROR]:
+      "Le nombre d'encaissements doit être supérieur à 2 pour activer l'option 'Personnaliser le premier montant'",
   },
   smartListPopup: {
     send: {

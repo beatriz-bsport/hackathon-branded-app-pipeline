@@ -79,7 +79,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
     super(props);
     this.state = {
       selectedObjects: null,
-      commission: this.props.user.staff_commission_percentage,
+      commission: parseFloat(this.props.user.staff_commission_percentage),
     };
   }
 
@@ -133,12 +133,10 @@ class UserWithRoleItem extends React.Component<Props, State> {
           )
         : [];
     })();
-
     let objectListLoading: boolean;
     let objectList: Array<Coach | Company>;
     let roleId: number;
     let roleIdentifier: number;
-
     if (isFranchisor) {
       objectListLoading = franchiseeListLoading;
       objectList = franchiseeList;
@@ -174,10 +172,22 @@ class UserWithRoleItem extends React.Component<Props, State> {
     };
 
     const handleOnCommissionChange = (ev) => {
-      this.setState({ commission: ev.target.value });
+      let parseValue = Number.parseFloat(ev.target.value.toString());
+      parseValue = parseFloat(parseValue.toFixed(2));
+      if (parseValue > 100) {
+        parseValue = 100;
+      }
+      this.setState({ commission: parseValue });
     };
+
     const handleOnCommissionFocus = () => {
-      handleCommissionChange(this.state.commission);
+      if (Number.isNaN(this.state.commission)) {
+        this.setState({
+          commission: this.props.user.staff_commission_percentage,
+        });
+      } else {
+        handleCommissionChange(this.state.commission);
+      }
     };
 
     return (
@@ -220,7 +230,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
               label={t('forms.user.commissionHeader')}
               className={classes.roleField}
               disabled={!hasOwnerPermission}
-              value={`${this.state.commission}`}
+              value={this.state.commission}
               InputProps={{
                 inputProps: { min: 0, max: 100, step: 1 },
                 endAdornment: (

@@ -67,7 +67,14 @@ export class CreateStaffUser extends React.Component<Props, State> {
   };
 
   handleOnCommissionChange = (ev) => {
-    this.setState({ staff_commission_percentage: ev.target.value });
+    let parseValue = Number.parseFloat(ev.target.value.toString());
+    parseValue = parseFloat(parseValue.toFixed(2));
+    if (parseValue > 100) {
+      parseValue = 100;
+    } else if (Number.isNaN(parseValue)) {
+      parseValue = 0;
+    }
+    this.setState({ staff_commission_percentage: parseValue });
   };
 
   onSubmit = (ev: any) => {

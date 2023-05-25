@@ -4,6 +4,7 @@ import { handleActions } from 'redux-actions';
 import {
   userRoleList,
   userRoleUpdate,
+  userCommissionUpdate,
   userRoleDelete,
   roleList,
   roleUpdate,
@@ -93,6 +94,17 @@ export default handleActions<Immutable.Immutable<RoleState>>(
       return state.setIn(['createOrUpdate', 'loading'], payload);
     },
     [userRoleUpdate.error.toString()]: (state, { payload }) => {
+      return state.setIn(['createOrUpdate', 'error'], payload);
+    },
+    [userCommissionUpdate.success.toString()]: (state, { payload }) => {
+      const index = state.users.findIndex((user) => user.id === payload.id);
+      const index_ = index >= 0 ? index : state.users.length;
+      return state.setIn(['users', index_], payload);
+    },
+    [userCommissionUpdate.isLoading.toString()]: (state, { payload }) => {
+      return state.setIn(['createOrUpdate', 'loading'], payload);
+    },
+    [userCommissionUpdate.error.toString()]: (state, { payload }) => {
       return state.setIn(['createOrUpdate', 'error'], payload);
     },
     [userRoleDelete.success.toString()]: (state, { payload }) => {

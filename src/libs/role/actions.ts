@@ -36,7 +36,6 @@ import {
   Role,
   UserRoleData,
   RedirectionParameters,
-  UserRole,
 } from './types';
 
 import { getPermissions } from './selectors';
@@ -563,7 +562,7 @@ export function updateUserCommission(
   params: {
     commission?: number;
   },
-  options?: OptionCallback<UserRole>,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(userCommissionUpdate.isLoading(true));

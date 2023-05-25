@@ -281,7 +281,12 @@ export const PaymentComboForm: React.FC<Props> = ({
         <InputLabel className={classes.inputLabelExpirationDate}>
           {t('form.expiration_date.helperText')}
         </InputLabel>
-        <DateField name="expiration_date" format="L" allowNullValue />
+        <DateField
+          name="expiration_date"
+          format="L"
+          allowNullValue
+          minDate={moment.now()}
+        />
       </Collapse>
 
       <div className={classes.fieldset}>

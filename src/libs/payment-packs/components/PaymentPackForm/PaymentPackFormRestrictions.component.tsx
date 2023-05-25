@@ -17,6 +17,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InfoIcon from '@material-ui/icons/Info';
 import InputLabel from '@material-ui/core/InputLabel';
+import moment from 'moment-timezone';
 import { PaymentPack, PaymentPackFormValues } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
@@ -179,6 +180,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 disabled={!!initial?.template_instance}
                 format="L"
                 allowNullValue
+                minDate={moment.now()}
               />
             </Collapse>
           </div>

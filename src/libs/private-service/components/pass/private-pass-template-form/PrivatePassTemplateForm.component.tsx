@@ -149,7 +149,12 @@ export const PrivatePassTemplateForm = (props: Props) => {
           <InputLabel className={classes.inputLabelExpirationDate}>
             {t('privatePass.form.expiration_date.helperText')}
           </InputLabel>
-          <DateField name="expiration_date" format="L" allowNullValue />
+          <DateField
+            name="expiration_date"
+            format="L"
+            allowNullValue
+            minDate={moment.now()}
+          />
         </Collapse>
       </div>
 

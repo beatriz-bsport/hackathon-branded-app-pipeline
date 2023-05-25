@@ -11,6 +11,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import InfoIcon from '@material-ui/icons/Info';
 import InputLabel from '@material-ui/core/InputLabel';
+import moment from 'moment-timezone';
 import { PaymentPack, PaymentPackFormValues } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
@@ -132,7 +133,12 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               <InputLabel className={classes.inputLabelExpirationDate}>
                 {t('addPaymentPack.expiration_date.helperText')}
               </InputLabel>
-              <DateField name="expiration_date" format="L" allowNullValue />
+              <DateField
+                name="expiration_date"
+                format="L"
+                allowNullValue
+                minDate={moment.now()}
+              />
             </Collapse>
           </div>
         </Grid>

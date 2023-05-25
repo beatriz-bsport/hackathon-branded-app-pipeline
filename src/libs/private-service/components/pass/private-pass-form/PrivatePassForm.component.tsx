@@ -366,6 +366,7 @@ export const PrivatePassForm = (props: Props) => {
               format="L"
               allowNullValue
               disabled={!!props.initial?.template_instance}
+              minDate={moment.now()}
             />
           </Collapse>
         </div>

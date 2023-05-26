@@ -628,7 +628,7 @@
             },
             "reporting": "Report",
             "beta": "beta",
-            "combo": "Pacchetto",
+            "combo": "Pacchetti",
             "video": "Videoteca",
             "digital": "Offerta digitale",
             "marketing_automation": "Marketing automatizzato",
@@ -1495,7 +1495,7 @@
             "myVideos": "I miei video",
             "pick_a_language": "Selezionare una lingua",
             "automaticLanguage": "Rilevamento automatico della lingua",
-            "giftcard": "Carte regalo",
+            "giftcard": "Gift card",
             "statistic": "Statistiche",
             "connectedAs": "Accedi come",
             "relationConnectedAs": "Registrato come: {{name}}",
@@ -1723,7 +1723,7 @@
             "title": "Rimozione del pacchetto"
         },
         "pageTitle": {
-            "list": "Pacchetto"
+            "list": "Pacchetti"
         },
         "edit": "Modifica",
         "search": "Cerca un pack",
@@ -3447,7 +3447,7 @@
             "podcast": "Podcast",
             "digital": "Offerta digitale",
             "marketing_automation": "Marketing automatizzato",
-            "combo": "Pacchetto",
+            "combo": "Pacchetti",
             "requestTempPassword": "Consentire l'accesso",
             "smart_list": "Smartlist",
             "email_template": "Email",
@@ -3485,7 +3485,7 @@
             },
             "myClub": "Il mio club",
             "subscription": "Addebiti",
-            "contract": "Contratti",
+            "contract": "Abbonamenti",
             "coupon": "Promozioni",
             "logoff": "Disconnettiti",
             "refresh": "Ricarica",
@@ -3511,7 +3511,7 @@
             "redirecting": "Sarai reindirizzato alla tua pagina",
             "backToFranchiseWorskpace": "Ritorno al conto principale",
             "franchiseConnectedAs": "Registrato come:{{- name}}",
-            "giftcard": "Carte regalo",
+            "giftcard": "Gift card",
             "programs": "Programmi",
             "expenses": "Spese",
             "instalmentPayment": "Pagamenti a rate",
@@ -3551,7 +3551,7 @@
             "emailTemplates": "Email",
             "products": {
                 "couponTemplates": "Promozioni",
-                "giftcardTemplates": "Carte regalo",
+                "giftcardTemplates": "Gift card",
                 "privatePassTemplates": "Pass per appuntamenti",
                 "paymentPackTemplates": "Pass",
                 "label": "Prodotti"
@@ -3829,7 +3829,7 @@
                 "goToReports": "Pagina dei rapporti",
                 "internalAccountWarningTitle": "Attenzione ai saldi correnti dei clienti.",
                 "internalAccountWarning1": "Si consiglia vivamente di creare un rapporto sul saldo del cliente prima di abilitare questa funzione.",
-                "internalAccountNotusableOnContract": "Questo mezzo di pagamento non può essere utilizzato per contratti",
+                "internalAccountNotusableOnContract": "Questo metodo di pagamento non può essere utilizzato per gli abbonamenti",
                 "internalAccount": "Bilancio del cliente",
                 "errorURL": "Inserisci un URL valido prima di salvare il modulo",
                 "hideSessionWithTagsNotEligible": "Non visualizzare le sessioni a cui il membro non ha accesso con i tag",
@@ -5244,7 +5244,7 @@
                 "noServiceError": "Seleziona un tipo di appuntamento",
                 "noTitleError": "Seleziona un titolo",
                 "noComponentTypeError": "Seleziona un elemento",
-                "submit": "Invia",
+                "submit": "Conferma",
                 "cancel": "Annulla",
                 "inputTitle": "Nome della tabella",
                 "selectPlaylist": "Scegli una playlist",
@@ -5282,7 +5282,7 @@
             },
             "preview": "Anteprima",
             "saveButton": "Salva",
-            "link": "Accedi alla piattaforma dei clienti (verrai disconnesso)",
+            "link": "Accedi alla piattaforma cliente (verrai disconnesso)",
             "explainMarketplace": "I tuoi membri possono accedere alla tua piattaforma (calendario, negozio, VOD, etc.) online su computer, tablet e cellulare. Personalizza la tua pagina qui!",
             "addButton": "Aggiungi una tabella"
         },
@@ -5292,7 +5292,7 @@
         "paymentMethods": {
             "save": "Salvare",
             "methodPaymentSubscriptionError": "Si prega di selezionare almeno un metodo di pagamento",
-            "methodPaymentSubscriptionHelper": "Autorizzare i pagamenti per gli abbonamenti (contratti) solo tramite",
+            "methodPaymentSubscriptionHelper": "Autorizzare i pagamenti per gli abbonamenti solo tramite",
             "methodPaymentSubscription": "Pagamento ricorrente",
             "methodPaymentBasketHelper": "Autorizzare i pagamenti del carrello della spesa, il regolamento del debito e i pagamenti in ritardo... solo tramite",
             "methodPaymentBasket": "Pagamento puntuale",
@@ -5365,13 +5365,13 @@
                     "inventory": "Il tuo inventario",
                     "ourOffers": "Le nostre offerte",
                     "category": {
-                        "giftcard": "Carte regalo",
+                        "giftcard": "Gift card",
                         "contract": "Abbonamenti",
                         "paymentCombo": "Offerte promozionali",
                         "paymentPack": "Tutti i passaggi"
                     },
                     "membershipCard": {
-                        "giftcardSubtitle": "Trova tutte le carte regalo dello studio qui",
+                        "giftcardSubtitle": "Trova tutte le gift card dello studio qui",
                         "paymentComboSubtitle": "Trova qui tutte le offerte promozionali del tuo studio",
                         "vodSubtitle": "Trova qui tutta l'offerta di video on demand del tuo studio",
                         "contractSubtitle": "Trova qui tutte le offerte di abbonamento del tuo studio",
@@ -6222,13 +6222,13 @@
                 "title": "Data passata"
             },
             "list": {
-                "title": "Contratti",
+                "title": "Abbonamenti",
                 "addButton": "Definire un contratto",
                 "register": "Iscriviti un socio",
-                "titleCustomerAvailable": "Contratti disponibili per la vendita",
-                "titleManagerOnly": "Contratti non disponibili per la vendita",
-                "isEmpty": "Nessun contratto disponibile",
-                "titleInactive": "Contratti archiviati"
+                "titleCustomerAvailable": "Abbonamenti disponibili per la vendita",
+                "titleManagerOnly": "Abbonamenti non disponibili",
+                "isEmpty": "Nessun abbonamento disponibile",
+                "titleInactive": "Abbonamenti archiviati"
             },
             "form": {
                 "title": "Modulo del contratto",
@@ -12151,7 +12151,7 @@
         "historyTitle": "Storia della cesta",
         "bookerMethod": {
             "section": {
-                "combo": "Pacchetto",
+                "combo": "Pacchetti",
                 "pass": "Carte disponibili",
                 "consumerPass": "Le mie carte"
             },
@@ -12189,8 +12189,8 @@
         },
         "warning": {
             "isManager": "Hai effettuato l'accesso come gestore, per accedere alla vista cliente, esci",
-            "disconnect": "Disconnettimi",
-            "backToBackoffice": "Responsabile dell'interfaccia"
+            "disconnect": "Log-out",
+            "backToBackoffice": "Ritorna al Back Office"
         },
         "workshop": {
             "card": {
@@ -13098,13 +13098,13 @@
                 "products": {
                     "_label": "Prodotti",
                     "contracts": {
-                        "_label": "Contratti"
+                        "_label": "Abbonamenti"
                     },
                     "promotions": {
                         "_label": "Promozioni"
                     },
                     "giftcards": {
-                        "_label": "Carte regalo"
+                        "_label": "Gift card"
                     },
                     "packs": {
                         "_label": "Promozione dei pacchetti"
@@ -14273,8 +14273,8 @@
             "isEmpty": "Nessuna gift card",
             "linkedInvoice": "Fattura collegata",
             "list": {
-                "myGifted": "Carte regalo ricevute",
-                "myPurchases": "Carte regalo acquistate"
+                "myGifted": "Gift card ricevute",
+                "myPurchases": "Gift card acquistate"
             },
             "invitationForm": {
                 "actions": {
@@ -14584,9 +14584,9 @@
             "shopItemAvailable_plural": "{{length}} prodotti compatibili con il negozio",
             "noConfiguration": "Seleziona una configurazione per vedere i suoi dettagli",
             "title": "Dettagli della configurazione",
-            "giftcard": "Carte regalo",
-            "paymentPack": "Schede del corso",
-            "privatePass": "Carte d'appuntamento",
+            "giftcard": "Gift card",
+            "paymentPack": "Pass",
+            "privatePass": "Pass per appuntamenti",
             "shopItem": "Prodotti",
             "combo": "Pacchetti",
             "recurrency": "Ricorrenza",
@@ -14607,7 +14607,7 @@
             "comboAvailableForAll": "Tutti i pacchetti compatibili",
             "comboAvailable": "{{length}} pacchetto compatibile",
             "comboAvailable_plural": "{{length}} pacchetti compatibili",
-            "giftcardAvailableForALl": "Tutte le carte regalo compatibili",
+            "giftcardAvailableForALl": "Tutte le gift card compatibili",
             "giftcardAvailable": "{{length}} gift card compatibile",
             "giftcardAvailable_plural": "{{length}} gift card compatibili",
             "shopItemAvailableForALl": "Tutti i prodotti del negozio compatibili",
@@ -14714,8 +14714,8 @@
                 "allCombo": "Compatibile con tutte le confezioni",
                 "shopItem": "Prodotti nel negozio",
                 "allShopItem": "Compatibile con tutti i prodotti del negozio",
-                "giftcard": "Carte regalo",
-                "allGiftcard": "Compatibile con tutte le carte regalo"
+                "giftcard": "Gift card",
+                "allGiftcard": "Compatibile con tutte le gift card"
             }
         }
     },

@@ -188,6 +188,7 @@ export const PaymentPackForm = (props: Props) => {
                 apply_penalties:
                   initial?.penalty_active || initial?.no_show_penalty_active,
                 applies_for_payroll: initial?.applies_for_payroll,
+                expiration_date_active: !!initial?.expiration_date,
               }
             : {
                 id: null,

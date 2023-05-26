@@ -911,7 +911,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         unusable_by_staff: !initial.is_usable_by_staff,
         applies_for_payroll: initial.applies_for_payroll,
         on_behalf_of_teachr: initial.on_behalf_of_teacher,
-        expiration_date_active: initial?.expiration_date,
+        expiration_date_active: !!initial?.expiration_date,
       };
 
     return {

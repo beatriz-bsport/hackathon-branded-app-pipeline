@@ -1010,28 +1010,28 @@
                 "dashboard": "Pannello di controllo",
                 "shopManager": "Il mio negozio",
                 "coachList": "Insegnanti",
-                "WorkshopActivityFormPage": "Modulo per workshop",
+                "WorkshopActivityFormPage": "Form del workshop",
                 "paymentPackList": "Pass",
                 "metaActivity": "Attività",
                 "workshopActivityList": "Workshop",
-                "metaActivityEditForm": "Modulo di attività",
+                "metaActivityEditForm": "Form dell'attività",
                 "metaActivityList": "Attività",
-                "metaActivityFormPage": "Modulo per attività",
+                "metaActivityFormPage": "Form dell'attività",
                 "offerFormPage": "Creazione della sessione",
                 "coachPerformance": "Performance del professore",
-                "coachFormPage": "Modulo per insegnante",
-                "invoiceFormPage": "Modulo per fatturazione",
+                "coachFormPage": "Form dell'insegnante",
+                "invoiceFormPage": "Form della fatturazione",
                 "invoiceCreatePage": "Fattura",
                 "invoiceList": "Le mie transazioni",
                 "paymentPackFormPage": "Creazione della tessera",
                 "members": "Membri",
                 "member": "Membro",
-                "memberFormPage": "Modulo membro",
+                "memberFormPage": "Form del membro",
                 "searchResults": "Ricerca",
                 "settings": "Impostazioni",
                 "orderList": "Ordini",
                 "establishmentList": "Strutture",
-                "establishmentFormPage": "Modulo per palestre",
+                "establishmentFormPage": "Form dello stabilimento",
                 "marketingRule": "Strategie di marketing",
                 "subscriptions": "Abbonamento",
                 "reportingDashboard": "Report",
@@ -1678,7 +1678,7 @@
                 "paymentPack": "Pass",
                 "shopitem": "Negozio"
             },
-            "title": "Modulo per pacchetto",
+            "title": "Form dei pacchetti",
             "name": {
                 "label": "Nome"
             },
@@ -3478,7 +3478,7 @@
                 "marketplaceSettings": "Impostazioni marketplace",
                 "widget": "Widget",
                 "paymentMethod": "Modo di pagamento",
-                "forms": "Modulo di membro",
+                "forms": "Form del membro",
                 "quickbooks": "QuickBooks",
                 "mobilePersonalization": "App di personalizzazione",
                 "coachUserspace": "Area dell'insegnante"
@@ -3831,7 +3831,7 @@
                 "internalAccountWarning1": "Si consiglia vivamente di creare un rapporto sul saldo del cliente prima di abilitare questa funzione.",
                 "internalAccountNotusableOnContract": "Questo metodo di pagamento non può essere utilizzato per gli abbonamenti",
                 "internalAccount": "Bilancio del cliente",
-                "errorURL": "Inserisci un URL valido prima di salvare il modulo",
+                "errorURL": "Inserisci un URL valido prima di salvare il form",
                 "hideSessionWithTagsNotEligible": "Non visualizzare le sessioni a cui il membro non ha accesso con i tag",
                 "hideMemberForCoach": "Nascondere le informazioni di contatto del cliente nel calendario dell'insegnante",
                 "hideBuyablePassIfSuperfluous": "Nascondere le carte dei corsi, gli abbonamenti e i pacchetti che possono essere acquistati al momento della prenotazione se il membro ha già una carta compatibile",
@@ -4056,7 +4056,7 @@
             "field_identifier": "Campi",
             "account_modification": "Edizione di un account",
             "account_creation": "Creazione di un account",
-            "title": "Modulo di membro",
+            "title": "Form del membro",
             "fields": {
                 "waiver": "Rilascio di risponsabilità",
                 "general_terms_and_conditions_accepted": "Condizioni generali di utilizzo",
@@ -4087,9 +4087,9 @@
                 "vaccination_status": "Stato pass sanitario COVID-19"
             },
             "customQuestionDialog": {
-                "confirm": "Creare un modulo",
+                "confirm": "Creare un form",
                 "cancel": "Cancella",
-                "content": "Per aggiungere nuove domande al modulo di registrazione puoi creare un nuovo modulo nella scheda Marketing > Forme. Aggiungi le tue domande e poi allega questo modulo al modulo d'iscrizione selezionando la condizione 'Destinatari nuovi membri'.",
+                "content": "Per aggiungere nuove domande al form di registrazione puoi creare un nuovo form nella scheda Marketing > Form. Aggiungi le tue domande e poi allega questo form al form d'iscrizione selezionando la condizione 'Destinatari nuovi membri'.",
                 "title": "Domande personalizzate"
             },
             "addQuestions": "Aggiungere domande",
@@ -4160,7 +4160,7 @@
                 "onCancel": "Annulla",
                 "onSubmit": "Iscriviti",
                 "create": "Aggiungi un costo di spedizione",
-                "title": "Modulo spese di spedizione",
+                "title": "Form spese di spedizione",
                 "feeLabel": "Spese di spedizione",
                 "nameLabel": "Nome"
             },
@@ -4936,33 +4936,33 @@
         "customForm": {
             "update": {
                 "success": "Forma modificata",
-                "error": "Impossibile modificare il modulo"
+                "error": "Impossibile modificare il form"
             },
             "customFormField": {
                 "restore": {
-                    "success": "Elemento restaurato",
+                    "success": "Elemento ripristinato",
                     "error": "Impossibile ripristinare l'elemento"
                 },
                 "disable": {
-                    "success": "Articolo archiviato",
-                    "error": "Impossibile archiviare l'articolo"
+                    "success": "Elemento archiviato",
+                    "error": "Impossibile archiviare l'elemento"
                 }
             },
             "create": {
-                "success": "Forma creata",
-                "error": "Impossibile creare il modulo"
+                "success": "Form creato",
+                "error": "Impossibile creare il form"
             },
             "duplicate": {
-                "success": "Forma duplicata",
-                "error": "Impossibile duplicare il modulo"
+                "success": "Form duplicato",
+                "error": "Impossibile duplicare il form"
             },
             "disable": {
-                "success": "Forma archiviata",
-                "error": "Impossibile archiviare il modulo"
+                "success": "Form archiviato",
+                "error": "Impossibile archiviare il form"
             },
             "restore": {
-                "error": "Impossibile ripristinare il modulo",
-                "success": "Forma restaurata"
+                "error": "Impossibile ripristinare il form",
+                "success": "Form ripristinato"
             },
             "signupViaCustomForm": {
                 "errors": {
@@ -5230,7 +5230,7 @@
                 }
             },
             "test": "Test",
-            "createTitle": "Modulo Webhook",
+            "createTitle": "Form del Webhook",
             "add": "Aggiungi un webhook",
             "event": "Evento",
             "selectEvent": "Seleziona un evento",
@@ -6010,7 +6010,7 @@
                 "title": "Nuovo insegnante",
                 "success": "Insegnante creato con successo"
             },
-            "error_email_exists": "Un insegnante con questa email esiste già, usa il modulo di creazione insegnante"
+            "error_email_exists": "Un insegnante con questa email esiste già, usa il form di creazione insegnante"
         },
         "noCoach": "Non ci sono ancora insegnanti registrati",
         "coach_override": "Insegnante sostitutivo",
@@ -6231,7 +6231,7 @@
                 "titleInactive": "Abbonamenti archiviati"
             },
             "form": {
-                "title": "Modulo del contratto",
+                "title": "Form del contratto",
                 "name": {
                     "label": "Nome del contratto"
                 },
@@ -6509,7 +6509,7 @@
             "accountNumber": "Numero di conto",
             "sortCode": "Codice bancario"
         },
-        "noContracts": "In questo modulo, puoi aggiungere abbonamenti per fatturare automaticamente i tuoi membri su base giornaliera, settimanale, mensile o annuale.",
+        "noContracts": "In questo form, puoi aggiungere abbonamenti per fatturare automaticamente i tuoi membri su base giornaliera, settimanale, mensile o annuale.",
         "copyLink": "Copia il link nella pagina di pagamento",
         "listItem": {
             "valid": "Valido",
@@ -7974,7 +7974,7 @@
         "credit": {
             "updated": "Crediti aggiornati"
         },
-        "notificationForm": "Modulo di notifica",
+        "notificationForm": "Form di notifica",
         "noPaymentPack": "Le tessere consentono ai membri di registrarsi alle attività, è necessario possedere una tessera per iscriversi.",
         "disabledPacks": {
             "hide": "Nascondi i archiviati",
@@ -9073,7 +9073,7 @@
                 "eventNb": "Notifica il membro durante l'evento n °:",
                 "settingTitle": "Impostazioni",
                 "typeTitle": "Tipo di notifica",
-                "title": "Modulo di notifica",
+                "title": "Form di notifica",
                 "chooseKind": {
                     "notRefunded": "Annullamento dopo la scadenza del termine",
                     "refunded": "Cancellazione rimborsata",
@@ -11233,8 +11233,8 @@
             "paymentMethodTitle": "Indica il tuo metodo di pagamento",
             "managerIbanExplain": "Indica su quale conto desideri ricevere tramite bonifico le somme versate online tramite Bsport",
             "companyStripeName": "Conto stripe",
-            "redirecting": "Ti stiamo reindirizzando al modulo di stripe...",
-            "stripeConfigurationExplain": "Verrai reindirizzato al modulo stripe. Una volta completato questo passaggio, le tue informazioni verranno automaticamente salvate su Bsport.",
+            "redirecting": "Ti stiamo reindirizzando al form di stripe...",
+            "stripeConfigurationExplain": "Verrai reindirizzato al form stripe. Una volta completato questo passaggio, le tue informazioni verranno automaticamente salvate su Bsport.",
             "stripeConfiguration": "Configura Stripe",
             "infoGoingBack": "Se lasci la pagina ora, puoi riprendere nello stesso punto quando torni.",
             "configureStripeAction": "Configurazione di Stripe",
@@ -11652,8 +11652,8 @@
     },
     "titles": {
         "metaActivity": {
-            "metaActivityEditForm": "Modulo di attività",
-            "metaActivityFormPage": "Modulo di attività",
+            "metaActivityEditForm": "Form attività",
+            "metaActivityFormPage": "Form attività",
             "metaActivityList": "Attività",
             "metaActivityFormSubtitle": "Creazione di un'attività di gruppo",
             "metaActivityEditFormSubtitle": "Modifica di un'attività di gruppo"
@@ -11662,17 +11662,17 @@
             "mergeMember": "Accorpa soci",
             "memberForm": "Aggiungi un membro",
             "members": "Membri",
-            "memberFormPage": "Modulo membro"
+            "memberFormPage": "Form membro"
         },
         "coupon": {
-            "couponCreate": "Modulo di promozione",
+            "couponCreate": "Form della promozione",
             "couponDetail": "{{name}}",
-            "couponEdit": "Modulo di promozione",
+            "couponEdit": "Form di promozione",
             "couponList": "Codici promozionali"
         },
         "paymentPack": {
             "paymentPackList": "Pass",
-            "paymentPackFormPage": "Modulo del corso"
+            "paymentPackFormPage": "Form del corso"
         },
         "video": {
             "videoList": "Videoteca"
@@ -11704,7 +11704,7 @@
         },
         "coach": {
             "allCoachPerformance": "Riepilogo dell'insegnante",
-            "coachFormPage": "Modulo per insegnante",
+            "coachFormPage": "Form dell'insegnante",
             "coachPerformance": "Regole dell'insegnante {{name}}",
             "coachList": "Insegnanti"
         },
@@ -11727,7 +11727,7 @@
         "workshopActivity": {
             "workshopActivityList": "Workshop",
             "workshopActivityCreate": "Crea un workshop",
-            "workshopActivityFormPage": "Modulo per workshop",
+            "workshopActivityFormPage": "Form del workshop",
             "workshopActivityFormSubtitle": "Creazione di un workshop",
             "workshopActivityEditFormSubtitle": "Modifica di un workshop"
         },
@@ -11736,8 +11736,8 @@
         },
         "establishment": {
             "establishmentList": "Strutture",
-            "establishmentFormPage": "Modulo per palestre",
-            "establishmentGroupPage": "Località"
+            "establishmentFormPage": "Form di stabilimento",
+            "establishmentGroupPage": "Sedi"
         },
         "planning": "Calendario",
         "expense": {
@@ -13002,7 +13002,7 @@
                         "_label": "Videoconferenza"
                     },
                     "memberForms": {
-                        "_label": "Modulo di membro"
+                        "_label": "Form del membro"
                     },
                     "personalization": {
                         "_label": "Personalizzazione"
@@ -13482,20 +13482,20 @@
             }
         },
         "customForm": {
-            "title": "Moduli",
+            "title": "Form",
             "noCustomForm": "Usa i moduli per raccogliere ulteriori informazioni sui tuoi membri.",
-            "unaccessibleForm": "Questo modulo non è attualmente disponibile, per tornare alla pagina del tuo profilo clicca sul pulsante qui sotto.",
+            "unaccessibleForm": "Questo form non è attualmente disponibile, per tornare alla pagina del tuo profilo clicca sul pulsante qui sotto.",
             "modal": {
                 "delete": {
-                    "content": "Archiviando questo modulo sarà messo nei tuoi moduli archiviati e non sarà più accessibile ai tuoi membri.",
-                    "title": "Archiviare un modulo",
+                    "content": "Archiviando questo form sarà messo nei tuoi form archiviati e non sarà più accessibile ai tuoi membri.",
+                    "title": "Archiviare un form",
                     "cancel": "Cancellare",
                     "confirm": "Confirmare"
                 }
             },
             "field": {
                 "text_size_limit": "La lunghezza della risposta sarà limitata a {{count}} caratteri.",
-                "choice_warning": "Tutte le opzioni salvate quando il modulo è stato salvato non saranno più modificabili. Puoi ancora cancellarli o aggiungerne di nuovi.",
+                "choice_warning": "Tutte le opzioni aggiunte non saranno più modificabili una volta che il form è stato salvato. Puoi ancora cancellarle o aggiungerne di nuove.",
                 "fileHelper": "I file caricati saranno aggiunti direttamente alla sezione \"I miei documenti\" del profilo del membro.",
                 "link_to_tag_popover": "Collega un tag a questa opzione",
                 "tag_group": "Categoria",
@@ -13510,7 +13510,7 @@
                 "select_placeholder": "Selezionare",
                 "file": "Allegare un file",
                 "link_to_note": "Creare una nota",
-                "link_to_note_helper": "Collegando la domanda a una nota, la risposta sarà automaticamente aggiunta a una nota sul modulo del membro.",
+                "link_to_note_helper": "Collegando la domanda a una nota, la risposta sarà automaticamente aggiunta a una nota sul form del membro.",
                 "signature": "Firma",
                 "isMandatoryOnSignUp": "La domanda è obbligatoria alla registrazione",
                 "waiver": "Rilascio di responsabilità",
@@ -13534,7 +13534,7 @@
                 "birthday": "Data di nascita",
                 "last_name": "Nome di famiglia",
                 "first_name": "Nome",
-                "sign_up_question": "Domanda sul modulo di registrazione",
+                "sign_up_question": "Domanda sul form di registrazione",
                 "location": "Posizione preferita",
                 "state": "Stato"
             },
@@ -13563,7 +13563,7 @@
                     "error": {
                         "choicesLength": "Devi fare almeno 2 scelte",
                         "emptyChoice": "Le scelte non possono essere vuote",
-                        "signupQuestionShouldBeSelected": " Devi selezionare una domanda dal modulo di registrazione",
+                        "signupQuestionShouldBeSelected": " Devi selezionare una domanda dal form di registrazione",
                         "tooShort": "La password deve essere lunga almeno 8 caratteri",
                         "passwordsDontMatch": "Le due password non sono uguali"
                     }
@@ -13594,43 +13594,43 @@
             },
             "numberQuestions": "Numero di domande",
             "listActions": "Azioni",
-            "linkHelper": "Per inviare il modulo ai tuoi membri, incolla il link qui sopra nella tua email. Solo le modifiche salvate saranno visibili.",
-            "search": "Cercare un modulo",
+            "linkHelper": "Per inviare il form ai tuoi membri, incolla il link qui sopra nella tua email. Solo le modifiche salvate saranno visibili.",
+            "search": "Cercare un form",
             "name": "Nome",
-            "content": "Contenuto del modulo",
-            "preview": "Panoramica del modulo",
+            "content": "Contenuto del form",
+            "preview": "Panoramica del form",
             "mandatory": "Obbligatorio",
             "disabledCustomForm": "Forme archiviate",
             "disabledCustomFormField": "Articoli archiviati",
-            "selectCustomFormFilled": "Seleziona uno dei moduli compilati per visualizzarne il contenuto",
-            "addFieldLong": "Aggiungere un elemento",
+            "selectCustomFormFilled": "Seleziona uno dei form compilati per visualizzarne il contenuto",
+            "addFieldLong": "Aggiungi un elemento",
             "tab": {
                 "general": "Contenuto",
                 "campaign": "Campagna",
                 "statistics": "Statistiche",
                 "layout": "Personalizzazione"
             },
-            "CustomFormLink": "Link al modulo",
+            "CustomFormLink": "Link del form",
             "label": "Etichetta",
             "kind": "Tipo",
             "send": "Inviare",
-            "addCustomFrom": "Aggiungere un modulo",
-            "selectCustomForm": "Seleziona un modulo per visualizzare i dettagli",
-            "emptyCustomForm": "Questo modulo è vuoto, puoi aggiungere elementi per configurarlo.",
-            "changesDetected": "Sono stati fatti dei cambiamenti. Salvate il modulo per applicarli.",
-            "noChanges": "Forma aggiornata.",
+            "addCustomFrom": "Aggiungere un form",
+            "selectCustomForm": "Seleziona un form per visualizzare i dettagli",
+            "emptyCustomForm": "Questo form è vuoto, puoi aggiungere elementi per configurarlo.",
+            "changesDetected": "Sono stati fatti dei cambiamenti. Salva il formper applicarli.",
+            "noChanges": "Form aggiornato.",
             "answerForDisabledField": "Domande archiviate",
             "allFieldDisabled": "Tutte le domande sono archiviate",
             "submit": {
                 "date_submitted": "Data di completamento",
                 "dialog": {
                     "title": "Ricevuto! ",
-                    "content": "Grazie per aver trovato il tempo di compilare questo modulo.",
+                    "content": "Grazie per il tempo impiegato a compilare questo form.",
                     "confirmButton": "Continuare"
                 },
                 "errors": {
                     "requiredField": "Obbligatorio",
-                    "requiredSignature": "Si prega di firmare il modulo.",
+                    "requiredSignature": "Si prega di firmare il form.",
                     "requiredFile": "Si prega di allegare un file",
                     "invalidEmail": "Email non valida",
                     "passwordConfirmationError": "Le password non sono indefinite",
@@ -13641,8 +13641,8 @@
                 "snoozeTime": "Orologio per {{ count }} le ore",
                 "unSnoozableMinimal": "Obbligatorio",
                 "snoozableMinimal": "Può essere ignorato",
-                "forcedDisplayMinimal": "Visibile anche ai membri che hanno già compilato il modulo",
-                "unForcedModeMinimal": "Non visibile ai membri che hanno già compilato il modulo",
+                "forcedDisplayMinimal": "Visibile anche ai membri che hanno già compilato il form",
+                "unForcedModeMinimal": "Non visibile ai membri che hanno già compilato il form",
                 "forRegisteredMemberMinimal": "> {{ count }} giorni",
                 "forRegisteredMember": "Per i membri che sono stati registrati per più di {{ count }} giorni",
                 "forNewMember": "Per i nuovi membri",
@@ -13651,16 +13651,16 @@
                         "timedeltaBeforeDisplayMustBeGraterThanZero": "Questo valore deve essere maggiore di 0."
                     },
                     "dialog": {
-                        "snoozeOptionHelperText": "Il modulo riapparirà {{count}} ore dopo essere stato ignorato",
+                        "snoozeOptionHelperText": "Il form riapparirà {{count}} ore dopo essere stato ignorato",
                         "snoozeOptionLabel": "Tempo di snooze (ore)",
-                        "force_display": "Forzare la visualizzazione ai membri che hanno già compilato il modulo in precedenza",
-                        "snoozeOption": "Permettere ai membri di posticipare la compilazione del modulo",
+                        "force_display": "Forzare la visualizzazione ai membri che hanno già compilato il form in precedenza",
+                        "snoozeOption": "Permettere ai membri di posticipare la compilazione del form",
                         "advancedOptions": "Impostazioni avanzate",
                         "modify": "Modificare",
                         "cancel": "Cancella",
                         "create": "Aggiungi",
-                        "helperTextNewMembers": "Il modulo apparirà come un pop-up sul marketplace e il widget dopo il modulo di registrazione.",
-                        "helperTextRegisteredMembers": "Il modulo apparirà come un pop-up sul mercato e il widget per tutti i membri interessati.",
+                        "helperTextNewMembers": "Il form apparirà come un pop-up sul marketplace e sul widget dopo il form di registrazione.",
+                        "helperTextRegisteredMembers": "Il form apparirà come un pop-up sul marketplace e sul widget di tutti i membri interessati.",
                         "subTitle": "A quali membri volete rivolgervi?",
                         "title": "Regole di visualizzazione"
                     }
@@ -13672,10 +13672,10 @@
                     "signUpAlreadyExists": " Regola esistente",
                     "signUp": "I nuovi membri"
                 },
-                "empty": "Nessuna regola di notifica per questo modulo",
+                "empty": "Non ci sono notifiche per questo form",
                 "addNewDisplayRule": "Aggiungere una regola",
                 "header": "Regole di notifica",
-                "forbiddenForSignup": "Questo modulo non può essere associato a regole di notifica"
+                "forbiddenForSignup": "Questo form non può essere associato a regole di notifica"
             },
             "disconnect": "Scollegare",
             "resetSubmit": "Modifica le mie risposte",
@@ -13688,11 +13688,11 @@
                 "customize": "Personalizzare",
                 "modification": "Modifica",
                 "signup": "Registrazione",
-                "preview": "Il modulo di modifica è il modulo nella pagina del profilo Panoramica dei miei moduli"
+                "preview": "Panoramica dei miei form"
             },
             "signUp": {
-                "helperMemberForm": "Il modulo di modifica è il modulo nella pagina del profilo dei tuoi membri. Permette loro di visualizzare e modificare le loro informazioni. Anche questo modulo è personalizzabile.",
-                "helperSignup": "Qui puoi modificare il modulo di registrazione del tuo studio. Scegli e personalizza le domande da compilare per diventare membro del tuo club.",
+                "helperMemberForm": "Il form di modifica può essere personalizzato e verrà visualizzato nella pagina del profilo dei membri, consentendo loro di aggiungere o modificare le proprie informazioni.",
+                "helperSignup": "Qui puoi modificare il form di registrazione del tuo studio. Scegli e personalizza le domande da compilare per diventare membro del tuo club.",
                 "signupFields": "Domande sui moduli"
             },
             "breakpoints": {
@@ -13704,20 +13704,20 @@
             "signUpInfoModal": {
                 "confirm": "Continua",
                 "cancel": "Cancellare",
-                "content": "Avete appena reso obbligatorie alcune delle domande del modulo di registrazione. Le domande obbligatorie sul modulo d'iscrizione devono essere modificabili dai tuoi membri sul loro profilo. Queste domande sono state quindi aggiunte automaticamente al modulo di modifica e sono visualizzate e modificabili. Vai al modulo di modifica per personalizzarlo.",
+                "content": "Avete appena reso obbligatorie alcune delle domande del form  di registrazione. Le domande obbligatorie sul form d'iscrizione devono essere modificabili dai tuoi membri sul loro profilo. Queste domande sono state quindi aggiunte automaticamente al form di modifica e sono visualizzate e modificabili. Vai al form di modifica per personalizzarlo.",
                 "title": "Informazioni"
             },
-            "changesAreSubmitting": "Il modulo è attualmente in fase di aggiornamento.",
+            "changesAreSubmitting": "Il form è attualmente in fase di aggiornamento.",
             "editable": "Cambiabile",
             "display": "Vedi",
-            "navigateToMemberForm": "Modifica del modulo del profilo del cliente",
-            "navigateToSignup": "Modifica il modulo di registrazione",
-            "memberFormHelper": "Le domande obbligatorie nel modulo di registrazione sono visualizzate e modificabili di default. Non possono essere cancellati.",
-            "signupFormHelper": "Le domande obbligatorie sul modulo d'iscrizione devono essere modificabili dai tuoi membri sul loro profilo. Queste domande saranno aggiunte automaticamente al modulo di modifica del profilo del cliente e sono visualizzate e modificabili.",
-            "memberFormTitle": "Modulo di modifica del profilo (pagina del profilo dei tuoi membri)",
-            "signupFormTitle": "Modulo di registrazione",
-            "editLayoutSubtitle": "Hai modificato un modulo utilizzando un layout personalizzato, controlla qui, e modifica se necessario, l'anteprima del tuo modulo sulle diverse dimensioni dello schermo",
-            "editLayoutTitle": "Modificare il layout del modulo",
+            "navigateToMemberForm": "Modifica il profilo del membro",
+            "navigateToSignup": "Modifica il form di registrazione",
+            "memberFormHelper": "Le domande obbligatorie nel form di registrazione sono visualizzate e modificabili di default. Non possono essere cancellati.",
+            "signupFormHelper": "Le domande obbligatorie sul form d'iscrizione devono essere modificabili dai tuoi membri sul loro profilo. Queste domande saranno aggiunte automaticamente al form di modifica del profilo del cliente e sono visualizzate e modificabili.",
+            "memberFormTitle": "Form di modifica del profilo (pagina del profilo dei tuoi membri)",
+            "signupFormTitle": "Form di registrazione",
+            "editLayoutSubtitle": "Hai modificato un form utilizzando un layout personalizzato, controlla qui, e modifica se necessario, l'anteprima del tuo form sulle diverse dimensioni dello schermo",
+            "editLayoutTitle": "Modifica il layout del form",
             "layout": {
                 "layoutUpdating": "È in corso un backup",
                 "layoutUpTodate": "Nessuna registrazione in corso",

@@ -34,7 +34,7 @@ const MarketplaceCoachInfos: React.FC<Props> = React.memo(
     coachNameClasses,
     reverse,
   }) => {
-    if (!hideCoach) {
+    if (!hideCoach && !!coach) {
       switch (theme?.coach_display) {
         case MarketPlaceCoachDisplay.ONLY_FIRST_NAME:
           return (

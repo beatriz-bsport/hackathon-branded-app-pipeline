@@ -174,7 +174,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
             }}
           />
           {additionalCoaches?.length > 0 &&
-            additionalCoaches.map((additionalCoach) => (
+            additionalCoaches?.map((additionalCoach) => (
               <MarketplaceCoachInfos
                 theme={props.theme}
                 hideCoach={props.hideCoach}

@@ -200,16 +200,16 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
               );
             }
             // Handling Coach in additional coaches that are not teaching workshop in the future.
-            const additionalCoacheIds = offers.results.flatMap(
+            const additionalCoachesIds = offers.results.flatMap(
               (_offer) => _offer.additional_coaches,
             );
-            const unidIds = uniq(additionalCoacheIds);
+            const uniqIds = uniq(additionalCoachesIds);
 
-            if (unidIds.length > 0) {
+            if (uniqIds.length > 0) {
               fetchAssociatedCoachesList({
                 company: companyId,
                 page_size: null,
-                id__in: unidIds,
+                id__in: uniqIds,
               });
             }
           },

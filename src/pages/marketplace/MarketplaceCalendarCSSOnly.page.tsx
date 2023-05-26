@@ -660,6 +660,7 @@ export const CalendarDataContainer = compose(
     'datetime',
     'translation',
     'offer',
+    'search',
   ]),
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers(mapWithHandlers),

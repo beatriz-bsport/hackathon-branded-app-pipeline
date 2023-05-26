@@ -2633,6 +2633,11 @@
             },
             "unusableByStaff": {
                 "label": "Invisible for the staff"
+            },
+            "expiration_date": {
+                "label": "Date limit for purchase",
+                "helperText": "Available until",
+                "tooltip": "After chosen date, the pack will not be available for sale anymore, for the customers."
             }
         },
         "detail": {
@@ -3593,6 +3598,11 @@
                 "appliesForPayroll": {
                     "helperText": "By default, appointments are billed to the studio and included in the teacher's summary and payroll. If you deactivate this setting, the appointments associated with this pass will no longer appear in the teacher's summary.",
                     "label": "Appointments taken into account when calculating the teacher's payroll"
+                },
+                "expiration_date": {
+                    "helperText": "Available until",
+                    "label": "Date limit for purchase",
+                    "tooltip": "After chosen date, the pack will not be available for sale anymore, for the customers."
                 }
             },
             "validForDuration": {
@@ -4538,7 +4548,8 @@
             "bookingQualitative": "Sources of the bookings",
             "bookingTimeslots": "Average number of people",
             "paymentTemporal": "Receipts",
-            "billingPlanTemporal": "Subscriptions"
+            "billingPlanTemporal": "Subscriptions",
+            "invoiceItemTemporal": "Sum of items billed"
         },
         "dataSourceIdentifiers": {
             "private_service_name": "Appointment",
@@ -4596,7 +4607,14 @@
             "contract_name": "Subscription",
             "billing_plan_payment_method": "Payment method",
             "plan_auto_renewal": "Auto renewal",
-            "is_no_show": "No show"
+            "is_no_show": "No show",
+            "franchisor_commission_amount_notax": "Franchise fees exc. tax",
+            "franchisor_commission_amount": "Franchise fees inc. tax",
+            "total_price_notax": "Total amount exc. tax",
+            "total_price": "Total amount inc. tax",
+            "invoice_date_created": "Date invoice issued",
+            "author": "Author",
+            "invoiceitem_pk": "Number of items billed"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -4623,7 +4641,8 @@
                 "graph_bookings": "Bookings",
                 "graph_members": "New members",
                 "graph_dispute": "Disputes",
-                "graph_billing_plan": "Subscriptions"
+                "graph_billing_plan": "Subscriptions",
+                "graph_invoice_items": "Purchases"
             },
             "aggregation": {
                 "max": "Maximum",
@@ -6125,6 +6144,10 @@
             "last_delay_before_auto_consume": {
                 "label": "Do not accept bookings automatically if a session takes place in less than ",
                 "helper": "If the session takes place too soon in the future, the member will not be booked in even if they have a valid pass"
+            },
+            "check_credit": {
+                "helper": "A client will not be able to be added to a waiting list unless he has a pass compatible with the session, and with enough credit",
+                "label": "Ensure the customer has one valid pass compatible with the session, with enough credit"
             }
         },
         "explainWaitingListConf": "Example: a member that joined the waitlist for a session that starts in 3 hours has {{nbMinutesBeforeBookingOptionExpire}} minute(s) to complete their booking before they lose their priority spot on the waitlist.",
@@ -9140,7 +9163,7 @@
             "product_category": "Category of product",
             "plan_note": "Notes",
             "franchisor_commission_amount_notax": "Franchisee commission percentage excl. VAT",
-            "franchisor_commission_amount": "Franchisee commission percentage incl. VAT",
+            "franchisor_commission_amount": "Franchise fees inc. tax",
             "on_behalf_of_teacher": "Payment paid entirely to the teacher",
             "price_invoice_items": "Total amount of products purchased",
             "nb_invoice_items": "Number of products purchased",
@@ -9529,6 +9552,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
@@ -10376,7 +10400,12 @@
                     "label": "Pro rata, per franchisee, of no shows"
                 }
             },
-            "unusableByStaff": "Invisible for the staff"
+            "unusableByStaff": "Invisible for the staff",
+            "expiration_date": {
+                "label": "Date limit for purchase",
+                "helperText": "Available until",
+                "tooltip": "After chosen date, the pack will not be available for sale anymore, for the customers."
+            }
         },
         "universalPass": {
             "restore": {
@@ -11349,7 +11378,56 @@
         "actions": "Actions",
         "archiveMember": "Archive",
         "accountBalance": "Balance",
-        "communication": "Communication"
+        "communication": "Communication",
+        "events": {
+            "member-login_successful": {
+                "filter": "Logins successul",
+                "primaryText": "A successful login {{ source }} has been registered.",
+                "sourceApp": "from the mobile app",
+                "sourceMarketplace": "from the web marketplace"
+            },
+            "member-private_booking_registered": {
+                "primaryText": "{{ source }} has booked appointment {{- privateServiceName }} - {{- privateSlotName }} for {{- privateServiceDate }}.",
+                "filter": "Appointment",
+                "sourceManager": "The manager {{ managerName }}"
+            },
+            "member-basket_paid": {
+                "filter": "Basket paid",
+                "primaryText": "Un basket of {{amount}} has been paid. "
+            },
+            "member-booking_registered": {
+                "primaryText": "{{ source }} has booking session {{- offerName }} the {{- offerDate }}.",
+                "sourceManager": "The manager {{ managerName }}",
+                "filter": "Bookings"
+            },
+            "member-custom_form_filled": {
+                "filter": "Profile form edited",
+                "primaryText": "Profile edit form {{ formName }} has been filled."
+            },
+            "member-giftcard_used": {
+                "filter": "Giftcards used",
+                "primaryText": "Giftcard {{- giftcardName }} has been activated."
+            },
+            "member-invoice_paid": {
+                "filter": "Invoices paid",
+                "primaryText": "Invoice n°{{ invoiceUUID }} has been paid for {{ amount }}."
+            },
+            "member-tag_applied": {
+                "filter": "Tags applied",
+                "primaryText": "The tag {{ tagName }} has been applied."
+            },
+            "member-vod_bought": {
+                "filter": "VOD bought",
+                "primaryText": "The VOD {{- VODName }} has been bought."
+            }
+        },
+        "resetPassword": {
+            "dialogTitle": "Reset password",
+            "dialogContent": "You are going to send password reset instruction to {{memberEmail}}",
+            "confirmation": "Instructions sent to {{memberEmail}}",
+            "error": "Error while sending password reset instructions",
+            "button": "Reset the password"
+        }
     },
     "booking": {
         "bookingModule": {
@@ -13685,7 +13763,11 @@
             "10001": "Insufficient stock",
             "85000": "A booking is already in progress, please wait a few moments",
             "85101": "Impossible to book. This spot is being booked by another member. Please try again by choosing another spot.",
-            "15002": "The item is already being added to the basket, please wait"
+            "15002": "The item is already being added to the basket, please wait",
+            "1122": "This pass can not be bought anymore as its expiration date has been reached",
+            "2025": "This pass can not be bought anymore as its expiration date has been reached",
+            "11114": "This appointment pass can not be bought anymore as its expiration date has been reached",
+            "23001": "There is no pass available to be able to register to the waiting-list"
         },
         "customForm": {
             "update": {
@@ -13921,6 +14003,12 @@
             "send": {
                 "error": "An error has occurred while sending your pop-up."
             }
+        },
+        "instalmentPayment": {
+            "16003": "The number of instalment payments must be greater than 2 to enable the option \"Customize the first amount\"",
+            "16000": "The amount of the first instalment payment needs to be greater than zero",
+            "16001": "The percentage of the total amount must be set between 0 and 100",
+            "16002": "The number of instalment payments must be equal to 1 to enable the option \"Partial payment\""
         }
     },
     "navigation": {
@@ -14024,7 +14112,7 @@
             "giftcard": "Gift cards",
             "programs": "Programs",
             "expenses": "Expenses",
-            "instalmentPayment": "Instalments",
+            "instalmentPayment": "Payment facilities",
             "coachPayroll": "Payroll",
             "clockIn": "Attendance",
             "help": "Support",
@@ -15782,6 +15870,24 @@
                 "weekly": "Weekly",
                 "montly": "Monthly",
                 "annual": "Yearly"
+            },
+            "partialPaymentRadio": {
+                "enabled": {
+                    "helperText": "The member initially only pays a partial amount of his basket, the remaining amount will be credited on his account balance",
+                    "label": "Partial payment of basket"
+                },
+                "disabled": "Pay all the basket amount on multiple instalment payments"
+            },
+            "customInstalmentAmount": {
+                "amountHelperText": {
+                    "amount": "Amount",
+                    "percent": "Percentage"
+                },
+                "label": "Customize the amount of the first instalment payment",
+                "type": {
+                    "amount": "Fixed amount",
+                    "percent": "As percentage of the total price of the basket"
+                }
             }
         },
         "basket": {
@@ -15804,6 +15910,14 @@
                 "numberOfBilling": "{{number_of_billing}} billing",
                 "numberOfBilling_plural": "{{number_of_billing}} billings"
             }
+        },
+        "configurationOption": {
+            "payLaterRemainder": "The remaining amount of {{ remainder }} will be registered on your account balance",
+            "payLater": "Only pay {{ amount }} now"
+        },
+        "validation": {
+            "percentRange": "The percentage must set be between 1 and 100",
+            "amountMin": "The amount must be greater than 1"
         }
     },
     "ordering": {

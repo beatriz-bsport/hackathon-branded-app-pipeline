@@ -9143,7 +9143,8 @@
             "franchisor_commission_amount": "Franchisee commission percentage incl. VAT",
             "on_behalf_of_teacher": "Payment paid entirely to the teacher",
             "price_invoice_items": "Total amount of products purchased",
-            "nb_invoice_items": "Number of products purchased"
+            "nb_invoice_items": "Number of products purchased",
+            "date_canceled": "Cancellation date"
         },
         "yes": "Yes",
         "no": "No",
@@ -9528,6 +9529,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
@@ -10871,7 +10873,13 @@
                             "title": "Teacher"
                         }
                     },
-                    "title": "Teacher"
+                    "title": "Teacher",
+                    "additionalCoaches": {
+                        "field": {
+                            "placeHolder": "Select additional teachers"
+                        },
+                        "title": "Additional teacher(s)"
+                    }
                 },
                 "dateTime": {
                     "field": {
@@ -10938,7 +10946,10 @@
         },
         "isFree": "Free",
         "onSite": "At the studio",
-        "broadcast": "Videoconferencing"
+        "broadcast": "Videoconferencing",
+        "additionalCoaches": "{{count}} additional teacher",
+        "additionalCoaches_plural": "{{count}} additional teachers",
+        "allCoaches": "{{count}} teachers"
     },
     "emailTemplate": {
         "modal": {
@@ -11723,6 +11734,10 @@
             },
             "establishment": {
                 "placeholder": "Establishment"
+            },
+            "additionalCoaches": {
+                "placeholder": "Additional teacher",
+                "placeholder_plural": "Additional teachers"
             }
         },
         "paymentCombo": {

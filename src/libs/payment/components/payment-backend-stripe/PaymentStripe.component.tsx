@@ -43,6 +43,8 @@ import AcceptTermsAndConditions from '../AcceptTermsAndConditions.component';
 import {
   getStripePkKey,
   getCurrencyDisplayWithPrice,
+  getCompanyCountry,
+  getStripeRegion,
 } from '../../../theme/selectors';
 import type { OptionCallback } from '../../../../state/types';
 import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
@@ -173,6 +175,12 @@ export const PaymentStripe = ({
   const isBacsDebitSelected =
     paymentMethodSelected === PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT;
 
+  const companyCountry = getCompanyCountry();
+  const stripeRegion = getStripeRegion();
+
+  // If the company is in UK Europe Country, BACS Direct Debit could be available and so the PaymentIntent could need a reset
+  const isInUkEurope = stripeRegion === 'Europe' && companyCountry === 'GB';
+
   const StripePaymentMethodForm =
     STRIPE_PAYMENT_METHOD_FORM_COMPONENT[paymentMethodSelected];
 
@@ -194,14 +202,14 @@ export const PaymentStripe = ({
   const handleSelectPaymentMethod = useCallback(
     async (paymentMethod: number) => {
       // If we change the payment method we want to reinitialize the 'save_for_later"
-      // option on the Payment Intent.
+      // option on the Payment Intent, for the companies where BACS Direct Debit is available
       if (
         paymentGroupId &&
         paymentMethod !== PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT
       ) {
         setElementOptions({});
         try {
-          if (!fromApp || basketId) {
+          if (isInUkEurope && (!fromApp || basketId)) {
             await updateIntentToSavePaymentMethodAdaptedAPI({
               save_for_later: false,
               payment_group_id: paymentGroupId,
@@ -223,6 +231,7 @@ export const PaymentStripe = ({
     [
       basketId,
       fromApp,
+      isInUkEurope,
       paymentGroupId,
       selectPaymentMethod,
       updateIntentToSavePaymentMethodAdaptedAPI,

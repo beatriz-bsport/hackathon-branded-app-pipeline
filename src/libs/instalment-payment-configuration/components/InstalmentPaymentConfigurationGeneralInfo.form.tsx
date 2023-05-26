@@ -54,10 +54,10 @@ export const InstalmentPaymentGeneralInfoForm: React.FC = () => {
       setFieldValue('partial_payment_enabled', newPartialPaymentEnabledValue);
 
       if (newPartialPaymentEnabledValue) {
-        setFieldValue('number_of_billing', 1);
+        setFieldValue('number_of_billing', 1, false);
       } else {
-        setFieldValue('number_of_billing', 12);
-        setFieldValue('custom_first_instalment_enabled', false);
+        setFieldValue('number_of_billing', 12, false);
+        setFieldValue('custom_first_instalment_enabled', false, false);
       }
     },
     [setFieldValue],

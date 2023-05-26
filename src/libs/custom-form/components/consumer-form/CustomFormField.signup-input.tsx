@@ -7,8 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import { ErrorMessage } from 'formik';
 import PhoneInput from 'react-phone-number-input';
-import flags from 'react-phone-number-input/flags';
-// import 'react-phone-number-input/style.css';
+import 'react-phone-number-input/style.css';
 import Grid from '@material-ui/core/Grid';
 import amber from '@material-ui/core/colors/amber';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -160,7 +159,6 @@ export const CustomFormConsumerInput = (props: Props) => {
         <div className={classes.phoneField}>
           <PhoneInput
             name={`custom_form_field.${props.index}.answer`}
-            flags={flags}
             value={props.field?.answer}
             label={label}
             disabled={props.asManager || !props.field.editable}
@@ -175,6 +173,16 @@ export const CustomFormConsumerInput = (props: Props) => {
                 phone_number || null,
               )
             }
+            flagComponent={({ country }) => (
+              <div className="fill">
+                <img
+                  src={`https://flagcdn.com/48x36/${(
+                    country ?? 'fr'
+                  ).toLowerCase()}.png`}
+                  alt="flag"
+                />
+              </div>
+            )}
           />
           <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
             {(error_msg) => (

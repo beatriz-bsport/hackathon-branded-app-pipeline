@@ -39,15 +39,15 @@ import MuiFormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 import PhoneInput from 'react-phone-number-input';
-import flags from 'react-phone-number-input/flags';
 import { getCurrencyDisplay } from '../libs/theme/selectors';
-import 'react-phone-number-input/style.css';
 import i18n, { Moment } from '../i18n';
 import DelayedTextField from './DelayedTextField.component';
 import ColorInput from './input/ColorInput.component';
 import Selector from './Selector.component';
 import IconInput from './input/IconInput.component';
 import { formatAsTime } from '../utils/datetime';
+import 'react-phone-number-input/style.css';
+import './phone_number_input.css';
 
 type AlertErrorProps = {
   t: TFunction,
@@ -747,7 +747,16 @@ export const PhoneField = withTranslation([])(
                 {label}
               </InputLabel>
               <PhoneInput
-                flags={flags}
+                flagComponent={({ country }) => (
+                  <div className="fill">
+                    <img
+                      src={`https://flagcdn.com/48x36/${(
+                        country ?? 'fr'
+                      ).toLowerCase()}.png`}
+                      alt="flag"
+                    />
+                  </div>
+                )}
                 country="FR"
                 autoComplete="tel"
                 {...field}

@@ -18,3 +18,7 @@
   font-size: inherit;
   background-color: transparent;
 }
+
+.react-phone-number-input__icon {
+  border: none !important;
+}

@@ -6,6 +6,7 @@ import { CoachState } from './types';
 
 import {
   coachListAction,
+  additionalCoachListActions,
   coachPaginatedListActions,
   coachDetailAction,
   performance,
@@ -86,6 +87,21 @@ export default handleActions(
     [coachListAction.error.toString()]: (state, { payload }) => {
       return state.set('error', payload);
     },
+    [additionalCoachListActions.success.toString()]: (state, { payload }) => {
+      return state
+        .merge({ byId: payload.coachDict }, { deep: true })
+        .setIn(
+          ['allIds'],
+          uniq([...state.allIds, ...(payload?.coachIdList ?? [])]),
+        );
+    },
+    [additionalCoachListActions.isLoading.toString()]: (state, { payload }) => {
+      return state.set('loading', payload);
+    },
+    [additionalCoachListActions.error.toString()]: (state, { payload }) => {
+      return state.set('error', payload);
+    },
+
     [coachPaginatedListActions.success.toString()]: (state, { payload }) => {
       return state
         .merge({ byId: payload.coachDict }, { deep: true })

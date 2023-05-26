@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useState, useEffect, useCallback } from 'react';
 import memoize from 'lodash/memoize';
-import { uniq } from 'lodash/omit';
+import uniq from 'lodash/uniq';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
@@ -25,6 +25,7 @@ import {
 } from '#libs/snackbar/actions';
 import {
   fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
+  fetchAdditionalAssociatedCoachesList as fetchAdditionalAssociatedCoachesListAction,
   resetCoaches,
 } from '#libs/associated-coach/actions';
 import { fetchWorkshopList as fetchWorkshopListAction } from '#libs/meta-activity/actions';
@@ -135,6 +136,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   goToBook: bookWidget,
   fetchOfferRegisteredIds,
   fetchAssociatedCoachesList,
+  fetchAdditionalAssociatedCoachesList,
   resetEstablishments,
   resetLevels,
 }) => {
@@ -200,13 +202,13 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
               );
             }
             // Handling Coach in additional coaches that are not teaching workshop in the future.
-            const additionalCoachesIds = offers.results.flatMap(
+            const additionalCoachIds = offers.results.flatMap(
               (_offer) => _offer.additional_coaches,
             );
-            const uniqIds = uniq(additionalCoachesIds);
+            const uniqIds = uniq(additionalCoachIds);
 
             if (uniqIds.length > 0) {
-              fetchAssociatedCoachesList({
+              fetchAdditionalAssociatedCoachesList({
                 company: companyId,
                 page_size: null,
                 id__in: uniqIds,
@@ -218,7 +220,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     },
     [
       companyId,
-      fetchAssociatedCoachesList,
+      fetchAdditionalAssociatedCoachesList,
       fetchGroupsOfferBulk,
       fetchMarketplaceOfferByMetaActivityList,
       fetchOfferBulk,
@@ -420,6 +422,8 @@ const connector = connect(
     fetchEstablishments: fetchEstablishmentsAction,
     resetEstablishments: resetEstablishmentsAction,
     fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
+    fetchAdditionalAssociatedCoachesList:
+      fetchAdditionalAssociatedCoachesListAction,
     resetLevels: resetLevelsAction,
   },
 );

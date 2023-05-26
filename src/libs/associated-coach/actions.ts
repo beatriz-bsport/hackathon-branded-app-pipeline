@@ -164,6 +164,46 @@ export function fetchAssociatedCoachesList(
   };
 }
 
+// ========== START : TODO : FIX ME BLOCK ==========
+export const additionalCoachListActions = {
+  isLoading: createAction('ADDITIONAL_COACH/LIST/IS_LOADING'),
+  error: createAction('ADDITIONAL_COACH/LIST/ERROR'),
+  success: createAction('ADDITIONAL_COACH/LIST/SUCCESS'),
+};
+
+export function fetchAdditionalAssociatedCoachesList(
+  params?: { [key: string]: boolean | string | number | number[] },
+  options?: OptionCallback<Array<Coach>>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(additionalCoachListActions.isLoading(true));
+    dispatch(additionalCoachListActions.error(null));
+    try {
+      const response = await fetchAssociatedCoachesAPI({
+        ...params,
+        page: 1,
+      });
+      dispatch(
+        additionalCoachListActions.success({
+          coachDict: createDictionnaryById(response.data),
+          coachIdList: createIdList(response.data),
+        }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(additionalCoachListActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(additionalCoachListActions.isLoading(false));
+  };
+}
+
+// ========== END : TODO : FIX ME BLOCK ==========
+
 export const coachPaginatedListActions = {
   isLoading: createAction('COACH/PAGINATED_LIST/IS_LOADING'),
   error: createAction('COACH/PAGINATED_LIST/ERROR'),

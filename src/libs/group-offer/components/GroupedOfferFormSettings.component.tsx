@@ -67,6 +67,8 @@ import ManagerOnlyToggle from '#libs/offer/form/ManagerOnlyToggle.component';
 import BlackWhiteListing from '#libs/offer/BlackWhiteListing.component';
 import FormToggle from '#components/forms/FormToggle.component';
 import { ZoomApp } from '#libs/zoom-app/types';
+import Tooltip from '#components/Tooltip.component';
+import { AdditionalCoachesTooltipTitle } from '#libs/associated-coach/components/CoachToolTip.component';
 
 type OuterProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -727,6 +729,9 @@ const OffersList: React.FC<{
           establishment,
           timezone_name: establishment?.tzname,
           coach: coaches?.find((c) => c.id === o.coach),
+          additional_coaches: o?.additional_coaches
+            ?.map((coachId) => coaches?.find((c) => c.id === coachId) ?? null)
+            ?.filter((c) => c !== null),
           coach_override: coaches?.find((c) => c.id === o.coach_override),
           credit_price_override: o.credits,
         };
@@ -778,7 +783,27 @@ const OffersList: React.FC<{
             />
             <ListItemText
               primary={offer.establishment?.title}
-              secondary={offer.coach?.name}
+              secondary={
+                offer?.additional_coaches?.length > 0 ? (
+                  <Tooltip
+                    placement="bottom-start"
+                    title={
+                      <AdditionalCoachesTooltipTitle
+                        mainCoachName={offer.coach?.name}
+                        coaches={offer?.additional_coaches}
+                      />
+                    }
+                  >
+                    <div>
+                      {t('offer:allCoaches', {
+                        count: offer?.additional_coaches?.length + 1,
+                      })}
+                    </div>
+                  </Tooltip>
+                ) : (
+                  offer.coach?.name
+                )
+              }
             />
             <ListItemSecondaryAction>
               <IconButton

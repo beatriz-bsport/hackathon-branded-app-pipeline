@@ -146,6 +146,21 @@ const defaultDashboardConfiguration = [
         },
         dataFilters: { booking_status_code__in: [0] },
       },
+      {
+        name: 'invoice_items',
+        ressourceIdentifier: 'temporalInvoiceItems',
+        chart: 'area',
+        baseFilters: {
+          date_field: 'invoice_date_created',
+          aggregate_field: 'total_price_notax',
+          aggregate_function: 'sum',
+        },
+        dateRange: {
+          start: null,
+          end: null,
+          kind: 'current_year',
+        },
+      },
     ],
   },
 ];

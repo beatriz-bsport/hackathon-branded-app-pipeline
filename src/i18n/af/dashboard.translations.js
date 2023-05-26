@@ -262,9 +262,8 @@ exports.default = {
     is_recurrent_booking: 'Réservation récurrente',
     last_invoice_status: 'Statut du dernier paiement',
     source_device: 'Origine',
-    franchisor_commission_amount_notax:
-      'Pourcentage de commission franchisé HT',
-    franchisor_commission_amount: 'Pourcentage de commission franchisé TTC',
+    franchisor_commission_amount_notax: 'Frais de commission franchisé HT',
+    franchisor_commission_amount: 'Frais de commission franchisé TTC',
     total_price_notax: 'Montant facturé HT',
     total_price: 'Montant facturé TTC',
     invoice_date_created: "Date d'émission de la facture",
@@ -273,7 +272,7 @@ exports.default = {
     payment_pk: 'Nombre de paiements',
     plannedinvoice_pk: 'Nombre de factures',
     billingplan_pk: "Nombre d'abonnements",
-    invoiceitem_pk: "Nombre d'objets",
+    invoiceitem_pk: "Nombre d'objets facturés",
     booking_effectif_timeslots: 'Effectif moyen',
     activity_kind: 'Type de cours',
     is_workshop: 'Atelier',
@@ -327,6 +326,7 @@ exports.default = {
     billingPlanTemporal: 'Souscriptions',
     memberTemporal: 'Nouveaux membres',
     privateBookingTemporal: 'Rendez-vous',
+    invoiceItemTemporal: 'Somme totale des objets facturés',
   },
   placeholderEmptyValues: {
     coach: 'Pas de professeur',

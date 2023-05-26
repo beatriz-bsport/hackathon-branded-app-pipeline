@@ -8,6 +8,7 @@ import {
   SUBSCRIPTION_GRAPH_IDENTIFIER,
   BILLING_PLAN_GRAPH_IDENTIFIER,
   PRIVATE_BOOKING_GRAPH_IDENTIFIER,
+  INVOICE_GRAPH_IDENTIFIER,
 } from '#libs/dashboard/constants';
 
 export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSettings =
@@ -389,6 +390,41 @@ export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSet
             group_operand: 1,
           },
           dashboard_graph_identifier: BILLING_PLAN_GRAPH_IDENTIFIER,
+        },
+        {
+          uuid: uuidv4(),
+          title: '',
+          defaultTitle: 'graphDefaultTitles.invoiceItemTemporal',
+          graph_family: 'temporal',
+          graph_params: {
+            date: 'invoice_date_created',
+            date_value: 'total_price_notax',
+            aggregation_function_name: 'sum',
+          },
+          filter_config: {},
+          chart_component: 'area',
+          date_filter_config: {
+            groups: [
+              {
+                uuid: uuidv4(),
+                filters_data: [
+                  {
+                    uuid: uuidv4(),
+                    value: [1629241200, 1660863599],
+                    datatype: 'datetime',
+                    comparator: 4,
+                    identifier: 'invoice_date_created',
+                    time_period: 'year',
+                    sub_datatype: 0,
+                  },
+                ],
+                inner_operand: 1,
+                display_has_single: true,
+              },
+            ],
+            group_operand: 1,
+          },
+          dashboard_graph_identifier: INVOICE_GRAPH_IDENTIFIER,
         },
       ],
       tab_label: 'main',

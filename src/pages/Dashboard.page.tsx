@@ -161,6 +161,7 @@ export class DashboardPage extends Component<Props> {
   };
 
   onConfirmResetModal = () => {
+    this.props.resetSettings();
     this.props.setResetDialogOpen(false);
   };
 

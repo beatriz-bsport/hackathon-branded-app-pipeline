@@ -891,7 +891,7 @@ export const PrivatePassSchema = Yup.object().shape({
   unusable_by_staff: Yup.boolean().required(),
   applies_for_payroll: Yup.boolean().required(),
   on_behalf_of_teacher: Yup.boolean().required(),
-  expiration_date: Yup.date(),
+  expiration_date: Yup.date().nullable(),
 });
 
 export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({

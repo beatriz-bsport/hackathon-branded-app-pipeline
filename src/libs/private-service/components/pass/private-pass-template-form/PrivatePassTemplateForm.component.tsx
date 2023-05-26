@@ -343,7 +343,7 @@ export const PrivatePassSchema = Yup.object().shape({
   start_date_method: Yup.number().required().integer().min(0).max(2),
   expiration_days_before_first_use: Yup.number(),
   unusable_by_staff: Yup.boolean().required(),
-  expiration_date: Yup.date(),
+  expiration_date: Yup.date().nullable(),
 });
 
 export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({

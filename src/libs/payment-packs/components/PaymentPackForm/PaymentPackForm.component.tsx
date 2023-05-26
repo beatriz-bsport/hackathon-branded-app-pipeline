@@ -307,13 +307,12 @@ export const PaymentPackForm = (props: Props) => {
             sanithizedValues.penalty_active = false;
             sanithizedValues.no_show_penalty_active = false;
           }
-          if (!values.expiration_date_active) {
-            sanithizedValues.expiration_date = null;
-          }
-          if (values.expiration_date) {
+          if (values.expiration_date_active && values.expiration_date) {
             sanithizedValues.expiration_date = moment(
               values.expiration_date,
             ).format('YYYY-MM-DD');
+          } else {
+            sanithizedValues.expiration_date = null;
           }
           const keys = [
             'name',
@@ -744,5 +743,5 @@ const paymentPackSchema = Yup.object().shape({
   allow_guest_pass: Yup.boolean(),
   unusable_by_staff: Yup.boolean(),
   applies_for_payroll: Yup.boolean().required(),
-  expiration_date: Yup.date(),
+  expiration_date: Yup.date().nullable(),
 });

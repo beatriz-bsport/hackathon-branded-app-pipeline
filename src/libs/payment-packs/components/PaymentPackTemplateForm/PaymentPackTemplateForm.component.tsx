@@ -230,7 +230,7 @@ const PaymentPackTemplateSchema = Yup.object().shape({
       return true;
     },
   ),
-  expiration_date: Yup.date(),
+  expiration_date: Yup.date().nullable(),
 });
 
 export const PaymentPackTemplateFormikHOC = withFormik({
@@ -396,13 +396,12 @@ export const PaymentPackTemplateFormikHOC = withFormik({
     data.max_bookings_per_week = values.max_bookings_per_week || null;
     data.max_purchase_per_member = values.max_purchase_per_member || null;
 
-    if (!values.expiration_date_active) {
-      data.expiration_date = null;
-    }
-    if (values.expiration_date) {
+    if (values.expiration_date_active && values.expiration_date) {
       data.expiration_date = moment(values.expiration_date).format(
         'YYYY-MM-DD',
       );
+    } else {
+      data.expiration_date = null;
     }
 
     onSubmit(data, {

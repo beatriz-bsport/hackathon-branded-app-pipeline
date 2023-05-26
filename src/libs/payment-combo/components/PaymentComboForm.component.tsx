@@ -349,7 +349,7 @@ export const PaymentComboFieldsSchema = Yup.object().shape({
   shop_item_ids: Yup.array().of(Yup.number()),
   private_pass_ids: Yup.array().of(Yup.number()),
   unusable_by_staff: Yup.boolean(),
-  expiration_date: Yup.date(),
+  expiration_date: Yup.date().nullable(),
 });
 
 export const PaymentComboFormHoc = withFormik({
@@ -392,15 +392,11 @@ export const PaymentComboFormHoc = withFormik({
       ...valuesFormik,
       max_purchase_per_member: valuesFormik.max_purchase_per_member || '0',
       is_usable_by_staff: !valuesFormik.unusable_by_staff,
-      expiration_date: valuesFormik.expiration_date_active
-        ? valuesFormik.expiration_date
-        : null,
+      expiration_date:
+        valuesFormik.expiration_date_active && valuesFormik.expiration_date
+          ? moment(valuesFormik.expiration_date).format('YYYY-MM-DD')
+          : null,
     };
-    if (valuesFormik.expiration_date) {
-      valuesFormikBase.expiration_date = moment(
-        valuesFormik.expiration_date,
-      ).format('YYYY-MM-DD');
-    }
 
     onSubmit(
       omit(valuesFormikBase, ['payment_packs', 'private_passes', 'shop_items']),

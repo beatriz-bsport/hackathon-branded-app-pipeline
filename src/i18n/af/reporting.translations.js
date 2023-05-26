@@ -256,6 +256,7 @@ exports.default = {
     invoice_date: 'Date de facturation',
     invoice_datetime: "Date et heure d'émission de la facture",
     invoice_time: "Heure d'émission de la facture",
+    invoiceitem_pk: "ID de l'élément de facturation",
     is_no_show: 'Absent (no show)',
     is_unpaid: 'Impayé',
     is_recurring: 'Récurrent',

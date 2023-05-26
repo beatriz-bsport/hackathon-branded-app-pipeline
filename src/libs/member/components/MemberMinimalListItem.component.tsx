@@ -85,7 +85,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
       </VaccinationBadge>
     );
 
-  const isBirthday = member
+  const isBirthday = member?.birthday
     ? moment().format('MM-DD') === moment(member.birthday).format('MM-DD')
     : false;
 
@@ -111,7 +111,9 @@ export const MemberMinimalListItem: React.FC<Props> = ({
               <Typography>
                 {member.name + (firstBooking ? ' ★' : '')}
               </Typography>
-              {isBirthday && <Cake fontSize="small" color="secondary" />}
+              {isBirthday && (
+                <Cake style={{ fontSize: '14px' }} color="secondary" />
+              )}
               <Typography color="secondary" variant="caption">
                 {member.archived ? `${'\u00A0'}(${t('archived')})` : ''}
               </Typography>

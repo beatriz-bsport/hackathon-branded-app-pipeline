@@ -16,8 +16,10 @@ import ClearIcon from '@material-ui/icons/Clear';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
+import { Cake } from '@material-ui/icons';
 // import Popover from '@material-ui/core/Popover';
 import Popover from '@material-ui/core/Popper';
+import moment from 'moment-timezone';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -87,18 +89,36 @@ export class SearchBar extends Component<Props> {
           {({ TransitionProps }) => (
             <Fade {...TransitionProps} timeout={350}>
               <Paper>
-                {this.props.memberHistory.map((m) => (
-                  <ListItem
-                    key={m.id}
-                    divider
-                    button
-                    onClick={() => {
-                      this.props.push(`/member/${m.id}/info`);
-                    }}
-                  >
-                    <ListItemText primary={m.name} secondary={m.email} />
-                  </ListItem>
-                ))}
+                {this.props.memberHistory.map((m) => {
+                  const isBirthday = m?.birthday
+                    ? moment().format('MM-DD') ===
+                      moment(m.birthday).format('MM-DD')
+                    : false;
+                  return (
+                    <ListItem
+                      key={m.id}
+                      divider
+                      button
+                      onClick={() => {
+                        this.props.push(`/member/${m.id}/info`);
+                      }}
+                    >
+                      <ListItemText
+                        primary={
+                          <div className={classes.flexDiv}>
+                            <div>{m.name}</div>
+                            <div className={classes.icon}>
+                              {isBirthday && (
+                                <Cake fontSize="inherit" color="secondary" />
+                              )}
+                            </div>
+                          </div>
+                        }
+                        secondary={m.email}
+                      />
+                    </ListItem>
+                  );
+                })}
               </Paper>
             </Fade>
           )}
@@ -160,7 +180,7 @@ function mapDisPatchToProps(dispatch) {
   };
 }
 
-const styles = () => ({
+const styles = (theme) => ({
   bar: {
     width: '100%',
   },
@@ -169,6 +189,17 @@ const styles = () => ({
   },
   field: {
     backgroundColor: '#F8F8F8',
+  },
+  flexDiv: {
+    display: 'flex',
+    alignItems: 'center',
+    '&>*': {
+      marginRight: theme.spacing(0.5),
+    },
+  },
+  icon: {
+    fontSize: '14px',
+    paddingTop: theme.spacing(0.5),
   },
 });
 

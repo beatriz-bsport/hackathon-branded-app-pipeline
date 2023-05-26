@@ -20,6 +20,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import useTheme from '@material-ui/core/styles/useTheme';
+import { Theme } from '@material-ui/core';
+import { Cake } from '@material-ui/icons';
+import moment from 'moment-timezone';
 
 import SearchMemberInput from '../../../pages/offer-management/SearchMember.component';
 import MemberForm from '../MemberForm.component';
@@ -41,9 +44,36 @@ type Props = {
   generalTermsAndConditions: string;
 };
 
-const MemberListItem = (props: { member: Member; onClick?: () => void }) => (
+const MemberListItem = (props: {
+  member: Member;
+  isBirthday: boolean;
+  theme: Theme;
+  onClick?: () => void;
+}) => (
   <ListItem button={!!props.onClick} onClick={props.onClick}>
-    <ListItemText primary={props.member.name} secondary={props.member.email} />
+    <ListItemText
+      primary={
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <div>{props.member.name}</div>
+          <div
+            style={{
+              marginLeft: props.theme.spacing(0.5),
+              paddingTop: props.theme.spacing(0.25),
+            }}
+          >
+            {props.isBirthday && (
+              <Cake style={{ fontSize: '14px' }} color="secondary" />
+            )}
+          </div>
+        </div>
+      }
+      secondary={props.member.email}
+    />
     <ListItemSecondaryAction>
       <IconButton
         onClick={(ev) => {
@@ -146,13 +176,21 @@ export const MemberSearchModal: React.FC<Props> = ({
           )}
           <List>
             {loading ? <LinearProgress /> : null}
-            {searchedMembers.map((member: Member) => (
-              <MemberListItem
-                member={member}
-                key={member.id}
-                onClick={() => handlMemberSelected(member.id, member)}
-              />
-            ))}
+            {searchedMembers.map((member: Member) => {
+              const isBirthday = member?.birthday
+                ? moment().format('MM-DD') ===
+                  moment(member.birthday).format('MM-DD')
+                : false;
+              return (
+                <MemberListItem
+                  member={member}
+                  key={member.id}
+                  isBirthday={isBirthday}
+                  theme={theme}
+                  onClick={() => handlMemberSelected(member.id, member)}
+                />
+              );
+            })}
           </List>
         </div>
       </DialogContent>

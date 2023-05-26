@@ -642,7 +642,7 @@ export class BookingItemForManager extends Component<Props, State> {
       classes = this.props.classes.cancelled;
     }
 
-    const isBirthday = this.props.member
+    const isBirthday = this.props.member?.birthday
       ? moment().format('MM-DD') ===
         moment(this.props.member.birthday).format('MM-DD')
       : false;
@@ -679,8 +679,8 @@ export class BookingItemForManager extends Component<Props, State> {
                       <Typography variant="body2">
                         {this.getHeading()}
                       </Typography>
-                      {isBirthday && (
-                        <Cake fontSize="small" color="secondary" />
+                      {isBirthday && this.props.heading !== 'date_start' && (
+                        <Cake style={{ fontSize: '14px' }} color="secondary" />
                       )}
                       <Typography variant="caption" color="secondary">
                         {this.getArchivedStatus()}

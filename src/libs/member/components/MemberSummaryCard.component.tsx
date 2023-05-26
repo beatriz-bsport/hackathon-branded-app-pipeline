@@ -102,7 +102,7 @@ export class MemberSummaryCard extends Component<Props> {
 
     const age = moment().diff(moment(member.consumer.birthday), 'years');
 
-    const isBirthday = member
+    const isBirthday = member.consumer?.birthday
       ? moment().format('MM-DD') ===
         moment(member.consumer.birthday).format('MM-DD')
       : false;
@@ -129,9 +129,7 @@ export class MemberSummaryCard extends Component<Props> {
                         })
                   }`}
                 </div>
-                <div>
-                  {isBirthday && <Cake fontSize="small" color="secondary" />}
-                </div>
+                <div>{isBirthday && <Cake color="secondary" />}</div>
               </div>
             }
           />
@@ -489,7 +487,7 @@ const styles = (theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       '&>*': {
-        marginRight: theme.spacing(0.5),
+        marginRight: theme.spacing(1),
       },
     },
     listItemText: {

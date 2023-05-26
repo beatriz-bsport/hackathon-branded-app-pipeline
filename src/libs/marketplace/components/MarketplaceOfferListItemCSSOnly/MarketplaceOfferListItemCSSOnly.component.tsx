@@ -250,7 +250,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 }
               />
             </div>
-            {additionalCoaches?.length < 1 ? (
+            {!!additionalCoaches && additionalCoaches?.length < 1 ? (
               <MarketplaceCoachInfos
                 theme={theme}
                 hideCoach={hideCoach}
@@ -287,7 +287,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                           'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
                       }}
                     />
-                    {additionalCoaches.map((additionalCoach) => (
+                    {additionalCoaches?.map((additionalCoach) => (
                       <MarketplaceCoachInfos
                         key={`addtional_coach${additionalCoach?.id}`}
                         theme={theme}

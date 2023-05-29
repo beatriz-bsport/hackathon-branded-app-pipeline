@@ -1220,4 +1220,14 @@ exports.default = {
       error: "Une erreur est survenue lors de l'envoi de votre pop-up.",
     },
   },
+  cadence: {
+    create: {
+      error: 'Une erreur est servenue lors de la création de la cadence',
+      success: 'Une nouvelle cadence a été créée',
+    },
+    update: {
+      error: "Une erreur est servenue lors de l'édition de la cadence",
+      success: 'Votre cadence a été mise à jour',
+    },
+  },
 };

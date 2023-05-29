@@ -9366,7 +9366,17 @@
       "16002": "Le nombre d'encaissements doit être égal à 1 pour activer l'option 'Payer partiellement'",
       "16003": "Le nombre d'encaissements doit être supérieur à 2 pour activer l'option 'Personnaliser le premier montant'"
     },
-    "smartListPopup": { "send": { "error": "Une erreur est survenue lors de l'envoi de votre pop-up." } }
+    "smartListPopup": { "send": { "error": "Une erreur est survenue lors de l'envoi de votre pop-up." } },
+    "cadence": {
+      "create": {
+        "error": "Une erreur est servenue lors de la création de la cadence",
+        "success": "Une nouvelle cadence a été créée"
+      },
+      "update": {
+        "error": "Une erreur est servenue lors de l'édition de la cadence",
+        "success": "Votre cadence a été mise à jour"
+      }
+    }
   },
   "spotScheduling": {
     "toolsMenu": {

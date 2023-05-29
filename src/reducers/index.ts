@@ -137,7 +137,7 @@ import { TutorialState } from '#libs/platform-tutorial/types';
 import { ReplacementRequestState } from '#libs/replacement-request/types';
 import { PaymentComboState } from '#libs/payment-combo/types';
 import { CadenceState } from '#libs/sequential_marketingDEPRECATED/types';
-import { CadenceState as cadenceStateWIP } from '#libs/sequential_marketing/types';
+import { SequentialMarketingState as SequentialMarketingStateWIP } from '#libs/sequential_marketing/types';
 import { WaitingListState } from '#libs/waiting-list/types';
 import { InvoiceState } from '#libs/invoice/types';
 
@@ -301,7 +301,7 @@ export type RootState = {
   terminal: TerminalState;
   datatypeFiltering: DatatypeFilteringState;
   cadence: CadenceState;
-  cadenceWIP: cadenceStateWIP;
+  cadenceWIP: SequentialMarketingStateWIP;
 };
 
 export default (history: any) => (state: any, action: any) => {

@@ -129,24 +129,32 @@ export type StepMarketingActionsParams = {
 };
 
 // ========== REDUX STATE ==========
+export type SequentialMarketingState = {
+  cadence: CadenceState;
+} & { step: CadenceStepState } & {
+  marketingActions: MarketingActionState;
+} & ErrorAndLoading;
+
 export type CadenceState = {
-  cadence: {
-    allIds: Array<number>;
-    byId: { [id: number]: Cadence };
-  } & ErrorAndLoading;
-  step: {
-    allIds: Array<number>;
-    byId: { [id: number]: CadenceStep };
-    subscribe: ErrorAndLoading;
-  } & ErrorAndLoading;
-  marketingActions: {
-    allIds: [];
-    byId: { [id: number]: StepMarketingActions };
-    byStepId: { [id: number]: StepMarketingActions[] };
-    upsert: ErrorAndLoading;
-  } & ErrorAndLoading;
-  trigger: {
-    allIds: [];
-    byId: { [id: number]: ConnectedTrigger };
-  } & ErrorAndLoading;
+  allIds: Array<number>;
+  byId: { [id: number]: Cadence };
+} & ErrorAndLoading;
+
+export type CadenceStepState = {
+  allIds: Array<number>;
+  byId: { [id: number]: CadenceStep };
+  subscribe: ErrorAndLoading;
+  trigger: TriggerState;
+} & ErrorAndLoading;
+
+export type MarketingActionState = {
+  allIds: [];
+  byId: { [id: number]: StepMarketingActions };
+  byStepId: { [id: number]: StepMarketingActions[] };
+  upsert: ErrorAndLoading;
+} & ErrorAndLoading;
+
+export type TriggerState = {
+  allIds: [];
+  byId: { [id: number]: ConnectedTrigger };
 } & ErrorAndLoading;

@@ -9719,7 +9719,7 @@
                 }
             },
             "last_delay_before_auto_consume": {
-                "label": "Reservar automáticamente sólo si la sesión tiene lugar en menos de ",
+                "label": "Reservar automáticamente sólo si la sesión tiene lugar en más de ",
                 "helper": "Si la sesión tiene lugar demasiado pronto en el futuro, el socio no será inscrito aunque tenga un bono válido"
             }
         },

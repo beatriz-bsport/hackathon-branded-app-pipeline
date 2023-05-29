@@ -12586,7 +12586,7 @@
             },
             "last_delay_before_auto_consume": {
                 "helper": "Als er onvoldoende tijd is voordat de sessie begint wordt het lid niet ingeschreven, ook niet als de persoon een geldige leskaart bezit",
-                "label": "Het automatisch reserveren alleen voltooien als de sessie plaatsvindt in minder dan "
+                "label": "Het automatisch reserveren alleen voltooien als de sessie plaatsvindt in meer dan "
             }
         },
         "explainWaitingListConf": "Voorbeeld: een lid die op de wachtlijst staat voor een sessie die over 3 uur begint heeft nog {{nbMinutesBeforeBookingOptionExpire}} minuten om de reservering te bevestigen voordat zij hun voorrangsplaats op de wachtlijst verliezen.",

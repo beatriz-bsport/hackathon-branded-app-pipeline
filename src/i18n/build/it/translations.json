@@ -11311,7 +11311,7 @@
             },
             "last_delay_before_auto_consume": {
                 "helper": "Se la sessione ha luogo troppo presto nel futuro, il membro non sarà registrato anche se ha una tessera del corso valida",
-                "label": "Autoregistrarsi solo se la sessione si svolge in meno di "
+                "label": "Autoregistrarsi solo se la sessione si svolge in più di "
             }
         },
         "switchToDisable": "Riattiva la lista di attesa",

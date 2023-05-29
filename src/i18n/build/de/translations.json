@@ -40,7 +40,7 @@
                 "label": "Die freigewordenen Plätze sind ausschließlich für Personen auf der Warteliste verfügbar."
             },
             "last_delay_before_auto_consume": {
-                "label": "Schließen Sie die automatische Buchung nur ab, wenn die Session in weniger als einer Woche stattfindet. ",
+                "label": "Schließen Sie die automatische Buchung nur ab, wenn die Session in mehr als ... stattfindet : ",
                 "helper": "Wenn die Session zu kurzfristig in der Zukunft stattfindet, wird das Mitglied nicht angemeldet, auch wenn es einen gültigen Kurspass besitzt"
             }
         },

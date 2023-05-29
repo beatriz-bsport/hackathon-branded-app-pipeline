@@ -15,8 +15,8 @@ const {
   EMAIL_RECIPIENT_BOUNCED,
 } = RECIPIENT_STATUS;
 const {
-  SEND_COMMUNICATION_ON_JOIN,
   SEND_COMMUNICATION_ON_LEFT,
+  SEND_COMMUNICATION_ON_JOIN,
 } = require('@bsport/common/lib/master-data/smart-list');
 
 const COMMUNICATION_FILTERS = require('@bsport/common/lib/master-data/communication-filters');
@@ -35,6 +35,10 @@ const {
   COMMUNICATION_SRC_OR_DST_SENT,
   COMMUNICATION_SRC_OR_DST_RECEIVED,
 } = COMMUNICATION_FILTERS;
+
+const {
+  ChatThreadKinds,
+} = require('@bsport/common/lib/master-data/communication-inbox');
 
 exports.default = {
   table: {
@@ -351,6 +355,19 @@ exports.default = {
       weeks: 'sem',
       year: '{{count}}\u00A0an',
       year_plural: '{{count}}\u00A0ans',
+    },
+    kind: {
+      [ChatThreadKinds.Member]: 'Membres',
+      [ChatThreadKinds.Smartlist]: 'Smartlists',
+      [ChatThreadKinds.Offer]: 'Séances',
+    },
+    search: 'Rechercher...',
+    filter: {
+      allThreads: 'Tous les messages',
+      hasNotBeenRead: 'Non-lus',
+      favorites: 'Favoris',
+      muted: 'Silencieux',
+      disabled: 'Archivés',
     },
   },
   generic: {

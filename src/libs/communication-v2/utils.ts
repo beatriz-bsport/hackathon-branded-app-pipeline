@@ -41,6 +41,11 @@ import {
   CAN_NOT_SEND_BECAUSE_MISSING_CONTENT,
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL,
   COMMUNICATION_FILTER_IDENTIFIER_SRC_OR_DST,
+  INBOX_ALL_MESSAGES,
+  INBOX_HAS_NOT_BEEN_READ_MESSAGES,
+  INBOX_FAVORITE_MESSAGES,
+  INBOX_MUTED_MESSAGES,
+  INBOX_DISABLED_MESSAGES,
 } from './constants';
 
 import {
@@ -649,3 +654,30 @@ export const getFormatedQueryParamsToFetchRecipientPaginatedList = (
 };
 
 // #endregion
+
+// Filtering for thread list
+
+export const choices = memoize((t: TFunction): SelectFieldItem[] => {
+  return [
+    {
+      value: INBOX_ALL_MESSAGES,
+      label: t('thread.filter.allThreads'),
+    },
+    {
+      value: INBOX_HAS_NOT_BEEN_READ_MESSAGES,
+      label: t('thread.filter.hasNotBeenRead'),
+    },
+    {
+      value: INBOX_FAVORITE_MESSAGES,
+      label: t('thread.filter.favorites'),
+    },
+    {
+      value: INBOX_MUTED_MESSAGES,
+      label: t('thread.filter.muted'),
+    },
+    {
+      value: INBOX_DISABLED_MESSAGES,
+      label: t('thread.filter.disabled'),
+    },
+  ];
+});

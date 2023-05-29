@@ -115,3 +115,13 @@ export const COMMUNICATION_KIND = {
   [COMMUNICATION_KIND_PUSH_NOTIFICATION]: 'push_notification',
   [COMMUNICATION_KIND_SMS]: 'sms',
 };
+
+// ----------INBOX THREADS------------
+
+// FILTERING
+
+export const INBOX_ALL_MESSAGES = 0;
+export const INBOX_HAS_NOT_BEEN_READ_MESSAGES = 1;
+export const INBOX_FAVORITE_MESSAGES = 2;
+export const INBOX_MUTED_MESSAGES = 3;
+export const INBOX_DISABLED_MESSAGES = 4;

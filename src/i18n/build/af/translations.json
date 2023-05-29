@@ -971,6 +971,15 @@
         "weeks": "sem",
         "year": "{{count}} an",
         "year_plural": "{{count}} ans"
+      },
+      "kind": { "member": "Membres", "smartlist": "Smartlists", "offer": "Séances" },
+      "search": "Rechercher...",
+      "filter": {
+        "allThreads": "Tous les messages",
+        "hasNotBeenRead": "Non-lus",
+        "favorites": "Favoris",
+        "muted": "Silencieux",
+        "disabled": "Archivés"
       }
     },
     "generic": { "communication": "Communication", "history": "Historique" },

@@ -114,7 +114,7 @@ export const EntryStepNodeElement: React.FC<EntryStepNodeElementProps> = ({
   );
 };
 
-export default EntryStepNodeElement;
+export default React.memo(EntryStepNodeElement);
 
 const useStyles = makeStyles((theme: Theme) => ({
   card: {

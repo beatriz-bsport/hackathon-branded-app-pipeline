@@ -18,4 +18,4 @@ export const ExitStepNodeElementFlowVersion: React.FC = () => {
   );
 };
 
-export default ExitStepNodeElementFlowVersion;
+export default React.memo(ExitStepNodeElementFlowVersion);

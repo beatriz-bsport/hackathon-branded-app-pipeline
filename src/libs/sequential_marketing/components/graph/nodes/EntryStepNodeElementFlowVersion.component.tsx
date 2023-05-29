@@ -42,4 +42,4 @@ export const EntryStepNodeElementFlowVersion: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default EntryStepNodeElementFlowVersion;
+export default React.memo(EntryStepNodeElementFlowVersion);

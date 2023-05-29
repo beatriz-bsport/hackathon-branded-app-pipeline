@@ -74,72 +74,72 @@ export type Props = {
   smartlistById: { [id: number]: SmartList };
 };
 
-export const CadenceConnectedTriggersCard: React.FC<Props> = React.memo(
-  ({ cadence, kind, onClick, disabled, smartlistById }) => {
-    const { t } = useTranslation('marketing');
-    const classes = useStyles();
+export const CadenceConnectedTriggersCard: React.FC<Props> = ({
+  cadence,
+  kind,
+  onClick,
+  disabled,
+  smartlistById,
+}) => {
+  const { t } = useTranslation('marketing');
+  const classes = useStyles();
 
-    const [triggers, setConnectedTriggers] = React.useState<ConnectedTrigger[]>(
-      [],
-    );
+  const [triggers, setConnectedTriggers] = React.useState<ConnectedTrigger[]>(
+    [],
+  );
 
-    React.useEffect(() => {
-      /* This particular component serves two purposes:
+  React.useEffect(() => {
+    /* This particular component serves two purposes:
         - Showcase the exits associated with success 
         - Showcase the exits associated with failure. 
       Consequently, depending on the type, we need to extract the relevant triggers 
       that correspond to exits representing either success or failure */
-      if (cadence && !disabled) {
-        setConnectedTriggers(
-          getCadenceWinOrLoseConnectedTriggers(cadence, kind),
-        );
-      }
-    }, [cadence, setConnectedTriggers, kind, disabled]);
-    return (
-      <ButtonBase onClick={onClick} disabled={disabled}>
-        <div className={classes.card}>
-          <div
-            className={classNames({ [classes.disabledOverLay]: disabled })}
-          />
-          <div className={classes.cardHeader}>
-            {kind === DestinationStatus.WIN ? (
-              <CheckCircleIcon className={classes.greenICon} />
-            ) : (
-              <CancelIcon className={classes.redIcon} />
-            )}
+    if (cadence && !disabled) {
+      setConnectedTriggers(getCadenceWinOrLoseConnectedTriggers(cadence, kind));
+    }
+  }, [cadence, setConnectedTriggers, kind, disabled]);
+  return (
+    <ButtonBase onClick={onClick} disabled={disabled}>
+      <div className={classes.card}>
+        <div className={classNames({ [classes.disabledOverLay]: disabled })} />
+        <div className={classes.cardHeader}>
+          {kind === DestinationStatus.WIN ? (
+            <CheckCircleIcon className={classes.greenICon} />
+          ) : (
+            <CancelIcon className={classes.redIcon} />
+          )}
 
-            {kind === DestinationStatus.FAIL ? (
-              <Typography variant="subtitle2">
-                {t('cadence.cadenceCard.win')}
-              </Typography>
-            ) : (
-              <Typography variant="subtitle2">
-                {t('cadence.cadenceCard.lost')}
-              </Typography>
-            )}
-          </div>
-          <div>
-            {triggers && triggers.length !== 0 && (
-              <div className={classNames(classes.flewAndWrap, 'shiftable')}>
-                {triggers.map((trigger) => (
-                  <TriggerChip
-                    key={`trigger_chip${trigger?.trigger_config?.uuid}`}
-                    connected_trigger_config={trigger}
-                    smartlist={
-                      smartlistById?.[trigger?.filtering_config?.smartlist_pk]
-                    }
-                  />
-                ))}
-              </div>
-            )}
-          </div>
+          {kind === DestinationStatus.FAIL ? (
+            <Typography variant="subtitle2">
+              {t('cadence.cadenceCard.win')}
+            </Typography>
+          ) : (
+            <Typography variant="subtitle2">
+              {t('cadence.cadenceCard.lost')}
+            </Typography>
+          )}
         </div>
-      </ButtonBase>
-    );
-  },
-);
+        <div>
+          {triggers && triggers.length !== 0 && (
+            <div className={classNames(classes.flewAndWrap, 'shiftable')}>
+              {triggers.map((trigger) => (
+                <TriggerChip
+                  key={`trigger_chip${trigger?.trigger_config?.uuid}`}
+                  connected_trigger_config={trigger}
+                  smartlist={
+                    smartlistById?.[trigger?.filtering_config?.smartlist_pk]
+                  }
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </ButtonBase>
+  );
+};
 
-export default CadenceConnectedTriggersCard;
+export default React.memo(CadenceConnectedTriggersCard);
 
 const useStyles = makeStyles((theme: Theme) => ({
   paddingRight1: {

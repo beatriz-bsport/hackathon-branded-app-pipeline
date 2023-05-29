@@ -61,7 +61,7 @@ export const ConnectedTriggerNodeElement: React.FC<
   );
 };
 
-export default ConnectedTriggerNodeElement;
+export default React.memo(ConnectedTriggerNodeElement);
 
 const useStyles = makeStyles((theme: Theme) => ({
   card: {

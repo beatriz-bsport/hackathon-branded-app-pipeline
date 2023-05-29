@@ -172,4 +172,4 @@ export const Flow: React.FC<Props> = ({
   );
 };
 
-export default Flow;
+export default React.memo(Flow);

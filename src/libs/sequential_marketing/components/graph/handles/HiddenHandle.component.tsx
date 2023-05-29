@@ -43,4 +43,4 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default HiddenHandle;
+export default React.memo(HiddenHandle);

@@ -33,4 +33,4 @@ export const StepNodeElementFlowVersion: React.FC<FlowProps> = ({ data }) => {
   );
 };
 
-export default StepNodeElementFlowVersion;
+export default React.memo(StepNodeElementFlowVersion);

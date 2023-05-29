@@ -88,7 +88,7 @@ export const ConnectedTriggerNodeElementFlowVersion: React.FC<{
   );
 };
 
-export default ConnectedTriggerNodeElementFlowVersion;
+export default React.memo(ConnectedTriggerNodeElementFlowVersion);
 
 const useFlowStyles = makeStyles(() => ({
   disabledOverLay: {

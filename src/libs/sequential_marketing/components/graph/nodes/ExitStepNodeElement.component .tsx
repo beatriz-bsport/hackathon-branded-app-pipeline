@@ -35,7 +35,7 @@ export const ExitStepNodeElement: React.FC = () => {
   );
 };
 
-export default ExitStepNodeElement;
+export default React.memo(ExitStepNodeElement);
 
 const useStyles = makeStyles((theme: Theme) => ({
   card: {

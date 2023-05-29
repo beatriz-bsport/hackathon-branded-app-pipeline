@@ -47,147 +47,145 @@ type Props = {
   ) => void;
 };
 
-export const CadenceList: React.FC<Props> = React.memo(
-  ({
-    cadences,
-    cadenceLoading,
-    onShow,
-    onEdit,
-    onDelete,
-    onRestore,
-    onClickItem,
-    archivedVersion,
-    selectedId,
-    updateCadencePriorityIndex,
-  }) => {
-    const { t } = useTranslation('marketing');
-    const classes = useStyles();
-    const [collapseOpen, setCollapseOpen] = React.useState(false);
+export const CadenceList: React.FC<Props> = ({
+  cadences,
+  cadenceLoading,
+  onShow,
+  onEdit,
+  onDelete,
+  onRestore,
+  onClickItem,
+  archivedVersion,
+  selectedId,
+  updateCadencePriorityIndex,
+}) => {
+  const { t } = useTranslation('marketing');
+  const classes = useStyles();
+  const [collapseOpen, setCollapseOpen] = React.useState(false);
 
-    const handleEditCadence = React.useCallback(
-      (cadence: Cadence) => onEdit(cadence),
-      [onEdit],
+  const handleEditCadence = React.useCallback(
+    (cadence: Cadence) => onEdit(cadence),
+    [onEdit],
+  );
+  const handleShowCadence = React.useCallback(
+    (cadence: Cadence) => onShow(cadence.id),
+    [onShow],
+  );
+  const handleDeleteCadence = React.useCallback(
+    (cadence: Cadence) => onDelete(cadence),
+    [onDelete],
+  );
+  const handleRestoreCadence = React.useCallback(
+    (cadence: Cadence) => onRestore(cadence.id),
+    [onRestore],
+  );
+  const handleClickItem = React.useCallback(
+    (cadence: Cadence) => onClickItem(cadence),
+    [onClickItem],
+  );
+  const handleSwitchCollapseState = React.useCallback(
+    () => setCollapseOpen(!collapseOpen),
+    [setCollapseOpen, collapseOpen],
+  );
+
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+
+  const cadenceSortableItems = React.useMemo(() => {
+    return [...(cadences || [])]?.filter(
+      (cadence) =>
+        !!cadence &&
+        !!cadence?.priority_index &&
+        typeof cadence?.priority_index === 'number',
     );
-    const handleShowCadence = React.useCallback(
-      (cadence: Cadence) => onShow(cadence.id),
-      [onShow],
-    );
-    const handleDeleteCadence = React.useCallback(
-      (cadence: Cadence) => onDelete(cadence),
-      [onDelete],
-    );
-    const handleRestoreCadence = React.useCallback(
-      (cadence: Cadence) => onRestore(cadence.id),
-      [onRestore],
-    );
-    const handleClickItem = React.useCallback(
-      (cadence: Cadence) => onClickItem(cadence),
-      [onClickItem],
-    );
-    const handleSwitchCollapseState = React.useCallback(
-      () => setCollapseOpen(!collapseOpen),
-      [setCollapseOpen, collapseOpen],
-    );
+  }, [cadences]);
 
-    const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+  const handleDragEnd = React.useCallback(
+    (e: DragEndEvent) => {
+      const { active, over } = e;
+      const activateCadenceId = active?.data.current?.cadence_id;
+      const overCadenceIndex = over?.id;
+      if (activateCadenceId && overCadenceIndex) {
+        updateCadencePriorityIndex(activateCadenceId, {
+          priority_index: parseInt(overCadenceIndex),
+        });
+      }
+    },
+    [updateCadencePriorityIndex],
+  );
 
-    const cadenceSortableItems = React.useMemo(() => {
-      return [...(cadences || [])]?.filter(
-        (cadence) =>
-          !!cadence &&
-          !!cadence?.priority_index &&
-          typeof cadence?.priority_index === 'number',
-      );
-    }, [cadences]);
-
-    const handleDragEnd = React.useCallback(
-      (e: DragEndEvent) => {
-        const { active, over } = e;
-        const activateCadenceId = active?.data.current?.cadence_id;
-        const overCadenceIndex = over?.id;
-        if (activateCadenceId && overCadenceIndex) {
-          updateCadencePriorityIndex(activateCadenceId, {
-            priority_index: parseInt(overCadenceIndex),
-          });
-        }
-      },
-      [updateCadencePriorityIndex],
-    );
-
-    if (cadenceLoading || !cadences) {
-      return (
-        <>
-          {(cadences?.map((item) => item?.id) || [1, 2, 3]).map((_idx) => (
-            <CadenceListItemLoading key={`cadence_item_loading${_idx}`} />
-          ))}
-        </>
-      );
-    }
-
-    if (archivedVersion) {
-      return (
-        <div className={classes.whiteSection}>
-          <ButtonBase
-            className={classes.buttonTitle}
-            onClick={handleSwitchCollapseState}
-          >
-            {collapseOpen ? <ExpandMoreIcon /> : <ExpandLessIcon />}
-            <Typography variant="h5" color="textSecondary">
-              {`${t('cadence.archive.archivedHeader')}${'\u00A0'}(${
-                cadences?.length || 0
-              })${'\u00A0'}`}
-            </Typography>
-          </ButtonBase>
-
-          <Collapse in={collapseOpen}>
-            <List>
-              {cadences.map((cadence) => (
-                <CadenceListItem
-                  key={`cadence_disabled${cadence.id}`}
-                  withoutIndex
-                  dense
-                  cadence={cadence}
-                  onRestore={onRestore && handleRestoreCadence}
-                />
-              ))}
-            </List>
-          </Collapse>
-        </div>
-      );
-    }
-
+  if (cadenceLoading || !cadences) {
     return (
-      <DndContext
-        sensors={sensors}
-        onDragEnd={handleDragEnd}
-        modifiers={[restrictToVerticalAxis]}
-      >
-        <List>
-          <SortableContext
-            items={cadenceSortableItems?.map((cadence) =>
-              cadence.priority_index?.toString(),
-            )}
-            strategy={verticalListSortingStrategy}
-          >
-            {cadenceSortableItems.map((cadence) => (
+      <>
+        {(cadences?.map((item) => item?.id) || [1, 2, 3]).map((_idx) => (
+          <CadenceListItemLoading key={`cadence_item_loading${_idx}`} />
+        ))}
+      </>
+    );
+  }
+
+  if (archivedVersion) {
+    return (
+      <div className={classes.whiteSection}>
+        <ButtonBase
+          className={classes.buttonTitle}
+          onClick={handleSwitchCollapseState}
+        >
+          {collapseOpen ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+          <Typography variant="h5" color="textSecondary">
+            {`${t('cadence.archive.archivedHeader')}${'\u00A0'}(${
+              cadences?.length || 0
+            })${'\u00A0'}`}
+          </Typography>
+        </ButtonBase>
+
+        <Collapse in={collapseOpen}>
+          <List>
+            {cadences.map((cadence) => (
               <CadenceListItem
-                sortable
-                key={`cadence_enabled${cadence.id}`}
+                key={`cadence_disabled${cadence.id}`}
+                withoutIndex
+                dense
                 cadence={cadence}
-                onClick={onClickItem && handleClickItem}
-                onShow={onShow && handleShowCadence}
-                onEdit={onEdit && handleEditCadence}
-                onDelete={onDelete && handleDeleteCadence}
                 onRestore={onRestore && handleRestoreCadence}
-                selectedId={selectedId}
               />
             ))}
-          </SortableContext>
-        </List>
-      </DndContext>
+          </List>
+        </Collapse>
+      </div>
     );
-  },
-);
+  }
+
+  return (
+    <DndContext
+      sensors={sensors}
+      onDragEnd={handleDragEnd}
+      modifiers={[restrictToVerticalAxis]}
+    >
+      <List>
+        <SortableContext
+          items={cadenceSortableItems?.map((cadence) =>
+            cadence.priority_index?.toString(),
+          )}
+          strategy={verticalListSortingStrategy}
+        >
+          {cadenceSortableItems.map((cadence) => (
+            <CadenceListItem
+              sortable
+              key={`cadence_enabled${cadence.id}`}
+              cadence={cadence}
+              onClick={onClickItem && handleClickItem}
+              onShow={onShow && handleShowCadence}
+              onEdit={onEdit && handleEditCadence}
+              onDelete={onDelete && handleDeleteCadence}
+              onRestore={onRestore && handleRestoreCadence}
+              selectedId={selectedId}
+            />
+          ))}
+        </SortableContext>
+      </List>
+    </DndContext>
+  );
+};
 
 const useStyles = makeStyles((theme: Theme) => ({
   buttonTitle: {
@@ -207,4 +205,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CadenceList;
+export default React.memo(CadenceList);

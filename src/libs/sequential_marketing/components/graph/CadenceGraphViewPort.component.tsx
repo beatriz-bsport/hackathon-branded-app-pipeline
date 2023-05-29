@@ -174,4 +174,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CadenceGraphViewPort;
+export default React.memo(CadenceGraphViewPort);

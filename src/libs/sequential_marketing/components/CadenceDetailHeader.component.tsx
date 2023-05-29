@@ -181,132 +181,128 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
   },
 );
 
-export const CadenceDetailHeader: React.FC<Props> = React.memo(
-  ({
-    cadence,
-    loading,
-    goBack,
-    onEdit,
-    onActivate,
-    onShutOff,
-    onEditWinParameters,
-    onEditLoseParameters,
-    cadenceEditMode,
-    switchCadenceEditMode,
-    cadenceMinimalConfigurationState,
-    smartlistById,
-  }) => {
-    const classes = useStyles();
+export const CadenceDetailHeader: React.FC<Props> = ({
+  cadence,
+  loading,
+  goBack,
+  onEdit,
+  onActivate,
+  onShutOff,
+  onEditWinParameters,
+  onEditLoseParameters,
+  cadenceEditMode,
+  switchCadenceEditMode,
+  cadenceMinimalConfigurationState,
+  smartlistById,
+}) => {
+  const classes = useStyles();
 
-    const [openEditDialog, setOpenEditDialog] = React.useState(false);
-    const [openActivateDialog, setOpenActivateDialog] = React.useState(false);
+  const [openEditDialog, setOpenEditDialog] = React.useState(false);
+  const [openActivateDialog, setOpenActivateDialog] = React.useState(false);
 
-    const handleEditWinParameters = React.useCallback(
-      () => onEditWinParameters(),
-      [onEditWinParameters],
-    );
+  const handleEditWinParameters = React.useCallback(
+    () => onEditWinParameters(),
+    [onEditWinParameters],
+  );
 
-    const handleEditLoseParameters = React.useCallback(
-      () => onEditLoseParameters(),
-      [onEditLoseParameters],
-    );
+  const handleEditLoseParameters = React.useCallback(
+    () => onEditLoseParameters(),
+    [onEditLoseParameters],
+  );
 
-    const handleCloseEditForm = () => setOpenEditDialog(false);
-    const handleCloseActivateDialog = () => setOpenActivateDialog(false);
+  const handleCloseEditForm = () => setOpenEditDialog(false);
+  const handleCloseActivateDialog = () => setOpenActivateDialog(false);
 
-    const handleEdit = React.useCallback(
-      (data: { name: string }, options: OptionCallback) =>
-        onEdit(data, {
-          onSuccess: () => {
-            options.onSuccess && options.onSuccess();
-            setOpenEditDialog(false);
-          },
-          onError() {
-            options.onError && options.onError();
-          },
-        }),
-      [onEdit],
-    );
+  const handleEdit = React.useCallback(
+    (data: { name: string }, options: OptionCallback) =>
+      onEdit(data, {
+        onSuccess: () => {
+          options.onSuccess && options.onSuccess();
+          setOpenEditDialog(false);
+        },
+        onError() {
+          options.onError && options.onError();
+        },
+      }),
+    [onEdit],
+  );
 
-    const handleActivate = React.useCallback(() => {
-      onActivate({
-        onSuccess: () => setOpenActivateDialog(false),
-        onError: () => setOpenActivateDialog(false),
-      });
-    }, [onActivate]);
+  const handleActivate = React.useCallback(() => {
+    onActivate({
+      onSuccess: () => setOpenActivateDialog(false),
+      onError: () => setOpenActivateDialog(false),
+    });
+  }, [onActivate]);
 
-    if (loading || !cadence) {
-      return (
-        <div className={classes.centerVerticalContent}>
-          <div className={classes.flexContent}>
-            <div className={classes.leftInnerContainer}>
-              <CircularProgress size={40} />
-            </div>
+  if (loading || !cadence) {
+    return (
+      <div className={classes.centerVerticalContent}>
+        <div className={classes.flexContent}>
+          <div className={classes.leftInnerContainer}>
+            <CircularProgress size={40} />
           </div>
         </div>
-      );
-    }
+      </div>
+    );
+  }
 
-    return (
-      <>
-        <div className={classes.centerVerticalContent}>
-          <div className={classes.flexContent}>
-            <CadenceDetailHeaderActions
+  return (
+    <>
+      <div className={classes.centerVerticalContent}>
+        <div className={classes.flexContent}>
+          <CadenceDetailHeaderActions
+            cadence={cadence}
+            goBack={goBack}
+            loading={loading}
+            cadenceEditMode={cadenceEditMode}
+            setOpenEditDialog={setOpenEditDialog}
+            setOpenActivateDialog={setOpenActivateDialog}
+            onShutOff={onShutOff}
+            switchCadenceEditMode={switchCadenceEditMode}
+            cadenceMinimalConfigurationState={cadenceMinimalConfigurationState}
+          />
+          <div className={classes.triggerCards}>
+            <CadenceConnectedTriggersCard
+              kind={DestinationStatus.WIN}
               cadence={cadence}
-              goBack={goBack}
-              loading={loading}
-              cadenceEditMode={cadenceEditMode}
-              setOpenEditDialog={setOpenEditDialog}
-              setOpenActivateDialog={setOpenActivateDialog}
-              onShutOff={onShutOff}
-              switchCadenceEditMode={switchCadenceEditMode}
-              cadenceMinimalConfigurationState={
-                cadenceMinimalConfigurationState
-              }
+              onClick={handleEditWinParameters}
+              disabled={!cadenceEditMode}
+              smartlistById={smartlistById}
             />
-            <div className={classes.triggerCards}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
               <CadenceConnectedTriggersCard
-                kind={DestinationStatus.WIN}
+                kind={DestinationStatus.FAIL}
                 cadence={cadence}
-                onClick={handleEditWinParameters}
+                onClick={handleEditLoseParameters}
                 disabled={!cadenceEditMode}
                 smartlistById={smartlistById}
               />
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                <CadenceConnectedTriggersCard
-                  kind={DestinationStatus.FAIL}
-                  cadence={cadence}
-                  onClick={handleEditLoseParameters}
-                  disabled={!cadenceEditMode}
-                  smartlistById={smartlistById}
-                />
-              </div>
             </div>
           </div>
         </div>
-        {openEditDialog && !loading && (
-          <CadenceCreateAndUpdateForm
-            initial={cadence}
-            open
-            onSubmit={handleEdit}
-            onCancel={handleCloseEditForm}
-            loading={false}
-          />
-        )}
-        <CadenceActivateDialog
-          open={openActivateDialog}
-          onCancel={handleCloseActivateDialog}
-          onConfirm={handleActivate}
+      </div>
+      {openEditDialog && !loading && (
+        <CadenceCreateAndUpdateForm
+          initial={cadence}
+          open
+          onSubmit={handleEdit}
+          onCancel={handleCloseEditForm}
+          loading={false}
         />
-      </>
-    );
-  },
-);
+      )}
+      <CadenceActivateDialog
+        open={openActivateDialog}
+        onCancel={handleCloseActivateDialog}
+        onConfirm={handleActivate}
+      />
+    </>
+  );
+};
 
 const useStyles = makeStyles((theme: Theme) => ({
   centerVerticalContent: {
@@ -356,4 +352,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CadenceDetailHeader;
+export default React.memo(CadenceDetailHeader);

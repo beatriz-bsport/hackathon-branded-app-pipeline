@@ -68,7 +68,7 @@ export const StepNodeElement: React.FC<StepNodeElementProps> = ({
   );
 };
 
-export default StepNodeElement;
+export default React.memo(StepNodeElement);
 
 const useStyles = makeStyles((theme: Theme) => ({
   card: {

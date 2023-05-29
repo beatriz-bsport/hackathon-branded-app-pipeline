@@ -32,126 +32,124 @@ type Props = {
   selectedId?: number;
 };
 
-export const CadenceListItem: React.FC<Props> = React.memo(
-  ({
-    cadence,
-    sortable,
-    withoutIndex,
-    onShow,
-    onDelete,
-    onEdit,
-    onRestore,
-    onClick,
-    dense,
-    selectedId,
-  }) => {
-    const classes = useListItemStyles();
-    const { listeners, attributes, setNodeRef, transform, transition } =
-      useSortable({
-        id: cadence.priority_index?.toString(10),
-        data: {
-          cadence_id: cadence.id,
-        },
-      });
-
-    const handleClick = React.useCallback(
-      () => onClick && onClick(cadence),
-      [cadence, onClick],
-    );
-
-    const handleShow = React.useCallback(
-      (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.stopPropagation();
-        onShow(cadence);
+export const CadenceListItem: React.FC<Props> = ({
+  cadence,
+  sortable,
+  withoutIndex,
+  onShow,
+  onDelete,
+  onEdit,
+  onRestore,
+  onClick,
+  dense,
+  selectedId,
+}) => {
+  const classes = useListItemStyles();
+  const { listeners, attributes, setNodeRef, transform, transition } =
+    useSortable({
+      id: cadence.priority_index?.toString(10),
+      data: {
+        cadence_id: cadence.id,
       },
-      [onShow, cadence],
-    );
+    });
 
-    const handleEdit = React.useCallback(
-      (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.stopPropagation();
-        onEdit(cadence);
-      },
-      [onEdit, cadence],
-    );
+  const handleClick = React.useCallback(
+    () => onClick && onClick(cadence),
+    [cadence, onClick],
+  );
 
-    const handleDelete = React.useCallback(
-      (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.stopPropagation();
-        onDelete(cadence);
-      },
-      [onDelete, cadence],
-    );
+  const handleShow = React.useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.stopPropagation();
+      onShow(cadence);
+    },
+    [onShow, cadence],
+  );
 
-    const handleRestore = React.useCallback(
-      (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.stopPropagation();
-        onRestore(cadence);
-      },
-      [onRestore, cadence],
-    );
+  const handleEdit = React.useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.stopPropagation();
+      onEdit(cadence);
+    },
+    [onEdit, cadence],
+  );
 
-    return (
-      <div
-        ref={setNodeRef}
-        style={{ transform: CSS.Translate.toString(transform), transition }}
-        className={classNames(classes.fullWidth, {
-          [classes.spacedItems]: !dense,
-        })}
+  const handleDelete = React.useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.stopPropagation();
+      onDelete(cadence);
+    },
+    [onDelete, cadence],
+  );
+
+  const handleRestore = React.useCallback(
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.stopPropagation();
+      onRestore(cadence);
+    },
+    [onRestore, cadence],
+  );
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={{ transform: CSS.Translate.toString(transform), transition }}
+      className={classNames(classes.fullWidth, {
+        [classes.spacedItems]: !dense,
+      })}
+    >
+      <ListItem
+        // @ts-expect-error : Still the same error coming from MUI where buttun is typped as false
+        button={!!onClick}
+        selected={cadence?.id === selectedId}
+        classes={{ root: classes.listItemOutter }}
+        onClick={handleClick}
       >
-        <ListItem
-          // @ts-expect-error : Still the same error coming from MUI where buttun is typped as false
-          button={!!onClick}
-          selected={cadence?.id === selectedId}
-          classes={{ root: classes.listItemOutter }}
-          onClick={handleClick}
-        >
-          {sortable && (
-            <IconButton {...listeners} {...attributes} style={{ zIndex: 999 }}>
-              <DragIndicatorIcon />
+        {sortable && (
+          <IconButton {...listeners} {...attributes} style={{ zIndex: 999 }}>
+            <DragIndicatorIcon />
+          </IconButton>
+        )}
+        <div className={classes.leftItem}>
+          {!withoutIndex && (
+            <div className={classes.indexContainer}>
+              <Typography color="primary" variant="h6">
+                {cadence.priority_index}
+              </Typography>
+            </div>
+          )}
+          <Typography variant="body1" color="textSecondary">
+            {cadence.name}
+          </Typography>
+        </div>
+        <div className={classes.listItemAction}>
+          {onShow && (
+            <IconButton onClick={handleShow}>
+              <VisibilityIcon />
             </IconButton>
           )}
-          <div className={classes.leftItem}>
-            {!withoutIndex && (
-              <div className={classes.indexContainer}>
-                <Typography color="primary" variant="h6">
-                  {cadence.priority_index}
-                </Typography>
-              </div>
-            )}
-            <Typography variant="body1" color="textSecondary">
-              {cadence.name}
-            </Typography>
-          </div>
-          <div className={classes.listItemAction}>
-            {onShow && (
-              <IconButton onClick={handleShow}>
-                <VisibilityIcon />
-              </IconButton>
-            )}
-            {onEdit && (
-              <IconButton onClick={handleEdit}>
-                <EditIcon />
-              </IconButton>
-            )}
-            {onDelete && (
-              <IconButton onClick={handleDelete}>
-                <DeleteIcon />
-              </IconButton>
-            )}
-            {onRestore && (
-              <IconButton onClick={handleRestore}>
-                <RestoreFromTrashIcon />
-              </IconButton>
-            )}
-          </div>
-        </ListItem>
-      </div>
-    );
-  },
-);
+          {onEdit && (
+            <IconButton onClick={handleEdit}>
+              <EditIcon />
+            </IconButton>
+          )}
+          {onDelete && (
+            <IconButton onClick={handleDelete}>
+              <DeleteIcon />
+            </IconButton>
+          )}
+          {onRestore && (
+            <IconButton onClick={handleRestore}>
+              <RestoreFromTrashIcon />
+            </IconButton>
+          )}
+        </div>
+      </ListItem>
+    </div>
+  );
+};
 
-export default CadenceListItem;
+export default React.memo(CadenceListItem);
 
 const useListItemStyles = makeStyles((theme: Theme) => ({
   fullWidth: {

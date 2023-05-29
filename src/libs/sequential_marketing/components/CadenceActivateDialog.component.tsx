@@ -17,45 +17,47 @@ type Props = {
   onConfirm: () => void;
 };
 
-export const CadenceActivateDialog: React.FC<Props> = React.memo(
-  ({ open, onCancel, onConfirm }) => {
-    const { t } = useTranslation('marketing');
-    const classes = useStyles();
+export const CadenceActivateDialog: React.FC<Props> = ({
+  open,
+  onCancel,
+  onConfirm,
+}) => {
+  const { t } = useTranslation('marketing');
+  const classes = useStyles();
 
-    return (
-      <GenericResponsiveDialog open={open} maxWidth="xs">
-        <div className={classes.container}>
-          <div className={classes.paddingBottom}>
-            <div className={classes.largeIconContainer}>
-              <PlayArrowIcon className={classes.largeIcon} />
-            </div>
-          </div>
-          <Typography variant="h6" className={classes.paddingBottom}>
-            {t('cadence.activate.dialog.title')}
-          </Typography>
-          <Typography variant="body1" align="center">
-            {t('cadence.activate.dialog.firstHelper')}
-          </Typography>
-          <Typography
-            variant="body1"
-            align="center"
-            className={classes.paddingBottom}
-          >
-            {t('cadence.activate.dialog.secondHelper')}
-          </Typography>
-          <div className={classes.actions}>
-            <Button onClick={onCancel} variant="text">
-              {t('cadence.activate.dialog.cancel')}
-            </Button>
-            <Button onClick={onConfirm} variant="contained" color="primary">
-              {t('cadence.activate.button')}
-            </Button>
+  return (
+    <GenericResponsiveDialog open={open} maxWidth="xs">
+      <div className={classes.container}>
+        <div className={classes.paddingBottom}>
+          <div className={classes.largeIconContainer}>
+            <PlayArrowIcon className={classes.largeIcon} />
           </div>
         </div>
-      </GenericResponsiveDialog>
-    );
-  },
-);
+        <Typography variant="h6" className={classes.paddingBottom}>
+          {t('cadence.activate.dialog.title')}
+        </Typography>
+        <Typography variant="body1" align="center">
+          {t('cadence.activate.dialog.firstHelper')}
+        </Typography>
+        <Typography
+          variant="body1"
+          align="center"
+          className={classes.paddingBottom}
+        >
+          {t('cadence.activate.dialog.secondHelper')}
+        </Typography>
+        <div className={classes.actions}>
+          <Button onClick={onCancel} variant="text">
+            {t('cadence.activate.dialog.cancel')}
+          </Button>
+          <Button onClick={onConfirm} variant="contained" color="primary">
+            {t('cadence.activate.button')}
+          </Button>
+        </div>
+      </div>
+    </GenericResponsiveDialog>
+  );
+};
 
 const useStyles = makeStyles((theme: Theme) => ({
   paddingBottom: {
@@ -88,4 +90,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CadenceActivateDialog;
+export default React.memo(CadenceActivateDialog);

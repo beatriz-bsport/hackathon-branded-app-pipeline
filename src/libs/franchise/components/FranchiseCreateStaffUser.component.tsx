@@ -1,8 +1,8 @@
 // @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
+import InfoIcon from '@material-ui/icons/Info';
 import Alert from '@material-ui/lab/Alert/Alert';
-
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -10,7 +10,7 @@ import { createStyles, Theme } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { Divider } from '@material-ui/core';
+import { Divider, Typography } from '@material-ui/core';
 import classNames from 'classnames';
 import { Actions, Submit } from '#components/forms';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
@@ -26,7 +26,6 @@ import { MaterialStyleType } from '../../../utils/types';
 import { OWNER_ROLE, ADMIN_ROLE } from '#libs/role/role-types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { Company } from '#libs/company/types';
-import InfoBox from '#components/box/InfoBox.component';
 
 export type OwnProps = {
   franchiseeList: Array<Company>;
@@ -169,9 +168,10 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
         >
           <div className={classes.container}>
             <div className={classes.infoText}>
-              <Alert severity="info" className={classes.alertInfo}>
+              <InfoIcon className={classes.icon} />
+              <Typography variant="h6">
                 {t('forms.user.create.generalInfo.title')}
-              </Alert>
+              </Typography>
             </div>
             <div className={classes.firstRow}>
               <TextField
@@ -238,9 +238,10 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
             />
             <Divider className={classes.divider} />
             <div className={classes.infoText}>
-              <Alert severity="info" className={classes.alertInfo}>
+              <InfoIcon className={classes.icon} />
+              <Typography variant="h6">
                 {t('forms.user.create.role.title')}
-              </Alert>
+              </Typography>
             </div>
             <div className={classes.field}>
               <MaterialUISelector
@@ -258,14 +259,14 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
 
             <Divider className={classes.divider} />
             <div className={classes.infoText}>
-              <Alert severity="info" className={classes.alertInfo}>
+              <InfoIcon className={classes.icon} />
+              <Typography variant="h6">
                 {t('forms.user.create.franchisees.title')}
-              </Alert>
+              </Typography>
             </div>
-            <InfoBox
-              content={t('forms.user.create.franchisees.warning')}
-              className={classes.infoBox}
-            />
+            <Alert severity="info" className={classes.alertInfo}>
+              {t('forms.user.create.franchisees.warning')}
+            </Alert>
             <div className={classNames(classes.field, classes.expandForm)}>
               <MaterialUISelector
                 placeholder={
@@ -332,9 +333,6 @@ const styles = (theme: Theme) =>
     },
     icon: {
       color: '#868686',
-    },
-    infoBox: {
-      marginBottom: theme.spacing(2),
     },
     firstRow: {
       display: 'flex',

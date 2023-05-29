@@ -13,7 +13,7 @@ import Alert from '@material-ui/lab/Alert';
 import CancelIcon from '@material-ui/icons/Cancel';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
-
+import InfoIcon from '@material-ui/icons/Info';
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
 import pick from 'lodash/pick';
@@ -119,9 +119,10 @@ export function MetaActivityForm(props: Props) {
       </div>
       <div className={classes.container}>
         <div className={classes.headerWithIcon}>
-          <Alert severity="info" color="grey" className={classes.alertInfo}>
-            {t('activity.generalInfo')}
-          </Alert>
+          <InfoIcon
+            className={classnames(classes.leftIcon, classes.greyIcon)}
+          />
+          <Typography variant="h6">{t('activity.generalInfo')}</Typography>
         </div>
         <TextField
           id="textfield_activity_title"

@@ -377,3 +377,12 @@ export type OfferEdit = Omit<
   credits?: number;
   additional_coaches: number[];
 };
+
+export enum MarketplaceOfferStatus {
+  BOOKED = 0,
+  SOON = 1,
+  BOOKABLE = 2,
+  WAITING_LIST = 3,
+  CANCELLED = 4,
+  COMPLETED = 5,
+}

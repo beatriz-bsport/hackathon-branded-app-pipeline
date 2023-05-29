@@ -294,6 +294,11 @@ exports.default = {
       },
       showFreeSessionLabel:
         'Indiquer les sessions à 0 crédit avec le label GRATUIT',
+      hideBookButton: {
+        switchLabel: 'Cacher le bouton "{{-bookButtonTranslation}}"',
+        dialogDescription:
+          'En cachant le bouton "{{-bookButtonTranslation}}", la carte devient cliquable pour réserver la séance.',
+      },
     },
     cover: {
       label: 'Logo',

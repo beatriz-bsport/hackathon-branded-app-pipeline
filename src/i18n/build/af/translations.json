@@ -10594,7 +10594,11 @@
           "threeLetters": "3 lettres",
           "oneLetter": "1 lettre"
         },
-        "showFreeSessionLabel": "Indiquer les sessions à 0 crédit avec le label GRATUIT"
+        "showFreeSessionLabel": "Indiquer les sessions à 0 crédit avec le label GRATUIT",
+        "hideBookButton": {
+          "switchLabel": "Cacher le bouton \"{{-bookButtonTranslation}}\"",
+          "dialogDescription": "En cachant le bouton \"{{-bookButtonTranslation}}\", la carte devient cliquable pour réserver la séance."
+        }
       },
       "cover": { "label": "Logo", "helperText": "Privilégiez les png avec fond transparent" },
       "primary_color": { "label": "Couleur principale", "helperText": "Privilégiez une couleur, évitez le monochrome" },
@@ -11716,7 +11720,14 @@
         "isPast": "Passée",
         "notBookableYet": "Bientôt",
         "alreadyRegistered": "Réservée",
-        "full": "Complet"
+        "full": "Complet",
+        "popOverTitle": {
+          "bookOption": "La séance est complète, une liste d’attente est disponible.",
+          "notAvailable": "La séance a été annulée",
+          "notBookableYet": "La séance n’est pas encore ouverte aux réservations.",
+          "alreadyRegistered": "Vous avez déjà réservé cette séance.",
+          "isPast": "Les réservations sont closes"
+        }
       },
       "sessionThisDay": "Séance ce jour :",
       "calendar": "Calendrier",

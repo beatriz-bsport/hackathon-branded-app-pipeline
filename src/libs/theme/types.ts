@@ -106,6 +106,7 @@ export type Theme = {
   is_auto_debit_activated: boolean;
   show_free_session_label: boolean;
   hide_credits_for_customers: boolean;
+  hide_book_button: boolean;
 };
 
 export type ThemeState = {

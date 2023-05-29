@@ -1091,6 +1091,14 @@ exports.default = {
       notBookableYet: 'Bientôt',
       alreadyRegistered: 'Réservée',
       full: 'Complet',
+      popOverTitle: {
+        bookOption:
+          'La séance est complète, une liste d’attente est disponible.',
+        notAvailable: 'La séance a été annulée',
+        notBookableYet: 'La séance n’est pas encore ouverte aux réservations.',
+        alreadyRegistered: 'Vous avez déjà réservé cette séance.',
+        isPast: 'Les réservations sont closes',
+      },
     },
     sessionThisDay: 'Séance ce jour :',
     calendar: 'Calendrier',

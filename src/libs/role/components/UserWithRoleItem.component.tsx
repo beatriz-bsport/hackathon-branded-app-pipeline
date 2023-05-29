@@ -190,6 +190,8 @@ class UserWithRoleItem extends React.Component<Props, State> {
       }
     };
 
+    const isRelatedToFranchisor = !!this.props.user.franchise_user;
+
     return (
       <div className={classes.roleFieldContainer}>
         <div className={classes.userRoleFieldContainer}>
@@ -229,7 +231,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
               castAsNumber
               label={t('forms.user.commissionHeader')}
               className={classes.roleField}
-              disabled={!hasOwnerPermission}
+              disabled={!hasOwnerPermission || isRelatedToFranchisor}
               value={this.state.commission}
               InputProps={{
                 inputProps: { min: 0, max: 100, step: 1 },

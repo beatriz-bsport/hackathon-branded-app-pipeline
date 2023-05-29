@@ -369,6 +369,7 @@ exports.default = {
       muted: 'Silencieux',
       disabled: 'Archivés',
     },
+    loadMoreThreads: 'Charger plus de messages',
   },
   generic: {
     communication: 'Communication',

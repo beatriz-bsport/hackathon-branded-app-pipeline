@@ -13,9 +13,9 @@ import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 import { CommunicationThread } from '#libs/communication-v2/types';
-import ThreadMenu from '#libs/communication-v2/thread/InboxThreadListItem/ThreadMenu';
-import ThreadAvatar from '#libs/communication-v2/thread/InboxThreadListItem/ThreadAvatar';
-import ThreadItemSkeleton from './ThreadItemSkeleton';
+import ThreadMenu from '#libs/communication-v2/thread/InboxThreadListItem/ThreadMenu.component';
+import ThreadAvatar from '#libs/communication-v2/thread/InboxThreadListItem/ThreadAvatar.component';
+import ThreadItemSkeleton from './ThreadItemSkeleton.component';
 
 export type Props = {
   thread: CommunicationThread;
@@ -25,6 +25,7 @@ export type Props = {
   switchDisabledStatus: () => void;
   markAsUnread: () => void;
   isSelected: boolean;
+  onClick?: () => void;
 };
 
 const InboxThreadListItem: React.FC<Props> = ({
@@ -35,6 +36,7 @@ const InboxThreadListItem: React.FC<Props> = ({
   switchDisabledStatus,
   markAsUnread,
   isSelected,
+  onClick,
 }) => {
   const {
     name,
@@ -54,9 +56,13 @@ const InboxThreadListItem: React.FC<Props> = ({
 
   const classes = useStyles();
 
-  const handleClick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
-    event.preventDefault();
-  }, []);
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      onClick?.();
+    },
+    [onClick],
+  );
 
   const displayRelativeTimeDelta = useCallback(
     (date: string) => {
@@ -186,7 +192,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     border: '1px solid #E1E1E1',
     height: theme.spacing(10),
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(1),
+    },
     '&$selected': {
       backgroundColor: theme.palette.primary.main,
     },
@@ -236,6 +245,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   threadStatus: {
     visibility: 'visible',
+    display: 'flex',
+    flexDirection: 'row',
   },
   textContent: {
     display: '-webkit-box',

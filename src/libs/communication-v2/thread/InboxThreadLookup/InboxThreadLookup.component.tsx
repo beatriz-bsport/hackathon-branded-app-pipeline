@@ -9,7 +9,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { useTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import DelayedTextField from '#components/DelayedTextField.component';
-import InboxThreadContextSelector from '#libs/communication-v2/thread/InboxThreadLookup/InboxThreadContextSelector';
+import InboxThreadContextSelector from '#libs/communication-v2/thread/InboxThreadLookup/InboxThreadContextSelector.component';
 import { choices } from '#libs/communication-v2/utils';
 import { SelectFieldItem } from '#libs/communication-v2/types';
 
@@ -24,7 +24,7 @@ type selectorStateType = {
 export type Props = {
   searchThread: (e: React.ChangeEvent<HTMLInputElement>) => void;
   filterValue: SelectFieldItem;
-  filterValueSetter: (value: SelectFieldItem) => void;
+  handleFilterChange: (value: SelectFieldItem) => void;
   fetchMemberThreads: () => void;
   fetchSmartlistThreads: () => void;
   fetchOfferThreads: () => void;
@@ -36,7 +36,7 @@ export type Props = {
 const InboxThreadLookup: React.FC<Props> = ({
   searchThread,
   filterValue,
-  filterValueSetter,
+  handleFilterChange,
   fetchMemberThreads,
   fetchSmartlistThreads,
   fetchOfferThreads,
@@ -49,7 +49,7 @@ const InboxThreadLookup: React.FC<Props> = ({
   const classes = useStyles();
 
   return (
-    <div className={classes.container}>
+    <>
       <InboxThreadContextSelector
         fetchMemberThreads={fetchMemberThreads}
         fetchSmartlistThreads={fetchSmartlistThreads}
@@ -87,10 +87,10 @@ const InboxThreadLookup: React.FC<Props> = ({
           options={choices(t)}
           value={filterValue}
           styles={{ ...selectorStyles }}
-          onChange={filterValueSetter}
+          onChange={handleFilterChange}
         />
       </div>
-    </div>
+    </>
   );
 };
 
@@ -125,12 +125,6 @@ const selectorStyles: selectorStyle = {
 };
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    padding: theme.spacing(2),
-    [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(1),
-    },
-  },
   searchThread: {
     display: 'flex',
     flexDirection: 'row',
@@ -142,7 +136,7 @@ const useStyles = makeStyles((theme) => ({
   },
   secondGroup: {
     paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
+    paddingBottom: theme.spacing(4),
   },
   newThread: {
     color: theme.palette.common.black,

@@ -980,7 +980,8 @@
         "favorites": "Favoris",
         "muted": "Silencieux",
         "disabled": "Archivés"
-      }
+      },
+      "loadMoreThreads": "Charger plus de messages"
     },
     "generic": { "communication": "Communication", "history": "Historique" },
     "forms": {

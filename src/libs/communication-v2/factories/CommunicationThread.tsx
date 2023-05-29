@@ -22,7 +22,7 @@ function randomBoolean(): boolean {
   return Math.random() > 0.5;
 }
 
-function randomInt(max: number): number {
+export function randomInt(max: number): number {
   return Math.floor(Math.random() * max);
 }
 
@@ -72,9 +72,9 @@ function randomDate(): string {
   return `${y}-${mm}-${dd} ${HH}:${MM}`;
 }
 
-export function MemberThread(): CommunicationThread {
+export function MemberThread(index?: number): CommunicationThread {
   return {
-    id: randomInt(1000),
+    id: index || randomInt(1000),
     name: fakerName(),
     cover: MEMBER_DEFAULT_PHOTOS[randomInt(2)],
     lastCommunicationDate: randomDate(),
@@ -87,6 +87,18 @@ export function MemberThread(): CommunicationThread {
     relatedObjectId: undefined,
     numberOfUnreadAnswers: randomInt(15),
   };
+}
+
+function MemberThreadList(length: number): CommunicationThread[] {
+  const threadList = [];
+  for (let i = 0; i < length; i += 1) {
+    threadList.push(MemberThread());
+  }
+  return threadList;
+}
+
+function MemberThreadBatch(): CommunicationThread[] {
+  return MemberThreadList(15);
 }
 
 export function OfferThread(): CommunicationThread {
@@ -107,6 +119,18 @@ export function OfferThread(): CommunicationThread {
   };
 }
 
+function OfferThreadList(length: number): CommunicationThread[] {
+  const threadList = [];
+  for (let i = 0; i < length; i += 1) {
+    threadList.push(OfferThread());
+  }
+  return threadList;
+}
+
+function OfferThreadBatch(): CommunicationThread[] {
+  return OfferThreadList(15);
+}
+
 export function SmartListThread(): CommunicationThread {
   return {
     id: randomInt(1000),
@@ -121,4 +145,25 @@ export function SmartListThread(): CommunicationThread {
     relatedObjectId: undefined,
     numberOfUnreadAnswers: randomInt(15),
   };
+}
+
+function SmartlistThreadList(length: number): CommunicationThread[] {
+  const threadList = [];
+  for (let i = 0; i < length; i += 1) {
+    threadList.push(SmartListThread());
+  }
+  return threadList;
+}
+
+function SmartlistThreadBatch(): CommunicationThread[] {
+  return SmartlistThreadList(15);
+}
+
+export function RandomThreadBatch(): CommunicationThread[] {
+  const threadBatches = [
+    MemberThreadBatch(),
+    SmartlistThreadBatch(),
+    OfferThreadBatch(),
+  ];
+  return threadBatches[randomInt(threadBatches.length)];
 }

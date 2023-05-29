@@ -89,6 +89,7 @@ interface FormikValues {
   coach_display: MarketPlaceCoachDisplay;
   days_format_display: MarketPlaceDaysFormatDisplay;
   show_free_session_label: boolean;
+  hide_book_button: boolean;
 }
 type Props = {
   theme: CompanyTheme;
@@ -630,6 +631,10 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             name="show_free_session_label"
             label={t('forms.themePersonalization.showFreeSessionLabel')}
           />
+          <SwitchField
+            name="hide_book_button"
+            label={t('forms.themePersonalization.hideBookButton.switchLabel')}
+          />
           <div className={classes.selector}>
             <InputLabel shrink>
               {t('forms.themePersonalization.sessionDatesDisplayOptions.label')}
@@ -1004,6 +1009,7 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
   coach_display: Yup.number().required(),
   days_format_display: Yup.number().required(),
   show_free_session_label: Yup.boolean().required(),
+  hide_book_button: Yup.boolean().required(),
 });
 
 const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
@@ -1093,6 +1099,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         coach_display: theme.coach_display,
         days_format_display: theme.days_format_display,
         show_free_session_label: theme.show_free_session_label,
+        hide_book_button: theme.hide_book_button,
       };
     }
     return {
@@ -1133,6 +1140,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       coach_display: MarketPlaceCoachDisplay.DEFAULT,
       days_format_display: MarketPlaceDaysFormatDisplay.DEFAULT,
       show_free_session_label: false,
+      hide_book_button: false,
     };
   },
   validationSchema: ThemePersonalizeFormSchema,
@@ -1175,6 +1183,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'coach_display',
       'days_format_display',
       'show_free_session_label',
+      'hide_book_button',
     ];
     keys.forEach((key) => {
       if (key === 'show_studio_on_general_app') {

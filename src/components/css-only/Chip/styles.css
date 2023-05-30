@@ -1,0 +1,11 @@
+.bs-chip {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  padding: 3px 4px 3px 4px;
+  gap: 6px;
+}
+
+.bs-chip-icon {
+  display: flex;
+}

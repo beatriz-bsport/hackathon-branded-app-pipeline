@@ -2000,6 +2000,19 @@
                 "removeFavorite": "Favorieten verwijderen",
                 "addToFavorite": "Toevoegen aan favorieten",
                 "markAsRead": "Markeer als ongelezen"
+            },
+            "kind": {
+                "member": "Leden",
+                "smartlist": "Smartlists",
+                "offer": "Sessies"
+            },
+            "search": "Zoeken...",
+            "filter": {
+                "allThreads": "Alle berichten",
+                "hasNotBeenRead": "Ongelezen",
+                "favorites": "Favorieten",
+                "muted": "Demper",
+                "disabled": "Gearchiveerd"
             }
         },
         "sentStatus": {
@@ -2013,6 +2026,20 @@
             },
             "submit": "Bewaar",
             "title": "Chat-instellingen"
+        },
+        "smartListPopup": {
+            "noSmartListPopup": "Geen opstart pop-up",
+            "memberListTitle": "Opstart pop-up",
+            "drawerTitle": "Geschiedenis van start-up pop-ups",
+            "close": "Sluiten",
+            "preview": "Voorbeeld",
+            "previewTitle": "Overzicht",
+            "cancelPreview": "Annuleren",
+            "recipients": "Ontvangers ",
+            "recipient": "Ontvanger",
+            "recipient_plural": "Ontvangers",
+            "see": "Zie",
+            "seeRecipients": "Ontvangers bekijken"
         }
     },
     "paymentCombo": {
@@ -2076,6 +2103,11 @@
             },
             "unusableByStaff": {
                 "label": "Onzichtbaar voor het personeel"
+            },
+            "expiration_date": {
+                "label": "Aankooptermijn",
+                "helperText": "Beschikbaar tot",
+                "tooltip": "Na de gekozen datum zal het pakket niet langer beschikbaar zijn voor verkoop aan klanten."
             }
         },
         "list": {
@@ -2642,7 +2674,12 @@
             "staff_commission_amount_notax": "Personeelscommissie exclusief BTW",
             "plan_note": "Notes",
             "franchisor_commission_amount_notax": "Franchisenemerscommissie percentage voor belasting",
-            "staff_commission_amount": "Personeelscommissie inclusief belasting"
+            "staff_commission_amount": "Personeelscommissie inclusief belasting",
+            "nb_invoice_items": "Aantal gekochte producten",
+            "on_behalf_of_teacher": "Volledige betaling aan de leraar",
+            "date_canceled": "Annuleringsdatum",
+            "invoiceitem_pk": "Factuur element ID",
+            "price_invoice_items": "Totale hoeveelheid gekochte producten"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2679,7 +2716,7 @@
             "payments": "Betalingen",
             "bookings": "Reserveringen (groepsactiviteiten)",
             "offers": "Sessies",
-            "members": "Leden",
+            "members": "Nieuwe leden",
             "cashbook": "Kasboek",
             "on_spot_payments": "Fysieke betalingen",
             "video": "Video On Demand",
@@ -2695,7 +2732,8 @@
             "expired_pass": "Verlopen credits (leskaarten)",
             "franchise_shared_pass": "Gedeeld pasgebruik",
             "dispute": "Geschil",
-            "billing_plan": "Abonnement"
+            "billing_plan": "Abonnement",
+            "members_purchase": "Aankopen van leden"
         },
         "globalCategories": {
             "subheader": {
@@ -2971,6 +3009,7 @@
                 "Annuleren",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
@@ -3390,7 +3429,11 @@
                         "helperText": "Gebruik tags om deze kaart juist wel óf niet aan bepaalde leden op de MarketPlace, op de widget of op de app te tonen. ",
                         "header": "Tags"
                     },
-                    "header": "Geavanceerd"
+                    "header": "Geavanceerd",
+                    "appliesForPayroll": {
+                        "label": "Bij de berekening van de bezoldiging van de leraar in aanmerking genomen zittingen",
+                        "helperText": "Standaard worden sessies gefactureerd aan de studio en opgenomen in het overzicht van de leraar en de vergoeding door de studio. Als u deze instelling uitschakelt, verschijnen de sessies die aan deze kaart zijn gekoppeld niet meer in het overzicht van de leraar."
+                    }
                 },
                 "universalPass": {
                     "warningIsUniversalPass": "Gekoppelde afspraakkaarten worden automatisch aangemaakt voor universele kaarten. Alle velden die hier ingesteld zijn kunnen ook op de gekoppelde afspraakkaarten worden gewijzigd m.u.v. de categorieën. Hetzelfde geldt voor de meldingen, geldigheidsverlengingen en creditwijzigingen.",
@@ -3797,7 +3840,12 @@
                     "label": "Pro rata, per franchisenemer, van afwezigheden (no shows)"
                 }
             },
-            "unusableByStaff": "Onzichtbaar voor het personeel"
+            "unusableByStaff": "Onzichtbaar voor het personeel",
+            "expiration_date": {
+                "label": "Aankooptermijn",
+                "helperText": "Beschikbaar tot",
+                "tooltip": "Na de gekozen datum is de kaart niet meer te koop voor klanten."
+            }
         },
         "unlimitedPlural": "Onbeperkt",
         "universalPass": {
@@ -4703,6 +4751,9 @@
                 "0": "Gearchiveerde en geldige leden"
             },
             "helperText": "Voor welke leden geldt deze Smartlist?"
+        },
+        "popup": {
+            "sendPopup": "Stuur een pop-up"
         }
     },
     "metaActivity": {
@@ -5155,7 +5206,13 @@
                             "title": "Leraar"
                         }
                     },
-                    "title": "Leraar"
+                    "title": "Leraar",
+                    "additionalCoaches": {
+                        "field": {
+                            "placeHolder": "Selecteer extra leraren"
+                        },
+                        "title": "Extra leraren"
+                    }
                 },
                 "dateTime": {
                     "field": {
@@ -5222,7 +5279,10 @@
         },
         "isFree": "Gratis",
         "broadcast": "Videoconferenties",
-        "onSite": "In de studio"
+        "onSite": "In de studio",
+        "allCoaches": "{{count}} instructeurs",
+        "additionalCoaches": "{{count}} extra leraar",
+        "additionalCoaches_plural": "{{count}} extra leraren"
     },
     "emailTemplate": {
         "editTitle": "E-mail bewerken",
@@ -5615,7 +5675,56 @@
         "actions": "Acties",
         "archiveMember": "Archiveer",
         "accountBalance": "Saldo",
-        "communication": "Communicatie"
+        "communication": "Communicatie",
+        "resetPassword": {
+            "dialogTitle": "Wachtwoord opnieuw instellen",
+            "confirmation": "Instructies correct verzonden naar {{memberEmail}}",
+            "dialogContent": "U staat op het punt wachtwoord reset instructies te sturen naar {{memberEmail}}",
+            "error": "Fout bij het verzenden van wachtwoord reset instructies",
+            "button": "Wachtwoord opnieuw instellen"
+        },
+        "events": {
+            "member-login_successful": {
+                "primaryText": "Een succesvolle {{ source }} verbinding is geregistreerd.",
+                "sourceApp": "van de toepassing",
+                "filter": "Succesvolle verbindingen",
+                "sourceMarketplace": "van de markt"
+            },
+            "member-tag_applied": {
+                "filter": "Tags toegepast",
+                "primaryText": "De {{ tagName }} tag is toegepast."
+            },
+            "member-vod_bought": {
+                "filter": "VOD gekocht",
+                "primaryText": "De VOD {{- VODName }} is gekocht."
+            },
+            "member-private_booking_registered": {
+                "primaryText": "{{ source }} heeft de afspraak {{- privateServiceName }} - {{- privateSlotName }} op {{- privateServiceDate }} geboekt.",
+                "sourceManager": "De manager {{ managerName }}",
+                "filter": "Afspraken"
+            },
+            "member-custom_form_filled": {
+                "filter": "Bewerkt profielformulier",
+                "primaryText": "Het profielbewerkingsformulier {{ formName }} is ingevuld."
+            },
+            "member-invoice_paid": {
+                "primaryText": "Factuurnummer {{ invoiceUUID }} is betaald voor het bedrag van {{ amount }}.",
+                "filter": "Betaalde facturen"
+            },
+            "member-basket_paid": {
+                "filter": "Betaalde mandjes",
+                "primaryText": "Een mandje van {{ amount }} is betaald. "
+            },
+            "member-booking_registered": {
+                "filter": "Reserveringen",
+                "primaryText": "{{ source }} heeft de {{- offerName }} sessie geboekt op {{- offerDate }}.",
+                "sourceManager": "De manager {{ managerName }}"
+            },
+            "member-giftcard_used": {
+                "filter": "Gebruikte cadeaubonnen",
+                "primaryText": "De cadeaubon {{- giftcardName }} is geactiveerd."
+            }
+        }
     },
     "booking": {
         "bookingModule": {
@@ -6010,6 +6119,10 @@
             },
             "establishment": {
                 "placeholder": "Vestiging"
+            },
+            "additionalCoaches": {
+                "placeholder": "Extra leraar",
+                "placeholder_plural": "Extra leraren"
             }
         },
         "warning": {
@@ -8329,6 +8442,19 @@
                     "helperText": "Een universele kaart kan voor groepsactiviteiten én afspraken worden gebruikt. Iedere universele kaart heeft twee gekoppelde kaarten voor de credits. De gekoppelde kaarten worden automatisch en kosteloos toegevoegd zodra een universele kaart is aangeschaft.",
                     "label": "Universele kaart",
                     "warningIsUniversalPass": "Gekoppelde leskaarten worden automatisch aangemaakt voor universele kaarten. Alle velden die hier ingesteld zijn kunnen ook op de gekoppelde afspraakkaarten worden gewijzigd m.u.v. de categorieën. Hetzelfde geldt voor de meldingen, geldigheidsverlengingen en creditwijzigingen."
+                },
+                "appliesForPayroll": {
+                    "helperText": "Standaard worden afspraken gefactureerd aan de studio en opgenomen in het overzicht en de vergoeding van de docent. Als u deze instelling uitschakelt, verschijnen de afspraken die aan deze kaart zijn gekoppeld niet meer in het overzicht van de docent.",
+                    "label": "Aanstellingen die in aanmerking worden genomen bij de berekening van de bezoldiging van de leraar"
+                },
+                "onBehalfOfTeacher": {
+                    "helperText": "Met deze instelling kunt u aangeven dat de inkomsten in verband met afspraken op deze kaart volledig aan de docent worden betaald. Deze informatie zal zichtbaar zijn in uw inkoopverslagen (CA) in de kolom 'Betaling volledig betaald aan de leerkracht'.",
+                    "label": "Volledige betaling aan de leraar"
+                },
+                "expiration_date": {
+                    "label": "Aankooptermijn",
+                    "helperText": "Beschikbaar tot",
+                    "tooltip": "Zodra de gekozen datum is verstreken, verschijnt de afsprakenkaart niet meer te koop voor klanten."
                 }
             },
             "delete": {
@@ -9160,7 +9286,10 @@
                 "forInterval": "per interval"
             },
             "paymentPackPlaceHolder": "Selecteer leskaarten",
-            "excludePaymentPack": "Bepaalde kaarten uitsluiten",
+            "excludePaymentPack": {
+                "title": "Reserveringen op bepaalde kaarten uitsluiten",
+                "warning": "Als u leskaarten al hebt uitgesloten van de beloning via de parameter \"Sessies in aanmerking genomen bij de berekening van de leraarsbezoldiging\", hoeft u ze hier niet opnieuw op te geven."
+            },
             "bonusForEachReservationInInterval": "Een bonus per reservering toevoegen",
             "fixedBonusbyInterval": "Een bonus per interval toevoegen",
             "cancellationBaseHelper": "Vink dit vak aan om geen bonus over de marginale waarde van annuleringen uit te betalen.",
@@ -10234,7 +10363,11 @@
             "10001": "Onvoldoende voorraad",
             "85000": "Er is al een boeking in behandeling, even geduld a.u.b",
             "85101": "Onmogelijk om te boeken. Deze plek is gereserveerd door een ander lid. Probeer het opnieuw door een andere plek te kiezen.",
-            "15002": "Het artikel is al toegevoegd aan het winkelmandje, even geduld a.u.b."
+            "15002": "Het artikel is al toegevoegd aan het winkelmandje, even geduld a.u.b.",
+            "1122": "Dit pakket kan niet meer worden gekocht omdat de houdbaarheidsdatum is verstreken",
+            "2025": "Deze kaart kan niet meer worden gekocht omdat de vervaldatum is verstreken",
+            "23001": "Zonder cursuskaart kunt u in de wachtrij voor deze aanbieding worden geplaatst",
+            "11114": "Deze afsprakenkaart kan niet meer worden gekocht omdat de vervaldatum is verstreken"
         },
         "signup": {
             "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
@@ -10470,6 +10603,17 @@
         },
         "removeItem": {
             "15002": "Het artikel wordt reeds uit het winkelmandje verwijderd, even geduld a.u.b."
+        },
+        "instalmentPayment": {
+            "16002": "Het aantal kassabonnen moet gelijk zijn aan 1 om de optie \"Gedeeltelijke betaling\" te activeren",
+            "16003": "Het aantal kassabonnen moet groter zijn dan 2 om de optie \"Eerste bedrag aanpassen\" te activeren",
+            "16000": "Het bedrag van de eerste tranche moet positief zijn",
+            "16001": "Het percentage van het totale bedrag moet tussen 0 en 100 liggen"
+        },
+        "smartListPopup": {
+            "send": {
+                "error": "Er is een fout opgetreden tijdens het verzenden van uw pop-up."
+            }
         }
     },
     "coach": {
@@ -11132,7 +11276,8 @@
                 "graph_payments": "Betalingen",
                 "graph_subscriptions": "Facturen van abonnementen",
                 "graph_dispute": "Geschillen",
-                "graph_billing_plan": "Abonnementen"
+                "graph_billing_plan": "Abonnementen",
+                "graph_invoice_items": "Inkoop"
             },
             "accumulate": {
                 "total": "Accumuleer"
@@ -11217,7 +11362,14 @@
             "contract_name": "Abonnement",
             "billing_plan_payment_method": "Wijze van betaling",
             "plan_auto_renewal": "Stilzwijgende vernieuwing",
-            "is_no_show": "Absent (no show)"
+            "is_no_show": "Absent (no show)",
+            "franchisor_commission_amount_notax": "Franchisenemer commissie HT",
+            "total_price_notax": "Gefactureerd bedrag excl",
+            "franchisor_commission_amount": "Franchisenemerscommissie (incl. BTW)",
+            "total_price": "Gefactureerd bedrag incl. BTW",
+            "invoice_date_created": "Datum afgifte factuur",
+            "author": "Auteur",
+            "invoiceitem_pk": "Aantal gefactureerde artikelen"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Incasso's",
@@ -11228,7 +11380,8 @@
             "memberTemporal": "Nieuwe leden",
             "subscriptionTemporalSum": "Abonnementsbetalingen",
             "privateBookingTemporal": "Afspraken",
-            "billingPlanTemporal": "Abonnementen"
+            "billingPlanTemporal": "Abonnementen",
+            "invoiceItemTemporal": "Totaal gefactureerd bedrag"
         },
         "placeholderEmptyValues": {
             "establishment": "Zonder vestiging",
@@ -12587,6 +12740,10 @@
             "last_delay_before_auto_consume": {
                 "helper": "Als er onvoldoende tijd is voordat de sessie begint wordt het lid niet ingeschreven, ook niet als de persoon een geldige leskaart bezit",
                 "label": "Het automatisch reserveren alleen voltooien als de sessie plaatsvindt in meer dan "
+            },
+            "check_credit": {
+                "label": "Controleren of de klant een cursuskaart heeft die compatibel is met het aanbod en voldoende krediet heeft",
+                "helper": "Klanten kunnen pas aan een wachtrij worden toegevoegd als zij een cursuskaart hebben die compatibel is met de betreffende aanbieding en voldoende krediet hebben om de boeking te maken"
             }
         },
         "explainWaitingListConf": "Voorbeeld: een lid die op de wachtlijst staat voor een sessie die over 3 uur begint heeft nog {{nbMinutesBeforeBookingOptionExpire}} minuten om de reservering te bevestigen voordat zij hun voorrangsplaats op de wachtlijst verliezen.",
@@ -14748,6 +14905,24 @@
                 "allShopItem": "Compatibel met alle webshop-producten",
                 "giftcard": "Cadeaubonnen",
                 "allGiftcard": "Compatibel met alle cadeaubonnen"
+            },
+            "customInstalmentAmount": {
+                "label": "Het bedrag van de eerste termijn aanpassen",
+                "type": {
+                    "percent": "Als percentage van de totale mandprijs",
+                    "amount": "Vast bedrag"
+                },
+                "amountHelperText": {
+                    "amount": "Bedrag",
+                    "percent": "Percentage"
+                }
+            },
+            "partialPaymentRadio": {
+                "disabled": "Betaal de volledige mand in meerdere termijnen",
+                "enabled": {
+                    "label": "Gedeeltelijke betaling van de mand",
+                    "helperText": "De leden betalen slechts een deel van het totale bedrag van hun mandje onmiddellijk, en het restant wordt van hun intern depot afgeschreven"
+                }
             }
         },
         "basket": {
@@ -14770,6 +14945,14 @@
                 "numberOfBilling": "{{number_of_billing}} betaling(en)",
                 "numberOfBilling_plural": "{{number_of_billing}} betaling(en)"
             }
+        },
+        "validation": {
+            "percentRange": "Het percentage moet tussen 1 en 100 liggen",
+            "amountMin": "Het bedrag moet groter zijn dan 1"
+        },
+        "configurationOption": {
+            "payLater": "Betaal alleen {{amount}}",
+            "payLaterRemainder": "Het restant van het te betalen bedrag ({{remainder}}) wordt afgetrokken van je interne saldo"
         }
     },
     "clockIn": {

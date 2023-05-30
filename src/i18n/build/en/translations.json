@@ -2957,6 +2957,19 @@
                 "removeFavorite": "Remove from favourites",
                 "addToFavorite": "Add to favourites",
                 "markAsRead": "Mark as unread"
+            },
+            "kind": {
+                "member": "Members",
+                "smartlist": "Smartlists",
+                "offer": "Sessions"
+            },
+            "search": "Search...",
+            "filter": {
+                "allThreads": "All messages",
+                "hasNotBeenRead": "Unread",
+                "favorites": "Favorites",
+                "muted": "Mute",
+                "disabled": "Archived"
             }
         },
         "sentStatus": {
@@ -9162,12 +9175,13 @@
             "staff_commission_amount": "Staff commission fee incl. VAT",
             "product_category": "Category of product",
             "plan_note": "Notes",
-            "franchisor_commission_amount_notax": "Franchisee commission percentage excl. VAT",
+            "franchisor_commission_amount_notax": "Franchisee commission excl. VAT",
             "franchisor_commission_amount": "Franchise fees inc. tax",
             "on_behalf_of_teacher": "Payment paid entirely to the teacher",
             "price_invoice_items": "Total amount of products purchased",
             "nb_invoice_items": "Number of products purchased",
-            "date_canceled": "Cancellation date"
+            "date_canceled": "Cancellation date",
+            "invoiceitem_pk": "Billing element ID"
         },
         "yes": "Yes",
         "no": "No",
@@ -9552,6 +9566,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",

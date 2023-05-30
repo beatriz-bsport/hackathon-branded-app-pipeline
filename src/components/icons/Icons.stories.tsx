@@ -10,6 +10,7 @@ import StripeIcon from './StripeIcon.component';
 import SuccessIcon from './SuccessIcon.component';
 import ValidationIcon from './ValidationIcon.component';
 import CardRefusedIcon from './CardRefusedIcon.component';
+import WarningIcon from './WarningIcon.component';
 
 const CalendarTemplate = () => <CalendarIcon />;
 export const Calendar = CalendarTemplate.bind({});
@@ -41,6 +42,12 @@ const ValidationTemplate = (args: { color?: string }) => (
 export const Validation = ValidationTemplate.bind({});
 Validation.args = {
   color: 'red',
+};
+
+const WarningTemplate = (args: { color?: string }) => <WarningIcon {...args} />;
+export const Warning = WarningTemplate.bind({});
+Warning.args = {
+  color: 'orange',
 };
 
 const CardRefusedTemplate = () => <CardRefusedIcon />;

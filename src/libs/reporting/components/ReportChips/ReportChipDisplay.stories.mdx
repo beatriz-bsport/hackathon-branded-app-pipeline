@@ -1,0 +1,106 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import ReportChipDisplay from './ReportChipDisplay.component';
+
+<Meta
+  title="Library/Reporting/ReportChipDisplay"
+  component={ReportChipDisplay}
+  argTypes={{
+    value: {
+      description: 'The value that will be displayed in the chip.',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    mainColor: {
+      description:
+        'The main color of the chip. It is the text color, which is used to compute the backgroundColor. If the color is null, the chip will be grey.',
+      table: {
+        type: {
+          summary: 'string | null',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    icon: {
+      description:
+        'The name of the icon to display in the chip. If the icon is null, there will be no icon.',
+      table: {
+        type: {
+          summary: 'string | null',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    iconColor: {
+      description:
+        'The color of the icon. If the icon color is null while the icon is not null, the icon will be the same color as the text.',
+      table: {
+        type: {
+          summary: 'string | null',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <ReportChipDisplay {...args} />;
+
+# Report Chip Component
+
+The `Report Chip Component` is a custom chip used for the reports. It's only used for display : there are other components that manage the matching between the value of the chip and what color it should be.
+
+<Canvas>
+  <Story
+    name="ReportChipDisplay"
+    args={{
+      value: 'Success',
+      mainColor: '#388e3c',
+      icon: 'CheckCircle',
+      iconColor: '#4caf50',
+    }}
+  >
+    {Template.bind()}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="ReportChipDisplayNoIcon"
+    args={{
+      value: '50',
+      mainColor: '#d32f2f',
+      icon: null,
+      iconColor: null,
+    }}
+  >
+    {Template.bind()}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="ReportChipDisplayGrey"
+    args={{
+      value: 'Non',
+      mainColor: null,
+      icon: null,
+      iconColor: null,
+    }}
+  >
+    {Template.bind()}
+  </Story>
+</Canvas>
+
+<ArgsTable story="ReportChipDisplay" />

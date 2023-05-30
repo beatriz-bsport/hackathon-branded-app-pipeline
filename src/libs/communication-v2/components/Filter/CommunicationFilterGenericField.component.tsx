@@ -1,10 +1,19 @@
 // @ts-nocheck
 import React, { useCallback } from 'react';
 import Select from 'react-select';
+import chroma from 'chroma-js';
+import { colors } from '@bsport/common/lib/colors';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import { SelectFieldItem } from '#libs/communication-v2/types';
+
+type selectorStyle = { option: any };
+type selectorStateType = {
+  isDisabled: boolean;
+  isFocused: boolean;
+  isSelected: boolean;
+};
 
 type GenericProps = {
   fieldName: string;
@@ -50,10 +59,41 @@ export const CommunicationFilterGenericField = (props: GenericProps) => {
           onChange={setFieldValue}
           className={classes.selector}
           value={fieldValues}
+          styles={{ ...selectorStyles }}
         />
       </Grid>
     </Grid>
   );
+};
+
+const selectorStyles: selectorStyle = {
+  option: (
+    styles: any,
+    { isDisabled, isFocused, isSelected }: selectorStateType,
+  ) => {
+    const color = chroma(colors.secondary);
+
+    const backgroundColor = (_isFocused: boolean, _isSelected: boolean) => {
+      let backColor = null;
+      if (_isSelected) {
+        backColor = color.alpha(0.1).css();
+      } else if (_isFocused) {
+        backColor = color.alpha(0.05).css();
+      }
+      return backColor;
+    };
+
+    return {
+      ...styles,
+      backgroundColor: backgroundColor(isFocused, isSelected),
+      color: 'black',
+
+      ':active': {
+        ...styles[':active'],
+        backgroundColor: !isDisabled && color.alpha(0.1).css(),
+      },
+    };
+  },
 };
 
 const useStyles = makeStyles((theme) => ({

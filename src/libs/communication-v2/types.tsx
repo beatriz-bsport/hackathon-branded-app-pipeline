@@ -1,3 +1,4 @@
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { ErrorAndLoading, GenericListReducerI } from '#libs/types';
 import { Member, MemberFilter } from '#libs/member/types';
 import { CustomMobilePopup } from '#libs/settings/types';
@@ -196,7 +197,7 @@ export type CommunicationThread = {
   isMuted: boolean;
   isFavorite: boolean;
   isDisabled: boolean;
-  relatedObjectKind: string;
+  relatedObjectKind: ChatThreadKinds;
   relatedObjectId: number;
   numberOfUnreadAnswers: number;
 };

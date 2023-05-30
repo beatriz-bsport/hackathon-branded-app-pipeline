@@ -885,7 +885,7 @@
       "numberFilter": { "severalFilters": "filtres appliqués", "oneFilter": "1 filtre appliqué" },
       "kind": { "title": "Type d'envoi", "placeholder": "Sélectionnez un type d'envoi" },
       "channel": { "title": "Canaux", "placeholder": "Sélectionnez un type de canal" },
-      "recipient": { "title": "Destinataires", "placeholder": "Sélectionnez un type de destinataire" },
+      "recipient": { "title": "Destinataires", "placeholder": "Sélectionnez un statut de réservation" },
       "sendParameter": { "title": "Paramètre d'envoi", "placeholder": "Sélectionnez un paramètre d'envoi" },
       "srcOrDst": { "title": "Messages", "placeholder": "Sélectionnez un type de message" },
       "choicesLabels": {
@@ -965,6 +965,8 @@
         "unmute": "Réactiver",
         "archive": "Archiver",
         "unarchive": "Restaurer",
+        "filterMessages": "Filtrer les messages",
+        "detail": { "member": "Détails du membre", "smartlist": "Détails de la smartlist", "offer": "Détails de la séance" },
         "minutes": "min",
         "hours": "h",
         "days": "j",

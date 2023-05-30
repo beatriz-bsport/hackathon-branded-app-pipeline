@@ -241,7 +241,7 @@ exports.default = {
     },
     recipient: {
       title: 'Destinataires',
-      placeholder: 'Sélectionnez un type de destinataire',
+      placeholder: 'Sélectionnez un statut de réservation',
     },
     sendParameter: {
       title: "Paramètre d'envoi",
@@ -349,6 +349,12 @@ exports.default = {
       unmute: 'Réactiver',
       archive: 'Archiver',
       unarchive: 'Restaurer',
+      filterMessages: 'Filtrer les messages',
+      detail: {
+        [ChatThreadKinds.Member]: 'Détails du membre',
+        [ChatThreadKinds.Smartlist]: 'Détails de la smartlist',
+        [ChatThreadKinds.Offer]: 'Détails de la séance',
+      },
       minutes: 'min',
       hours: 'h',
       days: 'j',

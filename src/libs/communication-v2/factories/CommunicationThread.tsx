@@ -1,6 +1,7 @@
 // @ts-nocheck
 import faker from 'faker';
 
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { CommunicationThread } from '#libs/communication-v2/types';
 
 const MEMBER_DEFAULT_PHOTOS = [
@@ -83,7 +84,7 @@ export function MemberThread(index?: number): CommunicationThread {
     isMuted: randomBoolean(),
     isFavorite: randomBoolean(),
     isDisabled: randomBoolean(),
-    relatedObjectKind: 'member',
+    relatedObjectKind: ChatThreadKinds.Member,
     relatedObjectId: undefined,
     numberOfUnreadAnswers: randomInt(15),
   };
@@ -113,7 +114,7 @@ export function OfferThread(): CommunicationThread {
     isMuted: randomBoolean(),
     isFavorite: randomBoolean(),
     isDisabled: randomBoolean(),
-    relatedObjectKind: 'offer',
+    relatedObjectKind: ChatThreadKinds.Offer,
     relatedObjectId: undefined,
     numberOfUnreadAnswers: randomInt(15),
   };
@@ -141,7 +142,7 @@ export function SmartListThread(): CommunicationThread {
     isMuted: randomBoolean(),
     isFavorite: randomBoolean(),
     isDisabled: randomBoolean(),
-    relatedObjectKind: 'smartlist',
+    relatedObjectKind: ChatThreadKinds.Smartlist,
     relatedObjectId: undefined,
     numberOfUnreadAnswers: randomInt(15),
   };

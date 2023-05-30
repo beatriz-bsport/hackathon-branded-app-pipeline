@@ -156,6 +156,9 @@ const OfferFormSpecificities = (props: Props) => {
       );
       const spotCount = SpotSchedulingHelper.getSpotCount(blueprint);
       setFieldValue('roomBlueprintSlots', spotCount);
+      if (blueprint === null || !blueprint?.spivi_box_id) {
+        setFieldValue('syncOfferOnSpivi', false);
+      }
     },
     [roomBlueprints, setFieldValue, getFieldHelpers],
   );
@@ -350,6 +353,7 @@ const OfferFormSpecificities = (props: Props) => {
               )}
               onSelectedOption={handleSetRoomBlueprintSpot}
               isClearable
+              isError={!!errors.roomBlueprint}
             />
 
             <Tooltip

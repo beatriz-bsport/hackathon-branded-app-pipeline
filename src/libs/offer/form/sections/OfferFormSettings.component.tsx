@@ -15,6 +15,11 @@ import OfferFormField from '#libs/offer/form/OfferFormField.component';
 import NumericInput from '#components/input/NumericInput.component';
 
 import { OfferFormValues } from '#libs/offer/types';
+// @ts-ignore
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { FeatureList } from '#libs/company/types';
 
 type Props = {
   allowGuestMaster: boolean;
@@ -70,6 +75,21 @@ const OfferFormSettings = (props: Props) => {
             switchColor="secondary"
           />
         )}
+
+        <FeatureListProvider>
+          {(featureList: FeatureList) => (
+            <>
+              {hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI) && (
+                <SwitchField
+                  id="offer-form-sync-on-spivi"
+                  name="syncOfferOnSpivi"
+                  label={t('form.section.settings.field.syncOfferOnSpivi')}
+                  switchColor="secondary"
+                />
+              )}
+            </>
+          )}
+        </FeatureListProvider>
       </div>
 
       {showPartnership && !isOfferInGroup && (

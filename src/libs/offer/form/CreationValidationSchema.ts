@@ -104,7 +104,24 @@ const OfferFormCreateValidationSchema = Yup.object().shape({
     }),
   durationMinute: Yup.number()
     .required('offer:form.errors.required')
-    .positive('offer:form.errors.field.durationMinute'),
+    .positive('offer:form.errors.field.durationMinute')
+    .test({
+      name: 'isSpiviCompatible',
+      test: function isSpiviCompatible() {
+        if (this.parent.syncOfferOnSpivi) {
+          if (
+            this.parent.durationMinute < 20 ||
+            this.parent.durationMinute > 4 * 60
+          ) {
+            return this.createError({
+              message: 'offer:form.errors.field.durationMinuteSpivi',
+              path: this.path,
+            });
+          }
+        }
+        return true;
+      },
+    }),
   recurrence: Yup.string().when('isRecurrence', (isRecurrence, schema) => {
     if (isRecurrence) {
       return schema.oneOf(

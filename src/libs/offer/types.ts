@@ -322,6 +322,7 @@ export type OfferFormValues = {
   isCoachOverridePropagate?: boolean;
   coachOverridePropagateMode?: number;
   is_hybrid: boolean;
+  syncOfferOnSpivi?: boolean;
 };
 
 export type OfferFormRecurrenceWeekDay =
@@ -354,6 +355,7 @@ export type OfferCreate = {
   allow_guest_offer: boolean;
   room_blueprint?: number;
   is_hybrid: boolean;
+  sync_on_spivi?: boolean;
 };
 
 export type OfferEdit = Omit<

@@ -274,6 +274,7 @@ const formikFormWrapper = withFormik<
       selectedBlacklistTags,
       allowGuestOffer,
       is_hybrid,
+      syncOfferOnSpivi,
     } = values;
 
     const offer: OfferCreate = {
@@ -303,6 +304,7 @@ const formikFormWrapper = withFormik<
       blacklist_tags: selectedBlacklistTags,
       allow_guest_offer: allowGuestOffer,
       is_hybrid,
+      sync_on_spivi: syncOfferOnSpivi,
     };
 
     if (roomBlueprint) {

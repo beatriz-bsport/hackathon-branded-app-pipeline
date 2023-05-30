@@ -324,6 +324,7 @@ export const OfferEditForm = (props: Props) => {
             showPartnership={showPartnership}
             isOfferInGroup={isOfferInGroup}
             isEditOffer
+            roomBlueprints={roomBlueprints}
           />
 
           {!isOfferInGroup && <OfferFormTags tagList={tagList} />}
@@ -393,6 +394,7 @@ const formikFormWrapper = withFormik<
     selectedWhitelistTags: props.offer?.whitelist_tags.map((tag) => tag.id),
     waitingListMaxSize: props.offer?.waiting_list_max_size,
     is_hybrid: !!props.offer?.linked_hybrid_offer_id,
+    syncOfferOnSpivi: props.offer?.sync_on_spivi,
   }),
   enableReinitialize: true,
   validationSchema: OfferEditFormValidationSchema,
@@ -425,6 +427,7 @@ const formikFormWrapper = withFormik<
       isCoachOverridePropagate,
       partnerMaxBookingCount,
       isOfferInGroup,
+      syncOfferOnSpivi,
     } = values;
 
     const isAllSimilarOfferSelected =
@@ -458,6 +461,7 @@ const formikFormWrapper = withFormik<
       meta_activity: selectedMetaActivity,
       date_start: dateIntervalStart,
       partner_max_booking_count: isOfferInGroup ? 0 : partnerMaxBookingCount,
+      sync_on_spivi: syncOfferOnSpivi,
     };
 
     if (offer.credit_price !== undefined && credits !== offer.credit_price) {

@@ -146,6 +146,7 @@ export type Offer = {
   blacklist_tags: Array<number>;
   allow_guest_offer: boolean;
   linked_hybrid_offer_id: number | null;
+  sync_on_spivi: boolean;
 };
 
 export type MetaActivity = {

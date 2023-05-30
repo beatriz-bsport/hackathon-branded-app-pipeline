@@ -1009,6 +1009,14 @@ export function createOffers(
         dispatch(monitorBackgroundTask(backgroundTaskUuid));
       }
     } catch (error) {
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `snackbar:spivi.error.${error.response.data.error_code}`,
+          ),
+        );
+      }
+
       dispatch(createOffersActions.error(error));
       if (options && options.onError) options.onError();
     }
@@ -1045,6 +1053,13 @@ export function editOffers(
         dispatch(monitorBackgroundTask(backgroundTaskUuid));
       }
     } catch (error) {
+      if (error.response?.status === 499 && error.response?.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `snackbar:spivi.error.${error.response.data.error_code}`,
+          ),
+        );
+      }
       dispatch(editOffersActions.error(error));
       if (options && options.onError) options.onError();
     }

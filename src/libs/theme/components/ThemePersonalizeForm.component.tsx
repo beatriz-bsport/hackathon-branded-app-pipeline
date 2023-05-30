@@ -107,7 +107,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
   errors,
   theme,
 }) => {
-  const { t } = useTranslation(['theme']);
+  const { t } = useTranslation(['theme', 'translation']);
   const classes = useStyles();
 
   const handleOnChangeCoachDisplay = React.useCallback(
@@ -633,7 +633,11 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
           />
           <SwitchField
             name="hide_book_button"
-            label={t('forms.themePersonalization.hideBookButton.switchLabel')}
+            label={t('forms.themePersonalization.hideBookButton.switchLabel', {
+              bookButtonTranslation: t(
+                'translation:marketplace.bookButton.book',
+              ),
+            })}
           />
           <div className={classes.selector}>
             <InputLabel shrink>

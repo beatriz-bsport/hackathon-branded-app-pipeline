@@ -31,6 +31,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 
+import { Alert, AlertTitle } from '@material-ui/lab';
 import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
 import Level from '#libs/level/components/Level.component';
 import Sport from '../../libs/category/components/SCT.component';
@@ -213,7 +214,13 @@ export class OfferCard extends Component<Props, State> {
       t,
       onEditButtonClick,
     } = this.props;
+
+    const spiviErrorOnBooking =
+      !!this.props.bookings &&
+      this.props.bookings.some((booking) => booking.has_spivi_error);
+
     const { available } = offer;
+
     if (offer) {
       const coach = offer.coach_override || offer.coach || null;
       const allImageLinks =
@@ -224,6 +231,7 @@ export class OfferCard extends Component<Props, State> {
         allImageLinks.length > ADDITIONAL_COACHES_MAX_DISPLAY
           ? allImageLinks.slice(0, ADDITIONAL_COACHES_MAX_DISPLAY)
           : allImageLinks;
+
       return (
         <div style={{ width: '100%' }}>
           <PaymentPackTagsDialog
@@ -380,6 +388,19 @@ export class OfferCard extends Component<Props, State> {
                   </IconButton>
                 </ListItem>
               </div>
+            )}
+            {(offer.has_spivi_error || spiviErrorOnBooking) && offer.available && (
+              <Alert severity="warning" className={classes.alertSpiviContainer}>
+                <AlertTitle>{t('offer:calendar.alertSpivi.title')}</AlertTitle>
+                <ul className={classes.list}>
+                  {offer.has_spivi_error && (
+                    <li>{t('offer:calendar.alertSpivi.textOffer')}</li>
+                  )}
+                  {spiviErrorOnBooking && (
+                    <li>{t('offer:calendar.alertSpivi.textBooking')}</li>
+                  )}
+                </ul>
+              </Alert>
             )}
             <Divider />
             {available ? (
@@ -571,6 +592,14 @@ const styles = (theme) => ({
     height: theme.spacing(5),
     width: theme.spacing(5),
     marginRight: theme.spacing(0),
+  },
+  alertSpiviContainer: { margin: theme.spacing(2) },
+  list: {
+    margin: 'unset',
+    paddingLeft: theme.spacing(3),
+    '& li': {
+      listStyleType: 'unset',
+    },
   },
 });
 

@@ -31,8 +31,13 @@ import {
   BOOKING_FIRSTNAME_ORDER,
   BOOKING_LASTNAME_ORDER,
 } from '@bsport/common/lib/master-data/settings';
-import { ButtonBase, DialogContent, Hidden, Dialog } from '@material-ui/core';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import {
+  ButtonBase,
+  DialogContent,
+  Hidden,
+  Dialog,
+  DialogTitle,
+} from '@material-ui/core';
 import ResultList from '#components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 
@@ -141,7 +146,9 @@ type State = {
   bookingToRevert: ?Booking,
   memberHistoryAnchor: ?HTMLElement,
   lastValidatedRollCallDialogIsOpen: boolean,
-  statusChangedDialogIsOpen: boolean,
+  warningDialogIsOpen: boolean,
+  hasSpiviWarning: boolean,
+  hasRollCallWarning: boolean,
   noShowChipMessageDialogIsOpen: boolean,
 };
 
@@ -149,8 +156,10 @@ export class BookingManagement extends React.PureComponent<Props, State> {
   state = {
     memberHistoryAnchor: null,
     lastValidatedRollCallDialogIsOpen: false,
-    statusChangedDialogIsOpen: false,
+    warningDialogIsOpen: false,
     noShowChipMessageDialogIsOpen: false,
+    hasSpiviWarning: false,
+    hasRollCallWarning: false,
   };
 
   componentDidMount() {
@@ -314,15 +323,15 @@ export class BookingManagement extends React.PureComponent<Props, State> {
     this.setState({ lastValidatedRollCallDialogIsOpen: false });
   };
 
-  openStatusChangedDialog = (
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
+  openWarningDialog = (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     ev.stopPropagation();
-    this.setState({ statusChangedDialogIsOpen: true });
+    this.setState({
+      warningDialogIsOpen: true,
+    });
   };
 
-  closeStatusChangedDialog = () => {
-    this.setState({ statusChangedDialogIsOpen: false });
+  closeWarningDialog = () => {
+    this.setState({ warningDialogIsOpen: false });
   };
 
   openNoShowChipMessageDialog = (
@@ -341,6 +350,14 @@ export class BookingManagement extends React.PureComponent<Props, State> {
     if (this.props.offer?.linked_hybrid_offer_id) {
       window.open(`/offer/${this.props.offer?.linked_hybrid_offer_id}`);
     }
+  };
+
+  setRollCallWarning = (hasRollCallWarning: boolean) => {
+    this.setState({ hasRollCallWarning });
+  };
+
+  setSpiviWarning = (hasSpiviWarning: boolean) => {
+    this.setState({ hasSpiviWarning });
   };
 
   render() {
@@ -369,20 +386,54 @@ export class BookingManagement extends React.PureComponent<Props, State> {
           </DialogActions>
         </Dialog>
 
-        <Dialog open={this.state.statusChangedDialogIsOpen}>
-          <DialogTitle>
-            <Typography variant="h6" className={classes.bold}>
-              {t('offer:rollCall.warningIcon.stateChangedTitle')}
-            </Typography>
-          </DialogTitle>
-          <DialogContent>
-            {t('offer:rollCall.warningIcon.stateChanged')}
-          </DialogContent>
+        <Dialog open={this.state.warningDialogIsOpen}>
+          {this.state.hasRollCallWarning && !this.state.hasSpiviWarning && (
+            <div>
+              <DialogTitle>
+                <Typography variant="h6" className={classes.bold}>
+                  {t('offer:rollCall.warningIcon.stateChangedTitle')}
+                </Typography>
+              </DialogTitle>
+              <DialogContent>
+                {t('offer:rollCall.warningIcon.stateChanged')}
+              </DialogContent>
+            </div>
+          )}
+          {!this.state.hasRollCallWarning && this.state.hasSpiviWarning && (
+            <div>
+              <DialogTitle>
+                <Typography variant="h6" className={classes.bold}>
+                  {t('booking:spivi.connectionImpossible')}
+                </Typography>
+              </DialogTitle>
+              <DialogContent>{t('booking:spivi.errorText')}</DialogContent>
+            </div>
+          )}
+          {this.state.hasRollCallWarning && this.state.hasSpiviWarning && (
+            <div>
+              <DialogTitle>
+                <Typography variant="h6" className={classes.bold}>
+                  {t('booking:warning')}
+                </Typography>
+              </DialogTitle>
+              <DialogContent>
+                <div>
+                  <Typography variant="subtitle1" className={classes.bold}>
+                    {t('booking:spivi.connectionImpossible')}
+                  </Typography>
+                  {t('booking:spivi.errorText')}
+                </div>
+                <div className={classes.secondWarning}>
+                  <Typography variant="subtitle1" className={classes.bold}>
+                    {t('offer:rollCall.warningIcon.stateChangedTitle')}
+                  </Typography>
+                  {t('offer:rollCall.warningIcon.stateChanged')}
+                </div>
+              </DialogContent>
+            </div>
+          )}
           <DialogActions>
-            <Button
-              className={classes.grey}
-              onClick={this.closeStatusChangedDialog}
-            >
+            <Button className={classes.grey} onClick={this.closeWarningDialog}>
               {t('common:close')}
             </Button>
           </DialogActions>
@@ -672,9 +723,11 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         dateRollCallLastModified={
                           this.props.offer.date_roll_call_last_modified
                         }
-                        onClickWarningIcon={this.openStatusChangedDialog}
+                        onClickWarningIcon={this.openWarningDialog}
                         onClickNoShowChip={this.openNoShowChipMessageDialog}
                         isRollCallMandatory={this.props.isRollCallMandatory}
+                        setRollCallWarning={this.setRollCallWarning}
+                        setSpiviWarning={this.setSpiviWarning}
                       />
                     </>
                   )}
@@ -896,9 +949,6 @@ const styles = (theme) => ({
   grey: {
     color: theme.palette.text.secondary,
   },
-  bold: {
-    fontWeight: 500,
-  },
   alertHybridSection: {
     paddingBottom: theme.spacing(1),
   },
@@ -906,5 +956,11 @@ const styles = (theme) => ({
 
 export default compose(
   withStyles(styles),
-  withTranslation(['offer', 'translation', 'communication', 'common']),
+  withTranslation([
+    'offer',
+    'translation',
+    'communication',
+    'common',
+    'booking',
+  ]),
 )(BookingManagement);

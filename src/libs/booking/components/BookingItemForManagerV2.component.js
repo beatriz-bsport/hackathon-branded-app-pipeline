@@ -92,10 +92,14 @@ type Props = {
   onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
   displayNoShowChip?: boolean,
   noShowChipMessage?: string,
-  onClickWarningIcon?: () => void,
+  onClickWarningIcon?: (
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => void,
   onClickNoShowChip?: () => void,
   isRollCallMandatory?: boolean,
   dateRollCallLastModified?: string,
+  setRollCallWarning: (hasRollCallWarning: boolean) => void,
+  setSpiviWarning: (hasSpiviWarning: boolean) => void,
 };
 
 const getPackDate = (consumerPack) => {
@@ -341,6 +345,14 @@ export class BookingItemForManager extends Component<Props, State> {
     } = this.props;
     const { closeAndAction } = this;
 
+    const rollCallWarning =
+      this.props.isRollCallMandatory &&
+      this.props.dateRollCallLastModified &&
+      booking?.attendance !== booking?.roll_call_attendance;
+
+    this.props.setRollCallWarning(rollCallWarning);
+    this.props.setSpiviWarning(booking?.has_spivi_error);
+
     return (
       <div>
         <Hidden smUp>
@@ -356,16 +368,13 @@ export class BookingItemForManager extends Component<Props, State> {
                 </ButtonBase>
               </div>
             )}
-          {this.props.isRollCallMandatory &&
-            this.props.dateRollCallLastModified &&
-            booking.attendance !== booking.roll_call_attendance &&
-            this.props.onClickWarningIcon && (
-              <div className={classes.warningIconContainer}>
-                <ButtonBase onClick={this.props.onClickWarningIcon}>
-                  <WarningIcon className={classes.warningIcon} />
-                </ButtonBase>
-              </div>
-            )}
+          {(rollCallWarning || booking?.has_spivi_error) && (
+            <div className={classes.warningIconContainer}>
+              <ButtonBase onClick={this.props.onClickWarningIcon}>
+                <WarningIcon className={classes.warningIcon} />
+              </ButtonBase>
+            </div>
+          )}
           {this.renderCompactMenu()}
         </Hidden>
 
@@ -376,15 +385,24 @@ export class BookingItemForManager extends Component<Props, State> {
               flexDirection: 'row',
             }}
           >
-            {this.props.isRollCallMandatory &&
-              this.props.dateRollCallLastModified &&
-              booking.attendance !== booking.roll_call_attendance && (
-                <div className={classes.warningIconContainer}>
-                  <Tooltip title={t('offer:rollCall.warningIcon.stateChanged')}>
+            {(rollCallWarning || booking?.has_spivi_error) && (
+              <div className={classes.warningIconContainer}>
+                <Tooltip
+                  title={
+                    <ul className={classes.list}>
+                      {booking.has_spivi_error && <li>{t('spivi.error')}</li>}
+                      {rollCallWarning && (
+                        <li>{t('offer:rollCall.warningIcon.stateChanged')}</li>
+                      )}
+                    </ul>
+                  }
+                >
+                  <ButtonBase onClick={this.props.onClickWarningIcon}>
                     <WarningIcon className={classes.warningIcon} />
-                  </Tooltip>
-                </div>
-              )}
+                  </ButtonBase>
+                </Tooltip>
+              </div>
+            )}
             {this.props.displayNoShowChip && booking.is_no_show && (
               <div className={classes.noShowChip}>
                 <NoShowChip tooltipMessage={this.props.noShowChipMessage} />
@@ -821,6 +839,17 @@ const styles = (theme) => ({
       marginRight: theme.spacing(3),
     },
   },
+  list: {
+    margin: 'unset',
+    paddingLeft: theme.spacing(3),
+    '& li': {
+      listStyleType: 'unset',
+    },
+  },
+  bold: {
+    fontWeight: 500,
+  },
+  secondWarning: { marginTop: theme.spacing(2) },
 });
 
 export default compose(

@@ -245,6 +245,11 @@ export function OfferMinimalSummary(props: Props) {
           borderLeft: offer.meta_activity_color ? '5px solid' : '0px',
           borderLeftColor: offer.meta_activity_color,
           height: fixedHeight,
+          backgroundColor:
+            (offer.has_spivi_error || offer.has_spivi_booking_error) &&
+            offer.available
+              ? '#FFF7EB'
+              : null,
         }}
       >
         <Grid container directon="row" alignItems="center">

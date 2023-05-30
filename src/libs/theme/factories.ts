@@ -66,6 +66,7 @@ FactoryBot.define('companyTheme', {
   session_time_display: MarketPlaceSessionTimeDisplay.DEFAULT,
   coach_display: MarketPlaceCoachDisplay.DEFAULT,
   days_format_display: MarketPlaceDaysFormatDisplay.DEFAULT,
+  hide_book_button: false,
 });
 
 FactoryBot.define('ProvincialTax', {

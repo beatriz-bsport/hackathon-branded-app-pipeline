@@ -30,6 +30,7 @@ import {
   retrieveMemberPendingEmail,
   fetchMemberBulkById as fetchMemberBulkByIdAction,
   fetchMemberEventList as fetchMemberEventListAction,
+  updateSpiviPrivacySettings as updateSpiviPrivacySettingsAction,
 } from '#libs/member/actions';
 import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import {
@@ -503,6 +504,8 @@ export class MemberDetailPage extends React.Component<Props> {
             snackbarSuccessMsg={this.props.snackbarSuccessMsg}
             openAddPaymentMethodDialog={this.openAddPaymentMethodDialog}
             companyId={this.props.companyTheme.company}
+            updateSpiviPrivacySettings={this.props.updateSpiviPrivacySettings}
+            spiviPrivacySettingsLoading={this.props.spiviPrivacySettingsLoading}
           />
           <MemberEventPanel
             eventList={this.props.eventList}
@@ -638,6 +641,7 @@ const connector = connect(
     eventList: getMemberEventState(state).items,
     eventListLoading: getMemberEventState(state).loading,
     eventListPage: getMemberEventState(state).page,
+    spiviPrivacySettingsLoading: state.member.spivi_privacy_settings.loading,
   }),
   {
     fetchInvoiceList: fetchInvoiceListAction,
@@ -701,6 +705,7 @@ const connector = connect(
     resetPassword,
     fetchMemberEventList: fetchMemberEventListAction,
     goToEventDetail: (eventDetailPath: string) => routerPush(eventDetailPath),
+    updateSpiviPrivacySettings: updateSpiviPrivacySettingsAction,
   },
 );
 

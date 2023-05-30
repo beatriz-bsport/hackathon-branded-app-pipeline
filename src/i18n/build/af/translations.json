@@ -1107,7 +1107,7 @@
     "spivi": {
       "settingsTitle": "Données de spinning",
       "settings": "Afficher mes données en temps réel",
-      "settingsInfo": "Si cette option est activée, vos données (vitesse, rpm...) seront affichées en temps réel lors de votre séance. En désactivant cette option, vos données n'apparaitront plus mais vous recevrez bien en fin de cours votre récapitulatif par email."
+      "settingsInfo": "Si cette option est activée, vos données (vitesse, calories dépensées...) seront affichées en temps réel lors de votre séance. En désactivant cette option, vos données n'apparaitront plus mais vous recevrez bien en fin de cours votre récapitulatif par email."
     }
   },
   "coupon": {
@@ -4320,6 +4320,23 @@
           "old_email": "Ancien email de connexion",
           "manage_changing_email_link": "Lien de gestion du changement d'email",
           "login_link": "Lien de connexion espace personnel"
+        }
+      },
+      "SpiviPerformance": {
+        "name": "Performance",
+        "tags": {
+          "SEP": "Spivi Ecosystem Point",
+          "average_HR": "Fréquence cardiaque moyenne",
+          "average_RPM": "Nombre de tours par minute moyen",
+          "average_speed": "Vitesse moyenne",
+          "average_watts": "Puissance moyenne",
+          "max_HR": "Fréquence cardiaque maximale",
+          "max_RPM": "Nombre de tours par minute maximal",
+          "maximum_speed": "Vitesse maximale",
+          "max_watts": "Puissance maximale",
+          "calories": "Calories",
+          "calories_kJ": "Calories en kJ",
+          "total_distance": "Distance parcourue"
         }
       },
       "requiredTags": {

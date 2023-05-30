@@ -5,7 +5,7 @@ import { compose, withState, withHandlers, withProps } from 'recompose';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import { push as pushRouter } from 'connected-react-router';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, TFunction } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -20,6 +20,7 @@ import CustomFormViewDialog from '../../libs/custom-form/components/consumer-for
 import {
   fetchMember as fetchMemberAction,
   fetchMyUserProfile,
+  updateSpiviPrivacySettings as updateSpiviPrivacySettingsAction,
 } from '../../libs/member/actions';
 
 import {
@@ -31,11 +32,9 @@ import themeSelectors, {
   getCompanyCountry,
   getStripeRegion,
 } from '../../libs/theme/selectors';
-
 import { getMemberDetail } from '../../libs/member/selectors';
 
 import type { Membership } from '../../libs/membership/types';
-
 import {
   snackbarWarning,
   snackbarSuccess,
@@ -56,11 +55,13 @@ import AddPaymentMethod from '#libs/payment/components/AddPaymentMethod.componen
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
 import PaymentModal from '#libs/payment/components/PaymentModal.component';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
+import SpiviPrivacySettingsPanel from '#libs/spivi/components/SpiviPrivacySettingsPanel.component';
 
 type RouterProps = {
   membership: Membership;
   isAddPaymentMethodDialogOpen: boolean;
   setQueryParams: (queryParam: string) => (value: boolean | null) => void;
+  t: TFunction;
 };
 type StateProps = {
   editMember: boolean;
@@ -192,6 +193,21 @@ export class ConsumerProfile extends React.Component<Props, State> {
               openAddPaymentMethodDialog={this.openAddPaymentMethodDialog}
             />
           </Paper>
+          {this.props.member?.spivi_privacy_settings_accepted !== null &&
+            this.props.member?.spivi_privacy_settings_accepted !==
+              undefined && (
+              <Paper className={classes.spiviPaper}>
+                <SpiviPrivacySettingsPanel
+                  member={this.props.member}
+                  updateSpiviPrivacySettings={
+                    this.props.updateSpiviPrivacySettings
+                  }
+                  spiviPrivacySettingsLoading={
+                    this.props.spiviPrivacySettingsLoading
+                  }
+                />
+              </Paper>
+            )}
         </Grid>
         {this.props.membership?.id && !!companyCountry && !!stripeRegion && (
           <PaymentModal isOpen={this.props.isAddPaymentMethodDialogOpen}>
@@ -237,6 +253,7 @@ const connector = connect(
       getMemberCustomFormWithEnabledField,
     )(state, membership?.id),
     showVaccinationStatus: showVaccinationStatus(state),
+    spiviPrivacySettingsLoading: state.member.spivi_privacy_settings.loading,
   }),
   {
     fetchMember: fetchMemberAction,
@@ -250,6 +267,7 @@ const connector = connect(
     submitCustomForm,
     disconnect,
     fetchMyUserProfile,
+    updateSpiviPrivacySettings: updateSpiviPrivacySettingsAction,
   },
 );
 
@@ -294,11 +312,15 @@ const styles = (theme: Theme) =>
     customFormContainer: {
       padding: theme.spacing(4),
     },
+    spiviPaper: {
+      padding: theme.spacing(2),
+      marginTop: theme.spacing(2),
+    },
   });
 
 export default compose(
   connector,
-  withTranslation(['snackbar']),
+  withTranslation(['snackbar', 'consumerSpace']),
   withState('editMember', 'setEditMember', false),
   withStyles(styles),
   withHandlers(mapWithHandler),

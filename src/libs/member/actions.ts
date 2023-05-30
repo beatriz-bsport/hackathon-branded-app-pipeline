@@ -37,6 +37,7 @@ import {
   retrieveMinimalChangeEmailRequest as retrieveMinimalChangeEmailRequestAPI,
   answerChangeEmailRequest as answerChangeEmailRequestAPI,
   retrievePendingEmail as retrievePendingEmailAPI,
+  updateSpiviPrivacySettings as updateSpiviPrivacySettingsAPI,
 } from './api';
 import type {
   Member,
@@ -1155,3 +1156,36 @@ export const fetchMemberEventList = (
     },
     options,
   );
+
+export const updateSpiviPrivacySettingsActions = {
+  isLoading: createAction('SPIVI_PRIVACY_SETTINGS/UPDATE/LOADING'),
+  error: createAction('SPIVI_PRIVACY_SETTINGS/UPDATE/ERROR'),
+};
+
+export function updateSpiviPrivacySettings(
+  memberId: number,
+  settingsAccepted: boolean,
+  options?: OptionCallback<Member>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateSpiviPrivacySettingsActions.isLoading(true));
+    dispatch(updateSpiviPrivacySettingsActions.error(null));
+    try {
+      const response = await updateSpiviPrivacySettingsAPI(
+        memberId,
+        settingsAccepted,
+      );
+      dispatch(hasFetchedMember(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(updateSpiviPrivacySettingsActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(updateSpiviPrivacySettingsActions.isLoading(false));
+  };
+}

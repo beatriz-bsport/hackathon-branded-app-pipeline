@@ -274,6 +274,23 @@ exports.default = {
         login_link: 'Lien de connexion espace personnel',
       },
     },
+    SpiviPerformance: {
+      name: 'Performance',
+      tags: {
+        SEP: 'Spivi Ecosystem Point',
+        average_HR: 'Fréquence cardiaque moyenne',
+        average_RPM: 'Nombre de tours par minute moyen',
+        average_speed: 'Vitesse moyenne',
+        average_watts: 'Puissance moyenne',
+        max_HR: 'Fréquence cardiaque maximale',
+        max_RPM: 'Nombre de tours par minute maximal',
+        maximum_speed: 'Vitesse maximale',
+        max_watts: 'Puissance maximale',
+        calories: 'Calories',
+        calories_kJ: 'Calories en kJ',
+        total_distance: 'Distance parcourue',
+      },
+    },
     requiredTags: {
       reset_password_url: 'Lien réinitialisation mot de passe',
       email_confirmation_url: "Lien confirmation d'email",

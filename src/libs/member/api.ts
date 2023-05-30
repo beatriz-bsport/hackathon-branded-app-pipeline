@@ -239,6 +239,17 @@ export async function answerChangeEmailRequest(
 export async function retrievePendingEmail(memberId: number) {
   return getAuth(`${API_V1_URI}/member/${memberId}/get_pending_email/`);
 }
+
+export async function updateSpiviPrivacySettings(
+  memberId: number,
+  settings_accepted: boolean,
+) {
+  return postAuth(
+    `${API_V1_URI}/member/${memberId}/update_spivi_privacy_settings/`,
+    { settings_accepted },
+  );
+}
+
 export default {
   updateMember,
   fetchMember,

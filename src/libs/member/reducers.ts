@@ -27,6 +27,7 @@ import {
   retrieveChangeEmailRequestActions,
   retrieveMinimalChangeEmailRequestActions,
   retrieveMemberPendingEmailRequestActions,
+  updateSpiviPrivacySettingsActions,
 } from './actions';
 import { Member, MemberNote, MemberState } from './types';
 import { GenericListReducer, GenericReducer } from '../../utils/reduxHelper';
@@ -116,6 +117,10 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
     loading: false,
     current: null,
     minimal: null,
+  },
+  spivi_privacy_settings: {
+    error: null,
+    loading: false,
   },
 });
 
@@ -582,6 +587,16 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
       }
       return state;
     },
+    [updateSpiviPrivacySettingsActions.isLoading.toString()]: (
+      state,
+      action,
+    ) => {
+      return state.setIn(['spivi_privacy_settings', 'loading'], action.payload);
+    },
+    [updateSpiviPrivacySettingsActions.error.toString()]: (state, action) => {
+      return state.setIn(['spivi_privacy_settings', 'error'], action.payload);
+    },
+
     ...GenericListReducer(membersListWithTagRepo),
     ...GenericListReducer(membersListWithoutTagRepo),
     ...GenericReducer(tagAllMemberRepo),

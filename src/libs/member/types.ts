@@ -108,6 +108,7 @@ export type Member<Tag = number, CA = number> = {
   pending_email: string | null;
   default_billing_establishment: number | null;
   unsubscribe_link: string;
+  spivi_privacy_settings_accepted: boolean;
 };
 
 export type MemberState = ErrorAndLoading &

@@ -1,16 +1,16 @@
-// @ts-nocheck
-// @flow
-
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, Theme } from '@material-ui/core';
 
+// @ts-ignore
 import MemberNotePanel from './MemberNotePanel.component';
+// @ts-ignore
 import TagPanel from '../../tag/components/TagPanel.component';
 import { MemberNote, Member, MemberUploadedFile } from '../types';
 import { Tag, TagGroup } from '../../tag/types';
 import MemberFilesPanel from './MemberFilesPanel.component';
 import MemberPaymentMethodPanel from './MemberPaymentMethodPanel.component';
+import SpiviPrivacySettingsPanel from '../../spivi/components/SpiviPrivacySettingsPanel.component';
 
 type Props = {
   member: Member;
@@ -41,12 +41,13 @@ type Props = {
   paymentMethodLoading: boolean;
   detachPaymentMethodLoading: boolean;
   detachPaymentMethod: (pm_id: string) => void;
-
-  snackbarErrorMsg: (msg: string) => void;
   snackbarSuccessMsg: (msg: string) => void;
+
   openAddPaymentMethodDialog: (isDialogOpen: boolean) => void;
 
   companyId?: number;
+  updateSpiviPrivacySettings: (memberId: number, value: boolean) => void;
+  spiviPrivacySettingsLoading: boolean;
 };
 
 export const MemberCRM = (props: Props) => {
@@ -79,9 +80,6 @@ export const MemberCRM = (props: Props) => {
     paymentMethodLoading,
     detachPaymentMethodLoading,
     detachPaymentMethod,
-    // utils
-    snackbarErrorMsg,
-    snackbarSuccessMsg,
     companyId,
   } = props;
 
@@ -153,15 +151,23 @@ export const MemberCRM = (props: Props) => {
       <MemberPaymentMethodPanel
         snackbarSuccess={props.snackbarSuccessMsg}
         companyId={companyId}
-        memberId={memberId}
         paymentMethod={paymentMethod}
         paymentMethodLoading={paymentMethodLoading}
         detachPaymentMethod={detachPaymentMethod}
         detachPaymentMethodLoading={detachPaymentMethodLoading}
-        snackbarErrorMsg={snackbarErrorMsg}
-        snackbarSuccessMsg={snackbarSuccessMsg}
         openAddPaymentMethodDialog={props.openAddPaymentMethodDialog}
       />
+      {props.member?.spivi_privacy_settings_accepted !== null &&
+        props.member?.spivi_privacy_settings_accepted !== undefined && (
+          <div>
+            <div className={classes.separator} />
+            <SpiviPrivacySettingsPanel
+              member={props.member}
+              updateSpiviPrivacySettings={props.updateSpiviPrivacySettings}
+              spiviPrivacySettingsLoading={props.spiviPrivacySettingsLoading}
+            />
+          </div>
+        )}
     </Paper>
   );
 };

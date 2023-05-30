@@ -382,7 +382,13 @@
       },
       "showMore": "Voir plus"
     },
-    "noShowChip": { "title": "no-show", "message": "Le membre a été noté absent après la séance" }
+    "noShowChip": { "title": "no-show", "message": "Le membre a été noté absent après la séance" },
+    "spivi": {
+      "error": "Problème de connexion avec Spivi",
+      "connectionImpossible": "Connexion à Spivi impossible",
+      "errorText": "Le membre ne remplit pas les conditions de Spivi, par conséquent la réservation n'a pas été faite sur Spivi."
+    },
+    "warning": "Attention"
   },
   "category": { "sct": { "selector": { "placeholder": "Rechercher une catégorie", "label": "Catégorie" } } },
   "checkout": {
@@ -1097,6 +1103,11 @@
       "pt": "Portuguais",
       "cs": "Tchèque",
       "none": "Automatique"
+    },
+    "spivi": {
+      "settingsTitle": "Données de spinning",
+      "settings": "Afficher mes données en temps réel",
+      "settingsInfo": "Si cette option est activée, vos données (vitesse, rpm...) seront affichées en temps réel lors de votre séance. En désactivant cette option, vos données n'apparaitront plus mais vous recevrez bien en fin de cours votre récapitulatif par email."
     }
   },
   "coupon": {
@@ -4144,7 +4155,8 @@
       "payment_pack": "Pénalités",
       "recurrent_private_booking": "Rendez-vous récurrent",
       "replacement_request": "Remplacement",
-      "giftcard": "Cartes cadeaux"
+      "giftcard": "Cartes cadeaux",
+      "performance": "Performance"
     },
     "emailDesign": { "placeholder": "Généré par bsport", "closePreview": "Fermer", "birthdayPlaceholder": "Choisir un mail" },
     "marketingNotification": { "birthday": "Courriel d'anniversaire" },
@@ -4383,7 +4395,9 @@
       "905": "Nouvelle demande en retard (remplaçant)",
       "906": "Date de clôture repoussée (remplaçant)",
       "907": "Remplaçant trouvé (remplaçant)",
-      "987": "Tentative d'encaissement d'un paiement échelonné"
+      "987": "Tentative d'encaissement d'un paiement échelonné",
+      "1001": "Compte Spivi créé",
+      "1002": "Performance de la séance de spinning"
     },
     "franchise": {
       "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",
@@ -4474,7 +4488,17 @@
     "extraordinaryEstablishment": "(lieu temporaire)",
     "substitute": "Remplaçant",
     "pendingReplacementRequest": "Une demande de remplacement est ouverte",
-    "calendar": { "modifyOffer": "Modifier", "deleteOffer": "Annuler", "filter": "Filtrer", "today": "Aujourd'hui" },
+    "calendar": {
+      "modifyOffer": "Modifier",
+      "deleteOffer": "Annuler",
+      "filter": "Filtrer",
+      "today": "Aujourd'hui",
+      "alertSpivi": {
+        "title": "Problème de connexion avec Spivi",
+        "textOffer": "La séance ne remplit pas les conditions de Spivi, par conséquent elle n'a pas pu être synchronisée.",
+        "textBooking": "Une ou plusieurs réservations ne répondent pas aux conditions de Spivi."
+      }
+    },
     "manageOffer": "Gérer mes réservations",
     "restoreOffer": "Restaurer la séance",
     "forms": { "old_date": "Ancien horaire :", "new_date": "Nouvel horaire :", "delete": { "buttonHardDelete": "Supprimer" } },
@@ -4669,7 +4693,8 @@
               "partnerMaxBookingCount": "Nombre maximum de réservation marketplace (OneFit uniquement)"
             },
             "isNotifyConsumers": "Voulez-vous informer vos clients de cette modification ?",
-            "isModifyRecursively": "Voulez-vous modifier les séances similaires selon ces nouvelles conditions ?"
+            "isModifyRecursively": "Voulez-vous modifier les séances similaires selon ces nouvelles conditions ?",
+            "syncOfferOnSpivi": "Envoyer sur Spivi"
           }
         },
         "tags": {
@@ -4705,7 +4730,9 @@
           "partnerMaxBookingCount": "Le nombre de places ici est supérieur au nombre de places dans la séance",
           "broadcastLink": "Le lien est erroné. Il doit commencer par http:// ou https:// et ne pas contenir d'espacement",
           "durationMinute": "La durée d'une seance doit être supérieure à 0 minute",
-          "dateIntervalEnd": "La date de fin ne peut pas être avant la date de début"
+          "durationMinuteSpivi": "La durée d'une séance sur Spivi doit être comprise entre 20 minutes et 4 heures",
+          "dateIntervalEnd": "La date de fin ne peut pas être avant la date de début",
+          "roomBlueprintSpivi": "Un plan de salle doit être sélectionné pour les séances synchronisées avec Spivi"
         }
       },
       "warnings": {
@@ -9504,6 +9531,13 @@
       }
     },
     "quicksaleConfiguration": { "updated": "Configuration sauvegardée", "error": "Une erreur est survenue lors de la sauvegarde" }
+    },
+    "spivi": {
+      "21000": "L'upsell Spivi n'est pas activé.",
+      "21001": "Aucun plan de salle n'a été sélectionné",
+      "21002": "Le plan de salle sélectionné n'a pas de Box ID",
+      "21003": "Les séances liées à Spivi doivent avoir une durée comprise entre 20min et 4h"
+    }
   },
   "spotScheduling": {
     "toolsMenu": {
@@ -9513,7 +9547,8 @@
         "walls": "Murs",
         "place": "Emplacement",
         "elements": "Éléments",
-        "custom": "Personnalisation"
+        "custom": "Personnalisation",
+        "spivi": "Intégration Spivi"
       },
       "eraser": "Gomme",
       "undo": "Précédent",
@@ -9533,7 +9568,9 @@
       "customIconLabel": "Icones des emplacements",
       "customIconButton": "Télécharger mes icones",
       "showGrid": "Afficher la grille",
-      "addSpotType": "Ajouter un type de place"
+      "addSpotType": "Ajouter un type de place",
+      "boxId": "Box ID",
+      "requiredForSpivi": "Requis pour l'intégration Spivi"
     },
     "spotImageDialog": {
       "title": "Personnaliser vos emplacements",
@@ -9550,7 +9587,9 @@
       "save": "Enregistrer",
       "titleLabel": "Nom du plan",
       "exit": "Quitter",
-      "loadExistingBlueprint": "Charger un plan existant"
+      "loadExistingBlueprint": "Charger un plan existant",
+      "spivi": "Spivi",
+      "spiviHelperText": "Voir la correspondance avec les spots Spivi"
     },
     "spotSelectorDialog": {
       "title": "Sélectionnez une place",
@@ -9610,6 +9649,11 @@
         },
         "actions": { "cancel": "Annuler", "confirm": "Confirmer" }
       }
+    },
+    "spiviDialog": {
+      "spotCorrespondence": "Correspondance des spots",
+      "bsportIdentifiers": "Identifiants bsport",
+      "spiviIdentifiers": "Identifiants Spivi"
     }
   },
   "stripe": {

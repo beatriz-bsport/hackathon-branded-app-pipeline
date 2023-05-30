@@ -1,6 +1,4 @@
-// @ts-nocheck
 import React from 'react';
-import Dialog from '@material-ui/core/Dialog';
 import { withStyles } from '@material-ui/styles';
 import { compose } from 'recompose';
 
@@ -9,9 +7,19 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { withTranslation } from 'react-i18next';
+import { Theme } from '@material-ui/core';
+import { TFunction } from 'i18next';
 import CanvasPreview from './CanvasPreview.component';
-import { AssetForBlueprint, RoomBlueprint } from '../../types';
+import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
 import { MaterialStyleType } from '../../../../utils/types';
+import SpiviCorrespondenceTable from '../SpiviCorrespondenceTable.component';
+// @ts-ignore
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { FeatureList } from '#libs/company/types';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 interface OwnProps {
   roomBlueprint?: RoomBlueprint;
@@ -20,43 +28,146 @@ interface OwnProps {
   onClose: () => void;
   takenSpot?: number[];
   selectedSpot?: number;
+  spotCorrespondence: Array<Array<string>>;
+  spotTypes: Array<SpotType>;
+  tablePages: { [identifier: string]: number };
+  tableCountPages: { [identifier: string]: number };
+  handlePageChange: (
+    ev: React.ChangeEvent<unknown>,
+    value: number,
+    spotTypeId: number,
+  ) => void;
+  t: TFunction;
+  fetchSpotForBlueprint: () => void;
 }
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 
 class CanvasPreviewDialog extends React.PureComponent<Props> {
   render() {
-    return (
-      <Dialog fullWidth maxWidth="md" open={this.props.open}>
-        <MuiDialogTitle
-          disableTypography
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Typography variant="h6">{this.props.roomBlueprint?.name}</Typography>
-          <IconButton aria-label="close" onClick={this.props.onClose}>
-            <CloseIcon />
-          </IconButton>
-        </MuiDialogTitle>
+    const { classes, t } = this.props;
 
-        <DialogContent style={{ height: 800 }}>
-          <CanvasPreview
-            roomBlueprint={this.props.roomBlueprint}
-            assets={this.props.assets}
-            takenSpot={this.props.takenSpot}
-            selectedSpot={this.props.selectedSpot}
-            fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
-            spotTypes={this.props.spotTypes}
-          />
-        </DialogContent>
-      </Dialog>
+    return (
+      <GenericResponsiveDialog maxWidth="md" open={this.props.open}>
+        <FeatureListProvider>
+          {(featureList: FeatureList) => {
+            const showSpiviCorrespondence =
+              hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI) &&
+              this.props.roomBlueprint?.spivi_box_id;
+
+            return (
+              <div className={classes.row}>
+                <div className={classes.column}>
+                  <MuiDialogTitle
+                    disableTypography
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Typography variant="h6">
+                      {this.props.roomBlueprint?.name}
+                    </Typography>
+                    {!showSpiviCorrespondence && (
+                      <IconButton
+                        aria-label="close"
+                        onClick={this.props.onClose}
+                      >
+                        <CloseIcon />
+                      </IconButton>
+                    )}
+                  </MuiDialogTitle>
+                  <DialogContent style={{ height: 800 }}>
+                    <CanvasPreview
+                      roomBlueprint={this.props.roomBlueprint}
+                      assets={this.props.assets}
+                      takenSpot={this.props.takenSpot}
+                      selectedSpot={this.props.selectedSpot}
+                      fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+                      spotTypes={this.props.spotTypes}
+                    />
+                  </DialogContent>
+                </div>
+                {showSpiviCorrespondence && (
+                  <div className={classes.grey}>
+                    <MuiDialogTitle
+                      disableTypography
+                      className={classes.spiviCorrespondenceTitle}
+                    >
+                      <Typography variant="h6">
+                        {t('spotScheduling:spiviDialog.spotCorrespondence')}
+                      </Typography>
+                      <IconButton
+                        aria-label="close"
+                        onClick={this.props.onClose}
+                      >
+                        <CloseIcon />
+                      </IconButton>
+                    </MuiDialogTitle>
+                    <DialogContent className={classes.spiviCorrespondenceTable}>
+                      {this.props.spotTypes.map(
+                        (spotType: SpotType, index: number) => {
+                          if (
+                            this.props.spotCorrespondence &&
+                            this.props.spotTypes &&
+                            this.props.tablePages &&
+                            this.props.tableCountPages
+                          )
+                            return (
+                              <SpiviCorrespondenceTable
+                                key={`${spotType.id}-${index}`}
+                                spotCorrespondence={
+                                  this.props.spotCorrespondence[spotType.id]
+                                }
+                                spotType={spotType}
+                                pageNumber={this.props.tablePages[spotType.id]}
+                                pageCount={
+                                  this.props.tableCountPages[spotType.id]
+                                }
+                                handlePageChange={this.props.handlePageChange}
+                                spotTypeId={spotType.id}
+                              />
+                            );
+                          return <div />;
+                        },
+                      )}
+                    </DialogContent>
+                  </div>
+                )}
+              </div>
+            );
+          }}
+        </FeatureListProvider>
+      </GenericResponsiveDialog>
     );
   }
 }
 
-const styles = () => ({});
+const styles = (theme: Theme) => ({
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  column: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+  },
+  grey: {
+    backgroundColor: theme.palette.grey[100],
+  },
+  spiviCorrespondenceTitle: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  spiviCorrespondenceTable: { height: 800 },
+});
 
-export default compose<any, OwnProps>(withStyles(styles))(CanvasPreviewDialog);
+export default compose<any, OwnProps>(
+  // @ts-ignore
+  withStyles(styles),
+  withTranslation(['spotScheduling']),
+)(CanvasPreviewDialog);

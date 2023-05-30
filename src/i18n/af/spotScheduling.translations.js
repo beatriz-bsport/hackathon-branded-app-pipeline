@@ -8,6 +8,7 @@ exports.default = {
       place: 'Emplacement',
       elements: 'Éléments',
       custom: 'Personnalisation',
+      spivi: 'Intégration Spivi',
     },
 
     eraser: 'Gomme',
@@ -31,6 +32,9 @@ exports.default = {
     customIconButton: 'Télécharger mes icones',
     showGrid: 'Afficher la grille',
     addSpotType: 'Ajouter un type de place',
+
+    boxId: 'Box ID',
+    requiredForSpivi: "Requis pour l'intégration Spivi",
   },
   spotImageDialog: {
     title: 'Personnaliser vos emplacements',
@@ -52,6 +56,8 @@ exports.default = {
     titleLabel: 'Nom du plan',
     exit: 'Quitter',
     loadExistingBlueprint: 'Charger un plan existant',
+    spivi: 'Spivi',
+    spiviHelperText: 'Voir la correspondance avec les spots Spivi',
   },
   spotSelectorDialog: {
     title: 'Sélectionnez une place',
@@ -121,5 +127,10 @@ exports.default = {
       },
       actions: { cancel: 'Annuler', confirm: 'Confirmer' },
     },
+  },
+  spiviDialog: {
+    spotCorrespondence: 'Correspondance des spots',
+    bsportIdentifiers: 'Identifiants bsport',
+    spiviIdentifiers: 'Identifiants Spivi',
   },
 };

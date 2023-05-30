@@ -129,6 +129,13 @@ const {
   INSTALMENT_CUSTOM_FIRST_INSTALMENT_REQUIRES_AT_LEAST_TWO_BILLINGS_ERROR,
 } = require('@bsport/common/lib/master-data/error-codes/instalment-payment');
 
+const {
+  SPIVI_UPSELL_NOT_ACTIVATED_EXCEPTION,
+  NO_ROOM_PLAN_SELECTED_EXCEPTION,
+  NO_SPIVI_BOX_ID_FOR_ROOM_PLAN_EXCEPTION,
+  SPIVI_EVENT_DURATION_EXCEPTION,
+} = require('@bsport/common/lib/master-data/error-codes/spivi');
+
 exports.default = {
   canNotBuyErrorCode: {
     generic: 'Impossible de réserver',
@@ -1245,5 +1252,14 @@ exports.default = {
   quicksaleConfiguration: {
     updated: 'Configuration sauvegardée',
     error: 'Une erreur est survenue lors de la sauvegarde',
+  },
+  spivi: {
+    [SPIVI_UPSELL_NOT_ACTIVATED_EXCEPTION]: "L'upsell Spivi n'est pas activé.",
+    [NO_ROOM_PLAN_SELECTED_EXCEPTION]:
+      "Aucun plan de salle n'a été sélectionné",
+    [NO_SPIVI_BOX_ID_FOR_ROOM_PLAN_EXCEPTION]:
+      "Le plan de salle sélectionné n'a pas de Box ID",
+    [SPIVI_EVENT_DURATION_EXCEPTION]:
+      'Les séances liées à Spivi doivent avoir une durée comprise entre 20min et 4h',
   },
 };

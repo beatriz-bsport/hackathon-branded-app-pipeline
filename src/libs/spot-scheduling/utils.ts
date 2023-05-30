@@ -136,3 +136,59 @@ export const getSpotTypeMinimal = (
 
   return spotInformation;
 };
+
+export const SPIVI_CORRESPONDENCE_TABLE_PAGE_SIZE = 10;
+
+export const buildSpiviCorrespondence = (
+  spotTypes: Array<SpotType>,
+  roomBlueprint: RoomBlueprint,
+) => {
+  /*
+   * We need to display the correspondance between bsport and spivi spot ids.
+   * To do this we display a table of correspondence for each spotType.
+   *
+   * We create here two dicts tablePages and tableCountPages which have the ids of the spotTypes as keys
+   * and respectively the current page (initialized at 1) of each table and the max number of pages of it.
+   *
+   * Finally, the spotCorespondence dict stores for each spotType the correspondence between the id shown by the back office and the id we send to spivi
+   *
+   * if spotType 1 has prefix 's' and spotType 2 has prefix 'v', the spotCorrespondence could be:
+   * {-1: [['1', 1],['2', 4]], 1: [['s1': 2], ['s2': 3]], 2: [['v1', 5]]}
+   */
+  const prefixes = {};
+  const spotCorrespondence = {};
+  const tablePages = {};
+  const tableCountPages = {};
+  if (spotTypes && roomBlueprint) {
+    const spotTypesWithDefault = spotTypes.concat({
+      id: -1,
+      prefix: '',
+    });
+
+    spotTypesWithDefault.forEach((spotType) => {
+      spotCorrespondence[spotType.id] = [];
+      prefixes[spotType.id] = spotType.prefix;
+    });
+
+    roomBlueprint.canvas.elements
+      .filter((el) => el.type === 'spot')
+      .forEach((el) => {
+        if (spotCorrespondence[el.data.spotTypeId]) {
+          spotCorrespondence[el.data.spotTypeId].push([
+            prefixes[el.data.spotTypeId] + el.data.indexType,
+            el.data.index,
+          ]);
+        }
+      });
+
+    spotTypesWithDefault.forEach((spotType) => {
+      tablePages[spotType.id] = 1;
+      tableCountPages[spotType.id] = Math.ceil(
+        spotCorrespondence[spotType.id].length /
+          SPIVI_CORRESPONDENCE_TABLE_PAGE_SIZE,
+      );
+    });
+  }
+
+  return { spotCorrespondence, tablePages, tableCountPages };
+};

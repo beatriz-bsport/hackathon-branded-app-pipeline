@@ -56,6 +56,7 @@ type OwnProps = {
   spotTypes: SpotType[];
   openSpotUpdateForm: (spotType: SpotType) => void;
   openDeleteModal: () => void;
+  openSpiviDialog: () => void;
 };
 
 type Props = OwnProps &
@@ -69,6 +70,7 @@ type State = {
   showImageDialog: boolean;
   showGrid: boolean;
   coachHeight: number;
+  spiviBoxId: number;
 };
 
 class CanvasEditorComponent extends React.PureComponent<Props, State> {
@@ -94,6 +96,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
       showImageDialog: false,
       showGrid: false,
       coachHeight: this.props.selectedRoomBlueprint.canvas.coachHeight || 1,
+      spiviBoxId: this.props.selectedRoomBlueprint?.spivi_box_id,
     };
   }
 
@@ -171,6 +174,10 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
     this.setState({ coachHeight: coefficient });
   };
 
+  onSpiviBoxIdChange = (ev) => {
+    this.setState({ spiviBoxId: ev.target.value });
+  };
+
   onClickSave = () => {
     if (this.props.onSave) {
       const roomBlueprint = {
@@ -180,6 +187,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
           elements: this.props.current.elements,
           coachHeight: this.state.coachHeight,
         },
+        spivi_box_id: this.state.spiviBoxId || null,
       };
 
       this.props.onSave(roomBlueprint);
@@ -261,6 +269,8 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               blueprints={this.props.blueprints}
               onChangeBlueprint={this.onChangeBlueprint}
               disableSave={!this.hasBlueprintChanged()}
+              openSpiviDialog={this.props.openSpiviDialog}
+              selectedRoomBlueprint={this.props.selectedRoomBlueprint}
             />
           )}
 
@@ -333,6 +343,8 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               spotTypes={this.props.spotTypes}
               onDeleteSpotType={this.deleteSpotType}
               spotTypeIdSelected={this.state.spotTypeId}
+              spiviBoxId={this.state.spiviBoxId}
+              onSpiviBoxIdChange={this.onSpiviBoxIdChange}
             />
           </div>
         )}

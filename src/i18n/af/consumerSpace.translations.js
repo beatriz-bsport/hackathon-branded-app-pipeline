@@ -97,4 +97,10 @@ exports.default = {
     cs: 'Tchèque',
     none: 'Automatique',
   },
+  spivi: {
+    settingsTitle: 'Données de spinning',
+    settings: 'Afficher mes données en temps réel',
+    settingsInfo:
+      "Si cette option est activée, vos données (vitesse, rpm...) seront affichées en temps réel lors de votre séance. En désactivant cette option, vos données n'apparaitront plus mais vous recevrez bien en fin de cours votre récapitulatif par email.",
+  },
 };

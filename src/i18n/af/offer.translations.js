@@ -34,6 +34,13 @@ exports.default = {
     deleteOffer: 'Annuler',
     filter: 'Filtrer',
     today: "Aujourd'hui",
+    alertSpivi: {
+      title: 'Problème de connexion avec Spivi',
+      textOffer:
+        "La séance ne remplit pas les conditions de Spivi, par conséquent elle n'a pas pu être synchronisée.",
+      textBooking:
+        'Une ou plusieurs réservations ne répondent pas aux conditions de Spivi.',
+    },
   },
   manageOffer: 'Gérer mes réservations',
   restoreOffer: 'Restaurer la séance',
@@ -325,6 +332,7 @@ exports.default = {
             'Voulez-vous informer vos clients de cette modification ?',
           isModifyRecursively:
             'Voulez-vous modifier les séances similaires selon ces nouvelles conditions ?',
+          syncOfferOnSpivi: 'Envoyer sur Spivi',
         },
       },
       tags: {
@@ -371,8 +379,12 @@ exports.default = {
         broadcastLink:
           "Le lien est erroné. Il doit commencer par http:// ou https:// et ne pas contenir d'espacement",
         durationMinute: "La durée d'une seance doit être supérieure à 0 minute",
+        durationMinuteSpivi:
+          "La durée d'une séance sur Spivi doit être comprise entre 20 minutes et 4 heures",
         dateIntervalEnd:
           'La date de fin ne peut pas être avant la date de début',
+        roomBlueprintSpivi:
+          'Un plan de salle doit être sélectionné pour les séances synchronisées avec Spivi',
       },
     },
     warnings: {

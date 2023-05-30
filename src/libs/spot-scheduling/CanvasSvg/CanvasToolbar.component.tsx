@@ -1,8 +1,7 @@
-// @ts-nocheck
 import Button from '@material-ui/core/Button';
 
 import TextField from '@material-ui/core/TextField';
-
+import { Theme } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -10,6 +9,12 @@ import { compose } from 'recompose';
 import { MaterialStyleType } from '../../../utils/types';
 import { RoomBlueprint } from '../types';
 import RoomBlueprintsListDialog from '../component/RoomBlueprintsListDialog.component';
+import ToolTip from '#components/Tooltip.component';
+// @ts-ignore
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { FeatureList } from '#libs/company/types';
 
 type OwnProps = {
   title: string;
@@ -19,6 +24,8 @@ type OwnProps = {
   blueprints: RoomBlueprint[];
   onChangeBlueprint: (roomBlueprint: RoomBlueprint) => void;
   disableSave: boolean;
+  openSpiviDialog: () => void;
+  selectedRoomBlueprint: RoomBlueprint | null;
 };
 
 type Props = OwnProps &
@@ -55,6 +62,25 @@ class CanvasToolbar extends React.PureComponent<Props, State> {
           />
         </div>
         <div className={classes.rightContainer}>
+          <FeatureListProvider>
+            {(featureList: FeatureList) => (
+              <>
+                {hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI) &&
+                  this.props.selectedRoomBlueprint?.spivi_box_id && (
+                    <ToolTip title={t('toolbar.spiviHelperText')}>
+                      <Button
+                        onClick={this.props.openSpiviDialog}
+                        variant="outlined"
+                        className={classes.marginRight}
+                      >
+                        {t('toolbar.spivi')}
+                      </Button>
+                    </ToolTip>
+                  )}
+              </>
+            )}
+          </FeatureListProvider>
+
           <Button
             onClick={() => this.setState({ showBlueprintList: true })}
             variant="outlined"
@@ -88,7 +114,7 @@ class CanvasToolbar extends React.PureComponent<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   container: {
     display: 'flex',
     height: 64,

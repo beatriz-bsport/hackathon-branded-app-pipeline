@@ -435,4 +435,11 @@ exports.default = {
     title: 'no-show',
     message: 'Le membre a été noté absent après la séance',
   },
+  spivi: {
+    error: 'Problème de connexion avec Spivi',
+    connectionImpossible: 'Connexion à Spivi impossible',
+    errorText:
+      "Le membre ne remplit pas les conditions de Spivi, par conséquent la réservation n'a pas été faite sur Spivi.",
+  },
+  warning: 'Attention',
 };

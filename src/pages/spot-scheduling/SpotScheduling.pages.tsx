@@ -36,6 +36,13 @@ import { OptionCallback } from '../../state/types';
 import CanvasSpotCreatorDrawer from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorDrawer.component';
 import CanvasSpotDeleteModal from '#libs/spot-scheduling/CanvasSvg/CanvasSpotDeleteModal.component';
 import { PERSONALIZED_CUSTOMIZATION } from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorForm.component';
+import SpiviConfirmationDialog from '#libs/spot-scheduling/component/SpiviConfirmationDialog.component';
+
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { FeatureList } from '#libs/company/types';
+import { buildSpiviCorrespondence } from '../../libs/spot-scheduling/utils';
 
 type OwnProps = {
   id: number;
@@ -54,10 +61,16 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     spotTypeToDelete: true,
     defaultSpot: false,
     spotToSelect: null,
+    spiviDialogIsOpen: false,
+    spotCorrespondence: {},
+    tablePages: {},
+    tableCountPages: {},
   };
 
   componentDidMount() {
-    this.props.fetchRoomBlueprintDetail(this.props.id);
+    this.props.fetchRoomBlueprintDetail(this.props.id, {
+      onSuccess: this.setSpiviCorrespondence,
+    });
     this.props.fetchRoomBlueprints();
     this.props.fetchAssetForBlueprint({ blueprint: this.props.id });
   }
@@ -299,6 +312,35 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     }
   };
 
+  setSpiviCorrespondence = () => {
+    this.setState(
+      buildSpiviCorrespondence(this.props.spotTypes, this.props.roomBlueprint),
+    );
+  };
+
+  fetchSpotForBlueprintAndBuildSpiviCorrespondence = (data) => {
+    this.props.fetchSpotForBlueprint(data, {
+      onSuccess: this.setSpiviCorrespondence,
+    });
+  };
+
+  handlePageChange = (ev, value, spotTypeId) => {
+    this.setState((prevState) => ({
+      tablePages: {
+        ...prevState.tablePages,
+        [spotTypeId]: value,
+      },
+    }));
+  };
+
+  openSpiviDialog = () => {
+    this.setState({ spiviDialogIsOpen: true });
+  };
+
+  closeSpiviDialog = () => {
+    this.setState({ spiviDialogIsOpen: false });
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -317,10 +359,13 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
               openDeleteModal={this.openDeleteModal}
               spotTypes={this.props.spotTypes.concat({ id: -1 })}
               spotTypesOfBlueprint={this.props.spotTypesOfBlueprint}
-              fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+              fetchSpotForBlueprint={
+                this.fetchSpotForBlueprintAndBuildSpiviCorrespondence
+              }
               onDeleteSpotType={this.onDeleteSpotType}
               spotToSelect={this.state.spotToSelect}
               selectedTool={this.state.selectedTool}
+              openSpiviDialog={this.openSpiviDialog}
             />
             <CanvasSpotCreatorDrawer
               open={this.state.creationFormIsOpen}
@@ -343,6 +388,26 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
                 });
               }}
             />
+            <FeatureListProvider>
+              {(featureList: FeatureList) => (
+                <>
+                  {hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI) &&
+                    this.props.roomBlueprint.spivi_box_id && (
+                      <SpiviConfirmationDialog
+                        open={this.state.spiviDialogIsOpen}
+                        onClose={this.closeSpiviDialog}
+                        spotCorrespondence={this.state.spotCorrespondence}
+                        spotTypes={this.props.spotTypes.concat({
+                          id: -1,
+                        })}
+                        tablePages={this.state.tablePages}
+                        tableCountPages={this.state.tableCountPages}
+                        handlePageChange={this.handlePageChange}
+                      />
+                    )}
+                </>
+              )}
+            </FeatureListProvider>
           </div>
         ) : (
           <div className={classes.fullCenter}>

@@ -62,6 +62,8 @@ const {
   NOTIFICATION_MEMBERSHIP_EMAIL_MODIFICATION_BY_MANAGER,
   NOTIFICATION_GIFTCARD_ACTIVATION,
   NOTIFICATION_INVOICE_PDF_REQUESTED_BY_MEMBER,
+  NOTIFICATION_SPIVI_ACCOUNT_CREATED,
+  NOTIFICATION_SPIVI_PERFORMANCE,
 } = NOTIFICATION_EVENTS;
 
 exports.default = {
@@ -94,6 +96,7 @@ exports.default = {
     recurrent_private_booking: 'Rendez-vous récurrent',
     replacement_request: 'Remplacement',
     giftcard: 'Cartes cadeaux',
+    performance: 'Performance',
   },
   emailDesign: {
     placeholder: 'Généré par bsport',
@@ -391,6 +394,8 @@ exports.default = {
     [NOTIFICATION_GIFTCARD_ACTIVATION]: 'Activation de carte cadeau',
     [NOTIFICATION_INVOICE_PDF_REQUESTED_BY_MEMBER]:
       'Demande de téléchargement de facture',
+    [NOTIFICATION_SPIVI_ACCOUNT_CREATED]: 'Compte Spivi créé',
+    [NOTIFICATION_SPIVI_PERFORMANCE]: 'Performance de la séance de spinning',
   },
   franchise: {
     emptySelect:

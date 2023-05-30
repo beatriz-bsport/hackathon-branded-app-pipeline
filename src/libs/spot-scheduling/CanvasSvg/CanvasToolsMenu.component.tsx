@@ -34,6 +34,10 @@ import { DEFAULT_SPOT_TYPE_ID } from '../utils';
 import EraserIcon from './tools/Eraser/Eraser.icon';
 import CanvasSpotToolMenu from './CanvasSpotToolMenu.component';
 
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { FeatureList } from '#libs/company/types';
 import {
   CANVAS_SELECTABLE_TOOLS,
   CanvasSelectableToolsEnum,
@@ -66,6 +70,8 @@ type OwnProps = {
   openSpotUpdateForm: (spotType: SpotType) => void;
   onDeleteSpotType: (spotType: SpotType) => void;
   spotTypeIdSelected?: number;
+  spiviBoxId: number;
+  onSpiviBoxIdChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 type Props = OwnProps &
@@ -425,6 +431,23 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
             transparentColorAvailable
           />
         </Grid>
+        <FeatureListProvider>
+          {(featureList: FeatureList) => (
+            <div>
+              <Typography variant="h6" className={classes.sectionTitle}>
+                {t('toolsMenu.sections.spivi')}
+              </Typography>
+              <TextField
+                value={this.props.spiviBoxId}
+                label={t('toolsMenu.boxId')}
+                helperText={t('toolsMenu.requiredForSpivi')}
+                type="number"
+                onChange={this.props.onSpiviBoxIdChange}
+                disabled={!hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI)}
+              />
+            </div>
+          )}
+        </FeatureListProvider>
       </div>
     );
   }

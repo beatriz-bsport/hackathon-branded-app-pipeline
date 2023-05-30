@@ -77,6 +77,7 @@ import {
   getTagCategories,
   getResolvedGenericTags,
 } from '../../libs/notification-rule/selectors';
+import { buildSpiviCorrespondence } from '../../libs/spot-scheduling/utils';
 
 const BOOKING_CREATION_NOTIFICATION = 2;
 
@@ -144,11 +145,17 @@ type Props = {
 
 type State = {
   deleteOpen: boolean,
+  spotCorrespondence: Array<Array<string>>,
+  tablePages: { [identifier: string]: number },
+  tableCountPages: { [identifier: string]: number },
 };
 
 export class EstablishmentDetails extends React.Component<Props, State> {
   state = {
     deleteOpen: false,
+    spotCorrespondence: {},
+    tablePages: {},
+    tableCountPages: {},
   };
 
   componentDidMount() {
@@ -163,6 +170,32 @@ export class EstablishmentDetails extends React.Component<Props, State> {
       max_date: moment().endOf('month').format('YYYY-MM-DD'),
     });
   }
+
+  setSpiviCorrespondence = () => {
+    this.setState(
+      buildSpiviCorrespondence(
+        this.props.spotTypes,
+        this.props.previewBlueprint,
+      ),
+    );
+  };
+
+  fetchSpotForBlueprintAndBuildSpiviCorrespondence = (data) => {
+    this.props.fetchSpotForBlueprint(data, {
+      onSuccess: () => {
+        this.setSpiviCorrespondence();
+      },
+    });
+  };
+
+  handlePageChange = (ev, value, spotTypeId) => {
+    this.setState((prevState) => ({
+      tablePages: {
+        ...prevState.tablePages,
+        [spotTypeId]: value,
+      },
+    }));
+  };
 
   render() {
     if (this.props.loading || !this.props.establishment) {
@@ -233,14 +266,22 @@ export class EstablishmentDetails extends React.Component<Props, State> {
         <CanvasPreviewDialog
           open={this.props.previewBlueprint}
           roomBlueprint={this.props.previewBlueprint}
-          fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
-          spotTypes={this.props.spotTypes}
+          fetchSpotForBlueprint={
+            this.fetchSpotForBlueprintAndBuildSpiviCorrespondence
+          }
+          spotTypes={this.props.spotTypes?.concat({
+            id: -1,
+          })}
           assets={
             this.props.assetsByBlueprintByIdentifier[
               { id: '', ...this.props.previewBlueprint }.id
             ]
           }
           onClose={() => this.props.setPreviewBlueprint(null)}
+          spotCorrespondence={this.state.spotCorrespondence}
+          tablePages={this.state.tablePages}
+          tableCountPages={this.state.tableCountPages}
+          handlePageChange={this.handlePageChange}
         />
       </div>
     );

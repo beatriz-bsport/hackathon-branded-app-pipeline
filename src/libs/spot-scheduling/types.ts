@@ -11,6 +11,7 @@ export type RoomBlueprint = {
   canvas: {
     elements: CanvasElement<any>[];
   };
+  spivi_box_id?: number;
 };
 
 export type AssetForBlueprint = {

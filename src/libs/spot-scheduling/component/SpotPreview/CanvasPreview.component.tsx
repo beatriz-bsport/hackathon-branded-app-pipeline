@@ -5,7 +5,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import CanvasEditorComponent from '../../CanvasSvg/CanvasEditor.component';
 import { CANVAS_SELECTABLE_TOOLS } from '../../CanvasSvg/tools/CanvasStrategy';
-import { AssetForBlueprint, RoomBlueprint } from '../../types';
+import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
 import SpotSchedulingHelper from '../../utils';
 import { MaterialStyleType } from '../../../../utils/types';
 
@@ -15,6 +15,8 @@ interface OwnProps {
   takenSpot?: number[];
   selectedSpot?: number;
   coach?: any;
+  fetchSpotForBlueprint: () => void;
+  spotTypes: Array<SpotType>;
 }
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;

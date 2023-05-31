@@ -8,7 +8,7 @@ const ReportChipDisplayTemplate = (args: Props) => (
 export const DefaultReportChip = ReportChipDisplayTemplate.bind({});
 
 DefaultReportChip.args = {
-  value: 'Success',
+  displayedValue: 'Success',
   mainColor: '#388e3c',
   icon: 'CheckCircle',
   iconColor: '#4caf50',
@@ -17,7 +17,7 @@ DefaultReportChip.args = {
 export const NoIconReportChip = ReportChipDisplayTemplate.bind({});
 
 NoIconReportChip.args = {
-  value: '50',
+  displayedValue: '50',
   mainColor: '#d32f2f',
   icon: null,
   iconColor: null,
@@ -26,7 +26,7 @@ NoIconReportChip.args = {
 export const GreyReportChip = ReportChipDisplayTemplate.bind({});
 
 GreyReportChip.args = {
-  value: 'No',
+  displayedValue: 'No',
   mainColor: null,
   icon: 'Cancel',
   iconColor: null,
@@ -36,12 +36,12 @@ export default {
   title: 'Library/Reporting/ReportChipDisplay',
   component: ReportChipDisplay,
   argTypes: {
-    value: {
+    displayedValue: {
       description: 'The value that will be displayed in the chip.',
     },
     mainColor: {
       description:
-        'The main color of the chip. It is the text color, which is used to compute the backgroundColor. If the color is null, the chip will be grey.',
+        'The main color of the chip. It will be the text color, and will be used to compute the background color. If the color is null, the chip will be grey.',
     },
     icon: {
       description:

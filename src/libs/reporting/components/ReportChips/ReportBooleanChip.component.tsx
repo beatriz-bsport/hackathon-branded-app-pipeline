@@ -23,22 +23,23 @@ const RED_NO = [
   'is_rent',
 ];
 
-export const ReportBooleanChip = (props: Props) => {
-  const { datatype, value, translation } = props;
+const ReportBooleanChip: React.FC<Props> = ({
+  datatype,
+  value,
+  translation,
+}) => {
   const theme = useTheme();
   const green = theme.palette.success;
   const red = theme.palette.error;
   let color = null;
   if (GREY_NO.includes(datatype)) {
-    value ? (color = green.dark) : (color = null);
-  }
-  if (GREEN_NO.includes(datatype)) {
+    value && (color = green.dark);
+  } else if (GREEN_NO.includes(datatype)) {
     value ? (color = red.dark) : (color = green.dark);
-  }
-  if (RED_NO.includes(datatype)) {
+  } else if (RED_NO.includes(datatype)) {
     value ? (color = green.dark) : (color = red.dark);
   }
-  return <ReportChipDisplay mainColor={color} value={translation} />;
+  return <ReportChipDisplay mainColor={color} displayedValue={translation} />;
 };
 
 export default React.memo(ReportBooleanChip);

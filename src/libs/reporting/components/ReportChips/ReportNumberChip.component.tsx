@@ -16,8 +16,11 @@ const ABSENCE_RATE = ['rate_non_attendance', 'cancel_rate'];
 const MARGINAL_VALUE = ['sum_margin_value'];
 const STOCK = ['stock'];
 
-export const ReportNumberChip = (props: Props) => {
-  const { datatype, value, translation } = props;
+const ReportNumberChip: React.FC<Props> = ({
+  datatype,
+  value,
+  translation,
+}) => {
   const theme = useTheme();
   const green = theme.palette.success;
   const yellow = { main: '#FF9800', dark: '#C77700' };
@@ -77,7 +80,7 @@ export const ReportNumberChip = (props: Props) => {
       iconColor = green.main;
     } else if (value > 0 && value <= 10) {
       textColor = yellow.dark;
-      icon = 'RemoveCicle';
+      icon = 'RemoveCircle';
       iconColor = yellow.main;
     } else if (value > 10 && value <= 90) {
       textColor = orange.dark;
@@ -120,7 +123,7 @@ export const ReportNumberChip = (props: Props) => {
       mainColor={textColor}
       icon={icon}
       iconColor={iconColor}
-      value={translation}
+      displayedValue={translation}
     />
   );
 };

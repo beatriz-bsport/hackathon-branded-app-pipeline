@@ -12,25 +12,22 @@ import MuiIcon from '#components/MuiIcon.component';
 
 // typing to confirm
 export type Props = {
-  value: string;
-  mainColor: string;
+  displayedValue: string;
+  mainColor?: string;
   icon?: string;
   iconColor?: string;
 };
 
-const getColor = (mainColor: string) => {
-  let textColor = '#212121'; // default: dark grey
-  if (mainColor) {
-    textColor = mainColor;
-  }
+const getColor = (mainColor: string, theme: Theme) => {
+  const textColor = mainColor || theme.palette.grey[900];
   const backgroundColor = alpha(textColor, 0.1);
   return { backgroundColor, textColor };
 };
 
 export const ReportChipDisplay = (props: Props) => {
-  const { value, mainColor, icon } = props;
+  const { displayedValue, mainColor, icon } = props;
   const defaultTheme = useTheme();
-  const { backgroundColor, textColor } = getColor(mainColor);
+  const { backgroundColor, textColor } = getColor(mainColor, defaultTheme);
 
   const theme = backgroundColor
     ? createTheme({
@@ -48,10 +45,10 @@ export const ReportChipDisplay = (props: Props) => {
   return (
     <MuiThemeProvider theme={theme}>
       <Chip
-        label={value}
+        label={displayedValue}
         size="small"
         color="primary"
-        icon={icon ? <MuiIcon className={classes.icon} icon={icon} /> : null}
+        icon={!!icon && <MuiIcon className={classes.icon} icon={icon} />}
       />
     </MuiThemeProvider>
   );
@@ -61,7 +58,8 @@ const useStyles = makeStyles<Theme, Props>((theme) => ({
   icon: {
     width: theme.spacing(2),
     height: theme.spacing(2),
-    color: (props) => props.iconColor ?? props.mainColor ?? '#212121',
+    color: (props) =>
+      props.iconColor ?? props.mainColor ?? theme.palette.grey[900],
   },
 }));
 

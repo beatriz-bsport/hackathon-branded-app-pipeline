@@ -7,40 +7,45 @@ type Props = {
   datatype: string;
   value: number;
   translation: string;
-  extra_data: any;
+  extra_data: { [key: string]: number };
 };
 
-export const ReportComparisonChip = (props: Props) => {
-  const { datatype, value, translation, extra_data } = props;
-
+const ReportComparisonChip: React.FC<Props> = ({
+  datatype,
+  value,
+  translation,
+  extra_data,
+}) => {
   const theme = useTheme();
   const green = theme.palette.success;
   const orange = { main: '#FF5C00', dark: '#C94800' };
   const red = theme.palette.error;
 
-  let icon = null;
-  let textColor = null;
-  let iconColor = null;
-  let valueToCompare;
+  let icon: string;
+  let textColor: string;
+  let iconColor: string;
 
-  if (datatype === 'available_credits') {
-    valueToCompare = extra_data.total_credits;
-  } else {
-    valueToCompare = extra_data.price;
-  }
+  const valueToCompare =
+    datatype === 'available_credits'
+      ? extra_data.total_credits
+      : extra_data.price;
 
-  if (value === 0) {
-    textColor = green.dark;
-    icon = 'CheckCircle';
-    iconColor = green.main;
-  } else if (value === valueToCompare) {
-    textColor = red.dark;
-    icon = 'Cancel';
-    iconColor = red.main;
-  } else {
-    textColor = orange.dark;
-    icon = 'Error';
-    iconColor = orange.main;
+  switch (value) {
+    case 0:
+      textColor = green.dark;
+      icon = 'CheckCircle';
+      iconColor = green.main;
+      break;
+    case valueToCompare:
+      textColor = red.dark;
+      icon = 'Cancel';
+      iconColor = red.main;
+      break;
+    default:
+      textColor = orange.dark;
+      icon = 'Error';
+      iconColor = orange.main;
+      break;
   }
 
   return (
@@ -48,7 +53,7 @@ export const ReportComparisonChip = (props: Props) => {
       mainColor={textColor}
       icon={icon}
       iconColor={iconColor}
-      value={translation}
+      displayedValue={translation}
     />
   );
 };

@@ -1,75 +1,87 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Theme, createTheme } from '@material-ui/core';
 import { PaletteColor } from '@material-ui/core/styles/createPalette';
+import { ReportStatusChipTypes } from '#libs/reporting/constants';
 import { ReportChipDisplay } from '#libs/reporting/components/ReportChips/ReportChipDisplay.component';
 
 // typing to confirm
 type Props = {
   datatype: string;
-  value: any;
+  value: string | number;
   translation: string;
 };
 
 // still have to adjust and confirm the number/text matches
+
+type MatchType = {
+  [key: string | number]: { color: PaletteColor; icon: string };
+} | null;
 
 const createMatches = (type: string, theme: Theme) => {
   const green = theme.palette.success;
   const blue = theme.palette.info;
   const yellow = theme.palette.warning;
   const red = theme.palette.error;
+  const lastPaymentStatusSubscriptionMatch = {
+    0: { color: green, icon: 'CheckCircle' }, // 0 Réussi
+    1: { color: red, icon: 'Cancel' }, // 1 Echec
+    2: { color: yellow, icon: 'HourglassFull' }, // 2 En attente
+    3: { color: yellow, icon: 'Cancel' }, // 3 Annulée
+    4: { color: blue, icon: 'Cached' }, // 4 En cours
+  };
+  const subscriptionMatch = {
+    0: { color: yellow, icon: 'HourglassFull' }, // 0 Pas encore commencé
+    'En cours': { color: green, icon: 'CheckCircle' },
+    Stoppé: { color: red, icon: 'Stop' },
+    'En pause': { color: blue, icon: 'Pause' },
+    Terminé: { color: red, icon: 'Cancel' },
+  };
+  const bookingMatch = {
+    0: { color: green, icon: 'CheckCircle' }, // Ok
+    1: { color: red, icon: 'Store' }, // Annulé (manager)
+    2: { color: red, icon: 'People' }, // Annulé (client)
+    3: { color: red, icon: 'Cancel' }, // Séance annulée
+  };
+  const paymentMatch = {
+    Annulé: { color: yellow, icon: 'Cancel' },
+    'En attente': { color: yellow, icon: 'HourglassFull' },
+    1: { color: blue, icon: 'Cached' }, // En cours de traitement
+    2: { color: green, icon: 'CheckCircle' }, // 2 Réussi
+    Echoué: { color: red, icon: 'Cancel' },
+  };
+  const disputeMatch = {
+    1: { color: blue, icon: 'Cached' },
+    2: { color: green, icon: 'CheckCircle' },
+    3: { color: red, icon: 'Cancel' },
+  };
+  const lastPaymentStatusMatch = {
+    Ok: { color: green, icon: 'CheckCircle' },
+    Failed: { color: red, icon: 'Cancel' },
+    Cancelled: { color: yellow, icon: 'Cancel' },
+    Pending: { color: yellow, icon: 'HourglassFull' },
+    Processing: { color: blue, icon: 'Cached' },
+    Paid: { color: green, icon: 'CheckCircle' },
+    Unpaid: { color: red, icon: 'Cancel' },
+  };
+  const videoMatch = {
+    Draft: { color: blue, icon: 'Edit' },
+    Online: { color: green, icon: 'CloudUpload' },
+  };
   switch (type) {
-    case 'last_payment_subscription':
-      return {
-        0: { color: green, icon: 'CheckCircle' }, // Réussi
-        1: { color: red, icon: 'Cancel' }, // Echec
-        2: { color: yellow, icon: 'HourglassFull' }, // En attente
-        3: { color: yellow, icon: 'Cancel' }, // Annulée
-        4: { color: blue, icon: 'Cached' }, // En cours
-      };
-    case 'subscription':
-      return {
-        0: { color: yellow, icon: 'HourglassFull' }, // Pas encore commencé
-        'En cours': { color: green, icon: 'CheckCircle' },
-        Stoppé: { color: red, icon: 'Stop' },
-        'En pause': { color: blue, icon: 'Pause' },
-        Terminé: { color: red, icon: 'Cancel' },
-      };
-    case 'booking':
-      return {
-        0: { color: green, icon: 'CheckCircle' }, // Ok
-        1: { color: red, icon: 'Store' }, // Annulé (manager)
-        2: { color: red, icon: 'People' }, // Annulé (client)
-        3: { color: red, icon: 'Cancel' }, // Séance annulée
-      };
-    case 'payment':
-      return {
-        Annulé: { color: yellow, icon: 'Cancel' },
-        'En attente': { color: yellow, icon: 'HourglassFull' },
-        1: { color: blue, icon: 'Cached' }, // En cours de traitement
-        2: { color: green, icon: 'CheckCircle' }, // 2 Réussi
-        Echoué: { color: red, icon: 'Cancel' },
-      };
-    case 'dispute':
-      return {
-        1: { color: blue, icon: 'Cached' },
-        2: { color: green, icon: 'CheckCircle' },
-        3: { color: red, icon: 'Cancel' },
-      };
-    case 'last_payment':
-      return {
-        Ok: { color: green, icon: 'CheckCircle' },
-        Failed: { color: red, icon: 'Cancel' },
-        Cancelled: { color: yellow, icon: 'Cancel' },
-        Pending: { color: yellow, icon: 'HourglassFull' },
-        Processing: { color: blue, icon: 'Cached' },
-        Paid: { color: green, icon: 'CheckCircle' },
-        Unpaid: { color: red, icon: 'Cancel' },
-      };
-    case 'video':
-      return {
-        Draft: { color: blue, icon: 'Edit' },
-        Online: { color: green, icon: 'CloudUpload' },
-      };
+    case ReportStatusChipTypes.LAST_PAYMENT_STATUS_SUBSCRIPTION:
+      return lastPaymentStatusSubscriptionMatch;
+    case ReportStatusChipTypes.SUBSCRIPTION:
+      return subscriptionMatch;
+    case ReportStatusChipTypes.BOOKING:
+      return bookingMatch;
+    case ReportStatusChipTypes.PAYMENT:
+      return paymentMatch;
+    case ReportStatusChipTypes.DISPUTE:
+      return disputeMatch;
+    case ReportStatusChipTypes.LAST_PAYMENT_STATUS:
+      return lastPaymentStatusMatch;
+    case ReportStatusChipTypes.VIDEO:
+      return videoMatch;
     default:
       return null;
   }
@@ -93,37 +105,60 @@ export const ReportStatusChip = (props: Props) => {
       },
     },
   });
-  let match: { [key: string | number]: { color: PaletteColor; icon: string } };
-  if (
-    LAST_PAYMENT_STATUS_SUBSCRIPTION.includes(datatype) &&
-    createMatches('last_payment_subscription', theme)
-  ) {
-    match = createMatches('last_payment_subscription', theme);
-  }
-  if (
-    SUBSCRIPTION_STATUS.includes(datatype) &&
-    createMatches('subscription', theme)
-  ) {
-    match = createMatches('subscription', theme);
-  }
-  if (BOOKING_STATUS.includes(datatype) && createMatches('value', theme)) {
-    match = createMatches('value', theme);
-  }
-  if (PAYMENT_STATUS.includes(datatype) && createMatches('payment', theme)) {
-    match = createMatches('payment', theme);
-  }
-  if (DISPUTE_STATUS.includes(datatype) && createMatches('dispute', theme)) {
-    match = createMatches('dispute', theme);
-  }
-  if (
-    LAST_PAYMENT_STATUS_INVOICES.includes(datatype) &&
-    createMatches('last_payment', theme)
-  ) {
-    match = createMatches('last_payment', theme);
-  }
-  if (VIDEO_STATUS.includes(datatype) && createMatches('video', theme)) {
-    match = createMatches('video', theme);
-  }
+
+  const getMatch = useCallback(() => {
+    if (
+      LAST_PAYMENT_STATUS_SUBSCRIPTION.includes(datatype) &&
+      createMatches(
+        ReportStatusChipTypes.LAST_PAYMENT_STATUS_SUBSCRIPTION,
+        theme,
+      )
+    ) {
+      return createMatches(
+        ReportStatusChipTypes.LAST_PAYMENT_STATUS_SUBSCRIPTION,
+        theme,
+      );
+    }
+    if (
+      SUBSCRIPTION_STATUS.includes(datatype) &&
+      createMatches(ReportStatusChipTypes.SUBSCRIPTION, theme)
+    ) {
+      return createMatches(ReportStatusChipTypes.SUBSCRIPTION, theme);
+    }
+    if (
+      BOOKING_STATUS.includes(datatype) &&
+      createMatches(ReportStatusChipTypes.BOOKING, theme)
+    ) {
+      return createMatches(ReportStatusChipTypes.BOOKING, theme);
+    }
+    if (
+      PAYMENT_STATUS.includes(datatype) &&
+      createMatches(ReportStatusChipTypes.PAYMENT, theme)
+    ) {
+      return createMatches(ReportStatusChipTypes.PAYMENT, theme);
+    }
+    if (
+      DISPUTE_STATUS.includes(datatype) &&
+      createMatches(ReportStatusChipTypes.DISPUTE, theme)
+    ) {
+      return createMatches(ReportStatusChipTypes.DISPUTE, theme);
+    }
+    if (
+      LAST_PAYMENT_STATUS_INVOICES.includes(datatype) &&
+      createMatches(ReportStatusChipTypes.LAST_PAYMENT_STATUS, theme)
+    ) {
+      return createMatches(ReportStatusChipTypes.LAST_PAYMENT_STATUS, theme);
+    }
+    if (
+      VIDEO_STATUS.includes(datatype) &&
+      createMatches(ReportStatusChipTypes.VIDEO, theme)
+    ) {
+      return createMatches(ReportStatusChipTypes.VIDEO, theme);
+    }
+    return null;
+  }, [datatype, theme]);
+
+  const match: MatchType = getMatch();
   let textColor = null;
   let icon = null;
   let iconColor = null;
@@ -136,7 +171,7 @@ export const ReportStatusChip = (props: Props) => {
   return (
     <ReportChipDisplay
       mainColor={textColor}
-      value={translation}
+      displayedValue={translation}
       icon={icon}
       iconColor={iconColor}
     />

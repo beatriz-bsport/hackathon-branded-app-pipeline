@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import { AxiosResponse } from 'axios';
@@ -104,8 +103,8 @@ export const shopItemAsManagerActions = {
 };
 
 export function fetchShopItemAsManager(
-  company: number,
-  options: OptionCallback<ShopItem[]>,
+  company?: number,
+  options?: OptionCallback<ShopItem[]>,
 ): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
     dispatch(shopItemAsManagerActions.isLoading(true));
@@ -311,6 +310,7 @@ export function deleteItem(
         }
       } else {
         dispatch(snackbarError('shop.item.delete.error'));
+        // @ts-expect-error
         dispatch(shopItemDeleteActions.error(response));
       }
     } catch (e) {

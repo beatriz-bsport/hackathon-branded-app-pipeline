@@ -20,7 +20,8 @@ import type { PaymentCombo } from '#libs/payment-combo/types';
 import { RootState } from '../../reducers';
 
 const _getContractIds = (state: State) => state.subscription.contract.allIds;
-const _getContractData = (state: State) => state.subscription.contract.byId;
+export const getContractsById = (state: State) =>
+  state.subscription.contract.byId;
 
 export const getContract = (state: State, id: number) => {
   return state.subscription.contract.byId[id];
@@ -30,7 +31,7 @@ const _getContractMarketplaceIds = (state: State) =>
   state.subscription.contract.byMarketplace.allIds;
 
 export const getAvailableContractList = createSelector(
-  [_getContractIds, _getContractData],
+  [_getContractIds, getContractsById],
   (ids, data) => ids.map((id) => data[id]),
 );
 
@@ -76,7 +77,7 @@ export const getAvailableContractListWithPaymentPack: (
 );
 
 export const getMarketplaceContractList = createSelector(
-  [_getContractData, _getContractMarketplaceIds],
+  [getContractsById, _getContractMarketplaceIds],
   (contractData, ids) => ids.map((id) => contractData[id]),
 );
 
@@ -170,7 +171,7 @@ const _getContractForBookingIds = (state: State) =>
   state.subscription.contract.forBooking.allIds;
 
 export const getContractForBooking = createSelector(
-  [_getContractForBookingIds, _getContractData],
+  [_getContractForBookingIds, getContractsById],
   (ids, data) => ids.map((id) => data[id]),
 );
 

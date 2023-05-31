@@ -3,7 +3,7 @@ exports.default = {
     subtitle: {
       credit: 'crédit',
       credit_plural: 'crédits',
-      unlimited: 'illimités',
+      unlimited: 'Illimité',
       product: 'produit',
       product_plural: 'produits',
       paymentPack: 'Carte de cours',

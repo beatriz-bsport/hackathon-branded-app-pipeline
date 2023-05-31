@@ -1232,7 +1232,7 @@ export const privatePassBulkActions = {
 
 export function fetchPrivatePassBulk(
   ids: Array<number>,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     const id__in = uniq((ids || []).filter((id) => !!id));

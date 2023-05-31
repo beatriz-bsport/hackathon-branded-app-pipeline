@@ -104,7 +104,7 @@ export const listSubscriptionActions = {
 
 export function fetchSubscriptionList(
   params: SubscriptionQueryParams,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listSubscriptionActions.isLoading(true));
@@ -275,7 +275,7 @@ export const contractDeleteActions = {
   success: createAction('SUBSCRIPTION_CONTRACT/DELETE/SUCCESS'),
 };
 
-export function fetchContractList(params: any, options: OptionCallback) {
+export function fetchContractList(params?: any, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(contractListActions.error(null));
     dispatch(contractListActions.isLoading(true));

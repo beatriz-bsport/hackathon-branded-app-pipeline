@@ -69,7 +69,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
     if (props?.isBookingDisabled) return;
 
     if (AVAILABLE_BOOKING_ELEMENTS_IDS.includes(event?.target?.id)) {
-      offer.is_full ? handleBookOption() : handleBook();
+      offer.full ? handleBookOption() : handleBook();
     } else {
       props.onClickOffer(offer.id);
     }

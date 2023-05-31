@@ -226,7 +226,7 @@ ${WidgetCodeStringGenerator.indent(code, 2)}    </div>
   }
 }
 
-export function httpParser(url) {
+export function httpParser(url: string) {
   const regex = /^https?:\/\//;
   return regex.test(url) ? url : `http://${url}`;
 }
@@ -280,7 +280,7 @@ const getBookingButtonTraductionForOfferGroupSetAsFullBookingOnly = (
   if (!offer.available) {
     return t('translation:marketplace.bookButton.notAvailable');
   }
-  if (offer.is_full) {
+  if (offer.full) {
     return t('translation:marketplace.bookButton.full');
   }
 

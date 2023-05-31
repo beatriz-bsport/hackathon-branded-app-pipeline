@@ -114,7 +114,7 @@ export type Offer<
   price: number;
   price_coach: number;
   credit_price: number;
-  is_full: boolean;
+  full: boolean;
   establishment_override?: E;
   establishment: E;
   meta_activity: M;

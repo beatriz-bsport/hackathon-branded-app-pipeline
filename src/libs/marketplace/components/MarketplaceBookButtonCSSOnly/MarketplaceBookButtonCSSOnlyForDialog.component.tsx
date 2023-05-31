@@ -35,7 +35,7 @@ const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('translation');
 
-  const onClick = offer.is_full ? onClickBookOption : onClickBook;
+  const onClick = offer.full ? onClickBookOption : onClickBook;
   const isDisabled = useMemo(
     () =>
       !offer.available ||

@@ -117,7 +117,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
     if (isBookingDisabled) return;
 
     if (AVAILABLE_BOOKING_ELEMENTS_IDS.includes(event?.target?.id)) {
-      offer.is_full ? handleBookOption() : handleBook();
+      offer.full ? handleBookOption() : handleBook();
     } else if (!isWorkshop) {
       onClick(offer.id);
     }

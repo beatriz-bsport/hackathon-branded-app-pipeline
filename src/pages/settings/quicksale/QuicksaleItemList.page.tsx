@@ -1,0 +1,610 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { compose } from 'recompose';
+import { ConnectedProps, connect } from 'react-redux';
+import isEqual from 'lodash/isEqual';
+import { push } from 'connected-react-router';
+
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import IconButton from '@material-ui/core/IconButton';
+import Close from '@material-ui/icons/Close';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Theme, makeStyles, useMediaQuery } from '@material-ui/core';
+
+import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
+import {
+  QuicksaleCardInfo,
+  QuicksaleItem,
+  QuicksaleSection,
+  QuicksaleItemsByItemIdentifierByCategory,
+} from '#libs/quicksale/types';
+import { QuicksaleItemColor } from '#libs/quicksale/constants';
+import {
+  getAvailableItemsByItemIdentifierByCategory,
+  getLoading,
+  getSectionList,
+  getUpdateLoading,
+} from '#libs/quicksale/selectors';
+import ColorPicker from '#libs/quicksale/components/ColorPicker';
+import {
+  fetchQuicksaleConfiguration as fetchQuicksaleConfigurationAction,
+  updateQuicksaleConfiguration,
+} from '#libs/quicksale/actions';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+
+import {
+  BuyableItemAndIdentifier,
+  getBuyableItemFromIdentifierAndId,
+  getCardInfoFromBuyableItem,
+} from '#libs/quicksale/utils';
+import { getPaymentPackById } from '#libs/payment-packs/selectors';
+import { _getPrivatePassData } from '#libs/private-service/selectors/private-pass';
+import { getPaymenComboDataDict } from '#libs/payment-combo/selectors';
+import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/payment-combo/actions';
+import { getAllShopItemData } from '#libs/shop/selectors';
+import { fetchShopItemAsManager } from '#libs/shop/actions/shopitem';
+import { getGiftcardData } from '#libs/giftcard/selectors';
+// @ts-expect-error
+import { getContractsById } from '#libs/subscription/selectors';
+import { fetchContractList as fetchSubscriptionListAction } from '#libs/subscription/actions';
+
+import { RootState } from '../../../reducers';
+// @ts-expect-error
+import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import PromptOnPageLeave from '#components/Prompt';
+import useGlobalStyles from './cardListHook';
+import QuicksaleConfigurationItemList from '#libs/quicksale/components/QuicksaleConfigurationItemList';
+import QuicksaleItemAdditionDrawer from '#libs/quicksale/components/QuicksaleItemAdditionDrawer';
+import withDatatypeDynamicData from '#libs/datatype-filtering/dynamic-data-hoc';
+import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
+
+type ReducerAction =
+  | { type: 'SET_ITEMS' | 'ADD_MANY_ITEMS'; payload: Array<QuicksaleCardInfo> }
+  | {
+      type: 'EDIT_ITEM_COLOR';
+      payload: {
+        itemId: string;
+        value: QuicksaleItemColor;
+      };
+    }
+  | {
+      type: 'DELETE_ITEM';
+      payload: { itemId: string };
+    };
+
+type OwnProps = {
+  sectionList: Array<QuicksaleSection>;
+  sectionId: string;
+  handleGetDynamicDataForFilters: (datatype: DynamicFilterDataType) => any[];
+};
+
+type Props = OwnProps & ConnectedProps<typeof connector>;
+
+const QuicksaleItemList: React.FC<Props> = (props) => {
+  const { t } = useTranslation(['quicksale']);
+
+  const classes = useGlobalStyles();
+  const localClasses = useStyles();
+
+  const {
+    sectionList,
+    sectionId,
+    fetchQuicksaleConfiguration,
+    saveConfiguration,
+    pushRouter,
+    handleGetDynamicDataForFilters,
+    fetchPaymentComboList,
+    fetchShopItemList,
+    fetchSubscriptionList,
+    loading,
+    updateLoading,
+    availableItemsByItemIdentifierByCategory,
+  } = props;
+
+  const currentSection = React.useMemo(
+    () => sectionList.find((section) => section.section_id === sectionId),
+    [sectionId, sectionList],
+  );
+
+  // ==================== Helper alert 'see more' ====================
+  const [showFullHelperAlert, setShowFullHelperAlert] = React.useState(false);
+  const toggleShowFullHelperAlert = React.useCallback(
+    () =>
+      setShowFullHelperAlert(
+        (prevShowFullHelperAlert) => !prevShowFullHelperAlert,
+      ),
+    [],
+  );
+  const isMobile = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down('xs'),
+  );
+
+  const [isSaveNeeded, setIsSaveNeeded] = React.useState(false);
+
+  const reducer = React.useCallback(
+    (
+      state: Array<QuicksaleCardInfo>,
+      action: ReducerAction,
+    ): Array<QuicksaleCardInfo> => {
+      switch (action.type) {
+        case 'SET_ITEMS':
+          return isSaveNeeded ? state : action.payload;
+        case 'ADD_MANY_ITEMS':
+          return Array.from(new Set([...state, ...action.payload]));
+        case 'EDIT_ITEM_COLOR':
+          return state.map((item) => {
+            if (item.id === action.payload.itemId)
+              return {
+                ...item,
+                color: action.payload.value,
+              };
+            return item;
+          });
+        case 'DELETE_ITEM':
+          return state.filter((item) => item.id !== action.payload.itemId);
+        default:
+          return state;
+      }
+    },
+    [isSaveNeeded],
+  );
+
+  const [unsavedItemList, dispatch] = React.useReducer(reducer, []);
+
+  const availableItemsFromBackendConfig = React.useRef<Array<QuicksaleItem>>(
+    [],
+  );
+
+  // ============= componentDidUpdate =============
+
+  // Set items in reducer when currentSection.items changes
+  React.useEffect(() => {
+    availableItemsFromBackendConfig.current = [];
+
+    const itemListToQuicksaleCardInfoList = (
+      currentSection?.items ?? []
+    ).reduce((accumulator, item) => {
+      const buyableItem = getBuyableItemFromIdentifierAndId(
+        item.buyable_item_identifier,
+        item.object_id,
+        props.paymentPackById,
+        props.privatePassById,
+        props.paymentComboById,
+        props.shopItemById,
+        props.subscriptionById,
+        props.giftcardById,
+      );
+      if (buyableItem === undefined) return accumulator;
+
+      availableItemsFromBackendConfig.current.push(item);
+      return [
+        ...accumulator,
+        getCardInfoFromBuyableItem(
+          {
+            buyableItemIdentifier: item.buyable_item_identifier,
+            buyableItem,
+          } as BuyableItemAndIdentifier,
+          t,
+          item.color,
+          currentSection?.section_id ?? '',
+        ),
+      ];
+    }, []);
+    dispatch({ type: 'SET_ITEMS', payload: itemListToQuicksaleCardInfoList });
+  }, [
+    currentSection?.items,
+    currentSection?.section_id,
+    props.giftcardById,
+    props.paymentComboById,
+    props.paymentPackById,
+    props.privatePassById,
+    props.shopItemById,
+    props.subscriptionById,
+    t,
+  ]);
+
+  // Set isSaveNeeded when unsavedItemList changes
+  React.useEffect(() => {
+    setIsSaveNeeded(
+      unsavedItemList.length > 0 &&
+        !isEqual(
+          // unsavedItemList is a list of QuicksaleCardInfo and need to be
+          // reconverted to a list of QuicksaleItem
+          unsavedItemList.map((item) => {
+            const [buyableItemIdentifier, objectId] = item.id.split(' ');
+            return {
+              buyable_item_identifier: Number(buyableItemIdentifier),
+              object_id: Number(objectId),
+              color: item.color,
+            };
+          }),
+          availableItemsFromBackendConfig.current ?? [],
+        ),
+    );
+  }, [unsavedItemList]);
+
+  // =================================================
+
+  const onItemColorChange = React.useCallback(
+    (itemId: string, color: string) => {
+      dispatch({
+        type: 'EDIT_ITEM_COLOR',
+        payload: { itemId, value: color as QuicksaleItemColor },
+      });
+    },
+    [],
+  );
+
+  const onItemDelete = React.useCallback((itemId: string) => {
+    dispatch({
+      type: 'DELETE_ITEM',
+      payload: { itemId },
+    });
+  }, []);
+
+  // ==================== Item addition management ====================
+  const [showItemAdditionDrawer, setShowItemAdditionDrawer] =
+    React.useState(false);
+
+  const openItemAdditionDrawer = React.useCallback(
+    () => setShowItemAdditionDrawer(true),
+    [],
+  );
+
+  const closeItemAdditionDrawer = React.useCallback(
+    () => setShowItemAdditionDrawer(false),
+    [],
+  );
+
+  const addManyItems = React.useCallback(
+    (itemsToAdd: Array<QuicksaleCardInfo>) => {
+      dispatch({ type: 'ADD_MANY_ITEMS', payload: itemsToAdd });
+    },
+    [],
+  );
+
+  // Computation of the available items for the drawer.
+  // The items are stored as PaymentPacks, PrivatePasses, ...
+  // and need to be converted to QuicksaleCardInfo to make code
+  // easier in the drawer component
+  const availableItems = React.useMemo(() => {
+    const result: QuicksaleItemsByItemIdentifierByCategory = {
+      [QuicksaleBasketItem.PaymentPackIdentifier]: {
+        hasCategories: false,
+        itemsByCategory: [],
+      },
+      [QuicksaleBasketItem.PrivatePassIdentifier]: {
+        hasCategories: false,
+        itemsByCategory: [],
+      },
+      [QuicksaleBasketItem.PaymentComboIdentifier]: {
+        hasCategories: false,
+        itemsByCategory: [],
+      },
+      [QuicksaleBasketItem.ShopItemIdentifier]: {
+        hasCategories: false,
+        itemsByCategory: [],
+      },
+      [QuicksaleBasketItem.GiftcardIdentifier]: {
+        hasCategories: false,
+        itemsByCategory: [],
+      },
+      [QuicksaleBasketItem.SubscriptionIdentifier]: {
+        hasCategories: false,
+        itemsByCategory: [],
+      },
+    };
+
+    (
+      Object.keys(result) as Array<unknown> as Array<QuicksaleBasketItem>
+    ).forEach((buyableItemIdentifier) => {
+      result[buyableItemIdentifier] = {
+        hasCategories:
+          availableItemsByItemIdentifierByCategory[buyableItemIdentifier]
+            .hasCategories,
+        itemsByCategory: availableItemsByItemIdentifierByCategory[
+          buyableItemIdentifier
+        ].itemsByCategory.map((category) => ({
+          id: category.id,
+          name: category.name,
+          items: category.items
+            .map((item) =>
+              getCardInfoFromBuyableItem(
+                // @ts-expect-error because getCardInfoFromBuyableItem expects
+                // a specific type for each buyableItemIdentifier and TS doesn't see
+                // that it's working here
+                {
+                  buyableItemIdentifier: Number(buyableItemIdentifier),
+                  buyableItem: item,
+                },
+                t,
+                '',
+                currentSection?.section_id ?? '',
+              ),
+            )
+            .filter(
+              (item) =>
+                !unsavedItemList.some(
+                  (unsavedItem) => unsavedItem.id === item.id,
+                ),
+            ),
+        })),
+      };
+    });
+    return result;
+  }, [
+    availableItemsByItemIdentifierByCategory,
+    currentSection?.section_id,
+    t,
+    unsavedItemList,
+  ]);
+
+  // ==================== Color management ====================
+  const [itemWhoseColorIsEdited, setItemWhoseColorIsEdited] =
+    React.useState('');
+
+  const relatedItem = React.useMemo(
+    () => unsavedItemList.find((item) => item.id === itemWhoseColorIsEdited),
+    [itemWhoseColorIsEdited, unsavedItemList],
+  );
+
+  const openColorModal = React.useCallback(
+    (itemId: string) => setItemWhoseColorIsEdited(itemId),
+    [],
+  );
+
+  const closeColorModal = React.useCallback(
+    () => setItemWhoseColorIsEdited(''),
+    [],
+  );
+
+  const onColorSelect = React.useCallback(
+    (color: string) => {
+      onItemColorChange(itemWhoseColorIsEdited, color);
+      closeColorModal();
+    },
+    [closeColorModal, itemWhoseColorIsEdited, onItemColorChange],
+  );
+
+  const availableColors = React.useMemo(
+    () => Object.values(QuicksaleItemColor),
+    [],
+  );
+
+  // ==================== componentDidMount ====================
+  // Redirect to configuration main page if section not found
+  React.useEffect(() => {
+    if (!loading && sectionList?.length > 0 && currentSection === undefined)
+      pushRouter('/settings/quicksale/configuration');
+  }, [currentSection, loading, pushRouter, sectionList]);
+
+  // Fetch configuration and objects
+  React.useEffect(() => {
+    fetchQuicksaleConfiguration();
+    handleGetDynamicDataForFilters('payment_pack');
+    handleGetDynamicDataForFilters('payment_pack_category');
+    handleGetDynamicDataForFilters('private_pass');
+    handleGetDynamicDataForFilters('private_pass_category');
+    fetchPaymentComboList();
+    fetchShopItemList();
+    handleGetDynamicDataForFilters('subshop');
+    handleGetDynamicDataForFilters('giftcard');
+    fetchSubscriptionList();
+  }, [
+    fetchPaymentComboList,
+    fetchQuicksaleConfiguration,
+    fetchShopItemList,
+    fetchSubscriptionList,
+    handleGetDynamicDataForFilters,
+  ]);
+
+  // ============================================================
+
+  // ==================== Save configuration ====================
+  const saveQuicksaleConfiguration = React.useCallback(() => {
+    const currentSectionItemList = unsavedItemList.map(
+      (item): QuicksaleItem => {
+        const [buyableItemIdentifier, objectId] = item.id.split(' ');
+        return {
+          buyable_item_identifier: Number(
+            buyableItemIdentifier,
+          ) as QuicksaleBasketItem,
+          object_id: Number(objectId),
+          color: item.color,
+        };
+      },
+    );
+    saveConfiguration(
+      sectionList.map((section) => {
+        if (section.section_id === sectionId) {
+          return {
+            ...section,
+            items: currentSectionItemList,
+          };
+        }
+        return section;
+      }),
+    );
+
+    setIsSaveNeeded(false);
+  }, [saveConfiguration, sectionId, sectionList, unsavedItemList]);
+
+  const onGoBackClick = React.useCallback(() => {
+    pushRouter('/settings/quicksale/configuration');
+  }, [pushRouter]);
+
+  return (
+    <>
+      <div className={classes.sectionListContainer}>
+        <div className={classes.pageHeader}>
+          <Typography variant="h6" className={classes.mediumBold}>
+            {t('cardListPage.preview')}
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={!isSaveNeeded || updateLoading}
+            onClick={saveQuicksaleConfiguration}
+          >
+            {updateLoading ? (
+              <CircularProgress size={24} />
+            ) : (
+              <>{t('cardListPage.save')}</>
+            )}
+          </Button>
+        </div>
+
+        <div className={localClasses.pageBody}>
+          <Alert severity="info" className={localClasses.alertInfo}>
+            {!isMobile || showFullHelperAlert ? (
+              <>{t('cardListPage.possibleActionsFull')}</>
+            ) : (
+              <>
+                {t('cardListPage.possibleActionsShort')}
+                <Button onClick={toggleShowFullHelperAlert}>
+                  {t('cardListPage.seeMore')}
+                </Button>
+              </>
+            )}
+            {(!isMobile || showFullHelperAlert) && (
+              <>
+                <ul className={classes.actionList}>
+                  <li>{t('cardListPage.editColor')}</li>
+                  <li>{t('cardListPage.moveTile')}</li>
+                  <li>{t('cardListPage.deleteTile')}</li>
+                </ul>
+                {t('cardListPage.addItems')}
+              </>
+            )}
+            {isMobile && showFullHelperAlert && (
+              <Button onClick={toggleShowFullHelperAlert}>
+                {t('cardListPage.seeLess')}
+              </Button>
+            )}
+          </Alert>
+
+          <QuicksaleConfigurationItemList
+            sectionName={currentSection?.section_name ?? ''}
+            sectionIcon={currentSection?.section_icon ?? ''}
+            openColorModal={openColorModal}
+            deleteItem={onItemDelete}
+            openAddItemDrawer={openItemAdditionDrawer}
+            itemList={unsavedItemList}
+            loading={loading}
+            goBack={onGoBackClick}
+          />
+        </div>
+      </div>
+
+      <GenericResponsiveDialog
+        maxWidth="sm"
+        open={itemWhoseColorIsEdited !== ''}
+        onClose={closeColorModal}
+      >
+        <DialogTitle disableTypography className={classes.colorModalTitle}>
+          <Typography variant="h6">
+            {t('cardListPage.categoryModalTitle')}
+          </Typography>
+          <IconButton
+            onClick={closeColorModal}
+            className={classes.colorModalCloseButton}
+          >
+            <Close />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            {t('cardListPage.categoryModalSubtitle')}
+          </Typography>
+          <ColorPicker
+            colorChoices={availableColors}
+            selectedColor={relatedItem?.color ?? ''}
+            onColorChange={onColorSelect}
+            className={classes.colorPicker}
+          />
+        </DialogContent>
+      </GenericResponsiveDialog>
+
+      <PromptOnPageLeave
+        openPromptOnPageLeave={isSaveNeeded}
+        title={t('pageLeavePrompt.title')}
+        description={t('pageLeavePrompt.description')}
+        leaveWithoutSavingText={t('pageLeavePrompt.discard')}
+        leaveWithSavingText={t('pageLeavePrompt.save')}
+        onLeaveWithSaving={saveQuicksaleConfiguration}
+      />
+
+      <QuicksaleItemAdditionDrawer
+        open={showItemAdditionDrawer}
+        onClose={closeItemAdditionDrawer}
+        addItems={addManyItems}
+        availableItems={availableItems}
+      />
+    </>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  pageBody: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: theme.spacing(2),
+    flex: 'auto',
+    [theme.breakpoints.down(1600)]: {
+      flexDirection: 'column',
+    },
+  },
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+    [theme.breakpoints.up(1600)]: {
+      order: 2,
+      maxWidth: '25%',
+    },
+    height: 'fit-content',
+  },
+}));
+
+const connector = connect(
+  (state: RootState) => ({
+    sectionList: getSectionList(state),
+    loading:
+      getLoading(state) ||
+      state.paymentPack.loading ||
+      state.privateService.privatePass.loading ||
+      state.paymentCombo.loading ||
+      state.shop.shopItem.bulk.loading ||
+      state.giftcard.giftcard.loading ||
+      state.subscription.contract.loading,
+    updateLoading: getUpdateLoading(state),
+    paymentPackById: getPaymentPackById(state),
+    privatePassById: _getPrivatePassData(state),
+    paymentComboById: getPaymenComboDataDict(state),
+    // @ts-expect-error
+    shopItemById: getAllShopItemData(state),
+    giftcardById: getGiftcardData(state),
+    subscriptionById: getContractsById(state),
+    availableItemsByItemIdentifierByCategory:
+      // @ts-expect-error
+      getAvailableItemsByItemIdentifierByCategory(state),
+  }),
+  {
+    fetchQuicksaleConfiguration: fetchQuicksaleConfigurationAction,
+    saveConfiguration: updateQuicksaleConfiguration,
+    pushRouter: push,
+    fetchPaymentComboList: fetchPaymentComboListAction,
+    fetchShopItemList: fetchShopItemAsManager,
+    fetchSubscriptionList: fetchSubscriptionListAction,
+  },
+);
+
+export default compose(
+  routerParamsToProps({ sectionId: 'sectionId' }),
+  connector,
+  withDatatypeDynamicData,
+  React.memo,
+)(QuicksaleItemList);

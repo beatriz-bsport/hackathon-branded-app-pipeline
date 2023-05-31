@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-const useStyle = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   sectionListContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -73,4 +73,4 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-export default useStyle;
+export default useStyles;

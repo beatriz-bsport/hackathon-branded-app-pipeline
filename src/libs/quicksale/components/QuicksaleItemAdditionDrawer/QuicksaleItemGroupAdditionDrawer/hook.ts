@@ -6,6 +6,12 @@ const useStyle = makeStyles((theme) => ({
     [theme.breakpoints.down('lg')]: {
       width: '55%',
     },
+    [theme.breakpoints.down('md')]: {
+      width: '95%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+    },
   },
   selectorsContainer: {
     display: 'flex',
@@ -13,6 +19,9 @@ const useStyle = makeStyles((theme) => ({
     gap: theme.spacing(2),
     '& > *': {
       width: '100%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
     },
   },
   noResultAlertContainer: {

@@ -29,6 +29,7 @@ import Select, {
 } from 'react-select';
 import { NoticeProps } from 'react-select/src/components/Menu';
 import { GroupHeadingProps } from 'react-select/src/components/Group';
+import { ActionMeta } from 'react-select/lib/types';
 import { CSSProperties } from '@emotion/serialize';
 import useIsVisibleOnScreen from '../../hooks/useIsVisibleOnScreen';
 
@@ -75,6 +76,7 @@ type BaseProps<T extends OptionTypeBase> = {
   onInputChange?: (value: string, meta: { action: InputActionTypes }) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   name?: string;
+  blurOnSelect?: boolean;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
 export type OwnProps<T extends OptionTypeBase> =
@@ -118,6 +120,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     defaultValue,
     onBlur,
     name,
+    blurOnSelect,
     ...restProps
   } = props;
   const classes = useStyles();
@@ -125,7 +128,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
   const [containerRef, setContainerRef] = useState(null);
   const [displayMore, setDisplayMore] = useState(false);
 
-  const handleChange = (data: T | T[]) => {
+  const handleChange = (data: T | T[], { action }: ActionMeta) => {
     if (!onChange) return;
     // needed as it conflict with formik sometine
     selectRef.current?.select?.blur();
@@ -135,6 +138,9 @@ function MaterialUISelector<T extends OptionTypeBase>(
       }
     } else {
       onChange(data);
+    }
+    if (blurOnSelect && (action === 'clear' || action === 'remove-value')) {
+      setTimeout(() => selectRef.current.select.blur(), 1);
     }
   };
 

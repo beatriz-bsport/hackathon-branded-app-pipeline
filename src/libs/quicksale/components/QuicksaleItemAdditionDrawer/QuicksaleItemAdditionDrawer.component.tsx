@@ -28,7 +28,8 @@ import useStyle from './hook';
 
 type ItemListAction =
   | SimpleItemListAction
-  | { type: 'ADD_MANY_ITEMS'; payload: Array<QuicksaleCardInfo> };
+  | { type: 'ADD_MANY_ITEMS'; payload: Array<QuicksaleCardInfo> }
+  | { type: 'RESET_ITEMS' };
 
 const reducer = (state: Array<QuicksaleCardInfo>, action: ItemListAction) => {
   switch (action.type) {
@@ -38,6 +39,8 @@ const reducer = (state: Array<QuicksaleCardInfo>, action: ItemListAction) => {
       return Array.from(new Set([...action.payload, ...state]));
     case 'REMOVE_ITEM':
       return state.filter((item) => item.id !== action.payload.id);
+    case 'RESET_ITEMS':
+      return [];
     default:
       return state;
   }
@@ -102,6 +105,12 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
 
   const [selectedItems, dispatch] = React.useReducer(reducer, []);
 
+  const onDrawerClose = React.useCallback(() => {
+    dispatch({ type: 'RESET_ITEMS' });
+    setSelectedColor(QuicksaleItemColor.Gray);
+    onClose();
+  }, [onClose]);
+
   const searchItems = React.useMemo(
     // retrieving all the QuicksaleCardInfo items in a list
     () =>
@@ -146,7 +155,7 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
   const addSelectedItems = React.useCallback(
     // on the item list, only the subscriptions can have a recurrence, so we
     // remove the recurrence from the selected items that aren't subscriptions
-    () =>
+    () => {
       addItems(
         selectedItems.map((item) => ({
           ...item,
@@ -157,14 +166,16 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
             ? { recurrence: '' }
             : {}),
         })),
-      ),
-    [addItems, selectedColor, selectedItems],
+      );
+      onDrawerClose();
+    },
+    [addItems, onDrawerClose, selectedColor, selectedItems],
   );
 
   return (
     <GenericResponsiveDrawer
       open={open}
-      onClose={onClose}
+      onClose={onDrawerClose}
       title={t('itemList.additionDrawer.title')}
       subtitle={t('itemList.additionDrawer.simpleObjectsSubtitle')}
       withoutPadding
@@ -245,7 +256,9 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
       </div>
 
       <DialogActions className={classes.dialogActions}>
-        <Button onClick={onClose}>{t('itemList.additionDrawer.cancel')}</Button>
+        <Button onClick={onDrawerClose}>
+          {t('itemList.additionDrawer.cancel')}
+        </Button>
         <Button
           onClick={addSelectedItems}
           disabled={selectedItems.length === 0}

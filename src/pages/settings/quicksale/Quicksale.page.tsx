@@ -12,10 +12,11 @@ import { makeStyles } from '@material-ui/core';
 // @ts-expect-error
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 
-import QuicksaleSectionListPage from './QuicksaleSectionList/QuicksaleSectionList.page';
+import QuicksaleSectionListPage from './QuicksaleSectionList.page';
 import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import QuicksaleRoleConfiguration from './QuicksaleRoleConfiguration.page';
+import QuicksaleItemListPage from './QuicksaleItemList.page';
 
 const tabsData = Immutable([
   { label: 'tab.quicksale.configuration', value: 'configuration' },
@@ -46,6 +47,11 @@ const Quicksale: React.FC<Props> = ({ tab, pageHeight, pushToTab }) => {
         <title>{t('pageTitle')}</title>
       </Helmet>
       <Switch>
+        <Route
+          exact
+          path="/settings/quicksale/configuration/:sectionId"
+          component={QuicksaleItemListPage}
+        />
         <Route
           exact
           path="/settings/quicksale/configuration"

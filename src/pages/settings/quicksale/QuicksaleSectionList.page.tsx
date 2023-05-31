@@ -42,10 +42,10 @@ import {
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { bottomSnackbarInfo } from '#libs/snackbar/actions';
 
-import { Dispatch } from '../../../../state/types';
-import { RootState } from '../../../../reducers';
+import { Dispatch } from '../../../state/types';
+import { RootState } from '../../../reducers';
 import PromptOnPageLeave from '#components/Prompt';
-import useStyle from './hook';
+import useStyles from './cardListHook';
 
 enum ReducerActionType {
   SET_SECTIONS = 'SET_SECTIONS',
@@ -88,7 +88,7 @@ const QuicksaleSectionList: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(['quicksale']);
 
-  const classes = useStyle();
+  const classes = useStyles();
 
   const [isSaveNeeded, setIsSaveNeeded] = React.useState(false);
 

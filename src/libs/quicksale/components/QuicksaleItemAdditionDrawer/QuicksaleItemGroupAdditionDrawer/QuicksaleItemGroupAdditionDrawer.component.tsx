@@ -231,6 +231,7 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
               }
               isClearable
               isSearchable={false}
+              blurOnSelect
             />
           </div>
 

@@ -14,12 +14,17 @@ import { withTranslation, TFunction } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 
 import FuzeSearch from '../../components/FuzeSearch.component';
-import { getAllSmartList, getSmartList } from '../../libs/smart-list/selectors';
+import {
+  getAllSmartList,
+  getSmartList,
+  getCadencesUsingSmartlist,
+  getCadenceIdsUsingSmartlistLoading,
+} from '../../libs/smart-list/selectors';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
-
+import { fetchCadenceList } from '../../libs/sequential_marketingDEPRECATED/actions';
 import {
   smartListDelete,
   fetchAllSmartLists,
@@ -27,6 +32,7 @@ import {
   smartListUpdate,
   fetchSmartListDetail,
   copySmartList as copySmartListAction,
+  fetchCadencesUsingSmartlist,
 } from '../../libs/smart-list/actions';
 
 import type { SmartList } from '../../libs/smart-list/types';
@@ -35,6 +41,7 @@ import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormD
 import type { OptionCallback } from '../../state/types';
 import SmartListCard from '../../libs/smart-list/components/SmartlistCard.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
+import type { Cadence } from '../../sequential_marketingDEPRECATED/types';
 
 type Props = {
   smartlists: Array<SmartList>,
@@ -53,6 +60,10 @@ type Props = {
   goToSmartlistList: () => void,
   smartlistSelected: ?SmartList,
   loading: boolean,
+  fetchCadencesUsingSmartlist: (id: number) => void,
+  getCadences: (id: number) => Cadence[],
+  getCadencesLoading: () => boolean,
+  fetchCadenceList: () => void,
 };
 
 type State = {
@@ -73,6 +84,7 @@ export class SmartListList extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchAllSmartLists();
+    this.props.fetchCadenceList();
   }
 
   addNewSmartList = (data, options?: OptionCallback) => {
@@ -113,6 +125,12 @@ export class SmartListList extends Component<Props, State> {
 
   clearSearch = () => {
     this.setState({ searchText: '', searchResult: [] });
+  };
+
+  handleDeleteSmartlist = (id: number) => {
+    this.props.smartListDelete(id, {
+      onSuccess: this.props.goToSmartlistList,
+    });
   };
 
   render() {
@@ -167,11 +185,7 @@ export class SmartListList extends Component<Props, State> {
                             this.selected(id);
                           }}
                           onClickEdit={this.props.goToEdit}
-                          onClickDelete={(id) =>
-                            this.props.smartListDelete(id, {
-                              onSuccess: this.props.goToSmartlistList,
-                            })
-                          }
+                          onClickDelete={this.handleDeleteSmartlist}
                           selected={
                             this.props.smartlistSelected &&
                             smartlist.id === this.props.smartlistSelected.id
@@ -183,6 +197,9 @@ export class SmartListList extends Component<Props, State> {
                                 this.props.goToSelected(newId),
                             })
                           }
+                          fetchCadences={this.props.fetchCadencesUsingSmartlist}
+                          getCadences={this.props.getCadences}
+                          getCadencesLoading={this.props.getCadencesLoading}
                         />
                       ))}
                     </List>
@@ -199,11 +216,7 @@ export class SmartListList extends Component<Props, State> {
                       this.selected(id);
                     }}
                     onClickEdit={this.props.goToEdit}
-                    onClickDelete={(id) =>
-                      this.props.smartListDelete(id, {
-                        onSuccess: this.props.goToSmartlistList,
-                      })
-                    }
+                    onClickDelete={this.handleDeleteSmartlist}
                     selected={
                       this.props.smartlistSelected &&
                       smartlist.id === this.props.smartlistSelected.id
@@ -214,6 +227,9 @@ export class SmartListList extends Component<Props, State> {
                         onSuccess: (newId) => this.props.goToSelected(newId),
                       })
                     }
+                    fetchCadences={this.props.fetchCadencesUsingSmartlist}
+                    getCadences={this.props.getCadences}
+                    getCadencesLoading={this.props.getCadencesLoading}
                   />
                 ))}
               </List>
@@ -300,6 +316,8 @@ export default compose(
     (state, { selectedId }) => ({
       smartlists: getAllSmartList(state),
       smartlistSelected: getSmartList(state, selectedId),
+      getCadences: (id: number) => getCadencesUsingSmartlist(state, id),
+      getCadencesLoading: () => getCadenceIdsUsingSmartlistLoading(state),
       loading: state.smartList.loading,
       company_id: state.theme.theme.company,
     }),
@@ -314,6 +332,8 @@ export default compose(
       goToSelected: (id) => push(`/smart-list/${id}`),
       goToSelectedCampaign: (id) => push(`/smart-list/${id}/campaign`),
       goToSmartlistList: () => push('/smart-list/'),
+      fetchCadencesUsingSmartlist,
+      fetchCadenceList,
     },
   ),
 )(SmartListList);

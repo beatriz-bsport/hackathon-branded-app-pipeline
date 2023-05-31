@@ -264,6 +264,8 @@ exports.default = {
     source_device: 'Origine',
     franchisor_commission_amount_notax: 'Frais de commission franchisé HT',
     franchisor_commission_amount: 'Frais de commission franchisé TTC',
+    staff_commission_amount: 'Frais de commission du staff TTC',
+    staff_commission_amount_notax: 'Frais de commission du staff HT',
     total_price_notax: 'Montant facturé HT',
     total_price: 'Montant facturé TTC',
     invoice_date_created: "Date d'émission de la facture",

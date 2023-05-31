@@ -476,9 +476,7 @@ export const PaymentPackForm = (props: Props) => {
                     color="primary"
                     variant="contained"
                   >
-                    {initial && initial?.id
-                      ? t('form.paymentPack.actions.edit')
-                      : t('form.paymentPack.actions.create')}
+                    {t('form.paymentPack.actions.create')}
                   </Button>
                 </Actions>
               </div>

@@ -1357,7 +1357,8 @@
             "bookingQualitative": "Origen de las reservas",
             "bookingTimeslots": "Efectivos medio",
             "paymentTemporal": "Cobros",
-            "billingPlanTemporal": "Suscripciones"
+            "billingPlanTemporal": "Suscripciones",
+            "invoiceItemTemporal": "Suma de los artículos facturados"
         },
         "dataSourceIdentifiers": {
             "activity": "Actividad",
@@ -1415,7 +1416,14 @@
             "contract_name": "Suscripción",
             "billing_plan_payment_method": "Método de pago",
             "plan_auto_renewal": "Renovación tácita",
-            "is_no_show": "Ausente (no se presenta)"
+            "is_no_show": "Ausente (no se presenta)",
+            "invoice_date_created": "Fecha de emisión de la factura",
+            "franchisor_commission_amount_notax": "Comisión de franquicia impuesto exc.",
+            "franchisor_commission_amount": "Comisión de franquicia impuesto inc.",
+            "total_price_notax": "Importe total sin impuestos",
+            "total_price": "Importe total impuestos inc.",
+            "author": "Autor",
+            "invoiceitem_pk": "Número de artículos facturados"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -1442,7 +1450,8 @@
                 "graph_bookings": "Reservas",
                 "graph_members": "Nuevos miembros",
                 "graph_dispute": "Litigios",
-                "graph_billing_plan": "Suscripciones"
+                "graph_billing_plan": "Suscripciones",
+                "graph_invoice_items": "Compras"
             },
             "aggregation": {
                 "max": "Máximo",
@@ -4581,12 +4590,17 @@
             "is_no_show": "Ausente (no se presenta)",
             "date_roll_call_last_modified": "Fecha de la última modificación de la toma de lista",
             "payment_method_bacs_debit": "Bacs Direct Debit",
-            "franchisor_commission_amount_notax": "Porcentaje de comisión del franquiciado sin IVA",
+            "franchisor_commission_amount_notax": "Comisión del franquiciado (IVA excl).",
             "product_category": "Categoría de producto",
             "plan_note": "Notas",
-            "franchisor_commission_amount": "Porcentaje de comisión del franquiciado incl. IVA",
+            "franchisor_commission_amount": "Comisión de franquicia (IVA incl.)",
             "staff_commission_amount": "Comisiones de personal incl. IVA",
-            "staff_commission_amount_notax": "Comisión de personal sin IVA"
+            "staff_commission_amount_notax": "Comisión de personal sin IVA",
+            "nb_invoice_items": "Número de productos comprados",
+            "on_behalf_of_teacher": "Pago íntegro al profesor",
+            "date_canceled": "Fecha de cancelación",
+            "invoiceitem_pk": "ID del elemento de facturación",
+            "price_invoice_items": "Importe total de los productos comprados"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -4672,7 +4686,7 @@
             "payments": "Pagos",
             "bookings": "Reservas (curso de grupo)",
             "offers": "Sesiones",
-            "members": "Miembros",
+            "members": "Nuevos miembros",
             "cashbook": "Libro de caja",
             "on_spot_payments": "Pagos en persona",
             "video": "Vídeo",
@@ -4688,7 +4702,8 @@
             "universal_passes": "Bonos Universales",
             "franchise_shared_pass": "Usos de tarjetas compartidas",
             "dispute": "Litigio sobre el pago",
-            "billing_plan": "Suscripción"
+            "billing_plan": "Suscripción",
+            "members_purchase": "Compras de los miembros"
         },
         "globalCategories": {
             "subheader": {
@@ -4969,6 +4984,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelado",
+                "Cancelada",
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
@@ -5316,7 +5332,13 @@
                             "title": "Profesor"
                         }
                     },
-                    "title": "Profesor"
+                    "title": "Profesor",
+                    "additionalCoaches": {
+                        "field": {
+                            "placeHolder": "Seleccione profesores adicionales"
+                        },
+                        "title": "Profesor(es) adicional(es)"
+                    }
                 },
                 "dateTime": {
                     "field": {
@@ -5383,7 +5405,10 @@
         },
         "isFree": "Gratis",
         "onSite": "En el estudio",
-        "broadcast": "Videoconferencia"
+        "broadcast": "Videoconferencia",
+        "allCoaches": "{{count}} profesores",
+        "additionalCoaches": "{{count}} profesor adicional",
+        "additionalCoaches_plural": "{{count}} profesores adicionales"
     },
     "member": {
         "date_joined": "Fecha de registro",
@@ -5723,7 +5748,56 @@
         "actions": "Acciones",
         "archiveMember": "Archivar",
         "accountBalance": "Saldo",
-        "communication": "Comunicación"
+        "communication": "Comunicación",
+        "events": {
+            "member-login_successful": {
+                "primaryText": "Se ha registrado correctamente {{ source }}.",
+                "filter": "Inicio de sesión correcto",
+                "sourceApp": "desde la aplicación móvil",
+                "sourceMarketplace": "desde el marketplace"
+            },
+            "member-private_booking_registered": {
+                "primaryText": "{{ source }} ha reservado una cita {{- privateServiceName }} - {{- privateSlotName }} para {{- privateServiceDate }}.",
+                "filter": "Cita previa",
+                "sourceManager": "El manager {{ managerName }}"
+            },
+            "member-tag_applied": {
+                "primaryText": "Se ha aplicado la etiqueta {{ tagName }}.",
+                "filter": "Etiquetas aplicadas"
+            },
+            "member-basket_paid": {
+                "filter": "Cesta pagada",
+                "primaryText": "Se ha pagado una cesta de {{amount}}. "
+            },
+            "member-booking_registered": {
+                "filter": "Reservas",
+                "primaryText": "{{ source }} tiene sesión de reserva {{- offerName }} el {{- offerDate }}.",
+                "sourceManager": "El manager {{ managerName }}"
+            },
+            "member-custom_form_filled": {
+                "filter": "Edición del formulario de perfil",
+                "primaryText": "Se ha rellenado el formulario de edición de perfil {{ formName }}."
+            },
+            "member-giftcard_used": {
+                "filter": "Tarjetas regalo utilizadas",
+                "primaryText": "La tarjeta regalo {{- giftcardName }} ha sido activada."
+            },
+            "member-invoice_paid": {
+                "filter": "Facturas pagadas",
+                "primaryText": "La factura n°{{ invoiceUUID }} ha sido pagada por un importe de {{ amount }}."
+            },
+            "member-vod_bought": {
+                "filter": "VOD comprado",
+                "primaryText": "El VOD {{- VODName }} ha sido comprado."
+            }
+        },
+        "resetPassword": {
+            "dialogTitle": "Restablecer contraseña",
+            "dialogContent": "Va a enviar instrucciones para restablecer la contraseña a {{memberEmail}}",
+            "confirmation": "Instrucciones enviadas a {{memberEmail}}",
+            "error": "Error al enviar las instrucciones de restablecimiento de contraseña",
+            "button": "Restablecer la contraseña"
+        }
     },
     "booking": {
         "details": {
@@ -6118,6 +6192,10 @@
             },
             "establishment": {
                 "placeholder": "Establecimiento"
+            },
+            "additionalCoaches": {
+                "placeholder": "Profesor adicional",
+                "placeholder_plural": "Profesores adicionales"
             }
         },
         "workshop": {
@@ -7289,6 +7367,19 @@
                     "warningIsUniversalPass": "Este bono es un bono universal, se ha creado un bono gemelo en los bonos de las clases en grupo. Todos los campos modificados en este bono se modificarán también en el bono gemelo (excepto la categoría). Lo mismo ocurre con las notificaciones, las prórrogas y las modificaciones de crédito.",
                     "deativatedTags": "Discapacitado para los bonos universales",
                     "helperText": "Los bonos universales pueden utilizarse para reservar clases en grupo Y citas. Una vez creada la tarjeta de cita, se creará un bono gemelo en los bonos. El número de créditos de ambas tarjetas estará vinculado. Al comprar una de las dos tarjetas, la otra se añadirá automáticamente al socio (sin coste adicional)."
+                },
+                "appliesForPayroll": {
+                    "label": "Citas que se tienen en cuenta para calcular la nómina del profesor",
+                    "helperText": "Por defecto, las citas se facturan al estudio y se incluyen en el resumen y la nómina del profesor. Si desactiva este ajuste, las citas asociadas a este pase dejarán de aparecer en el resumen del profesor."
+                },
+                "expiration_date": {
+                    "tooltip": "Después de la fecha elegida, el paquete ya no estará a la venta para los clientes.",
+                    "label": "Fecha límite de compra",
+                    "helperText": "Disponible hasta el"
+                },
+                "onBehalfOfTeacher": {
+                    "label": "Pago íntegro al profesor",
+                    "helperText": "Este ajuste le permite indicar que los ingresos asociados a las citas de este pase se pagarán íntegramente al profesor. Esta información será visible en sus informes de compra (CA) en la columna 'Pago abonado íntegramente al profesor'."
                 }
             },
             "compatibleServices": {
@@ -8424,6 +8515,19 @@
                 "removeFavorite": "Eliminar de favoritos",
                 "addToFavorite": "Añadir a favoritos",
                 "markAsRead": "Marcar como no leído"
+            },
+            "search": "Buscar...",
+            "filter": {
+                "allThreads": "Todos los mensajes",
+                "hasNotBeenRead": "No leído",
+                "favorites": "Favoritos",
+                "muted": "Silenciar",
+                "disabled": "Archivado"
+            },
+            "kind": {
+                "member": "Miembros",
+                "smartlist": "Smartlists",
+                "offer": "Sesiones"
             }
         },
         "sentStatus": {
@@ -8437,6 +8541,20 @@
             },
             "submit": "Guardar",
             "title": "Parámetros del chat"
+        },
+        "smartListPopup": {
+            "preview": "Vista previa",
+            "previewTitle": "Vista previa",
+            "drawerTitle": "Historia de las ventanas emergentes",
+            "close": "Cerrar",
+            "cancelPreview": "Cancelar",
+            "recipients": "Destinatarios ",
+            "recipient": "destinatario",
+            "recipient_plural": "destinatarios",
+            "see": "Ver",
+            "seeRecipients": "Ver destinatarios",
+            "noSmartListPopup": "No hay ventanas emergentes de inicio",
+            "memberListTitle": "Ventana emergente de inicio"
         }
     },
     "paymentCombo": {
@@ -8494,6 +8612,11 @@
             },
             "unusableByStaff": {
                 "label": "Invisible para el personal"
+            },
+            "expiration_date": {
+                "label": "Fecha límite de compra",
+                "helperText": "Disponible hasta el",
+                "tooltip": "Después de la fecha elegida, el paquete ya no estará a la venta para los clientes."
             }
         },
         "list": {
@@ -8722,7 +8845,7 @@
                     "label": "Opciones de visualización de la información sobre el profesor"
                 },
                 "acceptDoubleBookingMetaActivity": "Aceptar la doble reserva de actividades",
-                "showFreeSessionLabel": "Indicar las sesiones con 0 créditos con la etiqueta GRATUITO",
+                "showFreeSessionLabel": "Indique las sesiones con 0 créditos con la etiqueta GRATUITO",
                 "acceptDoubleBookingWorkshop": "Aceptar reservas dobles para los"
             },
             "submit": "Guardar",
@@ -9437,7 +9560,10 @@
             "name": "Nombre",
             "addNewCoachPaymentRule": "Nueva norma de pago",
             "paymentPackPlaceHolder": "Seleccione los bonos",
-            "excludePaymentPack": "Excluir las reservas de ciertos bonos",
+            "excludePaymentPack": {
+                "title": "Excluidas las reservas de determinados bonos",
+                "warning": "Si ya ha excluido los bonos de la nómina con el parámetro 'Sesiones tenidas en cuenta en el cálculo de la nómina del profesor', no es necesario volver a especificarlos aquí."
+            },
             "bonusForEachReservationInInterval": "Añade un extra por cada reserva en el intervalo",
             "fixedBonusbyInterval": "Añade un extra fijo por intervalo",
             "cancellationBaseHelper": "Ayuda: Al marcar esta casilla el profesor no recibirá ninguna remuneración adicional sobre el valor marginal de las reservas canceladas",
@@ -9721,6 +9847,10 @@
             "last_delay_before_auto_consume": {
                 "label": "Reservar automáticamente sólo si la sesión tiene lugar en más de ",
                 "helper": "Si la sesión tiene lugar demasiado pronto en el futuro, el socio no será inscrito aunque tenga un bono válido"
+            },
+            "check_credit": {
+                "label": "Asegúrese de que el cliente dispone de un pase válido compatible con la sesión, con crédito suficiente",
+                "helper": "Un cliente no podrá inscribirse en una lista de espera a menos que disponga de un pase compatible con la sesión, y con crédito suficiente"
             }
         },
         "nbConvertible": "{{nbConvertible}} en espera de confirmación",
@@ -10556,7 +10686,11 @@
             "10001": "Stock insuficiente",
             "85000": "Ya hay una reserva en curso, espere unos instantes",
             "85101": "Imposible reservar. Esta plaza está reservada por otro usuario. Por favor, inténtelo de nuevo eligiendo otra plaza.",
-            "15002": "El artículo ya se está añadiendo a la cesta, por favor espere"
+            "15002": "El artículo ya se está añadiendo a la cesta, por favor espere",
+            "1122": "Este pase ya no se puede comprar porque ha llegado su fecha de caducidad.",
+            "23001": "No hay ningún pase disponible para poder inscribirse en la lista de espera",
+            "2025": "Este pase ya no se puede comprar porque ha llegado su fecha de caducidad.",
+            "11114": "Este pase de cita ya no puede comprarse porque ha llegado su fecha de caducidad."
         },
         "paymentRuleGroups": {
             "update": {
@@ -10809,6 +10943,27 @@
         },
         "removeItem": {
             "15002": "El artículo ya está siendo retirado de la cesta, por favor espere"
+        },
+        "cadence": {
+            "create": {
+                "error": "Se ha producido un error al crear la cadencia",
+                "success": "Se ha creado una nueva cadencia"
+            },
+            "update": {
+                "success": "Tu cadencia ha sido actualizada",
+                "error": "Se ha producido un error al editar la cadencia"
+            }
+        },
+        "instalmentPayment": {
+            "16002": "El número de pagos fraccionados debe ser igual a 1 para activar la opción \"Pago parcial\".",
+            "16000": "El importe del primer plazo debe ser superior a cero.",
+            "16001": "El porcentaje del importe total debe fijarse entre 0 y 100",
+            "16003": "El número de pagos fraccionados debe ser superior a 2 para activar la opción \"Personalizar el primer importe\"."
+        },
+        "smartListPopup": {
+            "send": {
+                "error": "Se ha producido un error al enviar su mensaje emergente."
+            }
         }
     },
     "paymentPack": {
@@ -11014,7 +11169,11 @@
                         "helperText": "Utiliza etiquetas para que el mapa sea visible sólo para el grupo de miembros que desees en el mercado, el widget y la aplicación. Puede seleccionar etiquetas para que el mapa sea visible sólo para los miembros con una etiqueta seleccionada. O puede seleccionar etiquetas para que el mapa sea invisible sólo para los miembros con una de las etiquetas seleccionadas. ",
                         "header": "Etiquetas"
                     },
-                    "header": "Avanzado"
+                    "header": "Avanzado",
+                    "appliesForPayroll": {
+                        "label": "Sesiones que se tienen en cuenta para calcular la remuneración del profesor",
+                        "helperText": "Por defecto, las sesiones son facturadas al estudio e incluidas en la nómina del profesor y remuneradas por el estudio. Al desactivar este ajuste, las sesiones asociadas a este pase ya no aparecerán en la nómina del profesor."
+                    }
                 },
                 "universalPass": {
                     "deativatedTags": "Discapacitados para las tarjetas universales",
@@ -11488,7 +11647,12 @@
                     "label": "Pro rata, por franquiciado, de no presentarse"
                 }
             },
-            "unusableByStaff": "Invisible para el personal"
+            "unusableByStaff": "Invisible para el personal",
+            "expiration_date": {
+                "label": "Fecha límite de compra",
+                "helperText": "Disponible hasta el",
+                "tooltip": "Después de la fecha elegida, el paquete ya no estará a la venta para los clientes."
+            }
         },
         "paymentPackTemplate": {
             "actions": {
@@ -12000,7 +12164,7 @@
             "giftcard": "Tarjetas de regalo",
             "programs": "Programas",
             "expenses": "Gastos",
-            "instalmentPayment": "Pagos fraccionados",
+            "instalmentPayment": "Modalidades de pago",
             "coachPayroll": "Remuneración",
             "clockIn": "Reloj de fichaje",
             "help": "Ayuda",
@@ -13074,6 +13238,9 @@
                 "0": "Sin archivar y archivado"
             },
             "helperText": "Esta lista inteligente se aplica a todos los miembros"
+        },
+        "popup": {
+            "sendPopup": "Enviar un mensaje emergente"
         }
     },
     "relationship": {
@@ -14791,7 +14958,25 @@
                 "start": "Repetir cada"
             },
             "fee": "Gastos fijos",
-            "feeHelperText": "Los gastos que debe pagar el miembro para utilizar el servicio de pago fraccionado, se añadirán automáticamente al primer pago."
+            "feeHelperText": "Los gastos que debe pagar el miembro para utilizar el servicio de pago fraccionado, se añadirán automáticamente al primer pago.",
+            "customInstalmentAmount": {
+                "type": {
+                    "amount": "Importe fijo",
+                    "percent": "En porcentaje del precio total de la cesta"
+                },
+                "label": "Personalizar el importe del primer pago fraccionado",
+                "amountHelperText": {
+                    "amount": "Importe",
+                    "percent": "Porcentaje"
+                }
+            },
+            "partialPaymentRadio": {
+                "enabled": {
+                    "helperText": "El miembro paga inicialmente sólo un importe parcial de su cesta, el importe restante se abonará en el saldo de su cuenta",
+                    "label": "Pago parcial de la cesta"
+                },
+                "disabled": "Pague todo el importe de la cesta en varios plazos"
+            }
         },
         "list": {
             "infoNoInstalmentPayment": "El pago fraccionado permite a sus miembros pagar sus compras a lo largo de un periodo de tiempo. Configure sus pagos fraccionados y sobre qué artículos aplicarlos.",
@@ -14809,6 +14994,14 @@
             "instalmentAmountTitle": "Línea de tiempo",
             "instalmentAmount": "Fecha límite de ",
             "fee": "Gastos fijos : "
+        },
+        "configurationOption": {
+            "payLaterRemainder": "El importe restante de {{ remainder }} se registrará en el saldo de su cuenta",
+            "payLater": "Paga sólo {{ amount }} ahora"
+        },
+        "validation": {
+            "percentRange": "El porcentaje debe estar comprendido entre 1 y 100",
+            "amountMin": "El importe debe ser superior a 1"
         }
     },
     "clockIn": {

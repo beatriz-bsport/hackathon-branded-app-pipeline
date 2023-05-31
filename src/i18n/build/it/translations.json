@@ -1707,6 +1707,11 @@
             },
             "unusableByStaff": {
                 "label": "Non visibile per lo staff"
+            },
+            "expiration_date": {
+                "label": "Data limite di acquisto",
+                "helperText": "Disponibile fino al",
+                "tooltip": "Dopo la data scelta, il pacchetto non apparirà più in vendita ai clienti."
             }
         },
         "detail": {
@@ -1916,6 +1921,19 @@
                 "removeFavorite": "Rimuovi dai preferiti",
                 "addToFavorite": "Aggiungi ai preferiti",
                 "markAsRead": "Contrassegna come non letto"
+            },
+            "kind": {
+                "member": "Membri",
+                "smartlist": "Smartlist",
+                "offer": "Sessioni"
+            },
+            "search": "Cerca...",
+            "filter": {
+                "allThreads": "Tutti i messaggi",
+                "hasNotBeenRead": "Non letto",
+                "favorites": "Preferiti",
+                "muted": "Silenzioso",
+                "disabled": "Archiviati"
             }
         },
         "sentStatus": {
@@ -2034,6 +2052,20 @@
             },
             "title": "Impostazioni della Chat",
             "submit": "Salva"
+        },
+        "smartListPopup": {
+            "seeRecipients": "Vedi i destinatari",
+            "drawerTitle": "Cronologia pop-up di avvio",
+            "close": "Chiudi",
+            "preview": "Anteprima",
+            "previewTitle": "Anteprima",
+            "cancelPreview": "Cancella",
+            "recipients": "Destinatari ",
+            "see": "Vedi",
+            "recipient": "Destinatario",
+            "recipient_plural": "Destinatari",
+            "noSmartListPopup": "Nessun pop-up di avvio",
+            "memberListTitle": "Pop-up di avvio"
         }
     },
     "membership": {
@@ -2695,6 +2727,19 @@
                     "helperText": "Le carte universali possono essere utilizzate per prenotare lezioni di gruppo E appuntamenti. Una volta creata la carta, verrà creata una carta gemella nelle carte del corso. Il numero di crediti su entrambe le carte sarà collegato. Quando si acquista una delle due carte, l'altra sarà automaticamente aggiunta al membro (senza costi aggiuntivi).",
                     "label": "Carta universale",
                     "warningIsUniversalPass": "Questa carta è una carta universale, una carta gemella è stata creata nelle mappe del corso. Tutti i campi modificati su questa carta saranno modificati anche sulla carta gemella (tranne la categoria). Lo stesso vale per le notifiche, le estensioni e le modifiche di credito."
+                },
+                "appliesForPayroll": {
+                    "helperText": "Di default gli appuntamenti vengono fatturati allo studio e conteggiati nel riepilogo e nel compenso del docente. Disattivando questa impostazione, gli appuntamenti associati a questo pass non appariranno più nel riepilogo del docente.",
+                    "label": "Appuntamenti presi in considerazione nel calcolo della retribuzione del docente"
+                },
+                "onBehalfOfTeacher": {
+                    "label": "Pagamento interamente trasferito all'insegnante",
+                    "helperText": "Questo parametro permette di indicare che il reddito associato agli appuntamenti di questo pass andrà interamente al docente. Queste informazioni saranno visibili nella colonna \"Pagamento interamente pagato all'insegnante\" dei tuoi report relativi agli acquisti."
+                },
+                "expiration_date": {
+                    "tooltip": "Dopo la data selezionata, il pass appuntamenti non apparirà più in vendita ai clienti.",
+                    "helperText": "Disponibile fino al",
+                    "label": "Data limite di acquisto"
                 }
             },
             "delete": {
@@ -3514,7 +3559,7 @@
             "giftcard": "Gift card",
             "programs": "Programmi",
             "expenses": "Spese",
-            "instalmentPayment": "Pagamenti a rate",
+            "instalmentPayment": "Modalità di pagamento",
             "coachPayroll": "Remunerazione",
             "clockIn": "Orologio in orologio in uscita",
             "cadences": "Cadenze",
@@ -3930,7 +3975,7 @@
                     "label": "Opzioni di visualizzazione delle informazioni dell'insegnante"
                 },
                 "acceptDoubleBookingWorkshop": "Accetta doppia prenotazione per i workshop",
-                "showFreeSessionLabel": "Aggiungi un'etichetta a ogni sessione il cui prezzo in crediti è uguale a 0",
+                "showFreeSessionLabel": "Indica 0 sessioni di credito con l'etichetta GRATIS",
                 "acceptDoubleBookingMetaActivity": "Accetta doppia prenotazione per le attività"
             },
             "instagramURL": {
@@ -4917,7 +4962,11 @@
             "45004": "La gift card non è più disponibile per la vendita.",
             "45005": "La gift card non è più disponibile per la vendita.",
             "85101": "Impossibile prenotare. Questo posto è stato prenotato da un altro membro. Si prega di riprovare scegliendo un altro punto.",
-            "15002": "L'articolo è già stato aggiunto al carrello, attendere"
+            "15002": "L'articolo è già stato aggiunto al carrello, attendere",
+            "1122": "Questo pacchetto non può più essere acquistato perché la sua data di scadenza è passata",
+            "11114": "Questo pass appuntamenti non può più essere acquistato perché la sua data di scadenza è passata",
+            "23001": "Questo pass appuntamento non può più essere acquistato perché la sua data di scadenza è passata",
+            "2025": "Questo pass non può più essere acquistato perché la sua data di scadenza è passata"
         },
         "establishmentGroup": {
             "create": {
@@ -5147,6 +5196,27 @@
         },
         "removeItem": {
             "15002": "L'articolo è già in fase di rimozione dal carrello, attendi"
+        },
+        "instalmentPayment": {
+            "16003": "Il numero di fatture deve essere maggiore di 2 per attivare l'opzione 'Personalizza il primo importo'",
+            "16000": "L'importo della prima rata deve essere positivo",
+            "16001": "La percentuale dell'importo totale deve essere compresa tra 0 e 100",
+            "16002": "Il numero di fatture deve essere uguale a 1 per attivare l'opzione 'Paga parzialmente'"
+        },
+        "smartListPopup": {
+            "send": {
+                "error": "Si è verificato un errore durante l'invio del pop-up."
+            }
+        },
+        "cadence": {
+            "create": {
+                "error": "Si è verificato un errore durante la creazione della cadenza",
+                "success": "È stata creata una nuova cadenza"
+            },
+            "update": {
+                "error": "Si è verificato un errore durante la modifica della cadenza",
+                "success": "La tua cadenza è stata aggiornata"
+            }
         }
     },
     "settings": {
@@ -7061,8 +7131,13 @@
             "product_category": "Categoria di prodotto",
             "plan_note": "Note",
             "staff_commission_amount_notax": "Costi provvigionali del personale IVA inclusa",
-            "franchisor_commission_amount": "Percentuale IVA inclusa della commissione franchise",
-            "franchisor_commission_amount_notax": "Percentuale IVA inclusa della commissione franchise"
+            "franchisor_commission_amount": "Commissioni di franchising IVA inclusa",
+            "franchisor_commission_amount_notax": "Commissioni di franchising IVA esclusa",
+            "invoiceitem_pk": "ID elemento di fatturazione",
+            "on_behalf_of_teacher": "Pagamento interamente trasferito all'insegnante",
+            "nb_invoice_items": "Numero di prodotti acquistati",
+            "date_canceled": "Data di cancellazione",
+            "price_invoice_items": "Importo totale dei prodotti acquistati"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -7148,7 +7223,7 @@
             "payments": "Pagamenti",
             "bookings": "Prenotazioni (lezioni di gruppo)",
             "offers": "Sessioni",
-            "members": "Membri",
+            "members": "Nuovi membri",
             "cashbook": "Registratore di cassa",
             "on_spot_payments": "Pagamento in persona",
             "video": "Video",
@@ -7164,7 +7239,8 @@
             "universal_passes": "Carte universali",
             "dispute": "Controversia sul pagamento",
             "franchise_shared_pass": "Utilizzo di pass condivisi",
-            "billing_plan": "Abbonamento"
+            "billing_plan": "Abbonamento",
+            "members_purchase": "Acquisti dei membri"
         },
         "globalCategories": {
             "subheader": {
@@ -7452,7 +7528,8 @@
                 "Annulla",
                 "Annulla",
                 "Annulla",
-                "Annullato"
+                "Annullato",
+                "Annullata"
             ]
         },
         "payment_method_with_credit_account": {
@@ -7875,7 +7952,11 @@
                         "helperText": "Usa i tag per rendere la mappa visibile solo a un gruppo desiderato di membri sul marketplace, widget e app. Puoi selezionare i tag per rendere la mappa visibile solo ai membri con un tag selezionato. Oppure puoi selezionare i tag per rendere la mappa invisibile solo ai membri con uno dei tag selezionati ",
                         "header": "Tags"
                     },
-                    "header": "Avanzato"
+                    "header": "Avanzato",
+                    "appliesForPayroll": {
+                        "label": "Sessioni prese in considerazione nel calcolo della retribuzione dell'insegnante",
+                        "helperText": "Per impostazione predefinita, le sessioni vengono fatturate allo studio e conteggiate nel riepilogo e nel compenso del docente da parte dello studio. Disattivando questa impostazione, le sessioni associate a questo pass non appariranno più nel riepilogo dell'insegnante."
+                    }
                 },
                 "universalPass": {
                     "deativatedTags": "Disattivato per i pass universali",
@@ -8210,7 +8291,12 @@
                     "explain": "L'acconto di {{ price }} verrà applicato in proporzione alle assenze (no show) registrate presso ciascuno dei tuoi memrbi. Verrà addebitato un totale di {{ price }} sulla franchigia."
                 }
             },
-            "unusableByStaff": "Non visibile per lo staff"
+            "unusableByStaff": "Non visibile per lo staff",
+            "expiration_date": {
+                "label": "Data limite di acquisto",
+                "helperText": "Disponibile fino al",
+                "tooltip": "Dopo la data scelta, il pass non apparirà più in vendita ai clienti."
+            }
         },
         "paymentPackTemplate": {
             "actions": {
@@ -8895,7 +8981,56 @@
         "archiveMember": "Archivio",
         "actions": "Azioni",
         "communication": "Comunicazione",
-        "accountBalance": "Saldo"
+        "accountBalance": "Saldo",
+        "events": {
+            "member-custom_form_filled": {
+                "filter": "Form profilo modificato",
+                "primaryText": "Il form {{ formName }} di modifica del profilo è stato completato."
+            },
+            "member-vod_bought": {
+                "primaryText": "Il VOD {{- VODName }} è stato acquistato.",
+                "filter": "VOD acquistato"
+            },
+            "member-basket_paid": {
+                "filter": "Carrello pagato",
+                "primaryText": "È stato pagato un carrello di {{ amount }}. "
+            },
+            "member-booking_registered": {
+                "filter": "Prenotazioni",
+                "primaryText": "{{ source }} sessione {{- offerName }} prenotata il {{- offerDate }}.",
+                "sourceManager": "Il manager {{ managerName }}"
+            },
+            "member-giftcard_used": {
+                "primaryText": "La gift card {{- giftcardName }} è stata attivata.",
+                "filter": "Gift card utilizzate"
+            },
+            "member-invoice_paid": {
+                "filter": "Fatture pagate",
+                "primaryText": "La fattura n°{{ invoiceUUID }} è stata pagata per {{ amount }}."
+            },
+            "member-login_successful": {
+                "filter": "Connessione riuscita",
+                "sourceMarketplace": "dal marketplace",
+                "primaryText": "E' stata registrata correttamente la connessione {{ source }}.",
+                "sourceApp": "dall'app"
+            },
+            "member-private_booking_registered": {
+                "primaryText": "{{ source }} ha prenotato l'appuntamento {{- privateServiceName }} - {{- privateSlotName }} da {{- privateServiceDate }}.",
+                "sourceManager": "Il manager {{ managerName }}",
+                "filter": "Appuntamento"
+            },
+            "member-tag_applied": {
+                "filter": "Tag applicati",
+                "primaryText": "Il tag {{ tagName }} è stato applicato."
+            }
+        },
+        "resetPassword": {
+            "confirmation": "Istruzioni inviate con successo a {{memberEmail}}",
+            "error": "Errore durante l'invio delle istruzioni per la reimpostazione della password",
+            "button": "Reimposta la password",
+            "dialogTitle": "Reimpostazione della password",
+            "dialogContent": "Stai per inviare le istruzioni per reimpostare la password a {{memberEmail}}"
+        }
     },
     "booking": {
         "statusCode": {
@@ -9967,6 +10102,9 @@
                 "0": "Non archiviato e archiviato"
             },
             "helperText": "Questa smartlist si applica a tutti i membri"
+        },
+        "popup": {
+            "sendPopup": "Invia un pop-up"
         }
     },
     "relationship": {
@@ -11312,6 +11450,10 @@
             "last_delay_before_auto_consume": {
                 "helper": "Se la sessione ha luogo troppo presto nel futuro, il membro non sarà registrato anche se ha una tessera del corso valida",
                 "label": "Autoregistrarsi solo se la sessione si svolge in più di "
+            },
+            "check_credit": {
+                "label": "Verificare che il cliente sia in possesso di un pass compatibile con l'offerta e sufficientemente accreditato",
+                "helper": "Un cliente non può essere aggiunto a una lista di attesa fino a quando non dispone di un pass compatibile con l'offerta in questione e di un credito sufficiente per effettuare la prenotazione"
             }
         },
         "switchToDisable": "Riattiva la lista di attesa",
@@ -11523,7 +11665,10 @@
                 "bonus": "Bonus"
             },
             "paymentPackPlaceHolder": "Seleziona tessere",
-            "excludePaymentPack": "Escludere le prenotazioni di alcune tessere",
+            "excludePaymentPack": {
+                "warning": "Se hai già escluso dalla retribuzione i pass con il parametro 'Sessioni considerate nel calcolo della retribuzione del docente', non è necessario specificarle nuovamente qui.",
+                "title": "Escludi le prenotazioni con determinati pass"
+            },
             "bonusForEachReservationInInterval": "Aggiungere un bonus per ogni prenotazione nell'intervallo",
             "fixedBonusbyInterval": "Aggiungere un bonus fisso per intervallo",
             "cancellationBaseHelper": "Aiuto: Selezionando questa casella, il coach non riceverà alcuna remunerazione aggiuntiva sul valore marginale delle prenotazioni cancellate",
@@ -11900,7 +12045,8 @@
             "bookingQualitative": "Origine delle prenotazioni",
             "paymentTemporal": "Collezioni",
             "bookingTimeslots": "Numero medio",
-            "billingPlanTemporal": "Abbonamenti"
+            "billingPlanTemporal": "Abbonamenti",
+            "invoiceItemTemporal": "Somma totale degli articoli fatturati"
         },
         "dataSourceIdentifiers": {
             "dispute_status": "Stato delle controversie",
@@ -11958,7 +12104,14 @@
             "contract_name": "Abbonamento",
             "billing_plan_payment_method": "Metodi di pagamento",
             "plan_auto_renewal": "Rinnovo tacito",
-            "is_no_show": "Assente (no show)"
+            "is_no_show": "Assente (no show)",
+            "franchisor_commission_amount": "Commissioni di franchising incluse",
+            "franchisor_commission_amount_notax": "Commissioni di franchising IVA esclusa",
+            "invoice_date_created": "Data di emissione della fattura",
+            "author": "Autore",
+            "invoiceitem_pk": "Numero di oggetti fatturati",
+            "total_price_notax": "Importo fatturato tasse escluse",
+            "total_price": "Importo fatturato tasse incluse"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -11985,7 +12138,8 @@
                 "graph_private_bookings": "Appuntamenti",
                 "graph_bookings": "Prenotazioni",
                 "graph_members": "Nuovi membri",
-                "graph_billing_plan": "Abbonamenti"
+                "graph_billing_plan": "Abbonamenti",
+                "graph_invoice_items": "Acquisti"
             },
             "aggregation": {
                 "max": "Massimo",
@@ -12185,6 +12339,10 @@
             },
             "establishment": {
                 "placeholder": "Struttura"
+            },
+            "additionalCoaches": {
+                "placeholder": "Insegnante aggiuntivo",
+                "placeholder_plural": "Insegnanti aggiuntivi"
             }
         },
         "warning": {
@@ -12762,7 +12920,13 @@
                             "title": "Insegnante"
                         }
                     },
-                    "title": "Insegnante"
+                    "title": "Insegnante",
+                    "additionalCoaches": {
+                        "title": "Insegnante/i aggiuntivo/i",
+                        "field": {
+                            "placeHolder": "Seleziona insegnanti aggiuntivi"
+                        }
+                    }
                 },
                 "dateTime": {
                     "field": {
@@ -12829,7 +12993,10 @@
         },
         "isFree": "Gratis",
         "broadcast": "Videoconferenza",
-        "onSite": "Nello studio"
+        "onSite": "Nello studio",
+        "allCoaches": "{{count}} insegnanti",
+        "additionalCoaches": "{{count}} insegnante aggiuntivo",
+        "additionalCoaches_plural": "{{count}} insegnanti aggiuntivi"
     },
     "role": {
         "userRoles": "Contabilità del personale",
@@ -13704,7 +13871,7 @@
             "signUpInfoModal": {
                 "confirm": "Continua",
                 "cancel": "Cancellare",
-                "content": "Avete appena reso obbligatorie alcune delle domande del form  di registrazione. Le domande obbligatorie sul form d'iscrizione devono essere modificabili dai tuoi membri sul loro profilo. Queste domande sono state quindi aggiunte automaticamente al form di modifica e sono visualizzate e modificabili. Vai al form di modifica per personalizzarlo.",
+                "content": "Avete appena reso obbligatorie alcune delle domande del form di registrazione. Le domande obbligatorie sul form d'iscrizione devono essere modificabili dai tuoi membri sul loro profilo. Queste domande sono state quindi aggiunte automaticamente al form di modifica e sono visualizzate e modificabili. Vai al form di modifica per personalizzarlo.",
                 "title": "Informazioni"
             },
             "changesAreSubmitting": "Il form è attualmente in fase di aggiornamento.",
@@ -14716,7 +14883,33 @@
                 "allShopItem": "Compatibile con tutti i prodotti del negozio",
                 "giftcard": "Gift card",
                 "allGiftcard": "Compatibile con tutte le gift card"
+            },
+            "customInstalmentAmount": {
+                "label": "Personalizza l'importo della prima rata",
+                "type": {
+                    "amount": "Importo fisso",
+                    "percent": "In percentuale al prezzo totale del cestino"
+                },
+                "amountHelperText": {
+                    "percent": "Percentuale",
+                    "amount": "Importo"
+                }
+            },
+            "partialPaymentRadio": {
+                "disabled": "Paga l'intero carrello in più rate",
+                "enabled": {
+                    "label": "Pagamento parziale del carrello",
+                    "helperText": "Il membro paga immediatamente solo una parte dell'importo totale del suo carrello, il resto verrà addebitato sul suo saldo del conto"
+                }
             }
+        },
+        "configurationOption": {
+            "payLaterRemainder": "Il resto dell'importo addebitabile {{remainder}} verrà prelevato dal tuo saldo interno",
+            "payLater": "Paga solamente {{amount}}"
+        },
+        "validation": {
+            "percentRange": "La percentuale deve essere compresa tra 1 e 100",
+            "amountMin": "L'importo deve essere maggiore di 1"
         }
     },
     "ordering": {

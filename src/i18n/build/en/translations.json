@@ -9175,7 +9175,7 @@
             "staff_commission_amount": "Staff commission fee incl. VAT",
             "product_category": "Category of product",
             "plan_note": "Notes",
-            "franchisor_commission_amount_notax": "Franchisee commission excl. VAT",
+            "franchisor_commission_amount_notax": "Franchise fees exc. tax",
             "franchisor_commission_amount": "Franchise fees inc. tax",
             "on_behalf_of_teacher": "Payment paid entirely to the teacher",
             "price_invoice_items": "Total amount of products purchased",
@@ -9566,6 +9566,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
@@ -11411,7 +11412,7 @@
                 "primaryText": "Un basket of {{amount}} has been paid. "
             },
             "member-booking_registered": {
-                "primaryText": "{{ source }} has booking session {{- offerName }} the {{- offerDate }}.",
+                "primaryText": "{{ source }} has booked session {{- offerName }} the {{- offerDate }}.",
                 "sourceManager": "The manager {{ managerName }}",
                 "filter": "Bookings"
             },
@@ -14024,6 +14025,16 @@
             "16000": "The amount of the first instalment payment needs to be greater than zero",
             "16001": "The percentage of the total amount must be set between 0 and 100",
             "16002": "The number of instalment payments must be equal to 1 to enable the option \"Partial payment\""
+        },
+        "cadence": {
+            "create": {
+                "error": "An error occurred when creating the cadence",
+                "success": "A new cadence has been created"
+            },
+            "update": {
+                "error": "An error occurred when editing the cadence",
+                "success": "Your cadence has been updated"
+            }
         }
     },
     "navigation": {

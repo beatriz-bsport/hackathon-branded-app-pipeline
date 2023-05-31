@@ -249,11 +249,6 @@ const formikFormWrapper = withFormik<
       selectedBlacklistTags: [],
       selectedWhitelistTags: [],
       waitingListMaxSize: props.isOfferInGroup ? 0 : null,
-      isMetaActivityBroadcast: props.metaActivity?.is_broadcast,
-      isZoomAppEnabled: false,
-      isOfferInGroup: props.isOfferInGroup,
-      isShowPartnership: props.showPartnership,
-      isHybrid: false,
     };
   },
   enableReinitialize: false,

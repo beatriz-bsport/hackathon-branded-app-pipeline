@@ -400,6 +400,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
             group={groupData}
             onClickBook={handleBook}
             onClickBookOption={handleBookOption}
+            metaActivity={metaActivity}
           />
         </div>
       </div>

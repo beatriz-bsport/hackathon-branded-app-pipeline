@@ -5,14 +5,14 @@ import Fuse from 'fuse.js';
 import { Immutable } from 'seamless-immutable';
 
 import Config from '../../config';
-import { Offer, Offer_FULL } from '#libs/offer/types';
-import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
-import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
-import { OffersGroup } from '#libs/group-offer/types';
 
-import { Establishment } from '#libs/establishment/types';
-import { Coach } from '#libs/associated-coach/types';
-import { MetaActivity } from '#libs/meta-activity/types';
+import type { Offer, Offer_FULL } from '#libs/offer/types';
+import type { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
+import type { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
+import type { OffersGroup } from '#libs/group-offer/types';
+import type { Establishment } from '#libs/establishment/types';
+import type { Coach } from '#libs/associated-coach/types';
+import type { MetaActivity } from '#libs/meta-activity/types';
 
 export function isOfferInThePast(offer: Offer | Offer_FULL) {
   if (!offer) return false;
@@ -31,13 +31,16 @@ export function firstOfferInGroupLocksBookingBecauseInPast(
   return moment(offerInGroup.group.first_offer_date).isSameOrBefore(moment());
 }
 
-export function isOfferBookableYet(offer: Offer_FULL) {
-  if (offer.meta_activity && !offer.meta_activity.first_booking_minutes_until) {
+export function isOfferBookableYet(
+  offer: Offer_FULL,
+  metaActivity: MetaActivity,
+) {
+  if (metaActivity && !metaActivity.first_booking_minutes_until) {
     return true;
   }
-  if (offer.meta_activity) {
+  if (metaActivity) {
     return moment(offer.date_start)
-      .add(-offer.meta_activity.first_booking_minutes_until, 'minutes')
+      .add(-metaActivity.first_booking_minutes_until, 'minutes')
       .isSameOrBefore(moment());
   }
   return null;
@@ -230,12 +233,14 @@ export function httpParser(url) {
 
 export const getBookingButtonTraduction = (
   offer: Offer_FULL,
+  metaActivity: MetaActivity,
   isRegistered: boolean = false,
   t: TFunction,
 ) => {
-  if (offer?.group?.full_booking_only && offer?.meta_activity) {
+  if (offer?.group?.full_booking_only && metaActivity) {
     return getBookingButtonTraductionForOfferGroupSetAsFullBookingOnly(
       offer,
+      metaActivity,
       isRegistered,
       t,
     );
@@ -250,7 +255,7 @@ export const getBookingButtonTraduction = (
   if (!offer.available) {
     text = t('translation:marketplace.bookButton.notAvailable');
   }
-  if (!isOfferBookableYet(offer)) {
+  if (!isOfferBookableYet(offer, metaActivity)) {
     text = t('translation:marketplace.bookButton.notBookableYet');
   }
 
@@ -262,6 +267,7 @@ export const getBookingButtonTraduction = (
 
 const getBookingButtonTraductionForOfferGroupSetAsFullBookingOnly = (
   offer: Offer_FULL,
+  metaActivity: MetaActivity,
   isRegistered: boolean = false,
   t: TFunction,
 ) => {
@@ -285,7 +291,7 @@ const getBookingButtonTraductionForOfferGroupSetAsFullBookingOnly = (
     }
     if (
       !moment(first_offer_date)
-        .subtract(offer.meta_activity.first_booking_minutes_until, 'minutes')
+        .subtract(metaActivity.first_booking_minutes_until, 'minutes')
         .isSameOrBefore(moment())
     ) {
       text = t('translation:marketplace.bookButton.notBookableYet');
@@ -296,7 +302,7 @@ const getBookingButtonTraductionForOfferGroupSetAsFullBookingOnly = (
     return t('translation:marketplace.bookButton.book');
   } else if (
     !moment(first_offer_date)
-      .subtract(offer.meta_activity.first_booking_minutes_until, 'minutes')
+      .subtract(metaActivity.first_booking_minutes_until, 'minutes')
       .isSameOrBefore(moment())
   ) {
     text = t('translation:marketplace.bookButton.notBookableYet');

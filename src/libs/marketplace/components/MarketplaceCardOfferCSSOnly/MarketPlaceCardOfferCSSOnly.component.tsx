@@ -253,6 +253,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
               offer={offer}
               group={group}
               isRegistered={props.isRegistered}
+              metaActivity={metaActivity}
             />
           </div>
         </div>

@@ -339,8 +339,8 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
 
                       is_full: groupIsFull,
                       group,
-                      meta_activity: metaActivity,
                     },
+                    metaActivity,
                     isRegisteredInOnOfferInGroup,
                     t,
                   )}

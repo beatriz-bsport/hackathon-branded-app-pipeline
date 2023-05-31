@@ -408,6 +408,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   offer={offer}
                   isRegistered={isRegistered}
                   className="bs-offer-list-item__content__offer__right__bottom"
+                  metaActivity={metaActivity}
                 />
               )}
             </div>

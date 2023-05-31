@@ -16,12 +16,14 @@ import {
 import { Offer } from '#libs/offer/types';
 import './MarketplaceBookButtonCSSOnly.css';
 import { OffersGroup } from '#libs/group-offer/types';
+import { MetaActivity } from '#libs/meta-activity/types';
 
 type Props = {
   offer: Offer;
   group: OffersGroup;
   className?: string;
   isRegistered?: boolean;
+  metaActivity: MetaActivity;
 };
 
 const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
@@ -29,6 +31,7 @@ const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
   group,
   className,
   isRegistered,
+  metaActivity,
 }) => {
   const { t } = useTranslation('translation');
 
@@ -89,7 +92,7 @@ const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
             'bs-book-button-card__inner__text--booked': isRegistered,
           })}
         >
-          {getBookingButtonTraduction(offer, isRegistered, t)}
+          {getBookingButtonTraduction(offer, metaActivity, isRegistered, t)}
         </div>
       </div>
     </div>

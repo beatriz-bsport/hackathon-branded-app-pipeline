@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo } from 'react';
 import { pure } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +12,7 @@ import {
 import { Offer_FULL } from '#libs/offer/types';
 import './MarketplaceBookButtonCSSOnlyForDialog.css';
 import { OffersGroup } from '#libs/group-offer/types';
+import { MetaActivity } from '#libs/meta-activity/types';
 
 type Props = {
   offer: Offer_FULL;
@@ -22,6 +22,7 @@ type Props = {
   onClickBookOption: (
     ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => void;
+  metaActivity: MetaActivity;
 };
 
 const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
@@ -30,6 +31,7 @@ const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
   group,
   onClickBook,
   onClickBookOption,
+  metaActivity,
 }) => {
   const { t } = useTranslation('translation');
 
@@ -52,7 +54,7 @@ const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
         <DoneAllIcon className="bs-book-button__inner__icon__already-booked" />
       )}
       <div className="bs-book-button__inner__text">
-        {getBookingButtonTraduction(offer, isRegistered, t)}
+        {getBookingButtonTraduction(offer, metaActivity, isRegistered, t)}
       </div>
     </button>
   );

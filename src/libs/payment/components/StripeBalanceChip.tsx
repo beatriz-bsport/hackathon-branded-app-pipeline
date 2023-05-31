@@ -54,11 +54,11 @@ export const StripeBalanceChip: React.FC<Props> = ({
           />
         )}
         {isAvailableBalanceChip || isPendingBalanceNonNull ? (
-          <Typography variant="h6">
+          <Typography variant="default">
             {isAvailableBalanceChip ? balanceAvailableText : balancePendingText}
           </Typography>
         ) : (
-          <Typography>{balancePendingText}</Typography>
+          <Typography variant="default">{balancePendingText}</Typography>
         )}
       </div>
     </div>

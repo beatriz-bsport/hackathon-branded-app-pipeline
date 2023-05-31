@@ -78,7 +78,7 @@ export const StripeBalance = ({
         <Paper>
           <ListItem classes={{ root: classes.balancesContainer }}>
             <div className={classes.balanceContainer}>
-              <Typography variant="h6">
+              <Typography variant="subtitle1" className={classes.balanceText}>
                 {t('stripeBalance.availableBalance')}
               </Typography>
               <div className={classes.line} />
@@ -89,7 +89,7 @@ export const StripeBalance = ({
               />
             </div>
             <div className={classes.balanceContainer}>
-              <Typography variant="h6">
+              <Typography variant="subtitle1" className={classes.balanceText}>
                 {t('stripeBalance.pendingBalance')}
               </Typography>
               <div className={classes.line} />
@@ -112,7 +112,7 @@ export const StripeBalance = ({
 
         <DialogContent className={classes.helperText}>
           <Typography>{t('stripeBalance.dialog.firstPart')}</Typography>
-          <Typography variant="h6">
+          <Typography variant="subtitle1" className={classes.balanceText}>
             {t('stripeBalance.availableBalance')}
           </Typography>
           {stripeBalanceLoading ? (
@@ -127,7 +127,7 @@ export const StripeBalance = ({
             />
           )}
           <Typography>{t('stripeBalance.dialog.secondPart')}</Typography>
-          <Typography variant="h6">
+          <Typography variant="subtitle1" className={classes.balanceText}>
             {t('stripeBalance.pendingBalance')}
           </Typography>
           {stripeBalanceLoading ? (
@@ -159,15 +159,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'stretch',
     flexDirection: 'column',
     gap: '16px',
+    padding: '16px',
   },
   balanceContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1),
   },
   infoButton: {
     padding: '0px',
@@ -195,6 +192,9 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: '1px dashed gray',
     marginRight: theme.spacing(4),
     marginLeft: theme.spacing(4),
+  },
+  balanceText: {
+    fontWeight: 500,
   },
 }));
 

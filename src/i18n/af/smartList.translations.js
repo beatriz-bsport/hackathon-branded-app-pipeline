@@ -667,4 +667,20 @@ exports.default = {
       0: 'Non archivés et archivés',
     },
   },
+  cannotBeDeletedDialog: {
+    title: 'Utilisée dans des cadences',
+    cancel: 'Fermer',
+    content:
+      'Vous ne pouvez pas supprimer cette smartlist tant qu’elle est utilisée dans la cadence suivante :',
+    content_plural:
+      'Vous ne pouvez pas supprimer cette smartlist tant qu’elle est utilisée dans les cadences suivantes :',
+  },
+  cadence: {
+    content: 'Utilisée dans la cadence : {{ cadence_name }}',
+    content_plural: 'Utilisée dans {{ count }} cadences',
+  },
+  cadenceListDialog: {
+    title: 'Liste des cadences',
+    close: 'Fermer',
+  },
 };

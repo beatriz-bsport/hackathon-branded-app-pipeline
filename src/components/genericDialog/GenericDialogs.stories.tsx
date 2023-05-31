@@ -1,10 +1,12 @@
-// @ts-nocheck
 import React from 'react';
 // --------------------------------------------------
 // COMPONENTS TO VISUALIZE IN STORYBOOK
 import GenericDialogWithIconHeader, {
-  Props,
+  Props as GenericDialogWithIconHeaderProps,
 } from './GenericDialogWithIconHeader.component';
+import GenericDialogWithIconHeaderMUI, {
+  Props as GenericDialogWithIconHeaderMUIProps,
+} from './GenericDialogWithIconHeaderMUI.component';
 import GenericDialog from './GenericDialog';
 import GenericFormDialog from './GenericFormDialog';
 import GenericMuiDialog from './GenericMuiDIalog';
@@ -25,15 +27,17 @@ import Alert from '@material-ui/lab/Alert';
 import faker from 'faker';
 faker.locale = 'fr';
 
-const GenericDialogWithIconHeaderTemplate = (args: Props) => (
-  <GenericDialogWithIconHeader {...args} />
-);
+const fakeSentence = faker.hacker.phrase();
+
+const GenericDialogWithIconHeaderTemplate = (
+  args: GenericDialogWithIconHeaderProps,
+) => <GenericDialogWithIconHeader {...args} />;
 export const DialogWithIconHeader = GenericDialogWithIconHeaderTemplate.bind(
   {},
 );
 DialogWithIconHeader.args = {
-  bottomAlign: 'center',
-  children: <Typography>{faker.hacker.phrase()}</Typography>,
+  footerAlign: 'center',
+  children: <Typography>{fakeSentence}</Typography>,
   headerAlign: 'center',
   headerIcon: <ValidationIcon />,
   headerTitle: 'Well done !',
@@ -44,7 +48,33 @@ DialogWithIconHeader.args = {
   onConfirmText: 'Confirm',
   onConfirmVariant: 'contained',
   open: true,
-  withoutBottomAction: false,
+  withoutBottomActions: false,
+};
+
+const GenericDialogWithIconHeaderMUITemplate = (
+  args: GenericDialogWithIconHeaderMUIProps,
+) => (
+  <GenericDialogWithIconHeaderMUI {...args}>
+    <Typography>{fakeSentence}</Typography>
+  </GenericDialogWithIconHeaderMUI>
+);
+export const DialogWithIconHeaderMUI =
+  GenericDialogWithIconHeaderMUITemplate.bind({});
+DialogWithIconHeaderMUI.args = {
+  headerIcon: <ValidationIcon />,
+  headerAlign: 'center',
+  footerAlign: 'center',
+  content: fakeSentence,
+  contentAlign: 'center',
+  headerTitle: 'Well done !',
+  onCancelClick: () => {},
+  onCancelText: 'Cancel',
+  onCancelVariant: 'fail',
+  onConfirmClick: () => {},
+  onConfirmText: 'Confirm',
+  onConfirmVariant: 'contained',
+  open: true,
+  withoutBottomActions: false,
 };
 
 const GenericDialogTemplate = (args: any) => <GenericDialog {...args} />;
@@ -52,7 +82,7 @@ export const Dialog = GenericDialogTemplate.bind({});
 Dialog.args = {
   open: true,
   text: faker.lorem.words(4),
-  title: faker.hacker.phrase(),
+  title: fakeSentence,
   buttons: [
     { label: 'Button 1', color: 'primary', variant: 'contained' },
     { label: 'Button 2', color: 'secondary', variant: 'outlined' },
@@ -66,22 +96,22 @@ const GenericFormDialogTemplate = (args: any) => (
 export const FormDialog = GenericFormDialogTemplate.bind({});
 FormDialog.args = {
   open: true,
-  children: <Typography>{faker.hacker.phrase()}</Typography>,
+  children: <Typography>{fakeSentence}</Typography>,
 };
 
 const GenericMuiDialogTemplate = (args: any) => <GenericMuiDialog {...args} />;
 export const MuiDialog = GenericMuiDialogTemplate.bind({});
 MuiDialog.args = {
   open: true,
-  title: faker.hacker.phrase(),
-  content: faker.hacker.phrase(),
+  title: fakeSentence,
+  content: fakeSentence,
   confirmText: 'Confirmer',
   cancelText: 'Annuler',
 };
 
 const GenericResponsiveDialogTemplate = (args: any) => (
   <GenericResponsiveDialog {...args}>
-    <Typography>{faker.hacker.phrase()}</Typography>,
+    <Typography>{fakeSentence}</Typography>,
   </GenericResponsiveDialog>
 );
 export const ResponsiveDialog = GenericResponsiveDialogTemplate.bind({});
@@ -94,7 +124,7 @@ const CustomMuiDialogTemplate = (args: any) => (
     <TypographyMultiline>
       {Array(25)
         .fill(0)
-        .reduce((accu, next) => accu + `\n${faker.hacker.phrase()}`, '')}
+        .reduce((accu, next) => accu + `\n${fakeSentence}`, '')}
     </TypographyMultiline>
   </CustomMuiDialog>
 );
@@ -129,7 +159,7 @@ CustomableMuiDialog.args = {
 
 const GenericDeleteDialogTemplate = (args: DeleteDialogProps) => (
   <GenericDeleteDialog {...args}>
-    <Typography>{faker.hacker.phrase()}</Typography>
+    <Typography>{fakeSentence}</Typography>
     <Alert severity="info">Hello I am a children</Alert>
   </GenericDeleteDialog>
 );

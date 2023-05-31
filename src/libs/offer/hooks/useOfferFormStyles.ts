@@ -52,6 +52,9 @@ const useOfferFormStyles = (
     },
     smallWidth: {
       width: '65px',
+      '&.MuiInputBase-input': {
+        paddingTop: theme.spacing(1),
+      },
     },
     mediumWidth: {
       width: '100px',
@@ -107,12 +110,16 @@ const useOfferFormStyles = (
       gap: theme.spacing(1),
       border: '1px solid rgba(0, 0, 0, 0.2)',
       borderRadius: 4,
-      padding: theme.spacing(1),
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(0.5),
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
       '&:hover': {
         borderColor: 'black',
       },
+    },
+    numericInputAdornment: {
+      paddingBottom: theme.spacing(0.5),
     },
     durationFieldInputWithIndicator: {
       display: 'flex',

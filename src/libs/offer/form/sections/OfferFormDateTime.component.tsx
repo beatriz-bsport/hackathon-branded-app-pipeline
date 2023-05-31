@@ -265,11 +265,18 @@ const OfferFormDateTime = (props: Props) => {
                 InputProps={{
                   disableUnderline: true,
                   inputProps: { min: 0, max: 23 },
+                  endAdornment: (
+                    <InputAdornment
+                      position="end"
+                      className={classes.numericInputAdornment}
+                    >
+                      {t('translation:common.hourSmall')}
+                    </InputAdornment>
+                  ),
                 }}
                 error={!!errors.durationMinute}
                 disabled={!!disabled}
               />
-              {t('translation:common.hourSmall')}
             </div>
 
             <div className={classes.durationFieldInputWithIndicator}>
@@ -284,11 +291,18 @@ const OfferFormDateTime = (props: Props) => {
                 InputProps={{
                   disableUnderline: true,
                   inputProps: { min: 0, max: 59 },
+                  endAdornment: (
+                    <InputAdornment
+                      position="end"
+                      className={classes.numericInputAdornment}
+                    >
+                      {t('translation:common.minuteSmall')}
+                    </InputAdornment>
+                  ),
                 }}
                 error={!!errors.durationMinute}
                 disabled={!!disabled}
               />
-              {t('translation:common.minuteSmall')}
             </div>
           </div>
         </OfferFormField>

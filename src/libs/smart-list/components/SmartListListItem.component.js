@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,6 +17,8 @@ import Typography from '@material-ui/core/Typography';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
+import { SmartListCannotBeDeletedDialog } from './SmartListCannotBeDeletedDialog.component';
+import type { Cadence } from '../../sequential_marketingDEPRECATED/types';
 
 type Props = {
   smartlist: SmartList,
@@ -25,6 +27,9 @@ type Props = {
   onClickDelete: (id: number) => void,
   selected: boolean,
   onClickDuplicate: (id: number) => void,
+  fetchCadences: (id: number) => void,
+  getCadences: (id: number) => Cadence[],
+  getCadencesLoading: () => boolean,
 };
 
 const DeleteButton = (props: { onClick: () => void }) => (
@@ -38,6 +43,16 @@ const DeleteButton = (props: { onClick: () => void }) => (
     <DeleteIcon />
   </IconButton>
 );
+
+const ButtonWithConfirm = withConfirm(DeleteButton, 'onClick', {
+  title: 'smartList:modal.delete.title',
+  cancel: 'smartList:modal.delete.cancel',
+  confirm: 'smartList:modal.delete.confirm',
+  Content: ({ t }: { t: TFunction }) => (
+    <p>{t('smartList:modal.delete.content')}</p>
+  ),
+});
+
 const DeleteButtonMenuItem = withTranslation(['smartList'])(
   (props: { onClick: () => void }) => (
     <MenuItem
@@ -54,14 +69,6 @@ const DeleteButtonMenuItem = withTranslation(['smartList'])(
     </MenuItem>
   ),
 );
-const ButtonWithConfirm = withConfirm(DeleteButton, 'onClick', {
-  title: 'smartList:modal.delete.title',
-  cancel: 'smartList:modal.delete.cancel',
-  confirm: 'smartList:modal.delete.confirm',
-  Content: ({ t }: { t: TFunction }) => (
-    <p>{t('smartList:modal.delete.content')}</p>
-  ),
-});
 
 const ButtonWithConfirmMenuItem = withConfirm(DeleteButtonMenuItem, 'onClick', {
   title: 'smartList:modal.delete.title',
@@ -75,53 +82,97 @@ const ButtonWithConfirmMenuItem = withConfirm(DeleteButtonMenuItem, 'onClick', {
 export const SmartListItem = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['smartList']);
+  const [openCannotBeDeletedDialog, setOpenCannotBeDeletedDialog] =
+    useState(false);
+  const [previousCadenceLoading, setPreviousCadenceLoading] = useState(
+    props.getCadencesLoading(),
+  );
+  const [smartlistToDelete, setSmartlistToDelete] = useState(null);
+
+  const handleOnClickEdit = useCallback(() => {
+    props.onClickEdit(props.smartlist.id);
+  }, [props]);
+
+  const handleOnClickDuplicate = useCallback(() => {
+    props.onClickDuplicate(props.smartlist.id);
+  }, [props]);
+
+  const handleOnClickDelete = useCallback(() => {
+    setSmartlistToDelete(props.smartlist.id);
+    props.fetchCadences(props.smartlist.id);
+  }, [props]);
+
+  const handleCloseCannotBeDeletedDialog = () => {
+    setOpenCannotBeDeletedDialog(false);
+  };
+
+  useEffect(() => {
+    if (
+      previousCadenceLoading &&
+      !props.getCadencesLoading() &&
+      smartlistToDelete === props.smartlist.id
+    ) {
+      const cadencesUsingSmartlist = props.getCadences(props.smartlist.id);
+      if (!!cadencesUsingSmartlist && cadencesUsingSmartlist.length > 0) {
+        setOpenCannotBeDeletedDialog(true);
+      } else {
+        props.onClickDelete(props.smartlist.id);
+      }
+      setSmartlistToDelete(null);
+    }
+    setPreviousCadenceLoading(props.getCadencesLoading());
+  }, [previousCadenceLoading, props, smartlistToDelete]);
+
   return (
-    <ListItem
-      divider
-      button
-      selected={props.selected}
-      onClick={() => props.onClick(props.smartlist.id)}
-      className={classes.listitem}
-      style={{ display: 'flex', flexWrap: 'nowrap' }}
-    >
-      <ListItemText
-        primary={
-          <span>
-            <Typography inline component="span">
-              {props.smartlist.name}
-            </Typography>
-          </span>
-        }
-      />
-      <ListItemResponsiveAction
-        actions={[
-          props.onClickEdit && {
-            icon: ArrowForwardIcon,
-            label: t('edit'),
-            color: 'primary',
-            onClick: () => {
-              props.onClickEdit(props.smartlist.id);
+    <>
+      <ListItem
+        divider
+        button
+        selected={props.selected}
+        onClick={() => props.onClick(props.smartlist.id)}
+        className={classes.listitem}
+        style={{ display: 'flex', flexWrap: 'nowrap' }}
+      >
+        <ListItemText
+          primary={
+            <span>
+              <Typography inline component="span">
+                {props.smartlist.name}
+              </Typography>
+            </span>
+          }
+        />
+        <ListItemResponsiveAction
+          actions={[
+            props.onClickEdit && {
+              icon: ArrowForwardIcon,
+              label: t('edit'),
+              color: 'primary',
+              onClick: handleOnClickEdit,
             },
-          },
-          props.onClickDuplicate && {
-            icon: FileCopyIcon,
-            label: t('duplicate'),
-            color: 'primary',
-            onClick: () => {
-              props.onClickDuplicate(props.smartlist.id);
+            props.onClickDuplicate && {
+              icon: FileCopyIcon,
+              label: t('duplicate'),
+              color: 'primary',
+              onClick: handleOnClickDuplicate,
             },
-          },
-          props.onClickDelete && {
-            iconButtonComponent: ButtonWithConfirm,
-            menuItemComponent: ButtonWithConfirmMenuItem,
-            onClick: () => {
-              props.onClickDelete(props.smartlist.id);
+            props.onClickDelete && {
+              iconButtonComponent: ButtonWithConfirm,
+              menuItemComponent: ButtonWithConfirmMenuItem,
+              onClick: handleOnClickDelete,
+              color: 'secondary',
             },
-            color: 'secondary',
-          },
-        ]}
-      />
-    </ListItem>
+          ]}
+        />
+      </ListItem>
+      {!props.getCadencesLoading() && openCannotBeDeletedDialog && (
+        <SmartListCannotBeDeletedDialog
+          open={openCannotBeDeletedDialog}
+          onCancel={handleCloseCannotBeDeletedDialog}
+          cadences={props.getCadences(props.smartlist.id)}
+        />
+      )}
+    </>
   );
 };
 

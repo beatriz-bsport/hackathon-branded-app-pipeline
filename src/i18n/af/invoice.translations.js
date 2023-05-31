@@ -532,14 +532,14 @@ exports.default = {
     },
     autoDebitDialog: {
       title: 'Solde Stripe insuffisant',
-      helper: `Votre studio est actuellement en procédure de clôture de compte Bsport.\n\nEn cliquant sur confirmer, la facture sera bien remboursée. Votre solde Stripe sera prélevé de {{refundAmount}} {{ currencyDisplay }}. Cependant pour remettre votre solde Stripe à 0 {{ currencyDisplay }} vous serez automatiquement débité de la différence directement sur votre compte bancaire indiqué dans Paramètres > Entreprise.\n\nSi vous ne souhaitez pas dépasser vote limite de découvert, vous pouvez attendre que votre solde Stripe remonte. Vous pouvez suivre en direct le montant de votre solde dans Paramètres > Abonnement bsport.`,
+      helper: `Votre studio est actuellement en procédure de clôture de compte Bsport.\n\nEn cliquant sur confirmer, la facture sera bien remboursée. Votre solde Stripe sera prélevé de {{refundAmount}} {{ currencyDisplay }}. Cependant pour remettre votre solde Stripe à 0 {{ currencyDisplay }} vous serez automatiquement débité de la différence directement sur votre compte bancaire indiqué dans Paramètres > Entreprise.\n\nSi vous ne souhaitez pas dépasser vote limite de découvert, vous pouvez attendre que votre solde Stripe remonte.`,
     },
     blockedDialog: {
       title: 'Solde Stripe insuffisant',
       alert:
         'Attention, avec ce remboursement vous allez dépasser la limite de découvert autorisée de {{ refundBlockingLimit }} {{currencyDisplay}}.',
       helper:
-        "Votre solde Stripe, d'un montant de {{ stripeBalanceSum}} {{ currencyDisplay }}, est insuffisant pour pouvoir procéder au remboursement. Merci de réessayer après quelques jours afin que des paiements soient encaissés.\n\nVous pouvez suivre en direct le montant de votre solde dans Paramètres > Abonnement Bsport.",
+        'Votre solde Stripe est insuffisant pour pouvoir procéder au remboursement. Merci de réessayer après quelques jours afin que des paiements soient encaissés.',
     },
     warning: {
       interac:

@@ -30,7 +30,7 @@ import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../l
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   fetchPayoutList as fetchPayoutListAction,
-  fetchStripeBalance as fetchStripeBalanceAction,
+  // fetchStripeBalance as fetchStripeBalanceAction,
   setPaymentMethodAsDefault as setPaymentMethodAsDefaultAction,
 } from '#libs/payment/actions';
 import {
@@ -43,7 +43,7 @@ import CompanyPlatformBillingPaymentDetail from '#libs/platform-billing/componen
 import CompanyPlatformBillinGroupDetail from '#libs/platform-billing/components/CompanyPlatformBillingGroupDetail.component';
 import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
 import PayoutList from '#libs/payment/components/PayoutList.component';
-import StripeBalance from '#libs/payment/components/StripeBalance.component';
+// import StripeBalance from '#libs/payment/components/StripeBalance.component';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 
 type Props = {
@@ -60,7 +60,7 @@ type Props = {
   fetchPlatformBillingPlanList: () => void,
   fetchPlatformBillingStageList: () => void,
   fetchUpsellPackageList: () => void,
-  fetchStripeBalance: () => void,
+  // fetchStripeBalance: () => void,
 
   classes: Object,
   platformSubscription: ?PlatformSubscription,
@@ -81,9 +81,9 @@ type Props = {
     payment_method_id: string,
     as_company: boolean,
   }) => void,
-  stripeBalanceAvailable: number,
-  stripeBalancePending: number,
-  stripeBalanceLoading: boolean,
+  // stripeBalanceAvailable: number,
+  // stripeBalancePending: number,
+  // stripeBalanceLoading: boolean,
 };
 
 export class PlatformBillingSettings extends React.Component<Props> {
@@ -96,7 +96,7 @@ export class PlatformBillingSettings extends React.Component<Props> {
     this.props.fetchPlatformBillingStageList();
     this.props.fetchUpsellPackageList();
     this.props.fetchPayoutList({ page: 1 });
-    this.props.fetchStripeBalance();
+    // this.props.fetchStripeBalance();
   }
 
   finalizePaymentMethodChange = (stripeSetupIntentCallResult: any) => {
@@ -130,13 +130,13 @@ export class PlatformBillingSettings extends React.Component<Props> {
               openInvoice={this.props.onOpenInvoice}
             />
           </Grid>
-          <Grid item xs={12} md={6} className={classes.leftColumn}>
+          {/* <Grid item xs={12} md={6} className={classes.leftColumn}>
             <StripeBalance
               stripeBalanceAvailable={this.props.stripeBalanceAvailable}
               stripeBalancePending={this.props.stripeBalancePending}
               stripeBalanceLoading={this.props.stripeBalanceLoading}
             />
-          </Grid>
+          </Grid> */}
         </Grid>
         <CompanyPlatformBillingPaymentDetail
           payNowInvoice={this.props.payNowInvoice}
@@ -189,9 +189,9 @@ export default compose(
       payoutList: getPayoutList(state),
       hasMorePayout: !!state.paymentBackend.payout.nextPage,
       payoutLoading: state.paymentBackend.payout.loading,
-      stripeBalanceAvailable: state.paymentBackend.balance.amountAvailable,
-      stripeBalancePending: state.paymentBackend.balance.amountPending,
-      stripeBalanceLoading: state.paymentBackend.balance.isLoading,
+      // stripeBalanceAvailable: state.paymentBackend.balance.amountAvailable,
+      // stripeBalancePending: state.paymentBackend.balance.amountPending,
+      // stripeBalanceLoading: state.paymentBackend.balance.isLoading,
     }),
     {
       fetchPlatformInvoiceList: fetchPlatformInvoiceListAction,
@@ -200,7 +200,7 @@ export default compose(
       retrievePlatformBillingGroup,
       fetchPlatformBillingPlanList,
       fetchPlatformBillingStageList,
-      fetchStripeBalance: fetchStripeBalanceAction,
+      // fetchStripeBalance: fetchStripeBalanceAction,
       fetchUpsellPackageList,
       fetchUpsellPackageSubscribedList,
       checkSubscriptionSetup: checkSubscriptionSetupAction,

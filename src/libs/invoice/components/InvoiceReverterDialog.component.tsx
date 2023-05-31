@@ -381,12 +381,7 @@ export const InvoiceReverterDialog = ({
               currencyDisplay,
             })}
           </Alert>
-          <Typography>
-            {t('revert.blockedDialog.helper', {
-              stripeBalanceSum,
-              currencyDisplay,
-            })}
-          </Typography>
+          <Typography>{t('revert.blockedDialog.helper')}</Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseBlockedModal} color="secondary">

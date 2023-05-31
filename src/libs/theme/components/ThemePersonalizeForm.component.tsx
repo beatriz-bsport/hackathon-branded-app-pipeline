@@ -48,6 +48,10 @@ import {
 
 import { OptionCallback } from '../../../state/types';
 import { CompanyTheme } from '../types';
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
+import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { FeatureList } from '#libs/company/types';
 
 interface FormikValues {
   show_offers_filling: boolean;
@@ -254,16 +258,34 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             name="show_studio_on_general_app"
             label={t('forms.themePersonalization.hiddenFromMarketplace')}
           />
-          <SwitchField
-            name="accept_double_booking"
-            label={t(
-              'forms.themePersonalization.acceptDoubleBookingMetaActivity',
+          <FeatureListProvider>
+            {(featureList: FeatureList) => (
+              <>
+                <SwitchField
+                  name="accept_double_booking"
+                  label={t(
+                    'forms.themePersonalization.acceptDoubleBookingMetaActivity',
+                  )}
+                  disabled={hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI)}
+                />
+                <SwitchField
+                  name="accept_double_booking_workshop"
+                  label={t(
+                    'forms.themePersonalization.acceptDoubleBookingWorkshop',
+                  )}
+                  disabled={hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI)}
+                />
+                {hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI) && (
+                  <Typography variant="caption" color="textSecondary">
+                    {t(
+                      'forms.themePersonalization.doubleBookingDisabledWithSpivi',
+                    )}
+                  </Typography>
+                )}
+              </>
             )}
-          />
-          <SwitchField
-            name="accept_double_booking_workshop"
-            label={t('forms.themePersonalization.acceptDoubleBookingWorkshop')}
-          />
+          </FeatureListProvider>
+
           <div>
             <FormControlLabel
               control={

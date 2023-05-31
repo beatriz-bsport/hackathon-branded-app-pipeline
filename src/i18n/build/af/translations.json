@@ -10513,6 +10513,7 @@
         "hideCoach": "Cacher les infos professeurs sur les interfaces client",
         "acceptDoubleBookingMetaActivity": "Accepter la double réservation pour les activités",
         "acceptDoubleBookingWorkshop": "Accepter la double réservation pour les ateliers",
+        "doubleBookingDisabledWithSpivi": "La double réservation n'est pas compatible avec l'intégration Spivi",
         "hiddenFromMarketplace": "Apparaître sur l'application bsport",
         "hideBuyablePassIfSuperfluous": "Cacher les cartes de cours, abonnements et packs achetables au moment de la réservation si le membre possède déjà une carte compatible",
         "cancelledOffersCustomer": "Afficher les séances annulées sur le calendrier client",

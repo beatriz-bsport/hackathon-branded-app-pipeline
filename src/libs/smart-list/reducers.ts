@@ -25,6 +25,7 @@ import {
   createSmartListAutomatedCampaignActions,
   updateSmartListAutomatedCampaignActions,
   deleteSmartListAutomatedCampaignActions,
+  fetchCadencesUsingSmartlistActions,
 } from './actions';
 
 const initialState: Immutable.Immutable<SmartListState> =
@@ -69,9 +70,14 @@ const initialState: Immutable.Immutable<SmartListState> =
         error: null,
       },
     },
+    cadencesUsingSmartlist: {
+      byId: {},
+      loading: false,
+      error: null,
+    },
   });
 
-export default handleActions(
+export default handleActions<Immutable.Immutable<SmartListState>, any>(
   {
     [smartListListAction.success.toString()]: (state, { payload }) => {
       return state
@@ -551,6 +557,35 @@ export default handleActions(
           state.automatedCampaign.allIds.filter((id) => id !== payload.id),
         )
         .updateIn(['automatedCampaign', 'byId'], (x) => x.without(payload.id));
+    },
+
+    [fetchCadencesUsingSmartlistActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['cadencesUsingSmartlist', 'loading'], payload);
+    },
+    [fetchCadencesUsingSmartlistActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['cadencesUsingSmartlist', 'error'], payload);
+    },
+    [fetchCadencesUsingSmartlistActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          smartlist_id: number;
+          cadences: number[];
+        };
+      },
+    ) => {
+      return state.setIn(
+        ['cadencesUsingSmartlist', 'byId', payload.smartlist_id],
+        payload.cadences,
+      );
     },
   },
   initialState,

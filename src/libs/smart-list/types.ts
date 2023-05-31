@@ -38,6 +38,9 @@ export type SmartListState = ErrorAndLoading & {
     createOrUpdate: ErrorAndLoading;
     delete: ErrorAndLoading;
   };
+  cadencesUsingSmartlist: ErrorAndLoading & {
+    byId: { [key: number]: number[] };
+  };
 };
 
 export type AutomatedCampaignQueryParams = {
@@ -63,4 +66,9 @@ export type AutomatedCampaign<C = number, SM = number, ED = number> = {
   disabled: boolean;
   date_created: string;
   max_communications_sent_per_member: number;
+};
+
+export type CadencesUsingSmartlistSuccess = {
+  smartlist_id: number;
+  cadences: number[];
 };

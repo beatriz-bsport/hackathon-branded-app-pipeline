@@ -4,6 +4,7 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import type { AutoTagRule, email_template_state } from './types';
 import { RootState } from '../../reducers';
+import { getEnabledCadencesList } from '#libs/sequential_marketingDEPRECATED/selectors';
 
 // SMARTLIST
 export const getSmartListDict = (state: RootState): email_template_state =>
@@ -22,6 +23,25 @@ export const getSmartList = (state: RootState, id: number): any =>
 export const getFreshSmartListIds = createSelector(getAllSmartList, (sl) =>
   sl.map((list) => list.id),
 );
+
+export const _getCadenceIdsUsingSmartlistById = (state: RootState) =>
+  state.smartList.cadencesUsingSmartlist.byId;
+
+export const getCadenceIdsUsingSmartlist = (state: RootState, id: number) =>
+  _getCadenceIdsUsingSmartlistById(state)[id];
+
+export const getCadencesUsingSmartlist = createSelector(
+  [getCadenceIdsUsingSmartlist, getEnabledCadencesList],
+  (cadenceIds, enabledCadences) =>
+    cadenceIds?.map((cadenceId) =>
+      enabledCadences?.find((cadence) => {
+        return cadenceId === cadence.id;
+      }),
+    ) ?? [],
+);
+
+export const getCadenceIdsUsingSmartlistLoading = (state: RootState) =>
+  state.smartList.cadencesUsingSmartlist.loading;
 
 // SMARTLIST FILTERS
 export const getSmartListFilters = (state: RootState, id: number): any =>

@@ -35,6 +35,7 @@ import {
   createSmartListAutomatedCampaign as createSmartListAutomatedCampaignAPI,
   updateSmartListAutomatedCampaign as updateSmartListAutomatedCampaignAPI,
   deleteSmartListAutomatedCampaign as deleteSmartListAutomatedCampaignAPI,
+  fetchCadencesUsingSmartlist as fetchCadencesUsingSmartlistAPI,
 } from './api';
 
 import type {
@@ -48,6 +49,7 @@ import { createDictionnaryById, createIdList } from '../../actions/utils';
 import {
   AutomatedCampaign,
   AutomatedCampaignQueryParams,
+  CadencesUsingSmartlistSuccess,
   SmartList,
 } from './types';
 import { RootState } from '../../reducers';
@@ -722,3 +724,35 @@ export const deleteSmartListAutomatedCampaign = (
     dispatch(deleteSmartListAutomatedCampaignActions.isLoading(false));
   };
 };
+
+export const fetchCadencesUsingSmartlistActions = {
+  error: createAction<Error | null>('SMART-LIST/CADENCES/ERROR'),
+  isLoading: createAction<boolean>('SMART-LIST/CADENCES/IS_LOADING'),
+  success: createAction<CadencesUsingSmartlistSuccess>(
+    'SMARTLIST/CADENCES/SUCCESS',
+  ),
+};
+
+export function fetchCadencesUsingSmartlist(
+  id: number,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchCadencesUsingSmartlistActions.isLoading(true));
+    dispatch(fetchCadencesUsingSmartlistActions.error(null));
+    try {
+      const response = await fetchCadencesUsingSmartlistAPI(id);
+      dispatch(
+        fetchCadencesUsingSmartlistActions.success({
+          smartlist_id: id,
+          cadences: response.data,
+        }),
+      );
+      options && options.onSuccess && options.onSuccess();
+    } catch (error) {
+      dispatch(fetchCadencesUsingSmartlistActions.error(error));
+      options && options.onError && options.onError();
+    }
+    dispatch(fetchCadencesUsingSmartlistActions.isLoading(false));
+  };
+}

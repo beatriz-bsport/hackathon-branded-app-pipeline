@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { FILTERS_ROOTS } from '@bsport/common/lib/master-data/smart-list';
+import { AxiosResponse } from 'axios';
 
 import {
   API_V1_URI,
@@ -100,6 +101,12 @@ export const fetchDetails = async (id: number) => {
 
 export const copySmartList = async (id: number) => {
   return postAuth(`${SMART_LIST_URI}${id}/create_copy/`);
+};
+
+export const fetchCadencesUsingSmartlist = async (
+  id: number,
+): Promise<AxiosResponse<number[]>> => {
+  return getAuth(`${SMART_LIST_URI}${id}/cadences_in/`);
 };
 
 // Filters API

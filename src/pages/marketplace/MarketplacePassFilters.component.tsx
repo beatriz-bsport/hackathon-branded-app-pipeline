@@ -211,7 +211,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     gap: theme.spacing(2),
     [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.MD)]: {
-      gridTemplateColumns: '250px 350px',
+      gridTemplateColumns: 'repeat(2, auto)',
     },
     [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM)]: {
       gridTemplateColumns: '2fr 3fr',

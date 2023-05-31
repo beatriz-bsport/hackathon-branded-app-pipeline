@@ -169,6 +169,13 @@ const useOfferFormStyles = (
       padding: 0,
       margin: 0,
     },
+    inputIconAdornment: {
+      marginRight: theme.spacing(1),
+      marginLeft: theme.spacing(1),
+    },
+    dateInputAdornedStart: {
+      paddingLeft: 0,
+    },
     timeInput: {
       '&.MuiTextField-root .MuiInputBase-input': {
         padding: theme.spacing(1),

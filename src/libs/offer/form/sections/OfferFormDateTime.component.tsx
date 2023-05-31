@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import TimePicker from 'material-ui-pickers/TimePicker';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import moment, { Moment } from 'moment-timezone';
 import Alert from '@material-ui/lab/Alert';
 import { useFormikContext } from 'formik';
@@ -224,7 +226,6 @@ const OfferFormDateTime = (props: Props) => {
             className={classNames(classes.timeInput)}
             variant="outlined"
             size="small"
-            keyboard
             required
             value={moment(dateIntervalStart).tz(timezone)}
             onChange={handleChangeStartTime}
@@ -232,9 +233,17 @@ const OfferFormDateTime = (props: Props) => {
             InputProps={{
               classes: {
                 adornedEnd: classes.dateInputAdornedEnd,
+                adornedStart: classes.dateInputAdornedStart,
               },
+              startAdornment: (
+                <InputAdornment position="start">
+                  <IconButton className={classes.inputIconAdornment}>
+                    <AccessTime />
+                  </IconButton>
+                </InputAdornment>
+              ),
             }}
-            keyboardIcon={<AccessTime />}
+            adornmentPosition="start"
             disabled={!!disabled}
           />
         </OfferFormField>
@@ -311,7 +320,6 @@ const OfferFormDateTime = (props: Props) => {
               format="L"
               variant="outlined"
               size="small"
-              keyboard
               required
               error={
                 typeof errors.dateIntervalStart === 'string' &&
@@ -324,10 +332,18 @@ const OfferFormDateTime = (props: Props) => {
               InputProps={{
                 classes: {
                   adornedEnd: classes.dateInputAdornedEnd,
+                  adornedStart: classes.dateInputAdornedStart,
                 },
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <IconButton className={classes.inputIconAdornment}>
+                      <CalendarToday />
+                    </IconButton>
+                  </InputAdornment>
+                ),
               }}
               helperText={null}
-              keyboardIcon={<CalendarToday />}
+              adornmentPosition="start"
               disabled={!!disabled}
             />
           </MuiPickersUtilsProvider>

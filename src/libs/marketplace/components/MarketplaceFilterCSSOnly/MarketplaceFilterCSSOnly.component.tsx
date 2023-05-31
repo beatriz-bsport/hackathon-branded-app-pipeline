@@ -145,10 +145,12 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
 
   return (
     <div className="bs-marketplace-filters__list">
-      <MarketplaceCalendarSearch
-        onSearch={onSearch}
-        onClearInput={onClearInput}
-      />
+      {variant === 'activity' && (
+        <MarketplaceCalendarSearch
+          onSearch={onSearch}
+          onClearInput={onClearInput}
+        />
+      )}
       <MarketplaceFilter
         text={metaActivityTitle}
         options={metaActivitiesOption}

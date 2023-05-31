@@ -11,7 +11,7 @@ import { withFormik, Form, FormikProps } from 'formik';
 
 import { Divider, makeStyles, Typography } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Alert from '@material-ui/lab/Alert/Alert';
+import InfoIcon from '@material-ui/icons/Info';
 import DataUsageIcon from '@material-ui/icons/DataUsage';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
 import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
@@ -408,9 +408,10 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
           <div className={classes.container}>
             <div className={classes.innerContainer}>
               <div className={classNames(classes.row, classes.formTitle)}>
-                <Alert className={classes.alertInfo}>
+                <InfoIcon className={classes.sectionIcon} />
+                <Typography variant="h6">
                   {t('graphFormDrawer.sectionTitles.general')}
-                </Alert>
+                </Typography>
               </div>
               <DelayTextField
                 fullWidth

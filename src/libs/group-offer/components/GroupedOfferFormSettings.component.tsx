@@ -9,6 +9,7 @@ import moment from 'moment-timezone';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import ToggleOnIcon from '@material-ui/icons/ToggleOn';
+import InfoIcon from '@material-ui/icons/Info';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -314,9 +315,10 @@ export const GroupedOfferFormSettings: React.FC<
       <Form>
         <div className={classes.wrapper}>
           <div className={classes.subtitle}>
-            <Alert severity="info" className={classes.alertInfo}>
+            <InfoIcon className={classes.sectionIcon} />
+            <Typography variant="h6">
               {t('groupedOption.modal.form.subtitle')}
-            </Alert>
+            </Typography>
           </div>
           <div className={classes.column}>
             <TextField

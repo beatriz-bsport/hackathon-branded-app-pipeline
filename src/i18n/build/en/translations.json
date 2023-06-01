@@ -10976,7 +10976,7 @@
                         "hybridManagementHelper": "You can manage the bookings associated with this twinned session, both in the room and online, by clicking on the icon below to open a new management tab.",
                         "hybridEditHelper": "You are editing an online session linked to an on-site session. In order to modify some information you need to edit the on-site session.",
                         "hybridHelper": "By choosing this option an online session will be created with a default membership of {{ onlineOfferDefaultEffectif }}. You will be able to edit the information of the online offer after it has been created (Broadcast link, membership, price, etc.)",
-                        "hybridLabel": "This session is both on location and online.",
+                        "hybridLabel": "This session is both on site and online.",
                         "hybridSection": "Hybrid session"
                     },
                     "title": "Characteristics"

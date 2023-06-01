@@ -103,6 +103,7 @@ export type FetchPaymentComboListParams = {
   as_consumer?: boolean;
   video?: number;
   id__in?: number[];
+  include_expired?: boolean;
 };
 
 export type FetchPaymentComboPurchaseListParams = {

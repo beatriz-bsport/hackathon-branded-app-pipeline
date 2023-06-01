@@ -35,6 +35,7 @@ import MarketplaceEstablishmentTitle from '#libs/marketplace/components/Marketpl
 import FreeOfferChip from '#csscomponents/FreeOfferChip';
 
 import PopOver from '#components/Popover';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export const DISABLE_BOOKING_ELEMENTS_IDS = [
   'book-button--disabled',
@@ -322,7 +323,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                     <PopOver
                       title={
                         <div className="bs-offer-list-item__popover__coach">
-                          {additionalCoaches.map((additionalCoach) => (
+                          {additionalCoaches?.map((additionalCoach) => (
                             <MarketplaceCoachInfos
                               key={`addtional_coach${additionalCoach?.id}`}
                               theme={theme}
@@ -418,5 +419,9 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
     </button>
   );
 };
+
+export const MarketplaceOfferListItemForStorybook = marketplaceCssHoc()(
+  MarketplaceOfferListItem,
+);
 
 export default React.memo(MarketplaceOfferListItem);

@@ -21,6 +21,7 @@ import { Theme } from '#libs/theme/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup } from '#libs/group-offer/types';
 import FreeOfferChip from '#csscomponents/FreeOfferChip';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { Level } from '#libs/level/types';
 
 type OwnProps = {
@@ -269,5 +270,9 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
     </button>
   );
 };
+
+export const MarketPlaceCardOfferCSSOnlyForStorybook = marketplaceCssHoc()(
+  MarketPlaceCardOfferCSSOnly,
+);
 
 export default pure(MarketPlaceCardOfferCSSOnly);

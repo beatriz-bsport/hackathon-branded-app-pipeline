@@ -1,8 +1,23 @@
 // @ts-nocheck
 
 import React from 'react';
-import { useMuiThemeToCssVars } from '../../../../hooks/useMuiThemeToCssVars';
-import MarketPlaceOfferListItem from './MarketplaceOfferListItemCSSOnly.component';
+import { MarketplaceOfferListItemForStorybook } from './MarketplaceOfferListItemCSSOnly.component';
+import { levelFactory } from '#libs/level/factories';
+import themeFactory from '#libs/theme/factories';
+import establishmentFactoryBot from '#libs/establishment/factories/Establishments';
+import { coachFactory } from '#libs/associated-coach/factories';
+import { CompanyTheme } from '#libs/theme/types';
+import { Establishment } from '#libs/establishment/types';
+import { Coach } from '#libs/associated-coach/types';
+
+const fakeLevel = { 1: levelFactory() };
+
+const fakeCompanyTheme: CompanyTheme = themeFactory.companyTheme.createOne();
+
+const fakeEstablishment: Establishment =
+  establishmentFactoryBot.Establishment.createOne();
+
+const fakeCoach: Partial<Coach> = coachFactory();
 
 // Create Clean Factorty : https://gitlab.com/bsport/bsport-saas/-/issues/1277
 const metaActivity = {
@@ -13,7 +28,7 @@ const metaActivity = {
   SCT: 119,
   parent_category: 9,
   images: [],
-  establishments: [{ id: 154 }],
+  establishments: [{ id: fakeEstablishment.id }],
   next_slot: '2022-04-30T14:30:00+02:00',
   company: 89,
   activities: [125631],
@@ -39,74 +54,20 @@ const offer = {
   id: 364927,
   company: 89,
   activity: 125631,
+  custom_level: 1,
   level: 1,
   available: true,
   coach_override: false,
   male: 5,
   female: 6,
   other: 3,
-  meta_activity: metaActivity,
-  coach: {
-    firstname: 'Stessy',
-    lastname: 'Leduc',
-    name: 'Stessy Leduc',
-    gender: 'F',
-    rating: '-1.00',
-    id: 21828,
-    birthday: '1988-08-17',
-    photo: 'https://d2r95z4j5cc9cx.cloudfront.net/user/46_MnjAD5z.jpg',
-    description:
-      "Ancienne journaliste, c’est lors d’un long voyage initiatique autour du monde il y a 5 ans, que j’ai découvert le yoga et la spiritualité. Je me suis alors formée à différentes pratiques pour devenir professeure de Kundalini Yoga, de Shakti dance (le yoga de la danse) et animatrice d'ateliers méditation et philosophie dans les écoles, avec l’association SEVE, fondée par l’écrivain et philosophe Frederic Lenoir.\r\n\r\nDepuis, je donne des cours dans différents studios à Nantes, à Paris et j’organise des retraites pour les femmes dans plusieurs régions de France. Passionnée par la puissance du féminin sacré, je propose aussi des cercles de femmes et des rituels autour de cette thématique. ",
-    phone: '+33768326992',
-    color: '',
-    email: 'stessyleduc@gmail.com',
-    associated_coach_id: 30955,
-    associatedcoach_set: [30955, 22871],
-    disabled: false,
-    default_payment_rule_id: null,
-    coach_payment_rule_id: null,
-    workshop_coach_payment_rule_id: null,
-    private_coach_payment_rule_id: null,
-    coach_payment_rule_group_id: null,
-    private_slots_coach_payment_rules: [],
-    facebook_url: '',
-    instagram_url: '',
-    has_access_to_coach_space: false,
-  },
+  meta_activity: 36497,
+  coach: fakeCoach.id,
   partner_max_booking_count: 6,
-  establishment: {
-    id: 154,
-    title: 'LA GRANDE SALLE DU CENTRE ELEMENT',
-    cover:
-      'https://d2r95z4j5cc9cx.cloudfront.net/etablissement/Horizontale_crocodile_Suspensions_gong.jpg',
-    location: {
-      address: '7 Rue des Guillemites, 75004 Paris, France',
-      address_line_1: '7 Rue des Guillemites',
-      address_line_2: '',
-      zipcode: '75004',
-      city: 'Paris',
-      state: '',
-      country: 'France',
-      country_code: 'FR',
-      geometry: 'SRID=4326;POINT (48.8584229 2.3574909)',
-      latitude: 48.8584229,
-      longitude: 2.3574909,
-    },
-    specific_info:
-      'Le Centre Elément a pour vocation de proposer une approche holistique du bien-être, en travaillant sur le corps physique, émotionnel et énergétique. Amplifiez votre expérience en ajoutant à votre pratique régulière : Un air purifié et énergisant, une eau vivifiée, des technologies innovantes.',
-    easy_access: { id: 3539, lines: ['M1', 'M11'], name: 'Hôtel De Ville' },
-    associatedestablishment_set: [52],
-    tzname: 'Europe/Paris',
-    practical_info: 'porte en verre sur rue',
-    capacity: 30,
-    on_booking_notification: [],
-    disabled: false,
-    has_next_slots: true,
-    establishment_billing_group_id: null,
-  },
+  establishment: fakeEstablishment,
   credit_price_override: 1,
   credit_price: 1,
-  date_start: '2022-04-30T14:30:00+02:00',
+  date_start: '2023-06-30T14:30:00+02:00',
   duration_minute: 150,
   effectif: 30,
   establishment_override: null,
@@ -118,7 +79,7 @@ const offer = {
   meta_activity_color: '',
   tot_slots: 0,
   validated_booking_count: 0,
-  full: true,
+  full: false,
   is_waiting_list_full: false,
   timezone_name: 'Europe/Paris',
   room_blueprint: null,
@@ -128,12 +89,7 @@ const offer = {
 };
 
 const Template = (args: Props) => {
-  const styles = useMuiThemeToCssVars();
-  return (
-    <div style={{ ...styles, margin: 48 }}>
-      <MarketPlaceOfferListItem {...args} />
-    </div>
-  );
+  return <MarketplaceOfferListItemForStorybook {...args} />;
 };
 
 export const ListState = Template.bind({});
@@ -145,20 +101,39 @@ ListState.args = {
   onBookOption: () => {},
   onBook: () => {},
   establishment: offer.establishment,
-  coach: offer.coach,
-  customLevel: {
-    id: 12,
-    name: 'Hardcore',
-    color: '#ff00aa',
-  },
+  coach: fakeCoach,
+  getLevel: fakeLevel,
+  metaActivity: metaActivity,
+  position: ['first', 'last'],
+  isWorkshop: false,
+  withoutBookButton: false,
+  withoutCTA: false,
+  isRegistered: false,
+  theme: { ...fakeCompanyTheme, hide_book_button: true },
 };
 
 export default {
   title: 'Components/Marketplace/MarketPlaceOfferListItem',
-  component: MarketPlaceOfferListItem,
+  component: MarketplaceOfferListItemForStorybook,
   parameters: {
     docs: {
       page: null,
     },
   },
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div style={{ width: '80%' }}>
+          <Story />
+        </div>
+      </div>
+    ),
+  ],
 };

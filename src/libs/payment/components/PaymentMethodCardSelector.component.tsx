@@ -14,12 +14,14 @@ type Props = {
   paymentMethodSelected: number;
   paymentMethodChoices: Array<number>;
   selectPaymentMethod: (paymentMethod: number) => void;
+  paymentProcessing?: boolean;
 };
 
 export const PaymentMethodCardSelector = ({
   paymentMethodChoices,
   paymentMethodSelected,
   selectPaymentMethod,
+  paymentProcessing,
 }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
@@ -41,7 +43,11 @@ export const PaymentMethodCardSelector = ({
       </Typography>
       <div className={classes.row}>
         {paymentMethodChoices.map((pm) => (
-          <ButtonBase key={`${pm}`} onClick={() => handleClick(pm)}>
+          <ButtonBase
+            key={`${pm}`}
+            onClick={() => handleClick(pm)}
+            disabled={paymentProcessing}
+          >
             <Paper
               className={classnames(
                 classes.paper,

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React, { useCallback, useEffect, useState } from 'react';
 
@@ -23,6 +22,7 @@ import {
   confirmPaymentByPaymentMethodId as confirmPaymentByPaymentMethodIdAPI,
   updateIntentToSavePaymentMethodWebview as updateIntentToSavePaymentMethodWebviewAPI,
   confirmPaymentByPaymentMethodIdWebview as confirmPaymentByPaymentMethodIdWebviewAPI,
+  blockPendingBasket as blockPendingBasketAPI,
 } from '../../api';
 import PaymentMethodList from '../payment-method-list';
 
@@ -38,6 +38,7 @@ interface PaymentStripeBacsDebitProps {
   basketId?: string;
   basketTotalPriceCts?: number;
   checkItemsBasket: (basketId: string) => boolean;
+  setPaymentProcessing: (processing: boolean) => boolean;
   clientSecret: string;
   fromApp: boolean;
   paymentGroupId: number;
@@ -65,6 +66,7 @@ const PaymentStripeBacsDebit = ({
   basketId,
   basketTotalPriceCts,
   checkItemsBasket,
+  setPaymentProcessing,
   clientSecret,
   fromApp,
   paymentGroupId,
@@ -90,6 +92,14 @@ const PaymentStripeBacsDebit = ({
 
   const { t } = useTranslation(['invoice']);
   const classes = useStyles();
+
+  const setPaymentPageProcessing = React.useCallback(
+    (process) => {
+      if (setPaymentProcessing) setPaymentProcessing(process);
+      setProcessing(process);
+    },
+    [setPaymentProcessing, setProcessing],
+  );
 
   useEffect(() => {
     fetchPaymentMethodListAPI({ member: memberId }).then((r) =>
@@ -127,7 +137,7 @@ const PaymentStripeBacsDebit = ({
 
   const handleSaveForLater = useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
-      setProcessing(true);
+      setPaymentPageProcessing(true);
       event.persist();
       const checked = event.target.checked;
       try {
@@ -142,12 +152,13 @@ const PaymentStripeBacsDebit = ({
       } catch (err) {
         console.error(err);
       }
-      setProcessing(false);
+      setPaymentPageProcessing(false);
     },
     [
       basketId,
       fromApp,
       paymentGroupId,
+      setPaymentPageProcessing,
       setSaveForLaterBacsDebit,
       updateIntentToSavePaymentMethodAdaptedAPI,
     ],
@@ -158,7 +169,7 @@ const PaymentStripeBacsDebit = ({
 
     const basketItemsChecked = await checkItemsBasket(basketId);
     if (!basketItemsChecked) {
-      setProcessing(false);
+      setPaymentPageProcessing(false);
       return;
     }
 
@@ -166,12 +177,18 @@ const PaymentStripeBacsDebit = ({
       (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
       basketTotalPriceCts !== data
     ) {
-      setProcessing(false);
+      setPaymentPageProcessing(false);
       // eslint-disable-next-line
       window.alert(t('paymentPanel.actions.basketInconsistent'));
       window.location.reload();
     }
-  }, [basketId, basketTotalPriceCts, checkItemsBasket, t]);
+  }, [
+    basketId,
+    basketTotalPriceCts,
+    checkItemsBasket,
+    setPaymentPageProcessing,
+    t,
+  ]);
 
   const submitStripePayment = useCallback(async () => {
     if (!stripe) {
@@ -201,23 +218,33 @@ const PaymentStripeBacsDebit = ({
       // Show error to your customer (e.g., insufficient funds)
       setErrorMessage(result.error.message);
       if (onError) onError();
-      setProcessing(false);
+      setPaymentPageProcessing(false);
     } else {
       setErrorMessage(null);
+
+      if (basketId) {
+        try {
+          await blockPendingBasketAPI(basketId);
+        } catch (err) {
+          console.error(err);
+        }
+      }
       if (createPendingBookingsIfNecessary)
         createPendingBookingsIfNecessary({
           payment_group_method_identifier:
             PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
         });
-      onSuccess(() => setProcessing(false));
+      onSuccess(() => setPaymentPageProcessing(false));
     }
   }, [
-    clientSecret,
-    elements,
-    onError,
-    onSuccess,
     stripe,
+    elements,
+    clientSecret,
+    onError,
+    setPaymentPageProcessing,
     createPendingBookingsIfNecessary,
+    onSuccess,
+    basketId,
   ]);
 
   const submitPaymentWithPaymentMethodSelected = useCallback(async () => {
@@ -233,19 +260,37 @@ const PaymentStripeBacsDebit = ({
         paymentMethodSelected,
       );
     }
+
+    if (basketId) {
+      try {
+        await blockPendingBasketAPI(basketId);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
     setErrorMessage(null);
-    onSuccess(() => setProcessing(false));
-  }, [basketId, fromApp, onSuccess, paymentGroupId, paymentMethodSelected]);
+    onSuccess(() => setPaymentPageProcessing(false));
+  }, [
+    basketId,
+    fromApp,
+    onSuccess,
+    paymentGroupId,
+    paymentMethodSelected,
+    setPaymentPageProcessing,
+  ]);
 
   const handleSubmit = useCallback(
     async (event: React.FormEvent<HTMLFormElement>) => {
       // We don't want to let default form submission happen here,
       // which would refresh the page.
       event.preventDefault();
-      setProcessing(true);
+      setPaymentPageProcessing(true);
       setErrorMessage(null);
 
-      if (basketId) verifyBasket();
+      if (basketId) {
+        verifyBasket();
+      }
 
       // In the case where the user wants to enter a new payment method, we use stripe 'confirmPayment',
       // else we have to confirm the payment intent in the backend by calling 'confirmPaymentByPaymentMethodId'
@@ -258,6 +303,7 @@ const PaymentStripeBacsDebit = ({
     [
       basketId,
       paymentMethodSelected,
+      setPaymentPageProcessing,
       submitPaymentWithPaymentMethodSelected,
       submitStripePayment,
       verifyBasket,

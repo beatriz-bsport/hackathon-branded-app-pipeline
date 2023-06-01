@@ -4,7 +4,10 @@ import { createAction } from 'redux-actions';
 // we import from src and not lib bvecause there is some shittery happening that
 // makes the build of the wdget crashing (widget use this file somehow)
 import ALL_ERROR_CODES from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
-import { BASKET_LOCK_ACQUISITION_FAILURE } from '@bsport/common/lib/master-data/error-codes/lock';
+import {
+  BASKET_LOCK_ACQUISITION_FAILURE,
+  BASKET_PROCESSING_PAYMENT_EXCEPTION,
+} from '@bsport/common/lib/master-data/error-codes/lock';
 
 import {
   addItemToBasket as addItemToBasketAPI,
@@ -95,6 +98,15 @@ export function createOrRefreshInternalAccountPrepaidLine(
           ),
         );
       }
+      if (
+        error.response?.status === 499 &&
+        error.response?.data?.error_code === BASKET_PROCESSING_PAYMENT_EXCEPTION
+      ) {
+        dispatch(
+          snackbarError(`modifyBasket.${BASKET_PROCESSING_PAYMENT_EXCEPTION}`),
+        );
+      }
+
       dispatch(createOrRefreshInternalAccountPrepaidLineActions.error(error));
       if (options && options.onError) options.onError(error);
     }
@@ -199,7 +211,13 @@ export function addItemToBasket(
         error.response.data.error_code
       ) {
         const { error_code } = error.response.data;
-        if (ALL_ERROR_CODES.includes(error_code)) {
+        if (error_code === BASKET_PROCESSING_PAYMENT_EXCEPTION) {
+          dispatch(
+            snackbarError(
+              `modifyBasket.${BASKET_PROCESSING_PAYMENT_EXCEPTION}`,
+            ),
+          );
+        } else if (ALL_ERROR_CODES.includes(error_code)) {
           dispatch(snackbarError(`canNotBuyErrorCode.${error_code}`));
         } else {
           dispatch(snackbarError('canNotBuyErrorCode.generic'));
@@ -231,6 +249,14 @@ export function removeItemFromBasket(
         options.onSuccess(response.data);
       }
     } catch (error) {
+      if (
+        error.response?.status === 499 &&
+        error.response?.data?.error_code === BASKET_PROCESSING_PAYMENT_EXCEPTION
+      ) {
+        dispatch(
+          snackbarError(`modifyBasket.${BASKET_PROCESSING_PAYMENT_EXCEPTION}`),
+        );
+      }
       if (
         error.response?.status === 499 &&
         error.response?.data?.error_code === BASKET_LOCK_ACQUISITION_FAILURE
@@ -289,6 +315,14 @@ export function attachCoupon(
       dispatch(currentBasket.success(response.data));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
+      if (
+        error.response?.status === 499 &&
+        error.response?.data?.error_code === BASKET_PROCESSING_PAYMENT_EXCEPTION
+      ) {
+        dispatch(
+          snackbarError(`modifyBasket.${BASKET_PROCESSING_PAYMENT_EXCEPTION}`),
+        );
+      }
       dispatch(currentBasket.error(error));
       dispatch(snackbarError('coupon:message.attachToBasket.error'));
       if (options && options.onError) options.onError();

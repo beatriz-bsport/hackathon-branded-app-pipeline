@@ -8889,6 +8889,7 @@
     "requestCurrentBasket": { "15002": "La récupération des informations du panier est déjà en cours" },
     "refreshInternalAccountPrepaidLines": { "15002": "Une opération est déjà en cours, veuillez patienter quelques instants" },
     "removeItem": { "15002": "L'objet est déjà en train d'être retiré du panier, veuillez patienter" },
+    "modifyBasket": { "15004": "Le panier est en cours de traitement, veuillez recommencer d'ici quelques minutes" },
     "offer": { "restore": { "success": "Séance restaurée", "error": "Impossible de restaurer cette séance" } },
     "settings": {
       "update": { "success": "Paramètres mis à jour", "error": "Impossible de mettre à jour, veuillez réessayer plus tard" }

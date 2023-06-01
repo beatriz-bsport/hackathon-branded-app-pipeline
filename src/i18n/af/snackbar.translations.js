@@ -40,6 +40,7 @@ const {
   LOCK_ACQUISITION_FAILURE_GENERIC,
   LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
   BASKET_LOCK_ACQUISITION_FAILURE,
+  BASKET_PROCESSING_PAYMENT_EXCEPTION,
 } = require('@bsport/common/lib/master-data/error-codes/lock');
 
 const {
@@ -214,6 +215,10 @@ exports.default = {
   removeItem: {
     [BASKET_LOCK_ACQUISITION_FAILURE]:
       "L'objet est déjà en train d'être retiré du panier, veuillez patienter",
+  },
+  modifyBasket: {
+    [BASKET_PROCESSING_PAYMENT_EXCEPTION]:
+      "Le panier est en cours de traitement, veuillez recommencer d'ici quelques minutes",
   },
   offer: {
     restore: {

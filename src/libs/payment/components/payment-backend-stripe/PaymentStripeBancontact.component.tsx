@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import React from 'react';
@@ -11,9 +10,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT } from '@bsport/common/lib/master-data/payment-group';
-import { verifyPriceBasket as verifyPriceBasketAPI } from '../../api';
+import {
+  verifyPriceBasket as verifyPriceBasketAPI,
+  blockPendingBasket as blockPendingBasketAPI,
+} from '../../api';
 
-export function PaymentStripeBancontact(props: {
+type PaymentStripeBanContactProps = {
   onCancel: () => void;
   clientSecret: string;
   termsAndConditionsAccepted: boolean;
@@ -26,22 +28,48 @@ export function PaymentStripeBancontact(props: {
   basketTotalPriceCts?: number;
   forceSave?: boolean;
   checkItemsBasket: (basketId: string) => boolean;
+  setPaymentProcessing: (processing: boolean) => void;
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
-}) {
+};
+
+export function PaymentStripeBancontact({
+  onCancel,
+  clientSecret,
+  termsAndConditionsAccepted,
+  AcceptTermsAndConditionsComponent,
+  forceDisabled,
+  userDefaultName,
+  userDefaultEmail,
+  loading,
+  basketId,
+  basketTotalPriceCts,
+  forceSave,
+  checkItemsBasket,
+  setPaymentProcessing,
+  createPendingBookingsIfNecessary,
+}: PaymentStripeBanContactProps) {
   const stripe = useStripe();
   const elements = useElements();
 
   const [processing, setProcessing] = React.useState(false);
-  const [name, setName] = React.useState(props.userDefaultName || '');
-  const [email, setEmail] = React.useState(props.userDefaultEmail || '');
+  const [name, setName] = React.useState(userDefaultName || '');
+  const [email, setEmail] = React.useState(userDefaultEmail || '');
   const [errorMessage, setErrorMessage] = React.useState(null);
 
   const { t } = useTranslation(['invoice']);
   const classes = useStyles();
 
   const [saveForLater, setSaveForLater] = React.useState(false);
+
+  const setPaymentPageProcessing = React.useCallback(
+    (process) => {
+      if (setPaymentProcessing) setPaymentProcessing(process);
+      setProcessing(process);
+    },
+    [setPaymentProcessing],
+  );
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // We don't want to let default form submission happen here,
@@ -54,23 +82,23 @@ export function PaymentStripeBancontact(props: {
       return;
     }
 
-    setProcessing(true);
+    setPaymentPageProcessing(true);
     setErrorMessage(null);
 
-    if (props.basketId) {
-      const { data } = await verifyPriceBasketAPI(props.basketId);
+    if (basketId) {
+      const { data } = await verifyPriceBasketAPI(basketId);
 
-      const basketItemsChecked = await props.checkItemsBasket(props.basketId);
+      const basketItemsChecked = await checkItemsBasket(basketId);
       if (!basketItemsChecked) {
-        setProcessing(false);
+        setPaymentPageProcessing(false);
         return;
       }
 
       if (
-        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
-        props.basketTotalPriceCts !== data
+        (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
+        basketTotalPriceCts !== data
       ) {
-        setProcessing(false);
+        setPaymentPageProcessing(false);
         // eslint-disable-next-line
         window.alert(t('paymentPanel.actions.basketInconsistent'));
         window.location.reload();
@@ -84,31 +112,38 @@ export function PaymentStripeBancontact(props: {
     // https://reactjs.org/docs/uncontrolled-components.html
     // https://reactjs.org/docs/forms.html#controlled-components
 
-    const { error } = await stripe.confirmBancontactPayment(
-      props.clientSecret,
-      {
-        payment_method: {
-          billing_details: {
-            name,
-            email,
-          },
+    const { error } = await stripe.confirmBancontactPayment(clientSecret, {
+      payment_method: {
+        billing_details: {
+          name,
+          email,
         },
-        ...(saveForLater || props.forceSave
-          ? { setup_future_usage: 'off_session' }
-          : {}),
-        return_url: `${window.location.href}?check_payment_intent=true`,
       },
-    );
+      ...(saveForLater || forceSave
+        ? { setup_future_usage: 'off_session' }
+        : {}),
+      return_url: `${window.location.href}?check_payment_intent=true`,
+    });
 
     if (error) {
       // Show error to your customer.
       setErrorMessage(error.message);
-      setProcessing(false);
-    } else if (props.createPendingBookingsIfNecessary) {
-      props.createPendingBookingsIfNecessary({
-        payment_group_method_identifier:
-          PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT,
-      });
+      setPaymentPageProcessing(false);
+    } else {
+      if (basketId) {
+        try {
+          await blockPendingBasketAPI(basketId);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      if (createPendingBookingsIfNecessary) {
+        createPendingBookingsIfNecessary({
+          payment_group_method_identifier:
+            PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT,
+        });
+      }
     }
 
     // Otherwise the customer will be redirected away from your
@@ -125,7 +160,7 @@ export function PaymentStripeBancontact(props: {
           required
           onChange={(ev) => setName(ev.target.value)}
           className={classes.field}
-          disabled={!stripe || !props.clientSecret || processing}
+          disabled={!stripe || !clientSecret || processing}
         />
         <TextInput
           value={email}
@@ -134,16 +169,14 @@ export function PaymentStripeBancontact(props: {
           required
           onChange={(ev) => setEmail(ev.target.value)}
           className={classes.field}
-          disabled={!stripe || !props.clientSecret || processing}
+          disabled={!stripe || !clientSecret || processing}
         />
         {errorMessage && <Typography color="error">{errorMessage}</Typography>}
       </div>
       <div className={classes.row}>
         <Checkbox
-          checked={saveForLater || props.forceSave}
-          disabled={
-            !stripe || !props.clientSecret || processing || props.forceSave
-          }
+          checked={saveForLater || forceSave}
+          disabled={!stripe || !clientSecret || processing || forceSave}
           onChange={(ev) => setSaveForLater(ev.target.checked)}
         />
         <div className={classes.leftColumn}>
@@ -156,7 +189,7 @@ export function PaymentStripeBancontact(props: {
         </div>
       </div>
       <div className={classes.conditions}>
-        {props.AcceptTermsAndConditionsComponent}
+        {AcceptTermsAndConditionsComponent}
       </div>
       <div className={classes.actionRow}>
         {processing ? (
@@ -167,16 +200,13 @@ export function PaymentStripeBancontact(props: {
             variant="contained"
             type="submit"
             disabled={
-              props.loading ||
-              props.forceDisabled ||
-              !stripe ||
-              !props.termsAndConditionsAccepted
+              loading || forceDisabled || !stripe || !termsAndConditionsAccepted
             }
           >
             {t('paymentPanel.actions.confirmPayment')}
           </Button>
         )}
-        <Button onClick={props.onCancel} disabled={processing}>
+        <Button onClick={onCancel} disabled={processing}>
           {t('paymentPanel.actions.cancel')}
         </Button>
       </div>

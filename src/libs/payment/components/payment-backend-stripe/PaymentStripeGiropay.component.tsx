@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -11,9 +10,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY } from '@bsport/common/lib/master-data/payment-group';
 
-import { verifyPriceBasket as verifyPriceBasketAPI } from '../../api';
+import {
+  verifyPriceBasket as verifyPriceBasketAPI,
+  blockPendingBasket as blockPendingBasketAPI,
+} from '../../api';
 
-export const PaymentStripeGiropay = (props: {
+type PaymentStripeGiropayProps = {
   clientSecret: string;
   onCancel: () => void;
   forceDisabled?: boolean;
@@ -21,19 +23,39 @@ export const PaymentStripeGiropay = (props: {
   basketId?: string;
   basketTotalPriceCts?: number;
   checkItemsBasket: (basketId: string) => boolean;
+  setPaymentProcessing: (processing: boolean) => void;
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
-}) => {
+};
+
+export const PaymentStripeGiropay = ({
+  clientSecret,
+  onCancel,
+  forceDisabled,
+  userDefaultName,
+  basketId,
+  basketTotalPriceCts,
+  checkItemsBasket,
+  setPaymentProcessing,
+  createPendingBookingsIfNecessary,
+}: PaymentStripeGiropayProps) => {
   const stripe = useStripe();
   const elements = useElements();
-
   const [processing, setProcessing] = React.useState(false);
-  const [name, setName] = React.useState(props.userDefaultName || '');
+  const [name, setName] = React.useState(userDefaultName || '');
   const [errorMessage, setErrorMessage] = React.useState(null);
 
   const { t } = useTranslation(['invoice']);
   const classes = useStyles();
+
+  const setPaymentPageProcessing = React.useCallback(
+    (process) => {
+      if (setPaymentProcessing) setPaymentProcessing(process);
+      setProcessing(process);
+    },
+    [setPaymentProcessing],
+  );
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // We don't want to let default form submission happen here,
@@ -45,23 +67,23 @@ export const PaymentStripeGiropay = (props: {
       // Make sure to disable form submission until Stripe has loaded.
       return;
     }
-    setProcessing(true);
+    setPaymentPageProcessing(true);
     setErrorMessage(null);
 
-    if (props.basketId) {
-      const { data } = await verifyPriceBasketAPI(props.basketId);
+    if (basketId) {
+      const { data } = await verifyPriceBasketAPI(basketId);
 
-      const basketItemsChecked = await props.checkItemsBasket(props.basketId);
+      const basketItemsChecked = await checkItemsBasket(basketId);
       if (!basketItemsChecked) {
-        setProcessing(false);
+        setPaymentPageProcessing(false);
         return;
       }
 
       if (
-        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
-        props.basketTotalPriceCts !== data
+        (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
+        basketTotalPriceCts !== data
       ) {
-        setProcessing(false);
+        setPaymentPageProcessing(false);
         // eslint-disable-next-line
         window.alert(t('paymentPanel.actions.basketInconsistent'));
         window.location.reload();
@@ -69,7 +91,7 @@ export const PaymentStripeGiropay = (props: {
       }
     }
 
-    const { error } = await stripe.confirmGiropayPayment(props.clientSecret, {
+    const { error } = await stripe.confirmGiropayPayment(clientSecret, {
       payment_method: {
         billing_details: {
           name,
@@ -81,12 +103,21 @@ export const PaymentStripeGiropay = (props: {
     if (error) {
       // Inform the customer that there was an error.
       setErrorMessage(error.message);
-      setProcessing(false);
-    } else if (props.createPendingBookingsIfNecessary) {
-      props.createPendingBookingsIfNecessary({
-        payment_group_method_identifier:
-          PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY,
-      });
+      setPaymentPageProcessing(false);
+    } else {
+      if (basketId) {
+        try {
+          await blockPendingBasketAPI(basketId);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+      if (createPendingBookingsIfNecessary) {
+        createPendingBookingsIfNecessary({
+          payment_group_method_identifier:
+            PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY,
+        });
+      }
     }
   };
 
@@ -111,12 +142,12 @@ export const PaymentStripeGiropay = (props: {
             color="primary"
             variant="contained"
             type="submit"
-            disabled={props.forceDisabled || !stripe}
+            disabled={forceDisabled || !stripe}
           >
             {t('paymentPanel.actions.confirmPayment')}
           </Button>
         )}
-        <Button onClick={props.onCancel} disabled={processing}>
+        <Button onClick={onCancel} disabled={processing}>
           {t('paymentPanel.actions.cancel')}
         </Button>
       </div>

@@ -126,6 +126,9 @@ type Props = {
   refreshBasket: () => void,
   checkItemsBasket: (basketId: string) => boolean,
 
+  paymentProcessing: boolean,
+  setPaymentProcessing: (process: boolean) => void,
+
   instalmentPaymentConfigurationList: Array<InstalmentPayment>,
   assignInstalmentPayment: (
     basket: string,
@@ -359,7 +362,7 @@ export class BasketPage extends React.Component<Props> {
               isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
               basket={this.props.basket}
               companyCountry={this.props.companyCountry}
-              loading={this.props.loading}
+              loading={this.props.loading || this.props.paymentProcessing}
               processing={this.props.processing}
               addItemToBasket={this.props.addItemToBasket}
               addShopItemToBasket={this.props.addShopItemToBasket}
@@ -380,7 +383,11 @@ export class BasketPage extends React.Component<Props> {
               checkItemsBasket={this.props.checkItemsBasket}
               paymentModule={
                 <PaymentStripe
-                  loading={this.props.loading || this.props.processing}
+                  loading={
+                    this.props.loading ||
+                    this.props.processing ||
+                    this.props.paymentProcessing
+                  }
                   onCancel={this.backToCalendar}
                   basketTotalPriceCts={this.props.basket?.total_price_cts}
                   basketTotalPricePrepaidLines={
@@ -427,6 +434,8 @@ export class BasketPage extends React.Component<Props> {
                   useInternalAccount={this.props.useInternalAccount}
                   creditAccountBalance={this.props.creditAccountBalance}
                   checkItemsBasket={this.props.checkItemsBasket}
+                  paymentProcessing={this.props.paymentProcessing}
+                  setPaymentProcessing={this.props.setPaymentProcessing}
                   paymentGroupId={this.state.paymentGroupId}
                   createPendingBookingsIfNecessary={
                     this.createPendingBookingsIfNecessary
@@ -669,4 +678,5 @@ export default compose(
       },
   }),
   withState('basketError', 'setBasketError', null),
+  withState('paymentProcessing', 'setPaymentProcessing', false),
 )(BasketPage);

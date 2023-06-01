@@ -81,6 +81,8 @@ type Props = {
   onRemoveInternalAccountPrepaidLine: (options?: OptionCallback) => void;
   creditAccountBalance: number | null;
   checkItemsBasket: (basketId: string) => Promise<boolean>;
+  paymentProcessing: boolean;
+  setPaymentProcessing: (process: boolean) => void;
 } & ConnectedProps<typeof connector> &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
@@ -290,9 +292,9 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             )}`}
           </Typography>
         </div>
-        {(this.props.loading || this.props.processing) && (
-          <LinearProgress color="primary" />
-        )}
+        {(this.props.loading ||
+          this.props.processing ||
+          this.props.paymentProcessing) && <LinearProgress color="primary" />}
         {this.props.basket?.prepaid_lines.map((pl) => (
           <PrepaidLineListItem
             divider
@@ -330,7 +332,11 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
           </div>
         ) : (
           <PaymentStripe
-            loading={this.props.loading || this.props.processing}
+            loading={
+              this.props.loading ||
+              this.props.processing ||
+              this.props.paymentProcessing
+            }
             paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
               PAYMENT_ENGINE_STRIPE
             ].filter((pm) =>
@@ -365,6 +371,8 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             }
             fromApp
             paymentGroupId={this.state.paymentGroupId}
+            paymentProcessing={this.props.paymentProcessing}
+            setPaymentProcessing={this.props.setPaymentProcessing}
           />
         )}
 
@@ -451,6 +459,7 @@ export default compose(
   withTranslation(['checkout']),
   routerParamsToProps({ basketId: 'basketId' }),
   withState('basketError', 'setBasketError', null),
+  withState('paymentProcessing', 'setPaymentProcessing', false),
   connector,
   withProps(({ attachPayment, setBasketError, basketId }) => ({
     submitPaymentIntent: (data: any, options: OptionCallback) =>

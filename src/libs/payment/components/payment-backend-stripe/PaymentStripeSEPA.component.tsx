@@ -23,6 +23,7 @@ import PaymentMethodList from '../payment-method-list/PaymentMethodList.componen
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
+  blockPendingBasket as blockPendingBasketAPI,
 } from '../../api';
 import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
 
@@ -151,7 +152,7 @@ const IbanForm = (props: PropsIban) => {
   );
 };
 
-type Props = {
+type PaymentStripeSEPAProps = {
   onError: () => void;
   onSuccess: (callback: () => void) => void;
   memberId?: number;
@@ -177,12 +178,41 @@ type Props = {
   applyBalanceLoading?: boolean;
   forceSave?: boolean;
   checkItemsBasket: (basketId: string) => boolean;
+  setPaymentProcessing: (processing: boolean) => void;
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
 };
 
-export const PaymentStripeSEPA = (props: Props) => {
+export const PaymentStripeSEPA = ({
+  onError,
+  onSuccess,
+  memberId,
+  companyId,
+  clientSecret,
+  onCancel,
+  termsAndConditionsAccepted,
+  AcceptTermsAndConditionsComponent,
+  forceDisabled,
+  detachPaymentMethodLoading,
+  detachPaymentMethod,
+  snackbarErrorMsg,
+  snackbarSuccessMsg,
+  userDefaultName,
+  userDefaultEmail,
+  loading,
+  basketId,
+  basketTotalPriceCts,
+  allowConsumerToUseInternalAccount,
+  useInternalAccount,
+  applyBalanceToInvoice,
+  creditAccountBalance,
+  applyBalanceLoading,
+  forceSave,
+  checkItemsBasket,
+  setPaymentProcessing,
+  createPendingBookingsIfNecessary,
+}: PaymentStripeSEPAProps) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
 
@@ -199,11 +229,19 @@ export const PaymentStripeSEPA = (props: Props) => {
   const [hasDetached, setHasDetached] = React.useState(null);
   const [addPaymentMethod, setAddPaymentMethod] = React.useState(true);
 
+  const setPaymentPageProcessing = React.useCallback(
+    (process) => {
+      if (setPaymentProcessing) setPaymentProcessing(process);
+      setProcessing(process);
+    },
+    [setPaymentProcessing],
+  );
+
   React.useEffect(() => {
-    fetchPaymentMethodListAPI({ member: props.memberId }).then((r) =>
+    fetchPaymentMethodListAPI({ member: memberId }).then((r) =>
       setPaymentMethodList(r.data.filter((pm) => pm.type === 'sepa_debit')),
     );
-  }, [props.memberId, props.clientSecret, hasDetached]);
+  }, [memberId, clientSecret, hasDetached]);
 
   React.useEffect(() => {
     setAddPaymentMethod(!paymentMethodList.length);
@@ -219,8 +257,8 @@ export const PaymentStripeSEPA = (props: Props) => {
   }, [addPaymentMethod]);
 
   const [billingDetails, setBillingDetails] = React.useState({
-    name: props.userDefaultName || '',
-    email: props.userDefaultEmail || '',
+    name: userDefaultName || '',
+    email: userDefaultEmail || '',
     address: {
       line1: '',
       country: '',
@@ -277,25 +315,25 @@ export const PaymentStripeSEPA = (props: Props) => {
       // Make sure to disable form submission until Stripe has loaded.
       return;
     }
-    setProcessing(true);
+    setPaymentPageProcessing(true);
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     event.preventDefault();
 
-    if (props.basketId) {
-      const { data } = await verifyPriceBasketAPI(props.basketId);
+    if (basketId) {
+      const { data } = await verifyPriceBasketAPI(basketId);
 
-      const basketItemsChecked = await props.checkItemsBasket(props.basketId);
+      const basketItemsChecked = await checkItemsBasket(basketId);
       if (!basketItemsChecked) {
-        setProcessing(false);
+        setPaymentPageProcessing(false);
         return;
       }
 
       if (
-        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
-        props.basketTotalPriceCts !== data
+        (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
+        basketTotalPriceCts !== data
       ) {
-        setProcessing(false);
+        setPaymentPageProcessing(false);
         // eslint-disable-next-line
         window.alert(t('paymentPanel.actions.basketInconsistent'));
         window.location.reload();
@@ -305,7 +343,7 @@ export const PaymentStripeSEPA = (props: Props) => {
 
     const iban_ = elements.getElement(IbanElement);
 
-    const result = await stripe.confirmSepaDebitPayment(props.clientSecret, {
+    const result = await stripe.confirmSepaDebitPayment(clientSecret, {
       payment_method: paymentMethodSelected || {
         sepa_debit: iban_,
         billing_details: {
@@ -316,7 +354,7 @@ export const PaymentStripeSEPA = (props: Props) => {
             : {}),
         },
       },
-      ...(saveForLater || props.forceSave
+      ...(saveForLater || forceSave
         ? { setup_future_usage: 'off_session' }
         : {}),
     });
@@ -324,17 +362,25 @@ export const PaymentStripeSEPA = (props: Props) => {
     if (result.error) {
       // Show error to your customer.
       setError(result.error);
-      setProcessing(false);
-      if (props.onError) props.onError();
+      setPaymentPageProcessing(false);
+      if (onError) onError();
     } else {
       setError(null);
 
-      if (props.createPendingBookingsIfNecessary)
-        props.createPendingBookingsIfNecessary({
+      if (basketId) {
+        try {
+          await blockPendingBasketAPI(basketId);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      if (createPendingBookingsIfNecessary)
+        createPendingBookingsIfNecessary({
           payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
         });
 
-      props.onSuccess(() => setProcessing(false));
+      onSuccess(() => setPaymentPageProcessing(false));
       // Show a confirmation message to your customer.
       // The PaymentIntent is in the 'processing' state.
       // SEPA Direct Debit payments are asynchronous,
@@ -363,15 +409,15 @@ export const PaymentStripeSEPA = (props: Props) => {
             setBillingDetails={setBillingDetails}
             billingDetails={billingDetails}
             error={error}
-            disabled={!stripe || !props.clientSecret}
+            disabled={!stripe || !clientSecret}
             processing={processing}
             isActive={!paymentMethodSelected}
           />
           <div className={classes.saveAndDisplay}>
             <div className={classes.row}>
               <Checkbox
-                checked={saveForLater || props.forceSave}
-                disabled={!!props.forceSave}
+                checked={saveForLater || forceSave}
+                disabled={!!forceSave}
                 onChange={(ev) => setSaveForLater(ev.target.checked)}
               />
               <Typography variant="caption">
@@ -403,14 +449,14 @@ export const PaymentStripeSEPA = (props: Props) => {
             paymentMethodType="sepa_debit"
             onSelect={(id: string) => defineSelectedPaymentMethod(id)}
             setHasDetached={setHasDetached}
-            memberId={props.memberId}
-            detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-            detachPaymentMethod={props.detachPaymentMethod}
-            snackbarErrorMsg={props.snackbarErrorMsg}
-            snackbarSuccessMsg={props.snackbarSuccessMsg}
-            companyId={props.companyId}
-            sepaDefaultName={props.userDefaultName}
-            sepaDefaultEmail={props.userDefaultEmail}
+            memberId={memberId}
+            detachPaymentMethodLoading={detachPaymentMethodLoading}
+            detachPaymentMethod={detachPaymentMethod}
+            snackbarErrorMsg={snackbarErrorMsg}
+            snackbarSuccessMsg={snackbarSuccessMsg}
+            companyId={companyId}
+            sepaDefaultName={userDefaultName}
+            sepaDefaultEmail={userDefaultEmail}
           />
           <ButtonBase
             disabled={false}
@@ -424,17 +470,16 @@ export const PaymentStripeSEPA = (props: Props) => {
           </ButtonBase>
         </div>
       )}
-      {props.allowConsumerToUseInternalAccount &&
-        !!props.creditAccountBalance && (
-          <UseInternalAccountForm
-            creditAccountBalance={props.creditAccountBalance}
-            onBasketSubmit={props.useInternalAccount}
-            onInvoiceSubmit={props.applyBalanceToInvoice}
-            loading={props.loading || props.applyBalanceLoading}
-          />
-        )}
+      {allowConsumerToUseInternalAccount && !!creditAccountBalance && (
+        <UseInternalAccountForm
+          creditAccountBalance={creditAccountBalance}
+          onBasketSubmit={useInternalAccount}
+          onInvoiceSubmit={applyBalanceToInvoice}
+          loading={loading || applyBalanceLoading}
+        />
+      )}
       <div className={classes.conditions}>
-        {props.AcceptTermsAndConditionsComponent}
+        {AcceptTermsAndConditionsComponent}
       </div>
       <div className={classes.actionRow}>
         {processing ? (
@@ -445,18 +490,11 @@ export const PaymentStripeSEPA = (props: Props) => {
               variant="contained"
               color="primary"
               type="submit"
-              disabled={
-                props.forceDisabled ||
-                !stripe ||
-                !props.termsAndConditionsAccepted
-              }
+              disabled={forceDisabled || !stripe || !termsAndConditionsAccepted}
             >
               {t('invoice:paymentPanel.actions.confirmPayment')}
             </Button>
-            <Button
-              disabled={props.loading || processing}
-              onClick={props.onCancel}
-            >
+            <Button disabled={loading || processing} onClick={onCancel}>
               {t('paymentPanel.actions.cancel')}
             </Button>
           </React.Fragment>

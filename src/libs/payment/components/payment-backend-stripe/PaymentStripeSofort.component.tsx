@@ -11,9 +11,12 @@ import { useStripe, useElements } from '@stripe/react-stripe-js';
 import Checkbox from '@material-ui/core/Checkbox';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT } from '@bsport/common/lib/master-data/payment-group';
 import CountrySelector from '../../../../components/input/CountrySelector.component';
-import { verifyPriceBasket as verifyPriceBasketAPI } from '../../api';
+import {
+  verifyPriceBasket as verifyPriceBasketAPI,
+  blockPendingBasket as blockPendingBasketAPI,
+} from '../../api';
 
-type Props = {
+type PaymentStripeSofortProps = {
   clientSecret?: string;
   onCancel: () => void;
   termsAndConditionsAccepted: boolean;
@@ -26,24 +29,47 @@ type Props = {
   basketTotalPriceCts?: number;
   forceSave?: boolean;
   checkItemsBasket: (basketId: string) => boolean;
+  setPaymentProcessing: (processing: boolean) => void;
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
 };
 
-export const PaymentStripeSofort = (props: Props) => {
+export const PaymentStripeSofort = ({
+  clientSecret,
+  onCancel,
+  termsAndConditionsAccepted,
+  AcceptTermsAndConditionsComponent,
+  forceDisabled,
+  userDefaultName,
+  userDefaultEmail,
+  loading,
+  basketId,
+  basketTotalPriceCts,
+  forceSave,
+  checkItemsBasket,
+  setPaymentProcessing,
+  createPendingBookingsIfNecessary,
+}: PaymentStripeSofortProps) => {
   const stripe = useStripe();
   const elements = useElements();
-
   const [processing, setProcessing] = React.useState(false);
   const [country, setCountry] = React.useState('DE');
-  const [name, setName] = React.useState(props.userDefaultName);
-  const [email, setEmail] = React.useState(props.userDefaultEmail);
+  const [name, setName] = React.useState(userDefaultName);
+  const [email, setEmail] = React.useState(userDefaultEmail);
   const [errorMessage, setErrorMessage] = React.useState(null);
 
   const { t } = useTranslation(['invoice']);
   const classes = useStyles();
   const [saveForLater, setSaveForLater] = React.useState(false);
+
+  const setPaymentPageProcessing = React.useCallback(
+    (process) => {
+      if (setPaymentProcessing) setPaymentProcessing(process);
+      setProcessing(process);
+    },
+    [setPaymentProcessing],
+  );
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -53,23 +79,23 @@ export const PaymentStripeSofort = (props: Props) => {
       return;
     }
 
-    setProcessing(true);
+    setPaymentPageProcessing(true);
     setErrorMessage(null);
 
-    if (props.basketId) {
-      const { data } = await verifyPriceBasketAPI(props.basketId);
+    if (basketId) {
+      const { data } = await verifyPriceBasketAPI(basketId);
 
-      const basketItemsChecked = await props.checkItemsBasket(props.basketId);
+      const basketItemsChecked = await checkItemsBasket(basketId);
       if (!basketItemsChecked) {
-        setProcessing(false);
+        setPaymentPageProcessing(false);
         return;
       }
 
       if (
-        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
-        props.basketTotalPriceCts !== data
+        (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
+        basketTotalPriceCts !== data
       ) {
-        setProcessing(false);
+        setPaymentPageProcessing(false);
         // eslint-disable-next-line
         window.alert(t('paymentPanel.actions.basketInconsistent'));
         window.location.reload();
@@ -77,7 +103,7 @@ export const PaymentStripeSofort = (props: Props) => {
       }
     }
 
-    const { error } = await stripe.confirmSofortPayment(props.clientSecret, {
+    const { error } = await stripe.confirmSofortPayment(clientSecret, {
       payment_method: {
         sofort: {
           country,
@@ -87,7 +113,7 @@ export const PaymentStripeSofort = (props: Props) => {
           email,
         },
       },
-      ...(saveForLater || props.forceSave
+      ...(saveForLater || forceSave
         ? { setup_future_usage: 'off_session' }
         : {}),
       return_url: `${window.location.href}?check_payment_intent=true`,
@@ -95,11 +121,21 @@ export const PaymentStripeSofort = (props: Props) => {
 
     if (error) {
       setErrorMessage(error.message);
-      setProcessing(false);
-    } else if (props.createPendingBookingsIfNecessary) {
-      props.createPendingBookingsIfNecessary({
-        payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
-      });
+      setPaymentPageProcessing(false);
+    } else {
+      if (basketId) {
+        try {
+          await blockPendingBasketAPI(basketId);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+      if (createPendingBookingsIfNecessary) {
+        createPendingBookingsIfNecessary({
+          payment_group_method_identifier:
+            PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
+        });
+      }
     }
   };
 
@@ -132,8 +168,8 @@ export const PaymentStripeSofort = (props: Props) => {
         {errorMessage && <Typography color="error">{errorMessage}</Typography>}
         <div className={classes.row}>
           <Checkbox
-            checked={saveForLater || props.forceSave}
-            disabled={!!props.forceSave}
+            checked={saveForLater || forceSave}
+            disabled={!!forceSave}
             onChange={(ev) => setSaveForLater(ev.target.checked)}
           />
           <div className={classes.leftColumn}>
@@ -147,7 +183,7 @@ export const PaymentStripeSofort = (props: Props) => {
         </div>
       </div>
       <div className={classes.conditions}>
-        {props.AcceptTermsAndConditionsComponent}
+        {AcceptTermsAndConditionsComponent}
       </div>
       <div className={classes.actionRow}>
         {processing ? (
@@ -158,16 +194,13 @@ export const PaymentStripeSofort = (props: Props) => {
             variant="contained"
             type="submit"
             disabled={
-              props.loading ||
-              props.forceDisabled ||
-              !stripe ||
-              !props.termsAndConditionsAccepted
+              loading || forceDisabled || !stripe || !termsAndConditionsAccepted
             }
           >
             {t('paymentPanel.actions.confirmPayment')}
           </Button>
         )}
-        <Button onClick={props.onCancel} disabled={processing}>
+        <Button onClick={onCancel} disabled={processing}>
           {t('paymentPanel.actions.cancel')}
         </Button>
       </div>

@@ -15,6 +15,7 @@ type Props = {
     options: OptionCallback,
   ) => void;
   fromApp: boolean;
+  paymentProcessing?: boolean;
 
   instalmentPaymentConfigurationSelectedId: number;
 };
@@ -40,7 +41,7 @@ const InstalmentPaymentSelector = (props: Props) => {
       {processing && <LinearProgress />}
       {!!(props.instalmentPaymentConfigurationList || []).length && (
         <BasketInstalmentEmptyPlaceholder
-          disabled={processing}
+          disabled={processing || props.paymentProcessing}
           checked={props.instalmentPaymentConfigurationSelectedId === null}
           onSelect={() => {
             setProcessing(true);
@@ -55,7 +56,7 @@ const InstalmentPaymentSelector = (props: Props) => {
         <BasketInstalmentPaymentOption
           instalmentPayment={ipc}
           key={ipc.id}
-          disabled={processing}
+          disabled={processing || props.paymentProcessing}
           checked={props.instalmentPaymentConfigurationSelectedId === ipc.id}
           basketPrice={props.basketPriceCts / 100}
           onSelect={(id: number) => {

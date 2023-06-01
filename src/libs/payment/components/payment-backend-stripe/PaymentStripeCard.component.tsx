@@ -16,6 +16,7 @@ import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-da
 import StripeErrorCode from './StripeErrorCode.component';
 import PaymentMethodList from '../payment-method-list/PaymentMethodList.component';
 import {
+  blockPendingBasket as blockPendingBasketAPI,
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '../../api';
@@ -26,6 +27,7 @@ type Props = {
   companyId: number;
   onSuccess: (callback: () => void) => void;
   onError: () => void;
+  setPaymentProcessing?: (processing: boolean) => void;
   setProcessing: (processing: boolean) => void;
   processing: boolean;
   onCancel: () => void;
@@ -90,7 +92,37 @@ const CardSection = (props: { error: any }) => {
   );
 };
 
-export const StripePaymentCard = (props: Props) => {
+export const StripePaymentCard = ({
+  memberId,
+  companyId,
+  onSuccess,
+  onError,
+  setPaymentProcessing,
+  setProcessing,
+  processing,
+  onCancel,
+  clientSecret,
+  termsAndConditionsAccepted,
+  AcceptTermsAndConditionsComponent,
+  forceDisabled,
+  detachPaymentMethodLoading,
+  detachPaymentMethod,
+  loading,
+  snackbarErrorMsg,
+  snackbarSuccessMsg,
+  sepaDefaultName,
+  sepaDefaultEmail,
+  basketId,
+  basketTotalPriceCts,
+  allowConsumerToUseInternalAccount,
+  useInternalAccount,
+  applyBalanceToInvoice,
+  creditAccountBalance,
+  applyBalanceLoading,
+  forceSave,
+  checkItemsBasket,
+  createPendingBookingsIfNecessary,
+}: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice', 'payment']);
 
@@ -105,11 +137,19 @@ export const StripePaymentCard = (props: Props) => {
   const [hasDetached, setHasDetached] = React.useState(null);
   const [addPaymentMethod, setAddPaymentMethod] = React.useState(true);
 
+  const setPaymentPageProcessing = React.useCallback(
+    (process) => {
+      if (setPaymentProcessing) setPaymentProcessing(process);
+      setProcessing(process);
+    },
+    [setPaymentProcessing, setProcessing],
+  );
+
   React.useEffect(() => {
-    fetchPaymentMethodListAPI({ member: props.memberId }).then((r) =>
+    fetchPaymentMethodListAPI({ member: memberId }).then((r) =>
       setPaymentMethodList(r.data.filter((pm) => pm.type === 'card')),
     );
-  }, [props.memberId, props.clientSecret, hasDetached]);
+  }, [memberId, clientSecret, hasDetached]);
 
   React.useEffect(() => {
     setAddPaymentMethod(!paymentMethodList.length);
@@ -125,6 +165,8 @@ export const StripePaymentCard = (props: Props) => {
   }, [addPaymentMethod]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setPaymentPageProcessing(true);
+
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     event.preventDefault();
@@ -134,22 +176,21 @@ export const StripePaymentCard = (props: Props) => {
       // Make sure to disable form submission until Stripe has loaded.
       return;
     }
-    props.setProcessing(true);
 
-    if (props.basketId) {
-      const { data } = await verifyPriceBasketAPI(props.basketId);
+    if (basketId) {
+      const { data } = await verifyPriceBasketAPI(basketId);
 
-      const basketItemsChecked = await props.checkItemsBasket(props.basketId);
+      const basketItemsChecked = await checkItemsBasket(basketId);
       if (!basketItemsChecked) {
-        props.setProcessing(false);
+        setPaymentPageProcessing(false);
         return;
       }
 
       if (
-        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
-        props.basketTotalPriceCts !== data
+        (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
+        basketTotalPriceCts !== data
       ) {
-        props.setProcessing(false);
+        setPaymentPageProcessing(false);
         // eslint-disable-next-line
         window.alert(t('paymentPanel.actions.basketInconsistent'));
         window.location.reload();
@@ -158,11 +199,11 @@ export const StripePaymentCard = (props: Props) => {
     }
 
     try {
-      const result = await stripe.confirmCardPayment(props.clientSecret, {
+      const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: paymentMethodSelected || {
           card: elements.getElement(CardElement),
         },
-        ...(saveForLater || props.forceSave
+        ...(saveForLater || forceSave
           ? { setup_future_usage: 'off_session' }
           : {}),
       });
@@ -170,14 +211,21 @@ export const StripePaymentCard = (props: Props) => {
       if (result.error) {
         // Show error to your customer (e.g., insufficient funds)
         setError(result.error);
-        props.setProcessing(false);
-        if (props.onError) props.onError();
+        setPaymentPageProcessing(false);
+        if (onError) onError();
       } else {
         // The payment has been processed!
+        if (basketId) {
+          try {
+            await blockPendingBasketAPI(basketId);
+          } catch (err) {
+            console.error(err);
+          }
+        }
         setError(null);
 
-        if (props.createPendingBookingsIfNecessary)
-          props.createPendingBookingsIfNecessary({
+        if (createPendingBookingsIfNecessary)
+          createPendingBookingsIfNecessary({
             payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
           });
 
@@ -187,8 +235,8 @@ export const StripePaymentCard = (props: Props) => {
           // execution. Set up a webhook or plugin to listen for the
           // payment_intent.succeeded event that handles any business critical
           // post-payment actions.
-          if (props.onSuccess) {
-            props.onSuccess(() => props.setProcessing(false));
+          if (onSuccess) {
+            onSuccess(() => setPaymentPageProcessing(false));
           }
         }
       }
@@ -214,8 +262,8 @@ export const StripePaymentCard = (props: Props) => {
           <div className={classes.saveAndDisplay}>
             <div className={classes.row}>
               <Checkbox
-                checked={saveForLater || props.forceSave}
-                disabled={props.forceSave}
+                checked={saveForLater || forceSave}
+                disabled={forceSave}
                 onChange={(ev) => setSaveForLater(ev.target.checked)}
               />
               <Typography variant="caption">
@@ -253,14 +301,14 @@ export const StripePaymentCard = (props: Props) => {
             paymentMethodType="card"
             onSelect={(id: string) => defineSelectedPaymentMethod(id)}
             setHasDetached={setHasDetached}
-            memberId={props.memberId}
-            detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-            detachPaymentMethod={props.detachPaymentMethod}
-            snackbarErrorMsg={props.snackbarErrorMsg}
-            snackbarSuccessMsg={props.snackbarSuccessMsg}
-            companyId={props.companyId}
-            sepaDefaultName={props.sepaDefaultName}
-            sepaDefaultEmail={props.sepaDefaultEmail}
+            memberId={memberId}
+            detachPaymentMethodLoading={detachPaymentMethodLoading}
+            detachPaymentMethod={detachPaymentMethod}
+            snackbarErrorMsg={snackbarErrorMsg}
+            snackbarSuccessMsg={snackbarSuccessMsg}
+            companyId={companyId}
+            sepaDefaultName={sepaDefaultName}
+            sepaDefaultEmail={sepaDefaultEmail}
           />
           <ButtonBase
             disabled={false}
@@ -274,22 +322,19 @@ export const StripePaymentCard = (props: Props) => {
           </ButtonBase>
         </div>
       )}
-      {props.allowConsumerToUseInternalAccount &&
-        !!props.creditAccountBalance && (
-          <UseInternalAccountForm
-            creditAccountBalance={props.creditAccountBalance}
-            onBasketSubmit={props.useInternalAccount}
-            onInvoiceSubmit={props.applyBalanceToInvoice}
-            loading={
-              props.loading || props.processing || props.applyBalanceLoading
-            }
-          />
-        )}
+      {allowConsumerToUseInternalAccount && !!creditAccountBalance && (
+        <UseInternalAccountForm
+          creditAccountBalance={creditAccountBalance}
+          onBasketSubmit={useInternalAccount}
+          onInvoiceSubmit={applyBalanceToInvoice}
+          loading={loading || processing || applyBalanceLoading}
+        />
+      )}
       <div className={classes.conditionRow}>
-        {props.AcceptTermsAndConditionsComponent}
+        {AcceptTermsAndConditionsComponent}
       </div>
       <div className={classes.actionRow}>
-        {props.processing ? (
+        {processing ? (
           <CircularProgress />
         ) : (
           <React.Fragment>
@@ -298,18 +343,18 @@ export const StripePaymentCard = (props: Props) => {
               color="primary"
               type="submit"
               disabled={
-                props.loading ||
-                props.forceDisabled ||
+                loading ||
+                forceDisabled ||
                 !stripe ||
                 !elements ||
-                !props.clientSecret ||
-                !props.termsAndConditionsAccepted
+                !clientSecret ||
+                !termsAndConditionsAccepted
               }
             >
               {t('paymentPanel.actions.confirmPayment')}
             </Button>
-            {props.onCancel ? (
-              <Button onClick={props.onCancel} disabled={props.processing}>
+            {onCancel ? (
+              <Button onClick={onCancel} disabled={processing}>
                 {t('paymentPanel.actions.cancel')}
               </Button>
             ) : (
@@ -374,6 +419,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default compose(
-  withState('processing', 'setProcessing', false),
   withState('error', 'setError', null),
+  withState('processing', 'setProcessing', false),
 )(StripePaymentCard);

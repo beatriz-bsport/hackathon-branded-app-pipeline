@@ -95,6 +95,8 @@ type Props = {
   instalmentPaymentSelectedId: number;
   onSelectInstalmentPayment: (id: number, options: OptionCallback) => void;
   checkItemsBasket: (basketId: string) => boolean;
+  paymentProcessing?: boolean;
+  setPaymentProcessing?: (process: boolean) => void;
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
@@ -165,6 +167,8 @@ export const PaymentStripe = ({
   instalmentPaymentSelectedId,
   onSelectInstalmentPayment,
   checkItemsBasket,
+  paymentProcessing,
+  setPaymentProcessing,
   createPendingBookingsIfNecessary,
 
   fromApp,
@@ -304,12 +308,14 @@ export const PaymentStripe = ({
           selectPaymentMethod={handleSelectPaymentMethod}
           paymentMethodSelected={paymentMethodSelected}
           paymentMethodChoices={paymentMethodChoices}
+          paymentProcessing={paymentProcessing}
         />
         <InstalmentPaymentSelector
           instalmentPaymentConfigurationSelectedId={instalmentPaymentSelectedId}
           instalmentPaymentConfigurationList={
             instalmentPaymentConfigurationList
           }
+          paymentProcessing={paymentProcessing}
           onSelectInstalmentPayment={onSelectInstalmentPayment}
           basketPriceCts={
             basketTotalPriceCts - (basketTotalPricePrepaidLines || 0)
@@ -361,6 +367,7 @@ export const PaymentStripe = ({
               creditAccountBalance={creditAccountBalance}
               applyBalanceLoading={applyBalanceLoading}
               checkItemsBasket={checkItemsBasket}
+              setPaymentProcessing={setPaymentProcessing}
               paymentGroupId={paymentGroupId}
               saveForLaterBacsDebit={saveForLaterBacsDebit}
               setSaveForLaterBacsDebit={setSaveForLaterBacsDebit}

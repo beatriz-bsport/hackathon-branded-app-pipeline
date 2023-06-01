@@ -126,6 +126,12 @@ export const updatePaymentGroupPriceCts = async (
   });
 };
 
+export const blockPendingBasket = async (basketId: string) => {
+  return postAuth(
+    `${API_V1_URI}/checkout/basket/${basketId}/block_pending_basket/`,
+  );
+};
+
 export const verifyPriceBasket = async (basketId: string) => {
   return postAuth(`${API_V1_URI}/checkout/basket/${basketId}/verify_price/`);
 };

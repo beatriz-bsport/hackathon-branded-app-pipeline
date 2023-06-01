@@ -10,28 +10,50 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_EPS } from '@bsport/common/lib/master-data/payment-group';
-import { verifyPriceBasket as verifyPriceBasketAPI } from '../../api';
+import {
+  verifyPriceBasket as verifyPriceBasketAPI,
+  blockPendingBasket as blockPendingBasketAPI,
+} from '../../api';
 
-export const PaymentStripeEPS = (props: {
+type PaymentStripeEPSProps = {
   clientSecret: string;
   onCancel: () => void;
   forceDisabled?: boolean;
   basketId?: string;
   basketTotalPriceCts?: number;
   checkItemsBasket: (basketId: string) => boolean;
+  setPaymentProcessing: (processing: boolean) => void;
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
-}) => {
+};
+
+export const PaymentStripeEPS = ({
+  clientSecret,
+  onCancel,
+  forceDisabled,
+  basketId,
+  basketTotalPriceCts,
+  checkItemsBasket,
+  setPaymentProcessing,
+  createPendingBookingsIfNecessary,
+}: PaymentStripeEPSProps) => {
   const stripe = useStripe();
   const elements = useElements();
-
   const [processing, setProcessing] = React.useState(false);
   const [name, setName] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState(null);
 
   const { t } = useTranslation(['invoice']);
   const classes = useStyles();
+
+  const setPaymentPageProcessing = React.useCallback(
+    (process) => {
+      if (setPaymentProcessing) setPaymentProcessing(process);
+      setProcessing(process);
+    },
+    [setPaymentProcessing],
+  );
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     // We don't want to let default form submission happen here,
@@ -43,23 +65,23 @@ export const PaymentStripeEPS = (props: {
       return;
     }
 
-    setProcessing(true);
+    setPaymentPageProcessing(true);
     setErrorMessage(null);
 
-    if (props.basketId) {
-      const { data } = await verifyPriceBasketAPI(props.basketId);
+    if (basketId) {
+      const { data } = await verifyPriceBasketAPI(basketId);
 
-      const basketItemsChecked = await props.checkItemsBasket(props.basketId);
+      const basketItemsChecked = await checkItemsBasket(basketId);
       if (!basketItemsChecked) {
-        setProcessing(false);
+        setPaymentPageProcessing(false);
         return;
       }
 
       if (
-        (!!props.basketTotalPriceCts || props.basketTotalPriceCts === 0) &&
-        props.basketTotalPriceCts !== data
+        (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
+        basketTotalPriceCts !== data
       ) {
-        setProcessing(false);
+        setPaymentPageProcessing(false);
         // eslint-disable-next-line
         window.alert(t('paymentPanel.actions.basketInconsistent'));
         window.location.reload();
@@ -73,7 +95,7 @@ export const PaymentStripeEPS = (props: {
     // https://reactjs.org/docs/uncontrolled-components.html
     // https://reactjs.org/docs/forms.html#controlled-components
 
-    const { error } = await stripe.confirmEpsPayment(props.clientSecret, {
+    const { error } = await stripe.confirmEpsPayment(clientSecret, {
       payment_method: {
         billing_details: {
           name,
@@ -85,11 +107,21 @@ export const PaymentStripeEPS = (props: {
     if (error) {
       // Inform the customer that there was an error.
       setErrorMessage(error.message);
-      setProcessing(false);
-    } else if (props.createPendingBookingsIfNecessary) {
-      props.createPendingBookingsIfNecessary({
-        payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_EPS,
-      });
+      setPaymentPageProcessing(false);
+    } else {
+      if (basketId) {
+        try {
+          await blockPendingBasketAPI(basketId);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      if (createPendingBookingsIfNecessary) {
+        createPendingBookingsIfNecessary({
+          payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_EPS,
+        });
+      }
     }
   };
 
@@ -114,12 +146,12 @@ export const PaymentStripeEPS = (props: {
             color="primary"
             variant="contained"
             type="submit"
-            disabled={props.forceDisabled || !stripe}
+            disabled={forceDisabled || !stripe}
           >
             {t('paymentPanel.actions.confirmPayment')}
           </Button>
         )}
-        <Button onClick={props.onCancel} disabled={processing}>
+        <Button onClick={onCancel} disabled={processing}>
           {t('paymentPanel.actions.cancel')}
         </Button>
       </div>

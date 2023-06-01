@@ -98,12 +98,7 @@ export function saveCssConfiguration(
       );
 
       dispatch(saveCssConfigurationActions.success(response.data));
-      dispatch(
-        // @ts-ignore
-        snackbarSuccess('widget:widget.customCss.snackbarSuccessSave', {
-          name: componentName,
-        }),
-      );
+      dispatch(snackbarSuccess('widget:widget.customCss.snackbarSuccessSave'));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }

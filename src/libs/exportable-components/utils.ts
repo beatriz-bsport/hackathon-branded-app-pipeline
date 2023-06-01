@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { TFunction } from 'i18next';
 import {
   EXPORTABLE_COMPONENTS,
@@ -28,6 +27,7 @@ export const getDefaultConfigByIdentifier = (identifier: string) => {
   return component.defaultConfig;
 };
 
+// @ts-ignore
 export const checkExportableComponentConfig = (componentType, config) => {
   const errors = { privateService: '', playlist: '' };
 

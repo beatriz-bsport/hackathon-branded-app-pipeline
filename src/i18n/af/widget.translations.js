@@ -106,7 +106,7 @@ exports.default = {
       info: 'Vous avez la possibilité de personnaliser chaque élément et leur variant qui composent les widgets. Sélectionnez un widget puis l’élément souhaité.',
       choiceWidget: 'Choix du widget',
       choiceElement: "Choix de l'élément",
-      snackbarSuccessSave: 'L’élément {{-name}} a bien été sauvegardé',
+      snackbarSuccessSave: 'Votre élément a été sauvegardé avec succès',
       snackbarSuccessResetAll:
         'Toute vos configurations ont bien été réinitialisées',
       infoMultiplePage:

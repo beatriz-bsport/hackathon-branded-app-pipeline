@@ -41,6 +41,7 @@ export default function withConfirm<T>(
             options={options}
             handleCancel={this.handleCancel}
             handleConfirm={this.handleConfirm}
+            countDownConfirm={options.countDownConfirm}
           />
           <Component {...mergedProps} />
         </div>

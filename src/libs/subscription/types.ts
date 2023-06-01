@@ -66,6 +66,7 @@ export type Subscription<
   stripe_payment_method_id: string;
   trial_nb: number;
   month_billing_day: number | null;
+  has_discount: boolean;
 };
 
 export type SubscriptionData = {

@@ -14,9 +14,11 @@ import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import * as Yup from 'yup';
 import { Theme } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { OptionCallback } from '../../../state/types';
 import { CheckboxField, Submit, PriceField } from '#components/forms';
 import { type Subscription, PlannedInvoice } from '../types';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 type Props = {
   open: boolean;
@@ -29,6 +31,10 @@ type Props = {
 export const PlannedInvoicePriceUpdater = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation('subscription');
+
+  const has_non_null_flat_fees =
+    !!props.subscription.flat_fee &&
+    parseFloat(props.subscription.flat_fee) !== 0;
   return (
     <Dialog open={props.open}>
       {props.plannedInvoiceUpdateLoading && <LinearProgress />}
@@ -58,6 +64,19 @@ export const PlannedInvoicePriceUpdater = (props: Props) => {
                   props.isSubmitting || props.plannedInvoiceUpdateLoading
                 }
               />
+              {has_non_null_flat_fees && (
+                <Alert severity="warning" className={classes.alertdiv}>
+                  {t('plannedInvoice.priceUpdater.nonNullFlatFees', {
+                    flatFeesAmount: props.subscription.flat_fee,
+                    currencyDisplay: getCurrencyDisplay(),
+                  })}
+                </Alert>
+              )}
+              {!!props.subscription.has_discount && (
+                <Alert severity="warning" className={classes.alertdiv}>
+                  {t('plannedInvoice.priceUpdater.nonNullDiscount')}
+                </Alert>
+              )}
             </>
           ) : (
             <div className={classes.row}>
@@ -93,6 +112,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: '#EFEFEF',
     borderRadius: theme.spacing(1),
     marginTop: theme.spacing(1),
+  },
+  alertdiv: {
+    margin: theme.spacing(3),
   },
 }));
 

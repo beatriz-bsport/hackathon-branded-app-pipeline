@@ -205,6 +205,10 @@ exports.default = {
       explain: 'Seule cette future facture sera modifiée',
       cancel: 'Annuler',
       submit: 'Enregistrer',
+      nonNullFlatFees:
+        "Cette souscription comporte actuellement des frais de dossier d'un montant de {{ flatFeesAmount }} {{ currencyDisplay }}. Ces frais de dossier ne seront pas pris en compte lors de la mise à jour du prix.",
+      nonNullDiscount:
+        'Cette souscription comporte actuellement un coupon. Ce coupon ne sera pas pris en compte lors de la mise à jour du prix.',
     },
   },
   notificationForm: {

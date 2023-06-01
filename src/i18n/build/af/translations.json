@@ -3888,7 +3888,9 @@
           "submit": "Valider",
           "impossibleState": "Les paramêtres saisis ne permettent pas de génerer un groupe",
           "allowGuest": "Compatible avec la réservation pour un invité",
-          "allowGuestUnavailable": "Cette fonctionnalité n'est pas disponible sur les séances groupées."
+          "allowGuestUnavailable": "Cette fonctionnalité n'est pas disponible sur les séances groupées.",
+          "spiviWarningHelperText": "Attention, si des séances sont liées à Spivi, leurs copies ne seront pas liées à Spivi.",
+          "syncOnSpivi": "Envoyer sur Spivi"
         }
       },
       "errors": {
@@ -9547,8 +9549,7 @@
         "success": "Votre cadence a été mise à jour"
       }
     },
-    "quicksaleConfiguration": { "updated": "Configuration sauvegardée", "error": "Une erreur est survenue lors de la sauvegarde" }
-    },
+    "quicksaleConfiguration": { "updated": "Configuration sauvegardée", "error": "Une erreur est survenue lors de la sauvegarde" },
     "spivi": {
       "error": {
         "21000": "L'upsell Spivi n'est pas activé.",

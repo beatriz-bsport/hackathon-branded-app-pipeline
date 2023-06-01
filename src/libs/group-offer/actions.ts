@@ -1,11 +1,18 @@
 // @ts-nocheck
 import { createAction } from 'redux-actions';
+import {
+  SPIVI_EVENT_DURATION_EXCEPTION,
+  SPIVI_UPSELL_NOT_ACTIVATED_EXCEPTION,
+  NO_SPIVI_BOX_ID_FOR_ROOM_PLAN_EXCEPTION,
+  NO_ROOM_PLAN_SELECTED_EXCEPTION,
+} from '@bsport/common/lib/master-data/error-codes/spivi';
 import type {
   Dispatch,
   OptionCallback,
   OptionPaginatedCallback,
   OptionBackgroundCallback,
 } from '../../state/types';
+import { snackbarError } from '../../actions/snackbar.actions';
 
 import {
   fetchGroupsOfferList as fetchGroupsOfferListAPI,
@@ -160,6 +167,19 @@ export function createGroupOffers(
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       dispatch(createGroupOffersActions.error(error));
+      const error_code = error.response?.data?.error_code;
+      if (
+        error_code === SPIVI_EVENT_DURATION_EXCEPTION ||
+        error_code === SPIVI_UPSELL_NOT_ACTIVATED_EXCEPTION ||
+        error_code === NO_SPIVI_BOX_ID_FOR_ROOM_PLAN_EXCEPTION ||
+        error_code === NO_ROOM_PLAN_SELECTED_EXCEPTION
+      ) {
+        dispatch(
+          snackbarError(
+            `snackbar:spivi.error.${error.response?.data?.error_code}`,
+          ),
+        );
+      }
       if (options && options.onError) options.onError();
     }
     dispatch(createGroupOffersActions.loading(false));

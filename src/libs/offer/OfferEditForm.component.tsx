@@ -325,6 +325,7 @@ export const OfferEditForm = (props: Props) => {
             isOfferInGroup={isOfferInGroup}
             isEditOffer
             roomBlueprints={roomBlueprints}
+            hasActivityGroup={!!props.offer?.group}
           />
 
           {!isOfferInGroup && <OfferFormTags tagList={tagList} />}

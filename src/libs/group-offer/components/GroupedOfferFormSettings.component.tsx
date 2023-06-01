@@ -30,8 +30,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import { Alert } from '@material-ui/lab';
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { FeatureList } from '#libs/company/types';
+
 import {
   TextField,
   Submit,
@@ -434,6 +438,21 @@ export const GroupedOfferFormSettings: React.FC<
               </Typography>
             </div>
           )}
+          <FeatureListProvider>
+            {(featureList: FeatureList) => (
+              <>
+                {hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI) && (
+                  <FormToggle
+                    onChange={(sync_on_spivi) => {
+                      setFieldValue('sync_on_spivi', !sync_on_spivi);
+                    }}
+                    value={values.sync_on_spivi}
+                    title={t('groupedOption.modal.form.syncOnSpivi')}
+                  />
+                )}
+              </>
+            )}
+          </FeatureListProvider>
         </div>
         <Divider className={classes.divider} />
         <div className={classes.wrapper}>
@@ -935,6 +954,7 @@ export default compose<any, OuterProps>(
           whitelist_tags: initial?.offers?.[0]?.whitelist_tags ?? [],
           blacklist_tags: initial?.offers?.[0]?.blacklist_tags ?? [],
           isOfferInGroup: true,
+          sync_on_spivi: initial?.sync_on_spivi,
         };
       }
 
@@ -954,6 +974,7 @@ export default compose<any, OuterProps>(
         whitelist_tags: [],
         blacklist_tags: [],
         isOfferInGroup: true,
+        sync_on_spivi: false,
       };
     },
     validationSchema: GroupedOfferFormSettingsSchema,

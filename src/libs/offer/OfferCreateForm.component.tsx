@@ -182,6 +182,7 @@ export const OfferCreateForm = (props: Props) => {
           allowGuestMaster={allowGuestMaster}
           showPartnership={showPartnership}
           isOfferInGroup={isOfferInGroup}
+          roomBlueprints={roomBlueprints}
         />
       )}
 

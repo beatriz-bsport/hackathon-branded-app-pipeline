@@ -20,17 +20,26 @@ import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js
 import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { FeatureList } from '#libs/company/types';
+import { RoomBlueprint } from '#libs/spot-scheduling/types';
 
 type Props = {
   allowGuestMaster: boolean;
   showPartnership: boolean;
   isOfferInGroup?: boolean;
   isEditOffer?: boolean;
+  roomBlueprints: RoomBlueprint[];
+  hasActivityGroup?: boolean;
 };
 
 const OfferFormSettings = (props: Props) => {
-  const { allowGuestMaster, showPartnership, isOfferInGroup, isEditOffer } =
-    props;
+  const {
+    allowGuestMaster,
+    showPartnership,
+    isOfferInGroup,
+    isEditOffer,
+    roomBlueprints,
+    hasActivityGroup,
+  } = props;
   const classes = useOfferFormStyles();
   const { t } = useTranslation('offer');
   const { values, errors, handleChange, setFieldValue } =
@@ -53,43 +62,56 @@ const OfferFormSettings = (props: Props) => {
       sectionIconContainerStyle={classes.sectionIconContainer}
     >
       <div className={classes.settingsFields}>
-        <FormControlLabel
-          label={t('form.section.settings.field.isManagerOnly')}
-          control={
-            <Switch
-              id="offer-form-manager-only-switch"
-              checked={!values.isManagerOnly}
-              onChange={handleToggleManagerOnly}
-              name="isManagerOnly"
-              color="secondary"
-            />
-          }
-          disabled={isEditOffer && isOfferInGroup}
-        />
-
-        {allowGuestMaster && (
-          <SwitchField
-            id="offer-form-allow-guest-switch"
-            name="allowGuestOffer"
-            label={t('form.section.settings.field.allowGuestOffer')}
-            switchColor="secondary"
-          />
-        )}
-
-        <FeatureListProvider>
-          {(featureList: FeatureList) => (
-            <>
-              {hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI) && (
-                <SwitchField
-                  id="offer-form-sync-on-spivi"
-                  name="syncOfferOnSpivi"
-                  label={t('form.section.settings.field.syncOfferOnSpivi')}
-                  switchColor="secondary"
+        {(!isOfferInGroup || isEditOffer) && (
+          <>
+            <FormControlLabel
+              label={t('form.section.settings.field.isManagerOnly')}
+              control={
+                <Switch
+                  id="offer-form-manager-only-switch"
+                  checked={!values.isManagerOnly}
+                  onChange={handleToggleManagerOnly}
+                  name="isManagerOnly"
+                  color="secondary"
                 />
+              }
+              disabled={isEditOffer && isOfferInGroup}
+            />
+
+            {allowGuestMaster && (
+              <SwitchField
+                id="offer-form-allow-guest-switch"
+                name="allowGuestOffer"
+                label={t('form.section.settings.field.allowGuestOffer')}
+                switchColor="secondary"
+              />
+            )}
+
+            <FeatureListProvider>
+              {(featureList: FeatureList) => (
+                <>
+                  {hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI) &&
+                    roomBlueprints?.find(
+                      (roomBlueprint) =>
+                        roomBlueprint.id === values.roomBlueprint,
+                    )?.spivi_box_id && (
+                      <SwitchField
+                        id="offer-form-sync-on-spivi"
+                        name="syncOfferOnSpivi"
+                        label={t(
+                          'form.section.settings.field.syncOfferOnSpivi',
+                        )}
+                        switchColor="secondary"
+                        disabled={
+                          (isEditOffer && isOfferInGroup) || hasActivityGroup
+                        }
+                      />
+                    )}
+                </>
               )}
-            </>
-          )}
-        </FeatureListProvider>
+            </FeatureListProvider>
+          </>
+        )}
       </div>
 
       {showPartnership && !isOfferInGroup && (

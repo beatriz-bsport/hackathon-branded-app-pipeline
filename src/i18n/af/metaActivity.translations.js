@@ -168,6 +168,9 @@ exports.default = {
         allowGuest: 'Compatible avec la réservation pour un invité',
         allowGuestUnavailable:
           "Cette fonctionnalité n'est pas disponible sur les séances groupées.",
+        spiviWarningHelperText:
+          'Attention, si des séances sont liées à Spivi, leurs copies ne seront pas liées à Spivi.',
+        syncOnSpivi: 'Envoyer sur Spivi',
       },
     },
     errors: {

@@ -204,6 +204,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
           full_booking_only: values.full_booking_only,
           available: values.available,
           manager_only: values.manager_only,
+          sync_on_spivi: values.sync_on_spivi,
         },
         recurrence_rule: values.withRecurrence
           ? {
@@ -221,6 +222,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
           whitelist_tags: values.whitelist_tags,
           blacklist_tags: values.blacklist_tags,
           manager_only: values.manager_only,
+          sync_on_spivi: values.sync_on_spivi,
         })),
       };
 
@@ -261,6 +263,7 @@ export const GroupedOfferCreateFormDrawer: React.FC<Props> = ({
               recurrence_id: o.recurrence_id,
               room_blueprint: o.room_blueprint,
               additional_coaches: o.additional_coaches,
+              sync_on_spivi: o.sync_on_spivi,
             })),
           };
           return acc;

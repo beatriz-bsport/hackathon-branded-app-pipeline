@@ -25,6 +25,10 @@ import {
   AlertError,
 } from '#components/forms';
 import { OffersGroup } from '#libs/group-offer/types';
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { FeatureList } from '#libs/company/types';
 
 type OuterProps = {
   initial: OffersGroup;
@@ -89,6 +93,17 @@ export const GroupedOfferCreateDuplicationForm: React.FC<
                 className={classes.recurrenceSwitch}
               />
             )}
+            <FeatureListProvider>
+              {(featureList: FeatureList) => (
+                <>
+                  {hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI) && (
+                    <Typography className={classes.helper}>
+                      {t('groupedOption.modal.form.spiviWarningHelperText')}
+                    </Typography>
+                  )}
+                </>
+              )}
+            </FeatureListProvider>
           </div>
         </div>
         <div className={classes.buttonContainer}>

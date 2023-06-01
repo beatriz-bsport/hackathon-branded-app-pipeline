@@ -17,6 +17,7 @@ FactoryBot.define('MetaActivity', {
   default_last_discard_minutes: 60,
   default_duration_minutes: 60,
   customer_enabled: false,
+  first_booking_minutes_until: 259200,
 });
 
 export default FactoryBot;

@@ -1,5 +1,5 @@
 // @ts-nocheck
-
+import faker from 'faker';
 import moment from 'moment-timezone';
 import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports';
 import { generateRandomInt } from '../../utils/factories';
@@ -93,3 +93,24 @@ export function meta_activity_factory(num_el: number): Array<MetaActivity> {
     };
   });
 }
+
+export const offerGroupFactory = () => ({
+  id: 1,
+  company: 1,
+  meta_activity: 1,
+  offers: [],
+  level: 1,
+  full_booking_only: true,
+  allow_booking_after_start: true,
+  available: true,
+  recurrence_id: 'fdsfdsfsd',
+  name: faker.lorem.word(2),
+  recurrence_rule: {
+    count: 1,
+    frequence: 0,
+    interval: null,
+    until: null,
+  },
+  manager_only: false,
+  recurrence_index: 1,
+});

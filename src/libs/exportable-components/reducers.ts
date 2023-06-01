@@ -1,3 +1,4 @@
+// TODO : Type
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 

@@ -59,6 +59,7 @@ type BaseProps<T extends OptionTypeBase> = {
   classes?: Record<string, CSSProperties>;
   error?: boolean;
   withoutSelectAll?: boolean;
+  removeIndicator?: boolean;
   chipsRenderer?: (props: {
     data: T;
     onDelete: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -107,6 +108,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     isSearchable,
     defaultNumberShown,
     withoutSelectAll,
+    removeIndicator,
     chipsRenderer,
     itemRenderer,
     headerListRenderer,
@@ -222,6 +224,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
             SingleValue: SingleValue(chipsRenderer),
             GroupHeading,
             ValueContainer: ValueContainer(leftIcon),
+            ...(removeIndicator ? { IndicatorsContainer: () => null } : {}),
           }}
           withoutSelectAll={withoutSelectAll}
           hideSelectedOptions={false}

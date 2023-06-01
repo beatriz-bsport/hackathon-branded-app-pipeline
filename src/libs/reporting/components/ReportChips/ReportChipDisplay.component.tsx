@@ -18,7 +18,7 @@ export type Props = {
   iconColor?: string;
 };
 
-const getColor = (mainColor: string, theme: Theme) => {
+const getColor = (theme: Theme, mainColor?: string) => {
   const textColor = mainColor || theme.palette.grey[900];
   const backgroundColor = alpha(textColor, 0.1);
   return { backgroundColor, textColor };
@@ -27,7 +27,7 @@ const getColor = (mainColor: string, theme: Theme) => {
 export const ReportChipDisplay = (props: Props) => {
   const { displayedValue, mainColor, icon } = props;
   const defaultTheme = useTheme();
-  const { backgroundColor, textColor } = getColor(mainColor, defaultTheme);
+  const { backgroundColor, textColor } = getColor(defaultTheme, mainColor);
 
   const theme = backgroundColor
     ? createTheme({

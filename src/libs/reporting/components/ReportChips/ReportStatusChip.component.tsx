@@ -17,7 +17,7 @@ type MatchType = {
   [key: string | number]: { color: PaletteColor; icon: string };
 } | null;
 
-const createMatches = (type: string, theme: Theme) => {
+const createMatches = (type: string, theme: Theme): MatchType => {
   const green = theme.palette.success;
   const blue = theme.palette.info;
   const yellow = theme.palette.warning;
@@ -107,6 +107,7 @@ export const ReportStatusChip = (props: Props) => {
   });
 
   const getMatch = useCallback(() => {
+    let match = null;
     if (
       LAST_PAYMENT_STATUS_SUBSCRIPTION.includes(datatype) &&
       createMatches(
@@ -114,51 +115,45 @@ export const ReportStatusChip = (props: Props) => {
         theme,
       )
     ) {
-      return createMatches(
+      match = createMatches(
         ReportStatusChipTypes.LAST_PAYMENT_STATUS_SUBSCRIPTION,
         theme,
       );
-    }
-    if (
+    } else if (
       SUBSCRIPTION_STATUS.includes(datatype) &&
       createMatches(ReportStatusChipTypes.SUBSCRIPTION, theme)
     ) {
-      return createMatches(ReportStatusChipTypes.SUBSCRIPTION, theme);
-    }
-    if (
+      match = createMatches(ReportStatusChipTypes.SUBSCRIPTION, theme);
+    } else if (
       BOOKING_STATUS.includes(datatype) &&
       createMatches(ReportStatusChipTypes.BOOKING, theme)
     ) {
-      return createMatches(ReportStatusChipTypes.BOOKING, theme);
-    }
-    if (
+      match = createMatches(ReportStatusChipTypes.BOOKING, theme);
+    } else if (
       PAYMENT_STATUS.includes(datatype) &&
       createMatches(ReportStatusChipTypes.PAYMENT, theme)
     ) {
-      return createMatches(ReportStatusChipTypes.PAYMENT, theme);
-    }
-    if (
+      match = createMatches(ReportStatusChipTypes.PAYMENT, theme);
+    } else if (
       DISPUTE_STATUS.includes(datatype) &&
       createMatches(ReportStatusChipTypes.DISPUTE, theme)
     ) {
-      return createMatches(ReportStatusChipTypes.DISPUTE, theme);
-    }
-    if (
+      match = createMatches(ReportStatusChipTypes.DISPUTE, theme);
+    } else if (
       LAST_PAYMENT_STATUS_INVOICES.includes(datatype) &&
       createMatches(ReportStatusChipTypes.LAST_PAYMENT_STATUS, theme)
     ) {
-      return createMatches(ReportStatusChipTypes.LAST_PAYMENT_STATUS, theme);
-    }
-    if (
+      match = createMatches(ReportStatusChipTypes.LAST_PAYMENT_STATUS, theme);
+    } else if (
       VIDEO_STATUS.includes(datatype) &&
       createMatches(ReportStatusChipTypes.VIDEO, theme)
     ) {
-      return createMatches(ReportStatusChipTypes.VIDEO, theme);
+      match = createMatches(ReportStatusChipTypes.VIDEO, theme);
     }
-    return null;
+    return match;
   }, [datatype, theme]);
 
-  const match: MatchType = getMatch();
+  const match = getMatch();
   let textColor = null;
   let icon = null;
   let iconColor = null;

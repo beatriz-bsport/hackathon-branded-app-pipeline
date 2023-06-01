@@ -6273,12 +6273,12 @@
         },
         "contract": {
             "registerManager": {
-                "explainChoseContract": "Seleziona un contratto, quest'ultimo verrà fatturato mensilmente al socio",
+                "explainChoseContract": "Seleziona un abbonamento che verrà fatturato mensilmente",
                 "actions": {
                     "cancel": "Annulla"
                 },
-                "explainCustomSubscriptionForm": "No, desidero definire un abbonamento personalizzato",
-                "title": "Pagamento ricorrente"
+                "explainCustomSubscriptionForm": "Abbonamento personalizzato",
+                "title": "Abbonamenti"
             },
             "description": "Descrizione",
             "actions": {
@@ -7873,7 +7873,7 @@
                 "credits": {
                     "label": "Credito",
                     "helperText": "Numero di crediti disponibili",
-                    "bewareChange": "Se aumenti il numero di crediti, saranno interessate tutte le carte esistenti. Lo stesso se diminuisci il numero di crediti."
+                    "bewareChange": "Se aumenti il numero di crediti, saranno interessate tutti i pass esistenti. Lo stesso se diminuisci il numero di crediti."
                 },
                 "maxPurchasePerMember": {
                     "helperText": "Lasciare vuoto per non imporre un limite",
@@ -8073,7 +8073,7 @@
             "notReverted": "Fattura non annullata",
             "credits": "Credito",
             "expiration": "Validità",
-            "all": "Tutte le carte",
+            "all": "Tutti i pass",
             "isValidToday": "Valido"
         },
         "multipleBookingTooltip": "Prenotazioni multiple",
@@ -8702,7 +8702,7 @@
         },
         "paymentAction": {
             "toBill": "Fattura",
-            "toSubscribe": "Iscrizione"
+            "toSubscribe": "Abbonamenti"
         },
         "member": {
             "existsWithPhone": "Un membro con il numero di telefono {{phonenumber}} esiste già.",
@@ -8757,7 +8757,7 @@
         },
         "merge": "Unisci",
         "bornIn": "Nato il ",
-        "memberSince": "Registrati il ",
+        "memberSince": "Data di registrazione ",
         "showPreviousBooking": "Vedi le prenotazioni precedenti",
         "menu": {
             "invoices": "Fatture e abbonamenti",
@@ -9304,7 +9304,7 @@
             },
             "explain": "Il membro sarà sempre registrato {{ delayWeek }} settimane in anticipo prima del {{ dayOfWeek}} a {{hour}}:{{minute}}. Sarà registrato solo se possiede una tessera del corso valida.",
             "createModal": {
-                "create": "Crea una prenotazione ricorrente",
+                "create": "Aggiungi una prenotazione ricorrente",
                 "info": "Impossibile ricreare una prenotazione ricorrente che già esiste",
                 "success": "La prenotazione ricorrente è stata creata."
             },

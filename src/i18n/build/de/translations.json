@@ -12543,7 +12543,7 @@
                         "waitingListMaxSize": "Warteliste",
                         "effectif": "Verfügbare Slots",
                         "hybridLabel": "Diese Session findet sowohl vor Ort als auch online statt.",
-                        "hybridHelper": "Wenn Sie diese Option wählen, wird eine Online-Session mit einer Standardbesetzung von {{ onlineOfferDefaultEffective }} erstellt. Sie können die Informationen des Onlineangebots nach der Erstellung bearbeiten (Verbreitungslink, Mitgliederzahl, Preis, etc.)",
+                        "hybridHelper": "Wenn Sie diese Option wählen, wird eine Online-Session mit einer Standardbesetzung von {{ onlineOfferDefaultEffectif }} erstellt. Sie können die Informationen des Onlineangebots nach der Erstellung bearbeiten (Verbreitungslink, Mitgliederzahl, Preis, etc.)",
                         "hybridSection": "Hybrid-Session",
                         "hybridEditHelper": "Sie bearbeiten eine Online-Session, die mit einer Vor-Ort-Session verknüpft ist. Um einige Informationen zu ändern, müssen Sie die Vor-Ort-Session bearbeiten.",
                         "hybridManagementHelper": "Sie können die Buchungen, die mit dieser Partnerschaftssitzung verbunden sind, sowohl im Raum als auch online verwalten, indem Sie auf das Symbol unten klicken, um eine neue Verwaltungsseite zu öffnen."

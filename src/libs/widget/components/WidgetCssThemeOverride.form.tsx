@@ -312,7 +312,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     marginBottom: theme.spacing(2),
     display: 'flex',
-    alignItem: 'flex-start',
+    alignItems: 'flex-start',
     gap: theme.spacing(1),
   },
   submitWrapper: {

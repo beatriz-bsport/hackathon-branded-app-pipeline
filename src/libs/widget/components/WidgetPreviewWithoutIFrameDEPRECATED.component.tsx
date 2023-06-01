@@ -5,9 +5,10 @@ import { CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Config from '../../../config';
 import { WidgetCustomCSS } from '#libs/theme/types';
-import WidgetApplyCustomTheme from './WidgetApplyCustomTheme.component';
 import WidgetPreview from './WidgetPreview.component';
 import { WidgetCodeStringGenerator } from '#libs/marketplace/utils';
+
+import ApplyCustomThemeComponent from '#libs/exportable-components/components/ApplyCustomTheme.component';
 
 type Props = {
   company: number;
@@ -123,7 +124,7 @@ export const WidgetPreviewWithoutIFrame: React.FC<Props> = ({
           <CircularProgress />
         </div>
       )}
-      <WidgetApplyCustomTheme styles={styles} />
+      <ApplyCustomThemeComponent styles={styles} />
     </>
   );
 };

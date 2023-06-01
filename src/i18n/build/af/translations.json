@@ -4102,7 +4102,7 @@
         "basket_plural": "Paniers ({{number}})"
       },
       "smartList": { "member": "Général", "campaign": "Campagnes", "statistic": "Statistique" },
-      "widget": { "create": "Général", "customize": "Personnalisation" },
+      "widget": { "create": "Général", "customize": "Personnalisation", "customizeCss": "CSS personlalisé" },
       "replacement": { "management": "Gestion", "disciplineGroup": "Groupes de disciplines" },
       "franchise": { "staff": { "staffAccount": "Comptes staff", "role": "Rôles" } },
       "customForm": { "general": "Contenu", "campaign": "Campagne", "statistics": "Statistiques", "layout": "Personnalisation" }
@@ -11992,6 +11992,7 @@
   "widget": {
     "create": "Général",
     "customize": "Personnalisation",
+    "customizeCss": "Personnalisation css",
     "widget": {
       "containerConfiguration": { "title": "Configuration générale" },
       "configTitle": "Mon Widget",
@@ -12055,6 +12056,75 @@
           "content": "Attention vous êtes sur le points de réinitialiser tous les champs déjà personnalisés.",
           "cancel": "Annuler",
           "confirm": "Confirmer"
+        }
+      },
+      "customCss": {
+        "CSS": "CSS",
+        "preview": "Preview - {{-name}}",
+        "element": "Element",
+        "unsavedChanges": "Des changements n'ont pas été enregistrés",
+        "savedChanges": "Dernières modifications sauvegardées",
+        "save": "Enregistrer",
+        "dialog": {
+          "title": "Réinitialiser l’élément",
+          "cancel": "Annuler",
+          "confirm": "Confirmer",
+          "content": "Attention vous êtes sur le point de réinitialiser le css de  cette élément. Il retournera à sa configuration par défaut."
+        },
+        "info": "Vous avez la possibilité de personnaliser chaque élément et leur variant qui composent les widgets. Sélectionnez un widget puis l’élément souhaité.",
+        "choiceWidget": "Choix du widget",
+        "choiceElement": "Choix de l'élément",
+        "snackbarSuccessSave": "L’élément {{-name}} a bien été sauvegardé",
+        "snackbarSuccessResetAll": "Toute vos configurations ont bien été réinitialisées",
+        "infoMultiplePage": "Cet élément est présent sur plusieurs widgets, les modifications s’appliqueront sur les widgets suivants :",
+        "showBsportCode": "Afficher le style de bsport",
+        "baseCode": "Style de bsport",
+        "yourCode": "Votre implémentation complémentaire:"
+      },
+      "components": {
+        "filter": "Filtre unique",
+        "offerListItem": "Détails d'une séance",
+        "level": "Chip de niveau",
+        "vodTag": "Chip vod",
+        "workshopsComponent": "Détails des ateliers",
+        "cardOffer": "Détails de séance (affichage calendrier)",
+        "groupOfferListItem": "Détails d'un groupe de séance",
+        "workshopCard": "Card d'atelier",
+        "filters": "Liste des filtres",
+        "bookButton": "Boutton de résérvation",
+        "datePicker": "Sélecteur de date",
+        "activity": "Popup de détails activité",
+        "workshopPage": "Page workshop",
+        "timeTable": "Composant calendrier",
+        "calendar": "Page calendrier"
+      },
+      "page": { "workshop": "Atelier", "calendar": "Calendrier" },
+      "cssConfig": {
+        "configurationTitle": "Variations",
+        "title": {
+          "filterGroupOptions": "Options groupées",
+          "variant": "Mise en avant",
+          "loading": "En cours de chargement",
+          "isMobile": "Pour mobile",
+          "offerStatus": "Disponibilité de l'offre",
+          "isRegistered": "Déja inscrit",
+          "showDayParts": "Séparer matin, après midi et soir",
+          "nextOffer": "Prochaine séance disponible"
+        },
+        "option": {
+          "true": "Oui",
+          "false": "Non",
+          "activityName": "De l'activité",
+          "coach": "Du professeur",
+          "time": "De l'horaire",
+          "waitingList": "Liste d'attente",
+          "cancel": "Annulée",
+          "past": "Passée",
+          "bookable": "Réservable",
+          "future": "Pas encore ouvert à la réservation",
+          "currentWeek": "Cette semaine",
+          "nextWeek": "La semaine prochaine",
+          "none": "Aucune"
         }
       }
     }

@@ -305,6 +305,7 @@ export type ProtectedUrls =
   | '/settings/widget/create'
   | '/settings/widget/customize'
   | '/settings/coach-userspace'
+  | '/settings/widget/customize-css'
   | '/shop'
   | '/smart-list'
   | '/spot-scheduling'

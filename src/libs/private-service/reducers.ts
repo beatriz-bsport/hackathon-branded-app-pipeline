@@ -2,7 +2,7 @@
 import Seamless from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import lodash from 'lodash';
+import omit from 'lodash/omit';
 import {
   availabilitySlotListActions,
   availabilitySlotUpdateActions,
@@ -1701,7 +1701,7 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       return state
         .setIn(
           ['privatePassCategory', 'byId'],
-          lodash.omit(state.privatePassCategory.byId, payload.id),
+          omit(state.privatePassCategory.byId, payload.id),
         )
         .setIn(
           ['privatePassCategory', 'allIds'],

@@ -53,7 +53,7 @@ export const Settings = () => {
         component={MarketplaceSettings}
       />
 
-      <Route exact path="/settings/widget/:tab" component={WidgetRouter} />
+      <Route path="/settings/widget/:tab" component={WidgetRouter} />
 
       <Route
         exact

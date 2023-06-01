@@ -2,6 +2,7 @@
 import moment from 'moment-timezone';
 import chroma from 'chroma-js';
 
+import memoize from 'memoize-one';
 import { getTextColorFromRGB } from '../../utils/color';
 import { WidgetCustomCSS } from '#libs/theme/types';
 
@@ -10,7 +11,7 @@ export const getIntercomLink = () =>
     .locale()
     .slice(0, 2)}/articles/4942264`;
 
-export const getCustomWidgetStyle = (styles: WidgetCustomCSS) => {
+export const getCustomWidgetStyle = memoize((styles: WidgetCustomCSS) => {
   const {
     fontFamily,
     spacing,
@@ -122,4 +123,27 @@ export const getCustomWidgetStyle = (styles: WidgetCustomCSS) => {
     classes,
     id,
   };
+});
+
+export const cleanCSSFile = (css: string) => {
+  const propertyRegex = /{[^}]*}/gm;
+
+  return css.replace(propertyRegex, '{\n    \n}');
+};
+
+export const interpolateCSSVar = (css: string, isDomLoaded: boolean) => {
+  if (!isDomLoaded) return css;
+
+  const newRegex = /var\((--[^)]*)\)/gm;
+  const wrapper = document.getElementById('bs-setup-derived-variable');
+
+  if (!wrapper) return css;
+  const computedStyle = getComputedStyle(wrapper);
+
+  return css.replace(newRegex, (correpondance, key) => {
+    const style = computedStyle?.getPropertyValue(key);
+    if (style === '') return correpondance;
+
+    return style;
+  });
 };

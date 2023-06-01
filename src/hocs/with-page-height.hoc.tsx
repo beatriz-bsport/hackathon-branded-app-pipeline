@@ -66,4 +66,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+export type WithPageHeight = {
+  pageHeight: number;
+};
+
 export default withPageHeightHOC;

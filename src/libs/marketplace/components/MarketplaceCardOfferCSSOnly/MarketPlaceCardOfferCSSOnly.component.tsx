@@ -21,6 +21,7 @@ import { Theme } from '#libs/theme/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { OffersGroup } from '#libs/group-offer/types';
 import FreeOfferChip from '#csscomponents/FreeOfferChip';
+import { Level } from '#libs/level/types';
 
 type OwnProps = {
   offer: Offer;
@@ -37,60 +38,67 @@ type OwnProps = {
   onClickBook: (offer: Offer) => void;
   onClickOffer: (id: number) => void;
   onClickBookOption: (offer: Offer) => void;
-  getLevel: (id: number) => void;
+  getLevel: { [key: number]: Level };
   isBookingDisabled: boolean;
   group?: OffersGroup;
 };
 
 type Props = OwnProps;
 
-const MarketPlaceCardOfferV2 = (props: Props) => {
-  const isVariantTimeHighlighted = props.variant === 'time';
-  const isVariantCoachHighlighted = props.variant === 'coach';
-
-  const {
-    offer,
-    establishments,
-    metaActivities,
-    coaches,
-    theme,
-    genderCount,
-    group,
-  } = props;
+const MarketPlaceCardOfferV2: React.FC<Props> = ({
+  coaches,
+  establishments,
+  genderCount,
+  getLevel,
+  group,
+  hideCoach,
+  isBookingDisabled,
+  isRegistered,
+  metaActivities,
+  offer,
+  onClickBook,
+  onClickBookOption,
+  onClickOffer,
+  showOfferFilling,
+  showOfferGender,
+  theme,
+  variant,
+}) => {
+  const isVariantTimeHighlighted = variant === 'time';
+  const isVariantCoachHighlighted = variant === 'coach';
 
   const handleBook = () => {
-    props.onClickBook(offer);
+    onClickBook(offer);
   };
 
   const handleBookOption = () => {
-    props.onClickBookOption(offer);
+    onClickBookOption(offer);
   };
   const handleClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (props?.isBookingDisabled) return;
+    if (isBookingDisabled) return;
 
     if (AVAILABLE_BOOKING_ELEMENTS_IDS.includes(event?.target?.id)) {
-      offer.full ? handleBookOption() : handleBook();
+      offer?.full ? handleBookOption() : handleBook();
     } else {
-      props.onClickOffer(offer.id);
+      onClickOffer(offer?.id);
     }
   };
 
   const isBottomInOneLine =
-    (props.showOfferFilling || props.showOfferGender) &&
-    window.innerWidth < 1850;
+    (showOfferFilling || showOfferGender) && window.innerWidth < 1850;
 
   const establishment = useMemo(
-    () => establishments?.find((est) => est.id === offer.establishment),
-    [establishments, offer.establishment],
+    () => establishments?.find((est) => est.id === offer?.establishment),
+    [establishments, offer?.establishment],
   );
 
   const metaActivity = metaActivities
-    ? metaActivities[offer.meta_activity]
+    ? metaActivities[offer?.meta_activity]
     : undefined;
 
-  const offerCoachId = offer.coach_override
-    ? offer.coach_override
-    : offer.coach;
+  const offerCoachId = offer?.coach_override
+    ? offer?.coach_override
+    : offer?.coach;
 
   const coach = useMemo(
     () => coaches?.find((c) => c.id === offerCoachId),
@@ -99,13 +107,13 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
 
   const additionalCoaches = useMemo(
     () =>
-      offer.additional_coaches.map((coachId) =>
+      (offer?.additional_coaches || []).map((coachId) =>
         coaches?.find((c) => c.id === coachId),
       ),
-    [coaches, offer.additional_coaches],
+    [coaches, offer?.additional_coaches],
   );
 
-  const genderCountOffer = genderCount ? genderCount[offer.id] : undefined;
+  const genderCountOffer = genderCount ? genderCount[offer?.id] : undefined;
 
   const offerHours = useOfferHours(offer, establishment, metaActivity, theme);
 
@@ -114,12 +122,12 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
       type="button"
       className={classNames({
         'bs-card-offer': true,
-        'bs-card-offer--disabled': props.isBookingDisabled,
+        'bs-card-offer--disabled': isBookingDisabled,
       })}
       onClick={handleClick}
-      disabled={props.isBookingDisabled}
+      disabled={isBookingDisabled}
     >
-      {props.theme?.show_activity_color && metaActivity?.color && (
+      {theme?.show_activity_color && metaActivity?.color && (
         <ArrowLeft
           className="arrow-down"
           style={{ borderTopColor: metaActivity?.color }}
@@ -149,8 +157,8 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
           </div>
           <div className="bs-card-offer__content__status">
             <MarketplaceLevel
-              hideLevel={!props.theme.show_level}
-              customLevel={props.getLevel[offer.custom_level]}
+              hideLevel={!theme.show_level}
+              customLevel={getLevel?.[offer?.custom_level]}
               className="bs-card-offer__content__status__level"
             />
             {metaActivity && metaActivity.is_broadcast ? (
@@ -160,8 +168,8 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
             )}
           </div>
           <MarketplaceCoachInfos
-            theme={props.theme}
-            hideCoach={props.hideCoach}
+            theme={theme}
+            hideCoach={hideCoach}
             coach={coach}
             offer={offer}
             reverse
@@ -176,8 +184,8 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
           {additionalCoaches?.length > 0 &&
             additionalCoaches?.map((additionalCoach) => (
               <MarketplaceCoachInfos
-                theme={props.theme}
-                hideCoach={props.hideCoach}
+                theme={theme}
+                hideCoach={hideCoach}
                 coach={additionalCoach}
                 offer={offer}
                 reverse
@@ -193,7 +201,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
             ))}
           <MarketplaceEstablishmentTitle
             establishment={establishment}
-            theme={props.theme}
+            theme={theme}
             classes={{
               'bs-card-offer__content__establishment':
                 'bs-card-offer__content__establishment',
@@ -212,7 +220,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
               'bs-card-offer__content__bottom__left--full': isBottomInOneLine,
             })}
           >
-            {props.showOfferGender ? (
+            {showOfferGender ? (
               <div className="bs-card-offer__content__bottom__left__gender">
                 <div className="bs-card-offer__content__bottom__left__gender__sex">
                   <MaleIcon />
@@ -230,12 +238,12 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
             ) : (
               ''
             )}
-            {props.showOfferFilling ? (
+            {showOfferFilling ? (
               <div className="bs-card-offer__content__bottom__left__group">
                 <GroupIcon className="bs-card-offer__icon" />
                 <div className="bs-card-offer__content__bottom__left__group__number">
-                  {props.showOfferFilling
-                    ? `  ${offer.tot_slots}/${offer.effectif}`
+                  {showOfferFilling
+                    ? `  ${offer?.tot_slots}/${offer?.effectif}`
                     : ''}{' '}
                 </div>
               </div>
@@ -243,7 +251,7 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
               ''
             )}
             <FreeOfferChip
-              companyTheme={props.theme}
+              companyTheme={theme}
               credits={offer?.credit_price}
               creditsOverride={offer?.credit_price_override}
             />
@@ -252,8 +260,12 @@ const MarketPlaceCardOfferV2 = (props: Props) => {
             <MarketplaceBookButton
               offer={offer}
               group={group}
+<<<<<<< HEAD
               isRegistered={props.isRegistered}
               metaActivity={metaActivity}
+=======
+              isRegistered={isRegistered}
+>>>>>>> e9e745a5f (feat(customize-css) : implementing offer card css customization)
             />
           </div>
         </div>

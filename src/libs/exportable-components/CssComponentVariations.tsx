@@ -9,6 +9,7 @@ export const variantVariation = {
     { label: 'coach', value: 'coach', data: 'coach' },
   ],
 };
+
 export const defaultVariantVariation = {
   propsKey: 'variant',
   value: 'activityName',
@@ -41,6 +42,31 @@ export const defaultisRegisteredVariation = {
   value: 'false',
 };
 
+const bookableOffer = offerFactory({
+  withLevel: true,
+  withCoach: true,
+  withEstablishment: true,
+  withMetaActivity: true,
+  offerStatus: 'bookable',
+});
+
+const coach = bookableOffer.coach;
+const establishment = bookableOffer.establishment;
+const meta_activity = bookableOffer.meta_activity;
+const data = {
+  offer: {
+    ...bookableOffer,
+    coach: coach.id,
+    establishment: establishment.id,
+    meta_activity: meta_activity.id,
+  },
+  coaches: [coach],
+  establishments: [establishment],
+  metaActivities: [bookableOffer.meta_activity],
+  isBookingDisabled: false,
+  getLevel: { [bookableOffer.id]: bookableOffer.level },
+};
+
 export const offerVariation = {
   label: 'offerStatus',
   propsKey: 'offer',
@@ -48,13 +74,7 @@ export const offerVariation = {
     {
       label: 'bookable',
       value: 'bookable',
-      data: offerFactory({
-        withLevel: true,
-        withCoach: true,
-        withEstablishment: true,
-        withMetaActivity: true,
-        offerStatus: 'bookable',
-      }),
+      data,
     },
     {
       label: 'waitingList',

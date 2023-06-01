@@ -60,12 +60,19 @@ const VariationConfigurationWrapper: React.FC<{
       const variationSelected = variationOptions?.choices?.find(
         (opt) => opt.value === variation.value,
       );
+      if (variation.propsKey === 'offer') {
+        // The implementation logic of variation and what props they override has to be rethink.
+        acc = { acc, ...(variationSelected?.data || {}) };
+      } else {
+        acc[variation.propsKey] = { ...(variationSelected?.data || {}) };
+      }
 
-      acc[variation.propsKey] = variationSelected?.data;
+      // console.log('propsKey', variation.propsKey);
       return acc;
     }, {});
   }, [config.variations, variationsSelected]);
 
+  // console.log('formatedProps', formatedProps);
   return (
     <div className={classes.config}>
       {config.variations.length > 0 && (

@@ -41,10 +41,11 @@ const ComponentPreview: React.FC<
       [key]: value,
     });
   };
+
   return (
     <div
       style={{
-        height: pageHeight,
+        height: '1000px',
         maxHeight: pageHeight,
       }}
       className={classes.previewWrapper}

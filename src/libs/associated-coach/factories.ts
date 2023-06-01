@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-ignore
 import faker from 'faker';
 
 import { generateRandomInt } from '../../utils/factories';
@@ -64,9 +64,7 @@ function randomPrivate_slots_coach_payment_rules(length: number) {
   }));
 }
 
-export function coachFactory(
-  coach_payment_rule_group_id?: number,
-): Partial<Coach> {
+export function coachFactory(coach_payment_rule_group_id?: number): Coach {
   const wichGender = generateRandomInt(2);
   const firstName = faker.name.firstName();
   const lastName = faker.name.lastName();
@@ -99,6 +97,15 @@ export function coachFactory(
     private_slots_coach_payment_rules:
       randomPrivate_slots_coach_payment_rules(3),
     has_access_to_coach_space: randomBoolean(),
+    meta_activities_taught: randomArray(10),
+    workshops_taught: randomArray(10),
+    categories_taught: randomArray(10),
+    discipline_group_establishments: randomArray(10),
+    discipline_group_establishment_groups: randomArray(10),
+    is_teaching_all_activities: randomBoolean(),
+    is_teaching_all_workshops: randomBoolean(),
+    is_teaching_all_categories: randomBoolean(),
+    discipline_group: random_int(1000),
   };
 }
 

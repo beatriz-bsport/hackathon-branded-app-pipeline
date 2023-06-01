@@ -365,6 +365,15 @@ exports.default = {
       helperText: 'Votre page Instagram',
       placeholder: 'https://instagram.com/mon-studio/',
     },
+    productsThemePersonalization: {
+      title: 'Produits',
+      credits: {
+        subTitle: 'Crédits',
+        label: 'Cacher les crédits',
+        description:
+          "Active ou désactive l'affichage des crédits des cartes pour les clients",
+      },
+    },
     submit: 'Sauvegarder',
     warningColorBrightness: {
       example: 'Exemple',

@@ -11,6 +11,7 @@ import LinearProgress from '#components/navigation/BackofficeLinearProgress.comp
 import type { CompanyTheme } from '../../libs/theme/types';
 import ThemePersonalizeForm from '../../libs/theme/components/ThemePersonalizeForm.component';
 import CommunicationPersonalizeForm from '#libs/communication-v2/components/CommunicationPersonalizeForm.component';
+import ProductsPersonalizeForm from '#libs/theme/components/ProductsPersonalizeForm.component';
 import {
   updateCompanyTheme as updateCompanyThemeAction,
   fetchCompanyTheme as fetchCompanyThemeAction,
@@ -88,6 +89,15 @@ export class ThemePersonalize extends Component<Props> {
                 />
               </Paper>
             )}
+          <Paper className={classes.paper}>
+            <ProductsPersonalizeForm
+              productTheme={{
+                company: theme.company,
+                hide_credits_for_customers: theme.hide_credits_for_customers,
+              }}
+              onSubmit={submitTheme}
+            />
+          </Paper>
         </div>
       </>
     );

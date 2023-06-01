@@ -105,6 +105,7 @@ export type Theme = {
   days_format_display: MarketPlaceDaysFormatDisplay;
   is_auto_debit_activated: boolean;
   show_free_session_label: boolean;
+  hide_credits_for_customers: boolean;
 };
 
 export type ThemeState = {

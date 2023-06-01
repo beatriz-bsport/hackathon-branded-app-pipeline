@@ -83,4 +83,21 @@ exports.default = {
     discard: 'Quitter sans sauvegarder',
   },
   pageTitle: 'Interface de vente',
+  rolePage: {
+    title: 'Accès point de vente',
+    subtitle:
+      "Ces accès permettent au staff d'accéder à l'interface de vente rapide. Il est nécessaire de se connecter afin de pouvoir vendre via l'interface.",
+    addAccess: 'Ajouter un accès',
+    modalTitle: "Création d'un accès interface de vente",
+    firstName: 'Prénom',
+    lastName: 'Nom',
+    email: 'Email',
+    password: 'Mot de passe',
+    cancel: 'Annuler',
+    submit: 'Valider',
+    staffColumn: 'Staff',
+    emailColumn: 'Email',
+    actionColumn: 'Action',
+    noResult: 'Aucun accès créé',
+  },
 };

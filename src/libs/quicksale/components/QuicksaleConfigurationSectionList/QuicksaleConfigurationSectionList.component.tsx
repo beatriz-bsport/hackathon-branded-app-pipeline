@@ -134,7 +134,7 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
               </>
             ) : (
               <>
-                {sectionList.map((section) => (
+                {(sectionList ?? []).map((section) => (
                   <Grid
                     item
                     xs={12}

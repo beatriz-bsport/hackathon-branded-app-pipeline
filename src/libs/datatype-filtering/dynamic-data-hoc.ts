@@ -274,11 +274,14 @@ export default function withDatatypeDynamicData(
                 });
                 break;
               case 'staff':
-                props.fetchCompanyUserRoles({
-                  onSuccess: () => {
-                    props.setDynamicDataHasBeenLoaded('staff');
+                props.fetchCompanyUserRoles(
+                  {},
+                  {
+                    onSuccess: () => {
+                      props.setDynamicDataHasBeenLoaded('staff');
+                    },
                   },
-                });
+                );
                 break;
               case 'company':
                 props.fetchFranchise({

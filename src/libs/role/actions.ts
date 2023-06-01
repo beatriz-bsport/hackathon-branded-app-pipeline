@@ -76,13 +76,16 @@ export const userCommissionUpdate = {
   success: createAction('ROLE/USER/COMMISSION_UPDATE/SUCCESS'),
 };
 
-export function fetchCompanyUserRoles(options?: OptionCallback) {
+export function fetchCompanyUserRoles(
+  params?: { role__in?: number[]; role_exclude?: number[] },
+  options?: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(userRoleList.isLoading(true));
     dispatch(userRoleList.error(null));
 
     try {
-      const response = await fetchCompanyUserRolesAPI();
+      const response = await fetchCompanyUserRolesAPI(params);
       const roles = response.data;
       dispatch(userRoleList.success(roles));
       options?.onSuccess && options.onSuccess();
@@ -98,6 +101,7 @@ export function fetchCompanyUserRolesPaginated(
   params: {
     page: number;
     page_size: number;
+    role?: number;
   },
   options?: OptionPaginatedCallback<Role>,
 ) {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { AxiosResponse } from 'axios';
 import {
   API_V1_URI,
@@ -23,6 +22,8 @@ export const fetchCompanyUserRoles = async (params?: {
   paginated?: boolean;
   page_size?: number;
   page?: number;
+  role__in?: number[];
+  role_exclude?: number[];
 }) => {
   if (!params) {
     return getAuth(`${API_V1_URI}/role/user/`);

@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core';
+import { NO_RESULT_ALERT_BACKGROUND_COLOR } from '../../constants';
 
 const useStyle = makeStyles((theme) => ({
   drawerHeader: {
@@ -47,7 +48,7 @@ const useStyle = makeStyles((theme) => ({
     alignItems: 'center',
     borderRadius: theme.spacing(4.25),
     color: '#000',
-    backgroundColor: 'rgba(8, 22, 45, 0.1)',
+    backgroundColor: NO_RESULT_ALERT_BACKGROUND_COLOR,
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },

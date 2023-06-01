@@ -7,20 +7,32 @@ import { RootState } from '../../reducers';
 import { OWNER_ROLE } from './role-types';
 
 export const getRoleStateAllIds = (state: RootState) => state.role.allIds;
+
 export const getRoleStateById = (state: RootState) => state.role.byId;
+
+export const getRoleStateLoading = (state: RootState) => state.role.loading;
+
 const getRoleState = (state: RootState): RoleState => state.role;
+
 const getAuthState = (state: RootState) => state.auth;
+
 const _getRoleDict = (state: RootState) => state.role.role.byId;
+
 const _getRoleAllIdsDict = (state: RootState) => state.role.role.allIds;
+
 const _getUsersPaginatedState = (state: RootState) =>
   state.role.users_paginated;
+
 const _getUsersPaginatedAllIds = (state: RootState) =>
   _getUsersPaginatedState(state).allIds;
+
 const _getUsersPaginatedData = (state: RootState) =>
   _getUsersPaginatedState(state).byId;
+
 const getPermissionForRole = (roleState: RoleState, roleId: number) => {
   return roleState.role.byId?.[roleId]?.permissions;
 };
+
 const getFranchisePermissionForRole = (
   roleState: RoleState,
   franchiseRoleId: number,

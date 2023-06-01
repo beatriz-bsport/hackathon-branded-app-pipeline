@@ -525,7 +525,10 @@ const paymentPackSchema = Yup.object().shape({
   price: Yup.number()
     .required('paymentPack:addPaymentPack.requiredField')
     .min(0),
-  tax: Yup.number().required('paymentPack:addPaymentPack.requiredField').min(0),
+  tax: Yup.number()
+    .required('paymentPack:addPaymentPack.requiredField')
+    .min(0)
+    .max(100),
   credit_number: Yup.string().required(
     'paymentPack:addPaymentPack.requiredField',
   ),

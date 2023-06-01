@@ -862,7 +862,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const PrivatePassSchema = Yup.object().shape({
   name: Yup.string().required(),
-  tax: Yup.number().required(),
+  tax: Yup.number().required().min(0).max(100),
   category: Yup.number().nullable(true),
   price: Yup.number().required(),
   manager_only: Yup.boolean().required(),

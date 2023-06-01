@@ -2092,7 +2092,7 @@
             "author": "Autore",
             "actions": {
                 "addTask": "Pianifica un'attività",
-                "finish": "Finire",
+                "finish": "Completato",
                 "restart": "Ricomincia",
                 "cancel": "Archivia"
             },
@@ -5688,9 +5688,9 @@
                 "noEstablishment": "Nessuno stabilimento"
             },
             "editor": {
-                "title": "Edizione della fattura",
-                "save": "Emettere una fattura",
-                "sumup": "Ricapitolazione"
+                "title": "Fatturazione",
+                "save": "Emetti fattura",
+                "sumup": "Riepilogo"
             },
             "title": "Fattura {{uuid}}",
             "titleReceipt": "Ricevuta di pagamento {{ uuid }}",
@@ -5850,7 +5850,7 @@
                 "amountRemaining": "Resto da pagare",
                 "amountPaid": "Incasso",
                 "amountDue": "Totale dovuto",
-                "title": "Ricapitolazione",
+                "title": "Riepilogo",
                 "amountBeingProcessed": "Importo in lavorazione"
             },
             "date": {
@@ -7529,7 +7529,8 @@
                 "Annulla",
                 "Annulla",
                 "Annullato",
-                "Annullata"
+                "Annullata",
+                "Annulla"
             ]
         },
         "payment_method_with_credit_account": {
@@ -12111,7 +12112,9 @@
             "author": "Autore",
             "invoiceitem_pk": "Numero di oggetti fatturati",
             "total_price_notax": "Importo fatturato tasse escluse",
-            "total_price": "Importo fatturato tasse incluse"
+            "total_price": "Importo fatturato tasse incluse",
+            "staff_commission_amount_notax": "Costi provvigionali del personale IVA esclusa",
+            "staff_commission_amount": "Costi delle commissioni del personale IVA inclusa"
         },
         "graphFormDrawer": {
             "helperText": {

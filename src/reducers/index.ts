@@ -79,6 +79,7 @@ import datatypeFilteringReducers from '#libs/datatype-filtering/reducers';
 import tutorialReducers from '#libs/platform-tutorial/reducers';
 import CadenceReducers from '#libs/sequential_marketingDEPRECATED/reducers';
 import CadenceWIPReducers from '#libs/sequential_marketing/reducers';
+import exportableComponentsReducers from '#libs/exportable-components/reducers';
 
 import { BackgroundDialogState } from '#libs/background-dialog/types';
 import { BackgroundTaskState } from '#libs/background-task/types';
@@ -140,6 +141,7 @@ import { CadenceState } from '#libs/sequential_marketingDEPRECATED/types';
 import { SequentialMarketingState as SequentialMarketingStateWIP } from '#libs/sequential_marketing/types';
 import { WaitingListState } from '#libs/waiting-list/types';
 import { InvoiceState } from '#libs/invoice/types';
+import { ExportableComponentsState } from '#libs/exportable-components/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -221,6 +223,7 @@ const rootReducer = (history: any) =>
     replacementRequest: replacementRequestReducer,
     cadence: CadenceReducers,
     cadenceWIP: CadenceWIPReducers,
+    exportableComponents: exportableComponentsReducers,
   });
 
 export type RootState = {
@@ -302,6 +305,7 @@ export type RootState = {
   datatypeFiltering: DatatypeFilteringState;
   cadence: CadenceState;
   cadenceWIP: SequentialMarketingStateWIP;
+  exportableComponents: ExportableComponentsState;
 };
 
 export default (history: any) => (state: any, action: any) => {

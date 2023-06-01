@@ -1,7 +1,8 @@
-// @ts-nocheck
 /**
  * The available components we can use in the marketplace
  */
+
+import { ErrorAndLoading } from '#libs/types';
 
 export type MarketplaceCommonFilter = {
   coaches?: number[];
@@ -83,3 +84,44 @@ export type MarketplaceSettingState = {
   error?: Error;
   settings: MarketplaceSettings;
 };
+
+export enum MarketplacePage {
+  CALENDAR = 'calendar',
+  WORKSHIP = 'workshop',
+}
+
+export type VariationConfigurationChoice = {
+  value: string;
+  data: any;
+  label: string;
+};
+export type VariationConfiguration = {
+  label: string;
+  propsKey: string;
+  choices: VariationConfigurationChoice[];
+};
+
+export type Variation = {
+  propsKey: string;
+  value: string;
+};
+
+export type MarketplaceCSSComponentConfig = {
+  label: string;
+  css: string;
+  pages: MarketplacePage[];
+  showAsFlex?: boolean;
+  defaultState: any;
+  variations: VariationConfiguration[];
+  defaultVariation: Variation[];
+};
+
+export type MarketplaceCSSConfiguration = {
+  id: string | null;
+  udpated_at: string | null;
+  components_css: Record<string, string>;
+};
+
+export type ExportableComponentsState = {
+  customCss: MarketplaceCSSConfiguration;
+} & ErrorAndLoading;

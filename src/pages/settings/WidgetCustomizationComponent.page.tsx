@@ -5,25 +5,26 @@ import { useTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 
-import WidgetCssEditorForm from '#libs/exportable-components/components/CssEditorForm.component';
+import CssEditorForm from '#libs/exportable-components/components/CssEditorForm.component';
 import { cleanCSSFile } from '#libs/widget/utils';
-import WidgetCssEditorPreview from '#libs/exportable-components/components/CssEditorPreview.component';
+import CssEditorPreview from '#libs/exportable-components/components/CssEditorPreview.component';
 import { RootState } from '../../reducers';
 import { getCssComponentByLabel } from '#libs/exportable-components/utils';
-import WidgetCssEditorSelector from '#libs/exportable-components/components/CssEditorSelector.component';
-import { MarkpetlacePage } from '#libs/exportable-components/types';
+import CssEditorSelector from '#libs/exportable-components/components/CssEditorSelector.component';
+import { MarketplacePage } from '#libs/exportable-components/types';
 import {
   resetCssWidgetConfiguration as resetCssWidgetConfigurationAction,
   retrieveManagerCssConfiguration as retrieveManagerCssConfigurationAction,
   saveCssConfiguration as saveCssConfigurationAction,
 } from '#libs/exportable-components/actions';
+// @ts-ignore
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { getCustomCssConfiguration } from '#libs/exportable-components/selectors';
 import ApplyCustomTheme from '#libs/exportable-components/ApplyCustomTheme.component';
 
 type Props = ConnectedProps<typeof connector> & {
   componentId: string;
-  page: string;
+  page: MarketplacePage;
 };
 
 export const WidgetCustomizationComponent: React.FC<Props> = ({
@@ -56,7 +57,7 @@ export const WidgetCustomizationComponent: React.FC<Props> = ({
   }, [componentId]);
 
   const handleNav = useCallback(
-    (_page: MarkpetlacePage, _componentId: string) => {
+    (_page: MarketplacePage, _componentId: string) => {
       push(`/settings/widget/customize-css/${_page}/${_componentId}`);
     },
     [push],
@@ -90,7 +91,7 @@ export const WidgetCustomizationComponent: React.FC<Props> = ({
 
   return (
     <div className={classes.container}>
-      <WidgetCssEditorSelector
+      <CssEditorSelector
         resetAll={handleRestConfig}
         componentId={componentId}
         page={page}
@@ -100,14 +101,14 @@ export const WidgetCustomizationComponent: React.FC<Props> = ({
       <div className={classes.wrapper}>
         <ApplyCustomTheme styles={theme.widget_theme} />
 
-        <WidgetCssEditorForm
+        <CssEditorForm
           code={code}
           onCodeChange={setCode}
           componentId={componentId}
           savedCss={cssConfig?.components_css?.[componentId] ?? ''}
           onSave={handleSubmit}
         />
-        <WidgetCssEditorPreview
+        <CssEditorPreview
           componentId={componentId}
           customConfiguration={cssConfig}
           code={code}

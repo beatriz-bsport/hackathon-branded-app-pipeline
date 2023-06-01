@@ -51,6 +51,8 @@ const CssEditorPreview: React.FC<{
           theme={theme}
         />
         <ApplyCustomCssStyles
+          // TODO CHECK HERE, omit seems strange.
+          // @ts-ignore
           customConfiguration={omit(customConfiguration, componentId)}
         />
         <style>{code}</style>
@@ -99,4 +101,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default CssEditorPreview;
+export default React.memo(CssEditorPreview);

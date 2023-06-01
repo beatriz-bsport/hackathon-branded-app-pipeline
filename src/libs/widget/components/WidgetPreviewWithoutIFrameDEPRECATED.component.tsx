@@ -8,7 +8,7 @@ import { WidgetCustomCSS } from '#libs/theme/types';
 import WidgetPreview from './WidgetPreview.component';
 import { WidgetCodeStringGenerator } from '#libs/marketplace/utils';
 
-import ApplyCustomThemeComponent from '#libs/exportable-components/components/ApplyCustomTheme.component';
+import ApplyCustomThemeComponent from '#libs/exportable-components/ApplyCustomTheme.component';
 
 type Props = {
   company: number;

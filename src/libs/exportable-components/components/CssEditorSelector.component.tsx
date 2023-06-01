@@ -5,10 +5,10 @@ import ReplayIcon from '@material-ui/icons/Replay';
 import { useTranslation } from 'react-i18next';
 import { ButtonBase, Typography } from '@material-ui/core';
 import { TFunction } from 'i18next';
-
+// @ts-ignore
 import withConfirm from '#hocs/with-confirm.hoc';
 import { getCssComponentPages, getCssComponentsForPage } from '../utils';
-import { MarketplaceCSSComponentConfig, MarkpetlacePage } from '../types';
+import { MarketplaceCSSComponentConfig, MarketplacePage } from '../types';
 import DoubleIndicatorSelector from '#components/Selector/DoubleIndicatorSelector.component';
 import HoverableInfo from '#components/HoverableInfo.component';
 
@@ -22,8 +22,8 @@ const COMPONENTS_BY_PAGE = PAGES.reduce<
 
 type Props = {
   resetAll: () => void;
-  onSelect: (page: MarkpetlacePage, componentId: string) => void;
-  page: MarkpetlacePage;
+  onSelect: (page: MarketplacePage, componentId: string) => void;
+  page: MarketplacePage;
   componentId: string;
 };
 
@@ -46,7 +46,7 @@ const CssEditorSelector: React.FC<Props> = ({
 
   const componentOptions = useMemo(
     () =>
-      COMPONENTS_BY_PAGE[page].map((component) => ({
+      (COMPONENTS_BY_PAGE?.[page] || []).map((component) => ({
         label: t(`widget.components.${component.label}`),
         value: component.label,
       })),
@@ -63,7 +63,7 @@ const CssEditorSelector: React.FC<Props> = ({
   );
 
   const handleSelectPage = useCallback(
-    (opt: { value: MarkpetlacePage }) => {
+    (opt: { value: MarketplacePage }) => {
       const newComponent = COMPONENTS_BY_PAGE[opt.value]?.[0]?.label;
       onSelect(opt.value, newComponent);
     },
@@ -186,4 +186,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default CssEditorSelector;
+export default React.memo(CssEditorSelector);

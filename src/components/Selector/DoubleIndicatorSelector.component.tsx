@@ -15,8 +15,8 @@ const DoubleIndicatorSelector: React.FC<MuiSelectProps<any>> = ({
 }) => {
   const classes = useStyles();
   const index = useMemo(
-    () => options.findIndex((opt) => opt.value === value.value),
-    [options, value.value],
+    () => options.findIndex((opt) => opt?.value === value?.value),
+    [options, value?.value],
   );
 
   const handleClickBack = useCallback(() => {

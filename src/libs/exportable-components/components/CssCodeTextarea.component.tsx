@@ -5,12 +5,14 @@ import { Collapse, Typography } from '@material-ui/core';
 // import the editor component
 import Editor from 'react-simple-code-editor';
 // prism is a syntax hilighter + styling for code
+// @ts-ignore
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-css';
 // import 'prismjs/themes/prism-okaidia.css';
 import 'prismjs/themes/prism-dark.css';
 
-import withPageHeightHOC from '#hocs/with-page-height.hoc';
+// TODO : This is probably breaking the UX and disable the possibility to scroll on both side independently.
+// import withPageHeightHOC,  {WithPageHeight} from '#hocs/with-page-height.hoc';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { interpolateCSSVar } from '#libs/widget/utils';
 
@@ -19,7 +21,8 @@ type Props = {
   baseCss: string;
   showBaseCode: boolean;
   onCodeChange: (value: string) => void;
-  pageHeight: number;
+  // TODO : Probably fix this.
+  pageHeight?: number;
 };
 
 const CssCodeTextarea: React.FC<Props> = ({
@@ -85,5 +88,6 @@ const CssCodeTextarea: React.FC<Props> = ({
 
 export default compose<any, Props>(
   // withPageHeightHOC()
+  React.memo,
   marketplaceCssHoc(),
 )(CssCodeTextarea);

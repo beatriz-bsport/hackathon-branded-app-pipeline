@@ -19,6 +19,8 @@ import { getCssComponentByLabel } from '../utils';
 // Wrapper that pass different props depending on the current state
 const VariationConfigurationWrapper: React.FC<{
   componentId: string;
+  // By default React.FC interface interpolate the children as a React.ReactNode
+  children: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
 }> = ({ componentId, children }) => {
   const { t } = useTranslation('widget');
   const classes = useStyles();
@@ -148,4 +150,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default VariationConfigurationWrapper;
+export default React.memo(VariationConfigurationWrapper);

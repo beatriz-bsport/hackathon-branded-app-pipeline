@@ -117,7 +117,7 @@ export type MarketplaceCSSComponentConfig = {
 };
 
 export type MarketplaceCSSConfiguration = {
-  id: string | null;
+  id: number | null;
   udpated_at: string | null;
   components_css: Record<string, string>;
 };

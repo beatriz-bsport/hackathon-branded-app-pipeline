@@ -7,7 +7,9 @@ import { push as pushFunc } from 'connected-react-router';
 import { Redirect, Route, Switch } from 'react-router';
 
 import Config from '../../config';
+// @ts-ignore
 import asyncComponent from '../../AsyncComponent';
+// @ts-ignore
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withPageHeightHOC, { WithPageHeight } from '#hocs/with-page-height.hoc';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';

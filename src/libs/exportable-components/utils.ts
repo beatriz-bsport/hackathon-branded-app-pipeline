@@ -4,8 +4,11 @@ import {
   EXPORTABLE_COMPONENTS,
   EXPORTABLE_COMPONENT_TYPE_PLAYLIST,
   EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE,
+  CSS_COMPONENTS,
 } from './constants';
 import EXPORTABLE_COMPONENT_SETTINGS_BY_TYPE from './components/settings';
+
+import { MarketplacePage, Variation, VariationConfiguration } from './types';
 
 export const getDefaultTitleForComponent = (
   componentType: string,
@@ -64,3 +67,25 @@ export const checkExportableComponentConfig = (componentType, config) => {
 export const EXPORTABLE_COMPONENT_WITH_ADVANCED_SETTINGS = Object.keys(
   EXPORTABLE_COMPONENT_SETTINGS_BY_TYPE,
 );
+
+export const getCssComponentPages = () => {
+  return Array.from(new Set(CSS_COMPONENTS.flatMap((c) => c.pages)));
+};
+
+export const getCssComponentsForPage = (page: MarketplacePage) => {
+  return CSS_COMPONENTS.filter((c) => c.pages.includes(page));
+};
+
+export const getCssComponentByLabel = (label: string) => {
+  return (
+    CSS_COMPONENTS.find((c) => c.label === label) ?? {
+      css: '',
+      label: '',
+      pages: [] as MarketplacePage[],
+      showAsFlex: false,
+      defaultState: {},
+      variations: [] as VariationConfiguration[],
+      defaultVariation: [] as Variation[],
+    }
+  );
+};

@@ -5386,7 +5386,7 @@
                         "effectif": "Plazas disponibles",
                         "hybridManagementHelper": "Puede gestionar las reservas asociadas a esta sesión hermanada, tanto en la sala como en línea, haciendo clic en el icono siguiente para abrir una nueva pestaña de gestión.",
                         "hybridEditHelper": "Está editando una sesión en línea vinculada a una sesión presencial. Para modificar algunos datos, debe editar la sesión presencial.",
-                        "hybridHelper": "Al elegir esta opción se creará una sesión online con una afiliación por defecto de {{onlineOfferDefaultEffective }}. Podrá editar la información de la oferta en línea una vez creada (Enlace de difusión, afiliación, precio, etc.).",
+                        "hybridHelper": "Al elegir esta opción se creará una sesión online con una afiliación por defecto de {{ onlineOfferDefaultEffectif }}. Podrá editar la información de la oferta en línea una vez creada (Enlace de difusión, afiliación, precio, etc.).",
                         "hybridLabel": "Esta sesión es presencial y en línea.",
                         "hybridSection": "Sesión híbrida"
                     },

@@ -186,7 +186,8 @@
                         "year": "Jahr",
                         "year_plural": "Jahre"
                     },
-                    "label": "Wiederhole jeden"
+                    "label": "Wiederhole jeden",
+                    "helperText": " "
                 },
                 "invoicing": {
                     "fixed_day": {
@@ -6689,7 +6690,8 @@
                         "year": "eine",
                         "year_plural": "eine"
                     },
-                    "label": "Wiederholen Sie alle"
+                    "label": "Wiederholen Sie alle",
+                    "helperText": " "
                 },
                 "recurrence": {
                     "explain": "Die Zahlung wird über {{ total_interval_duration }} {{ interval }} jedes {{ recurrence_basis }} {{ interval }} verteilt und erzeugt {{ nb_interval }} Zahlungseingänge",
@@ -9999,7 +10001,8 @@
             "nb_sessions": "Anzahl der Session",
             "totalNetGain": "Gesamtnettogewinn",
             "netGain": "Nettogewinn",
-            "marginValue": "Marginaler Input"
+            "marginValue": "Marginaler Input",
+            "nb_private_bookings": " "
         },
         "checkboxIncludeABonus": "Einen Leistungsbonus einschließen",
         "pricePerOffer": "Betrag pro Session",
@@ -10038,7 +10041,8 @@
             "table": {
                 "header": {
                     "nbSessions": "Anzahl der Gruppenkurse",
-                    "coachName": "Lehrkraft"
+                    "coachName": "Lehrkraft",
+                    "confirmedBookings": " "
                 }
             }
         },
@@ -10865,7 +10869,8 @@
             "invalid_bank_account_routing_number": "Die angegebene Bankleizahl ist ungültig.",
             "invalid_bank_account": "Das angegebene Bankkonto ist ungültig.",
             "invalid_bank_account_account_number": "Die Kontonummer ist ungültig.",
-            "email_invalid": "Die E-Mail Adresse ist ungültig."
+            "email_invalid": "Die E-Mail Adresse ist ungültig.",
+            "none": " "
         }
     },
     "dashboard": {
@@ -13281,7 +13286,8 @@
                 "smartlist_count": "Kennzeichnungsregeln",
                 "member_count": "Getaggte Mitglieder",
                 "tag": "Etikett",
-                "offer_count": "Verknüpfte Sessions"
+                "offer_count": "Verknüpfte Sessions",
+                "coupon_count": " "
             },
             "submit": "Bestätigen Sie",
             "cancel": "Abbrechen",
@@ -14259,7 +14265,8 @@
                     "label": "Beschreibung"
                 },
                 "available_payment_method_identifiers": {
-                    "label": "Verfügbare Zahlungsmittel"
+                    "label": "Verfügbare Zahlungsmittel",
+                    "helperText": " "
                 },
                 "name": {
                     "label": "Name"

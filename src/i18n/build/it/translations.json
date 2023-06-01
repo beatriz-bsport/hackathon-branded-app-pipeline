@@ -8095,7 +8095,7 @@
             "maxDate": "Entro e non oltre",
             "minDate": "Al più presto il",
             "dateHelpText": "Estendere solo le carte di corso che scadono tra il",
-            "helpText": "Qui puoi estendere tutte le carte di corso dei tuoi membri. Questa operazione è reversibile."
+            "helpText": "Qui puoi estendere tutti i pass dei tuoi membri. Questa operazione è reversibile."
         },
         "section": {
             "massExtension": "Estensioni"
@@ -8273,7 +8273,7 @@
             "paymentPack": "Scheda del corso",
             "minusZero": "questo campo non può ế essere uguale a 0",
             "requiredField": "Questo campo è richiesto",
-            "creditWarning": "Se si cambia il numero di crediti, tutte le carte esistenti saranno interessate.",
+            "creditWarning": "Se si cambia il numero di crediti, tutti i pass esistenti saranno interessati.",
             "migration": "Questa mappa del corso è il risultato di una migrazione, alcuni campi non sono modificabili per rispettare la storia. Le attività/categorie compatibili rimangono modificabili.",
             "franchise": "Questa mappa è una mappa condivisa dall'account del franchisor. Alcuni elementi sono stati definiti dal conto del franchisor e non sono modificabili",
             "allowGuest": "Compatibile con la prenotazione per un ospite",
@@ -8330,7 +8330,7 @@
             },
             "pass": "Pass",
             "widget": {
-                "choose": "Scelta delle carte di corso condivise"
+                "choose": "Scelta dei pass condivisi"
             }
         },
         "paymentPackTemplateInstance": {
@@ -11053,7 +11053,7 @@
                 "button_text": "Continua",
                 "text_status": "Acquisto riuscito!",
                 "text_content": "Il tuo acquisto è stato elaborato, ora puoi trovare i dettagli del tuo abbonamento nella tua area membri.",
-                "text_content_funnel": "Il tuo acquisto è stato elaborato, clicca su continua per finalizzare la tua prenotazione. La carta collegata al suo abbonamento è stata aggiunta alla sezione \"Le mie carte di corso\", la selezioni per fare la sua prenotazione.",
+                "text_content_funnel": "Il tuo acquisto è stato elaborato, clicca su continua per finalizzare la tua prenotazione. Il pass collegato al tuo abbonamento è stato aggiunto alla sezione \"I miei pass\", selezionala per prenotare.",
                 "title": "Congratulazioni!",
                 "contract": "Il mio contratto",
                 "recap": "Riassunto"

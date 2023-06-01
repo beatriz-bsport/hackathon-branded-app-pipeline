@@ -42,6 +42,10 @@
             "last_delay_before_auto_consume": {
                 "label": "Schließen Sie die automatische Buchung nur ab, wenn die Session in mehr als ... stattfindet : ",
                 "helper": "Wenn die Session zu kurzfristig in der Zukunft stattfindet, wird das Mitglied nicht angemeldet, auch wenn es einen gültigen Kurspass besitzt"
+            },
+            "check_credit": {
+                "label": "Vergewissern Sie sich, dass der Kunde einen gültigen, mit der Session kompatiblen Pass mit ausreichend Guthaben besitzt",
+                "helper": "Ein Kunde kann nur dann auf die Warteliste gesetzt werden, wenn er einen mit der Session kompatiblen Pass mit ausreichendem Guthaben besitzt"
             }
         },
         "explainWaitingListConf": "Z.B : Es sind noch drei Stunden bis zum Kursbeginn, der Schüler hat {{ nbMinutesBeforeBookingOptionExpire }} Minuten um seine Reservierung zu bestätigen, bevor er seinen Platz verlässt.",
@@ -971,7 +975,7 @@
             "saveAndAdd": "Speichern und neu hinzufügen",
             "add": "Hinzufügen",
             "level": "Level",
-            "notes": "Anmerkungen",
+            "notes": "Notiz",
             "establishments": "Einrichtungen",
             "tax": "Mehrwertsteuer",
             "generate": "Erstellen",
@@ -1030,7 +1034,8 @@
             "see": "Siehe",
             "offerCreation": "Session erstellen",
             "selectAnActivity": "Aktivität auswählen",
-            "filter": "Filtern"
+            "filter": "Filtern",
+            "information": "Details"
         },
         "openSchedule": "Stundenplan ansehen",
         "login": {
@@ -2623,6 +2628,9 @@
                 "0": "Nicht archiviert und archiviert"
             },
             "helperText": "Diese Smartlist gilt für alle Mitglieder"
+        },
+        "popup": {
+            "sendPopup": "Pop-up senden"
         }
     },
     "theme": {
@@ -2855,7 +2863,7 @@
                 },
                 "acceptDoubleBookingMetaActivity": "Doppelte Buchungen für Aktivitäten akzeptieren",
                 "acceptDoubleBookingWorkshop": "Doppelte Buchungen für Aktivitäten akzeptieren",
-                "showFreeSessionLabel": "Kennzeichnen Sie Sitzungen mit 0 Credits mit dem Label FREE"
+                "showFreeSessionLabel": "Kennzeichnen Sie Session mit 0 Credits mit dem Label FREE"
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -3731,7 +3739,11 @@
                         "helperText": "Verwenden Sie Tags, um die Karte nur für eine bestimmte Gruppe von Mitgliedern auf dem Marktplatz, im Widget und in der App sichtbar zu machen. Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem ausgewählten Tag sichtbar zu machen. Oder Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem der ausgewählten Tags unsichtbar zu machen. ",
                         "header": "Tags"
                     },
-                    "header": "Fortgeschrittene"
+                    "header": "Fortgeschrittene",
+                    "appliesForPayroll": {
+                        "label": "Sessiona, die bei der Berechnung der Vergütung der Lehrkraft berücksichtigt werden",
+                        "helperText": "Standardmäßig werden die Sessions dem Studio in Rechnung gestellt und in die Gehaltsabrechnung der Lehrkraft und die Vergütung durch das Studio aufgenommen. Wenn Sie diese Einstellung deaktivieren, erscheinen die mit diesem Pass verbundenen Sessions nicht mehr in der Gehaltsabrechnung der Lehrkraft."
+                    }
                 },
                 "universalPass": {
                     "helperText": "Universalpässe können zur Buchung von Gruppenkursen UND Terminen verwendet werden. Sobald ein Pass erstellt wurde, wird ein Zwillingspass in den Terminpässen erstellt. Die Anzahl der Guthaben auf beiden Pässe wird verknüpft. Beim Kauf einer der beiden Pässe wird die andere automatisch dem Mitglied hinzugefügt (ohne zusätzliche Kosten).",
@@ -4121,7 +4133,12 @@
                 }
             },
             "unusableByStaff": "Unsichtbar für Mitarbeiter",
-            "allowGuest": "Kompatibel mit der Buchung für einen Gast"
+            "allowGuest": "Kompatibel mit der Buchung für einen Gast",
+            "expiration_date": {
+                "tooltip": "Nach Ablauf des gewählten Datums wird die Karte nicht mehr zum Verkauf für Kunden angezeigt.",
+                "label": "Datumsgrenze für den Kauf",
+                "helperText": "Verfügbar bis"
+            }
         },
         "paymentPackTemplate": {
             "actions": {
@@ -4607,10 +4624,15 @@
             "payment_method_bacs_debit": "Bacs-Lastschriftverfahren",
             "plan_note": "Notizen",
             "staff_commission_amount_notax": "Personalprovision ohne MwSt.",
-            "franchisor_commission_amount": "Prozentsatz der Franchisenehmerprovision inkl. MwSt.",
+            "franchisor_commission_amount": "Franchisegebühren inkl. Steuer",
             "product_category": "Kategorie des Produkts",
             "staff_commission_amount": "Mitarbeiterprovisionen inkl. MwSt.",
-            "franchisor_commission_amount_notax": "Prozentsatz der Franchisenehmerprovision ohne MwSt."
+            "franchisor_commission_amount_notax": "Konzessionsabgaben ohne MwSt.",
+            "invoiceitem_pk": "ID des Abrechnungselements",
+            "nb_invoice_items": "Anzahl der gekauften Produkte",
+            "on_behalf_of_teacher": "Vollständig an die Lehrkraft gezahlte Vergütung",
+            "date_canceled": "Stornierungsdatum",
+            "price_invoice_items": "Gesamtbetrag der gekauften Produkte"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -4640,7 +4662,7 @@
             "payments": "Zahlungen",
             "bookings": "Buchungen (Kurse)",
             "offers": "Kurse",
-            "members": "Mitglieder",
+            "members": "Neue Mitglieder",
             "on_spot_payments": "Zahlungen vor Ort",
             "workshop": "Workshops",
             "activities": "Aktivitäten",
@@ -4667,7 +4689,8 @@
             "expired_pass": "Abgelaufene Credits für Kurspässe",
             "franchise_shared_pass": "Gemeinsame Kartennutzung",
             "dispute": "Streitfrage",
-            "billing_plan": "Abonnement"
+            "billing_plan": "Abonnement",
+            "members_purchase": "Einkäufe der Mitglieder"
         },
         "globalCategories": {
             "subheader": {
@@ -4952,6 +4975,7 @@
                 "Stornieren",
                 "Abbrechen",
                 "Storniert",
+                "Stornieren",
                 "Stornieren"
             ]
         }
@@ -5656,7 +5680,11 @@
             "45005": "Der Gutschein ist nicht mehr erhältlich.",
             "85101": "Eine Buchung ist nicht möglich. Dieser Spot wurde bereits von einem anderen Mitglied gebucht. Bitte versuche es erneut, indem du einen anderen Spot auswählst.",
             "10001": "Insuffizienter Bestand",
-            "15002": "Der Artikel wurde bereits in den Warenkorb hinzugefügt, bitte warten Sie"
+            "15002": "Der Artikel wurde bereits in den Warenkorb hinzugefügt, bitte warten Sie",
+            "2025": "Dieser Pass kann nicht mehr gekauft werden, da sein Verfallsdatum überschritten wurde",
+            "1122": "Dieses Paket kann nicht mehr gekauft werden, da das Gültigkeitsdatum abgelaufen ist",
+            "11114": "Dieser Terminpass kann nicht mehr gekauft werden, da sein Gültigkeitsdatum abgelaufen ist",
+            "23001": "Es ist kein Pass für die Eintragung in die Warteliste verfügbar"
         },
         "signup": {
             "emailAlreadyExists": "Diese E-Mail ist bereits in Gebrauch",
@@ -5908,6 +5936,27 @@
         },
         "removeItem": {
             "15002": "Der Artikel wird bereits aus dem Warenkorb entfernt, bitte warten Sie"
+        },
+        "smartListPopup": {
+            "send": {
+                "error": "Beim Senden Ihres Pop-ups ist ein Fehler aufgetreten."
+            }
+        },
+        "cadence": {
+            "create": {
+                "error": "Beim Erstellen der Kadenz ist ein Fehler aufgetreten",
+                "success": "Eine neue Kadenz wurde erstellt"
+            },
+            "update": {
+                "error": "Beom Bearbeiten der Kadenz ist ein Fehler aufgetreten",
+                "success": "Ihre Kadenz wurde aktualisiert"
+            }
+        },
+        "instalmentPayment": {
+            "16002": "Die Anzahl der Ratenzahlungen muss gleich 1 sein, um die Option \"Teilzahlung\" zu aktivieren",
+            "16003": "Die Anzahl der Zahlungseingänge muss größer als 2 sein, um die Option 'Ersten Betrag anpassen' zu aktivieren",
+            "16000": "Der Betrag der ersten Ratenzahlung muss größer als Null sein",
+            "16001": "Der Prozentsatz des Gesamtbetrags muss zwischen 0 und 100 festgelegt werden"
         }
     },
     "invoice": {
@@ -6160,9 +6209,9 @@
                 "title": "Unzureichendes Strip-Guthaben"
             },
             "blockedDialog": {
-                "title": "",
-                "helper": "",
-                "alert": ""
+                "title": "Unzureichender Streifensaldo",
+                "helper": "Ihr Stripe-Guthaben in Höhe von {{ stripeBalanceSum}} {{ currencyDisplay }} ist nicht ausreichend, um die Rückerstattung vornehmen zu können. Bitte versuchen Sie es nach einigen Tagen erneut, damit Zahlungen eingezogen werden können.\n\nUnter Einstellungen > Bsport-Abonnement können Sie live verfolgen, wie hoch Ihr Kontostand ist.",
+                "alert": "Achtung, mit dieser Rückzahlung überschreiten Sie den zulässigen Überziehungsrahmen von {{ refundBlockingLimit }} {{currencyDisplay}}."
             }
         },
         "balance": {
@@ -6821,7 +6870,10 @@
                 "bonus": "Bonus"
             },
             "paymentPackPlaceHolder": "Kurspässe auswählen",
-            "excludePaymentPack": "Reservierungen von bestimmten Karten ausschließen",
+            "excludePaymentPack": {
+                "title": "Buchungen für bestimmte Pässe ausschließen",
+                "warning": "Wenn Sie mit dem Parameter 'Bei der Abrechnung der Lehrkraft berücksichtigte Sessions' bereits Durchgänge von der Abrechnung ausgeschlossen haben, müssen Sie diese hier nicht erneut angeben."
+            },
             "bonusForEachReservationInInterval": "Einen Bonus für jede Reservierung im Intervall hinzufügen",
             "fixedBonusbyInterval": "Fügen Sie einen festen Bonus pro Intervall hinzu",
             "cancellationBaseHelper": "Hilfe: Durch Ankreuzen dieses Feldes erhält der Coach keine zusätzliche Vergütung auf den Grenzwert der stornierten Buchungen",
@@ -7928,7 +7980,56 @@
         "archiveMember": "Archivieren",
         "actions": "Aktionen",
         "communication": "Kommunikation",
-        "accountBalance": "Bilanz"
+        "accountBalance": "Bilanz",
+        "events": {
+            "member-booking_registered": {
+                "primaryText": "{{ source }} hat die Session {{- offerName }} am {{- offerDate }} gebucht.",
+                "filter": "Buchungen",
+                "sourceManager": "Der Manager {{ managerName }}"
+            },
+            "member-basket_paid": {
+                "filter": "Bezahlter Warenkorb",
+                "primaryText": "Ein Warenkorb von {{ amount }} wurde bezahlt "
+            },
+            "member-login_successful": {
+                "filter": "Login erfolgreich",
+                "primaryText": "Es wurde eine erfolgreiche Anmeldung {{ source }} registriert.",
+                "sourceApp": "über die mobile App",
+                "sourceMarketplace": "über den Marketplace"
+            },
+            "member-custom_form_filled": {
+                "filter": "Profilformular bearbeitet",
+                "primaryText": "Das Formular für die Profilbearbeitung {{ formName }} wurde ausgefüllt."
+            },
+            "member-giftcard_used": {
+                "filter": "Verwendete Geschenkkarten",
+                "primaryText": "Die Geschenkkarte {{- giftcardName }} wurde aktiviert."
+            },
+            "member-invoice_paid": {
+                "filter": "Bezahlte Rechnungen",
+                "primaryText": "Die Rechnung Nr. {{ invoiceUUID }} wurde in Höhe von {{ amount }} bezahlt."
+            },
+            "member-private_booking_registered": {
+                "filter": "Termin",
+                "primaryText": "{{- source }} hat den Termin {{- privateServiceName }} gebucht. - {{- privateSlotName }} vom {{- privateServiceDate }}.",
+                "sourceManager": "Der Manager {{ managerName }}"
+            },
+            "member-tag_applied": {
+                "filter": "Angewandte Tags",
+                "primaryText": "Das Tag {{ tagName }} wurde angewendet."
+            },
+            "member-vod_bought": {
+                "filter": "VOD gekauft",
+                "primaryText": "VOD {{- VODName }} wurde gekauft."
+            }
+        },
+        "resetPassword": {
+            "dialogTitle": "Passwort zurücksetzen",
+            "dialogContent": "Sie sind dabei, die Anweisungen zum Zurücksetzen des Passworts an {{memberEmail}} zu senden",
+            "confirmation": "Anweisungen korrekt an {{memberEmail}} gesendet",
+            "button": "Passwort zurücksetzen",
+            "error": "Fehler beim Senden der Anweisungen zum Zurücksetzen des Passworts"
+        }
     },
     "common": {
         "text": {
@@ -8752,6 +8853,19 @@
                     "warningIsUniversalPass": "Dieser Pass ist ein Universalpass, ein Zwillingspass wurde in den Kurspässen erstellt. Alle Felder, die auf diesem Pass geändert werden, werden auch auf dem Zwillingspass geändert (außer der Kategorie). Dasselbe gilt für Benachrichtigungen, Erweiterungen und Änderungen von Guthaben.",
                     "label": "Universalpass",
                     "deativatedTags": "Deaktiviert für Universalpässe"
+                },
+                "appliesForPayroll": {
+                    "helperText": "Standardmäßig werden die Termine dem Studio in Rechnung gestellt und in die Zusammenfassung und die Gehaltsabrechnung der Lehrkraft aufgenommen. Wenn Sie diese Einstellung deaktivieren, werden die mit diesem Pass verbundenen Termine nicht mehr in der Zusammenfassung der Lehrkraft angezeigt.",
+                    "label": "Termine, die bei der Berechnung der Gehälter der Lehrkräfte berücksichtigt werden"
+                },
+                "onBehalfOfTeacher": {
+                    "helperText": "Mit dieser Einstellung können Sie angeben, dass die Einnahmen im Zusammenhang mit Terminen auf diesem Ausweis vollständig an die Lehrkraft gezahlt werden. Diese Information wird in Ihren Einkaufsberichten (CA) in der Spalte \"Zahlung vollständig an die Lehrkraft\" sichtbar sein.",
+                    "label": "Vollständige Zahlung an die Lehrkraft"
+                },
+                "expiration_date": {
+                    "helperText": "Verfügbar bis",
+                    "tooltip": "Nach dem gewählten Datum wird das Paket für die Kunden nicht mehr zum Verkauf stehen.",
+                    "label": "Frist für den Kauf"
                 }
             },
             "parameters": {
@@ -9418,6 +9532,19 @@
                 "removeFavorite": "von Favoriten entfernen",
                 "addToFavorite": "zu Favoriten hinzufügen",
                 "markAsRead": "als ungelesen markieren"
+            },
+            "kind": {
+                "member": "Mitglieder",
+                "smartlist": "Smartlists",
+                "offer": "Sessions"
+            },
+            "search": "Suche...",
+            "filter": {
+                "allThreads": "Alle Nachrichten",
+                "hasNotBeenRead": "Ungelesen",
+                "favorites": "Favoriten",
+                "muted": "Stummschalten",
+                "disabled": "Archivieren"
             }
         },
         "sentStatus": {
@@ -9540,6 +9667,20 @@
                 "title": "Erhalten Sie Antworten per E-Mail auf der Plattform",
                 "description": "Bitte beachten Sie, dass E-Mail-Antworten von Mitgliedern nicht mehr in Ihrem Posteingang, sondern direkt auf der Plattform erscheinen."
             }
+        },
+        "smartListPopup": {
+            "recipient": "Empfänger",
+            "recipient_plural": "Empfänger",
+            "drawerTitle": "Verlauf der Startup-Pop-ups",
+            "close": "Schließen",
+            "preview": "Vorschau",
+            "previewTitle": "Vorschau",
+            "cancelPreview": "Stornieren",
+            "recipients": "Empfänger ",
+            "seeRecipients": "Empfänger anzeigen",
+            "see": "Anzeigen",
+            "noSmartListPopup": "Kein Start-Pop-up",
+            "memberListTitle": "Start-Pop-up"
         }
     },
     "consumerSpace": {
@@ -9965,6 +10106,11 @@
             },
             "unusableByStaff": {
                 "label": "Unsichtbar für die Mitarbeiter"
+            },
+            "expiration_date": {
+                "label": "Frist für den Kauf",
+                "helperText": "Verfügbar bis",
+                "tooltip": "Nach Ablauf des gewählten Datums wird das Paket nicht mehr zum Verkauf für Kunden angezeigt."
             }
         },
         "list": {
@@ -10885,7 +11031,8 @@
                 "graph_private_bookings": "Termin",
                 "graph_bookings": "Reservierungen",
                 "graph_members": "Neue Mitglieder",
-                "graph_billing_plan": "Anmeldungen"
+                "graph_billing_plan": "Anmeldungen",
+                "graph_invoice_items": "Einkäufe"
             },
             "aggregation": {
                 "max": "Maximum",
@@ -11010,7 +11157,16 @@
             "margin_value": "Grenzertrag (inkl. MwSt.)",
             "dispute_status": "Streitstand",
             "payout_date_created": "Überweisungsdatum",
-            "is_unpaid": "Unbezahlt"
+            "is_unpaid": "Unbezahlt",
+            "staff_commission_amount_notax": "Personalprovision ohne MwSt.",
+            "staff_commission_amount": "Personalprovisionen inkl. MwSt.",
+            "franchisor_commission_amount_notax": "Gebühren für die Franchisenehmerprovision HT",
+            "franchisor_commission_amount": "Franchisenemer commissie HT",
+            "total_price_notax": "Gesamtbetrag ohne MwSt.",
+            "total_price": "Gesamtbetrag inkl. MwSt.",
+            "invoice_date_created": "Datum der Rechnungsstellung",
+            "author": "Autor",
+            "invoiceitem_pk": "Anzahl der in Rechnung gestellten Artikel"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Zahlungseingänge",
@@ -11021,7 +11177,8 @@
             "billingPlanTemporal": "Anmeldungen",
             "memberTemporal": "Neumitglieder",
             "privateBookingTemporal": "Termine",
-            "subscriptionTemporalSum": "Mitgliedschaftszahlungen"
+            "subscriptionTemporalSum": "Mitgliedschaftszahlungen",
+            "invoiceItemTemporal": "Summe der in Rechnung gestellten Posten"
         },
         "placeholderEmptyValues": {
             "coach": "keine Lehrkraft",
@@ -11239,7 +11396,7 @@
             "giftcard": "Geschenkkarten",
             "programs": "Programme",
             "expenses": "Ausgaben",
-            "instalmentPayment": "Zahlungen in Raten",
+            "instalmentPayment": "Zahlungsmittel",
             "coachPayroll": "Bezahlung",
             "clockIn": "Stundenstempel",
             "toggle": {
@@ -11281,7 +11438,7 @@
             "widgets": "Widget",
             "staff": "Mitarbeiter",
             "settings": "Einstellungen",
-            "tag": ""
+            "tag": "Tags"
         },
         "multiSession": {
             "current": "Aktuelle Session",
@@ -11525,7 +11682,11 @@
             "info": "Wir haben festgestellt, dass Sie Lehrkraft in diesem Studio sind. Möchten Sie Zugang zu Ihrem Kundenbereich oder Ihrem Lehrkraftbereich?",
             "access": "Zugang"
         },
-        "numberCoaches": "{{ number }}Lehrkraft"
+        "numberCoaches": "{{ number }}Lehrkraft",
+        "workingDateSection": "Zeitraum der Aktivität im Studio",
+        "dateJoinedCompany": "Startdatum",
+        "dateLeftCompany": "Enddatum",
+        "emptyNotes": "Keine Notizen"
     },
     "login": {
         "error": {
@@ -11789,6 +11950,10 @@
             },
             "coach": {
                 "placeholder": "Lehrkraft"
+            },
+            "additionalCoaches": {
+                "placeholder": "Zusätzliche Lehrkraft",
+                "placeholder_plural": "Zusätzliche Lehrkräfte"
             }
         },
         "calendar": {
@@ -12325,7 +12490,13 @@
                             "title": "Lehrer"
                         }
                     },
-                    "title": "Lehrer"
+                    "title": "Lehrer",
+                    "additionalCoaches": {
+                        "title": "Zusätzliche Lehrkraft(en)",
+                        "field": {
+                            "placeHolder": "Zusätzliche Lehrkräfte auswählen"
+                        }
+                    }
                 },
                 "dateTime": {
                     "field": {
@@ -12392,7 +12563,10 @@
         },
         "broadcast": "Videokonferenzen",
         "onSite": "Im Studio",
-        "isFree": "Gratis"
+        "isFree": "Gratis",
+        "additionalCoaches": "{{count}} zusätzliche Lehrkraft",
+        "additionalCoaches_plural": "{{count}} zusätzliche Lehrkräfte",
+        "allCoaches": "{{count}} Lehrkräfte"
     },
     "settings": {
         "active_campaign": {
@@ -14570,6 +14744,24 @@
                 "allShopItem": "Kompatibel mit allen Produkten im Laden",
                 "giftcard": "Geschenkkarten",
                 "allGiftcard": "Kompatibel mit allen Geschenkkarten"
+            },
+            "customInstalmentAmount": {
+                "label": "die Höhe der ersten Ratenzahlung anpassen",
+                "type": {
+                    "amount": "Festgelegter Betrag",
+                    "percent": "Als Prozentsatz des gesamten Warenkorbs"
+                },
+                "amountHelperText": {
+                    "amount": "Betrag",
+                    "percent": "Prozentsatz"
+                }
+            },
+            "partialPaymentRadio": {
+                "enabled": {
+                    "label": "Warenkorb teilweise bezahlen",
+                    "helperText": "Das Mitglied zahlt zunächst nur einen Teilbetrag seines Warenkorbs, der Restbetrag wird seinem Kontostand gutgeschrieben"
+                },
+                "disabled": "Den gesamten Warenkorb in mehreren Raten bezahlen"
             }
         },
         "paymentAllInOnce": "In einem Mal bezahlen",
@@ -14611,6 +14803,14 @@
                 "numberOfBilling": "{{number_of_billing}} Inkasso",
                 "numberOfBilling_plural": "{{number_of_billing}} Zahlungseingänge"
             }
+        },
+        "configurationOption": {
+            "payLater": "Nur {{amount}} bezahlen",
+            "payLaterRemainder": "Der Rest des zu zahlenden Betrags ({{remainder}}) wird von Ihrem internen Guthaben abgezogen"
+        },
+        "validation": {
+            "percentRange": "Der Prozentsatz muss zwischen 1 und 100 liegen",
+            "amountMin": "Der Betrag muss größer als 1 sein"
         }
     },
     "ordering": {

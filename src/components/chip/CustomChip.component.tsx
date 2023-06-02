@@ -24,7 +24,7 @@ const getColor = (theme: Theme, mainColor?: string) => {
   return { backgroundColor, textColor };
 };
 
-export const ReportChipDisplay = (props: Props) => {
+export const CustomChip = (props: Props) => {
   const { displayedValue, mainColor, icon } = props;
   const defaultTheme = useTheme();
   const { backgroundColor, textColor } = getColor(defaultTheme, mainColor);
@@ -63,4 +63,4 @@ const useStyles = makeStyles<Theme, Props>((theme) => ({
   },
 }));
 
-export default React.memo(ReportChipDisplay);
+export default React.memo(CustomChip);

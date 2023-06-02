@@ -24,6 +24,7 @@ type Props = {
   className?: string;
   isRegistered?: boolean;
   metaActivity: MetaActivity;
+  isHidden?: boolean;
 };
 
 const MarketplaceBookButton: React.FC<Props> = ({
@@ -32,6 +33,7 @@ const MarketplaceBookButton: React.FC<Props> = ({
   className,
   isRegistered,
   metaActivity,
+  isHidden,
 }) => {
   const { t } = useTranslation('translation');
 
@@ -41,6 +43,8 @@ const MarketplaceBookButton: React.FC<Props> = ({
     () => firstOfferInGroupLocksBookingBecauseInPast(offer, group),
     [group, offer],
   );
+
+  if (isHidden) return null;
 
   const isDisabled =
     !offer.available || offerIsInThePast || firstOfferInGroupIsInThePast;

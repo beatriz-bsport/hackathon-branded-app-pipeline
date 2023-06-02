@@ -144,6 +144,7 @@ const usePropsFromVaration = (
     establishments: [establishment],
     metaActivities: [bookableOffer.meta_activity],
     isBookingDisabled: false,
+    isOfferPassed: false,
     getLevel: { [bookableOffer.id]: bookableOffer.level },
     variant: variantSelected,
     isRegistered: isRegisteredSelected,

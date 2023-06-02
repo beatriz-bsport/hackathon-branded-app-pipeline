@@ -23,6 +23,7 @@ import { OffersGroup } from '#libs/group-offer/types';
 import FreeOfferChip from '#csscomponents/FreeOfferChip';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { Level } from '#libs/level/types';
+import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 
 type OwnProps = {
   offer: Offer;
@@ -42,6 +43,7 @@ type OwnProps = {
   getLevel: { [key: number]: Level };
   isBookingDisabled: boolean;
   group?: OffersGroup;
+  isOfferPassed: boolean;
 };
 
 export type Props = OwnProps;
@@ -64,6 +66,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
   showOfferGender,
   theme,
   variant,
+  isOfferPassed,
 }) => {
   const isVariantTimeHighlighted = variant === 'time';
   const isVariantCoachHighlighted = variant === 'coach';
@@ -86,7 +89,15 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
   };
 
   const isBottomInOneLine =
-    (showOfferFilling || showOfferGender) && window.innerWidth < 1850;
+    theme?.hide_book_button ||
+    ((showOfferFilling || showOfferGender) && window.innerWidth < 1850);
+
+  const hideBottomSection =
+    theme?.hide_book_button && !showOfferFilling && !showOfferGender;
+
+  const isCardDisabled =
+    (theme?.hide_book_button && isOfferPassed) ||
+    (!theme.hide_book_button && isBookingDisabled);
 
   const establishment = useMemo(
     () => establishments?.find((est) => est.id === offer?.establishment),
@@ -123,7 +134,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
       type="button"
       className={classNames({
         'bs-card-offer': true,
-        'bs-card-offer--disabled': isBookingDisabled,
+        'bs-card-offer--disabled': isCardDisabled,
       })}
       onClick={handleClick}
       disabled={isBookingDisabled}
@@ -136,25 +147,37 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
       )}
       <div className="bs-card-offer__content">
         <div className="bs-card-offer__content__top">
-          <div
-            className={classNames('bs-card-offer__content__title', {
-              'bs-card-offer__content__title--time-highlighted':
-                isVariantTimeHighlighted,
-              'bs-card-offer__content__title--coach-highlighted':
-                isVariantCoachHighlighted,
-            })}
-          >
-            {metaActivity?.name}
-          </div>
-          <div
-            className={classNames('bs-card-offer__content__time', {
-              'bs-card-offer__content__time--time-highlighted':
-                isVariantTimeHighlighted,
-              'bs-card-offer__content__time--coach-highlighted':
-                isVariantCoachHighlighted,
-            })}
-          >
-            {offerHours}
+          <div className="bs-card-offer__content__top__grid">
+            <div
+              className={classNames('bs-card-offer__content__title', {
+                'bs-card-offer__content__title--time-highlighted':
+                  isVariantTimeHighlighted,
+                'bs-card-offer__content__title--coach-highlighted':
+                  isVariantCoachHighlighted,
+              })}
+            >
+              {metaActivity?.name}
+            </div>
+            <div
+              className={classNames('bs-card-offer__content__time', {
+                'bs-card-offer__content__time--time-highlighted':
+                  isVariantTimeHighlighted,
+                'bs-card-offer__content__time--coach-highlighted':
+                  isVariantCoachHighlighted,
+              })}
+            >
+              {offerHours}
+            </div>
+            {!isOfferPassed && (
+              <div className="bs-card-offer__content__status-chip">
+                <MarketplaceOfferStatusChip
+                  isRegistered={isRegistered}
+                  offer={offer}
+                  companyTheme={theme}
+                  metaActivity={metaActivity}
+                />
+              </div>
+            )}
           </div>
           <div className="bs-card-offer__content__status">
             <MarketplaceLevel
@@ -210,63 +233,66 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
           />
         </div>
       </div>
-      <div className="bs-card-offer__bottom">
-        <div
-          className={classNames('bs-card-offer__bottom__content', {
-            'bs-card-offer__bottom__content--full': isBottomInOneLine,
-          })}
-        >
+      {!hideBottomSection && (
+        <div className="bs-card-offer__bottom">
           <div
-            className={classNames('bs-card-offer__content__bottom__left', {
-              'bs-card-offer__content__bottom__left--full': isBottomInOneLine,
+            className={classNames('bs-card-offer__bottom__content', {
+              'bs-card-offer__bottom__content--full': isBottomInOneLine,
             })}
           >
-            {showOfferGender ? (
-              <div className="bs-card-offer__content__bottom__left__gender">
-                <div className="bs-card-offer__content__bottom__left__gender__sex">
-                  <MaleIcon />
-                  <div>{genderCountOffer?.nb_booked_male ?? 0}</div>
+            <div
+              className={classNames('bs-card-offer__content__bottom__left', {
+                'bs-card-offer__content__bottom__left--full': isBottomInOneLine,
+              })}
+            >
+              {showOfferGender ? (
+                <div className="bs-card-offer__content__bottom__left__gender">
+                  <div className="bs-card-offer__content__bottom__left__gender__sex">
+                    <MaleIcon />
+                    <div>{genderCountOffer?.nb_booked_male ?? 0}</div>
+                  </div>
+                  <div className="bs-card-offer__content__bottom__left__gender__sex">
+                    <FemaleIcon />
+                    <div>{genderCountOffer?.nb_booked_female ?? 0}</div>
+                  </div>
+                  <div className="bs-card-offer__content__bottom__left__gender__other">
+                    <div>+</div>
+                    <div>{genderCountOffer?.nb_booked_other ?? 0}</div>
+                  </div>
                 </div>
-                <div className="bs-card-offer__content__bottom__left__gender__sex">
-                  <FemaleIcon />
-                  <div>{genderCountOffer?.nb_booked_female ?? 0}</div>
+              ) : (
+                ''
+              )}
+              {showOfferFilling ? (
+                <div className="bs-card-offer__content__bottom__left__group">
+                  <GroupIcon className="bs-card-offer__icon" />
+                  <div className="bs-card-offer__content__bottom__left__group__number">
+                    {showOfferFilling
+                      ? `  ${offer.tot_slots}/${offer.effectif}`
+                      : ''}{' '}
+                  </div>
                 </div>
-                <div className="bs-card-offer__content__bottom__left__gender__other">
-                  <div>+</div>
-                  <div>{genderCountOffer?.nb_booked_other ?? 0}</div>
-                </div>
-              </div>
-            ) : (
-              ''
-            )}
-            {showOfferFilling ? (
-              <div className="bs-card-offer__content__bottom__left__group">
-                <GroupIcon className="bs-card-offer__icon" />
-                <div className="bs-card-offer__content__bottom__left__group__number">
-                  {showOfferFilling
-                    ? `  ${offer?.tot_slots}/${offer?.effectif}`
-                    : ''}{' '}
-                </div>
-              </div>
-            ) : (
-              ''
-            )}
-            <FreeOfferChip
-              companyTheme={theme}
-              credits={offer?.credit_price}
-              creditsOverride={offer?.credit_price_override}
-            />
-          </div>
-          <div className="bs-card-offer__content__bottom__buttonContainer">
-            <MarketplaceBookButton
-              offer={offer}
-              group={group}
-              metaActivity={metaActivity}
-              isRegistered={isRegistered}
-            />
+              ) : (
+                ''
+              )}
+              <FreeOfferChip
+                companyTheme={theme}
+                credits={offer?.credit_price}
+                creditsOverride={offer?.credit_price_override}
+              />
+            </div>
+            <div className="bs-card-offer__content__bottom__buttonContainer">
+              <MarketplaceBookButton
+                offer={offer}
+                group={group}
+                isRegistered={isRegistered}
+                isHidden={theme?.hide_book_button}
+                metaActivity={metaActivity}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </button>
   );
 };

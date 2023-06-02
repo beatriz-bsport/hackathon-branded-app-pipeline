@@ -68,9 +68,7 @@ Completed.args = {
 
 export const Soon = Template.bind({});
 Soon.args = {
-  offer: {
-    ...fakeOffer,
-    meta_activity: { first_booking_minutes_until: 90 },
-  },
+  offer: fakeOffer,
+  meta_activity: { first_booking_minutes_until: 90 },
   isRegistered: false,
 };

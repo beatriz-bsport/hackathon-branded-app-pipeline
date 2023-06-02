@@ -27,6 +27,7 @@
 }
 .bs-offer-list-item--disabled {
   cursor: default;
+  opacity: 0.5;
 }
 .bs-offer-list-item--isWorkshop {
   padding: 0;
@@ -88,10 +89,27 @@
   font-weight: var(--fontWeightMedium);
   font-size: var(--h5-fontSize);
   line-height: var(--h1-lineHeight);
-
+  font-family: var(--fontFamily);
   display: flex;
   align-items: flex-start;
   text-align: left;
+}
+
+.bs-offer-list-item__button__title {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  color: var(--color-grey-dark);
+  font-family: var(--fontFamily);
+}
+
+.bs-offer-list-item__button__title:hover {
+  text-decoration: underline;
+}
+
+.bs-offer-list-item__button__title:disabled {
+  background: transparent;
 }
 
 .bs-offer-list-item__content__offer__left__title--time-highlighted {
@@ -390,8 +408,8 @@ div.bs-offer-list-item__content__offer__left__bottom__icons__avatar {
 }
 
 .bs-offer-list-item__popover__coach {
-    display: 'flex';
-    min-width: '100px';
-    flex-direction: 'column';
-    gap: '10px';
+  display: 'flex';
+  min-width: '100px';
+  flex-direction: 'column';
+  gap: '10px';
 }

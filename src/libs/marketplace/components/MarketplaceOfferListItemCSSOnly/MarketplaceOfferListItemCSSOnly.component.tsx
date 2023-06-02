@@ -36,6 +36,7 @@ import FreeOfferChip from '#csscomponents/FreeOfferChip';
 
 import PopOver from '#components/Popover';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 
 export const DISABLE_BOOKING_ELEMENTS_IDS = [
   'book-button--disabled',
@@ -67,6 +68,7 @@ export type Props = {
   showDate?: boolean;
   withoutBookButton?: boolean;
   position: ('first' | 'last')[];
+  isOfferPassed: boolean;
 };
 
 const MarketplaceOfferListItem: React.FC<Props> = ({
@@ -93,6 +95,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   showDate,
   position = [],
   withoutBookButton,
+  isOfferPassed,
 }) => {
   const { t } = useTranslation(['datetime']);
   const muiTheme = useTheme();
@@ -102,6 +105,10 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   const isVariantCoachHighlighted = variant === 'coach';
 
   const offerHours = useOfferHours(offer, establishment, metaActivity, theme);
+
+  const isListItemDisabled =
+    (theme?.hide_book_button && isOfferPassed) ||
+    (!theme?.hide_book_button && isBookingDisabled);
 
   if (loading) {
     return (
@@ -157,7 +164,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
         'bs-offer-list-item--mobile': isMobile,
         'bs-offer-list-item--first': position.includes('first'),
         'bs-offer-list-item--last': position.includes('last'),
-        'bs-offer-list-item--disabled': isBookingDisabled,
+        'bs-offer-list-item--disabled': isListItemDisabled,
         'bs-offer-list-item--isWorkshop': isWorkshop,
         'bs-offer-list-item--isNotWorkshop': !isWorkshop,
       })}
@@ -410,8 +417,16 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   isRegistered={isRegistered}
                   className="bs-offer-list-item__content__offer__right__bottom"
                   metaActivity={metaActivity}
+                  isHidden={theme?.hide_book_button}
                 />
               )}
+              <MarketplaceOfferStatusChip
+                companyTheme={theme}
+                offer={offer}
+                isRegistered={isRegistered}
+                showLabel
+                metaActivity={metaActivity}
+              />
             </div>
           </div>
         </div>

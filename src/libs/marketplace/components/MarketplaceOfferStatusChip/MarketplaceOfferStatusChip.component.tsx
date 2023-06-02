@@ -14,6 +14,7 @@ import PopOver from '#components/Popover';
 import Chip from '#components/css-only/Chip';
 
 import { MarketplaceOfferStatus, Offer } from '#libs/offer/types';
+import { CompanyTheme } from '#libs/theme/types';
 
 import { MetaActivity } from '#libs/meta-activity/types';
 
@@ -22,6 +23,7 @@ export type Props = {
   isRegistered: boolean;
   showLabel: boolean;
   metaActivity: MetaActivity;
+  companyTheme: CompanyTheme;
 };
 
 const MarketplaceOfferStatusChip: React.FC<Props> = ({
@@ -29,10 +31,13 @@ const MarketplaceOfferStatusChip: React.FC<Props> = ({
   isRegistered,
   showLabel,
   metaActivity,
+  companyTheme,
 }) => {
   const { t } = useTranslation('translation');
 
   const offerStatus = getOfferStatus(offer, metaActivity, isRegistered);
+
+  if (!companyTheme?.hide_book_button) return null;
 
   switch (offerStatus) {
     case MarketplaceOfferStatus.BOOKED:

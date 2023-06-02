@@ -2,7 +2,6 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 
-import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import CodeIcon from '@material-ui/icons/Code';
 import ReplayIcon from '@material-ui/icons/Replay';
@@ -70,7 +69,7 @@ const CssEditorForm: React.FC<Props> = ({
   }, []);
 
   return (
-    <Paper className={classes.paper}>
+    <div className={classes.paper}>
       <div className={classes.innerPaper}>
         <Typography variant="h6" className={classes.title}>
           <CodeIcon className={classes.icon} />
@@ -111,7 +110,7 @@ const CssEditorForm: React.FC<Props> = ({
         </div>
       </div>
       <ButtonResetComponent onClick={handleReset} />
-    </Paper>
+    </div>
   );
 };
 

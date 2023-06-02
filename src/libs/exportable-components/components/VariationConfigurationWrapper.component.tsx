@@ -60,7 +60,7 @@ const VariationConfigurationWrapper: React.FC<{
   }, [isOpen]);
 
   const handleSelected = useCallback(
-    (variantCategoryLabel: string) => (toto: any, value: any) => {
+    (variantCategoryLabel: string) => (_: any, value: any) => {
       setVariationsSelected({
         ...variationsSelected,
         [variantCategoryLabel]: { label: value, value },
@@ -118,7 +118,7 @@ const VariationConfigurationWrapper: React.FC<{
         </div>
       )}
       <div
-        className={classNames(classes.preview, {
+        className={classNames(classes.preview, classes.absoluteCentered, {
           [classes.flex]: config.showAsFlex,
         })}
       >
@@ -156,8 +156,14 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
   },
   whiteBg: {
-    backgroundColor: 'white',
     marginBottom: theme.spacing(2),
+  },
+  absoluteCentered: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '100%',
   },
 }));
 

@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import omit from 'lodash/omit';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
@@ -30,7 +29,7 @@ const CssEditorPreview: React.FC<{
 
   return (
     <>
-      <Paper className={classes.paper}>
+      <div className={classes.paper}>
         <Typography variant="h6" className={classes.title}>
           <VisibilityIcon className={classes.icon} />
           {t('widget.customCss.preview', {
@@ -56,7 +55,7 @@ const CssEditorPreview: React.FC<{
           customConfiguration={omit(customConfiguration, componentId)}
         />
         <style>{code}</style>
-      </Paper>
+      </div>
     </>
   );
 };
@@ -67,12 +66,13 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     flex: 1,
-    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(2),
     padding: theme.spacing(2),
     height: '100%',
+    position: 'sticky',
+    top: '0',
   },
   title: {
     display: 'flex',

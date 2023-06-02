@@ -6981,7 +6981,7 @@
                 "parameters": "Settings",
                 "supplier_price": "Supplier price",
                 "marketplace_enabled": "Available on the webshop",
-                "is_deliverable": "Delivery fees",
+                "is_deliverable": "No Click&Collect available",
                 "onsite_payment_available": "Enable in-studio payments"
             },
             "action": {

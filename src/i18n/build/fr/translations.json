@@ -11207,6 +11207,9 @@
                 "giftcard": "Cartes cadeaux",
                 "allGiftcard": "Compatible avec toutes les cartes cadeaux"
             }
+        },
+        "configurationOption": {
+            "payLater": "Payez seulement {{amount}} maintenant"
         }
     }
 }

@@ -7,7 +7,7 @@ import {
 } from './constants';
 import EXPORTABLE_COMPONENT_SETTINGS_BY_TYPE from './components/settings';
 
-import { MarketplacePage, Variation, VariationConfiguration } from './types';
+import { MarketplacePage, VariantionConfiguration } from './types';
 
 export const getDefaultTitleForComponent = (
   componentType: string,
@@ -84,8 +84,7 @@ export const getCssComponentByLabel = (label: string) => {
       pages: [] as MarketplacePage[],
       showAsFlex: false,
       defaultState: {},
-      variations: [] as VariationConfiguration[],
-      defaultVariation: [] as Variation[],
+      variations: [] as VariantionConfiguration[],
     }
   );
 };

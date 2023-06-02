@@ -91,19 +91,14 @@ export enum MarketplacePage {
 }
 
 export type VariationConfigurationChoice = {
+  label: string;
   value: string;
-  data: any;
-  label: string;
-};
-export type VariationConfiguration = {
-  label: string;
-  propsKey: string;
-  choices: VariationConfigurationChoice[];
 };
 
-export type Variation = {
-  propsKey: string;
-  value: string;
+export type VariantionConfiguration = {
+  label: string;
+  choices: VariationConfigurationChoice[];
+  default: VariationConfigurationChoice;
 };
 
 export type MarketplaceCSSComponentConfig = {
@@ -112,8 +107,7 @@ export type MarketplaceCSSComponentConfig = {
   pages: MarketplacePage[];
   showAsFlex?: boolean;
   defaultState: any;
-  variations: VariationConfiguration[];
-  defaultVariation: Variation[];
+  variations: VariantionConfiguration[];
 };
 
 export type MarketplaceCSSConfiguration = {

@@ -15,11 +15,11 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 import { getCssComponentByLabel } from '../utils';
-
+import { VariationConfigurationChoice } from '../types';
 // Wrapper that pass different props depending on the current state
 const VariationConfigurationWrapper: React.FC<{
   componentId: string;
-  // By default React.FC interface interpolate the children as a React.ReactNode
+  // By default React.FC interface interpolates the children as a React.ReactNode
   children: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
 }> = ({ componentId, children }) => {
   const { t } = useTranslation('widget');
@@ -31,48 +31,44 @@ const VariationConfigurationWrapper: React.FC<{
   );
 
   const [isOpen, setIsOpen] = useState(false);
-  const [variationsSelected, setVariationsSelected] = useState(
-    config.defaultVariation,
+  const [variationsSelected, setVariationsSelected] = useState<
+    Record<string, VariationConfigurationChoice>
+  >(
+    config.variations.reduce<Record<string, VariationConfigurationChoice>>(
+      (acc, cV) => {
+        acc[cV.label] = cV.default;
+        return acc;
+      },
+      {},
+    ),
   );
 
   useEffect(() => {
-    setVariationsSelected(config.defaultVariation);
-  }, [config.defaultVariation]);
+    setVariationsSelected(
+      config.variations.reduce<{ [key: string]: VariationConfigurationChoice }>(
+        (acc, cV) => {
+          acc[cV.label] = cV.default;
+          return acc;
+        },
+        {},
+      ),
+    );
+  }, [config.variations]);
 
   const onToggle = useCallback(() => {
     setIsOpen(!isOpen);
   }, [isOpen]);
 
   const handleSelected = useCallback(
-    (index: number) => (_: any, value: any) => {
-      const _variationsSelected = [...variationsSelected];
-      _variationsSelected[index].value = value;
-      setVariationsSelected(_variationsSelected);
+    (variantCategoryLabel: string) => (toto: any, value: any) => {
+      setVariationsSelected({
+        ...variationsSelected,
+        [variantCategoryLabel]: { label: value, value },
+      });
     },
     [variationsSelected],
   );
 
-  const formatedProps = useMemo(() => {
-    return variationsSelected.reduce<Record<string, any>>((acc, variation) => {
-      const variationOptions = config.variations?.find(
-        (c) => c.propsKey === variation.propsKey,
-      );
-      const variationSelected = variationOptions?.choices?.find(
-        (opt) => opt.value === variation.value,
-      );
-      if (variation.propsKey === 'offer') {
-        // The implementation logic of variation and what props they override has to be rethink.
-        acc = { acc, ...(variationSelected?.data || {}) };
-      } else {
-        acc[variation.propsKey] = { ...(variationSelected?.data || {}) };
-      }
-
-      // console.log('propsKey', variation.propsKey);
-      return acc;
-    }, {});
-  }, [config.variations, variationsSelected]);
-
-  // console.log('formatedProps', formatedProps);
   return (
     <div className={classes.config}>
       {config.variations.length > 0 && (
@@ -86,30 +82,38 @@ const VariationConfigurationWrapper: React.FC<{
             </IconButton>
           </div>
           <Collapse in={isOpen} unmountOnExit>
-            {config.variations.map(({ propsKey, label, choices }, index) => (
-              <div key={propsKey} className={classes.variation}>
-                <Typography variant="h6">
-                  {t(`widget.cssConfig.title.${label}`)}
-                </Typography>
-                <RadioGroup
-                  onChange={handleSelected(index)}
-                  className={classes.checkbox}
+            {config.variations.map(
+              ({ label: variantCategoryLabel, choices }, index) => (
+                <div
+                  key={`component_variation_${index}`}
+                  className={classes.variation}
                 >
-                  {choices.map(({ label: choiceLabel, value }) => (
-                    <FormControlLabel
-                      key={choiceLabel}
-                      value={value}
-                      control={
-                        <Radio
-                          checked={variationsSelected?.[index]?.value === value}
-                        />
-                      }
-                      label={t(`widget.cssConfig.option.${choiceLabel}`)}
-                    />
-                  ))}
-                </RadioGroup>
-              </div>
-            ))}
+                  <Typography variant="h6">
+                    {t(`widget.cssConfig.title.${variantCategoryLabel}`)}
+                  </Typography>
+                  <RadioGroup
+                    onChange={handleSelected(variantCategoryLabel)}
+                    className={classes.checkbox}
+                  >
+                    {choices.map(({ label: choiceLabel, value }) => (
+                      <FormControlLabel
+                        key={choiceLabel}
+                        value={value}
+                        control={
+                          <Radio
+                            checked={
+                              value ===
+                              variationsSelected?.[variantCategoryLabel]?.value
+                            }
+                          />
+                        }
+                        label={t(`widget.cssConfig.option.${choiceLabel}`)}
+                      />
+                    ))}
+                  </RadioGroup>
+                </div>
+              ),
+            )}
           </Collapse>
         </div>
       )}
@@ -119,7 +123,7 @@ const VariationConfigurationWrapper: React.FC<{
         })}
       >
         {/* Here injecting the new props to the children */}
-        <div>{React.cloneElement(children, formatedProps)}</div>
+        <div>{React.cloneElement(children, { variationsSelected })}</div>
       </div>
     </div>
   );

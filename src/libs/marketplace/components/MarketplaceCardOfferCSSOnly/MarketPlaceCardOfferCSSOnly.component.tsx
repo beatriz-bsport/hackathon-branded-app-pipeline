@@ -43,9 +43,9 @@ type OwnProps = {
   group?: OffersGroup;
 };
 
-type Props = OwnProps;
+export type Props = OwnProps;
 
-const MarketPlaceCardOfferV2: React.FC<Props> = ({
+const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
   coaches,
   establishments,
   genderCount,
@@ -274,4 +274,4 @@ const MarketPlaceCardOfferV2: React.FC<Props> = ({
   );
 };
 
-export default pure(MarketPlaceCardOfferV2);
+export default pure(MarketPlaceCardOfferCSSOnly);

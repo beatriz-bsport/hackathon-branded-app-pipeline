@@ -81,7 +81,7 @@ const SettingsWidget: React.FC<Props> = ({
 const connector = connect(() => ({}), {
   pushToWidgetTab: (newTab: string) => {
     if (newTab === 'customize-css') {
-      return pushFunc('/settings/widget/customize-css/calendar/filter');
+      return pushFunc('/settings/widget/customize-css/calendar/cardOffer');
     }
     return pushFunc(`/settings/widget/${newTab}`);
   },

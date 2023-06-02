@@ -1,10 +1,11 @@
 // @ts-nocheck
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { pure } from 'recompose';
 import './MarketplaceCardOfferCSSOnly.css';
 import GroupIcon from '@material-ui/icons/Group';
 import classNames from 'classnames';
 import { ArrowLeft } from '@material-ui/icons';
+import { useTranslation } from 'react-i18next';
 import MaleIcon from '../../../../components/icons/MaleIcon.component';
 import FemaleIcon from '../../../../components/icons/FemaleIcon.component';
 import MarketplaceBookButton from '../MarketplaceBookButton';
@@ -14,7 +15,10 @@ import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly';
 import { useOfferHours } from '../../hooks';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
-import { AVAILABLE_BOOKING_ELEMENTS_IDS } from '#libs/marketplace/constants';
+import {
+  AVAILABLE_BOOKING_ELEMENTS_IDS,
+  MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
+} from '#libs/marketplace/constants';
 import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoachInfos';
 import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
 import { Theme } from '#libs/theme/types';
@@ -24,6 +28,7 @@ import FreeOfferChip from '#csscomponents/FreeOfferChip';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { Level } from '#libs/level/types';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
+import PopOver from '#components/Popover/Popover.component';
 
 type OwnProps = {
   offer: Offer;
@@ -71,22 +76,53 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
   const isVariantTimeHighlighted = variant === 'time';
   const isVariantCoachHighlighted = variant === 'coach';
 
-  const handleBook = () => {
+  const { t } = useTranslation('translation');
+
+  const handleBook = useCallback(() => {
     onClickBook(offer);
-  };
+  }, [onClickBook, offer]);
 
-  const handleBookOption = () => {
+  const handleBookOption = useCallback(() => {
     onClickBookOption(offer);
-  };
-  const handleClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (isBookingDisabled) return;
+  }, [onClickBookOption, offer]);
 
-    if (AVAILABLE_BOOKING_ELEMENTS_IDS.includes(event?.target?.id)) {
-      offer?.full ? handleBookOption() : handleBook();
-    } else {
-      onClickOffer(offer?.id);
-    }
-  };
+  const handleClickOnHiddenBookButton = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (
+        event.target.className.includes(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER)
+      ) {
+        event.stopPropagation();
+        onClickOffer(offer.id);
+      } else {
+        offer.full ? handleBookOption() : handleBook();
+      }
+    },
+    [onClickOffer, handleBookOption, handleBook, offer.full, offer.id],
+  );
+
+  const handleClick = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (isBookingDisabled) return;
+
+      if (theme?.hide_book_button) {
+        handleClickOnHiddenBookButton(event);
+      } else if (AVAILABLE_BOOKING_ELEMENTS_IDS.includes(event?.target?.id)) {
+        offer.full ? handleBookOption() : handleBook();
+      } else {
+        onClickOffer(offer.id);
+      }
+    },
+    [
+      isBookingDisabled,
+      theme?.hide_book_button,
+      offer.full,
+      offer.id,
+      handleBookOption,
+      handleBook,
+      onClickOffer,
+      handleClickOnHiddenBookButton,
+    ],
+  );
 
   const isBottomInOneLine =
     theme?.hide_book_button ||
@@ -94,6 +130,28 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
 
   const hideBottomSection =
     theme?.hide_book_button && !showOfferFilling && !showOfferGender;
+
+  const isSessionNameClickable =
+    theme?.hide_book_button &&
+    !isBookingDisabled &&
+    !(isVariantTimeHighlighted || isVariantCoachHighlighted);
+
+  const isPopoverOnSessionName =
+    theme?.hide_book_button &&
+    isOfferPassed &&
+    !(isVariantTimeHighlighted || isVariantCoachHighlighted);
+
+  const isSessionTimeClickable =
+    theme?.hide_book_button && !isBookingDisabled && isVariantTimeHighlighted;
+
+  const isPopoverOnSessionTime =
+    theme?.hide_book_button && isOfferPassed && isVariantTimeHighlighted;
+
+  const isSessionCoachClickable =
+    theme?.hide_book_button && !isBookingDisabled && isVariantCoachHighlighted;
+
+  const isPopoverOnSessionCoach =
+    theme?.hide_book_button && isOfferPassed && isVariantCoachHighlighted;
 
   const isCardDisabled =
     (theme?.hide_book_button && isOfferPassed) ||
@@ -134,7 +192,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
       type="button"
       className={classNames({
         'bs-card-offer': true,
-        'bs-card-offer--disabled': isCardDisabled,
+        '--disabled': isCardDisabled,
       })}
       onClick={handleClick}
       disabled={isBookingDisabled}
@@ -148,26 +206,74 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
       <div className="bs-card-offer__content">
         <div className="bs-card-offer__content__top">
           <div className="bs-card-offer__content__top__grid">
-            <div
-              className={classNames('bs-card-offer__content__title', {
-                'bs-card-offer__content__title--time-highlighted':
-                  isVariantTimeHighlighted,
-                'bs-card-offer__content__title--coach-highlighted':
-                  isVariantCoachHighlighted,
-              })}
-            >
-              {metaActivity?.name}
-            </div>
-            <div
-              className={classNames('bs-card-offer__content__time', {
-                'bs-card-offer__content__time--time-highlighted':
-                  isVariantTimeHighlighted,
-                'bs-card-offer__content__time--coach-highlighted':
-                  isVariantCoachHighlighted,
-              })}
-            >
-              {offerHours}
-            </div>
+            {isSessionNameClickable ? (
+              <button
+                type="button"
+                onClick={handleClick}
+                disabled={isBookingDisabled}
+                className={classNames(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER, {
+                  'bs-card-offer__content__title':
+                    'bs-card-offer__content__title',
+                  'bs-card-offer__button__title':
+                    'bs-card-offer__button__title',
+                })}
+              >
+                {metaActivity?.name}
+              </button>
+            ) : (
+              <div
+                className={classNames('bs-card-offer__content__title', {
+                  'bs-card-offer__content__title--time-highlighted':
+                    isVariantTimeHighlighted,
+                  'bs-card-offer__content__title--coach-highlighted':
+                    isVariantCoachHighlighted,
+                })}
+              >
+                <PopOver
+                  title={
+                    isPopoverOnSessionName &&
+                    t('marketplace.bookButton.popOverTitle.isPast')
+                  }
+                >
+                  {metaActivity?.name}
+                </PopOver>
+              </div>
+            )}
+            {isSessionTimeClickable ? (
+              <button
+                type="button"
+                onClick={handleClick}
+                disabled={isBookingDisabled}
+                className={classNames(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER, {
+                  'bs-card-offer__content__title':
+                    'bs-card-offer__content__title',
+                  'bs-card-offer__content__time--time-highlighted':
+                    'bs-card-offer__content__time--time-highlighted',
+                  'bs-card-offer__button__title':
+                    'bs-card-offer__button__title',
+                })}
+              >
+                {offerHours}
+              </button>
+            ) : (
+              <div
+                className={classNames('bs-card-offer__content__time', {
+                  'bs-card-offer__content__time--time-highlighted':
+                    isVariantTimeHighlighted,
+                  'bs-card-offer__content__time--coach-highlighted':
+                    isVariantCoachHighlighted,
+                })}
+              >
+                <PopOver
+                  title={
+                    isPopoverOnSessionTime &&
+                    t('marketplace.bookButton.popOverTitle.isPast')
+                  }
+                >
+                  {offerHours}
+                </PopOver>
+              </div>
+            )}
             {!isOfferPassed && (
               <div className="bs-card-offer__content__status-chip">
                 <MarketplaceOfferStatusChip
@@ -191,20 +297,63 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
               ''
             )}
           </div>
-          <MarketplaceCoachInfos
-            theme={theme}
-            hideCoach={hideCoach}
-            coach={coach}
-            offer={offer}
-            reverse
-            classes={{
-              'bs-card-offer__content__coach': 'bs-card-offer__content__coach',
-              'bs-card-offer__content__coach--time-highlighted':
-                isVariantTimeHighlighted,
-              'bs-card-offer__content__coach--coach-highlighted':
-                isVariantCoachHighlighted,
-            }}
-          />
+          {isSessionCoachClickable ? (
+            <button
+              type="button"
+              onClick={handleClick}
+              disabled={isBookingDisabled}
+              className={classNames('bs-card-offer__content__coach', {
+                'bs-card-offer__content__coach--coach-highlighted':
+                  'bs-card-offer__content__coach--coach-highlighted',
+                'bs-card-offer__button__title': 'bs-card-offer__button__title',
+              })}
+            >
+              <MarketplaceCoachInfos
+                theme={theme}
+                hideCoach={hideCoach}
+                coach={coach}
+                offer={offer}
+                reverse
+                classes={{
+                  [MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER]: [
+                    MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
+                  ],
+                  'bs-card-offer__content__coach':
+                    'bs-card-offer__content__coach',
+                  'bs-card-offer__content__coach--coach-highlighted':
+                    isVariantCoachHighlighted,
+                }}
+              />
+            </button>
+          ) : (
+            <div
+              className={classNames('bs-card-offer__content__coach', {
+                'bs-card-offer__content__coach--coach-highlighted':
+                  isVariantCoachHighlighted,
+              })}
+            >
+              <PopOver
+                title={
+                  isPopoverOnSessionCoach &&
+                  t('marketplace.bookButton.popOverTitle.isPast')
+                }
+              >
+                <MarketplaceCoachInfos
+                  theme={theme}
+                  hideCoach={hideCoach}
+                  coach={coach}
+                  offer={offer}
+                  reverse
+                  classes={{
+                    'bs-card-offer__content__coach':
+                      'bs-card-offer__content__coach',
+                    'bs-card-offer__content__coach--coach-highlighted':
+                      isVariantCoachHighlighted,
+                  }}
+                />
+              </PopOver>
+            </div>
+          )}
           {additionalCoaches?.length > 0 &&
             additionalCoaches?.map((additionalCoach) => (
               <MarketplaceCoachInfos
@@ -216,8 +365,6 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
                 classes={{
                   'bs-card-offer__content__coach':
                     'bs-card-offer__content__coach',
-                  'bs-card-offer__content__coach--time-highlighted':
-                    isVariantTimeHighlighted,
                   'bs-card-offer__content__coach--coach-highlighted':
                     isVariantCoachHighlighted,
                 }}

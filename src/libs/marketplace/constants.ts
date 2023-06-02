@@ -49,6 +49,9 @@ export const MARKETPLACE_PATH_TAB_PRIVATE_SERVICE = 'private-service';
 export const MARKETPLACE_PATH_TAB_SHOP = 'shop';
 export const MARKETPLACE_PATH_TAB_GIFTCARD = 'giftcard';
 
+export const MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER =
+  'marketplace-offer-clickable-title';
+
 export const AVAILABLE_BOOKING_ELEMENTS_IDS = [
   'book-button',
   'book-button__icon',

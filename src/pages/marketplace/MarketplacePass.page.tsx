@@ -222,12 +222,15 @@ export class MarketPlacePassPage extends Component<Props, State> {
         this.props.params.privatePassCategories,
       );
 
-    this.setState({
-      restrictedCategories: {
-        paymentPack: paymentPackCategories,
-        privatePass: privatePassCategories,
+    this.setState(
+      {
+        restrictedCategories: {
+          paymentPack: paymentPackCategories,
+          privatePass: privatePassCategories,
+        },
       },
-    });
+      () => this.setAvailableCategories(),
+    );
   }
 
   fetchData = () => {
@@ -252,6 +255,25 @@ export class MarketPlacePassPage extends Component<Props, State> {
     this.props.fetchMarketplacePrivateSlots(this.props.companyId);
   };
 
+  setAvailableCategories = () => {
+    const availableCategories = getPassFilterAvailableCategories(
+      this.props.paymentPackByCategory,
+      this.props.privatePassByCategory,
+      this.state.restrictedCategories,
+      this.props.t,
+    );
+
+    this.setState((prevState) => {
+      return {
+        ...prevState,
+        passSearchFilters: {
+          ...prevState.passSearchFilters,
+          allCategories: availableCategories,
+        },
+      };
+    });
+  };
+
   componentDidUpdate(prevProps: Props) {
     if (prevProps.authenticated !== this.props.authenticated) {
       this.fetchData();
@@ -270,22 +292,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
           this.props.privatePassByCategory,
         ))
     ) {
-      const availableCategories = getPassFilterAvailableCategories(
-        this.props.paymentPackByCategory,
-        this.props.privatePassByCategory,
-        this.state.restrictedCategories,
-        this.props.t,
-      );
-
-      this.setState((prevState) => {
-        return {
-          ...prevState,
-          passSearchFilters: {
-            ...prevState.passSearchFilters,
-            allCategories: availableCategories,
-          },
-        };
-      });
+      this.setAvailableCategories();
     }
   }
 

@@ -1,0 +1,251 @@
+import React from 'react';
+import { Theme, useTheme } from '@material-ui/core';
+import { StepperConfig } from '#libs/reporting/types';
+import NumberChip from '#components/chip/NumberChip.component';
+
+type Props = {
+  value: any;
+  translation: string;
+  datatype: string;
+  extra_data: { [key: string]: number };
+};
+
+const getSpecs = (
+  theme: Theme,
+  total_credits: number | null,
+  price: number | null,
+) => {
+  const green = theme.palette.success;
+  const yellow = { main: '#FF9800', dark: '#C77700' };
+  const orange = { main: '#FF5C00', dark: '#C94800' };
+  const red = theme.palette.error;
+
+  const specs: { [key: string]: StepperConfig } = {
+    amortized_price: {
+      low: {
+        value: 0,
+        color: green.dark,
+        icon: 'CheckCircle',
+        iconColor: green.main,
+      },
+      lmed: null,
+      medium: {
+        range: [0, price],
+        color: orange.dark,
+        icon: 'Error',
+        iconColor: orange.main,
+      },
+      high: {
+        value: price,
+        color: red.dark,
+        icon: 'Cancel',
+        iconColor: red.main,
+      },
+      defaultRange: 'medium',
+    },
+    available_credits: {
+      low: {
+        value: 0,
+        color: green.dark,
+        icon: 'CheckCircle',
+        iconColor: green.main,
+      },
+      lmed: null,
+      medium: {
+        range: [0, total_credits],
+        color: orange.dark,
+        icon: 'Error',
+        iconColor: orange.main,
+      },
+      high: {
+        value: total_credits,
+        color: red.dark,
+        icon: 'Cancel',
+        iconColor: red.main,
+      },
+      defaultRange: 'medium',
+    },
+    rate_attendance: {
+      low: { value: 0, color: red.dark, icon: 'Cancel', iconColor: red.main },
+      lmed: {
+        range: [0, 50],
+        color: orange.dark,
+        icon: 'Error',
+        iconColor: orange.main,
+      },
+      medium: {
+        range: [50, 90],
+        color: yellow.dark,
+        icon: 'RemoveCircle',
+        iconColor: yellow.main,
+      },
+      high: {
+        range: [90, 100],
+        color: green.dark,
+        icon: 'CheckCircle',
+        iconColor: green.main,
+      },
+      defaultRange: 'lmed',
+    },
+    credits: {
+      low: {
+        range: [-Infinity, -1],
+        color: yellow.dark,
+        icon: 'Warning',
+        iconColor: yellow.main,
+      },
+      lmed: null,
+      medium: null,
+      high: {
+        range: [-1, Infinity],
+        color: green.dark,
+        icon: 'CheckCircle',
+        iconColor: green.main,
+      },
+      defaultRange: 'low',
+    },
+    nb_non_activated: {
+      low: {
+        value: 0,
+        color: green.dark,
+        icon: 'CheckCircle',
+        iconColor: green.main,
+      },
+      lmed: null,
+      medium: null,
+      high: {
+        range: [0, Infinity],
+        color: red.dark,
+        icon: 'Error',
+        iconColor: red.main,
+      },
+      defaultRange: 'high',
+    },
+    unpaid_amount: {
+      low: {
+        value: 0,
+        color: green.dark,
+      },
+      lmed: null,
+      medium: null,
+      high: {
+        range: [0, Infinity],
+        color: red.dark,
+      },
+      defaultRange: 'high',
+    },
+    rate_non_attendance: {
+      low: {
+        value: 0,
+        color: green.dark,
+        icon: 'CheckCircle',
+        iconColor: green.main,
+      },
+      lmed: {
+        range: [0, 10],
+        color: yellow.dark,
+        icon: 'RemoveCircle',
+        iconColor: yellow.main,
+      },
+      medium: {
+        range: [10, 90],
+        color: orange.dark,
+        icon: 'Error',
+        iconColor: orange.main,
+      },
+      high: {
+        range: [90, 100],
+        color: red.dark,
+        icon: 'Cancel',
+        iconColor: red.main,
+      },
+      defaultRange: 'medium',
+    },
+    cancel_rate: {
+      low: {
+        value: 0,
+        color: green.dark,
+        icon: 'CheckCircle',
+        iconColor: green.main,
+      },
+      lmed: {
+        range: [0, 10],
+        color: yellow.dark,
+        icon: 'RemoveCircle',
+        iconColor: yellow.main,
+      },
+      medium: {
+        range: [10, 90],
+        color: orange.dark,
+        icon: 'Error',
+        iconColor: orange.main,
+      },
+      high: {
+        range: [90, 100],
+        color: red.dark,
+        icon: 'Cancel',
+        iconColor: red.main,
+      },
+      defaultRange: 'medium',
+    },
+    sum_margin_value: {
+      low: {
+        value: 0,
+        color: red.dark,
+        icon: 'Cancel',
+        iconColor: red.main,
+      },
+      lmed: null,
+      medium: null,
+      high: {
+        range: [0, Infinity],
+        color: green.dark,
+        icon: 'CheckCircle',
+        iconColor: green.main,
+      },
+      defaultRange: 'low',
+    },
+    stock: {
+      low: {
+        range: [-Infinity, -1],
+        color: red.dark,
+        icon: 'Error',
+        iconColor: red.main,
+      },
+      lmed: null,
+      medium: {
+        value: 0,
+        color: orange.dark,
+        icon: 'RemoveCircle',
+        iconColor: orange.main,
+      },
+      high: {
+        range: [0, Infinity],
+        color: green.dark,
+        icon: 'CheckCircle',
+        iconColor: green.main,
+      },
+      defaultRange: 'medium',
+    },
+  };
+  return specs;
+};
+
+const ReportConditionChip: React.FC<Props> = ({
+  datatype,
+  extra_data,
+  value,
+  translation,
+}) => {
+  const theme = useTheme();
+
+  const specs = getSpecs(theme, extra_data?.total_credits, extra_data?.price);
+
+  const config = specs[datatype];
+
+  return (
+    <NumberChip config={config} value={value} displayedValue={translation} />
+  );
+};
+
+export default React.memo(ReportConditionChip);

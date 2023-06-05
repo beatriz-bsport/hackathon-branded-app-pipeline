@@ -3147,7 +3147,7 @@
                 }
             },
             "actions": {
-                "create": "Creare una mappa condivisa"
+                "create": "Aggiungi un pass condiviso"
             }
         },
         "seeAll": "Vedi tutti",
@@ -8301,7 +8301,7 @@
         },
         "paymentPackTemplate": {
             "actions": {
-                "create": "Creare una mappa condivisa"
+                "create": "Aggiungi un pass condiviso"
             },
             "deleteForm": {
                 "actions": {
@@ -10092,7 +10092,7 @@
             "activeSince": "Attivo dal {{ since }}",
             "tag": "Tag",
             "asyncDialog": {
-                "message": "In seguito alle tue modifiche alle regole dei tag {{name}} della smartlist, dobbiamo aggiornare i tag dei tuoi membri.",
+                "message": "A seguito delle modifiche apportate alle regole dei tag della smartlist {{ name }}, i tag devono essere aggiornati. Questa sincronizzazione avviene ogni due ore.",
                 "title": "Aggiornamenti alle regole dei tag "
             }
         },

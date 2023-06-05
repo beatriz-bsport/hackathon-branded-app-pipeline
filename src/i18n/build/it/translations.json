@@ -1190,8 +1190,8 @@
             "User": {
                 "name": "Allievo",
                 "tags": {
-                    "firstname": "Nome dello studente",
-                    "lastname": "Nome dello studente",
+                    "firstname": "Nome del membro",
+                    "lastname": "Nome del membro",
                     "unsubscribe_link": "Annulla l'iscrizione alla newsletter",
                     "reset_password_url": "Link per reimpostare la password",
                     "email_confirmation_url": "Link di conferma email"
@@ -1309,13 +1309,13 @@
         "eventType": {
             "400": "Appuntamento annullato - fuori tempo (insegnante)",
             "3": "Annulla sessione",
-            "6": "Registrazione membro (studente)",
+            "6": "Registrazione membro (membro)",
             "7": "Prenotazione tramite tessera",
             "8": "Prenotazione + acquisto della tessera del corso simultanea",
-            "13": "Annulla iscrizione alla lista di attesa (studente)",
+            "13": "Annulla iscrizione alla lista di attesa (membro)",
             "401": "Appuntamento annullato - rimborsato (insegnante)",
             "402": "Nuovo appuntamento (insegnante)",
-            "453": "Orario modificato (studente)",
+            "453": "Orario modificato (membro)",
             "14": "Annulla iscrizione dalla lista di attesa (gestore)",
             "16": "Sessione modificata",
             "17": "Prenotazione annullata: credito non rimborsato",
@@ -1328,13 +1328,13 @@
             "29": "Promemoria corso online tra 15 min",
             "26": "Abbonamento in pausa",
             "27": "Abbonamento interrotto o terminato",
-            "451": "Appuntamento annullato - rimborsato (studente)",
-            "452": "Nuovo appuntamento (studente)",
+            "451": "Appuntamento annullato - rimborsato (membro)",
+            "452": "Nuovo appuntamento (membro)",
             "9": "Uscita dalla lista d'attesa: prenotazione possibile",
             "10": "Il posto in lista d'attesa, convertibile, è scaduto per questo tour",
             "12": "Registrazione in lista d'attesa",
             "403": "Orario modificato (insegnante)",
-            "450": "Appuntamento - fuori tempo massimo (studente)",
+            "450": "Appuntamento - fuori tempo massimo (membro)",
             "22": "Conferma fattura",
             "300": "Kick (non validato in tempo troppe volte)",
             "702": "Passaggio negato: addebito sul conto creato (allievo)",
@@ -1344,7 +1344,7 @@
             "520": "Pagamento di un abonnamento fallito, sarà riprovato",
             "515": "Tessera del'abonnamento disattivato automaticamente",
             "510": "Pagamento di un abbonamento fallito",
-            "481": "Appuntamento ricorrente cancellato per mancanza di disponibilità (studente)",
+            "481": "Appuntamento ricorrente cancellato per mancanza di disponibilità (membro)",
             "480": "Appuntamento ricorrente cancellato per mancanza di disponibilità (insegnante)",
             "987": "Tentativo di riscuotere una rata",
             "907": "Sostituto trovato (sostituzione)",
@@ -3850,7 +3850,7 @@
                         "helperText": "Quando più di {{ number }} persone riservano una sessione, qualsiasi riserva aggiuntiva sarà accettata solo se lo squilibrio DONNE / UOMINI è inferiore al valore seguente.",
                         "placeholder": "Controlla lo squilibrio DONNE / UOMINI quando il numero di prenotazioni eccede"
                     },
-                    "checkbox": "Limita lo squilibrio DONNE / UOMINI nelle prenotazioni (studio di danza ...)"
+                    "checkbox": "Limita lo squilibrio DONNE / UOMINI nelle prenotazioni"
                 },
                 "offerBalance": "Controlla il rapporto DONNA / UOMO in ogni sessione",
                 "hideCoach": "Nascondere le informazioni dell'insegnante nelle interfacce client",
@@ -6116,7 +6116,7 @@
         "paymentRule": "Retribuzione",
         "coachAccess": {
             "teacher": "professore",
-            "student": "studente",
+            "student": "membro",
             "info": "Abbiamo rilevato che lei è un insegnante in questo studio. Vuoi avere accesso alla tua area studenti o alla tua area insegnanti?",
             "access": "Accesso"
         },
@@ -11416,7 +11416,7 @@
             },
             "smart_delay_percentage": {
                 "label": "Gestione intelligente",
-                "helper": "Se un posto diventa disponibile, lo studente ha un tempo proporzionale al tempo rimanente prima della sessione."
+                "helper": "Se un posto diventa disponibile, il membro ha un tempo proporzionale al tempo rimanente prima della sessione."
             },
             "submit": "Iscriviti",
             "auto_cancellation_type": {
@@ -11444,8 +11444,8 @@
                     "explain": "Quando un membro si registra, viene concesso un posto nella lista di attesa. Quando un posto è disponibile, il primo membro dell'elenco può registrarsi, gli altri attendono il proprio turno",
                     "settingsDelay": "Scadenza per la registrazione",
                     "label": "Uno alla volta",
-                    "overallExplainSimple": "Se un posto diventa disponibile, lo studente ha {{ autokick_delay }} promemoria distanziati di {{ dumb_delay_minutes }} minuti per registrarsi prima di cedere il proprio posto allo studente successivo.",
-                    "overallExplainSmart": "Se un posto diventa disponibile, lo studente ha {{ autokick_delay }} promemoria intervallati {{ smart_delay_percentage }}% del tempo rimanente prima dell'inizio della sessione per registrarsi. Ad esempio, se rimangono {{ example_hours_before }}h prima della sessione, ha {{ example_computed_delay_one }} minuti per registrarsi, quindi {{ example_computed_delay_two }} minuti dopo il primo promemoria e così via, prima di lasciare il posto allo studente successivo ."
+                    "overallExplainSimple": "Se un posto diventa disponibile, il membro ha {{ autokick_delay }} promemoria distanziati di {{ dumb_delay_minutes }} minuti per registrarsi prima di cedere il proprio posto al membro successivo.",
+                    "overallExplainSmart": "Se un posto diventa disponibile, il membro ha {{ autokick_delay }} promemoria intervallati {{ smart_delay_percentage }}% del tempo rimanente prima dell'inizio della sessione per registrarsi. Ad esempio, se rimangono {{ example_hours_before }}h prima della sessione, ha {{ example_computed_delay_one }} minuti per registrarsi, quindi {{ example_computed_delay_two }} minuti dopo il primo promemoria e così via, prima di lasciare il posto al membro successivo ."
                 }
             },
             "last_delay_before_auto_consume": {
@@ -11470,7 +11470,7 @@
         },
         "switchToEnable": "Riattiva la lista di attesa",
         "nbConvertible": "{{nbConvertible}} in attesa di conferma",
-        "explainWaitingListConf": "es: ci sono 3 ore prima della sessione, lo studente ha {{nbMinutesBeforeBookingOptionExpire}} minuti per confermare la sua prenotazione prima di lasciare il suo posto.",
+        "explainWaitingListConf": "es: ci sono 3 ore prima della sessione, il membro ha {{nbMinutesBeforeBookingOptionExpire}} minuti per confermare la sua prenotazione prima di lasciare il suo posto.",
         "member": {
             "detail": {
                 "offerTitle": "Sessione legata",
@@ -11613,7 +11613,7 @@
             "name": "Cognome",
             "addNewCoachPaymentRule": "Nuove impostazioni di retribuzione",
             "Simulator": {
-                "student_did_not_attend": "Studente assente",
+                "student_did_not_attend": "Membro assente",
                 "student_attended": "Studento presente",
                 "total_payment": "Pagamento finale",
                 "bonus": "Totale dei bonus",
@@ -11631,7 +11631,7 @@
                 "title": "Simulatore di retribuzione",
                 "marginalValueOfReservation": "Valore marginale di una prenotazione",
                 "numberOfCancellations": "Numero di no-show o cancellazioni tardive",
-                "numberOfStudent": "Numero di studenti"
+                "numberOfStudent": "Numero di membri"
             },
             "Errors": {
                 "privateSlotAlreadySelected": "Una regola di retribuzione è già definita per questo appuntamento",

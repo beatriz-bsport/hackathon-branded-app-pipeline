@@ -126,7 +126,6 @@ type Props = {
 
   createMember: (id: ?number, data: [*], options: any, offerId: number) => void,
   createInvoice: ([any], number, number) => void,
-  resetQuickInvoices: () => void,
   discardOption: (id: number, params: any, options: OptionCallback) => void,
   deleteBooking: (bookingId: number, data: any) => void,
 
@@ -262,10 +261,6 @@ export class OfferManagement extends Component<Props, State> {
     memberIdFocused: null,
     openConfirmationRollCallDialog: false,
   };
-
-  componentWillMount() {
-    this.props.resetQuickInvoices();
-  }
 
   componentDidMount() {
     const params = {

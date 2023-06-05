@@ -6,15 +6,21 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose, withState } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { Theme as MaterialTheme } from '@material-ui/core';
+import { Theme as MaterialTheme, Typography, Dialog } from '@material-ui/core';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import Typography from '@material-ui/core/Typography';
 
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import tinycolor from 'tinycolor2';
+import classNames from 'classnames';
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
 import ColorInput from '../../../components/input/ColorInput.component';
 import type { Theme } from '../types';
 import AnalyticsDialog from './AnalyticsDialog.component';
 import { MaterialStyleType } from '../../../utils/types';
+import RedButton from '#components/button/RedButton.component';
+import { MAX_COLOR_BRIGHTNESS } from '../utils';
 
 type OwnProps = {
   theme: Theme;
@@ -30,6 +36,7 @@ type Props = OwnProps &
 
 type State = {
   theme: Theme;
+  isWarningDialogOpen: boolean;
 };
 
 const regexHTTP = /https?:\/\//;
@@ -61,6 +68,7 @@ export class ThemeForm extends Component<Props, State> {
     super(props);
     this.state = {
       theme: props.theme,
+      isWarningDialogOpen: false,
     };
   }
 
@@ -103,7 +111,7 @@ export class ThemeForm extends Component<Props, State> {
     }
   };
 
-  onSubmit = () => {
+  onSubmit = (ignoreColorWarning?: boolean) => {
     const data = new FormData();
     [
       'primary_color',
@@ -122,11 +130,41 @@ export class ThemeForm extends Component<Props, State> {
       'waiver',
       // @ts-ignore
     ].map((key) => data.append(key, this.state.theme[key]));
+
     if (this.state.theme.cover && typeof this.state.theme.cover !== 'string') {
       data.append('cover', this.state.theme.cover);
     }
 
-    this.props.onSubmit(this.props.theme.company, data);
+    const brightnessPrimaryColor = tinycolor(
+      this.state.theme.primary_color,
+    ).getBrightness();
+
+    const brightnessSecondaryColor = tinycolor(
+      this.state.theme.secondary_color,
+    ).getBrightness();
+
+    if (
+      (brightnessPrimaryColor > MAX_COLOR_BRIGHTNESS ||
+        brightnessSecondaryColor > MAX_COLOR_BRIGHTNESS) &&
+      !ignoreColorWarning
+    ) {
+      this.openWarningDialog();
+    } else {
+      this.props.onSubmit(this.props.theme.company, data);
+    }
+  };
+
+  openWarningDialog = () => {
+    this.setState({ isWarningDialogOpen: true });
+  };
+
+  closeWarningDialog = () => {
+    this.setState({ isWarningDialogOpen: false });
+  };
+
+  confirmColorDialog = () => {
+    this.onSubmit(true);
+    this.closeWarningDialog();
   };
 
   render() {
@@ -137,6 +175,29 @@ export class ThemeForm extends Component<Props, State> {
     );
     return (
       <div>
+        <Dialog open={this.state.isWarningDialogOpen}>
+          <DialogTitle>
+            <Typography variant="h6" className={classes.bold}>
+              {t('forms.warningColorBrightness.title')}
+            </Typography>
+          </DialogTitle>
+          <DialogContent>
+            {t('forms.warningColorBrightness.text')}
+          </DialogContent>
+          <DialogActions>
+            <Button className={classes.grey} onClick={this.closeWarningDialog}>
+              {t('forms.warningColorBrightness.cancel')}
+            </Button>
+            <RedButton
+              color="primary"
+              delayBeforeActivation={3}
+              onClick={this.confirmColorDialog}
+              variant="contained"
+            >
+              {t('forms.warningColorBrightness.save')}
+            </RedButton>
+          </DialogActions>
+        </Dialog>
         <Typography variant="h6" className={this.props.classes.idContainer}>
           {`BSPORT ID: ${this.props.theme ? this.props.theme.company : ' - '}`}
         </Typography>
@@ -151,7 +212,9 @@ export class ThemeForm extends Component<Props, State> {
           </ImageUploader169>
         </div>
         <div className={classes.inputContainer}>
-          <div className={classes.horizontalInput}>
+          <div
+            className={classNames(classes.horizontalInput, classes.alignItems)}
+          >
             <ColorInput
               label={t('forms.primary_color.label')}
               helperText={t('forms.primary_color.helperText')}
@@ -160,8 +223,20 @@ export class ThemeForm extends Component<Props, State> {
               }
               color={this.state.theme.primary_color}
             />
+            <Button
+              style={{
+                color: this.state.theme.primary_color,
+                borderColor: this.state.theme.primary_color,
+              }}
+              className={classes.exampleButton}
+              variant="outlined"
+            >
+              {t('forms.warningColorBrightness.example')}
+            </Button>
           </div>
-          <div className={classes.horizontalInput}>
+          <div
+            className={classNames(classes.horizontalInput, classes.alignItems)}
+          >
             <ColorInput
               onChange={(color: any) =>
                 this.handleChange('secondary_color')(color)
@@ -170,6 +245,16 @@ export class ThemeForm extends Component<Props, State> {
               helperText={t('forms.secondary_color.helperText')}
               color={this.state.theme.secondary_color}
             />
+            <Button
+              style={{
+                color: this.state.theme.secondary_color,
+                borderColor: this.state.theme.secondary_color,
+              }}
+              className={classes.exampleButton}
+              variant="outlined"
+            >
+              {t('forms.warningColorBrightness.example')}
+            </Button>
           </div>
         </div>
         <div className={classes.inputContainer}>
@@ -392,6 +477,10 @@ const styles = (theme: MaterialTheme) => ({
     flexDirection: 'row',
     marginBottom: theme.spacing(3),
   },
+  alignItems: {
+    display: 'flex',
+    alignItems: 'center',
+  },
   buttonContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -410,6 +499,13 @@ const styles = (theme: MaterialTheme) => ({
     marginBottom: theme.spacing(3),
     width: '90%',
     maxWidth: 400,
+  },
+  exampleButton: {
+    height: 'fit-content',
+    marginLeft: theme.spacing(2),
+  },
+  grey: {
+    color: theme.palette.text.secondary,
   },
 });
 

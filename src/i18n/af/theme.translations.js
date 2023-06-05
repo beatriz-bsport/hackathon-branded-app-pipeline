@@ -366,6 +366,13 @@ exports.default = {
       placeholder: 'https://instagram.com/mon-studio/',
     },
     submit: 'Sauvegarder',
+    warningColorBrightness: {
+      example: 'Exemple',
+      title: 'Attention',
+      text: "Une des couleurs sélectionnées est très claire et risque d'être difficilement visible",
+      cancel: 'Annuler',
+      save: 'Sauvegarder',
+    },
   },
   analytics: {
     showAnalyticsInformation: 'Afficher les événements trackés',

@@ -70,3 +70,5 @@ export const getCustomCurrencyDisplayWithPrice = (
       return `${currencyDisplay}${priceTakingAccountOfTax}`;
   }
 };
+
+export const MAX_COLOR_BRIGHTNESS = 210;

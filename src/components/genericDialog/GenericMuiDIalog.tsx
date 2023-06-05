@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
@@ -10,14 +9,15 @@ import {
   DialogContentText,
   DialogTitle,
   Dialog,
+  Typography,
 } from '@material-ui/core';
 
 type OwnProps = {
   open: boolean;
   title: string;
-  content: string;
-  onCancel: () => void;
-  onConfirm: () => void;
+  content: string | string[];
+  onCancel?: () => void;
+  onConfirm?: () => void;
   cancelText?: string;
   confirmText?: string;
 };
@@ -34,24 +34,40 @@ export const GenericMuiDialog = (props: Props) => {
     confirmText,
   } = props;
 
+  const finalContent = useMemo(() => {
+    if (!content) {
+      return '';
+    }
+    if (Array.isArray(content)) {
+      return content.map((element, idx) => (
+        <Typography key={idx}>{`• ${element}`}</Typography>
+      ));
+    }
+    return content;
+  }, [content]);
+
+  const handleCancel = useCallback(() => onCancel(), [onCancel]);
+
+  const handleConfirm = useCallback(() => onConfirm(), [onConfirm]);
+
   return (
     <>
       <Dialog maxWidth="sm" open={open}>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
-          <DialogContentText>{content}</DialogContentText>
+          <DialogContentText>{finalContent}</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => onCancel()} color="secondary">
-            {cancelText || t('cancel')}
-          </Button>
-          <Button
-            onClick={() => onConfirm()}
-            variant="contained"
-            color="primary"
-          >
-            {confirmText || t('selector.validate')}
-          </Button>
+          {(!!onCancel || !!cancelText) && (
+            <Button onClick={handleCancel} color="secondary">
+              {cancelText || t('cancel')}
+            </Button>
+          )}
+          {(!!onConfirm || !!confirmText) && (
+            <Button onClick={handleConfirm} variant="contained" color="primary">
+              {confirmText || t('selector.validate')}
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </>

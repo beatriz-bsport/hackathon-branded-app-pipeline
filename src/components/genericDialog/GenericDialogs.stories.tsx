@@ -117,6 +117,8 @@ const GenericResponsiveDialogTemplate = (args: any) => (
 export const ResponsiveDialog = GenericResponsiveDialogTemplate.bind({});
 ResponsiveDialog.args = {
   open: true,
+  confirmText: 'Confirmer',
+  cancelText: 'Annuler',
 };
 
 const CustomMuiDialogTemplate = (args: any) => (

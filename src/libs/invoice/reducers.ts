@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 
 import { handleActions } from 'redux-actions';
@@ -101,8 +100,6 @@ const initialState: Immutable.Immutable<InvoiceState> = Immutable<InvoiceState>(
       loading: false,
       error: null,
     },
-    quickInvoices: [],
-    quickInvoiceLoading: false,
     applyBalance: {
       error: null,
       loading: false,
@@ -309,38 +306,13 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
       state,
       { payload }: { payload: boolean },
     ) => {
-      return state.setIn(['quickInvoice', 'loading'], payload);
+      return state.setIn(['createOrUpdate', 'loading'], payload);
     },
     [quickInvoiceActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
-      return state.setIn(['quickInvoice', 'error'], payload);
-    },
-
-    [quickInvoiceActions.success.toString()]: (
-      state,
-      { payload }: { payload: InvoiceDetailsSerializer },
-    ) => {
-      return state.setIn(
-        ['quickInvoices', state.quickInvoices.length],
-        payload,
-      );
-    },
-
-    [quickInvoiceActions.reset.toString()]: (
-      state,
-      { payload }: { payload: string },
-    ) => {
-      if (payload) {
-        return state.setIn(['quickInvoice', 'loading'], false).set(
-          'quickInvoices',
-          state.quickInvoices.filter((qi) => qi.uuid !== payload),
-        );
-      }
-      return state
-        .setIn(['quickInvoice', 'loading'], false)
-        .set('quickInvoices', []);
+      return state.setIn(['createOrUpdate', 'error'], payload);
     },
 
     [retrieveInvoiceActions.isLoading.toString()]: (

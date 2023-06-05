@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { AxiosResponse } from 'axios';
 import { PaginatedResponse } from '../../state/types';
 import {

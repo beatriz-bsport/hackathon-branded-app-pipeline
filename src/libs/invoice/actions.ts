@@ -193,7 +193,6 @@ export function revertQuickInvoice(
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(revertInvoice(uuid, {}, options));
-    dispatch(quickInvoiceActions.reset(uuid));
     dispatch(fetchAlerting());
   };
 }
@@ -236,13 +235,7 @@ export function revertInvoice(
 export const quickInvoiceActions = {
   isLoading: createAction<boolean>('INVOICE/QUICK_CREATE/LOADING'),
   error: createAction<Error | null>('INVOICE/QUICK_CREATE/ERROR'),
-  success: createAction<InvoiceDetailsSerializer>(
-    'INVOICE/QUICK_CREATE/SUCCESS',
-  ),
-  reset: createAction<string | void>('INVOICE/QUICK_CREATE/RESET'),
 };
-
-export const resetQuickInvoices = quickInvoiceActions.reset;
 
 export function createQuickInvoice(
   data: {
@@ -259,7 +252,6 @@ export function createQuickInvoice(
     try {
       const response = await createQuickAPI(data);
       const invoice = response.data;
-      dispatch(quickInvoiceActions.success(invoice));
       if (options && options.onSuccess) {
         options.onSuccess(invoice);
       }
@@ -474,7 +466,6 @@ export function createOrUpdateInvoice(
       dispatch(createOrUpdateInvoiceActions.success(invoice));
       if (invoiceData.uuid) {
         dispatch(snackbarSuccess('invoice.update.success'));
-        dispatch(quickInvoiceActions.reset(invoiceData.uuid));
       } else {
         dispatch(snackbarSuccess('invoice.create.success'));
       }

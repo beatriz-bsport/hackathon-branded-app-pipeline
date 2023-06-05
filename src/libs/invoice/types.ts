@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   REVERSE_ON_PAYMENT_METHOD,
   REVERSE_ON_DEBT,
@@ -40,8 +39,6 @@ export type InvoiceState = ErrorAndLoading & {
     data: InvoiceInfoSerializer | null;
   };
   quickbooks: ErrorAndLoading;
-  quickInvoices: InvoiceDetailsSerializer[];
-  quickInvoiceLoading: boolean;
   applyBalance: ErrorAndLoading;
   applyGiftCard: ErrorAndLoading;
   loadingSpecific: false;

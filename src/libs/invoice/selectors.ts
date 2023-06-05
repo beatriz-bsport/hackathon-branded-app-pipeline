@@ -1,4 +1,3 @@
-// @ts-nocheck
 import memoize from 'memoize-one';
 import {
   BUYABLE_ITEM_PASS,
@@ -275,8 +274,6 @@ export const withEstablishment = memoize(
       },
     ),
 );
-export const getQuickInvoiceList = (state: RootState) =>
-  getState(state).quickInvoices;
 
 const _getPaymentListIds = (state: RootState) => getState(state).payment.allIds;
 

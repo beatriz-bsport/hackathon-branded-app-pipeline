@@ -1,7 +1,5 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { compose } from 'recompose';
 
 import UpdateIcon from '@material-ui/icons/Update';
 
@@ -28,11 +26,13 @@ import type { ContractWithPaymentPack } from '#libs/subscription/types';
 export type Props = {
   contract: ContractWithPaymentPack;
   onChoose: (contractId: number) => void;
+  isExcludingTax?: boolean;
 };
 
 const MarketplaceContractCheckout: React.FC<Props> = ({
   contract,
   onChoose,
+  isExcludingTax,
 }) => {
   const { t } = useTranslation('marketplace');
 
@@ -105,7 +105,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
               </div>
               {!!contract?.flat_fee && (
                 <div className="bs-contract-checkout__subtitle">
-                  {t('contractCard.fees', {
+                  {t('marketplace:contractCard.fees', {
                     fees: getCurrencyDisplayWithPrice(contract.flat_fee),
                   })}
                 </div>
@@ -118,6 +118,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                     'bs-contract-checkout__price':
                       'bs-contract-checkout__price',
                   }}
+                  isExcludingTax={isExcludingTax}
                 >
                   <BillingInterval contract={contract} />
                 </Price>
@@ -133,7 +134,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
               <div className="bs-contract-checkout__planned-invoices">
                 {!!contract?.nb_interval && (
                   <div className="bs-contract-checkout__planned-invoices__content">
-                    {t('contractCard.invoice', {
+                    {t('marketplace:contractCard.invoice', {
                       count: contract.nb_interval,
                     })}
                   </div>
@@ -145,7 +146,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                 disabled={isExpanded}
                 onClick={handleOnChoose}
               >
-                {t('contractCard.chooseButton')}
+                {t('marketplace:contractCard.chooseButton')}
               </button>
             </Item>
           </Grid>
@@ -188,12 +189,12 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
               className="bs-contract-checkout__body__button"
             >
               {showMoreDescription
-                ? t('contractCard.seeLess')
-                : t('contractCard.seeMore')}
+                ? t('marketplace:contractCard.seeLess')
+                : t('marketplace:contractCard.seeMore')}
             </button>
             <div>
               <h4 className="bs-contract-checkout__subtitle --legal">
-                {t('contractCard.legalContract')}
+                {t('marketplace:contractCard.legalContract')}
               </h4>
               <div
                 className={classNames('bs-contract-checkout__body__text', {
@@ -209,8 +210,8 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
               className="bs-contract-checkout__body__button"
             >
               {showMoreLegalContract
-                ? t('contractCard.seeLess')
-                : t('contractCard.seeMore')}
+                ? t('marketplace:contractCard.seeLess')
+                : t('marketplace:contractCard.seeMore')}
             </button>
           </Item>
         </Grid>
@@ -223,4 +224,4 @@ export const MarketplaceContractCheckoutForStorybook = marketplaceCssHoc()(
   MarketplaceContractCheckout,
 );
 
-export default compose(React.memo)(MarketplaceContractCheckout);
+export default React.memo(MarketplaceContractCheckout);

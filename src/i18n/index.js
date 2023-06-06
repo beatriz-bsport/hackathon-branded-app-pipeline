@@ -148,6 +148,10 @@ const setLanguage = (lng: string) => {
   }
 };
 
+const setMomentLocale = (language: string) => {
+  Moment.locale(language);
+};
+
 const getLanguage = () => {
   if (window.localStorage) {
     return window.localStorage.getItem('i18nextLng').slice(0, 2);
@@ -156,7 +160,13 @@ const getLanguage = () => {
 };
 
 export default i18n;
-export { Moment, availableLanguages, setLanguage, getLanguage };
+export {
+  Moment,
+  availableLanguages,
+  setLanguage,
+  getLanguage,
+  setMomentLocale,
+};
 
 export const browserCountryCode = () => {
   if (navigator && navigator.language) {

@@ -20,7 +20,7 @@ import {
   BsportRequestFromHeaderValue,
 } from '../constants';
 import Intercom from '#components/intercom/Intercom.component';
-import i18n from '../i18n/index';
+import i18n, { setMomentLocale } from '../i18n/index';
 import {
   retrieveStripeAccountStatusAction,
   retrieveStripeCompanyAction,
@@ -484,6 +484,9 @@ export class Backoffice extends Component<Props, State> {
         this.props.retrieveStripeAccountStatus();
       },
     });
+    const { language } = i18n;
+    const isoLanguage = getCurrentLanguageIsoCode(language);
+    setMomentLocale(isoLanguage);
   }
 
   componentDidUpdate(prevProps: Props) {

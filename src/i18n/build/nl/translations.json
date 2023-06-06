@@ -6168,11 +6168,11 @@
                 "validDaysMonthsYears": "Geldig {{duration_years}}, {{ duration_months }} en {{ duration_days }}",
                 "validAnd": "Geldig {{ first }} en {{ second }}",
                 "validYear": "Geldig {{ count }} jaar",
-                "validYear_plural": "Geldige {{ count }} jaren",
-                "validMonth": "Geldige {{ count }} maand",
-                "validMonth_plural": "Geldige {{ count }} maanden",
-                "validDay": "Geldige {{ count }} dag",
-                "validDay_plural": "Geldige {{ count }} dagen"
+                "validYear_plural": "Geldig {{ count }} jaren",
+                "validMonth": "Geldig {{ count }} maand",
+                "validMonth_plural": "Geldig {{ count }} maanden",
+                "validDay": "Geldig {{ count }} dag",
+                "validDay_plural": "Geldig {{ count }} dagen"
             },
             "title": {
                 "universalPassMessage": "Universele kaart, te gebruiken voor groepscursussen en afspraken"

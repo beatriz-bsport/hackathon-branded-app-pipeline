@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Popover, { PopoverProps } from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
@@ -7,7 +6,7 @@ import classNames from 'classnames';
 
 type Props = {
   children: React.ReactNode;
-  title: string;
+  title?: string;
   hide?: boolean;
   anchorOrigin?: PopoverProps['anchorOrigin'];
   transformOrigin?: PopoverProps['transformOrigin'];
@@ -28,16 +27,20 @@ const PopOver = (props: Props) => {
     setAnchorEl(null);
   }, [setAnchorEl]);
 
+  const handleVoid = () => {};
+
   const open = Boolean(anchorEl);
   const classes = useStyles();
 
-  if (props.hide) return <>{props.children}</>;
+  if (props.hide || !props.title) return <>{props.children}</>;
 
   return (
     <div data-testid="popover-container">
       <div
-        onMouseEnter={handlePopoverOpen}
-        onMouseLeave={handlePopoverClose}
+        onMouseOver={handlePopoverOpen}
+        onFocus={handleVoid}
+        onBlur={handleVoid}
+        onMouseOut={handlePopoverClose}
         id="hovered-text"
       >
         {props.children}

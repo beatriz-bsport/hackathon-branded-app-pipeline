@@ -42,6 +42,7 @@ type Props = {
 
   onCancel: () => void;
   onSubmitIntent: () => void;
+  getEmails: () => void;
   emails: Array<any>;
   getEmailDetail: (id: number) => void;
   emailDetails: Array<any>;
@@ -51,6 +52,7 @@ type Props = {
   setFieldValue: (key: string, value: any) => void;
   errors: any;
   tags: { [tag_name: string]: string[] };
+  getSmartLists: () => void;
   smartLists: Array<any>;
   goToSmartlist: () => void;
   resolvedGenericTags: ResolvedGenericTags;
@@ -79,6 +81,7 @@ const MarketingRuleFormBooking = (props: Props) => {
     isSubmitting,
     onCancel,
     onSubmitIntent,
+    getEmails,
     emails,
     getEmailDetail,
     emailDetails,
@@ -89,6 +92,7 @@ const MarketingRuleFormBooking = (props: Props) => {
     errors,
     tags,
     resolvedGenericTags,
+    getSmartLists,
     smartLists,
     identifier,
     goToSmartlist,
@@ -110,6 +114,11 @@ const MarketingRuleFormBooking = (props: Props) => {
     relativeTimeValue,
     timeComparator,
   } = values;
+
+  React.useEffect(() => {
+    getEmails();
+    getSmartLists();
+  }, [getEmails, getSmartLists]);
 
   // To avoid validation errors. If notifyAllEvents is true,
   // then notify_booking_nb will be set to 0 during submission

@@ -34,6 +34,14 @@
   cursor: default;
 }
 
+.bs-offer-list-item--isWorkShop-with-hidden-button {
+  cursor: pointer;
+}
+
+.bs-offer-list-item--isWorkShop-with-hidden-button:hover {
+  filter: brightness(0.9);
+}
+
 .bs-offer-list-item__content {
   margin-left: var(--spacing-3);
   margin-top: var(--spacing-2);
@@ -186,6 +194,7 @@
   font-size: var(--h6-fontSize);
   color: var(--color-grey-dark);
   line-height: var(--h6-lineHeight);
+  font-family: var(--fontFamily);
 }
 
 .bs-offer-list-item__content__offer__left__bottom__icons {

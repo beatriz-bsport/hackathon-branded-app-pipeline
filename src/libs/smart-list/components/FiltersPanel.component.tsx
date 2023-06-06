@@ -22,6 +22,7 @@ import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
 import SmartphoneIcon from '@material-ui/icons/Smartphone';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import AccountTreeIcon from '@material-ui/icons//AccountTree';
 import IconButton from '@material-ui/core/IconButton';
 
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -74,6 +75,8 @@ import { SmartListPopupSending } from '#libs/communication-v2/types';
 import { FetchRecipientsParams, Member } from '#libs/member/types';
 import { UpsellSumup } from '#libs/company/types';
 import { UPSELL_IDENTIFIER_CUSTOM_APP } from '#libs/platform-billing/upsell-identifiers';
+import { Cadence } from '#libs/sequential_marketingDEPRECATED/types';
+import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -169,6 +172,7 @@ type Props = {
   memberLoading: boolean;
   memberList?: Array<Member>;
   featureList: Array<UpsellSumup>;
+  cadences: Cadence[];
 } & WithTranslation;
 
 type State = {
@@ -180,6 +184,7 @@ type State = {
   anchorEl: HTMLElement;
   openCustomMobilePopupDialog: boolean;
   openSmartListPopupHistoryDialog: boolean;
+  openCadenceListDialog: boolean;
 };
 export class FiltersPanel extends Component<Props, State> {
   state: State = {
@@ -191,6 +196,7 @@ export class FiltersPanel extends Component<Props, State> {
     anchorEl: null,
     openCustomMobilePopupDialog: false,
     openSmartListPopupHistoryDialog: false,
+    openCadenceListDialog: false,
   };
 
   handleFilterChange = (filter: any) => {
@@ -265,6 +271,14 @@ export class FiltersPanel extends Component<Props, State> {
   }) => {
     this.closeCustomMobilePopupDialog();
     this.props.sendSmartListPopup(param);
+  };
+
+  openCadencesDialog = () => {
+    this.setState({ openCadenceListDialog: true });
+  };
+
+  closeCadencesDialog = () => {
+    this.setState({ openCadenceListDialog: false });
   };
 
   render() {
@@ -435,6 +449,24 @@ export class FiltersPanel extends Component<Props, State> {
             ))}
           </Menu>
         </div>
+
+        {this.props.cadences && this.props.cadences.length > 0 && (
+          <div className={this.props.classes.cadenceChipContainer}>
+            <ButtonBase
+              onClick={this.openCadencesDialog}
+              className={classes.cadenceChip}
+              disabled={this.props.cadences.length === 1}
+              color="secondary"
+            >
+              <AccountTreeIcon className={this.props.classes.leftIcon} />
+              {t('cadence.content', {
+                count: this.props.cadences.length,
+                cadence_name: this.props.cadences[0]?.name,
+              })}
+            </ButtonBase>
+          </div>
+        )}
+
         <ButtonBase
           onClick={() =>
             this.setState((previousState) => ({
@@ -528,6 +560,13 @@ export class FiltersPanel extends Component<Props, State> {
             </div>
           )}
         </Collapse>
+        <GenericMuiDialog
+          open={this.state.openCadenceListDialog}
+          title={t('cadenceListDialog.title')}
+          content={this.props.cadences?.map((cadence) => cadence.name)}
+          onCancel={this.closeCadencesDialog}
+          cancelText={t('cadenceListDialog.close')}
+        />
       </div>
     );
   }
@@ -536,6 +575,21 @@ export class FiltersPanel extends Component<Props, State> {
 const styles = createStyles((theme: Theme) => ({
   menu: {
     width: '300px',
+  },
+  cadenceChipContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: theme.spacing(4),
+  },
+  cadenceChip: {
+    display: 'flex',
+    alignItems: 'center',
+    background: theme.palette.grey[300],
+    borderRadius: '4px',
+    padding: '2px',
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
   header: {
     display: 'flex',

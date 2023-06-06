@@ -44,6 +44,7 @@ import {
   createSmartListAutomatedCampaign,
   updateSmartListAutomatedCampaign,
   deleteSmartListAutomatedCampaign,
+  fetchCadencesUsingSmartlist,
 } from '#libs/smart-list/actions';
 import {
   getSmartListFilters,
@@ -51,6 +52,8 @@ import {
   getSmartListAutoTag,
   getSmartListAutomatedCampaign,
   getAutomatedCampaign,
+  getCadencesUsingSmartlist,
+  getCadenceIdsUsingSmartlistLoading,
 } from '#libs/smart-list/selectors';
 
 import {
@@ -169,6 +172,9 @@ import {
 import Config from '../../config';
 import { getSmartListPopupSendingList } from '#libs/communication-v2/selectors';
 
+// CADENCES
+import { fetchCadenceList } from '../../libs/sequential_marketingDEPRECATED/actions';
+
 type OwnProps = {
   id: number;
   memberTitle: string;
@@ -228,6 +234,16 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     this.props.fetchResolvedGenericTags();
     this.props.getUnreadAnswersCountAction(params);
     this.props.fetchSmartListPopupSendings({ smartlist_id: this.props.id });
+    this.props.fetchCadenceList(
+      {
+        /* Unused param */
+      },
+      {
+        onSuccess: () => {
+          this.props.fetchCadencesUsingSmartlist(this.props.id);
+        },
+      },
+    );
   }
 
   handleFetchLevel = () => {
@@ -423,6 +439,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           memberLoading={this.props.members.loading}
           memberList={this.props.members.displayItems}
           featureList={this.props.featureList}
+          cadences={this.props.cadences}
         />
         <AutomatedCampaignPanel
           onAdd={this.onAddAutomatedCampaign}
@@ -669,7 +686,10 @@ const connector = connect(
       state.smartList.automatedCampaign.delete.loading,
     smartlistAutoTagRulesList: getSmartListAutoTag(state),
     smartlistAutoTagRulesListLoading: state.smartList.smartListTagRules.loading,
-    loading: state.smartList.loading || state.smartList.filter.loading,
+    loading:
+      state.smartList.loading ||
+      state.smartList.filter.loading ||
+      getCadenceIdsUsingSmartlistLoading(state),
 
     // MEMBERS
     members: {
@@ -734,6 +754,9 @@ const connector = connect(
 
     // UPSELLS
     featureList: state.company.feature.data.upsell,
+
+    // CADENCES
+    cadences: getCadencesUsingSmartlist(state, id),
   }),
   {
     // SMARTLIST
@@ -809,6 +832,10 @@ const connector = connect(
     // START-UP POP-UP
     fetchSmartListPopupSendings,
     sendSmartListPopup,
+
+    // CADENCES
+    fetchCadencesUsingSmartlist,
+    fetchCadenceList,
   },
 );
 

@@ -69,6 +69,12 @@ const MarketingRuleSendingMethodField = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['subscription', 'communication']);
 
+  React.useEffect(() => {
+    if (email_design) {
+      getEmailDetail(email_design);
+    }
+  }, [getEmailDetail, email_design]);
+
   const [displayEmailPreview, setDisplayEmailPreview] = useState(false);
 
   const emailPreview = useMemo(

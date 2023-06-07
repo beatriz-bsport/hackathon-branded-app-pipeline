@@ -31,6 +31,7 @@ import { ClockInData } from '../types';
 import { getTextColorFromRGB } from '../../../utils/color';
 import EditClockinModal from './EditClockIn.dialog';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
+import { getRoleName } from '#libs/role/utils';
 
 type Props = {
   value: {
@@ -161,7 +162,6 @@ const ClockInHistoryRow: React.FC<{
     Math.floor(moment.duration(totalDuration, 'millisecond').asMinutes()) -
     hours * 60;
   const totalDurationDisplay = hours + ':' + (mins > 9 ? mins : '0' + mins);
-
   return (
     <>
       <TableRow>
@@ -191,7 +191,7 @@ const ClockInHistoryRow: React.FC<{
         <TableCell colSpan={10} className={classes.email}>
           {row.email}
         </TableCell>
-        <TableCell colSpan={10}>{row?.role?.name}</TableCell>
+        <TableCell colSpan={10}>{getRoleName(row?.role, t)}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell

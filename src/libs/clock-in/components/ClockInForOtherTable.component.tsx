@@ -25,6 +25,7 @@ import type {
   OptionPaginatedCallback,
 } from '../../../state/types';
 import { Role } from '#libs/role/types';
+import { getRoleName } from '#libs/role/utils';
 
 const MEMBER_PER_PAGE = 15;
 
@@ -214,7 +215,7 @@ const ClockInForOtherTable: React.FC<Props> = ({
           firstname: first_name,
           lastname: last_name,
           email,
-          role: role?.name,
+          role: getRoleName(role, t),
           lastClockIn: attendance?.date_start
             ? `${moment.unix(attendance?.date_start).format('L')} - ${moment
                 .unix(attendance?.date_start)

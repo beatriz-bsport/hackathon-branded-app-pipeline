@@ -1423,7 +1423,9 @@
             "total_price_notax": "Importe total sin impuestos",
             "total_price": "Importe total impuestos inc.",
             "author": "Autor",
-            "invoiceitem_pk": "Número de artículos facturados"
+            "invoiceitem_pk": "Número de artículos facturados",
+            "staff_commission_amount": "Comisiones del personal incl. IVA",
+            "staff_commission_amount_notax": "Comisión de personal excl. IVA"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -4984,6 +4986,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelado",
+                "Cancelada",
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",

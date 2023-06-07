@@ -402,7 +402,12 @@ export const FranchiseDrawer = (props: Props) => {
     <div className={classes.scrollable}>
       <div>
         <div className={classes.toolbar}>
-          <Grid container style={{ paddingTop: 10 }} alignItems="center">
+          <Grid
+            container
+            style={{ paddingTop: 10 }}
+            alignItems="center"
+            justifyContent="center"
+          >
             <Hidden smDown>
               <img height={40} src={cover ?? LOGO_ASSET} alt="bsport logo" />
             </Hidden>

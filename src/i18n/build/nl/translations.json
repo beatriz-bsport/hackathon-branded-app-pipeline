@@ -3019,6 +3019,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
+                "Geannuleerd",
                 "Geannuleerd"
             ]
         },
@@ -10614,6 +10615,16 @@
             "send": {
                 "error": "Er is een fout opgetreden tijdens het verzenden van uw pop-up."
             }
+        },
+        "cadence": {
+            "create": {
+                "error": "Er is een fout opgetreden bij het maken van de cadans",
+                "success": "Er is een nieuwe cadens aangemaakt"
+            },
+            "update": {
+                "error": "Er is een fout opgetreden bij het bewerken van de cadans",
+                "success": "Uw cadans is bijgewerkt"
+            }
         }
     },
     "coach": {
@@ -11369,7 +11380,9 @@
             "total_price": "Gefactureerd bedrag incl. BTW",
             "invoice_date_created": "Datum afgifte factuur",
             "author": "Auteur",
-            "invoiceitem_pk": "Aantal gefactureerde artikelen"
+            "invoiceitem_pk": "Aantal gefactureerde artikelen",
+            "staff_commission_amount": "Personeelscommissie inclusief belasting",
+            "staff_commission_amount_notax": "Personeelscommissie exclusief btw"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Incasso's",

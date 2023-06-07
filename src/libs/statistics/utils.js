@@ -8,7 +8,7 @@ export const dateFormatter = (domain) => {
     return (d) => moment(d).format('MMM YYYY');
   }
   if (duration.asDays() > 15) {
-    return (d) => moment(d).format('DD MMM');
+    return (d) => moment(d).add(3, 'days').format('DD MMM');
   }
   if (duration.asDays() > 1) {
     return (d) => moment(d).format('ddd DD MMM');
@@ -35,4 +35,14 @@ export const numberFormatter = (isCurrencyFormat) => (x) => {
     return `${parts.join('.')}${isCurrencyFormat ? getCurrencyDisplay() : ''}`;
 
   return `${isCurrencyFormat ? getCurrencyDisplay() : ''}${parts.join('.')}`;
+};
+
+export const tooltipLabelFormatter = (domain: Moment[]) => (date: string) => {
+  const duration = moment.duration(moment(domain[1]).diff(moment(domain[0])));
+  if (duration.asDays() <= 100 && duration.asDays() > 15) {
+    return `${moment(date).startOf('week').format('DD-MMM')} - ${moment(date)
+      .endOf('week')
+      .format('DD-MMM')}`;
+  }
+  return date;
 };

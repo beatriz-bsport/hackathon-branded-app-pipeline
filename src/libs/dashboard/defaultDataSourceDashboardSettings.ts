@@ -397,7 +397,7 @@ export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSet
           defaultTitle: 'graphDefaultTitles.invoiceItemTemporal',
           graph_family: 'temporal',
           graph_params: {
-            date: 'invoice_date_created',
+            date: 'invoice_datetime',
             date_value: 'total_price_notax',
             aggregation_function_name: 'sum',
           },
@@ -413,7 +413,7 @@ export const getDefaultDataSourceDashboardSettings: () => DataSourceDashboardSet
                     value: [1629241200, 1660863599],
                     datatype: 'datetime',
                     comparator: 4,
-                    identifier: 'invoice_date_created',
+                    identifier: 'invoice_datetime',
                     time_period: 'year',
                     sub_datatype: 0,
                   },

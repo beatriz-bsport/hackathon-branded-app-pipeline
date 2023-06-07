@@ -151,7 +151,7 @@ const defaultDashboardConfiguration = [
         ressourceIdentifier: 'temporalInvoiceItems',
         chart: 'area',
         baseFilters: {
-          date_field: 'invoice_date_created',
+          date_field: 'invoice_datetime',
           aggregate_field: 'total_price_notax',
           aggregate_function: 'sum',
         },

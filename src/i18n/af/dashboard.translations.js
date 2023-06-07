@@ -268,7 +268,7 @@ exports.default = {
     staff_commission_amount_notax: 'Frais de commission du staff HT',
     total_price_notax: 'Montant facturé HT',
     total_price: 'Montant facturé TTC',
-    invoice_date_created: "Date d'émission de la facture",
+    invoice_datetime: "Date d'émission de la facture",
     author: 'Auteur',
     privatebooking_pk: 'Nombre de RDV',
     payment_pk: 'Nombre de paiements',

@@ -12,7 +12,11 @@ import {
   Label,
 } from 'recharts';
 import isEqual from 'lodash/isEqual';
-import { dateFormatter, numberFormatter } from '#libs/statistics/utils';
+import {
+  dateFormatter,
+  numberFormatter,
+  tooltipLabelFormatter,
+} from '#libs/statistics/utils';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import TemporalCustomYLabel from './TemporalCustomYLabel.component';
 
@@ -115,7 +119,10 @@ export function TemporalAreaChart(props: Props) {
           />
         </YAxis>
         {props.tooltip && (
-          <Tooltip formatter={numberFormatter(isCurrencyFormat)} />
+          <Tooltip
+            formatter={numberFormatter(isCurrencyFormat)}
+            labelFormatter={tooltipLabelFormatter([start, end])}
+          />
         )}
         {chartOptions.map((areaData) => {
           return (

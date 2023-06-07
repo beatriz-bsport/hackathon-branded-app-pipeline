@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
@@ -20,6 +19,7 @@ import WidgetUtils from '../../../libs/widget/WidgetUtils';
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import CollapsibleSection from '../../../components/CollapsibleSection';
 import { RadioItem } from '../../../components/radio/RadioItem';
+// @ts-expect-error
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 
 import PaymentComboBookableItem from '../../../libs/booker-module/components/PaymentComboBookableItem.component';
@@ -50,11 +50,16 @@ import {
 } from '../../../libs/payment-packs/actions';
 import { fetchConsumerPaymentPackCompatibleList } from '../../../libs/consumer-payment-pack/actions';
 import { fetchPaymentComboList } from '../../../libs/payment-combo/actions';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
+import themeSelectors from '#libs/theme/selectors';
 
 import { RootState } from '../../../reducers';
 
 import PrivatePassBookableItem from '../../../libs/booker-module/components/PrivatePassBookableItem.component';
 import PrivateConsumerPassBookableItem from '../../../libs/booker-module/components/PrivateConsumerPassBookableItem.component';
+
+import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
+import { PaymentPack } from '#libs/payment-packs/types';
 
 const BOOKER_ITEM_PASS = -1;
 const BOOKER_ITEM_PRIVATE_PASS = -2;
@@ -125,6 +130,7 @@ export class VideoCheckoutBase extends Component<Props, State> {
 
   componentDidMount() {
     // this.props.retrieveVideo(this.props.id);
+    this.props.fetchCompanyTheme();
     this.props.fetchPrivatePassList({ video: this.props.id });
     this.props.fetchPaymentPackList({
       as_consumer: true,
@@ -255,41 +261,49 @@ export class VideoCheckoutBase extends Component<Props, State> {
               )} (${consumerPassLength})`}
               in
             >
-              {this.props.consumerPaymentPackList.map((cpp) => (
-                <div className={classes.item} key={cpp.id}>
+              {this.props.consumerPaymentPackList.map(
+                (consumerPaymentPack: ConsumerPaymentPack<PaymentPack>) => (
+                  <div className={classes.item} key={consumerPaymentPack.id}>
+                    <RadioItem
+                      disabled={this.state.processing}
+                      selected={
+                        consumerPaymentPack.id === this.state.selectedPass.id &&
+                        this.state.selectedPass.buyable_item_identifier ===
+                          BOOKER_ITEM_PASS
+                      }
+                      onClick={() =>
+                        this.selectBookerMethod(
+                          consumerPaymentPack.id,
+                          BOOKER_ITEM_PASS,
+                        )
+                      }
+                      renderItem={() => (
+                        <ConsumerPaymentPackBookableItem
+                          consumerPaymentPack={consumerPaymentPack}
+                        />
+                      )}
+                    />
+                  </div>
+                ),
+              )}
+              {this.props.privateConsumerPassList.map((privateConsumerPass) => (
+                <div className={classes.item} key={privateConsumerPass.id}>
                   <RadioItem
                     disabled={this.state.processing}
                     selected={
-                      cpp.id === this.state.selectedPass.id &&
-                      this.state.selectedPass.buyable_item_identifier ===
-                        BOOKER_ITEM_PASS
-                    }
-                    onClick={() =>
-                      this.selectBookerMethod(cpp.id, BOOKER_ITEM_PASS)
-                    }
-                    renderItem={() => (
-                      <ConsumerPaymentPackBookableItem
-                        consumerPaymentPack={cpp}
-                      />
-                    )}
-                  />
-                </div>
-              ))}
-              {this.props.privateConsumerPassList.map((pp) => (
-                <div className={classes.item} key={pp.id}>
-                  <RadioItem
-                    disabled={this.state.processing}
-                    selected={
-                      pp.id === this.state.selectedPass.id &&
+                      privateConsumerPass.id === this.state.selectedPass.id &&
                       this.state.selectedPass.buyable_item_identifier ===
                         BOOKER_ITEM_PRIVATE_PASS
                     }
                     onClick={() =>
-                      this.selectBookerMethod(pp.id, BOOKER_ITEM_PRIVATE_PASS)
+                      this.selectBookerMethod(
+                        privateConsumerPass.id,
+                        BOOKER_ITEM_PRIVATE_PASS,
+                      )
                     }
                     renderItem={() => (
                       <PrivateConsumerPassBookableItem
-                        privateConsumerPass={pp}
+                        privateConsumerPass={privateConsumerPass}
                       />
                     )}
                   />
@@ -302,38 +316,51 @@ export class VideoCheckoutBase extends Component<Props, State> {
               title={`${t('bookerMethod.section.pass')} (${passLength})`}
               in
             >
-              {this.props.paymentPackList.map((pp) => (
-                <div className={classes.item} key={pp.id}>
+              {this.props.paymentPackList.map((paymentPack: PaymentPack) => (
+                <div className={classes.item} key={paymentPack.id}>
                   <RadioItem
                     disabled={this.state.processing}
                     selected={
-                      pp.id === this.state.selectedPass.id &&
+                      paymentPack.id === this.state.selectedPass.id &&
                       this.state.selectedPass.buyable_item_identifier ===
                         BUYABLE_ITEM_PASS
                     }
                     onClick={() =>
-                      this.selectBookerMethod(pp.id, BUYABLE_ITEM_PASS)
+                      this.selectBookerMethod(paymentPack.id, BUYABLE_ITEM_PASS)
                     }
                     renderItem={() => (
-                      <PaymentPackBookableItem paymentPack={pp} />
+                      <PaymentPackBookableItem
+                        paymentPack={paymentPack}
+                        hideCredits={
+                          this.props.theme.hide_credits_for_customers
+                        }
+                      />
                     )}
                   />
                 </div>
               ))}
-              {this.props.privatePassList.map((pp) => (
-                <div className={classes.item} key={pp.id}>
+              {this.props.privatePassList.map((privatePass) => (
+                <div className={classes.item} key={privatePass.id}>
                   <RadioItem
                     disabled={this.state.processing}
                     selected={
-                      pp.id === this.state.selectedPass.id &&
+                      privatePass.id === this.state.selectedPass.id &&
                       this.state.selectedPass.buyable_item_identifier ===
                         BUYABLE_ITEM_PRIVATE_PASS
                     }
                     onClick={() =>
-                      this.selectBookerMethod(pp.id, BUYABLE_ITEM_PRIVATE_PASS)
+                      this.selectBookerMethod(
+                        privatePass.id,
+                        BUYABLE_ITEM_PRIVATE_PASS,
+                      )
                     }
                     renderItem={() => (
-                      <PrivatePassBookableItem privatePass={pp} />
+                      <PrivatePassBookableItem
+                        privatePass={privatePass}
+                        hideCredits={
+                          this.props.theme.hide_credits_for_customers
+                        }
+                      />
                     )}
                   />
                 </div>
@@ -407,6 +434,7 @@ const connector = connect(
       state.privateService.privatePass.loading ||
       state.consumerPaymentPack.loading ||
       state.privateService.privateConsumerPass.loading,
+    theme: themeSelectors.getTheme(state),
   }),
   {
     fetchPrivatePassList,
@@ -419,16 +447,17 @@ const connector = connect(
     fetchCurrentBasket,
     addItemToBasket,
     registerVideo,
+    fetchCompanyTheme: fetchCompanyThemeAction,
   },
 );
 
-export const VideoCheckoutComponent = compose(
+export const VideoCheckoutComponent = compose<Props, OwnProps>(
   withStyles(styles),
   withTranslation(['checkout']),
   connector,
 )(VideoCheckoutBase);
 
-export default compose(
+export default compose<Props, OwnProps>(
   routerParamsToProps({ id: 'id:number', companyId: 'companyId:number' }),
 )((props) => (
   <ConsumerAppBarContainer>

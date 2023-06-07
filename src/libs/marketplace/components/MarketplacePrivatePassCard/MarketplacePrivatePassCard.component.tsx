@@ -31,6 +31,7 @@ export type Props = {
   isExcludingTax: boolean;
   addToCart: () => void;
   onOpenDetailDialog: () => void;
+  hideCredits?: boolean;
 };
 
 const MarketplacePrivatePassCard: React.FC<Props> = ({
@@ -38,6 +39,7 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
   isExcludingTax,
   addToCart,
   onOpenDetailDialog,
+  hideCredits,
 }) => {
   const { t } = useTranslation(['marketplace']);
   const theme = useTheme();
@@ -75,11 +77,13 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
               )}
               {privatePass.name}
             </div>
-            <div className="bs-pass-card__subtitle">
-              {t('genericCard.credits.availableCredit', {
-                count: privatePass.credits,
-              })}
-            </div>
+            {!hideCredits && (
+              <div className="bs-pass-card__subtitle">
+                {t('genericCard.credits.availableCredit', {
+                  count: privatePass.credits,
+                })}
+              </div>
+            )}
             {privatePass.description && (
               <div className="bs-pass-card__description">
                 {privatePass.description}

@@ -27,6 +27,7 @@ type Props = {
   searchedPrivatePass: number[] | null;
   onAddBasket: (privatePassId: number) => void;
   setSelectedPass: (id: number) => void;
+  hideCredits?: boolean;
 };
 
 type PrivatePassCardProps = {
@@ -34,10 +35,12 @@ type PrivatePassCardProps = {
   isExcludingTax: boolean;
   onAddBasket: (privatePassId: number) => void;
   setSelectedPass: (id: number) => void;
+  hideCredits?: boolean;
 };
 
 const PrivatePassCard = (props: PrivatePassCardProps) => {
-  const { pass, isExcludingTax, onAddBasket, setSelectedPass } = props;
+  const { pass, isExcludingTax, onAddBasket, setSelectedPass, hideCredits } =
+    props;
   const theme = useTheme();
   const classes = useStyles();
   const isMobile = useMediaQuery(
@@ -71,6 +74,7 @@ const PrivatePassCard = (props: PrivatePassCardProps) => {
         isExcludingTax={isExcludingTax}
         onOpenDetailDialog={handleOpenDetailDialog}
         addToCart={handleAddToCart}
+        hideCredits={!!hideCredits}
       />
     </button>
   );
@@ -87,6 +91,7 @@ export const MarketplacePrivatePassList = (props: Props) => {
     isExcludingTax,
     setSelectedPass,
     onAddBasket,
+    hideCredits,
   } = props;
 
   const { filteredPrivatePassByCategory } = useMarketplacePassFilters({
@@ -132,6 +137,7 @@ export const MarketplacePrivatePassList = (props: Props) => {
                       isExcludingTax={isExcludingTax}
                       setSelectedPass={setSelectedPass}
                       onAddBasket={onAddBasket}
+                      hideCredits={!!hideCredits}
                     />
                   ))}
                 </div>

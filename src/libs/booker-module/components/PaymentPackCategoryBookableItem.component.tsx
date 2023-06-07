@@ -26,13 +26,14 @@ type OwnProps = {
   openPacks: (id: number) => void;
   isExcludingTax?: boolean;
   openModale: (msg: string) => void;
+  hideCredits?: boolean;
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
 export const PaymentPackCategoryBookableItem = (props: Props) => {
-  const { classes, paymentPackCategory, t } = props;
+  const { classes, paymentPackCategory, t, hideCredits } = props;
   const [paymentPackMore, setPaymentPackMore] = useState(false);
 
   return (
@@ -56,6 +57,7 @@ export const PaymentPackCategoryBookableItem = (props: Props) => {
                     <PaymentPackBookableItem
                       paymentPack={pack}
                       isExcludingTax={props.isExcludingTax}
+                      hideCredits={!!hideCredits}
                     />
                   )}
                 />

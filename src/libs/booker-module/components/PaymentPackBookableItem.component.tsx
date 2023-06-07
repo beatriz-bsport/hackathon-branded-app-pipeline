@@ -18,6 +18,7 @@ import Tooltip from '#components/Tooltip.component';
 interface Props {
   paymentPack: (PaymentPack | PaymentPackTemplate) & Partial<MaxoutData>;
   isExcludingTax?: boolean;
+  hideCredits?: boolean;
 }
 
 const PaymentPackItem = (props: Props) => {
@@ -49,13 +50,15 @@ const PaymentPackItem = (props: Props) => {
                 props.paymentPack.tax,
               )}
             </Typography>
-            <Typography
-              className={classes.creditText}
-              variant="h6"
-              align="left"
-            >
-              {credits}
-            </Typography>
+            {!props.hideCredits && (
+              <Typography
+                className={classes.creditText}
+                variant="h6"
+                align="left"
+              >
+                {credits}
+              </Typography>
+            )}
           </div>
           <Typography variant="body1" color="textSecondary" align="left">
             {date}

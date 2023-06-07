@@ -610,6 +610,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
                   isExcludingTax={
                     this.props.theme.is_tax_excluded_in_marketplace
                   }
+                  hideCredits={this.props.theme.hide_credits_for_customers}
                 />
               </div>
             )}
@@ -631,6 +632,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
                   isExcludingTax={
                     this.props.theme.is_tax_excluded_in_marketplace
                   }
+                  hideCredits={this.props.theme.hide_credits_for_customers}
                 />
               </div>
             )}
@@ -666,6 +668,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
           addComboToCart={this.addComboToCart}
           handleCloseDialog={this.handleCloseDialog}
           handleOpenDialog={this.handleOpenDialog}
+          hideCredits={this.props.theme.hide_credits_for_customers}
         />
       </>
     );

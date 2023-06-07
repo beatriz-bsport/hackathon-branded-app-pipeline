@@ -20,19 +20,24 @@ type Props = {
   onClick: () => void;
   divider?: boolean;
   isExcludingTax?: boolean;
+  hideCredits?: boolean;
 };
 
 export const PrivatePassBookerListItem = (props: Props) => {
-  const { private_pass } = props;
+  const { private_pass, hideCredits } = props;
   const { t } = useTranslation('privateService');
   const classes = useStyles();
   return (
     <ListItem divider={props.divider}>
       <ListItemText
         primary={private_pass.name}
-        secondary={t('bookerModule.private_pass.credits', {
-          credits: private_pass.credits,
-        })}
+        secondary={
+          hideCredits
+            ? ''
+            : t('bookerModule.private_pass.credits', {
+                credits: private_pass.credits,
+              })
+        }
       />
       {!!private_pass.linked_payment_pack && (
         <Tooltip title={t('privatePass.form.universalPass.label')}>

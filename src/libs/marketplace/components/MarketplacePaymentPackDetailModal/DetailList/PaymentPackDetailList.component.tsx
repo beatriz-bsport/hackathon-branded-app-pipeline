@@ -37,6 +37,7 @@ type Props = {
   isCompatibleWithAll: boolean;
   onShowCompatibilityDialog: () => void;
   onShowRestrictionDialog: () => void;
+  hideCredits?: boolean;
 };
 
 const PaymentPackDetailList: React.FC<Props> = ({
@@ -44,6 +45,7 @@ const PaymentPackDetailList: React.FC<Props> = ({
   isCompatibleWithAll,
   onShowCompatibilityDialog,
   onShowRestrictionDialog,
+  hideCredits,
 }) => {
   const { t } = useTranslation('marketplace');
   const [isMenuExpanded, setMenuExpanded] = React.useState<Boolean>(false);
@@ -84,23 +86,24 @@ const PaymentPackDetailList: React.FC<Props> = ({
 
   return (
     <ul className="bs-pack-details-dialog__list">
-      {paymentPack.unlimited ? (
-        <li className="bs-pack-details-dialog__list__item">
-          <span className="bs-pack-details-dialog__list__item__icon">
-            <AllInclusiveIcon />
-          </span>
-          {t('genericCardDetails.credits.unlimited')}
-        </li>
-      ) : (
-        <li className="bs-pack-details-dialog__list__item">
-          <span className="bs-pack-details-dialog__list__item__icon">
-            <StarIcon />
-          </span>
-          {t('genericCardDetails.credits.availableCredit', {
-            count: paymentPack.credits,
-          })}
-        </li>
-      )}
+      {!hideCredits &&
+        (paymentPack.unlimited ? (
+          <li className="bs-pack-details-dialog__list__item">
+            <span className="bs-pack-details-dialog__list__item__icon">
+              <AllInclusiveIcon />
+            </span>
+            {t('genericCardDetails.credits.unlimited')}
+          </li>
+        ) : (
+          <li className="bs-pack-details-dialog__list__item">
+            <span className="bs-pack-details-dialog__list__item__icon">
+              <StarIcon />
+            </span>
+            {t('genericCardDetails.credits.availableCredit', {
+              count: paymentPack.credits,
+            })}
+          </li>
+        ))}
       {validityInformation && (
         <li className="bs-pack-details-dialog__list__item">
           <span className="bs-pack-details-dialog__list__item__icon">

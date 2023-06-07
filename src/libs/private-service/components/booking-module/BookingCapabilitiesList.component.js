@@ -27,10 +27,11 @@ type Props = {
   compatibleWithUnpaidBooking: boolean,
   privateSlotCredit?: number,
   isExcludingTax?: boolean,
+  hideCredits?: boolean,
 };
 
 export const BookingCapabilities = (props: Props) => {
-  const { t, classes, loading, privateConsumerPassList } = props;
+  const { t, classes, loading, privateConsumerPassList, hideCredits } = props;
   if (loading) {
     return <LinearProgress />;
   }
@@ -104,6 +105,7 @@ export const BookingCapabilities = (props: Props) => {
                     private_pass={pp}
                     key={pp.id}
                     onClick={() => props.onPrivatePassClick(pp.id)}
+                    hideCredits={!!hideCredits}
                   />
                 ))}
               </Paper>

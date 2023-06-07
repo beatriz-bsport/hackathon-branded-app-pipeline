@@ -26,6 +26,7 @@ type Props = {
   searchedPaymentPack: number[] | null;
   pushPackCheckout: (id: number) => void;
   setSelectedPass: (id: number) => void;
+  hideCredits?: boolean;
 };
 
 type PaymentPackCardProps = {
@@ -33,10 +34,17 @@ type PaymentPackCardProps = {
   isExcludingTax: boolean;
   pushPackCheckout: (id: number) => void;
   setSelectedPass: (id: number) => void;
+  hideCredits?: boolean;
 };
 
 const PaymentPackCard = (props: PaymentPackCardProps) => {
-  const { pack, isExcludingTax, pushPackCheckout, setSelectedPass } = props;
+  const {
+    pack,
+    isExcludingTax,
+    pushPackCheckout,
+    setSelectedPass,
+    hideCredits,
+  } = props;
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(
@@ -72,6 +80,7 @@ const PaymentPackCard = (props: PaymentPackCardProps) => {
         isExcludingTax={isExcludingTax}
         onOpenDetailDialog={handleOpenDetailDialog}
         addToCart={handleAddToCart}
+        hideCredits={!!hideCredits}
       />
     </button>
   );
@@ -88,6 +97,7 @@ export function MarketplacePaymentPackList(props: Props) {
     selectedCategories,
     searchedPaymentPack,
     isExcludingTax,
+    hideCredits,
   } = props;
 
   const { filteredPaymentPackByCategory } = useMarketplacePassFilters({
@@ -140,6 +150,7 @@ export function MarketplacePaymentPackList(props: Props) {
                         isExcludingTax={isExcludingTax}
                         pushPackCheckout={pushPackCheckout}
                         setSelectedPass={setSelectedPass}
+                        hideCredits={!!hideCredits}
                       />
                     ))}
                   </div>

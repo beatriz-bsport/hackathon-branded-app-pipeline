@@ -33,6 +33,7 @@ export type Props = {
   onAddToCart: (packId: number) => void;
   onShowCompatibilityDialog: () => void;
   onShowRestrictionDialog: () => void;
+  hideCredits?: boolean;
 };
 
 const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
@@ -47,6 +48,7 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
     onDialogClose,
     onAddToCart,
     onShowCompatibilityDialog,
+    hideCredits,
   }) => {
     const { t } = useTranslation('marketplace');
 
@@ -104,6 +106,7 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                           isCompatibleWithAll={isCompatibleWithAll}
                           onShowCompatibilityDialog={onShowCompatibilityDialog}
                           onShowRestrictionDialog={onShowRestrictionDialog}
+                          hideCredits={!!hideCredits}
                         />
                       </Item>
                     </Grid>

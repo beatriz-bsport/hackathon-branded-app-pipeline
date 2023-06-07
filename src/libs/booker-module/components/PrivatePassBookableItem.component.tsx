@@ -9,6 +9,7 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 interface Props {
   privatePass: PrivatePass;
+  hideCredits?: boolean;
 }
 
 const PrivatePassBookableItem = (props: Props) => {
@@ -28,9 +29,11 @@ const PrivatePassBookableItem = (props: Props) => {
         <Typography variant="h6">
           {getCurrencyDisplayWithPrice(props.privatePass.price)}
         </Typography>
-        <Typography className={classes.creditText} variant="h6" align="left">
-          {creditText}
-        </Typography>
+        {!props.hideCredits && (
+          <Typography className={classes.creditText} variant="h6" align="left">
+            {creditText}
+          </Typography>
+        )}
       </div>
       <Typography variant="body1" color="textSecondary" align="left">
         {date}

@@ -28,6 +28,7 @@ export type Props = {
   onDialogClose: () => void;
   onAddToCart: (packId: number) => void;
   onShowCompatibilityDialog: () => void;
+  hideCredits?: boolean;
 };
 
 const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
@@ -39,6 +40,7 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
   onDialogClose,
   onAddToCart,
   onShowCompatibilityDialog,
+  hideCredits,
 }) => {
   const { t } = useTranslation('marketplace');
 
@@ -91,6 +93,7 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                         privatePass={privatePass}
                         compatiblePrivateServices={compatiblePrivateServices}
                         onShowCompatibilityDialog={onShowCompatibilityDialog}
+                        hideCredits={!!hideCredits}
                       />
                     </Item>
                   </Grid>

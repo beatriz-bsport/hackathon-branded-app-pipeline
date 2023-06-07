@@ -50,6 +50,7 @@ type Props = {
     key: string,
     selectedItem?: PaymentPack | PrivatePass | PaymentCombo,
   ) => void;
+  hideCredits?: boolean;
 };
 
 const MarketplacePassDialogs = (props: Props) => {
@@ -71,6 +72,7 @@ const MarketplacePassDialogs = (props: Props) => {
     addComboToCart,
     handleCloseDialog,
     handleOpenDialog,
+    hideCredits,
   } = props;
 
   const paymentPackCompatibleEstablishments = useMemo(() => {
@@ -180,6 +182,7 @@ const MarketplacePassDialogs = (props: Props) => {
         onDialogClose={handleClosePaymentPackDetailsDialog}
         onShowRestrictionDialog={handleOpenPaymentPackRestrictionDialog}
         onShowCompatibilityDialog={handleOpenPaymentPackCompatibilityDialog}
+        hideCredits={!!hideCredits}
       />
 
       <MarketplacePaymentPackRestrictionModal
@@ -208,6 +211,7 @@ const MarketplacePassDialogs = (props: Props) => {
         compatiblePrivateServices={privatePassCompatibleServices?.length ?? 0}
         onAddToCart={addPrivatePassToCart}
         onShowCompatibilityDialog={handleOpenPrivatePassCompatibilityDialog}
+        hideCredits={!!hideCredits}
       />
 
       <MarketplacePrivatePassCompatibilityModal

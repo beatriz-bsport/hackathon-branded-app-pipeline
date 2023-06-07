@@ -20,24 +20,32 @@ export type Props = {
   privatePass: PrivatePass;
   compatiblePrivateServices: number;
   onShowCompatibilityDialog: () => void;
+  hideCredits?: boolean;
 };
 
 const PrivatePassDetailsList: React.FC<Props> = React.memo(
-  ({ privatePass, compatiblePrivateServices, onShowCompatibilityDialog }) => {
+  ({
+    privatePass,
+    compatiblePrivateServices,
+    onShowCompatibilityDialog,
+    hideCredits,
+  }) => {
     const { t } = useTranslation('marketplace');
 
     const validityInfos = useValidityInfoForPrivatePassCard(privatePass);
 
     return (
       <ul className="bs-pass-details-dialog__list">
-        <li className="bs-pass-details-dialog__list__item">
-          <span className="bs-pass-details-dialog__list__item__icon">
-            <StarIcon />
-          </span>
-          {t('genericCardDetails.credits.availableCredit', {
-            count: privatePass?.credits,
-          })}
-        </li>
+        {!hideCredits && (
+          <li className="bs-pass-details-dialog__list__item">
+            <span className="bs-pass-details-dialog__list__item__icon">
+              <StarIcon />
+            </span>
+            {t('genericCardDetails.credits.availableCredit', {
+              count: privatePass?.credits,
+            })}
+          </li>
+        )}
         {validityInfos && (
           <li className="bs-pass-details-dialog__list__item">
             <span className="bs-pass-details-dialog__list__item__icon">

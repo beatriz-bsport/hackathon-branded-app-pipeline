@@ -31,10 +31,17 @@ export type Props = {
   isExcludingTax?: boolean;
   addToCart: () => void;
   onOpenDetailDialog: () => void;
+  hideCredits?: boolean;
 };
 
 const MarketplacePaymentPackCard = (props: Props) => {
-  const { paymentPack, isExcludingTax, addToCart, onOpenDetailDialog } = props;
+  const {
+    paymentPack,
+    isExcludingTax,
+    addToCart,
+    onOpenDetailDialog,
+    hideCredits,
+  } = props;
   const { t } = useTranslation('marketplace');
   const theme = useTheme();
   const isMobile = useMediaQuery(
@@ -79,9 +86,11 @@ const MarketplacePaymentPackCard = (props: Props) => {
               )}
               {paymentPack.name}
             </div>
-            <div className="bs-paymentpack-card__subtitle">
-              {formatedCredits}
-            </div>
+            {!hideCredits && (
+              <div className="bs-paymentpack-card__subtitle">
+                {formatedCredits}
+              </div>
+            )}
           </Item>
           <Item
             alignment={Alignment.FLEX_END}

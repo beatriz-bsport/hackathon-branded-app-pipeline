@@ -20,6 +20,7 @@ type Props = {
   slot: PrivateSlot,
   t: TFunction,
   divider?: boolean,
+  hideCredits?: boolean,
 };
 
 const DeleteButton = (props: { onClick: () => void }) => (
@@ -46,12 +47,15 @@ export const PrivateSlotListItem = (props: Props) => {
     >
       <ListItemText
         primary={props.slot.name}
-        secondary={`${formatMinutes(
-          props.slot.duration_minutes,
-          props.t,
-        )} - ${props.t('privateService:slot.parameters.credit', {
-          credit: props.slot.credit,
-        })}`}
+        secondary={`${formatMinutes(props.slot.duration_minutes, props.t)}${
+          props.hideCredits
+            ? ''
+            : ' - '.concat(
+                props.t('privateService:slot.parameters.credit', {
+                  credit: props.slot.credit,
+                }),
+              )
+        }`}
       />
       <ListItemSecondaryAction>
         {props.onEdit ? (

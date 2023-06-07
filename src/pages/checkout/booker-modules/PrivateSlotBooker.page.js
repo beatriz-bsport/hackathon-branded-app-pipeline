@@ -265,7 +265,10 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
               <PrivateServiceListItem
                 privateService={this.props.privateService}
               />
-              <PrivateSlotListItem slot={this.props.privateSlot} />
+              <PrivateSlotListItem
+                slot={this.props.privateSlot}
+                hideCredits={this.props.theme.hide_credits_for_customers}
+              />
             </Paper>
             <div className={this.props.classes.bookingCapabilities}>
               {needAddress && !this.state.addressValidated ? (
@@ -306,6 +309,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
                     this.props.compatibleWithUnpaidBooking
                   }
                   privateSlotCredit={this.props.privateSlot?.credit}
+                  hideCredits={this.props.theme.hide_credits_for_customers}
                 />
               )}
             </div>

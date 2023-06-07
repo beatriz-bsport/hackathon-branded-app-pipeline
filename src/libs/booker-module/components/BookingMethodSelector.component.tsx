@@ -428,6 +428,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                     openPacks={(id) => this.openPacks(id, true)}
                     isExcludingTax={this.props.isExcludingTax}
                     openModale={this.openMaxoutMessageModale}
+                    hideCredits={this.props.theme.hide_credits_for_customers}
                   />
                 ))
               : null}
@@ -466,6 +467,9 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                               <PaymentPackBookableItem
                                 paymentPack={paymentPack}
                                 isExcludingTax={this.props.isExcludingTax}
+                                hideCredits={
+                                  this.props.theme.hide_credits_for_customers
+                                }
                               />
                             )}
                           />

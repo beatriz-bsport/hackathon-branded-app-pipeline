@@ -27,6 +27,7 @@ import {
 import './MarketplaceGroupOfferListItem.css';
 import MarketplaceCoachInfos from '#libs/marketplace/components/MarketplaceCoachInfos';
 import MarketplaceEstablishmentTitle from '#libs/marketplace/components/MarketplaceEstablishmentTitle';
+import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 
 export type Props = {
   showOfferFilling: boolean;
@@ -167,6 +168,14 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
     [group, onBookOption, setOpenModal],
   );
 
+  const handleClick = useCallback(() => {
+    if (group?.full_booking_only) {
+      !disableBookGroupButton() && setOpenModal(true);
+    } else {
+      setOpenModal(true);
+    }
+  }, [group?.full_booking_only, disableBookGroupButton]);
+
   const isRegisteredInOnOfferInGroup = React.useMemo(() => {
     if (!group?.full_booking_only) {
       return false;
@@ -185,7 +194,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
     return offersToDisplay.some((o) => o?.full);
   }, [group, offersToDisplay]);
 
-  const disableBookGroupButton = () => {
+  const disableBookGroupButton = useCallback(() => {
     if (!group?.full_booking_only) {
       // Without full_booking_only
       return false;
@@ -194,7 +203,13 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
       return groupIsFull || moment(anchorDate).isSameOrBefore(moment());
     }
     return groupIsFull;
-  };
+  }, [
+    group?.full_booking_only,
+    group?.allow_booking_after_start,
+    groupIsFull,
+    anchorDate,
+  ]);
+
   if (loading) {
     return (
       <Skeleton
@@ -216,11 +231,12 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
 
   return (
     <>
-      <div
+      <button
         className={classNames('bs-offer-list-group-item', {
           'bs-offer-list-group-item--mobile': isMobile,
           'bs-offer-list-group-item--without-color':
             !theme?.show_activity_color || !metaActivity.color,
+          '--hidden-book-button': theme?.hide_book_button,
         })}
         style={{
           borderLeftWidth:
@@ -231,6 +247,8 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
             metaActivity.color &&
             metaActivity.color,
         }}
+        type="button"
+        onClick={theme?.hide_book_button && handleClick}
       >
         <div className="bs-offer-list-group-item__left">
           <div className="bs-offer-list-group-item__left__title">
@@ -267,6 +285,10 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                 key={establishment.id}
                 establishment={establishment}
                 theme={theme}
+                classes={{
+                  'bs-offer-list-group-item__establishment':
+                    'bs-offer-list-group-item__establishment',
+                }}
                 icon={
                   <RoomIcon
                     color="disabled"
@@ -310,9 +332,21 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
               className="bs-offer-list-group-item__right__row__level"
             />
           </div>
-          {group?.full_booking_only && (
+          {group?.full_booking_only && firstOfferToBeBooked && (
             <>
-              {firstOfferToBeBooked && (
+              {theme?.hide_book_button ? (
+                <MarketplaceOfferStatusChip
+                  companyTheme={theme}
+                  isRegistered={isRegisteredInOnOfferInGroup}
+                  metaActivity={metaActivity}
+                  offer={{
+                    ...firstOfferToBeBooked,
+                    full: groupIsFull,
+                    group,
+                  }}
+                  showLabel
+                />
+              ) : (
                 <button
                   type="button"
                   className={classNames(
@@ -326,9 +360,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                         isRegisteredInOnOfferInGroup,
                     },
                   )}
-                  onClick={() =>
-                    !disableBookGroupButton() && setOpenModal(true)
-                  }
+                  onClick={handleClick}
                 >
                   {isRegisteredInOnOfferInGroup && (
                     <DoneAllIcon className="bs-book-button-card__inner__icon__already-booked" />
@@ -348,19 +380,17 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
               )}
             </>
           )}
-          {!group?.full_booking_only && (
+          {!group?.full_booking_only && !theme?.hide_book_button && (
             <button
               className="bs-offer-list-group-item__right__row__button"
-              onClick={() => {
-                setOpenModal(true);
-              }}
+              onClick={handleClick}
               type="button"
             >
               {t('marketplace.book')}
             </button>
           )}
         </div>
-      </div>
+      </button>
       {openModal && (
         <Dialog
           disablePortal

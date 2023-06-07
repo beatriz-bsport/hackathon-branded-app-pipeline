@@ -23,6 +23,7 @@ import { ELEMENT_WIDTH, ELEMENT_MAX_WIDTH } from '../hooks/utils';
 
 export type StepNodeElementProps = {
   step: CadenceStep<number, number, StepConnectedTriggerConfig<SmartList>>;
+  cadenceEditMode: boolean;
   onCardClick: () => void;
   handleSelectStepForSubscription: () => void;
   onDelete: () => void;
@@ -30,6 +31,7 @@ export type StepNodeElementProps = {
 
 export const StepNodeElement: React.FC<StepNodeElementProps> = ({
   step,
+  cadenceEditMode,
   handleSelectStepForSubscription,
   onCardClick,
   onDelete,
@@ -39,18 +41,20 @@ export const StepNodeElement: React.FC<StepNodeElementProps> = ({
 
   return (
     <>
-      <div className={classes.buttonTopRight}>
-        <ToolTip title={t('cadence.graph.nodeElement.deleteStep')}>
-          <IconButton
-            onClick={onDelete}
-            classes={{ root: classes.overrideIconButton }}
-            size="small"
-            color="default"
-          >
-            <DeleteIcon fontSize="small" />
-          </IconButton>
-        </ToolTip>
-      </div>
+      {cadenceEditMode && (
+        <div className={classes.buttonTopRight}>
+          <ToolTip title={t('cadence.graph.nodeElement.deleteStep')}>
+            <IconButton
+              onClick={onDelete}
+              classes={{ root: classes.overrideIconButton }}
+              size="small"
+              color="default"
+            >
+              <DeleteIcon fontSize="small" />
+            </IconButton>
+          </ToolTip>
+        </div>
+      )}
       <ButtonBase onClick={onCardClick}>
         <div className={classes.card} id={`card_element${step?.id}`}>
           <div className={classes.flexIconAndText}>

@@ -52,10 +52,12 @@ export type Props = {
   handleSelectedStepForEdition: (stepId: number) => void;
   deleteCadenceStep: (stepId: number) => void;
   deleteConnectedTrigger: (triggerId: string) => void;
+  cadenceEditMode: boolean;
 };
 
 export const useGraph = ({
   cadence,
+  cadenceEditMode,
   onClickEntryStep,
   updateCadenceStepCanvasPosition,
   updateConnectedTriggerPosition,
@@ -97,6 +99,7 @@ export const useGraph = ({
   const { entryNode, triggerNodeElements, fakeNodeElement, stepNodesElements } =
     useNodeElementsRecorder({
       cadence,
+      cadenceEditMode,
       storedEntryStep,
       storedSteps,
       storedTriggers,

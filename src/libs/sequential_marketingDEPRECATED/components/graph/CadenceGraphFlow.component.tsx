@@ -92,6 +92,7 @@ export const Flow: React.FC<Props> = ({
 
   const { nodes, setNodes, edges, setEdges, onNodeDragStop } = useGraph({
     cadence,
+    cadenceEditMode,
     onClickEntryStep,
     updateCadenceStepCanvasPosition,
     updateConnectedTriggerPosition,

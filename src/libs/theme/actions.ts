@@ -2,6 +2,7 @@
 import { createAction } from 'redux-actions';
 import moment from 'moment-timezone';
 
+import { SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION } from '@bsport/common/lib/master-data/error-codes/spivi';
 import api from './api';
 // @ts-ignore
 import { Dispatch, OptionCallback } from '../../state/types';
@@ -93,11 +94,22 @@ export function updateCompanyTheme(
       if (options && options.onSuccess) options.onSuccess();
     } catch (err) {
       if (err.response?.data?.error_code) {
-        dispatch(
-          snackbarError(
-            `companyTheme.provincialTax.customError.${err.response?.data?.error_code}`,
-          ),
-        );
+        if (
+          err.response?.data?.error_code ===
+          SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION
+        ) {
+          dispatch(
+            snackbarError(
+              `snackbar:spivi.error.${err.response?.data?.error_code}`,
+            ),
+          );
+        } else {
+          dispatch(
+            snackbarError(
+              `companyTheme.provincialTax.customError.${err.response?.data?.error_code}`,
+            ),
+          );
+        }
       } else {
         dispatch(snackbarError('companyTheme.update.error'));
       }

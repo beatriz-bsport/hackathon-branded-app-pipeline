@@ -134,6 +134,7 @@ const {
   NO_ROOM_PLAN_SELECTED_EXCEPTION,
   NO_SPIVI_BOX_ID_FOR_ROOM_PLAN_EXCEPTION,
   SPIVI_EVENT_DURATION_EXCEPTION,
+  SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION,
 } = require('@bsport/common/lib/master-data/error-codes/spivi');
 
 exports.default = {
@@ -1254,12 +1255,17 @@ exports.default = {
     error: 'Une erreur est survenue lors de la sauvegarde',
   },
   spivi: {
-    [SPIVI_UPSELL_NOT_ACTIVATED_EXCEPTION]: "L'upsell Spivi n'est pas activé.",
-    [NO_ROOM_PLAN_SELECTED_EXCEPTION]:
-      "Aucun plan de salle n'a été sélectionné",
-    [NO_SPIVI_BOX_ID_FOR_ROOM_PLAN_EXCEPTION]:
-      "Le plan de salle sélectionné n'a pas de Box ID",
-    [SPIVI_EVENT_DURATION_EXCEPTION]:
-      'Les séances liées à Spivi doivent avoir une durée comprise entre 20min et 4h',
+    error: {
+      [SPIVI_UPSELL_NOT_ACTIVATED_EXCEPTION]:
+        "L'upsell Spivi n'est pas activé.",
+      [NO_ROOM_PLAN_SELECTED_EXCEPTION]:
+        "Aucun plan de salle n'a été sélectionné",
+      [NO_SPIVI_BOX_ID_FOR_ROOM_PLAN_EXCEPTION]:
+        'Le plan de salle sélectionné doit avoir un Box ID pour que la séance soit liée à Spivi',
+      [SPIVI_EVENT_DURATION_EXCEPTION]:
+        'Les séances liées à Spivi doivent avoir une durée comprise entre 20min et 4h',
+      [SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION]:
+        "La double réservation n'est pas compatible avec l'intégration Spivi",
+    },
   },
 };

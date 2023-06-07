@@ -9550,10 +9550,13 @@
     "quicksaleConfiguration": { "updated": "Configuration sauvegardée", "error": "Une erreur est survenue lors de la sauvegarde" }
     },
     "spivi": {
-      "21000": "L'upsell Spivi n'est pas activé.",
-      "21001": "Aucun plan de salle n'a été sélectionné",
-      "21002": "Le plan de salle sélectionné n'a pas de Box ID",
-      "21003": "Les séances liées à Spivi doivent avoir une durée comprise entre 20min et 4h"
+      "error": {
+        "21000": "L'upsell Spivi n'est pas activé.",
+        "21001": "Aucun plan de salle n'a été sélectionné",
+        "21002": "Le plan de salle sélectionné doit avoir un Box ID pour que la séance soit liée à Spivi",
+        "21003": "Les séances liées à Spivi doivent avoir une durée comprise entre 20min et 4h",
+        "21004": "La double réservation n'est pas compatible avec l'intégration Spivi"
+      }
     }
   },
   "spotScheduling": {

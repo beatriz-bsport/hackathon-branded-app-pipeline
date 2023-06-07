@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
+import Chip from '@material-ui/core/Chip';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
@@ -98,7 +99,7 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
     setShowIncompatibilities(false);
   };
 
-  const { t } = useTranslation('privateService');
+  const { t } = useTranslation(['privateService', 'paymentPack']);
   const classes = useStyles();
   const renderMemberName = () => (
     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -191,7 +192,6 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
     }
     if (
       !props.onUpdateCredit ||
-      props.private_consumer_pass?.private_pass?.template_instance ||
       private_consumer_pass.dst_private_consumer_pass.length
     ) {
       return null;
@@ -199,10 +199,23 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
     if (creditProcessing) {
       return <CircularProgress />;
     }
+
+    if (private_consumer_pass.private_consumer_pass_source) {
+      return (
+        <Chip
+          color="primary"
+          label={t(
+            'paymentPack:paymentPackTemplateInstance.consumerPaymentPackSharedFromOtherFranchisee',
+          )}
+        />
+      );
+    }
+
     return (
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <IconButton
           color="primary"
+          disabled={private_consumer_pass.used_credits === 0}
           onClick={(ev) => {
             ev.stopPropagation();
             setCreditProcessing(true);
@@ -216,6 +229,10 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
         </IconButton>
         <IconButton
           color="secondary"
+          disabled={
+            private_consumer_pass.used_credits >=
+            private_consumer_pass.private_pass?.credits
+          }
           onClick={(ev) => {
             ev.stopPropagation();
             setCreditProcessing(true);

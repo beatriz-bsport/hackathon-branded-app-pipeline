@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import { Dispatch, OptionCallback } from '../../state/types';
@@ -6,8 +5,12 @@ import { Dispatch, OptionCallback } from '../../state/types';
 import {
   fetchMarketplaceSettings as fetchMarketplaceSettingsAPI,
   updateMarketplaceSettings as updateMarketplaceSettingsAPI,
+  fetchBookingFunnelConfiguration as fetchBookingFunnelConfigurationAPI,
 } from './api';
-import { MarketplaceSettings } from './types';
+import {
+  BookingFunnelConfiguration,
+  MarketplaceSettings,
+} from './types';
 import { getMarketplaceDefaultConfig } from './constants';
 import { snackbarError } from '#libs/snackbar/actions';
 
@@ -77,5 +80,42 @@ export function updateMarketplaceSettings(
     }
 
     dispatch(marketplaceSettingsAction.isLoading(false));
+  };
+}
+
+export const bookingFunnelConfigurationAction = {
+  error: createAction<Error | null>('BOOKING_FUNNEL_CONFIGURATION/FETCH/ERROR'),
+  isLoading: createAction<boolean>(
+    'BOOKING_FUNNEL_CONFIGURATION/FETCH/IS_LOADING',
+  ),
+  success: createAction<BookingFunnelConfiguration>(
+    'BOOKING_FUNNEL_CONFIGURATION/FETCH/SUCCESS',
+  ),
+};
+
+export function fetchBookingFunnelConfiguration(
+  companyId: number,
+  options?: OptionCallback<BookingFunnelConfiguration>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(bookingFunnelConfigurationAction.isLoading(true));
+    dispatch(bookingFunnelConfigurationAction.error(null));
+
+    try {
+      const response = await fetchBookingFunnelConfigurationAPI(companyId);
+      dispatch(bookingFunnelConfigurationAction.success(response.data));
+      dispatch(bookingFunnelConfigurationAction.error(null));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(bookingFunnelConfigurationAction.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+
+    dispatch(bookingFunnelConfigurationAction.isLoading(false));
   };
 }

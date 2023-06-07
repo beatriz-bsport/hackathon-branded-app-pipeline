@@ -107,10 +107,24 @@ export type MarketplaceSettings = {
   config: MarketplaceTabConfig[];
 };
 
+export type PricingOptionOrdering = [number, null | number][];
+
+export type BookingFunnelConfiguration = {
+  company: number;
+  custom_pricing_option_ordering_enabled: boolean;
+  custom_pricing_option_ordering: PricingOptionOrdering;
+  current_pricing_option_ordering: PricingOptionOrdering;
+};
+
 export type MarketplaceSettingState = {
   loading: boolean;
   error?: Error;
-  settings: MarketplaceSettings;
+  settings: MarketplaceSettings | null;
+  bookingFunnel: {
+    loading: boolean;
+    error: Error;
+    configuration: BookingFunnelConfiguration | null;
+  };
 };
 
 export type MarketplaceMetaActivity = MetaActivity &

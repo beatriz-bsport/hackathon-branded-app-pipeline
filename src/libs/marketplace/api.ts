@@ -1,4 +1,4 @@
-// @ts-nocheck
+import { AxiosResponse } from 'axios';
 import {
   API_URI,
   API_V1_URI,
@@ -7,6 +7,7 @@ import {
   getAuth,
   patchAuth,
 } from '../../http';
+import { BookingFunnelConfiguration } from './types';
 
 const fetchCompanyMetaActivities = async ({
   companyId,
@@ -103,6 +104,14 @@ export const updateMarketplaceSettings = async (
 
 export const getIdByName = async (companyName: string) => {
   return get(`${API_URI}/marketplace/${companyName}`);
+};
+
+export const fetchBookingFunnelConfiguration: (
+  companyId: number,
+) => Promise<AxiosResponse<BookingFunnelConfiguration>> = (companyId) => {
+  return getAuth(
+    `${API_V1_URI}/marketplace_settings/booking_funnel_configuration/company/${companyId}/`,
+  );
 };
 
 export default {

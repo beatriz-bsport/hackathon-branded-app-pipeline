@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -18,6 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import InfoIcon from '@material-ui/icons/Info';
 import InputLabel from '@material-ui/core/InputLabel';
 import moment from 'moment-timezone';
+import AddIcon from '@material-ui/icons/Add';
 import { PaymentPack, PaymentPackFormValues } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
@@ -33,6 +34,8 @@ import SCTChip from '#libs/category/components/SCTChip.component';
 import type { PrivatePass } from '#libs/private-service/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import ToolTip from '#components/Tooltip.component';
+import OffPeakTimeSlotGroup from '#libs/payment-packs/components/PaymentPackForm/PaymentPackOffPeak.component';
+import { offPeakGroupDefault } from '#libs/payment-packs/utils';
 
 type Props = {
   categoryList: Array<SCT>;
@@ -56,9 +59,22 @@ export const PaymentPackFormRestrictions = (props: Props) => {
     !!initial?.full_vod_access,
   );
   const classes = useStyles();
-
   const { values, setFieldValue }: FormikProps<PaymentPackFormValues> =
     useFormikContext();
+  const multipleGroups: boolean = values.off_peak_schedule.length > 1;
+
+  const handleAddGroupTimeSlot = useCallback(() => {
+    const newGroup = offPeakGroupDefault();
+    setFieldValue(`off_peak_schedule`, [...values.off_peak_schedule, newGroup]);
+  }, [setFieldValue, values.off_peak_schedule]);
+
+  const handleDeleteGroup = useCallback(
+    (indexGroup: number) => () => {
+      values.off_peak_schedule.splice(indexGroup, 1);
+      setFieldValue('off_peak_schedule', values.off_peak_schedule);
+    },
+    [setFieldValue, values.off_peak_schedule],
+  );
   return (
     <>
       <Grid container spacing={2} id="paymentpack-form-restrictions-section">
@@ -183,6 +199,35 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 minDate={moment.now()}
               />
             </Collapse>
+            <div className={classes.row}>
+              <SwitchField
+                name="off_peak_active"
+                disabled={!!initial?.template_instance}
+              />
+              <Typography>{t('addPaymentPack.offPeak.label')}</Typography>
+            </div>
+            <div>
+              <Collapse in={values.off_peak_active}>
+                {values.off_peak_schedule.map((group, index) => (
+                  <OffPeakTimeSlotGroup
+                    key={index}
+                    group={group}
+                    setFieldValue={setFieldValue}
+                    index={index}
+                    multipleGroups={multipleGroups}
+                    onGroupDelete={handleDeleteGroup(index)}
+                  />
+                ))}
+                <ButtonBase
+                  color="primary"
+                  className={classes.buttonAdd}
+                  onClick={handleAddGroupTimeSlot}
+                >
+                  <AddIcon color="primary" />
+                  {t('addPaymentPack.offPeak.addGroupTimeSlot')?.toUpperCase()}
+                </ButtonBase>
+              </Collapse>
+            </div>
           </div>
         </Grid>
         <Grid item xs={6}>
@@ -396,5 +441,14 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
   infoIcon: { marginLeft: theme.spacing(3) },
   inputLabelExpirationDate: { marginTop: theme.spacing(1), fontSize: 12 },
+  buttonAdd: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(2),
+    color: theme.palette.primary.main,
+    marginTop: theme.spacing(2),
+    fontWeight: 'bold',
+    marginLeft: theme.spacing(3.5),
+  },
 }));
 export default PaymentPackFormRestrictions;

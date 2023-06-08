@@ -18,7 +18,7 @@ import FACEBOOK_PNG from '../../../../public/images/facebook.png';
 import { formatMinutes } from '../../../../utils/datetime';
 import { Offer } from '#libs/offer/types';
 import MarketplaceLevel from '../MarketplaceLevelCSSOnly/MarketplaceLevelCSSOnly.component';
-import MarketplaceBookButtonV2 from '../MarketplaceBookButtonCSSOnly/MarketplaceBookButtonCSSOnlyForDialog.component';
+import MarketplaceBookButtonForDialog from '../MarketplaceBookButton/MarketplaceBookButtonForDialog.component';
 import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly/MarketplaceBroadcastCSSOnly.component';
 import { useOfferHours } from '../../hooks';
 import { Level } from '#libs/level/types';
@@ -395,7 +395,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
           >
             {t('marketplace:calendar.close')}
           </Button>
-          <MarketplaceBookButtonV2
+          <MarketplaceBookButtonForDialog
             offer={offer}
             group={groupData}
             onClickBook={handleBook}

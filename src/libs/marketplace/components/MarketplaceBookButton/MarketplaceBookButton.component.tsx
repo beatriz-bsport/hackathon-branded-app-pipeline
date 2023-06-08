@@ -14,7 +14,7 @@ import {
   firstOfferInGroupLocksBookingBecauseInPast,
 } from '../../utils';
 import { Offer } from '#libs/offer/types';
-import './MarketplaceBookButtonCSSOnly.css';
+import './MarketplaceBookButton.css';
 import { OffersGroup } from '#libs/group-offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 
@@ -26,7 +26,7 @@ type Props = {
   metaActivity: MetaActivity;
 };
 
-const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
+const MarketplaceBookButton: React.FC<Props> = ({
   offer,
   group,
   className,
@@ -99,4 +99,4 @@ const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
   );
 };
 
-export default pure(MarketplaceBookButtonCSSOnly);
+export default pure(MarketplaceBookButton);

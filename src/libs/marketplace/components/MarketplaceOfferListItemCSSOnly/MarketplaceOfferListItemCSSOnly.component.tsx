@@ -21,7 +21,7 @@ import { Establishment } from '#libs/establishment/types';
 
 import { useOfferHours } from '#libs/marketplace/hooks';
 
-import MarketplaceBookButtonV2 from '#libs/marketplace/components/MarketplaceBookButtonCSSOnly';
+import MarketplaceBookButton from '#libs/marketplace/components/MarketplaceBookButton';
 import { MetaActivity } from '#libs/meta-activity/types';
 import MarketPlaceLevel from '#libs/marketplace/components/MarketplaceLevelCSSOnly';
 import MarketplaceBroadcast from '#libs/marketplace/components/MarketplaceBroadcastCSSOnly';
@@ -404,7 +404,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
             </div>
             <div>
               {!withoutCTA && !withoutBookButton && (
-                <MarketplaceBookButtonV2
+                <MarketplaceBookButton
                   offer={offer}
                   isRegistered={isRegistered}
                   className="bs-offer-list-item__content__offer__right__bottom"

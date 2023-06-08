@@ -10,7 +10,7 @@ import {
   firstOfferInGroupLocksBookingBecauseInPast,
 } from '../../utils';
 import { Offer_FULL } from '#libs/offer/types';
-import './MarketplaceBookButtonCSSOnlyForDialog.css';
+import './MarketplaceBookButtonForDialog.css';
 import { OffersGroup } from '#libs/group-offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 
@@ -25,7 +25,7 @@ type Props = {
   metaActivity: MetaActivity;
 };
 
-const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
+const MarketplaceBookButtonForDialog: React.FC<Props> = ({
   offer,
   isRegistered,
   group,
@@ -60,4 +60,4 @@ const MarketplaceBookButtonCSSOnly: React.FC<Props> = ({
   );
 };
 
-export default pure(MarketplaceBookButtonCSSOnly);
+export default pure(MarketplaceBookButtonForDialog);

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { ArrowLeft } from '@material-ui/icons';
 import MaleIcon from '../../../../components/icons/MaleIcon.component';
 import FemaleIcon from '../../../../components/icons/FemaleIcon.component';
-import MarketplaceBookButton from '../MarketplaceBookButtonCSSOnly';
+import MarketplaceBookButton from '../MarketplaceBookButton';
 import MarketplaceLevel from '../MarketplaceLevelCSSOnly';
 import { Offer } from '#libs/offer/types';
 import MarketplaceBroadcast from '../MarketplaceBroadcastCSSOnly';

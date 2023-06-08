@@ -24,7 +24,7 @@ const CustomTemplate = (args: Props) => {
 
   const [threadList, setThreadList] = useState(RandomThreadBatch());
   const [isListLoading, setIsListLoading] = useState(false);
-  const [hasNextPage, setHasNextPage] = useState(true);
+  const [nextPage, setNextPage] = useState(2);
 
   const loadMoreItems = () => {
     if (threadList.length < THREAD_NUMBER) {
@@ -35,7 +35,7 @@ const CustomTemplate = (args: Props) => {
         setIsListLoading(false);
       }, 2500);
     } else {
-      setHasNextPage(false);
+      setNextPage(nextPage + 1);
     }
   };
 
@@ -45,13 +45,13 @@ const CustomTemplate = (args: Props) => {
       threadList={threadList}
       loadMoreItems={loadMoreItems}
       selectedThreadId={selectedThreadId}
-      setSelectedThreadId={setSelectedThreadId}
+      handleOnItemClick={setSelectedThreadId}
       handleFilterChange={setValue}
       filterValue={value}
       contextSelected={contextSelected}
-      setContextSelected={setContextSelected}
+      handleContextThreadChange={setContextSelected}
       isListLoading={isListLoading}
-      hasNextPage={hasNextPage}
+      nextPage={nextPage}
       {...args}
     />
   );
@@ -64,11 +64,8 @@ export default {
   component: InboxThreadList,
   argTypes: {
     searchThread: { action: 'searchThread' },
-    fetchMemberThreads: { action: 'fetchMemberThreads' },
-    fetchSmartlistThreads: { action: 'fetchSmartlistThreads' },
-    fetchOfferThreads: { action: 'fetchOfferThreads' },
     createNewThread: { action: 'createNewThread' },
-    markAsUnread: { action: 'markAsUnread' },
+    flagAsUnread: { action: 'flagAsUnread' },
     switchFavoriteStatus: { action: 'switchFavoriteStatus' },
     switchMutedStatus: { action: 'switchMutedStatus' },
     switchDisabledStatus: { action: 'switchDisabledStatus' },

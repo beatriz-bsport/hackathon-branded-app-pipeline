@@ -11,7 +11,7 @@ import {
 const memberThreadProps = MemberThread();
 const smartlistThreadProps = SmartListThread();
 const offerThreadProps = OfferThread();
-const markAsUnread = () => {};
+const flagAsUnread = () => {};
 const switchFavoriteStatus = () => {};
 const switchMutedStatus = () => {};
 const switchDisabledStatus = () => {};
@@ -21,7 +21,7 @@ const CustomMemberTemplate = (args: Props) => {
   return (
     <div onClick={() => setIsSelected(!isSelected)}>
       <InboxThreadListItem
-        markAsUnread={markAsUnread}
+        flagAsUnread={flagAsUnread}
         switchFavoriteStatus={switchFavoriteStatus}
         switchMutedStatus={switchMutedStatus}
         switchDisabledStatus={switchDisabledStatus}
@@ -37,7 +37,7 @@ const CustomSmartlistTemplate = (args: Props) => {
   return (
     <div onClick={() => setIsSelected(!isSelected)}>
       <InboxThreadListItem
-        markAsUnread={markAsUnread}
+        flagAsUnread={flagAsUnread}
         switchFavoriteStatus={switchFavoriteStatus}
         switchMutedStatus={switchMutedStatus}
         switchDisabledStatus={switchDisabledStatus}
@@ -53,7 +53,7 @@ const CustomOfferTemplate = (args: Props) => {
   return (
     <div onClick={() => setIsSelected(!isSelected)}>
       <InboxThreadListItem
-        markAsUnread={markAsUnread}
+        flagAsUnread={flagAsUnread}
         switchFavoriteStatus={switchFavoriteStatus}
         switchMutedStatus={switchMutedStatus}
         switchDisabledStatus={switchDisabledStatus}
@@ -86,7 +86,7 @@ export default {
   title: 'Library/Communication-V2/InboxThreadListItem',
   component: InboxThreadListItem,
   argTypes: {
-    markAsUnread: { action: 'markAsUnread' },
+    flagAsUnread: { action: 'flagAsUnread' },
     switchFavoriteStatus: { action: 'switchFavoriteStatus' },
     switchMutedStatus: { action: 'switchMutedStatus' },
     switchDisabledStatus: { action: 'switchDisabledStatus' },

@@ -16,7 +16,7 @@ const memberThreadProps = MemberThread();
 const smartlistThreadProps = SmartListThread();
 const offerThreadProps = OfferThread();
 
-const markAsUnread = () => {};
+const flagAsUnread = () => {};
 const switchFavoriteStatus = () => {};
 const switchMutedStatus = () => {};
 const switchDisabledStatus = () => {};
@@ -47,7 +47,7 @@ const CustomMemberTemplate = (args: Props) => {
       dateEndSetter={setDateEndValue}
       periodHasChanged={periodHasChanged}
       allPreviousFilter={{ filters: [], dateStart: null, dateEnd: null }}
-      markAsUnread={markAsUnread}
+      flagAsUnread={flagAsUnread}
       switchFavoriteStatus={switchFavoriteStatus}
       switchMutedStatus={switchMutedStatus}
       switchDisabledStatus={switchDisabledStatus}
@@ -87,7 +87,7 @@ const CustomSmartlistTemplate = (args: Props) => {
       dateEndSetter={setDateEndValue}
       periodHasChanged={periodHasChanged}
       allPreviousFilter={{ filters: [], dateStart: null, dateEnd: null }}
-      markAsUnread={markAsUnread}
+      flagAsUnread={flagAsUnread}
       switchFavoriteStatus={switchFavoriteStatus}
       switchMutedStatus={switchMutedStatus}
       switchDisabledStatus={switchDisabledStatus}
@@ -125,7 +125,7 @@ const CustomOfferTemplate = (args: Props) => {
       dateEndSetter={setDateEndValue}
       periodHasChanged={periodHasChanged}
       allPreviousFilter={{ filters: [], dateStart: null, dateEnd: null }}
-      markAsUnread={markAsUnread}
+      flagAsUnread={flagAsUnread}
       switchFavoriteStatus={switchFavoriteStatus}
       switchMutedStatus={switchMutedStatus}
       switchDisabledStatus={switchDisabledStatus}
@@ -136,27 +136,27 @@ const CustomOfferTemplate = (args: Props) => {
 
 export const MemberThreadHeader = CustomMemberTemplate.bind({});
 MemberThreadHeader.args = {
-  name: memberThreadProps.name,
+  title: memberThreadProps.title,
   cover: memberThreadProps.cover,
-  isFavorite: memberThreadProps.isFavorite,
-  isMuted: memberThreadProps.isMuted,
+  isFavorite: memberThreadProps.favorite,
+  isMuted: memberThreadProps.muted,
 };
 
 export const SmartlistThreadHeader = CustomSmartlistTemplate.bind({});
 SmartlistThreadHeader.args = {
-  name: smartlistThreadProps.name,
+  title: smartlistThreadProps.title,
   cover: smartlistThreadProps.cover,
-  isFavorite: smartlistThreadProps.isFavorite,
-  isMuted: smartlistThreadProps.isMuted,
+  isFavorite: smartlistThreadProps.favorite,
+  isMuted: smartlistThreadProps.muted,
 };
 
 export const OfferThreadHeader = CustomOfferTemplate.bind({});
 OfferThreadHeader.args = {
-  name: offerThreadProps.name,
+  title: offerThreadProps.title,
   subtitle: offerThreadProps.subtitle,
   cover: offerThreadProps.cover,
-  isFavorite: offerThreadProps.isFavorite,
-  isMuted: offerThreadProps.isMuted,
+  isFavorite: offerThreadProps.favorite,
+  isMuted: offerThreadProps.muted,
 };
 
 export default {
@@ -164,7 +164,7 @@ export default {
   component: InboxThreadContainerHeader,
   argTypes: {
     handleFiltersSubmit: { action: 'handleFiltersSubmit' },
-    markAsUnread: { action: 'markAsUnread' },
+    flagAsUnread: { action: 'flagAsUnread' },
     switchFavoriteStatus: { action: 'switchFavoriteStatus' },
     switchMutedStatus: { action: 'switchMutedStatus' },
     switchDisabledStatus: { action: 'switchDisabledStatus' },

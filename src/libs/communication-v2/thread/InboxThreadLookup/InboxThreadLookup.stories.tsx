@@ -20,7 +20,7 @@ const CustomTemplate = (args: Props) => {
       handleFilterChange={setValue}
       filterValue={value}
       contextSelected={contextSelected}
-      setContextSelected={setContextSelected}
+      handleContextThreadChange={setContextSelected}
       {...args}
     />
   );
@@ -33,9 +33,6 @@ export default {
   component: InboxThreadLookup,
   argTypes: {
     searchThread: { action: 'searchThread' },
-    fetchMemberThreads: { action: 'fetchMemberThreads' },
-    fetchSmartlistThreads: { action: 'fetchSmartlistThreads' },
-    fetchOfferThreads: { action: 'fetchOfferThreads' },
     createNewThread: { action: 'createNewThread' },
   },
   parameters: {

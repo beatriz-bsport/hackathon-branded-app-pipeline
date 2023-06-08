@@ -2,7 +2,7 @@
 import faker from 'faker';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import { CommunicationThread } from '#libs/communication-v2/types';
+import { CommunicationThreadWithUnreadAnswersCount } from '#libs/communication-v2/types';
 
 const MEMBER_DEFAULT_PHOTOS = [
   'https://bsport-django-asset-prod.s3.amazonaws.com/gymnast-male.png',
@@ -73,24 +73,28 @@ function randomDate(): string {
   return `${y}-${mm}-${dd} ${HH}:${MM}`;
 }
 
-export function MemberThread(index?: number): CommunicationThread {
+export function MemberThread(
+  index?: number,
+): CommunicationThreadWithUnreadAnswersCount {
   return {
     id: index || randomInt(1000),
-    name: fakerName(),
+    title: fakerName(),
     cover: MEMBER_DEFAULT_PHOTOS[randomInt(2)],
-    lastCommunicationDate: randomDate(),
-    lastCommunicationContent: fakerTextContent(10),
-    hasBeenRead: randomBoolean(),
-    isMuted: randomBoolean(),
-    isFavorite: randomBoolean(),
-    isDisabled: randomBoolean(),
-    relatedObjectKind: ChatThreadKinds.Member,
-    relatedObjectId: undefined,
+    last_communication_datetime: randomDate(),
+    last_communication_content: fakerTextContent(10),
+    last_communication_has_been_read: randomBoolean(),
+    muted: randomBoolean(),
+    favorite: randomBoolean(),
+    disabled: randomBoolean(),
+    related_object_kind: ChatThreadKinds.Member,
+    related_object_id: undefined,
     numberOfUnreadAnswers: randomInt(15),
   };
 }
 
-function MemberThreadList(length: number): CommunicationThread[] {
+function MemberThreadList(
+  length: number,
+): CommunicationThreadWithUnreadAnswersCount[] {
   const threadList = [];
   for (let i = 0; i < length; i += 1) {
     threadList.push(MemberThread());
@@ -98,29 +102,31 @@ function MemberThreadList(length: number): CommunicationThread[] {
   return threadList;
 }
 
-function MemberThreadBatch(): CommunicationThread[] {
+function MemberThreadBatch(): CommunicationThreadWithUnreadAnswersCount[] {
   return MemberThreadList(15);
 }
 
-export function OfferThread(): CommunicationThread {
+export function OfferThread(): CommunicationThreadWithUnreadAnswersCount {
   return {
     id: randomInt(1000),
-    name: fakerName(),
+    title: fakerName(),
     subtitle: `${fakerName()} - ${randomDate()}`,
     cover: OFFER_COVERS[randomInt(7)],
-    lastCommunicationDate: randomDate(),
-    lastCommunicationContent: fakerTextContent(10),
-    hasBeenRead: randomBoolean(),
-    isMuted: randomBoolean(),
-    isFavorite: randomBoolean(),
-    isDisabled: randomBoolean(),
-    relatedObjectKind: ChatThreadKinds.Offer,
-    relatedObjectId: undefined,
+    last_communication_datetime: randomDate(),
+    last_communication_content: fakerTextContent(10),
+    last_communication_has_been_read: randomBoolean(),
+    muted: randomBoolean(),
+    favorite: randomBoolean(),
+    disabled: randomBoolean(),
+    related_object_kind: ChatThreadKinds.Offer,
+    related_object_id: undefined,
     numberOfUnreadAnswers: randomInt(15),
   };
 }
 
-function OfferThreadList(length: number): CommunicationThread[] {
+function OfferThreadList(
+  length: number,
+): CommunicationThreadWithUnreadAnswersCount[] {
   const threadList = [];
   for (let i = 0; i < length; i += 1) {
     threadList.push(OfferThread());
@@ -128,27 +134,29 @@ function OfferThreadList(length: number): CommunicationThread[] {
   return threadList;
 }
 
-function OfferThreadBatch(): CommunicationThread[] {
+function OfferThreadBatch(): CommunicationThreadWithUnreadAnswersCount[] {
   return OfferThreadList(15);
 }
 
-export function SmartListThread(): CommunicationThread {
+export function SmartListThread(): CommunicationThreadWithUnreadAnswersCount {
   return {
     id: randomInt(1000),
-    name: fakerName(),
-    lastCommunicationDate: randomDate(),
-    lastCommunicationContent: fakerTextContent(10),
-    hasBeenRead: randomBoolean(),
-    isMuted: randomBoolean(),
-    isFavorite: randomBoolean(),
-    isDisabled: randomBoolean(),
-    relatedObjectKind: ChatThreadKinds.Smartlist,
-    relatedObjectId: undefined,
+    title: fakerName(),
+    last_communication_datetime: randomDate(),
+    last_communication_content: fakerTextContent(10),
+    last_communication_has_been_read: randomBoolean(),
+    muted: randomBoolean(),
+    favorite: randomBoolean(),
+    disabled: randomBoolean(),
+    related_object_kind: ChatThreadKinds.Smartlist,
+    related_object_id: undefined,
     numberOfUnreadAnswers: randomInt(15),
   };
 }
 
-function SmartlistThreadList(length: number): CommunicationThread[] {
+function SmartlistThreadList(
+  length: number,
+): CommunicationThreadWithUnreadAnswersCount[] {
   const threadList = [];
   for (let i = 0; i < length; i += 1) {
     threadList.push(SmartListThread());
@@ -156,11 +164,11 @@ function SmartlistThreadList(length: number): CommunicationThread[] {
   return threadList;
 }
 
-function SmartlistThreadBatch(): CommunicationThread[] {
+function SmartlistThreadBatch(): CommunicationThreadWithUnreadAnswersCount[] {
   return SmartlistThreadList(15);
 }
 
-export function RandomThreadBatch(): CommunicationThread[] {
+export function RandomThreadBatch(): CommunicationThreadWithUnreadAnswersCount[] {
   const threadBatches = [
     MemberThreadBatch(),
     SmartlistThreadBatch(),

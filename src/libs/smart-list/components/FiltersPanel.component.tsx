@@ -560,13 +560,15 @@ export class FiltersPanel extends Component<Props, State> {
             </div>
           )}
         </Collapse>
-        <GenericMuiDialog
-          open={this.state.openCadenceListDialog}
-          title={t('cadenceListDialog.title')}
-          content={this.props.cadences?.map((cadence) => cadence.name)}
-          onCancel={this.closeCadencesDialog}
-          cancelText={t('cadenceListDialog.close')}
-        />
+        {this.props.openCadenceListDialog && (
+          <GenericMuiDialog
+            open={this.state.openCadenceListDialog}
+            title={t('cadenceListDialog.title')}
+            content={this.props.cadences?.map((cadence) => cadence?.name)}
+            onCancel={this.closeCadencesDialog}
+            cancelText={t('cadenceListDialog.close')}
+          />
+        )}
       </div>
     );
   }

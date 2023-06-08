@@ -17,8 +17,8 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 import SendIcon from '@material-ui/icons/Send';
+
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
@@ -171,7 +171,7 @@ import {
 
 import Config from '../../config';
 import { getSmartListPopupSendingList } from '#libs/communication-v2/selectors';
-
+import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketingDEPRECATED/constants';
 // CADENCES
 import { fetchCadenceList } from '../../libs/sequential_marketingDEPRECATED/actions';
 
@@ -234,16 +234,20 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     this.props.fetchResolvedGenericTags();
     this.props.getUnreadAnswersCountAction(params);
     this.props.fetchSmartListPopupSendings({ smartlist_id: this.props.id });
-    this.props.fetchCadenceList(
-      {
-        /* Unused param */
-      },
-      {
-        onSuccess: () => {
-          this.props.fetchCadencesUsingSmartlist(this.props.id);
+
+    if (
+      Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+      SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS.includes(this.props.companyId)
+    ) {
+      this.props.fetchCadencesUsingSmartlist(this.props.id, {
+        onSuccess: (cadence_ids) => {
+          const uniq_ids = uniq(cadence_ids ?? []);
+          if (uniq_ids?.length !== 0) {
+            this.props.fetchCadenceList({ id__in: cadence_ids });
+          }
         },
-      },
-    );
+      });
+    }
   }
 
   handleFetchLevel = () => {

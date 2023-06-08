@@ -735,7 +735,7 @@ export const fetchCadencesUsingSmartlistActions = {
 
 export function fetchCadencesUsingSmartlist(
   id: number,
-  options?: OptionCallback,
+  options?: OptionCallback<number[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchCadencesUsingSmartlistActions.isLoading(true));
@@ -748,7 +748,7 @@ export function fetchCadencesUsingSmartlist(
           cadences: response.data,
         }),
       );
-      options && options.onSuccess && options.onSuccess();
+      options && options.onSuccess && options.onSuccess(response.data);
     } catch (error) {
       dispatch(fetchCadencesUsingSmartlistActions.error(error));
       options && options.onError && options.onError();

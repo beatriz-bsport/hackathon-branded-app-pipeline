@@ -9,7 +9,6 @@ import { compose } from 'recompose';
 import moment from 'moment-timezone';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
-import BarChartIcon from '@material-ui/icons/BarChart';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Divider from '@material-ui/core/Divider';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -55,7 +54,6 @@ import {
   USER_HAS_PHONE_FILTER_IDENTIFIER,
   TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
-import Config from '../../../config';
 
 import type { Establishment } from '../../establishment/types';
 import type { PrivatePass, PrivateService } from '../../private-service/types';
@@ -291,14 +289,6 @@ export class FiltersPanel extends Component<Props, State> {
               <SendIcon className={this.props.classes.leftIcon} />
               {t('mail.sendMail')}
             </Button>
-            {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ? (
-              <Button variant="outlined">
-                <BarChartIcon className={this.props.classes.leftIcon} /> 2143
-                emails ce mois
-              </Button>
-            ) : (
-              ''
-            )}
             {hasCustomAppUpsell(this.props.featureList) && (
               <div className={classes.smartListPopupButtonContainer}>
                 <Button

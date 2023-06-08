@@ -7,6 +7,7 @@ import { withFormik, Form, Field, FieldArray } from 'formik';
 
 import Button from '@material-ui/core/Button';
 
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import {
   AlertError,
   TextField,
@@ -15,7 +16,7 @@ import {
   Actions,
   defaultHandleSubmit,
 } from '#components/forms';
-import { ReportMetadataValue, ReportCategoryEnum } from '../types';
+import { ReportMetadataValue } from '#libs/reporting/types';
 import ReportCategoriesSelector from './ReportCategoriesSelector.component';
 import ReportColumnSelector from './ReportColumnSelector.component';
 

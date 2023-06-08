@@ -1,4 +1,4 @@
-// @ts-nocheck
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import { ErrorAndLoading } from '#libs/types';
 
 import type {
@@ -10,14 +10,32 @@ import type {
   DatatypeFilterConfigGroup,
 } from '#libs/datatype-filtering/types';
 
+export type CellData = {
+  value: string | number | null;
+  datatype: string;
+  extra_data: { [key: string]: string | number | null };
+};
+
+export type CellConverter = (value: string | number | null) => {
+  cellProps?: { [key: string]: any };
+  value: string | number | null;
+};
+
+export type SerializedRow = {
+  values: Array<CellData>;
+  row_extra_data: { [key: string]: string | number | null };
+};
+
+export type SerializedReport = {
+  result: SerializedRow[];
+  previous_page: null | number;
+  next_page: number;
+  other_pages: number[];
+};
+
 export type ReportingState = {
   reportResponse: {
-    reportId: {
-      result: (string | number | null)[];
-      previous_page: null | number;
-      next_page: number;
-      other_pages: number[];
-    };
+    reportId: SerializedReport;
   };
   allIds: null | number[];
   loading: boolean;
@@ -62,8 +80,6 @@ export type ReportConfiguration = {
   time_period: DateFilterRangeEnum | DateFilterEnum | null;
 };
 
-export type ReportCategoryEnum = 'members' | 'payments' | 'products';
-
 export type ReportCategory = {
   id: string;
   name?: ReportCategoryEnum;
@@ -85,9 +101,9 @@ export type ReportHeader = {
 
 export type ReportMetadataColumn = {
   identifier: string;
-  name: string;
+  name?: string;
   datatype: DataSourceMedadataDataType;
-  is_filterable: boolean;
+  is_filterable?: boolean;
 };
 
 export type ReportMetadataValue = {
@@ -117,4 +133,13 @@ export type ReportFilterConfigParams = {
   report_id_in?: number[];
   page?: number;
   page_size?: number | null;
+};
+
+export type ReportSerializerParams = {
+  date_start: Date;
+  date_end?: Date;
+  page_size: number;
+  page: number;
+  report_filter_config_id: number;
+  time_period: DateFilterRangeEnum | DateFilterEnum | null;
 };

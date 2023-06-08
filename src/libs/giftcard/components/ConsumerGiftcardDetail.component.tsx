@@ -12,20 +12,21 @@ import { Invoice } from '../../invoice/types';
 
 type Props = {
   consumerGiftcard: WithGiftcard<ConsumerGiftcard> | null;
+  consumerGiftCardLoading: boolean;
   invoice: Invoice | null;
   onInvoiceClick: (uuid: string) => void;
   goToGiftcard: (giftcardId: number) => void;
 };
 
 const ConsumerGiftcardDetail = (props: Props) => {
-  const { t } = useTranslation(['giftcard']);
+  const { t } = useTranslation('giftcard');
   const classes = useStyles();
   if (!props.consumerGiftcard) {
-    return (
+    return props.consumerGiftCardLoading ? (
       <div className={classes.loadingContainer}>
         <CircularProgress />
       </div>
-    );
+    ) : null;
   }
   return (
     <div className={classes.container}>

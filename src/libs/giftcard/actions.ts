@@ -279,6 +279,8 @@ export function retrieveConsumerGiftcard(
       dispatch(retrieveConsumerGiftcardActions.error(null));
     } catch (error) {
       console.error(error);
+      dispatch(snackbarError(`giftCard.notFound`));
+
       dispatch(retrieveConsumerGiftcardActions.error(error));
     }
 

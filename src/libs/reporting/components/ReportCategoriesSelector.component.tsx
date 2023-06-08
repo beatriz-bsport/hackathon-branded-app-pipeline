@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import { getCategory } from '../utils';
-import { ReportCategoryEnum } from '../types';
 
 type Props = {
   selected: ReportCategoryEnum;

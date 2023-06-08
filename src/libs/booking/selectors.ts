@@ -82,7 +82,8 @@ export const getConsumerPackBookingListWithConsumerPack = createSelector(
 export const getMemberBookingWithConsumerPack = (state, id) => ({
   ..._getData(state)[id],
   consumer_payment_pack: getConsumerPacksWithPaymentPack(state).find(
-    (cpp) => cpp.id === _getData(state)[id].consumer_payment_pack,
+    (consumerPaymentPackItem) =>
+      consumerPaymentPackItem.id === _getData(state)[id]?.consumer_payment_pack,
   ),
 });
 

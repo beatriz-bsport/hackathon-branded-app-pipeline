@@ -26,16 +26,53 @@ import StoreIcon from '@material-ui/icons/Store';
 import CashBookIcon from '@material-ui/icons/BusinessCenter';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import {
+  BillingPlanMetadataIdentifierEnum,
+  MemberMetadataIdentifierEnum,
+  MembersPurchaseMetadataIdentifierEnum,
+  MetaActivityMetadataIdentifierEnum,
+  OfferMetadataIdentifierEnum,
+  SubscriptionMetadataIdentifierEnum,
+  ExpenseMetadataIdentifierEnum,
+  PaymentByInstalmentsMetadataIdentifierEnum,
+  PrivateBookingMetadataIdentifierEnum,
+  PrivateServiceMetadataIdentifierEnum,
+  ShopItemMetadataIdentifierEnum,
+  UnpaidPrivateBookingMetadataIdentifierEnum,
+  VideoPurchaseMetadataIdentifierEnum,
+  VideoMetadataIdentifierEnum,
+  DayBookingsMetadataIdentifierEnum,
+  FirstAttendanceMetadataIdentifierEnum,
+  FirstBookingMetadataIdentifierEnum,
+  BookingMetadataIdentifierEnum,
+  FirstPrivateBookingMetadataIdentifierEnum,
+  GiftcardMetadataIdentifierEnum,
+  ConsumerGiftcardMetadataIdentifierEnum,
+  PrivateConsumerPassMetadataIdentifierEnum,
+  ExpiredConsumerPaymentPackMetadataIdentifierEnum,
+  ConsumerPaymentPackMetadataIdentifierEnum,
+  UniversalPassMetadataIdentifierEnum,
+  BasketMetadataIdentifierEnum,
+  CreditMetadataIdentifierEnum,
+  InvoiceMetadataIdentifierEnum,
+  PaymentMetadataIdentifierEnum,
+  UnpaidInvoiceMetadataIdentifierEnum,
+  OnSpotPaymentMetadataIdentifierEnum,
+  DisputeMetadataIdentifierEnum,
+  DiscountMetadataIdentifierEnum,
+  PaymentSumupMetadataIdentifierEnum,
+} from '@bsport/common/lib/master-data/metadata-identifiers';
 import {
   getCurrencyDisplay,
   getCurrencyDisplayWithPrice,
 } from '../theme/selectors';
 import type {
-  ReportCategoryEnum,
   ReportCategory,
   ReportMetadataColumn,
   ReportMetadata,
   ReportConfiguration,
+  CellConverter,
 } from './types';
 
 export const CATEGORIES: ReportCategory[] = [
@@ -203,11 +240,11 @@ export function getColumn(
 }
 
 // TODO Test it
-export function getConverter(
+export const getConverter = (
   column: ReportMetadataColumn,
   classes: ClassNameMap<string>,
   t: TFunction,
-) {
+): CellConverter => {
   if (!column || !column.datatype) {
     return (value: any) => ({ value });
   }
@@ -306,4 +343,358 @@ export function getConverter(
     }
     return { value };
   };
-}
+};
+
+const dateConverterToLink = (date: string): string => {
+  return moment(date, 'YYYY-MM-DD[,] HH[:]mm').format('YYYY/MM/DD');
+};
+
+type GenerateRowLinkProps = {
+  reportCategory: string;
+  rowExtraData: { [key: string]: string | number | null };
+};
+
+export const generateRowLink = ({
+  reportCategory,
+  rowExtraData,
+}: GenerateRowLinkProps) => {
+  switch (reportCategory) {
+    case ReportCategoryEnum.BILLING_PLAN:
+      if (rowExtraData[BillingPlanMetadataIdentifierEnum.BILLING_PLAN_PK])
+        return `/subscription/${
+          rowExtraData[BillingPlanMetadataIdentifierEnum.BILLING_PLAN_PK]
+        }`;
+      break;
+
+    case ReportCategoryEnum.MEMBERS:
+      if (rowExtraData[MemberMetadataIdentifierEnum.MEMBER_PK])
+        return `/member/${
+          rowExtraData[MemberMetadataIdentifierEnum.MEMBER_PK]
+        }/info`;
+      break;
+
+    case ReportCategoryEnum.MEMBERS_PURCHASE:
+      if (rowExtraData[MembersPurchaseMetadataIdentifierEnum.MEMBER_PK])
+        return `/member/${
+          rowExtraData[MembersPurchaseMetadataIdentifierEnum.MEMBER_PK]
+        }/info`;
+      break;
+
+    case ReportCategoryEnum.ACTIVITIES:
+      if (rowExtraData[MetaActivityMetadataIdentifierEnum.META_ACTIVITY_PK])
+        return `/activity/${
+          rowExtraData[MetaActivityMetadataIdentifierEnum.META_ACTIVITY_PK]
+        }/general`;
+      break;
+
+    case ReportCategoryEnum.WORKSHOP:
+      if (rowExtraData[MetaActivityMetadataIdentifierEnum.META_ACTIVITY_PK])
+        return `/workshop-activity/${
+          rowExtraData[MetaActivityMetadataIdentifierEnum.META_ACTIVITY_PK]
+        }/general`;
+      break;
+
+    case ReportCategoryEnum.OFFERS:
+      if (
+        rowExtraData[OfferMetadataIdentifierEnum.DATE_START_DATE] &&
+        rowExtraData[OfferMetadataIdentifierEnum.OFFER_ID]
+      ) {
+        const date = dateConverterToLink(
+          rowExtraData[OfferMetadataIdentifierEnum.DATE_START_DATE],
+        );
+        return `/calendar/${date}/${
+          rowExtraData[OfferMetadataIdentifierEnum.OFFER_ID]
+        }`;
+      }
+      break;
+
+    case ReportCategoryEnum.SUBSCRIPTION:
+      if (rowExtraData[SubscriptionMetadataIdentifierEnum.INVOICE_PK])
+        return `/invoice/${
+          rowExtraData[SubscriptionMetadataIdentifierEnum.INVOICE_PK]
+        }`;
+      break;
+
+    case ReportCategoryEnum.PRIVATE_SERVICE:
+      if (rowExtraData[PrivateServiceMetadataIdentifierEnum.PRIVATE_SERVICE_PK])
+        return `/private-service/service/${
+          rowExtraData[PrivateServiceMetadataIdentifierEnum.PRIVATE_SERVICE_PK]
+        }/general`;
+      break;
+
+    case ReportCategoryEnum.DAY_BOOKINGS:
+      if (rowExtraData[DayBookingsMetadataIdentifierEnum.DATE_START_DATE]) {
+        const date = dateConverterToLink(
+          rowExtraData[DayBookingsMetadataIdentifierEnum.DATE_START_DATE],
+        );
+        return `/calendar/${date}`;
+      }
+      break;
+
+    case ReportCategoryEnum.FIRST_BOOKING:
+      if (
+        rowExtraData[FirstBookingMetadataIdentifierEnum.FIRST_BOOKING_ID] &&
+        rowExtraData[FirstBookingMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[FirstBookingMetadataIdentifierEnum.MEMBER_PK]
+        }/bookings/${
+          rowExtraData[FirstBookingMetadataIdentifierEnum.FIRST_BOOKING_ID]
+        }`;
+      break;
+
+    case ReportCategoryEnum.FIRST_ATTENDANCE:
+      if (
+        rowExtraData[FirstAttendanceMetadataIdentifierEnum.BOOKING_ID] &&
+        rowExtraData[FirstAttendanceMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[FirstAttendanceMetadataIdentifierEnum.MEMBER_PK]
+        }/bookings/${
+          rowExtraData[FirstAttendanceMetadataIdentifierEnum.BOOKING_ID]
+        }`;
+      break;
+
+    case ReportCategoryEnum.BOOKINGS:
+      if (
+        rowExtraData[BookingMetadataIdentifierEnum.BOOKING_PK] &&
+        rowExtraData[BookingMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[BookingMetadataIdentifierEnum.MEMBER_PK]
+        }/bookings/${rowExtraData[BookingMetadataIdentifierEnum.BOOKING_PK]}`;
+      break;
+
+    case ReportCategoryEnum.FIRST_PRIVATE_BOOKING:
+      if (
+        rowExtraData[
+          FirstPrivateBookingMetadataIdentifierEnum.PRIVATEBOOKING_PK
+        ] &&
+        rowExtraData[FirstPrivateBookingMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[FirstPrivateBookingMetadataIdentifierEnum.MEMBER_PK]
+        }/private-booking/${
+          rowExtraData[
+            FirstPrivateBookingMetadataIdentifierEnum.PRIVATEBOOKING_PK
+          ]
+        }`;
+      break;
+
+    case ReportCategoryEnum.PRIVATE_BOOKINGS:
+      if (
+        rowExtraData[PrivateBookingMetadataIdentifierEnum.PRIVATEBOOKING_PK] &&
+        rowExtraData[PrivateBookingMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[PrivateBookingMetadataIdentifierEnum.MEMBER_PK]
+        }/private-booking/${
+          rowExtraData[PrivateBookingMetadataIdentifierEnum.PRIVATEBOOKING_PK]
+        }`;
+      break;
+
+    case ReportCategoryEnum.UNPAID_PRIVATE_BOOKINGS:
+      if (
+        rowExtraData[
+          UnpaidPrivateBookingMetadataIdentifierEnum.PRIVATE_BOOKING_PK
+        ] &&
+        rowExtraData[UnpaidPrivateBookingMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[UnpaidPrivateBookingMetadataIdentifierEnum.MEMBER_PK]
+        }/private-booking/${
+          rowExtraData[
+            UnpaidPrivateBookingMetadataIdentifierEnum.PRIVATE_BOOKING_PK
+          ]
+        }`;
+      break;
+
+    case ReportCategoryEnum.PRIVATE_CONSUMER_PASS:
+      if (
+        rowExtraData[PrivateConsumerPassMetadataIdentifierEnum.PK] &&
+        rowExtraData[PrivateConsumerPassMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[PrivateConsumerPassMetadataIdentifierEnum.MEMBER_PK]
+        }/private-consumer-pass/${
+          rowExtraData[PrivateConsumerPassMetadataIdentifierEnum.PK]
+        }`;
+      break;
+
+    case ReportCategoryEnum.PRIVATE_CONSUMER_PASS_EXPIRED:
+      if (
+        rowExtraData[PrivateConsumerPassMetadataIdentifierEnum.PK] &&
+        rowExtraData[PrivateConsumerPassMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[PrivateConsumerPassMetadataIdentifierEnum.MEMBER_PK]
+        }/private-consumer-pass/${
+          rowExtraData[PrivateConsumerPassMetadataIdentifierEnum.PK]
+        }`;
+      break;
+
+    case ReportCategoryEnum.EXPIRED_PASS:
+      if (
+        rowExtraData[ExpiredConsumerPaymentPackMetadataIdentifierEnum.PK] &&
+        rowExtraData[ExpiredConsumerPaymentPackMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[
+            ExpiredConsumerPaymentPackMetadataIdentifierEnum.MEMBER_PK
+          ]
+        }/pass/${
+          rowExtraData[ExpiredConsumerPaymentPackMetadataIdentifierEnum.PK]
+        }`;
+      break;
+
+    case ReportCategoryEnum.MEMBERSHIPS:
+      if (
+        rowExtraData[ConsumerPaymentPackMetadataIdentifierEnum.PK] &&
+        rowExtraData[ConsumerPaymentPackMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[ConsumerPaymentPackMetadataIdentifierEnum.MEMBER_PK]
+        }/pass/${rowExtraData[ConsumerPaymentPackMetadataIdentifierEnum.PK]}`;
+      break;
+
+    case ReportCategoryEnum.UNIVERSAL_PASSES:
+      if (
+        rowExtraData[UniversalPassMetadataIdentifierEnum.PK] &&
+        rowExtraData[UniversalPassMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[UniversalPassMetadataIdentifierEnum.MEMBER_PK]
+        }/pass/${rowExtraData[UniversalPassMetadataIdentifierEnum.PK]}`;
+      break;
+
+    case ReportCategoryEnum.CONSUMER_GIFTCARD:
+      if (
+        rowExtraData[ConsumerGiftcardMetadataIdentifierEnum.PK] &&
+        rowExtraData[ConsumerGiftcardMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[ConsumerGiftcardMetadataIdentifierEnum.MEMBER_PK]
+        }/giftcard/${rowExtraData[ConsumerGiftcardMetadataIdentifierEnum.PK]}`;
+      break;
+
+    case ReportCategoryEnum.VIDEO_PURCHASE:
+      if (
+        rowExtraData[VideoPurchaseMetadataIdentifierEnum.PK] &&
+        rowExtraData[VideoPurchaseMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[VideoPurchaseMetadataIdentifierEnum.MEMBER_PK]
+        }/vod/${rowExtraData[VideoPurchaseMetadataIdentifierEnum.PK]}`;
+      break;
+
+    case ReportCategoryEnum.BASKET:
+      if (
+        rowExtraData[BasketMetadataIdentifierEnum.BASKET_ID] &&
+        rowExtraData[BasketMetadataIdentifierEnum.MEMBER_PK]
+      )
+        return `/member/${
+          rowExtraData[BasketMetadataIdentifierEnum.MEMBER_PK]
+        }/basket/${rowExtraData[BasketMetadataIdentifierEnum.BASKET_ID]}`;
+      break;
+
+    case ReportCategoryEnum.CREDIT:
+      if (rowExtraData[CreditMetadataIdentifierEnum.MEMBER_PK])
+        return `/member/${
+          rowExtraData[CreditMetadataIdentifierEnum.MEMBER_PK]
+        }/info`;
+      break;
+
+    case ReportCategoryEnum.EXPENSE:
+      if (rowExtraData[ExpenseMetadataIdentifierEnum.EXPENSE_PK])
+        return `/expense/${
+          rowExtraData[ExpenseMetadataIdentifierEnum.EXPENSE_PK]
+        }`;
+      break;
+
+    case ReportCategoryEnum.INVOICES:
+      if (rowExtraData[InvoiceMetadataIdentifierEnum.PAYMENT_IDENTIFIER])
+        return `/invoice/${
+          rowExtraData[InvoiceMetadataIdentifierEnum.PAYMENT_IDENTIFIER]
+        }`;
+      break;
+
+    case ReportCategoryEnum.UNPAID_INVOICES:
+      if (rowExtraData[UnpaidInvoiceMetadataIdentifierEnum.PAYMENT_IDENTIFIER])
+        return `/invoice/${
+          rowExtraData[UnpaidInvoiceMetadataIdentifierEnum.PAYMENT_IDENTIFIER]
+        }`;
+      break;
+
+    case ReportCategoryEnum.PAYMENTS:
+      if (rowExtraData[PaymentMetadataIdentifierEnum.PAYMENT_IDENTIFIER])
+        return `/invoice/${
+          rowExtraData[PaymentMetadataIdentifierEnum.PAYMENT_IDENTIFIER]
+        }`;
+      break;
+
+    case ReportCategoryEnum.PAYMENT_SUMUP:
+      if (rowExtraData[PaymentSumupMetadataIdentifierEnum.INVOICE_PK])
+        return `/invoice/${
+          rowExtraData[PaymentSumupMetadataIdentifierEnum.INVOICE_PK]
+        }`;
+      break;
+
+    case ReportCategoryEnum.ON_SPOT_PAYMENTS:
+      if (rowExtraData[OnSpotPaymentMetadataIdentifierEnum.PAYMENT_IDENTIFIER])
+        return `/invoice/${
+          rowExtraData[OnSpotPaymentMetadataIdentifierEnum.PAYMENT_IDENTIFIER]
+        }`;
+      break;
+
+    case ReportCategoryEnum.DISPUTE:
+      if (rowExtraData[DisputeMetadataIdentifierEnum.PAYMENT_IDENTIFIER])
+        return `/invoice/${
+          rowExtraData[DisputeMetadataIdentifierEnum.PAYMENT_IDENTIFIER]
+        }`;
+      break;
+
+    case ReportCategoryEnum.PAYMENT_INSTALMENTS:
+      if (
+        rowExtraData[
+          PaymentByInstalmentsMetadataIdentifierEnum.PAYMENT_IDENTIFIER
+        ]
+      )
+        return `/invoice/${
+          rowExtraData[
+            PaymentByInstalmentsMetadataIdentifierEnum.PAYMENT_IDENTIFIER
+          ]
+        }`;
+      break;
+
+    case ReportCategoryEnum.GIFTCARD:
+      if (rowExtraData[GiftcardMetadataIdentifierEnum.ID])
+        return `/giftcard/${rowExtraData[GiftcardMetadataIdentifierEnum.ID]}`;
+      break;
+
+    case ReportCategoryEnum.SHOP:
+      if (rowExtraData[ShopItemMetadataIdentifierEnum.SHOPITEM_PK])
+        return `/shop/${
+          rowExtraData[ShopItemMetadataIdentifierEnum.SHOPITEM_PK]
+        }`;
+      break;
+
+    case ReportCategoryEnum.DISCOUNT:
+      if (rowExtraData[DiscountMetadataIdentifierEnum.PAYMENT_IDENTIFIER])
+        return `/invoice/${
+          rowExtraData[DiscountMetadataIdentifierEnum.PAYMENT_IDENTIFIER]
+        }`;
+      break;
+
+    case ReportCategoryEnum.VIDEO:
+      if (rowExtraData[VideoMetadataIdentifierEnum.VIDEO_PK])
+        return `/vod/video/${
+          rowExtraData[VideoMetadataIdentifierEnum.VIDEO_PK]
+        }`;
+      break;
+
+    default:
+      return null;
+  }
+
+  return null;
+};

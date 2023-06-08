@@ -11,7 +11,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import ReportGeneration from '#libs/reporting/components/ReportGeneration.component';
 
 import {
-  fetchReportGeneration,
+  fetchSerializedReport,
   fetchReportHeaders,
   exportExcelReport,
   fetchReportMetadata as fetchReportMetadataAction,
@@ -40,6 +40,8 @@ import {
 import withDatatypeDynamicData, {
   withDatatypeDynamicDataProps,
 } from '#libs/datatype-filtering/dynamic-data-hoc';
+import { fetchCompanyRoles as fetchCompanyRolesAction } from '#libs/role/actions';
+import { getPermissions } from '#libs/role/selectors';
 
 import { RootState } from '../../reducers';
 
@@ -242,7 +244,7 @@ export class ReportingGeneration extends Component<Props, State> {
       reportHeaders,
       reportHeadersLoading,
       metadata,
-      resultLoading,
+      reportsLoading,
       reportStoreRows,
       reportStoreRowsLoading,
       previousPage,
@@ -257,9 +259,9 @@ export class ReportingGeneration extends Component<Props, State> {
           report={report}
           metadata={metadata}
           resultLoading={
-            resultLoading || reportStoreRowsLoading || metadata.loading
+            reportsLoading || reportStoreRowsLoading || metadata.loading
           }
-          result={reportStoreRows}
+          reportStoreRows={reportStoreRows}
           handleGenerate={this.handleGenerate}
           handleGeneratePreviousPage={this.handleGeneratePreviousPage}
           handleGenerateNextPage={this.handleGenerateNextPage}
@@ -284,6 +286,7 @@ export class ReportingGeneration extends Component<Props, State> {
           fetchReportFilterConfigList={this.props.fetchReportFilterConfigList}
           deleteReportFilterConfig={this.props.deleteReportFilterConfig}
           isFranchisor={this.props.isFranchisor}
+          userPermissions={this.props.userPermissions}
         />
       </div>
     );
@@ -292,7 +295,7 @@ export class ReportingGeneration extends Component<Props, State> {
 
 const connector = connect(
   (state: RootState, props: { id: number }) => ({
-    resultLoading: getReports(state).loading,
+    reportsLoading: getReports(state).loading,
     report: getReport(state, props.id),
     metadata: getReportMetadata(state),
     pageSize: state.reports.page_size,
@@ -304,17 +307,19 @@ const connector = connect(
     reportHeaders: getReportHeaders(state, props.id),
     reportHeadersLoading: getReportHeadersLoading(state),
     reportFilterConfigs: getReportFilterConfigList(state),
+    userPermissions: getPermissions(state),
   }),
   {
     fetchReportMetadata: fetchReportMetadataAction,
     fetchReports: fetchReportsAction,
-    fetchExtractResult: fetchReportGeneration,
+    fetchExtractResult: fetchSerializedReport,
     fecthRelatedHeaders: fetchReportHeaders,
     fetchExcelReport: exportExcelReport,
     createReportFilterConfig: createReportFilterConfigAction,
     editReportFilterConfig: editReportFilterConfigAction,
     fetchReportFilterConfigList: fetchReportFilterConfigListAction,
     deleteReportFilterConfig: deleteReportFilterConfigAction,
+    fetchCompanyRoles: fetchCompanyRolesAction,
   },
 );
 

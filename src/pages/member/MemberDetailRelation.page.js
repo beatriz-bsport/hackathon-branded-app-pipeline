@@ -441,7 +441,7 @@ export default compose(
       unlinkConsumerPaymentPackLink: unlinkConsumerPaymentPackLinkAction,
       relinkConsumerPaymentPackLink: relinkConsumerPaymentPackLinkAction,
       fetchConsumerPacks: (memberId: number, page: number, page_size: number) =>
-        fetchConsumerPackByMemberAction(memberId, page, page_size),
+        fetchConsumerPackByMemberAction({ member: memberId, page, page_size }),
       fetchPrivateConsumerPassBulk: fetchPrivateConsumerPassBulkAction,
       fetchPrivateConsumerPassByMember: fetchPrivateConsumerPassByMemberAction,
       fetchSharedPrivateConsumerPasses: fetchSharedPrivateConsumerPassesAction,

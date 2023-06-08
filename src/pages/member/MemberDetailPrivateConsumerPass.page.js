@@ -108,6 +108,7 @@ type Props = {
   open: any,
   setOpenValue: (name: string) => void,
   setFilterValue: (name: string, bool: Boolean) => void,
+  fetchFiltersSettings: () => void,
   updateFiltersSettings: () => void,
   userFiltersLoading: boolean,
   privateConsumerPassExtensionCreationLoading: boolean,
@@ -116,6 +117,7 @@ type Props = {
 
 export class MemberDetailPrivateConsumerPass extends React.Component<Props> {
   componentDidMount() {
+    this.props.fetchFiltersSettings();
     this.props.resetPrivateConsumerPassListAction();
     this.props.fetchMember(this.props.id);
     if (this.props.privateConsumerPassId) {

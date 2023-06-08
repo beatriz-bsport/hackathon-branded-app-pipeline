@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { cleanParams } from '../../utils/createUrlHandlers';
 import {
   buildUrlParams,
   API_V1_URI,
@@ -15,7 +16,8 @@ export const fetchFilteredBookingOptions = async (params: any) => {
 };
 
 export const fetchBookingList = async (params: any) => {
-  return getAuth(`${API_V1_URI}/booking/${buildUrlParams(params)}`);
+  const cleanedParams = cleanParams(params);
+  return getAuth(`${API_V1_URI}/booking/${buildUrlParams(cleanedParams)}`);
 };
 export const fetchOfferGroupRelatedBookings = async (bookingId: number) => {
   return getAuth(

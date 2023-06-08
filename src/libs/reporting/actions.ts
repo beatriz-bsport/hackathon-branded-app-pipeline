@@ -8,7 +8,7 @@ import {
 import { monitorBackgroundTask } from '../background-task/actions';
 import { displayBackgroundDialog } from '../background-dialog/actions';
 import {
-  fetchReportGeneration as fetchReportGenerationAPI,
+  fetchSerializedReport as fetchSerializedReportAPI,
   fetchReportHeaders as fetchReportHeadersAPI,
   fetchExcelReporting as fetchExcelReportingAPI,
   fetchReports as fetchReportsAPI,
@@ -26,16 +26,17 @@ import {
   ReportConfiguration,
   ReportFilterConfig,
   ReportFilterConfigParams,
-} from './types';
+  ReportSerializerParams,
+} from '#libs/reporting/types';
 
 export const reportGenerationDetail = {
   error: createAction('REPORT/GENERATE/ERROR'),
   isLoading: createAction('REPORT/GENERATE/IS_LOADING'),
   success: createAction('REPORT/GENERATE/SUCCESS'),
 };
-export function fetchReportGeneration(
+export function fetchSerializedReport(
   reportId: number,
-  params: any,
+  params: ReportSerializerParams,
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -43,7 +44,7 @@ export function fetchReportGeneration(
     dispatch(reportGenerationDetail.error(null));
 
     try {
-      const response = await fetchReportGenerationAPI(reportId, params);
+      const response = await fetchSerializedReportAPI(reportId, params);
       dispatch(
         reportGenerationDetail.success({
           [reportId]: response.data,

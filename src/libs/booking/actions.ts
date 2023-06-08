@@ -358,13 +358,23 @@ export const byMemberActions = {
   error: createAction('BOOKING/BY_MEMBER/ERROR'),
 };
 
-export function fetchBookingsByMember(
-  member: number,
-  page: number,
-  page_size: number,
-  filters: any,
-  options: OptionCallback,
-) {
+type FetchBookingsByMemberProps = {
+  member: number;
+  page?: number;
+  page_size: number;
+  filters: any;
+  options: OptionCallback;
+  current_booking_id?: number;
+};
+
+export function fetchBookingsByMember({
+  member,
+  page,
+  page_size,
+  filters,
+  options,
+  current_booking_id,
+}: FetchBookingsByMemberProps) {
   return async (dispatch: Dispatch) => {
     dispatch(byMemberActions.isLoading(true));
     dispatch(byMemberActions.error(null));
@@ -375,8 +385,12 @@ export function fetchBookingsByMember(
         page,
         page_size,
         ...filters,
+        current_item_id: current_booking_id,
       });
-      dispatch(byMemberActions.success({ ...response.data, page }));
+      const current_page = response.data?.page ?? page;
+      dispatch(
+        byMemberActions.success({ ...response.data, page: current_page }),
+      );
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
       }

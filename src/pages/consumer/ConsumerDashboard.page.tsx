@@ -476,7 +476,13 @@ const mapDispatchToProps = {
     options: OptionCallback,
     params: any,
   ) =>
-    fetchConsumerPackByMemberAction(memberId, page, page_size, options, params),
+    fetchConsumerPackByMemberAction({
+      member: memberId,
+      page,
+      page_size,
+      options,
+      params,
+    }),
   fetchBookingOptionAsConsumer,
   fetchLevelList: fetchLevelListAction,
   fetchPrivateConsumerPassList,

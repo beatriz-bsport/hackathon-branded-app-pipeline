@@ -273,6 +273,7 @@ export class MemberDetailGiftcard extends Component<Props, State> {
           {this.props.selectedConsumerGiftcardId && (
             <ConsumerGiftcardDetail
               consumerGiftcard={this.props.selectedConsumerGiftcard}
+              consumerGiftCardLoading={this.props.consumerGiftcardLoading}
               invoice={this.props.relatedInvoice}
               onInvoiceClick={this.props.goToInvoice}
               goToGiftcard={this.props.goToGiftcard}

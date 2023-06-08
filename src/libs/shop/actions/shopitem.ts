@@ -199,6 +199,7 @@ export function fetchShopItem(
         options.onSuccess(response.data);
       }
     } catch (e) {
+      dispatch(snackbarError(`shop.item.notFound`));
       dispatch(shopItemRetrieveActions.error(e));
       console.error(e);
     }

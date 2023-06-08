@@ -153,14 +153,17 @@ const ResponsiveDrawer: React.FC<Props> = ({
 
   const [toggledMenu, setToggledMenu] = useState<Record<number, boolean>>({});
 
-  const handleToggle = (i: number, item: DrawerItem) => () => {
-    const newToggledMenu = {
-      [i]: !toggledMenu?.[i] ?? false,
-    };
+  const handleToggle = React.useCallback(
+    (i: number, item: DrawerItem) => () => {
+      const newToggledMenu = {
+        [i]: !toggledMenu?.[i] ?? false,
+      };
 
-    setToggledMenu(newToggledMenu);
-    item && item.actionOnMenuToggle && item.actionOnMenuToggle();
-  };
+      setToggledMenu(newToggledMenu);
+      item && item.actionOnMenuToggle && item.actionOnMenuToggle();
+    },
+    [toggledMenu],
+  );
   const handleToggleDrawer = () => {
     handleUserSetDrawerIconsOnly && handleUserSetDrawerIconsOnly(!iconsOnly);
   };

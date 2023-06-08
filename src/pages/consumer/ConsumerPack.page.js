@@ -273,13 +273,13 @@ export default compose(
         options: OptionCallback,
         params: any,
       ) =>
-        fetchConsumerPackByMemberAction(
-          memberId,
+        fetchConsumerPackByMemberAction({
+          member: memberId,
           page,
           page_size,
           options,
           params,
-        ),
+        }),
       fetchUniversalConsumerPacks: (
         memberId: number,
         page: number,

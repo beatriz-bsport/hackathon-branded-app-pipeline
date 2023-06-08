@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 
-import { ReportCategoryEnum } from '../types';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import { getCategory } from '../utils';
 
 type Props = {

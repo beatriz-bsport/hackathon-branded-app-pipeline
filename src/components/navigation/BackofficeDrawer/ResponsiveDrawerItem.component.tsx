@@ -75,7 +75,18 @@ export const DrawerItemComponent: React.FC<Props> = ({
   iconsOnly,
 }) => {
   const classes = useStyles({ iconsOnly });
-  const isActive = location.pathname.startsWith(item.to);
+
+  const currentPath = location.pathname;
+  const hasAnActiveNestedItem = item?.nestedItems?.some((_item) =>
+    currentPath.startsWith(_item.to),
+  );
+
+  // We want this effect to only run once when the component is mounted in order to
+  // toggle the correct item if the current path refers to a nested item.
+  React.useEffect(() => {
+    if (hasAnActiveNestedItem) handleToggle(i, item)();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!checkRequiredPermissionsForPath(item?.to, permissions)) {
     return null;
@@ -90,6 +101,8 @@ export const DrawerItemComponent: React.FC<Props> = ({
       return null;
     }
   }
+
+  const isActive = currentPath.startsWith(item.to) || hasAnActiveNestedItem;
 
   if (item.type === 'nested') {
     return (

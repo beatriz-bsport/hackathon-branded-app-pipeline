@@ -6,6 +6,7 @@ import {
   getAuth,
   buildUrlParams,
 } from '../../http';
+import { cleanParams } from '../../utils/createUrlHandlers';
 
 export async function fetchByOfferByMember(offer: any, data: any = {}) {
   return postAuth(
@@ -49,9 +50,10 @@ export async function fetchIncompatibilitiesReasonsByOfferByConsumerPack(
 }
 
 export async function fetchConsumerPackList(params: any = {}) {
+  const cleanedParams = cleanParams(params);
   return getAuth(
     `${API_V1_URI}/payment-pack/consumer-payment-pack/${buildUrlParams({
-      ...(params || {}),
+      ...(cleanedParams || {}),
     })}`,
   );
 }

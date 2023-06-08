@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 
 import omit from 'lodash/omit';
+import isEqual from 'lodash/isEqual';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
@@ -10,7 +11,13 @@ import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Alert from '@material-ui/lab/Alert/Alert';
 import { push, replace } from 'connected-react-router';
-import { compose, withState, withStateHandlers, withHandlers } from 'recompose';
+import {
+  compose,
+  withState,
+  withStateHandlers,
+  withHandlers,
+  withProps,
+} from 'recompose';
 import { connect } from 'react-redux';
 import { withTranslation, TFunction } from 'react-i18next';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
@@ -86,7 +93,14 @@ type Props = {
   member: ?Member,
   id: number,
   fetchMember: (id: number) => void,
-  fetchConsumerPacks: (id: number, page: number, page_size: number) => void,
+  fetchConsumerPacks: ({
+    memberId: number,
+    page: number,
+    page_size: number,
+    filters: any,
+    options: OptionCallBack,
+    current_consumer_pack_id: number,
+  }) => void,
   fetchBookingsByConsumerPack: (id: number) => void,
   fetchInvoice: (uuid: string) => void,
   fetchExtensions: (consumerPassId: number) => void,
@@ -165,7 +179,6 @@ type Props = {
   open: any,
   setOpenValue: (name: string) => void,
   setFilterValue: (name: string, bool: Boolean) => void,
-  updateFiltersSettings: () => void,
   userFiltersLoading: boolean,
 
   fetchConsumerPaymentPackLinks: (
@@ -258,22 +271,28 @@ export class MemberDetailPass extends Component<Props, State> {
       );
       this.props.retrieveConsumerPackBulk([this.props.consumerPassId]);
     }
-    if (prevProps.filters !== this.props.filters) {
-      this.props.fetchConsumerPacks(this.props.id, 1, 7, this.props.filters, {
-        onSuccess: (cppList) => {
-          this.props.fetchPaymentPackBulk(
-            cppList.map((cpp) => cpp.payment_pack),
-          );
-          this.props.fetchConsumerPaymentPackLinks(
-            flatten(
-              cppList.map((cpp) =>
-                cpp.src_consumer_payment_pack.map((id) => id),
+    if (!isEqual(prevProps.filters, this.props.filters)) {
+      this.props.fetchConsumerPacks({
+        memberId: this.props.id,
+        page: this.props.consumerPassId ? undefined : 1,
+        page_size: CONSUMER_PAYMENT_PACK_PAGE_SIZE,
+        filters: this.props.filters,
+        options: {
+          onSuccess: (cppList) => {
+            this.props.fetchPaymentPackBulk(
+              cppList.map((cpp) => cpp.payment_pack),
+            );
+            this.props.fetchConsumerPaymentPackLinks(
+              flatten(
+                cppList.map((cpp) =>
+                  cpp.src_consumer_payment_pack.map((id) => id),
+                ),
               ),
-            ),
-          );
+            );
+          },
         },
+        current_payment_pass_id: this.props.consumerPassId,
       });
-      this.props.updateFiltersSettings(this.props.filters);
     }
 
     if (
@@ -397,40 +416,44 @@ export class MemberDetailPass extends Component<Props, State> {
               filters={!dataLoading && this.props.filters}
             />
             <Divider />
-            <PaginatedListBase
-              itemPerPage={CONSUMER_PAYMENT_PACK_PAGE_SIZE}
-              loading={this.props.consumerPackLoading}
-              listProps={{ disablePadding: true }}
-              items={this.props.consumerPacks}
-              nbItems={this.props.consumerPackCount}
-              additionalFilters={this.props.filters}
-              page={this.props.consumerPackCurrentPage}
-              onPageRequested={(page, pageSize) =>
-                this.props.fetchConsumerPackList(page, pageSize)
-              }
-              renderItem={(cpp) => (
-                <ConsumerPackRowItem
-                  hideConsumer
-                  timezone={this.props.timezone}
-                  key={cpp.id}
-                  selected={
-                    this.props.selectedConsumerPass &&
-                    this.props.selectedConsumerPass.id === cpp.id
-                  }
-                  consumerPack={cpp}
-                  paymentPack={cpp.payment_pack}
-                  incrementCredit={() => this.props.incrementCredit(cpp.id)}
-                  decrementCredit={() => this.props.decrementCredit(cpp.id)}
-                  unblock={() => this.props.unblock(cpp.id)}
-                  onClick={() =>
-                    this.props.onSelectConsumerPass(this.props.id, cpp.id)
-                  }
-                  updating={
-                    this.props.consumerPaymentPacksLoadingById[cpp.id] ?? false
-                  }
-                />
-              )}
-            />
+            {!this.props.userFiltersLoading && (
+              <PaginatedListBase
+                itemPerPage={CONSUMER_PAYMENT_PACK_PAGE_SIZE}
+                loading={this.props.consumerPackLoading}
+                listProps={{ disablePadding: true }}
+                items={this.props.consumerPacks}
+                nbItems={this.props.consumerPackCount}
+                additionalFilters={this.props.filters}
+                page={this.props.consumerPackCurrentPage}
+                onPageRequested={(page, pageSize) =>
+                  this.props.fetchConsumerPackList(page, pageSize)
+                }
+                renderCustomPageFirst={!!this.props.consumerPassId}
+                renderItem={(cpp) => (
+                  <ConsumerPackRowItem
+                    hideConsumer
+                    timezone={this.props.timezone}
+                    key={cpp.id}
+                    selected={
+                      this.props.selectedConsumerPass &&
+                      this.props.selectedConsumerPass.id === cpp.id
+                    }
+                    consumerPack={cpp}
+                    paymentPack={cpp.payment_pack}
+                    incrementCredit={() => this.props.incrementCredit(cpp.id)}
+                    decrementCredit={() => this.props.decrementCredit(cpp.id)}
+                    unblock={() => this.props.unblock(cpp.id)}
+                    onClick={() =>
+                      this.props.onSelectConsumerPass(this.props.id, cpp.id)
+                    }
+                    updating={
+                      this.props.consumerPaymentPacksLoadingById[cpp.id] ??
+                      false
+                    }
+                  />
+                )}
+              />
+            )}
           </Paper>
           {this.props.consumerPacks.length ? (
             <div className={this.props.classes.shareButtonContainer}>
@@ -676,16 +699,24 @@ export default compose(
         fetchSpecificInvoice(uuid, options),
 
       retrieveConsumerPackBulk,
-      fetchConsumerPacks: (
-        memberId: number,
-        page: number,
-        page_size: number,
-        filters: any,
+      fetchConsumerPacks: ({
+        memberId,
+        page,
+        page_size,
+        filters,
         options,
-      ) =>
-        fetchConsumerPackByMemberAction(memberId, page, page_size, options, {
-          ...filters,
-          with_amortized_price: true,
+        current_consumer_pack_id,
+      }) =>
+        fetchConsumerPackByMemberAction({
+          member: memberId,
+          page,
+          page_size,
+          options,
+          params: {
+            ...filters,
+            with_amortized_price: true,
+          },
+          current_consumer_pack_id,
         }),
       resetConsumerPackByMemberAction,
       fetchConsumerPaymentPackPenalty: fetchConsumerPaymentPackPenaltyAction,
@@ -693,13 +724,12 @@ export default compose(
       fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
     },
   ),
-  withState('filters', 'setFilters', (props) => {
-    const { userFilters } = props;
-    if (userFilters && userFilters.pass_filters) {
-      return userFilters.pass_filters;
-    }
-    return { reverted: false, is_valid_today: true };
-  }),
+  withProps(({ userFilters }) => ({
+    filters: userFilters?.pass_filters ?? {
+      reverted: false,
+      is_valid_today: true,
+    },
+  })),
   withStateHandlers(
     { consumerPaymentPackToRefund: null, showCreditRefund: true },
     {
@@ -743,19 +773,27 @@ export default compose(
         fetchConsumerPacks,
         fetchPaymentPackBulk,
         fetchConsumerPaymentPackLinks,
+        consumerPassId,
       }) =>
       (page, pageSize) => {
-        fetchConsumerPacks(id, page, pageSize, filters, {
-          onSuccess: (cppList) => {
-            fetchPaymentPackBulk(cppList.map((cpp) => cpp.payment_pack));
-            fetchConsumerPaymentPackLinks(
-              flatten(
-                cppList.map((cpp) =>
-                  cpp.src_consumer_payment_pack.map((i) => i),
+        fetchConsumerPacks({
+          memberId: id,
+          page,
+          page_size: pageSize,
+          filters,
+          options: {
+            onSuccess: (cppList) => {
+              fetchPaymentPackBulk(cppList.map((cpp) => cpp.payment_pack));
+              fetchConsumerPaymentPackLinks(
+                flatten(
+                  cppList.map((cpp) =>
+                    cpp.src_consumer_payment_pack.map((i) => i),
+                  ),
                 ),
-              ),
-            );
+              );
+            },
           },
+          current_consumer_pack_id: !page ? consumerPassId : null,
         });
       },
     setOpenValue:
@@ -765,19 +803,6 @@ export default compose(
           ...open,
           [name]: !open[name],
         });
-      },
-    setFilterValue:
-      ({ setFilters, filters }) =>
-      (filterDict: { [name: string]: boolean | null }) => {
-        let newFilters = { ...filters };
-        for (const [name, value] of Object.entries(filterDict)) {
-          if (value === null) {
-            newFilters = omit(newFilters, name);
-          } else {
-            newFilters[name] = value;
-          }
-        }
-        setFilters(newFilters);
       },
     refundConsumerPaymentPack:
       ({
@@ -804,25 +829,20 @@ export default compose(
       (consumerPassId, page, pageSize) => {
         fetchConsumerPaymentPackPenalty(consumerPassId, page, pageSize);
       },
-  }),
-  withHandlers({
-    fetchFiltersSettings:
-      ({ fetchManagerFilters, setFilters }) =>
-      () => {
-        fetchManagerFilters({
-          onSuccess: (payload) => {
-            setFilters(payload.filters.pass_filters);
-          },
-        });
-      },
-  }),
-  withHandlers({
-    updateFiltersSettings:
-      ({ updateManagerFilters, userFilters }) =>
-      (filters: object) => {
+    setFilterValue:
+      ({ filters, updateManagerFilters, userFilters }) =>
+      (filterDict: { [name: string]: boolean | null }) => {
+        let newFilters = { ...filters };
+        for (const [name, value] of Object.entries(filterDict)) {
+          if (value === null) {
+            newFilters = omit(newFilters, name);
+          } else {
+            newFilters[name] = value;
+          }
+        }
         updateManagerFilters({
           ...userFilters,
-          pass_filters: filters,
+          pass_filters: newFilters,
         });
       },
   }),

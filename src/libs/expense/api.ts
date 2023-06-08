@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { cleanParams } from '../../utils/createUrlHandlers';
 import {
   getAuth,
   postAuth,
@@ -9,7 +10,10 @@ import {
 } from '../../http';
 
 export async function fetchExpenseList(params: any) {
-  return getAuth(`${API_V1_URI}/payment/expense/${buildUrlParams(params)}`);
+  const cleanedParams = cleanParams(params);
+  return getAuth(
+    `${API_V1_URI}/payment/expense/${buildUrlParams(cleanedParams)}`,
+  );
 }
 
 export async function createExpense(data: any) {

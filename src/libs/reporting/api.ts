@@ -14,11 +14,23 @@ import {
   ReportFilterConfig,
   ReportFilterConfigParams,
   ReportMetadataValue,
-} from './types';
+  ReportSerializerParams,
+} from '#libs/reporting/types';
 
 export const fetchReportGeneration = async (reportId: number, params: any) => {
   return getAuth(
     `${API_URI}/reporting/reports/${reportId}/generate/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
+export const fetchSerializedReport = async (
+  reportId: number,
+  params: ReportSerializerParams,
+) => {
+  return getAuth(
+    `${API_URI}/reporting/reports/${reportId}/serialized_report/${buildUrlParams(
       params,
     )}`,
   );

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -14,23 +13,24 @@ import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import { TableFooter, Theme } from '@material-ui/core';
+import grey from '@material-ui/core/colors/grey';
 
-import { ReportConfiguration, ReportMetadata } from '../types';
+import { ReportConfiguration, ReportMetadata, SerializedRow } from '../types';
 import { getConverter, getColumn } from '../utils';
+import ReportTableRow from './ReportTableRow';
+import { RolePermission } from '#libs/role/types';
 
 type TableProps = {
   reportStoreRowsLoading: boolean;
   report: ReportConfiguration;
-  result: Array<any>;
+  result: SerializedRow[];
   metadata: ReportMetadata;
-  reportStoreRows: Array<any>;
   previousPage: number;
   nextPage: number;
   otherPages: Array<any>;
   handleGeneratePreviousPage: (data: any) => void;
   handleGenerateNextPage: (data: any) => void;
-  columnSpan: number;
-  value: String;
+  userPermissions: RolePermission;
 };
 
 type PaginationProps = {
@@ -89,16 +89,22 @@ const ReportTable: React.FC<TableProps> = ({
   otherPages,
   handleGeneratePreviousPage,
   handleGenerateNextPage,
+  userPermissions,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
   const { columns = [] } = report;
 
-  const columnsConfigs =
-    columns?.map((c) => getColumn(metadata, report, c)) ?? [];
+  const columnsConfigs = React.useMemo(
+    () => columns?.map((c) => getColumn(metadata, report, c)) ?? [],
+    [columns, metadata, report],
+  );
 
-  const converters =
-    columnsConfigs?.map((c) => getConverter(c, classes, t)) ?? [];
+  const converters = React.useMemo(
+    () => columnsConfigs?.map((c) => getConverter(c, classes, t)) ?? [],
+    [classes, columnsConfigs, t],
+  );
+
   return (
     <div className={classes.responsive}>
       <Table>
@@ -119,32 +125,21 @@ const ReportTable: React.FC<TableProps> = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {result
-            ? result.map((row, index) => (
-                <TableRow
-                  key={index}
-                  classes={
-                    reportStoreRowsLoading
-                      ? { root: classes.trRootLoading }
-                      : { root: classes.trRoot }
-                  }
-                >
-                  {columns.map((column, i) => {
-                    const { value, cellProps } = converters[i](row[i]);
-
-                    return (
-                      <TableCell
-                        key={columnsConfigs[i]?.identifier}
-                        {...(cellProps || {})}
-                        className={classes.cell}
-                      >
-                        {value}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              ))
-            : null}
+          {result &&
+            result.map((serializedRow, index) => (
+              <ReportTableRow
+                key={index}
+                reportStoreRowsLoading={reportStoreRowsLoading}
+                index={index}
+                converters={converters}
+                classes={classes}
+                columns={columns}
+                columnsConfigs={columnsConfigs}
+                serializedRow={serializedRow}
+                reportCategory={report.category}
+                userPermissions={userPermissions}
+              />
+            ))}
         </TableBody>
         {result && (
           <TableFooter>
@@ -173,6 +168,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   trRoot: {
     height: 'auto',
+  },
+  trRootClickable: {
+    height: 'auto',
+    cursor: 'pointer',
+    '&:hover': {
+      borderRadius: 4,
+      backgroundColor: grey[200],
+    },
   },
   trRootLoading: {
     height: 'auto',

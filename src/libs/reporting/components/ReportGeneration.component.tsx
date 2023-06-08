@@ -13,19 +13,20 @@ import ReportTableHeaders from './ReportTableHeaders.component';
 
 import {
   ReportConfiguration,
-  ReportExtractResult,
   ReportFilterConfig,
   ReportFilterConfigParams,
   ReportMetadata,
+  SerializedRow,
 } from '../types';
 import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import { getColumn } from '../utils';
 import { OptionCallback } from '../../../state/types';
+import { RolePermission } from '#libs/role/types';
 
 type Props = {
   resultLoading?: boolean;
   report: ReportConfiguration;
-  result: ReportExtractResult;
+  reportStoreRows: SerializedRow[];
   metadata: ReportMetadata;
   handleGeneratePreviousPage: (data: any) => void;
   handleGenerateNextPage: (data: any) => void;
@@ -39,6 +40,7 @@ type Props = {
   pageSize: number;
   reportStoreRowsLoading: boolean;
   isFranchisor?: boolean;
+  userPermissions: RolePermission;
   handleExcelExportation: () => void;
   showDialog: boolean;
   setShowDialog: (boolean: boolean) => void;
@@ -73,7 +75,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const ReportGeneration: React.FC<Props> = ({
   report,
-  result,
+  reportStoreRows,
   resultLoading = true,
   handleGenerate,
   handleGeneratePreviousPage,
@@ -100,16 +102,19 @@ const ReportGeneration: React.FC<Props> = ({
   fetchReportFilterConfigList,
   deleteReportFilterConfig,
   allowedFranchisees,
+  userPermissions,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
 
+  const columnsMetadata = React.useMemo(
+    () => report?.columns?.map((c) => getColumn(metadata, report, c)) ?? [],
+    [metadata, report],
+  );
+
   if (!report || metadata.loading) {
     return <LinearProgress />;
   }
-
-  const columnsMetadata =
-    report.columns?.map((c) => getColumn(metadata, report, c)) ?? [];
 
   return (
     <div>
@@ -160,11 +165,11 @@ const ReportGeneration: React.FC<Props> = ({
         reportHeadersLoading={reportHeadersLoading}
       />
       {reportStoreRowsLoading || resultLoading ? <LinearProgress /> : null}
-      {!report.loading ? (
+      {!report.loading && !!reportStoreRows && (
         <Paper>
           <ReportTable
             report={report}
-            result={result}
+            result={reportStoreRows}
             loading={resultLoading}
             metadata={metadata}
             previousPage={previousPage}
@@ -174,10 +179,11 @@ const ReportGeneration: React.FC<Props> = ({
             handleGenerateNextPage={handleGenerateNextPage}
             pageSize={pageSize}
             reportStoreRowsLoading={reportStoreRowsLoading}
+            userPermissions={userPermissions}
           />
         </Paper>
-      ) : null}
-      {reportStoreRowsLoading && result ? <LinearProgress /> : null}
+      )}
+      {reportStoreRowsLoading && report && <LinearProgress />}
     </div>
   );
 };

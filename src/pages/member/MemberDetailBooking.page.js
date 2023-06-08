@@ -3,9 +3,10 @@
 import React, { Component } from 'react';
 import moment from 'moment-timezone';
 import omit from 'lodash/omit';
+import isEqual from 'lodash/isEqual';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { compose, withState, withHandlers } from 'recompose';
+import { compose, withState, withHandlers, withProps } from 'recompose';
 import { withTranslation } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
@@ -223,7 +224,6 @@ type Props = {
   fetchMemberBookingStatistics: () => void,
   chartRange: { start: string, end: string, kind: string },
   setChartRange: ({ start: string, end: string, kind: string }) => void,
-  updateFiltersSettings: () => void,
   recurrentBookingLoading: boolean,
   userFiltersLoading: boolean,
   setSpotForBooking: () => void,
@@ -304,22 +304,22 @@ export class MemberDetailBooking extends Component<Props, State> {
   };
 
   componentDidUpdate(prevProps: Props) {
-    if (prevProps.filters !== this.props.filters) {
-      this.props.fetchMemberBookings(
-        this.props.id,
-        1,
-        BOOKING_PAGE_SIZE,
-        this.props.filters,
-        {
+    if (!isEqual(prevProps.filters, this.props.filters)) {
+      this.props.fetchMemberBookings({
+        member: this.props.id,
+        page: this.props.bookingId ? undefined : 1,
+        current_booking_id: this.props.bookingId,
+        page_size: BOOKING_PAGE_SIZE,
+        filters: this.props.filters,
+        options: {
           onSuccess: (bookings) => {
             this.props.retrieveConsumerPackBulk(
               bookings.map((b) => b.consumer_payment_pack),
             );
           },
         },
-      );
+      });
       this.props.fetchMemberBookingStatistics();
-      this.props.updateFiltersSettings(this.props.filters);
     }
     if (prevProps.chartRange !== this.props.chartRange) {
       this.props.fetchMemberBookingStatistics();
@@ -517,7 +517,6 @@ export class MemberDetailBooking extends Component<Props, State> {
       this.props.consumerPackLoading ||
       this.props.recurrentBookingLoading ||
       this.props.userFiltersLoading;
-
     return (
       <Grid container direction="row" spacing={3}>
         <Grid
@@ -621,74 +620,76 @@ export class MemberDetailBooking extends Component<Props, State> {
                 }
                 programList={this.props.programList}
               />
+              {!this.props.userFiltersLoading && (
+                <PaginatedListBase
+                  itemPerPage={BOOKING_PAGE_SIZE}
+                  loading={this.props.bookingsLoading}
+                  listProps={{ disablePadding: true }}
+                  items={this.props.bookings}
+                  nbItems={this.props.bookingCount}
+                  page={this.props.bookingCurrentPage}
+                  additionalFilters={this.props.filters}
+                  onPageRequested={(page, page_size) =>
+                    this.props.fetchMemberBookingsList(page, page_size)
+                  }
+                  renderCustomPageFirst={!!this.props.bookingId}
+                  renderItem={(b: Booking) => (
+                    <BookingItemForManagerV2
+                      programList={this.props.programList}
+                      onClick={() => this.selectBooking(b)}
+                      showRevertBookingButton
+                      button
+                      selected={
+                        this.props.selectedBooking &&
+                        this.props.selectedBooking.id === b.id
+                      }
+                      key={b.id}
+                      booking={b}
+                      heading="date_start"
+                      member={this.props.member}
+                      handleRevert={() => {
+                        this.props.fetchOffer(b.offer, {
+                          onSuccess: (offer: Offer) => {
+                            if (offer.group) {
+                              this.props.fetchGroupOffer(offer.group);
+                              this.props.fetchSimilarFuturBookingInGroup(
+                                offer.group,
+                                b.member,
+                              );
+                            }
+                          },
+                        });
 
-              <PaginatedListBase
-                itemPerPage={BOOKING_PAGE_SIZE}
-                loading={this.props.bookingsLoading}
-                listProps={{ disablePadding: true }}
-                items={this.props.bookings}
-                nbItems={this.props.bookingCount}
-                page={this.props.bookingCurrentPage}
-                additionalFilters={this.props.filters}
-                onPageRequested={(page, page_size) =>
-                  this.props.fetchMemberBookingsList(page, page_size)
-                }
-                renderItem={(b: Booking) => (
-                  <BookingItemForManagerV2
-                    programList={this.props.programList}
-                    onClick={() => this.selectBooking(b)}
-                    showRevertBookingButton
-                    button
-                    selected={
-                      this.props.selectedBooking &&
-                      this.props.selectedBooking.id === b.id
-                    }
-                    key={b.id}
-                    booking={b}
-                    heading="date_start"
-                    member={this.props.member}
-                    handleRevert={() => {
-                      this.props.fetchOffer(b.offer, {
-                        onSuccess: (offer: Offer) => {
-                          if (offer.group) {
-                            this.props.fetchGroupOffer(offer.group);
-                            this.props.fetchSimilarFuturBookingInGroup(
-                              offer.group,
-                              b.member,
-                            );
-                          }
-                        },
-                      });
-
-                      this.setState({ bookingToRevert: b });
-                    }}
-                    discardBookingAttendance={() =>
-                      this.props.discardBookingAttendance(b.id)
-                    }
-                    confirmBookingAttendance={() =>
-                      this.props.confirmBookingAttendance(b.id)
-                    }
-                    spotSchedulingEnabled={typeof b.spot_id === 'number'}
-                    onClickChangeSpot={this.onClickChangeSpot}
-                    onProgramDetailsClick={() => {
-                      this.props.fetchPerformanceTrackingData(this.props.id);
-                      this.setState({
-                        isMemberProgramDetailDialogOpen: true,
-                      });
-                    }}
-                    displayNoShowChip
-                    noShowChipMessage={this.props.t(
-                      'booking:noShowChip.message',
-                    )}
-                    onClickNoShowChip={this.openNoShowChipMessageDialog}
-                    isRollCallMandatory={
-                      this.props.theme.is_roll_call_mandatory
-                    }
-                    dateRollCallLastModified={b.date_roll_call_last_modified}
-                    onClickWarningIcon={this.openStatusChangedDialog}
-                  />
-                )}
-              />
+                        this.setState({ bookingToRevert: b });
+                      }}
+                      discardBookingAttendance={() =>
+                        this.props.discardBookingAttendance(b.id)
+                      }
+                      confirmBookingAttendance={() =>
+                        this.props.confirmBookingAttendance(b.id)
+                      }
+                      spotSchedulingEnabled={typeof b.spot_id === 'number'}
+                      onClickChangeSpot={this.onClickChangeSpot}
+                      onProgramDetailsClick={() => {
+                        this.props.fetchPerformanceTrackingData(this.props.id);
+                        this.setState({
+                          isMemberProgramDetailDialogOpen: true,
+                        });
+                      }}
+                      displayNoShowChip
+                      noShowChipMessage={this.props.t(
+                        'booking:noShowChip.message',
+                      )}
+                      onClickNoShowChip={this.openNoShowChipMessageDialog}
+                      isRollCallMandatory={
+                        this.props.theme.is_roll_call_mandatory
+                      }
+                      dateRollCallLastModified={b.date_roll_call_last_modified}
+                      onClickWarningIcon={this.openStatusChangedDialog}
+                    />
+                  )}
+                />
+              )}
             </Paper>
             {!!this.props.recurrenceRuleBooking.length && (
               <Paper className={this.props.classes.recurrenceRuleContainer}>
@@ -996,13 +997,9 @@ export default compose(
       fetchSpotForBlueprint: fetchSpotForBlueprintAction,
     },
   ),
-  withState('filters', 'setFilters', (props) => {
-    const { userFilters } = props;
-    if (userFilters && userFilters.booking_filters) {
-      return userFilters.booking_filters;
-    }
-    return { future_booking: true };
-  }),
+  withProps(({ userFilters }) => ({
+    filters: userFilters?.booking_filters ?? { future_booking: true },
+  })),
   withHandlers({
     fetchRecurrenceRuleBooking:
       ({
@@ -1084,15 +1081,23 @@ export default compose(
       }) =>
       () => {
         fetchRecurrenceRuleBooking(1);
-        fetchMemberBookings(id, 1, BOOKING_PAGE_SIZE, filters, {
-          onSuccess: (bookings) =>
-            retrieveConsumerPackBulk(
-              bookings.map((b) => b.consumer_payment_pack),
-              {
-                onSuccess: (cppList) =>
-                  fetchPaymentPackBulk(cppList.map((cpp) => cpp.payment_pack)),
-              },
-            ),
+        fetchMemberBookings({
+          member: id,
+          page: 1,
+          page_size: BOOKING_PAGE_SIZE,
+          filters,
+          options: {
+            onSuccess: (bookings) =>
+              retrieveConsumerPackBulk(
+                bookings.map((b) => b.consumer_payment_pack),
+                {
+                  onSuccess: (cppList) =>
+                    fetchPaymentPackBulk(
+                      cppList.map((cpp) => cpp.payment_pack),
+                    ),
+                },
+              ),
+          },
         });
         setBookerInAvanceDialog(false);
       },
@@ -1116,60 +1121,61 @@ export default compose(
         deleteRecurrenceRuleBooking(r.id, data, {
           onSuccess: () => {
             fetchRecurrenceRuleBooking(1);
-            fetchMemberBookings(memberId, 1, BOOKING_PAGE_SIZE, filters, {
-              onSuccess: (bookings) =>
-                retrieveConsumerPackBulk(
-                  bookings.map((b) => b.consumer_payment_pack),
-                ),
+            fetchMemberBookings({
+              member: memberId,
+              page: 1,
+              page_size: BOOKING_PAGE_SIZE,
+              filters,
+              options: {
+                onSuccess: (bookings) =>
+                  retrieveConsumerPackBulk(
+                    bookings.map((b) => b.consumer_payment_pack),
+                  ),
+              },
             });
           },
         });
       },
     fetchMemberBookingsList:
-      ({ id, filters, fetchMemberBookings, retrieveConsumerPackBulk }) =>
+      ({
+        id,
+        filters,
+        fetchMemberBookings,
+        retrieveConsumerPackBulk,
+        bookingId,
+      }) =>
       (page, page_size) => {
-        fetchMemberBookings(id, page, page_size, filters, {
-          onSuccess: (bookings) =>
-            retrieveConsumerPackBulk(
-              bookings.map((b) => b.consumer_payment_pack),
-            ),
-        });
-      },
-    setFilterValue:
-      ({ setFilters, filters }) =>
-      (name: string, value) => {
-        if (value === null) {
-          setFilters(omit(filters, name));
-        } else {
-          setFilters({
-            ...filters,
-            [name]: value,
-          });
-        }
-      },
-  }),
-  withHandlers({
-    fetchFiltersSettings:
-      ({ fetchManagerFilters, setFilters }) =>
-      () => {
-        fetchManagerFilters({
-          onSuccess: (payload) => {
-            setFilters(payload.filters.booking_filters);
+        fetchMemberBookings({
+          member: id,
+          page,
+          page_size,
+          current_booking_id: !page ? bookingId : null,
+          filters,
+          options: {
+            onSuccess: (bookings) =>
+              retrieveConsumerPackBulk(
+                bookings.map((b) => b.consumer_payment_pack),
+              ),
           },
         });
       },
-  }),
-  withHandlers({
-    updateFiltersSettings:
-      ({ updateManagerFilters, userFilters }) =>
-      (filters: object) => {
+    setFilterValue:
+      ({ filters, updateManagerFilters, userFilters }) =>
+      (name: string, value) => {
+        let newFilters = { ...filters };
+        if (value === null) {
+          newFilters = omit(filters, name);
+        } else {
+          newFilters = {
+            ...filters,
+            [name]: value,
+          };
+        }
         updateManagerFilters({
           ...userFilters,
-          booking_filters: filters,
+          booking_filters: newFilters,
         });
       },
-  }),
-  withHandlers({
     createMemberProgram:
       ({ programList, createMemberProgram, fetchMetric }) =>
       (data: { program: number, member: number }) => {

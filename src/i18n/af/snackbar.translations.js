@@ -587,6 +587,9 @@ exports.default = {
       error: 'Impossible de supprimer le groupe de facturation',
     },
   },
+  giftCard: {
+    notFound: `Cette carte cadeau n'a pas été trouvée, il est possible qu'elle ait été archivée.`,
+  },
   memberNote: {
     delete: {
       success: 'Note supprimée',
@@ -689,6 +692,7 @@ exports.default = {
       },
     },
     item: {
+      notFound: `Ce produit n'a pas été trouvé, il est possible qu'il ait été archivé.`,
       updateProvisions: {
         success: 'Stock mis à jour',
         error: "Erreur lors de l'enregistrement du stock",

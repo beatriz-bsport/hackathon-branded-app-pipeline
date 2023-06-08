@@ -13,11 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 import { createStyles, Theme } from '@material-ui/core';
 
-import {
-  ReportCategoryEnum,
-  ReportConfiguration,
-  ReportMetadataValue,
-} from '../types';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { ReportConfiguration, ReportMetadataValue } from '../types';
 
 import ModalConfirm from '#components/ModalConfirm.component';
 import ReportCategorySelector from './ReportCategorySelector.component';

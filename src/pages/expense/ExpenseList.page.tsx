@@ -24,6 +24,7 @@ import {
 } from '#libs/expense/actions';
 
 import withTitle from '#hocs/with-title.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import ExpenseTable from '#libs/expense/components/ExpenseTable.component';
 import ExpenseFilters from '#libs/expense/components/ExpenseFilters.component';
@@ -52,6 +53,7 @@ type StateHandlerInit = {
   editChoice: string | null;
   showFuture: boolean;
   page: number;
+  expenseId?: number;
 };
 
 type StateHandlerType = typeof withStateHandlersInit &
@@ -98,10 +100,34 @@ export class ExpenseList extends Component<Props> {
   };
 
   componentDidMount(): void {
-    this.onPageChange(1);
     this.props.fetchCompanyUserRoles();
     this.props.getCategories();
     this.props.getSuppliers();
+    this.props.fetchExpenseList(
+      {
+        page: this.props.expenseId ? null : 1,
+        page_size: PAGE_SIZE,
+        category_in: this.props.selectedCategories?.map(
+          (cat: { value: string; label: string }) => cat.value,
+        ),
+        supplier_in: this.props.selectedSuppliers?.map(
+          (sup: { value: string; label: string }) => sup.value,
+        ),
+        staff_in: this.props.selectedStaff?.map(
+          (s: { value: number; label: string }) => s.value,
+        ),
+        current_item_id: this.props.expenseId,
+      },
+      {
+        onSuccess: (result) => {
+          if (this.props.expenseId) {
+            this.props.setSelectedExpense(this.props.expenseId);
+            this.props.setExpenseFormOpen(true);
+          }
+          this.props.setPage(result.page);
+        },
+      },
+    );
   }
 
   componentDidUpdate(prevProps: Props): void {
@@ -380,6 +406,7 @@ const withStateHandlersSetter = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose<any, Props>(
+  routerParamsToProps({ expenseId: 'expenseId:number' }),
   withTranslation('expense'),
   withStyles(styles),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),

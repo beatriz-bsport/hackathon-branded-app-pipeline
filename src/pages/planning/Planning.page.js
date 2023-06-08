@@ -241,6 +241,8 @@ type Props = {
   date: string,
   selectedOffer: Offer,
   hybridOfferLinkedToSelectedOffer: Offer | null,
+  offerId: number,
+
   theme: ?CompanyTheme,
 
   timetableLoading: boolean,
@@ -552,7 +554,9 @@ export class Planning extends PureComponent<Props, State> {
 
   loadDayData = (day: ?string) => {
     const date = moment(day || this.props.date, DATE_FORMAT);
-    const base = `/calendar/${date.year()}/${date.month() + 1}/${date.date()}`;
+    const base = `/calendar/${date.year()}/${date.month() + 1}/${date.date()}/${
+      this.props.offerId ?? ''
+    }`;
 
     if (!platformTutorialActivated()) {
       this.props.replaceRouter(base);

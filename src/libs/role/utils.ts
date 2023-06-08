@@ -6,7 +6,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import mergeWith from 'lodash/mergeWith';
 import get from 'lodash/get';
 
-import { URLS_PERMISSIONS } from './constants';
+import { URLS_PERMISSIONS, UUID_REGEX } from './constants';
 import {
   RolePermission,
   ProtectedUrls,
@@ -174,19 +174,159 @@ export const getOptionsFromIds = memoize(
   },
 );
 
+type HasAccessToUrlProps = {
+  url: string;
+  userPermissions: RolePermission;
+};
+
+export const hasAccessToUrl = ({
+  url,
+  userPermissions,
+}: HasAccessToUrlProps): boolean => {
+  const permissionKey = matchUrlToRelevantPermissionKey(url);
+  return !!getNestedKeyInObject(userPermissions, permissionKey);
+};
+
 // TODO : https://gitlab.com/bsport/bsport-saas/-/issues/1383
 export const matchUrlToRelevantPermissionKey = (url: string) => {
   if (url) {
     const cleanedUrl = parseRestrictedPath(url);
-    switch (cleanedUrl) {
-      case '/replacement/management': {
-        return ['navigationMenu', 'myClub', 'replacement'];
-      }
-      case '/payment-pack': {
-        return ['navigationMenu', 'products', 'paymentPack'];
-      }
-      default:
-        return [];
+    // Will match any string with the form : /replacement/management with potentially a last '/'
+    if (new RegExp(/^\/replacement\/management\/?$/).test(cleanedUrl)) {
+      return ['navigationMenu', 'myClub', 'replacement'];
+    }
+
+    // Will match any string with the form : /payment-pack with potentially a last '/'
+    if (new RegExp(/^\/payment-pack\/?$/).test(cleanedUrl)) {
+      return ['navigationMenu', 'products', 'paymentPack'];
+    }
+
+    // Will match any string with the form : /member/{only numbers}/private-booking/{only numbers} with potentially a last '/'
+    if (
+      new RegExp(/^\/member\/[0-9]+\/private-booking\/[0-9]+\/?$/).test(
+        cleanedUrl,
+      )
+    ) {
+      return ['member', 'retrieve'];
+    }
+
+    // Will match any string with the form : /member/{only numbers}/private-consumer-pass/{only numbers} with potentially a last '/'
+    if (
+      new RegExp(/^\/member\/[0-9]+\/private-consumer-pass\/[0-9]+\/?$/).test(
+        cleanedUrl,
+      )
+    ) {
+      return ['member', 'retrieve'];
+    }
+
+    // Will match any string with the form : /member/{only numbers}/bookings/{only numbers} with potentially a last '/'
+    if (
+      new RegExp(/^\/member\/[0-9]+\/bookings\/[0-9]+\/?$/).test(cleanedUrl)
+    ) {
+      return ['member', 'retrieve'];
+    }
+
+    // Will match any string with the form : /member/{only numbers}/pass/{only numbers} with potentially a last '/'
+    if (new RegExp(/^\/member\/[0-9]+\/pass\/[0-9]+\/?$/).test(cleanedUrl)) {
+      return ['member', 'retrieve'];
+    }
+
+    // Will match any string with the form : /member/{only numbers}/giftcard/{only numbers} with potentially a last '/'
+    if (
+      new RegExp(/^\/member\/[0-9]+\/giftcard\/[0-9]+\/?$/).test(cleanedUrl)
+    ) {
+      return ['member', 'retrieve'];
+    }
+
+    // Will match any string with the form : /member/{only numbers}/vod/{only numbers} with potentially a last '/'
+    if (new RegExp(/^\/member\/[0-9]+\/vod\/[0-9]+\/?$/).test(cleanedUrl)) {
+      return ['member', 'retrieve'];
+    }
+
+    // Will match any string with the form : /member/{only numbers}/basket/{an uuid} with potentially a last '/'
+    if (
+      new RegExp(`^/member/[0-9]+/basket/${UUID_REGEX}/?$`).test(cleanedUrl)
+    ) {
+      return ['member', 'retrieve'];
+    }
+
+    // Will match any string with the form : /member/{only numbers}/info with potentially a last '/'
+    if (new RegExp(/^\/member\/[0-9]+\/info\/?$/).test(cleanedUrl)) {
+      return ['member', 'retrieve'];
+    }
+
+    // Will match any string with the form : /expense/{only numbers} with potentially a last '/'
+    if (new RegExp(/^\/expense\/[0-9]+\/?$/).test(cleanedUrl)) {
+      return ['navigationMenu', 'payments', 'expenses'];
+    }
+
+    // Will match any string with the form : /subscription/{only numbers} with potentially a last '/'
+    if (new RegExp(/^\/subscription\/[0-9]+\/?$/).test(cleanedUrl)) {
+      return ['navigationMenu', 'products', 'contracts'];
+    }
+
+    // Will match any string with the form : /giftcard/{only numbers} with potentially a last '/'
+    if (new RegExp(/^\/giftcard\/[0-9]+\/?$/).test(cleanedUrl)) {
+      return ['navigationMenu', 'products', 'giftcards'];
+    }
+
+    // Will match any string with the form : /shop/{only numbers} with potentially a last '/'
+    if (new RegExp(/^\/shop\/[0-9]+\/?$/).test(cleanedUrl)) {
+      return ['navigationMenu', 'products', 'shop'];
+    }
+
+    // Will match any string with the form : /coupon/{only numbers} with potentially a last '/'
+    if (new RegExp(/^\/coupon\/[0-9]+\/?$/).test(cleanedUrl)) {
+      return ['navigationMenu', 'products', 'promotions'];
+    }
+
+    // Will match any string with the form : /coupon/{only numbers} with potentially a last '/'
+    if (new RegExp(/^\/vod\/video\/[0-9]+\/?$/).test(cleanedUrl)) {
+      return ['navigationMenu', 'digitalOffer', 'videos'];
+    }
+
+    // Will match any string with the form : /activity/{only numbers}/general with potentially a last '/'
+    if (new RegExp(/^\/activity\/[0-9]+\/general\/?$/).test(cleanedUrl)) {
+      return ['navigationMenu', 'myClub', 'activities'];
+    }
+
+    // Will match any string with the form : /workshop-activity/{only numbers}/general with potentially a last '/'
+    if (
+      new RegExp(/^\/workshop-activity\/[0-9]+\/general\/?$/).test(cleanedUrl)
+    ) {
+      return ['navigationMenu', 'myClub', 'workshops'];
+    }
+
+    // Will match any string with the form : /calendar/{4 numbers}/{2 numbers}/{2 numbers}/{only numbers} with potentially a last '/'
+    if (
+      new RegExp(/^\/calendar\/[0-9]{4}\/[0-9]{2}\/[0-9]{2}\/[0-9]+\/?$/).test(
+        cleanedUrl,
+      )
+    ) {
+      return ['navigationMenu', 'calendar'];
+    }
+
+    // Will match any string with the form : /invoice/{an uuid} with potentially a last '/'
+    if (new RegExp(`^/invoice/${UUID_REGEX}/?$`).test(cleanedUrl)) {
+      return ['navigationMenu', 'payments', 'billings'];
+    }
+
+    // Will match any string with the form : /private-service/service/{only numbers}/general with potentially a last '/'
+    if (
+      new RegExp(/^\/private-service\/service\/[0-9]+\/general\/?$/).test(
+        cleanedUrl,
+      )
+    ) {
+      return ['navigationMenu', 'myClub', 'appointments'];
+    }
+
+    // Will match any string with the form : /calendar/{4 numbers}/{2 numbers}/{2 numbers} with potentially a last '/'
+    if (
+      new RegExp(/^\/calendar\/[0-9]{4}\/[0-9]{2}\/[0-9]{2}\/?$/).test(
+        cleanedUrl,
+      )
+    ) {
+      return ['navigationMenu', 'calendar'];
     }
   }
   return [];

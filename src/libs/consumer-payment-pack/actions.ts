@@ -352,13 +352,24 @@ export function resetConsumerPackByMember() {
   };
 }
 
-export function fetchByMember(
-  member: number,
-  page: number,
-  page_size: number,
-  options?: OptionCallback,
-  params: any = {},
-) {
+type FetchByMemberProps = {
+  member: number;
+  page?: number;
+  page_size: number;
+  filters: any;
+  options?: OptionCallback;
+  params?: any;
+  current_consumer_pack_id?: number;
+};
+
+export function fetchByMember({
+  member,
+  page,
+  page_size,
+  options,
+  params = {},
+  current_consumer_pack_id,
+}: FetchByMemberProps) {
   return async (dispatch: Dispatch) => {
     dispatch(byMember.isLoading(true));
     dispatch(byMember.error(null));
@@ -368,8 +379,10 @@ export function fetchByMember(
         page,
         page_size,
         ...(params || {}),
+        current_item_id: current_consumer_pack_id,
       });
-      dispatch(byMember.success({ ...response.data, page }));
+      const current_page = response.data?.page ?? page;
+      dispatch(byMember.success({ ...response.data, page: current_page }));
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);
       }

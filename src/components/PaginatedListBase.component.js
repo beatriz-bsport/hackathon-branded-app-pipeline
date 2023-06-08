@@ -1,5 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react';
+import isEqual from 'lodash/isEqual';
 import { compose } from 'recompose';
 import List from '@material-ui/core/List';
 import IconButton from '@material-ui/core/IconButton';
@@ -25,7 +26,8 @@ type Props = {
   unknownNbItems?: boolean,
   page: number,
   loading: ?boolean,
-  onPageRequested: (page: number, page_size?: number) => void,
+  onPageRequested: (page: number | null, page_size?: number) => void,
+  renderCustomPageFirst?: boolean,
 
   t: TFunction,
   classes: any,
@@ -46,11 +48,14 @@ export class PaginatedList extends PureComponent<Props, State> {
   };
 
   componentDidMount() {
-    this.handlePageRequested(1);
+    this.handlePageRequested(
+      this.props.renderCustomPageFirst ? null : 1,
+      this.props.itemPerPage,
+    );
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.additionalFilters !== prevProps.additionalFilters) {
+    if (!isEqual(this.props.additionalFilters, prevProps.additionalFilters)) {
       this.handlePageRequested(this.props.page);
     }
   }

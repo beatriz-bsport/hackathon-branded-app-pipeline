@@ -9,6 +9,7 @@ const meta_activity_online = { name: offer.name, is_broadcast: true };
 const establishment = offer.establishment;
 const coach = offer.coach;
 const price = (Math.random() * 100 + 100).toFixed(2);
+const tax = Math.random() * 20;
 const spotId = Math.floor(Math.random() * 10);
 
 const OfferSummaryTemplate = (args: Props) => {
@@ -28,6 +29,31 @@ DefaultOfferSummary.args = {
   spotId: spotId,
   onConfirm: () => {},
   variant: 'default',
+  theme: {
+    hideCoach: false,
+    is_tax_excluded_in_marketplace: true,
+    show_establishment: true,
+  },
+};
+
+export const ShowTaxDetailOfferSummary = OfferSummaryTemplate.bind({});
+
+ShowTaxDetailOfferSummary.args = {
+  metaActivity: meta_activity,
+  establishment: establishment,
+  offer: offer,
+  coach: coach,
+  coachOverride: null,
+  price: price,
+  spotId: spotId,
+  onConfirm: () => {},
+  variant: 'default',
+  tax: tax,
+  theme: {
+    hideCoach: false,
+    is_tax_excluded_in_marketplace: false,
+    show_establishment: true,
+  },
 };
 
 export const OnlineOfferSummary = OfferSummaryTemplate.bind({});
@@ -42,6 +68,11 @@ OnlineOfferSummary.args = {
   spotId: spotId,
   onConfirm: () => {},
   variant: 'default',
+  theme: {
+    hideCoach: false,
+    is_tax_excluded_in_marketplace: true,
+    show_establishment: true,
+  },
 };
 
 export const DisabledOfferSummary = OfferSummaryTemplate.bind({});
@@ -58,6 +89,11 @@ DisabledOfferSummary.args = {
   variant: 'default',
   disableButton: false,
   offerStatus: { bookable_status: 3 },
+  theme: {
+    hideCoach: false,
+    is_tax_excluded_in_marketplace: true,
+    show_establishment: true,
+  },
 };
 
 export const LoadingButtonOfferSummary = OfferSummaryTemplate.bind({});
@@ -73,6 +109,11 @@ LoadingButtonOfferSummary.args = {
   onConfirm: () => {},
   variant: 'default',
   confirmLoading: true,
+  theme: {
+    hideCoach: false,
+    is_tax_excluded_in_marketplace: true,
+    show_establishment: true,
+  },
 };
 
 export const WaitlistOfferSummary = OfferSummaryTemplate.bind({});
@@ -86,6 +127,11 @@ WaitlistOfferSummary.args = {
   offerStatus: { bookable_status: 3, waiting_list_status: 0 },
   onConfirm: () => {},
   variant: 'default',
+  theme: {
+    hideCoach: false,
+    is_tax_excluded_in_marketplace: true,
+    show_establishment: true,
+  },
 };
 
 export const WaitlistFullOfferSummary = OfferSummaryTemplate.bind({});
@@ -99,6 +145,11 @@ WaitlistFullOfferSummary.args = {
   offerStatus: { bookable_status: 3, waiting_list_status: 1 },
   onConfirm: () => {},
   variant: 'default',
+  theme: {
+    hideCoach: false,
+    is_tax_excluded_in_marketplace: true,
+    show_establishment: true,
+  },
 };
 
 export const LoadingOfferSummary = OfferSummaryTemplate.bind({});
@@ -107,6 +158,11 @@ LoadingOfferSummary.args = {
   onConfirm: () => {},
   loading: true,
   variant: 'default',
+  theme: {
+    hideCoach: false,
+    is_tax_excluded_in_marketplace: true,
+    show_establishment: true,
+  },
 };
 
 export const BasketOfferSummary = OfferSummaryTemplate.bind({});
@@ -114,8 +170,14 @@ export const BasketOfferSummary = OfferSummaryTemplate.bind({});
 BasketOfferSummary.args = {
   metaActivity: meta_activity,
   establishment: establishment,
+  coach: coach,
   offer: offer,
   variant: 'basket',
+  theme: {
+    hideCoach: true,
+    is_tax_excluded_in_marketplace: true,
+    show_establishment: true,
+  },
 };
 
 export default {

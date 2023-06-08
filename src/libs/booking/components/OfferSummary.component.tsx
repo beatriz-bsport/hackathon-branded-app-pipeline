@@ -28,6 +28,7 @@ import {
 
 import { formatAsDateWithWeekday } from '../../../utils/datetime';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getTaxPrice } from '#libs/theme/utils';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import { MetaActivity } from '#libs/meta-activity/types';
@@ -54,6 +55,7 @@ export type Props = {
   offerStatus: OfferStatus;
   loading: boolean;
   variant: 'default' | 'basket';
+  tax: number;
   theme: CompanyTheme;
   t: TFunction;
 } & WithTranslation;
@@ -72,171 +74,204 @@ const OfferSummary: React.FC<Props> = (props) => {
     confirmLoading,
     loading,
     offerStatus,
+    tax,
     variant,
     theme,
     t,
   } = props;
+
   const classes = useStyles(props);
+
+  const isBookable =
+    offerStatus?.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE;
+  const isWaitlistOpen =
+    offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_OPEN;
+  const isWaitlistFull =
+    offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL;
+  const waitlistExists = !isBookable && (isWaitlistOpen || isWaitlistFull);
+
+  const displayTax = theme?.is_tax_excluded_in_marketplace === false;
+
   return (
     <Grid container direction="column" className={classes.grid}>
-      <Grid container item direction="column" className={classes.list}>
-        <Typography variant="h6">
-          {loading && !metaActivity?.name ? (
-            <Skeleton animation="wave" />
-          ) : (
-            metaActivity?.name
-          )}
-        </Typography>
-
-        <Typography variant="body2" className={classes.grey}>
-          {loading && !offer ? (
-            <Skeleton animation="wave" />
-          ) : (
-            formatAsDateWithWeekday(
-              offer?.date_start,
-              theme,
-              t,
-              'LLL',
-              offer?.timezone_name,
-            )
-          )}
-        </Typography>
-        <Grid container item className={classes.itemWithIcon}>
-          {metaActivity?.is_broadcast && <MarketplaceBroadcastCSSOnly />}
-          {offerStatus?.bookable_status !== OFFER_BOOKABLE_STATUS_BOOKABLE &&
-            (offerStatus?.waiting_list_status ===
-              OFFER_WAITING_LIST_STATUS_OPEN ||
-              offerStatus?.waiting_list_status ===
-                OFFER_WAITING_LIST_STATUS_FULL) && (
-              <Chip
-                icon={<HourglassFull fontSize="small" />}
-                label={
-                  offerStatus?.waiting_list_status ===
-                  OFFER_WAITING_LIST_STATUS_FULL
-                    ? t(`booking:offer.offerStatus.waiting_list_status.6002`)
-                    : t(`booking:offer.offerStatus.waiting_list_status.0`)
-                }
-                size="small"
-                className={classes.waitlistChip}
-              />
+      <Grid container item direction="column" className={classes.columnGap2}>
+        <Grid container item direction="column" className={classes.columnGap1}>
+          <Typography variant="h6">
+            {loading && !metaActivity?.name ? (
+              <Skeleton animation="wave" />
+            ) : (
+              metaActivity?.name
             )}
+          </Typography>
+
+          <Typography className={classes.grey}>
+            {loading && !offer ? (
+              <Skeleton animation="wave" />
+            ) : (
+              formatAsDateWithWeekday(
+                offer?.date_start,
+                theme,
+                t,
+                'LLL',
+                offer?.timezone_name,
+              )
+            )}
+          </Typography>
         </Grid>
+        <Grid container item direction="column" className={classes.columnGap2}>
+          {(metaActivity?.is_broadcast || waitlistExists) && (
+            <Grid container item className={classes.lineGap1}>
+              {metaActivity?.is_broadcast && <MarketplaceBroadcastCSSOnly />}
+              {waitlistExists && (
+                <Chip
+                  icon={<HourglassFull fontSize="small" />}
+                  label={
+                    isWaitlistFull
+                      ? t(`booking:offer.offerStatus.waiting_list_status.6002`)
+                      : t(`booking:offer.offerStatus.waiting_list_status.0`)
+                  }
+                  size="small"
+                  className={classes.waitlistChip}
+                />
+              )}
+            </Grid>
+          )}
 
-        {!establishment && loading && (
-          <Grid container item className={classes.itemWithIcon}>
-            <Skeleton
-              animation="wave"
-              variant="circle"
-              className={classes.avatar}
-            />
-            <Skeleton animation="wave" width="50%" />
-          </Grid>
-        )}
-        {establishment && (
-          <Grid container item className={classes.itemWithIcon}>
-            <LocationOn className={classes.icon} />
-            <Typography>{establishment?.title}</Typography>
-          </Grid>
-        )}
-
-        {!coach && loading && (
-          <Grid container item className={classes.itemWithIcon}>
-            <Skeleton
-              animation="wave"
-              variant="circle"
-              className={classes.avatar}
-            />
-            <Skeleton animation="wave" width="50%" />
-          </Grid>
-        )}
-        {coach && (
-          <Grid container item className={classes.itemWithIcon}>
-            <Avatar className={classes.avatar}>
-              src=
-              {coachOverride?.photo ?? coach?.photo ?? DEFAULT_AVATAR}
-            </Avatar>
-            <Typography>{coachOverride?.name ?? coach?.name}</Typography>
-          </Grid>
-        )}
-
-        {(spotId || spotId === 0) && (
-          <Grid container item className={classes.itemWithIcon}>
-            {!spotId && loading ? (
+          {loading && !establishment && theme?.show_establishment && (
+            <Grid container item className={classes.lineGap1}>
               <Skeleton
                 animation="wave"
                 variant="circle"
                 className={classes.avatar}
               />
-            ) : (
-              <Adjust className={classes.icon} />
-            )}
-            <Typography>{`${t(`booking:place`)} ${spotId}`}</Typography>
-          </Grid>
-        )}
+              <Skeleton animation="wave" width="50%" />
+            </Grid>
+          )}
+          {establishment && theme?.show_establishment && (
+            <Grid container item className={classes.lineGap1}>
+              <LocationOn className={classes.icon} />
+              <Typography>{establishment?.title}</Typography>
+            </Grid>
+          )}
 
-        {!offer && loading && (
-          <Grid container item className={classes.itemWithIcon}>
-            <Skeleton
-              animation="wave"
-              variant="circle"
-              className={classes.avatar}
-            />
-            <Skeleton animation="wave" width="50%" />
-          </Grid>
-        )}
-        {offer && variant === 'default' && (
-          <Grid container item className={classes.itemWithIcon}>
-            <CreditCard className={classes.icon} />
-            <Typography>
-              {offer?.credit_price > 1
-                ? `${offer?.credit_price} ${t(`booking:creditConsumed_plural`)}`
-                : `${offer?.credit_price} ${t(`booking:creditConsumed`)}`}
-            </Typography>
-          </Grid>
-        )}
+          {loading && !coach && !theme?.hideCoach && (
+            <Grid container item className={classes.itemWithIcon}>
+              <Skeleton
+                animation="wave"
+                variant="circle"
+                className={classes.avatar}
+              />
+              <Skeleton animation="wave" width="50%" />
+            </Grid>
+          )}
+          {coach && !theme?.hideCoach && (
+            <Grid container item className={classes.itemWithIcon}>
+              <Avatar className={classes.avatar}>
+                src=
+                {coachOverride?.photo ?? coach?.photo ?? DEFAULT_AVATAR}
+              </Avatar>
+              <Typography>{coachOverride?.name ?? coach?.name}</Typography>
+            </Grid>
+          )}
+
+          {(spotId || spotId === 0) && (
+            <Grid container item className={classes.itemWithIcon}>
+              {loading && !spotId ? (
+                <Skeleton
+                  animation="wave"
+                  variant="circle"
+                  className={classes.avatar}
+                />
+              ) : (
+                <Adjust className={classes.icon} />
+              )}
+              <Typography>{`${t(`booking:place`)} ${spotId}`}</Typography>
+            </Grid>
+          )}
+
+          {loading && !offer && (
+            <Grid container item className={classes.itemWithIcon}>
+              <Skeleton
+                animation="wave"
+                variant="circle"
+                className={classes.avatar}
+              />
+              <Skeleton animation="wave" width="50%" />
+            </Grid>
+          )}
+          {offer && variant === 'default' && (
+            <Grid container item className={classes.itemWithIcon}>
+              <CreditCard className={classes.icon} />
+              <Typography>
+                {offer?.credit_price > 1
+                  ? `${offer?.credit_price} ${t(
+                      `booking:creditConsumed_plural`,
+                    )}`
+                  : `${offer?.credit_price} ${t(`booking:creditConsumed`)}`}
+              </Typography>
+            </Grid>
+          )}
+        </Grid>
       </Grid>
-
-      {offerStatus?.waiting_list_status !== OFFER_WAITING_LIST_STATUS_FULL &&
-        onConfirm &&
-        variant === 'default' && (
-          <Grid item container direction="column" className={classes.list}>
-            {!price && loading ? (
-              <Skeleton animation="wave" />
-            ) : (
+      {!isWaitlistFull && onConfirm && variant === 'default' && (
+        <Grid item container direction="column" className={classes.columnGap2}>
+          {displayTax && (
+            <Grid
+              item
+              container
+              direction="column"
+              className={classes.columnGap1}
+            >
               <Grid item container className={classes.price}>
-                <Typography variant="h6">
-                  {t(`checkout:payment.globalTotal`)}
+                <Typography variant="body2" className={classes.grey}>
+                  {t(`checkout:payment.taxExcluded`)}
                 </Typography>
-                <Typography variant="h6" className={classes.grey}>
-                  {getCurrencyDisplayWithPrice(price)}
+                <Typography variant="body2">
+                  {getCurrencyDisplayWithPrice(price, true, tax)}
                 </Typography>
               </Grid>
-            )}
-            {loading ? (
-              <Skeleton animation="wave" height="50px" />
-            ) : (
-              <BookingConfirmButton
-                value={
-                  offerStatus?.waiting_list_status ===
-                  OFFER_WAITING_LIST_STATUS_OPEN
-                    ? t(`booking:offer.mainButton.registerWaitingList`)
-                    : t(`booking:notification.form.submit`)
-                }
-                disabled={
-                  (offerStatus &&
-                    offerStatus?.bookable_status !==
-                      OFFER_BOOKABLE_STATUS_BOOKABLE &&
-                    offerStatus?.waiting_list_status !==
-                      OFFER_WAITING_LIST_STATUS_OPEN) ||
-                  disableButton ||
-                  confirmLoading
-                }
-                onClick={onConfirm}
-                buttonLoading={confirmLoading}
-              />
-            )}
-          </Grid>
-        )}
+              <Grid item container className={classes.price}>
+                <Typography variant="body2" className={classes.grey}>
+                  {t(`checkout:payment.tax`)}
+                </Typography>
+                <Typography variant="body2">
+                  {getCurrencyDisplayWithPrice(getTaxPrice(price, tax))}
+                </Typography>
+              </Grid>
+            </Grid>
+          )}
+          {loading && !price ? (
+            <Skeleton animation="wave" />
+          ) : (
+            <Grid item container className={classes.price}>
+              <Typography variant="h6">
+                {t(`checkout:payment.globalTotal`)}
+              </Typography>
+              <Typography variant="h6">
+                {getCurrencyDisplayWithPrice(price)}
+              </Typography>
+            </Grid>
+          )}
+          {loading ? (
+            <Skeleton animation="wave" height="50px" />
+          ) : (
+            <BookingConfirmButton
+              value={
+                isWaitlistOpen
+                  ? t(`booking:offer.mainButton.registerWaitingList`)
+                  : t(`booking:notification.form.submit`)
+              }
+              disabled={
+                (offerStatus && !isBookable && !isWaitlistOpen) ||
+                disableButton ||
+                confirmLoading
+              }
+              onClick={onConfirm}
+              buttonLoading={confirmLoading}
+            />
+          )}
+        </Grid>
+      )}
     </Grid>
   );
 };
@@ -246,16 +281,31 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     maxWidth: '374px',
     padding: theme.spacing(2),
-    gap: theme.spacing(4),
+    gap: theme.spacing(3),
     justifyContent: 'flex-start',
     backgroundColor: theme.palette.background.paper,
     border: (props: Props) =>
       props.variant === 'default' ? '2px solid #F1F3F4' : 'none',
     borderRadius: '8px',
+    [theme.breakpoints.down('xs')]: {
+      maxWidth: '100%',
+      borderRadius: 0,
+      gap: theme.spacing(1),
+    },
   },
-  list: {
+  columnGap2: {
     display: 'flex',
     gap: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      gap: theme.spacing(1),
+    },
+  },
+  columnGap1: {
+    display: 'flex',
+    gap: theme.spacing(1),
+    [theme.breakpoints.down('xs')]: {
+      gap: 0,
+    },
   },
   grey: {
     color: '#687586',
@@ -274,10 +324,18 @@ const useStyles = makeStyles((theme: Theme) => ({
       color: 'inherit',
     },
   }),
+  lineGap1: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+  },
   itemWithIcon: {
     display: 'flex',
     alignItems: 'center',
     gap: theme.spacing(1),
+    [theme.breakpoints.down('xs')]: {
+      display: 'none',
+    },
   },
   icon: {
     color: theme.palette.action.active,
@@ -296,6 +354,7 @@ const OfferSummaryTranslations = withTranslation([
   'datetime',
   'marketplace',
   'booking',
+  'checkout',
 ])(OfferSummary);
 
 export const OfferSummaryForStorybook = marketplaceCssHoc()(

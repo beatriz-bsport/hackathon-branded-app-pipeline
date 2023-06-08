@@ -313,7 +313,10 @@ export default handleActions<ImmutableCadenceState, any>(
       { payload }: { payload: { id: number } },
     ) => {
       return state
-        .setIn(['step', 'allIds'], [payload.id])
+        .setIn(
+          ['step', 'allIds'],
+          [...state.step.allIds.filter((id) => id !== payload.id), payload.id],
+        )
         .setIn(['step', 'byId', payload.id.toString()], payload);
     },
 

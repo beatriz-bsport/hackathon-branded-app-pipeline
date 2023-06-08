@@ -1,6 +1,20 @@
 // @ts-nocheck
 import { Moment } from 'moment-timezone';
 
+import {
+  OFFER_BOOKABLE_STATUS_BOOKABLE,
+  OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON,
+  OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE,
+  OFFER_BOOKABLE_STATUS_FULL,
+  OFFER_BOOKABLE_STATUS_LOCKED,
+} from '@bsport/common/lib/master-data/bookable-status';
+import {
+  OFFER_WAITING_LIST_STATUS_OPEN,
+  OFFER_WAITING_LIST_STATUS_FULL,
+  OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
+  OFFER_WAITING_LIST_STATUS_CONVERTIBLE,
+  OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS,
+} from '@bsport/common/lib/master-data/waiting-list-status';
 import { ErrorAndLoading } from '../types';
 import { Establishment } from '../establishment/types';
 import { MetaActivity } from '../meta-activity/types';
@@ -153,8 +167,18 @@ type OfferDancing = {
 export type OfferStatus = {
   id: number;
   offer_status: number;
-  bookable_status: number;
-  waiting_list_status: number;
+  bookable_status:
+    | typeof OFFER_BOOKABLE_STATUS_BOOKABLE
+    | typeof OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON
+    | typeof OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE
+    | typeof OFFER_BOOKABLE_STATUS_FULL
+    | typeof OFFER_BOOKABLE_STATUS_LOCKED;
+  waiting_list_status:
+    | typeof OFFER_WAITING_LIST_STATUS_OPEN
+    | typeof OFFER_WAITING_LIST_STATUS_FULL
+    | typeof OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED
+    | typeof OFFER_WAITING_LIST_STATUS_CONVERTIBLE
+    | typeof OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS;
   taken_spots: number[];
   blocked_by_tags: boolean;
 };

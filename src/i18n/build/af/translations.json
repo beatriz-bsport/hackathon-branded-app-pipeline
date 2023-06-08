@@ -386,7 +386,13 @@
   },
   "category": { "sct": { "selector": { "placeholder": "Rechercher une catégorie", "label": "Catégorie" } } },
   "checkout": {
-    "payment": { "flat_fee": "Frais de dossier", "taxExcluded": "Sous-total HT", "tax": "Taxes", "total": "Total TTC" },
+    "payment": {
+      "flat_fee": "Frais de dossier",
+      "taxExcluded": "Sous-total HT",
+      "tax": "Taxes",
+      "total": "Total TTC",
+      "globalTotal": "Total"
+    },
     "events": {
       "basket-created": "Panier créé",
       "basket-finalize": "Panier finalisé/payé",

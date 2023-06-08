@@ -6,6 +6,7 @@ exports.default = {
     taxExcluded: 'Sous-total HT',
     tax: 'Taxes',
     total: 'Total TTC',
+    globalTotal: 'Total',
   },
   events: {
     [BASKET_EVENTS.created]: 'Panier créé',

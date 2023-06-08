@@ -82,25 +82,35 @@ const ButtonWithConfirmMenuItem = withConfirm(DeleteButtonMenuItem, 'onClick', {
 export const SmartListItem = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['smartList']);
+  const {
+    getCadencesLoading,
+    onClickEdit,
+    onClickDuplicate,
+    fetchCadences,
+    onClickDelete,
+    getCadences,
+    smartlist,
+  } = props;
   const [openCannotBeDeletedDialog, setOpenCannotBeDeletedDialog] =
     useState(false);
+
   const [previousCadenceLoading, setPreviousCadenceLoading] = useState(
-    props.getCadencesLoading(),
+    getCadencesLoading(),
   );
   const [smartlistToDelete, setSmartlistToDelete] = useState(null);
 
   const handleOnClickEdit = useCallback(() => {
-    props.onClickEdit(props.smartlist.id);
-  }, [props]);
+    onClickEdit(smartlist.id);
+  }, [smartlist, onClickEdit]);
 
   const handleOnClickDuplicate = useCallback(() => {
-    props.onClickDuplicate(props.smartlist.id);
-  }, [props]);
+    onClickDuplicate(smartlist.id);
+  }, [smartlist, onClickDuplicate]);
 
   const handleOnClickDelete = useCallback(() => {
-    setSmartlistToDelete(props.smartlist.id);
-    props.fetchCadences(props.smartlist.id);
-  }, [props]);
+    setSmartlistToDelete(smartlist.id);
+    fetchCadences(smartlist.id);
+  }, [smartlist, fetchCadences]);
 
   const handleCloseCannotBeDeletedDialog = () => {
     setOpenCannotBeDeletedDialog(false);
@@ -109,19 +119,26 @@ export const SmartListItem = (props: Props) => {
   useEffect(() => {
     if (
       previousCadenceLoading &&
-      !props.getCadencesLoading() &&
-      smartlistToDelete === props.smartlist.id
+      !getCadencesLoading() &&
+      smartlistToDelete === smartlist.id
     ) {
-      const cadencesUsingSmartlist = props.getCadences(props.smartlist.id);
+      const cadencesUsingSmartlist = getCadences(smartlist.id);
       if (!!cadencesUsingSmartlist && cadencesUsingSmartlist.length > 0) {
         setOpenCannotBeDeletedDialog(true);
       } else {
-        props.onClickDelete(props.smartlist.id);
+        onClickDelete(smartlist.id);
       }
       setSmartlistToDelete(null);
     }
-    setPreviousCadenceLoading(props.getCadencesLoading());
-  }, [previousCadenceLoading, props, smartlistToDelete]);
+    setPreviousCadenceLoading(getCadencesLoading());
+  }, [
+    previousCadenceLoading,
+    onClickDelete,
+    smartlistToDelete,
+    getCadences,
+    getCadencesLoading,
+    smartlist,
+  ]);
 
   return (
     <>

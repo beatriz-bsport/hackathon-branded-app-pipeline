@@ -120,10 +120,12 @@ export const COMMUNICATION_KIND = {
 
 // ----------INBOX THREADS------------
 
+export const INBOX_THREAD_PAGE_SIZE = 15;
+
 // FILTERING
 
 export const INBOX_ALL_MESSAGES = 0;
-export const INBOX_HAS_NOT_BEEN_READ_MESSAGES = 1;
+export const INBOX_UNREAD_MESSAGES = 1;
 export const INBOX_FAVORITE_MESSAGES = 2;
 export const INBOX_MUTED_MESSAGES = 3;
 export const INBOX_DISABLED_MESSAGES = 4;

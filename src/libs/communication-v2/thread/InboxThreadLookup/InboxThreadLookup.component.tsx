@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import DelayedTextField from '#components/DelayedTextField.component';
 import InboxThreadContextSelector from '#libs/communication-v2/thread/InboxThreadLookup/InboxThreadContextSelector.component';
-import { choices } from '#libs/communication-v2/utils';
+import { threadFilteringChoices } from '#libs/communication-v2/utils';
 import { SelectFieldItem } from '#libs/communication-v2/types';
 
 type selectorStyle = { option: any };
@@ -84,7 +84,7 @@ const InboxThreadLookup: React.FC<Props> = ({
 
         <Select
           closeMenuOnSelect
-          options={choices(t)}
+          options={threadFilteringChoices(t)}
           value={filterValue}
           styles={{ ...selectorStyles }}
           onChange={handleFilterChange}

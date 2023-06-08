@@ -23,6 +23,7 @@ import {
   COMMUNICATION_CHANNEL_CADENCE,
 } from '@bsport/common/lib/master-data/communication-filters';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import {
   COMMUNICATION_FILTER_IDENTIFIER_CHANNEL,
   COMMUNICATION_FILTER_IDENTIFIER_KIND,
@@ -43,7 +44,7 @@ import {
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL,
   COMMUNICATION_FILTER_IDENTIFIER_SRC_OR_DST,
   INBOX_ALL_MESSAGES,
-  INBOX_HAS_NOT_BEEN_READ_MESSAGES,
+  INBOX_UNREAD_MESSAGES,
   INBOX_FAVORITE_MESSAGES,
   INBOX_MUTED_MESSAGES,
   INBOX_DISABLED_MESSAGES,
@@ -55,6 +56,8 @@ import {
   CommunicationMetadata,
   Communication,
   FilteringMemberIdsByGenericCategories,
+  InboxThreadListParams,
+  CommunicationThread,
 } from './types';
 import { Booking, BookingOption } from '#libs/booking/types';
 import { Member } from '#libs/member/types';
@@ -664,27 +667,87 @@ export const getFormatedQueryParamsToFetchRecipientPaginatedList = (
 
 // Filtering for thread list
 
-export const choices = memoize((t: TFunction): SelectFieldItem[] => {
-  return [
-    {
-      value: INBOX_ALL_MESSAGES,
-      label: t('thread.filter.allThreads'),
-    },
-    {
-      value: INBOX_HAS_NOT_BEEN_READ_MESSAGES,
-      label: t('thread.filter.hasNotBeenRead'),
-    },
-    {
-      value: INBOX_FAVORITE_MESSAGES,
-      label: t('thread.filter.favorites'),
-    },
-    {
-      value: INBOX_MUTED_MESSAGES,
-      label: t('thread.filter.muted'),
-    },
-    {
-      value: INBOX_DISABLED_MESSAGES,
-      label: t('thread.filter.disabled'),
-    },
-  ];
-});
+export const threadFilteringChoices = memoize(
+  (t: TFunction): SelectFieldItem[] => {
+    return [
+      {
+        value: INBOX_ALL_MESSAGES,
+        label: t('thread.filter.allThreads'),
+      },
+      {
+        value: INBOX_UNREAD_MESSAGES,
+        label: t('thread.filter.hasNotBeenRead'),
+      },
+      {
+        value: INBOX_FAVORITE_MESSAGES,
+        label: t('thread.filter.favorites'),
+      },
+      {
+        value: INBOX_MUTED_MESSAGES,
+        label: t('thread.filter.muted'),
+      },
+      {
+        value: INBOX_DISABLED_MESSAGES,
+        label: t('thread.filter.disabled'),
+      },
+    ];
+  },
+);
+
+export const threadListQueryParamsSetter = (
+  contextSelected: ChatThreadKinds,
+  filterValue?: SelectFieldItem,
+  page?: number,
+): InboxThreadListParams => {
+  const params: InboxThreadListParams = {
+    related_object_kind: contextSelected,
+  };
+  if (filterValue) {
+    switch (filterValue.value) {
+      case INBOX_ALL_MESSAGES:
+        params.disabled = false;
+        break;
+      case INBOX_UNREAD_MESSAGES:
+        params.last_communication_has_been_read = false;
+        params.disabled = false;
+        break;
+      case INBOX_FAVORITE_MESSAGES:
+        params.favorite = true;
+        params.disabled = false;
+        break;
+      case INBOX_MUTED_MESSAGES:
+        params.muted = true;
+        params.disabled = false;
+        break;
+      case INBOX_DISABLED_MESSAGES:
+        params.disabled = true;
+        break;
+      default:
+        params.disabled = false;
+    }
+  } else {
+    params.disabled = false;
+  }
+
+  if (page) {
+    params.page = page;
+  }
+
+  return params;
+};
+
+export const isThreadDisplayed = (
+  thread: CommunicationThread,
+  filterValue: SelectFieldItem,
+): boolean => {
+  switch (filterValue.value) {
+    case INBOX_FAVORITE_MESSAGES:
+      return !thread.disabled && thread.favorite;
+    case INBOX_MUTED_MESSAGES:
+      return !thread.disabled && thread.muted;
+    case INBOX_DISABLED_MESSAGES:
+      return thread.disabled;
+    default:
+      return !thread.disabled;
+  }
+};

@@ -1,4 +1,6 @@
 import { createAction } from 'redux-actions';
+import { AxiosResponse } from 'axios';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type {
   Dispatch,
@@ -19,6 +21,14 @@ import {
   updateCommunicationProviderSettings as updateCommunicationProviderSettingsAPI,
   fetchSmartListPopupSendings as fetchSmartListPopupSendingsAPI,
   sendSmartListPopup as sendSmartListPopupAPI,
+  fetchInboxThreadList as fetchInboxThreadListAPI,
+  fetchBatchUnreadAnswersCounts as fetchBatchUnreadAnswersCountsAPI,
+  getUnreadAnswersCountFromThread as getUnreadAnswersCountFromThreadAPI,
+  switchFavoriteStatus as switchFavoriteStatusAPI,
+  switchMutedStatus as switchMutedStatusAPI,
+  switchDisabledStatus as switchDisabledStatusAPI,
+  flagAsUnread as flagAsUnreadAPI,
+  flagAsRead as flagAsReadAPI,
 } from './api';
 import {
   FetchCommunicationParams,
@@ -27,6 +37,10 @@ import {
   Recipient,
   CommunicationContext,
   CommunicationProviderSettings,
+  InboxThreadListParams,
+  CommunicationThread,
+  UnreadAnswersCount,
+  FetchInboxThreadListPayload,
 } from './types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from './constants';
 import { monitorBackgroundTask } from '#libs/background-task/actions';
@@ -408,3 +422,144 @@ export function sendSmartListPopup(
     dispatch(smartListPopupSendingActions.loading(false));
   };
 }
+
+// --------INBOX THREAD LIST--------
+
+export const fetchCommunicationThreadActions = {
+  error: createAction<Error>('COMMUNICATION_THREADS/FETCH/ERROR'),
+  loading: createAction<boolean>('COMMUNICATION_THREADS/FETCH/LOADING'),
+  success: createAction<FetchInboxThreadListPayload>(
+    'COMMUNICATION_THREADS/FETCH/SUCCESS',
+  ),
+  reset: createAction<ChatThreadKinds>('COMMUNICATION_THREADS/FETCH/RESET'),
+};
+
+export const fetchInboxThreadList = (
+  params: InboxThreadListParams,
+  isThreadListReinitialized?: boolean,
+  options?: OptionCallback<CommunicationThread[]>,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchCommunicationThreadActions.loading(true));
+    dispatch(fetchCommunicationThreadActions.error(null));
+
+    try {
+      const response = await fetchInboxThreadListAPI(params);
+      if (isThreadListReinitialized) {
+        dispatch(
+          fetchCommunicationThreadActions.reset(params.related_object_kind),
+        );
+      }
+      const payload = {
+        ...response.data,
+        related_object_kind: params.related_object_kind,
+        fetchedPage: params.page,
+      };
+      dispatch(fetchCommunicationThreadActions.success(payload));
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      dispatch(fetchCommunicationThreadActions.error(error));
+      options?.onError?.();
+    }
+    dispatch(fetchCommunicationThreadActions.loading(false));
+  };
+};
+
+export const fetchUnreadAnswersCountsActions = {
+  batch: createAction<UnreadAnswersCount[]>(
+    'COMMUNICATION_THREADS/UNREAD_ANSWERS_COUNT/BATCH',
+  ),
+  detail: createAction<UnreadAnswersCount>(
+    'COMMUNICATION_THREADS/UNREAD_ANSWERS_COUNT/DETAIL',
+  ),
+};
+
+export const fetchBatchUnreadAnswersCounts = (
+  params: string,
+  options?: OptionCallback,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await fetchBatchUnreadAnswersCountsAPI(params);
+      dispatch(fetchUnreadAnswersCountsActions.batch(response.data));
+      options?.onSuccess?.();
+    } catch (error) {
+      options?.onError?.();
+    }
+  };
+};
+
+export const getUnreadAnswersCountFromThread = (
+  id: number,
+  options?: OptionCallback,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await getUnreadAnswersCountFromThreadAPI(id);
+      const payload = {
+        communication_thread_id: id,
+        unread_answers_count: response.data,
+      };
+      dispatch(fetchUnreadAnswersCountsActions.detail(payload));
+      options?.onSuccess?.();
+    } catch (error) {
+      options?.onError?.();
+    }
+  };
+};
+
+export const switchStatusActions = {
+  success: createAction<CommunicationThread>(
+    'COMMUNICATION_THREAD/SWITCH_STATUS/SUCCESS',
+  ),
+  error: createAction<Error>('COMMUNICATION_THREAD/SWITCH_STATUS/ERROR'),
+  isLoading: createAction<boolean>(
+    'COMMUNICATION_THREAD/SWITCH_STATUS/LOADING',
+  ),
+};
+
+const switchStatus = (
+  apiCall: (id: number) => Promise<AxiosResponse<CommunicationThread>>,
+  id: number,
+  options?: OptionCallback<CommunicationThread>,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    dispatch(switchStatusActions.isLoading(true));
+    dispatch(switchStatusActions.error(null));
+    try {
+      const response = await apiCall(id);
+
+      dispatch(switchStatusActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(switchStatusActions.error(error));
+      options?.onError?.();
+    }
+    dispatch(switchStatusActions.isLoading(false));
+  };
+};
+
+export const switchFavoriteStatus = (
+  id: number,
+  options?: OptionCallback<CommunicationThread>,
+): ThunkAction => switchStatus(switchFavoriteStatusAPI, id, options);
+
+export const switchMutedStatus = (
+  id: number,
+  options?: OptionCallback<CommunicationThread>,
+): ThunkAction => switchStatus(switchMutedStatusAPI, id, options);
+
+export const switchDisabledStatus = (
+  id: number,
+  options?: OptionCallback<CommunicationThread>,
+): ThunkAction => switchStatus(switchDisabledStatusAPI, id, options);
+
+export const flagAsUnread = (
+  id: number,
+  options?: OptionCallback<CommunicationThread>,
+): ThunkAction => switchStatus(flagAsUnreadAPI, id, options);
+
+export const flagAsRead = (
+  id: number,
+  options?: OptionCallback<CommunicationThread>,
+): ThunkAction => switchStatus(flagAsReadAPI, id, options);

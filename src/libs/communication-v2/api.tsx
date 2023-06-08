@@ -13,8 +13,12 @@ import {
   CommunicationProvider,
   CommunicationProviderSettings,
   SmartListPopupSending,
+  InboxThreadListParams,
+  UnreadAnswersCount,
+  CommunicationThread,
 } from './types';
 import { FetchRecipientsParams } from '#libs/member/types';
+import { GenericPaginationResults } from '#libs/types';
 
 export const sendCommunication = async (data: MessageParams) => {
   return postAuth(
@@ -122,3 +126,73 @@ export const sendSmartListPopup = async (
     `${API_V1_URI}/mobile_app/smartlist_popup_sending/send_smartlist_popup/`,
     data,
   );
+
+// INBOX THREAD
+
+export const fetchInboxThreadList = async (
+  params: InboxThreadListParams,
+): Promise<AxiosResponse<GenericPaginationResults<CommunicationThread>>> => {
+  return getAuth(
+    `${API_V1_URI}/communication/communication_thread/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
+export const fetchBatchUnreadAnswersCounts = async (
+  params: string,
+): Promise<AxiosResponse<UnreadAnswersCount[]>> => {
+  return getAuth(
+    `${API_V1_URI}/communication/communication_thread/unread_count/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
+export const getUnreadAnswersCountFromThread = async (
+  id: number,
+): Promise<AxiosResponse<number>> => {
+  return getAuth(
+    `${API_V1_URI}/communication/communication_thread/${id}/get_unread_answers_count/`,
+  );
+};
+
+export const switchFavoriteStatus = async (
+  id: number,
+): Promise<AxiosResponse<CommunicationThread>> => {
+  return postAuth(
+    `${API_V1_URI}/communication/communication_thread/${id}/switch_favorite_status/`,
+  );
+};
+
+export const switchMutedStatus = async (
+  id: number,
+): Promise<AxiosResponse<CommunicationThread>> => {
+  return postAuth(
+    `${API_V1_URI}/communication/communication_thread/${id}/switch_muted_status/`,
+  );
+};
+
+export const switchDisabledStatus = async (
+  id: number,
+): Promise<AxiosResponse<CommunicationThread>> => {
+  return postAuth(
+    `${API_V1_URI}/communication/communication_thread/${id}/switch_disabled_status/`,
+  );
+};
+
+export const flagAsRead = async (
+  id: number,
+): Promise<AxiosResponse<CommunicationThread>> => {
+  return postAuth(
+    `${API_V1_URI}/communication/communication_thread/${id}/flag_as_read/`,
+  );
+};
+
+export const flagAsUnread = async (
+  id: number,
+): Promise<AxiosResponse<CommunicationThread>> => {
+  return postAuth(
+    `${API_V1_URI}/communication/communication_thread/${id}/flag_as_unread/`,
+  );
+};

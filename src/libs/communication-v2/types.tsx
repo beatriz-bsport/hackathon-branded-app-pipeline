@@ -1,5 +1,9 @@
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import { ErrorAndLoading, GenericListReducerI } from '#libs/types';
+import {
+  ErrorAndLoading,
+  GenericListReducerI,
+  GenericPaginationResults,
+} from '#libs/types';
 import { Member, MemberFilter } from '#libs/member/types';
 import { CustomMobilePopup } from '#libs/settings/types';
 
@@ -37,6 +41,13 @@ export type CommunicationState = {
     byId: { [id: number]: SmartListPopupSending };
     allIds: Array<number>;
   };
+  inboxThread: {
+    byId: { [id: number]: CommunicationThread };
+    member: GenericListReducerI;
+    smartlist: GenericListReducerI;
+    offer: GenericListReducerI;
+    unreadAnswersCountsById: { [id: number]: number };
+  } & ErrorAndLoading;
 };
 
 export type Recipient<MemberType = number> = {
@@ -186,18 +197,43 @@ export type CommunicationProviderSettings = {
   is_two_way_email_activated: boolean;
 };
 
+// --------INBOX THREAD--------
+
 export type CommunicationThread = {
   id: number;
-  name: string;
+  title: string;
   cover?: string;
   subtitle?: string;
-  lastCommunicationDate: string;
-  lastCommunicationContent: string;
-  hasBeenRead: boolean;
-  isMuted: boolean;
-  isFavorite: boolean;
-  isDisabled: boolean;
-  relatedObjectKind: ChatThreadKinds;
-  relatedObjectId: number;
+  last_communication: number;
+  last_communication_datetime: string;
+  last_communication_content: string;
+  last_communication_has_been_read: boolean;
+  muted: boolean;
+  favorite: boolean;
+  disabled: boolean;
+  related_object_kind: ChatThreadKinds;
+  related_object_id: number;
+};
+
+export type CommunicationThreadWithUnreadAnswersCount = CommunicationThread & {
   numberOfUnreadAnswers: number;
 };
+
+export type InboxThreadListParams = {
+  page?: number;
+  related_object_kind?: ChatThreadKinds;
+  last_communication_has_been_read?: boolean;
+  favorite?: boolean;
+  muted?: boolean;
+  disabled?: boolean;
+};
+
+export type UnreadAnswersCount = {
+  communication_thread_id: number;
+  unread_answers_count: number;
+};
+
+export type FetchInboxThreadListPayload = {
+  related_object_kind: ChatThreadKinds;
+  fetchedPage: number;
+} & GenericPaginationResults<CommunicationThread>;

@@ -1,6 +1,7 @@
 // @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import {
   sendCommunicationAction,
   recipientAction,
@@ -11,6 +12,9 @@ import {
   fetchCommunicationProviderSettingsActions,
   updateCommunicationProviderSettingsActions,
   smartListPopupSendingActions,
+  fetchCommunicationThreadActions,
+  fetchUnreadAnswersCountsActions,
+  switchStatusActions,
 } from './actions';
 
 import {
@@ -18,8 +22,14 @@ import {
   Recipient,
   Communication,
   SmartListPopupSending,
+  CommunicationThread,
+  UnreadAnswersCount,
 } from './types';
-import { COMMUNICATION_KIND } from './constants';
+import {
+  COMMUNICATION_KIND,
+  INBOX_THREAD_PAGE_SIZE,
+} from '#libs/communication-v2/constants';
+import { GenericPaginationResults } from '#libs/types';
 
 const initialState: Immutable.Immutable<CommunicationState> =
   Immutable<CommunicationState>({
@@ -88,6 +98,18 @@ const initialState: Immutable.Immutable<CommunicationState> =
       error: null,
       byId: {},
       allIds: [],
+    },
+    inboxThread: {
+      byId: {},
+      ...Object.fromEntries(
+        Object.values(ChatThreadKinds).map((threadKind) => [
+          threadKind,
+          { allIds: [], page: null, next_page: null, count: 0 },
+        ]),
+      ),
+      unreadAnswersCountsById: {},
+      loading: false,
+      error: null,
     },
   });
 
@@ -334,6 +356,135 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
               smartListPopupSending.id,
           ),
         );
+    },
+    // INBOX THREAD
+    [fetchCommunicationThreadActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['inboxThread', 'loading'], payload);
+    },
+    [fetchCommunicationThreadActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error },
+    ) => {
+      return state.setIn(['inboxThread', 'error'], payload);
+    },
+    [fetchCommunicationThreadActions.reset.toString()]: (
+      state,
+      { payload }: { payload: ChatThreadKinds },
+    ) => {
+      return state.setIn(['inboxThread', payload, 'allIds'], []);
+    },
+    [fetchCommunicationThreadActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: GenericPaginationResults<CommunicationThread> & {
+          related_object_kind: ChatThreadKinds;
+          fetchedPage: number;
+        };
+      },
+    ) => {
+      // When the threadList is not reseted, the pages already fetched are not updated.
+      // It arrives while loading more threads in the same context and filtering conditions,
+      // or when the status of a thread is modified and is not displayable anymore in the current filtering conditions.
+      // Then we need the index of the last thread item kept in the threadList (allIds)
+      // to have our initial threadList.
+
+      // Here the cutIndex corresponds to the first index not kept in the initial threadList,
+      // and is undefined if there's only one page.
+      const cutIndex =
+        payload.fetchedPage > 1 &&
+        (payload.fetchedPage - 1) * INBOX_THREAD_PAGE_SIZE;
+
+      const allIdsByContext = cutIndex
+        ? [...state.inboxThread[payload.related_object_kind].allIds].slice(
+            0,
+            cutIndex,
+          )
+        : [];
+
+      return state
+        .merge(
+          {
+            inboxThread: {
+              byId: payload.results.reduce(
+                (
+                  acc: CommunicationThread[],
+                  communicationThread: CommunicationThread,
+                ) => {
+                  acc[communicationThread.id] = communicationThread;
+                  return acc;
+                },
+                { ...state.inboxThread.byId },
+              ),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(
+          ['inboxThread', payload.related_object_kind, 'allIds'],
+          [
+            ...allIdsByContext,
+            ...payload.results.map((thread: CommunicationThread) => thread.id),
+          ],
+        )
+        .setIn(
+          ['inboxThread', payload.related_object_kind, 'count'],
+          payload.count,
+        )
+        .setIn(
+          ['inboxThread', payload.related_object_kind, 'page'],
+          payload.page,
+        )
+        .setIn(
+          ['inboxThread', payload.related_object_kind, 'next_page'],
+          payload.next_page,
+        );
+    },
+    [fetchUnreadAnswersCountsActions.batch.toString()]: (
+      state,
+      { payload }: { payload: UnreadAnswersCount[] },
+    ) => {
+      return state.merge(
+        {
+          inboxThread: {
+            unreadAnswersCountsById: payload.reduce(
+              (
+                acc: { [id: number]: number },
+                unreadAnswerCount: UnreadAnswersCount,
+              ) => {
+                acc[unreadAnswerCount.communication_thread_id] =
+                  unreadAnswerCount.unread_answers_count;
+                return acc;
+              },
+              {},
+            ),
+          },
+        },
+        { deep: true },
+      );
+    },
+    [fetchUnreadAnswersCountsActions.detail.toString()]: (
+      state,
+      { payload }: { payload: UnreadAnswersCount },
+    ) => {
+      return state.setIn(
+        [
+          'inboxThread',
+          'unreadAnswersCountsById',
+          payload.communication_thread_id,
+        ],
+        payload.unread_answers_count,
+      );
+    },
+    [switchStatusActions.success.toString()]: (
+      state,
+      { payload }: { payload: CommunicationThread },
+    ) => {
+      return state.setIn(['inboxThread', 'byId', payload.id], payload);
     },
   },
   initialState,

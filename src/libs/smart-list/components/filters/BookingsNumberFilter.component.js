@@ -125,20 +125,22 @@ export class BookingsNumberFilter extends Component<Props, state> {
       <div>
         <div className={classes.wrapper}>
           {this.props.t(`filters.${filter_data.filter_identifier}.first`)}
-          <DelayedNumericInput
-            classes={classes}
-            value={filter_data.value}
-            InputProps={{ inputProps: { min: 0 } }}
-            onChange={(ev) => {
-              onChange({
-                value:
-                  ev.target.value === ''
-                    ? null
-                    : Math.max(parseInt(ev.target.value, 10), 1),
-              });
-            }}
-            isPositive
-          />
+          <div className={classes.numericInput}>
+            <DelayedNumericInput
+              classes={classes}
+              value={filter_data.value}
+              InputProps={{ inputProps: { min: 0 } }}
+              onChange={(ev) => {
+                onChange({
+                  value:
+                    ev.target.value === ''
+                      ? null
+                      : Math.max(parseInt(ev.target.value, 10), 1),
+                });
+              }}
+              isPositive
+            />
+          </div>
           {filter_data.value === '1' || filter_data.value === 1
             ? this.props.t(
                 `filters.${filter_data.filter_identifier}.second_singular`,
@@ -610,6 +612,11 @@ const styles = (theme) => ({
   },
   calendarAntiMargin: {
     marginLeft: theme.spacing(-1),
+  },
+  numericInput: {
+    maxWidth: theme.spacing(9),
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
   disabled: {
     display: 'flex',

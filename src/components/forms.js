@@ -1241,16 +1241,18 @@ type RadioFieldProps = {
     helperText?: string,
   }[],
   labelClass?: any,
+  isRow?: boolean,
 };
 
 export const RadioGroupField = (props: RadioFieldProps) => {
-  const { name, choices, label, labelClass } = props;
+  const { name, choices, label, labelClass, isRow } = props;
   return (
     <Field name={name}>
       {({ field, form: { setFieldValue } }) => (
         <RadioGroup
           name={name}
           onChange={(_, value) => setFieldValue(field.name, value)}
+          row={isRow}
         >
           <FormLabel className={labelClass}>{label}</FormLabel>
           {choices.map(({ value, label: l, helperText }) => (

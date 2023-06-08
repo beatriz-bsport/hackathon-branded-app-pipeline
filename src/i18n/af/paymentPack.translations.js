@@ -666,6 +666,12 @@ exports.default = {
       tooltip:
         'Passée la date choisie, la carte n’apparaîtra plus à la vente pour les clients.',
     },
+    offPeak: {
+      label: 'Réservations possibles sur certains créneaux horaires',
+      choice: { timeSlot: 'Créneaux horaires', allDay: 'Toute la journée' },
+      addTimeSlot: 'Ajouter un créneau horaire',
+      addGroupTimeSlot: 'Ajouter un groupe de créneaux horaires',
+    },
   },
   disabled: 'Désactivé',
   disableConsumer: 'Bloquer',

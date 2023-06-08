@@ -304,5 +304,32 @@ export const getMarketplaceSearchItemIndicator = (
       });
 };
 
+export const offPeakGroupDefault = () => {
+  const todayDateNumber = moment()
+    .tz('UTC')
+    .startOf('day')
+    .isoWeekday()
+    .toString();
+
+  return {
+    timeSlots: [
+      [
+        moment().hours(6).minutes(0).seconds(0),
+        moment().hours(7).minutes(0).seconds(0),
+      ],
+    ],
+    recurrenceWeekDay: {
+      '1': todayDateNumber === '1',
+      '2': todayDateNumber === '2',
+      '3': todayDateNumber === '3',
+      '4': todayDateNumber === '4',
+      '5': todayDateNumber === '5',
+      '6': todayDateNumber === '6',
+      '7': todayDateNumber === '7',
+    },
+    slotDurationChoice: 'time_slot',
+  };
+};
+
 export const CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING = 0;
 export const CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_OFFER_START = 1;

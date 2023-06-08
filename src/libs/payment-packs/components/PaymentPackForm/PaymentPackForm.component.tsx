@@ -8,7 +8,6 @@ import { Form, Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
 import { Divider, LinearProgress } from '@material-ui/core';
-
 import moment from 'moment-timezone';
 import pick from 'lodash/pick';
 import {
@@ -16,6 +15,7 @@ import {
   START_ON_FIRST_BOOKING,
   START_ON_FIRST_ATTENDANCE,
 } from '@bsport/common/lib/master-data/payment-pack';
+import { offPeakGroupDefault } from '#libs/payment-packs/utils';
 import { DATE_FORMAT } from '../../../../utils/datetime';
 import { OptionCallback } from '../../../../state/types';
 import {
@@ -137,7 +137,6 @@ export const PaymentPackForm = (props: Props) => {
   const classes = useStyles();
   const now = moment().format(DATE_FORMAT);
   const oneMonthLater = moment(now).add(1, 'M').format(DATE_FORMAT);
-
   return (
     <div>
       <Formik
@@ -189,6 +188,8 @@ export const PaymentPackForm = (props: Props) => {
                   initial?.penalty_active || initial?.no_show_penalty_active,
                 applies_for_payroll: initial?.applies_for_payroll,
                 expiration_date_active: !!initial?.expiration_date,
+                off_peak_active: !!initial?.off_peak_schedule,
+                off_peak_schedule: initial?.off_peak_schedule,
               }
             : {
                 id: null,
@@ -246,74 +247,76 @@ export const PaymentPackForm = (props: Props) => {
                 expiration_date: null,
                 expiration_date_active: false,
                 description: null,
+                off_peak_schedule: [offPeakGroupDefault()],
+                off_peak_active: false,
               }
         }
         onSubmit={(values, actions) => {
-          const sanithizedValues = {
+          const sanitizedValues = {
             ...values,
             unlimited: values.credit_number === 'unlimited',
             is_usable_by_staff: !values.unusable_by_staff,
           };
           if (values.validity === 'slot') {
-            sanithizedValues.duration_days = null;
-            sanithizedValues.duration_months = null;
-            sanithizedValues.duration_years = null;
-            sanithizedValues.validity_daterange = {
+            sanitizedValues.duration_days = null;
+            sanitizedValues.duration_months = null;
+            sanitizedValues.duration_years = null;
+            sanitizedValues.validity_daterange = {
               lower: Moment(values.lower_date).format(DATE_FORMAT),
               upper: Moment(values.upper_date).format(DATE_FORMAT),
             };
           } else {
-            sanithizedValues.validity_daterange = null;
-            sanithizedValues.duration_days = values.duration_days || 0;
-            sanithizedValues.duration_months = values.duration_months || 0;
-            sanithizedValues.duration_years = values.duration_years || 0;
+            sanitizedValues.validity_daterange = null;
+            sanitizedValues.duration_days = values.duration_days || 0;
+            sanitizedValues.duration_months = values.duration_months || 0;
+            sanitizedValues.duration_years = values.duration_years || 0;
           }
           switch (values.start_date_method) {
             case 'billing':
-              sanithizedValues.start_date_method = START_ON_PURCHASE;
+              sanitizedValues.start_date_method = START_ON_PURCHASE;
               break;
             case 'booking':
-              sanithizedValues.start_date_method = START_ON_FIRST_BOOKING;
+              sanitizedValues.start_date_method = START_ON_FIRST_BOOKING;
               break;
             default:
-              sanithizedValues.start_date_method = START_ON_FIRST_ATTENDANCE;
+              sanitizedValues.start_date_method = START_ON_FIRST_ATTENDANCE;
               break;
           }
           switch (values.penalty_kind) {
             case 'block':
-              sanithizedValues.penalty_kind = PENALTY_KIND_BLOCK_CPP;
+              sanitizedValues.penalty_kind = PENALTY_KIND_BLOCK_CPP;
               break;
 
             default:
-              sanithizedValues.penalty_kind = PENALTY_KIND_NEGATIVE_ACCOUNT;
+              sanitizedValues.penalty_kind = PENALTY_KIND_NEGATIVE_ACCOUNT;
               break;
           }
           switch (values.no_show_penalty_kind) {
             case 'block':
-              sanithizedValues.no_show_penalty_kind = PENALTY_KIND_BLOCK_CPP;
+              sanitizedValues.no_show_penalty_kind = PENALTY_KIND_BLOCK_CPP;
               break;
 
             default:
-              sanithizedValues.no_show_penalty_kind =
+              sanitizedValues.no_show_penalty_kind =
                 PENALTY_KIND_NEGATIVE_ACCOUNT;
               break;
           }
           if (values.credit_number === 'limited') {
-            sanithizedValues.apply_penalties = false;
+            sanitizedValues.apply_penalties = false;
           }
           if (!values.full_vod_access) {
-            sanithizedValues.only_vod_access = false;
+            sanitizedValues.only_vod_access = false;
           }
           if (!values.apply_penalties) {
-            sanithizedValues.penalty_active = false;
-            sanithizedValues.no_show_penalty_active = false;
+            sanitizedValues.penalty_active = false;
+            sanitizedValues.no_show_penalty_active = false;
           }
           if (values.expiration_date_active && values.expiration_date) {
-            sanithizedValues.expiration_date = moment(
+            sanitizedValues.expiration_date = moment(
               values.expiration_date,
             ).format('YYYY-MM-DD');
           } else {
-            sanithizedValues.expiration_date = null;
+            sanitizedValues.expiration_date = null;
           }
           const keys = [
             'name',
@@ -363,8 +366,9 @@ export const PaymentPackForm = (props: Props) => {
             'applies_for_payroll',
             'expiration_date',
             'description',
+            'off_peak_schedule',
           ];
-          const data = pick(sanithizedValues, keys);
+          const data = pick(sanitizedValues, keys);
           onSubmit(data, {
             onSuccess: () => {
               actions.setSubmitting(false);

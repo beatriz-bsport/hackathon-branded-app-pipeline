@@ -1,7 +1,7 @@
 // @ts-nocheck
 import Immutable from 'seamless-immutable';
+import { Moment } from 'moment-timezone';
 import { ErrorAndLoading } from '../../state/types';
-
 import { Company } from '../company/types';
 import type { CompatiblePrivateService } from '#libs/private-service/types';
 
@@ -279,8 +279,24 @@ export type PaymentPackFormValues<LPP = number> = {
   allow_guest_pass?: boolean;
   unusable_by_staff?: boolean;
   expiration_date: string;
+  off_peak_schedule: OffPeakSchedule[];
 };
 
+export type OffPeakIsoWeekdays = {
+  '1': boolean;
+  '2': boolean;
+  '3': boolean;
+  '4': boolean;
+  '5': boolean;
+  '6': boolean;
+  '7': boolean;
+};
+
+export type OffPeakSchedule = {
+  timeSlots: Moment[][];
+  recurrenceWeekDay?: OffPeakIsoWeekdays;
+  slotDurationChoice: string;
+};
 // TODO: HARMONIZE PP and PPT FORM VALUES
 export type PaymentPackTemplateFormValues = {
   id?: number;

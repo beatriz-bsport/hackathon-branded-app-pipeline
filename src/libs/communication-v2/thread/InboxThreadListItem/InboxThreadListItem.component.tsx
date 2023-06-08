@@ -12,18 +12,20 @@ import StarIcon from '@material-ui/icons/Star';
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
-import { CommunicationThread } from '#libs/communication-v2/types';
+
+import { OptionCallback } from '../../../../state/types';
+import { CommunicationThreadWithUnreadAnswersCount } from '#libs/communication-v2/types';
 import ThreadMenu from '#libs/communication-v2/thread/InboxThreadListItem/ThreadMenu.component';
 import ThreadAvatar from '#libs/communication-v2/thread/InboxThreadListItem/ThreadAvatar.component';
 import ThreadItemSkeleton from './ThreadItemSkeleton.component';
 
 export type Props = {
-  thread: CommunicationThread;
+  thread: CommunicationThreadWithUnreadAnswersCount;
   isLoading: boolean;
-  switchFavoriteStatus: () => void;
-  switchMutedStatus: () => void;
-  switchDisabledStatus: () => void;
-  markAsUnread: () => void;
+  switchFavoriteStatus: (id: number, options?: OptionCallback) => void;
+  switchMutedStatus: (id: number, options?: OptionCallback) => void;
+  switchDisabledStatus: (id: number, options?: OptionCallback) => void;
+  flagAsUnread: (id: number, options?: OptionCallback) => void;
   isSelected: boolean;
   onClick?: () => void;
 };
@@ -34,24 +36,10 @@ const InboxThreadListItem: React.FC<Props> = ({
   switchFavoriteStatus,
   switchMutedStatus,
   switchDisabledStatus,
-  markAsUnread,
+  flagAsUnread,
   isSelected,
   onClick,
 }) => {
-  const {
-    name,
-    subtitle,
-    cover,
-    lastCommunicationDate,
-    lastCommunicationContent,
-    hasBeenRead,
-    isMuted,
-    isFavorite,
-    isDisabled,
-    relatedObjectKind,
-    numberOfUnreadAnswers,
-  } = thread;
-
   const { t } = useTranslation('communication');
 
   const classes = useStyles();
@@ -99,25 +87,35 @@ const InboxThreadListItem: React.FC<Props> = ({
         <Typography
           component="span"
           variant="body1"
-          color={hasBeenRead ? 'textSecondary' : 'textPrimary'}
+          color={
+            thread?.last_communication_has_been_read
+              ? 'textSecondary'
+              : 'textPrimary'
+          }
           className={classes.textContent}
         >
-          {name}
+          {thread?.title}
         </Typography>
-        {!!subtitle && (
+        {!!thread?.subtitle && (
           <Typography
             component="span"
             variant="body2"
-            color={hasBeenRead ? 'textSecondary' : 'textPrimary'}
+            color={
+              thread?.last_communication_has_been_read
+                ? 'textSecondary'
+                : 'textPrimary'
+            }
             className={classes.textContent}
           >
-            {subtitle}
+            {thread?.subtitle}
           </Typography>
         )}
       </div>
       <div className={classes.threadStatus}>
-        {isFavorite && <StarIcon fontSize="small" color="primary" />}
-        {isMuted && <NotificationsOffIcon fontSize="small" color="action" />}
+        {thread?.favorite && <StarIcon fontSize="small" color="primary" />}
+        {thread?.muted && (
+          <NotificationsOffIcon fontSize="small" color="action" />
+        )}
       </div>
     </div>
   );
@@ -128,19 +126,27 @@ const InboxThreadListItem: React.FC<Props> = ({
         <Typography
           component="span"
           variant="body2"
-          color={hasBeenRead ? 'textSecondary' : 'textPrimary'}
+          color={
+            thread?.last_communication_has_been_read
+              ? 'textSecondary'
+              : 'textPrimary'
+          }
           className={classes.textContent}
         >
-          {lastCommunicationContent}
+          {thread?.last_communication_content}
         </Typography>
       </div>
       <Typography
         component="span"
         variant="body2"
-        color={hasBeenRead ? 'textSecondary' : 'textPrimary'}
+        color={
+          thread?.last_communication_has_been_read
+            ? 'textSecondary'
+            : 'textPrimary'
+        }
         className="momentDateDisplay"
       >
-        {displayRelativeTimeDelta(lastCommunicationDate)}
+        {displayRelativeTimeDelta(thread?.last_communication_datetime)}
       </Typography>
     </div>
   );
@@ -159,10 +165,10 @@ const InboxThreadListItem: React.FC<Props> = ({
           onClick={handleClick}
         >
           <ThreadAvatar
-            numberOfUnreadAnswers={numberOfUnreadAnswers}
-            isMuted={isMuted}
-            cover={cover}
-            relatedObjectKind={relatedObjectKind}
+            numberOfUnreadAnswers={thread?.numberOfUnreadAnswers || 0}
+            isMuted={thread?.muted}
+            cover={thread?.cover}
+            relatedObjectKind={thread?.related_object_kind}
           />
           <ListItemText
             primary={primaryContent()}
@@ -171,14 +177,16 @@ const InboxThreadListItem: React.FC<Props> = ({
 
           <div className={classes.threadMenu}>
             <ThreadMenu
-              hasBeenRead={hasBeenRead}
-              isFavorite={isFavorite}
-              isMuted={isMuted}
-              isDisabled={isDisabled}
+              id={thread?.id}
+              hasBeenRead={thread?.last_communication_has_been_read}
+              isFavorite={thread?.favorite}
+              isMuted={thread?.muted}
+              isDisabled={thread?.disabled}
               switchFavoriteStatus={switchFavoriteStatus}
               switchMutedStatus={switchMutedStatus}
               switchDisabledStatus={switchDisabledStatus}
-              markAsUnread={markAsUnread}
+              flagAsUnread={flagAsUnread}
+              relatedObjectKind={thread?.related_object_kind}
             />
           </div>
         </ListItem>

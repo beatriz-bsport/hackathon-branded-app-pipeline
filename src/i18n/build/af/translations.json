@@ -990,7 +990,8 @@
         "muted": "Silencieux",
         "disabled": "Archivés"
       },
-      "loadMoreThreads": "Charger plus de messages"
+      "loadMoreThreads": "Charger plus de messages",
+      "noThread": "Aucun résultat"
     },
     "generic": { "communication": "Communication", "history": "Historique" },
     "forms": {

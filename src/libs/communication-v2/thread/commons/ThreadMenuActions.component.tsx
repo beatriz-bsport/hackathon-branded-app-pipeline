@@ -12,17 +12,19 @@ import InfoIcon from '@material-ui/icons/Info';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { useTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { OptionCallback } from '../../../../state/types';
 
 type Props = {
+  id: number;
   hasBeenRead: boolean;
   isFavorite: boolean;
   isMuted: boolean;
   isDisabled: boolean;
   relatedObjectKind?: ChatThreadKinds;
-  switchFavoriteStatus: () => void;
-  switchMutedStatus: () => void;
-  switchDisabledStatus: () => void;
-  markAsUnread: () => void;
+  switchFavoriteStatus: (id: number, options?: OptionCallback) => void;
+  switchMutedStatus: (id: number, options?: OptionCallback) => void;
+  switchDisabledStatus: (id: number, options?: OptionCallback) => void;
+  flagAsUnread: (id: number, options?: OptionCallback) => void;
   isMobileMenu?: boolean;
   goToDetailPage?: () => void;
   setOpenCollapse?: () => void;
@@ -31,6 +33,7 @@ type Props = {
 };
 
 const ThreadMenuActions: React.FC<Props> = ({
+  id,
   hasBeenRead,
   isFavorite,
   isMuted,
@@ -39,7 +42,7 @@ const ThreadMenuActions: React.FC<Props> = ({
   switchFavoriteStatus,
   switchMutedStatus,
   switchDisabledStatus,
-  markAsUnread,
+  flagAsUnread,
   isMobileMenu,
   goToDetailPage,
   setOpenCollapse,
@@ -60,15 +63,15 @@ const ThreadMenuActions: React.FC<Props> = ({
   const handleAction = useCallback(
     (
       event: React.MouseEvent<HTMLLIElement, MouseEvent>,
-      action: () => void,
+      action: (id: number, options?: OptionCallback) => void,
     ) => {
       setAnchorEl(null);
       event.stopPropagation();
-      if (action !== markAsUnread || hasBeenRead) {
-        action();
+      if (action !== flagAsUnread || hasBeenRead) {
+        action(id);
       }
     },
-    [hasBeenRead, markAsUnread, setAnchorEl],
+    [id, hasBeenRead, flagAsUnread, setAnchorEl],
   );
 
   return (
@@ -115,7 +118,7 @@ const ThreadMenuActions: React.FC<Props> = ({
       <MenuItem
         disabled={!hasBeenRead}
         onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
-          handleAction(ev, markAsUnread)
+          handleAction(ev, flagAsUnread)
         }
       >
         <EmailIcon color={hasBeenRead ? 'action' : 'disabled'} />
@@ -128,6 +131,7 @@ const ThreadMenuActions: React.FC<Props> = ({
       </MenuItem>
 
       <MenuItem
+        disabled={isDisabled}
         onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
           handleAction(ev, switchFavoriteStatus)
         }
@@ -135,9 +139,12 @@ const ThreadMenuActions: React.FC<Props> = ({
         {isFavorite ? (
           <StarBorderIcon color="action" />
         ) : (
-          <StarIcon color="action" />
+          <StarIcon color={isDisabled ? 'disabled' : 'action'} />
         )}
-        <Typography className={classes.action}>
+        <Typography
+          className={classes.action}
+          color={isDisabled ? 'textSecondary' : 'textPrimary'}
+        >
           {isFavorite
             ? t('thread.item.removeFavorite')
             : t('thread.item.addToFavorite')}
@@ -145,6 +152,7 @@ const ThreadMenuActions: React.FC<Props> = ({
       </MenuItem>
 
       <MenuItem
+        disabled={isDisabled}
         onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
           handleAction(ev, switchMutedStatus)
         }
@@ -152,9 +160,12 @@ const ThreadMenuActions: React.FC<Props> = ({
         {isMuted ? (
           <NotificationsIcon color="action" />
         ) : (
-          <NotificationsOffIcon color="action" />
+          <NotificationsOffIcon color={isDisabled ? 'disabled' : 'action'} />
         )}
-        <Typography className={classes.action}>
+        <Typography
+          className={classes.action}
+          color={isDisabled ? 'textSecondary' : 'textPrimary'}
+        >
           {isMuted ? t('thread.item.unmute') : t('thread.item.mute')}
         </Typography>
       </MenuItem>

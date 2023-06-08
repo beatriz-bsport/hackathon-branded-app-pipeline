@@ -6,19 +6,13 @@ import { useTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 
 type Props = {
-  fetchMemberThreads: () => void;
-  fetchSmartlistThreads: () => void;
-  fetchOfferThreads: () => void;
+  handleContextThreadChange: (context: ChatThreadKinds) => void;
   contextSelected: ChatThreadKinds;
-  setContextSelected: (context: ChatThreadKinds) => void;
 };
 
 const InboxThreadContextSelector: React.FC<Props> = ({
-  fetchMemberThreads,
-  fetchSmartlistThreads,
-  fetchOfferThreads,
+  handleContextThreadChange,
   contextSelected,
-  setContextSelected,
 }) => {
   const { t } = useTranslation('communication');
 
@@ -29,19 +23,16 @@ const InboxThreadContextSelector: React.FC<Props> = ({
   const isOfferSelected = contextSelected === ChatThreadKinds.Offer;
 
   const getMemberThreads = useCallback(() => {
-    setContextSelected(ChatThreadKinds.Member);
-    fetchMemberThreads();
-  }, [fetchMemberThreads, setContextSelected]);
+    handleContextThreadChange(ChatThreadKinds.Member);
+  }, [handleContextThreadChange]);
 
   const getSmartlistThreads = useCallback(() => {
-    setContextSelected(ChatThreadKinds.Smartlist);
-    fetchSmartlistThreads();
-  }, [fetchSmartlistThreads, setContextSelected]);
+    handleContextThreadChange(ChatThreadKinds.Smartlist);
+  }, [handleContextThreadChange]);
 
   const getOfferThreads = useCallback(() => {
-    setContextSelected(ChatThreadKinds.Offer);
-    fetchOfferThreads();
-  }, [fetchOfferThreads, setContextSelected]);
+    handleContextThreadChange(ChatThreadKinds.Offer);
+  }, [handleContextThreadChange]);
 
   return (
     <div className={classes.contexts}>

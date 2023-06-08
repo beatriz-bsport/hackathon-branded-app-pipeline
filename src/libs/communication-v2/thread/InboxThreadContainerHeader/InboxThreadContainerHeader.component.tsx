@@ -9,10 +9,12 @@ import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-in
 import InboxThreadHeader from '#libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadHeader.component';
 import CommunicationFilterCollapse from '#libs/communication-v2/components/Filter/CommunicationFilterCollapse.component';
 import { SelectFieldItem } from '#libs/communication-v2/types';
+import { OptionCallback } from '../../../../state/types';
 
 export type Props = {
+  id: number;
   cover: string;
-  name: string;
+  title: string;
   subtitle?: string;
   isFavorite: boolean;
   isMuted: boolean;
@@ -20,10 +22,10 @@ export type Props = {
   isDisabled: boolean;
   relatedObjectKind: ChatThreadKinds;
 
-  switchFavoriteStatus: () => void;
-  switchMutedStatus: () => void;
-  switchDisabledStatus: () => void;
-  markAsUnread: () => void;
+  switchFavoriteStatus: (id: number, options?: OptionCallback) => void;
+  switchMutedStatus: (id: number, options?: OptionCallback) => void;
+  switchDisabledStatus: (id: number, options?: OptionCallback) => void;
+  flagAsUnread: (id: number, options?: OptionCallback) => void;
   goToDetailPage: () => void;
   goToThreadListPage: () => void;
 
@@ -71,7 +73,8 @@ const InboxThreadContainerHeader: React.FC<Props> = (props: Props) => {
   return (
     <>
       <InboxThreadHeader
-        name={props.name}
+        id={props.id}
+        title={props.title}
         cover={props.cover}
         subtitle={props.subtitle}
         isFavorite={props.isFavorite}
@@ -84,7 +87,7 @@ const InboxThreadContainerHeader: React.FC<Props> = (props: Props) => {
         switchFavoriteStatus={props.switchFavoriteStatus}
         switchMutedStatus={props.switchMutedStatus}
         switchDisabledStatus={props.switchDisabledStatus}
-        markAsUnread={props.markAsUnread}
+        flagAsUnread={props.flagAsUnread}
         goToDetailPage={props.goToDetailPage}
         goToThreadListPage={props.goToThreadListPage}
       />

@@ -8,40 +8,40 @@ import {
   Typography,
   makeStyles,
 } from '@material-ui/core';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { useTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { OptionCallback } from '../../../../state/types';
 import InboxThreadLookup from '#libs/communication-v2/thread/InboxThreadLookup';
 
 import InboxThreadListRow from '#libs/communication-v2/thread/InboxThreadList/InboxThreadListRow.component';
 import {
-  CommunicationThread,
+  CommunicationThreadWithUnreadAnswersCount,
   SelectFieldItem,
 } from '#libs/communication-v2/types';
 
 const HEIGHT_ITEM = 80;
 
 export type Props = {
-  threadList: (CommunicationThread | null)[];
-  switchFavoriteStatus: () => void;
-  switchMutedStatus: () => void;
-  switchDisabledStatus: () => void;
-  markAsUnread: () => void;
+  threadList: CommunicationThreadWithUnreadAnswersCount[];
+  switchFavoriteStatus: (id: number, options?: OptionCallback) => void;
+  switchMutedStatus: (id: number, options?: OptionCallback) => void;
+  switchDisabledStatus: (id: number, options?: OptionCallback) => void;
+  flagAsUnread: (id: number, options?: OptionCallback) => void;
   selectedThreadId: number;
-  setSelectedThreadId: (threadId: number) => void;
-  loadMoreItems: () => void;
+  handleOnItemClick: (threadId?: number, hasBeenRead?: boolean) => void;
+  loadMoreItems: (nextPage?: number, count?: number) => void;
   searchThread: (e: React.ChangeEvent<HTMLInputElement>) => void;
   filterValue: SelectFieldItem;
   handleFilterChange: (value: SelectFieldItem) => void;
-  fetchMemberThreads: () => void;
-  fetchSmartlistThreads: () => void;
-  fetchOfferThreads: () => void;
+  handleContextThreadChange: (context: ChatThreadKinds) => void;
   createNewThread: () => void;
   contextSelected: ChatThreadKinds;
-  setContextSelected: (context: ChatThreadKinds) => void;
   isListLoading: boolean;
-  hasNextPage: boolean;
+  nextPage?: number;
+  count?: number;
 };
 
 const InboxThreadList: React.FC<Props> = ({
@@ -49,25 +49,25 @@ const InboxThreadList: React.FC<Props> = ({
   switchFavoriteStatus,
   switchMutedStatus,
   switchDisabledStatus,
-  markAsUnread,
+  flagAsUnread,
   selectedThreadId,
-  setSelectedThreadId,
+  handleOnItemClick,
   loadMoreItems,
   searchThread,
   filterValue,
   handleFilterChange,
-  fetchMemberThreads,
-  fetchSmartlistThreads,
-  fetchOfferThreads,
+  handleContextThreadChange,
   createNewThread,
   contextSelected,
-  setContextSelected,
   isListLoading,
-  hasNextPage,
+  nextPage,
+  count,
 }) => {
   const { t } = useTranslation('communication');
 
   const classes = useStyles();
+
+  const threadsLength = threadList?.length;
 
   return (
     <>
@@ -75,25 +75,32 @@ const InboxThreadList: React.FC<Props> = ({
         searchThread={searchThread}
         filterValue={filterValue}
         handleFilterChange={handleFilterChange}
-        fetchMemberThreads={fetchMemberThreads}
-        fetchSmartlistThreads={fetchSmartlistThreads}
-        fetchOfferThreads={fetchOfferThreads}
+        handleContextThreadChange={handleContextThreadChange}
         createNewThread={createNewThread}
         contextSelected={contextSelected}
-        setContextSelected={setContextSelected}
       />
       <div
         className={classes.list}
         style={{
-          minHeight: threadList.length * HEIGHT_ITEM,
+          minHeight: threadsLength * HEIGHT_ITEM,
         }}
       >
+        {!isListLoading && !count && (
+          <div className={classes.loading}>
+            <Fab variant="extended" className={classes.fab} disabled>
+              <InfoOutlinedIcon className={classes.icon} color="action" />
+              <Typography variant="body1" color="textPrimary">
+                {t('thread.noThread')}
+              </Typography>
+            </Fab>
+          </div>
+        )}
+
         <AutoSizer>
           {(dimensions: { height: number; width: number }) => (
             <FixedSizeList
               height={dimensions.height}
-              itemCount={threadList.length}
-              itemData={threadList}
+              itemCount={threadsLength}
               itemSize={HEIGHT_ITEM}
               width={dimensions.width}
             >
@@ -104,9 +111,9 @@ const InboxThreadList: React.FC<Props> = ({
                   switchFavoriteStatus={switchFavoriteStatus}
                   switchMutedStatus={switchMutedStatus}
                   switchDisabledStatus={switchDisabledStatus}
-                  markAsUnread={markAsUnread}
+                  flagAsUnread={flagAsUnread}
                   selectedThreadId={selectedThreadId}
-                  setSelectedThreadId={setSelectedThreadId}
+                  handleOnItemClick={handleOnItemClick}
                   threadList={threadList}
                 />
               )}
@@ -114,11 +121,12 @@ const InboxThreadList: React.FC<Props> = ({
           )}
         </AutoSizer>
       </div>
-      {hasNextPage && (
+
+      {!!nextPage && (
         <div className={classes.loading}>
           <Fab
             variant="extended"
-            onClick={loadMoreItems}
+            onClick={() => loadMoreItems(nextPage, count)}
             className={classes.fab}
           >
             {isListLoading ? (
@@ -140,6 +148,10 @@ const useStyles = makeStyles((theme) => ({
   list: {
     flex: 1,
     height: '100%',
+    [theme.breakpoints.down('md')]: {
+      paddingRight: theme.spacing(1),
+      paddingLeft: theme.spacing(1),
+    },
   },
   loading: {
     display: 'flex',

@@ -14,10 +14,12 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import ThreadMenu from '#libs/communication-v2/thread/InboxThreadListItem/ThreadMenu.component';
+import { OptionCallback } from '../../../../state/types';
 
 type Props = {
+  id: number;
   cover: string;
-  name: string;
+  title: string;
   subtitle?: string;
   isFavorite: boolean;
   isMuted: boolean;
@@ -28,17 +30,18 @@ type Props = {
   isCollapseOpen: boolean;
   setIsCollapseOpen: (isOpen: boolean) => void;
 
-  switchFavoriteStatus: () => void;
-  switchMutedStatus: () => void;
-  switchDisabledStatus: () => void;
-  markAsUnread: () => void;
+  switchFavoriteStatus: (id: number, options?: OptionCallback) => void;
+  switchMutedStatus: (id: number, options?: OptionCallback) => void;
+  switchDisabledStatus: (id: number, options?: OptionCallback) => void;
+  flagAsUnread: (id: number, options?: OptionCallback) => void;
   goToDetailPage: () => void;
   goToThreadListPage: () => void;
 };
 
 const InboxThreadHeader: React.FC<Props> = ({
+  id,
   cover,
-  name,
+  title,
   subtitle,
   isFavorite,
   isMuted,
@@ -50,7 +53,7 @@ const InboxThreadHeader: React.FC<Props> = ({
   switchFavoriteStatus,
   switchMutedStatus,
   switchDisabledStatus,
-  markAsUnread,
+  flagAsUnread,
   goToDetailPage,
   goToThreadListPage,
 }) => {
@@ -80,7 +83,7 @@ const InboxThreadHeader: React.FC<Props> = ({
             }
           >
             <Typography variant="h5" className={classes.offerTexts}>
-              {name}
+              {title}
             </Typography>
             <Typography variant="body1" className={classes.offerTexts}>
               {subtitle}
@@ -95,7 +98,7 @@ const InboxThreadHeader: React.FC<Props> = ({
             }
             variant="h5"
           >
-            {name}
+            {title}
           </Typography>
         )}
         {isFavorite && <StarIcon fontSize="small" color="primary" />}
@@ -108,6 +111,7 @@ const InboxThreadHeader: React.FC<Props> = ({
         </IconButton>
         <div className={classes.threadStatus}>
           <ThreadMenu
+            id={id}
             hasBeenRead={hasBeenRead}
             isFavorite={isFavorite}
             isMuted={isMuted}
@@ -116,7 +120,7 @@ const InboxThreadHeader: React.FC<Props> = ({
             switchFavoriteStatus={switchFavoriteStatus}
             switchMutedStatus={switchMutedStatus}
             switchDisabledStatus={switchDisabledStatus}
-            markAsUnread={markAsUnread}
+            flagAsUnread={flagAsUnread}
             isMobileMenu
             goToDetailPage={goToDetailPage}
             setOpenCollapse={handleClick}

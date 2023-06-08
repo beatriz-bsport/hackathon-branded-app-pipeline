@@ -25,37 +25,28 @@ export type Props = {
   searchThread: (e: React.ChangeEvent<HTMLInputElement>) => void;
   filterValue: SelectFieldItem;
   handleFilterChange: (value: SelectFieldItem) => void;
-  fetchMemberThreads: () => void;
-  fetchSmartlistThreads: () => void;
-  fetchOfferThreads: () => void;
+  handleContextThreadChange: (context: ChatThreadKinds) => void;
   createNewThread: () => void;
   contextSelected: ChatThreadKinds;
-  setContextSelected: (context: ChatThreadKinds) => void;
 };
 
 const InboxThreadLookup: React.FC<Props> = ({
   searchThread,
   filterValue,
   handleFilterChange,
-  fetchMemberThreads,
-  fetchSmartlistThreads,
-  fetchOfferThreads,
+  handleContextThreadChange,
   createNewThread,
   contextSelected,
-  setContextSelected,
 }) => {
   const { t } = useTranslation('communication');
 
   const classes = useStyles();
 
   return (
-    <>
+    <div className={classes.container}>
       <InboxThreadContextSelector
-        fetchMemberThreads={fetchMemberThreads}
-        fetchSmartlistThreads={fetchSmartlistThreads}
-        fetchOfferThreads={fetchOfferThreads}
+        handleContextThreadChange={handleContextThreadChange}
         contextSelected={contextSelected}
-        setContextSelected={setContextSelected}
       />
 
       <div className={classes.secondGroup}>
@@ -90,7 +81,7 @@ const InboxThreadLookup: React.FC<Props> = ({
           onChange={handleFilterChange}
         />
       </div>
-    </>
+    </div>
   );
 };
 
@@ -125,6 +116,12 @@ const selectorStyles: selectorStyle = {
 };
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    [theme.breakpoints.down('md')]: {
+      paddingRight: theme.spacing(1),
+      paddingLeft: theme.spacing(1),
+    },
+  },
   searchThread: {
     display: 'flex',
     flexDirection: 'row',

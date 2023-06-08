@@ -232,6 +232,8 @@ const CompanyOnboarding = asyncComponent(() =>
 
 const Tutorial = asyncComponent(() => import('./tutorial/Tutorial.router'));
 
+const Inbox = asyncComponent(() => import('./inbox/Inbox.router'));
+
 type Props = {
   alertings: Array<Alerting>,
   messageAlertings: Array<UnreadCommunicationAlerting>,
@@ -416,6 +418,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route path="/clock-in/:tab?" component={ClockIn} />
       <Route path="/spot-scheduling/:id" component={SpotScheduling} />
       <Route path="/empty" component={() => <div />} />
+      <Route path="/inbox" component={Inbox} />
       {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
         props.vodEnabled) && <Route path="/vod" component={VodRouter} />}
       <Route path="/" component={PlanningRouter} />

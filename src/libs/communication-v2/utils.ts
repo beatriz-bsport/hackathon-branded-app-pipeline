@@ -48,6 +48,7 @@ import {
   INBOX_FAVORITE_MESSAGES,
   INBOX_MUTED_MESSAGES,
   INBOX_DISABLED_MESSAGES,
+  INBOX_THREAD_PAGE_SIZE,
 } from './constants';
 
 import {
@@ -58,9 +59,11 @@ import {
   FilteringMemberIdsByGenericCategories,
   InboxThreadListParams,
   CommunicationThread,
+  CommunicationThreadWithUnreadAnswersCount,
 } from './types';
 import { Booking, BookingOption } from '#libs/booking/types';
 import { Member } from '#libs/member/types';
+import { OptionCallback } from '../../state/types';
 
 // #region FILTER CONTAINER
 
@@ -741,6 +744,8 @@ export const isThreadDisplayed = (
   filterValue: SelectFieldItem,
 ): boolean => {
   switch (filterValue.value) {
+    case INBOX_UNREAD_MESSAGES:
+      return !thread.disabled && !thread.last_communication_has_been_read;
     case INBOX_FAVORITE_MESSAGES:
       return !thread.disabled && thread.favorite;
     case INBOX_MUTED_MESSAGES:
@@ -750,4 +755,74 @@ export const isThreadDisplayed = (
     default:
       return !thread.disabled;
   }
+};
+
+export const fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts = (
+  contextSelected: ChatThreadKinds,
+  filterValue: SelectFieldItem,
+  fetchInboxThreadList: (
+    params: InboxThreadListParams,
+    isThreadListReinitialized?: boolean,
+    options?: OptionCallback,
+  ) => void,
+  fetchUnreadAnswersCounts: (params: string, options?: OptionCallback) => void,
+  isThreadListReinitialized?: boolean,
+  page?: number,
+) => {
+  const params = threadListQueryParamsSetter(
+    contextSelected,
+    filterValue,
+    page,
+  );
+
+  fetchInboxThreadList(params, isThreadListReinitialized, {
+    onSuccess: (results: CommunicationThread[]) => {
+      const threadIds = [];
+      for (const thread of results) {
+        threadIds.push(thread.id);
+      }
+      if (threadIds.length) {
+        const queryParams = { thread_ids: threadIds.join() };
+        fetchUnreadAnswersCounts(queryParams);
+      }
+    },
+  });
+};
+
+export const handleSwitchStatus = (
+  switchStatusAction: (id: number, options?: OptionCallback) => void,
+  contextSelected: ChatThreadKinds,
+  filterValue: SelectFieldItem,
+  threadId: number,
+  threadList: CommunicationThreadWithUnreadAnswersCount[],
+  fetchInboxThreadList: (
+    params: InboxThreadListParams,
+    isThreadListReinitialized?: boolean,
+    options?: OptionCallback,
+  ) => void,
+  fetchUnreadAnswersCounts: (params: string, options?: OptionCallback) => void,
+  getUnreadAnswersCountFromThread?: (
+    id: number,
+    options: OptionCallback,
+  ) => void,
+) => {
+  switchStatusAction(threadId, {
+    onSuccess: (thread: CommunicationThread) => {
+      getUnreadAnswersCountFromThread?.(threadId);
+      const isDisplayed = isThreadDisplayed(thread, filterValue);
+      if (!isDisplayed) {
+        const index = threadList.indexOf(threadId);
+        const threadPage = Math.ceil(index / INBOX_THREAD_PAGE_SIZE);
+
+        fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts(
+          contextSelected,
+          filterValue,
+          fetchInboxThreadList,
+          fetchUnreadAnswersCounts,
+          false,
+          threadPage,
+        );
+      }
+    },
+  });
 };

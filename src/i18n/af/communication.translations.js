@@ -378,6 +378,7 @@ exports.default = {
       disabled: 'Archivés',
     },
     loadMoreThreads: 'Charger plus de messages',
+    noThread: 'Aucun résultat',
   },
   generic: {
     communication: 'Communication',

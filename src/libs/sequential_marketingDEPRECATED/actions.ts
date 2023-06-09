@@ -746,7 +746,7 @@ export const deleteStepMarketingActionsActions = {
 
 export function deleteStepMarketingAction(
   data: { id: number; stepId: number },
-  options?: OptionCallback<StepMarketingActions>,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteStepMarketingActionsActions.isLoading(true));

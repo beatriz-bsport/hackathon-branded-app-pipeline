@@ -140,22 +140,22 @@ export type CadenceStepQueryParams = {
 
 export type CadenceState = {
   cadence: {
-    allIds: Array<number>;
+    allIds: number[];
     byId: { [id: number]: Cadence };
   } & ErrorAndLoading;
   step: {
-    allIds: Array<number>;
+    allIds: number[];
     byId: { [id: number]: CadenceStep };
     subscribe: ErrorAndLoading;
   } & ErrorAndLoading;
   marketingActions: {
-    allIds: [];
+    allIds: number[];
     byId: { [id: number]: StepMarketingActions };
     byStepId: { [id: number]: StepMarketingActions[] };
     upsert: ErrorAndLoading;
   } & ErrorAndLoading;
   trigger: {
-    allIds: [];
+    allIds: string[];
     byId: { [id: number]: StepConnectedTriggerConfig };
   } & ErrorAndLoading;
 } & ErrorAndLoading;

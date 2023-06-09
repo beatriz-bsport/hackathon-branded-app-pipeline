@@ -221,7 +221,7 @@ exports.default = {
     widget: {
       create: 'Général',
       customize: 'Personnalisation',
-      customizeCss: 'CSS personlalisé',
+      customizeCss: 'CSS personnalisé',
     },
     replacement: {
       management: 'Gestion',

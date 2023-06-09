@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 
@@ -38,7 +37,6 @@ export const WidgetCustomizationComponent: React.FC<Props> = ({
   push,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation('widget');
 
   const [code, setCode] = useState(getCssComponentByLabel(componentId)?.css);
 
@@ -64,21 +62,16 @@ export const WidgetCustomizationComponent: React.FC<Props> = ({
   );
 
   const handleSubmit = useCallback(() => {
-    saveCssConfiguration(
-      cssConfig.id,
-      {
-        ...cssConfig.components_css,
-        [componentId]: code,
-      },
-      t(`widget:widget.components.${componentId}`),
-    );
+    saveCssConfiguration(cssConfig.id, {
+      ...cssConfig.components_css,
+      [componentId]: code,
+    });
   }, [
     code,
     componentId,
     cssConfig.components_css,
     cssConfig.id,
     saveCssConfiguration,
-    t,
   ]);
 
   const handleRestConfig = useCallback(() => {

@@ -50,7 +50,7 @@ export function offerFactory(overrideData?: {
     category: categories[generateRandomInt(categories.length - 1)],
     waiting_list_max_size: generateRandomInt(50),
     coach_override: coachFactory(),
-    coach: 'null',
+    coach: null,
     cover_main: `Cover of offer`,
     date_end: date_end.toString(),
     date_start: date_start.toString(),

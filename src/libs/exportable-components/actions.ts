@@ -85,7 +85,6 @@ export const saveCssConfigurationActions = {
 export function saveCssConfiguration(
   configId: number,
   componentsCss: MarketplaceCSSConfiguration['components_css'],
-  componentName: string,
   options?: OptionCallback<MarketplaceCSSConfiguration>,
 ) {
   return async (dispatch: Dispatch) => {

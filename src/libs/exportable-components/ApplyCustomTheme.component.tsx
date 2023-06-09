@@ -1,9 +1,4 @@
-/*
-TODO REMOVE THE DUPLICATE FILE : src/libs/widget/components/WidgetApplyCustomTheme.component.tsx
-Not done yet since it will break widget build.
-*/
 import React from 'react';
-import { pure } from 'recompose';
 
 import { WidgetCustomCSS } from '#libs/theme/types';
 import { getCustomWidgetStyle } from '#libs/widget/utils';
@@ -28,4 +23,4 @@ export const ApplyCustomTheme: React.FC<Props> = ({ styles = {} }) => {
   );
 };
 
-export default pure(ApplyCustomTheme);
+export default React.memo(ApplyCustomTheme);

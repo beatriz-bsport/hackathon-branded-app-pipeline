@@ -16,7 +16,12 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 import { getCssComponentByLabel } from '../utils';
 import { VariationConfigurationChoice } from '../types';
-// Wrapper that pass different props depending on the current state
+/*  Wrapper that dynamically passes different props based on the current state.
+ * This wrapper is utilized to display the appropriate React component (children) sourced from the configurations.
+ * It is also responsible for managing the state/variant in which the user wants to view the displayed component.
+ * Once the different variants are selected, it renders the cloned children in the DOM and adds variant-specific inherited props.
+ * The "variationsSelected" is then utilized within the component to generate data from factories, modify default props, change states, and more.
+ */
 const VariationConfigurationWrapper: React.FC<{
   componentId: string;
   // By default React.FC interface interpolates the children as a React.ReactNode

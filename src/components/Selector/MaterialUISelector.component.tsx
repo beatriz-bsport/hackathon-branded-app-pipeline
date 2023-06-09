@@ -182,6 +182,8 @@ function MaterialUISelector<T extends OptionTypeBase>(
     }
   }, [options, onInputChange]);
 
+  const emptyIndicatorsContainer = React.useCallback(() => null, []);
+
   return (
     <SelectorContext.Provider
       value={{
@@ -224,7 +226,9 @@ function MaterialUISelector<T extends OptionTypeBase>(
             SingleValue: SingleValue(chipsRenderer),
             GroupHeading,
             ValueContainer: ValueContainer(leftIcon),
-            ...(removeIndicator ? { IndicatorsContainer: () => null } : {}),
+            ...(removeIndicator
+              ? { IndicatorsContainer: emptyIndicatorsContainer }
+              : {}),
           }}
           withoutSelectAll={withoutSelectAll}
           hideSelectedOptions={false}

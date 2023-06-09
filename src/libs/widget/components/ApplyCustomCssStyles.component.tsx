@@ -1,5 +1,4 @@
 import React from 'react';
-import pure from 'recompose/pure';
 import { MarketplaceCSSConfiguration } from '#libs/exportable-components/types';
 
 const ApplyCustomCssStyles: React.FC<{
@@ -13,6 +12,12 @@ const ApplyCustomCssStyles: React.FC<{
   const cssIdentifierRegex = /(\.bs-[^,{]*)+(\s*{|,)/gm;
   const cssPropertyRegex = /^(\s)*(\w|-)*: ([^;}$])*/gm;
 
+  /*
+  The widget contains elements wrapped in a "cleanslate" wrapper. 
+  This wrapper helps reset any CSS styles coming from Material-UI or the website itself.
+  
+  The following code applies the same logic below.
+  */
   const styleToApply = fromWidget
     ? `${inlineStyle}`
         .replace(
@@ -29,4 +34,4 @@ const ApplyCustomCssStyles: React.FC<{
   return <style>{styleToApply}</style>;
 };
 
-export default pure(ApplyCustomCssStyles);
+export default React.memo(ApplyCustomCssStyles);

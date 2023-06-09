@@ -260,12 +260,8 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
             <MarketplaceBookButton
               offer={offer}
               group={group}
-<<<<<<< HEAD
-              isRegistered={props.isRegistered}
               metaActivity={metaActivity}
-=======
               isRegistered={isRegistered}
->>>>>>> e9e745a5f (feat(customize-css) : implementing offer card css customization)
             />
           </div>
         </div>

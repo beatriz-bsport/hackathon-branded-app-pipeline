@@ -2,8 +2,6 @@ import React, { useLayoutEffect, useState } from 'react';
 import { compose } from 'recompose';
 import { makeStyles } from '@material-ui/core/styles';
 
-// TODO : This is probably breaking the UX and disable the possibility to scroll on both side independently.
-// import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { CompanyTheme } from '#libs/theme/types';
 import VariationConfigurationWrapper from './VariationConfigurationWrapper.component';
@@ -35,12 +33,15 @@ const ComponentPreview: React.FC<
     setState(defaultState);
   }, [componentId, defaultState]);
 
-  const handleSetState = (key: string) => (value: any) => {
-    setState({
-      ...state,
-      [key]: value,
-    });
-  };
+  const handleSetState = React.useCallback(
+    (key: string) => (value: any) => {
+      setState({
+        ...state,
+        [key]: value,
+      });
+    },
+    [state],
+  );
 
   return (
     <div
@@ -66,7 +67,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default compose<any, Props>(
-  // withPageHeightHOC(),
   React.memo,
   marketplaceCssHoc(),
 )(ComponentPreview);

@@ -105,7 +105,7 @@ export function coachFactory(coach_payment_rule_group_id?: number): Coach {
     is_teaching_all_activities: randomBoolean(),
     is_teaching_all_workshops: randomBoolean(),
     is_teaching_all_categories: randomBoolean(),
-    discipline_group: random_int(1000),
+    discipline_group: generateRandomInt(1000),
   };
 }
 

@@ -131,6 +131,11 @@ export const cleanCSSFile = (css: string) => {
 };
 
 export const interpolateCSSVar = (css: string, isDomLoaded: boolean) => {
+  /*
+  This methods interpolate the variable in the theme, thus using
+  this and saving a css configuration we lose the synchronization if 
+  any variable is updated after.
+  */
   if (!isDomLoaded) return css;
 
   const newRegex = /var\((--[^)]*)\)/gm;

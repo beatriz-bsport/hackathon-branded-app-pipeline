@@ -1,10 +1,7 @@
 // @ts-nocheck
 import type { Member } from '../types';
 import FactoryBotTag from '../../tag/factory';
-
-function random_int(max: number) {
-  return Math.floor(Math.random() * max);
-}
+import { generateRandomInt } from '../../../utils/factories';
 
 const lastnames = [
   'Martin',
@@ -41,8 +38,8 @@ const photo = [
 ];
 
 function randomDate() {
-  const y = (1950 + random_int(70)).toString();
-  const m = random_int(13);
+  const y = (1950 + generateRandomInt(70)).toString();
+  const m = generateRandomInt(13);
   let mm = '';
   if (m < 11) {
     mm = `0${m.toString()}`;
@@ -50,7 +47,7 @@ function randomDate() {
     mm = m.toString();
   }
 
-  const d = random_int(31) + 1;
+  const d = generateRandomInt(31) + 1;
   let dd = '';
   if (d < 11) {
     dd = `0${d.toString()}`;
@@ -63,7 +60,7 @@ function randomDate() {
 
 function randomBoolean() {
   const table = [true, false];
-  return table[random_int(2)];
+  return table[generateRandomInt(2)];
 }
 
 type MemberProps = {
@@ -74,25 +71,25 @@ type MemberProps = {
 
 export function MemberFactory(
   {
-    credit_account_balance = random_int(50),
-    total_unpaid_amount = `${random_int(50)}`,
+    credit_account_balance = generateRandomInt(50),
+    total_unpaid_amount = `${generateRandomInt(50)}`,
     number_tags = 0,
   }: MemberProps,
   withoutPhoneOrEmail?: boolean,
   id?: number,
 ): Member {
-  const wichGender = random_int(2);
-  const firstname = firstnames[random_int(lastnames.length - 1)];
-  const lastname = lastnames[random_int(lastnames.length - 1)];
+  const wichGender = generateRandomInt(2);
+  const firstname = firstnames[generateRandomInt(lastnames.length - 1)];
+  const lastname = lastnames[generateRandomInt(lastnames.length - 1)];
   let email = `${firstname}@member.bsport`;
-  let phone_number = `00645545${random_int(9)}`;
+  let phone_number = `00645545${generateRandomInt(9)}`;
   if (withoutPhoneOrEmail && Math.random() < 0.3) email = '';
   if (withoutPhoneOrEmail && Math.random() < 0.3) phone_number = '';
-  const memberId = id || random_int(1000);
+  const memberId = id || generateRandomInt(1000);
   return {
     id: memberId,
     name: `${firstname} ${lastname}`,
-    consumer: random_int(1000),
+    consumer: generateRandomInt(1000),
     firstname,
     lastname,
     gender: gender[wichGender],
@@ -103,7 +100,7 @@ export function MemberFactory(
     accept_sms: randomBoolean(),
     email,
     address: '3 Avenue du Bar',
-    internal_account: random_int(50),
+    internal_account: generateRandomInt(50),
     credit_account_balance,
     total_unpaid_amount,
     notes: [],

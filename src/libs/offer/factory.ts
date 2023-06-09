@@ -8,12 +8,9 @@ import { coachFactory } from '#libs/associated-coach/factories';
 import { tagListFactory } from '../tag/factory';
 import { establishment_factory } from '#libs/establishment/factory';
 import { levelFactory } from '#libs/level/factories';
+import { generateRandomInt } from '../../utils/factories';
 
 const categories = ['Swimming', 'Running', 'Collective'];
-
-function random_int(max: number) {
-  return Math.floor(Math.random() * max);
-}
 
 function randomDate(start: Date, end: Date) {
   return new Date(
@@ -42,41 +39,41 @@ export function offerFactory(overrideData?: {
   );
 
   return {
-    company: random_int(1000),
-    activity: random_int(1000),
+    company: generateRandomInt(1000),
+    activity: generateRandomInt(1000),
     title: 'Title of offer',
     broadcast_link: '',
     available: true,
-    duration_minute: random_int(90),
-    id: random_int(1000),
-    activity_id: random_int(1000),
-    category: categories[random_int(categories.length - 1)],
-    waiting_list_max_size: random_int(50),
+    duration_minute: generateRandomInt(90),
+    id: generateRandomInt(1000),
+    activity_id: generateRandomInt(1000),
+    category: categories[generateRandomInt(categories.length - 1)],
+    waiting_list_max_size: generateRandomInt(50),
     coach_override: coachFactory(),
     coach: coachFactory(),
     cover_main: `Cover of offer`,
     date_end: date_end.toString(),
     date_start: date_start.toString(),
-    effectif: random_int(100),
+    effectif: generateRandomInt(100),
     level: overrideData?.level ?? level,
     level_id: overrideData?.level?.id ?? level.id,
-    meta_activity_id: random_int(1000),
+    meta_activity_id: generateRandomInt(1000),
     name: `Activity for ${level.name}`,
-    nb_option: random_int(10),
-    nb_bookings: random_int(50),
-    parent_category: random_int(1000),
-    price: random_int(50),
-    price_coach: random_int(20),
-    credit_price: overrideData?.credits ?? random_int(3),
+    nb_option: generateRandomInt(10),
+    nb_bookings: generateRandomInt(50),
+    parent_category: generateRandomInt(1000),
+    price: generateRandomInt(50),
+    price_coach: generateRandomInt(20),
+    credit_price: overrideData?.credits ?? generateRandomInt(3),
     is_full: false,
     establishment_override: establishment_factory(1)[0],
     establishment: establishment_factory(1)[0],
-    meta_activity: random_int(1000),
+    meta_activity: generateRandomInt(1000),
     timezone_name: 'Europe/Paris',
-    room_blueprint: random_int(100),
+    room_blueprint: generateRandomInt(100),
     whitelist_tags: tagListFactory(3),
     blacklist_tags: tagListFactory(3),
-    group: random_int(100),
+    group: generateRandomInt(100),
   };
 }
 

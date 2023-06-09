@@ -1,18 +1,15 @@
 // @ts-nocheck
 import faker from 'faker';
+import { generateRandomInt } from '../../utils/factories';
 
 import { Level } from './types';
-
-function random_int(max: number) {
-  return Math.floor(Math.random() * max);
-}
 
 const hexa_list = '0123456789ABCDEF';
 
 function randomColor() {
   let color = '#';
   for (let i = 0; i < 6; i += 1) {
-    const number_decimal = random_int(16);
+    const number_decimal = generateRandomInt(16);
     color += hexa_list[number_decimal];
   }
   return color;
@@ -58,8 +55,8 @@ const default_levels: Partial<Level>[] = [
 
 export function levelFactory(): Partial<Level> {
   return {
-    id: random_int(1000),
-    company: random_int(999),
+    id: generateRandomInt(1000),
+    company: generateRandomInt(999),
     name: faker.random.words(2),
     color: randomColor(),
     enabled: true,

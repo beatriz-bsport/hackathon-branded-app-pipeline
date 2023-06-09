@@ -1,14 +1,11 @@
 // @ts-nocheck
+import { generateRandomInt } from '../../utils/factories';
 import {
   EasyAccess,
   Establishment,
   EstablishmentGroup,
   Location,
 } from './types';
-
-function random_int(max: number): number {
-  return Math.floor(Math.random() * max);
-}
 
 const TITLES: Array<string> = [
   'Boxing Club',
@@ -92,7 +89,7 @@ const TZNAMES: Array<string> = [
 ];
 
 function random_choice(arr: Array<any>): any {
-  return arr[random_int(arr.length)];
+  return arr[generateRandomInt(arr.length)];
 }
 
 function location_factory(num_el: number): Array<Location> {
@@ -133,7 +130,7 @@ export function establishment_factory(num_el: number): Array<Establishment> {
     disabled: false,
     associatedestablishment_set: [],
     tzname: random_choice(TZNAMES),
-    establishment_billing_group_id: random_int(100),
+    establishment_billing_group_id: generateRandomInt(100),
   }));
 }
 

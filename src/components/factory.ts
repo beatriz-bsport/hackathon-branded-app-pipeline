@@ -1,8 +1,5 @@
 // @ts-nocheck
-
-function random_int(max: number): number {
-  return Math.floor(Math.random() * max);
-}
+import { generateRandomInt } from '../utils/factories';
 
 const emails: Array<string> = [
   'john@mail.com',
@@ -15,7 +12,7 @@ const emails: Array<string> = [
 export function emails_factory(num_el: number): Array<string> {
   const emailArr = [];
   for (let i = 0; i < num_el; i += 1) {
-    emailArr.push(emails[random_int(emails.length)]);
+    emailArr.push(emails[generateRandomInt(emails.length)]);
   }
   return emailArr;
 }

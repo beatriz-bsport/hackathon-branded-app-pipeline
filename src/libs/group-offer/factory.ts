@@ -2,11 +2,9 @@
 
 import moment from 'moment-timezone';
 import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports';
-import { MetaActivity } from './types';
+import { generateRandomInt } from '../../utils/factories';
 
-function random_int(max: number): number {
-  return Math.floor(Math.random() * max);
-}
+import { MetaActivity } from './types';
 
 const NAMES: Array<string> = [
   'Boxing',
@@ -56,7 +54,7 @@ const DESCRIPTIONS: Array<string> = [
 const COLORS: Array<string> = ['', 'blue', 'red', 'green', 'yellow', 'black'];
 
 function random_choice(arr: Array<any>): any {
-  return arr[random_int(arr.length)];
+  return arr[generateRandomInt(arr.length)];
 }
 
 export function meta_activity_factory(num_el: number): Array<MetaActivity> {
@@ -75,23 +73,23 @@ export function meta_activity_factory(num_el: number): Array<MetaActivity> {
       SCT: id,
       parent_category: random_choice(AVAILABLE_CATEGORY).id,
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      images: images_fac.filter((e) => random_int(6) === 1),
+      images: images_fac.filter((e) => generateRandomInt(6) === 1),
       establishments: [],
       next_slot: random_choice(NEXT_SLOTS),
       company: id,
       activities: [],
       description: random_choice(DESCRIPTIONS),
-      last_booking_minutes: random_int(5000),
-      last_discard_minutes: random_int(5000),
-      first_booking_minutes_until: random_int(20000),
+      last_booking_minutes: generateRandomInt(5000),
+      last_discard_minutes: generateRandomInt(5000),
+      first_booking_minutes_until: generateRandomInt(20000),
       is_workshop: false,
       is_broadcast: false,
       customer_enabled: false,
       color: random_choice(COLORS),
       on_booking_notification: [],
       auto_discard_active: false,
-      auto_discard_hours_before_start: random_int(20),
-      auto_discard_min_bookings_nb: random_int(20),
+      auto_discard_hours_before_start: generateRandomInt(20),
+      auto_discard_min_bookings_nb: generateRandomInt(20),
     };
   });
 }

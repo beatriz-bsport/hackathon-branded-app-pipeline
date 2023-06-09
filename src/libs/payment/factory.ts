@@ -1,13 +1,10 @@
 // @ts-nocheck
 
 import { PaymentMethod } from './types';
-
-function random_int(max: number): number {
-  return Math.floor(Math.random() * max);
-}
+import { generateRandomInt } from '../../utils/factories';
 
 function random_choice(arr: Array<any>): any {
-  return arr[random_int(arr.length)];
+  return arr[generateRandomInt(arr.length)];
 }
 
 const payment_method_types: Array<string> = ['card', 'sepa_debit'];
@@ -19,7 +16,7 @@ export function payment_method_type_factory(): string {
 const payment_method_brands = ['mastercard', 'visa'];
 
 function generate_identifier(num: number): string {
-  let identifier = random_int(num).toString();
+  let identifier = generateRandomInt(num).toString();
   while (identifier.length < 4) {
     identifier += `0`;
   }
@@ -38,7 +35,7 @@ function generateId(num: number): string {
 }
 
 export function card_list_factory(num: number): Array<PaymentMethod> {
-  const card_ids: Array<number> = [...Array(random_int(num) + 2).keys()];
+  const card_ids: Array<number> = [...Array(generateRandomInt(num) + 2).keys()];
   return card_ids.map((id) => {
     return {
       additional_info: '10/23',
@@ -52,7 +49,7 @@ export function card_list_factory(num: number): Array<PaymentMethod> {
 }
 
 export function sepa_list_factory(num: number): Array<PaymentMethod> {
-  const card_ids: Array<number> = [...Array(random_int(num) + 2).keys()];
+  const card_ids: Array<number> = [...Array(generateRandomInt(num) + 2).keys()];
   return card_ids.map((id) => {
     return {
       additional_info: 'Jean Durand',

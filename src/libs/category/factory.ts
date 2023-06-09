@@ -1,10 +1,7 @@
 // @ts-nocheck
 import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports';
 import { SCT } from './types';
-
-function random_int(max: number): number {
-  return Math.floor(Math.random() * max);
-}
+import { generateRandomInt } from '../../utils/factories';
 
 const NAMES: Array<string> = [
   'yoga',
@@ -36,7 +33,7 @@ const SCS_NAMES: Array<string> = [
 ];
 
 function random_choice(arr: Array<any>): any {
-  return arr[random_int(arr.length)];
+  return arr[generateRandomInt(arr.length)];
 }
 
 export function factory_scts(num_el: number): Array<SCT> {

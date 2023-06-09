@@ -1,10 +1,7 @@
 // @ts-nocheck
+import { generateRandomInt } from '../../utils/factories';
 
 import { MarketplaceSettings } from './types';
-
-function random_int(max: number) {
-  return Math.floor(Math.random() * max);
-}
 
 const titles = [
   'Class Timetable',
@@ -28,8 +25,8 @@ const component_types = [
 
 export const marketplaceSettingsFactory = (length?: number) => {
   const marketplaceSettings: MarketplaceSettings = {
-    id: random_int(9999),
-    company: random_int(999),
+    id: generateRandomInt(9999),
+    company: generateRandomInt(999),
     is_custom: true,
     config: [],
   };

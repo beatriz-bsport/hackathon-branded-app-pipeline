@@ -1,6 +1,7 @@
 // @ts-nocheck
 import moment from 'moment-timezone';
 import { CB } from '@bsport/common/lib/master-data/payment-methods';
+import { generateRandomInt } from '../../utils/factories';
 import { FranchiseCompanyListFactory } from '#libs/franchise/factories/FranchiseCompanyFactory';
 import { WithFranchiseCompanies } from '#libs/franchise/types';
 import {
@@ -10,10 +11,6 @@ import {
   GiftcardBackgroundImage,
   GiftcardTemplate,
 } from './types';
-
-function random_int(max: number): number {
-  return Math.floor(Math.random() * max);
-}
 
 const NAMES: Array<string> = [
   '10 EUR giftcard',
@@ -79,7 +76,7 @@ const DATES_ACTIVE: Array<string> = [
 ];
 
 function random_choice(arr: Array<any>): any {
-  return arr[random_int(arr.length)];
+  return arr[generateRandomInt(arr.length)];
 }
 
 export function giftcard_recipient_factory(
@@ -105,13 +102,13 @@ export function giftcard_factory(num_el: number): Array<Giftcard> {
       description: random_choice(DESCRIPTIONS),
       cover: random_choice(COVERS),
       cover_thumbnail: random_choice(COVERS),
-      expiration_days: random_int(100),
+      expiration_days: generateRandomInt(100),
       price: random_choice(PRICES),
       available_payment_method_identifiers: [CB.id],
       manager_only: true,
       disabled: false,
-      company: random_int(20) + 1,
-      amount_gifted: random_int(100).toString(),
+      company: generateRandomInt(20) + 1,
+      amount_gifted: generateRandomInt(100).toString(),
     };
   });
 }
@@ -123,10 +120,10 @@ export function consumer_giftcard_factory(
   const RECIPIENTS = giftcard_recipient_factory(num_el);
   return GIFTCARD_IDS.map((id) => {
     return {
-      id: random_int(1000),
-      consumed_amount_gifted: random_int(10).toString(),
-      src_member: random_int(99999),
-      dst_member: random_int(99999),
+      id: generateRandomInt(1000),
+      consumed_amount_gifted: generateRandomInt(10).toString(),
+      src_member: generateRandomInt(99999),
+      dst_member: generateRandomInt(99999),
       background_image: random_choice(COVERS),
       message_is_from: random_choice(MESSAGES_FROM_FOR),
       message_is_for: random_choice(MESSAGES_FROM_FOR),
@@ -135,7 +132,7 @@ export function consumer_giftcard_factory(
       date_activated: random_choice(DATES_ACTIVE),
       planned_date_send: random_choice(DATES_ACTIVE),
       giftcard_recipients: [random_choice(RECIPIENTS)],
-      giftcard: random_int(10) + 1,
+      giftcard: generateRandomInt(10) + 1,
       invitation_sent: false,
       active: true,
       name: `${random_choice(NAMES)} #${id}`,
@@ -166,12 +163,12 @@ export function GiftcardTemplateListFactory(
       cover: random_choice(COVERS),
       name: `${random_choice(NAMES)} #${id}`,
       description: random_choice(DESCRIPTIONS),
-      expiration_days: random_int(100),
+      expiration_days: generateRandomInt(100),
       price: random_choice(PRICES),
       available_payment_method_identifiers: [CB.id],
       manager_only,
       disabled: false,
-      amount_gifted: random_int(100).toString(),
+      amount_gifted: generateRandomInt(100).toString(),
       // @ts-ignore
       companies: FranchiseCompanyListFactory(Math.floor(Math.random() * 20)),
     };

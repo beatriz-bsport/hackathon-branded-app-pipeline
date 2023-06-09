@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { generateRandomInt } from '../../utils/factories';
 
 import { CategoryWithItems } from '#components/ordering/types';
 
@@ -25,12 +26,8 @@ const CATEGORY_NAMES = [
   'Invitations',
 ];
 
-function random_int(max: number): number {
-  return Math.floor(Math.random() * max);
-}
-
 function random_choice(arr: Array<any>): any {
-  return arr[random_int(arr.length)];
+  return arr[generateRandomInt(arr.length)];
 }
 
 // inspired by EmailListItem
@@ -43,10 +40,10 @@ function itemFactory(num_el: number): Array<{
 }> {
   const itemIds = [...Array(num_el).keys()];
   return itemIds.map(() => ({
-    id: random_int(50000),
+    id: generateRandomInt(50000),
     subject: random_choice(EMAIL_SUBJECTS),
     title: random_choice(EMAIL_TITLES),
-    ordering_in_category: random_int(10000),
+    ordering_in_category: generateRandomInt(10000),
     company_id: 555,
   }));
 }
@@ -58,7 +55,7 @@ export function categoryListFactory(num_cat: number): Array<CategoryWithItems> {
       id: id + 1,
       name: random_choice(CATEGORY_NAMES),
       company: 555,
-      category_ordering: random_int(1000),
+      category_ordering: generateRandomInt(1000),
       items: itemFactory(2),
     })),
     {

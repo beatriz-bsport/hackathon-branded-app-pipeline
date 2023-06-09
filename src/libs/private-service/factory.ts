@@ -1,4 +1,6 @@
 // @ts-nocheck
+import { generateRandomInt } from '../../utils/factories';
+
 import {
   PrivateSlot,
   PrivateServiceGroup,
@@ -7,12 +9,8 @@ import {
   PrivatePassCategory,
 } from '#libs/private-service/types';
 
-function random_int(max: number): number {
-  return Math.floor(Math.random() * max);
-}
-
 function random_choice(arr: Array<any>): any {
-  return arr[random_int(arr.length)];
+  return arr[generateRandomInt(arr.length)];
 }
 
 const slots_names: Array<string> = [
@@ -79,7 +77,7 @@ export function private_services_factory(
         coaches: [],
         color: random_choice([colors]),
         company: 1,
-        slots: slots_factory(random_int(5), id + 1),
+        slots: slots_factory(generateRandomInt(5), id + 1),
         establishment_attribution: 0,
         is_home_service: random_choice([true, false]),
         coach_attribution: 3,

@@ -141,7 +141,7 @@
   background: var(--color-primary-main);
   border-radius: var(--border-radius-10);
   border: none;
-  color: var(--color-secondary-contrastText);
+  color: var(--color-primary-contrastText);
   padding: var(--spacing-1) var(--spacing-2);
   font-size: var(--button-fontSize);
   font-weight: var(--button-fontWeight);

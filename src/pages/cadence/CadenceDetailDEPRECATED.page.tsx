@@ -313,7 +313,7 @@ export class CadenceDetailPage extends Component<Props> {
               resetAllSelection={this.resetAllSelection}
               cadenceEditMode={this.props.cadenceEditMode}
               handleSelectedStepForEdition={this.handleSelectedStepForEdition}
-              deleteCadenceStep={this.props.deleteCadenceStepAction}
+              deleteCadenceStep={this.props.deleteCadenceStep}
               deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
             />
           </div>
@@ -654,6 +654,16 @@ const mapWithHandlers = {
             },
           },
         );
+      }
+    },
+
+  deleteCadenceStep:
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
+    (stepId: number) => {
+      if (stepId) {
+        props.deleteCadenceStepAction(stepId, {
+          onSuccess: props.retrieveCadence,
+        });
       }
     },
 

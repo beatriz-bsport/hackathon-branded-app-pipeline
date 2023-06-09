@@ -19,10 +19,10 @@ import type {
 } from '#libs/sequential_marketing/types';
 
 export const fetchStepMarketingActions = {
-  isLoading: createAction<boolean>('CADENCE/MARKETING_ACTIONS/IS_LOADING'),
-  error: createAction<Error>('CADENCE/MARKETING_ACTIONS/ERROR'),
+  isLoading: createAction<boolean>('CADENCE_WIP/MARKETING_ACTIONS/IS_LOADING'),
+  error: createAction<Error>('CADENCE_WIP/MARKETING_ACTIONS/ERROR'),
   success: createAction<PaginatedResponse<StepMarketingActions>>(
-    'CADENCE/MARKETING_ACTIONS/SUCCESS',
+    'CADENCE_WIP/MARKETING_ACTIONS/SUCCESS',
   ),
 };
 
@@ -50,11 +50,11 @@ export function fetchMarketingActions(
 
 export const upsertStepMarketingActionsActions = {
   isLoading: createAction<boolean>(
-    'CADENCE/MARKETING_ACTIONS/UPSERT/IS_LOADING',
+    'CADENCE_WIP/MARKETING_ACTIONS/UPSERT/IS_LOADING',
   ),
-  error: createAction<Error>('CADENCE/MARKETING_ACTIONS/UPSERT/ERROR'),
+  error: createAction<Error>('CADENCE_WIP/MARKETING_ACTIONS/UPSERT/ERROR'),
   success: createAction<StepMarketingActions>(
-    'CADENCE/MARKETING_ACTIONS/UPSERT/SUCCESS',
+    'CADENCE_WIP/MARKETING_ACTIONS/UPSERT/SUCCESS',
   ),
 };
 
@@ -88,10 +88,10 @@ export function upsertStepMarketingAtions(
 
 export const deleteStepMarketingActionsActions = {
   isLoading: createAction<boolean>(
-    'CADENCE/MARKETING_ACTIONS/DELETE/IS_LOADING',
+    'CADENCE_WIP/MARKETING_ACTIONS/DELETE/IS_LOADING',
   ),
-  error: createAction<Error>('CADENCE/MARKETING_ACTIONS/DELETE/ERROR'),
-  success: createAction<void>('CADENCE/MARKETING_ACTIONS/DELETE/SUCCESS'),
+  error: createAction<Error>('CADENCE_WIP/MARKETING_ACTIONS/DELETE/ERROR'),
+  success: createAction<void>('CADENCE_WIP/MARKETING_ACTIONS/DELETE/SUCCESS'),
 };
 
 export function deleteStepMarketingAction(

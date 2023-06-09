@@ -15,12 +15,12 @@ import type {
 } from '#libs/sequential_marketing/types';
 
 export const subscribeStepToStepActions = {
-  isLoading: createAction<boolean>('CADENCE_STEP/SUB_TO_STEP/IS_LOADING'),
-  error: createAction<Error>('CADENCE_STEP/SUB_TO_STEP/ERROR'),
+  isLoading: createAction<boolean>('CADENCE_STEP_WIP/SUB_TO_STEP/IS_LOADING'),
+  error: createAction<Error>('CADENCE_STEP_WIP/SUB_TO_STEP/ERROR'),
   success: createAction<{
     step: CadenceStep;
     connected_trigger: ConnectedTrigger;
-  }>('CADENCE_STEP/SUB_TO_STEP/SUCCESS'),
+  }>('CADENCE_STEP_WIP/SUB_TO_STEP/SUCCESS'),
 };
 
 export function subscribeStepToStep(
@@ -55,9 +55,13 @@ export function subscribeStepToStep(
 }
 
 export const updateCadenceStepConnectedTriggerCanvasPositionActions = {
-  isLoading: createAction<boolean>('CADENCE_STEP/UPDATE_CT_CANVAS/IS_LOADING'),
-  error: createAction<Error>('CADENCE_STEP/UPDATE_CT_CANVAS/ERROR'),
-  success: createAction<CadenceStep>('CADENCE_STEP/UPDATE_CT_CANVAS/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'CADENCE_STEP_WIP/UPDATE_CT_CANVAS/IS_LOADING',
+  ),
+  error: createAction<Error>('CADENCE_STEP_WIP/UPDATE_CT_CANVAS/ERROR'),
+  success: createAction<CadenceStep>(
+    'CADENCE_STEP_WIP/UPDATE_CT_CANVAS/SUCCESS',
+  ),
 };
 
 export function updateCadenceStepConnectedTriggerCanvasPosition(
@@ -99,9 +103,11 @@ export function updateCadenceStepConnectedTriggerCanvasPosition(
 }
 
 export const updateConnectedTriggerActions = {
-  isLoading: createAction<boolean>('CONNECTED_TIRGGER/UPDATE/IS_LOADING'),
-  error: createAction<Error>('CONNECTED_TIRGGER/UPDATE/ERROR'),
-  success: createAction<ConnectedTrigger>('CONNECTED_TIRGGER/UPDATE/SUCCESS'),
+  isLoading: createAction<boolean>('CONNECTED_TIRGGER_WIP/UPDATE/IS_LOADING'),
+  error: createAction<Error>('CONNECTED_TIRGGER_WIP/UPDATE/ERROR'),
+  success: createAction<ConnectedTrigger>(
+    'CONNECTED_TIRGGER_WIP/UPDATE/SUCCESS',
+  ),
 };
 
 export function updateConnectedTrigger(
@@ -134,10 +140,10 @@ export function updateConnectedTrigger(
 }
 
 export const deleteConnectedTriggerActions = {
-  isLoading: createAction<boolean>('CONNECTED_TRIGGER/DELETE/IS_LOADING'),
-  error: createAction<Error>('CONNECTED_TRIGGER/DELETE/ERROR'),
+  isLoading: createAction<boolean>('CONNECTED_TRIGGER_WIP/DELETE/IS_LOADING'),
+  error: createAction<Error>('CONNECTED_TRIGGER_WIP/DELETE/ERROR'),
   success: createAction<{ source_id: number; connected_trigger_uuid: string }>(
-    'CONNECTED_TRIGGER/DELETE/SUCCESS',
+    'CONNECTED_TRIGGER_WIP/DELETE/SUCCESS',
   ),
 };
 

@@ -20,9 +20,9 @@ import type {
 } from '#libs/sequential_marketing/types';
 
 export const retrieveCadenceStepActions = {
-  isLoading: createAction<boolean>('CADENCE_STEP/RETRIEVE/IS_LOADING'),
-  error: createAction<Error>('CADENCE_STEP/RETRIEVE/ERROR'),
-  success: createAction<CadenceStep>('CADENCE_STEP/RETRIEVE/SUCCESS'),
+  isLoading: createAction<boolean>('CADENCE_STEP_WIP/RETRIEVE/IS_LOADING'),
+  error: createAction<Error>('CADENCE_STEP_WIP/RETRIEVE/ERROR'),
+  success: createAction<CadenceStep>('CADENCE_STEP_WIP/RETRIEVE/SUCCESS'),
 };
 
 export function retrieveCadenceStep(
@@ -48,10 +48,10 @@ export function retrieveCadenceStep(
 }
 
 export const fetchCadenceStepListActions = {
-  isLoading: createAction<boolean>('CADENCE_STEP/LIST/IS_LOADING'),
-  error: createAction<Error>('CADENCE_STEP/LIST/ERROR'),
+  isLoading: createAction<boolean>('CADENCE_STEP_WIP/LIST/IS_LOADING'),
+  error: createAction<Error>('CADENCE_STEP_WIP/LIST/ERROR'),
   success: createAction<PaginatedResponse<CadenceStep>>(
-    'CADENCE_STEP/LIST/SUCCESS',
+    'CADENCE_STEP_WIP/LIST/SUCCESS',
   ),
 };
 
@@ -78,9 +78,9 @@ export function fetchCadenceStepList(
 }
 
 export const updateCadenceStepCanvasPositionActions = {
-  isLoading: createAction<boolean>('CADENCE_STEP/UPDATE_CANVAS/IS_LOADING'),
-  error: createAction<Error>('CADENCE_STEP/UPDATE_CANVAS/ERROR'),
-  success: createAction<CadenceStep>('CADENCE_STEP/UPDATE_CANVAS/SUCCESS'),
+  isLoading: createAction<boolean>('CADENCE_STEP_WIP/UPDATE_CANVAS/IS_LOADING'),
+  error: createAction<Error>('CADENCE_STEP_WIP/UPDATE_CANVAS/ERROR'),
+  success: createAction<CadenceStep>('CADENCE_STEP_WIP/UPDATE_CANVAS/SUCCESS'),
 };
 
 export function updateCadenceStepCanvasPosition(
@@ -107,9 +107,9 @@ export function updateCadenceStepCanvasPosition(
 }
 
 export const updateCadenceStepActions = {
-  isLoading: createAction<boolean>('CADENCE_STEP/UPDATE/IS_LOADING'),
-  error: createAction<Error>('CADENCE_STEP/UPDATE/ERROR'),
-  success: createAction<CadenceStep>('CADENCE_STEP/UPDATE/SUCCESS'),
+  isLoading: createAction<boolean>('CADENCE_STEP_WIP/UPDATE/IS_LOADING'),
+  error: createAction<Error>('CADENCE_STEP_WIP/UPDATE/ERROR'),
+  success: createAction<CadenceStep>('CADENCE_STEP_WIP/UPDATE/SUCCESS'),
 };
 
 export function updateCadenceStep(
@@ -136,9 +136,9 @@ export function updateCadenceStep(
 }
 
 export const deleteCadenceStepActions = {
-  isLoading: createAction<boolean>('CADENCE_STEP/DELETE/IS_LOADING'),
-  error: createAction<Error>('CADENCE_STEP/DELETE/ERROR'),
-  success: createAction<{ id: number }>('CADENCE_STEP/DELETE/SUCCESS'),
+  isLoading: createAction<boolean>('CADENCE_STEP_WIP/DELETE/IS_LOADING'),
+  error: createAction<Error>('CADENCE_STEP_WIP/DELETE/ERROR'),
+  success: createAction<{ id: number }>('CADENCE_STEP_WIP/DELETE/SUCCESS'),
 };
 
 export function deleteCadenceStep(id: number, options?: OptionCallback) {

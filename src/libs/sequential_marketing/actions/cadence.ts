@@ -29,9 +29,9 @@ import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
 import type { FormValues } from '#libs/sequential_marketingDEPRECATED/serializers/types';
 
 export const createCadenceActions = {
-  isLoading: createAction<boolean>('CADENCE/CREATE/IS_LOADING'),
-  error: createAction<Error>('CADENCE/CREATE/ERROR'),
-  success: createAction<Cadence>('CADENCE/CREATE/SUCCESS'),
+  isLoading: createAction<boolean>('CADENCE_WIP/CREATE/IS_LOADING'),
+  error: createAction<Error>('CADENCE_WIP/CREATE/ERROR'),
+  success: createAction<Cadence>('CADENCE_WIP/CREATE/SUCCESS'),
 };
 
 export function createCadence(
@@ -59,9 +59,9 @@ export function createCadence(
 }
 
 export const updateCadenceActions = {
-  isLoading: createAction<boolean>('CADENCE/UPDATE/IS_LOADING'),
-  error: createAction<Error>('CADENCE/UPDATE/ERROR'),
-  success: createAction<Cadence>('CADENCE/UPDATE/SUCCESS'),
+  isLoading: createAction<boolean>('CADENCE_WIP/UPDATE/IS_LOADING'),
+  error: createAction<Error>('CADENCE_WIP/UPDATE/ERROR'),
+  success: createAction<Cadence>('CADENCE_WIP/UPDATE/SUCCESS'),
 };
 
 export function updateCadence(
@@ -90,9 +90,9 @@ export function updateCadence(
 }
 
 export const archiveCadenceActions = {
-  isLoading: createAction<boolean>('CADENCE/ARCHIVE/IS_LOADING'),
-  error: createAction<Error>('CADENCE/ARCHIVE/ERROR'),
-  success: createAction<{ id: number }>('CADENCE/ARCHIVE/SUCCESS'),
+  isLoading: createAction<boolean>('CADENCE_WIP/ARCHIVE/IS_LOADING'),
+  error: createAction<Error>('CADENCE_WIP/ARCHIVE/ERROR'),
+  success: createAction<{ id: number }>('CADENCE_WIP/ARCHIVE/SUCCESS'),
 };
 
 export function archiveCadence(id: number, options?: OptionCallback) {
@@ -115,9 +115,9 @@ export function archiveCadence(id: number, options?: OptionCallback) {
 }
 
 export const restoreCadenceActions = {
-  isLoading: createAction<boolean>('CADENCE/RESTORE/IS_LOADING'),
-  error: createAction<Error>('CADENCE/RESTORE/ERROR'),
-  success: createAction<Cadence>('CADENCE/RESTORE/SUCCESS'),
+  isLoading: createAction<boolean>('CADENCE_WIP/RESTORE/IS_LOADING'),
+  error: createAction<Error>('CADENCE_WIP/RESTORE/ERROR'),
+  success: createAction<Cadence>('CADENCE_WIP/RESTORE/SUCCESS'),
 };
 
 export function restoreCadence(id: number, options?: OptionCallback<Cadence>) {
@@ -140,9 +140,9 @@ export function restoreCadence(id: number, options?: OptionCallback<Cadence>) {
 }
 
 export const activateCadenceActions = {
-  isLoading: createAction<boolean>('CADENCE/ACTIVATE/IS_LOADING'),
-  error: createAction<Error>('CADENCE/ACTIVATE/ERROR'),
-  success: createAction<Cadence>('CADENCE/ACTIVATE/SUCCESS'),
+  isLoading: createAction<boolean>('CADENCE_WIP/ACTIVATE/IS_LOADING'),
+  error: createAction<Error>('CADENCE_WIP/ACTIVATE/ERROR'),
+  success: createAction<Cadence>('CADENCE_WIP/ACTIVATE/SUCCESS'),
 };
 
 export function activateCadence(id: number, options?: OptionCallback<Cadence>) {
@@ -165,9 +165,9 @@ export function activateCadence(id: number, options?: OptionCallback<Cadence>) {
 }
 
 export const shutOffCadenceActions = {
-  isLoading: createAction<boolean>('CADENCE/SHUT_OFF/IS_LOADING'),
-  error: createAction<Error>('CADENCE/SHUT_OFF/ERROR'),
-  success: createAction<Cadence>('CADENCE/SHUT_OFF/SUCCESS'),
+  isLoading: createAction<boolean>('CADENCE_WIP/SHUT_OFF/IS_LOADING'),
+  error: createAction<Error>('CADENCE_WIP/SHUT_OFF/ERROR'),
+  success: createAction<Cadence>('CADENCE_WIP/SHUT_OFF/SUCCESS'),
 };
 
 export function shutOffCadence(id: number, options?: OptionCallback<Cadence>) {
@@ -190,9 +190,9 @@ export function shutOffCadence(id: number, options?: OptionCallback<Cadence>) {
 }
 
 export const upsertInitialCadenceConfigurationActions = {
-  isLoading: createAction<boolean>('CADENCE/SETUP_CONFIG/IS_LOADING'),
-  error: createAction<Error>('CADENCE/SETUP_CONFIG/ERROR'),
-  success: createAction<Cadence>('CADENCE/SETUP_CONFIG/SUCCESS'),
+  isLoading: createAction<boolean>('CADENCE_WIP/SETUP_CONFIG/IS_LOADING'),
+  error: createAction<Error>('CADENCE_WIP/SETUP_CONFIG/ERROR'),
+  success: createAction<Cadence>('CADENCE_WIP/SETUP_CONFIG/SUCCESS'),
 };
 
 export function setInitialCadenceConfiguration(
@@ -242,9 +242,9 @@ export function updateInitialCadenceConfiguration(
 }
 
 export const retrieveCadenceActions = {
-  isLoading: createAction<boolean>('CADENCE/RETRIEVE/IS_LOADING'),
-  error: createAction<Error>('CADENCE/RETRIEVE/ERROR'),
-  success: createAction<Cadence>('CADENCE/RETRIEVE/SUCCESS'),
+  isLoading: createAction<boolean>('CADENCE_WIP/RETRIEVE/IS_LOADING'),
+  error: createAction<Error>('CADENCE_WIP/RETRIEVE/ERROR'),
+  success: createAction<Cadence>('CADENCE_WIP/RETRIEVE/SUCCESS'),
 };
 
 export function retrieveCadence(id: number, options?: OptionCallback<Cadence>) {
@@ -267,9 +267,9 @@ export function retrieveCadence(id: number, options?: OptionCallback<Cadence>) {
 }
 
 export const fetchCadenceListActions = {
-  isLoading: createAction<boolean>('CADENCE/LIST/IS_LOADING'),
-  error: createAction<Error>('CADENCE/LIST/ERROR'),
-  success: createAction<PaginatedResponse<Cadence>>('CADENCE/LIST/SUCCESS'),
+  isLoading: createAction<boolean>('CADENCE_WIP/LIST/IS_LOADING'),
+  error: createAction<Error>('CADENCE_WIP/LIST/ERROR'),
+  success: createAction<PaginatedResponse<Cadence>>('CADENCE_WIP/LIST/SUCCESS'),
 };
 
 export function fetchCadenceList(

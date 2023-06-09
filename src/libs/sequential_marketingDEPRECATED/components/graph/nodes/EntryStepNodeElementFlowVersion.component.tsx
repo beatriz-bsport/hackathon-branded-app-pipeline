@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Handle, Position, Connection } from 'react-flow-renderer';
 
@@ -7,6 +6,7 @@ import { NodeIdentifiersEnum } from '../hooks';
 import EntryStepNodeElement, {
   EntryStepNodeElementProps,
 } from './EntryStepNodeElement.component';
+import { HANDLE_BUTTON_STYLE } from '#libs/sequential_marketingDEPRECATED/constants/index';
 
 type Props = {
   data: EntryStepNodeElementProps & {
@@ -33,7 +33,7 @@ export const EntryStepNodeElementFlowVersion: React.FC<Props> = ({ data }) => {
       <Handle
         type="source"
         position={Position.Bottom}
-        style={{ background: '#555' }}
+        style={HANDLE_BUTTON_STYLE}
         onConnect={(params) => data.onConnectToStep(parseInt(params.target))}
         isValidConnection={isValidConnection}
         isConnectable

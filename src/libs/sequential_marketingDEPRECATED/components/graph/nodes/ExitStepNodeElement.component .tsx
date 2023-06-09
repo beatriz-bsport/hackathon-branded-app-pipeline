@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -55,6 +54,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       overflow: 'visible',
       boxShadow: '4px 16px 32px 4px #00000014',
     },
+    marginTop: '13px',
   },
   cardHeader: {
     display: 'flex',

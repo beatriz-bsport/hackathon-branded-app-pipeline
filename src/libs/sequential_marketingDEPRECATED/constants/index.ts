@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   CADENCE_EVENT_GROUPED_BY_CATEGORY,
   RuleBetweenEntryEvent,
@@ -67,3 +66,9 @@ export {
 };
 
 export const SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS = [498];
+
+export const HANDLE_BUTTON_STYLE = {
+  background: '#888',
+  width: '14px',
+  height: '14px',
+};

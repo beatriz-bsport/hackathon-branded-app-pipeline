@@ -189,5 +189,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: theme.spacing(1),
   },
 }));

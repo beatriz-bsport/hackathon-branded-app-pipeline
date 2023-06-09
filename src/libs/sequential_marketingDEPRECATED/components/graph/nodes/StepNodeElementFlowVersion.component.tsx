@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { Handle, Position } from 'react-flow-renderer';
@@ -6,6 +5,7 @@ import { Handle, Position } from 'react-flow-renderer';
 import StepNodeElement, {
   StepNodeElementProps,
 } from './StepNodeElement.component';
+import { HANDLE_BUTTON_STYLE } from '#libs/sequential_marketingDEPRECATED/constants/index';
 
 type FlowProps = {
   data: {
@@ -27,7 +27,7 @@ export const StepNodeElementFlowVersion: React.FC<FlowProps> = ({ data }) => {
       <Handle
         type="source"
         position={Position.Bottom}
-        style={{ background: '#555' }}
+        style={HANDLE_BUTTON_STYLE}
         onConnect={(params) => data.onConnectToStep(params.target)}
         isConnectable
       />

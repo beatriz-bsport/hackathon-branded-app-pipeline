@@ -127,7 +127,7 @@ export class CheckInPage extends React.Component<Props, State> {
             className={this.props.classes.bottomButton}
           >
             <PersonAddIcon className={this.props.classes.leftIcon} />
-            {this.props.t('addMember.button')}
+            {this.props.t('selfCheckIn:addMember.button')}
           </Fab>
         </div>
       </MuiThemeProvider>

@@ -158,7 +158,7 @@ export const updateCadenceStep = async (
 
 export const deleteCadenceStep = async (
   id: number,
-): Promise<AxiosResponse<Cadence>> => {
+): Promise<AxiosResponse<CadenceStep>> => {
   return deleteAuth(`${API_V1_URI}/sequential_marketing/cadence_step/${id}/`);
 };
 

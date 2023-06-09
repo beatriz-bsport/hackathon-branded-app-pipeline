@@ -549,7 +549,7 @@ export const deleteCadenceStepActions = {
 
 export function deleteCadenceStep(
   id: number,
-  options?: OptionCallback<Cadence>,
+  options?: OptionCallback<CadenceStep>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteCadenceStepActions.isLoading(true));

@@ -363,19 +363,12 @@ export default handleActions<ImmutableCadenceState, any>(
           ['step', 'allIds'],
           payload.results.map((cadence) => cadence.id),
         )
-        .merge(
-          {
-            step: {
-              byId: payload.results.reduce<PayloadReduceType<CadenceStep>>(
-                (acc, cV) => {
-                  acc[cV.id] = cV;
-                  return acc;
-                },
-                {},
-              ),
-            },
-          },
-          { deep: true },
+        .setIn(
+          ['step', 'byId'],
+          payload.results.reduce<PayloadReduceType<CadenceStep>>((acc, cV) => {
+            acc[cV.id] = cV;
+            return acc;
+          }, {}),
         );
     },
 
@@ -384,6 +377,12 @@ export default handleActions<ImmutableCadenceState, any>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['step', 'error'], payload);
+    },
+    [updateCadenceStepCanvasPositionActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['step', 'loading'], payload);
     },
     [updateCadenceStepCanvasPositionActions.success.toString()]: (
       state,

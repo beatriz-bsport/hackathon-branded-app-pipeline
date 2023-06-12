@@ -91,29 +91,77 @@ const OfferSummary: React.FC<Props> = (props) => {
 
   const displayTax = theme?.is_tax_excluded_in_marketplace === false;
 
+  if (loading) {
+    return (
+      <Grid container direction="column" className={classes.grid}>
+        <Grid container item direction="column" className={classes.columnGap2}>
+          <Grid
+            container
+            item
+            direction="column"
+            className={classes.columnGap1}
+          >
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+          </Grid>
+          <Grid
+            container
+            item
+            direction="column"
+            className={classes.columnGap2}
+          >
+            <Grid container item className={classes.lineGap1}>
+              <Skeleton
+                animation="wave"
+                variant="circle"
+                className={classes.avatar}
+              />
+              <Skeleton animation="wave" width="50%" />
+            </Grid>
+            <Grid container item className={classes.lineGap1}>
+              <Skeleton
+                animation="wave"
+                variant="circle"
+                className={classes.avatar}
+              />
+              <Skeleton animation="wave" width="50%" />
+            </Grid>
+            <Grid container item className={classes.lineGap1}>
+              <Skeleton
+                animation="wave"
+                variant="circle"
+                className={classes.avatar}
+              />
+              <Skeleton animation="wave" width="50%" />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            item
+            direction="column"
+            className={classes.columnGap2}
+          >
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  }
+
   return (
     <Grid container direction="column" className={classes.grid}>
       <Grid container item direction="column" className={classes.columnGap2}>
         <Grid container item direction="column" className={classes.columnGap1}>
-          <Typography variant="h6">
-            {loading && !metaActivity?.name ? (
-              <Skeleton animation="wave" />
-            ) : (
-              metaActivity?.name
-            )}
-          </Typography>
+          <Typography variant="h6">{metaActivity?.name}</Typography>
 
           <Typography className={classes.grey}>
-            {loading && !offer ? (
-              <Skeleton animation="wave" />
-            ) : (
-              formatAsDateWithWeekday(
-                offer?.date_start,
-                theme,
-                t,
-                'LLL',
-                offer?.timezone_name,
-              )
+            {formatAsDateWithWeekday(
+              offer?.date_start,
+              theme,
+              t,
+              'LLL',
+              offer?.timezone_name,
             )}
           </Typography>
         </Grid>
@@ -136,16 +184,6 @@ const OfferSummary: React.FC<Props> = (props) => {
             </Grid>
           )}
 
-          {loading && !establishment && theme?.show_establishment && (
-            <Grid container item className={classes.lineGap1}>
-              <Skeleton
-                animation="wave"
-                variant="circle"
-                className={classes.avatar}
-              />
-              <Skeleton animation="wave" width="50%" />
-            </Grid>
-          )}
           {establishment && theme?.show_establishment && (
             <Grid container item className={classes.lineGap1}>
               <LocationOn className={classes.icon} />
@@ -153,16 +191,6 @@ const OfferSummary: React.FC<Props> = (props) => {
             </Grid>
           )}
 
-          {loading && !coach && !theme?.hideCoach && (
-            <Grid container item className={classes.itemWithIcon}>
-              <Skeleton
-                animation="wave"
-                variant="circle"
-                className={classes.avatar}
-              />
-              <Skeleton animation="wave" width="50%" />
-            </Grid>
-          )}
           {coach && !theme?.hideCoach && (
             <Grid container item className={classes.itemWithIcon}>
               <Avatar className={classes.avatar}>
@@ -175,29 +203,11 @@ const OfferSummary: React.FC<Props> = (props) => {
 
           {(spotId || spotId === 0) && (
             <Grid container item className={classes.itemWithIcon}>
-              {loading && !spotId ? (
-                <Skeleton
-                  animation="wave"
-                  variant="circle"
-                  className={classes.avatar}
-                />
-              ) : (
-                <Adjust className={classes.icon} />
-              )}
+              <Adjust className={classes.icon} />
               <Typography>{`${t(`booking:place`)} ${spotId}`}</Typography>
             </Grid>
           )}
 
-          {loading && !offer && (
-            <Grid container item className={classes.itemWithIcon}>
-              <Skeleton
-                animation="wave"
-                variant="circle"
-                className={classes.avatar}
-              />
-              <Skeleton animation="wave" width="50%" />
-            </Grid>
-          )}
           {offer && variant === 'default' && (
             <Grid container item className={classes.itemWithIcon}>
               <CreditCard className={classes.icon} />
@@ -239,36 +249,28 @@ const OfferSummary: React.FC<Props> = (props) => {
               </Grid>
             </Grid>
           )}
-          {loading && !price ? (
-            <Skeleton animation="wave" />
-          ) : (
-            <Grid item container className={classes.price}>
-              <Typography variant="h6">
-                {t(`checkout:payment.globalTotal`)}
-              </Typography>
-              <Typography variant="h6">
-                {getCurrencyDisplayWithPrice(price)}
-              </Typography>
-            </Grid>
-          )}
-          {loading ? (
-            <Skeleton animation="wave" height="50px" />
-          ) : (
-            <BookingConfirmButton
-              value={
-                isWaitlistOpen
-                  ? t(`booking:offer.mainButton.registerWaitingList`)
-                  : t(`booking:notification.form.submit`)
-              }
-              disabled={
-                (offerStatus && !isBookable && !isWaitlistOpen) ||
-                disableButton ||
-                confirmLoading
-              }
-              onClick={onConfirm}
-              buttonLoading={confirmLoading}
-            />
-          )}
+          <Grid item container className={classes.price}>
+            <Typography variant="h6">
+              {t(`checkout:payment.globalTotal`)}
+            </Typography>
+            <Typography variant="h6">
+              {getCurrencyDisplayWithPrice(price)}
+            </Typography>
+          </Grid>
+          <BookingConfirmButton
+            value={
+              isWaitlistOpen
+                ? t(`booking:offer.mainButton.registerWaitingList`)
+                : t(`booking:notification.form.submit`)
+            }
+            disabled={
+              (offerStatus && !isBookable && !isWaitlistOpen) ||
+              disableButton ||
+              confirmLoading
+            }
+            onClick={onConfirm}
+            buttonLoading={confirmLoading}
+          />
         </Grid>
       )}
     </Grid>

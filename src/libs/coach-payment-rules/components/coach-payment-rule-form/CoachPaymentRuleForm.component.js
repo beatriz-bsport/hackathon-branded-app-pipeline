@@ -97,7 +97,6 @@ export function CoachPaymentRuleFields(props: Props) {
         bonusesSortByApplicability={bonusesSortByApplicability}
         bonusCreationApplicability={bonusCreationApplicability}
         id={props.values.id}
-        t={t}
       />
       <TextField
         id="textfield_coach_payment_rule_name"

@@ -13,46 +13,37 @@ const tax = Math.random() * 20;
 const spotId = Math.floor(Math.random() * 10);
 
 const OfferSummaryTemplate = (args: Props) => {
-  // @ts-expect-error
-  return <OfferSummaryForStorybook {...args} />;
+  return (
+    // @ts-expect-error
+    <OfferSummaryForStorybook
+      metaActivity={meta_activity}
+      offer={offer}
+      establishment={establishment}
+      coach={coach}
+      price={price}
+      tax={tax}
+      spotId={spotId}
+      coachOverride={null}
+      variant="default"
+      disabled={false}
+      confirmLoading={false}
+      theme={{
+        hideCoach: false,
+        is_tax_excluded_in_marketplace: true,
+        show_establishment: true,
+      }}
+      {...args}
+    />
+  );
 };
 
 export const DefaultOfferSummary = OfferSummaryTemplate.bind({});
 
-DefaultOfferSummary.args = {
-  metaActivity: meta_activity,
-  establishment: establishment,
-  offer: offer,
-  coach: coach,
-  coachOverride: null,
-  price: price,
-  spotId: spotId,
-  onConfirm: () => {},
-  variant: 'default',
-  theme: {
-    hideCoach: false,
-    is_tax_excluded_in_marketplace: true,
-    show_establishment: true,
-  },
-};
-
 export const ShowTaxDetailOfferSummary = OfferSummaryTemplate.bind({});
 
 ShowTaxDetailOfferSummary.args = {
-  metaActivity: meta_activity,
-  establishment: establishment,
-  offer: offer,
-  coach: coach,
-  coachOverride: null,
-  price: price,
-  spotId: spotId,
-  onConfirm: () => {},
-  variant: 'default',
-  tax: tax,
   theme: {
-    hideCoach: false,
     is_tax_excluded_in_marketplace: false,
-    show_establishment: true,
   },
 };
 
@@ -60,123 +51,27 @@ export const OnlineOfferSummary = OfferSummaryTemplate.bind({});
 
 OnlineOfferSummary.args = {
   metaActivity: meta_activity_online,
-  establishment: establishment,
-  offer: offer,
-  coach: coach,
-  coachOverride: null,
-  price: price,
-  spotId: spotId,
-  onConfirm: () => {},
-  variant: 'default',
-  theme: {
-    hideCoach: false,
-    is_tax_excluded_in_marketplace: true,
-    show_establishment: true,
-  },
-};
-
-export const DisabledOfferSummary = OfferSummaryTemplate.bind({});
-
-DisabledOfferSummary.args = {
-  metaActivity: meta_activity,
-  establishment: establishment,
-  offer: offer,
-  coach: coach,
-  coachOverride: null,
-  price: '0.00',
-  spotId: spotId,
-  onConfirm: () => {},
-  variant: 'default',
-  disableButton: false,
-  offerStatus: { bookable_status: 3 },
-  theme: {
-    hideCoach: false,
-    is_tax_excluded_in_marketplace: true,
-    show_establishment: true,
-  },
-};
-
-export const LoadingButtonOfferSummary = OfferSummaryTemplate.bind({});
-
-LoadingButtonOfferSummary.args = {
-  metaActivity: meta_activity_online,
-  establishment: establishment,
-  offer: offer,
-  coach: coach,
-  coachOverride: null,
-  price: price,
-  spotId: spotId,
-  onConfirm: () => {},
-  variant: 'default',
-  confirmLoading: true,
-  theme: {
-    hideCoach: false,
-    is_tax_excluded_in_marketplace: true,
-    show_establishment: true,
-  },
 };
 
 export const WaitlistOfferSummary = OfferSummaryTemplate.bind({});
 
 WaitlistOfferSummary.args = {
   metaActivity: meta_activity_online,
-  establishment: establishment,
-  offer: offer,
-  coach: coach,
-  price: price,
   offerStatus: { bookable_status: 3, waiting_list_status: 0 },
-  onConfirm: () => {},
-  variant: 'default',
-  theme: {
-    hideCoach: false,
-    is_tax_excluded_in_marketplace: true,
-    show_establishment: true,
-  },
 };
 
 export const WaitlistFullOfferSummary = OfferSummaryTemplate.bind({});
 
 WaitlistFullOfferSummary.args = {
-  metaActivity: meta_activity,
-  establishment: establishment,
-  offer: offer,
-  coach: coach,
-  price: price,
   offerStatus: { bookable_status: 3, waiting_list_status: 1 },
-  onConfirm: () => {},
-  variant: 'default',
-  theme: {
-    hideCoach: false,
-    is_tax_excluded_in_marketplace: true,
-    show_establishment: true,
-  },
-};
-
-export const LoadingOfferSummary = OfferSummaryTemplate.bind({});
-
-LoadingOfferSummary.args = {
-  onConfirm: () => {},
-  loading: true,
-  variant: 'default',
-  theme: {
-    hideCoach: false,
-    is_tax_excluded_in_marketplace: true,
-    show_establishment: true,
-  },
 };
 
 export const BasketOfferSummary = OfferSummaryTemplate.bind({});
 
 BasketOfferSummary.args = {
-  metaActivity: meta_activity,
-  establishment: establishment,
-  coach: coach,
-  offer: offer,
   variant: 'basket',
   theme: {
     hideCoach: true,
-    is_tax_excluded_in_marketplace: true,
-    show_establishment: true,
   },
 };
 
@@ -207,21 +102,25 @@ export default {
       description: 'The final price of the booking.',
     },
     onConfirm: {
+      action: 'onClick',
       description: 'Callback function called on button click.',
     },
     disableButton: {
+      control: 'boolean',
       description:
         "True when the button should be disabled (e.g. when the member hasn't selected payment pass or pack yet).",
     },
     confirmLoading: {
-      description: 'True when `onChange` has been called and is processing.',
+      control: 'boolean',
+      description: 'True when `onConfirm` has been called and is processing.',
     },
     loading: {
+      control: 'boolean',
       description: 'True when the page is loading.',
     },
     offerStatus: {
       description:
-        'Status of the offer. What is used here is: is the offer full or is it still bookable, is the waiting list open or full.',
+        'Status of the offer. What is used here is: is the offer still bookable or not, is the waiting list open or full.',
     },
     variant: {
       description:

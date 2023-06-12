@@ -10,17 +10,7 @@ export const ClickableBookingButton = BookingConfirmButtonTemplate.bind({});
 ClickableBookingButton.args = {
   value: 'Confirm',
   disabled: false,
-  onClick: null,
   buttonLoading: false,
-};
-
-export const LoadingBookingButton = BookingConfirmButtonTemplate.bind({});
-
-LoadingBookingButton.args = {
-  value: 'Confirm',
-  disabled: true,
-  onClick: null,
-  buttonLoading: true,
 };
 
 export default {
@@ -31,12 +21,15 @@ export default {
       description: 'The text to appear on the button.',
     },
     disabled: {
+      control: 'boolean',
       description: 'True if the button should be disabled.',
     },
     onClick: {
+      action: 'onClick',
       description: 'Function to be called when the button is clicked.',
     },
     buttonLoading: {
+      control: 'boolean',
       description: 'True if the onClick function was called and is processing.',
     },
   },

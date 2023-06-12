@@ -1,15 +1,15 @@
-// @ts-nocheck
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Config from '../../../config';
 
 import { getCompanyFeatureState } from '../selectors';
 import type { State } from '../../../state/types';
-import { UPSELL_IDENTIFIER_ZOOM_APP } from '#libs/platform-billing/upsell-identifiers';
+import {
+  UPSELL_IDENTIFIER_STRIPE_TERMINAL,
+  UPSELL_IDENTIFIER_ZOOM_APP,
+} from '#libs/platform-billing/upsell-identifiers';
 
-// Hook to provide features enabled or not based on
-// company & environment settings
-// To be "enriched" step by step
+// Use a hook to determine the availability of features, taking into account the company and environment settings.
 const useFeaturesProvider = () => {
   const feature = useSelector((state: State) => getCompanyFeatureState(state));
 
@@ -37,10 +37,17 @@ const useFeaturesProvider = () => {
     );
   }, [feature]);
 
+  const stripeTerminalEnabled = React.useMemo(() => {
+    return !!feature.data.upsell.find(
+      (f) => f.upsell_identifier === UPSELL_IDENTIFIER_STRIPE_TERMINAL,
+    );
+  }, [feature]);
+
   return {
     pushNotificationEnabled,
     smsEnabled,
     zoomAppEnabled,
+    stripeTerminalEnabled,
     featuresLoading: feature.loading,
   };
 };

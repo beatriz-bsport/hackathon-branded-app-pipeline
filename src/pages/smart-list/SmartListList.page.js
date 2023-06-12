@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import uniq from 'lodash/uniq';
 
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
@@ -41,7 +42,11 @@ import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormD
 import type { OptionCallback } from '../../state/types';
 import SmartListCard from '../../libs/smart-list/components/SmartlistCard.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
-import type { Cadence } from '../../sequential_marketingDEPRECATED/types';
+import { isSequentialMarketingAuthorized } from '../../libs/sequential_marketingDEPRECATED/utils';
+import type {
+  Cadence,
+  CadenceQueryParams,
+} from '../../libs/sequential_marketingDEPRECATED/types';
 
 type Props = {
   smartlists: Array<SmartList>,
@@ -60,10 +65,13 @@ type Props = {
   goToSmartlistList: () => void,
   smartlistSelected: ?SmartList,
   loading: boolean,
-  fetchCadencesUsingSmartlist: (id: number) => void,
+  fetchCadencesUsingSmartlist: (
+    id: number,
+    options: OptionCallback<number[]>,
+  ) => void,
   getCadences: (id: number) => Cadence[],
-  getCadencesLoading: () => boolean,
-  fetchCadenceList: () => void,
+  cadencesLoading: boolean,
+  fetchCadenceList: (params: CadenceQueryParams) => void,
 };
 
 type State = {
@@ -84,7 +92,6 @@ export class SmartListList extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchAllSmartLists();
-    this.props.fetchCadenceList();
   }
 
   addNewSmartList = (data, options?: OptionCallback) => {
@@ -130,6 +137,17 @@ export class SmartListList extends Component<Props, State> {
   handleDeleteSmartlist = (id: number) => {
     this.props.smartListDelete(id, {
       onSuccess: this.props.goToSmartlistList,
+    });
+  };
+
+  fetchCadences = (id: number) => {
+    this.props.fetchCadencesUsingSmartlist(id, {
+      onSuccess: (cadence_ids) => {
+        const uniq_ids = uniq(cadence_ids ?? []);
+        if (uniq_ids?.length !== 0) {
+          this.props.fetchCadenceList({ id__in: cadence_ids });
+        }
+      },
     });
   };
 
@@ -197,9 +215,12 @@ export class SmartListList extends Component<Props, State> {
                                 this.props.goToSelected(newId),
                             })
                           }
-                          fetchCadences={this.props.fetchCadencesUsingSmartlist}
+                          isSequentialMarketingAuthorized={isSequentialMarketingAuthorized(
+                            this.props.company_id,
+                          )}
+                          fetchCadences={this.fetchCadences}
                           getCadences={this.props.getCadences}
-                          getCadencesLoading={this.props.getCadencesLoading}
+                          cadencesLoading={this.props.cadencesLoading}
                         />
                       ))}
                     </List>
@@ -227,9 +248,12 @@ export class SmartListList extends Component<Props, State> {
                         onSuccess: (newId) => this.props.goToSelected(newId),
                       })
                     }
-                    fetchCadences={this.props.fetchCadencesUsingSmartlist}
+                    isSequentialMarketingAuthorized={isSequentialMarketingAuthorized(
+                      this.props.company_id,
+                    )}
+                    fetchCadences={this.fetchCadences}
                     getCadences={this.props.getCadences}
-                    getCadencesLoading={this.props.getCadencesLoading}
+                    cadencesLoading={this.props.cadencesLoading}
                   />
                 ))}
               </List>
@@ -317,7 +341,7 @@ export default compose(
       smartlists: getAllSmartList(state),
       smartlistSelected: getSmartList(state, selectedId),
       getCadences: (id: number) => getCadencesUsingSmartlist(state, id),
-      getCadencesLoading: () => getCadenceIdsUsingSmartlistLoading(state),
+      cadencesLoading: getCadenceIdsUsingSmartlistLoading(state),
       loading: state.smartList.loading,
       company_id: state.theme.theme.company,
     }),

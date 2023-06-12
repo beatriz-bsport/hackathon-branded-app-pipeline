@@ -23,7 +23,14 @@ const BookingConfirmButton: React.FC<Props> = ({
       disabled={disabled || buttonLoading}
       className={classes.button}
     >
-      {buttonLoading ? <CircularProgress color="inherit" /> : value}
+      {buttonLoading && (
+        <CircularProgress
+          style={{ marginRight: 8 }}
+          size={24}
+          color="inherit"
+        />
+      )}
+      {value}
     </Button>
   );
 };

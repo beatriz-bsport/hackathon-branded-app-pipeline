@@ -1,0 +1,60 @@
+import React, { useCallback } from 'react';
+
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import classNames from 'classnames';
+
+import './styles.css';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
+export type Props = {
+  name: string;
+  label: string;
+  isChecked: boolean;
+  value: string;
+  className?: string;
+  disabled?: boolean;
+  onClick: (value: string) => void;
+};
+
+const Checkbox: React.FC<Props> = React.memo(
+  ({ isChecked, label, name, value, className, disabled, onClick }) => {
+    const handleOnClick = useCallback(() => {
+      onClick(value);
+    }, [value, onClick]);
+
+    return (
+      <div className={classNames('bs-radio__container', className)}>
+        <label htmlFor={name} className="bs-radio__label">
+          <input
+            id={name}
+            className="bs-radio__input"
+            type="radio"
+            checked={isChecked}
+            disabled={disabled}
+            onClick={handleOnClick}
+          />
+
+          {isChecked ? (
+            <RadioButtonCheckedIcon
+              className={classNames('bs-radio--checked', {
+                'bs-radio--disabled': disabled,
+              })}
+            />
+          ) : (
+            <RadioButtonUncheckedIcon
+              className={classNames('bs-radio--unchecked', {
+                'bs-radio--disabled': disabled,
+              })}
+            />
+          )}
+          <span className="bs-radio__text">{label}</span>
+        </label>
+      </div>
+    );
+  },
+);
+
+export const RadioForStorybook = marketplaceCssHoc()(Checkbox);
+
+export default Checkbox;

@@ -1,0 +1,31 @@
+.bs-radio__container {
+  width: fit-content;
+}
+
+.bs-radio__label {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: var(--spacing-1);
+  cursor: pointer;
+}
+
+.bs-radio__input {
+  display: none;
+}
+
+.bs-radio--checked {
+  color: var(--color-primary-main);
+}
+
+.bs-radio--disabled {
+  color: var(--color-disabled);
+}
+
+.bs-radio__text {
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+}

@@ -560,7 +560,7 @@ export class FiltersPanel extends Component<Props, State> {
             </div>
           )}
         </Collapse>
-        {this.props.openCadenceListDialog && (
+        {this.state.openCadenceListDialog && (
           <GenericMuiDialog
             open={this.state.openCadenceListDialog}
             title={t('cadenceListDialog.title')}

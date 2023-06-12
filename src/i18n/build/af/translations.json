@@ -5518,6 +5518,8 @@
         }
       },
       "requiredField": "Ce champ est requis",
+      "startAfterEnd": "L’heure de début doit être inférieure à l’heure de fin",
+      "atLeastOneDay": "Au moins un jour doit être choisi",
       "minusZero": "ce champ ne peut ếtre égal à 0",
       "paymentPack": "Carte de cours",
       "generalInfo": "Informations générales",
@@ -5808,6 +5810,7 @@
       "2021": "La carte commence à la première réservation, le ",
       "2022": "La carte commence à la première présence, le ",
       "2023": "La carte est expirée",
+      "2027": "Le créneau horaire est incompatible",
       "paymentPack": "Carte configurée comme incompatible avec l'activité en question :"
     },
     "orderingAlert": {

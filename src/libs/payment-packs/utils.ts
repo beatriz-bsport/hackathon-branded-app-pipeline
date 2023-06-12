@@ -1,11 +1,16 @@
 // @ts-nocheck
 import { TFunction } from 'i18next';
-import moment from 'moment-timezone';
+import moment, { Moment } from 'moment-timezone';
 import omit from 'lodash/omit';
 import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 import { formatAsDate } from '../../utils/datetime';
 import type { ConsumerPaymentPack } from '../consumer-payment-pack/types';
-import { PaymentPack, PaymentPackFilters, PaymentPackTemplate } from './types';
+import {
+  OffPeakSchedule,
+  PaymentPack,
+  PaymentPackFilters,
+  PaymentPackTemplate,
+} from './types';
 import { PrivatePassFilters } from '#libs/private-service/types';
 
 export const getValidityInfo = (
@@ -329,6 +334,158 @@ export const offPeakGroupDefault = () => {
     },
     slotDurationChoice: 'time_slot',
   };
+};
+
+const sortTimeSlotsByStartDate = (timeSlot: Moment[][]) => {
+  timeSlot.sort((start, end) => {
+    return start[0].diff(end[0]);
+  });
+};
+
+// This method format every [start,end] of timeslot (which are Moment) into strings
+const stringifyTimeSlots = (timeSlots: Moment[][]): string[][] => {
+  return timeSlots.map((timeSlot) => {
+    const formattedTimeSlot = [
+      timeSlot[0].format('HH:mm'),
+      timeSlot[1].format('HH:mm'),
+    ];
+    return formattedTimeSlot;
+  });
+};
+
+/* This method format off_peak_schedule because they don't have the same typing in the 
+front-end and the back-end */
+export const formatOffPeakScheduleOnSubmit = (
+  off_peak_schedule: OffPeakSchedule[],
+): Record<string, string[][]> => {
+  /* This part format the off_peak_schedule from the front-end to the format 
+  of the back-end */
+  const sanitizedOffPeakSchedule = {} as Record<string, Moment[][]>;
+  off_peak_schedule.forEach((group) => {
+    const groupedTimeSlots = [] as Moment[][];
+    group.slotDurationChoice === 'all_day'
+      ? groupedTimeSlots.push([
+          moment().hours(0).minutes(0).seconds(0),
+          moment().hours(23).minutes(59).seconds(59),
+        ])
+      : group.timeSlots.forEach((timeSlot) => {
+          groupedTimeSlots.push(timeSlot);
+        });
+    Object.entries(group.recurrenceWeekDay).forEach((day) => {
+      const [isoWeekday, active] = day;
+      if (active) {
+        if (!sanitizedOffPeakSchedule[isoWeekday]) {
+          sanitizedOffPeakSchedule[isoWeekday] = [];
+        }
+        groupedTimeSlots.forEach((timeSlot) => {
+          sanitizedOffPeakSchedule[isoWeekday].push(timeSlot);
+        });
+      }
+    });
+  });
+
+  // This part manages the merge of overlapped timeslots and format moment into string
+  const formattedOffPeakSchedule = {} as Record<string, string[][]>;
+  Object.entries(sanitizedOffPeakSchedule).forEach((day) => {
+    const [isoWeekday, timeSlots]: [string, Moment[][]] = day;
+    sortTimeSlotsByStartDate(timeSlots);
+    const momentTimeSlots = [timeSlots.shift()];
+
+    timeSlots.forEach((timeArray) => {
+      const [current_start_time, current_end_time]: [Moment, Moment] = [
+        timeArray[0],
+        timeArray[1],
+      ];
+      const [last_start_time, last_end_time] = momentTimeSlots.slice(-1)[0];
+      if (current_start_time.isSameOrBefore(last_end_time, 'minute')) {
+        momentTimeSlots[momentTimeSlots.length - 1] = [
+          last_start_time,
+          moment.max([current_end_time, last_end_time]),
+        ];
+      } else {
+        momentTimeSlots.push([current_start_time, current_end_time]);
+      }
+    });
+
+    const sanithizedTimeSlot = stringifyTimeSlots(momentTimeSlots);
+    formattedOffPeakSchedule[isoWeekday] = sanithizedTimeSlot;
+  });
+  return formattedOffPeakSchedule;
+};
+
+export const groupByTimeSlot = (
+  off_peak_schedule: Record<string, string[][]>,
+): Record<string, string[]> => {
+  const allTimeSlots = {} as Record<string, string[]>;
+
+  Object.entries(off_peak_schedule).forEach((days) => {
+    const [isoWeekday, timeSlots] = days;
+    Object.entries(timeSlots).forEach((timeSlot) => {
+      const slotArray = timeSlot[1];
+      const slotString = slotArray.join(',');
+      if (!allTimeSlots[slotString]) {
+        allTimeSlots[slotString] = [];
+      }
+      allTimeSlots[slotString].push(isoWeekday);
+    });
+  });
+  return allTimeSlots;
+};
+
+export const formatOffPeakScheduleOnEdit = (
+  off_peak_schedule: Record<string, string[][]>,
+): OffPeakSchedule[] => {
+  const formattedOffPeakScheduleOnEdit = [] as OffPeakSchedule[];
+  const daysGroupedByTimeSlot = groupByTimeSlot(off_peak_schedule);
+  const groups = {} as Record<string, string[]>;
+
+  /* On this part, the OffPeakScheduleGroups are grouped by timeslots in order to minimize
+  the number of groups and to try to have the same groups as the input  */
+  Object.entries(daysGroupedByTimeSlot).forEach(
+    ([timeSlot, daysArray]: [string, string[]]) => {
+      const daysString = daysArray.join(',');
+      if (!groups[daysString]) {
+        groups[daysString] = [];
+      }
+      groups[daysString].push(timeSlot);
+    },
+  );
+
+  // On this part, I recreate the different OffPeakScheduleGroups based on the front-end format
+  Object.entries(groups).forEach(([days, timeSlot]: [string, string[]]) => {
+    let slotDurationChoiceValue = '';
+
+    const formattedTimeSlotValue = timeSlot.map((slot) => {
+      const [start, end] = slot.split(',');
+      return [moment(start, 'HH:mm'), moment(end, 'HH:mm')];
+    });
+
+    const groupedDays = days.split(',');
+    const recurrenceWeekDayValue = {
+      '1': groupedDays.includes('1'),
+      '2': groupedDays.includes('2'),
+      '3': groupedDays.includes('3'),
+      '4': groupedDays.includes('4'),
+      '5': groupedDays.includes('5'),
+      '6': groupedDays.includes('6'),
+      '7': groupedDays.includes('7'),
+    };
+
+    if (
+      formattedTimeSlotValue[0][0].format('HH:mm') === '00:00' &&
+      formattedTimeSlotValue[0][1].format('HH:mm') === '23:59'
+    ) {
+      slotDurationChoiceValue = 'all_day';
+    } else {
+      slotDurationChoiceValue = 'time_slot';
+    }
+    formattedOffPeakScheduleOnEdit.push({
+      timeSlots: formattedTimeSlotValue,
+      recurrenceWeekDay: recurrenceWeekDayValue,
+      slotDurationChoice: `${slotDurationChoiceValue}`,
+    });
+  });
+  return formattedOffPeakScheduleOnEdit;
 };
 
 export const CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING = 0;

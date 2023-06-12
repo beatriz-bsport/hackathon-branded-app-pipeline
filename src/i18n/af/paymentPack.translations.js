@@ -11,6 +11,7 @@ const {
   PAYMENT_PACK_CAN_NOT_BE_BOUGHT_DATES_NOT_COMPATIBLE,
   PAYMENT_PACK_CAN_NOT_BE_BOUGHT_LATER_FIRST_BOOKING,
   PAYMENT_PACK_CAN_NOT_BE_BOUGHT_LATER_FIRST_ATTENDANCE,
+  PAYMENT_PACK_CAN_NOT_BE_BOUGHT_INCOMPATIBLE_WITH_OFF_PEAK_SCHEDULE,
 } = require('@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought');
 
 exports.default = {
@@ -568,6 +569,8 @@ exports.default = {
       },
     },
     requiredField: 'Ce champ est requis',
+    startAfterEnd: 'L’heure de début doit être inférieure à l’heure de fin',
+    atLeastOneDay: 'Au moins un jour doit être choisi',
     minusZero: 'ce champ ne peut ếtre égal à 0',
     paymentPack: 'Carte de cours',
     generalInfo: 'Informations générales',
@@ -909,6 +912,8 @@ exports.default = {
       'La carte commence à la première réservation, le ',
     [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_LATER_FIRST_ATTENDANCE]:
       'La carte commence à la première présence, le ',
+    [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_INCOMPATIBLE_WITH_OFF_PEAK_SCHEDULE]:
+      'Le créneau horaire est incompatible',
   },
   orderingAlert: {
     text: `Toute modification de l'ordre des "Catégories" affectera seulement l'affichage de la page "Cartes de cours" de la marketplace et de l'application. Cette mise à jour n'affectera aucune autre section ou catégorie.`,

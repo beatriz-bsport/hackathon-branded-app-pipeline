@@ -90,8 +90,8 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   allow_guest_pass?: boolean;
   is_universal_pass: boolean;
   is_usable_by_staff: boolean;
-
   applies_for_payroll: boolean;
+  off_peak_schedule: {};
 };
 
 export type ConsumerPaymentPack = {
@@ -297,6 +297,7 @@ export type OffPeakSchedule = {
   recurrenceWeekDay?: OffPeakIsoWeekdays;
   slotDurationChoice: string;
 };
+
 // TODO: HARMONIZE PP and PPT FORM VALUES
 export type PaymentPackTemplateFormValues = {
   id?: number;

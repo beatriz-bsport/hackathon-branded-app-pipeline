@@ -7,8 +7,9 @@ import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
-import { ButtonBase, Collapse, alpha } from '@material-ui/core';
+import { ButtonBase, Collapse, alpha, Typography } from '@material-ui/core';
 import classNames from 'classnames';
+import { ErrorMessage } from 'formik';
 import { OffPeakSchedule, OffPeakIsoWeekdays } from '#libs/payment-packs/types';
 // @ts-expect-error
 import { TimeField, RadioGroupField } from '#components/forms';
@@ -98,15 +99,17 @@ const OffPeakButtonDay: React.FC<WeekDayButtonProps> = memo(
 const OffPeaktimeSlotsRow: React.FC<OffPeaktimeSlotsRowProps> = memo(
   ({ index, timeSlots, setFieldValue }) => {
     const classes = useStyles();
+    const { t } = useTranslation('paymentPack');
     const hideDelete = timeSlots.length > 1;
 
-    const deletetimeSlot = useCallback(
+    const deleteTimeSlot = useCallback(
       (rowIndex: number) => () => {
         timeSlots.splice(rowIndex, 1);
         setFieldValue(`off_peak_schedule[${index}].timeSlots`, timeSlots);
       },
       [setFieldValue, timeSlots, index],
     );
+
     return (
       <div>
         <div className={classes.column}>
@@ -115,18 +118,35 @@ const OffPeaktimeSlotsRow: React.FC<OffPeaktimeSlotsRowProps> = memo(
             const end_time_name = `off_peak_schedule[${index}].timeSlots['${rowIndex}'][1]`;
 
             return (
-              <div className={classes.row}>
-                <TimeField name={start_time_name} />
-                <TimeField name={end_time_name} className={classes.timeField} />
-                {hideDelete && (
-                  <ButtonBase
-                    color="primary"
-                    className={classes.deleteIcon}
-                    onClick={deletetimeSlot(rowIndex)}
+              <div>
+                <div className={classes.row}>
+                  <TimeField name={start_time_name} outsideErrorDisplay />
+                  <TimeField
+                    name={end_time_name}
+                    className={classes.timeField}
+                    outsideErrorDisplay
+                  />
+                  {hideDelete && (
+                    <ButtonBase
+                      color="primary"
+                      className={classes.deleteIcon}
+                      onClick={deleteTimeSlot(rowIndex)}
+                    >
+                      <CloseIcon />
+                    </ButtonBase>
+                  )}
+                </div>
+                <div>
+                  <ErrorMessage
+                    name={`off_peak_schedule[${index}].timeSlots[${rowIndex}]`}
                   >
-                    <CloseIcon />
-                  </ButtonBase>
-                )}
+                    {(error_msg) => (
+                      <Typography variant="caption" color="error">
+                        {t(`${error_msg}`)}
+                      </Typography>
+                    )}
+                  </ErrorMessage>
+                </div>
               </div>
             );
           })}
@@ -188,6 +208,15 @@ const OffPeaktimeSlotGroup = (props: Props) => {
         </ButtonBase>
       )}
       <div className={classes.row}>{weekDaysButtons}</div>
+      <div>
+        <ErrorMessage name={`off_peak_schedule[${index}].recurrenceWeekDay`}>
+          {(error_msg) => (
+            <Typography variant="caption" color="error">
+              {t(`${error_msg}`)}
+            </Typography>
+          )}
+        </ErrorMessage>
+      </div>
       <div className={classes.row}>
         <RadioGroupField
           name={`off_peak_schedule[${index}].slotDurationChoice`}
@@ -272,6 +301,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(2),
     fontWeight: 'bold',
   },
+  error: { color: theme.palette.error.main },
 }));
 
 export default React.memo(OffPeaktimeSlotGroup);

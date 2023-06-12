@@ -15,7 +15,11 @@ import {
   START_ON_FIRST_BOOKING,
   START_ON_FIRST_ATTENDANCE,
 } from '@bsport/common/lib/master-data/payment-pack';
-import { offPeakGroupDefault } from '#libs/payment-packs/utils';
+import {
+  offPeakGroupDefault,
+  formatOffPeakScheduleOnSubmit,
+  formatOffPeakScheduleOnEdit,
+} from '#libs/payment-packs/utils';
 import { DATE_FORMAT } from '../../../../utils/datetime';
 import { OptionCallback } from '../../../../state/types';
 import {
@@ -137,6 +141,7 @@ export const PaymentPackForm = (props: Props) => {
   const classes = useStyles();
   const now = moment().format(DATE_FORMAT);
   const oneMonthLater = moment(now).add(1, 'M').format(DATE_FORMAT);
+
   return (
     <div>
       <Formik
@@ -189,7 +194,9 @@ export const PaymentPackForm = (props: Props) => {
                 applies_for_payroll: initial?.applies_for_payroll,
                 expiration_date_active: !!initial?.expiration_date,
                 off_peak_active: !!initial?.off_peak_schedule,
-                off_peak_schedule: initial?.off_peak_schedule,
+                off_peak_schedule: initial?.off_peak_schedule
+                  ? formatOffPeakScheduleOnEdit(initial.off_peak_schedule)
+                  : {},
               }
             : {
                 id: null,
@@ -317,6 +324,13 @@ export const PaymentPackForm = (props: Props) => {
             ).format('YYYY-MM-DD');
           } else {
             sanitizedValues.expiration_date = null;
+          }
+          if (values.off_peak_active && values.off_peak_schedule) {
+            sanitizedValues.off_peak_schedule = formatOffPeakScheduleOnSubmit(
+              values.off_peak_schedule,
+            );
+          } else {
+            sanitizedValues.off_peak_schedule = {};
           }
           const keys = [
             'name',
@@ -752,4 +766,48 @@ const paymentPackSchema = Yup.object().shape({
   applies_for_payroll: Yup.boolean().required(),
   expiration_date: Yup.date().nullable(),
   description: Yup.string().nullable(),
+  off_peak_schedule: Yup.array().of(
+    Yup.object().shape({
+      timeslots: Yup.array().of(
+        Yup.array().test(
+          'startBeforeEnd',
+          'paymentPack:addPaymentPack.startAfterEnd',
+          (value) => {
+            if (value && Array.isArray(value) && value.length === 2) {
+              const [startTime, endTime] = value;
+              return startTime.isSameOrBefore(endTime);
+            }
+            return false;
+          },
+        ),
+      ),
+      recurrenceWeekDay: Yup.object()
+        .shape({
+          '1': Yup.boolean().required(),
+          '2': Yup.boolean().required(),
+          '3': Yup.boolean().required(),
+          '4': Yup.boolean().required(),
+          '5': Yup.boolean().required(),
+          '6': Yup.boolean().required(),
+          '7': Yup.boolean().required(),
+        })
+        .test({
+          name: 'at-least-one-day',
+          test: function atLeastOneTrue(values) {
+            const { timeSlots } = this.parent;
+            if (
+              timeSlots &&
+              !Object.values(values).some((day) => day === true)
+            ) {
+              return this.createError({
+                message: 'paymentPack:addPaymentPack.atLeastOneDay',
+                path: this.path,
+              });
+            }
+            return true;
+          },
+        }),
+      slotDurationChoice: Yup.string(),
+    }),
+  ),
 });

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // BASE TRIGGERS
 export enum TriggerEnum {
   EMPTY_TRIGGER_IDENTIFIER = 'trigger_empty',

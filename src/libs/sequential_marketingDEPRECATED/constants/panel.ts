@@ -1,4 +1,3 @@
-// @ts-nocheck
 export enum CadencePanelMode {
   CADENCE_PANEL_HOW_TO,
   CADENCE_PANEL_INTIAL_PARAMETERS,

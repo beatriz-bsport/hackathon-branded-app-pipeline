@@ -18,32 +18,46 @@ import './style.css';
 type Option = {
   label: string;
   value: string;
+  metaData?: Object;
 };
 
 export type Props = {
+  fullWidth?: boolean;
+  classes?: {
+    buttonContainer?: string;
+  };
   value: string | null;
   placeholder: string;
   options: Option[];
   isClearable?: boolean;
+  renderListItem?: (option: Option) => React.ReactElement;
   onChange: (value: string) => void;
 };
 
 type SelectOptionProps = {
   option: Option;
+  renderListItem?: (option: Option) => React.ReactElement;
   onClick: (option: string) => void;
 };
 
 const SelectOption: React.FC<SelectOptionProps> = React.memo(
-  ({ option, onClick }) => {
+  ({ option, renderListItem, onClick }) => {
     const handleOptionClick: MouseEventHandler<HTMLButtonElement> =
       useCallback(() => {
         option?.value && onClick(option.value);
       }, [option, onClick]);
 
+    const innerListItemRender = useCallback(() => {
+      if (!!renderListItem && typeof renderListItem === 'function') {
+        return renderListItem(option);
+      }
+      return option?.label ?? '';
+    }, [option, renderListItem]);
+
     return (
       <li className="bs-select__dropdown__list__item">
         <button type="button" onClick={handleOptionClick}>
-          {option?.label ?? ''}
+          {innerListItemRender()}
         </button>
       </li>
     );
@@ -51,7 +65,16 @@ const SelectOption: React.FC<SelectOptionProps> = React.memo(
 );
 
 const Select: React.FC<Props> = React.memo(
-  ({ value, placeholder, options, isClearable, onChange }) => {
+  ({
+    value,
+    placeholder,
+    options,
+    isClearable,
+    fullWidth,
+    classes,
+    renderListItem,
+    onChange,
+  }) => {
     const selectContainer = useRef(null);
     const [isOptionListOpen, setIsOptionListOpen] = useState(false);
 
@@ -93,24 +116,42 @@ const Select: React.FC<Props> = React.memo(
       [options, value],
     );
 
+    const optionsWithoutDuplicates = useMemo(
+      () =>
+        options?.reduce<Option[]>((accumulator, current) => {
+          if (!accumulator.find((item) => item.value === current.value)) {
+            accumulator.push(current);
+          }
+          return accumulator;
+        }, []) ?? [],
+      [options],
+    );
+
     return (
-      <div className="bs-select__container" ref={selectContainer}>
+      <div
+        className={classNames('bs-select__container', {
+          'bs-select--idle-width': !fullWidth,
+          'bs-select--full-width': fullWidth,
+        })}
+        ref={selectContainer}
+      >
         <button
           type="button"
-          className={classNames('bs-select__button', {
-            'bs-select__focused': value,
-            'bs-select__text__primary': value,
+          className={classNames(classes?.buttonContainer, {
+            'bs-select__button': !classes?.buttonContainer,
+            'bs-select__focused': value && !classes?.buttonContainer,
+            'bs-select__text__primary': value && !classes?.buttonContainer,
           })}
           onClick={toggleOpenOptionList}
         >
           <div
             className={classNames('bs-select__input__container', {
-              'bs-select__text__primary': value,
+              'bs-select__text__primary': value && !classes?.buttonContainer,
             })}
           >
             <span
               className={classNames('bs-select__input__container__text', {
-                'bs-select__text__primary': value,
+                'bs-select__text__primary': value && !classes?.buttonContainer,
               })}
             >
               {valueTitle ?? placeholder}
@@ -118,7 +159,7 @@ const Select: React.FC<Props> = React.memo(
 
             <div
               className={classNames('bs-select__input__container__icons', {
-                'bs-select__text__primary': value,
+                'bs-select__text__primary': value && !classes?.buttonContainer,
                 'bs-select__idle__text': !value,
               })}
             >
@@ -137,14 +178,19 @@ const Select: React.FC<Props> = React.memo(
             className={classNames(
               'bs-select__dropdown__list',
               'bs-select__idle__text',
+              {
+                'bs-select--idle-width': !fullWidth,
+                'bs-select--full-width': fullWidth,
+              },
             )}
           >
-            {!!options.length &&
-              options.map((option) => (
+            {!!optionsWithoutDuplicates.length &&
+              optionsWithoutDuplicates.map((option) => (
                 <SelectOption
                   key={option.value}
                   onClick={handleOnOptionClick}
                   option={option}
+                  renderListItem={renderListItem}
                 />
               ))}
           </ul>

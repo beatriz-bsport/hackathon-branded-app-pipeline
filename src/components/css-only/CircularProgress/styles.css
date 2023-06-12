@@ -1,0 +1,62 @@
+@keyframes circular-progress-rotate {
+  0% {
+    transform-origin: 50% 50%;
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes circular-progress-dash {
+  0% {
+    stroke-dasharray: 1px, 200px;
+    stroke-dashoffset: 0px;
+  }
+
+  50% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -15px;
+  }
+
+  100% {
+    stroke-dasharray: 100px, 200px;
+    stroke-dashoffset: -125px;
+  }
+}
+
+.bs-circular-progress__container,
+.bs-circular-progress__container--small {
+  animation: circular-progress-rotate 1.4s linear infinite;
+}
+
+.bs-circular-progress__container {
+  width: 40px;
+  height: 40px;
+}
+
+.bs-circular-progress__container--small {
+  width: 24px;
+  height: 24px;
+}
+
+.bs-circular-progress__circle__container,
+.bs-circular-progress__circle__container {
+  display: block;
+}
+
+.bs-circular-progress__circle,
+.bs-circular-progress__circle_contrast__color {
+  display: block;
+  animation: circular-progress-dash 1.4s ease-in-out infinite;
+  stroke-dasharray: 80px, 200px;
+  stroke-dashoffset: 0px;
+}
+
+.bs-circular-progress__circle {
+  stroke: var(--color-primary-main);
+}
+
+.bs-circular-progress__circle_contrast__color {
+  stroke: var(--color-primary-contrastText);
+}

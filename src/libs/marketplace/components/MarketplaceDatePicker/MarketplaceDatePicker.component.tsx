@@ -17,18 +17,24 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import './MarketplaceDatePicker.css';
 
 import MarketplaceDatePickerDay from './MarketplaceDatePickerDay.component';
-import { DATE_FORMAT, formatAsTitle } from '../../../../utils/datetime';
+import {
+  DATE_FORMAT,
+  formatAsDate,
+  formatAsTitle,
+} from '../../../../utils/datetime';
 
 export type Props = {
   dateSelected: string;
-  rangeSize: number;
+  rangeSize?: number;
   onSelect: (date: string) => void;
+  isInputButton?: boolean;
 };
 
 const MarketplaceDatePicker: React.FC<Props> = ({
   dateSelected,
   rangeSize = 7,
   onSelect,
+  isInputButton,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dateDisplayed, setDateDisplayed] = useState(moment(dateSelected));
@@ -131,38 +137,56 @@ const MarketplaceDatePicker: React.FC<Props> = ({
     <>
       <div
         ref={anchorRef}
-        className={classNames('bs-marketplace-date-picker', {
+        className={classNames({
+          'bs-marketplace-date-picker': !isInputButton,
           'bs-marketplace-date-picker--open': isOpen,
+          'bs-marketplace-date-picker__input__button__container': isInputButton,
         })}
       >
-        <button
-          onClick={handleFastSelect('subtract')}
-          className={classNames('bs-marketplace-date-picker__left-button', {
-            'bs-marketplace-date-picker___left-button--open': isOpen,
-          })}
-          type="button"
-        >
-          <ChevronLeftIcon color="inherit" />
-        </button>
-        <button
-          className={classNames('bs-marketplace-date-picker__placeholder', {
-            'bs-marketplace-date-picker__placeholder--open': isOpen,
-          })}
-          type="button"
-          onClick={handleOpenMenu}
-        >
-          {getDateDisplay()}
-        </button>
+        {!isInputButton && (
+          <>
+            <button
+              onClick={handleFastSelect('subtract')}
+              className={classNames('bs-marketplace-date-picker__left-button', {
+                'bs-marketplace-date-picker___left-button--open': isOpen,
+              })}
+              type="button"
+            >
+              <ChevronLeftIcon color="inherit" />
+            </button>
+            <button
+              className={classNames('bs-marketplace-date-picker__placeholder', {
+                'bs-marketplace-date-picker__placeholder--open': isOpen,
+              })}
+              type="button"
+              onClick={handleOpenMenu}
+            >
+              {getDateDisplay()}
+            </button>
+            <button
+              onClick={handleFastSelect('add')}
+              className={classNames(
+                'bs-marketplace-date-picker__right-button',
+                {
+                  'bs-marketplace-date-picker__right-button--open': isOpen,
+                },
+              )}
+              type="button"
+            >
+              <ChevronRightIcon color="inherit" />
+            </button>
+          </>
+        )}
 
-        <button
-          onClick={handleFastSelect('add')}
-          className={classNames('bs-marketplace-date-picker__right-button', {
-            'bs-marketplace-date-picker__right-button--open': isOpen,
-          })}
-          type="button"
-        >
-          <ChevronRightIcon color="inherit" />
-        </button>
+        {isInputButton && (
+          <button
+            className="bs-marketplace-date-picker__input__button"
+            type="button"
+            onClick={handleOpenMenu}
+          >
+            {formatAsDate(dateSelected)}
+          </button>
+        )}
       </div>
 
       <Popper

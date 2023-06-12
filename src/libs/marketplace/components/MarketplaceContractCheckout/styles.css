@@ -159,8 +159,6 @@
   color: var(--color-grey-main);
   font-size: var(--body1-fontSize);
   font-weight: var(--body1-fontWeight);
-  overflow: hidden;
-  max-height: 600px;
   transition: max-height 0.5s;
 }
 
@@ -196,13 +194,6 @@
   background: var(--color-primary-dark);
 }
 
-.bs-contract-checkout__right-button:disabled,
-button[disabled] {
-  cursor: not-allowed;
-  color: #bdbdbd;
-  background: var(--color-grey-light);
-}
-
 .bs-contract-checkout__body__grid::-webkit-scrollbar {
   width: var(--spacing-1);
   background-color: transparent;
@@ -218,6 +209,12 @@ button[disabled] {
 .bs-contract-checkout__body__grid::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: #bdbdbd;
+}
+
+.bs-contract-checkout__right-button:disabled {
+  cursor: not-allowed;
+  color: #bdbdbd;
+  background: var(--color-grey-light);
 }
 
 @media screen and (max-width: 570px) {

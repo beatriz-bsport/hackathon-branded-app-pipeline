@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import UpdateIcon from '@material-ui/icons/Update';
@@ -25,27 +25,38 @@ import type { ContractWithPaymentPack } from '#libs/subscription/types';
 
 export type Props = {
   contract: ContractWithPaymentPack;
-  onChoose: (contractId: number) => void;
   isExcludingTax?: boolean;
+  initialIsExpanded?: boolean;
+  onSelect: (contract: ContractWithPaymentPack) => void;
 };
 
 const MarketplaceContractCheckout: React.FC<Props> = ({
   contract,
-  onChoose,
   isExcludingTax,
+  initialIsExpanded,
+  onSelect,
 }) => {
   const { t } = useTranslation('marketplace');
 
   const [isExpanded, setIsExpanded] = React.useState(false);
 
-  const handleOnChoose = React.useCallback(() => {
+  useEffect(() => {
+    if (initialIsExpanded) {
+      setIsExpanded(true);
+    }
+    return () => {
+      setIsExpanded(false);
+    };
+  }, [initialIsExpanded]);
+
+  const handleExpandContent = useCallback(() => {
     setIsExpanded((previousExpanded) => !previousExpanded);
-    onChoose(contract?.id);
-  }, [setIsExpanded, contract?.id, onChoose]);
+    onSelect && onSelect(contract);
+  }, [contract, onSelect]);
 
   const [showMoreDescription, setShowMoreDescription] = React.useState(false);
 
-  const handleShowMoreDescription = React.useCallback(
+  const handleShowMoreDescription = useCallback(
     () =>
       setShowMoreDescription(
         (previousShowMoreDescription) => !previousShowMoreDescription,
@@ -56,7 +67,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
   const [showMoreLegalContract, setShowMoreLegalContract] =
     React.useState(false);
 
-  const handleShowMoreLegal = React.useCallback(
+  const handleShowMoreLegal = useCallback(
     () =>
       setShowMoreLegalContract(
         (previousShowMoreLegalContract) => !previousShowMoreLegalContract,
@@ -74,7 +85,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
 
   return (
     <Card
-      size={CardSize.ML}
+      size={CardSize.AUTO}
       classes={{
         ...(isExpanded && {
           '--expanded-card': '--expanded-card',
@@ -144,7 +155,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                 type="button"
                 className="bs-contract-checkout__right-button"
                 disabled={isExpanded}
-                onClick={handleOnChoose}
+                onClick={handleExpandContent}
               >
                 {t('marketplace:contractCard.chooseButton')}
               </button>

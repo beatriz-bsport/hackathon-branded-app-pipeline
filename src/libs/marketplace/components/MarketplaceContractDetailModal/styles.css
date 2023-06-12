@@ -25,7 +25,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 999;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
@@ -123,7 +123,6 @@
   font-size: var(--body1-fontSize);
   font-weight: var(--body1-fontWeight);
   overflow: hidden;
-  max-height: 600px;
   transition: max-height 0.5s;
 }
 
@@ -216,12 +215,20 @@
 }
 
 @media screen and (max-width: 570px) {
+  .bs-contract-details-dialog__body {
+    max-height: calc(100vh - 300px);
+  }
+
   .bs-contract-dialog__header__price-container--desktop {
     display: none;
   }
 
   .bs-contract-details-dialog__header-grid {
     grid-template-columns: 100%;
+  }
+
+  .bs-contract-dialog__header__price-container--desktop {
+    display: none;
   }
 
   .bs-contract-dialog__header__price-container--mobile {

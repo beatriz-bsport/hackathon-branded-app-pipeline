@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -29,64 +28,66 @@ import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import type { ContractWithPaymentPack } from '#libs/subscription/types';
 
 export type Props = {
+  isExcludingTax: boolean;
   contract: ContractWithPaymentPack;
   isOpen: boolean;
-  onAddToCart: () => void;
+  onAddToCart: (contract: ContractWithPaymentPack) => void;
   onDialogClose: () => void;
 };
 
-const ContractDetailList: React.FC<{
-  contract: ContractWithPaymentPack;
-}> = React.memo(({ contract }) => {
-  const { t } = useTranslation('marketplace');
+const ContractDetailList: React.FC<Pick<Props, 'contract'>> = React.memo(
+  ({ contract }) => {
+    const { t } = useTranslation('marketplace');
 
-  const objectIncludedInContract = React.useMemo(
-    () =>
-      contract?.private_pass ||
-      contract?.payment_combo ||
-      contract?.payment_pack,
-    [contract],
-  );
+    const objectIncludedInContract = React.useMemo(
+      () =>
+        contract?.private_pass ||
+        contract?.payment_combo ||
+        contract?.payment_pack,
+      [contract],
+    );
 
-  return (
-    <ul className="bs-description-details-dialog__list">
-      {!!objectIncludedInContract && (
-        <li className="bs-description-details-dialog__list__item">
-          <span className="bs-description-details-dialog__list__item__icon">
-            <StarIcon />
-          </span>
-          <span className="bs-description-details-dialog__list__item__text">
-            {objectIncludedInContract.name}
-          </span>
-        </li>
-      )}
-      {!!contract?.nb_interval && (
-        <li className="bs-description-details-dialog__list__item">
-          <span className="bs-description-details-dialog__list__item__icon">
-            <ReceiptIcon />
-          </span>
-          <span className="bs-description-details-dialog__list__item__text">
-            {t('contractCard.invoice', {
-              count: contract.nb_interval,
-            })}
-          </span>
-        </li>
-      )}
-      {contract?.auto_renewal && (
-        <li className="bs-description-details-dialog__list__item">
-          <span className="bs-description-details-dialog__list__item__icon">
-            <ReplayIcon />
-          </span>
-          <span className="bs-description-details-dialog__list__item__text">
-            {t(`contractCard.autoRenewal`)}
-          </span>
-        </li>
-      )}
-    </ul>
-  );
-});
+    return (
+      <ul className="bs-description-details-dialog__list">
+        {!!objectIncludedInContract && (
+          <li className="bs-description-details-dialog__list__item">
+            <span className="bs-description-details-dialog__list__item__icon">
+              <StarIcon />
+            </span>
+            <span className="bs-description-details-dialog__list__item__text">
+              {objectIncludedInContract.name}
+            </span>
+          </li>
+        )}
+        {!!contract?.nb_interval && (
+          <li className="bs-description-details-dialog__list__item">
+            <span className="bs-description-details-dialog__list__item__icon">
+              <ReceiptIcon />
+            </span>
+            <span className="bs-description-details-dialog__list__item__text">
+              {t('contractCard.invoice', {
+                count: contract.nb_interval,
+              })}
+            </span>
+          </li>
+        )}
+        {contract?.auto_renewal && (
+          <li className="bs-description-details-dialog__list__item">
+            <span className="bs-description-details-dialog__list__item__icon">
+              <ReplayIcon />
+            </span>
+            <span className="bs-description-details-dialog__list__item__text">
+              {t(`contractCard.autoRenewal`)}
+            </span>
+          </li>
+        )}
+      </ul>
+    );
+  },
+);
 
 const MarketplaceContractDetailModal: React.FC<Props> = ({
+  isExcludingTax,
   contract,
   isOpen,
   onAddToCart,
@@ -111,6 +112,11 @@ const MarketplaceContractDetailModal: React.FC<Props> = ({
   const handleShowMoreLegalContract = React.useCallback(
     () => setShowMoreLegalContract((previousShowMore) => !previousShowMore),
     [setShowMoreLegalContract],
+  );
+
+  const handleAddToCart = React.useCallback(
+    () => onAddToCart(contract),
+    [contract, onAddToCart],
   );
 
   const flatFees = getCurrencyDisplayWithPrice(contract?.flat_fee);
@@ -156,6 +162,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = ({
                     </div>
                     <div className="bs-contract-dialog__header__price-container--mobile">
                       <Price
+                        isExcludingTax={isExcludingTax}
                         amount={contract?.recurrent_price}
                         formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                         color={Color.PRIMARY}
@@ -188,6 +195,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = ({
                     }}
                   >
                     <Price
+                      isExcludingTax={isExcludingTax}
                       amount={contract?.recurrent_price}
                       color={Color.PRIMARY}
                       formatPriceWithCurrency={getCurrencyDisplayWithPrice}
@@ -305,7 +313,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = ({
                     <button
                       className="bs-contract-details-dialog__buttons__add-to-cart"
                       type="button"
-                      onClick={onAddToCart}
+                      onClick={handleAddToCart}
                     >
                       {t('paymentCombo.addToCart')}
                     </button>

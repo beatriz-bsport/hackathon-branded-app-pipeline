@@ -7,6 +7,8 @@
     linear-gradient(60deg, rgba(161, 179, 199, 0.1) 55%, transparent 45%),
     #ffffff;
   border-radius: var(--border-radius-4);
+  height: 240px;
+  z-index: 0;
 }
 
 .bs-contract-card__title {
@@ -57,10 +59,17 @@
   margin-bottom: var(--spacing-2);
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   /* autoprefixer: off */
   -webkit-box-orient: vertical;
   white-space: pre-wrap;
+}
+
+.bs-contract-card .bs-generic-card__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .bs-contract-card__planned-invoices {
@@ -88,7 +97,7 @@
 }
 
 .bs-contract-card__price-item {
-  align-items: flex-start;
+  align-items: flex-end;
 }
 
 .bs-contract-card__price {
@@ -158,7 +167,11 @@
   background: var(--color-primary-dark);
 }
 
-@media screen and (max-width: 570px) {
+@media screen and (max-width: 749px) {
+  .bs-contract-card {
+    height: auto;
+  }
+
   .bs-contract-card__title {
     font-size: var(--h6-fontSize);
   }
@@ -172,6 +185,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
   }
 
   .bs-contract-card__price {

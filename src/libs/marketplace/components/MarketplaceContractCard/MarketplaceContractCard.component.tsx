@@ -1,7 +1,5 @@
-// @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { compose } from 'recompose';
 
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -9,7 +7,7 @@ import UpdateIcon from '@material-ui/icons/Update';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-import Card from '#csscomponents/Card';
+import Card, { CardSize } from '#csscomponents/Card';
 import Content from '#csscomponents/Card/CardContent';
 import Grid from '#csscomponents/Grid';
 import Item, {
@@ -28,27 +26,44 @@ import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import type { ContractWithPaymentPack } from '#libs/subscription/types';
 
 export type Props = {
+  isExcludingTax: boolean;
   contract: ContractWithPaymentPack;
-  addToCart: () => void;
-  onOpenDetailDialog: () => void;
+  addToCart: (contract: ContractWithPaymentPack) => void;
+  onOpenDetailDialog: (contract: ContractWithPaymentPack) => void;
 };
 
 const MarketplaceContractCard: React.FC<Props> = ({
   contract,
+  isExcludingTax,
   addToCart,
   onOpenDetailDialog,
 }) => {
   const { t } = useTranslation('marketplace');
 
+  const handleAddToCart = useCallback(() => {
+    addToCart(contract);
+  }, [addToCart, contract]);
+
+  const handleOpenDetailDialog = useCallback(() => {
+    onOpenDetailDialog(contract);
+  }, [contract, onOpenDetailDialog]);
+
   return (
-    <Card classes={{ 'bs-contract-card': 'bs-contract-card' }}>
+    <Card
+      classes={{ 'bs-contract-card': 'bs-contract-card' }}
+      size={CardSize.AUTO}
+    >
       <Content padding>
         <Grid
           classes={{
             'bs-contract-card__grid': 'bs-contract-card__grid',
           }}
         >
-          <Item alignment={Alignment.FLEX_START} columnEnd={1}>
+          <Item
+            alignment={Alignment.FLEX_START}
+            columnEnd={1}
+            justification={Justification.FLEX_START}
+          >
             <div className="bs-contract-card__title">
               <UpdateIcon className="bs-contract-card__title__icon" />
               {contract?.name}
@@ -91,6 +106,7 @@ const MarketplaceContractCard: React.FC<Props> = ({
           >
             <div className="bs-contract-card__price-container">
               <Price
+                isExcludingTax={isExcludingTax}
                 amount={contract?.recurrent_price}
                 formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                 classes={{
@@ -109,7 +125,7 @@ const MarketplaceContractCard: React.FC<Props> = ({
           <Item
             rowStart={2}
             columnStart={1}
-            justification={Justification.CENTER}
+            justification={Justification.FLEX_START}
             alignment={Alignment.FLEX_END}
             classes={{
               'bs-contract-card__price-icon': 'bs-contract-card__price-icon',
@@ -128,7 +144,7 @@ const MarketplaceContractCard: React.FC<Props> = ({
           <button
             type="button"
             className="bs-contract-card__left-button"
-            onClick={onOpenDetailDialog}
+            onClick={handleOpenDetailDialog}
           >
             <div className="bs-contract-card__left-button__content">
               <VisibilityIcon className="bs-contract-card__left-button__icon" />
@@ -139,7 +155,7 @@ const MarketplaceContractCard: React.FC<Props> = ({
           <button
             type="button"
             className="bs-contract-card__right-button"
-            onClick={addToCart}
+            onClick={handleAddToCart}
           >
             {t('contractCard.registerButton')}
           </button>
@@ -153,4 +169,4 @@ export const MarketplaceContractCardForStorybook = marketplaceCssHoc()(
   MarketplaceContractCard,
 );
 
-export default compose(React.memo)(MarketplaceContractCard);
+export default React.memo(MarketplaceContractCard);

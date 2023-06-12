@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { withTranslation, WithTranslation } from 'react-i18next';
-import type { TFunction } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 import {
   Avatar,
@@ -43,21 +42,20 @@ import MarketplaceBroadcastCSSOnly from '#libs/marketplace/components/Marketplac
 export type Props = {
   metaActivity: MetaActivity;
   establishment: Establishment;
-  coach: Coach;
-  coachOverride: Coach | null;
+  coach?: Coach;
+  coachOverride?: Coach;
   offer: Offer;
-  spotId: number | null;
-  price: string;
+  spotId?: number;
+  price?: string;
   onConfirm: () => void;
-  disableButton: boolean;
-  confirmLoading: boolean;
+  disableButton?: boolean;
+  confirmLoading?: boolean;
   offerStatus: OfferStatus;
   loading: boolean;
   variant: 'default' | 'basket';
   tax: number;
   theme: CompanyTheme;
-  t: TFunction;
-} & WithTranslation;
+};
 
 const OfferSummary: React.FC<Props> = (props) => {
   const {
@@ -76,10 +74,11 @@ const OfferSummary: React.FC<Props> = (props) => {
     tax,
     variant,
     theme,
-    t,
   } = props;
 
   const classes = useStyles(props);
+
+  const { t } = useTranslation(['datetime', 'booking', 'checkout']);
 
   const isBookable =
     offerStatus?.bookable_status === OFFER_BOOKABLE_STATUS_BOOKABLE;
@@ -175,7 +174,9 @@ const OfferSummary: React.FC<Props> = (props) => {
                   label={
                     isWaitlistFull
                       ? t(`booking:offer.offerStatus.waiting_list_status.6002`)
-                      : t(`booking:offer.offerStatus.waiting_list_status.0`)
+                      : t(
+                          `booking:offer.offerStatus.waiting_list_status.${OFFER_WAITING_LIST_STATUS_OPEN}`,
+                        )
                   }
                   size="small"
                   className={classes.waitlistChip}
@@ -191,7 +192,7 @@ const OfferSummary: React.FC<Props> = (props) => {
             </Grid>
           )}
 
-          {coach && !theme?.hideCoach && (
+          {coach && !theme?.hideCoach && variant === 'default' && (
             <Grid container item className={classes.itemWithIcon}>
               <Avatar className={classes.avatar}>
                 src=
@@ -201,7 +202,7 @@ const OfferSummary: React.FC<Props> = (props) => {
             </Grid>
           )}
 
-          {(spotId || spotId === 0) && (
+          {spotId !== null && spotId !== undefined && variant === 'default' && (
             <Grid container item className={classes.itemWithIcon}>
               <Adjust className={classes.icon} />
               <Typography>{`${t(`booking:place`)} ${spotId}`}</Typography>
@@ -351,15 +352,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const OfferSummaryTranslations = withTranslation([
-  'datetime',
-  'marketplace',
-  'booking',
-  'checkout',
-])(OfferSummary);
+export const OfferSummaryForStorybook = marketplaceCssHoc()(OfferSummary);
 
-export const OfferSummaryForStorybook = marketplaceCssHoc()(
-  OfferSummaryTranslations,
-);
-
-export default OfferSummaryTranslations;
+export default OfferSummary;

@@ -7,7 +7,6 @@ import {
   Avatar,
   Chip,
   Grid,
-  Theme,
   Typography,
   lighten,
   makeStyles,
@@ -276,7 +275,7 @@ const OfferSummary: React.FC<Props> = (props) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   grid: {
     display: 'flex',
     maxWidth: '374px',
@@ -285,7 +284,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'flex-start',
     backgroundColor: theme.palette.background.paper,
     border: (props: Props) =>
-      props.variant === 'default' ? '2px solid #F1F3F4' : 'none',
+      props.variant === 'default' && '2px solid var(--color-grey-light)',
     borderRadius: '8px',
     [theme.breakpoints.down('xs')]: {
       maxWidth: '100%',
@@ -308,7 +307,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   grey: {
-    color: '#687586',
+    color: 'var(--color-grey-main)',
   },
   waitlistChip: (props: Props) => ({
     borderRadius: '4px',

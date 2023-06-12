@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, Theme, makeStyles, CircularProgress } from '@material-ui/core';
-import chroma from 'chroma-js';
+import { Button, makeStyles, CircularProgress } from '@material-ui/core';
 
 export type Props = {
   value: string;
@@ -35,15 +34,12 @@ const BookingConfirmButton: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   button: {
     width: '100%',
     borderRadius: 24,
     background: theme.palette.primary.main,
-    color:
-      chroma(theme.palette.primary.main).luminance() > 0.5
-        ? '#000000'
-        : '#ffffff',
+    color: theme.palette.primary.contrastText,
     '&:hover': {
       background: theme.palette.primary.dark,
     },

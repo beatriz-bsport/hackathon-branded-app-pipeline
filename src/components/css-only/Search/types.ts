@@ -1,10 +1,9 @@
-// @ts-nocheck
 import { ReactElement } from 'react';
 
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
-import { Contract } from '#libs/subscription/types';
+import { ContractWithPaymentPack } from '#libs/subscription/types';
 
 export type SearchItem = any;
 
@@ -38,10 +37,10 @@ export interface MarketplaceSearchPaymentComboDataParams
 
 export interface MarketplaceSearchContractDataParams
   extends MarketplaceSearchDataParamsBase {
-  contractList: Contract[];
+  contractList: ContractWithPaymentPack[];
   isExcludingTax: boolean;
   showContractDetail: (id?: number) => void;
-  addContractToBasket: (id?: number) => void;
+  addContractToBasket: (contract?: ContractWithPaymentPack) => void;
 }
 
 export enum MarketplaceSearchDataIdentifier {

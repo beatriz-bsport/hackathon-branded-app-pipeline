@@ -203,7 +203,7 @@ export const useMarketplaceSearchContractData = ({
             ),
             actionIcon,
             onClick: () => showContractDetail(contract.id),
-            onActionClick: () => addContractToBasket(contract.id),
+            onActionClick: () => addContractToBasket(contract),
           },
         }),
       ),

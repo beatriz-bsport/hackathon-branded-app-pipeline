@@ -32,6 +32,25 @@ export const IntercomComponent = (props: Props) => {
     return null;
   }
 
+  // dirty : as we mix environment on Intercom, between production and staging, we
+  // want to avoid users and company collisions
+  //
+  // company will have a negative id on staging, and users will have +staging@ in the
+  // email
+  //
+  const company = props.company;
+  let email = props.email;
+
+  if (props.environment === 'staging') {
+    if (company && company.id && company.name) {
+      company.id = -company.id;
+      company.name = `[STAGING] ${company.name}`;
+    }
+    if ((email || '').includes('@')) {
+      email = email.replace('@', '+staging@');
+    }
+  }
+
   return (
     <Intercom
       appID="q6foivp2"

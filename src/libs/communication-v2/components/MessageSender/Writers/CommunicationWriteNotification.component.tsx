@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
-import TextFieldWithChildren from '#components/input/TextFieldWithChildren.component';
+import TextFieldWithChildren from '#components/input/text-field/TextFieldWithChildren.component';
 
 import {
   TEXTFIELD_NOTIFICATION_TITLE,

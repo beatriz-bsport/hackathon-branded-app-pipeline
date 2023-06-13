@@ -11,7 +11,7 @@ import {
   Edit as EditIcon,
 } from '@material-ui/icons';
 
-import TextFieldWithChildren from '#components/input/TextFieldWithChildren.component';
+import TextFieldWithChildren from '#components/input/text-field/TextFieldWithChildren.component';
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 import {
   EmailTemplateDetail,

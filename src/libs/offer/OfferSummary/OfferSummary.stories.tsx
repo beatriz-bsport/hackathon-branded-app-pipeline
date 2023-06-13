@@ -1,6 +1,6 @@
 import React from 'react';
-import { OfferSummaryForStorybook } from './OfferSummary.component';
-import type { Props } from './OfferSummary.component';
+import { OfferSummaryForStorybook } from '.';
+import type { Props } from '.';
 import { offerFactory } from '#libs/offer/factory';
 
 const offer = offerFactory();

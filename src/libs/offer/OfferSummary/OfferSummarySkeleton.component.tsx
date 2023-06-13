@@ -5,11 +5,13 @@ import { Skeleton } from '@material-ui/lab';
 
 import { ClassNameMap } from '@material-ui/styles';
 
-type Props = {
+type OfferSummarySkeletonProps = {
   classes: ClassNameMap;
 };
 
-const OfferSummarySkeleton: React.FC<Props> = ({ classes }) => {
+const OfferSummarySkeleton: React.FC<OfferSummarySkeletonProps> = ({
+  classes,
+}) => {
   return (
     <Grid container direction="column" className={classes.grid}>
       <Grid container item direction="column" className={classes.columnGap2}>

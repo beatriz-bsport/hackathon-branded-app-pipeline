@@ -35,9 +35,9 @@ import { DEFAULT_AVATAR } from '#libs/associated-coach/utils';
 import { Offer, OfferStatus } from '#libs/offer/types';
 import { CompanyTheme } from '#libs/theme/types';
 
-import BookingConfirmButton from './BookingConfirmButton.component';
+import BookingConfirmButton from '#libs/booking/components/BookingConfirmButton.component';
 import MarketplaceBroadcastCSSOnly from '#libs/marketplace/components/MarketplaceBroadcastCSSOnly';
-import OfferSummarySkeleton from './OfferSummarySkeleton.component';
+import { OfferSummarySkeleton } from '.';
 
 export type Props = {
   metaActivity: MetaActivity;

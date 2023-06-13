@@ -23,6 +23,7 @@ import { CommunicationProviderSettings } from '#libs/communication-v2/types';
 import themeSelectors from '../../libs/theme/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import { getIsTwoWayEmailActivated } from '#libs/communication-v2/selectors';
+import Config from '../../config';
 
 type Props = {
   theme: CompanyTheme,
@@ -38,6 +39,7 @@ type Props = {
     data: CommunicationProviderSettings,
   ) => void,
   communicationProviderSettingsLoading: boolean,
+  companyId: number,
 };
 
 export class ThemePersonalize extends Component<Props> {
@@ -56,7 +58,12 @@ export class ThemePersonalize extends Component<Props> {
       fetchCompanyTheme,
       isTwoWayEmailActivated,
       communicationProviderSettingsLoading,
+      companyId,
     } = this.props;
+
+    const isCommunicationPersonalizeFormDisplayed =
+      Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' || companyId === 498;
+
     return (
       <>
         {this.props.themeLoading && <LinearProgress />}
@@ -68,18 +75,19 @@ export class ThemePersonalize extends Component<Props> {
               processing={themeProcessing}
             />
           </Paper>
-          {!communicationProviderSettingsLoading && (
-            <Paper className={classes.paper}>
-              <CommunicationPersonalizeForm
-                updateCommunicationProviderSettingsAction={
-                  updateCommunicationProviderSettings
-                }
-                fetchCompanyTheme={fetchCompanyTheme}
-                is_two_way_email_activated={isTwoWayEmailActivated}
-                companyId={theme.company}
-              />
-            </Paper>
-          )}
+          {isCommunicationPersonalizeFormDisplayed &&
+            !communicationProviderSettingsLoading && (
+              <Paper className={classes.paper}>
+                <CommunicationPersonalizeForm
+                  updateCommunicationProviderSettingsAction={
+                    updateCommunicationProviderSettings
+                  }
+                  fetchCompanyTheme={fetchCompanyTheme}
+                  is_two_way_email_activated={isTwoWayEmailActivated}
+                  companyId={theme.company}
+                />
+              </Paper>
+            )}
         </div>
       </>
     );
@@ -105,6 +113,7 @@ export default compose(
       theme: themeSelectors.getTheme(state),
       themeLoading: state.theme.loading,
       themeProcessing: state.theme.createOrUpdate.loading,
+      companyId: state.theme.theme.company,
       isTwoWayEmailActivated: getIsTwoWayEmailActivated(state),
       communicationProviderSettingsLoading:
         state.communicationV2.company_communication_provider.email.loading,

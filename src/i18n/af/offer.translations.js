@@ -25,6 +25,7 @@ exports.default = {
     confirmed: 'Confirmé(s)',
     fillRate: 'Taux de remplissage',
     waiting: "Liste d'attente",
+    comesFromMigration: "Cette séance provient d'une migration",
   },
   extraordinaryEstablishment: '(lieu temporaire)',
   substitute: 'Remplaçant',

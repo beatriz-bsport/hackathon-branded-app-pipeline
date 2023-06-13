@@ -4503,7 +4503,12 @@
     "disabled": "Annulée",
     "credit_price": " Crédit",
     "isFree": "Gratuit",
-    "booking": { "confirmed": "Confirmé(s)", "fillRate": "Taux de remplissage", "waiting": "Liste d'attente" },
+    "booking": {
+      "confirmed": "Confirmé(s)",
+      "fillRate": "Taux de remplissage",
+      "waiting": "Liste d'attente",
+      "comesFromMigration": "Cette séance provient d'une migration"
+    },
     "extraordinaryEstablishment": "(lieu temporaire)",
     "substitute": "Remplaçant",
     "pendingReplacementRequest": "Une demande de remplacement est ouverte",

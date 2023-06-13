@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Moment } from 'moment-timezone';
 
 import {
@@ -146,6 +145,7 @@ export type Offer<
   date_roll_call_last_modified?: string;
   linked_hybrid_offer_id: number | null;
   is_broadcast: boolean;
+  source: number;
 };
 
 export type Offer_FULL = Offer<
@@ -358,11 +358,7 @@ export type OfferCreate = {
   sync_on_spivi?: boolean;
 };
 
-export type OfferEdit = Omit<
-  OfferCreate,
-  'dates' | 'credits' | 'partner_max_booking_count',
-  'is_hybrid'
-> & {
+export type OfferEdit = Omit<OfferCreate, 'dates' | 'credits' | 'is_hybrid'> & {
   id: number;
   notifyConsumers: boolean;
   available_on_partnership: boolean;

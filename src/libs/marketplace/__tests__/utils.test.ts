@@ -1,4 +1,5 @@
 import moment from 'moment-timezone';
+import { BOOKING_SOURCE_SAAS } from '@bsport/common/lib/master-data/booking_source';
 import { Offer } from '#libs/offer/types';
 import { isOfferInThePast } from '../utils';
 
@@ -44,6 +45,7 @@ const offer: Offer = {
   roll_call_needs_validation: false,
   linked_hybrid_offer_id: 1,
   is_broadcast: false,
+  source: BOOKING_SOURCE_SAAS.id,
 };
 
 const offerPassed: Offer = {

@@ -30,6 +30,7 @@ import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import { BOOKING_SOURCE_MIGRATION } from '@bsport/common/lib/master-data/booking_source';
 
 import { Alert, AlertTitle } from '@material-ui/lab';
 import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
@@ -253,6 +254,13 @@ export class OfferCard extends Component<Props, State> {
               showOfferGender={this.props.showOfferGender}
             />
             <Divider />
+            {offer?.source === BOOKING_SOURCE_MIGRATION.id && (
+              <ListItem className={classes.migrationAlertListItem}>
+                <Alert severity="info">
+                  {t('offer:booking.comesFromMigration')}
+                </Alert>
+              </ListItem>
+            )}
             <div className={classes.row}>
               <ListItem>
                 <ListItemIcon>
@@ -600,6 +608,9 @@ const styles = (theme) => ({
     '& li': {
       listStyleType: 'unset',
     },
+  },
+  migrationAlertListItem: {
+    paddingTop: theme.spacing(2),
   },
 });
 

@@ -27,9 +27,10 @@ type Props = {
   onClickDelete: (id: number) => void,
   selected: boolean,
   onClickDuplicate: (id: number) => void,
+  isSequentialMarketingAuthorized: boolean,
   fetchCadences: (id: number) => void,
   getCadences: (id: number) => Cadence[],
-  getCadencesLoading: () => boolean,
+  cadencesLoading: boolean,
 };
 
 const DeleteButton = (props: { onClick: () => void }) => (
@@ -83,20 +84,21 @@ export const SmartListItem = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['smartList']);
   const {
-    getCadencesLoading,
     onClickEdit,
     onClickDuplicate,
+    isSequentialMarketingAuthorized,
     fetchCadences,
     onClickDelete,
     getCadences,
+    cadencesLoading,
     smartlist,
   } = props;
   const [openCannotBeDeletedDialog, setOpenCannotBeDeletedDialog] =
     useState(false);
 
-  const [previousCadenceLoading, setPreviousCadenceLoading] = useState(
-    getCadencesLoading(),
-  );
+  const [previousCadenceLoading, setPreviousCadenceLoading] =
+    useState(cadencesLoading);
+
   const [smartlistToDelete, setSmartlistToDelete] = useState(null);
 
   const handleOnClickEdit = useCallback(() => {
@@ -108,35 +110,47 @@ export const SmartListItem = (props: Props) => {
   }, [smartlist, onClickDuplicate]);
 
   const handleOnClickDelete = useCallback(() => {
-    setSmartlistToDelete(smartlist.id);
-    fetchCadences(smartlist.id);
-  }, [smartlist, fetchCadences]);
+    if (isSequentialMarketingAuthorized) {
+      setSmartlistToDelete(smartlist.id);
+      fetchCadences(smartlist.id);
+    } else {
+      onClickDelete(smartlist.id);
+    }
+  }, [
+    isSequentialMarketingAuthorized,
+    smartlist.id,
+    fetchCadences,
+    onClickDelete,
+  ]);
 
   const handleCloseCannotBeDeletedDialog = () => {
     setOpenCannotBeDeletedDialog(false);
   };
 
   useEffect(() => {
-    if (
-      previousCadenceLoading &&
-      !getCadencesLoading() &&
-      smartlistToDelete === smartlist.id
-    ) {
-      const cadencesUsingSmartlist = getCadences(smartlist.id);
-      if (!!cadencesUsingSmartlist && cadencesUsingSmartlist.length > 0) {
-        setOpenCannotBeDeletedDialog(true);
-      } else {
-        onClickDelete(smartlist.id);
+    if (isSequentialMarketingAuthorized) {
+      if (
+        previousCadenceLoading &&
+        !cadencesLoading &&
+        smartlistToDelete === smartlist.id
+      ) {
+        const cadencesUsingSmartlist = getCadences(smartlist.id);
+        if (!!cadencesUsingSmartlist && cadencesUsingSmartlist.length > 0) {
+          setOpenCannotBeDeletedDialog(true);
+        } else {
+          onClickDelete(smartlist.id);
+        }
+        setSmartlistToDelete(null);
       }
-      setSmartlistToDelete(null);
+      setPreviousCadenceLoading(cadencesLoading);
     }
-    setPreviousCadenceLoading(getCadencesLoading());
   }, [
+    isSequentialMarketingAuthorized,
     previousCadenceLoading,
     onClickDelete,
     smartlistToDelete,
     getCadences,
-    getCadencesLoading,
+    cadencesLoading,
     smartlist,
   ]);
 
@@ -182,13 +196,15 @@ export const SmartListItem = (props: Props) => {
           ]}
         />
       </ListItem>
-      {!props.getCadencesLoading() && openCannotBeDeletedDialog && (
-        <SmartListCannotBeDeletedDialog
-          open={openCannotBeDeletedDialog}
-          onCancel={handleCloseCannotBeDeletedDialog}
-          cadences={props.getCadences(props.smartlist.id)}
-        />
-      )}
+      {isSequentialMarketingAuthorized &&
+        !cadencesLoading &&
+        openCannotBeDeletedDialog && (
+          <SmartListCannotBeDeletedDialog
+            open={openCannotBeDeletedDialog}
+            onCancel={handleCloseCannotBeDeletedDialog}
+            cadences={props.getCadences(props.smartlist.id)}
+          />
+        )}
     </>
   );
 };

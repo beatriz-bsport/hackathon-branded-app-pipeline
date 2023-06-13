@@ -111,7 +111,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
       } else if (moment(group.first_offer_date).isBefore(moment(anchorDate))) {
         setOffersToDisplay([]);
       } else {
-        setOffersToDisplay(offers.filter((o) => isOfferInThePast(o)));
+        setOffersToDisplay(offers.filter((o) => !isOfferInThePast(o)));
       }
     } else {
       setOffersToDisplay([]);

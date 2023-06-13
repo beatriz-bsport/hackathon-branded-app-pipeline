@@ -19,7 +19,7 @@ import { DATE_FORMAT } from '../../../utils/datetime';
 import type { Offer } from '../types';
 import OfferListItemConsumer from '../../offer/components/OfferListItemConsumer.component';
 import MarketplaceBookButton from './MarketplaceBookButton.component';
-import { isOfferInThePast } from '../../offer/utils';
+import { isOfferInThePast } from '../utils';
 
 type Props = {
   offers: ?Array<Offer>,
@@ -66,7 +66,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
   handleClick = (offer) => () => {
     const isInThePast = isOfferInThePast(offer);
 
-    if (!this.props.onClickOffer || !isInThePast) {
+    if (!this.props.onClickOffer || isInThePast) {
       return;
     }
     this.props.onClickOffer(offer.id);
@@ -107,7 +107,7 @@ export class MarketplaceTimetable extends PureComponent<Props> {
                   <div className={classes.inlineContainer}>
                     <Hidden xsDown>
                       <IconButton
-                        disabled={!isInThePast}
+                        disabled={isInThePast}
                         onClick={this.handleClick(o)}
                         color="secondary"
                       >

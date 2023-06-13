@@ -41,7 +41,7 @@ export const MarketplaceCardOffer = (props: Props) => {
   const classes = useStyles();
   const isInThePast = isOfferInThePast(offer);
   const onClick =
-    onClickOffer && isInThePast ? () => onClickOffer(offer.id) : null; // this open the offer modal
+    onClickOffer && !isInThePast ? () => onClickOffer(offer.id) : null; // this open the offer modal
 
   const coachName = getCoachOrSubstitute(offer)?.name ?? ' - ';
   const metaActivityName = offer?.meta_activity?.name ?? ' - ';

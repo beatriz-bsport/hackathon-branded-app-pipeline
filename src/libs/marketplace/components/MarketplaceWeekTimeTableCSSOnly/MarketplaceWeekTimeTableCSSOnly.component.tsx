@@ -245,12 +245,12 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                     theme={this.props.theme}
                     isBookingDisabled={
                       !o.available ||
-                      !isOfferInThePast(o) ||
+                      isOfferInThePast(o) ||
                       firstOfferInGroupLocksBookingBecauseInPast(o, groupData)
                     }
                     variant={this.props.variant}
                     isOfferPassed={
-                      !isOfferInThePast(o) ||
+                      isOfferInThePast(o) ||
                       firstOfferInGroupLocksBookingBecauseInPast(o, groupData)
                     }
                   />
@@ -346,11 +346,11 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 showOfferGender={this.props.showOfferGender}
                 hideCoach={this.props.hideCoach}
                 theme={this.props.theme}
-                isBookingDisabled={!offer.available || !isOfferInThePast(offer)}
+                isBookingDisabled={!offer.available || isOfferInThePast(offer)}
                 variant={this.props.variant}
                 position={position}
                 isOfferPassed={
-                  !isOfferInThePast(offer) ||
+                  isOfferInThePast(offer) ||
                   firstOfferInGroupLocksBookingBecauseInPast(offer, groupData)
                 }
               />

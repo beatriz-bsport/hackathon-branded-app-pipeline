@@ -21,7 +21,8 @@ import Level from '#libs/level/components/Level.component';
 import { formatAsTime } from '../../../utils/datetime';
 import CoachAvatar from '../../associated-coach/components/CoachAvatar.component';
 import Tooltip from '../../../components/Tooltip.component';
-import { getCoachOrSubstitute, isOfferInThePast } from '../utils';
+import { getCoachOrSubstitute } from '../utils';
+import { isOfferInThePast } from '../../marketplace/utils';
 
 type Props = {
   offer: Offer,
@@ -46,7 +47,7 @@ export const OfferListItemConsumer = (props: Props) => {
 
   return (
     <ListItem
-      button={isInThePast}
+      button={!isInThePast}
       selected={selected}
       onClick={props.onClick}
       divider

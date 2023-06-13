@@ -279,7 +279,9 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                     <PopOver
                       title={
                         isPopoverOnSessionName &&
-                        t('marketplace.bookButton.popOverTitle.isPast')
+                        t(
+                          'translation:marketplace.bookButton.popOverTitle.isPast',
+                        )
                       }
                     >
                       {metaActivity?.name}
@@ -320,7 +322,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 <PopOver
                   title={
                     isPopoverOnSessionTime &&
-                    t('marketplace.bookButton.popOverTitle.isPast')
+                    t('translation:marketplace.bookButton.popOverTitle.isPast')
                   }
                 >
                   {(showDate ? `${date} ` : '') + offerHours}

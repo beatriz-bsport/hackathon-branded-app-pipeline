@@ -29,7 +29,7 @@ const MarketplaceBookButton = (props: Props) => {
   let text = offer.full
     ? t('marketplace.bookButton.bookOption')
     : t('marketplace.bookButton.book');
-  if (!isOfferInThePast(offer)) {
+  if (isOfferInThePast(offer)) {
     text = t('marketplace.bookButton.isPast');
   }
   if (!offer.available) {
@@ -57,7 +57,7 @@ const MarketplaceBookButton = (props: Props) => {
     <Button
       fullWidth
       id={`offer-book-${offer.id}`}
-      disabled={!offer.available || !isOfferInThePast(offer)}
+      disabled={!offer.available || isOfferInThePast(offer)}
       onClick={onClick}
       color="primary"
       className={classnames(

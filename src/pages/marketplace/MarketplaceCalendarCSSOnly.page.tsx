@@ -456,7 +456,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           onClickBookOption={this.props.goToBookOption}
           mapContainerClassName={this.props.mapContainerClassName}
           isBookingDisabled={
-            !this.state.offer?.available || !isOfferInThePast(this.state?.offer)
+            !this.state.offer?.available || isOfferInThePast(this.state?.offer)
           }
         />
         <MarketplaceCalendarComponent

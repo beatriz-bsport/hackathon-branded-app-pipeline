@@ -2,10 +2,6 @@ import moment, { Moment, MomentInput } from 'moment-timezone';
 import { Offer, OfferFormRecurrenceWeekDay, OfferFormValues } from './types';
 import { OFFER_RECURRENCE } from './constants';
 
-export function isOfferInThePast(offer: Offer) {
-  return !moment(offer.date_start).isSameOrBefore(moment());
-}
-
 export function isDateTooFar(date: MomentInput) {
   return moment(date).diff(moment(), 'years', true) > 3;
 }

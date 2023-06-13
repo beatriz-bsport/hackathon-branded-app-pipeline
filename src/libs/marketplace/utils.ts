@@ -16,7 +16,7 @@ import type { MetaActivity } from '#libs/meta-activity/types';
 
 export function isOfferInThePast(offer: Offer | Offer_FULL) {
   if (!offer) return false;
-  return !moment(offer.date_start).isSameOrBefore(moment());
+  return moment(offer.date_start).isBefore(moment());
 }
 export function firstOfferInGroupLocksBookingBecauseInPast(
   offerInGroup: Offer_FULL,
@@ -249,7 +249,7 @@ export const getBookingButtonTraduction = (
     ? t('translation:marketplace.bookButton.bookOption')
     : t('translation:marketplace.bookButton.book');
 
-  if (!isOfferInThePast(offer)) {
+  if (isOfferInThePast(offer)) {
     text = t('translation:marketplace.bookButton.isPast');
   }
   if (!offer.available) {
@@ -296,7 +296,7 @@ const getBookingButtonTraductionForOfferGroupSetAsFullBookingOnly = (
     ) {
       text = t('translation:marketplace.bookButton.notBookableYet');
     }
-  } else if (!isOfferInThePast(offer)) {
+  } else if (isOfferInThePast(offer)) {
     return t('translation:marketplace.bookButton.isPast');
   } else if (moment(first_offer_date).isSameOrBefore(moment())) {
     return t('translation:marketplace.bookButton.book');
@@ -424,11 +424,11 @@ export const getOfferStatus = (
   if (!offer.available) {
     return MarketplaceOfferStatus.CANCELLED;
   }
+  if (isOfferInThePast(offer)) {
+    return MarketplaceOfferStatus.COMPLETED;
+  }
   if (offer.full) {
     return MarketplaceOfferStatus.WAITING_LIST;
-  }
-  if (!isOfferInThePast(offer)) {
-    return MarketplaceOfferStatus.COMPLETED;
   }
   if (!isOfferBookableYet(offer, metaActivity)) {
     return MarketplaceOfferStatus.SOON;
@@ -466,7 +466,7 @@ export const getGroupOfferSetAsFullBookingOnlyStatus = (
     ) {
       return MarketplaceOfferStatus.SOON;
     }
-  } else if (!isOfferInThePast(offer)) {
+  } else if (isOfferInThePast(offer)) {
     return MarketplaceOfferStatus.COMPLETED;
   } else if (moment(first_offer_date).isSameOrBefore(moment())) {
     return MarketplaceOfferStatus.BOOKABLE;

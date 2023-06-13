@@ -37,7 +37,7 @@ const MarketplaceBookButton: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('translation');
 
-  const offerIsInThePast = useMemo(() => !isOfferInThePast(offer), [offer]);
+  const offerIsInThePast = useMemo(() => isOfferInThePast(offer), [offer]);
 
   const firstOfferInGroupIsInThePast = useMemo(
     () => firstOfferInGroupLocksBookingBecauseInPast(offer, group),

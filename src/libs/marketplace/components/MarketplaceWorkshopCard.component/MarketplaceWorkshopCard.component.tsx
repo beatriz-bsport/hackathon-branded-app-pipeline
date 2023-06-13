@@ -19,6 +19,7 @@ import { Level } from '#libs/level/types';
 import MarketplaceGroupOfferListItem from '../MarketplaceGroupOfferListItem.component/MarketplaceGroupOfferListItem.component';
 
 import './MarketplaceWorkshopCard.css';
+import { isOfferInThePast } from '#libs/marketplace/utils';
 
 export type Props = {
   metaActivity: MetaActivity;
@@ -226,6 +227,8 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
                 bookedOffers?.length ? bookedOffers.includes(offer.id) : false
               }
               variant="time"
+              isOfferPassed={isOfferInThePast(offer)}
+              isBookingDisabled={!offer.available || isOfferInThePast(offer)}
             />
           );
         })}

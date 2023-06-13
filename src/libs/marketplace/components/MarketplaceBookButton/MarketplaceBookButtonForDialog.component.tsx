@@ -41,7 +41,7 @@ const MarketplaceBookButtonForDialog: React.FC<Props> = ({
   const isDisabled = useMemo(
     () =>
       !offer.available ||
-      !isOfferInThePast(offer) ||
+      isOfferInThePast(offer) ||
       firstOfferInGroupLocksBookingBecauseInPast(offer, group),
     [group, offer],
   );

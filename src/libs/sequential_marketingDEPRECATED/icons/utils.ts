@@ -91,7 +91,7 @@ export const TriggerText = ({ connected_trigger_config }: TriggerProps) => {
   switch (connected_trigger_config?.trigger_config?.identifier) {
     case TriggerEnum.EMPTY_TRIGGER_IDENTIFIER:
       if (connected_trigger_config?.filtering_config?.smartlist_pk) {
-        return connected_trigger_config?.filtering_config?.smartlist.name;
+        return connected_trigger_config?.filtering_config?.smartlist?.name;
       }
       return t('All');
     case TriggerEnum.EVENT_TRIGGER_IDENTIFIER:

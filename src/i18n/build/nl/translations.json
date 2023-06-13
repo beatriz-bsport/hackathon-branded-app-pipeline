@@ -1886,14 +1886,15 @@
                 "13": "Melding",
                 "12": "Smartlist",
                 "71": "Ontvangen",
-                "70": "Verzonden"
+                "70": "Verzonden",
+                "15": "Cadans"
             },
             "sendParameter": {
                 "placeholder": "Selecteer een instelling",
                 "title": "Instellingen"
             },
             "recipient": {
-                "placeholder": "Selecteer een ontvanger",
+                "placeholder": "Selecteer een boekingsstatus",
                 "title": "Ontvangers"
             },
             "channel": {
@@ -1999,7 +2000,13 @@
                 "mute": "Stoppen met",
                 "removeFavorite": "Favorieten verwijderen",
                 "addToFavorite": "Toevoegen aan favorieten",
-                "markAsRead": "Markeer als ongelezen"
+                "markAsRead": "Markeer als ongelezen",
+                "detail": {
+                    "offer": "Details sessie",
+                    "smartlist": "Smartlist details",
+                    "member": "Gegevens leden"
+                },
+                "filterMessages": "Berichten filteren"
             },
             "kind": {
                 "member": "Leden",
@@ -2013,7 +2020,8 @@
                 "favorites": "Favorieten",
                 "muted": "Demper",
                 "disabled": "Gearchiveerd"
-            }
+            },
+            "loadMoreThreads": "Meer berichten laden"
         },
         "sentStatus": {
             "fail": "Er is een fout opgetreden tijdens het verzenden",
@@ -3009,6 +3017,7 @@
                 "Annuleren",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
@@ -4755,6 +4764,20 @@
         },
         "popup": {
             "sendPopup": "Stuur een pop-up"
+        },
+        "cadenceListDialog": {
+            "close": "Sluiten",
+            "title": "Lijst van cadansen"
+        },
+        "cadence": {
+            "content": "Gebruikt in de cadans: {{ cadence_name }}",
+            "content_plural": "Gebruikt in {{ count }} cadansen"
+        },
+        "cannotBeDeletedDialog": {
+            "content": "Je kunt deze smartlist niet verwijderen zolang deze wordt gebruikt in de volgende cadans:",
+            "content_plural": "Je kunt deze smartlisten niet verwijderen zolang deze wordt gebruikt in de volgende cadans:",
+            "cancel": "Sluiten",
+            "title": "Gebruikt bij cadens"
         }
     },
     "metaActivity": {
@@ -6964,7 +6987,9 @@
                 "cancel": "Annuleren",
                 "submit": "Opslaan",
                 "updateAll": "Wijzig alle toekomstige ingeplande incasseringen tot de automatische verlenging",
-                "updateRecurrentPrice": "Deze wijzigingen ook toepassen op alle incasseringen na de automatische verlenging"
+                "updateRecurrentPrice": "Deze wijzigingen ook toepassen op alle incasseringen na de automatische verlenging",
+                "nonNullDiscount": "Dit abonnement bevat momenteel een kortingsbon. Met deze coupon wordt geen rekening gehouden wanneer de prijs wordt bijgewerkt.",
+                "nonNullFlatFees": "Dit abonnement bevat momenteel administratiekosten van {{ flatFeesAmount }} {{ currencyDisplay }}. Deze administratiekosten worden niet in aanmerking genomen wanneer de prijs wordt bijgewerkt."
             },
             "list": {
                 "titleNext": "Eerstvolgende incasso's"
@@ -10069,7 +10094,8 @@
                 "duplicate": {
                     "error": "Kan product niet dupliceren",
                     "success": "Product gedupliceerd"
-                }
+                },
+                "notFound": "Dit product is niet gevonden. Mogelijk is het gearchiveerd."
             }
         },
         "smartlist": {
@@ -10625,6 +10651,12 @@
                 "error": "Er is een fout opgetreden bij het bewerken van de cadans",
                 "success": "Uw cadans is bijgewerkt"
             }
+        },
+        "giftCard": {
+            "notFound": "Deze cadeaubon is niet gevonden en is mogelijk gearchiveerd."
+        },
+        "modifyBasket": {
+            "15004": "Het mandje wordt verwerkt, probeer het over een paar minuten nog eens"
         }
     },
     "coach": {
@@ -11952,6 +11984,21 @@
             },
             "extra_info": {
                 "label": "Studio informatie"
+            },
+            "warningColorBrightness": {
+                "save": "Opslaan",
+                "cancel": "Annuleren",
+                "text": "Een van de geselecteerde kleuren is erg licht en kan moeilijk te zien zijn",
+                "title": "Attentie",
+                "example": "Voorbeeld"
+            },
+            "productsThemePersonalization": {
+                "credits": {
+                    "description": "De weergave van kaarttegoeden voor klanten activeren of deactiveren",
+                    "label": "Credits verbergen",
+                    "subTitle": "Credits"
+                },
+                "title": "Producten"
             }
         },
         "pageTitles": {
@@ -15326,6 +15373,58 @@
             "offerHasActiveRequest": {
                 "helper": "Wilt u worden doorverwezen naar de pagina met vervangende verzoeken om verouderde verzoeken te annuleren?",
                 "title": "Aan deze sessie is een actief vervangingsverzoek gekoppeld"
+            }
+        }
+    },
+    "quicksale": {
+        "itemList": {
+            "additionDrawer": {
+                "withoutCategory": "Geen categorie",
+                "noResult": "Geen resultaten",
+                "unselectAll": "Alles deselecteren",
+                "selectAll": "Alles selecteren",
+                "objectType": "Type object",
+                "category": "Categorie",
+                "add": "Voeg  toe",
+                "cancel": "Annuleren",
+                "search": "Zoeken",
+                "tilesColor": "Tegelkleur",
+                "objectsAddition": "Objecten toevoegen",
+                "objectGroupsSubtitle": "Een groep objecten toevoegen",
+                "simpleObjectsSubtitle": "Objecten toevoegen",
+                "title": "Verkoopinterface"
+            },
+            "goBack": "Retour"
+        },
+        "iconSelector": {
+            "searchPlaceholder": "Zoeken (zoeken in het Engels)"
+        },
+        "sectionCard": {
+            "item": "item",
+            "item_plural": "items"
+        },
+        "objectCard": {
+            "recurrence": {
+                "year": "elk jaar",
+                "year_plural": "elke {{ recurrence_basis }} jaren",
+                "month": "elke maand",
+                "month_plural": "elke {{ recurrence_basis }} maand",
+                "week": "elke week",
+                "week_plural": "elke {{ recurrence_basis }} week",
+                "day": "elke dag",
+                "day_plural": "elke {{ recurrence_basis }} dag"
+            },
+            "subtitle": {
+                "giftcard": "Cadeaukaart",
+                "subscription": "Contract",
+                "paymentCombo": "Pakket",
+                "shopProduct": "Product",
+                "privatePass": "Afspraakkaart",
+                "paymentPack": "Leskaart",
+                "product": "product",
+                "product_plural": "producten",
+                "credit": "credit",
+                "credit_plural": "credits"
             }
         }
     }

@@ -2843,14 +2843,15 @@
                 "13": "Notification",
                 "12": "Smartlist",
                 "71": "Received",
-                "70": "Sent"
+                "70": "Sent",
+                "15": "Cadence"
             },
             "sendParameter": {
                 "placeholder": "Select a setting",
                 "title": "Settings"
             },
             "recipient": {
-                "placeholder": "Select a recipient",
+                "placeholder": "Select a booking status",
                 "title": "Recipients"
             },
             "channel": {
@@ -2956,7 +2957,13 @@
                 "mute": "Mute",
                 "removeFavorite": "Remove from favourites",
                 "addToFavorite": "Add to favourites",
-                "markAsRead": "Mark as unread"
+                "markAsRead": "Mark as unread",
+                "detail": {
+                    "offer": "Session details",
+                    "smartlist": "Smartlist details",
+                    "member": "Member details"
+                },
+                "filterMessages": "Filter messages"
             },
             "kind": {
                 "member": "Members",
@@ -2970,7 +2977,8 @@
                 "favorites": "Favorites",
                 "muted": "Mute",
                 "disabled": "Archived"
-            }
+            },
+            "loadMoreThreads": "Load more messages"
         },
         "sentStatus": {
             "fail": "An error occurred while sending",
@@ -5518,6 +5526,21 @@
             },
             "extra_info": {
                 "label": "Studio information"
+            },
+            "warningColorBrightness": {
+                "save": "Save",
+                "cancel": "Cancel",
+                "text": "One of the colours selected is very light and may be difficult to see",
+                "title": "Warning",
+                "example": "Example"
+            },
+            "productsThemePersonalization": {
+                "credits": {
+                    "description": "Activate or deactivate the display of pass credits for customers",
+                    "label": "Hide credits",
+                    "subTitle": "Credits"
+                },
+                "title": "Products"
             }
         },
         "general_terms_and_conditions": {
@@ -8530,7 +8553,9 @@
                 "price": "New amount",
                 "title": "Payment modification",
                 "updateAll": "Update all futures debits up until the automatic renewal",
-                "updateRecurrentPrice": "Apply changes to all the payments after the automatic renewal"
+                "updateRecurrentPrice": "Apply changes to all the payments after the automatic renewal",
+                "nonNullDiscount": "This subscription currently includes a coupon. This coupon will not be taken into account when the price is updated.",
+                "nonNullFlatFees": "This subscription currently includes an administration fee of {{ flatFeesAmount }} {{ currencyDisplay }}. This handling fee will not be taken into account when the price is updated."
             },
             "list": {
                 "titleNext": "Upcoming withdrawals"
@@ -9568,6 +9593,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
@@ -12966,6 +12992,20 @@
         },
         "popup": {
             "sendPopup": "Send a pop-up"
+        },
+        "cadenceListDialog": {
+            "close": "Close",
+            "title": "List of the cadences"
+        },
+        "cadence": {
+            "content": "Used in the cadence: {{ cadence_name }}",
+            "content_plural": "Used in {{ count }} cadences"
+        },
+        "cannotBeDeletedDialog": {
+            "content": "You cannot delete this smartlist as long as it is used in the following cadence:",
+            "content_plural": "You cannot delete this smartlist as long as it is used in the following cadences:",
+            "cancel": "Close",
+            "title": "Used in one of the cadences"
         }
     },
     "coachPerformance": {
@@ -13189,7 +13229,8 @@
                 "duplicate": {
                     "error": "It is impossible to duplicate the product",
                     "success": "Product succesfully duplicated"
-                }
+                },
+                "notFound": "This product has not been found. It may have been archived."
             },
             "subShop": {
                 "delete": {
@@ -14039,6 +14080,12 @@
                 "error": "An error occurred when editing the cadence",
                 "success": "Your cadence has been updated"
             }
+        },
+        "giftCard": {
+            "notFound": "This giftcard has not been found. It may have been archived."
+        },
+        "modifyBasket": {
+            "15004": "The basket is being processed. Please try again in a few minutes."
         }
     },
     "navigation": {
@@ -16338,6 +16385,58 @@
             "offerHasActiveRequest": {
                 "helper": "Do you want to be redirected to the substitution requests page to cancel obsolete requests?",
                 "title": "An active substitution request is linked to this session"
+            }
+        }
+    },
+    "quicksale": {
+        "itemList": {
+            "additionDrawer": {
+                "withoutCategory": "No category",
+                "noResult": "No result",
+                "unselectAll": "Deselect all",
+                "selectAll": "Select all",
+                "objectType": "Type of object",
+                "category": "Category",
+                "add": "Add",
+                "cancel": "Cancel",
+                "search": "Search",
+                "tilesColor": "Tile colour",
+                "objectsAddition": "Adding objects",
+                "objectGroupsSubtitle": "Add a group of objects",
+                "simpleObjectsSubtitle": "Add objects",
+                "title": "Sales interface"
+            },
+            "goBack": "Back"
+        },
+        "iconSelector": {
+            "searchPlaceholder": "Search"
+        },
+        "sectionCard": {
+            "item": "item",
+            "item_plural": "items"
+        },
+        "objectCard": {
+            "recurrence": {
+                "year": "every year",
+                "year_plural": "every {{ recurrence_basis }} years",
+                "month": "every month",
+                "month_plural": "every {{ recurrence_basis }} months",
+                "week": "every week",
+                "week_plural": "every {{ recurrence_basis }} weeks",
+                "day": "every day",
+                "day_plural": "every {{ recurrence_basis }} days"
+            },
+            "subtitle": {
+                "giftcard": "Gift card",
+                "subscription": "Subscription",
+                "paymentCombo": "Pack",
+                "shopProduct": "Product",
+                "privatePass": "Appointment pass",
+                "paymentPack": "Pass",
+                "product": "product",
+                "product_plural": "products",
+                "credit": "credit",
+                "credit_plural": "credits"
             }
         }
     }

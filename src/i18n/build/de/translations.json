@@ -466,7 +466,9 @@
                 "cancel": "Abbrechen",
                 "submit": "Speichern",
                 "updateAll": "Aktualisiere alle zukünftigen Zahlungen",
-                "updateRecurrentPrice": "Diese Änderung für Zahlungen anwenden, die nach der Verlängerung generiert werden"
+                "updateRecurrentPrice": "Diese Änderung für Zahlungen anwenden, die nach der Verlängerung generiert werden",
+                "nonNullDiscount": "Dieses Abonnement enthält derzeit einen Coupon. Dieser Coupon wird bei der Aktualisierung des Preises nicht berücksichtigt.",
+                "nonNullFlatFees": "Dieses Abonnement beinhaltet derzeit eine Verwaltungsgebühr von {{ flatFeesAmount }} {{ currencyDisplay }}. Diese Bearbeitungsgebühr wird bei der Aktualisierung des Preises nicht berücksichtigt."
             },
             "dateUpdater": {
                 "actions": {
@@ -2632,6 +2634,20 @@
         },
         "popup": {
             "sendPopup": "Pop-up senden"
+        },
+        "cadenceListDialog": {
+            "close": "Schließen",
+            "title": "Liste der Kadenzen"
+        },
+        "cadence": {
+            "content": "Wird in der Kadenz verwendet: {{ cadence_name }}",
+            "content_plural": "Verwendet in {{ count }} Kadenzen"
+        },
+        "cannotBeDeletedDialog": {
+            "content": "Sie können diese Smartlist nicht löschen, solange sie in der folgenden Kadenz verwendet wird:",
+            "content_plural": "Sie können diese Smartlist nicht löschen, solange sie in den folgenden Kadenzen verwendet wird:",
+            "cancel": "Schließen",
+            "title": "In einer der Kadenzen verwendet"
         }
     },
     "theme": {
@@ -2926,6 +2942,21 @@
             },
             "extra_info": {
                 "label": "Studio-Informationen"
+            },
+            "warningColorBrightness": {
+                "save": "Speichern",
+                "cancel": "Stornieren",
+                "text": "Eine der ausgewählten Farben ist sehr hell und könnte schwer zu erkennen sein",
+                "title": "Achtung",
+                "example": "Beispiel"
+            },
+            "productsThemePersonalization": {
+                "credits": {
+                    "description": "Aktivieren oder deaktivieren Sie die Anzeige der Pässe für Kunden",
+                    "label": "Credits ausblenden",
+                    "subTitle": "Credits"
+                },
+                "title": "Produkte"
             }
         },
         "pageTitles": {
@@ -4977,6 +5008,7 @@
                 "Abbrechen",
                 "Storniert",
                 "Stornieren",
+                "Stornieren",
                 "Stornieren"
             ]
         }
@@ -5506,7 +5538,8 @@
                 "duplicate": {
                     "error": "Es ist unmöglich, dieses Produkt zu duplizieren",
                     "success": "Das Produkt wurde erfolgreich dupliziert"
-                }
+                },
+                "notFound": "Dieses Produkt wurde nicht gefunden. Möglicherweise wurde es archiviert."
             },
             "subShop": {
                 "createOrUpdate": {
@@ -5958,6 +5991,12 @@
             "16003": "Die Anzahl der Zahlungseingänge muss größer als 2 sein, um die Option 'Ersten Betrag anpassen' zu aktivieren",
             "16000": "Der Betrag der ersten Ratenzahlung muss größer als Null sein",
             "16001": "Der Prozentsatz des Gesamtbetrags muss zwischen 0 und 100 festgelegt werden"
+        },
+        "giftCard": {
+            "notFound": "Diese Geschenkkarte wurde nicht gefunden. Sie wurde möglicherweise archiviert."
+        },
+        "modifyBasket": {
+            "15004": "Der Warenkorb wird gerade bearbeitet, bitte versuchen Sie es in ein paar Minuten erneut"
         }
     },
     "invoice": {
@@ -9533,7 +9572,13 @@
                 "mute": "stummschalten",
                 "removeFavorite": "von Favoriten entfernen",
                 "addToFavorite": "zu Favoriten hinzufügen",
-                "markAsRead": "als ungelesen markieren"
+                "markAsRead": "als ungelesen markieren",
+                "detail": {
+                    "offer": "Session-Details",
+                    "smartlist": "Smartlist-Details",
+                    "member": "Mitgliederdetails"
+                },
+                "filterMessages": "Nachrichten filtern"
             },
             "kind": {
                 "member": "Mitglieder",
@@ -9547,7 +9592,8 @@
                 "favorites": "Favoriten",
                 "muted": "Stummschalten",
                 "disabled": "Archivieren"
-            }
+            },
+            "loadMoreThreads": "Weitere Nachrichten laden"
         },
         "sentStatus": {
             "fail": "Beim Senden ist ein Fehler aufgetreten",
@@ -9623,7 +9669,8 @@
                 "10": "Session",
                 "2": "Push-Benachrichtigung",
                 "1": "SMS",
-                "0": "E-Mail"
+                "0": "E-Mail",
+                "15": "Kadenz"
             },
             "srcOrDst": {
                 "placeholder": "Wählen Sie einen Nachrichtentyp aus",
@@ -9634,7 +9681,7 @@
                 "title": "Parameter für die Sendung"
             },
             "recipient": {
-                "placeholder": "Wählen Sie einen Empfängertyp aus",
+                "placeholder": "Wählen Sie einen Buchungsstatus",
                 "title": "Empfänger"
             },
             "channel": {
@@ -15209,6 +15256,58 @@
             "nextLesson": "Nächste",
             "finish": "Abschnitt beenden",
             "previousLesson": "Zurück"
+        }
+    },
+    "quicksale": {
+        "itemList": {
+            "additionDrawer": {
+                "withoutCategory": "Keine Kategorie",
+                "noResult": "Kein Ergebnis",
+                "unselectAll": "Alle deselektieren",
+                "selectAll": "Alles auswählen",
+                "simpleObjectsSubtitle": "Objekt hinzufügen",
+                "objectType": "Produkt-Typ",
+                "category": "Kategorie",
+                "add": "Hinzufügen",
+                "cancel": "Stornieren",
+                "search": "Suche",
+                "tilesColor": "Produkt-Farbe",
+                "objectsAddition": "Objekte hinzufügen",
+                "objectGroupsSubtitle": "Eine Gruppe von Objekten hinzufügen",
+                "title": "Schnittstelle zum Verkauf"
+            },
+            "goBack": "Zurück"
+        },
+        "iconSelector": {
+            "searchPlaceholder": "Suche"
+        },
+        "sectionCard": {
+            "item": "Artikel",
+            "item_plural": "Artikel"
+        },
+        "objectCard": {
+            "recurrence": {
+                "year": "jedes Jahr",
+                "year_plural": "alle {{ recurrence_basis }} Jahre",
+                "month": "jeden Monat",
+                "month_plural": "alle {{ recurrence_basis }} Monate",
+                "week": "jede Woche",
+                "week_plural": "alle {{ recurrence_basis }} Wochen",
+                "day": "jeden Tag",
+                "day_plural": "alle {{ recurrence_basis }} Tage"
+            },
+            "subtitle": {
+                "giftcard": "Geschenkkarte",
+                "subscription": "Vertrag",
+                "paymentCombo": "Paket",
+                "shopProduct": "Produkt",
+                "privatePass": "Terminpass",
+                "paymentPack": "Kurspass",
+                "product": "Produkt",
+                "product_plural": "Produkte",
+                "credit": "Credit",
+                "credit_plural": "Credits"
+            }
         }
     }
 }

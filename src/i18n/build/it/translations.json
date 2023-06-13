@@ -1218,12 +1218,12 @@
                 }
             },
             "ConsumerPaymentPack": {
-                "name": "Tessera",
+                "name": "Pass",
                 "tags": {
-                    "pass_price": "Prezzo della carta del corso",
-                    "pass_starting_date": "Data di inizio della tessera",
-                    "pass_expiration": "Data di fine della tessera",
-                    "pass_name": "Nome della carta del corso",
+                    "pass_price": "Prezzo del pass",
+                    "pass_starting_date": "Data di inizio del pass",
+                    "pass_expiration": "Data di fine del pass",
+                    "pass_name": "Nome del pass",
                     "pass_credit_left": "Numero di crediti rimanenti"
                 }
             },
@@ -1310,8 +1310,8 @@
             "400": "Appuntamento annullato - fuori tempo (insegnante)",
             "3": "Annulla sessione",
             "6": "Registrazione membro (membro)",
-            "7": "Prenotazione tramite tessera",
-            "8": "Prenotazione + acquisto della tessera del corso simultanea",
+            "7": "Prenotazione tramite pass",
+            "8": "Prenotazione + acquisto del pass simultaneo",
             "13": "Annulla iscrizione alla lista di attesa (membro)",
             "401": "Appuntamento annullato - rimborsato (insegnante)",
             "402": "Nuovo appuntamento (insegnante)",
@@ -1330,9 +1330,9 @@
             "27": "Abbonamento interrotto o terminato",
             "451": "Appuntamento annullato - rimborsato (membro)",
             "452": "Nuovo appuntamento (membro)",
-            "9": "Uscita dalla lista d'attesa: prenotazione possibile",
-            "10": "Il posto in lista d'attesa, convertibile, è scaduto per questo tour",
-            "12": "Registrazione in lista d'attesa",
+            "9": "Un membro si è cancellato dalla lista d'attesa (si è liberato un posto)",
+            "10": "Il posto nella lista d'attesa è scaduto per questo turno.",
+            "12": "Registrazione alla lista d'attesa",
             "403": "Orario modificato (insegnante)",
             "450": "Appuntamento - fuori tempo massimo (membro)",
             "22": "Conferma fattura",
@@ -1341,8 +1341,8 @@
             "701": "Passaggio negato: badge bloccato (allievo)",
             "601": "Poche prenotazioni [tot. ore] prima dell'inizio della lezione",
             "530": "Controversia sul pagamento di un abbonamento",
-            "520": "Pagamento di un abonnamento fallito, sarà riprovato",
-            "515": "Tessera del'abonnamento disattivato automaticamente",
+            "520": "Pagamento di un abonnamento fallito, verrà eseguito un nuovo tentativo",
+            "515": "Pass per abonnamenti disattivato automaticamente",
             "510": "Pagamento di un abbonamento fallito",
             "481": "Appuntamento ricorrente cancellato per mancanza di disponibilità (membro)",
             "480": "Appuntamento ricorrente cancellato per mancanza di disponibilità (insegnante)",
@@ -1489,7 +1489,7 @@
             "changeMembership": "Cambia club",
             "dashboard": "Sommario",
             "calendar": "Storico",
-            "pack": "Tessera",
+            "pack": "Pass",
             "invoice": "Fattura",
             "subscription": "Abbonamento",
             "myVideos": "I miei video",
@@ -1920,7 +1920,13 @@
                 "mute": "Silenzia",
                 "removeFavorite": "Rimuovi dai preferiti",
                 "addToFavorite": "Aggiungi ai preferiti",
-                "markAsRead": "Contrassegna come non letto"
+                "markAsRead": "Contrassegna come non letto",
+                "detail": {
+                    "offer": "Dettagli della sessione",
+                    "smartlist": "Dettagli della smartlist",
+                    "member": "Dettagli del membro"
+                },
+                "filterMessages": "Filtra i messaggi"
             },
             "kind": {
                 "member": "Membri",
@@ -1934,7 +1940,8 @@
                 "favorites": "Preferiti",
                 "muted": "Silenzioso",
                 "disabled": "Archiviati"
-            }
+            },
+            "loadMoreThreads": "Carica altri messaggi"
         },
         "sentStatus": {
             "fail": "Si è verificato un errore durante l'invio",
@@ -2010,7 +2017,8 @@
                 "10": "Sessione",
                 "2": "Notifica push",
                 "1": "SMS",
-                "0": "Email"
+                "0": "Email",
+                "15": "Cadenza"
             },
             "srcOrDst": {
                 "placeholder": "Seleziona un tipo di messaggio",
@@ -2021,7 +2029,7 @@
                 "title": "Parametri di invio"
             },
             "recipient": {
-                "placeholder": "Seleziona un tipo di destinatario",
+                "placeholder": "Seleziona uno stato di prenotazione",
                 "title": "Destinatari"
             },
             "channel": {
@@ -4061,6 +4069,21 @@
             },
             "extra_info": {
                 "label": "Informazioni sullo studio"
+            },
+            "warningColorBrightness": {
+                "save": "Salva",
+                "cancel": "Cancella",
+                "text": "Uno dei colori selezionati è molto chiaro e potrebbe essere difficile da vedere",
+                "title": "Attenzione",
+                "example": "Esempio"
+            },
+            "productsThemePersonalization": {
+                "credits": {
+                    "description": "Abilita o disabilita la visualizzazione dei crediti del pass per i clienti",
+                    "label": "Nascondi i crediti",
+                    "subTitle": "Crediti"
+                },
+                "title": "Prodotti"
             }
         },
         "pageTitles": {
@@ -4552,7 +4575,8 @@
                 "duplicate": {
                     "error": "Impossibile duplicare il prodotto",
                     "success": "Prodotto duplicato con successo"
-                }
+                },
+                "notFound": "Questo prodotto non è stato trovato, potrebbe essere stato archiviato."
             },
             "subShop": {
                 "createOrUpdate": {
@@ -5217,6 +5241,12 @@
                 "error": "Si è verificato un errore durante la modifica della cadenza",
                 "success": "La tua cadenza è stata aggiornata"
             }
+        },
+        "giftCard": {
+            "notFound": "Questa gift card non è stata trovata, è possibile che sia stata archiviata."
+        },
+        "modifyBasket": {
+            "15004": "Il carrello è in fase di elaborazione, riprova tra qualche minuto"
         }
     },
     "settings": {
@@ -5634,7 +5664,7 @@
         },
         "invoiceItem": {
             "buyableItemIdentifier": {
-                "1": "Tessera",
+                "1": "Pass",
                 "2": "Negozio",
                 "10": "Pacchetto",
                 "9": "Pass per appuntamenti",
@@ -6538,7 +6568,9 @@
                 "title": "Modifica importo futuro",
                 "price": "Nuovo importo",
                 "updateAll": "Aggiornare tutti i pagamenti futuri",
-                "updateRecurrentPrice": "Applica questa modifica per i pagamenti generati dopo il rinnovo"
+                "updateRecurrentPrice": "Applica questa modifica per i pagamenti generati dopo il rinnovo",
+                "nonNullDiscount": "Questo abbonamento attualmente include un coupon. Questo coupon non verrà preso in considerazione durante l'aggiornamento del prezzo.",
+                "nonNullFlatFees": "Questo abbonamento ha attualmente una commissione amministrativa di {{ flatFeesAmount }} {{ currencyDisplay }}. Queste spese amministrative non saranno prese in considerazione durante l'aggiornamento del prezzo."
             },
             "dateUpdater": {
                 "actions": {
@@ -7530,7 +7562,8 @@
                 "Annulla",
                 "Annullato",
                 "Annullata",
-                "Annulla"
+                "Annulla",
+                "Cancella"
             ]
         },
         "payment_method_with_credit_account": {
@@ -7634,7 +7667,7 @@
                 "explain": "Scegli il numero di crediti da rimborsare e il valore totale che verrà accreditato sul deposito del socio",
                 "warningSecond": "Se vuoi rimborsare il cliente tramite bonifico con il metodo di pagamento usato, annulla la fatturazione e non rimborsare il credito!",
                 "warningFirst": "Attenzione, questo operazione é irreversibile (generazione di fatture).",
-                "blockUnlimited": "Bloccare la tessera"
+                "blockUnlimited": "Bloccare il pass"
             },
             "addExtension": "Aggiungi un'estensione",
             "details": {
@@ -8305,10 +8338,10 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Disattivare la condivisione",
-                    "close": "Chiudere"
+                    "submit": "Disattiva la condivisione",
+                    "close": "Chiudi"
                 },
-                "content": "Disattivando una tessera condivisa, i membri con quella tessera potranno utilizzarla solo nello studio dove l'hanno acquistata.",
+                "content": "Disattivando un pass condiviso, i membri con quel pass potranno utilizzarlo solo nello studio dove l'hanno acquistato.",
                 "title": "Disattivazione"
             },
             "form": {
@@ -9047,7 +9080,7 @@
         "bookingModule": {
             "section": {
                 "contracts": "Abbonamenti",
-                "paymentPacks": "Compro una tessera",
+                "paymentPacks": "Pass disponibili",
                 "consumerPacks": "I miei pass",
                 "paymentCombos": "Offerte promozionali",
                 "contract": "Voglio iscrivermi"
@@ -9097,7 +9130,7 @@
             "offerTitle": "Sessione collegata",
             "pleaseSelectABooking": "Seleziona una carta per vedere i dettagli",
             "title": "Dettagli della prenotazione",
-            "consumerPaymentPackTitle": "Tessera utilizzata"
+            "consumerPaymentPackTitle": "Pass utilizzato"
         },
         "parameters": {
             "registeredOn": "Prenotato il ",
@@ -9302,7 +9335,7 @@
                 "confirm": "Elimina",
                 "success": "La prenotazione ricorrente è stata eliminata"
             },
-            "explain": "Il membro sarà sempre registrato {{ delayWeek }} settimane in anticipo prima del {{ dayOfWeek}} a {{hour}}:{{minute}}. Sarà registrato solo se possiede una tessera del corso valida.",
+            "explain": "Il membro sarà sempre registrato {{ delayWeek }} settimane in anticipo prima del {{ dayOfWeek}} a {{hour}}:{{minute}}. Sarà registrato solo se possiede un pass valido.",
             "createModal": {
                 "create": "Aggiungi una prenotazione ricorrente",
                 "info": "Impossibile ricreare una prenotazione ricorrente che già esiste",
@@ -9355,11 +9388,11 @@
                 "selectAll": "Seleziona tutti"
             },
             "packTitle": "Il mio modo di prenotazione",
-            "noPackAvailable": "Nessuna tessera compatibile con questa sessione !",
-            "noPackAvailable_plural": "Nessune tessere compatibili con questo gruppo di sessioni allo stesso tempo. Dovete prenotare in più volte.",
-            "addSession": "Aggiungere una sessione",
+            "noPackAvailable": "Nessun pass compatibile con questa sessione !",
+            "noPackAvailable_plural": "Nessun pass compatibile con questo gruppo di sessioni. Si prega di prenotare separatamente.",
+            "addSession": "Aggiungi una sessione",
             "showMore": "Vedere di più",
-            "bookingsTitle": "Mi prenoto",
+            "bookingsTitle": "Prenotazione",
             "mainButton": {
                 "book": "Prenotare",
                 "registerWaitingList": "Registrarmi sulla lista d'attesa",
@@ -9367,9 +9400,9 @@
                 "numberOfBook_plural": "{{count}} iscrizioni"
             },
             "bookingForMe": "me",
-            "bookingsTitleFor": "Prenoto per {{name}}",
+            "bookingsTitleFor": "Prenota per {{name}}",
             "bookingForAGuest": {
-                "addGuest": "Aggiungere un ospite",
+                "addGuest": "Aggiungi un ospite",
                 "frequencyGeneric": "questo periodo.",
                 "frequencyYearly": "quest'anno.",
                 "frequencyWeekly": "questa settimana.",
@@ -10106,6 +10139,20 @@
         },
         "popup": {
             "sendPopup": "Invia un pop-up"
+        },
+        "cadenceListDialog": {
+            "close": "Chiudi",
+            "title": "Lista delle cadenze"
+        },
+        "cadence": {
+            "content": "Utilizzata nella cadenza: {{ cadence_name }}",
+            "content_plural": "Utilizzata in {{ count }} cadenze"
+        },
+        "cannotBeDeletedDialog": {
+            "content": "Non puoi eliminare questa smartlist mentre è utilizzata nella seguente cadenza :",
+            "content_plural": "Non puoi eliminare questa smartlist mentre è utilizzata nelle seguenti cadenze :",
+            "cancel": "Chiudi",
+            "title": "Utilizzata in una cadenza"
         }
     },
     "relationship": {
@@ -10297,12 +10344,12 @@
             },
             "applies_to": {
                 "choices": {
-                    "2": "Negozio",
+                    "2": "Shop",
                     "6": "Spese di spedizione",
                     "9": "Pass per appuntamenti",
                     "all": "Applica a tutto",
                     "null": "Applica a tutto",
-                    "1": "Tessera",
+                    "1": "Pass",
                     "10": "Confezione"
                 },
                 "choicesFranchise": {
@@ -12463,7 +12510,7 @@
                 "availableCredit_plural": "{{count}} crediti"
             },
             "title": {
-                "universalPassMessage": "Tessera universale, utilizzabile per lezioni di gruppo e appuntamenti"
+                "universalPassMessage": "Pass universale, utilizzabile per lezioni di gruppo e appuntamenti"
             }
         },
         "genericCardDetails": {
@@ -12805,20 +12852,20 @@
         "rollCall": {
             "drawer": {
                 "listMembers": "Elenco dei membri registrati",
-                "info": "La convalida della chiamata attiva il conto alla rovescia per le penalità di assenza (no-show).",
-                "rollCall": "Chiamata"
+                "info": "La convalida dell'appello attiva il conto alla rovescia per le penalità di assenza (no-show).",
+                "rollCall": "Appello"
             },
             "chip": {
-                "notValidatedRollCall": "Chiamata non convalidata",
-                "validatedRollCall": "Chiamata convalidata il {{- date }} {{ time }}"
+                "notValidatedRollCall": "Appello non convalidato",
+                "validatedRollCall": "Appello convalidato il {{- date }} {{ time }}"
             },
             "dialog": {
-                "savedRollCall": "La chiamata è stata registrata con successo.",
-                "savedRollCall_plural": "Le chiamate sono state registrate con successo.",
-                "validatedRollCall": "Chiamata convalidata",
-                "validatedRollCall_plural": "Chiamate convalidate",
-                "confirmationRollCall": "Attenzione, verranno sanzionati i soci contrassegnati come assenti e titolari di tessera illimitata soggetta a penali. Sei sicuro di voler confermare la chiamata?",
-                "confirmationRollCall_plural": "Convaliderai la chiamata per tutte le sessioni della giornata. Attenzione, verranno sanzionati i soci contrassegnati come assenti e titolari di tessera illimitata soggetta a penali. Sei sicuro di voler confermare tutte le chiamate?",
+                "savedRollCall": "L'appello è stato registrato con successo.",
+                "savedRollCall_plural": "Gli appelli sono stati registrati con successo.",
+                "validatedRollCall": "Appello convalidato",
+                "validatedRollCall_plural": "Appelli convalidati",
+                "confirmationRollCall": "Attenzione, verranno sanzionati i soci contrassegnati come assenti e titolari di pass illimitati soggetti a penali. Sei sicuro di voler confermare l'appello?",
+                "confirmationRollCall_plural": "Convaliderai l'appello per tutte le sessioni della giornata. Attenzione, verranno sanzionati i soci contrassegnati come assenti e titolari di pass illimitati soggetti a penali. Sei sicuro di voler confermare l'appello?",
                 "validationRollCall": "Convalida la chiamata"
             },
             "button": {
@@ -13590,9 +13637,9 @@
                 "establishment": "Struttura",
                 "private_service": "Appuntamento",
                 "meta_activity": "Attività",
-                "payment_pack": "Tessera",
+                "payment_pack": "Pass",
                 "workshop": "Workshop",
-                "private_pass": "Carta d'appuntamento",
+                "private_pass": "Pass per appuntamenti",
                 "birthday": "Compleanno",
                 "establishmentGroup": "Luogo",
                 "contract": "Abbonamento"
@@ -13600,8 +13647,8 @@
             "groupTitle": {
                 "booking": "Prenotazione",
                 "privateBooking": "Appuntamento",
-                "paymentPack": "Tessera",
-                "privatePass": "Carta d'appuntamento",
+                "paymentPack": "Pass",
+                "privatePass": "Pass per appuntamenti",
                 "birthday": "Compleanno",
                 "contract": "Abbonamento"
             },
@@ -13609,16 +13656,16 @@
                 "establishment": "Seleziona una struttura",
                 "meta_activity": "Seleziona un'attività",
                 "private_service": "Seleziona un appuntamento",
-                "payment_pack": "Seleziona una tessera",
+                "payment_pack": "Seleziona un pass",
                 "workshop": "Seleziona un workshop",
-                "private_pass": "Selezionare una card appuntamento",
+                "private_pass": "Seleziona un pass per appuntamenti",
                 "establishment_group": "Selezionare un luogo",
                 "contract": "Seleziona un abbonamento"
             },
-            "paymentPackPlaceholder": "Tessera",
+            "paymentPackPlaceholder": "Pass",
             "paymentPackKind": {
                 "credit": "Numero di crediti",
-                "validity": "Validità della tessera"
+                "validity": "Validità del pass"
             },
             "selectNotificationRules": "Selezionare una regola per vedere i dettagli",
             "createNotification": "Formulario di notifiche",
@@ -13640,7 +13687,7 @@
             "statisticDetails": "Statistiche",
             "notificationDetails": "Dettagli della notifica",
             "notificationPreview": "Panoramica della notifica",
-            "privatePassPlaceholder": "Carta d'appuntamento",
+            "privatePassPlaceholder": "Pass per appuntamenti",
             "dialogTitle": "Creare una notifica",
             "listTitle": "Notificazioni",
             "create": "Creare una notifica",
@@ -14230,7 +14277,7 @@
         "member": {
             "pageTitle": "Membro",
             "seeMembership": "vedere il file del membro",
-            "isVaccinated": "Tessera sanitaria valida",
+            "isVaccinated": "Pass sanitario valido",
             "franchises": "Franchising"
         },
         "pagination": {
@@ -15304,6 +15351,58 @@
         },
         "menu": {
             "helpButton": "Cerca aiuto"
+        }
+    },
+    "quicksale": {
+        "itemList": {
+            "additionDrawer": {
+                "withoutCategory": "Senza categoria",
+                "noResult": "Nessun risultato",
+                "unselectAll": "Deseleziona tutto",
+                "selectAll": "Seleziona tutto",
+                "objectType": "Tipo di oggetto",
+                "category": "Categoria",
+                "add": "Aggiungi",
+                "cancel": "Cancella",
+                "search": "Cerca",
+                "tilesColor": "Colore tessere",
+                "objectsAddition": "Aggiungi oggetti",
+                "objectGroupsSubtitle": "Aggiungi un insieme di oggetti",
+                "simpleObjectsSubtitle": "Aggiungi oggetti",
+                "title": "Interfaccia di vendita"
+            },
+            "goBack": "Indietro"
+        },
+        "iconSelector": {
+            "searchPlaceholder": "Cerca"
+        },
+        "sectionCard": {
+            "item": "Articolo",
+            "item_plural": "Articoli"
+        },
+        "objectCard": {
+            "recurrence": {
+                "year": "tutti gli anni",
+                "year_plural": "ogni {{ recurrence_basis }} anni",
+                "week": "tutte le settimane",
+                "week_plural": "ogni {{ recurrence_basis }} settimane",
+                "month": "tutti i mesi",
+                "month_plural": "ogni {{ recurrence_basis }} mesi",
+                "day": "tutti i giorni",
+                "day_plural": "ogni {{ recurrence_basis }} giorni"
+            },
+            "subtitle": {
+                "giftcard": "Gift card",
+                "subscription": "Abbonamento",
+                "paymentCombo": "Pacchetto",
+                "shopProduct": "Prodotto",
+                "privatePass": "Pass per appuntamenti",
+                "paymentPack": "Pass",
+                "product": "prodotto",
+                "product_plural": "prodotti",
+                "credit": "credito",
+                "credit_plural": "crediti"
+            }
         }
     }
 }

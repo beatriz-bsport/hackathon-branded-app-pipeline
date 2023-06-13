@@ -30,9 +30,12 @@ export const SmartListCannotBeDeletedDialog: React.FC<Props> = ({
         count: cadences?.length || 0,
       })}
     >
-      {cadences?.map((cadence) => (
-        <Typography key={cadence.id}>{`• ${cadence.name}`}</Typography>
-      ))}
+      {cadences?.map(
+        (cadence) =>
+          !!cadence && (
+            <Typography key={cadence.id}>{`• ${cadence.name}`}</Typography>
+          ),
+      )}
     </GenericDialogWithIconHeaderMUI>
   );
 };

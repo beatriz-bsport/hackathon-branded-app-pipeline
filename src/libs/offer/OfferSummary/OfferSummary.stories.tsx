@@ -2,6 +2,12 @@ import React from 'react';
 import { OfferSummaryForStorybook } from '.';
 import type { Props } from '.';
 import { offerFactory } from '#libs/offer/factory';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
+import {
+  OFFER_WAITING_LIST_STATUS_OPEN,
+  OFFER_WAITING_LIST_STATUS_FULL,
+} from '@bsport/common/lib/master-data/waiting-list-status';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 
 const offer = offerFactory();
 const meta_activity = { name: offer.name };
@@ -31,6 +37,7 @@ const OfferSummaryTemplate = (args: Props) => {
         hideCoach: false,
         is_tax_excluded_in_marketplace: true,
         show_establishment: true,
+        coach_display: 1,
       }}
       {...args}
     />
@@ -38,6 +45,17 @@ const OfferSummaryTemplate = (args: Props) => {
 };
 
 export const DefaultOfferSummary = OfferSummaryTemplate.bind({});
+
+export const CoachFirstNameWithoutPhoto = OfferSummaryTemplate.bind({});
+
+CoachFirstNameWithoutPhoto.args = {
+  theme: {
+    hideCoach: false,
+    is_tax_excluded_in_marketplace: true,
+    show_establishment: true,
+    coach_display: MarketPlaceCoachDisplay.ONLY_FIRST_NAME,
+  },
+};
 
 export const ShowTaxDetailOfferSummary = OfferSummaryTemplate.bind({});
 
@@ -59,13 +77,19 @@ export const WaitlistOfferSummary = OfferSummaryTemplate.bind({});
 
 WaitlistOfferSummary.args = {
   metaActivity: meta_activity_online,
-  offerStatus: { bookable_status: 3, waiting_list_status: 0 },
+  offerStatus: {
+    bookable_status: OFFER_BOOKABLE_STATUS_BOOKABLE,
+    waiting_list_status: OFFER_WAITING_LIST_STATUS_OPEN,
+  },
 };
 
 export const WaitlistFullOfferSummary = OfferSummaryTemplate.bind({});
 
 WaitlistFullOfferSummary.args = {
-  offerStatus: { bookable_status: 3, waiting_list_status: 1 },
+  offerStatus: {
+    bookable_status: OFFER_BOOKABLE_STATUS_BOOKABLE,
+    waiting_list_status: OFFER_WAITING_LIST_STATUS_FULL,
+  },
 };
 
 export const BasketOfferSummary = OfferSummaryTemplate.bind({});

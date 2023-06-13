@@ -15,6 +15,7 @@ import {
   CreditCard,
   HourglassFull,
   LocationOn,
+  Person,
 } from '@material-ui/icons';
 
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
@@ -22,6 +23,7 @@ import {
   OFFER_WAITING_LIST_STATUS_OPEN,
   OFFER_WAITING_LIST_STATUS_FULL,
 } from '@bsport/common/lib/master-data/waiting-list-status';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import { formatAsDateWithWeekday } from '../../../utils/datetime';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
@@ -90,6 +92,26 @@ const OfferSummary: React.FC<Props> = (props) => {
 
   const displayTax = theme?.is_tax_excluded_in_marketplace === false;
 
+  const relevantCoach = coachOverride ?? coach;
+
+  let coachName = relevantCoach?.name;
+  let displayCoachPicture = true;
+
+  switch (theme?.coach_display) {
+    case MarketPlaceCoachDisplay.ONLY_FIRST_NAME:
+      coachName = relevantCoach?.firstname;
+      displayCoachPicture = false;
+      break;
+    case MarketPlaceCoachDisplay.FIRST_NAME_WITH_PICTURE:
+      coachName = relevantCoach?.firstname;
+      break;
+    case MarketPlaceCoachDisplay.FULL_NAME_WITHOUT_PICTURE:
+      displayCoachPicture = false;
+      break;
+    default:
+      break;
+  }
+
   if (loading) {
     return <OfferSummarySkeleton classes={classes} />;
   }
@@ -140,11 +162,15 @@ const OfferSummary: React.FC<Props> = (props) => {
 
           {coach && !theme?.hideCoach && variant === 'default' && (
             <Grid container item className={classes.itemWithIcon}>
-              <Avatar className={classes.avatar}>
-                src=
-                {coachOverride?.photo ?? coach?.photo ?? DEFAULT_AVATAR}
-              </Avatar>
-              <Typography>{coachOverride?.name ?? coach?.name}</Typography>
+              {displayCoachPicture ? (
+                <Avatar className={classes.avatar}>
+                  src=
+                  {relevantCoach?.photo ?? DEFAULT_AVATAR}
+                </Avatar>
+              ) : (
+                <Person className={classes.icon} />
+              )}
+              <Typography>{coachName}</Typography>
             </Grid>
           )}
 
@@ -213,7 +239,8 @@ const OfferSummary: React.FC<Props> = (props) => {
             disabled={
               (offerStatus && !isBookable && !isWaitlistOpen) ||
               disableButton ||
-              confirmLoading
+              confirmLoading ||
+              loading
             }
             onClick={onConfirm}
             buttonLoading={confirmLoading}
@@ -233,7 +260,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-start',
     backgroundColor: theme.palette.background.paper,
     border: (props: Props) =>
-      props.variant === 'default' && '2px solid var(--color-grey-light)',
+      props.variant === 'default' && '2px solid #F1F3F4',
     borderRadius: '8px',
     [theme.breakpoints.down('xs')]: {
       maxWidth: '100%',
@@ -256,7 +283,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   grey: {
-    color: 'var(--color-grey-main)',
+    color: '#687586',
   },
   waitlistChip: (props: Props) => ({
     borderRadius: '4px',

@@ -2310,11 +2310,11 @@
             "detail": {
                 "title": "Prenotazioni",
                 "registeredOn": "Prenotato il ",
-                "wasRefunded": "Credito rimborsato sulla tessera",
+                "wasRefunded": "I crediti verranno rimborsati nel pass",
                 "wasRefundedYes": "Sì",
                 "wasRefundedNo": "No",
                 "slotTitle": "Allenamento",
-                "passTitle": "Tessera",
+                "passTitle": "Pass",
                 "address": "Indirizzo",
                 "coach": "Insegnante",
                 "attachCoach": "Assegna un insegnante",
@@ -3148,7 +3148,7 @@
             },
             "deleteForm": {
                 "title": "Disattivazione",
-                "content": "Disattivando una tessera condivisa, i membri con quella tessera potranno utilizzarla solo nello studio dove l'hanno acquistata.",
+                "content": "Disattivando un pass condiviso, i membri con quel pass potranno utilizzarlo solo nello studio dove l'hanno acquistato.",
                 "actions": {
                     "close": "Chiudere",
                     "submit": "Disattivare la condivisione"
@@ -4305,7 +4305,7 @@
                 "error": "Impossibile modificare il metodo di pagamento"
             },
             "switchPack": {
-                "error": "Impossibile modificare la tessera",
+                "error": "Impossibile modificare il pass",
                 "success": "Metodo di pagamento modificato"
             },
             "youSubscribed": {
@@ -4488,20 +4488,20 @@
         },
         "paymentPack": {
             "createOrUpdate": {
-                "success": "Tessera registrata",
+                "success": "Pass registrato",
                 "fail": "Errore durante il salvataggio della carta"
             },
             "paymentPackDisabled": {
-                "success": "Tessera disabilitata",
-                "error": "Impossibile disattivare la tessera"
+                "success": "Pass disabilitato",
+                "error": "Impossibile disattivare il pass"
             },
             "credit": {
                 "updated": "Crediti aggiornati",
                 "error": "Errore durante il salvataggio"
             },
             "paymentPackEnabled": {
-                "error": "Impossibile ripristinare la carta",
-                "success": "Tessera ripristinata"
+                "error": "Impossibile ripristinare il pass",
+                "success": "Pass ripristinato"
             },
             "category": {
                 "create": {
@@ -4965,7 +4965,7 @@
             "2005": "Questo pass non è disponibile alla vendita",
             "2004": "Questo pass non è disponibile alla vendita",
             "2003": "Non è più possibile acquistare questo pass",
-            "2002": "Questa tessera è disponibile solo per i nuovi membri",
+            "2002": "Questo pass è disponibile solo per i nuovi membri",
             "1114": "Non puoi più comprare questo pacchetto",
             "1113": "Questo pacchetto è disponibile solo per i nuovi membri",
             "7": "Lo squilibrio donne/uomini è troppo importante, prenotazione impossibile",
@@ -4977,10 +4977,10 @@
             "1": "La sessione non è ancora aperta per la prenotazione",
             "undefined": "La tessera non ti permette più di prenotare quest'anno",
             "9": "Cerchi di prenotare più sessioni future di quelle consentite dal tuo club",
-            "2016": "La sua carta dei corsi non le permette più di prenotare questo mese",
-            "2017": "La tua carta dei corsi non ti permette più di prenotare quest'anno",
-            "2014": "La sua tessera del corso non le permette più di prenotare per quel giorno",
-            "2015": "La sua tessera del corso non le permette più di prenotare questa settimana",
+            "2016": "Il pass non è più valido per prenotare in questo mese",
+            "2017": "Il pass non è più valido per prenotare quest'anno",
+            "2014": "Il pass non è più valido per prenotare in quel giorno",
+            "2015": "Il pass non è più valido per prenotare in questa settimana",
             "10001": "Stock insufficiente",
             "85000": "Una prenotazione è già in corso, attendi qualche istante",
             "45004": "La gift card non è più disponibile per la vendita.",
@@ -6987,7 +6987,7 @@
             "last_booking": "Prenotazione precedente",
             "next_booking": "Prossima prenotazione",
             "concatenated_notes": "Annotazioni",
-            "pass": "Tessera",
+            "pass": "Pass",
             "date_start": "Data completa",
             "date_start_date": "Data",
             "date_start_time": "Ora",
@@ -7001,7 +7001,7 @@
             "email": "Email",
             "phonenumber": "Telefono",
             "date_joined": "Data di registrazione",
-            "payment_pack": "Tessera",
+            "payment_pack": "Pass",
             "activity_duration": "Durata",
             "payment_method": "Metodo di pagamento",
             "product": "Prodotto",
@@ -7078,7 +7078,7 @@
             "invoice_date_created": "Data di emissione della fattura",
             "invoice_datetime": "Data e ora di emissione della fattura",
             "invoice_time": "Tempo di emissione della fattura",
-            "payment_amount_by_payment_method": "Raccolta per metodo di pagamento",
+            "payment_amount_by_payment_method": "Transazioni totali per metodo di pagamento",
             "billing_establishment": "indirizzo",
             "billing_group": "Gruppo di fatturazione",
             "company_name": "Franchisee",
@@ -7203,7 +7203,7 @@
             "shop_item": "Negozio",
             "fee": "Spesa",
             "refund": "Rimborso del credito",
-            "payment_pack": "Tessera",
+            "payment_pack": "Pass",
             "top_up": "Ricarica del credito del cliente",
             "payment_combo": "Pacchetto",
             "private_pass": "Pass per appuntamenti",
@@ -7687,7 +7687,7 @@
         },
         "notification": {
             "form": {
-                "warning": "Non selezionando alcuna smartlist rischi di avvisare i membri che hanno già acquistato un'altra tessera",
+                "warning": "Non selezionando alcuna smartlist rischi di avvisare i membri che hanno già acquistato un altro pass",
                 "creditType": "Crediti rimanenti",
                 "submit": "Conferma",
                 "cancel": "Annulla",
@@ -7832,18 +7832,18 @@
                 },
                 "noneMeansAll": "Lascia vuoto per consentire tutto",
                 "update": {
-                    "success": "Tessera: operazione eseguita con successo",
-                    "error": "Tessera: errore durante l'operazione"
+                    "success": "Pass: operazione eseguita con successo",
+                    "error": "Pass: errore durante l'operazione"
                 },
                 "delete": {
-                    "thereAreConsumers": "Attenzione! I membri hanno acquistato questa tessera, se la elimini potranno comunque utilizzare i crediti rimanenti. Puoi ridurli manualmente a zero qui.\n\nLa tessera non apparirà più nel tuo negozio per i nuovi acquirenti.",
+                    "thereAreConsumers": "Attenzione! I membri che hanno acquistato questo pass, se lo elimini, potranno comunque utilizzare i crediti rimanenti. Puoi ridurli manualmente a zero qui.\n\nIl pass non apparirà più nel tuo negozio per i nuovi acquirenti.",
                     "actions": {
                         "submit": "Rimuovi",
                         "cancel": "Annulla"
                     },
-                    "title": "Cancellazione della carta:",
-                    "askConfirmation": "Attenzione! Questa operazione è definitiva. La carta non sarà più visibile e non sarà più disponibile per l'acquisto.",
-                    "isUsedInCombo": "Si prega di notare! Questa carta del corso è utilizzata in un pacchetto, che non sarà più disponibile per la vendita se si elimina questa carta del corso."
+                    "title": "Rimozione del pass:",
+                    "askConfirmation": "Attenzione! Questa operazione è definitiva. Il pass non sarà più visibile e non sarà più disponibile per l'acquisto.",
+                    "isUsedInCombo": "Attenzione! Questo pass è utilizzato in un pacchetto che non sarà più disponibile per la vendita se si elimina il pass."
                 },
                 "startOnFirstUseHelper": "Altrimenti il conto alla rovescia inizia il giorno della fatturazione del pass",
                 "expirationDaysBeforeFirstUse": {
@@ -7859,7 +7859,7 @@
                     "cancel": "Annulla"
                 },
                 "name": {
-                    "helperText": "Nome della tessera",
+                    "helperText": "Nome del pass",
                     "label": "Nome"
                 },
                 "validByDuration": "Carta valida N giorni dopo l'acquisto",
@@ -7882,7 +7882,7 @@
                 "activities": "Attività",
                 "establishments": "Struttura",
                 "restrictionsTitle": "Restrizioni",
-                "notEditable": "Questa tessera è il risultato di una migrazione, alcuni campi non sono modificabili per rispettare la cronologia. Le attività / categorie compatibili rimangono modificabili.",
+                "notEditable": "Questo pass è il risultato di una migrazione, alcuni campi non sono modificabili per rispettare la cronologia. Le attività / categorie compatibili rimangono modificabili.",
                 "until": "Fino a ",
                 "tax": {
                     "label": "I.V.A."
@@ -7916,7 +7916,7 @@
                     "helperText": "Lasciare vuoto per non imporre un limite",
                     "label": "Utilizzo massimo al giorno"
                 },
-                "full_vod_access": "Fornisce accesso al video on demand finché è valido nel tempo",
+                "full_vod_access": "Fornisce accesso al VOD finché è valido",
                 "penalty": {
                     "account": {
                         "helperText": "Un accredito di {{value}} verrà applicato a questo membro",
@@ -8003,7 +8003,7 @@
         },
         "details": {
             "pleaseSelectAPack": "Seleziona una carta per vedere i dettagli",
-            "shareAPass": "Condividi una tessera",
+            "shareAPass": "Condividi un pass",
             "invoiceTitle": "Fattura associata",
             "refundTitle": "Rimborso associato",
             "bookingsTitle": "Prenotazioni associate",
@@ -8041,7 +8041,7 @@
         },
         "maxNBookingsByWeek2": " prenotazioni per settimana",
         "validity": "Valido da ",
-        "notificationToolTip": "Le notifiche sono impostate per questa carta",
+        "notificationToolTip": "Le notifiche sono impostate per questo pass",
         "noPaymentPackSubscribed": "Nessun pass",
         "validUntil": "Valido fino a",
         "noConsumerPack": "Nessun pass registrato",
@@ -8090,7 +8090,7 @@
             "updated": "Crediti aggiornati"
         },
         "notificationForm": "Form di notifica",
-        "noPaymentPack": "Le tessere consentono ai membri di registrarsi alle attività, è necessario possedere una tessera per iscriversi.",
+        "noPaymentPack": "I membri hanno bisogno di un pass valido per registrarsi alle attività o ai workshop.",
         "disabledPacks": {
             "hide": "Nascondi i archiviati",
             "show": "Visualizza i pass archiviati"
@@ -9461,10 +9461,10 @@
         },
         "filters": {
             "8": {
-                "explanation": "Hai una carta del corso X utilizzabile",
+                "explanation": "Hai un pass X utilizzabile",
                 "name": "Validità della carta del corso",
-                "first": "Hai una tessera",
-                "second": "utilizzabile (con crediti o illimitata e non scaduta)"
+                "first": "Hai un pass",
+                "second": "utilizzabile (con crediti o illimitato e non scaduto)"
             },
             "2": {
                 "second": "giorni",
@@ -9480,11 +9480,11 @@
                 "women": "donna"
             },
             "14": {
-                "workshop": "Tessera speciale per workshop",
+                "workshop": "Pass speciale per workshop",
                 "first": "Ha speso",
                 "explanation": "Prodotti acquistati: A e B",
                 "shop": "Negozio",
-                "pack": "Tessera",
+                "pack": "Pass",
                 "combo": "Pacchetto",
                 "private_pass": "Lezioni private",
                 "name": "Spese",
@@ -9515,7 +9515,7 @@
                 "coach": {
                     "first": "con gli insegnanti"
                 },
-                "explanation": "Ho prenotato X allenamenti dell'attività A, nella posizione B, con la tessera C ...",
+                "explanation": "Ho prenotato X allenamenti dell'attività A, nella posizione B, con il pass C ...",
                 "first": "Ha prenotato",
                 "second": "sessioni",
                 "between": "e",
@@ -9767,11 +9767,11 @@
                 "second": "{{ currencyDisplay }} per i prodotti",
                 "first": "Ha speso",
                 "name": "Spese",
-                "workshop": "Tessera speciale per workshop",
+                "workshop": "Pass speciale per workshop",
                 "private_pass": "Lezioni private",
                 "between": "e",
                 "combo": "Pacchetto",
-                "pack": "Tessera",
+                "pack": "Pass",
                 "shop": "Negozio",
                 "explanation": "Prodotti acquistati A e B"
             },
@@ -9872,7 +9872,7 @@
             "105": {
                 "consumerPrivatePasses": "dei pass per appuntamenti",
                 "info": {
-                    "consumerPaymentPacks": "\"valido\" significa che la tessera può essere utilizzata ora per prenotare una lezione di gruppo",
+                    "consumerPaymentPacks": "\"valido\" significa che il pass può essere utilizzato ora per prenotare una lezione di gruppo",
                     "consumerPrivatePasses": "\"valido\" significa che il pass può essere utilizzato ora per prenotare un appuntamento"
                 },
                 "name": "Relazioni",
@@ -10021,7 +10021,7 @@
             "paymentPacks": {
                 "helperText": "seleziona le carte dei corsi",
                 "helperSelectedText": "carte del corso selezionate",
-                "textFieldPlaceholder": "Cerca una tessera",
+                "textFieldPlaceholder": "Cerca un pass",
                 "helperAllSelectedText": "tutti i pass",
                 "warning": "Seleziona almeno un pass"
             },
@@ -10192,14 +10192,14 @@
         "consumer_payment_pack_links": {
             "list": {
                 "title": "Carte condivise",
-                "create": "Condividi una tessera",
-                "isEmpty": "Nessuna condivisione di carte"
+                "create": "Condividi un pass",
+                "isEmpty": "Nessun pass condiviso da visualizzare"
             },
             "form": {
                 "create": {
-                    "title": "Condivisione della carta",
+                    "title": "Condividi un pass",
                     "noConsumerPackToLink": "Nessuna carta condivisibile",
-                    "explain": "Questa tessera sarà condivisa tra i due membri, i crediti possono essere utilizzati dall'uno o dall'altro.",
+                    "explain": "Questo pass sarà condiviso tra i due membri, i crediti possono essere utilizzati dall'uno o dall'altro.",
                     "cancel": "Annulla",
                     "previous": "Indietro",
                     "submit": "Condividi",

@@ -85,7 +85,10 @@ export default handleActions<ImmutableCadenceStepState, any>(
       { payload }: { payload: { id: number } },
     ) => {
       return state
-        .set('allIds', [payload.id])
+        .set('allIds', [
+          ...state.allIds.filter((id) => id !== payload.id),
+          payload.id,
+        ])
         .setIn(['byId', payload.id.toString()], payload);
     },
 

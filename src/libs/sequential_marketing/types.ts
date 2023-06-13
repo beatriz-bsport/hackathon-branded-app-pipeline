@@ -144,6 +144,7 @@ export type CadenceStepState = {
   allIds: Array<number>;
   byId: { [id: number]: CadenceStep };
   subscribe: ErrorAndLoading;
+  position: ErrorAndLoading;
   trigger: TriggerState;
 } & ErrorAndLoading;
 

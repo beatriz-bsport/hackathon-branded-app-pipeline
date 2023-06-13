@@ -34,8 +34,12 @@ export const initialCadenceStepState: ImmutableCadenceStepState =
     loading: false,
     error: null,
     subscribe: {
-      error: null,
       loading: false,
+      error: null,
+    },
+    position: {
+      loading: false,
+      error: null,
     },
     trigger: {
       byId: {},
@@ -149,11 +153,17 @@ export default handleActions<ImmutableCadenceStepState, any>(
         );
     },
 
+    [updateCadenceStepCanvasPositionActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['position', 'loading'], payload);
+    },
     [updateCadenceStepCanvasPositionActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
-      return state.set('error', payload);
+      return state.setIn(['position', 'error'], payload);
     },
     [updateCadenceStepCanvasPositionActions.success.toString()]: (
       state,
@@ -162,11 +172,15 @@ export default handleActions<ImmutableCadenceStepState, any>(
       return state.setIn(['byId', payload.id.toString()], payload);
     },
 
+    [updateCadenceStepConnectedTriggerCanvasPositionActions.isLoading.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(['position', 'loading'], payload);
+      },
     [updateCadenceStepConnectedTriggerCanvasPositionActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
-      return state.set('error', payload);
+      return state.setIn(['position', 'error'], payload);
     },
     [updateCadenceStepConnectedTriggerCanvasPositionActions.success.toString()]:
       (state, { payload }: { payload: ConnectedTrigger }) => {

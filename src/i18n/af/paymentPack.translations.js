@@ -776,6 +776,7 @@ exports.default = {
     restrictions: 'Restrictions',
     vod: 'VOD',
     universalPass: 'Carte universelle',
+    offPeak: 'Créneaux horaires',
   },
   cardDetails: {
     maxBookingPerMonth: 'Utilisations maximum par mois : ',

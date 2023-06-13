@@ -2,11 +2,10 @@
 import React, { Component } from 'react';
 import { compose, withStateHandlers } from 'recompose';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
-
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -24,7 +23,6 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
-
 import RedButton from '../../../components/button/RedButton.component';
 import type { MetaActivity, Establishment } from '../../../api/types';
 import {
@@ -34,7 +32,6 @@ import {
   getCreditInfo,
 } from '../utils';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-
 import PaymentPackScaleCreditDialog from './PaymentPackScaleCreditDialog.component';
 import PaymentPackCompatibilityDialog from './PaymentPackCompatibilityDialog.component';
 import PaymentPackTagsDialog from './PaymentPackTagsDialog.component';
@@ -45,6 +42,7 @@ import {
   PENALTY_KIND_NEGATIVE_ACCOUNT,
 } from '../constants';
 import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
+import OffPeakDisplayByDay from './OffPeakDisplayByDay.component';
 
 type OwnProps = {
   onlyPublic?: boolean;
@@ -429,6 +427,9 @@ export class PaymentPackCard extends Component<Props, State> {
     const restrictions = this.renderRestrictions();
     const tags = getTagInfo(pack, t);
     const VOD = this.renderVODInfo();
+    const off_peak_schedule = JSON.parse(
+      JSON.stringify(pack?.off_peak_schedule),
+    );
     return (
       <div>
         {pack.disabled ? (
@@ -574,6 +575,29 @@ export class PaymentPackCard extends Component<Props, State> {
               <Typography variant="caption" color="textSecondary">
                 {restrictions}
               </Typography>
+            </div>
+          </div>
+        )}
+
+        {!!Object.keys(off_peak_schedule).length && (
+          <div className={classes.detailInfo}>
+            <div className={classes.detailCategory}>
+              <AccessTimeIcon className={classes.leftIcon} />
+              <Typography variant="subtitle2">
+                {t('detailTitles.offPeak')}
+              </Typography>
+            </div>
+            <div className={classes.allSchedule}>
+              {Object.entries(off_peak_schedule).map(
+                ([isoWeekday, timeSlots]: [string, string[][]]) => {
+                  return (
+                    <OffPeakDisplayByDay
+                      timeSlots={timeSlots}
+                      isoWeekday={isoWeekday}
+                    />
+                  );
+                },
+              )}
             </div>
           </div>
         )}
@@ -729,11 +753,17 @@ const styles = (theme: any) => ({
     color: theme.palette.text.secondary,
     wordBreak: 'break-word',
   },
+  allSchedule: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: theme.spacing(1),
+  },
 });
 
 export default compose(
   withStyles(styles),
-  withTranslation(['paymentPack']),
+  withTranslation(['paymentPack', 'datetime']),
   withStateHandlers(
     { scaleMenuOpen: false },
     {

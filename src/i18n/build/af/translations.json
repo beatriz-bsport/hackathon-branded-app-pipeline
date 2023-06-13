@@ -5688,7 +5688,8 @@
       "tags": "Tags",
       "restrictions": "Restrictions",
       "vod": "VOD",
-      "universalPass": "Carte universelle"
+      "universalPass": "Carte universelle",
+      "offPeak": "Créneaux horaires"
     },
     "cardDetails": {
       "maxBookingPerMonth": "Utilisations maximum par mois : ",

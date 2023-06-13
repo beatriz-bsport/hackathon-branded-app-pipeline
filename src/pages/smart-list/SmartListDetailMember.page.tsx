@@ -171,8 +171,8 @@ import {
 
 import Config from '../../config';
 import { getSmartListPopupSendingList } from '#libs/communication-v2/selectors';
-import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketingDEPRECATED/constants';
 // CADENCES
+import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketingDEPRECATED/constants';
 import { fetchCadenceList } from '../../libs/sequential_marketingDEPRECATED/actions';
 
 type OwnProps = {

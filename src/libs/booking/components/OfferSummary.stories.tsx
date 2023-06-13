@@ -43,7 +43,9 @@ export const ShowTaxDetailOfferSummary = OfferSummaryTemplate.bind({});
 
 ShowTaxDetailOfferSummary.args = {
   theme: {
+    hideCoach: false,
     is_tax_excluded_in_marketplace: false,
+    show_establishment: true,
   },
 };
 
@@ -72,6 +74,8 @@ BasketOfferSummary.args = {
   variant: 'basket',
   theme: {
     hideCoach: true,
+    is_tax_excluded_in_marketplace: true,
+    show_establishment: true,
   },
 };
 

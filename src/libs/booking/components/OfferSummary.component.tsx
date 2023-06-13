@@ -16,7 +16,6 @@ import {
   HourglassFull,
   LocationOn,
 } from '@material-ui/icons';
-import { Skeleton } from '@material-ui/lab';
 
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import {
@@ -38,6 +37,7 @@ import { CompanyTheme } from '#libs/theme/types';
 
 import BookingConfirmButton from './BookingConfirmButton.component';
 import MarketplaceBroadcastCSSOnly from '#libs/marketplace/components/MarketplaceBroadcastCSSOnly';
+import OfferSummarySkeleton from './OfferSummarySkeleton.component';
 
 export type Props = {
   metaActivity: MetaActivity;
@@ -91,61 +91,7 @@ const OfferSummary: React.FC<Props> = (props) => {
   const displayTax = theme?.is_tax_excluded_in_marketplace === false;
 
   if (loading) {
-    return (
-      <Grid container direction="column" className={classes.grid}>
-        <Grid container item direction="column" className={classes.columnGap2}>
-          <Grid
-            container
-            item
-            direction="column"
-            className={classes.columnGap1}
-          >
-            <Skeleton animation="wave" />
-            <Skeleton animation="wave" />
-          </Grid>
-          <Grid
-            container
-            item
-            direction="column"
-            className={classes.columnGap2}
-          >
-            <Grid container item className={classes.lineGap1}>
-              <Skeleton
-                animation="wave"
-                variant="circle"
-                className={classes.avatar}
-              />
-              <Skeleton animation="wave" width="50%" />
-            </Grid>
-            <Grid container item className={classes.lineGap1}>
-              <Skeleton
-                animation="wave"
-                variant="circle"
-                className={classes.avatar}
-              />
-              <Skeleton animation="wave" width="50%" />
-            </Grid>
-            <Grid container item className={classes.lineGap1}>
-              <Skeleton
-                animation="wave"
-                variant="circle"
-                className={classes.avatar}
-              />
-              <Skeleton animation="wave" width="50%" />
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            item
-            direction="column"
-            className={classes.columnGap2}
-          >
-            <Skeleton animation="wave" />
-            <Skeleton animation="wave" />
-          </Grid>
-        </Grid>
-      </Grid>
-    );
+    return <OfferSummarySkeleton classes={classes} />;
   }
 
   return (
@@ -188,7 +134,7 @@ const OfferSummary: React.FC<Props> = (props) => {
           {establishment && theme?.show_establishment && (
             <Grid container item className={classes.lineGap1}>
               <LocationOn className={classes.icon} />
-              <Typography>{establishment?.title}</Typography>
+              <Typography>{`${establishment?.title} - ${establishment?.location?.address}`}</Typography>
             </Grid>
           )}
 
@@ -202,7 +148,7 @@ const OfferSummary: React.FC<Props> = (props) => {
             </Grid>
           )}
 
-          {spotId !== null && spotId !== undefined && variant === 'default' && (
+          {spotId !== undefined && variant === 'default' && (
             <Grid container item className={classes.itemWithIcon}>
               <Adjust className={classes.icon} />
               <Typography>{`${t(`booking:place`)} ${spotId}`}</Typography>

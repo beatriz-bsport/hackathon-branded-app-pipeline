@@ -21,7 +21,6 @@ export default {
       description: 'The text to appear on the button.',
     },
     disabled: {
-      control: 'boolean',
       description: 'True if the button should be disabled.',
     },
     onClick: {
@@ -29,7 +28,6 @@ export default {
       description: 'Function to be called when the button is clicked.',
     },
     buttonLoading: {
-      control: 'boolean',
       description: 'True if the onClick function was called and is processing.',
     },
   },

@@ -148,10 +148,12 @@ type NodeRendererProps = {
     connectedTriggerUUID: string,
     sourceStepId: number,
   ) => void;
+  cadenceEditMode: boolean;
 };
 
 export const useNodeElementsRecorder = ({
   cadence,
+  cadenceEditMode,
   smartlistById,
   storedEntryStep,
   storedSteps,
@@ -243,15 +245,17 @@ export const useNodeElementsRecorder = ({
               triggerNode.trigger.destination_config.source_id,
             ),
           disabled: triggerNode.trigger.disabled,
+          cadenceEditMode,
         },
       }));
     }
     return [];
   }, [
-    storedTriggers,
     cadence,
-    onClickConnectedTrigger,
+    cadenceEditMode,
+    storedTriggers,
     deleteConnectedTrigger,
+    onClickConnectedTrigger,
   ]);
 
   // The fakeNodeElement consumes the storedStepNodeFakerSource to draw a fake node
@@ -269,11 +273,12 @@ export const useNodeElementsRecorder = ({
         data: {
           faker: true,
           resetFaker: () => resetAllSelection(),
+          cadenceEditMode,
         },
       };
     }
     return null;
-  }, [storedStepNodeFakerSource, resetAllSelection]);
+  }, [cadenceEditMode, storedStepNodeFakerSource, resetAllSelection]);
 
   const handleOnConnectedStep = React.useCallback(
     (cadence_step_id: string, stepNode) => {
@@ -306,6 +311,7 @@ export const useNodeElementsRecorder = ({
           : { position: { x: 0, y: 0 } }),
         data: {
           step: stepNode,
+          cadenceEditMode,
           handleSelectStepForSubscription: () =>
             enterSubscriptionMode(stepNode),
           onConnectToStep: (cadence_step_id: string) =>
@@ -320,7 +326,7 @@ export const useNodeElementsRecorder = ({
     }
     return [];
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [storedSteps, handleOnConnectedStep]);
+  }, [cadenceEditMode, storedSteps, handleOnConnectedStep]);
 
   return { entryNode, triggerNodeElements, fakeNodeElement, stepNodesElements };
 };

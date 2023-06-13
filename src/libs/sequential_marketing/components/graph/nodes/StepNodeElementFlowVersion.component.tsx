@@ -21,6 +21,7 @@ export const StepNodeElementFlowVersion: React.FC<FlowProps> = ({ data }) => {
         handleSelectStepForSubscription={data.handleSelectStepForSubscription}
         onCardClick={data.onCardClick}
         onDelete={data.onDelete}
+        cadenceEditMode={data.cadenceEditMode}
       />
       <Handle
         type="source"

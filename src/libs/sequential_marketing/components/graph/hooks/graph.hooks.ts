@@ -51,10 +51,12 @@ export type Props = {
     connectedTriggerUUID: string,
     sourceStepId: number,
   ) => void;
+  cadenceEditMode: boolean;
 };
 
 export const useGraph = ({
   cadence,
+  cadenceEditMode,
   steps,
   smartlistById,
   onClickEntryStep,
@@ -99,6 +101,7 @@ export const useGraph = ({
   const { entryNode, triggerNodeElements, fakeNodeElement, stepNodesElements } =
     useNodeElementsRecorder({
       cadence,
+      cadenceEditMode,
       storedEntryStep,
       smartlistById,
       storedSteps,

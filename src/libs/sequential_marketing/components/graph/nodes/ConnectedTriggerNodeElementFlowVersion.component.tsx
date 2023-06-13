@@ -21,6 +21,7 @@ import ConnectedTriggerNodeElement from './ConnectedTriggerNodeElement.component
 export type FlowVersionProps = {
   step: CadenceStep;
   trigger: ConnectedTrigger;
+  cadenceEditMode: boolean;
   onCardClick: () => void;
   onDelete: () => void;
   faker?: boolean;
@@ -45,32 +46,38 @@ export const ConnectedTriggerNodeElementFlowVersion: React.FC<{
         <div className={classes.disabledOverLay} />
       )}
 
-      {data.faker ? (
-        <div className={classes.buttonTopRightFaker}>
-          <ToolTip title={t('cadence.graph.nodeElement.cancelOnGoingCreation')}>
-            <IconButton
-              onClick={() => data.resetFaker()}
-              classes={{ root: classes.overrideIconButton }}
-              size="small"
-              color="default"
-            >
-              <DeleteIcon fontSize="small" />
-            </IconButton>
-          </ToolTip>
-        </div>
-      ) : (
-        <div className={classes.buttonTopRightDelete}>
-          <ToolTip title={t('cadence.graph.nodeElement.deleteTrigger')}>
-            <IconButton
-              onClick={data.onDelete}
-              classes={{ root: classes.overrideIconButton }}
-              size="small"
-              color="default"
-            >
-              <DeleteIcon fontSize="small" />
-            </IconButton>
-          </ToolTip>
-        </div>
+      {data.cadenceEditMode && (
+        <>
+          {data.faker ? (
+            <div className={classes.buttonTopRightFaker}>
+              <ToolTip
+                title={t('cadence.graph.nodeElement.cancelOnGoingCreation')}
+              >
+                <IconButton
+                  onClick={() => data.resetFaker()}
+                  classes={{ root: classes.overrideIconButton }}
+                  size="small"
+                  color="default"
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              </ToolTip>
+            </div>
+          ) : (
+            <div className={classes.buttonTopRightDelete}>
+              <ToolTip title={t('cadence.graph.nodeElement.deleteTrigger')}>
+                <IconButton
+                  onClick={data.onDelete}
+                  classes={{ root: classes.overrideIconButton }}
+                  size="small"
+                  color="default"
+                >
+                  <DeleteIcon fontSize="small" />
+                </IconButton>
+              </ToolTip>
+            </div>
+          )}
+        </>
       )}
       <ConnectedTriggerNodeElement
         connectedTrigger={data.trigger}

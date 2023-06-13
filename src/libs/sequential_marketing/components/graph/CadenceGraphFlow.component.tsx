@@ -167,6 +167,7 @@ export const Flow: React.FC<Props> = ({
         maxZoom={2}
         nodesDraggable={cadenceEditMode}
         nodesConnectable={cadenceEditMode}
+        onPaneClick={resetAllSelection}
         fitView
       />
     </ReactFlowProvider>

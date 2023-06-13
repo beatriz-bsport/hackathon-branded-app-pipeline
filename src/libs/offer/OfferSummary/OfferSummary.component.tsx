@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import {
   Avatar,
   Chip,
-  Grid,
   Typography,
   lighten,
   makeStyles,
@@ -117,9 +116,9 @@ const OfferSummary: React.FC<Props> = (props) => {
   }
 
   return (
-    <Grid container direction="column" className={classes.grid}>
-      <Grid container item direction="column" className={classes.columnGap2}>
-        <Grid container item direction="column" className={classes.columnGap1}>
+    <div className={classes.grid}>
+      <div className={classes.columnGap2}>
+        <div className={classes.columnGap1}>
           <Typography variant="h6">{metaActivity?.name}</Typography>
 
           <Typography className={classes.grey}>
@@ -131,10 +130,10 @@ const OfferSummary: React.FC<Props> = (props) => {
               offer?.timezone_name,
             )}
           </Typography>
-        </Grid>
-        <Grid container item direction="column" className={classes.columnGap2}>
+        </div>
+        <div className={classes.columnGap2}>
           {(metaActivity?.is_broadcast || waitlistExists) && (
-            <Grid container item className={classes.lineGap1}>
+            <div className={classes.lineGap1}>
               {metaActivity?.is_broadcast && <MarketplaceBroadcastCSSOnly />}
               {waitlistExists && (
                 <Chip
@@ -150,18 +149,18 @@ const OfferSummary: React.FC<Props> = (props) => {
                   className={classes.waitlistChip}
                 />
               )}
-            </Grid>
+            </div>
           )}
 
           {establishment && theme?.show_establishment && (
-            <Grid container item className={classes.lineGap1}>
+            <div className={classes.lineGap1}>
               <LocationOn className={classes.icon} />
               <Typography>{`${establishment?.title} - ${establishment?.location?.address}`}</Typography>
-            </Grid>
+            </div>
           )}
 
           {coach && !theme?.hideCoach && variant === 'default' && (
-            <Grid container item className={classes.itemWithIcon}>
+            <div className={classes.itemWithIcon}>
               {displayCoachPicture ? (
                 <Avatar className={classes.avatar}>
                   src=
@@ -171,18 +170,18 @@ const OfferSummary: React.FC<Props> = (props) => {
                 <Person className={classes.icon} />
               )}
               <Typography>{coachName}</Typography>
-            </Grid>
+            </div>
           )}
 
           {spotId !== undefined && variant === 'default' && (
-            <Grid container item className={classes.itemWithIcon}>
+            <div className={classes.itemWithIcon}>
               <Adjust className={classes.icon} />
               <Typography>{`${t(`booking:place`)} ${spotId}`}</Typography>
-            </Grid>
+            </div>
           )}
 
           {offer && variant === 'default' && (
-            <Grid container item className={classes.itemWithIcon}>
+            <div className={classes.itemWithIcon}>
               <CreditCard className={classes.icon} />
               <Typography>
                 {offer?.credit_price > 1
@@ -191,45 +190,40 @@ const OfferSummary: React.FC<Props> = (props) => {
                     )}`
                   : `${offer?.credit_price} ${t(`booking:creditConsumed`)}`}
               </Typography>
-            </Grid>
+            </div>
           )}
-        </Grid>
-      </Grid>
+        </div>
+      </div>
       {!isWaitlistFull && onConfirm && variant === 'default' && (
-        <Grid item container direction="column" className={classes.columnGap2}>
+        <div className={classes.columnGap2}>
           {displayTax && (
-            <Grid
-              item
-              container
-              direction="column"
-              className={classes.columnGap1}
-            >
-              <Grid item container className={classes.price}>
+            <div className={classes.columnGap1}>
+              <div className={classes.price}>
                 <Typography variant="body2" className={classes.grey}>
                   {t(`checkout:payment.taxExcluded`)}
                 </Typography>
                 <Typography variant="body2">
                   {getCurrencyDisplayWithPrice(price, true, tax)}
                 </Typography>
-              </Grid>
-              <Grid item container className={classes.price}>
+              </div>
+              <div className={classes.price}>
                 <Typography variant="body2" className={classes.grey}>
                   {t(`checkout:payment.tax`)}
                 </Typography>
                 <Typography variant="body2">
                   {getCurrencyDisplayWithPrice(getTaxPrice(price, tax))}
                 </Typography>
-              </Grid>
-            </Grid>
+              </div>
+            </div>
           )}
-          <Grid item container className={classes.price}>
+          <div className={classes.price}>
             <Typography variant="h6">
               {t(`checkout:payment.globalTotal`)}
             </Typography>
             <Typography variant="h6">
               {getCurrencyDisplayWithPrice(price)}
             </Typography>
-          </Grid>
+          </div>
           <BookingConfirmButton
             value={
               isWaitlistOpen
@@ -245,15 +239,16 @@ const OfferSummary: React.FC<Props> = (props) => {
             onClick={onConfirm}
             buttonLoading={confirmLoading}
           />
-        </Grid>
+        </div>
       )}
-    </Grid>
+    </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
   grid: {
     display: 'flex',
+    flexDirection: 'column',
     maxWidth: '374px',
     padding: theme.spacing(2),
     gap: theme.spacing(3),
@@ -270,6 +265,7 @@ const useStyles = makeStyles((theme) => ({
   },
   columnGap2: {
     display: 'flex',
+    flexDirection: 'column',
     gap: theme.spacing(2),
     [theme.breakpoints.down('xs')]: {
       gap: theme.spacing(1),
@@ -277,6 +273,7 @@ const useStyles = makeStyles((theme) => ({
   },
   columnGap1: {
     display: 'flex',
+    flexDirection: 'column',
     gap: theme.spacing(1),
     [theme.breakpoints.down('xs')]: {
       gap: 0,

@@ -39,7 +39,7 @@ export const StepNodeElement: React.FC<StepNodeElementProps> = ({
   const classes = useStyles();
 
   return (
-    <>
+    <div className={classes.element}>
       {cadenceEditMode && (
         <div className={classes.buttonTopRight}>
           <ToolTip title={t('cadence.graph.nodeElement.deleteStep')}>
@@ -72,13 +72,16 @@ export const StepNodeElement: React.FC<StepNodeElementProps> = ({
           </IconButton>
         </div>
       </ToolTip>
-    </>
+    </div>
   );
 };
 
 export default StepNodeElement;
 
 const useStyles = makeStyles((theme: Theme) => ({
+  element: {
+    marginTop: 13,
+  },
   card: {
     position: 'relative',
     minWidth: `${ELEMENT_WIDTH}px`,
@@ -119,7 +122,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   buttonTopRight: {
     position: 'absolute',
     zIndex: 2000,
-    top: 0,
+    top: 13,
     right: 0,
     transform: 'translate(50%,-50%)',
     '-ms-transform': 'translate(50%,-50%)',

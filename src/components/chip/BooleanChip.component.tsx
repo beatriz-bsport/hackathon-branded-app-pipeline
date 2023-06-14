@@ -3,32 +3,47 @@ import { useTheme } from '@material-ui/core';
 import { CustomChip } from './CustomChip.component';
 
 type Props = {
-  datatype: string;
   value: boolean;
   translation: string;
-  grey_no: string[];
-  red_no: string[];
-  green_no: string[];
+  colorBlacklist: string;
+  colorsInverted: boolean;
 };
 
 const ReportBooleanChip: React.FC<Props> = ({
-  datatype,
   value,
   translation,
-  grey_no,
-  green_no,
-  red_no,
+  colorBlacklist,
+  colorsInverted,
 }) => {
   const theme = useTheme();
   const green = theme.palette.success;
   const red = theme.palette.error;
   let color = null;
-  if (grey_no.includes(datatype)) {
-    value && (color = green.dark);
-  } else if (green_no.includes(datatype)) {
-    value ? (color = red.dark) : (color = green.dark);
-  } else if (red_no.includes(datatype)) {
-    value ? (color = green.dark) : (color = red.dark);
+  switch (colorBlacklist) {
+    case 'grey':
+      if (!colorsInverted) {
+        color = value ? green.main : red.main;
+      } else {
+        color = value ? red.main : green.main;
+      }
+      break;
+    case 'green':
+      if (!colorsInverted) {
+        color = value ? null : red.main;
+      } else {
+        color = value ? red.main : null;
+      }
+      break;
+    case 'red':
+      if (!colorsInverted) {
+        color = value ? green.main : null;
+      } else {
+        color = value ? null : green.main;
+      }
+      break;
+    default:
+      color = value ? green.main : red.main;
+      break;
   }
   return <CustomChip mainColor={color} displayedValue={translation} />;
 };

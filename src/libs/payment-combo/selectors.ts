@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
+import uniq from 'lodash/uniq';
 
 import { getPaymentPackById } from '../payment-packs/selectors';
 
@@ -75,12 +76,19 @@ export const getPaymentComboPurchaseListByCombo = (
       purchase.payment_combo && purchase.payment_combo.id === paymentComboId,
   );
 
+const _getForContractsIds = (state: RootState) =>
+  state.paymentCombo.forContracts.allIds;
+
 const _getForBookingIds = (state: RootState) =>
   state.paymentCombo.forBooking.allIds;
 
 export const getPaymentComboForBooking = createSelector(
-  [_getForBookingIds, getPaymenComboDataDict],
-  (ids, data) => ids.map((id) => data[id]),
+  [_getForBookingIds, _getForContractsIds, getPaymenComboDataDict],
+  (forBookingIds, forContractsIds, data) => {
+    const filteredComboIds = uniq([...forBookingIds, ...forContractsIds]);
+    const paymentCombosForBooking = filteredComboIds.map((id) => data[id]);
+    return paymentCombosForBooking;
+  },
 );
 
 export const withPaymentPack = memoize((selector: (state: RootState) => any) =>

@@ -30,6 +30,7 @@ import { getValidityInfo } from '../../utils';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 import type { PrivatePass, PrivatePassCategory } from '../../types';
+import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
 
 type Props = {
   pass: PrivatePass;
@@ -55,6 +56,7 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
     name,
     tax,
     available_payment_method_identifiers,
+    description,
   } = pass;
 
   const renderLinkToPaymentPage = () => {
@@ -98,6 +100,16 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                   <div className={classes.marginTop} />
                 )}
               </div>
+
+              {description && (
+                <TypographyMultilineComponent
+                  variant="caption"
+                  className={classes.description}
+                >
+                  {description}
+                </TypographyMultilineComponent>
+              )}
+
               <div>
                 {isManager && (
                   <div className={classes.copyButton}>
@@ -359,7 +371,6 @@ const useStyles = makeStyles((theme) => ({
   link: {
     padding: theme.spacing(1),
     marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(3),
     '&:hover': {
       backgroundColor: '#EFEFEF',
       borderRadius: 5,
@@ -375,6 +386,10 @@ const useStyles = makeStyles((theme) => ({
   flexInfo: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  description: {
+    color: theme.palette.text.secondary,
+    wordBreak: 'break-word',
   },
 }));
 

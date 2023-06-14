@@ -13,6 +13,7 @@ import classnames from 'classnames';
 import { getValidityInfo } from '../../utils';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import CompanyChip from '#components/franchise/CompanyChip.component';
+import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
 
 import { PrivatePassTemplate } from '../../types';
 
@@ -54,6 +55,16 @@ const PrivatePassTemplateCard = (props: Props) => {
               <div className={classes.restrictionBlock}>
                 <Typography>{getValidityInfo(template, t)}</Typography>
               </div>
+              {template.description && (
+                <div className={classes.descripotionContainer}>
+                  <TypographyMultilineComponent
+                    className={classes.description}
+                    variant="caption"
+                  >
+                    {template.description}
+                  </TypographyMultilineComponent>
+                </div>
+              )}
             </div>
           </Grid>
           <Grid item xs={4}>
@@ -183,6 +194,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   chipContainer: {
     paddingBottom: theme.spacing(1),
     paddingRight: theme.spacing(1),
+  },
+  descripotionContainer: {
+    paddingBottom: theme.spacing(1),
+  },
+  description: {
+    color: theme.palette.text.secondary,
+    wordBreak: 'break-word',
   },
 }));
 

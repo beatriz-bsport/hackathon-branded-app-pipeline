@@ -17,6 +17,7 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PaymentPackTemplate } from '../types';
 import CompanyChip from '../../../components/franchise/CompanyChip.component';
 import RedButtonComponent from '#components/button/RedButton.component';
+import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
 
 import {
   PENALTY_KIND_BLOCK_CPP,
@@ -207,6 +208,16 @@ const PaymentPackTemplateCard = (props: Props) => {
                   {template.name}
                 </Typography>
               </div>
+              {template.description && (
+                <div>
+                  <TypographyMultilineComponent
+                    className={classes.description}
+                    variant="caption"
+                  >
+                    {template.description}
+                  </TypographyMultilineComponent>
+                </div>
+              )}
             </Grid>
             <Grid item xs={4}>
               <div className={classes.columnLeft}>
@@ -454,6 +465,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   detailContent: {
     marginTop: 0,
     marginBottom: theme.spacing(1),
+  },
+  description: {
+    color: theme.palette.text.secondary,
+    wordBreak: 'break-word',
   },
 }));
 

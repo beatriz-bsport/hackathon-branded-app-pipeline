@@ -44,6 +44,7 @@ import {
   PENALTY_KIND_BLOCK_CPP,
   PENALTY_KIND_NEGATIVE_ACCOUNT,
 } from '../constants';
+import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
 
 type OwnProps = {
   onlyPublic?: boolean;
@@ -182,7 +183,7 @@ export class PaymentPackCard extends Component<Props, State> {
   renderCardHeader = () => {
     const { pack, t, onlyPublic, classes, paymentPackCategory, isManager } =
       this.props;
-    const { name } = pack;
+    const { name, description } = pack;
 
     return (
       <Grid
@@ -196,11 +197,20 @@ export class PaymentPackCard extends Component<Props, State> {
             <div>
               <Typography variant="h4">{name}</Typography>
               {paymentPackCategory && (
-                <Typography className={classes.category} variant="subtitle2">
+                <Typography className={classes.category} variant="h6">
                   {paymentPackCategory}
                 </Typography>
               )}
             </div>
+
+            {description && (
+              <TypographyMultilineComponent
+                variant="caption"
+                className={classes.description}
+              >
+                {description}
+              </TypographyMultilineComponent>
+            )}
 
             <Hidden smUp>
               <Grid item>
@@ -703,7 +713,6 @@ const styles = (theme: any) => ({
   link: {
     padding: theme.spacing(1),
     marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(2),
     '&:hover': {
       backgroundColor: '#EFEFEF',
       borderRadius: 5,
@@ -715,6 +724,10 @@ const styles = (theme: any) => ({
   },
   marginTop: {
     marginTop: theme.spacing(3),
+  },
+  description: {
+    color: theme.palette.text.secondary,
+    wordBreak: 'break-word',
   },
 });
 

@@ -287,7 +287,7 @@ const OfferFormDateTime = (props: Props) => {
                 size="small"
                 placeholder="00"
                 onChange={handleChangeMinutes}
-                inputClass={classes.smallWidth}
+                inputClass={classes.minutesInput}
                 InputProps={{
                   disableUnderline: true,
                   inputProps: { min: 0, max: 59 },

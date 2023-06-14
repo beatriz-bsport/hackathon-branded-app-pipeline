@@ -56,6 +56,12 @@ const useOfferFormStyles = (
         paddingTop: theme.spacing(1),
       },
     },
+    minutesInput: {
+      width: '70px',
+      '&.MuiInputBase-input': {
+        paddingTop: theme.spacing(1),
+      },
+    },
     mediumWidth: {
       width: '100px',
     },

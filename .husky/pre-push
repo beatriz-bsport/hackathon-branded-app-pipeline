@@ -1,4 +1,9 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn test && yarn lint-cache
+echo "---------- 👮 TypeScript ----------" && 
+npx tsc -p . &&
+echo "---------- 🧪 Tests ----------" &&
+yarn test && 
+echo "---------- 📑 Lint ----------" &&
+yarn lint-cache

@@ -808,6 +808,9 @@ exports.default = {
         tooltip:
           'Passée la date choisie, la carte de rendez-vous n’apparaîtra plus à la vente pour les clients.',
       },
+      description: {
+        label: 'Description',
+      },
     },
     disabledTitle: 'Cartes de RDV archivées',
     listItem: {

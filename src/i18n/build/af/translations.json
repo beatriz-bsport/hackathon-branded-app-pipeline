@@ -5464,6 +5464,7 @@
       "generalInfo": "Informations générales",
       "name": "Nom",
       "namePaymentPack": "Nom de la carte de cours",
+      "description": "Description",
       "numberOfCredit": "Nombre de crédits",
       "limited": "Limité",
       "unlimited": "Illimité",
@@ -6616,7 +6617,8 @@
           "label": "Date limite d'achat",
           "helperText": "Disponible jusqu’au",
           "tooltip": "Passée la date choisie, la carte de rendez-vous n’apparaîtra plus à la vente pour les clients."
-        }
+        },
+        "description": { "label": "Description" }
       },
       "disabledTitle": "Cartes de RDV archivées",
       "listItem": { "unusableByStaff": "Invisible pour le staff" }

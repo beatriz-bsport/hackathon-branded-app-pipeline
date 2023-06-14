@@ -104,6 +104,7 @@ export interface FormikValues {
   applies_for_payroll: boolean;
   on_behalf_of_teacher: boolean;
   expiration_date?: string;
+  description?: string | null;
 }
 type Props = {
   provincialTax: number;
@@ -245,6 +246,16 @@ export const PrivatePassForm = (props: Props) => {
           fullWidth
           label={`${t('privatePass.form.name.label')}*`}
           helperText={t('privatePass.form.name.helperText')}
+          disabled={!!props.initial?.template_instance}
+        />
+        <TextField
+          id="private-pass-description-field"
+          fullWidth
+          multiline
+          minRows={6}
+          name="description"
+          variant="outlined"
+          label={t('privatePass.form.description.label')}
           disabled={!!props.initial?.template_instance}
         />
         <div className={classes.fieldBlock}>
@@ -892,6 +903,7 @@ export const PrivatePassSchema = Yup.object().shape({
   applies_for_payroll: Yup.boolean().required(),
   on_behalf_of_teacher: Yup.boolean().required(),
   expiration_date: Yup.date().nullable(),
+  description: Yup.string().nullable(),
 });
 
 export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
@@ -939,6 +951,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
       on_behalf_of_teacher: false,
       expiration_date: null,
       expiration_date_active: false,
+      description: null,
     };
   },
   enableReinitialize: true,

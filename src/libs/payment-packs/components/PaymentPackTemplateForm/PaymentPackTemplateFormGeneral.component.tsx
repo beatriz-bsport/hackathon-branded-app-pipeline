@@ -117,6 +117,18 @@ export const PaymentPackFormGeneral = (props: Props) => {
         />
       </Grid>
 
+      <Grid item xs={12}>
+        <TextField
+          id="textfield_template_description"
+          fullWidth
+          multiline
+          minRows={6}
+          name="description"
+          variant="outlined"
+          label={t('addPaymentPack.description')}
+        />
+      </Grid>
+
       <Grid item xs={12} md={6}>
         <PriceField
           name="price"

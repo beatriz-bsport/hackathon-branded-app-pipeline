@@ -147,6 +147,18 @@ export const PaymentPackFormGeneral = (props: Props) => {
           />
         </Grid>
         <Grid item xs={12}>
+          <TextField
+            id="paymentpack-form-description-input"
+            fullWidth
+            multiline
+            minRows={6}
+            name="description"
+            variant="outlined"
+            label={t('addPaymentPack.description')}
+            disabled={!!initial?.template_instance}
+          />
+        </Grid>
+        <Grid item xs={12}>
           <PaymentPackCategorySelector
             packPackCategoryList={paymentPackCategories}
             value={values.category}

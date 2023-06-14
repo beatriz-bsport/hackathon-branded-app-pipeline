@@ -245,6 +245,7 @@ export const PaymentPackForm = (props: Props) => {
                 applies_for_payroll: true,
                 expiration_date: null,
                 expiration_date_active: false,
+                description: null,
               }
         }
         onSubmit={(values, actions) => {
@@ -361,6 +362,7 @@ export const PaymentPackForm = (props: Props) => {
             'is_usable_by_staff',
             'applies_for_payroll',
             'expiration_date',
+            'description',
           ];
           const data = pick(sanithizedValues, keys);
           onSubmit(data, {
@@ -745,4 +747,5 @@ const paymentPackSchema = Yup.object().shape({
   unusable_by_staff: Yup.boolean(),
   applies_for_payroll: Yup.boolean().required(),
   expiration_date: Yup.date().nullable(),
+  description: Yup.string().nullable(),
 });

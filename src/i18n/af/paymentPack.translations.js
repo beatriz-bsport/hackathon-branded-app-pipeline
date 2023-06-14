@@ -573,6 +573,7 @@ exports.default = {
     generalInfo: 'Informations générales',
     name: 'Nom',
     namePaymentPack: 'Nom de la carte de cours',
+    description: 'Description',
     numberOfCredit: 'Nombre de crédits',
     limited: 'Limité',
     unlimited: 'Illimité',

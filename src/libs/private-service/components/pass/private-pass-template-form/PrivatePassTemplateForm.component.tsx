@@ -48,6 +48,7 @@ const {
 );
 interface FormikValues {
   name: string | null;
+  description: string | null;
   tax: number;
   credits: number;
   price: number;
@@ -90,6 +91,14 @@ export const PrivatePassTemplateForm = (props: Props) => {
           fullWidth
           label={`${t('privatePass.form.name.label')}*`}
           helperText={t('privatePass.form.name.helperText')}
+        />
+        <TextField
+          fullWidth
+          multiline
+          minRows={6}
+          name="description"
+          variant="outlined"
+          label={t('privatePass.form.description.label')}
         />
         <div className={classes.fieldBlock}>
           <IntegerField
@@ -334,6 +343,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export const PrivatePassSchema = Yup.object().shape({
   name: Yup.string().required(),
+  description: Yup.string().nullable(),
   tax: Yup.number().required().min(0).max(100),
   price: Yup.number().required(),
   manager_only: Yup.boolean().required(),
@@ -358,6 +368,7 @@ export const PrivatePassTemplateFormikHOC = withFormik<Props, FormikValues>({
 
     return {
       name: null,
+      description: null,
       tax: 0,
       credits: 1,
       price: 0,

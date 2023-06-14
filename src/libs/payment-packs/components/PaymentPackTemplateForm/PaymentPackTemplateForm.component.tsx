@@ -234,6 +234,7 @@ const PaymentPackTemplateSchema = Yup.object().shape({
     },
   ),
   expiration_date: Yup.date().nullable(),
+  description: Yup.string().nullable(),
 });
 
 export const PaymentPackTemplateFormikHOC = withFormik({
@@ -281,6 +282,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         no_show_penalty_amount: 10,
         expiration_date: null,
         expiration_date_active: false,
+        description: null,
       },
       (initial && {
         ...initial,
@@ -345,6 +347,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
       'no_show_penalty_days_blocked',
       'is_usable_by_staff',
       'expiration_date',
+      'description',
     ];
     const data = pick(
       { ...values, is_usable_by_staff: !values.unusable_by_staff },

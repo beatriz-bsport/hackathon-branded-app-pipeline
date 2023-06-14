@@ -29,6 +29,7 @@ export type PaymentPackFiltersOpener = {
 export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   id: number;
   name: string;
+  description?: string;
   price: number;
   base_price: number;
   tax: number;

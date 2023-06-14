@@ -1,6 +1,11 @@
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 import groupBy from 'lodash/groupBy';
+import {
+  DAILY_DURATION_DISPLAY_LIMIT,
+  WEEKLY_DURATION_DISPLAY_LIMIT,
+  MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS,
+} from '#libs/statistics/utils';
 
 export const discretizeByAndFillMissing = memoize(
   (
@@ -14,13 +19,13 @@ export const discretizeByAndFillMissing = memoize(
     let unitOfTime = 'month';
     let format = 'YYYY-MM';
 
-    if (duration.asDays() > 100) {
+    if (duration.asDays() > MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS) {
       unitOfTime = 'month';
       format = 'YYYY-MM';
-    } else if (duration.asDays() > 15) {
+    } else if (duration.asDays() > WEEKLY_DURATION_DISPLAY_LIMIT) {
       unitOfTime = 'week';
       format = 'YYYY-MM-DD';
-    } else if (duration.asDays() > 1) {
+    } else if (duration.asDays() > DAILY_DURATION_DISPLAY_LIMIT) {
       unitOfTime = 'day';
       format = 'YYYY-MM-DD';
     } else {

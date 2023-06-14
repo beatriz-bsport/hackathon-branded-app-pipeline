@@ -8,6 +8,11 @@ import { Dictionary } from 'lodash/index';
 import Immutable from 'seamless-immutable';
 import type { State } from '../types';
 import { DateRange, StatisticPoint, StatisticPointTable } from './types';
+import {
+  DAILY_DURATION_DISPLAY_LIMIT,
+  WEEKLY_DURATION_DISPLAY_LIMIT,
+  MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS,
+} from '#libs/statistics/utils';
 
 export const mainChartSelector = (state: State) => state.stats.mainChart;
 export const dateRangeSelector = createSelector(
@@ -96,7 +101,7 @@ export const getStats: (
 
 function discretizeDataBy(table: Array<StatisticPoint>, dateRange: DateRange) {
   const duration = moment.duration(dateRange.end.diff(dateRange.start));
-  if (duration.asDays() > 60) {
+  if (duration.asDays() > MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS) {
     return {
       table: discretizeByAndFillMissing(
         dateRange,
@@ -109,7 +114,7 @@ function discretizeDataBy(table: Array<StatisticPoint>, dateRange: DateRange) {
       formatter: 'month',
     };
   }
-  if (duration.asDays() > 15) {
+  if (duration.asDays() > WEEKLY_DURATION_DISPLAY_LIMIT) {
     return {
       table: discretizeByAndFillMissing(
         dateRange,
@@ -120,7 +125,7 @@ function discretizeDataBy(table: Array<StatisticPoint>, dateRange: DateRange) {
       formatter: 'week',
     };
   }
-  if (duration.asDays() > 1) {
+  if (duration.asDays() > DAILY_DURATION_DISPLAY_LIMIT) {
     return {
       table: discretizeByAndFillMissing(
         dateRange,

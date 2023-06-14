@@ -1,16 +1,20 @@
 import moment from 'moment-timezone';
-
 import { getCurrencyDisplay } from '../theme/selectors';
+
+export const DAILY_DURATION_DISPLAY_LIMIT = 1;
+export const WEEKLY_DURATION_DISPLAY_LIMIT = 15;
+export const MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS = 60;
+export const MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS = 100;
 
 export const dateFormatter = (domain) => {
   const duration = moment.duration(moment(domain[1]).diff(moment(domain[0])));
-  if (duration.asDays() > 100) {
+  if (duration.asDays() > MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS) {
     return (d) => moment(d).format('MMM YYYY');
   }
-  if (duration.asDays() > 15) {
+  if (duration.asDays() > WEEKLY_DURATION_DISPLAY_LIMIT) {
     return (d) => moment(d).add(3, 'days').format('DD MMM');
   }
-  if (duration.asDays() > 1) {
+  if (duration.asDays() > DAILY_DURATION_DISPLAY_LIMIT) {
     return (d) => moment(d).format('ddd DD MMM');
   }
   return (d) => moment(d).format('LT');
@@ -39,7 +43,10 @@ export const numberFormatter = (isCurrencyFormat) => (x) => {
 
 export const tooltipLabelFormatter = (domain: Moment[]) => (date: string) => {
   const duration = moment.duration(moment(domain[1]).diff(moment(domain[0])));
-  if (duration.asDays() <= 100 && duration.asDays() > 15) {
+  if (
+    duration.asDays() <= MONTHLY_DURATION_DISPLAY_LIMIT_100_DAYS &&
+    duration.asDays() > WEEKLY_DURATION_DISPLAY_LIMIT
+  ) {
     return `${moment(date).startOf('week').format('DD-MMM')} - ${moment(date)
       .endOf('week')
       .format('DD-MMM')}`;

@@ -11,6 +11,11 @@ import {
   ResponsiveContainer,
   Label,
 } from 'recharts';
+import {
+  DAILY_DURATION_DISPLAY_LIMIT,
+  WEEKLY_DURATION_DISPLAY_LIMIT,
+  MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS,
+} from '#libs/statistics/utils';
 
 type Props = {
   data: Array<any>,
@@ -33,13 +38,13 @@ type Props = {
 
 const dateFormatter = (domain: Array<Moment>) => {
   const duration = moment.duration(moment(domain[1]).diff(moment(domain[0])));
-  if (duration.asDays() > 60) {
+  if (duration.asDays() > MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS) {
     return (d: any) => moment(d).format('MMM YYYY');
   }
-  if (duration.asDays() > 15) {
+  if (duration.asDays() > WEEKLY_DURATION_DISPLAY_LIMIT) {
     return (d: any) => moment(d).format('DD MMM');
   }
-  if (duration.asDays() > 1) {
+  if (duration.asDays() > DAILY_DURATION_DISPLAY_LIMIT) {
     return (d: any) => moment(d).format('ddd DD MMM');
   }
   return (d: any) => moment(d).format('LT');

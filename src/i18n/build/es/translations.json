@@ -5849,7 +5849,7 @@
             },
             "offer": {
                 "isWaitingListFull": "La sesión está llena, la lista de espera está llena.",
-                "isTooSoon": "El registro está cerrado por el momento y se abrirá el {{ date_ }}.",
+                "isTooSoon": "El registro está cerrado por el momento y se abrirá el {{ -date }}.",
                 "isTooLate": "Las inscripciones están cerradas.",
                 "isDisabled": "La sesión fue desafortunadamente cancelada.",
                 "isAlreadyRegistered": "Ya está inscrito en esta sesión",

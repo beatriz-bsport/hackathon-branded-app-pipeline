@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { PrivatePass } from '#libs/private-service/types';
 import { ErrorAndLoading } from '#libs/types';
 import { PaymentPack } from '../payment-packs/types';
@@ -24,12 +23,12 @@ export type PaymentCombo = {
   available: boolean;
   manager_only: boolean;
   date_created: string;
-  payment_packs: Array<PaymentComboItem>;
-  shop_items: Array<PaymentComboItem>;
-  private_passes: Array<PaymentComboItem>;
+  payment_packs: PaymentComboItem[];
+  shop_items: PaymentComboItem[];
+  private_passes: PaymentComboItem[];
   max_purchase_per_member: number | null;
   barcode: string;
-  available_payment_method_identifier: Array<number>;
+  available_payment_method_identifier: number[];
   new_member_only: boolean;
   is_usable_by_staff: boolean;
 };
@@ -44,29 +43,32 @@ export type PaymentComboPayload = {
   company: number;
   available: boolean;
   date_created: string;
-  payment_pack_ids: Array<number>;
-  shop_item_ids: Array<number>;
-  private_pass_ids: Array<number>;
+  payment_pack_ids: number[];
+  shop_item_ids: number[];
+  private_pass_ids: number[];
   is_usable_by_staff: boolean;
 };
 
 export type PaymentComboState = {
-  allIds: Array<number>;
+  allIds: number[];
   byId: { [id: number]: PaymentCombo };
   createOrUpdate: {
     error?: Error;
     loading: boolean;
   } & ErrorAndLoading;
   purchase: {
-    items: Array<PaymentComboPurchase>;
+    items: PaymentComboPurchase[];
     count: number;
   } & ErrorAndLoading;
   forBooking: {
-    allIds: Array<number>;
+    allIds: number[];
   } & ErrorAndLoading;
   relatedPrivatePass: {
     allIds: number[];
     byId: { [id: number]: PrivatePass };
+  } & ErrorAndLoading;
+  forContracts: {
+    allIds: number[];
   } & ErrorAndLoading;
 } & ErrorAndLoading;
 

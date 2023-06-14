@@ -263,3 +263,39 @@ export function fetchRelatedPrivatePassBulk(ids: number[]) {
     dispatch(relatedPrivatePassBulkActions.isLoading(false));
   };
 }
+
+export const fetchPaymentComboFromContractActions = {
+  error: createAction<Error | null>('PAYMENT_COMBO/FROM_CONTRACT/ERROR'),
+  isLoading: createAction<boolean>('PAYMENT_COMBO/FROM_CONTRACT/IS_LOADING'),
+  success: createAction<PaymentCombo[]>('PAYMENT_COMBO/FROM_CONTRACT/SUCCESS'),
+};
+
+export const fetchPaymentComboFromContract = (
+  params: {
+    company: number;
+    id__in?: number[];
+  },
+  options?: OptionCallback<PaymentCombo[]>,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchPaymentComboFromContractActions.isLoading(true));
+    dispatch(fetchPaymentComboFromContractActions.error(null));
+
+    try {
+      const ids_uniq = uniq((params?.id__in ?? []).filter((_id) => !!_id));
+      if (params?.id__in && ids_uniq.length === 0) {
+        return;
+      }
+      const response = await fetchPaymentComboListAPI(params);
+      dispatch(fetchPaymentComboFromContractActions.success(response.data));
+      dispatch(fetchPaymentComboFromContractActions.error(null));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(fetchPaymentComboFromContractActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+
+    dispatch(fetchPaymentComboFromContractActions.isLoading(false));
+  };
+};

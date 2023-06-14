@@ -11,6 +11,7 @@ import {
   paymentComboPurchaseListActions,
   paymentComboForBookingActions,
   relatedPrivatePassBulkActions,
+  fetchPaymentComboFromContractActions,
 } from './actions';
 
 import type { PaginatedResponse } from '../../state/types';
@@ -46,6 +47,11 @@ const initialState: ImmutablePaymentComboState = Immutable<PaymentComboState>({
     count: 0,
   },
   forBooking: {
+    loading: false,
+    error: null,
+    allIds: [],
+  },
+  forContracts: {
     loading: false,
     error: null,
     allIds: [],
@@ -229,6 +235,40 @@ export default handleActions<ImmutablePaymentComboState, any>(
         .setIn(
           ['relatedPrivatePass', 'allIds'],
           payload.map((pc) => pc.id),
+        );
+    },
+    [fetchPaymentComboFromContractActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['forContracts', 'loading'], payload);
+    },
+    [fetchPaymentComboFromContractActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['forContracts', 'error'], payload);
+    },
+    [fetchPaymentComboFromContractActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaymentCombo[] },
+    ) => {
+      return state
+        .merge(
+          {
+            byId: payload.reduce<PayloadReduceType<PaymentCombo>>(
+              (acc, paymentCombo) => {
+                acc[paymentCombo.id] = paymentCombo;
+                return acc;
+              },
+              {},
+            ),
+          },
+          { deep: true },
+        )
+        .setIn(
+          ['forContracts', 'allIds'],
+          payload.map((paymentCombo) => paymentCombo.id),
         );
     },
   },

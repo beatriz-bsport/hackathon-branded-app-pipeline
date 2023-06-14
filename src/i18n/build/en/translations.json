@@ -9615,6 +9615,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -14086,6 +14087,10 @@
         },
         "modifyBasket": {
             "15004": "The basket is being processed. Please try again in a few minutes."
+        },
+        "quicksaleConfiguration": {
+            "error": "An error has occurred during save",
+            "updated": "Configuration saved"
         }
     },
     "navigation": {
@@ -14116,7 +14121,8 @@
                 "forms": "Member forms",
                 "quickbooks": "QuickBooks",
                 "mobilePersonalization": "Branded app",
-                "coachUserspace": "Teacher view"
+                "coachUserspace": "Teacher view",
+                "quicksale": "Sales interface"
             },
             "pass": "Passes",
             "goBack": "Back",
@@ -14270,7 +14276,8 @@
             },
             "widget": {
                 "customize": "Customisation",
-                "create": "General"
+                "create": "General",
+                "customizeCss": "Custom CSS"
             },
             "smartList": {
                 "statistic": "Statistics",
@@ -14325,6 +14332,10 @@
                 "group": "Grouped session",
                 "pack": "Compatible passes",
                 "general": "General"
+            },
+            "quicksale": {
+                "access": "Access creation",
+                "configuration": "Personalising categories"
             }
         }
     },
@@ -14647,10 +14658,83 @@
                 "cancel": "Close",
                 "submit": "Confirm",
                 "title": "Widget settings"
+            },
+            "cssConfig": {
+                "option": {
+                    "none": "None",
+                    "nextWeek": "Next week",
+                    "currentWeek": "This week",
+                    "future": "Not yet open for booking",
+                    "bookable": "Bookable",
+                    "past": "Passed",
+                    "cancel": "Cancelled",
+                    "waitingList": "Waiting list",
+                    "time": "Of the schedule",
+                    "coach": "Of the teacher",
+                    "activityName": "Of the activity",
+                    "false": "No",
+                    "true": "Yes"
+                },
+                "title": {
+                    "nextOffer": "Next session available",
+                    "showDayParts": "Separate morning, afternoon and evening",
+                    "isRegistered": "Already registered",
+                    "offerStatus": "Availability of the offer",
+                    "isMobile": "For mobile",
+                    "loading": "Currently loading",
+                    "variant": "Highlight",
+                    "filterGroupOptions": "Grouped options"
+                },
+                "configurationTitle": "Variations"
+            },
+            "page": {
+                "calendar": "Calendar",
+                "workshop": "Workshop"
+            },
+            "components": {
+                "calendar": "Calendar page",
+                "timeTable": "Calendar component",
+                "workshopPage": "Workshop page",
+                "activity": "Activity details popup",
+                "datePicker": "Date selector",
+                "bookButton": "Book button",
+                "filters": "Filter list",
+                "workshopCard": "Workshop card",
+                "groupOfferListItem": "Details of grouped session",
+                "cardOffer": "Session details (calendar display)",
+                "workshopsComponent": "Workshop details",
+                "vodTag": "VOD chip",
+                "level": "Level chip",
+                "offerListItem": "Session details",
+                "filter": "Single filter"
+            },
+            "customCss": {
+                "yourCode": "Your complementary implementation:",
+                "baseCode": "bsport tsyle",
+                "showBsportCode": "Display the bsport style",
+                "infoMultiplePage": "This element is present on several widgets, so the changes will apply to the following widgets:",
+                "snackbarSuccessResetAll": "All your configurations have been reset",
+                "snackbarSuccessSave": "Your element has been successfully saved",
+                "choiceElement": "Choice of the element",
+                "choiceWidget": "Choice of the widget",
+                "element": "Element",
+                "dialog": {
+                    "title": "Reset element",
+                    "content": "Warning: you are about to reset the css for this element. It will return to its default configuration.",
+                    "confirm": "Save",
+                    "cancel": "Cancel"
+                },
+                "info": "You can customise each element and their variants that make up the widgets. Select a widget and then the desired element.",
+                "save": "Save",
+                "savedChanges": "Last changes saved",
+                "unsavedChanges": "Some changes have not been recorded",
+                "preview": "Preview - {{-name}}",
+                "CSS": "CSS"
             }
         },
         "customize": "Personalization",
-        "create": "General"
+        "create": "General",
+        "customizeCss": "Customise css"
     },
     "marketing": {
         "newsletter": {
@@ -16436,8 +16520,53 @@
                 "product": "product",
                 "product_plural": "products",
                 "credit": "credit",
-                "credit_plural": "credits"
+                "credit_plural": "credits",
+                "unlimited": "Unlimited"
             }
+        },
+        "rolePage": {
+            "noResult": "No access created",
+            "actionColumn": "Action",
+            "emailColumn": "Email",
+            "staffColumn": "Staff",
+            "submit": "Save",
+            "cancel": "Cancel",
+            "password": "Password",
+            "email": "Email",
+            "lastName": "Name",
+            "firstName": "First name",
+            "addAccess": "Add access",
+            "modalTitle": "Creation of a sales interface access",
+            "title": "Sales interface access",
+            "subtitle": "These accesses enable staff to access the sales interface. You need to be logged in to be able to sell via the interface."
+        },
+        "pageTitle": "Sales interface",
+        "pageLeavePrompt": {
+            "discard": "Exit without saving",
+            "save": "Save",
+            "description": "Be careful, you haven't made a save. You are about to lose all the changes you have made. Would you like to save your work?",
+            "title": "Changes not saved"
+        },
+        "cardListPage": {
+            "categoryArchivedSnackbar": "The category has been archived",
+            "archivedCategories": "Archived categories",
+            "categoryModalSubtitle": "Color palette",
+            "categoryModalTitle": "Color of the category",
+            "newSection": "New category",
+            "addItems": "You can also add objects by clicking on the + tile in the last position.",
+            "addSection": "You can also add a category by clicking on the + tile in the last position.",
+            "deleteTile": "Delete the tile",
+            "archiveSection": "Archive the category",
+            "moveTile": "Move the tile",
+            "editColor": "Edit the color",
+            "editName": "Edit the name",
+            "editIcon": "Edit the icon",
+            "seeLess": "See less",
+            "seeMore": "See more",
+            "possibleActionsFull": "You can perform actions by hovering over the tiles with your mouse. You can :",
+            "possibleActionsShort": "You can perform actions by hovering over the tiles with the mouse...",
+            "save": "Save",
+            "preview": "Preview"
         }
     }
 }

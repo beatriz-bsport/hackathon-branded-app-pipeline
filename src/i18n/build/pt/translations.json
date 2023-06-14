@@ -1,1 +1,11 @@
-{}
+{
+    "alerting": {
+        "alert_kind": {
+            "1": "Faturação"
+        },
+        "list": {
+            "emptyAlerting": "Nenhuma notificação nova.",
+            "title": "Notificações"
+        }
+    }
+}

@@ -959,7 +959,7 @@
                 "book": "Prenota",
                 "bookOption": "Lista d'attesa",
                 "notAvailable": "Annullato",
-                "isPast": "Passato",
+                "isPast": "Passata",
                 "notBookableYet": "Prossimamente",
                 "alreadyRegistered": "Prenotato",
                 "full": "Completo"
@@ -3518,7 +3518,7 @@
                 "partnership": "Partnership",
                 "webhook": "Webhook",
                 "personalization": "Personalizzazione",
-                "role": "Personale",
+                "role": "Staff",
                 "shop": "Negozio",
                 "waitingList": "Lista d'attesa",
                 "invoice": "Fatturazione",
@@ -11801,7 +11801,7 @@
         "cancel": "Cancella",
         "confirm": "Confermare",
         "disconnectInfo": "Torna alla pagina di accesso",
-        "disconnect": "Disconnessione",
+        "disconnect": "Log-out",
         "activate": "Attivare",
         "save": "Salva",
         "requiredField": "questo campo è richiesto",
@@ -14308,7 +14308,7 @@
             "searchPlaceholder": "Cerca un modello"
         },
         "login": {
-            "disconnect": "Disconnessione",
+            "disconnect": "Log-out",
             "previous": "Indietro",
             "connect": "Collegami",
             "signUp": "Iscriviti"

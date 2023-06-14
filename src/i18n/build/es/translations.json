@@ -3855,7 +3855,9 @@
                 "price": "Nueva cantidad",
                 "title": "Modificar cantidad futura",
                 "updateAll": "Actualizar todos los pagos futuros previstos (antes de la renovación)",
-                "updateRecurrentPrice": "Aplicar este cambio a los pagos generados después de la renovación"
+                "updateRecurrentPrice": "Aplicar este cambio a los pagos generados después de la renovación",
+                "nonNullDiscount": "Esta suscripción incluye actualmente una promoción. Esta promoción no se tendrá en cuenta cuando se actualice el precio.",
+                "nonNullFlatFees": "Esta suscripción incluye actualmente unos gastos de administración de {{ flatFeesAmount }}. {{ currencyDisplay }}. Estos gastos de gestión no se tendrán en cuenta cuando se actualice el precio."
             },
             "list": {
                 "titleNext": "Próximos retiros"
@@ -4986,6 +4988,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelado",
+                "Cancelada",
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
@@ -8416,14 +8419,15 @@
                 "13": "Notificación",
                 "12": "Smartlist",
                 "71": "Recibidos",
-                "70": "Enviados"
+                "70": "Enviados",
+                "15": "Cadencia"
             },
             "sendParameter": {
                 "placeholder": "Seleccione un parámetro de envío",
                 "title": "Parámetro de envío"
             },
             "recipient": {
-                "placeholder": "Seleccione un tipo de destinatario",
+                "placeholder": "Seleccione el estado de la reserva",
                 "title": "Destinatarios"
             },
             "channel": {
@@ -8517,7 +8521,13 @@
                 "mute": "Silenciar",
                 "removeFavorite": "Eliminar de favoritos",
                 "addToFavorite": "Añadir a favoritos",
-                "markAsRead": "Marcar como no leído"
+                "markAsRead": "Marcar como no leído",
+                "detail": {
+                    "offer": "Detalles de la sesión",
+                    "smartlist": "Detalles de la Smartlist",
+                    "member": "Datos del miembro"
+                },
+                "filterMessages": "Filtrar mensajes"
             },
             "search": "Buscar...",
             "filter": {
@@ -8531,7 +8541,8 @@
                 "member": "Miembros",
                 "smartlist": "Smartlists",
                 "offer": "Sesiones"
-            }
+            },
+            "loadMoreThreads": "Cargar más mensajes"
         },
         "sentStatus": {
             "fail": "Se produjo un error al enviar",
@@ -8944,6 +8955,21 @@
             },
             "extra_info": {
                 "label": "Información del estudio"
+            },
+            "warningColorBrightness": {
+                "save": "Guardar",
+                "cancel": "Cancelar",
+                "text": "Uno de los colores seleccionados es muy claro y puede resultar difícil de ver",
+                "title": "Atención",
+                "example": "Ejemplo"
+            },
+            "productsThemePersonalization": {
+                "credits": {
+                    "description": "Activar o desactivar la visualización de los créditos de los bonos para los clientes",
+                    "label": "Ocultar créditos",
+                    "subTitle": "Créditos"
+                },
+                "title": "Productos"
             }
         },
         "pageTitles": {
@@ -10251,7 +10277,8 @@
                 "duplicate": {
                     "error": "No es posible duplicar el producto",
                     "success": "Producto duplicado exitosamente"
-                }
+                },
+                "notFound": "No se ha encontrado este producto. Es posible que se haya archivado."
             },
             "subShop": {
                 "delete": {
@@ -10967,6 +10994,16 @@
             "send": {
                 "error": "Se ha producido un error al enviar su mensaje emergente."
             }
+        },
+        "quicksaleConfiguration": {
+            "error": "Se ha producido un error al guardar",
+            "updated": "Configuración guardada"
+        },
+        "giftCard": {
+            "notFound": "No se ha encontrado esta tarjeta regalo. Es posible que se haya archivado."
+        },
+        "modifyBasket": {
+            "15004": "La cesta se está procesando. Por favor, inténtelo de nuevo en unos minutos."
         }
     },
     "paymentPack": {
@@ -12129,7 +12166,8 @@
                 "forms": "Formularios miembros",
                 "quickbooks": "QuickBooks",
                 "mobilePersonalization": "Personalización de la app",
-                "coachUserspace": "Área de profesores"
+                "coachUserspace": "Área de profesores",
+                "quicksale": "Interfaz de ventas"
             },
             "pass": "Bono",
             "goBack": "Volver",
@@ -12248,7 +12286,8 @@
             },
             "widget": {
                 "customize": "Personalización",
-                "create": "General"
+                "create": "General",
+                "customizeCss": "CSS personalizado"
             },
             "smartList": {
                 "statistic": "Estadística",
@@ -12303,6 +12342,10 @@
                 "group": "Sesión de grupo",
                 "pack": "Bonos compatibles",
                 "general": "General"
+            },
+            "quicksale": {
+                "access": "Creación de accesos",
+                "configuration": "Personalización de categorías"
             }
         }
     },
@@ -13244,6 +13287,20 @@
         },
         "popup": {
             "sendPopup": "Enviar un mensaje emergente"
+        },
+        "cadenceListDialog": {
+            "close": "Cerrar",
+            "title": "Lista de las cadencias"
+        },
+        "cadence": {
+            "content": "Usado en la cadencia: {{ cadence_name }}",
+            "content_plural": "Usado en {{ count }} cadencias"
+        },
+        "cannotBeDeletedDialog": {
+            "content": "No podrá eliminar esta smartlist mientras se utilice en la siguiente cadencia:",
+            "content_plural": "No podrá eliminar esta smartlist mientras se utilice en las siguientes cadencias:",
+            "cancel": "Cerrar",
+            "title": "Utilizada en una de las cadencias"
         }
     },
     "relationship": {
@@ -13565,10 +13622,73 @@
                 "cancel": "Cerrar",
                 "submit": "Confirmar",
                 "title": "Configuración del widget"
+            },
+            "cssConfig": {
+                "option": {
+                    "activityName": "Actividad",
+                    "false": "No",
+                    "true": "Sí"
+                },
+                "title": {
+                    "nextOffer": "Próxima sesión disponible",
+                    "showDayParts": "Separar mañanas, tardes y noches",
+                    "isRegistered": "Ya está registrado",
+                    "offerStatus": "Disponibilidad de la oferta",
+                    "isMobile": "Para el móvil",
+                    "loading": "Cargando",
+                    "variant": "Destacar",
+                    "filterGroupOptions": "Opciones de agrupación"
+                },
+                "configurationTitle": "Variaciones"
+            },
+            "page": {
+                "calendar": "Calendario",
+                "workshop": "Taller"
+            },
+            "components": {
+                "calendar": "Página del calendario",
+                "timeTable": "Componente de calendario",
+                "workshopPage": "Página del taller",
+                "activity": "Ventana emergente de detalles de la actividad",
+                "datePicker": "Selector de fecha",
+                "bookButton": "Botón de reservar",
+                "filters": "Lista de filtros",
+                "workshopCard": "Tarjeta de taller",
+                "groupOfferListItem": "Detalles de la sesión agrupada",
+                "cardOffer": "Detalles de la sesión (visualización del calendario)",
+                "workshopsComponent": "Detalles del taller",
+                "vodTag": "Ficha VOD",
+                "level": "Ficha de nivel",
+                "offerListItem": "Detalles de la sesión",
+                "filter": "Filtro único"
+            },
+            "customCss": {
+                "yourCode": "Su implementación complementaria:",
+                "baseCode": "Estilo de bsport",
+                "showBsportCode": "Mostrar el estilo bsport",
+                "infoMultiplePage": "Este elemento está presente en varios widgets, por lo que los cambios se aplicarán a los siguientes widgets:",
+                "snackbarSuccessResetAll": "Se han restablecido todas tus configuraciones",
+                "snackbarSuccessSave": "Tu elemento se ha guardado correctamente",
+                "choiceElement": "Selección del elemento",
+                "choiceWidget": "Selección del widget",
+                "info": "Puede personalizar cada elemento y sus variantes que componen los widgets. Seleccione un widget y, a continuación, el elemento deseado.",
+                "dialog": {
+                    "content": "Advertencia: está a punto de restablecer el CSS de este elemento. Volverá a su configuración por defecto.",
+                    "confirm": "Confirmar",
+                    "cancel": "Cancelar",
+                    "title": "Restablecer elemento"
+                },
+                "save": "Guardar",
+                "savedChanges": "Últimos cambios guardados",
+                "unsavedChanges": "Algunos cambios no se han guardado",
+                "element": "Elemento",
+                "preview": "Vista previa - {{-name}}",
+                "CSS": "CSS"
             }
         },
         "customize": "Personalización",
-        "create": "General"
+        "create": "General",
+        "customizeCss": "Personalizar CSS"
     },
     "platformBilling": {
         "upsellPackage": {
@@ -15366,6 +15486,103 @@
                 "helper": "¿Desea ser redirigido a la página de solicitudes de sustitución para anular las solicitudes obsoletas?",
                 "title": "Una solicitud de sustitución activa está vinculada a esta sesión"
             }
+        }
+    },
+    "quicksale": {
+        "rolePage": {
+            "noResult": "No se ha creado ningún acceso",
+            "actionColumn": "Acción",
+            "emailColumn": "Email",
+            "staffColumn": "Staff",
+            "submit": "Validar",
+            "cancel": "Cancelar",
+            "password": "Contraseña",
+            "email": "Email",
+            "lastName": "Apellido",
+            "firstName": "Nombre",
+            "modalTitle": "Creación de un acceso a la interfaz de ventas",
+            "addAccess": "Añadir acceso",
+            "subtitle": "Estos accesos permiten al personal acceder a la interfaz de ventas. Es necesario iniciar sesión para poder vender a través de la interfaz.",
+            "title": "Acceso a la interfaz de ventas"
+        },
+        "pageTitle": "Interfaz de ventas",
+        "pageLeavePrompt": {
+            "discard": "Salir sin guardar",
+            "save": "Guardar",
+            "description": "Ten cuidado, no has guardado nada. Estás a punto de perder todos los cambios que has hecho. ¿Quieres guardar tu trabajo?",
+            "title": "Cambios no guardados"
+        },
+        "cardListPage": {
+            "categoryArchivedSnackbar": "La categoría ha sido archivada",
+            "archivedCategories": "Categorías archivadas",
+            "categoryModalSubtitle": "Gama de colores",
+            "categoryModalTitle": "Color de la categoría",
+            "newSection": "Nueva categoría",
+            "addItems": "También puedes añadir objetos haciendo clic en la ficha + de la última posición.",
+            "addSection": "También puede añadir una categoría haciendo clic en la ficha + en la última posición.",
+            "deleteTile": "Borrar la ficha",
+            "archiveSection": "Archivar la categoría",
+            "moveTile": "Mover la ficha",
+            "editColor": "Editar el color",
+            "editName": "Editar el nombre",
+            "editIcon": "Editar el icono",
+            "seeLess": "Ver menos",
+            "seeMore": "Ver más",
+            "possibleActionsFull": "Puedes realizar acciones pasando el ratón por encima de las fichas. Puedes :",
+            "possibleActionsShort": "Puedes realizar acciones pasando el ratón por encima de las fichas...",
+            "save": "Guardar",
+            "preview": "Vista previa"
+        },
+        "objectCard": {
+            "subtitle": {
+                "unlimited": "Ilimitado",
+                "giftcard": "Tarjeta regalo",
+                "subscription": "Cuota",
+                "paymentCombo": "Pack",
+                "shopProduct": "Producto",
+                "privatePass": "Tarjeta de citas",
+                "paymentPack": "Bono",
+                "product": "producto",
+                "product_plural": "productos",
+                "credit": "crédito",
+                "credit_plural": "créditos"
+            },
+            "recurrence": {
+                "year": "cada año",
+                "year_plural": "cada {{ recurrence_basis }} años",
+                "month": "cada mes",
+                "month_plural": "cada {{ recurrence_basis }} meses",
+                "week": "cada semana",
+                "week_plural": "cada {{ recurrence_basis }} semanas",
+                "day": "todos los días",
+                "day_plural": "cada {{ recurrence_basis }} días"
+            }
+        },
+        "itemList": {
+            "additionDrawer": {
+                "withoutCategory": "Sin categoría",
+                "noResult": "Ningún resultado",
+                "unselectAll": "Deseleccionar todo",
+                "selectAll": "Seleccionar todo",
+                "objectType": "Tipo de objeto",
+                "category": "Categoría",
+                "add": "Añadir",
+                "cancel": "Cancelar",
+                "search": "Buscar",
+                "tilesColor": "Color del recuadro",
+                "objectsAddition": "Añadiendo objetos",
+                "objectGroupsSubtitle": "Añadir un grupo de objetos",
+                "simpleObjectsSubtitle": "Añadir objetos",
+                "title": "Interfaz de ventas"
+            },
+            "goBack": "Atras"
+        },
+        "iconSelector": {
+            "searchPlaceholder": "Buscar"
+        },
+        "sectionCard": {
+            "item": "item",
+            "item_plural": "items"
         }
     }
 }

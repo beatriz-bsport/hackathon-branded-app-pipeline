@@ -3029,7 +3029,8 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
-                "Geannuleerd"
+                "Geannuleerd",
+                "Annuleren"
             ]
         },
         "payment_method_with_credit_account": {
@@ -5771,7 +5772,7 @@
                 "isDisabled": "Deze sessie is geannuleerd.",
                 "isTooLate": "De inschrijvingen zijn gesloten.",
                 "isWaitingListFull": "De sessie en de wachtlijst zijn vol.",
-                "isTooSoon": "Reserveringen worden vanaf {{ date_ }} geaccepteerd.",
+                "isTooSoon": "De registratie is momenteel gesloten en gaat open op {{ -date }}.",
                 "isAlreadyRegistered": "Je hebt deze sessie al gereserveerd.",
                 "blockedByTags": "Het is niet mogelijk om je voor deze sessie in te schrijven."
             },
@@ -10657,6 +10658,10 @@
         },
         "modifyBasket": {
             "15004": "Het mandje wordt verwerkt, probeer het over een paar minuten nog eens"
+        },
+        "quicksaleConfiguration": {
+            "error": "Er is een fout opgetreden tijdens de back-up",
+            "updated": "Opgeslagen configuratie"
         }
     },
     "coach": {
@@ -13317,7 +13322,8 @@
                 "forms": "Ledenformulieren",
                 "quickbooks": "QuickBooks",
                 "mobilePersonalization": "Gepersonaliseerde app",
-                "coachUserspace": "Instructeursomgeving"
+                "coachUserspace": "Instructeursomgeving",
+                "quicksale": "Verkoopinterface"
             },
             "pass": "Leskaarten",
             "goBack": "Terug",
@@ -13433,7 +13439,8 @@
             },
             "widget": {
                 "customize": "Aanpassing",
-                "create": "Algemeen"
+                "create": "Algemeen",
+                "customizeCss": "Aangepaste CSS"
             },
             "smartList": {
                 "statistic": "Statistieken",
@@ -13488,6 +13495,10 @@
                 "group": "Groepssessies",
                 "pack": "Compatibele kaarten",
                 "general": "Algemeen"
+            },
+            "quicksale": {
+                "access": "Toegangsverlening",
+                "configuration": "Categorieën personaliseren"
             }
         }
     },
@@ -13573,10 +13584,83 @@
                 "cancel": "Sluiten",
                 "submit": "Bevestigen",
                 "title": "Instellingen"
+            },
+            "cssConfig": {
+                "option": {
+                    "none": "Geen",
+                    "nextWeek": "Volgende week",
+                    "currentWeek": "Deze week",
+                    "future": "Nog niet open voor boeking",
+                    "bookable": "Boekbaar",
+                    "past": "Verleden",
+                    "cancel": "Geannuleerd",
+                    "waitingList": "Wachtlijst",
+                    "time": "Dienstregeling",
+                    "coach": "Van de leraar",
+                    "activityName": "Activiteit",
+                    "false": "Nee",
+                    "true": "Ja"
+                },
+                "title": {
+                    "nextOffer": "Volgende sessie beschikbaar",
+                    "showDayParts": "Aparte ochtenden, middagen en avonden",
+                    "isRegistered": "Al geregistreerd",
+                    "offerStatus": "Beschikbaarheid van het aanbod",
+                    "isMobile": "Voor mobiel",
+                    "loading": "Momenteel aan het laden",
+                    "variant": "Markeer",
+                    "filterGroupOptions": "Gebundelde opties"
+                },
+                "configurationTitle": "Variaties"
+            },
+            "page": {
+                "calendar": "Kalender",
+                "workshop": "Workshop"
+            },
+            "components": {
+                "calendar": "Kalender",
+                "timeTable": "Kalenderonderdeel",
+                "workshopPage": "Pagina workshop",
+                "activity": "Activiteit details popup",
+                "datePicker": "Datumkiezer",
+                "bookButton": "Boekingsknop",
+                "filters": "Lijst met filters",
+                "workshopCard": "Workshop kaart",
+                "groupOfferListItem": "Details van een sessiegroep",
+                "cardOffer": "Sessiegegevens (kalenderweergave)",
+                "workshopsComponent": "Details workshop",
+                "vodTag": "Chip vod",
+                "level": "Niveau chip",
+                "offerListItem": "Details sessie",
+                "filter": "Enkel filter"
+            },
+            "customCss": {
+                "yourCode": "Je aanvullende implementatie:",
+                "baseCode": "Stijl van bsport",
+                "showBsportCode": "Toon bsportstijl",
+                "infoMultiplePage": "Omdat dit element aanwezig is op verschillende widgets, worden de wijzigingen toegepast op de volgende widgets:",
+                "snackbarSuccessResetAll": "Al uw configuraties zijn gereset",
+                "snackbarSuccessSave": "Je item is succesvol opgeslagen",
+                "choiceElement": "Keuze van element",
+                "choiceWidget": "Keuze van widget",
+                "info": "Je kunt elk element en hun varianten die deel uitmaken van de widgets aanpassen. Selecteer een widget en vervolgens het gewenste element.",
+                "dialog": {
+                    "content": "Waarschuwing: je staat op het punt de css voor dit element te resetten. Het zal terugkeren naar de standaardconfiguratie.",
+                    "confirm": "Bevestigen",
+                    "cancel": "Annuleren",
+                    "title": "Item resetten"
+                },
+                "save": "Registreer",
+                "savedChanges": "Laatste wijzigingen opgeslagen",
+                "unsavedChanges": "Er zijn geen wijzigingen geregistreerd",
+                "element": "Element",
+                "preview": "Voorbeeld - {{-name}}",
+                "CSS": "CSS"
             }
         },
         "customize": "Personalisering",
-        "create": "Algemeen"
+        "create": "Algemeen",
+        "customizeCss": "CSS aanpassen"
     },
     "platformBilling": {
         "platformBillingPlan": {
@@ -15424,8 +15508,53 @@
                 "product": "product",
                 "product_plural": "producten",
                 "credit": "credit",
-                "credit_plural": "credits"
+                "credit_plural": "credits",
+                "unlimited": "Onbeperkt"
             }
+        },
+        "rolePage": {
+            "noResult": "Geen toegang gemaakt",
+            "actionColumn": "Actie",
+            "emailColumn": "Email",
+            "staffColumn": "Instructeurs",
+            "submit": "Geldig",
+            "cancel": "Annuleren",
+            "password": "Wachtwoord",
+            "email": "Email",
+            "lastName": "Naam",
+            "firstName": "Voornaam",
+            "modalTitle": "Toegang tot verkoopinterface maken",
+            "addAccess": "Een toegang toevoegen",
+            "subtitle": "Met deze toegangen hebben medewerkers toegang tot de snelle verkoopinterface. Je moet ingelogd zijn om via de interface te kunnen verkopen.",
+            "title": "Toegang tot verkooppunten"
+        },
+        "pageTitle": "Verkoopinterface",
+        "pageLeavePrompt": {
+            "discard": "Afsluiten zonder op te slaan",
+            "save": "Opslaan",
+            "description": "Wees voorzichtig, je hebt geen back-up gemaakt. Je staat op het punt om alle wijzigingen die je hebt gemaakt te verliezen. Wil je je werk opslaan?",
+            "title": "Wijzigingen niet opgeslagen"
+        },
+        "cardListPage": {
+            "categoryArchivedSnackbar": "De categorie is gearchiveerd",
+            "archivedCategories": "Gearchiveerde categorieën",
+            "categoryModalSubtitle": "Kleurenpalet",
+            "categoryModalTitle": "Categorie kleur",
+            "newSection": "Nieuwe categorie",
+            "addItems": "Je kunt ook objecten toevoegen door op de + tegel in de laatste positie te klikken.",
+            "addSection": "Je kunt ook een categorie toevoegen door op de + tegel op de laatste positie te klikken.",
+            "deleteTile": "De tegel verwijderen",
+            "archiveSection": "Archief categorie",
+            "moveTile": "Verplaats de tegel",
+            "editColor": "Verander de kleur",
+            "editName": "Naam wijzigen",
+            "editIcon": "Het pictogram wijzigen",
+            "seeLess": "Minder zien",
+            "seeMore": "Meer zien",
+            "possibleActionsFull": "Je kunt acties uitvoeren door met je muis over de tegels te bewegen. U kunt :",
+            "possibleActionsShort": "Je kunt acties uitvoeren door met de muis over de tegels te bewegen...",
+            "save": "Opslaan",
+            "preview": "Voorbeeld"
         }
     }
 }

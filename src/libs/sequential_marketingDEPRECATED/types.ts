@@ -147,6 +147,7 @@ export type CadenceState = {
     allIds: number[];
     byId: { [id: number]: CadenceStep };
     subscribe: ErrorAndLoading;
+    position: ErrorAndLoading;
   } & ErrorAndLoading;
   marketingActions: {
     allIds: number[];

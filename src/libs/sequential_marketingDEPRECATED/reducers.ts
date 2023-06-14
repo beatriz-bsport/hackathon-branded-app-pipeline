@@ -59,6 +59,10 @@ const initialState: ImmutableCadenceState = Immutable<CadenceState>({
       error: null,
       loading: false,
     },
+    position: {
+      loading: false,
+      error: null,
+    },
   },
   marketingActions: {
     allIds: [],
@@ -376,13 +380,13 @@ export default handleActions<ImmutableCadenceState, any>(
       state,
       { payload }: { payload: Error | null },
     ) => {
-      return state.setIn(['step', 'error'], payload);
+      return state.setIn(['step', 'position', 'error'], payload);
     },
     [updateCadenceStepCanvasPositionActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
-      return state.setIn(['step', 'loading'], payload);
+      return state.setIn(['step', 'position', 'loading'], payload);
     },
     [updateCadenceStepCanvasPositionActions.success.toString()]: (
       state,

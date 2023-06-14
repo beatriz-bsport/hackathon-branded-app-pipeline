@@ -29,8 +29,12 @@ export const ResourceDatatypeFilter = (props: Props) => {
         variant="outlined"
         onClick={(ev) => props.setAnchorEl(ev.currentTarget)}
       >
-        <CategoryIcon className={props.classes.leftIcon} />
-        <Hidden smDown>{props.t('resource.groupBy')}</Hidden>
+        <CategoryIcon />
+        <Hidden smDown>
+          <div className={props.classes.marginLeft}>
+            {props.t('resource.groupBy')}
+          </div>
+        </Hidden>
       </Button>
       <Menu
         id="fade-menu"
@@ -76,8 +80,8 @@ export const ResourceDatatypeFilter = (props: Props) => {
 };
 
 const styles = (theme) => ({
-  leftIcon: {
-    marginRight: theme.spacing(1),
+  marginLeft: {
+    marginLeft: theme.spacing(1),
   },
 });
 

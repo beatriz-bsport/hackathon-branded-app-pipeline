@@ -152,6 +152,7 @@ exports.default = {
       },
     },
     restrictions: 'Restrictions',
+    compatibleTimeSlot: 'Créneaux horaires compatibles',
     includedElements: {
       cancellation: '{{count}} annulation',
       cancellation_plural: '{{count}} annulations',
@@ -161,6 +162,9 @@ exports.default = {
       compatibleWithEverything: 'Compatible avec tout',
       isUniversalPass: 'Carte universelle',
       newMemberOnly: 'Uniquement pour les nouveaux membres',
+      offPeakRestrictions: {
+        title: 'Compatible seulement sur certains créneaux horaires',
+      },
       restrictions: {
         title: "Restrictions d'utilisation",
         perDay: '{{count}} utilisation par jour',

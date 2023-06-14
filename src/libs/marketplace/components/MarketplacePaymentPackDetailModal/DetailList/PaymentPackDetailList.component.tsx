@@ -15,10 +15,12 @@ import BlockIcon from '@material-ui/icons/Block';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 import {
   useCompatibilityInfoForPaymentPackDetailCard,
   useValidityInfoForPaymentPackCard,
+  formatOffPeakScheduleOnDisplay,
 } from '#libs/marketplace/utils/payment-pack';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
@@ -38,6 +40,7 @@ type Props = {
   onShowCompatibilityDialog: () => void;
   onShowRestrictionDialog: () => void;
   hideCredits?: boolean;
+  onShowOffPeakRestrictionDialog: () => void;
 };
 
 const PaymentPackDetailList: React.FC<Props> = ({
@@ -46,6 +49,7 @@ const PaymentPackDetailList: React.FC<Props> = ({
   onShowCompatibilityDialog,
   onShowRestrictionDialog,
   hideCredits,
+  onShowOffPeakRestrictionDialog,
 }) => {
   const { t } = useTranslation('marketplace');
   const [isMenuExpanded, setMenuExpanded] = React.useState<Boolean>(false);
@@ -83,6 +87,10 @@ const PaymentPackDetailList: React.FC<Props> = ({
     useCompatibilityInfoForPaymentPackDetailCard(paymentPack);
 
   const validityInformation = useValidityInfoForPaymentPackCard(paymentPack);
+
+  const offPeakSchedule = formatOffPeakScheduleOnDisplay(
+    paymentPack.off_peak_schedule,
+  );
 
   return (
     <ul className="bs-pack-details-dialog__list">
@@ -317,6 +325,23 @@ const PaymentPackDetailList: React.FC<Props> = ({
               threshold: penaltyThresholdMessage,
               time_window_days: penaltyTimeWindowMessage,
             })}
+        </li>
+      )}
+      {!!Object.keys(offPeakSchedule).length && (
+        <li className="bs-pack-details-dialog__list__item">
+          <span className="bs-pack-details-dialog__list__item__icon">
+            <AccessTimeIcon />
+          </span>
+          <span>
+            {t('genericCardDetails.includedElements.offPeakRestrictions.title')}
+            <button
+              type="button"
+              onClick={onShowOffPeakRestrictionDialog}
+              className="bs-pack-details-dialog__list__item__link"
+            >
+              {t('genericCardDetails.includedElements.see')}
+            </button>
+          </span>
         </li>
       )}
     </ul>

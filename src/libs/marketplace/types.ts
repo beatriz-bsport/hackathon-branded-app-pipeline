@@ -181,12 +181,14 @@ export type MarketplacePassDialogStateKey =
   | 'isPaymentPackRestrictionDialogOpen'
   | 'isPrivatePassDetailsDialogOpen'
   | 'isPrivatePassCompatibilityDialogOpen'
+  | 'isPaymentPackOffPeakRestrictionDialogOpen'
   | 'isPaymentComboDetailsDialogOpen';
 
 export enum MarketplacePassPageDialogState {
   PaymentPackDetail = 'isPaymentPackDetailsDialogOpen',
   PaymentPackCompatibility = 'isPaymentPackCompatibilityDialogOpen',
   PaymentPackRestriction = 'isPaymentPackRestrictionDialogOpen',
+  PaymentPackOffPeakRestriction = 'isPaymentPackOffPeakRestrictionDialogOpen',
   PrivatePassDetail = 'isPrivatePassDetailsDialogOpen',
   PrivatePassCompatibility = 'isPrivatePassCompatibilityDialogOpen',
   PaymentComboDetail = 'isPaymentComboDetailsDialogOpen',

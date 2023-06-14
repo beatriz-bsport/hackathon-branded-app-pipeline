@@ -2,10 +2,12 @@ import React, { useCallback, useMemo } from 'react';
 
 import MarketplacePaymentPackDetailsModal from '#libs/marketplace/components/MarketplacePaymentPackDetailModal';
 import MarketplacePaymentPackRestrictionModal from '#libs/marketplace/components/MarketplacePaymentPackRestrictionModal';
+import MarketplacePaymentPackOffPeakRestrictionModal from '#libs/marketplace/components/MarketplacePaymentPackOffPeakRestrictionModal';
 import MarketplacePaymentPackCompatibilityModal from '#libs/marketplace/components/MarketplacePaymentPackCompatibilityModal';
 import MarketplacePrivatePassDetailsModal from '#libs/marketplace/components/MarketplacePrivatePassDetailsModal';
 import MarketplacePrivatePassCompatibilityModal from '#libs/marketplace/components/MarketplacePrivatePassCompatibilityModal';
 import MarketplacePaymentComboDetailsModal from '#libs/marketplace/components/MarketplacePaymentComboDetailModal';
+
 import {
   MarketplacePassDialogStateKey,
   MarketplacePassPagePaymentPack,
@@ -26,6 +28,7 @@ type Props = {
   isPaymentPackDetailsDialogOpen: boolean;
   isPaymentPackCompatibilityDialogOpen: boolean;
   isPaymentPackRestrictionDialogOpen: boolean;
+  isPaymentPackOffPeakRestrictionDialogOpen: boolean;
   isPrivatePassDetailsDialogOpen: boolean;
   isPrivatePassCompatibilityDialogOpen: boolean;
   isPaymentComboDetailsDialogOpen: boolean;
@@ -59,6 +62,7 @@ const MarketplacePassDialogs = (props: Props) => {
     isPaymentPackDetailsDialogOpen,
     isPaymentPackCompatibilityDialogOpen,
     isPaymentPackRestrictionDialogOpen,
+    isPaymentPackOffPeakRestrictionDialogOpen,
     isPrivatePassDetailsDialogOpen,
     isPrivatePassCompatibilityDialogOpen,
     isPaymentComboDetailsDialogOpen,
@@ -138,6 +142,12 @@ const MarketplacePassDialogs = (props: Props) => {
     handleOpenDialog(MarketplacePassPageDialogState.PaymentPackRestriction);
   }, [handleOpenDialog]);
 
+  const handleOpenPaymentPackOffPeakRestrictionDialog = useCallback(() => {
+    handleOpenDialog(
+      MarketplacePassPageDialogState.PaymentPackOffPeakRestriction,
+    );
+  }, [handleOpenDialog]);
+
   const handleOpenPaymentPackCompatibilityDialog = useCallback(() => {
     handleOpenDialog(MarketplacePassPageDialogState.PaymentPackCompatibility);
   }, [handleOpenDialog]);
@@ -148,6 +158,12 @@ const MarketplacePassDialogs = (props: Props) => {
 
   const handleClosePaymentPackRestrictionDialog = useCallback(() => {
     handleCloseDialog(MarketplacePassPageDialogState.PaymentPackRestriction);
+  }, [handleCloseDialog]);
+
+  const handleClosePaymentPackOffPeakRestrictionDialog = useCallback(() => {
+    handleCloseDialog(
+      MarketplacePassPageDialogState.PaymentPackOffPeakRestriction,
+    );
   }, [handleCloseDialog]);
 
   const handleClosePaymentPackCompatibilityDialog = useCallback(() => {
@@ -183,6 +199,9 @@ const MarketplacePassDialogs = (props: Props) => {
         onShowRestrictionDialog={handleOpenPaymentPackRestrictionDialog}
         onShowCompatibilityDialog={handleOpenPaymentPackCompatibilityDialog}
         hideCredits={!!hideCredits}
+        onShowOffPeakRestrictionDialog={
+          handleOpenPaymentPackOffPeakRestrictionDialog
+        }
       />
 
       <MarketplacePaymentPackRestrictionModal
@@ -201,7 +220,13 @@ const MarketplacePassDialogs = (props: Props) => {
         isOpen={isPaymentPackCompatibilityDialogOpen}
         onDialogClose={handleClosePaymentPackCompatibilityDialog}
       />
-
+      <MarketplacePaymentPackOffPeakRestrictionModal
+        paymentPack={dialogSelectedItem as PaymentPack}
+        isOpen={
+          isPaymentPackOffPeakRestrictionDialogOpen && !!dialogSelectedItem
+        }
+        onDialogClose={handleClosePaymentPackOffPeakRestrictionDialog}
+      />
       <MarketplacePrivatePassDetailsModal
         privatePass={dialogSelectedItem as PrivatePass}
         isOpen={isPrivatePassDetailsDialogOpen && !!dialogSelectedItem}

@@ -118,6 +118,7 @@ type State = {
   isPaymentPackDetailsDialogOpen: boolean;
   isPaymentPackCompatibilityDialogOpen: boolean;
   isPaymentPackRestrictionDialogOpen: boolean;
+  isPaymentPackOffPeakRestrictionDialogOpen: boolean;
   isPrivatePassDetailsDialogOpen: boolean;
   isPrivatePassCompatibilityDialogOpen: boolean;
   isPaymentComboDetailsDialogOpen: boolean;
@@ -190,6 +191,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
       isPaymentPackDetailsDialogOpen: false,
       isPaymentPackCompatibilityDialogOpen: false,
       isPaymentPackRestrictionDialogOpen: false,
+      isPaymentPackOffPeakRestrictionDialogOpen: false,
       isPrivatePassDetailsDialogOpen: false,
       isPrivatePassCompatibilityDialogOpen: false,
       isPaymentComboDetailsDialogOpen: false,
@@ -652,6 +654,9 @@ export class MarketPlacePassPage extends Component<Props, State> {
           }
           isPaymentPackRestrictionDialogOpen={
             this.state.isPaymentPackRestrictionDialogOpen
+          }
+          isPaymentPackOffPeakRestrictionDialogOpen={
+            this.state.isPaymentPackOffPeakRestrictionDialogOpen
           }
           isPrivatePassDetailsDialogOpen={
             this.state.isPrivatePassDetailsDialogOpen

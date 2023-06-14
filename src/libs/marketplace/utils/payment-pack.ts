@@ -237,3 +237,21 @@ export const useCompatibilityInfoForPaymentPackDetailCard = (
   }, [t, paymentPack]);
   return categoryInfo;
 };
+
+export const formatOffPeakScheduleOnDisplay = (
+  off_peak_schedule: Record<string, string[][]>,
+): Record<string, string[][]> => {
+  const formattedOffPeakSchedule = {};
+  if (off_peak_schedule) {
+    Object.entries(off_peak_schedule).forEach((days) => {
+      if (!formattedOffPeakSchedule[days[0][0]]) {
+        formattedOffPeakSchedule[days[0][0]] = [];
+      }
+      Object.values(days[1]).forEach((dates) => {
+        const [start_time, end_time] = Object.values(dates);
+        formattedOffPeakSchedule[days[0][0]].push([start_time, end_time]);
+      });
+    });
+  }
+  return formattedOffPeakSchedule;
+};

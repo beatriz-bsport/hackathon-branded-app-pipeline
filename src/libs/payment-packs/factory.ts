@@ -96,6 +96,15 @@ FactoryBot.define('PaymentPackFullDetails', {
   penalty_nb_days: Math.floor(Math.random() * 30),
   penalty_account_value: Math.floor(Math.random() * 30),
   description: () => faker.random.words(100),
+  off_peak_schedule: {
+    '1': [['08:00', '12:00']],
+    '2': [['08:00', '12:00']],
+    '3': [['08:00', '12:00']],
+    '4': [['08:00', '12:00']],
+    '5': [['08:00', '12:00']],
+    '6': [['08:00', '12:00']],
+    '7': [['00:00', '23:59']],
+  },
 });
 
 export default FactoryBot;

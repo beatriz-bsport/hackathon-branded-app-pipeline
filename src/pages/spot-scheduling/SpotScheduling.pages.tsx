@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import { CircularProgress } from '@material-ui/core';
 import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
-import { ROOM_BLUEPRINT_ERROR_CODE } from '@bsport/common/lib/master-data/spot-scheduling';
+import { ROOM_PLAN_NOT_EDITABLE_BECAUSE_AVAILABLE_OFFERS_SCHEDULED } from '@bsport/common/lib/master-data/spot-scheduling';
 
 import { MaterialStyleType } from '../../utils/types';
 import CanvasEditorComponent from '../../libs/spot-scheduling/CanvasSvg/CanvasEditor.component';
@@ -66,9 +66,13 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     this.props.updateRoomBlueprint(this.props.roomBlueprint.id, roomBlueprint, {
       onSuccess: () => this.props.success('spotScheduling:saved'),
       onError: (error) => {
-        const error_code = error?.reponse?.data?.error?.code;
-        if (error_code === ROOM_BLUEPRINT_ERROR_CODE.LESS_SPOT_THAN_EFFECTIF) {
-          this.props.error('spotScheduling:errorLessSpotThanEffectif');
+        const error_code = error?.response?.data?.error_code;
+        if (
+          error?.response?.status === 499 &&
+          error_code ===
+            ROOM_PLAN_NOT_EDITABLE_BECAUSE_AVAILABLE_OFFERS_SCHEDULED
+        ) {
+          this.props.error('spotScheduling:errorAvailableOffersScheduled');
         } else {
           this.props.error('spotScheduling:saveError');
         }

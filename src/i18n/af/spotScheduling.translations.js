@@ -72,6 +72,8 @@ exports.default = {
   saved: 'Plan de salle enregistré',
   errorLessSpotThanEffectif:
     "Sauvegarde impossible. Le plan de salle doit contenir plus de place que l'effectif de la séance auxquelle il est associé",
+  errorAvailableOffersScheduled:
+    'Sauvegarde impossible. Le plan de salle ne doit pas être utilisé dans des séances futures pour être édité.',
   saveError: 'Erreur',
   roomBlueprints: 'Plan de salle',
   placeCount: '{{count}} places',

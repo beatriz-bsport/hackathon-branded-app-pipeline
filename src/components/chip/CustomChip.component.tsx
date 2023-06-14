@@ -45,6 +45,7 @@ export const CustomChip = (props: Props) => {
   return (
     <MuiThemeProvider theme={theme}>
       <Chip
+        className={classes.chip}
         label={displayedValue}
         size="small"
         color="primary"
@@ -60,6 +61,9 @@ const useStyles = makeStyles<Theme, Props>((theme) => ({
     height: theme.spacing(2),
     color: (props) =>
       props.iconColor ?? props.mainColor ?? theme.palette.grey[900],
+  },
+  chip: {
+    borderRadius: '4px',
   },
 }));
 

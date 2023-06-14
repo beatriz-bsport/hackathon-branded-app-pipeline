@@ -18,10 +18,8 @@ import {
 } from '@material-ui/icons';
 
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
-import {
-  OFFER_WAITING_LIST_STATUS_OPEN,
-  OFFER_WAITING_LIST_STATUS_FULL,
-} from '@bsport/common/lib/master-data/waiting-list-status';
+import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
+import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import { formatAsDateWithWeekday } from '../../../utils/datetime';
@@ -87,7 +85,7 @@ const OfferSummary: React.FC<Props> = (props) => {
     offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_OPEN;
   const isWaitlistFull =
     offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL;
-  const waitlistExists = !isBookable && (isWaitlistOpen || isWaitlistFull);
+  const waitlistExists = isWaitlistOpen || isWaitlistFull;
 
   const displayTax = theme?.is_tax_excluded_in_marketplace === false;
 
@@ -140,7 +138,9 @@ const OfferSummary: React.FC<Props> = (props) => {
                   icon={<HourglassFull fontSize="small" />}
                   label={
                     isWaitlistFull
-                      ? t(`booking:offer.offerStatus.waiting_list_status.6002`)
+                      ? t(
+                          `booking:offer.offerStatus.waiting_list_status.${OFFER_WAITING_LIST_STATUS_FULL}`,
+                        )
                       : t(
                           `booking:offer.offerStatus.waiting_list_status.${OFFER_WAITING_LIST_STATUS_OPEN}`,
                         )

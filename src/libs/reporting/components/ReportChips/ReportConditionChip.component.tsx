@@ -1,6 +1,6 @@
 import React from 'react';
 import { Theme, useTheme } from '@material-ui/core';
-import { StepperConfig } from '#libs/reporting/types';
+import { StepperConfig } from '#components/chip/types';
 import NumberChip from '#components/chip/NumberChip.component';
 
 type Props = {

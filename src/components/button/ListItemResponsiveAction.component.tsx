@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Menu from '@material-ui/core/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -8,7 +7,7 @@ import Hidden from '@material-ui/core/Hidden';
 import { MenuItem } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 
-type ActionOption = {
+export type ActionOption = {
   menuItemComponent?: any;
   iconButtonComponent?: any;
   onClick?: () => void;
@@ -25,13 +24,23 @@ type Props = {
 // ------------------------ Menu handler ---------------------
 
 export default function ListItemResponsiveAction(props: Props) {
+  const filteredActions = props.actions?.filter((action) => !!action);
+
+  if (filteredActions.length === 0) {
+    return null;
+  }
+
+  if (filteredActions.length === 1) {
+    return <ShortMenu actions={filteredActions} />;
+  }
+
   return (
     <div>
       <Hidden xsDown>
-        <ShortMenu actions={props.actions} />
+        <ShortMenu actions={filteredActions} />
       </Hidden>
       <Hidden smUp>
-        <HiddenShortMenu actions={props.actions} />
+        <HiddenShortMenu actions={filteredActions} />
       </Hidden>
     </div>
   );
@@ -46,7 +55,7 @@ function ShortMenu(props: Props) {
       id="shortMenuContainer"
     >
       {props.actions
-        .filter((o) => o && !!o.onClick && !o.iconButtonComponent)
+        .filter((action) => !!action.onClick && !action.iconButtonComponent)
         .map((option) => (
           <IconButton
             key={option.label}
@@ -62,7 +71,7 @@ function ShortMenu(props: Props) {
           </IconButton>
         ))}
       {props.actions
-        .filter((o) => o && !!o.iconButtonComponent)
+        .filter((action) => !!action.iconButtonComponent)
         .map((option) => (
           <option.iconButtonComponent
             onClick={() => {
@@ -94,8 +103,9 @@ function HiddenShortMenu(props: Props) {
     setAnchorEl(null);
   };
   if (
-    !props.actions.filter((o) => !!o && (!!o.onClick || !!o.menuItemComponent))
-      .length
+    !props.actions.filter(
+      (action) => !!action.onClick || !!action.menuItemComponent,
+    ).length
   ) {
     return null;
   }
@@ -123,7 +133,7 @@ function HiddenShortMenu(props: Props) {
         }}
       >
         {props.actions
-          .filter((o) => o && !!o.onClick && !o.menuItemComponent)
+          .filter((action) => !!action.onClick && !action.menuItemComponent)
           .map((option) => (
             <MenuItem
               onClick={(ev) => {
@@ -144,7 +154,7 @@ function HiddenShortMenu(props: Props) {
             </MenuItem>
           ))}
         {props.actions
-          .filter((o) => o && !!o.menuItemComponent)
+          .filter((action) => !!action.menuItemComponent)
           .map((option) => (
             <option.menuItemComponent
               onClick={() => {

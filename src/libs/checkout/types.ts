@@ -36,6 +36,16 @@ export type Basket<C = string, PPL = number> = {
   instalment_payment: null | number;
 };
 
+export type BasketAddress = {
+  first_name: string;
+  last_name: string;
+  address_line_1: string;
+  address_line_2?: string;
+  zipcode: string;
+  state: string;
+  country: string;
+  city: string;
+
 export type CheckoutState = {
   basket: {
     history: {

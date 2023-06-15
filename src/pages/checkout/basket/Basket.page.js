@@ -73,6 +73,7 @@ import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
 import type { OptionCallback } from '../../../state/types';
 import { fetchMember } from '#libs/member/actions';
+import { BasketAddress } from '#libs/checkout/types';
 
 type Props = {
   basket: ?Basket,
@@ -87,7 +88,10 @@ type Props = {
   companyCountry: ?string,
   classes: Object,
 
-  patchCurrentBasket: (data: any) => void,
+  patchCurrentBasket: (
+    basketAddress: BasketAddress,
+    options: OptionCallback,
+  ) => void,
   fetchPaymentMethod: (params: any) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   attachCoupon: (

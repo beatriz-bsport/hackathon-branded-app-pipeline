@@ -93,6 +93,7 @@ export class AddressForm extends Component<Props, State> {
             fullWidth
             label={t('form.address.addressLine1')}
             onChange={this.handleChange('address_line_1')}
+            className={classes.addressField}
           />
           <TextField
             name="address_line_2"
@@ -101,6 +102,7 @@ export class AddressForm extends Component<Props, State> {
             fullWidth
             label={t('form.address.addressLine2')}
             onChange={this.handleChange('address_line_2')}
+            className={classes.addressField}
           />
           <Grid container direction="row" spacing={2} className={classes.city}>
             <Grid item>
@@ -146,6 +148,7 @@ export class AddressForm extends Component<Props, State> {
               required
               label={t('form.address.country')}
               onChange={this.handleChange('country')}
+              className={classes.addressField}
             />
           </div>
         </div>
@@ -209,9 +212,14 @@ const styles = (theme: MaterialTheme) => ({
   },
   city: {
     flexDirection: 'row',
+    rowGap: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   bottomButtons: {
     paddingTop: theme.spacing(2),
+  },
+  addressField: {
+    paddingBottom: theme.spacing(2),
   },
 });
 

@@ -282,7 +282,7 @@ export function removeItemFromBasket(
 }
 
 export function patchCurrentBasket(
-  data: any,
+  data: BasketAddress,
   options: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState: () => RootState) => {

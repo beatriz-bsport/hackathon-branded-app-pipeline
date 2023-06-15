@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   buildUrlParams,
   API_V1_URI,
@@ -43,7 +42,7 @@ export const addItemToBasket = async (
 
 export const patchBasket = async (
   basketId: string,
-  data: any,
+  data: BasketAddress,
 ): Promise<{ data: Basket }> => {
   return patchAuth(`${API_V1_URI}/checkout/basket/${basketId}/`, data);
 };

@@ -280,10 +280,12 @@ export class BasketPage extends React.Component<Props> {
   attachCoupon = (code: string, options: OptionCallback) => {
     this.props.attachCoupon(code, {
       onSuccess: () => {
-        if (options && options.onSuccess) {
-          options.onSuccess();
+        this.props.refreshBasket(options);
+      },
+      onError: () => {
+        if (options && options.onError) {
+          options.onError();
         }
-        this.props.refreshBasket();
       },
     });
   };

@@ -10,13 +10,15 @@ export type Props = {
   value: string;
   minRows?: number;
   onChange: (event: React.ChangeEvent) => void;
-  onFocus: () => void;
+  onFocus?: () => void;
   className?: string;
   colorsOverride?: ColorsOverride;
   fullWidth?: boolean;
   variant?: 'filled' | 'outlined' | 'standard';
   endAdornment?: React.ReactNode;
   startAdornment?: React.ReactNode;
+  error?: boolean;
+  helperText?: string;
 };
 
 type ColorsOverride = {
@@ -32,6 +34,7 @@ type ColorsOverride = {
 const TextFieldWithCustomColors: React.FC<Props> = (props) => {
   const classes = useStyles(props.colorsOverride || {});
   const numRows = props.minRows || 1;
+
   return (
     <TextField
       name={props.name ?? ''}
@@ -53,6 +56,8 @@ const TextFieldWithCustomColors: React.FC<Props> = (props) => {
         startAdornment: props.startAdornment,
       }}
       onFocus={props.onFocus}
+      error={props.error}
+      helperText={props.helperText}
     />
   );
 };

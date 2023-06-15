@@ -6329,7 +6329,8 @@
             "total": "Total (incl. VAT / Sales Tax)",
             "tax": "VAT / Sales Taxes",
             "taxExcluded": "Subtotal (excl. VAT / Sales Tax)",
-            "flat_fee": "Enrolment fee"
+            "flat_fee": "Enrolment fee",
+            "globalTotal": "Total"
         }
     },
     "establishment": {
@@ -9593,6 +9594,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",

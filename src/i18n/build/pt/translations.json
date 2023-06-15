@@ -1,11 +1,27 @@
 {
     "alerting": {
         "alert_kind": {
-            "1": "Faturação"
+            "1": "Faturação",
+            "6": "Pagamentos não remunerados",
+            "7": "Tutoriais",
+            "8": "Substituição tardias",
+            "9": "Mensagens recebidas",
+            "3": "",
+            "5": ""
         },
         "list": {
             "emptyAlerting": "Nenhuma notificação nova.",
             "title": "Notificações"
+        },
+        "showMore": "Ver mais",
+        "readAll": "Marcar tudo como lido",
+        "unevenInvoice": {
+            "priceDue": "Montante a dever :{{ price_due }}.",
+            "pricePayed": "Montante cobrado : {{ price_payed }}."
+        },
+        "newOrder": {
+            "title": "Tarefa pendente",
+            "explain": "Pago por <1>{{name}}</1> sobre a loja."
         }
     }
 }

@@ -4,14 +4,21 @@ import AccessibleIcon from '@material-ui/icons/Accessible';
 
 import CustomMuiIcon, { Props } from './CustomMuiIcon.component';
 
-export const CustomTemplate = (args: Props) => (
-  <CustomMuiIcon {...args} MuiIcon={AccessibleIcon} />
-);
+const CustomTemplate = (args: Props) => <CustomMuiIcon {...args} />;
+
+export const CustomMUITemplate = CustomTemplate.bind({});
+CustomMUITemplate.args = {
+  MuiIcon: AccessibleIcon,
+};
 
 export const FirstStepTemplate = CustomTemplate.bind({});
-
 FirstStepTemplate.args = {
   MuiIcon: EmailIcon,
+};
+
+export const StringTemplate = CustomTemplate.bind({});
+StringTemplate.args = {
+  icon: 'Email',
 };
 
 export default {

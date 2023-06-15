@@ -113,17 +113,6 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
     (theme?.hide_book_button && isOfferPassed) ||
     (!theme?.hide_book_button && isBookingDisabled);
 
-  if (loading) {
-    return (
-      <Skeleton
-        id="bs-offer__list-item--loading"
-        animation="pulse"
-        width="100%"
-        height={156}
-      />
-    );
-  }
-
   const handleClickOnHiddenBookButton = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (
@@ -170,6 +159,17 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       onClick,
     ],
   );
+
+  if (loading) {
+    return (
+      <Skeleton
+        id="bs-offer__list-item--loading"
+        animation="pulse"
+        width="100%"
+        height={156}
+      />
+    );
+  }
 
   const isSessionNameClickable =
     theme?.hide_book_button &&

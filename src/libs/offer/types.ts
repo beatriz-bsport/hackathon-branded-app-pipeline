@@ -384,3 +384,7 @@ export enum MarketplaceOfferStatus {
   CANCELLED = 4,
   COMPLETED = 5,
 }
+
+export type UserRegistrationParams = {
+  check_offer_unicity?: boolean;
+};

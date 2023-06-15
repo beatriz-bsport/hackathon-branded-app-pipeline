@@ -165,6 +165,7 @@ exports.default = {
   createCoupon: 'Ajouter un code',
   code: {
     addCoupon: {
+      apply: 'Appliquer',
       submit: 'Valider',
       cancel: 'annuler',
       label: 'Code promo',

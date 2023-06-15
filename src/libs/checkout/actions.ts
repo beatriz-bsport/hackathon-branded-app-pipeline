@@ -28,7 +28,12 @@ import { snackbarError } from '../snackbar/actions';
 
 import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
-import { CheckoutItemData, Basket } from './types';
+import type {
+  AddItemToBasketParams,
+  CheckoutItemData,
+  Basket,
+  BasketAddress,
+} from './types';
 import { COMPANY_EVENTS } from './event.utils';
 import { fetchEventList } from '#libs/event/actions';
 import { EventListParams } from '#libs/event/types';
@@ -193,13 +198,14 @@ export function addItemToBasket(
   basketId: string,
   data: CheckoutItemData,
   options?: OptionCallback,
+  params?: AddItemToBasketParams,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(currentBasket.isLoading(true));
     dispatch(currentBasket.error(null));
 
     try {
-      const response = await addItemToBasketAPI(basketId, data);
+      const response = await addItemToBasketAPI(basketId, data, params);
       dispatch(currentBasket.success(response.data));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {

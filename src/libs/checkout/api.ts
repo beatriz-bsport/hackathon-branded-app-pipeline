@@ -1,5 +1,6 @@
 // @ts-nocheck
 import {
+  buildUrlParams,
   API_V1_URI,
   post,
   get,
@@ -9,7 +10,12 @@ import {
   patchAuth,
 } from '../../http';
 
-import { CheckoutItemData, Basket } from './types';
+import type {
+  CheckoutItemData,
+  Basket,
+  BasketAddress,
+  AddItemToBasketParams,
+} from './types';
 
 export const fetchCurrentBasket = async (
   companyId: number,
@@ -22,11 +28,17 @@ export const fetchCurrentBasket = async (
 export const addItemToBasket = async (
   basketId: string,
   data: CheckoutItemData,
+  params?: AddItemToBasketParams,
 ): Promise<{ data: Basket }> => {
-  return putAuth(`${API_V1_URI}/checkout/basket/${basketId}/add_item/`, {
-    ...(data || {}),
-    extra_data: data?.extra_data || {},
-  });
+  return putAuth(
+    `${API_V1_URI}/checkout/basket/${basketId}/add_item/${buildUrlParams(
+      params,
+    )}`,
+    {
+      ...(data || {}),
+      extra_data: data?.extra_data || {},
+    },
+  );
 };
 
 export const patchBasket = async (

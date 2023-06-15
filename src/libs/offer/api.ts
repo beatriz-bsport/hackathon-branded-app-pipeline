@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   API_URI,
   API_V1_URI,
@@ -9,7 +8,12 @@ import {
   patchAuth,
   buildUrlParams,
 } from '../../http';
-import { OfferCreate, OfferEdit, OfferFilterData } from './types';
+import type {
+  OfferCreate,
+  OfferEdit,
+  OfferFilterData,
+  UserRegistrationParams,
+} from './types';
 
 export async function createOffers(data: OfferCreate) {
   return postAuth(`${API_V1_URI}/offer/create_similar_offers/`, data);
@@ -79,14 +83,20 @@ export async function fetchOfferStatusList(
   );
 }
 
-export async function postUserRegistration(data: {
-  consumer_payment_pack?: number;
-  payment_pack?: number;
-  payment_combo?: number;
-  email?: string;
-  offers: Array<{ offer_id: number; extra_data: any }>;
-}) {
-  return postAuth(` ${API_V1_URI}/offer/user_registration/`, data);
+export async function postUserRegistration(
+  data: {
+    consumer_payment_pack?: number;
+    payment_pack?: number;
+    payment_combo?: number;
+    email?: string;
+    offers: Array<{ offer_id: number; extra_data: any }>;
+  },
+  params?: UserRegistrationParams,
+) {
+  return postAuth(
+    ` ${API_V1_URI}/offer/user_registration/${buildUrlParams(params)}`,
+    data,
+  );
 }
 
 export async function fetchCompatiblePacks(offerId: number) {

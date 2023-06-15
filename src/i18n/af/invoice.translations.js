@@ -207,6 +207,8 @@ exports.default = {
       showInvoice: 'Voir la facture',
       saveForLater: 'Sauvegarder ce moyen de paiement',
       saveForLaterAsSEPA: 'Le mandat sera enregistré en tant que "SEPA"',
+      paymentSecurityInformation:
+        'Vous pouvez enregistrer en toute securité votre moyen de paiement pour vos prochains achats, vos données seront chiffrées et stockées en sécurité.',
       billByInstalment: 'Paiement échelonné',
       basketInconsistent:
         "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\n Vous n'avez pas été débité.",

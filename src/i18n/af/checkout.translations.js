@@ -2,11 +2,15 @@ const { BASKET_EVENTS } = require('@bsport/common/lib/master-data/events');
 
 exports.default = {
   payment: {
+    title: 'Paiement',
     flat_fee: 'Frais de dossier',
+    deliveryFee: 'Frais de livraison',
     taxExcluded: 'Sous-total HT',
     tax: 'Taxes',
     total: 'Total TTC',
     globalTotal: 'Total',
+    totalHiddingTax: 'Total',
+    internalAccount: 'Compte interne',
   },
   events: {
     [BASKET_EVENTS.created]: 'Panier créé',
@@ -69,6 +73,11 @@ exports.default = {
       checkoutBasket: 'Payer',
       payZero: 'Valider mon panier',
     },
+    almostDone: 'Dernière étape',
+    checkAndFinalize:
+      'Veuillez vérifier votre panier et finaliser votre réservation',
+    acceptTermsAndFinalize:
+      'Veuillez accepter les conditions générales et finaliser votre réservation',
   },
   payLater: {
     submit: 'Payer sur place',
@@ -95,6 +104,7 @@ exports.default = {
       member: 'Espace Membre',
       back: 'Précédent',
       widgetContinue: 'Continuer',
+      payNow: 'Payer',
     },
     sections: {
       explain:

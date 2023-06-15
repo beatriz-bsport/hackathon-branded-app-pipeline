@@ -1,4 +1,3 @@
-// @ts-nocheck
 export type CheckoutItem = {
   quantity: number;
   id: string;
@@ -9,6 +8,9 @@ export type CheckoutItem = {
   sub_items?: string[];
   editable: boolean;
   tax: number;
+
+export type AddItemToBasketParams = {
+  check_offer_unicity?: boolean;
 };
 
 export type Basket<C = string, PPL = number> = {

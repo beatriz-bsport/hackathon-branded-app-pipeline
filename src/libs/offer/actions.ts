@@ -56,6 +56,7 @@ import {
   Offer,
   OfferCreate,
   OfferEdit,
+  UserRegistrationParams,
 } from './types';
 
 export const similarOffers = {
@@ -863,11 +864,12 @@ export const offerUserRegistrationAction = {
 export function offerUserRegistration(
   data: Parameters<typeof postUserRegistrationAPI>[0],
   options?: OptionCallback,
+  params?: UserRegistrationParams,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(offerUserRegistrationAction.isLoading(true));
     try {
-      const response = await postUserRegistrationAPI(data);
+      const response = await postUserRegistrationAPI(data, params);
       if (response && response.data && response.data.buyable_item_error_code) {
         const error_code = response.data.buyable_item_error_code;
         if (ALL_ERROR_CODES.includes(error_code)) {

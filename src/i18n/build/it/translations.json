@@ -617,7 +617,7 @@
             }
         },
         "navigation": {
-            "playlist": "Percorso",
+            "playlist": "Playlist",
             "podcast": "Podcast",
             "sequence": "Strategie",
             "consumer": {
@@ -3231,7 +3231,7 @@
             "delete": {
                 "cancel": "Annulla",
                 "title": "Rimuovi",
-                "content": "Sei sicuro di voler cancellare questo percorso? Questa operazione è irreversibile.",
+                "content": "Sei sicuro di voler cancellare questo video? Questa operazione è irreversibile.",
                 "confirm": "Conferma"
             },
             "form": {
@@ -3366,7 +3366,7 @@
             "bottomActions": {
                 "create": "Inserisci"
             },
-            "playlist": "Percorso"
+            "playlist": "Playlist"
         },
         "details": {
             "consumerPaymentPackTitle": "Tessera usata",
@@ -3496,7 +3496,7 @@
             "payment": "Pagamenti",
             "invoice": "Fatture",
             "video": "Videoteca",
-            "playlist": "Percorso",
+            "playlist": "Playlist",
             "podcast": "Podcast",
             "digital": "Offerta digitale",
             "marketing_automation": "Marketing automatizzato",

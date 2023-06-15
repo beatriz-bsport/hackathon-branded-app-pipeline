@@ -1,7 +1,7 @@
 import React from 'react';
-import CustomChip, { Props } from './CustomChip.component';
+import CustomChip, { CustomChipProps } from './CustomChip.component';
 
-const CustomChipTemplate = (args: Props) => <CustomChip {...args} />;
+const CustomChipTemplate = (args: CustomChipProps) => <CustomChip {...args} />;
 
 export const DefaultCustomChip = CustomChipTemplate.bind({});
 
@@ -51,6 +51,22 @@ export default {
     },
     chipClass: {
       description: '(Optional) A class to apply to the chip.',
+    },
+    maxWidth: {
+      description:
+        '(Optional) A string precising the maximum width of the chip.',
+    },
+    withBackground: {
+      description:
+        "(Optional) A boolean true if the chip has a background and false if it hasn't.",
+    },
+    blackText: {
+      description:
+        "(Optional) A boolean true if the color of the text is black and false if it's not.",
+    },
+    toolTip: {
+      description:
+        "(Optional) A boolean true if the chip has a tooltip displaying the text of the chip and false if it hasn't.",
     },
   },
   parameters: {

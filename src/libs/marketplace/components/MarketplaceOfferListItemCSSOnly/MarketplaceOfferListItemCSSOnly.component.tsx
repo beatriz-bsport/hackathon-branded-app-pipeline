@@ -116,7 +116,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   const handleClickOnHiddenBookButton = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (
-        event.target.className.includes(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER)
+        event.target.classList.contains(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER)
       ) {
         event.stopPropagation();
         onClick(offer?.id);

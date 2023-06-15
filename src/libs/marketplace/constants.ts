@@ -61,6 +61,12 @@ export const AVAILABLE_BOOKING_ELEMENTS_IDS = [
   'book-button-offer-list-item',
 ];
 
+export enum MARKETPLACE_COUPON_FORM_ERRORS {
+  COUPON_NOT_APPLICABLE = 'not_applicable',
+  COUPON_NOT_FOUND = 'not_found',
+  EMPTY = null,
+}
+
 export enum MARKETPLACE_BREAKPOINT {
   XS = 425,
   SM = 750,

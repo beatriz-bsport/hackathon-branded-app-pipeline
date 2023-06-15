@@ -155,7 +155,6 @@ const usePropsFromVaration = (
     },
     onClickBook: () => {},
     onClickOffer: () => {},
-    onClickBookOption: () => {},
   };
 };
 

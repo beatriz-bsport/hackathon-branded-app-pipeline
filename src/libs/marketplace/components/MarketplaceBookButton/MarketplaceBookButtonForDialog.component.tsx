@@ -19,9 +19,6 @@ type Props = {
   isRegistered?: boolean;
   group?: OffersGroup;
   onClickBook: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  onClickBookOption: (
-    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => void;
   metaActivity: MetaActivity;
 };
 
@@ -30,12 +27,17 @@ const MarketplaceBookButtonForDialog: React.FC<Props> = ({
   isRegistered,
   group,
   onClickBook,
-  onClickBookOption,
   metaActivity,
 }) => {
   const { t } = useTranslation('translation');
 
-  const onClick = offer.full ? onClickBookOption : onClickBook;
+  // TODO : fix handleBookOption, we have two handlers that were basically doing the same thing.
+  // BUT handleBookOption was expecting an id and company id to work. Since forevever, we passed an offer, but
+  // handleBookOption was never called: we were doing : offer.is_full ? handleBookOption() : handleBook();
+  // where offer.is_full doesn't exist anymore (now offer.full) and therefore was always calling handleBook
+  // original code : offer.full ? onClickBookOption : onClickBook;
+
+  const onClick = onClickBook;
   const isDisabled = useMemo(
     () =>
       !offer.available ||

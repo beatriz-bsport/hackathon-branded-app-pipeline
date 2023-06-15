@@ -57,7 +57,6 @@ export type Props = {
   hideCoach: boolean;
   loading: boolean;
   onClick: (id: number) => void;
-  onBookOption: (id: number) => void;
   onBook: (id: number) => void;
   establishment: Establishment;
   coach: Coach;
@@ -81,7 +80,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   showOfferFilling,
   hideCoach,
   onClick,
-  onBookOption,
+  // onBookOption,
   onBook,
   coach,
   additionalCoaches,
@@ -121,19 +120,24 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
         event.stopPropagation();
         onClick(offer?.id);
       } else {
-        offer?.full ? handleBookOption() : handleBook();
+        handleBook();
+        // TODO : fix handleBookOption, we have two handlers that were basically doing the same thing.
+        // BUT handleBookOption was expecting an id and company id to work. Since forevever, we passed an offer, but
+        // handleBookOption was never called: we were doing : offer.is_full ? handleBookOption() : handleBook();
+        // where offer.is_full doesn't exist anymore (now offer.full) and therefore was always calling handleBook
+        // original code : offer.full ? handleBookOption() : handleBook();
       }
     },
-    [onClick, offer?.id, offer?.full, handleBookOption, handleBook],
+    [onClick, offer?.id, handleBook],
   );
 
   const handleBook = useCallback(() => {
     (onBook || onClick)(offer.id);
   }, [onBook, onClick, offer.id]);
 
-  const handleBookOption = useCallback(() => {
-    onBookOption(offer.id);
-  }, [onBookOption, offer.id]);
+  // const handleBookOption = useCallback(() => {
+  //   onBookOption(offer.id);
+  // }, [onBookOption, offer.id]);
 
   const handleClick = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -142,7 +146,8 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       if (theme?.hide_book_button) {
         handleClickOnHiddenBookButton(event);
       } else if (AVAILABLE_BOOKING_ELEMENTS_IDS.includes(event?.target?.id)) {
-        offer?.full ? handleBookOption() : handleBook();
+        handleBook();
+        // offer?.full ? handleBookOption() : handleBook();
       } else if (!isWorkshop) {
         onClick(offer?.id);
       }
@@ -151,9 +156,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       isBookingDisabled,
       theme?.hide_book_button,
       handleClickOnHiddenBookButton,
-      offer?.full,
       offer?.id,
-      handleBookOption,
       handleBook,
       isWorkshop,
       onClick,

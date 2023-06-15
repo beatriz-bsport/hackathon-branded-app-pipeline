@@ -44,7 +44,6 @@ type OwnProps = {
   hideCoach: boolean;
   onClickBook: (offer: Offer) => void;
   onClickOffer: (id: number) => void;
-  onClickBookOption: (offer: Offer) => void;
   getLevel: { [key: number]: Level };
   isBookingDisabled: boolean;
   group?: OffersGroup;
@@ -65,7 +64,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
   metaActivities,
   offer,
   onClickBook,
-  onClickBookOption,
+  // onClickBookOption,
   onClickOffer,
   showOfferFilling,
   showOfferGender,
@@ -82,9 +81,9 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
     onClickBook(offer);
   }, [onClickBook, offer]);
 
-  const handleBookOption = useCallback(() => {
-    onClickBookOption(offer);
-  }, [onClickBookOption, offer]);
+  // const handleBookOption = useCallback(() => {
+  //   onClickBookOption(offer);
+  // }, [onClickBookOption, offer]);
 
   const handleClickOnHiddenBookButton = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,10 +93,15 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
         event.stopPropagation();
         onClickOffer(offer.id);
       } else {
-        offer.full ? handleBookOption() : handleBook();
+        handleBook();
+        // TODO : fix handleBookOption, we have two handlers that were basically doing the same thing.
+        // BUT handleBookOption was expecting an id and company id to work. Since forevever, we passed an offer, but
+        // handleBookOption was never called: we were doing : offer.is_full ? handleBookOption() : handleBook();
+        // where offer.is_full doesn't exist anymore (now offer.full) and therefore was always calling handleBook
+        // original code : offer.full ? handleBookOption() : handleBook();
       }
     },
-    [onClickOffer, handleBookOption, handleBook, offer.full, offer.id],
+    [onClickOffer, handleBook, offer.id],
   );
 
   const handleClick = useCallback(
@@ -107,7 +111,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
       if (theme?.hide_book_button) {
         handleClickOnHiddenBookButton(event);
       } else if (AVAILABLE_BOOKING_ELEMENTS_IDS.includes(event?.target?.id)) {
-        offer.full ? handleBookOption() : handleBook();
+        handleBook();
       } else {
         onClickOffer(offer.id);
       }
@@ -115,9 +119,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
     [
       isBookingDisabled,
       theme?.hide_book_button,
-      offer.full,
       offer.id,
-      handleBookOption,
       handleBook,
       onClickOffer,
       handleClickOnHiddenBookButton,

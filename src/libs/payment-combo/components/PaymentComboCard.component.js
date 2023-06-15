@@ -77,7 +77,9 @@ export const PaymentComboCard = (props: Props) => {
           {t('detail.description')}
         </Typography>
         <Paper className={classes.general}>
-          <TypographyMultiline>{paymentCombo.description}</TypographyMultiline>{' '}
+          <TypographyMultiline className={classes.description}>
+            {paymentCombo.description}
+          </TypographyMultiline>{' '}
           {renderLinkToPaymentPage()}
         </Paper>
       </div>
@@ -223,6 +225,10 @@ const styles = (theme) => ({
   },
   linkTypo: {
     paddingLeft: theme.spacing(1),
+  },
+  description: {
+    color: theme.palette.text.secondary,
+    wordBreak: 'break-word',
   },
 });
 

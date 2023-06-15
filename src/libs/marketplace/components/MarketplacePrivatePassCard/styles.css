@@ -68,6 +68,8 @@
   -webkit-box-orient: vertical;
   white-space: pre-line;
   max-width: 85%;
+  text-align: left;
+  word-break: break-word;
 }
 
 .bs-pass-card__validity {

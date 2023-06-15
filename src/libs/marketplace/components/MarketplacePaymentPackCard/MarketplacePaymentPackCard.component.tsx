@@ -91,6 +91,11 @@ const MarketplacePaymentPackCard = (props: Props) => {
                 {formatedCredits}
               </div>
             )}
+            {paymentPack.description && (
+              <div className="bs-paymentpack-card__description">
+                {paymentPack.description}
+              </div>
+            )}
           </Item>
           <Item
             alignment={Alignment.FLEX_END}

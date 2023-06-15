@@ -101,6 +101,7 @@
   font-weight: var(--body1-fontWeight);
   margin-top: var(--spacing-1);
   white-space: pre-line;
+  word-break: break-word;
 }
 
 .bs-combo-details-dialog__content-list h4 {

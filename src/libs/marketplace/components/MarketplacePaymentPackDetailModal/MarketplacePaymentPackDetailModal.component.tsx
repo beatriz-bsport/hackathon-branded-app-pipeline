@@ -25,7 +25,6 @@ import { PaymentPack } from '#libs/payment-packs/types';
 export type Props = {
   paymentPack: PaymentPack;
   isOpen: boolean;
-  description?: string;
   isCompatibleWithAll?: boolean;
   isExcludingTax: boolean;
   tax: number | undefined;
@@ -40,7 +39,6 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
   ({
     paymentPack,
     isOpen,
-    description,
     isCompatibleWithAll,
     isExcludingTax,
     tax,
@@ -111,7 +109,7 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                       </Item>
                     </Grid>
                   </Content>
-                  {!!description && (
+                  {!!paymentPack.description && (
                     <Content
                       classes={{
                         'bs-pack-details-dialog__body':
@@ -133,7 +131,7 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                               'bs-pack-details-dialog__description',
                           }}
                         >
-                          {description}
+                          {paymentPack.description}
                         </Item>
                       </Grid>
                     </Content>

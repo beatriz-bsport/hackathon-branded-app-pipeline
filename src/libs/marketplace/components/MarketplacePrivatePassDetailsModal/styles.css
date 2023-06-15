@@ -81,6 +81,7 @@
   color: var(--color-grey-main);
   font-size: var(--body-1-fontSize);
   white-space: pre-line;
+  word-break: break-word;
 }
 
 .bs-pass-details-dialog__footer {

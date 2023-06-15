@@ -26,6 +26,7 @@
   color: var(--color-grey-main);
   font-size: var(--body1-fontSize);
   white-space: pre-line;
+  word-break: break-word;
 }
 
 .bs-pack-details-dialog .bs-generic-card {

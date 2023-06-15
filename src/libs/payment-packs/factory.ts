@@ -95,6 +95,7 @@ FactoryBot.define('PaymentPackFullDetails', {
   penalty_nb_late_cancellations: Math.floor(Math.random() * 30),
   penalty_nb_days: Math.floor(Math.random() * 30),
   penalty_account_value: Math.floor(Math.random() * 30),
+  description: () => faker.random.words(100),
 });
 
 export default FactoryBot;

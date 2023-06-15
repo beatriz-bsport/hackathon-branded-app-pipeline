@@ -381,6 +381,7 @@ const styles = (theme: Theme) => ({
     maxWidth: '100vw',
     [theme.breakpoints.down('xs')]: {
       width: '90vw',
+      margin: theme.spacing(2),
     },
     [theme.breakpoints.up('sm')]: {
       minWidth: 600,

@@ -565,7 +565,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center',
+    alignItems: 'stretch',
     '&>*': {
       marginLeft: theme.spacing(1),
     },

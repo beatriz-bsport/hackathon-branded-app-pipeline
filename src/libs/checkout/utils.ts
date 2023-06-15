@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { TFunction } from 'i18next';
 import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
@@ -15,14 +14,14 @@ import {
 } from './constants';
 
 export const getBasketTotalPriceExcludingTax = (
-  basket: Basket | Basket<string, PrepaidLine>,
-) => {
+  basket: Basket | Basket<string, PrepaidLine> | Basket<number, PrepaidLine>,
+): string => {
   // if we don't have items, or items with no quantity, price returned is always 0
   if (
     !basket.checkout_items.length ||
     basket.checkout_items.reduce((acc, ci) => acc + ci.quantity || 0, 0) === 0
   ) {
-    return 0;
+    return parseFloat('0').toFixed(2);
   }
 
   const sum_prices_without_vouchers = basket.checkout_items.reduce(

@@ -216,7 +216,11 @@ describe('TEST getBasketTotalPriceExcludingTax', () => {
     );
   });
   it('Should not calcul ', () => {
-    expect(getBasketTotalPriceExcludingTax(basketEmpty)).toBe(0);
-    expect(getBasketTotalPriceExcludingTax(basketEmptyQuantity)).toBe(0);
+    expect(getBasketTotalPriceExcludingTax(basketEmpty)).toBe(
+      parseFloat('0').toFixed(2),
+    );
+    expect(getBasketTotalPriceExcludingTax(basketEmptyQuantity)).toBe(
+      parseFloat('0').toFixed(2),
+    );
   });
 });

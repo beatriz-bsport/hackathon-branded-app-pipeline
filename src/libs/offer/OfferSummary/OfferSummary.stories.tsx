@@ -12,6 +12,7 @@ const meta_activity = { name: offer.name };
 const meta_activity_online = { name: offer.name, is_broadcast: true };
 const establishment = offer.establishment;
 const coach = offer.coach;
+const coachOverride = offer.coach_override;
 const price = (Math.random() * 100 + 100).toFixed(2);
 const tax = Math.random() * 20;
 const spotId = Math.floor(Math.random() * 10);
@@ -27,7 +28,7 @@ const OfferSummaryTemplate = (args: Props) => {
       price={price}
       tax={tax}
       spotId={spotId}
-      coachOverride={null}
+      coachOverride={coachOverride}
       variant="default"
       disabled={false}
       confirmLoading={false}

@@ -159,7 +159,7 @@ const OfferSummary: React.FC<Props> = (props) => {
             </div>
           )}
 
-          {coach && !theme?.hideCoach && variant === 'default' && (
+          {relevantCoach && !theme?.hideCoach && variant === 'default' && (
             <div className={classes.itemWithIcon}>
               {displayCoachPicture ? (
                 <Avatar className={classes.avatar}>

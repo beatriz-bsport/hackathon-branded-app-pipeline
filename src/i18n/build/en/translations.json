@@ -924,7 +924,14 @@
                 "bookOption": "Waitlist",
                 "notBookableYet": "Available soon",
                 "alreadyRegistered": "Booked",
-                "full": "Full"
+                "full": "Full",
+                "popOverTitle": {
+                    "notAvailable": "The session has been cancelled",
+                    "notBookableYet": "The session is not yet open for booking.",
+                    "isPast": "Bookings are now closed",
+                    "bookOption": "The session is full, but a waiting list is available.",
+                    "alreadyRegistered": "You have already booked this session."
+                }
             },
             "passListTitle": "Passes",
             "privatePassListTitle": "Appointment passes",
@@ -3898,7 +3905,7 @@
                 "timeGroup": "Date of the session",
                 "configuration": "Bookings",
                 "title": "[Form] Recurring appointment",
-                "override_availabilities": "Complete the booking even though the appointment/establishment/teacher is unavailable",
+                "override_availabilities": "Complete the booking even though the appointment, the establishment or the teacher is unavailable",
                 "allow_unpaid": "Authorize unpaid reservations (no compatible card owned)"
             },
             "actions": {
@@ -4637,7 +4644,8 @@
             "author": "Author",
             "invoiceitem_pk": "Number of items billed",
             "staff_commission_amount": "Staff commission fees incl. VAT",
-            "staff_commission_amount_notax": "Staff commission fee excl. VAT"
+            "staff_commission_amount_notax": "Staff commission fee excl. VAT",
+            "invoice_datetime": "Invoice issue date"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -5420,7 +5428,11 @@
                 },
                 "showFreeSessionLabel": "Indicate sessions with 0 credits with the label FREE",
                 "acceptDoubleBookingWorkshop": "Accept double booking for workshops",
-                "acceptDoubleBookingMetaActivity": "Accept double booking for activities"
+                "acceptDoubleBookingMetaActivity": "Accept double booking for activities",
+                "hideBookButton": {
+                    "switchLabel": "Hide the \"{{-bookButtonTranslation}}\" button",
+                    "dialogDescription": "By hiding the \"{{-bookButtonTranslation}}\" button, you can click on the pass to book the session."
+                }
             },
             "cover": {
                 "label": "Logo",
@@ -9594,6 +9606,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
@@ -14712,7 +14725,7 @@
             },
             "customCss": {
                 "yourCode": "Your complementary implementation:",
-                "baseCode": "bsport tsyle",
+                "baseCode": "bsport style",
                 "showBsportCode": "Display the bsport style",
                 "infoMultiplePage": "This element is present on several widgets, so the changes will apply to the following widgets:",
                 "snackbarSuccessResetAll": "All your configurations have been reset",

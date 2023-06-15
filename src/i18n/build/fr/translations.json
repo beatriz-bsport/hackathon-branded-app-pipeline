@@ -1569,7 +1569,7 @@
     "event": {
         "list": {
             "title": {
-                "latestEvents": "Dernier évènements"
+                "latestEvents": "Derniers évènements"
             }
         },
         "member": {
@@ -3539,7 +3539,7 @@
             "12": "Inscription à la liste d'attente",
             "13": "Désinscription de la liste d'attente (élève)",
             "14": "Désinscription de la liste d'attente (manager)",
-            "16": "Séance modifiée",
+            "16": "Séance modifiée (élèves)",
             "17": "Réservation annulée : crédit non remboursé",
             "18": "Réservation annulée : crédit remboursé",
             "19": "Inscription membre (manager)",
@@ -3566,7 +3566,7 @@
             "515": "Carte de cours de la souscription automatiquement désactivée",
             "520": "Paiement d'une souscription échoué, sera retenté",
             "530": "Litige sur paiement d'une souscription",
-            "601": "Trop peu de réservations N heures avant le début de la séance",
+            "601": "Trop peu de réservations N heures avant le début de la séance (professeurs)",
             "701": "Pénalité carte de cours : carte bloquée (élève)",
             "702": "Pénalité carte de cours : acompte créé (élève)",
             "987": "Tentative d'encaissement d'un paiement échelonné",

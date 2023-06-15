@@ -1005,7 +1005,14 @@
                 "isPast": "Pasada",
                 "notBookableYet": "Muy pronto",
                 "alreadyRegistered": "Reservada",
-                "full": "Completo"
+                "full": "Completo",
+                "popOverTitle": {
+                    "notAvailable": "La sesión ha sido cancelada",
+                    "notBookableYet": "La sesión aún no está abierta a reservas.",
+                    "alreadyRegistered": "Ya ha reservado esta sesión.",
+                    "isPast": "Las reservas ya están cerradas",
+                    "bookOption": "La sesión está completa, pero hay lista de espera."
+                }
             },
             "sessionThisDay": "Clases de este día :",
             "calendar": "Calendario",
@@ -1425,7 +1432,8 @@
             "author": "Autor",
             "invoiceitem_pk": "Número de artículos facturados",
             "staff_commission_amount": "Comisiones del personal incl. IVA",
-            "staff_commission_amount_notax": "Comisión de personal excl. IVA"
+            "staff_commission_amount_notax": "Comisión de personal excl. IVA",
+            "invoice_datetime": "Fecha de emisión de la factura"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -4988,6 +4996,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelado",
+                "Cancelada",
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
@@ -8860,7 +8869,11 @@
                 },
                 "acceptDoubleBookingMetaActivity": "Aceptar la doble reserva de actividades",
                 "showFreeSessionLabel": "Indique las sesiones con 0 créditos con la etiqueta GRATUITO",
-                "acceptDoubleBookingWorkshop": "Aceptar reservas dobles para los"
+                "acceptDoubleBookingWorkshop": "Aceptar reservas dobles para los",
+                "hideBookButton": {
+                    "switchLabel": "Ocultar el botón \"{{-bookButtonTranslation}}",
+                    "dialogDescription": "Al ocultar el botón \"{{-bookButtonTranslation}}\", puede hacer clic en el pase para reservar la sesión."
+                }
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -9819,7 +9832,8 @@
             "total": "Total con IVA incluido",
             "tax": "Tasas",
             "taxExcluded": "Subtotal excluido",
-            "flat_fee": "Tasa de solicitud"
+            "flat_fee": "Tasa de solicitud",
+            "globalTotal": "Total"
         }
     },
     "waitingList": {
@@ -13627,7 +13641,17 @@
                 "option": {
                     "activityName": "Actividad",
                     "false": "No",
-                    "true": "Sí"
+                    "true": "Sí",
+                    "time": "Del horario",
+                    "coach": "Del profesor",
+                    "cancel": "Cancelada",
+                    "past": "Anterior",
+                    "bookable": "Se puede reservar",
+                    "currentWeek": "Esta semana",
+                    "nextWeek": "La semana que viene",
+                    "none": "Ninguno",
+                    "waitingList": "Lista de espera",
+                    "future": "Aún no se puede reservar"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",

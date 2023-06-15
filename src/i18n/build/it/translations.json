@@ -74,7 +74,7 @@
             "paymentMethod": "Metodo di pagamento",
             "activity": "Attività",
             "datetime": "Allenamento",
-            "paymentPack": "Tessera",
+            "paymentPack": "Pass",
             "amount": "Importo",
             "continue": "Continua",
             "credit_s": "Crediti",
@@ -134,8 +134,8 @@
             "information": "Dettagli"
         },
         "offer": {
-            "noPackAvailableForOfferPurchase": "Nessuna tessera compatibile con questa sessione!",
-            "noConsumerPackAvailableForPurchase": "Nessuna tessera compatibile è posseduta da questo membro!",
+            "noPackAvailableForOfferPurchase": "Nessun pass compatibile con questa sessione!",
+            "noConsumerPackAvailableForPurchase": "Nessun pass compatibile è posseduta da questo membro!",
             "attendant": "Presente/i",
             "nonAttendant": "Assente/i",
             "maxBookingsNb": "posti",
@@ -151,9 +151,9 @@
             "disabled": "disattivato",
             "substitute": "Rimpiazza",
             "compatiblePacks": "Carte compatibili",
-            "noCompatiblePacks": "Nessuna tessera è compatibile con questa sessione",
-            "extraordinaryEstablishment": "(luogo temporaneo)",
-            "addInvoice": "Aggiungi fattura",
+            "noCompatiblePacks": "Nessun pass è compatibile con questa sessione",
+            "extraordinaryEstablishment": "(sede temporanea)",
+            "addInvoice": "Fattura",
             "myBookings": "Prenotazioni",
             "hasntBooked": "Non iscritto",
             "hasBooked": "Registrato",
@@ -328,7 +328,7 @@
                 "delete": {
                     "buttonHardDelete": "Rimuovi",
                     "explainHardDelete": "Rimuovere la sessione dall'elenco? Si noti che questo diventerà invisibile, questa operazione è irreversibile! Se la sessione contiene prenotazioni, non verrà eliminata.",
-                    "explainCreditBack": "Restituire i crediti sulla tessera",
+                    "explainCreditBack": "Restituire ai clienti i crediti spesi sul pass",
                     "explainNotify": "Invia un avviso ai clienti che hanno prenotato",
                     "explainModalities": "Questa modifica è definitiva. La tua sessione non sarà più visibile ai clienti finali. Puoi ancora accedervi.",
                     "explainForceDanger": "Attenzione ! Le prenotazione saranno cancellate definitivamente. Se non hai rimborsato il credito, perderai ogni traccia del suo utilizzo. Ti preghiamo di controllare lo stato delle tue prenotazioni e delle tue tessere prima della cancellazione.",
@@ -363,7 +363,7 @@
                 "paymentPackHelper": "Questa carta verrà accreditata al membro",
                 "noPayedObject": "Nessuno",
                 "objectTypeLabel": "Oggetto da accreditare",
-                "dateStartPaymentPack": "Inizio della tessera",
+                "dateStartPaymentPack": "Data di inizio del pass",
                 "backToInvoiceItemList": "Torna all'elenco",
                 "title": "Salva un pagamento",
                 "activityHelper": "Scegli l'attività, quindi la sessione",
@@ -657,7 +657,7 @@
             "logoff": "Disconnettiti",
             "refresh": "Ricarica",
             "goBack": "Indietro",
-            "pass": "Tessera",
+            "pass": "Pass",
             "settings": "Impostazioni",
             "myClub": "Il mio club",
             "subscription": "Abbonamenti",
@@ -696,7 +696,7 @@
             "noCreditLeft": "Credito insufficiente",
             "noBookingsLeftOnPack": "La tessera è esaurita per questa settimana",
             "yourBasket": "Il tuo acquisto",
-            "availablePaymentPacks": " Tessera compatibile",
+            "availablePaymentPacks": " Pass compatibile",
             "pay": "Pagamento",
             "type": "Tipo",
             "amount": "Importo",
@@ -706,7 +706,7 @@
             "object": "Descrizione",
             "addInvoiceItem": "Aggiungi alla fattura",
             "addOffer": "Allenamento",
-            "addPaymentPack": "Tessera",
+            "addPaymentPack": "Pass",
             "voucher": "Voucher",
             "total": "TOTALE",
             "paymentMethodCheck": "Assegno bancario",
@@ -962,7 +962,14 @@
                 "isPast": "Passata",
                 "notBookableYet": "Prossimamente",
                 "alreadyRegistered": "Prenotato",
-                "full": "Completo"
+                "full": "Completo",
+                "popOverTitle": {
+                    "bookOption": "La sessione è al completo, è disponibile la lista di attesa.",
+                    "notAvailable": "La sessione è stata annullata",
+                    "alreadyRegistered": "Hai già prenotato questa sessione.",
+                    "isPast": "Le prenotazioni sono chiuse",
+                    "notBookableYet": "La sessione non è ancora aperta per le prenotazioni."
+                }
             },
             "sessionThisDay": "Sessioni oggi:",
             "calendar": "Calendario",
@@ -984,7 +991,7 @@
                 }
             },
             "buyPack": "Comprare",
-            "pass": "Tessera",
+            "pass": "Pass",
             "playlist": "Playlist",
             "offers": "{{ count }} sessioni",
             "from_to": "da {{-from}} a {{-to}}",
@@ -1023,10 +1030,10 @@
                 "invoiceFormPage": "Form della fatturazione",
                 "invoiceCreatePage": "Fattura",
                 "invoiceList": "Le mie transazioni",
-                "paymentPackFormPage": "Creazione della tessera",
+                "paymentPackFormPage": "Crea un pass",
                 "members": "Membri",
                 "member": "Membro",
-                "memberFormPage": "Form del membro",
+                "memberFormPage": "Formulario",
                 "searchResults": "Ricerca",
                 "settings": "Impostazioni",
                 "orderList": "Ordini",
@@ -1331,7 +1338,7 @@
             "451": "Appuntamento annullato - rimborsato (membro)",
             "452": "Nuovo appuntamento (membro)",
             "9": "Un membro si è cancellato dalla lista d'attesa (si è liberato un posto)",
-            "10": "Il posto nella lista d'attesa è scaduto per questo turno.",
+            "10": "Per questo turno, il posto nella lista d'attesa è scaduto",
             "12": "Registrazione alla lista d'attesa",
             "403": "Orario modificato (insegnante)",
             "450": "Appuntamento - fuori tempo massimo (membro)",
@@ -3369,7 +3376,7 @@
             "playlist": "Playlist"
         },
         "details": {
-            "consumerPaymentPackTitle": "Tessera usata",
+            "consumerPaymentPackTitle": "Pass utilizzato",
             "invoiceTitle": "Fattura associata",
             "pleaseSelectVod": "Selezionare un acquisto per vedere i dettagli",
             "title": "Dettagli del video"
@@ -3531,10 +3538,11 @@
                 "marketplaceSettings": "Impostazioni marketplace",
                 "widget": "Widget",
                 "paymentMethod": "Modo di pagamento",
-                "forms": "Form del membro",
+                "forms": "Formulario",
                 "quickbooks": "QuickBooks",
                 "mobilePersonalization": "App di personalizzazione",
-                "coachUserspace": "Area dell'insegnante"
+                "coachUserspace": "Area dell'insegnante",
+                "quicksale": "interfaccia di vendita"
             },
             "myClub": "Il mio club",
             "subscription": "Addebiti",
@@ -3667,7 +3675,8 @@
             },
             "widget": {
                 "create": "Generale",
-                "customize": "Personalizzazione"
+                "customize": "Personalizzazione",
+                "customizeCss": "CSS personalizzato"
             },
             "replacement": {
                 "management": "Gestione",
@@ -3703,6 +3712,10 @@
             "clockIn": {
                 "realTime": "Tempo reale",
                 "history": "Storico"
+            },
+            "quicksale": {
+                "access": "Creazione accesso",
+                "configuration": "Personalizzazione delle categorie"
             }
         }
     },
@@ -3984,7 +3997,11 @@
                 },
                 "acceptDoubleBookingWorkshop": "Accetta doppia prenotazione per i workshop",
                 "showFreeSessionLabel": "Indica 0 sessioni di credito con l'etichetta GRATIS",
-                "acceptDoubleBookingMetaActivity": "Accetta doppia prenotazione per le attività"
+                "acceptDoubleBookingMetaActivity": "Accetta doppia prenotazione per le attività",
+                "hideBookButton": {
+                    "switchLabel": "Nascondi il pulsante \"{{-bookButtonTranslation}}\"",
+                    "dialogDescription": "Nascondendo il pulsante \"{{-bookButtonTranslation}}\", potrai cliccare sul pass per prenotare la sessione."
+                }
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -4124,7 +4141,7 @@
             "field_identifier": "Campi",
             "account_modification": "Edizione di un account",
             "account_creation": "Creazione di un account",
-            "title": "Form del membro",
+            "title": "Formulario",
             "fields": {
                 "waiver": "Rilascio di risponsabilità",
                 "general_terms_and_conditions_accepted": "Condizioni generali di utilizzo",
@@ -5247,6 +5264,10 @@
         },
         "modifyBasket": {
             "15004": "Il carrello è in fase di elaborazione, riprova tra qualche minuto"
+        },
+        "quicksaleConfiguration": {
+            "updated": "Configurazione salvata",
+            "error": "Si è verificato un errore durante il backup"
         }
     },
     "settings": {
@@ -6181,17 +6202,17 @@
             "pauseSection": "Pausa",
             "switchPack": {
                 "form": {
-                    "title": "Cambio tessera",
+                    "title": "Cambio pass",
                     "submit": "Iscriviti",
                     "cancel": "Annulla",
                     "warning": "La fatturazione rimarrà la stessa, se si desidera aumentare / ridurre l'importo mensile, modificare ogni pagamento mensile separatamente.",
-                    "explain": "Questa tessera verrà fatturata al posto di quella precedente per tutte le fatture future. Le sessioni prenotate con la vecchia tessera verranno trasferite a quella nuova anche se non compatibile."
+                    "explain": "Questo pass verrà aggiunto su tutte le fatture future, in sostituzione del precedente. Le sessioni prenotate con il pass precedente saranno trasferite sul nuovo, anche se questo potrebbe non essere compatibile."
                 }
             },
             "actions": {
                 "switchPaymentMethod": "Modifica il metodo di pagamento",
                 "freeze": "Mettere in pausa",
-                "switchPack": "Modifica la tessera",
+                "switchPack": "Modifica il pass",
                 "advanceTime": "Avanzare la fattura",
                 "postPone": "Spostare la fattura",
                 "changeDate": "Cambiare la data",
@@ -6211,7 +6232,7 @@
             "edit": "Modifica",
             "buy": "Compra",
             "scheduledStop": {
-                "summary": "L'ultimo incasso programmato sarà datato dal {{-date}}, che corrisponderà all'ultima tessera valida.",
+                "summary": "L'ultimo incasso programmato sarà datato al {{-date}}, che corrisponderà all'ultimo pass valido.",
                 "title": "Programma la risoluzione dell'iscrizione",
                 "explain": "Scegli l'ultimo pagamento dell'iscrizione.",
                 "listItem": "Risoluzione dell'iscrizione programmata",
@@ -6279,10 +6300,10 @@
             "nbInterval": "Numero di collezioni",
             "recurrent_price": "Pagamento ricorrente",
             "flat_fee": "Spese amministrative",
-            "paymentPack": "Tessera",
+            "paymentPack": "Pass",
             "dateStart": "Prima fatturazione",
             "firstBilling": "Primo incasso",
-            "payment_pack": "Tessera",
+            "payment_pack": "Pass",
             "status": "Status",
             "subscribeAgain": "Iscriviti di nuovo",
             "voucher": "Offerta speciale",
@@ -6314,7 +6335,7 @@
             "actions": {
                 "iwanttostarton": "Vorrei iniziare la fatturazione il: ",
                 "subscribe": "Sottoscrivi",
-                "create": "Aggiungi un contratto",
+                "create": "Crea abbonamento",
                 "iAcceptCondition": "Accetto le condizioni di cui sopra",
                 "iAcceptGeneralCondition": " Accetto l'avviso legale",
                 "iAcceptContractTerms": "Accetto i<0>termini legali</0>.",
@@ -6364,7 +6385,7 @@
                     "label": "Rinnovo tacito"
                 },
                 "object_type": {
-                    "paymentPack": "Tessera",
+                    "paymentPack": "Pass",
                     "privatePass": "Pass per appuntamenti",
                     "label": "Tipo di abbonamento",
                     "paymentCombo": "Pacchetto"
@@ -6450,7 +6471,7 @@
                 "content": "Sei sicuro di voler cancellare questo contratto?",
                 "title": "Cancellazione del contratto"
             },
-            "paymentPack": "Tessera associata",
+            "paymentPack": "Pass associato",
             "no": "No",
             "yes": "Sì",
             "privatePass": "Pass appuntamento associato",
@@ -6514,7 +6535,7 @@
             }
         },
         "events": {
-            "billing_plan-update_payment_pack": "Tessera modificata",
+            "billing_plan-update_payment_pack": "Pass modificato",
             "billing_plan-update_payment_method": "Metodo di pagamento modificato",
             "billing_plan-renew": "Rinnovo",
             "billing_plan-payment_dispute": "Contenzioso",
@@ -6592,7 +6613,7 @@
         },
         "action": {
             "stopExplain": "I pagamenti successivi verranno annullati e le relative fatture verranno eliminate. Se una prenotazione è stata registrata con un abbonamento per il quale la fattura è stata annullata, verrà annullata.",
-            "revertCurrentExplain": "Annulla l'ultima fattura registrata e blocca la tessera",
+            "revertCurrentExplain": "Annulla l'ultima fattura registrata e blocca il pass",
             "revertCurrentExplainHelper": "Se il pagamento è valido, verrà creato un credito, è possibile rimborsarlo al cliente inserendo la fattura e facendo clic su \"Rimborso\". Se il pagamento non è andato a buon fine, il debito verrà cancellato.",
             "stop": "Stop",
             "planStop": "Programma la risoluzione dell'iscrizione"
@@ -7563,6 +7584,7 @@
                 "Annullato",
                 "Annullata",
                 "Annulla",
+                "Cancella",
                 "Cancella"
             ]
         },
@@ -9432,7 +9454,7 @@
                     "limitGuest": "(Nessuna carta dei corsi consente di aggiungere ospiti)"
                 },
                 "lastname": {
-                    "label": "Nome"
+                    "label": "Cognome"
                 },
                 "firstname": {
                     "label": "Nome"
@@ -10710,7 +10732,7 @@
         },
         "billing_group": {
             "table": {
-                "name": "nome",
+                "name": "Nome",
                 "establishment": "Stabilimenti",
                 "actions": "Azioni"
             },
@@ -10732,11 +10754,11 @@
                     "cancel": "Cancella",
                     "title": "Gruppo di fatturazione"
                 },
-                "associated_localizations": "Camere associate",
-                "name": "nome"
+                "associated_localizations": "Stabilimenti associati",
+                "name": "Nome"
             },
             "actions": "Azioni",
-            "name": " nome"
+            "name": " Nome"
         },
         "description": "Descrizione",
         "favouriteLocation": "Posizione preferita",
@@ -11470,8 +11492,8 @@
                 "title": "Gestione della lista d'attesa"
             },
             "auto_consume_pack": {
-                "helper": "Se il membro ha una carta del corso valida quando un posto diventa disponibile, viene automaticamente registrato e la sua carta viene addebitata. La carta che scade prima, e quella con meno credito disponibile, viene utilizzata per prima.",
-                "label": "Addebita automaticamente una tessera e registra il membro quando si libera un posto."
+                "helper": "Se il membro ha un pass valido quando un posto diventa disponibile, viene automaticamente registrato e il suo pass viene addebitato. Il pass che scade prima, e quello con meno credito disponibile, vengono utilizzati per primi.",
+                "label": "Addebita automaticamente un pass e registra il membro quando si libera un posto."
             },
             "is_option_blocking": {
                 "helper": "Finché un membro è nella lista d'attesa, un posto viene tenuto bloccato per lui mentre si aspetta che si registri.",
@@ -11496,7 +11518,7 @@
                 }
             },
             "last_delay_before_auto_consume": {
-                "helper": "Se la sessione ha luogo troppo presto nel futuro, il membro non sarà registrato anche se ha una tessera del corso valida",
+                "helper": "Se la sessione ha luogo troppo presto nel futuro, il membro non sarà registrato anche se ha un pass valido",
                 "label": "Autoregistrarsi solo se la sessione si svolge in più di "
             },
             "check_credit": {
@@ -12161,7 +12183,8 @@
             "total_price_notax": "Importo fatturato tasse escluse",
             "total_price": "Importo fatturato tasse incluse",
             "staff_commission_amount_notax": "Costi provvigionali del personale IVA esclusa",
-            "staff_commission_amount": "Costi delle commissioni del personale IVA inclusa"
+            "staff_commission_amount": "Costi delle commissioni del personale IVA inclusa",
+            "invoice_datetime": "Data di emissione della fattura"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -12376,7 +12399,8 @@
             "total": "Totale IVA inclusa",
             "tax": "Tasse",
             "taxExcluded": "Subtotale escluso",
-            "flat_fee": "Tassa d'iscrizione"
+            "flat_fee": "Tassa d'iscrizione",
+            "globalTotal": "Totale"
         }
     },
     "marketplace": {
@@ -13219,7 +13243,7 @@
                         "_label": "Videoconferenza"
                     },
                     "memberForms": {
-                        "_label": "Form del membro"
+                        "_label": "Formulario"
                     },
                     "personalization": {
                         "_label": "Personalizzazione"
@@ -13551,10 +13575,83 @@
                     "cancel": "Cancella",
                     "confirm": "Conferma"
                 }
+            },
+            "customCss": {
+                "dialog": {
+                    "content": "Attenzione: si sta per reimpostare il css di questo elemento. Tornerà alla sua configurazione predefinita.",
+                    "cancel": "Cancella",
+                    "confirm": "Conferma",
+                    "title": "Ripristinare elemento"
+                },
+                "info": "È possibile personalizzare ogni elemento e le sue varianti che compongono i widget. Selezionare un widget e poi l'elemento desiderato.",
+                "choiceWidget": "Selezione del widget",
+                "choiceElement": "Scelta dell'elemento",
+                "snackbarSuccessSave": "L'elemento è stato salvato con successo",
+                "snackbarSuccessResetAll": "Tutte le configurazioni sono state ripristinate",
+                "infoMultiplePage": "Questo elemento è presente in diversi widget, pertanto le modifiche si applicheranno ai seguenti:",
+                "showBsportCode": "Mostra lo stile bsport",
+                "baseCode": "Stile bsport",
+                "yourCode": "Tua implementazione complementare",
+                "CSS": "CSS",
+                "preview": "Anteprima - {{-name}}",
+                "element": "Elemento",
+                "unsavedChanges": "Non sono state riscontrate modifiche",
+                "savedChanges": "Ultime modifiche salvate",
+                "save": "Salva"
+            },
+            "components": {
+                "filter": "Filtro unico",
+                "offerListItem": "Dettagli della sessione",
+                "level": "Chip di livello",
+                "workshopsComponent": "Dettagli del workshop",
+                "groupOfferListItem": "Dettagli della sessione di gruppo",
+                "workshopCard": "Tessera workshop",
+                "filters": "Lista dei filtri",
+                "bookButton": "Pulsante per la prenotazione",
+                "datePicker": "Selettore di data",
+                "activity": "Popup dei dettagli dell'attività",
+                "vodTag": "Chip VOD",
+                "cardOffer": "Dettagli della sessione (visualizzazione del calendario)",
+                "workshopPage": "Pagina dei workshop",
+                "timeTable": "Componenti del calendario",
+                "calendar": "Pagina del calendario"
+            },
+            "cssConfig": {
+                "title": {
+                    "filterGroupOptions": "Opzioni raggruppate",
+                    "variant": "In evidenza",
+                    "loading": "Caricando",
+                    "isMobile": "Versione mobile",
+                    "offerStatus": "Disponibilità dell'offerta",
+                    "isRegistered": "Già registrato",
+                    "showDayParts": "Mattine, pomeriggi e sere separati",
+                    "nextOffer": "Prossima sessione disponibile"
+                },
+                "option": {
+                    "false": "No",
+                    "coach": "Insegnante",
+                    "activityName": "Attività",
+                    "time": "Programma",
+                    "waitingList": "Lista di attesa",
+                    "cancel": "Cancellata",
+                    "past": "Passata",
+                    "bookable": "Prenotabile",
+                    "future": "Iscrizioni non ancora aperte",
+                    "currentWeek": "Questa settimana",
+                    "nextWeek": "Prossima settimana",
+                    "true": "SI",
+                    "none": "Nessuno"
+                },
+                "configurationTitle": "Variazioni"
+            },
+            "page": {
+                "workshop": "Workshop",
+                "calendar": "Calendario"
             }
         },
         "create": "Generale",
-        "customize": "Personalizzazione"
+        "customize": "Personalizzazione",
+        "customizeCss": "Personalizza css"
     },
     "platformBilling": {
         "featureRequest": {
@@ -13727,7 +13824,7 @@
                 "select_placeholder": "Selezionare",
                 "file": "Allegare un file",
                 "link_to_note": "Creare una nota",
-                "link_to_note_helper": "Collegando la domanda a una nota, la risposta sarà automaticamente aggiunta a una nota sul form del membro.",
+                "link_to_note_helper": "Collegando la domanda a una nota, la risposta sarà automaticamente aggiunta a una nota sul formulario.",
                 "signature": "Firma",
                 "isMandatoryOnSignUp": "La domanda è obbligatoria alla registrazione",
                 "waiver": "Rilascio di responsabilità",
@@ -13749,7 +13846,7 @@
                 "address_line_2": "Indirizzo aggiuntivo",
                 "address_line_1": "Indirizzo",
                 "birthday": "Data di nascita",
-                "last_name": "Nome di famiglia",
+                "last_name": "Cognome",
                 "first_name": "Nome",
                 "sign_up_question": "Domanda sul form di registrazione",
                 "location": "Posizione preferita",
@@ -15401,8 +15498,53 @@
                 "product": "prodotto",
                 "product_plural": "prodotti",
                 "credit": "credito",
-                "credit_plural": "crediti"
+                "credit_plural": "crediti",
+                "unlimited": "Illimitato"
             }
+        },
+        "cardListPage": {
+            "save": "Salva",
+            "possibleActionsShort": "Puoi eseguire azioni quando passi sopra i riquadri con il mouse...",
+            "seeMore": "Mostra di piú",
+            "seeLess": "Mostra meno",
+            "editIcon": "Modifica l'icona",
+            "addItems": "Puoi anche aggiungere oggetti facendo clic sul riquadro + nell'ultima posizione.",
+            "newSection": "Nuova categoria",
+            "categoryModalTitle": "Colore della categoria",
+            "archivedCategories": "Categorie archiviate",
+            "categoryArchivedSnackbar": "La categoria è stata archiviata",
+            "preview": "Anteprima",
+            "moveTile": "Muovi il riquadro",
+            "archiveSection": "Archivia la categoria",
+            "deleteTile": "Elimina il riquadro",
+            "categoryModalSubtitle": "Palette colori",
+            "possibleActionsFull": "Puoi eseguire azioni quando passi sopra i riquadri con il mouse. Puoi:",
+            "editName": "Modifica il nome",
+            "editColor": "Modifica il colore",
+            "addSection": "Puoi anche aggiungere una categoria facendo clic sul riquadro + nell'ultima posizione."
+        },
+        "pageLeavePrompt": {
+            "title": "Modifiche non salvate",
+            "save": "Salva",
+            "discard": "Esci senza salvare",
+            "description": "Attenzione, non hai salvato. Stai per perdere tutte le modifiche apportate. Vuoi salvare il tuo lavoro?"
+        },
+        "pageTitle": "Interfaccia di vendita",
+        "rolePage": {
+            "title": "Accesso all'interfaccia di vendita",
+            "password": "Password",
+            "cancel": "Cancella",
+            "submit": "Salva",
+            "emailColumn": "Email",
+            "actionColumn": "Azione",
+            "noResult": "Nessun accesso creato",
+            "staffColumn": "Staff",
+            "addAccess": "Crea nuovo accesso",
+            "modalTitle": "Creazione di un nuovo accesso per l'interfaccia di vendita",
+            "firstName": "Nome",
+            "lastName": "Cognome",
+            "email": "Email",
+            "subtitle": "Questi accessi consentono allo staff di collegarsi all'interfaccia di vendita. È necessario effettuare il login per poter vendere tramite l'interfaccia."
         }
     }
 }

@@ -681,7 +681,14 @@
                 "book": "Reserveer",
                 "notBookableYet": "Binnenkort beschikbaar",
                 "alreadyRegistered": "Gereserveerd",
-                "full": "Vol"
+                "full": "Vol",
+                "popOverTitle": {
+                    "notAvailable": "De sessie is geannuleerd",
+                    "notBookableYet": "De sessie kan nog niet worden geboekt.",
+                    "alreadyRegistered": "Je hebt deze sessie al geboekt.",
+                    "bookOption": "De sessie is vol en er is een wachtlijst.",
+                    "isPast": "Reserveringen zijn gesloten"
+                }
             },
             "passListTitle": "Leskaarten",
             "privatePassListTitle": "Afspraakkaarten",
@@ -3030,7 +3037,8 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
-                "Annuleren"
+                "Annuleren",
+                "Geannuleerd"
             ]
         },
         "payment_method_with_credit_account": {
@@ -8948,7 +8956,7 @@
                 "notify_member": "Een bevestigingsmail versturen",
                 "timeGroup": "Instellingen",
                 "configuration": "Reserveringen",
-                "override_availabilities": "Voltooi de reservering ook bij onbeschikbaarheid van de geselecteerde afspraken/vestigingen/instructeurs",
+                "override_availabilities": "Maak een reservering, zelfs als de instructeur, de vestiging of de afspraak niet beschikbaar zijn",
                 "allow_unpaid": "Accepteer onbetaalde reserveringen"
             },
             "actions": {
@@ -11419,7 +11427,8 @@
             "author": "Auteur",
             "invoiceitem_pk": "Aantal gefactureerde artikelen",
             "staff_commission_amount": "Personeelscommissie inclusief belasting",
-            "staff_commission_amount_notax": "Personeelscommissie exclusief btw"
+            "staff_commission_amount_notax": "Personeelscommissie exclusief btw",
+            "invoice_datetime": "Uitgiftedatum factuur"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Incasso's",
@@ -11894,7 +11903,11 @@
                 },
                 "showFreeSessionLabel": "Voeg een label toe aan elke sessie met een kredietprijs van 0",
                 "acceptDoubleBookingMetaActivity": "Accepteer dubbele boekingen voor activiteiten",
-                "acceptDoubleBookingWorkshop": "Accepteer dubbele boekingen voor workshops"
+                "acceptDoubleBookingWorkshop": "Accepteer dubbele boekingen voor workshops",
+                "hideBookButton": {
+                    "switchLabel": "Verberg de knop \"{{bookButtonTranslation}}\"",
+                    "dialogDescription": "Door de \"{{-bookButtonTranslation}}\" knop te verbergen, wordt de kaart klikbaar om de sessie te boeken."
+                }
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -12227,7 +12240,8 @@
             "total": "Totaal (incl. btw)",
             "tax": "Btw",
             "taxExcluded": "Subtotaal (excl. btw)",
-            "flat_fee": "Inschrijfkosten"
+            "flat_fee": "Inschrijfkosten",
+            "globalTotal": "Totaal"
         }
     },
     "invoice": {

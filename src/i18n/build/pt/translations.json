@@ -7,7 +7,9 @@
             "8": "Substituição tardias",
             "9": "Mensagens recebidas",
             "3": "Tarefa",
-            "5": "Informações legais"
+            "5": "Informações legais",
+            "2": "Comentário",
+            "4": "Marcação a completar"
         },
         "list": {
             "emptyAlerting": "Nenhuma notificação nova.",
@@ -17,11 +19,231 @@
         "readAll": "Marcar tudo como lido",
         "unevenInvoice": {
             "priceDue": "Montante a dever :{{ price_due }}.",
-            "pricePayed": "Montante cobrado : {{ price_payed }}."
+            "pricePayed": "Montante cobrado : {{ price_payed }}.",
+            "title": "Pagamento não efetuado",
+            "explainUneven": "O pagamento <1>{{ invoice_identifier }}</1> não foi efetuado."
         },
         "newOrder": {
             "title": "Tarefa pendente",
-            "explain": "Pago por <1>{{name}}</1> sobre a loja."
+            "explain": "Pago por <1>{{name}}</1> sobre a loja.",
+            "price": "Montante: {{ price }}."
+        },
+        "privateBookingIncomplete": {
+            "explain": "A aula de <1>{{name}}</1> não tem professor atribuído.",
+            "date": "Data : {{ date_start }}",
+            "name": "Membro : {{ user_name }}"
+        },
+        "unpaidPrivateBooking": {
+            "credits_due": "Créditos a pagar : {{ credits }}"
+        },
+        "task": {
+            "name": "{{ name }}"
+        },
+        "companyOnboarding": {
+            "verification": {
+                "title": "Gerir o meu negócio",
+                "content": "Estão pendentes vários documentos, tem até dia <1>{{ date }}</1> para consultar a sua conta.",
+                "warning": "Os pagamentos pendentes correm o risco de serem <1>desativados</1> após esta data !"
+            },
+            "payout": {
+                "title": "Dados bancários em falta",
+                "content": "Não nos é possível efetuar pagamentos para a sua conta bancária porque esta não existe ou está incorretamente configurada."
+            },
+            "creation": {
+                "title": "Pagamento online desativado",
+                "content": "Para poder receber pagamentos com cartão e SEPA, verifique os seus dados legais"
+            }
+        },
+        "newTutorialSectionOrLesson": {
+            "newSection": {
+                "title": "Nova aula",
+                "content": "A aula {{- name}} foi adicionada, comece a treinar agora."
+            },
+            "newLesson": {
+                "title": "Novo passe {{- name}}",
+                "content": "Adicionado à aula {{- name}}"
+            }
+        },
+        "lateReplacementRequest": {
+            "title": "Substituição tardia",
+            "content": "solicitou uma substituição para a aula seguinte : {{activity_name}} - {{-date_start}}"
+        }
+    },
+    "authentication": {
+        "resetPassword": {
+            "title": "Recuperar palavra-passe",
+            "noEmail": "Este e-mail não está registado",
+            "explain1": "Qual era o endereço de correio eletrónico da conta?",
+            "explain2": "Foram enviadas instruções de recuperação",
+            "hasProblem": "Está a ter problemas em reiniciar?",
+            "contactUs": "Contacte-nos através de ",
+            "emailHasBeenSent": "Foi enviada uma mensagem para o correio eletrónico {{email}} para recuperar a sua palavra-passe",
+            "actions": {
+                "cancel": "Anular",
+                "reset": "OK",
+                "backToLogin": "Voltar"
+            }
+        }
+    },
+    "booking": {
+        "attendanceUpdatedOn": "Atualizado em {{- d }} às {{- t }}",
+        "actions": {
+            "bill": "Fatura",
+            "unregister": "Cancelar a subscrição"
+        },
+        "guest": {
+            "form": {
+                "email": {
+                    "label": "Email"
+                },
+                "lastname": {
+                    "label": "Nome"
+                },
+                "firstname": {
+                    "label": "Apelido"
+                },
+                "actions": {
+                    "submit": "Validar",
+                    "close": "Anular",
+                    "addGuest": "Adicionar um convidado",
+                    "limitGuest": "(Não pode ser utilizado nenhum passe para adicionar convidados)"
+                }
+            }
+        },
+        "performanceTracking": {
+            "stat": "Estatísticas"
+        },
+        "recurrenceRule": {
+            "showMore": "Ver mais {{count}}",
+            "showLess": "Mostrar menos",
+            "notify": "Enviar um e-mail de confirmação quando um novo membro se regista",
+            "notifyIfCanceled": "Enviar um e-mail de cancelamento da reserva",
+            "deleteModal": {
+                "confirm": "Eliminar",
+                "cancel": "Anular",
+                "title": "Eliminar condições",
+                "content": "Ao eliminar a seguinte condição, cancelará todas as reservas futuras efectuadas com a mesma definição.",
+                "success": "A marcação foi eliminada"
+            },
+            "editModal": {
+                "success": "A marcação foi alterada"
+            },
+            "createModal": {
+                "success": "A marcação foi criada.",
+                "info": "Impossível efetuar uma marcação já existente",
+                "create": "Efetuar uma marcação"
+            },
+            "item": {
+                "explain": "Todos os {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}} semanas antes"
+            },
+            "form": {
+                "timeGroup": "Data da aula",
+                "at": " à ",
+                "dayOfWeek": {
+                    "label": "Dia da semana"
+                },
+                "hour": {
+                    "label": "hora"
+                },
+                "minute": {
+                    "label": "minuto"
+                },
+                "metaActivity": {
+                    "label": "Atividade",
+                    "helperText": "Atividade"
+                },
+                "delayWeek": {
+                    "label": "Número de semanas",
+                    "helperText": "Indique a antecedência em número de semanas com que o membro será registado"
+                }
+            },
+            "actions": {
+                "close": "Fechar",
+                "save": "Registo"
+            },
+            "blockedBookings": "Os alunos podem reservar até {{days}} dias antes do início das aulas, por conseguinte, recomendamos que configure a recorrência para um período mais longo, para evitar uma sobrecarga.",
+            "explain": "O membro será sempre registado {{ delayWeek }} semanas de antecedência para o {{ dayOfWeek}} à {{hour}}:{{minute}}. Só serão registados se possuírem um passe válido."
+        },
+        "filters": {
+            "all": "Todas as marcações",
+            "present": "Presente",
+            "absent": "Ausente",
+            "canceled": "Aula cancelada",
+            "consumerCanceled": "Cancelamento efetuado pelo cliente",
+            "notCancelled": "Não cancelado",
+            "cancel": "Cancelamento",
+            "attendance": "Presença",
+            "time": "Marcações ao longo do tempo",
+            "futureBooking": "Marcações futuras",
+            "pastBooking": "Marcações passadas",
+            "refunded": "Reembolsos",
+            "isRefunded": "Reembolsado",
+            "notRefunded": "Não reembolsado",
+            "paid": "Pagamento",
+            "isPaid": "Marcações pagas",
+            "isUnpaid": "Marcações não pagas",
+            "coach": "Professor",
+            "pickCoach": "Encontrar um professor..."
+        },
+        "bookingModule": {
+            "hasRegistered": "Está inscrito para esta sessão",
+            "isLoading": "Procurar sessões...",
+            "book": {
+                "unknowError": "Não foi possível efetuar a marcação, tente novamente dentro de momentos"
+            },
+            "recurrent": {
+                "title": "Sessões futuras",
+                "bookMultiple": "Agendar",
+                "backToRegistererChoice": "Voltar a"
+            },
+            "section": {
+                "consumerPacks": "Créditos disponíveis",
+                "contracts": "Inscrições",
+                "paymentPacks": "Gostaria de comprar um passe",
+                "paymentCombos": "Promoções em vigor",
+                "contract": "Quero subscrever"
+            },
+            "option": {
+                "isAlreadyOnWaitingList": "Se estiver em lista de espera, será notificado por email quando houver um lugar disponível.",
+                "isAlreadyRegistered": "A sessão está completa - parabéns, estão todos inscritos!",
+                "isFull": "A sessão está esgotada, mas pode inscrever-se na lista de espera. Será notificado por email quando houver um lugar disponível.",
+                "registerOption": "Adicionar-me à lista de espera",
+                "waitingListOpen": "A sessão está esgotada, mas ainda se pode inscrever na lista de espera. Enviaremos email assim que houver um lugar disponível.",
+                "waitingListLockedByPendingBookings": "Outras pessoas estão a efetuar a marcação. A lista de espera não está atualmente disponível. Por favor, tente novamente dentro de alguns minutos para ver se um lugar ficou disponível."
+            },
+            "offer": {
+                "isDisabled": "Infelizmente, a sessão foi cancelada.",
+                "isWaitingListFull": "A sessão está esgotada e a lista de espera está cheia.",
+                "blockedByTags": "Não tem aprovação necessária para se registar nesta sessão.",
+                "isTooLate": "As inscrições já estão encerradas.",
+                "isAlreadyRegistered": "Já está inscrito para esta sessão",
+                "isTooSoon": "As inscrições estão atualmente encerradas e serão abertas em {{ -date }}."
+            },
+            "messages": {
+                "offerLocked": "Não é possível reservar esta sessão",
+                "femaleUnavailable": "Esta sessão já não está disponível para as mulheres.",
+                "maleUnavailable": "Esta sessão já não está disponível para os homens."
+            },
+            "tags": {
+                "managerDialogWarningDialog": {
+                    "title": "Informação",
+                    "content": "Atenção, este membro não possui créditos suficientes para ser registado nesta sessão. Ainda gostaria de registar este membro?",
+                    "cancel": "Anular",
+                    "confirm": "Confirmar"
+                },
+                "unAuthorized": "Não tem autorização para se registar nesta sessão."
+            }
+        },
+        "details": {
+            "consumerPaymentPackTitle": "Passe utilizado",
+            "pleaseSelectABooking": "Seleccione uma marcação para ver detalhes",
+            "title": "Detalhes da marcação",
+            "offerTitle": "Sessão interligada"
+        },
+        "parameters": {
+            "registeredOn": "Reservado em ",
+            "cancelledOn": "Cancelado em ",
+            "by": "Por"
         }
     }
 }

@@ -895,7 +895,14 @@
                 "notAvailable": "Storniert",
                 "notBookableYet": "Bald",
                 "alreadyRegistered": "Buchen",
-                "full": "Vollständig"
+                "full": "Vollständig",
+                "popOverTitle": {
+                    "bookOption": "Die Session ist ausgebucht, eine Warteliste ist verfügbar.",
+                    "notAvailable": "Diese Session wurde storniert",
+                    "notBookableYet": "Diese Session kann noch nicht gebucht werden.",
+                    "alreadyRegistered": "Sie haben diese Session bereits gebucht.",
+                    "isPast": "Die Buchungen sind geschlossen"
+                }
             },
             "passListTitle": "Kurspässe",
             "privatePassListTitle": "Terminpässe",
@@ -2880,7 +2887,11 @@
                 },
                 "acceptDoubleBookingMetaActivity": "Doppelte Buchungen für Aktivitäten akzeptieren",
                 "acceptDoubleBookingWorkshop": "Doppelte Buchungen für Aktivitäten akzeptieren",
-                "showFreeSessionLabel": "Kennzeichnen Sie Session mit 0 Credits mit dem Label FREE"
+                "showFreeSessionLabel": "Kennzeichnen Sie Session mit 0 Credits mit dem Label FREE",
+                "hideBookButton": {
+                    "switchLabel": "Ausblenden der Schaltfläche \"{{-bookButtonTranslation}}\"",
+                    "dialogDescription": "Wenn Sie die Schaltfläche \"{{-bookButtonTranslation}}\" ausblenden, wird die Karte anklickbar, um die Session zu buchen."
+                }
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -5009,6 +5020,7 @@
                 "Storniert",
                 "Stornieren",
                 "Stornieren",
+                "Stornieren",
                 "Stornieren"
             ]
         }
@@ -5997,6 +6009,10 @@
         },
         "modifyBasket": {
             "15004": "Der Warenkorb wird gerade bearbeitet, bitte versuchen Sie es in ein paar Minuten erneut"
+        },
+        "quicksaleConfiguration": {
+            "updated": "Gespeicherte Konfiguration",
+            "error": "Beim Speichern ist ein Fehler aufgetreten"
         }
     },
     "invoice": {
@@ -11218,7 +11234,8 @@
             "total_price": "Gesamtbetrag inkl. MwSt.",
             "invoice_date_created": "Datum der Rechnungsstellung",
             "author": "Autor",
-            "invoiceitem_pk": "Anzahl der in Rechnung gestellten Artikel"
+            "invoiceitem_pk": "Anzahl der in Rechnung gestellten Artikel",
+            "invoice_datetime": "Ausstellungsdatum der Rechnung"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Zahlungseingänge",
@@ -11401,7 +11418,8 @@
                 "forms": "Formular für Mitglieder",
                 "quickbooks": "QuickBooks",
                 "mobilePersonalization": "Personalisierung App",
-                "coachUserspace": "Lehrkräfteansicht"
+                "coachUserspace": "Lehrkräfteansicht",
+                "quicksale": "Verkaufsschnittstelle"
             },
             "myClub": "Mein Studio",
             "subscription": "Automatische Abbuchungen",
@@ -11539,7 +11557,8 @@
             },
             "widget": {
                 "create": "Allgemein",
-                "customize": "Personalisierung"
+                "customize": "Personalisierung",
+                "customizeCss": "Angepasstes CSS"
             },
             "coach": {
                 "general": "Profil",
@@ -11584,6 +11603,10 @@
                 "general": "Inhalt",
                 "campaign": "Kampagne",
                 "statistics": "Statistiken"
+            },
+            "quicksale": {
+                "configuration": "Kategorien anpassen",
+                "access": "Zugang erstellen"
             }
         }
     },
@@ -13228,7 +13251,8 @@
             "total": "Gesamtwert einschließlich aller Steuern",
             "taxExcluded": "Zwischensumme ohne Steuern",
             "tax": "Steuern",
-            "flat_fee": "Bearbeitungsgebühr"
+            "flat_fee": "Bearbeitungsgebühr",
+            "globalTotal": "Gesamt"
         }
     },
     "tag": {
@@ -13518,10 +13542,83 @@
                 "submit": "Bestätigen",
                 "cancel": "Schließen"
             },
-            "groupSessionByPeriod": "Morgens, nachmittags und abends trennen"
+            "groupSessionByPeriod": "Morgens, nachmittags und abends trennen",
+            "customCss": {
+                "CSS": "CSS",
+                "preview": "Vorschau{{-name}}",
+                "element": "Element",
+                "savedChanges": "Zuletzt gespeicherte Änderungen",
+                "save": "Speichern",
+                "dialog": {
+                    "title": "Element zurücksetzen",
+                    "cancel": "Stornieren",
+                    "confirm": "Bestätigen",
+                    "content": "Achtung Sie sind dabei, das CSS dieses Elements zurückzusetzen. Es wird auf seine Standardkonfiguration zurückgesetzt."
+                },
+                "info": "Sie haben die Möglichkeit, jedes Element und seine Varianten, aus denen die Widgets bestehen, anzupassen. Wählen Sie ein Widget und dann das gewünschte Element aus.",
+                "choiceWidget": "Wahl des Widgets",
+                "infoMultiplePage": "Dieses Symbol ist auf mehreren Widgets vorhanden, die Änderungen werden auf die folgenden Widgets angewendet:",
+                "showBsportCode": "bsport-Stil anzeigen",
+                "unsavedChanges": "Änderungen wurden nicht gespeichert",
+                "choiceElement": "Wahl des Symbols",
+                "snackbarSuccessSave": "Ihr Symbol wurde erfolgreich gespeichert",
+                "snackbarSuccessResetAll": "Alle Ihre Konfigurationen wurden erfolgreich zurückgesetzt",
+                "baseCode": "Bsport-Style",
+                "yourCode": "Ihre ergänzende Implementierung:"
+            },
+            "components": {
+                "filter": "Einzelner Filter",
+                "offerListItem": "Details zu einer Session",
+                "level": "Level chip",
+                "workshopCard": "Workshop-Karte",
+                "filters": "Liste der Filter",
+                "bookButton": "Buchungs-Button",
+                "datePicker": "Datumswahl",
+                "activity": "Popup mit Details zur Aktivität",
+                "groupOfferListItem": "Details zur Gruppen-Session",
+                "cardOffer": "Details zur Session (Kalenderansicht)",
+                "calendar": "Kalender-Seite",
+                "vodTag": "Chip VOD",
+                "workshopsComponent": "Details zum Workshop",
+                "workshopPage": "Workshops-Seite",
+                "timeTable": "Kalender-Komponente"
+            },
+            "page": {
+                "calendar": "Kalender",
+                "workshop": "Workshop"
+            },
+            "cssConfig": {
+                "configurationTitle": "Variationen",
+                "title": {
+                    "filterGroupOptions": "Gruppenoptionen",
+                    "variant": "Hervorheben",
+                    "loading": "Wird geladen",
+                    "isMobile": "Für Handys",
+                    "offerStatus": "Verfügbarkeit des Angebots",
+                    "isRegistered": "Bereits eingeschrieben",
+                    "nextOffer": "Nächste verfügbare Session",
+                    "showDayParts": "Morgens, nachmittags und abends trennen"
+                },
+                "option": {
+                    "activityName": "Aktivität",
+                    "coach": "Der Lehrkraft",
+                    "waitingList": "Warteliste",
+                    "cancel": "Storniert",
+                    "nextWeek": "Nächste Woche",
+                    "true": "Ja",
+                    "false": "Nein",
+                    "bookable": "Buchbar",
+                    "future": "Noch nicht zur Buchung freigegeben",
+                    "currentWeek": "Diese Woche",
+                    "time": "Aus dem Stundenplan",
+                    "past": "Verpasst",
+                    "none": "Keine"
+                }
+            }
         },
         "create": "Allgemein",
-        "customize": "Personalisierung"
+        "customize": "Personalisierung",
+        "customizeCss": "CSS-Anpassung"
     },
     "marketing": {
         "newsletter": {
@@ -15306,8 +15403,53 @@
                 "product": "Produkt",
                 "product_plural": "Produkte",
                 "credit": "Credit",
-                "credit_plural": "Credits"
+                "credit_plural": "Credits",
+                "unlimited": "Unbegrenzt"
             }
+        },
+        "cardListPage": {
+            "preview": "Vorschau",
+            "save": "Speichern",
+            "editIcon": "Symbol bearbeiten",
+            "editName": "Name bearbeiten",
+            "editColor": "Farbe bearbeiten",
+            "moveTile": "Kachel bewegen",
+            "archiveSection": "Kategorie archivieren",
+            "deleteTile": "Kachel entfernen",
+            "addSection": "Sie können auch eine Kategorie hinzufügen, indem Sie auf die + Kachel an der letzten Stelle klicken.",
+            "addItems": "Sie können auch Gegenstände hinzufügen, indem Sie auf die + Kachel an der letzten Position klicken.",
+            "newSection": "Neue Kategorie",
+            "categoryModalTitle": "Farbe der Kategorie",
+            "categoryModalSubtitle": "Farbpalette",
+            "possibleActionsShort": "Sie können Aktionen ausführen, indem Sie mit der Maus über die Kacheln fahren...",
+            "possibleActionsFull": "Sie können Aktionen ausführen, wenn Sie mit der Maus über die Kacheln fahren. So können Sie :",
+            "seeMore": "Mehr anzeigen",
+            "seeLess": "Weniger anzeigen",
+            "archivedCategories": "Archivierte Kategorien",
+            "categoryArchivedSnackbar": "Kategorie wurde archiviert"
+        },
+        "pageLeavePrompt": {
+            "title": "Änderungen nicht gespeichert",
+            "save": "Speichern",
+            "discard": "Verlassen ohne zu speichern",
+            "description": "Achtung: Sie haben keine Sicherheitskopie erstellt. Sie sind dabei, alle vorgenommenen Änderungen zu verlieren. Möchten Sie Ihre Arbeit sichern?"
+        },
+        "pageTitle": "Verkaufsschnittstelle",
+        "rolePage": {
+            "subtitle": "Diese Zugänge ermöglichen dem Staff den Zugriff auf die Schnittstelle für den Schnellverkauf. Sie müssen sich einloggen, um über die Schnittstelle verkaufen zu können.",
+            "addAccess": "Zugang hinzufügen",
+            "modalTitle": "Erstellen eines Zugangs zur Verkaufsschnittstelle",
+            "email": "E-Mail",
+            "password": "Passwort",
+            "cancel": "Stornieren",
+            "submit": "Validieren",
+            "staffColumn": "Mitarbeiter",
+            "emailColumn": "E-Mail",
+            "actionColumn": "Aktion",
+            "noResult": "Kein Zugang erstellt",
+            "title": "Zugang zur Verkaufsstelle",
+            "firstName": "Vorname",
+            "lastName": "Name"
         }
     }
 }

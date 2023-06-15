@@ -89,6 +89,7 @@ export const CollectPaymentMethod = (props: Props) => {
         variant={props.variant}
         content={props.content}
         labelClose={props.labelClose}
+        fullScreen={props.fullScreen}
       />
     );
   }

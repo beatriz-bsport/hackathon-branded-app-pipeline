@@ -8,7 +8,6 @@ import {
 } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-import withMobileDialog from '@material-ui/core/withMobileDialog';
 import ErrorIcon from '@material-ui/icons/Error';
 import Modal from '@material-ui/core/Modal';
 import AddIcon from '@material-ui/icons/Add';
@@ -373,7 +372,6 @@ const styles = (theme: Theme) => ({
 const CollectPaymentMethodCompose = compose(
   withTranslation(['payment']),
   withStyles(styles),
-  withMobileDialog(),
 )(CollectPaymentMethod);
 
 export default (props: Props) => (

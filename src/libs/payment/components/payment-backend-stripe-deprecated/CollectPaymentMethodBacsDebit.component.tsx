@@ -15,7 +15,6 @@ import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
 import { Form, ErrorMessage, Formik } from 'formik';
 
-import withMobileDialog from '@material-ui/core/withMobileDialog';
 import ErrorIcon from '@material-ui/icons/Error';
 import Modal from '@material-ui/core/Modal';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -426,7 +425,6 @@ const useStyles = makeStyles((theme) => ({
 
 const CollectPaymentMethodCompose = compose<any, Omit<Props, 't'>>(
   withTranslation(['payment']),
-  withMobileDialog(),
 )(CollectPaymentMethodBacsDebit);
 
 export default (props: Omit<Props, 't' | 'stripe' | 'elements'>) => (

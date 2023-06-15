@@ -1,13 +1,14 @@
 // @ts-nocheck
 // @flow
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { AxiosResponse } from 'axios';
 import { OptionCallback } from '../../../../state/types';
@@ -43,6 +44,8 @@ type Props = {
 export const PaymentMethodList = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [disableDuringDetach, setDisableDuringDetach] = React.useState(false);
   const [collectPaymentMethodIsOpen, setCollectPaymentMethodIsOpen] =
     React.useState(false);
@@ -106,7 +109,7 @@ export const PaymentMethodList = (props: Props) => {
       )}
       {collectPaymentMethodIsOpen && (
         <CollectPaymentMethod
-          fullScreen={false}
+          fullScreen={isMobile}
           requestSetupIntentSecret={props.requestSetupIntentSecret}
           paymentMethodType={props.paymentMethodType}
           refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}

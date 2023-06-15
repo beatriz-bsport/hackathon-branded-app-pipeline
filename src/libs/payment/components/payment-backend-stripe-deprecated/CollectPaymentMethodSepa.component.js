@@ -9,7 +9,6 @@ import {
 import ErrorIcon from '@material-ui/icons/Error';
 import Modal from '@material-ui/core/Modal';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Typography from '@material-ui/core/Typography';
@@ -470,7 +469,6 @@ const styles = (theme) => ({
 const CollectPaymentMethodCompose = compose(
   withTranslation(['payment']),
   withStyles(styles),
-  withMobileDialog(),
 )(CollectPaymentMethod);
 
 export default (props: Props) => (

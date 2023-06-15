@@ -8,7 +8,8 @@ const MarketplaceDatePickerDay: React.FC<{
   dateDisplayed: string;
   dateSelected: string;
   handleSelect: (dateString: string) => () => void;
-}> = ({ date, dateSelected, dateDisplayed, handleSelect }) => {
+  isDisabled?: boolean;
+}> = ({ date, dateSelected, dateDisplayed, handleSelect, isDisabled }) => {
   const daySelected = moment(dateSelected).startOf('day');
 
   return (
@@ -20,6 +21,7 @@ const MarketplaceDatePickerDay: React.FC<{
       <button
         type="button"
         onClick={handleSelect(date)}
+        disabled={isDisabled}
         className={classNames(
           'bs-marketplace-date-picker__menu__calendar__day',
           {
@@ -30,6 +32,8 @@ const MarketplaceDatePickerDay: React.FC<{
               daySelected.isSame(moment(date)),
             'bs-marketplace-date-picker__menu__calendar__day--disabled':
               moment(dateDisplayed).month() - moment(date).month() !== 0,
+            'bs-marketplace-date-picker__menu__calendar__day--disabled-past':
+              isDisabled,
           },
         )}
       >

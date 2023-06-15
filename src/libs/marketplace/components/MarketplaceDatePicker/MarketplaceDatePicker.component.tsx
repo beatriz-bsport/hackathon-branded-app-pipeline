@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 import throttle from 'lodash/throttle';
-import moment from 'moment-timezone';
+import moment, { Moment } from 'moment-timezone';
 
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -15,6 +15,7 @@ import Popper from '@material-ui/core/Popper';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import './MarketplaceDatePicker.css';
+import { EventWithElementTarget } from '#libs/marketplace/types';
 
 import MarketplaceDatePickerDay from './MarketplaceDatePickerDay.component';
 import {
@@ -25,6 +26,7 @@ import {
 
 export type Props = {
   dateSelected: string;
+  disablePast?: boolean;
   rangeSize?: number;
   onSelect: (date: string) => void;
   isInputButton?: boolean;
@@ -35,9 +37,10 @@ const MarketplaceDatePicker: React.FC<Props> = ({
   rangeSize = 7,
   onSelect,
   isInputButton,
+  disablePast,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [dateDisplayed, setDateDisplayed] = useState(moment(dateSelected));
+  const [dateDisplayed, setDateDisplayed] = useState<Moment>(null);
   const anchorRef = useRef<HTMLDivElement | null>(null);
 
   const handleCloseMenu = useCallback(() => {
@@ -51,11 +54,16 @@ const MarketplaceDatePicker: React.FC<Props> = ({
 
   // Close menu on scroll outside of the menu
   useEffect(() => {
-    const onScroll = throttle((ev: Event) => {
+    // Initialize date sate
+    if (!dateDisplayed) {
+      setDateDisplayed(moment(dateSelected));
+    }
+
+    const onScroll = throttle((event: EventWithElementTarget) => {
       if (
         isOpen &&
-        ev.target instanceof HTMLElement &&
-        !ev.target?.className?.includes('bs-marketplace-date-picker__menu')
+        event.target instanceof HTMLElement &&
+        !event.target?.className?.includes('bs-marketplace-date-picker__menu')
       ) {
         handleCloseMenu();
       }
@@ -64,7 +72,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
     return () => {
       document.removeEventListener('scroll', onScroll, true);
     };
-  }, [handleCloseMenu, isOpen]);
+  }, [dateDisplayed, dateSelected, handleCloseMenu, isOpen]);
 
   const handleFastSelect = useCallback(
     (type: 'add' | 'subtract') => (ev: React.MouseEvent<HTMLButtonElement>) => {
@@ -132,6 +140,15 @@ const MarketplaceDatePicker: React.FC<Props> = ({
 
     return Math.ceil(endingDate.diff(startingDay, 'week'));
   }, [dateDisplayed, startOfMonth, startingDay]);
+
+  const isDayDisabled = useCallback(
+    (dayString: string) =>
+      disablePast &&
+      moment(dayString)
+        .startOf('day')
+        .isBefore(moment().startOf('day').format()),
+    [disablePast],
+  );
 
   return (
     <>
@@ -262,6 +279,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
                               const dayString = day.format('YYYY-MM-DD');
                               return (
                                 <MarketplaceDatePickerDay
+                                  isDisabled={isDayDisabled(dayString)}
                                   date={dayString}
                                   dateSelected={dateSelected}
                                   dateDisplayed={dateDisplayed.format(

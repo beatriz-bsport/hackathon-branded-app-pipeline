@@ -269,6 +269,20 @@
   background-color: var(--color-grey-main);
 }
 
+.bs-marketplace-date-picker__menu__calendar__day--disabled-past {
+  color: var(--color-disabled);
+  background: none;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day--disabled-past:hover {
+  color: inherit;
+  background: none;
+}
+
+.bs-marketplace-date-picker__menu__calendar__day--disabled-past:hover::before {
+  background: none;
+}
+
 .bs-marketplace-date-picker__menu__calendar__day__dots {
   color: var(--color-primary-main);
   display: flex;

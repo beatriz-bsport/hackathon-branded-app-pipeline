@@ -116,7 +116,10 @@ export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
                           this.props.setMenuAnchor(null);
                         }}
                       >
-                        <ListItemText inset primary={s ? s.name : ' - '} />
+                        <ListItemText
+                          className={this.props.classes.listItemText}
+                          primary={s ? s.name : ' - '}
+                        />
                       </ListItem>
                     ))}
                   </div>
@@ -159,6 +162,9 @@ const styles = (theme) => ({
   },
   subheader: {
     backgroundColor: '#F4F4F4',
+  },
+  listItemText: {
+    paddingLeft: theme.spacing(3),
   },
 });
 

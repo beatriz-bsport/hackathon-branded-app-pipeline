@@ -144,6 +144,8 @@ const mapDispatchToProps = {
   deleteBottomSnackbar: deleteBottomSnackbarAction,
 };
 
+export const SnackbarDataProvider = [mapStateToProps, mapDispatchToProps];
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps,

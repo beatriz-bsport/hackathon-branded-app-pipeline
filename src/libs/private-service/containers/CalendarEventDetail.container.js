@@ -394,6 +394,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
         />
       ) : (
         <PrivateBookingCard
+          onClose={this.props.onClose}
           isCoach={this.props.isCoach}
           updateMemberMetricValue={
             this.props.isCoach ? null : this.props.updateMemberMetricValue

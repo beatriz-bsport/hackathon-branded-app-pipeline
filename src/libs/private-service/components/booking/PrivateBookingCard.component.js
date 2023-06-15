@@ -26,6 +26,8 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import Divider from '@material-ui/core/Divider';
 import WarningIcon from '@material-ui/icons/Warning';
+import CloseIcon from '@material-ui/icons/Close';
+import Hidden from '@material-ui/core/Hidden';
 
 import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
 import type { PrivateBookingWithRelatedFields } from '../../types';
@@ -87,6 +89,7 @@ type Props = {
   fetchConsumerGiftcardReceivedList: (memberId: number) => void,
   isCoach: boolean,
   onlinePaymentEnabled?: boolean,
+  onClose: () => void,
 };
 
 export const PrivateBookingCard = (props: Props) => {
@@ -208,45 +211,52 @@ export const PrivateBookingCard = (props: Props) => {
     <>
       <div className={classes.container}>
         <div className={classes.header}>
-          {props.private_booking.booking_status_code !==
-          BOOKING_STATUS_OK.id ? (
-            <div className={classes.firstRow}>
-              <Typography variant="h6" color="error">
-                {t(
-                  ...getPrivateBookingStatusCodeForCalendar(
-                    props.private_booking,
-                  ),
-                )}
-              </Typography>
-              <div className={classes.chipContainer}>
-                {props.private_booking.was_refunded ? (
-                  <Chip
-                    size="small"
-                    color="primary"
-                    label={
-                      <Typography variant="body2" color="white">
-                        {`${t('privateBooking.isRefunded')}`}
-                      </Typography>
-                    }
-                  />
-                ) : (
-                  <RedChip
-                    size="small"
-                    color="primary"
-                    label={
-                      <Typography variant="body2" color="white">
-                        {`${t('privateBooking.notRefunded')}`}
-                      </Typography>
-                    }
-                  />
-                )}
+          <div className={classes.headerLeft}>
+            {props.private_booking.booking_status_code !==
+            BOOKING_STATUS_OK.id ? (
+              <div className={classes.firstRow}>
+                <Typography variant="h6" color="error">
+                  {t(
+                    ...getPrivateBookingStatusCodeForCalendar(
+                      props.private_booking,
+                    ),
+                  )}
+                </Typography>
+                <div className={classes.chipContainer}>
+                  {props.private_booking.was_refunded ? (
+                    <Chip
+                      size="small"
+                      color="primary"
+                      label={
+                        <Typography variant="body2" color="white">
+                          {`${t('privateBooking.isRefunded')}`}
+                        </Typography>
+                      }
+                    />
+                  ) : (
+                    <RedChip
+                      size="small"
+                      color="primary"
+                      label={
+                        <Typography variant="body2" color="white">
+                          {`${t('privateBooking.notRefunded')}`}
+                        </Typography>
+                      }
+                    />
+                  )}
+                </div>
               </div>
-            </div>
-          ) : null}
-          <Typography variant="h5">
-            {private_booking.private_slot.name +
-              (private_booking.first_in_company ? ' ★' : '')}
-          </Typography>
+            ) : null}
+            <Typography variant="h5">
+              {private_booking.private_slot.name +
+                (private_booking.first_in_company ? ' ★' : '')}
+            </Typography>
+          </div>
+          <Hidden mdUp>
+            <IconButton onClick={props.onClose}>
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </Hidden>
         </div>
         {props.private_booking.is_unpaid && (
           <ListItem dense>
@@ -406,6 +416,19 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     marginBottom: theme.spacing(2),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  headerLeft: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  closeButton: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   buttonContainer: {
     display: 'flex',

@@ -22,6 +22,7 @@ import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/w
 import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 
+import { ImmutableObject } from 'seamless-immutable';
 import { formatAsDateWithWeekday } from '../../../utils/datetime';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { getTaxPrice } from '#libs/theme/utils';
@@ -39,20 +40,41 @@ import MarketplaceBroadcastCSSOnly from '#libs/marketplace/components/Marketplac
 import { OfferSummarySkeleton } from '.';
 
 export type Props = {
-  metaActivity: MetaActivity;
-  establishment: Establishment;
+  metaActivity: MetaActivity | ImmutableObject<MetaActivity<number>>;
+  establishment: Establishment | ImmutableObject<Establishment>;
   coach?: Coach;
   coachOverride?: Coach;
-  offer: Offer;
+  offer:
+    | Offer
+    | Offer<
+        number,
+        Establishment,
+        MetaActivity<number>,
+        number,
+        number,
+        number,
+        number
+      >
+    | ImmutableObject<
+        Offer<
+          number,
+          Establishment,
+          MetaActivity<number>,
+          number,
+          number,
+          number,
+          number
+        >
+      >;
   spotId?: number;
   price?: string;
-  onConfirm: () => void;
+  onConfirm?: () => void;
   disableButton?: boolean;
   confirmLoading?: boolean;
-  offerStatus: OfferStatus;
-  loading: boolean;
+  offerStatus?: OfferStatus;
+  loading?: boolean;
   variant: 'default' | 'basket';
-  tax: number;
+  tax?: number;
   theme: CompanyTheme;
 };
 

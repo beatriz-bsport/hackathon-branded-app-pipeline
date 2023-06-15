@@ -1,0 +1,106 @@
+import React from 'react';
+
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { ItemQuantity } from './ItemQuantity.component';
+import { CheckoutItem, OnRemoveCheckoutItemData } from '#libs/checkout/types';
+
+type NewCheckoutItemListItemProps = {
+  checkoutItem: CheckoutItem;
+  checkoutItemPrice: string;
+  isItemEditionDisabled: boolean;
+  onAddOneItem: (checkoutItem: CheckoutItem) => void;
+  onRemoveItem: (onRemoveItemdata: OnRemoveCheckoutItemData) => void;
+};
+
+export const NewCheckoutItemListItem: React.FC<
+  NewCheckoutItemListItemProps
+> = ({
+  checkoutItem,
+  checkoutItemPrice,
+  isItemEditionDisabled,
+  onAddOneItem,
+  onRemoveItem,
+}) => {
+  const classes = useStyles();
+
+  const handleAddOneItem = React.useCallback(() => {
+    onAddOneItem(checkoutItem);
+  }, [checkoutItem, onAddOneItem]);
+
+  const onDeleteCheckoutItem = React.useCallback(() => {
+    if (onRemoveItem)
+      onRemoveItem({
+        checkout_item: checkoutItem.id,
+        quantity: checkoutItem.quantity,
+      });
+  }, [checkoutItem.id, checkoutItem.quantity, onRemoveItem]);
+
+  const onRemoveOneItem = React.useCallback(() => {
+    if (onRemoveItem)
+      onRemoveItem({
+        checkout_item: checkoutItem.id,
+        quantity: 1,
+      });
+  }, [checkoutItem.id, onRemoveItem]);
+
+  return (
+    <div className={classes.checkoutItemContainer}>
+      <div className={classes.subContainer}>
+        <Typography variant="subtitle2" className={classes.checkoutItemName}>
+          {checkoutItem.name}
+        </Typography>
+        {!!onDeleteCheckoutItem && (
+          <IconButton
+            onClick={onDeleteCheckoutItem}
+            disabled={isItemEditionDisabled}
+          >
+            <DeleteIcon className={classes.deleteIcon} />
+          </IconButton>
+        )}
+      </div>
+      <div className={classes.subContainer}>
+        <ItemQuantity
+          isAddingItemPossible={!checkoutItem.sub_items?.length}
+          isItemEditionDisabled={isItemEditionDisabled}
+          itemQuantity={checkoutItem.quantity}
+          onAddOneItem={handleAddOneItem}
+          onRemoveOneItem={onRemoveOneItem}
+        />
+        <Typography
+          variant="subtitle1"
+          className={classes.checkoutItemPriceClass}
+        >
+          {checkoutItemPrice}
+        </Typography>
+      </div>
+    </div>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  checkoutItemContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    padding: theme.spacing(1),
+  },
+  checkoutItemName: { fontWeight: 500 },
+  checkoutItemPriceClass: {
+    fontWeight: 500,
+    backgroundColor: theme.palette.grey[100],
+    borderRadius: theme.spacing(1),
+    padding: `2px ${theme.spacing(1)}px 2px ${theme.spacing(1)}px`,
+  },
+  deleteIcon: { color: theme.palette.grey[600] },
+  subContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+}));
+
+export default React.memo(NewCheckoutItemListItem);

@@ -141,7 +141,7 @@ exports.default = {
         recurrenceUntilHelper2:
           'Les groupes avec une dernière séance après cette date ne seront pas créé.',
         preview: 'Prévisualiser',
-        recurrenceNumberPrefix: 'Répéter tou·tes les',
+        recurrenceNumberPrefix: 'Répéter toutes les',
         recurrence: 'Récurrence',
         daily: 'Tous les jours',
         groupName: 'Nom',

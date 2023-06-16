@@ -1,5 +1,3 @@
-// @ts-nocheck
-// @flow
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
@@ -30,6 +28,7 @@ export const PrivatePassBookerListItem = (props: Props) => {
   return (
     <ListItem divider={props.divider}>
       <ListItemText
+        className={classes.listItemText}
         primary={private_pass.name}
         secondary={
           hideCredits
@@ -61,6 +60,11 @@ export const PrivatePassBookerListItem = (props: Props) => {
 const useStyles = makeStyles((theme: Theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
+  },
+  listItemText: {
+    [theme.breakpoints.down('xs')]: {
+      flex: '1 1',
+    },
   },
 }));
 export default PrivatePassBookerListItem;

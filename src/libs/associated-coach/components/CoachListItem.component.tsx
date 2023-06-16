@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -203,6 +202,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   chipSkeleton: { width: theme.spacing(8) },
   chip: {
     marginRight: theme.spacing(1),
+    maxWidth: '100%',
   },
 }));
 

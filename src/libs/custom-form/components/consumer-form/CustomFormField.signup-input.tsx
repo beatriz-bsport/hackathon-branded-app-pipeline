@@ -62,6 +62,7 @@ import AvatarFieldWithButton from '../../../../components/forms/AvatarFieldWithB
 import AcceptTermsAndConditions from '../../../payment/components/AcceptTermsAndConditions.component';
 import { CheckboxField } from '../GenericFormik.input';
 import './styles.css';
+import { TermsAndConditionType } from '#libs/payment/types';
 
 type OwnProps = {
   field: CustomFormField & { answer: string | number | boolean };
@@ -418,7 +419,7 @@ export const CustomFormConsumerInput = (props: Props) => {
                 )
               }
               termsAndConditions={waiver}
-              type="waiver"
+              type={TermsAndConditionType.WAIVER}
               label={label}
             />
             <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
@@ -455,7 +456,7 @@ export const CustomFormConsumerInput = (props: Props) => {
                 )
               }
               termsAndConditions={general_terms_and_conditions}
-              type="generalTermsOfUse"
+              type={TermsAndConditionType.GENERAL_TERMS_OF_USE}
               label={label}
             />
             <ErrorMessage name={`custom_form_field.${props.index}.answer`}>

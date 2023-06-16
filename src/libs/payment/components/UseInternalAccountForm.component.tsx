@@ -42,6 +42,25 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const { t } = useTranslation('checkout');
   const classes = useStyles();
+  const [isUseInternalAccountProcessing, setIsUseInternalAccountProcessing] =
+    React.useState<boolean>(false);
+
+  const handleUseInternalAccountBasketSubmit = React.useCallback(
+    (values) => {
+      setIsUseInternalAccountProcessing(true);
+      props.onBasketSubmit(values.amount, {
+        onSuccess: () => {
+          setOpen(false);
+          setIsUseInternalAccountProcessing(false);
+        },
+        onError: () => {
+          setIsUseInternalAccountProcessing(false);
+        },
+      });
+    },
+    [props],
+  );
+
   return (
     <>
       {props.onBasketSubmit && (
@@ -68,16 +87,7 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
                     color="primary"
                     variant="outlined"
                   >
-                    {props.loading ? (
-                      <CircularProgress
-                        size={20}
-                        className={classes.iconButton}
-                      />
-                    ) : (
-                      <AccountBalanceWalletIcon
-                        className={classes.iconButton}
-                      />
-                    )}
+                    <AccountBalanceWalletIcon className={classes.iconButton} />
                     {t('internalAccount.use')}
                   </Button>
                 </div>
@@ -90,13 +100,7 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
                   amount: 0,
                   maximum_credits: props.creditAccountBalance,
                 }}
-                onSubmit={(values) => {
-                  return props.onBasketSubmit(values.amount, {
-                    onSuccess: () => {
-                      setOpen(false);
-                    },
-                  });
-                }}
+                onSubmit={handleUseInternalAccountBasketSubmit}
               >
                 {(formik) => (
                   <Form className={classes.fullWidth}>
@@ -114,16 +118,23 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
                           InputProps={{
                             endAdornment: (
                               <InputAdornment position="start">
-                                <IconButton
-                                  disabled={
-                                    formik.isSubmitting || props.loading
-                                  }
-                                  onClick={() => formik.handleSubmit()}
-                                  color="primary"
-                                  edge="end"
-                                >
-                                  <CheckCircleIcon />
-                                </IconButton>
+                                {isUseInternalAccountProcessing ? (
+                                  <CircularProgress
+                                    size={20}
+                                    className={classes.iconButton}
+                                  />
+                                ) : (
+                                  <IconButton
+                                    disabled={
+                                      formik.isSubmitting || props.loading
+                                    }
+                                    onClick={() => formik.handleSubmit()}
+                                    color="primary"
+                                    edge="end"
+                                  >
+                                    <CheckCircleIcon />
+                                  </IconButton>
+                                )}
                               </InputAdornment>
                             ),
                           }}

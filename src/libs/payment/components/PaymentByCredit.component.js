@@ -10,6 +10,7 @@ import { CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT } from '@bsport/common/
 
 import { withTranslation, TFunction } from 'react-i18next';
 import AcceptTermsAndConditions from './AcceptTermsAndConditions.component';
+import { TermsAndConditionType } from '../types';
 
 type Props = {
   termsAndConditions: string,
@@ -54,7 +55,7 @@ export class PaymentByCredit extends React.Component<Props, State> {
               this.props.setTermsAccepted(termsAccepted)
             }
             termsAndConditions={this.props.termsAndConditions}
-            type="theTermsAndConditions"
+            type={TermsAndConditionType.TERMS_AND_CONDITIONS}
           />
         ) : null}
         <div className={this.props.classes.buttonContainer}>

@@ -1,27 +1,27 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withStateHandlers } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
+import { makeStyles, FormControlLabel, Theme } from '@material-ui/core';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Checkbox from '@material-ui/core/Checkbox';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
-import { FormControlLabel } from '@material-ui/core';
 
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
-import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
+import { WithHandlerType } from '../../../utils/types';
+import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
+import { TermsAndConditionType } from '../types';
 
 type OwnProps = {
   accepted: boolean;
   onChecked: (accepted: boolean) => void;
   required?: boolean;
   termsAndConditions: string;
-  type: 'generalTermsOfUse' | 'theTermsAndConditions' | 'waiver';
+  type: TermsAndConditionType;
   disabled?: boolean;
   label?: string;
 };
@@ -29,14 +29,14 @@ type OwnProps = {
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
 
-type Props = OwnProps &
-  StateHandlerType &
-  WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>>;
+type Props = OwnProps & StateHandlerType & WithTranslation;
 
 export const AcceptTermsAndConditions = (props: Props) => {
+  const isNewCheckoutFlow = React.useContext(CheckoutContext);
+  const classes = useStyles({ isNewCheckoutFlow });
+
   return (
-    <div className={props.classes.container}>
+    <div className={classes.container}>
       <FormControlLabel
         control={
           <Checkbox
@@ -47,12 +47,20 @@ export const AcceptTermsAndConditions = (props: Props) => {
           />
         }
         label={
-          <Typography component="div" variant="caption" align="left">
+          <Typography
+            component="div"
+            variant={isNewCheckoutFlow ? 'body1' : 'caption'}
+            align="left"
+          >
             {!props.label && (
               <span>{props.t('generalTermsAndConditions.iAccept')}</span>
             )}
             <ButtonBase onClick={() => props.setShowTermsAndConditions(true)}>
-              <Typography variant="caption" color="secondary" align="left">
+              <Typography
+                variant={isNewCheckoutFlow ? 'body1' : 'caption'}
+                color={isNewCheckoutFlow ? 'primary' : 'secondary'}
+                align="left"
+              >
                 {props.label ||
                   props.t(`generalTermsAndConditions.${props.type}`)}
               </Typography>
@@ -76,15 +84,19 @@ export const AcceptTermsAndConditions = (props: Props) => {
     </div>
   );
 };
+type NewCheckoutFlowThemeProps = {
+  isNewCheckoutFlow?: boolean;
+};
 
-const styles = () => ({
-  container: {
+const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
+  container: ({ isNewCheckoutFlow }) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
     width: '100%',
-  },
+    ...(isNewCheckoutFlow ? { marginLeft: theme.spacing(2) } : {}),
+  }),
   termsAndConditions: {
     display: 'flex',
     alignItems: 'flex-end',
@@ -92,7 +104,7 @@ const styles = () => ({
   terms: {
     paddingLeft: '4px',
   },
-});
+}));
 
 const withStateHandlersInit = {
   showTermsAndConditions: false,
@@ -106,7 +118,5 @@ const withStateHandlersSetter = {
 
 export default compose<any, OwnProps>(
   withTranslation(['payment']),
-  // @ts-ignore
-  withStyles(styles),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
 )(AcceptTermsAndConditions);

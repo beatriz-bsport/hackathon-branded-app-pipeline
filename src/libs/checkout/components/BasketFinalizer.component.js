@@ -26,6 +26,7 @@ import AcceptTermsAndConditions from '../../payment/components/AcceptTermsAndCon
 import { getBasketTotalPriceExcludingTax } from '../utils';
 import BasketTaxInfo from './BasketTaxInfo.component';
 import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
+import { TermsAndConditionType } from '../../payment/types';
 
 export const ADDRESS_STEP = {
   id: 0,
@@ -187,7 +188,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
                     accepted={this.props.termsAndConditionsAccepted}
                     onChecked={this.props.setTermsAndConditionsAccepted}
                     termsAndConditions={this.props.termsAndConditions}
-                    type="theTermsAndConditions"
+                    type={TermsAndConditionType.TERMS_AND_CONDITIONS}
                   />
                 )}
 

@@ -64,3 +64,9 @@ export type Payment = {
   is_processing: boolean;
   returned_amount: number;
 };
+
+export enum TermsAndConditionType {
+  GENERAL_TERMS_OF_USE = 'generalTermsOfUse',
+  TERMS_AND_CONDITIONS = 'theTermsAndConditions',
+  WAIVER = 'waiver',
+}

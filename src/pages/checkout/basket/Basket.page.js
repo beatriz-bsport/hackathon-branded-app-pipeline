@@ -74,6 +74,7 @@ import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
 import type { OptionCallback } from '../../../state/types';
 import { fetchMember } from '#libs/member/actions';
 import { BasketAddress } from '#libs/checkout/types';
+import { fetchMembership } from '#libs/membership/actions';
 
 type Props = {
   basket: ?Basket,
@@ -127,6 +128,7 @@ type Props = {
   onRemoveInternalAccountPrepaidLine: () => void,
   creditAccountBalance: number | null,
   fetchMember: (id: number) => void,
+  fetchMembership: (id: number) => void,
   refreshBasket: () => void,
   checkItemsBasket: (basketId: string) => boolean,
 
@@ -167,6 +169,7 @@ export class BasketPage extends React.Component<Props> {
       }
       if (this.props.basket.member) {
         this.props.fetchMember(this.props.basket.member);
+        this.props.fetchMembership(this.props.basket.member);
       }
     }
     if (
@@ -216,6 +219,7 @@ export class BasketPage extends React.Component<Props> {
     }
     if (this.props.auth.authenticated && this.props.basket?.member) {
       this.props.fetchMember(this.props.basket.member);
+      this.props.fetchMembership(this.props.basket.member);
     }
     if (this.props.companyId) {
       this.props.fetchPaymentMethod({ company: this.props.companyId });
@@ -543,6 +547,7 @@ export default compose(
       createOrRefreshInternalAccountPrepaidLine:
         createOrRefreshInternalAccountPrepaidLineAction,
       fetchMember,
+      fetchMembership,
     },
   ),
   withHandlers({

@@ -17,6 +17,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
@@ -28,7 +29,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import {
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   GENDER_FILTER_IDENTIFIER,
@@ -55,6 +55,7 @@ import {
   USER_HAS_PHONE_FILTER_IDENTIFIER,
   TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
+import ToolTip from '#components/Tooltip.component';
 
 import type { Establishment } from '../../establishment/types';
 import type { PrivatePass, PrivateService } from '../../private-service/types';
@@ -155,6 +156,8 @@ type Props = {
   ) => void;
   onRequestEmail: () => void;
   exportMemberTable: () => void;
+  exportMemberTableBackground: () => void;
+  csvExportLink: string;
   fetchItems: any;
   fetchBulkItems: any;
   coaches: Array<any>;
@@ -251,6 +254,8 @@ export class FiltersPanel extends Component<Props, State> {
     link.remove();
     this.setState({ isSmartListExporting: false });
   };
+
+  exportSmartlistBackground = this.props.exportMemberTableBackground;
 
   openCustomMobilePopupDialog = () =>
     this.setState({ openCustomMobilePopupDialog: true });
@@ -361,7 +366,7 @@ export class FiltersPanel extends Component<Props, State> {
               {t('filters.add_filter')}
             </Button>
             <Button
-              onClick={this.exportSmartList}
+              onClick={this.exportSmartlistBackground}
               disabled={this.state.isSmartListExporting}
               color="secondary"
               variant="contained"
@@ -378,6 +383,19 @@ export class FiltersPanel extends Component<Props, State> {
               )}
               {t('exportList')}
             </Button>
+            {this.props.csvExportLink && (
+              <ToolTip title={t('downLoadSavedExport')}>
+                <IconButton
+                  onClick={() => window.open(this.props.csvExportLink)}
+                  disabled={this.state.isSmartListExporting}
+                  color="secondary"
+                  variant="contained"
+                  className={classes.actionButton}
+                >
+                  <SaveAltIcon className={this.props.classes.leftIcon} />
+                </IconButton>
+              </ToolTip>
+            )}
           </div>
 
           <Menu

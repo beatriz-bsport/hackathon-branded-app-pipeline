@@ -36,6 +36,8 @@ import {
   updateSmartListAutomatedCampaign as updateSmartListAutomatedCampaignAPI,
   deleteSmartListAutomatedCampaign as deleteSmartListAutomatedCampaignAPI,
   fetchCadencesUsingSmartlist as fetchCadencesUsingSmartlistAPI,
+  getMemberTableBackground as getMemberTableBackgroundAPI,
+  fetchStoredCsvExports as fetchStoredCsvExportsAPI,
 } from './api';
 
 import type {
@@ -754,5 +756,67 @@ export function fetchCadencesUsingSmartlist(
       options && options.onError && options.onError();
     }
     dispatch(fetchCadencesUsingSmartlistActions.isLoading(false));
+  };
+}
+
+export const getMemberTableBackgroundActions = {
+  error: createAction<Error | null>('SMART-LIST/CSV_EXPORT_BACKGROUND/ERROR'),
+  isLoading: createAction<boolean>(
+    'SMART-LIST/CSV_EXPORT_BACKGROUND/IS_LOADING',
+  ),
+  success: createAction('SMARTLIST/CSV_EXPORT_BACKGROUND/SUCCESS'),
+};
+
+export function getMemberTableBackground(id: number, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(getMemberTableBackgroundActions.isLoading(true));
+    dispatch(getMemberTableBackgroundActions.error(null));
+    try {
+      const response = await getMemberTableBackgroundAPI(id);
+      dispatch(getMemberTableBackgroundActions.success(response));
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: options?.onSuccess,
+        }),
+      );
+    } catch (err) {
+      dispatch(getMemberTableBackgroundActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(getMemberTableBackgroundActions.isLoading(false));
+  };
+}
+
+export const fetchStoredCsvExportsActions = {
+  error: createAction<Error | null>(
+    'SMART-LIST/FETCH_CSV_EXPORT_BACKGROUND/ERROR',
+  ),
+  isLoading: createAction<boolean>(
+    'SMART-LIST/FETCH_CSV_EXPORT_BACKGROUND/LOADING',
+  ),
+  success: createAction<string>(
+    'SMART-LIST/FETCH_CSV_EXPORT_BACKGROUND/SUCCESS',
+  ),
+};
+
+export function fetchStoredCsvExports(id: number, options?: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchStoredCsvExportsActions.isLoading(true));
+    dispatch(fetchStoredCsvExportsActions.error(null));
+    try {
+      const response = await fetchStoredCsvExportsAPI(id);
+      dispatch(
+        fetchStoredCsvExportsActions.success({
+          smartlist_id: id,
+          link: response.data,
+        }),
+      );
+      options && options.onSuccess && options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(fetchStoredCsvExportsActions.error(error));
+      options && options.onError && options.onError();
+    }
+    dispatch(fetchStoredCsvExportsActions.isLoading(false));
   };
 }

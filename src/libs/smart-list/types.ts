@@ -41,6 +41,9 @@ export type SmartListState = ErrorAndLoading & {
   cadencesUsingSmartlist: ErrorAndLoading & {
     byId: { [key: number]: number[] };
   };
+  csvExports: {
+    byId: { [id: number]: string } & ErrorAndLoading;
+  };
 };
 
 export type AutomatedCampaignQueryParams = {

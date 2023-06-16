@@ -12352,6 +12352,7 @@
         },
         "selectToShowPreview": "Select an email to see a preview of it.",
         "exportList": "Export Smartlist",
+        "downLoadSavedExport": "Download previous export",
         "membersInList": "Members in this Smartlist",
         "modal": {
             "delete": {

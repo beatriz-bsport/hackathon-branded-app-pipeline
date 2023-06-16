@@ -45,6 +45,8 @@ import {
   updateSmartListAutomatedCampaign,
   deleteSmartListAutomatedCampaign,
   fetchCadencesUsingSmartlist,
+  getMemberTableBackground,
+  fetchStoredCsvExports,
 } from '#libs/smart-list/actions';
 import {
   getSmartListFilters,
@@ -54,6 +56,7 @@ import {
   getAutomatedCampaign,
   getCadencesUsingSmartlist,
   getCadenceIdsUsingSmartlistLoading,
+  getSmartListCsvExportLink,
 } from '#libs/smart-list/selectors';
 
 import {
@@ -234,7 +237,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     this.props.fetchResolvedGenericTags();
     this.props.getUnreadAnswersCountAction(params);
     this.props.fetchSmartListPopupSendings({ smartlist_id: this.props.id });
-
+    this.props.fetchStoredCsvExports(this.props.id);
     if (
       Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
       SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS.includes(this.props.companyId)
@@ -364,6 +367,10 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     this.props.setOpenCommunicationChatDrawer(false);
   };
 
+  handleBackgroundCsvExport = () => {
+    this.props.getMemberTableBackground(this.props.id);
+  };
+
   render() {
     if (!this.props.smartlist_filters) {
       return <LinearProgress />;
@@ -410,11 +417,14 @@ export class SmartListDetailMember extends React.Component<Props, State> {
       private_services: this.props.fetchPrivateServiceBulk,
       custom_forms: this.props.fetchCustomFormBulk,
     };
+
     return (
       <div>
         <FiltersPanel
           smartListId={this.props.id}
           exportMemberTable={() => getMemberTable(this.props.id)}
+          exportMemberTableBackground={this.handleBackgroundCsvExport}
+          csvExportLink={this.props.csvExportLink}
           smartList={this.props.smartlist}
           filters={this.props.smartlist_filters}
           updateFilter={this.updateFilter}
@@ -761,6 +771,7 @@ const connector = connect(
 
     // CADENCES
     cadences: getCadencesUsingSmartlist(state, id),
+    csvExportLink: getSmartListCsvExportLink(state, id),
   }),
   {
     // SMARTLIST
@@ -840,6 +851,10 @@ const connector = connect(
     // CADENCES
     fetchCadencesUsingSmartlist,
     fetchCadenceList,
+
+    // EXPORT
+    getMemberTableBackgroundAction: getMemberTableBackground,
+    fetchStoredCsvExports,
   },
 );
 
@@ -961,6 +976,12 @@ const mapWithHandlers = {
         },
       });
     },
+
+  getMemberTableBackground: (props: OwnAndConnectedProps) => () => {
+    props.getMemberTableBackgroundAction(props.id, {
+      onSuccess: () => props.fetchStoredCsvExports(props.id),
+    });
+  },
 };
 
 export default compose(

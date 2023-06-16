@@ -70,6 +70,14 @@ export const getMemberTable = async (id: number) => {
   return getAuth(`${SMART_LIST_URI}${id}/export_members/`);
 };
 
+export const getMemberTableBackground = async (id: number) => {
+  return getAuth(`${SMART_LIST_URI}${id}/export_members_background/`);
+};
+
+export const fetchStoredCsvExports = async (id: number) => {
+  return getAuth(`${SMART_LIST_URI}${id}/get_csv_exports/`);
+};
+
 export const fetchSmartListMembers = async (
   id: number,
   {

@@ -26,6 +26,7 @@ import {
   updateSmartListAutomatedCampaignActions,
   deleteSmartListAutomatedCampaignActions,
   fetchCadencesUsingSmartlistActions,
+  fetchStoredCsvExportsActions,
 } from './actions';
 
 const initialState: Immutable.Immutable<SmartListState> =
@@ -74,6 +75,11 @@ const initialState: Immutable.Immutable<SmartListState> =
       byId: {},
       loading: false,
       error: null,
+    },
+    csvExports: {
+      loading: false,
+      error: null,
+      byId: {},
     },
   });
 
@@ -585,6 +591,22 @@ export default handleActions<Immutable.Immutable<SmartListState>, any>(
       return state.setIn(
         ['cadencesUsingSmartlist', 'byId', payload.smartlist_id],
         payload.cadences,
+      );
+    },
+
+    [fetchStoredCsvExportsActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['csvExports', 'loading'], payload);
+    },
+    [fetchStoredCsvExportsActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['csvExports', 'error'], payload);
+    },
+    [fetchStoredCsvExportsActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(
+        ['csvExports', 'byId', payload.smartlist_id],
+        payload.link,
       );
     },
   },

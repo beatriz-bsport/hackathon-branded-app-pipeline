@@ -294,9 +294,10 @@ class OfferBooking extends React.PureComponent<Props, State> {
         fullBookingOnly &&
         offers.some((offer) => {
           return (
-            offer.bookableStatus?.bookable_status !==
-              OFFER_BOOKABLE_STATUS_BOOKABLE ||
-            offer.bookableStatus.blocked_by_tags
+            (!!offer.bookableStatus?.bookable_status &&
+              offer.bookableStatus?.bookable_status !==
+                OFFER_BOOKABLE_STATUS_BOOKABLE) ||
+            offer.bookableStatus?.blocked_by_tags
           );
         })
       ) {
@@ -819,7 +820,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
     }));
 
     const isRegisteringForWaitingList = this.getIsRegisteringForWaitingList();
-    // console.log(this.props.similarOfferGroups);
+
     return (
       <ConsumerAppBarContainer>
         <div className={classes.pageContainer}>

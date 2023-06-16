@@ -1,10 +1,10 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import classNames from 'classnames';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PaymentCombo } from '../../payment-combo/types';
 import { MaxoutData } from '../../payment-packs/types';
+// @ts-expect-error
 import TypographyWithShowMore from '../../../components/typo/TypographyWithShowMore.component';
 
 interface Props {
@@ -55,7 +55,12 @@ const PaymentPackComboItem = (props: Props) => {
           {props.paymentCombo.description}
         </TypographyWithShowMore>
         {packs.map((pack) => (
-          <Typography variant="body2" color="textSecondary" align="left">
+          <Typography
+            key={pack}
+            variant="body2"
+            color="textSecondary"
+            align="left"
+          >
             - {pack}
           </Typography>
         ))}

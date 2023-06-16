@@ -1,5 +1,11 @@
 // @flow
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useState,
+  useImperativeHandle,
+  forwardRef,
+} from 'react';
 
 import {
   useStripe,
@@ -15,6 +21,8 @@ import { useTranslation } from 'react-i18next';
 
 import { ButtonBase, Checkbox } from '@material-ui/core';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT } from '@bsport/common/lib/master-data/payment-group';
+import { Info } from '@material-ui/icons';
+import { CheckoutContext } from '../../../../pages/checkout/basket/CheckoutContext';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
@@ -25,6 +33,7 @@ import {
   blockPendingBasket as blockPendingBasketAPI,
 } from '../../api';
 import PaymentMethodList from '../payment-method-list';
+import PopOver from '#components/Popover';
 
 interface PaymentStripeBacsDebitProps {
   companyId: number;
@@ -52,175 +61,232 @@ interface PaymentStripeBacsDebitProps {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
 }
 
-const PaymentStripeBacsDebit = ({
-  companyId,
-  onCancel,
-  onSuccess,
-  onError,
-  termsAndConditionsAccepted,
-  AcceptTermsAndConditionsComponent,
-  forceDisabled,
-  loading,
-  basketId,
-  basketTotalPriceCts,
-  checkItemsBasket,
-  setPaymentProcessing,
-  clientSecret,
-  fromApp,
-  paymentGroupId,
-  memberId,
-  detachPaymentMethodLoading,
-  detachPaymentMethod,
-  snackbarErrorMsg,
-  snackbarSuccessMsg,
-  saveForLaterBacsDebit,
-  setSaveForLaterBacsDebit,
-  createPendingBookingsIfNecessary,
-}: PaymentStripeBacsDebitProps) => {
-  const stripe = useStripe();
-  const elements = useElements();
-
-  const [paymentMethodList, setPaymentMethodList] = useState([]);
-  const [paymentMethodSelected, setPaymentMethodSelected] = useState(null);
-  const [hasDetached, setHasDetached] = React.useState(null);
-
-  const [processing, setProcessing] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [addPaymentMethod, setAddPaymentMethod] = useState(true);
-
-  const { t } = useTranslation(['invoice']);
-  const classes = useStyles();
-
-  const setPaymentPageProcessing = React.useCallback(
-    (process) => {
-      if (setPaymentProcessing) setPaymentProcessing(process);
-      setProcessing(process);
-    },
-    [setPaymentProcessing, setProcessing],
-  );
-
-  useEffect(() => {
-    fetchPaymentMethodListAPI({ member: memberId }).then((r) =>
-      setPaymentMethodList(
-        r.data.filter((paymentMethod) => paymentMethod.type === 'bacs_debit'),
-      ),
-    );
-  }, [memberId, clientSecret, hasDetached]);
-
-  useEffect(() => {
-    setAddPaymentMethod(!paymentMethodList.length);
-    if (paymentMethodList.length) {
-      setPaymentMethodSelected(paymentMethodList[0].id);
-    }
-  }, [paymentMethodList]);
-
-  useEffect(() => {
-    if (addPaymentMethod) {
-      setPaymentMethodSelected(null);
-    }
-  }, [addPaymentMethod]);
-
-  const updateIntentToSavePaymentMethodAdaptedAPI = fromApp
-    ? updateIntentToSavePaymentMethodWebviewAPI
-    : updateIntentToSavePaymentMethodAPI;
-
-  const defineSelectedPaymentMethod = useCallback(
-    (id: string) => {
-      if (id !== paymentMethodSelected) {
-        setPaymentMethodSelected(id);
-      }
-    },
-    [paymentMethodSelected, setPaymentMethodSelected],
-  );
-
-  const handleSaveForLater = useCallback(
-    async (event: React.ChangeEvent<HTMLInputElement>) => {
-      setPaymentPageProcessing(true);
-      event.persist();
-      const checked = event.target.checked;
-      try {
-        if (!fromApp || basketId) {
-          await updateIntentToSavePaymentMethodAdaptedAPI({
-            save_for_later: checked,
-            payment_group_id: paymentGroupId,
-            ...(fromApp ? { basket_id: basketId } : {}),
-          });
-          setSaveForLaterBacsDebit(checked);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-      setPaymentPageProcessing(false);
-    },
-    [
+const PaymentStripeBacsDebit = forwardRef(
+  (
+    {
+      companyId,
+      onCancel,
+      onSuccess,
+      onError,
+      termsAndConditionsAccepted,
+      AcceptTermsAndConditionsComponent,
+      forceDisabled,
+      loading,
       basketId,
+      basketTotalPriceCts,
+      checkItemsBasket,
+      setPaymentProcessing,
+      clientSecret,
       fromApp,
       paymentGroupId,
-      setPaymentPageProcessing,
+      memberId,
+      detachPaymentMethodLoading,
+      detachPaymentMethod,
+      snackbarErrorMsg,
+      snackbarSuccessMsg,
+      saveForLaterBacsDebit,
       setSaveForLaterBacsDebit,
-      updateIntentToSavePaymentMethodAdaptedAPI,
-    ],
-  );
+      createPendingBookingsIfNecessary,
+      setIsOnlinePaymentDisabled,
+    }: PaymentStripeBacsDebitProps,
+    ref,
+  ) => {
+    const stripe = useStripe();
+    const elements = useElements();
 
-  const verifyBasket = useCallback(async () => {
-    const { data } = await verifyPriceBasketAPI(basketId);
+    const [paymentMethodList, setPaymentMethodList] = useState([]);
+    const [paymentMethodSelected, setPaymentMethodSelected] = useState(null);
+    const [hasDetached, setHasDetached] = React.useState(null);
 
-    const basketItemsChecked = await checkItemsBasket(basketId);
-    if (!basketItemsChecked) {
-      setPaymentPageProcessing(false);
-      return;
-    }
+    const [processing, setProcessing] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [addPaymentMethod, setAddPaymentMethod] = useState(true);
 
-    if (
-      (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
-      basketTotalPriceCts !== data
-    ) {
-      setPaymentPageProcessing(false);
-      // eslint-disable-next-line
+    const isNewCheckoutFlow = React.useContext(CheckoutContext);
+
+    const { t } = useTranslation(['invoice']);
+    const classes = useStyles();
+
+    const setPaymentPageProcessing = React.useCallback(
+      (process) => {
+        if (setPaymentProcessing) setPaymentProcessing(process);
+        setProcessing(process);
+      },
+      [setPaymentProcessing, setProcessing],
+    );
+
+    useEffect(() => {
+      fetchPaymentMethodListAPI({ member: memberId }).then((r) =>
+        setPaymentMethodList(
+          r.data.filter((paymentMethod) => paymentMethod.type === 'bacs_debit'),
+        ),
+      );
+    }, [memberId, clientSecret, hasDetached]);
+
+    useEffect(() => {
+      setAddPaymentMethod(!paymentMethodList.length);
+      if (paymentMethodList.length) {
+        setPaymentMethodSelected(paymentMethodList[0].id);
+      }
+    }, [paymentMethodList]);
+
+    useEffect(() => {
+      if (addPaymentMethod) {
+        setPaymentMethodSelected(null);
+      }
+    }, [addPaymentMethod]);
+
+    const updateIntentToSavePaymentMethodAdaptedAPI = fromApp
+      ? updateIntentToSavePaymentMethodWebviewAPI
+      : updateIntentToSavePaymentMethodAPI;
+
+    const defineSelectedPaymentMethod = useCallback(
+      (id: string) => {
+        if (id !== paymentMethodSelected) {
+          setPaymentMethodSelected(id);
+        }
+      },
+      [paymentMethodSelected, setPaymentMethodSelected],
+    );
+
+    const isSubmitButtonDisabled =
+      loading || forceDisabled || !stripe || !termsAndConditionsAccepted;
+
+    // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
+    // if needed
+    React.useEffect(() => {
+      if (setIsOnlinePaymentDisabled)
+        setIsOnlinePaymentDisabled(isSubmitButtonDisabled);
+    }, [isSubmitButtonDisabled, setIsOnlinePaymentDisabled]);
+
+    const handleSaveForLater = useCallback(
+      async (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPaymentPageProcessing(true);
+        event.persist();
+        const checked = event.target.checked;
+        try {
+          if (!fromApp || basketId) {
+            await updateIntentToSavePaymentMethodAdaptedAPI({
+              save_for_later: checked,
+              payment_group_id: paymentGroupId,
+              ...(fromApp ? { basket_id: basketId } : {}),
+            });
+            setSaveForLaterBacsDebit(checked);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+        setPaymentPageProcessing(false);
+      },
+      [
+        basketId,
+        fromApp,
+        paymentGroupId,
+        setPaymentPageProcessing,
+        setSaveForLaterBacsDebit,
+        updateIntentToSavePaymentMethodAdaptedAPI,
+      ],
+    );
+
+    const verifyBasket = useCallback(async () => {
+      const { data } = await verifyPriceBasketAPI(basketId);
+
+      const basketItemsChecked = await checkItemsBasket(basketId);
+      if (!basketItemsChecked) {
+        setPaymentPageProcessing(false);
+        return;
+      }
+
+      if (
+        (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
+        basketTotalPriceCts !== data
+      ) {
+        setPaymentPageProcessing(false);
+        // eslint-disable-next-line
       window.alert(t('paymentPanel.actions.basketInconsistent'));
-      window.location.reload();
-    }
-  }, [
-    basketId,
-    basketTotalPriceCts,
-    checkItemsBasket,
-    setPaymentPageProcessing,
-    t,
-  ]);
+        window.location.reload();
+      }
+    }, [
+      basketId,
+      basketTotalPriceCts,
+      checkItemsBasket,
+      setPaymentPageProcessing,
+      t,
+    ]);
 
-  const submitStripePayment = useCallback(async () => {
-    if (!stripe) {
-      // Stripe has not yet loaded.
-      // Make sure to disable form submission until Stripe has loaded.
-      return;
-    }
+    const submitStripePayment = useCallback(async () => {
+      if (!stripe) {
+        // Stripe has not yet loaded.
+        // Make sure to disable form submission until Stripe has loaded.
+        return;
+      }
 
-    // Trigger form validation and wallet collection
-    const { error: submitError } = await elements.submit();
-    if (submitError) {
-      setErrorMessage(submitError.message);
-      return;
-    }
+      // Trigger form validation and wallet collection
+      const { error: submitError } = await elements.submit();
+      if (submitError) {
+        setErrorMessage(submitError.message);
+        return;
+      }
 
-    const result = await stripe.confirmPayment({
+      const result = await stripe.confirmPayment({
+        elements,
+        clientSecret,
+        confirmParams: {
+          // Since BACS Direct Debit is not a bank-redirect method, this param is useless but it remains mandatory (04 - 2023)
+          // Link to the Stripe doc: https://stripe.com/docs/payments/accept-a-payment?platform=web&ui=elements#web-submit-payment
+          return_url: `${window.location.href}`,
+        },
+        redirect: 'if_required',
+      });
+      if (result.error) {
+        // Show error to your customer (e.g., insufficient funds)
+        setErrorMessage(result.error.message);
+        if (onError) onError();
+        setPaymentPageProcessing(false);
+      } else {
+        setErrorMessage(null);
+
+        if (basketId) {
+          try {
+            await blockPendingBasketAPI(basketId);
+          } catch (err) {
+            console.error(err);
+          }
+        }
+        if (createPendingBookingsIfNecessary)
+          createPendingBookingsIfNecessary({
+            payment_group_method_identifier:
+              PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+          });
+        onSuccess(() => setPaymentPageProcessing(false));
+      }
+    }, [
+      stripe,
       elements,
       clientSecret,
-      confirmParams: {
-        // Since BACS Direct Debit is not a bank-redirect method, this param is useless but it remains mandatory (04 - 2023)
-        // Link to the Stripe doc: https://stripe.com/docs/payments/accept-a-payment?platform=web&ui=elements#web-submit-payment
-        return_url: `${window.location.href}`,
-      },
-      redirect: 'if_required',
-    });
-    if (result.error) {
-      // Show error to your customer (e.g., insufficient funds)
-      setErrorMessage(result.error.message);
-      if (onError) onError();
-      setPaymentPageProcessing(false);
-    } else {
-      setErrorMessage(null);
+      onError,
+      setPaymentPageProcessing,
+      createPendingBookingsIfNecessary,
+      onSuccess,
+      basketId,
+    ]);
+
+    const submitPaymentWithPaymentMethodSelected = useCallback(async () => {
+      if (fromApp) {
+        await confirmPaymentByPaymentMethodIdWebviewAPI(
+          paymentGroupId,
+          paymentMethodSelected,
+          basketId,
+        );
+      } else {
+        await confirmPaymentByPaymentMethodIdAPI(
+          paymentGroupId,
+          paymentMethodSelected,
+        );
+      }
 
       if (basketId) {
         try {
@@ -229,170 +295,156 @@ const PaymentStripeBacsDebit = ({
           console.error(err);
         }
       }
-      if (createPendingBookingsIfNecessary)
-        createPendingBookingsIfNecessary({
-          payment_group_method_identifier:
-            PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
-        });
-      onSuccess(() => setPaymentPageProcessing(false));
-    }
-  }, [
-    stripe,
-    elements,
-    clientSecret,
-    onError,
-    setPaymentPageProcessing,
-    createPendingBookingsIfNecessary,
-    onSuccess,
-    basketId,
-  ]);
 
-  const submitPaymentWithPaymentMethodSelected = useCallback(async () => {
-    if (fromApp) {
-      await confirmPaymentByPaymentMethodIdWebviewAPI(
-        paymentGroupId,
-        paymentMethodSelected,
-        basketId,
-      );
-    } else {
-      await confirmPaymentByPaymentMethodIdAPI(
-        paymentGroupId,
-        paymentMethodSelected,
-      );
-    }
-
-    if (basketId) {
-      try {
-        await blockPendingBasketAPI(basketId);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    setErrorMessage(null);
-    onSuccess(() => setPaymentPageProcessing(false));
-  }, [
-    basketId,
-    fromApp,
-    onSuccess,
-    paymentGroupId,
-    paymentMethodSelected,
-    setPaymentPageProcessing,
-  ]);
-
-  const handleSubmit = useCallback(
-    async (event: React.FormEvent<HTMLFormElement>) => {
-      // We don't want to let default form submission happen here,
-      // which would refresh the page.
-      event.preventDefault();
-      setPaymentPageProcessing(true);
       setErrorMessage(null);
-
-      if (basketId) {
-        verifyBasket();
-      }
-
-      // In the case where the user wants to enter a new payment method, we use stripe 'confirmPayment',
-      // else we have to confirm the payment intent in the backend by calling 'confirmPaymentByPaymentMethodId'
-      if (!paymentMethodSelected) {
-        submitStripePayment();
-      } else {
-        submitPaymentWithPaymentMethodSelected();
-      }
-    },
-    [
+      onSuccess(() => setPaymentPageProcessing(false));
+    }, [
       basketId,
+      fromApp,
+      onSuccess,
+      paymentGroupId,
       paymentMethodSelected,
       setPaymentPageProcessing,
-      submitPaymentWithPaymentMethodSelected,
-      submitStripePayment,
-      verifyBasket,
-    ],
-  );
+    ]);
 
-  return (
-    <form onSubmit={handleSubmit}>
-      {addPaymentMethod && (
-        <div>
-          <PaymentElement />
-          <div className={classes.saveAndDisplay}>
-            <div className={classes.row}>
-              <Checkbox
-                checked={saveForLaterBacsDebit}
-                onChange={handleSaveForLater}
-              />
-              <Typography variant="caption">
-                {t('paymentPanel.actions.saveForLater')}
-              </Typography>
-            </div>
-            {!!paymentMethodList.length && (
-              <ButtonBase
-                onClick={() => setAddPaymentMethod(false)}
-                className={classes.displayButton}
-              >
-                <Typography variant="body1" align="right" color="primary">
-                  {t(
-                    'payment:forms.paymentMethod.actions.displayPaymentMethod',
-                  )}
+    const handleSubmit = useCallback(
+      async (event: React.FormEvent<HTMLFormElement>) => {
+        // We don't want to let default form submission happen here,
+        // which would refresh the page.
+        event.preventDefault();
+        setPaymentPageProcessing(true);
+        setErrorMessage(null);
+
+        if (basketId) {
+          verifyBasket();
+        }
+
+        // In the case where the user wants to enter a new payment method, we use stripe 'confirmPayment',
+        // else we have to confirm the payment intent in the backend by calling 'confirmPaymentByPaymentMethodId'
+        if (!paymentMethodSelected) {
+          submitStripePayment();
+        } else {
+          submitPaymentWithPaymentMethodSelected();
+        }
+      },
+      [
+        basketId,
+        paymentMethodSelected,
+        setPaymentPageProcessing,
+        submitPaymentWithPaymentMethodSelected,
+        submitStripePayment,
+        verifyBasket,
+      ],
+    );
+
+    // This hook is required in the new checkout flow, in order to call the submit callback defined
+    // in the payment method component from the parent component.
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          onPaymentConfirm: handleSubmit,
+        };
+      },
+      [handleSubmit],
+    );
+
+    return (
+      <form onSubmit={handleSubmit}>
+        {addPaymentMethod && (
+          <div>
+            <PaymentElement />
+            <div className={classes.saveAndDisplay}>
+              <div className={classes.row}>
+                <Checkbox
+                  checked={saveForLaterBacsDebit}
+                  onChange={handleSaveForLater}
+                />
+                <Typography variant={isNewCheckoutFlow ? 'body1' : 'caption'}>
+                  {t('paymentPanel.actions.saveForLater')}
                 </Typography>
-              </ButtonBase>
-            )}
+                <div className={classes.securityInformationContainer}>
+                  <PopOver
+                    title={t('paymentPanel.actions.paymentSecurityInformation')}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                    transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    className={classes.securityInformationText}
+                  >
+                    <Info className={classes.infoIcon} />
+                  </PopOver>
+                </div>
+              </div>
+              {!!paymentMethodList.length && (
+                <ButtonBase
+                  onClick={() => setAddPaymentMethod(false)}
+                  className={classes.displayButton}
+                >
+                  <Typography variant="body1" align="right" color="primary">
+                    {t(
+                      'payment:forms.paymentMethod.actions.displayPaymentMethod',
+                    )}
+                  </Typography>
+                </ButtonBase>
+              )}
+            </div>
           </div>
-        </div>
-      )}
-      {!addPaymentMethod && !!paymentMethodList.length && (
-        <div>
-          <PaymentMethodList
-            savedPaymentMethodList={paymentMethodList}
-            selectedSavedPaymentMethodId={paymentMethodSelected}
-            paymentMethodType="bacs_debit"
-            onSelect={defineSelectedPaymentMethod}
-            setHasDetached={setHasDetached}
-            memberId={memberId}
-            detachPaymentMethodLoading={detachPaymentMethodLoading}
-            detachPaymentMethod={detachPaymentMethod}
-            snackbarErrorMsg={snackbarErrorMsg}
-            snackbarSuccessMsg={snackbarSuccessMsg}
-            companyId={companyId}
-          />
-          <ButtonBase
-            disabled={false}
-            onClick={() => setAddPaymentMethod(true)}
-            className={classes.addButton}
-          >
-            <AddIcon className={classes.leftIcon} color="primary" />
-            <Typography variant="body1" align="left" color="primary">
-              {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
-            </Typography>
-          </ButtonBase>
-        </div>
-      )}
-      {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-      <div className={classes.conditionRow}>
-        {AcceptTermsAndConditionsComponent}
-      </div>
-      <div className={classes.actionRow}>
-        {processing ? (
-          <CircularProgress />
-        ) : (
-          <Button
-            color="primary"
-            variant="contained"
-            type="submit"
-            disabled={
-              loading || forceDisabled || !stripe || !termsAndConditionsAccepted
-            }
-          >
-            {t('paymentPanel.actions.confirmPayment')}
-          </Button>
         )}
-        <Button onClick={onCancel} disabled={processing}>
-          {t('paymentPanel.actions.cancel')}
-        </Button>
-      </div>
-    </form>
-  );
-};
+        {!addPaymentMethod && !!paymentMethodList.length && (
+          <div>
+            <PaymentMethodList
+              savedPaymentMethodList={paymentMethodList}
+              selectedSavedPaymentMethodId={paymentMethodSelected}
+              paymentMethodType="bacs_debit"
+              onSelect={defineSelectedPaymentMethod}
+              setHasDetached={setHasDetached}
+              memberId={memberId}
+              detachPaymentMethodLoading={detachPaymentMethodLoading}
+              detachPaymentMethod={detachPaymentMethod}
+              snackbarErrorMsg={snackbarErrorMsg}
+              snackbarSuccessMsg={snackbarSuccessMsg}
+              companyId={companyId}
+            />
+            <ButtonBase
+              disabled={false}
+              onClick={() => setAddPaymentMethod(true)}
+              className={classes.addButton}
+            >
+              <AddIcon className={classes.leftIcon} color="primary" />
+              <Typography variant="body1" align="left" color="primary">
+                {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
+              </Typography>
+            </ButtonBase>
+          </div>
+        )}
+        {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+        {!isNewCheckoutFlow && (
+          <>
+            <div className={classes.conditionRow}>
+              {AcceptTermsAndConditionsComponent}
+            </div>
+            <div className={classes.actionRow}>
+              {processing ? (
+                <CircularProgress />
+              ) : (
+                <Button
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                  disabled={isSubmitButtonDisabled}
+                >
+                  {t('paymentPanel.actions.confirmPayment')}
+                </Button>
+              )}
+              <Button onClick={onCancel} disabled={processing}>
+                {t('paymentPanel.actions.cancel')}
+              </Button>
+            </div>
+          </>
+        )}
+      </form>
+    );
+  },
+);
 
 const useStyles = makeStyles((theme) => ({
   container: {},
@@ -408,6 +460,9 @@ const useStyles = makeStyles((theme) => ({
   },
   row: {
     marginTop: theme.spacing(-1),
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   conditionRow: {
     display: 'flex',
@@ -443,6 +498,25 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
     marginLeft: '50px',
   },
+  securityInformationContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '40px',
+    height: '40px',
+    '&:hover': {
+      backgroundColor: theme.palette.grey[100],
+      borderRadius: theme.spacing(1),
+    },
+  },
+  securityInformationText: {
+    maxWidth: '250px',
+    variant: 'tooltip',
+    fontWeight: 500,
+    fontSize: '10px',
+    lineHeight: '14px',
+  },
+  infoIcon: { color: theme.palette.grey[600] },
 }));
 
 export default PaymentStripeBacsDebit;

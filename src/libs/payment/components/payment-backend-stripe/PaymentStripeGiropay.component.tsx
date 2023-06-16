@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useImperativeHandle, forwardRef } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 
@@ -14,6 +14,7 @@ import {
   verifyPriceBasket as verifyPriceBasketAPI,
   blockPendingBasket as blockPendingBasketAPI,
 } from '../../api';
+import { CheckoutContext } from '../../../../pages/checkout/basket/CheckoutContext';
 
 type PaymentStripeGiropayProps = {
   clientSecret: string;
@@ -27,133 +28,177 @@ type PaymentStripeGiropayProps = {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
 };
 
-export const PaymentStripeGiropay = ({
-  clientSecret,
-  onCancel,
-  forceDisabled,
-  userDefaultName,
-  basketId,
-  basketTotalPriceCts,
-  checkItemsBasket,
-  setPaymentProcessing,
-  createPendingBookingsIfNecessary,
-}: PaymentStripeGiropayProps) => {
-  const stripe = useStripe();
-  const elements = useElements();
-  const [processing, setProcessing] = React.useState(false);
-  const [name, setName] = React.useState(userDefaultName || '');
-  const [errorMessage, setErrorMessage] = React.useState(null);
+export const PaymentStripeGiropay = forwardRef(
+  (
+    {
+      clientSecret,
+      onCancel,
+      forceDisabled,
+      userDefaultName,
+      basketId,
+      basketTotalPriceCts,
+      checkItemsBasket,
+      setPaymentProcessing,
+      createPendingBookingsIfNecessary,
+      setIsOnlinePaymentDisabled,
+    }: PaymentStripeGiropayProps,
+    ref,
+  ) => {
+    const stripe = useStripe();
+    const elements = useElements();
+    const [processing, setProcessing] = React.useState(false);
+    const [name, setName] = React.useState(userDefaultName || '');
+    const [errorMessage, setErrorMessage] = React.useState(null);
 
-  const { t } = useTranslation(['invoice']);
-  const classes = useStyles();
+    const { t } = useTranslation(['invoice']);
+    const classes = useStyles();
 
-  const setPaymentPageProcessing = React.useCallback(
-    (process) => {
-      if (setPaymentProcessing) setPaymentProcessing(process);
-      setProcessing(process);
-    },
-    [setPaymentProcessing],
-  );
+    const isNewCheckoutFlow = React.useContext(CheckoutContext);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    // We don't want to let default form submission happen here,
-    // which would refresh the page.
-    event.preventDefault();
-
-    if (!stripe || !elements) {
-      // Stripe has not yet loaded.
-      // Make sure to disable form submission until Stripe has loaded.
-      return;
-    }
-    setPaymentPageProcessing(true);
-    setErrorMessage(null);
-
-    if (basketId) {
-      const { data } = await verifyPriceBasketAPI(basketId);
-
-      const basketItemsChecked = await checkItemsBasket(basketId);
-      if (!basketItemsChecked) {
-        setPaymentPageProcessing(false);
-        return;
-      }
-
-      if (
-        (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
-        basketTotalPriceCts !== data
-      ) {
-        setPaymentPageProcessing(false);
-        // eslint-disable-next-line
-        window.alert(t('paymentPanel.actions.basketInconsistent'));
-        window.location.reload();
-        return;
-      }
-    }
-
-    const { error } = await stripe.confirmGiropayPayment(clientSecret, {
-      payment_method: {
-        billing_details: {
-          name,
-        },
+    const setPaymentPageProcessing = React.useCallback(
+      (process) => {
+        if (setPaymentProcessing) setPaymentProcessing(process);
+        setProcessing(process);
       },
-      return_url: window.location.href,
-    });
+      [setPaymentProcessing],
+    );
+    // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
+    // if needed
+    React.useEffect(() => {
+      if (setIsOnlinePaymentDisabled) setIsOnlinePaymentDisabled(processing);
+    }, [processing, setIsOnlinePaymentDisabled]);
 
-    if (error) {
-      // Inform the customer that there was an error.
-      setErrorMessage(error.message);
-      setPaymentPageProcessing(false);
-    } else {
-      if (basketId) {
-        try {
-          await blockPendingBasketAPI(basketId);
-        } catch (err) {
-          console.error(err);
+    const handleSubmit = React.useCallback(
+      async (event: React.FormEvent<HTMLFormElement>) => {
+        // We don't want to let default form submission happen here,
+        // which would refresh the page.
+        event.preventDefault();
+
+        if (!stripe || !elements) {
+          // Stripe has not yet loaded.
+          // Make sure to disable form submission until Stripe has loaded.
+          return;
         }
-      }
-      if (createPendingBookingsIfNecessary) {
-        createPendingBookingsIfNecessary({
-          payment_group_method_identifier:
-            PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY,
-        });
-      }
-    }
-  };
+        setPaymentPageProcessing(true);
+        setErrorMessage(null);
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <div className={classes.fieldContainer}>
-        <TextInput
-          value={name}
-          label={t('paymentPanel.fields.accountHolderName.label')}
-          placeholder={t('paymentPanel.fields.accountHolderName.placeholder')}
-          required
-          onChange={(ev) => setName(ev.target.value)}
-          className={classes.field}
-        />
-        {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-      </div>
-      <div className={classes.actionRow}>
-        {processing ? (
-          <CircularProgress />
-        ) : (
-          <Button
-            color="primary"
-            variant="contained"
-            type="submit"
-            disabled={forceDisabled || !stripe}
-          >
-            {t('paymentPanel.actions.confirmPayment')}
-          </Button>
+        if (basketId) {
+          const { data } = await verifyPriceBasketAPI(basketId);
+
+          const basketItemsChecked = await checkItemsBasket(basketId);
+          if (!basketItemsChecked) {
+            setPaymentPageProcessing(false);
+            return;
+          }
+
+          if (
+            (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
+            basketTotalPriceCts !== data
+          ) {
+            setPaymentPageProcessing(false);
+            // eslint-disable-next-line
+        window.alert(t('paymentPanel.actions.basketInconsistent'));
+            window.location.reload();
+            return;
+          }
+        }
+
+        const { error } = await stripe.confirmGiropayPayment(clientSecret, {
+          payment_method: {
+            billing_details: {
+              name,
+            },
+          },
+          return_url: window.location.href,
+        });
+
+        if (error) {
+          // Inform the customer that there was an error.
+          setErrorMessage(error.message);
+          setPaymentPageProcessing(false);
+        } else {
+          if (basketId) {
+            try {
+              await blockPendingBasketAPI(basketId);
+            } catch (err) {
+              console.error(err);
+            }
+          }
+          if (createPendingBookingsIfNecessary) {
+            createPendingBookingsIfNecessary({
+              payment_group_method_identifier:
+                PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY,
+            });
+          }
+        }
+      },
+      [
+        basketId,
+        basketTotalPriceCts,
+        checkItemsBasket,
+        clientSecret,
+        createPendingBookingsIfNecessary,
+        elements,
+        name,
+        setPaymentPageProcessing,
+        stripe,
+        t,
+      ],
+    );
+
+    // This hook is required in the new checkout flow, in order to call the submit callback defined
+    // in the payment method component from the parent component.
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          onPaymentConfirm: handleSubmit,
+        };
+      },
+      [handleSubmit],
+    );
+
+    return (
+      <form onSubmit={handleSubmit}>
+        <div className={classes.fieldContainer}>
+          <TextInput
+            value={name}
+            label={t('paymentPanel.fields.accountHolderName.label')}
+            placeholder={t('paymentPanel.fields.accountHolderName.placeholder')}
+            required
+            onChange={(ev) => setName(ev.target.value)}
+            className={classes.field}
+          />
+          {errorMessage && (
+            <Typography color="error">{errorMessage}</Typography>
+          )}
+        </div>
+        {!isNewCheckoutFlow && (
+          <div className={classes.actionRow}>
+            {processing ? (
+              <CircularProgress />
+            ) : (
+              <Button
+                color="primary"
+                variant="contained"
+                type="submit"
+                disabled={forceDisabled || !stripe}
+              >
+                {t('paymentPanel.actions.confirmPayment')}
+              </Button>
+            )}
+            <Button onClick={onCancel} disabled={processing}>
+              {t('paymentPanel.actions.cancel')}
+            </Button>
+          </div>
         )}
-        <Button onClick={onCancel} disabled={processing}>
-          {t('paymentPanel.actions.cancel')}
-        </Button>
-      </div>
-    </form>
-  );
-};
+      </form>
+    );
+  },
+);
 
 const useStyles = makeStyles((theme) => ({
   field: {

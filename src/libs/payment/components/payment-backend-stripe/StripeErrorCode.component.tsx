@@ -2,26 +2,27 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import { withTranslation, TFunction } from 'react-i18next';
-import { makeStyles } from '@material-ui/styles';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
 
 type Props = {
-  errorCode: string,
-  declineCode: string,
-  t: TFunction,
+  errorCode: string;
+  declineCode: string;
 };
 
-export const StripeErrorCode = (props: Props) => {
+const StripeErrorCode: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
+  const { t } = useTranslation('stripe');
+
   return (
     <div className={classes.container}>
       {!!props.errorCode && (
         <Typography variant="caption" color="error">
-          {props.t(`error_code.${props.errorCode}`)}
+          {t(`error_code.${props.errorCode}`)}
         </Typography>
       )}
       <Typography variant="caption" color="error">
-        {props.t(`decline_code.${props.declineCode || 'none'}`)}
+        {t(`decline_code.${props.declineCode || 'none'}`)}
       </Typography>
     </div>
   );
@@ -38,4 +39,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default withTranslation(['stripe'])(StripeErrorCode);
+export default React.memo(StripeErrorCode);

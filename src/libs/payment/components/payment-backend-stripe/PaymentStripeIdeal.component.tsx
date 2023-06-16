@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useImperativeHandle, forwardRef } from 'react';
 
 import {
   useStripe,
@@ -14,11 +14,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL } from '@bsport/common/lib/master-data/payment-group';
-
+import { Info } from '@material-ui/icons';
+import { CheckoutContext } from '../../../../pages/checkout/basket/CheckoutContext';
 import {
   verifyPriceBasket as verifyPriceBasketAPI,
   blockPendingBasket as blockPendingBasketAPI,
 } from '../../api';
+import PopOver from '#components/Popover';
 
 const IDEAL_ELEMENT_OPTIONS = {
   // Custom styling can be passed to options when creating an Element
@@ -61,182 +63,247 @@ type PaymentStripeIdealProps = {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
 };
 
-export const PaymentStripeIdeal = ({
-  clientSecret,
-  onCancel,
-  termsAndConditionsAccepted,
-  AcceptTermsAndConditionsComponent,
-  forceDisabled,
-  userDefaultName,
-  userDefaultEmail,
-  loading,
-  basketId,
-  basketTotalPriceCts,
-  forceSave,
-  checkItemsBasket,
-  setPaymentProcessing,
-  createPendingBookingsIfNecessary,
-}: PaymentStripeIdealProps) => {
-  const stripe = useStripe();
-  const elements = useElements();
+export const PaymentStripeIdeal = forwardRef(
+  (
+    {
+      clientSecret,
+      onCancel,
+      termsAndConditionsAccepted,
+      AcceptTermsAndConditionsComponent,
+      forceDisabled,
+      userDefaultName,
+      userDefaultEmail,
+      loading,
+      basketId,
+      basketTotalPriceCts,
+      forceSave,
+      checkItemsBasket,
+      setPaymentProcessing,
+      createPendingBookingsIfNecessary,
+      setIsOnlinePaymentDisabled,
+    }: PaymentStripeIdealProps,
+    ref,
+  ) => {
+    const stripe = useStripe();
+    const elements = useElements();
 
-  const [processing, setProcessing] = React.useState(false);
-  const [name, setName] = React.useState(userDefaultName || '');
-  const [email, setEmail] = React.useState(userDefaultEmail || '');
-  const [errorMessage, setErrorMessage] = React.useState(null);
+    const [processing, setProcessing] = React.useState(false);
+    const [name, setName] = React.useState(userDefaultName || '');
+    const [email, setEmail] = React.useState(userDefaultEmail || '');
+    const [errorMessage, setErrorMessage] = React.useState(null);
 
-  const [saveForLater, setSaveForLater] = React.useState(false);
+    const [saveForLater, setSaveForLater] = React.useState(false);
 
-  const { t } = useTranslation(['invoice']);
-  const classes = useStyles();
+    const isNewCheckoutFlow = React.useContext(CheckoutContext);
 
-  const setPaymentPageProcessing = React.useCallback(
-    (process) => {
-      if (setPaymentProcessing) setPaymentProcessing(process);
-      setProcessing(process);
-    },
-    [setPaymentProcessing],
-  );
+    const { t } = useTranslation('invoice');
+    const classes = useStyles();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    // We don't want to let default form submission happen here,
-    // which would refresh the page.
-    event.preventDefault();
-    setPaymentPageProcessing(true);
-    setErrorMessage(null);
-
-    if (basketId) {
-      const { data } = await verifyPriceBasketAPI(basketId);
-
-      const basketItemsChecked = await checkItemsBasket(basketId);
-      if (!basketItemsChecked) {
-        setPaymentPageProcessing(false);
-        return;
-      }
-
-      if (
-        (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
-        basketTotalPriceCts !== data
-      ) {
-        setPaymentPageProcessing(false);
-        // eslint-disable-next-line
-        window.alert(t('paymentPanel.actions.basketInconsistent'));
-        window.location.reload();
-        return;
-      }
-    }
-
-    if (!stripe || !elements) {
-      // Stripe has not yet loaded.
-      // Make sure to disable form submission until Stripe has loaded.
-      return;
-    }
-
-    const idealBank = elements.getElement(IdealBankElement);
-
-    const { error } = await stripe.confirmIdealPayment(clientSecret, {
-      payment_method: {
-        ideal: idealBank,
-        billing_details: {
-          name,
-          email,
-        },
+    const setPaymentPageProcessing = React.useCallback(
+      (process) => {
+        if (setPaymentProcessing) setPaymentProcessing(process);
+        setProcessing(process);
       },
-      ...(saveForLater || forceSave
-        ? { setup_future_usage: 'off_session' }
-        : {}),
-      return_url: `${window.location.href}?check_payment_intent=true`,
-    });
+      [setPaymentProcessing],
+    );
 
-    if (error) {
-      // Show error to your customer.
-      setErrorMessage(error.message);
-      setPaymentPageProcessing(false);
-    } else {
-      if (basketId) {
-        try {
-          await blockPendingBasketAPI(basketId);
-        } catch (err) {
-          console.error(err);
+    const isSubmitButtonDisabled =
+      loading || forceDisabled || !stripe || !termsAndConditionsAccepted;
+
+    // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
+    // if needed
+    React.useEffect(() => {
+      if (setIsOnlinePaymentDisabled)
+        setIsOnlinePaymentDisabled(isSubmitButtonDisabled);
+    }, [isSubmitButtonDisabled, setIsOnlinePaymentDisabled]);
+
+    const handleSubmit = React.useCallback(
+      async (event: React.FormEvent<HTMLFormElement>) => {
+        // We don't want to let default form submission happen here,
+        // which would refresh the page.
+        event.preventDefault();
+        setPaymentPageProcessing(true);
+        setErrorMessage(null);
+
+        if (basketId) {
+          const { data } = await verifyPriceBasketAPI(basketId);
+
+          const basketItemsChecked = await checkItemsBasket(basketId);
+          if (!basketItemsChecked) {
+            setPaymentPageProcessing(false);
+            return;
+          }
+
+          if (
+            (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
+            basketTotalPriceCts !== data
+          ) {
+            setPaymentPageProcessing(false);
+            // eslint-disable-next-line
+        window.alert(t('paymentPanel.actions.basketInconsistent'));
+            window.location.reload();
+            return;
+          }
         }
-      }
 
-      if (createPendingBookingsIfNecessary) {
-        createPendingBookingsIfNecessary({
-          payment_group_method_identifier:
-            PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
+        if (!stripe || !elements) {
+          // Stripe has not yet loaded.
+          // Make sure to disable form submission until Stripe has loaded.
+          return;
+        }
+
+        const idealBank = elements.getElement(IdealBankElement);
+
+        const { error } = await stripe.confirmIdealPayment(clientSecret, {
+          payment_method: {
+            ideal: idealBank,
+            billing_details: {
+              name,
+              email,
+            },
+          },
+          ...(saveForLater || forceSave
+            ? { setup_future_usage: 'off_session' }
+            : {}),
+          return_url: `${window.location.href}?check_payment_intent=true`,
         });
-      }
-    }
 
-    // Otherwise the customer will be redirected away from your
-    // page to complete the payment with their bank.
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <IdealBankSection />
-      <div className={classes.fieldContainer}>
-        <TextInput
-          value={name}
-          label={t('paymentPanel.fields.accountHolderName.label')}
-          placeholder={t('paymentPanel.fields.accountHolderName.placeholder')}
-          required
-          onChange={(ev) => setName(ev.target.value)}
-          className={classes.field}
-        />
-        <TextInput
-          value={email}
-          label={t('paymentPanel.fields.email.label')}
-          placeholder={t('paymentPanel.fields.email.placeholder')}
-          required
-          onChange={(ev) => setEmail(ev.target.value)}
-          className={classes.field}
-        />
-        {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-      </div>
-      <div className={classes.row}>
-        <Checkbox
-          checked={saveForLater || forceSave}
-          disabled={!!forceSave}
-          onChange={(ev) => setSaveForLater(ev.target.checked)}
-        />
-        <div className={classes.leftColumn}>
-          <Typography variant="caption">
-            {t('paymentPanel.actions.saveForLater')}
-          </Typography>
-          <Typography variant="caption" color="textSecondary">
-            {t('paymentPanel.actions.saveForLaterAsSEPA')}
-          </Typography>
-        </div>
-      </div>
-      <div className={classes.conditions}>
-        {AcceptTermsAndConditionsComponent}
-      </div>
-      <div className={classes.actionRow}>
-        {processing ? (
-          <CircularProgress />
-        ) : (
-          <Button
-            color="primary"
-            variant="contained"
-            type="submit"
-            disabled={
-              loading || forceDisabled || !stripe || !termsAndConditionsAccepted
+        if (error) {
+          // Show error to your customer.
+          setErrorMessage(error.message);
+          setPaymentPageProcessing(false);
+        } else {
+          if (basketId) {
+            try {
+              await blockPendingBasketAPI(basketId);
+            } catch (err) {
+              console.error(err);
             }
-          >
-            {t('paymentPanel.actions.confirmPayment')}
-          </Button>
+          }
+
+          if (createPendingBookingsIfNecessary) {
+            createPendingBookingsIfNecessary({
+              payment_group_method_identifier:
+                PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
+            });
+          }
+        }
+
+        // Otherwise the customer will be redirected away from your
+        // page to complete the payment with their bank.
+      },
+      [
+        basketId,
+        basketTotalPriceCts,
+        checkItemsBasket,
+        clientSecret,
+        createPendingBookingsIfNecessary,
+        elements,
+        email,
+        forceSave,
+        name,
+        saveForLater,
+        setPaymentPageProcessing,
+        stripe,
+        t,
+      ],
+    );
+
+    // This hook is required in the new checkout flow, in order to call the submit callback defined
+    // in the payment method component from the parent component.
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          onPaymentConfirm: handleSubmit,
+        };
+      },
+      [handleSubmit],
+    );
+
+    return (
+      <form onSubmit={handleSubmit}>
+        <IdealBankSection />
+        <div className={classes.fieldContainer}>
+          <TextInput
+            value={name}
+            label={t('paymentPanel.fields.accountHolderName.label')}
+            placeholder={t('paymentPanel.fields.accountHolderName.placeholder')}
+            required
+            onChange={(ev) => setName(ev.target.value)}
+            className={classes.field}
+          />
+          <TextInput
+            value={email}
+            label={t('paymentPanel.fields.email.label')}
+            placeholder={t('paymentPanel.fields.email.placeholder')}
+            required
+            onChange={(ev) => setEmail(ev.target.value)}
+            className={classes.field}
+          />
+          {errorMessage && (
+            <Typography color="error">{errorMessage}</Typography>
+          )}
+        </div>
+        <div className={classes.row}>
+          <Checkbox
+            checked={saveForLater || forceSave}
+            disabled={!!forceSave}
+            onChange={(ev) => setSaveForLater(ev.target.checked)}
+          />
+          <div className={classes.leftColumn}>
+            <Typography variant={isNewCheckoutFlow ? 'body1' : 'caption'}>
+              {t('paymentPanel.actions.saveForLater')}
+            </Typography>
+            <Typography
+              variant={isNewCheckoutFlow ? 'body1' : 'caption'}
+              color="textSecondary"
+            >
+              {t('paymentPanel.actions.saveForLaterAsSEPA')}
+            </Typography>
+            <div className={classes.securityInformationContainer}>
+              <PopOver
+                title={t('paymentPanel.actions.paymentSecurityInformation')}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                className={classes.securityInformationText}
+              >
+                <Info className={classes.infoIcon} />
+              </PopOver>
+            </div>
+          </div>
+        </div>
+        {!isNewCheckoutFlow && (
+          <>
+            <div className={classes.conditions}>
+              {AcceptTermsAndConditionsComponent}
+            </div>
+            <div className={classes.actionRow}>
+              {processing ? (
+                <CircularProgress />
+              ) : (
+                <Button
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                  disabled={isSubmitButtonDisabled}
+                >
+                  {t('paymentPanel.actions.confirmPayment')}
+                </Button>
+              )}
+              <Button onClick={onCancel} disabled={processing}>
+                {t('paymentPanel.actions.cancel')}
+              </Button>
+            </div>
+          </>
         )}
-        <Button onClick={onCancel} disabled={processing}>
-          {t('paymentPanel.actions.cancel')}
-        </Button>
-      </div>
-    </form>
-  );
-};
+      </form>
+    );
+  },
+);
 const useStyles = makeStyles((theme) => ({
   field: {
     marginTop: theme.spacing(2),
@@ -275,6 +342,25 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
+  securityInformationContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '40px',
+    height: '40px',
+    '&:hover': {
+      backgroundColor: theme.palette.grey[100],
+      borderRadius: theme.spacing(1),
+    },
+  },
+  securityInformationText: {
+    maxWidth: '250px',
+    variant: 'tooltip',
+    fontWeight: 500,
+    fontSize: '10px',
+    lineHeight: '14px',
+  },
+  infoIcon: { color: theme.palette.grey[600] },
 }));
 
 export default PaymentStripeIdeal;

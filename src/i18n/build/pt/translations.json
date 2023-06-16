@@ -155,14 +155,19 @@
                 "delayWeek": {
                     "label": "Número de semanas",
                     "helperText": "Indique a antecedência em número de semanas com que o membro será registado"
-                }
+                },
+                "title": "Reservar uma periodicidade",
+                "groupWarning": "Tenha em atenção que não é possível criar marcações regulares para grupos de sessões"
             },
             "actions": {
                 "close": "Fechar",
                 "save": "Registo"
             },
             "blockedBookings": "Os alunos podem reservar até {{days}} dias antes do início das aulas, por conseguinte, recomendamos que configure a recorrência para um período mais longo, para evitar uma sobrecarga.",
-            "explain": "O membro será sempre registado {{ delayWeek }} semanas de antecedência para o {{ dayOfWeek}} à {{hour}}:{{minute}}. Só serão registados se possuírem um passe válido."
+            "explain": "O membro será sempre registado {{ delayWeek }} semanas de antecedência para o {{ dayOfWeek}} à {{hour}}:{{minute}}. Só serão registados se possuírem um passe válido.",
+            "recurrentBookings": "Reservas regulares",
+            "needConsumerPack": "Este membro não dispõe de um passe compatível, pelo que é impossível reservar várias sessões",
+            "recurrentRuleBooking": "Reserva regular"
         },
         "filters": {
             "all": "Todas as marcações",
@@ -183,7 +188,11 @@
             "isPaid": "Marcações pagas",
             "isUnpaid": "Marcações não pagas",
             "coach": "Professor",
-            "pickCoach": "Encontrar um professor..."
+            "pickCoach": "Encontrar um professor...",
+            "managerCanceled": "Cancelamento manager",
+            "recurrentBooking": "Reservas regulares",
+            "withRecurrentBookings": "Reservas regulares",
+            "withoutRecurrentBookings": "Reservas não regulares"
         },
         "bookingModule": {
             "hasRegistered": "Está inscrito para esta sessão",
@@ -243,7 +252,916 @@
         "parameters": {
             "registeredOn": "Reservado em ",
             "cancelledOn": "Cancelado em ",
-            "by": "Por"
+            "by": "Por",
+            "source": "Área de reservas",
+            "noShow": "Ausente "
+        },
+        "noShowChip": {
+            "title": "Não compareceu",
+            "message": "A ausência do aluno foi registada após a sessão"
+        },
+        "notification": {
+            "form": {
+                "explain": "Pode notificar os seus membros antes ou depois de determinadas sessões, com base em vários critérios, como o número de presenças, não comparências ou cancelamentos.",
+                "sendBeforeNotification": "Enviar a notificação push ao aluno antes da sessão a que a notificação diz respeito",
+                "chooseKind": {
+                    "absence": "Ausência de uma sessão",
+                    "title": "Notificação de ação de eventos",
+                    "attendance": "Participação de um aluno numa sessão",
+                    "refunded": "Cancelamento reembolsado",
+                    "notRefunded": "Cancelamento após o prazo"
+                },
+                "ifKind": {
+                    "notRefunded": "Se a marcação tiver sido cancelada após o prazo",
+                    "attendance": "Se o aluno estiver presente",
+                    "absence": "Se o aluno estiver ausente",
+                    "refunded": "Se a marcação tiver sido cancelada atempadamente"
+                },
+                "warning": "Se não selecionar uma lista inteligente, corre o risco de notificar os membros que já compraram outro passe.",
+                "pushHelper": "Tenha em atenção que as notificações push devem ser utilizadas com moderação. Demasiadas notificações push podem levar alguns membros a desinstalar a aplicação.",
+                "sendAfterNotification": "Enviar a notificação ao aluno após a sessão",
+                "sendAfterMail": "Enviar email ao aluno após a sessão",
+                "smartListHelper": "Não enviar email se o membro pertencer a uma das seguintes listas",
+                "smartListHelperInclude": "Não enviar uma email se o membro pertencer a uma das seguintes listas",
+                "createSmartList": "Criar uma lista inteligente",
+                "listItemPrimary": {
+                    "notifyAllEvents": {
+                        "refunded": "Sempre que um cancelamento seja reembolsado",
+                        "notRefunded": "Sempre que cancela fora de prazo",
+                        "attendance": "Sempre que estiver presente",
+                        "absence": "Sempre que estiver ausente"
+                    },
+                    "birthday": "Enviar no aniversário",
+                    "before": "Notificar {{hours}}h antes da sessão",
+                    "after": "Notificar {{hours}}h após a sessão",
+                    "attendance": "Presença n° {{notify_booking_nb}}",
+                    "absence": "Ausência n° {{notify_booking_nb}}",
+                    "refunded": "Cancelamento não reembolsado n° {{notify_booking_nb}}",
+                    "notRefunded": "Cancelamento fora do prazo n° {{notify_booking_nb}}",
+                    "bookingDeprecated": "Marcação n° {{notify_booking_nb}}",
+                    "cancelledDeprecated": "Anulação n° {{notify_booking_nb}}"
+                },
+                "title": "Formulário de notificação",
+                "typeTitle": "Tipo de notificação",
+                "settingTitle": "Parâmetros",
+                "eventNb": "Notificar o membro do evento n.º :",
+                "notifyAllEvents": "Notificar o membro de cada evento",
+                "sendBeforeMail": "Enviar a mensagem de email ao membro antes da sessão que diz respeito à notificação",
+                "sendBeforeNotifications": "Enviar notificações ao membro antes da sessão a que a notificação diz respeito",
+                "sendAfterNotifications": "Enviar notificações ao aluno após a sessão",
+                "chooseTime": {
+                    "first": "Enviar email",
+                    "second_before": "hora(s) antes da sessão",
+                    "second_before_days": "dia(s) anterior(es) à sessão",
+                    "second_after": "hora(s) após a sessão",
+                    "second_after_days": "hora(s) após a sessão"
+                },
+                "chooseStatus": {
+                    "title": "Escolha o tipo de marcação que pretende notificar",
+                    "valid": "Marcação aceite",
+                    "cancelled": "Marcação cancelada pelo aluno"
+                },
+                "bookingNumberAll": "Todas as marcações",
+                "bookingNumberFirst": "1ª marcação",
+                "bookingNumberSecond": "2ª marcação",
+                "bookingNumberThird": "3ª reserva",
+                "bookingNumberN": "{{notify_booking_nb}} a marcação",
+                "smartListSelection": "Selecionar (opcional)",
+                "advanced": "Avançar",
+                "help": {
+                    "text": "Ajuda: será enviada uma notificação ao membro quando",
+                    "attendance": "a sua marcação n° {{notify_booking_nb}}",
+                    "absence": "Ausência n° {{notify_booking_nb}}",
+                    "refunded": "Cancelamento reembolsado n° {{notify_booking_nb}}",
+                    "notRefunded": "Cancelamento fora do prazo n° {{notify_booking_nb}}",
+                    "allEvents": {
+                        "attendance": "Ajuda: a notificação será enviada ao aluno sempre que este estiver presente.",
+                        "absence": "Ajuda: a notificação será enviada ao aluno  sempre que este estiver ausente",
+                        "refunded": "Ajuda: será enviada uma notificação aos alunos sempre que cancelarem um reembolso",
+                        "notRefunded": "Ajuda: será enviada uma notificação aos alunos sempre que estes cancelarem fora do prazo."
+                    }
+                },
+                "submit": "Confirmar",
+                "next": "Seguintes",
+                "cancel": "Anular",
+                "sendingMethod": "Método de envio",
+                "mail": "Email",
+                "push": "Notificação push",
+                "needPushUpsell": "Não subscreveu o suplemento de notificações push",
+                "addVariable": "Adicionar uma etiqueta"
+            },
+            "title": "Notificação",
+            "addNotification": "Adicionar uma notificação"
+        },
+        "offer": {
+            "offerStatus": {
+                "waiting_list_status": {
+                    "9": "Está a tentar marcar mais sessões do que as permitidas pelo estabelecimento",
+                    "0": "Lista de espera",
+                    "1": "Inscrições encerradas",
+                    "3": "Sessão completa",
+                    "2": "Inscrições terminadas",
+                    "4": "Inscrições encerradas",
+                    "5": "Já registado",
+                    "6002": "Lista de espera completa",
+                    "6003": "Já está na lista",
+                    "6005": "Lista de espera"
+                },
+                "bookable_status": {
+                    "9": "Está a tentar marcar mais sessões do que as permitidas pelo estabelecimento",
+                    "0": "Inscrições abertas",
+                    "1": "Inscrições encerradas",
+                    "2": "Inscrições concluídas",
+                    "4": "Sessão indisponível"
+                },
+                "blockedByTags": "Inscrição não autorizada",
+                "book": "Inscrição",
+                "waiting_list": "Lista de espera"
+            },
+            "bookingForAGuest": {
+                "warningCustomLeveledSession": "Esta sessão é personalizada. Certifique-se de que a pessoa convidada está apta.",
+                "addGuestLimit": "Atingiu o limite de convites para",
+                "addGuestNumberLeftSeveral": "É possível convidar {{number}} pessoas em",
+                "addGuest": "Adicionar um convidado",
+                "warningLeveledSession": "Esta sessão é reservada a pessoas com : {{level}}. Certifique-se de que a pessoa que está a convidar está no nível certo.",
+                "addGuestNumberLeftOne": "Pode convidar mais 1 pessoa para",
+                "frequencyWeekly": "esta semana.",
+                "frequencyMonthly": "este mês.",
+                "frequencyYearly": "no ano em curso.",
+                "frequencyGeneric": "o período atual."
+            },
+            "mainButton": {
+                "numberOfBook": "{{count}} inscrição",
+                "numberOfBook_plural": "{{count}} inscrições",
+                "book": "Agendado",
+                "registerWaitingList": "Ponham-me na lista de espera"
+            },
+            "similarOffer": {
+                "empty": "Nenhuma sessão encontrada",
+                "showMore": "Ver mais",
+                "title": "Marcar mais sessões",
+                "selectAll": "Selecionar tudo"
+            },
+            "packTitle": "O meu método de marcação",
+            "addSession": "Adicionar uma sessão",
+            "bookingsTitle": "Quero marcar",
+            "noPackAvailable": "Nenhum passe é compatível com esta sessão !",
+            "noPackAvailable_plural": "Nenhum passe é compatível com este grupo de sessões. Terá de efetuar mais do que uma reserva.",
+            "bookingsTitleFor": "Quero marcar para {{name}}",
+            "bookingForMe": "Eu",
+            "showMore": "Ver mais"
+        },
+        "source": {
+            "web": "Site",
+            "app": "Aplicação móvel",
+            "saas": "Backoffice",
+            "other": "Outros",
+            "migration": "Migração"
+        },
+        "loading": "Carregamento",
+        "wasRefunded": "Reembolsado",
+        "unlimited": "Ilimitado",
+        "place": "Local",
+        "asGuest": "Convidado",
+        "noSpotAttributed": "Nenhum local atribuído",
+        "changeSpot": "Alterar o local",
+        "setSpot": "Atribuir um local",
+        "statusCode": {
+            "cancelledByAnonymousManager": "Cancelamento do administrador",
+            "cancelledByAnonymousManagerDate": "Gerir cancelamentos de {{-date}} à {{time}}",
+            "cancelledByOffer": "Sessão cancelada pelo clube",
+            "cancelledByOfferDate": "Sessão cancelada pelo clube a {{-date}} às {{time}}",
+            "cancelledByManager": "Cancelamento efetuado por {{cancelled_by}}",
+            "cancelledByManagerDate": "Cancelamento efetuado a {{-date}} às {{time}} por {{cancelled_by}}",
+            "cancelledByConsumerDate": "Cancelamento efetuado pelo aluno a {{-date}} às {{time}}",
+            "cancelledByConsumer": "Cancelamento efetuado pelo aluno"
+        },
+        "customerView": {
+            "wasRefunded": "Reembolsado",
+            "cancelled": "Cancelado"
+        },
+        "attend": "Presente",
+        "doNotAttend": "Ausente",
+        "memberGraph": {
+            "title": "Resumo das marcações",
+            "label": "Marcações"
+        },
+        "creditConsumed": "{{credit_consumed}} crédito",
+        "creditConsumed_plural": "{{credit_consumed}} créditos"
+    },
+    "coach": {
+        "workingDateSection": "Período de atividade no estúdio",
+        "dateJoinedCompany": "Data de início",
+        "dateLeftCompany": "Data final",
+        "selector": {
+            "disabled": "Professores arquivados",
+            "label": "Professor",
+            "enabled": "Professores activos"
+        },
+        "search": "Procurar um professor",
+        "forms": {
+            "linkByEmail": {
+                "emailPlaceHolder": "professor@bsport.io",
+                "cancel": "Anular",
+                "submit": "Validar",
+                "title": "Endereço eletrónico do professor",
+                "emailLabel": "Email",
+                "explain": "Se este e-mail já existir no nosso sistema, criaremos automaticamente o professor para si."
+            },
+            "update": {
+                "errors": {
+                    "emailAlreadyInUse": "O e-mail introduzido já existe na base de dados. Não é possível associar este e-mail a um novo professor."
+                },
+                "title": "Editar informações",
+                "success": "Professor modificado com sucesso"
+            },
+            "create": {
+                "success": "Professor criado com êxito",
+                "title": "Novo professor"
+            },
+            "delete": {
+                "actions": {
+                    "confirm": "Eliminar",
+                    "cancel": "Cancelar"
+                },
+                "content": {
+                    "canDelete": "Tem a certeza de que quer eliminar este professor? Deixará de ter acesso ao cálculo da sua remuneração. Poderá voltar a adicioná-lo utilizando o seu endereço de email.",
+                    "cannotDelete": "Não é possível eliminar este professor porque estão previstas sessões futuras!"
+                },
+                "title": "Eliminar professores",
+                "cancel": "Cancelar",
+                "confirm": "Eliminar"
+            },
+            "error_email_exists": "Já existe um professor com este endereço de email, utilize o formulário de criação de Professor"
+        },
+        "detail": {
+            "coachSpaceInfo": "Nesta área, o professor pode aceder ao seu resumo de remuneração por sessão e visualizar o seu horário. Pode também adicionar a sua disponibilidade.",
+            "coachSpace": "Área do professor",
+            "tab": {
+                "general": "Perfil",
+                "calendar": "Calendário"
+            },
+            "noPaymentRule": "Atenção, não foram definidas regras de remuneração para este professor."
+        },
+        "coachAccess": {
+            "teacher": "professor/a",
+            "access": "Acesso",
+            "info": "Detectámos que é professor neste estúdio. Deseja aceder à sua área de membro ou à sua área de professor?",
+            "student": "aluno"
+        },
+        "noCoachs": "Sem professores registados, faça aqui a gestão dos seus professores, convidados e respectiva remuneração.",
+        "overrider": "Substituição",
+        "overrideSelectorTitle": "Professor",
+        "coach_override": "Professor substituto",
+        "color": "Código de cores (RDV)",
+        "showPerformance": "Pagar",
+        "performance": {
+            "coachName": "Professor",
+            "nbBookings": "Marcações",
+            "nbOffersTotal": "Sessões",
+            "nbBookingsOverThreshold": "Marcações bónus",
+            "pricePerOffer": "Montante por sessão",
+            "pricePerAdditionalBooking": "Montante por marcação",
+            "title": "Descrição do professor",
+            "calculate": "Calcular",
+            "payment": "Remuneração",
+            "durationBookings": "Número de horas",
+            "totalNetGain": "Ganho total líquido"
+        },
+        "selfNoActivity": "Não é responsável por nenhuma atividade.",
+        "card": {
+            "update": "Modificar"
+        },
+        "noCoach": "De momento, não há professores registados",
+        "baseCoach": "Habitual",
+        "showActivities": "Mostrar actividades",
+        "showDescription": "Adicionar descrição",
+        "description": "Descrição",
+        "pleaseFill": "Introduzir um professor",
+        "numberCoaches": "{{ number }} professores",
+        "emptyDescription": "Nenhuma descrição adicionada",
+        "emptyNotes": "Sem notas",
+        "addCoach": "Adicionar um professor",
+        "noActivity": "Este professor não gere nenhuma atividade.",
+        "inactiveCoaches": "Professores arquivados",
+        "coach": "Professor",
+        "paymentRule": "Remuneração"
+    },
+    "coachPerformance": {
+        "fields": {
+            "nb_appointments": "Número de nomeações",
+            "date": "Data",
+            "rule": "Regra de remuneração das sessões",
+            "unpaid_private_booking": "Algumas referências não são remuneradas.",
+            "marginValue": "Contribuição marginal",
+            "netGain": "Ganho líquido",
+            "coachName": "Professor",
+            "error": "Parece que algumas aulas não têm uma regra de pagamento associada. É necessário associar uma regra de pagamento a estas aulas ou associar uma regra de pagamento ao professor.",
+            "bonus": "Bónus",
+            "base": "Base",
+            "duration": "Duração",
+            "nb_bookings": "Marcações",
+            "nb_sessions": "Número de sessões",
+            "name": "Nome da sessão",
+            "confirmed_bookings": "Participantes",
+            "cancelled_bookings": "Marcações canceladas",
+            "total_on_sessions": "Remuneração das aulas em grupo",
+            "total_on_appointments": "Compensação por  referência",
+            "total": "Remuneração total",
+            "totalNetGain": "Ganho líquido total"
+        },
+        "advancedFilters": {
+            "apply": "Aplicar filtros",
+            "privateserviceCoachPaymentRuleSelector": "Nomeações",
+            "header": "Filtros avançados",
+            "reset": "Redefinir filtros",
+            "coachSelector": "Selecionar professores",
+            "coachPaymentRuleGroupSelector": "Grupos de remuneração",
+            "sessionCoachPaymentRuleSelctor": "Aulas de grupo ",
+            "workshopCoachPaymentRuleSelctor": "Workshops",
+            "byCoachPaymentruleGroups": "Filtrar por grupo de remuneração",
+            "byCoachPaymentRules": "Filtro por regras de remuneração (para professores sem grupo de remuneração)"
+        },
+        "cachedData": {
+            "title": "Dados guardados ({{ count }})",
+            "previewModeTitle": "Modo de pré-visualização",
+            "dateRange": "Remuneração a partir de {{- startDate }} até {{- endDate }}",
+            "unresolvedDaterange": "Intervalo de pagamento inválido",
+            "enterPreviewMode": "Mudar para o modo de pré-visualização",
+            "dateSaved": "Dados gerados em {{ date }}",
+            "downloadMySavedData": "Descarregar",
+            "leavePreviewMode": "Sair do modo de pré-visualização",
+            "oldestUpdate": "Última atualização feita em : {{- date }}",
+            "undeterminedOldestUpdate": "Atualização mais antiga não determinada"
+        },
+        "export": {
+            "dialog": {
+                "buttonText": "Confirmar",
+                "title": "Exportação e armazenamento de dados",
+                "message": "Ao exportar os dados, é possível gerar uma folha de cálculo Excel para a duração selecionada. Estes dados também serão guardados para utilização futura."
+            },
+            "buttonText": "Exportar",
+            "completed": {
+                "title": "Exportação em Excel da remuneração dos professores",
+                "message": "O ficheiro de exportação das remunerações dos professores está disponível. Também é possível recuperar estes dados na secção \"Dados guardados\"."
+            }
+        },
+        "performance": {
+            "table": {
+                "header": {
+                    "nbSessions": "Número de aulas em grupo",
+                    "coachName": "Professor"
+                }
+            }
+        },
+        "pricePerAdditionalBookingLabel": "Variável por marcação",
+        "pricePerAdditionalBookingHelper": "Montante pago por todas as marcação acima do limite",
+        "form": {
+            "ifEmptyAllowAll": "Deixar em branco para ignorar este filtro"
+        },
+        "table": {
+            "downloadCSV": "Descarregar (.csv)",
+            "downloadPDF": "Descarregar (.pdf)",
+            "downloadAll": "Resumo"
+        },
+        "addBonus": "Adicionar uma regra",
+        "dateTitle": "Periodo de intervalo",
+        "remuneration": "Remuneração",
+        "pricePerOffer": "Montante por sessão",
+        "bonus": "Bónus",
+        "checkboxIncludeABonus": "Incluir um bónus de desempenho",
+        "bookingThresholdLabel": "Mínimo de marcações",
+        "fixedPriceForAdditionalBookingLabel": "Fixo por sessão",
+        "fixedPriceForAdditionalBookingHelper": "Montante fixo pago para todas as sessões com inscrições suficientes",
+        "bookingThresholdHelper": "Uma sessão só será contabilizada se totalizar este número de marcações"
+    },
+    "common": {
+        "text": {
+            "showLessText": "Ver menos",
+            "showMoreText": "Ver mais"
+        },
+        "card": {
+            "categoryNames": {
+                "validity": "Validade",
+                "compatibility": "Compatibilidade",
+                "restrictions": "Restrições",
+                "paymentMethods": "Métodos de pagamento disponíveis",
+                "accessibility": "Acessibilidade",
+                "vod": "VOD",
+                "credits": "Número de créditos"
+            },
+            "copyLink": "Copiar ligação"
+        },
+        "duration": {
+            "hour": "{{ count }} hora",
+            "hour_plural": "{{ count }} horas",
+            "day": "{{ count }} dia",
+            "day_plural": "{{ count }} dias",
+            "minute": "{{ count }} minuto",
+            "minute_plural": "{{ count }} minutos"
+        },
+        "back": "Voltar a",
+        "disconnect": "Terminar sessão",
+        "disconnectInfo": "Regressar à página de início de sessão",
+        "ok": "OK",
+        "form": {
+            "duration": {
+                "hour": "Duração em horas:",
+                "hour_plural": "Horas:",
+                "day": "Duração em dias",
+                "day_plural": "Dias:",
+                "minute": "Duração em minutos",
+                "minute_plural": "Minutos:"
+            },
+            "requiredField": "campo de preenchimento obrigatório"
+        },
+        "colorPicker": {
+            "noColor": "Sem cor",
+            "delete": "Eliminar",
+            "validate": "Registo"
+        },
+        "showMore": "Ver mais ({{count}})",
+        "showLess": "Mostrar menos",
+        "weekly": "Semanal",
+        "requiredField": "campo a preencher obrigatório",
+        "selector": {
+            "selectAll": "Selecionar tudo",
+            "unselectAll": "Desmarcar tudo",
+            "validate": "Confirmar"
+        },
+        "monthly": "Mensal",
+        "close": "Fechar",
+        "cancel": "Cancelar",
+        "confirm": "Confirmar",
+        "activate": "Ativar",
+        "endBeforeStart": "A data final deve ser superior à data de início",
+        "startAfterEnd": "A data de início deve ser inferior à data de fim",
+        "save": "Guardar",
+        "start": "Início",
+        "next": "Seguinte",
+        "previous": "Anterior",
+        "letsGo": "Vamos começar!",
+        "finish": "Terminar",
+        "delete": "Eliminar",
+        "saveRecord": "Registo",
+        "download": "Descarregar",
+        "params": "Parâmetros"
+    },
+    "communication": {
+        "mail": {
+            "contentNotification": "Conteúdo",
+            "hideMail": "Ocultar e-mail",
+            "warningConsent2": "Não respeitar esta decisão do seu membro seria ilegal. A Bsport não é responsável por qualquer utilização indevida de mensagens de e-mail diretas.",
+            "dialogTitle": "Comunicação",
+            "sendSms": "Enviar um SMS",
+            "refreshText": "Recarregue a página para atualizar as alterações do e-mail",
+            "mailSelection": "Escolher um e-mail",
+            "title": "Assunto do correio",
+            "titleInterpolated": "As variáveis contidas na linha de assunto e no corpo do e-mail são actualizadas de acordo com o destinatário",
+            "writeMail": "Escrever uma mensagem de email",
+            "selectTemplate": "Seleccionar um modelo de template",
+            "content": "Conteúdo do email",
+            "contentSms": "Conteúdo dos SMS",
+            "numberSms": "sms",
+            "mailMissing": "Ausência de endereço de email",
+            "phoneMissing": "Número de telefone em falta",
+            "success": "Mensagem enviada",
+            "error": "Mensagem não enviada, tente novamente mais tarde",
+            "noMailAvailable": "Não há endereço eletrónico disponível, por favor crie um",
+            "selectToShowPreview": "Selecionar uma mensagem de email para uma pré-visualização",
+            "count": "caracteres",
+            "showMail": "Ver e-mail",
+            "refreshTextPhone": "Recarregue a página para atualizar a alteração do número de telefone",
+            "noObject": "Nenhum objeto",
+            "sendNotification": "Notificação push",
+            "titleNotification": "Título",
+            "warningConsent1": "Atenção! Este membro desactivou a opção de enviar e-mails promocionais. As mensagens de e-mail directas são uma forma rápida e fácil de falar com os seus membros. Não devem ser utilizadas para fins publicitários ou promocionais.",
+            "warningProvider": "Tenha em atenção que as respostas dos membros a esta mensagem não aparecerão na plataforma, mas diretamente na sua caixa e-mail. Para que todas elas apareçam aqui, altere a definição de comunicação na página Definições/Personalização."
+        },
+        "recipients": "Beneficiário",
+        "campaign": {
+            "manualTitle": "Envios manuais",
+            "sentAt": "Enviado em {{ date_created }}",
+            "report": {
+                "dateCreated": "Data de envio",
+                "topLinks": "Ligações com mais cliques",
+                "recipientList": "Detalhes do destinatário",
+                "noTopLink": "Sem cliques",
+                "totalRead": "Número de pessoas que abriram o e-mail",
+                "totalClick": "Número de cliques numa hiperligação",
+                "lastOpen": "Última abertura",
+                "deliveryRate": "Envio bem sucedido"
+            },
+            "automated": {
+                "eventKind": {
+                    "0": "Entrada",
+                    "1": "Saída"
+                },
+                "form": {
+                    "advancedSection": "Avançado",
+                    "max_communications_sent_per_member": "Número máximo de envios por membro",
+                    "max_communications_sent_per_member_limit": "Valor máximo : {{ max }}",
+                    "subtitles": {
+                        "create": {
+                            "leftSmartList": "Criação de uma regra de envio automático para a saída da lista inteligente",
+                            "joinSmartList": "Criação de uma regra de envio automático para entradas de listas inteligente"
+                        },
+                        "update": {
+                            "joinSmartList": "Alteração de uma regra de entrada automática na lista inteligente",
+                            "leftSmartList": "Modificação de uma regra de saída automática da lista inteligente"
+                        }
+                    },
+                    "frequenceHelper": "Esta comunicação será enviada para {{ max }} {{ event_kind }} da lista inteligente para cada membro. Após {{ max }} {{ event_kind }} da lista inteligente para o mesmo membro, este deixará de receber esta comunicação. Pode alterar esta definição em 'Avançadas'.",
+                    "submit": "Confirmar"
+                },
+                "panel": {
+                    "title": "Regra de envio automático",
+                    "add": "Adicionar",
+                    "subtitle": {
+                        "onJoin": "À entrada",
+                        "onLeft": "Saída"
+                    }
+                },
+                "deleteDialog": {
+                    "title": "Cancelamento",
+                    "content": "Tem a certeza de que pretende eliminar esta regra de envio automático? Esta ação é definitiva."
+                },
+                "activeSince": "Ativo desde {{-date}}",
+                "onJoin": "Na entrada da lista inteligente",
+                "onLeft": "No final da lista inteligente",
+                "create": "Criação "
+            },
+            "automatedTitle": "Envios automáticos",
+            "recipientCount": "Destinatário: {{ total_recipients }}",
+            "showMail": "Ver a mensagem de e-mail",
+            "unavailableMail": "Pré-visualização não disponível",
+            "kind": {
+                "0": "Email",
+                "1": "SMS",
+                "2": "Notificação push"
+            },
+            "readCount": "Aberturas",
+            "clickCount": "Cliques",
+            "showReport": "Relatório",
+            "list": {
+                "showMore": "Ver mais",
+                "isEmpty": "Ainda não foi enviado qualquer e-mail"
+            }
+        },
+        "recipient": {
+            "numberOfRecipientsCompact": "{{count}} dest.",
+            "isAnswerWarning": "Atenção! Só o utilizador pode ver esta mensagem",
+            "numberOfRecipients": "Enviado para 1 destinatário",
+            "numberOfRecipients_plural": "Enviado para {{count}} destinatários",
+            "showEmail": "Ver a mensagem de e-mail",
+            "showSms": "Ver a mensagem de texto",
+            "status": {
+                "2": "Recusado",
+                "3": "Em espera",
+                "5": "Erro",
+                "0": "Em curso",
+                "1": "Em curso",
+                "4": "Recebido"
+            },
+            "table": {
+                "columns": {
+                    "email": "Email",
+                    "readCount": "Aberturas",
+                    "lastRead": "Última abertura",
+                    "clicked": "Cliques",
+                    "status": "Estado"
+                }
+            },
+            "readCount": "Abertura",
+            "clicksCount": "Clique",
+            "showNotification": "Ver a notificação"
+        },
+        "dialogTemplate": {
+            "refreshText": "Para ver o seu novo modelo aparecer na lista, clique no botão atualizar.",
+            "title": "Seleção do modelo"
+        },
+        "table": {
+            "columns": {
+                "member": "Membro",
+                "status": "Estado",
+                "title": "Visão geral",
+                "date_created": "Data"
+            }
+        },
+        "filter": {
+            "dateFilter": {
+                "period": "Período",
+                "dateStart": "Data de início",
+                "dateEnd": "Data final",
+                "title": "Data de envio"
+            },
+            "numberFilter": {
+                "severalFilters": "filtros aplicados",
+                "oneFilter": "1 filtro aplicado"
+            },
+            "choicesLabels": {
+                "0": "Email",
+                "1": "SMS",
+                "2": "Notificação push",
+                "51": "Manuel",
+                "70": "Enviado para",
+                "71": "Receitas",
+                "14": "Email transacional",
+                "15": "Sequência",
+                "13": "Notificação",
+                "30": "Agendamento",
+                "31": "Marcações canceladas",
+                "32": "Lista de espera",
+                "10": "Sessão",
+                "11": "Mensagem direta",
+                "12": "Lista inteligente",
+                "50": "Automático"
+            },
+            "applyFilter": "Aplicar",
+            "filterAction": "Filtro",
+            "recipient": {
+                "title": "Destinatários",
+                "placeholder": "Selecionar um estado de marcação"
+            },
+            "sendParameter": {
+                "title": "Padrão de envio",
+                "placeholder": "Seleccionar um padrão de envio"
+            },
+            "srcOrDst": {
+                "title": "Mensagens",
+                "placeholder": "Selecionar um tipo de mensagem"
+            },
+            "kind": {
+                "title": "Tipo de transferência",
+                "placeholder": "Selecionar um tipo de entrega"
+            },
+            "channel": {
+                "title": "Canais",
+                "placeholder": "Selecionar um tipo de canal"
+            }
+        },
+        "dialogInformation": {
+            "headerStatus": "Estado",
+            "headerOpen": "Aberto",
+            "status": {
+                "4": "recebido",
+                "notReceived": "não recebido",
+                "openYes": "sim",
+                "openNo": "não",
+                "1": "em espera"
+            }
+        },
+        "dialogRecipients": {
+            "refreshMemberData": "Para ver as suas alterações, clique no botão atualizar.",
+            "warnings": {
+                "recipientsNotAllSelected": "Nem todos os beneficiários foram seleccionados.",
+                "full": "Alguns destinatários não têm um endereço eletrónico/número de telefone e nem todos os destinatários foram seleccionados.",
+                "header": "Atenção",
+                "phoneOrMailMissing": "Alguns destinatários não têm endereço de email ou número de telefone."
+            },
+            "noMail": "email não especificado",
+            "noPhone": "número não introduzido"
+        },
+        "sendMessage": {
+            "icons": {
+                "mail": "Email",
+                "balise": "Avisos",
+                "sms": "SMS",
+                "notification": "Notificação push",
+                "template": "Modelo de email"
+            },
+            "buttons": {
+                "send": "Enviar",
+                "selectRecipients": "Selecionar destinatários",
+                "selectRecipientsMobile": "dest."
+            },
+            "sendDisabled": {
+                "missingRecipients": "Primeiro, escolha os destinatários",
+                "missingContent": "A sua mensagem não está completa.",
+                "missingEmailInDirectMember": "Este utilizador não tem um endereço de email.",
+                "missingPhoneInDirectMember": "Este utilizador não tem um número de telefone"
+            },
+            "textField": {
+                "title": "Título",
+                "object": "Objeto",
+                "content": "Mensagem",
+                "warningLength": "{{number_sms}} serão enviadas mensagens SMS"
+            },
+            "refresh": "Para ver a nova versão do seu modelo, clique no botão atualizar."
+        },
+        "common": {
+            "confirm": "Confirmar",
+            "cancel": "Cancelar",
+            "close": "Fechar",
+            "submit": "Enviar",
+            "refresh": "Atualizar"
+        },
+        "send": {
+            "error": "Erro ao enviar",
+            "success": "O e-mail está a ser enviado..."
+        },
+        "dialogReceiverChoice": {
+            "reservation": "Enviar para as marcações",
+            "canceledReservation": "Enviar para as marcações canceladas",
+            "waitingList": "Enviar para a lista de espera",
+            "title": "Selecionar destinatários"
+        },
+        "sms": {
+            "warningConsent2": "Não respeitar a decisão do seu membro seria ilegal. A Bsport não se responsabiliza por qualquer utilização indevida de SMS directos.",
+            "warningConsent1": "Atenção! O membro desactivou a opção de envio de mensagens de texto promocionais. As mensagens SMS directas são uma forma rápida e fácil de falar com os seus membros. Não devem ser utilizadas para fins publicitários ou promocionais."
+        }
+    },
+    "checkout": {
+        "bookerMethod": {
+            "emptyMethod": "Nenhum passe é compatível com este conteúdo, contacte o seu estúdio",
+            "section": {
+                "combo": "Packs",
+                "consumerPass": "Os meus passes",
+                "pass": "Passes disponíveis"
+            },
+            "actions": {
+                "bookVod": "Desbloquear conteúdo"
+            }
+        },
+        "payment": {
+            "total": "Total com IVA",
+            "globalTotal": "Total",
+            "flat_fee": "Taxas de inscrições",
+            "taxExcluded": "Subtotal excl.",
+            "tax": "Impostos"
+        },
+        "events": {
+            "basket-created": "Cesto criado",
+            "basket-finalize": "Compra finalizada",
+            "basket-additem": "Adicionar ao cesto",
+            "basket-removeitem": "Retirar do cesto",
+            "basket-automaticclean": "Limpar cesto"
+        },
+        "myBasket": {
+            "totalQuantity": "Contém {{ qty }} elementos",
+            "actions": {
+                "closeBasket": "Continuar a comprar",
+                "checkoutBasket": "Pagar",
+                "payZero": "Confirmar o meu cesto"
+            },
+            "checkingPaymentStatus": "Aguarde enquanto verificamos o estado do pagamento",
+            "finalize": {
+                "steps": {
+                    "address": "Morada",
+                    "payment": "Faturação"
+                }
+            },
+            "title": "O meu cesto",
+            "isEmpty": "O cesto está vazio",
+            "isFinalized": "O cesto foi validado",
+            "featured": "Recomendamos",
+            "error": {
+                "invalidBasket": "O seu cesto continha artigos que já não estão disponíveis para venda. Não foi registado qualquer pagamento",
+                "inconsistentBasket": "O seu cesto foi modificado. Actualize a sua página antes de validar o pagamento.\nNão foi debitado."
+            }
+        },
+        "validation": {
+            "actions": {
+                "continue": "Continuar a comprar",
+                "member": "Área de Membros",
+                "back": "Anterior",
+                "widgetContinue": "Continuar"
+            },
+            "sections": {
+                "errorExplain": {
+                    "generic": "Não foi possível efetuar a operação. Por favor, tente novamente.",
+                    "guestGeneric": "Surgiu um problema com a inscrição de um convidado.",
+                    "guestOvercomeLimit": "O número de convidados adicionado a esta reserva excede o número autorizado.",
+                    "guestReachedLimit": "O número de convidados adicionado a esta sessão excede o número autorizado. Já não é possível efetuar mais marcações.",
+                    "guestSettings": "O estúdio desactivou a função de marcação de convidados.",
+                    "guestOffer": "O estúdio desactivou a função de reserva de convidados para esta sessão.",
+                    "guestPass": "O estúdio desactivou a função de marcação de convidados para este passe de aula.",
+                    "guestNotEnoughSpot": "Não há lugares suficientes para todos os vossos convidados."
+                },
+                "offerBooked": "As suas sessões",
+                "offerPreBooked": "Inscrição na lista de espera",
+                "offerNotBookable": "Não é possível registar-se",
+                "error": "Erro",
+                "explain": "A sua transação foi processada. Enviar-lhe-emos um e-mail de confirmação.",
+                "recap": "Resumo",
+                "title": "Parabéns !",
+                "basket": "O meu cesto"
+            }
+        },
+        "internalAccount": {
+            "cancel": "Cancelar",
+            "useMyInternalAccount": "Utilizar o meu saldo",
+            "myInternalAccount": "O meu saldo",
+            "use": "Utilizar o meu saldo",
+            "label": "Montante disponível : ",
+            "confirm": "Confirmar"
+        },
+        "historyTitle": "Histórico de compras",
+        "paymentIntent": {
+            "isProcessing": "Aguarde"
+        },
+        "forms": {
+            "delivery": {
+                "first_name": "Nome",
+                "last_name": "Nome",
+                "actions": {
+                    "submit": "Seguinte",
+                    "cancel": "Anterior"
+                }
+            }
+        },
+        "autoAdd": {
+            "paymentPack": {
+                "locked": "Este item não está disponível."
+            },
+            "privatePass": {
+                "error": "Este passe não está disponível"
+            },
+            "paymentCombo": {
+                "locked": "Este pacote não está disponível"
+            }
+        },
+        "payLater": {
+            "submit": "Pagamento no local",
+            "explain": "O seu meio de pagamento será solicitado no local antes da sua sessão. Antes disso, a fatura será considerada como não paga."
+        },
+        "or": "ou",
+        "expire_in": "Expira em ",
+        "eventHistory": {
+            "sectionTitle": "Eventos",
+            "pleaseSelectABasket": "Selecionar para ver histórico"
+        }
+    },
+    "clockIn": {
+        "clockinDialog": {
+            "subtitleSuccess": "Os seus horários foram guardados com sucesso. Da próxima vez que abrir esta janela, pode iniciar um novo check-in.",
+            "subtitleClockOut": "Cá vamos nós! Para voltar a entrar no relógio e parar a contagem decrescente, clique em \"Concluir\"",
+            "clockInForOther": "marcar o ponto por outro membro staff",
+            "successClockOut": "Hora de partida:",
+            "successDuration": "Número de horas trabalhadas:",
+            "title": "Relógio de ponto",
+            "close": "Fechar",
+            "clockIn": "Início",
+            "clockOut": "Terminar",
+            "lastClockOut": "Hora de chegada: ",
+            "lastClockIn": "Última picagem de ponto: {{- date }} - {{ hour }}",
+            "subtitleClockIn": "Bom dia {{ name }}, clique em \"Começar\" para dar entrada.",
+            "successClockIn": "Hora de chegada:"
+        },
+        "attendanceTable": {
+            "emptyState": "Ainda não concedeu acesso ao staff. Para definir o acesso do staff, vá às definições e depois ao staff ou clique no botão abaixo. Para controlar as horas de trabalho do seu staff, não se esqueça de ativar o \"Relógio de ponto\" quando criar a sua função.",
+            "role": "Papel",
+            "start": "Terminar",
+            "end": "Começar",
+            "here": "Present",
+            "firstname": "Apelido",
+            "lastname": "Nome",
+            "staff": "Staff",
+            "email": "Email",
+            "lastClockIn": "Última pontuação",
+            "action": "Ação",
+            "missing": "Ausente",
+            "createStaff": "criar um acesso de staff",
+            "status": "Estado"
+        },
+        "editModal": {
+            "startingTime": "Hora de início",
+            "cancel": "Cancelar",
+            "confirm": "Confirmar",
+            "title": "Alterações de horários",
+            "endingTime": "Hora de término"
+        },
+        "historyTable": {
+            "durationHoursMinutes": "Horas trabalhadas (horas e minutos)",
+            "durationHours": "Horas trabalhadas (horas)",
+            "action": "Ação",
+            "download": "Descarregar",
+            "staff": "Staff",
+            "startingHour": "Hora de início",
+            "endingHour": "Hora de saída"
+        },
+        "modal": {
+            "delete": {
+                "title": "Término",
+                "content": "Atenção: tem a certeza de que pretende apagar a faixa horária deste membro do staff? Esta operação é irreversível."
+            }
+        },
+        "pageTitle": "Horários do Staff",
+        "tabRealTime": "Tempo real",
+        "tabHistory": "Histórico",
+        "export": {
+            "dialog": {
+                "message": "A exportação está pronta para ser descarregada.",
+                "title": "Exportar histórico"
+            }
+        }
+    },
+    "category": {
+        "sct": {
+            "selector": {
+                "placeholder": "Pesquisar uma categoria",
+                "label": "Categoria"
+            }
         }
     }
 }

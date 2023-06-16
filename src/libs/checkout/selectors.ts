@@ -1,4 +1,5 @@
 // @ts-nocheck
+import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
 import { CheckoutState } from './types';
 import { RootState } from '../../reducers';
@@ -43,4 +44,24 @@ export const getBasketHistoryList = createSelector(
   [getCheckoutState, (state: RootState, id: number) => id],
   (checkoutState, id) =>
     checkoutState.basket.history.items.filter((b) => b.member === id),
+);
+
+export const getBasketOfferList = createSelector(
+  [getCurrentBasket, _getOfferData],
+  (currentBasket, offerDataById) => {
+    return Immutable(
+      currentBasket?.checkout_items
+        ?.filter(
+          (checkoutItem) =>
+            checkoutItem.extra_data?.offers_data &&
+            checkoutItem.extra_data?.offers_data.length,
+        )
+        .map((checkoutItem) =>
+          checkoutItem.extra_data.offers_data.map(
+            (offerData) => offerDataById[offerData.offer_id],
+          ),
+        )
+        .flat(),
+    );
+  },
 );

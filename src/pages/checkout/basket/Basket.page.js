@@ -31,16 +31,26 @@ import {
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
   assignInstalmentPayment as assignInstalmentPaymentAction,
 } from '../../../libs/checkout/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../../libs/establishment/actions';
 import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '../../../libs/instalment-payment-configuration/actions';
 import { getInstalmentForBasketList } from '../../../libs/instalment-payment-configuration/selectors';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import Analytics from '../../../components/analytics/Analytics.component';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import CheckoutFlow from '../../../libs/checkout/components/CheckoutFlow.component';
-import { getCurrentBasket } from '../../../libs/checkout/selectors';
+import {
+  getCurrentBasket,
+  getBasketOfferList,
+} from '../../../libs/checkout/selectors';
+import {
+  withMetaActivity,
+  withEstablishment,
+} from '../../../libs/offer/selectors';
 
 import themeSelectors from '../../../libs/theme/selectors';
 import { fetchCompanyTheme } from '../../../libs/theme/actions';
+import { fetchOfferBulk as fetchOfferBulkAction } from '../../../libs/offer/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../../libs/meta-activity/actions';
 import { getSavedPaymentMethodList } from '../../../libs/payment/selectors';
 import {
   fetchPaymentMethodList,
@@ -141,6 +151,7 @@ type Props = {
     instalment_payment_id: number,
     options: OptionCallback<Basket>,
   ) => void,
+  basketOffers: Array<Offer<number, Establishment, MetaActivity>>,
 };
 
 export class BasketPage extends React.Component<Props> {
@@ -521,6 +532,9 @@ export default compose(
         state.paymentBackend.detachPaymentMethod.loading,
       creditAccountBalance: getUsableCreditAccountBalance(state, companyId),
       instalmentPaymentConfigurationList: getInstalmentForBasketList(state),
+      basketOffers: withMetaActivity(
+        withEstablishment((state_) => getBasketOfferList(state_)),
+      )(state),
     }),
     {
       disconnect: authActions.disconnect,
@@ -548,11 +562,31 @@ export default compose(
         createOrRefreshInternalAccountPrepaidLineAction,
       fetchMember,
       fetchMembership,
+      fetchOfferBulk: fetchOfferBulkAction,
+      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+      fetchEstablishmentBulk: fetchEstablishmentBulkAction,
     },
   ),
   withHandlers({
+    fetchOfferWithEstablishmentAndActivityBulk:
+      ({ fetchOfferBulk, fetchEstablishmentBulk, fetchMetaActivityBulk }) =>
+      (ids) => {
+        fetchOfferBulk(ids, {
+          onSuccess: (offerList) => {
+            fetchMetaActivityBulk(offerList.map((b) => b.meta_activity));
+            fetchEstablishmentBulk([offerList.map((b) => b.establishment)]);
+          },
+        });
+      },
+  }),
+  withHandlers({
     refreshBasket:
-      ({ fetchCurrentBasket, fetchInstalmentPaymentByBasket, companyId }) =>
+      ({
+        fetchCurrentBasket,
+        fetchInstalmentPaymentByBasket,
+        companyId,
+        fetchOfferWithEstablishmentAndActivityBulk,
+      }) =>
       (options) =>
         fetchCurrentBasket(companyId, {
           onError: options && options.onError,
@@ -561,6 +595,19 @@ export default compose(
               options.onSuccess();
             }
             fetchInstalmentPaymentByBasket(basket.id);
+            const offerIdsList = basket.checkout_items
+              ?.filter(
+                (checkoutItem) =>
+                  checkoutItem.extra_data?.offers_data &&
+                  checkoutItem.extra_data.offers_data.length,
+              )
+              .map((checkoutItem) =>
+                checkoutItem.extra_data.offers_data.map(
+                  (offerData) => offerData.offer_id,
+                ),
+              )
+              .flat();
+            fetchOfferWithEstablishmentAndActivityBulk(offerIdsList);
           },
         }),
   }),

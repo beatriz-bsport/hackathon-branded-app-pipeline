@@ -1,5 +1,3 @@
-// @flow
-
 import React, { useImperativeHandle, forwardRef } from 'react';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';

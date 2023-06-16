@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 
 import Grid from '@material-ui/core/Grid';
@@ -208,10 +207,10 @@ const styles = (theme: MaterialTheme) => ({
     padding: 0,
   },
   street: {
-    flexDirection: 'row',
+    flexDirection: 'row' as 'row',
   },
   city: {
-    flexDirection: 'row',
+    flexDirection: 'row' as 'row',
     rowGap: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   },

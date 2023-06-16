@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React, { useImperativeHandle, forwardRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -281,7 +280,7 @@ export const PaymentStripeSEPA = forwardRef(
     const iban = elements.getElement(IbanElement);
     React.useEffect(() => {
       if (iban) {
-        iban.addEventListener('change', (data) => {
+        iban.on('change', (data) => {
           if (
             [
               'AD',
@@ -315,7 +314,9 @@ export const PaymentStripeSEPA = forwardRef(
           }
         });
       }
-      return () => iban?.removeEventListener('change');
+      return () => {
+        iban?.off('change');
+      };
       // eslint-disable-next-line
     }, [!!iban, setNeedBillingDetailAddress, setBillingDetails, billingDetails]);
 

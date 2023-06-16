@@ -177,8 +177,10 @@ DeleteDialog.args = {
 const GenericDialogWithCountdownConfirmTemplate = (
   args: DelayedDialogProps,
 ) => <GenericDialogWithCountdownConfirm {...args} />;
-export const DelayedDialog = GenericDialogWithCountdownConfirmTemplate.bind({});
-DelayedDialog.args = {
+export const CountdownDialog = GenericDialogWithCountdownConfirmTemplate.bind(
+  {},
+);
+CountdownDialog.args = {
   open: true,
   title: 'Basic delayed dialog',
   validateLabel: 'Boom',

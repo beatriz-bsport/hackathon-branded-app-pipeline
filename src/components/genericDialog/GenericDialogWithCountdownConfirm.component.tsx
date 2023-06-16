@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core';
 import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
@@ -18,7 +17,7 @@ export const GenericDialogWithCountdownConfirm = (props: Props) => {
     {
       variant: 'text',
       onClick: props.onValidate,
-      countdownBeforeActivation: props.countdownBeforeActivation ?? 5,
+      delayBeforeActivation: props.countdownBeforeActivation ?? 5,
       className: classes.button,
       ...(props.validateLabel
         ? { label: props.validateLabel }

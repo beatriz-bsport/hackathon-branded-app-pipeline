@@ -38,6 +38,7 @@ import withQueryParams from '../../../hocs/with-query-params.hoc';
 import Analytics from '../../../components/analytics/Analytics.component';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import CheckoutFlow from '../../../libs/checkout/components/CheckoutFlow.component';
+import NewCheckoutFlow from '#libs/checkout/components/new-checkout-flow/NewCheckoutFlow.component';
 import {
   getCurrentBasket,
   getBasketOfferList,
@@ -85,6 +86,7 @@ import type { OptionCallback } from '../../../state/types';
 import { fetchMember } from '#libs/member/actions';
 import { BasketAddress } from '#libs/checkout/types';
 import { fetchMembership } from '#libs/membership/actions';
+import { CheckoutContext } from './CheckoutContext';
 
 type Props = {
   basket: ?Basket,
@@ -152,6 +154,7 @@ type Props = {
     options: OptionCallback<Basket>,
   ) => void,
   basketOffers: Array<Offer<number, Establishment, MetaActivity>>,
+  isNewCheckoutFlow?: boolean,
 };
 
 export class BasketPage extends React.Component<Props> {
@@ -376,98 +379,158 @@ export class BasketPage extends React.Component<Props> {
       !this.props.theme.general_terms_and_conditions;
 
     return (
-      <ConsumerAppBarContainer>
-        <div className={this.props.classes.container}>
-          <div className={this.props.classes.checkoutFlow}>
-            <CheckoutFlow
-              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
-              basket={this.props.basket}
-              companyCountry={this.props.companyCountry}
-              loading={this.props.loading || this.props.paymentProcessing}
-              processing={this.props.processing}
-              addItemToBasket={this.props.addItemToBasket}
-              addShopItemToBasket={this.props.addShopItemToBasket}
-              removeItemFromBasket={this.props.removeItemFromBasket}
-              attachCoupon={this.attachCoupon}
-              backToCalendar={this.backToCalendar}
-              shopItemList={this.props.shopItemList}
-              patchBasket={this.props.patchCurrentBasket}
-              savedPaymentMethodList={this.props.savedPaymentMethodList}
-              termsAndConditions={this.props.theme.general_terms_and_conditions}
-              setTermsAndConditionsAccepted={this.setTermsAndConditionsAccepted}
-              termsAndConditionsAccepted={termsAndConditionsAccepted}
-              onItemExpire={this.onItemExpire}
-              validateUnpaid={this.validateUnpaid}
-              onRemoveInternalAccountPrepaidLine={
-                this.props.onRemoveInternalAccountPrepaidLine
-              }
-              checkItemsBasket={this.props.checkItemsBasket}
-              paymentModule={
-                <PaymentStripe
-                  loading={
-                    this.props.loading ||
-                    this.props.processing ||
-                    this.props.paymentProcessing
+      <CheckoutContext.Provider value={this.props.isNewCheckoutFlow}>
+        <ConsumerAppBarContainer
+          backgroundColor={this.props.isNewCheckoutFlow ? 'white' : null}
+        >
+          <div className={this.props.classes.container}>
+            <div className={this.props.classes.checkoutFlow}>
+              {!this.props.isNewCheckoutFlow ? (
+                <CheckoutFlow
+                  isExcludingTax={
+                    this.props.theme.is_tax_excluded_in_marketplace
                   }
-                  onCancel={this.backToCalendar}
-                  basketTotalPriceCts={this.props.basket?.total_price_cts}
-                  basketTotalPricePrepaidLines={
-                    this.props.basket?.total_price_prepaid_lines_cts
-                  }
-                  instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
-                    (ipc) => ipc.basketId === this.props.basket?.id,
-                  )}
-                  instalmentPaymentSelectedId={
-                    this.props.basket?.instalment_payment
-                  }
-                  onSelectInstalmentPayment={this.onSelectInstalmentPayment}
-                  basketId={this.props.basket.id}
-                  paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
-                    PAYMENT_ENGINE_STRIPE
-                  ].filter((pm) =>
-                    (
-                      this.props.theme.payment_method_available_basket || []
-                    ).includes(pm),
-                  )}
-                  clientSecret={this.state.clientSecret}
-                  termsAndConditionsAccepted={termsAndConditionsAccepted}
+                  basket={this.props.basket}
+                  companyCountry={this.props.companyCountry}
+                  loading={this.props.loading || this.props.paymentProcessing}
+                  processing={this.props.processing}
+                  addItemToBasket={this.props.addItemToBasket}
+                  addShopItemToBasket={this.props.addShopItemToBasket}
+                  removeItemFromBasket={this.props.removeItemFromBasket}
+                  attachCoupon={this.attachCoupon}
+                  backToCalendar={this.backToCalendar}
+                  shopItemList={this.props.shopItemList}
+                  patchBasket={this.props.patchCurrentBasket}
+                  savedPaymentMethodList={this.props.savedPaymentMethodList}
                   termsAndConditions={
                     this.props.theme.general_terms_and_conditions
                   }
                   setTermsAndConditionsAccepted={
                     this.setTermsAndConditionsAccepted
                   }
-                  clientSecretLoading={this.state.clientSecretLoading}
-                  onSuccess={this.onSuccess}
-                  memberId={this.props.basket.member}
-                  detachPaymentMethodLoading={
-                    this.props.detachPaymentMethodLoading
+                  termsAndConditionsAccepted={termsAndConditionsAccepted}
+                  onItemExpire={this.onItemExpire}
+                  validateUnpaid={this.validateUnpaid}
+                  onRemoveInternalAccountPrepaidLine={
+                    this.props.onRemoveInternalAccountPrepaidLine
                   }
-                  detachPaymentMethod={this.props.detachPaymentMethod}
-                  snackbarErrorMsg={this.props.snackbarErrorMsg}
-                  snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                  companyId={this.props.companyId}
-                  sepaDefaultName={this.props.auth.name}
-                  sepaDefaultEmail={this.props.auth.username}
+                  checkItemsBasket={this.props.checkItemsBasket}
+                  paymentModule={
+                    <PaymentStripe
+                      loading={
+                        this.props.loading ||
+                        this.props.processing ||
+                        this.props.paymentProcessing
+                      }
+                      onCancel={this.backToCalendar}
+                      basketTotalPriceCts={this.props.basket?.total_price_cts}
+                      basketTotalPricePrepaidLines={
+                        this.props.basket?.total_price_prepaid_lines_cts
+                      }
+                      instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
+                        (ipc) => ipc.basketId === this.props.basket?.id,
+                      )}
+                      instalmentPaymentSelectedId={
+                        this.props.basket?.instalment_payment
+                      }
+                      onSelectInstalmentPayment={this.onSelectInstalmentPayment}
+                      basketId={this.props.basket.id}
+                      paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
+                        PAYMENT_ENGINE_STRIPE
+                      ].filter((pm) =>
+                        (
+                          this.props.theme.payment_method_available_basket || []
+                        ).includes(pm),
+                      )}
+                      clientSecret={this.state.clientSecret}
+                      termsAndConditionsAccepted={termsAndConditionsAccepted}
+                      termsAndConditions={
+                        this.props.theme.general_terms_and_conditions
+                      }
+                      setTermsAndConditionsAccepted={
+                        this.setTermsAndConditionsAccepted
+                      }
+                      clientSecretLoading={this.state.clientSecretLoading}
+                      onSuccess={this.onSuccess}
+                      memberId={this.props.basket.member}
+                      detachPaymentMethodLoading={
+                        this.props.detachPaymentMethodLoading
+                      }
+                      detachPaymentMethod={this.props.detachPaymentMethod}
+                      snackbarErrorMsg={this.props.snackbarErrorMsg}
+                      snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                      companyId={this.props.companyId}
+                      sepaDefaultName={this.props.auth.name}
+                      sepaDefaultEmail={this.props.auth.username}
+                      allowConsumerToUseInternalAccount={
+                        this.props.theme.allow_consumer_to_use_internal_account
+                      }
+                      useInternalAccount={this.props.useInternalAccount}
+                      creditAccountBalance={this.props.creditAccountBalance}
+                      checkItemsBasket={this.props.checkItemsBasket}
+                      paymentProcessing={this.props.paymentProcessing}
+                      setPaymentProcessing={this.props.setPaymentProcessing}
+                      paymentGroupId={this.state.paymentGroupId}
+                      createPendingBookingsIfNecessary={
+                        this.createPendingBookingsIfNecessary
+                      }
+                      stripeId={this.props.theme.stripe_id}
+                    />
+                  }
+                />
+              ) : (
+                <NewCheckoutFlow
+                  addItemToBasket={this.props.addItemToBasket}
                   allowConsumerToUseInternalAccount={
                     this.props.theme.allow_consumer_to_use_internal_account
                   }
-                  useInternalAccount={this.props.useInternalAccount}
-                  creditAccountBalance={this.props.creditAccountBalance}
+                  attachCoupon={this.attachCoupon}
+                  auth={this.props.auth}
+                  basket={this.props.basket}
+                  basketLoading={this.props.loading || this.props.processing}
+                  basketOffers={this.props.basketOffers}
                   checkItemsBasket={this.props.checkItemsBasket}
-                  paymentProcessing={this.props.paymentProcessing}
-                  setPaymentProcessing={this.props.setPaymentProcessing}
-                  paymentGroupId={this.state.paymentGroupId}
+                  clientSecret={this.state.clientSecret}
+                  companyId={this.props.companyId}
                   createPendingBookingsIfNecessary={
                     this.createPendingBookingsIfNecessary
                   }
-                  stripeId={this.props.theme.stripe_id}
+                  creditAccountBalance={this.props.creditAccountBalance}
+                  detachPaymentMethod={this.props.detachPaymentMethod}
+                  detachPaymentMethodLoading={
+                    this.props.detachPaymentMethodLoading
+                  }
+                  instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
+                    (ipc) => ipc.basketId === this.props.basket?.id,
+                  )}
+                  isExcludingTax={
+                    this.props.theme.is_tax_excluded_in_marketplace
+                  }
+                  onPaymentSuccess={this.onSuccess}
+                  onRemoveInternalAccountPrepaidLine={
+                    this.props.onRemoveInternalAccountPrepaidLine
+                  }
+                  onSelectInstalmentPayment={this.onSelectInstalmentPayment}
+                  patchBasket={this.props.patchCurrentBasket}
+                  paymentGroupId={this.state.paymentGroupId}
+                  paymentProcessing={this.props.paymentProcessing}
+                  removeItemFromBasket={this.props.removeItemFromBasket}
+                  setPaymentProcessing={this.props.setPaymentProcessing}
+                  setTermsAndConditionsAccepted={
+                    this.setTermsAndConditionsAccepted
+                  }
+                  snackbarErrorMsg={this.props.snackbarErrorMsg}
+                  snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                  termsAndConditionsAccepted={termsAndConditionsAccepted}
+                  theme={this.props.theme}
+                  useInternalAccount={this.props.useInternalAccount}
+                  validateUnpaid={this.validateUnpaid}
                 />
-              }
-            />
+              )}
+            </div>
           </div>
-        </div>
-      </ConsumerAppBarContainer>
+        </ConsumerAppBarContainer>
+      </CheckoutContext.Provider>
     );
   }
 }
@@ -475,14 +538,14 @@ export class BasketPage extends React.Component<Props> {
 const styles = (theme) => ({
   container: {
     width: '100%',
-    maxWidth: 920,
+    maxWidth: (props) => (props?.isNewCheckoutFlow ? '80vw' : 920),
     height: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'column',
-    backgroundColor: '#efefef',
-    paddingTop: theme.spacing(8),
+    paddingTop: (props) =>
+      props?.isNewCheckoutFlow ? theme.spacing(4) : theme.spacing(8),
   },
   loader: {
     display: 'flex',
@@ -502,7 +565,6 @@ const styles = (theme) => ({
 });
 
 export default compose(
-  withStyles(styles),
   routerParamsToProps({ companyId: 'companyId:number' }),
   withQueryParams([
     [
@@ -535,6 +597,7 @@ export default compose(
       basketOffers: withMetaActivity(
         withEstablishment((state_) => getBasketOfferList(state_)),
       )(state),
+      isNewCheckoutFlow: state.theme.theme?.display_new_checkout_flow,
     }),
     {
       disconnect: authActions.disconnect,
@@ -738,4 +801,5 @@ export default compose(
   }),
   withState('basketError', 'setBasketError', null),
   withState('paymentProcessing', 'setPaymentProcessing', false),
+  withStyles(styles),
 )(BasketPage);

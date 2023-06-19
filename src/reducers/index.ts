@@ -144,6 +144,7 @@ import { WaitingListState } from '#libs/waiting-list/types';
 import { InvoiceState } from '#libs/invoice/types';
 import { ExportableComponentsState } from '#libs/exportable-components/types';
 import { QuicksaleState } from '#libs/quicksale/types';
+import { SubscriptionState } from '#libs/subscription/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -296,7 +297,7 @@ export type RootState = {
   snackbar: SnackbarState;
   spotScheduling: SpotSchedulingState;
   stats: any;
-  subscription: any;
+  subscription: SubscriptionState;
   tutorial: TutorialState;
   tag: TagState;
   theme: ThemeState;

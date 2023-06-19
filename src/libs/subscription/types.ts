@@ -107,7 +107,7 @@ export type Contract = {
   contract: string;
   manager_only: boolean;
   auto_renewal: boolean;
-  flat_fee: number;
+  flat_fee: string;
   recurrent_price: number;
   nb_interval: number;
   disabled: boolean;

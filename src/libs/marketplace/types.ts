@@ -181,3 +181,34 @@ export enum MarketplacePassPageDialogState {
 export interface EventWithElementTarget extends Event {
   target: EventTarget;
 }
+
+export enum MarketplacePaymentMethods {
+  card = 'card',
+  sepa = 'sepa_debit',
+  bacs = 'bacs_debit',
+  bsport = 'bsport:credit',
+  terminal = 'terminal',
+}
+
+export enum MarketplaceStripeElementType {
+  card = 'card',
+  sepa = 'iban',
+}
+
+/**
+ *  @description Type for the state used by the React component
+ * responsible for managing the collection of payment method information.
+ */
+export type MarketplacePaymentMethodBillingDetails = {
+  name: string;
+  email: string;
+  sortCode?: string;
+  accountNumber?: string;
+  address: {
+    line1: string;
+    line2?: string;
+    postalCode?: string;
+    city?: string;
+    country: string;
+  };
+};

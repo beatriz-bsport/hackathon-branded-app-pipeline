@@ -14,7 +14,10 @@ export default class BsportWidget {
     parentElement,
     ...initialParams
   }: { parentElement: HTMLElement } & WidgetConfig = {}) {
-    if (initialParams?.widgetType === 'pass') {
+    if (
+      initialParams?.widgetType === 'pass' ||
+      initialParams?.widgetType === 'subscription'
+    ) {
       import('../vendor/reset.css');
     }
     const component = <Root initialParams={initialParams} />;

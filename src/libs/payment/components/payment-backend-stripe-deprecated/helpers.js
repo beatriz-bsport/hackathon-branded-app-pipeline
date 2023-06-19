@@ -22,4 +22,8 @@ export const AVAILABLE_PAYMENT_METHOD_TYPE = {
     type: 'idealBank',
     method: 'confirmIdealSetup',
   },
+  bacs_debit: {
+    type: 'bacs_debit',
+    method: 'confirmBacsDebitSetup',
+  },
 };

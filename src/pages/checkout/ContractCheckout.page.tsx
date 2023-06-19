@@ -4,7 +4,7 @@ import { compose, withProps, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import withStyles from '@material-ui/styles/withStyles';
-import { Theme } from '@material-ui/core';
+import { Theme, Typography } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
@@ -65,6 +65,7 @@ import ContractTermsDialog from '#libs/subscription/components/contract/Contract
 import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
 import GenericDialogWithCountdownConfirm from '#components/genericDialog/GenericDialogWithCountdownConfirm.component';
 import { COUNTDOWN_BEFORE_ACTIVATION } from './constants';
+import SadSmileyIcon from '#components/icons/SadSmileyIcon.component';
 
 const {
   CONTRACT_IS_ALREADY_SUBSCRIBED,
@@ -309,82 +310,102 @@ export class MarketplaceSubscriptionPayment extends React.Component<
               </div>
             )}
 
-          <div className={classes.centeredContainer}>
-            <Grid container spacing={2} direction="row" justify="space-evenly">
-              <Grid item xs={12} md={6}>
-                {this.props.contractId &&
-                  this.props.contractList &&
-                  (this.props.contractList.length || this.props.contract) && (
-                    <SubscriptionContractDetail
-                      isExcludingTax={
-                        this.props.companyTheme.is_tax_excluded_in_marketplace
-                      }
-                      contract={contract}
-                    />
-                  )}
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Paper className={classes.paymentPanelContainer}>
-                  {!!this.state.stripePromise && (
-                    <Elements stripe={this.state.stripePromise}>
-                      <SubscriptionPayment
-                        onCancel={() => {
-                          this.props.setAcceptContract(false);
-                        }}
+          {!contract || contract?.disabled ? (
+            <div className={classes.notFoundBoxContainer}>
+              <div className={classes.notFoundBox}>
+                <SadSmileyIcon />
+                <Typography variant="h6">
+                  {t('subscriptionNotFound.title')}
+                </Typography>
+                <Typography variant="body2" align="center">
+                  {t('subscriptionNotFound.explanation')}
+                </Typography>
+              </div>
+            </div>
+          ) : (
+            <div className={classes.centeredContainer}>
+              <Grid
+                container
+                spacing={2}
+                direction="row"
+                justify="space-evenly"
+              >
+                <Grid item xs={12} md={6}>
+                  {this.props.contractId &&
+                    this.props.contractList &&
+                    (this.props.contractList.length || this.props.contract) && (
+                      <SubscriptionContractDetail
                         isExcludingTax={
                           this.props.companyTheme.is_tax_excluded_in_marketplace
                         }
-                        onSubmit={this.onSubmit}
-                        processing={this.state.processing}
-                        requestSetupIntentSecret={
-                          this.props.requestSetupIntentSecret
-                        }
-                        savedPaymentMethodList={
-                          this.props.savedPaymentMethodList
-                        }
-                        withCoupon
                         contract={contract}
-                        refreshSavedPaymentMethodList={
-                          this.props.fetchPaymentMethodList
-                        }
-                        enabledPaymentMethods={getMarketplaceEnabledPaymentMethods(
-                          {
-                            paymentMethodAvailableSubscription:
-                              this.props.companyTheme
-                                .payment_method_available_subscription,
-                          },
-                        )}
-                        enabledPaymentGroupMethodIdentifier={
-                          this.props.companyTheme
-                            .payment_method_available_subscription
-                        }
-                        detachPaymentMethodLoading={
-                          this.props.detachPaymentMethodLoading
-                        }
-                        companyId={this.props.companyId}
-                        detachPaymentMethod={this.props.detachPaymentMethod}
-                        snackbarErrorMsg={this.props.snackbarErrorMsg}
-                        snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                        sepaDefaultName={this.props.auth.name}
-                        sepaDefaultEmail={this.props.auth.username}
-                        withGeneralConditions
-                        disabled={!this.props.acceptContract}
-                        acceptContract={this.props.acceptContract}
-                        setAcceptContract={(value: boolean) => {
-                          this.props.setAcceptContract(value);
-                        }}
-                        date={this.props.date}
-                        setDate={this.props.setDate}
-                        onOpenContractTermsDialog={
-                          this.handleOpenContractTermsDialog
-                        }
                       />
-                    </Elements>
-                  )}
-                </Paper>
+                    )}
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Paper className={classes.paymentPanelContainer}>
+                    {!!this.state.stripePromise && (
+                      <Elements stripe={this.state.stripePromise}>
+                        <SubscriptionPayment
+                          onCancel={() => {
+                            this.props.setAcceptContract(false);
+                          }}
+                          isExcludingTax={
+                            this.props.companyTheme
+                              .is_tax_excluded_in_marketplace
+                          }
+                          onSubmit={this.onSubmit}
+                          processing={this.state.processing}
+                          requestSetupIntentSecret={
+                            this.props.requestSetupIntentSecret
+                          }
+                          savedPaymentMethodList={
+                            this.props.savedPaymentMethodList
+                          }
+                          withCoupon
+                          contract={contract}
+                          refreshSavedPaymentMethodList={
+                            this.props.fetchPaymentMethodList
+                          }
+                          enabledPaymentMethods={getMarketplaceEnabledPaymentMethods(
+                            {
+                              paymentMethodAvailableSubscription:
+                                this.props.companyTheme
+                                  .payment_method_available_subscription,
+                            },
+                          )}
+                          enabledPaymentGroupMethodIdentifier={
+                            this.props.companyTheme
+                              .payment_method_available_subscription
+                          }
+                          detachPaymentMethodLoading={
+                            this.props.detachPaymentMethodLoading
+                          }
+                          companyId={this.props.companyId}
+                          detachPaymentMethod={this.props.detachPaymentMethod}
+                          snackbarErrorMsg={this.props.snackbarErrorMsg}
+                          snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                          sepaDefaultName={this.props.auth.name}
+                          sepaDefaultEmail={this.props.auth.username}
+                          withGeneralConditions
+                          disabled={!this.props.acceptContract}
+                          acceptContract={this.props.acceptContract}
+                          setAcceptContract={(value: boolean) => {
+                            this.props.setAcceptContract(value);
+                          }}
+                          date={this.props.date}
+                          setDate={this.props.setDate}
+                          onOpenContractTermsDialog={
+                            this.handleOpenContractTermsDialog
+                          }
+                        />
+                      </Elements>
+                    )}
+                  </Paper>
+                </Grid>
               </Grid>
-            </Grid>
-          </div>
+            </div>
+          )}
         </div>
         <ContractTermsDialog
           closeContractTermsDialog={this.handleCloseContractTermsDialog}
@@ -423,6 +444,22 @@ const styles = (theme: Theme) => ({
   },
   paymentPanelContainer: {
     padding: theme.spacing(2),
+  },
+  notFoundBoxContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: theme.spacing(4),
+  },
+  notFoundBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifySelf: 'center',
+    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
+    gap: theme.spacing(2),
+    background: 'white',
+    borderRadius: theme.spacing(1),
+    maxWidth: '600px',
   },
 });
 

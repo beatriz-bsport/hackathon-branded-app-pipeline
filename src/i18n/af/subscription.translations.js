@@ -788,4 +788,9 @@ exports.default = {
       title: 'Déjà abonné',
     },
   },
+  subscriptionNotFound: {
+    title: 'Contrat introuvable',
+    explanation:
+      "Ce contrat n'existe plus. Veuillez choisir un autre contrat ou contacter le gérant de votre studio.",
+  },
 };

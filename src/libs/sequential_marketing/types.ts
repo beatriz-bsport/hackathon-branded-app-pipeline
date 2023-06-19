@@ -159,3 +159,9 @@ export type TriggerState = {
   allIds: [];
   byId: { [id: number]: ConnectedTrigger };
 } & ErrorAndLoading;
+
+// ========== COMPONENT TYPES ==========
+export type GlobalCadenceChip = {
+  name: string;
+  icon: string;
+};

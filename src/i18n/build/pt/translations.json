@@ -122,7 +122,7 @@
                 "confirm": "Eliminar",
                 "cancel": "Anular",
                 "title": "Eliminar condições",
-                "content": "Ao eliminar a seguinte condição, cancelará todas as reservas futuras efectuadas com a mesma definição.",
+                "content": "Ao eliminar a seguinte condição, cancelará todas as marcações futuras efectuadas com a mesma definição.",
                 "success": "A marcação foi eliminada"
             },
             "editModal": {
@@ -157,7 +157,10 @@
                     "helperText": "Indique a antecedência em número de semanas com que o membro será registado"
                 },
                 "title": "Reservar uma periodicidade",
-                "groupWarning": "Tenha em atenção que não é possível criar marcações regulares para grupos de sessões"
+                "groupWarning": "Tenha em atenção que não é possível criar marcações regulares para grupos de sessões",
+                "startFromDate": {
+                    "label": "Início da recorrência em "
+                }
             },
             "actions": {
                 "close": "Fechar",
@@ -365,7 +368,9 @@
                     "5": "Já registado",
                     "6002": "Lista de espera completa",
                     "6003": "Já está na lista",
-                    "6005": "Lista de espera"
+                    "6005": "Lista de espera",
+                    "6": "Rácio homem/mulher desequilibrado",
+                    "7": "Rácio homem/mulher desequilibrado"
                 },
                 "bookable_status": {
                     "9": "Está a tentar marcar mais sessões do que as permitidas pelo estabelecimento",
@@ -406,7 +411,7 @@
             "addSession": "Adicionar uma sessão",
             "bookingsTitle": "Quero marcar",
             "noPackAvailable": "Nenhum passe é compatível com esta sessão !",
-            "noPackAvailable_plural": "Nenhum passe é compatível com este grupo de sessões. Terá de efetuar mais do que uma reserva.",
+            "noPackAvailable_plural": "Nenhum passe é compatível com este grupo de sessões. Terá de efetuar mais do que uma marcação.",
             "bookingsTitleFor": "Quero marcar para {{name}}",
             "bookingForMe": "Eu",
             "showMore": "Ver mais"
@@ -969,6 +974,61 @@
         "sms": {
             "warningConsent2": "Não respeitar a decisão do seu membro seria ilegal. A Bsport não se responsabiliza por qualquer utilização indevida de SMS directos.",
             "warningConsent1": "Atenção! O membro desactivou a opção de envio de mensagens de texto promocionais. As mensagens SMS directas são uma forma rápida e fácil de falar com os seus membros. Não devem ser utilizadas para fins publicitários ou promocionais."
+        },
+        "smartListPopup": {
+            "previewTitle": "Visão geral",
+            "cancelPreview": "Cancelar",
+            "drawerTitle": "Histórico dos pop-ups de arranque",
+            "close": "Fechar",
+            "recipients": "Beneficiários ",
+            "see": "Ver",
+            "seeRecipients": "Ver os destinatários",
+            "noSmartListPopup": "Sem pop-up de arranque",
+            "memberListTitle": "Pop-up de arranque",
+            "preview": "Pré-visualizar",
+            "recipient": "destinatário",
+            "recipient_plural": "destinatários"
+        },
+        "forms": {
+            "title": "Definições do chat",
+            "submit": "Guardar",
+            "twoWayEmail": {
+                "title": "Receber respostas por e-mail na plataforma",
+                "description": "Tenha em atenção que as respostas por e-mail dos membros já não aparecerão na sua caixa de entrada, mas diretamente na plataforma."
+            }
+        },
+        "thread": {
+            "item": {
+                "detail": {
+                    "member": "Detalhes do membro",
+                    "smartlist": "Detalhes da lista inteligente",
+                    "offer": "Detalhes da sessão"
+                },
+                "hours": "h",
+                "days": "j",
+                "weeks": "sem",
+                "minutes": "min",
+                "year": "{{count}} um",
+                "year_plural": "{{count}} uns"
+            },
+            "loadMoreThreads": "Carregar mais mensagens",
+            "kind": {
+                "member": "Membros",
+                "smartlist": "Lista inteligente",
+                "offer": "Sessões"
+            },
+            "search": "Procurar por...",
+            "filter": {
+                "allThreads": "Todas as mensagens",
+                "hasNotBeenRead": "Não lido",
+                "favorites": "Favoritos",
+                "muted": "Silenciar",
+                "disabled": "Arquivar"
+            }
+        },
+        "generic": {
+            "communication": "Comunicação",
+            "history": "Histórico"
         }
     },
     "checkout": {
@@ -987,7 +1047,7 @@
             "total": "Total com IVA",
             "globalTotal": "Total",
             "flat_fee": "Taxas de inscrições",
-            "taxExcluded": "Subtotal excl.",
+            "taxExcluded": "Subtotal insento de imposto",
             "tax": "Impostos"
         },
         "events": {
@@ -1162,6 +1222,857 @@
                 "placeholder": "Pesquisar uma categoria",
                 "label": "Categoria"
             }
+        }
+    },
+    "invoice": {
+        "paymentPanel": {
+            "actions": {
+                "cancel": "Cancelar",
+                "pay": "Pagar esta fatura",
+                "revert": "Cancelar",
+                "basketInconsistent": "O seu cesto foi alterado, actualize a sua página antes de validar o seu pagamento. Não foi debitado.",
+                "bill": "Reunir",
+                "showInvoice": "Ver a fatura",
+                "saveForLater": "Guardar este método de pagamento",
+                "billByInstalment": "Pagamento em prestações",
+                "generatePaymentLink": "Gerar uma método de pagamento",
+                "paymentLink": "Método de pagamento",
+                "payAll": "Liquidação de dívidas de membros",
+                "confirmPayment": "Confirmar o pagamento"
+            },
+            "paymentList": {
+                "titleReverse": "Reembolso",
+                "isEmpty": "Sem pagamento",
+                "title": "Pagamentos"
+            },
+            "fields": {
+                "email": {
+                    "label": "E-mail do titular da conta",
+                    "placeholder": "maria@correia.pt"
+                },
+                "country": {
+                    "label": "País da conta bancária",
+                    "placeholder": "França"
+                },
+                "accountHolderName": {
+                    "label": "Titular da conta",
+                    "placeholder": "Maria Correia"
+                }
+            },
+            "amountRemaining": "Ainda por pagar: {{ amount }}",
+            "errorSecretExplain2": "Se o problema persistir, contactar dev+payment-intent@bsport.io",
+            "errorSecretExplain1": "Este método de pagamento não está atualmente disponível.",
+            "billingMoreThanNeeded": "Se o montante cobrado for superior ao montante da fatura, o saldo do membro será acrescido da diferença.",
+            "amount": {
+                "label": "Montante a cobrar"
+            },
+            "paymentNote": {
+                "label": "Nota",
+                "helperText": "(facultativo) número do cheque, data de levantamento..."
+            },
+            "sumup": {
+                "amountBeingProcessed": "Montante processado",
+                "amountRemaining": "Pagamento pendente",
+                "title": "Resumo",
+                "amountDue": "Total devido",
+                "amountPaid": "Conjunto"
+            },
+            "date": {
+                "label": "Data de recolha"
+            },
+            "plannedPaymentEvent": {
+                "title": "Pagamento programado",
+                "title_plural": "Pagamentos programados"
+            }
+        },
+        "invoicePaymentPackTagWarningDialog": {
+            "content": "Tenha cuidado, pois está a tentar debitar um cartão a um membro que não tem os requisitos necessários para o comprar. Ainda quer faturar-lhe este item? ",
+            "cancel": "Cancelar",
+            "title": "Informação",
+            "confirm": "Confirmar"
+        },
+        "invoice": {
+            "titleRevert": "Ter {{ uuid }}",
+            "titleReverted": "Factura (cancelada) {{ uuid }}",
+            "titleReceipt": "Recebido {{ uuid }}",
+            "header": {
+                "sourceInvoice": "Cancelar fatura",
+                "source": {
+                    "2": "Backoffice",
+                    "3": "Outros",
+                    "label": "Canal : {{ source }}",
+                    "0": "App móvel",
+                    "1": "Website"
+                },
+                "noEstablishment": "Nenhum estabelecimento",
+                "reverseInvoice": "Reembolsado através de ",
+                "date": "Data : {{ date }}",
+                "author": "Criado por : {{ name }}",
+                "clientAuthor": "Membro"
+            },
+            "editor": {
+                "save": "Emissão da fatura",
+                "title": "Imprimir a fatura",
+                "sumup": "Resumo"
+            },
+            "title": "Fatura {{ uuid }}"
+        },
+        "paymentEngine": {
+            "label": {
+                "1": "Pagamento pendente",
+                "0": "Pagamento manual"
+            }
+        },
+        "paymentMethod": {
+            "title": "Meios de pagamento",
+            "add": "Adicionar",
+            "inconsistent": "Método de pagamento não autorizado, por favor reconfigure. O membro pode ter pedido para desautorizar o seu método de pagamento, ou pode ter fundido dois membros, caso em que o método de pagamento já não pode ser utilizado.",
+            "isInternalExplain": "Depósito do cliente (manual): todos os meses é criada automaticamente uma dívida na conta do membro.",
+            "label": {
+                "11": "Sofort",
+                "0": "Exemplos",
+                "14": "Depósito dos membros (dívida)",
+                "15": "Passe (manual)",
+                "16": "Caixas de débito direto",
+                "8": "Diversos",
+                "9": "Contacto bancário",
+                "10": "iDEAL",
+                "5": "AMEX",
+                "7": "Transferência",
+                "12": "EPS",
+                "13": "Giropay",
+                "1": "Passe",
+                "2": "SEPA",
+                "3": "Cheque",
+                "6": "Questão"
+            },
+            "isInternalExplainFuturePayments": "A data de vencimento será deduzida automaticamente do depósito do cliente. Se este valor for insuficiente, será criado um depósito negativo.",
+            "detach": {
+                "pm_deleted": "Método de pagamento eliminado",
+                "pm_associated_to_protected_bp": "Impossível : Tem uma subscrição associada a este método de pagamento",
+                "pm_associated_to_registered_ppe": "Impossível : Tem uma subscrição associada a este método de pagamento",
+                "pm_associated_to_pi": "Impossível : Tem uma subscrição associada a este método de pagamento",
+                "last_payment_method": "Impossível eliminar o seu único meio de pagamento"
+            },
+            "copyLink": "Copiar a ligação para adicionar um método de pagamento",
+            "none": "Nenhum meio de pagamento salvo",
+            "addPaymentMethod": "Adicionar um método de pagamento",
+            "select": {
+                "label": "Meios de pagamento"
+            },
+            "edit": "Modificar"
+        },
+        "plannedPaymentEvent": {
+            "actions": {
+                "edit": "Modificar",
+                "disable": "Configuração",
+                "enable": "Reprogramar",
+                "changeMethod": "Alterar o método de pagamento",
+                "solveInvalidPaymentAttempt": "Regularizar"
+            },
+            "dialog": {
+                "invalidMandate": {
+                    "cancel": "Cancelar",
+                    "confirm": "Seguinte",
+                    "title": "O período de débito direto expirou ou é inválido!",
+                    "explainSituation": "O período associado a este método de pagamento expirou. As razões podem ser múltiplas, nomeadamente um número excessivo de pagamentos falhados, uma decisão unilateral do banco, etc. Já não pode utilizar este método de pagamento, pelo que terá de registar um novo método."
+                }
+            },
+            "nextRetryDate": "O pagamento será adiado até {{ d }}",
+            "lockedToday": "O pagamento vence hoje, já não é possível modificá-lo",
+            "registerNowInitialData": "Pagamento inicialmente devido em {{-date}}",
+            "unrecoverableError": "Erro de pagamento."
+        },
+        "invoiceInfoDialog": {
+            "actions": {
+                "show": "Ver a fatura",
+                "close": "Fechar"
+            },
+            "explain": "Um ou mais pagamentos não são efectuados corretamente, o depósito do aderente reflecte o incumprimento do pagamento"
+        },
+        "mandate": {
+            "contentIban": "Ao fornecer o seu IBAN e confirmar o seu pagamento, autoriza a bsport e o Stripe, o nosso sistema de pagamento, a enviar instruções de débito ao seu banco, de acordo com o calendário de pagamentos. Pode pedir um reembolso ao seu banco nos termos do seu contrato com ele. O reembolso deve ser solicitado no prazo de 8 semanas após o primeiro débito.",
+            "contentBacsDebit": "Ao fornecer os seus dados bancários e confirmar o seu pagamento, o utilizador autoriza o bsport e o Stripe, o nosso sistema de pagamento, a enviar instruções de débito ao seu banco, de acordo com o calendário de pagamento. Pode pedir um reembolso ao seu banco nos termos do seu contrato com ele. Pode pedir ao seu banco que cancele o mandato de débito direto em qualquer altura.",
+            "name": "Nome e apelido do titular",
+            "email": "Endereço eletrónico do titular"
+        },
+        "invoiceInfo": {
+            "3": "Esta fatura é o resultado de uma migração. Por motivos legais, não podemos fornecer um PDF ou anulá-lo.",
+            "2": "Este recibo de pagamento representa o ajuste do saldo do seu membro."
+        },
+        "invoiceType": {
+            "credit_payment": "Recebido",
+            "return": "Devolver fatura",
+            "reversed": "Factura (cancelada)",
+            "regular": "Factura",
+            "migration": "Migração"
+        },
+        "creditAccountBalance": {
+            "current": "Saldo atual"
+        },
+        "uneditableMessage": {
+            "invoiceFinalizedThusNotEditable": "A fatura foi finalizada, pelo que já não pode ser alterada",
+            "invoiceFromSubscriptionThusNotEditable": "Esta fatura faz parte de uma subscrição e não pode ser editada. Por favor, modifique a subscrição diretamente.",
+            "invoiceRevertedThusNotEditable": "A fatura foi anulada e já não pode ser modificada"
+        },
+        "balance": {
+            "updaterDialog": {
+                "title": "Ajustamento do saldo"
+            }
+        },
+        "paymentGroup": {
+            "validateRequiresAction": "Confirmar o método de pagamento",
+            "requiresAction": "O banco não aprovou o pagamento (3DSecure)"
+        },
+        "invoiceFuturePaymentsDialog": {
+            "applyForAllFuturePayments": "Aplicar prestações futuras da presente fatura"
+        }
+    },
+    "consumerSpace": {
+        "debt": {
+            "title": "Depósito devido ao estabelecimento",
+            "titlePaymentDialog": "Regularização do adiantamento",
+            "explainPayment": "Este montante será pago ao estabelecimento para liquidar o seu depósito.",
+            "regularize": "Regularizar"
+        },
+        "booking": {
+            "showCalendar": "Ver o calendário",
+            "bookAgain": "Remarcar",
+            "accessLive": "Aceder à transmissão em direto",
+            "spotNumber": "Local {{count}}",
+            "titlePrivateBooking": "Nomeações",
+            "discard": "Cancelar",
+            "noShow": "Foi registada a sua ausência nesta sessão",
+            "titleBooking": "Aulas em grupo",
+            "isUnpaid": "Não pago"
+        },
+        "widget": {
+            "noBookingPast": "Nenhuma sessão no seu histórico",
+            "futureBooking": "As minhas marcações",
+            "pastBooking": "Histórico",
+            "noBookingFuture": "Não há sessões futuras"
+        },
+        "unsubscriber": {
+            "explain": "Gostaria de cancelar a subscrição de todos os newsletters do seu estabelecimento?",
+            "error": "Erro ao cancelar a subscrição",
+            "success": "A sua inscrição foi cancelada",
+            "doUnsubscribe": "Cancelar a subscrição"
+        },
+        "navigation": {
+            "giftcard": "Passes de oferta",
+            "subscription": "Subscrição",
+            "logoff": "Desconectar",
+            "profile": "Perfil",
+            "statistic": "Estatísticas",
+            "dashboard": "Resumo",
+            "calendar": "Histórico",
+            "myVideos": "Meus vídeos",
+            "pack": "Passe de aula",
+            "invoice": "Fatura",
+            "changeMembership": "Mudança de estabelecimento",
+            "pick_a_language": "Seleccionar uma língua",
+            "relationConnectedAs": "Conectado como : {{name}}",
+            "backToRelationMasterSpace": "voltar à minha conta",
+            "connectedAs": "Iniciar sessão como",
+            "automaticLanguage": "Detetar automáticamente a língua"
+        },
+        "language": {
+            "nl": "Holandês",
+            "en-GB": "Inglês (Reino Unido)",
+            "es": "Espanhol",
+            "de": "Alemão",
+            "none": "Automático",
+            "fr": "Francês",
+            "en-US": "Inglês (Estados Unidos)",
+            "pt": "Português",
+            "cs": "Checo",
+            "it": "Italiano"
+        },
+        "Basket": "O meu cesto",
+        "appbar": {
+            "login": "Conexão",
+            "profile": "Aceder ao meu perfil",
+            "logout": "Desconexão"
+        },
+        "pack": {
+            "titlePrivatePack": "Nomeações",
+            "titlePaymentPack": "Aulas em grupo",
+            "titleUniversalPack": "Universal"
+        },
+        "dashboard": {
+            "optionTitle": "Em lista de espera",
+            "nextBookingTitle": "As minhas próximas sessões",
+            "currentPassTitle": "Passes de aulas ativas",
+            "showMore": "Ver mais",
+            "noPackCurrentlyActive": "Nenhum passe válido atual",
+            "noBooking": "Não há sessões futuras",
+            "favoriteTitle": "Sugestão de marcação"
+        },
+        "actions": {
+            "goToHome": "Ver todos os serviços",
+            "goToCalendar": "Ver o calendário completo",
+            "goToPass": "Ver todos os passes",
+            "goToSubscription": "Ver todas as subscrições"
+        },
+        "myVideos": {
+            "gotToVOD": "Ver todos os vídeos",
+            "title": "Os meus vídeos"
+        },
+        "congratulation": {
+            "cancel": "Fechar",
+            "content": "A sua compra foi registada!"
+        },
+        "subscription": {
+            "isEmpty": "Não tem uma subscrição atual"
+        }
+    },
+    "coupon": {
+        "form": {
+            "selectorPlaceholder": {
+                "privatePass": "Selecionar passes (válido para todos os passes se nenhum estiver selecionado)",
+                "paymentPack": "Selecionar passes (válido para todos os passes se nenhum for selecionado)",
+                "paymentCombo": "Selecionar packs (válido para todos os produtos se nenhum for selecionado)",
+                "shopitem": "Selecionar produtos da loja (válido para todos os produtos se nenhum for selecionado)"
+            },
+            "section": {
+                "tagInfo": "Utilize etiquetas para tornar o cupão utilizável apenas por um grupo desejado de membros no mercado, widget e aplicação. Pode selecionar etiquetas para que o cupão só possa ser utilizado por membros que tenham uma das etiquetas escolhidas. Ou pode selecionar etiquetas para tornar o cupão inutilizavel apenas por membros que tenham uma das etiquetas seleccionadas. ",
+                "subscription": "Subscrição (contrato)",
+                "general": "Geral",
+                "whitelist_tags": "Autorizado",
+                "blacklist_tags": "Não - Autorizado",
+                "applies_to": "Parâmetros",
+                "advanced": "Avançado",
+                "tags": "Etiquetas",
+                "availability": "Disponibilidade",
+                "usability": "Utilidade",
+                "voucherConfig": "Desconto"
+            },
+            "name": {
+                "label": "Nome"
+            },
+            "is_active": {
+                "label": "Activos",
+                "helperText": "Um código não ativo não pode ser utilizado pelos membros"
+            },
+            "code": {
+                "helperText": "O código que transmitirá aos membros",
+                "helperTextFranchise": "O código que irá transmitir aos clientes. Certifique-se de que o código não existe já nos seus diferentes estabelecimentos.",
+                "label": "Código"
+            },
+            "subscription_mode": {
+                "2": "Apenas na primeira fase de faturação (antes da renovação)",
+                "0": "Todas as facturas",
+                "1": "Apenas o primeiro mês",
+                "3": "Não utilizável"
+            },
+            "percent_off": {
+                "label": "Percentagem de redução"
+            },
+            "expiration_date": {
+                "clear_date": "Sem prazo de validade"
+            },
+            "title": "Cupão",
+            "voucher_type": {
+                "percent": "Em percentagem",
+                "amount": "Em valor"
+            },
+            "amount_off": {
+                "label": "Montante da redução"
+            },
+            "with_expiration_date": {
+                "label": "Com prazo de validade"
+            }
+        },
+        "card": {
+            "validity": "Validade:",
+            "cumulable": "Acumulado",
+            "no_cumulable": "Não cumulativo",
+            "allowedFor": "Autorizado para",
+            "unallowedFor": "Não autorizado para",
+            "first_buy": "Disponível apenas na primeira compra",
+            "whitelist_tags": "Apenas disponível para membros com determinada tags",
+            "blacklist_tags": "Não disponível para membros com determinadas tags",
+            "expiration": "Data de vencimento",
+            "no_expiration": "Sem prazo de validade",
+            "uses": "Aplicações",
+            "member_use": "utilização por membro",
+            "limitation": "Limitado a"
+        },
+        "modal": {
+            "delete": {
+                "content": "Tem a certeza de que pretende eliminar este código promocional? Deixará de ter acesso ao seu histórico de utilizador. Esta operação é definitiva.",
+                "actions": {
+                    "cancel": "Cancelar",
+                    "submit": "Eliminar"
+                },
+                "title": "Eliminar"
+            }
+        },
+        "list": {
+            "isEmpty": "Nenhum código promocional registado",
+            "inactiveCoupons": "Promoções desactivadas ou vencido",
+            "activeCoupons": "Promoções em vigor"
+        },
+        "noDiscount": "Nenhuma compra efectuada com o código",
+        "detail": {
+            "seeParameters": "Ver os parâmetros"
+        }
+    },
+    "expense": {
+        "form": {
+            "staff": "Staff",
+            "requiredField": "Este campo é obrigatório.",
+            "date_due": "Data de vencimento",
+            "repeat": {
+                "repeatMonth_nb": "Todos os {{ nb }} mês, o",
+                "title": "Recorrência",
+                "week": "Semana(s)",
+                "month": "Mês",
+                "weekdays_pl": {
+                    "saturday": "Sábados",
+                    "sunday": "Domingos",
+                    "thursday": "Quintas-feiras",
+                    "friday": "Sextas-feiras",
+                    "monday": "Segundas-feiras",
+                    "tuesday": "Terças-feiras",
+                    "wednesday": "Quartas-feiras"
+                },
+                "months": {
+                    "january": "Janeiro",
+                    "may": "Maio",
+                    "june": "Junho",
+                    "july": "Julho",
+                    "august": "Agosto",
+                    "september": "Setembro",
+                    "december": "Dezembro",
+                    "november": "Novembro",
+                    "march": "Março",
+                    "february": "Fevereiro",
+                    "april": "Abril",
+                    "october": "Outubro"
+                },
+                "from": "De",
+                "until": "Visitar",
+                "repeatWeek": "Todas as semanas, o",
+                "fromDate": "A partir de",
+                "ends": "Termina após",
+                "repeatMonthDay": "Todos os",
+                "day": "Dia(s)",
+                "repeatEvery": "Repetir tudo",
+                "repeatWeek_nb": "Todos os {{ nb }} semanas, o",
+                "repeatYear": "Todos os anos, o",
+                "repeatYear_nb": "Todos os {{ nb }} anos, o",
+                "interval": "Intervalo",
+                "weekdays": {
+                    "tuesday": "Terça-feira",
+                    "saturday": "Sábado",
+                    "sunday": "Domingo",
+                    "second": "segundo",
+                    "first": "primeiro",
+                    "third": "terceiro",
+                    "fourth": "quarto",
+                    "monday": "Segunda-feira",
+                    "wednesday": "Quarta-feira",
+                    "thursday": "Quinta-feira",
+                    "friday": "Sexta-feira"
+                },
+                "count": "Número de acertos :",
+                "repeatMonth": "Todos os meses, o",
+                "number": "Repetições :",
+                "year": "Ano(s)"
+            },
+            "supplier": "Fornecedor / Vendedor",
+            "description": "Título / Descrição",
+            "titleEdit": "Modificar uma despesa",
+            "editChoices": {
+                "editDateDue": "Alterar a data de vencimento",
+                "editDetails": "Modificar os detalhes das despesas",
+                "explanation": {
+                    "dateDue": "A data de vencimento só será alterada para a despesa selecionada.",
+                    "details": "As alterações serão aplicadas tanto às despesas actuais e futuras, como a todas as despesas."
+                }
+            },
+            "noStaff": "Não há staff atribuído",
+            "category": "Categoria",
+            "amount": "Montante",
+            "titleAdd": "Adicionar uma despesa",
+            "actions": {
+                "cancel": "Cancelar",
+                "save": "Registo",
+                "edit": "Atualização"
+            }
+        },
+        "delete": {
+            "error": "Impossível eliminar esta despesa",
+            "success": "A despesa foi eliminada."
+        },
+        "table": {
+            "header": {
+                "category": "Categoria",
+                "amount": "Montante",
+                "supplier": "Fornecedor / Vendedor",
+                "description": "Título / Descrição",
+                "repeat": "Recorrência",
+                "date_due": "Data de vencimento",
+                "actions": "Ações",
+                "staff": "Staff"
+            },
+            "no": "não",
+            "yes": "sim"
+        },
+        "filters": {
+            "filterStaff": "Todo o staff",
+            "filterSupplier": "Todos os fornecedores",
+            "filterCategory": "Todas as categorias",
+            "noStaff": "Não há staff atribuído",
+            "titleCategory": "Categorias",
+            "titleSupplier": "Fornecedores",
+            "showFuture": "Despesas futuras",
+            "noCategory": "Nenhuma categoria",
+            "titleStaff": "Staff"
+        },
+        "dialogEditExpense": {
+            "validate": "Validar",
+            "future": "Alterar esta despesa e outras despesas futuras semelhantes",
+            "all": "Modificar todas as despesas semelhantes (passadas e futuras)",
+            "cancel": "Cancelar",
+            "current": "Modificar apenas esta despesa"
+        },
+        "create": {
+            "error": "Impossível criar esta despesa",
+            "success": "A despesa foi criada."
+        },
+        "update": {
+            "success": "As despesas foram actualizadas.",
+            "error": "Não é possível atualizar esta despesa"
+        },
+        "dialogDeleteExpense": {
+            "warning": "Tem a certeza de que quer eliminar esta despesa?",
+            "confirm": "Irá eliminar definitivamente a despesa de {{amount}} de {{date_due}}.",
+            "cancel": "Cancelar",
+            "delete": "Eliminar",
+            "all": "Eliminar todas as despesas semelhantes (passadas e futuras)",
+            "current": "Eliminar apenas esta despesa",
+            "future": "Eliminar esta e outras despesas futuras semelhantes"
+        },
+        "addButton": "Adicionar uma despesa",
+        "noExpenses": "Pode adicionar as despesas do seu estúdio aqui."
+    },
+    "franchise": {
+        "companyGroup": {
+            "actions": {
+                "add": "Adicionar uma categoria",
+                "submit": "Confirmar",
+                "cancel": "Cancelar"
+            },
+            "name": {
+                "label": "Nome"
+            },
+            "explain": "As categorias são utilizadas para agrupar as suas permissões sob um nome comum (ex: Estúdio de Lisboa) e será apresentado na aplicação móvel"
+        },
+        "genericProduct": {
+            "list": {
+                "shortMenu": {
+                    "delete": "Eliminar",
+                    "restore": "Restaurar",
+                    "edit": "Modificar",
+                    "goTo": "Detalhes"
+                },
+                "visibility": "Invisível para os membros",
+                "titleActive": "Disponível para venda",
+                "titleInactive": "Não disponível para venda",
+                "fuzzySearch": "Procurar um passe"
+            },
+            "templateCard": {
+                "shareTemplate": {
+                    "categoryName": "Partilhado com os estabelecimentos",
+                    "seeAll": "Ver tudo",
+                    "closeDialog": "Fechar",
+                    "addCompany": "Adicionar um estabelecimento",
+                    "emptyCompanyList": "Nenhum estúdio está configurado para aceitar este passe"
+                },
+                "buttons": {
+                    "delete": "Eliminar",
+                    "update": "Modificar"
+                }
+            },
+            "dialogs": {
+                "deleteTemplate": {
+                    "title": "Desativação"
+                },
+                "selectCompanies": {
+                    "title": "Configurar os meus estabelecimentos",
+                    "content1": "Os estabelecimentos seguintes terão automaticamente este passe disponível para venda. Não poderão alterar o preço.",
+                    "content2": "Os membros que receberem este passe poderão utilizá-lo em todos os estabelecimentos compatíveis.",
+                    "allCompaniesShared": "Já partilhou este passe com todos os estabelecimentos franchisados a que tem acesso."
+                },
+                "deleteTemplateInstance": {
+                    "buttonValidate": "Desativar a partilha",
+                    "title": "Parar de partilhar"
+                }
+            }
+        },
+        "emails": {
+            "emptyStateDescription": "Selecionar um modelo",
+            "franchiseEmails": "Os meus modelos",
+            "companiesEmails": "Modelos de franshisados",
+            "emptyStateTitle": "Pré-visualização do e-mail",
+            "chooseGroup": "Selecionar um grupo",
+            "searchPlaceholder": "Procurar um modelo",
+            "create": "Criar um modelo",
+            "pageTitle": "Modelo",
+            "franchised": "Franqueado",
+            "groupByPlaceholder": "Agrupar por",
+            "groupBy": "Agrupar por",
+            "copy": "cópia"
+        },
+        "membersList": {
+            "name": "Nome",
+            "franchised": "Franqueados",
+            "see": "Ver",
+            "pageTitle": "Membros",
+            "actions": "Ações"
+        },
+        "companies": {
+            "searchPlaceholder": "Procurar um franchisado",
+            "emptySelect": "Seleccione uma franquia para ver os respectivos detalhes.",
+            "establishment": "Estabelecimentos",
+            "establishmentEmptyState": "Não há estabelecimentos nesta empresa",
+            "membersEmptyState": "Não há membros nesta empresa",
+            "navigateToCompany": "Acesso à conta do franqueado",
+            "members": "Membros",
+            "pageTitle": "Franqueados"
+        },
+        "staff": {
+            "roleTabTitle": "Funções",
+            "explainStaff": "Com o acesso do staff à conta principal, pode selecionar os franchisados que têm acesso às suas equipas e as ações que podem realizar nas mesmas. O acesso do staff não lhe permite ligar-se à aplicação móvel.",
+            "staffAccountTabTitle": "Relatório do staff"
+        },
+        "login": {
+            "disconnect": "Terminar sessão",
+            "signUp": "Inscrever-se",
+            "previous": "Voltar a",
+            "connect": "Conectar-me"
+        },
+        "pagination": {
+            "previousPage": "Página anterior",
+            "nextPage": "Página seguinte",
+            "rowPerPage": "Item por página",
+            "outOf": "{{from}} - {{to}} sobre {{count}}"
+        },
+        "member": {
+            "franchises": "Franquias",
+            "isVaccinated": "Cartão de saúde válido",
+            "seeMembership": "ver o ficheiro dos membros",
+            "pageTitle": "Membro"
+        }
+    },
+    "giftcard": {
+        "search": "Procurar um passe de oferta",
+        "widget": "Escolher passe de oferta",
+        "giftcardTemplate": {
+            "template": {
+                "validity": "Válido {{count}} dia",
+                "validity_plural": "Válido {{count}} dias",
+                "deleteTemplateContent": "Ao desativar um passe de oferta partilhado, os membros que possuem este passe só o poderão utilizar no estabelecimento onde foi comprado.",
+                "deleteInstanceContent1": "Ao desativar este estabelecimento da partilha de passes de oferta, todos os membros que possuem este passe e o receberam de um membro que comprou o passe neste estabelecimento continuarão a poder utilizá-lo. No entanto, deixarão de o poder utilizar noutros estabelecimentos.",
+                "deleteInstanceContent2": "Por fim, os passes comprados noutros estabelecimentos deixam de poder ser utilizados no estabelecimento desativado, independentemente da data em que foram compradas.",
+                "unlimited": "Ilimitado",
+                "withoutTax": "Isento de impostos",
+                "validityDetail": "Validade antes da caducidade : {{count}} dia",
+                "validityDetail_plural": "Validade antes da expiração : {{count}} dias"
+            },
+            "listPage": {
+                "emptyLabel": "Não foram registados passes de oferta partilhados",
+                "addButton": "Criar um passe de oferta partilhado",
+                "fuzzyPlaceholder": "Procurar um passe de oferta"
+            },
+            "giftcard": "Passe de oferta",
+            "sharedCard": "Partilhado com outro franchisado"
+        },
+        "list": {
+            "explainIfEmpty": "Os passes de oferta permitem que os seus membros ofereçam aos seus convidados uma quantia em dinheiro para gastar no seu estabelecimento.",
+            "activeTitle": "Disponível para venda",
+            "unavailableForSaleTitle": "Indisponível para venda",
+            "archivedTitle": "Arquivado",
+            "isEmpty": "Passes de oferta não disponíveis",
+            "actions": {
+                "goToGiftcard": "Ver todos os passes de oferta",
+                "create": "Criar um passe de oferta"
+            },
+            "validity": "Válido {{ duration }} dias",
+            "unlimited": "Ilimitado",
+            "addBackgroundImage": "Adicionar imagens de personalizadas",
+            "visibility": "Não visível"
+        },
+        "consumerGiftcard": {
+            "activation": {
+                "activate": "Ativar o meu passe de oferta",
+                "alreadyActivated": "Este passe de oferta já foi utilizado por outro utilizador",
+                "title": "Alguém quere-te fazer feliz !",
+                "content1withDate": "O valor do seu passe de oferta {{price}} é compatível com todos os produtos da nossa loja. Este passe caduca {{ expiration_days }} dias após a ativação, mime-se!",
+                "content2": "Será automaticamente adicionado como método de pagamento ao seu cesto. Pode encontrar todos os detalhes do seu passe de oferta no seu perfil.",
+                "content3": "Se não tiver sessão iniciada na conta atual, termine a sessão para se ligar à mesma. Se este passe de oferta não se destina a si, não o valide.",
+                "subtitle": "Parece que alguém o surpreendeu.",
+                "content1": "O valor do seu passe de oferta {{price}} é compatível com todos os produtos da nossa loja. Este passe não tem prazo de validade, por isso, ofereça-o a si próprio!"
+            },
+            "invitationForm": {
+                "activationCodeLink": "O convite enviado por e-mail já não pode ser alterado, se não tiver chegado ao destinatário certo, pode enviar esta ligação de ativação para oferecer o passe de oferta : ",
+                "title": "Enviar um convite por e-mail",
+                "actions": {
+                    "submit": "Enviar",
+                    "close": "Fechar"
+                },
+                "content": "Pode alterar os destinatários do passe de oferta. Se a mensagem do e-mail não tiver sido recebida, pode também enviar esta ligação de ativação:"
+            },
+            "isEmpty": "Sem passes de oferta",
+            "isFor": "Á atenção de ",
+            "value": "Valor",
+            "previewPlaceholder": {
+                "message_is_from": "[Nome do comprador]",
+                "name": "[Nome do passe]",
+                "message_content": "[Mensagem personalizada]",
+                "giftcard_amount": "[Montante do passe]",
+                "message_is_for": "[Nome do destinatário]"
+            },
+            "form": {
+                "hour_send": "Tempo de envio",
+                "message_content": {
+                    "label": "Mensagem pessoal"
+                },
+                "recipients": {
+                    "label": "Endereço de email do destinatário"
+                },
+                "footerUnlimited": "O passe será enviado por e-mail em {{- date_send }} à {{- hour_send }} nos endereços indicados. Não contém um prazo de validade. A conta do destinatário será creditada com {{- price }} para compras futuras.",
+                "name": {
+                    "label": "Nome do passe"
+                },
+                "footer": "O passe será enviado por e-mail em {{- date_send }} à {{- hour_send }} nos endereços indicados. Será válido durante {{ expiration_days }} dias após o envio da mensagem de e-mail. A conta do destinatário será creditada com {{- price }} para compras futuras.",
+                "message_is_for": {
+                    "label": "À atenção de "
+                },
+                "select_image": "Seleccione a sua imagem de fundo",
+                "date_send": {
+                    "label": "Data de envio da mensagem de e-mail"
+                },
+                "actions": {
+                    "submit": "Adicionar ao cesto",
+                    "cancel": "Cancelar"
+                }
+            },
+            "list": {
+                "myPurchases": "Passes de oferta comprados",
+                "myGifted": "Passes de oferta recebidos"
+            },
+            "expiresOn": "Caduca em {{- d }}",
+            "notAttributedYet": "Não validado",
+            "sendTo": "Reenviar convite",
+            "linkedInvoice": "Fatura válida",
+            "invitedOn": "Enviado em {{- d }}",
+            "willInviteOn": "Convite a enviar em {{- d }}"
+        },
+        "form": {
+            "giftcard": {
+                "name": {
+                    "label": "Nome"
+                },
+                "description": {
+                    "label": "Descrição"
+                },
+                "price": {
+                    "helperText": "Define o valor do passe oferecido",
+                    "label": "Preço de venda"
+                },
+                "expiration_days": {
+                    "helperText": "O passe é válido a partir da data de envio do e-mail do passe de oferta.",
+                    "label": "Período de validade em dias"
+                },
+                "section": {
+                    "parameters": {
+                        "title": "Padrões"
+                    }
+                },
+                "title": "Passe de oferta",
+                "unlimited": {
+                    "label": "Ilimitado"
+                },
+                "manager_only": {
+                    "label": "Invisível para os membros"
+                },
+                "actions": {
+                    "submit": "Validar",
+                    "cancel": "Fechar"
+                },
+                "available_payment_method_identifiers": {
+                    "label": "Métodos de pagamento disponíveis"
+                }
+            },
+            "canNotUpdateBecauseShared": "Este passe de oferta é partilhado pela conta do franchisador. Foi definido pela conta do franchisador e não pode ser modificado."
+        },
+        "backgroundImage": {
+            "dialog": {
+                "explain": "Adicione imagens para permitir que os seus membros personalizem o seu passe de oferta. Ao criar o passe, os membros poderão escolher uma imagem de fundo para o passe de oferta.",
+                "actions": {
+                    "close": "Fechar"
+                },
+                "title": "Imagens personalizadas"
+            }
+        },
+        "link": {
+            "copyLink": "Copiar a ligação de compra",
+            "activationLink": "Copiar a ligação de ativação"
+        },
+        "delete": {
+            "title": "Arquivar o passe de oferta",
+            "content": "Quer mesmo arquivar este passe de oferta? Deixará de ser faturado através do back office. Pode ser reativado mais tarde.",
+            "cancel": "Cancelar",
+            "submit": "Confirmar"
+        },
+        "giftcard": {
+            "configurationTitle": "Passe de oferta",
+            "detail": {
+                "availablePaymentMethods": "Métodos de pagamento disponíveis",
+                "manager_only": "Não disponível para venda online",
+                "expirationDate": "Validade antes da caducidade : {{ expiration_days }} dias"
+            },
+            "delete": {
+                "dialog": {
+                    "content": "Tens a certeza que queres cancelar este passe? Os membros que já adquiriram o passe podem continuar a utilizá-lo.",
+                    "actions": {
+                        "delete": "Eliminar",
+                        "close": "Fechar"
+                    },
+                    "title": "Eliminar"
+                }
+            }
+        }
+    },
+    "event": {
+        "list": {
+            "title": {
+                "latestEvents": "Últimos eventos"
+            }
+        },
+        "member": {
+            "register": {
+                "name": "Novo membro",
+                "description": "É ativado quando um novo membro do estabelecimento é adicionado à bsport"
+            }
+        },
+        "booking": {
+            "register": {
+                "name": "Nova marcação",
+                "description": "É acionado quando é realizada uma nova marcação"
+            }
+        },
+        "booking_option": {
+            "cancel": {
+                "name": "Cancelamento de um lugar na lista de espera",
+                "description": "É acionado quando o membro ou um gestor cancela o lugar na lista de espera"
+            }
+        },
+        "noEvent": {
+            "description": "Descrição do evento"
         }
     }
 }

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, {
   useCallback,
   useEffect,
@@ -22,17 +21,24 @@ import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 
 export interface Props<T = unknown> {
   data: Array<T>;
+  isSlideshowDisabled?: boolean;
+  initialSelectedItemIndex?: number;
   renderItem: (item: T, index: number) => React.ReactElement;
+  onSwipe?: (itemId: number | null) => void;
 }
 
 export interface BaseData {
   id: number;
 }
 
-const Carousel = <T extends BaseData>(props: Props<T>) => {
-  const { data, renderItem } = props;
-
-  const [currentIndex, setCurrentIndex] = useState(0);
+const Carousel = <T extends BaseData>({
+  data,
+  isSlideshowDisabled,
+  initialSelectedItemIndex,
+  renderItem,
+  onSwipe,
+}: Props<T>) => {
+  const [currentIndex, setCurrentIndex] = useState<number>(null);
   const [lastClickAction, setlastClickAction] = useState(null);
   const [isTransition, setIsTransition] = useState(false);
   const [isAutomaticSlideshow, setIsAutomaticSlideshow] = useState(true);
@@ -90,14 +96,16 @@ const Carousel = <T extends BaseData>(props: Props<T>) => {
   );
 
   const [onTouchStart, onTouchEnd] = useSwipe({
-    onSwipeLeft: useCallback(
-      () => handleNagivate(nextItemIndex),
-      [handleNagivate, nextItemIndex],
-    ),
-    onSwipeRight: useCallback(
-      () => handleNagivate(previousItemIndex),
-      [handleNagivate, previousItemIndex],
-    ),
+    onSwipeLeft: useCallback(() => {
+      handleNagivate(nextItemIndex);
+      data[nextItemIndex] && onSwipe && onSwipe(data[nextItemIndex].id ?? null);
+    }, [data, handleNagivate, nextItemIndex, onSwipe]),
+    onSwipeRight: useCallback(() => {
+      handleNagivate(previousItemIndex);
+      data[previousItemIndex] &&
+        onSwipe &&
+        onSwipe(data[previousItemIndex].id ?? null);
+    }, [data, handleNagivate, onSwipe, previousItemIndex]),
   });
 
   useWheel({
@@ -116,20 +124,25 @@ const Carousel = <T extends BaseData>(props: Props<T>) => {
 
   useEffect(() => {
     const isLastIndex = currentIndex === lastItemIndex;
-    const slideshowInterval = setInterval(
-      () =>
+    const slideshowInterval = setInterval(() => {
+      if (!isSlideshowDisabled) {
         isAutomaticSlideshow &&
-        handleNagivate(isLastIndex ? 0 : currentIndex + 1),
-      SLIDESHOW_INTERVAL_TIME,
-    );
+          handleNagivate(isLastIndex ? 0 : currentIndex + 1);
+      }
+    }, SLIDESHOW_INTERVAL_TIME);
+
+    if (currentIndex === null) {
+      setCurrentIndex(initialSelectedItemIndex ?? 0);
+    }
 
     return () => clearInterval(slideshowInterval);
   }, [
     currentIndex,
     isAutomaticSlideshow,
-    data.length,
     lastItemIndex,
+    isSlideshowDisabled,
     handleNagivate,
+    initialSelectedItemIndex,
   ]);
 
   const translateCount = useMemo(() => {
@@ -215,6 +228,7 @@ const Carousel = <T extends BaseData>(props: Props<T>) => {
   );
 };
 
+// @ts-expect-error
 export const CarouselForStorybook = marketplaceCssHoc()(Carousel);
 
-export default Carousel;
+export default React.memo(Carousel);

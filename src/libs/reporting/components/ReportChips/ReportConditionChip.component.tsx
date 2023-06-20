@@ -2,17 +2,19 @@ import React from 'react';
 import { Theme, useTheme } from '@material-ui/core';
 import { StepperConfig } from '#components/chip/types';
 import NumberChip from '#components/chip/NumberChip.component';
+import CustomChip from '#components/chip/CustomChip.component';
 
 type Props = {
-  value: any;
+  value: number;
   translation: string;
   datatype: string;
-  extra_data: { [key: string]: number };
+  row_extra_data: { [key: string]: number | string };
+  chipClass?: string;
 };
 
 const getSpecs = (
   theme: Theme,
-  total_credits: number | null,
+  credits: number | null,
   price: number | null,
 ) => {
   const green = theme.palette.success;
@@ -30,7 +32,7 @@ const getSpecs = (
       },
       lmed: null,
       medium: {
-        range: [0, price],
+        range: [0, price - 1],
         color: orange.dark,
         icon: 'Error',
         iconColor: orange.main,
@@ -52,13 +54,13 @@ const getSpecs = (
       },
       lmed: null,
       medium: {
-        range: [0, total_credits],
+        range: [0, credits - 1],
         color: orange.dark,
         icon: 'Error',
         iconColor: orange.main,
       },
       high: {
-        value: total_credits,
+        value: credits,
         color: red.dark,
         icon: 'Cancel',
         iconColor: red.main,
@@ -233,19 +235,32 @@ const getSpecs = (
 
 const ReportConditionChip: React.FC<Props> = ({
   datatype,
-  extra_data,
+  row_extra_data,
   value,
   translation,
+  chipClass,
 }) => {
   const theme = useTheme();
 
-  const specs = getSpecs(theme, extra_data?.total_credits, extra_data?.price);
-
-  const config = specs[datatype];
-
-  return (
-    <NumberChip config={config} value={value} displayedValue={translation} />
+  const specs = getSpecs(
+    theme,
+    Number(row_extra_data?.credits),
+    Number(row_extra_data?.price),
   );
+
+  if (specs[datatype]) {
+    const config = specs[datatype];
+    return (
+      <NumberChip
+        config={config}
+        value={value}
+        displayedValue={translation}
+        chipClass={chipClass}
+      />
+    );
+  }
+
+  return <CustomChip displayedValue={value.toString()} chipClass={chipClass} />;
 };
 
 export default React.memo(ReportConditionChip);

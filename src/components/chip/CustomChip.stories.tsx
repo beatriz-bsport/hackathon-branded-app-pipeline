@@ -49,13 +49,16 @@ export default {
       description:
         'The color of the icon. If the icon color is null while the icon is not null, the icon will be the same color as the text.',
     },
+    chipClass: {
+      description: '(Optional) A class to apply to the chip.',
+    },
   },
   parameters: {
     docs: {
       page: null,
       description: {
         component:
-          "This component is a custom chip used in the reports. It's only used for display : there are other components that manage the matching between the value of the chip and what color it should be.<br>It's very abstract so it can be used outside of the reports too.",
+          "This component is an abstract custom chip. It's a monochrome chip, with a light background color the same shade as its text color, and with the possibility to add an icon.",
       },
     },
   },

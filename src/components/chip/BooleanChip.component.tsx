@@ -1,12 +1,13 @@
 import React from 'react';
 import { useTheme } from '@material-ui/core';
-import { CustomChip } from './CustomChip.component';
+import CustomChip from './CustomChip.component';
 
 type Props = {
   value: boolean;
   translation: string;
   colorBlacklist: string;
-  colorsInverted: boolean;
+  colorsInverted?: boolean;
+  chipClass?: string;
 };
 
 const ReportBooleanChip: React.FC<Props> = ({
@@ -14,6 +15,7 @@ const ReportBooleanChip: React.FC<Props> = ({
   translation,
   colorBlacklist,
   colorsInverted,
+  chipClass,
 }) => {
   const theme = useTheme();
   const green = theme.palette.success;
@@ -22,30 +24,36 @@ const ReportBooleanChip: React.FC<Props> = ({
   switch (colorBlacklist) {
     case 'grey':
       if (!colorsInverted) {
-        color = value ? green.main : red.main;
+        color = value ? green.dark : red.dark;
       } else {
-        color = value ? red.main : green.main;
+        color = value ? red.dark : green.dark;
       }
       break;
     case 'green':
       if (!colorsInverted) {
-        color = value ? null : red.main;
+        color = value ? null : red.dark;
       } else {
-        color = value ? red.main : null;
+        color = value ? red.dark : null;
       }
       break;
     case 'red':
       if (!colorsInverted) {
-        color = value ? green.main : null;
+        color = value ? green.dark : null;
       } else {
-        color = value ? null : green.main;
+        color = value ? null : green.dark;
       }
       break;
     default:
-      color = value ? green.main : red.main;
+      color = value ? green.dark : red.dark;
       break;
   }
-  return <CustomChip mainColor={color} displayedValue={translation} />;
+  return (
+    <CustomChip
+      mainColor={color}
+      displayedValue={translation}
+      chipClass={chipClass}
+    />
+  );
 };
 
 export default React.memo(ReportBooleanChip);

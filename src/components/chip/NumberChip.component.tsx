@@ -1,14 +1,23 @@
 import React from 'react';
 import { StepperConfig } from '#components/chip/types';
-import { CustomChip } from './CustomChip.component';
+import CustomChip from './CustomChip.component';
 
-type Props = { config: StepperConfig; value: any; displayedValue: string };
+type Props = {
+  config: StepperConfig;
+  value: number;
+  displayedValue: string;
+  chipClass?: string;
+};
 
-const NumberChip: React.FC<Props> = ({ config, value, displayedValue }) => {
+const NumberChip: React.FC<Props> = ({
+  config,
+  value,
+  displayedValue,
+  chipClass,
+}) => {
   let mainColor = null;
   let icon = null;
   let iconColor = null;
-
   if (
     config.low &&
     (('value' in config.low && value === config.low?.value) ||
@@ -61,6 +70,7 @@ const NumberChip: React.FC<Props> = ({ config, value, displayedValue }) => {
       mainColor={mainColor}
       icon={icon}
       iconColor={iconColor}
+      chipClass={chipClass}
     />
   );
 };

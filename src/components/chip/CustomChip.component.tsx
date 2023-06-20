@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import {
   Theme,
   createTheme,
@@ -10,12 +11,12 @@ import {
 import Chip from '@material-ui/core/Chip';
 import MuiIcon from '#components/MuiIcon.component';
 
-// typing to confirm
 export type Props = {
   displayedValue: string;
   mainColor?: string;
   icon?: string;
   iconColor?: string;
+  chipClass?: string;
 };
 
 const getColor = (theme: Theme, mainColor?: string) => {
@@ -45,7 +46,7 @@ export const CustomChip = (props: Props) => {
   return (
     <MuiThemeProvider theme={theme}>
       <Chip
-        className={classes.chip}
+        className={classnames(classes.chip, props.chipClass)}
         label={displayedValue}
         size="small"
         color="primary"

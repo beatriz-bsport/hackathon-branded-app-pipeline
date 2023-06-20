@@ -16,12 +16,12 @@ interface FormikValues {
   hide_credits_for_customers: boolean;
 }
 
-type Props = {
+type OwnProps = {
   productTheme: Partial<CompanyTheme>;
   onSubmit: (id: number, data: FormData, options: OptionCallback) => void;
 };
 
-const ProductsPersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
+const CreditsPersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
   isSubmitting,
   isValid,
   handleSubmit,
@@ -31,22 +31,17 @@ const ProductsPersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <div className={classes.main}>
-        <div className={classes.section}>
-          <Typography className={classes.namesHeader}>
-            {t('forms.productsThemePersonalization.title')}
-          </Typography>
-          <Typography className={classes.namesSubHeader}>
-            {t('forms.productsThemePersonalization.credits.subTitle')}
-          </Typography>
-          <SwitchField
-            name="hide_credits_for_customers"
-            label={t('forms.productsThemePersonalization.credits.label')}
-            helperText={t(
-              'forms.productsThemePersonalization.credits.description',
-            )}
-          />
-        </div>
+      <div className={classes.section}>
+        <Typography className={classes.namesSubHeader}>
+          {t('forms.productsThemePersonalization.credits.subTitle')}
+        </Typography>
+        <SwitchField
+          name="hide_credits_for_customers"
+          label={t('forms.productsThemePersonalization.credits.label')}
+          helperText={t(
+            'forms.productsThemePersonalization.credits.description',
+          )}
+        />
       </div>
       <Button
         disabled={isSubmitting || !isValid}
@@ -62,21 +57,11 @@ const ProductsPersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
-  main: {
-    display: 'grid',
-    gap: theme.spacing(4),
-    gridTemplateColumns: 'repeat(auto-fill, minmax(700px, 1fr) ) ',
-  },
   section: {
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(2),
     minWidth: 700,
-  },
-  namesHeader: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    margin: `${theme.spacing(2)}px 0`,
   },
   namesSubHeader: {
     fontSize: 16,
@@ -87,11 +72,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const ProductsPersonalizeFormSchema = Yup.object().shape({
+const CreditsPersonalizeFormSchema = Yup.object().shape({
   hide_credits_for_customers: Yup.boolean().required(),
 });
 
-const ProductsPersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
+const CreditsPersonalizeFormFormikHOC = withFormik<OwnProps, FormikValues>({
   mapPropsToValues: ({ productTheme }) => {
     if (productTheme) {
       return {
@@ -102,7 +87,7 @@ const ProductsPersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       hide_credits_for_customers: false,
     };
   },
-  validationSchema: ProductsPersonalizeFormSchema,
+  validationSchema: CreditsPersonalizeFormSchema,
   handleSubmit: (
     values,
     { props: { onSubmit, productTheme }, setSubmitting },
@@ -121,4 +106,4 @@ const ProductsPersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
   },
 });
 
-export default ProductsPersonalizeFormFormikHOC(ProductsPersonalizeForm);
+export default CreditsPersonalizeFormFormikHOC(CreditsPersonalizeForm);

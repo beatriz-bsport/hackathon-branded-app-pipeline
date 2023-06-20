@@ -493,3 +493,17 @@ export const getPaymentPackCategoriesWithPacks = createSelector(
     ]);
   },
 );
+
+export const getPaymentPackCategoryWithNbItems = createSelector(
+  [groupByCategory(getEnabledPaymentPacks)],
+  (enabledPaymentPacksByCategory) => {
+    return enabledPaymentPacksByCategory.map((category) => {
+      return {
+        id: category.id,
+        nbAvailableItems: (
+          category?.packs?.filter((pack) => !pack.manager_only) ?? []
+        ).length,
+      };
+    });
+  },
+);

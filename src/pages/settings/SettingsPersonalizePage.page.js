@@ -1,17 +1,20 @@
 // @flow
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 import type { CompanyTheme } from '../../libs/theme/types';
 import ThemePersonalizeForm from '../../libs/theme/components/ThemePersonalizeForm.component';
 import CommunicationPersonalizeForm from '#libs/communication-v2/components/CommunicationPersonalizeForm.component';
-import ProductsPersonalizeForm from '#libs/theme/components/ProductsPersonalizeForm.component';
+import CreditsPersonalizeForm from '#libs/theme/components/CreditsPersonalizeForm.component';
+import ProductsOrderingPersonalizeForm from '#libs/theme/components/ProductsOrderingPersonalizeForm.component';
 import {
   updateCompanyTheme as updateCompanyThemeAction,
   fetchCompanyTheme as fetchCompanyThemeAction,
@@ -25,6 +28,24 @@ import themeSelectors from '../../libs/theme/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import { getIsTwoWayEmailActivated } from '#libs/communication-v2/selectors';
 import Config from '../../config';
+import {
+  fetchBookingFunnelConfiguration as fetchBookingFunnelConfigurationAction,
+  updateBookingFunnelConfiguration as updateBookingFunnelConfigurationAction,
+} from '#libs/marketplace/actions';
+import { BookingFunnelConfiguration } from '#libs/marketplace/types';
+import {
+  getPaymentPackCategoryById,
+  getPaymentPackCategoryWithNbItems,
+} from '#libs/payment-packs/selectors';
+import {
+  fetchAllPaymentPackCategory as fetchAllPaymentPackCategoryAction,
+  fetchPaymentPackList as fetchPaymentPackListAction,
+} from '#libs/payment-packs/actions';
+import { PaymentPackCategory } from '#libs/payment-packs/types';
+import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/payment-combo/actions';
+import { getPaymentComboList } from '#libs/payment-combo/selectors';
+import { fetchContractList as fetchContractListAction } from '#libs/subscription/actions';
+import { getAvailableContractListCustomer } from '#libs/subscription/selectors';
 
 type Props = {
   theme: CompanyTheme,
@@ -41,12 +62,27 @@ type Props = {
   ) => void,
   communicationProviderSettingsLoading: boolean,
   companyId: number,
-};
+  bookingFunnelConfiguration: BookingFunnelConfiguration,
+  paymentPackCategories: { [key: number]: PaymentPackCategory },
+  fetchBookingFunnelConfiguration: () => void,
+  fetchAllPaymentPackCategory: () => void,
+} & WithTranslation;
 
 export class ThemePersonalize extends Component<Props> {
   componentDidMount() {
-    this.props.fetchCompanyTheme();
+    this.props.fetchCompanyTheme(undefined, {
+      onSuccess: (theme) =>
+        this.props.fetchBookingFunnelConfiguration(theme.company),
+    });
     this.props.fetchCommunicationProviderSettings('email');
+    this.props.fetchAllPaymentPackCategory();
+    this.props.fetchPaymentPackList({
+      disabled: false,
+      manager_only: false,
+      page_size: 70000,
+    });
+    this.props.fetchPaymentComboList({ disabled: false, manager_only: false });
+    this.props.fetchContractList({ disabled: false, manager_only: false });
   }
 
   render() {
@@ -60,6 +96,13 @@ export class ThemePersonalize extends Component<Props> {
       isTwoWayEmailActivated,
       communicationProviderSettingsLoading,
       companyId,
+      bookingFunnelConfiguration,
+      submitBookingFunnelConfiguration,
+      paymentPackCategories,
+      paymentPackByCategorySummary,
+      paymentComboNumberItems,
+      contractNumberItems,
+      t,
     } = this.props;
 
     const isCommunicationPersonalizeFormDisplayed =
@@ -90,13 +133,38 @@ export class ThemePersonalize extends Component<Props> {
               </Paper>
             )}
           <Paper className={classes.paper}>
-            <ProductsPersonalizeForm
-              productTheme={{
-                company: theme.company,
-                hide_credits_for_customers: theme.hide_credits_for_customers,
-              }}
-              onSubmit={submitTheme}
-            />
+            <div className={classes.main}>
+              <Typography className={classes.namesHeader}>
+                {t('forms.productsThemePersonalization.title')}
+              </Typography>
+              <CreditsPersonalizeForm
+                productTheme={{
+                  company: theme.company,
+                  hide_credits_for_customers: theme.hide_credits_for_customers,
+                }}
+                onSubmit={submitTheme}
+              />
+              <Divider className={classes.divider} />
+              <ProductsOrderingPersonalizeForm
+                companyId={theme?.company}
+                customPricingOptionOrderingEnabled={
+                  bookingFunnelConfiguration?.custom_pricing_option_ordering_enabled
+                }
+                customPricingOptionOrdering={
+                  bookingFunnelConfiguration?.custom_pricing_option_ordering ??
+                  []
+                }
+                currentPricingOptionOrdering={
+                  bookingFunnelConfiguration?.current_pricing_option_ordering ??
+                  []
+                }
+                paymentPackCategories={paymentPackCategories}
+                paymentPackByCategorySummary={paymentPackByCategorySummary}
+                paymentComboNumberItems={paymentComboNumberItems}
+                contractNumberItems={contractNumberItems}
+                onSubmit={submitBookingFunnelConfiguration}
+              />
+            </div>
           </Paper>
         </div>
       </>
@@ -115,6 +183,18 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(2),
     borderRadius: 12,
   },
+  main: {
+    display: 'grid',
+    gap: theme.spacing(4),
+  },
+  namesHeader: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    margin: `${theme.spacing(2)}px 0`,
+  },
+  divider: {
+    marginTop: theme.spacing(1),
+  },
 });
 
 export default compose(
@@ -127,6 +207,11 @@ export default compose(
       isTwoWayEmailActivated: getIsTwoWayEmailActivated(state),
       communicationProviderSettingsLoading:
         state.communicationV2.company_communication_provider.email.loading,
+      bookingFunnelConfiguration: state.marketplace.bookingFunnel.configuration,
+      paymentPackCategories: getPaymentPackCategoryById(state),
+      paymentPackByCategorySummary: getPaymentPackCategoryWithNbItems(state),
+      paymentComboNumberItems: getPaymentComboList(state).length,
+      contractNumberItems: getAvailableContractListCustomer(state).length,
     }),
     {
       fetchCompanyTheme: fetchCompanyThemeAction,
@@ -135,6 +220,12 @@ export default compose(
         fetchCommunicationProviderSettingsAction,
       updateCommunicationProviderSettings:
         updateCommunicationProviderSettingsAction,
+      fetchBookingFunnelConfiguration: fetchBookingFunnelConfigurationAction,
+      submitBookingFunnelConfiguration: updateBookingFunnelConfigurationAction,
+      fetchAllPaymentPackCategory: fetchAllPaymentPackCategoryAction,
+      fetchPaymentPackList: fetchPaymentPackListAction,
+      fetchPaymentComboList: fetchPaymentComboListAction,
+      fetchContractList: fetchContractListAction,
     },
   ),
   withStyles(styles),

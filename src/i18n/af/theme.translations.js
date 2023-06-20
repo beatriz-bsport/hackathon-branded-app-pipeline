@@ -380,6 +380,15 @@ exports.default = {
         description:
           "Active ou désactive l'affichage des crédits des cartes pour les clients",
       },
+      productsOrdering: {
+        subTitle: 'Ordre des produits',
+        label: 'Ordre personalisé',
+        reset: 'Réinitialiser',
+        description:
+          "Ordonnez vos produits afin d'assurer leur visibilité pour vos clients lorsqu'ils réservent une activité et qu'ils ont besoin d'une carte de cours, d'un pack ou d'un abonnement.",
+        itemNumberCaption: '{{count}} produit',
+        itemNumberCaption_plural: '{{count}} produits',
+      },
     },
     submit: 'Sauvegarder',
     warningColorBrightness: {

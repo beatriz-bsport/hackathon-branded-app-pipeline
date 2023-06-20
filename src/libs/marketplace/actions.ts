@@ -6,13 +6,15 @@ import {
   fetchMarketplaceSettings as fetchMarketplaceSettingsAPI,
   updateMarketplaceSettings as updateMarketplaceSettingsAPI,
   fetchBookingFunnelConfiguration as fetchBookingFunnelConfigurationAPI,
+  updateBookingFunnelConfiguration as updateBookingFunnelConfigurationAPI,
 } from './api';
 import {
   BookingFunnelConfiguration,
   MarketplaceSettings,
+  PricingOptionOrdering,
 } from './types';
 import { getMarketplaceDefaultConfig } from './constants';
-import { snackbarError } from '#libs/snackbar/actions';
+import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
 
 export const marketplaceSettingsAction = {
   error: createAction('MARKETPLACE_SETTINGS/ERROR'),
@@ -111,6 +113,40 @@ export function fetchBookingFunnelConfiguration(
     } catch (error) {
       console.error(error);
       dispatch(bookingFunnelConfigurationAction.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+
+    dispatch(bookingFunnelConfigurationAction.isLoading(false));
+  };
+}
+
+export function updateBookingFunnelConfiguration(
+  companyId: number,
+  data: {
+    custom_pricing_option_ordering_enabled: boolean;
+    custom_pricing_option_ordering?: PricingOptionOrdering;
+  },
+  options?: OptionCallback<BookingFunnelConfiguration>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(bookingFunnelConfigurationAction.isLoading(true));
+    dispatch(bookingFunnelConfigurationAction.error(null));
+
+    try {
+      const res = await updateBookingFunnelConfigurationAPI(companyId, data);
+      const resultData = res.data;
+      dispatch(bookingFunnelConfigurationAction.success(resultData));
+      dispatch(bookingFunnelConfigurationAction.error(null));
+      dispatch(snackbarSuccess('settings.update.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(resultData);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(bookingFunnelConfigurationAction.error(error));
+      dispatch(snackbarError('settings.update.error'));
       if (options && options.onError) {
         options.onError(error);
       }

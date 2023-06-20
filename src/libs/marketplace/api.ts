@@ -7,7 +7,7 @@ import {
   getAuth,
   patchAuth,
 } from '../../http';
-import { BookingFunnelConfiguration } from './types';
+import { BookingFunnelConfiguration, PricingOptionOrdering } from './types';
 
 const fetchCompanyMetaActivities = async ({
   companyId,
@@ -111,6 +111,19 @@ export const fetchBookingFunnelConfiguration: (
 ) => Promise<AxiosResponse<BookingFunnelConfiguration>> = (companyId) => {
   return getAuth(
     `${API_V1_URI}/marketplace_settings/booking_funnel_configuration/company/${companyId}/`,
+  );
+};
+
+export const updateBookingFunnelConfiguration: (
+  companyId: number,
+  data: {
+    custom_pricing_option_ordering_enabled: boolean;
+    custom_pricing_option_ordering?: PricingOptionOrdering;
+  },
+) => Promise<AxiosResponse<BookingFunnelConfiguration>> = (companyId, data) => {
+  return patchAuth(
+    `${API_V1_URI}/marketplace_settings/booking_funnel_configuration/company/${companyId}/`,
+    data,
   );
 };
 

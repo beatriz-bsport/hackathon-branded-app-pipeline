@@ -13,6 +13,7 @@ import type { OffersGroup } from '#libs/group-offer/types';
 import type { Establishment } from '#libs/establishment/types';
 import type { Coach } from '#libs/associated-coach/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
+import { SEPA_REQUIRED_BILLING_ADDRESS_COUNTRIES } from './constants';
 
 export function isOfferInThePast(offer: Offer | Offer_FULL) {
   if (!offer) return false;
@@ -478,4 +479,8 @@ export const getGroupOfferSetAsFullBookingOnlyStatus = (
     return MarketplaceOfferStatus.SOON;
   }
   return MarketplaceOfferStatus.BOOKABLE;
+};
+
+export const getSepaDebitNeedsBillingAddress = (country: string) => {
+  return country && SEPA_REQUIRED_BILLING_ADDRESS_COUNTRIES.includes(country);
 };

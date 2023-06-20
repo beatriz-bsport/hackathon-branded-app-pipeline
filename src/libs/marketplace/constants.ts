@@ -73,3 +73,22 @@ export enum MARKETPLACE_BREAKPOINT {
   MD = 1100,
   LG = 1475,
 }
+
+export const SEPA_REQUIRED_BILLING_ADDRESS_COUNTRIES = [
+  'AD',
+  'PF',
+  'TF',
+  'GI',
+  'GB',
+  'GG',
+  'VA',
+  'IM',
+  'JE',
+  'MC',
+  'NC',
+  'BL',
+  'PM',
+  'SM',
+  'CH',
+  'WF',
+];

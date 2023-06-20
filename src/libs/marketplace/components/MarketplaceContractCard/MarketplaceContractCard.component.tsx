@@ -23,13 +23,13 @@ import './styles.css';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-import type { ContractWithPaymentPack } from '#libs/subscription/types';
+import type { Contract } from '#libs/subscription/types';
 
 export type Props = {
   isExcludingTax: boolean;
-  contract: ContractWithPaymentPack;
-  addToCart: (contract: ContractWithPaymentPack) => void;
-  onOpenDetailDialog: (contract: ContractWithPaymentPack) => void;
+  contract: Contract;
+  addToCart: (contract: Contract) => void;
+  onOpenDetailDialog: (contract: Contract) => void;
 };
 
 const MarketplaceContractCard: React.FC<Props> = ({
@@ -40,9 +40,13 @@ const MarketplaceContractCard: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('marketplace');
 
-  const handleAddToCart = useCallback(() => {
-    addToCart(contract);
-  }, [addToCart, contract]);
+  const handleAddToCart = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.stopPropagation();
+      addToCart(contract);
+    },
+    [addToCart, contract],
+  );
 
   const handleOpenDetailDialog = useCallback(() => {
     onOpenDetailDialog(contract);
@@ -131,7 +135,13 @@ const MarketplaceContractCard: React.FC<Props> = ({
               'bs-contract-card__price-icon': 'bs-contract-card__price-icon',
             }}
           >
-            <ShoppingCartIcon />
+            <button
+              type="button"
+              className="bs-contract-card__price-icon"
+              onClick={handleAddToCart}
+            >
+              <ShoppingCartIcon />
+            </button>
           </Item>
         </Grid>
         <Item

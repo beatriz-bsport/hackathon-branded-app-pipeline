@@ -66,9 +66,9 @@
             "previous": "Indietro",
             "firstname": "Nome",
             "lastname": "Cognome",
-            "save": "Iscriviti",
-            "saveAndAdd": "Registrati e aggiungi uno nuovo",
-            "booking": "Prenotazioni",
+            "save": "Salva",
+            "saveAndAdd": "Salva e aggiungi di nuovo",
+            "booking": "Prenotazione",
             "until": "Fino a",
             "from": "Da",
             "paymentMethod": "Metodo di pagamento",
@@ -466,7 +466,7 @@
             "clearDate": "Cancella",
             "email": "Indirizzo email",
             "description": "Descrizione",
-            "send": "Iscriviti",
+            "send": "Salva",
             "discard": "Annulla",
             "SCT": "Categoria",
             "default_price": "Prezzo",
@@ -533,7 +533,7 @@
                 "month": "Mensile",
                 "hour": "All'ora"
             },
-            "completeInformation": "Completare le mie informazioni",
+            "completeInformation": "Compila i tuoi dati",
             "emergencyContact": "Contatto d'emergenza",
             "modify": "Modificare",
             "warningAddEmail": "Questa e-mail è già stata aggiunta.",
@@ -1617,7 +1617,7 @@
             "close": "Ricevuto"
         },
         "actions": {
-            "save": "Iscriviti",
+            "save": "Salva",
             "requestPartnership": "Richiedi una partnership"
         },
         "pageTitle": "Partnership",
@@ -1676,7 +1676,7 @@
                 "label": "Invisibile ai clienti"
             },
             "actions": {
-                "submit": "Iscriviti",
+                "submit": "Salva",
                 "cancel": "Annulla"
             },
             "content": "Contenuti",
@@ -2153,7 +2153,7 @@
                 },
                 "actions": {
                     "cancel": "Annulla",
-                    "submit": "Iscriviti"
+                    "submit": "Salva"
                 }
             }
         },
@@ -2213,7 +2213,7 @@
                     "title": "Modifica della fascia oraria",
                     "cancel": "Annulla",
                     "label": "Modifica per:",
-                    "submit": "Iscriviti",
+                    "submit": "Salva",
                     "warning": "Questo/a insegnante non è associato/a ad alcun appuntamento"
                 }
             },
@@ -2237,12 +2237,12 @@
                 "switchLabel": "Aggiungi solo per alcuni stabilimenti"
             },
             "notAssociatedDialog": {
-                "info": "La disponibilità è stata registrata. Tuttavia, questo insegnante non è associato ad alcun appuntamento.\n         Per poter salvare un nuovo appuntamento con questo docente, associalo all'appuntamento desiderato dalla scheda Appuntamenti.",
+                "info": "La disponibilità è stata registrata. Tuttavia, questo insegnante non è associato ad alcun appuntamento.\n         Per poter collegare un nuovo appuntamento con questo insegnante, associalo all'appuntamento desiderato dalla scheda Appuntamenti.",
                 "close": "Chiudi",
                 "checkbox": "Non ricordarmelo più",
                 "title": "Nessun appuntamento associato"
             },
-            "notAssociatedWarning": "Attenzione, questo insegnante non è associato ad alcun appuntamento. Per poter salvare un nuovo appuntamento con questo docente, associalo all'appuntamento desiderato dalla scheda Appuntamenti."
+            "notAssociatedWarning": "Attenzione, questo insegnante non è associato ad alcun appuntamento. Per poter collegare un nuovo appuntamento con questo insegnante, associalo all'appuntamento desiderato dalla scheda Appuntamenti."
         },
         "resource": {
             "datatype": {
@@ -2258,7 +2258,7 @@
                 "color": "Codice colore",
                 "actions": {
                     "cancel": "Annulla",
-                    "submit": "Iscriviti"
+                    "submit": "Salva"
                 }
             },
             "selector": {
@@ -2283,7 +2283,7 @@
         },
         "color": {
             "form": {
-                "submit": "Iscriviti",
+                "submit": "Salva",
                 "title": "Codice colore dell'insegnante",
                 "cancel": "Annulla"
             }
@@ -2291,7 +2291,7 @@
         "payment": {
             "address": {
                 "explain": "Inserisci il tuo indirizzo per il corso a domicilio",
-                "save": "Iscriviti"
+                "save": "Salva"
             }
         },
         "privateSlot": {
@@ -2307,7 +2307,7 @@
             "editTime": "Modifica",
             "updateTime": {
                 "title": "Cambia appuntamento",
-                "submit": "Iscriviti",
+                "submit": "Salva",
                 "cancel": "Annulla",
                 "explainEmail": "Un'email verrà automaticamente inviata all'allievo per avvisarlo"
             },
@@ -2454,7 +2454,7 @@
             "form": {
                 "actions": {
                     "cancel": "Annulla",
-                    "submit": "Iscriviti"
+                    "submit": "Salva"
                 },
                 "explain": "Modifica fino a:",
                 "interval": {
@@ -2467,7 +2467,7 @@
                 }
             },
             "selectCoachToModifyAvailability": "Seleziona un insegnante",
-            "addBooking": "Salva un appuntamento",
+            "addBooking": "Prenota un appuntamento",
             "toogle": {
                 "showOfferList": "Lezioni di gruppo",
                 "showPrivateBookings": "Appuntamenti",
@@ -2549,7 +2549,7 @@
                     "label": "Durata"
                 },
                 "cancel": "Annulla",
-                "submit": "Iscriviti",
+                "submit": "Salva",
                 "credit": {
                     "label": "Numero di credito/i",
                     "helperText": "Numero di credito/i richiesto/i per una prenotazione"
@@ -2671,7 +2671,7 @@
                     "warning": "Rendi la tua carta visibile ai clienti in modo che possano selezionare i metodi di pagamento."
                 },
                 "actions": {
-                    "submit": "Iscriviti",
+                    "submit": "Salva",
                     "cancel": "Annulla"
                 },
                 "price": {
@@ -2882,7 +2882,7 @@
                 },
                 "actions": {
                     "cancel": "Annulla",
-                    "submit": "Iscriviti"
+                    "submit": "Salva"
                 },
                 "resourceGroup": {
                     "establishment": "Luogo",
@@ -2923,8 +2923,8 @@
                         "header": "Tags",
                         "doNotSelectToAllowAllMembers": "Lasciare vuoto per permettere a tutti i membri"
                     },
-                    "label": "Permettere la prenotazione senza pagare",
-                    "title": "Pagare più tardi",
+                    "label": "Autorizza la prenotazione senza pagamento",
+                    "title": "Paga più tardi",
                     "helperText": "Attivando questa funzione i tuoi membri saranno in grado di prenotare questo appuntamento senza dover acquistare/utilizzare una carta. Il numero di crediti per l'appuntamento sarà automaticamente addebitato sulla prossima carta compatibile acquistata."
                 },
                 "pad_before_booking": {
@@ -2969,7 +2969,7 @@
         "customEvent": {
             "form": {
                 "actions": {
-                    "submit": "Iscriviti",
+                    "submit": "Salva",
                     "cancel": "Annulla"
                 },
                 "description": {
@@ -3242,7 +3242,7 @@
                 "confirm": "Conferma"
             },
             "form": {
-                "submit": "Iscriviti",
+                "submit": "Salva",
                 "edit": "Modifica",
                 "cancel": "Annulla",
                 "title": "Edit video",
@@ -3368,7 +3368,7 @@
             "deleteVideo": "Rimuovi",
             "form": {
                 "cancel": "Annulla",
-                "submit": "Iscriviti"
+                "submit": "Salva"
             },
             "bottomActions": {
                 "create": "Inserisci"
@@ -4218,7 +4218,7 @@
             "defaultDeliveryFee": "Spese di spedizione predefinite",
             "deliveryFee": "Spese di spedizione",
             "forms": {
-                "onSubmit": "Iscriviti"
+                "onSubmit": "Salva"
             }
         },
         "products": {
@@ -4243,7 +4243,7 @@
                 "freeThresholdLabel": "Gratuite a partire da",
                 "freeThresholdHelper": "Se l'importo dell'ordine supera tale importo, i costi di spedizione sono gratuiti",
                 "onCancel": "Annulla",
-                "onSubmit": "Iscriviti",
+                "onSubmit": "Salva",
                 "create": "Aggiungi un costo di spedizione",
                 "title": "Form spese di spedizione",
                 "feeLabel": "Spese di spedizione",
@@ -5277,7 +5277,7 @@
             "is_whereby_integration_enabled": {
                 "label": "Attiva l'integrazione whereby X bsport"
             },
-            "submit": "Iscriviti",
+            "submit": "Salva",
             "zoom": {
                 "explainInvalid": "Account valido",
                 "explainValid": "Account valido: I link delle riunioni ZOOM verranno creati per ogni sessione 15 minuti prima dell'avvio automatico. Il professore riceverà un link per ospitare la riunione, mentre gli iscritti riceveranno un altro link per partecipare alla riunione. Si noti che se l'account ZOOM non è pagato, la riunione ZOOM è limitata a 40 minuti",
@@ -5705,7 +5705,7 @@
             "download": "Scarica la fattura",
             "equilibrate": "Saldo (acconto)",
             "addInvoiceItem": "Aggiungi alla fattura",
-            "save": "Iscriviti",
+            "save": "Salva",
             "backToInvoiceItemEditor": "Acquista",
             "goToPaymentEditor": "Pagamento",
             "goToSubscription": "Vedi l'abbonamento",
@@ -6192,7 +6192,7 @@
                     },
                     "explainWarning": "Si noti che questa operazione non è reversibile!",
                     "cancel": "Annulla",
-                    "submit": "Iscriviti",
+                    "submit": "Salva",
                     "explainInvoice": "A partire da quale fattura (inclusa) desiderate posticipare la sottoscrizione?"
                 },
                 "disabledReasons": {
@@ -6203,7 +6203,7 @@
             "switchPack": {
                 "form": {
                     "title": "Cambio pass",
-                    "submit": "Iscriviti",
+                    "submit": "Salva",
                     "cancel": "Annulla",
                     "warning": "La fatturazione rimarrà la stessa, se si desidera aumentare / ridurre l'importo mensile, modificare ogni pagamento mensile separatamente.",
                     "explain": "Questo pass verrà aggiunto su tutte le fatture future, in sostituzione del precedente. Le sessioni prenotate con il pass precedente saranno trasferite sul nuovo, anche se questo potrebbe non essere compatibile."
@@ -6249,8 +6249,8 @@
             "switchPrivatePass": {
                 "form": {
                     "cancel": "Cancella",
-                    "title": "Cambio di carta d'appuntamento",
-                    "explain": "Questa carta d'appuntamento sarà addebitata al posto di quella vecchia su tutte le fatture future. Le sessioni prenotate con la vecchia carta saranno trasferite alla nuova, anche se la nuova non dovrebbe essere compatibile.",
+                    "title": "Cambio di pass per appuntamenti",
+                    "explain": "Questo pass per appuntamenti sarà addebitato al posto di quello vecchio su tutte le fatture future. Le sessioni prenotate con il vecchio pass saranno trasferite al nuovo, anche se il nuovo non dovrebbe essere compatibile.",
                     "warning": "La fatturazione rimarrà la stessa, se volete aumentare/diminuire l'importo mensile, cambiate ogni pagamento mensile separatamente.",
                     "submit": "Registra"
                 }
@@ -6345,7 +6345,7 @@
             "list": {
                 "title": "Abbonamenti",
                 "addButton": "Definire un contratto",
-                "register": "Iscriviti un socio",
+                "register": "Iscrivi un membro",
                 "titleCustomerAvailable": "Abbonamenti disponibili per la vendita",
                 "titleManagerOnly": "Abbonamenti non disponibili",
                 "isEmpty": "Nessun abbonamento disponibile",
@@ -6584,7 +6584,7 @@
             },
             "priceUpdater": {
                 "cancel": "Annulla",
-                "submit": "Iscriviti",
+                "submit": "Salva",
                 "explain": "Solo questa futura fattura verrà modificata",
                 "title": "Modifica importo futuro",
                 "price": "Nuovo importo",
@@ -7673,7 +7673,7 @@
                 "description": "Credito {{credits}} - {{note}}",
                 "description_plural": "Crediti {{credits}} - {{note}}",
                 "actions": {
-                    "submit": "Iscriviti",
+                    "submit": "Salva",
                     "cancel": "Annulla"
                 },
                 "note": {
@@ -7836,7 +7836,7 @@
             },
             "actions": {
                 "cancel": "Annulla",
-                "submit": "Iscriviti"
+                "submit": "Salva"
             },
             "scaleDown": "Dividere",
             "scaleUp": "Moltiplicare"
@@ -7877,7 +7877,7 @@
                 "actions": {
                     "edit": "Modifica",
                     "skip": "Salta",
-                    "create": "Iscriviti",
+                    "create": "Salva",
                     "cancel": "Annulla"
                 },
                 "name": {
@@ -8319,7 +8319,7 @@
             "packValidity": "Validità della carta",
             "numberOfAvailableCredits": "Numero di crediti disponibili",
             "credit": "Credito",
-            "unlimited": "Limitato",
+            "unlimited": "Illimitato",
             "limited": "Limitato",
             "numberOfCredit": "Numero di crediti",
             "namePaymentPack": "Nome del pass",
@@ -9992,7 +9992,7 @@
                 "label": "Descrizione",
                 "isEmpty": "Nessuna descrizione"
             },
-            "submit": "Iscriviti",
+            "submit": "Salva",
             "add": "Aggiungi una smartlist",
             "detail": "Dettaglio smartlist",
             "actions": {
@@ -10186,7 +10186,7 @@
                 "dst_name": {
                     "placeholder": "Figlio"
                 },
-                "submit": "Iscriviti",
+                "submit": "Salva",
                 "cancel": "Annulla",
                 "is": " è ",
                 "title": "Relazione",
@@ -10213,7 +10213,7 @@
         },
         "consumer_payment_pack_links": {
             "list": {
-                "title": "Carte condivise",
+                "title": "Pass condivisi",
                 "create": "Condividi un pass",
                 "isEmpty": "Nessun pass condiviso da visualizzare"
             },
@@ -11150,8 +11150,8 @@
     },
     "selfCheckIn": {
         "offerDetail": {
-            "register": "Iscriviti per questo corso",
-            "activateBarcode": "Rilevatore di carte",
+            "register": "Iscriviti a questo corso",
+            "activateBarcode": "Scan codice a barre",
             "emptyList": "Nessun allievo è iscritto a questo corso",
             "cancelRegistration": "Annulla",
             "noConsumerPaymentPack": "Nessuna carta del corso valida!",
@@ -11487,7 +11487,7 @@
                 "label": "Gestione intelligente",
                 "helper": "Se un posto diventa disponibile, il membro ha un tempo proporzionale al tempo rimanente prima della sessione."
             },
-            "submit": "Iscriviti",
+            "submit": "Salva",
             "auto_cancellation_type": {
                 "title": "Gestione della lista d'attesa"
             },
@@ -11557,7 +11557,7 @@
         "provision": {
             "form": {
                 "cancel": "Annulla",
-                "submit": "Iscriviti",
+                "submit": "Salva",
                 "title": "Modifica dello stock",
                 "quantityLabel": "Unità",
                 "quantityHelperText": "Unità da aggiungere / sottrarre allo stock"
@@ -11613,7 +11613,7 @@
         }
     },
     "paymentRules": {
-        "save": "Iscriviti",
+        "save": "Salva",
         "modal": {
             "delete": {
                 "confirm": "Conferma",
@@ -11808,7 +11808,7 @@
         "colorPicker": {
             "noColor": "Nessun colore",
             "delete": "Cancella",
-            "validate": "Iscriviti"
+            "validate": "Salva"
         },
         "text": {
             "showLessText": "Vedi meno",
@@ -13094,7 +13094,7 @@
                         }
                     },
                     "cancel": "Annulla",
-                    "submit": "Iscriviti",
+                    "submit": "Salva",
                     "firstName": {
                         "label": "Nome"
                     },
@@ -13117,7 +13117,7 @@
                             "label": "Cognome"
                         }
                     },
-                    "register": "Registra"
+                    "register": "Salva"
                 },
                 "delete": {
                     "content": "Sei sicuro di voler eliminare questo account?",

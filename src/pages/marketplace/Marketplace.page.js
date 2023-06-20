@@ -254,7 +254,7 @@ export class MarketPlace extends Component<Props, State> {
         configIndex = paramsJson.index;
       }
 
-      if (componentType === 'pass') {
+      if (componentType === 'pass' && !paramsJson.isPreview) {
         const tabConfig = settings.config[configIndex];
         const newPath = fromConfigToUrl(tabConfig, {
           tabSelected: configIndex,

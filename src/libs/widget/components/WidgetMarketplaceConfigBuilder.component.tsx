@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -6,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { withStyles, Theme } from '@material-ui/core/styles';
+import { withStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { MaterialStyleType } from '../../../utils/types';
 
 import { fromConfigToUrl } from '../../marketplace/routing-utils';
@@ -28,15 +27,18 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
-export class WidgetMarketplaceConfigBuilder extends React.Component<Props> {
+export class WidgetMarketplaceConfigBuilder extends React.PureComponent<Props> {
   getUrl = () => {
     let url = '';
 
-    const urlParams = fromConfigToUrl({
-      component_type: this.props.componentType,
-      config: this.props.config,
-      configIndex: this.props.configIndex,
-    });
+    const urlParams = fromConfigToUrl(
+      {
+        component_type: this.props.componentType,
+        config: this.props.config,
+        configIndex: this.props.configIndex,
+      },
+      { isPreview: true },
+    );
 
     if (!urlParams || urlParams === '/') {
       return '';
@@ -85,28 +87,28 @@ export class WidgetMarketplaceConfigBuilder extends React.Component<Props> {
   }
 }
 
-const styles = (theme: Theme) => ({
-  marginTop: {
-    marginTop: theme.spacing(2),
-  },
-  codeContainer: {
-    marginTop: theme.spacing(2),
-    padding: theme.spacing(2),
-    position: 'relative',
-  },
-  code: {
-    whiteSpace: 'pre-wrap',
-    paddingRight: theme.spacing(4),
-  },
-  copyClipboardContainer: {
-    position: 'absolute',
-    top: theme.spacing(1),
-    right: theme.spacing(1),
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    marginTop: {
+      marginTop: theme.spacing(2),
+    },
+    codeContainer: {
+      marginTop: theme.spacing(2),
+      padding: theme.spacing(2),
+      position: 'relative',
+    },
+    code: {
+      whiteSpace: 'pre-wrap',
+      paddingRight: theme.spacing(4),
+    },
+    copyClipboardContainer: {
+      position: 'absolute',
+      top: theme.spacing(1),
+      right: theme.spacing(1),
+    },
+  });
 
 export default compose<any, Props>(
   withTranslation(['widget']),
-  // @ts-ignore
   withStyles(styles),
 )(WidgetMarketplaceConfigBuilder);

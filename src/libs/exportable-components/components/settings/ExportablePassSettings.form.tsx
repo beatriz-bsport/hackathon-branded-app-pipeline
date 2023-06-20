@@ -1,150 +1,207 @@
-// @ts-nocheck
-import React from 'react';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import {
-  makeStyles,
-  FormControl,
-  FormControlLabel,
-  Checkbox,
-  TextField,
-} from '@material-ui/core';
-import { useTranslation } from 'react-i18next';
+import React, { useCallback, useMemo } from 'react';
 
-import { MarketplacePassData } from '../../../marketplace/types';
-import { PaymentPackCategory } from '../../../payment-packs/types';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+
+import { MarketplacePassData } from '#libs/marketplace/types';
+import { PaymentPackCategory } from '#libs/payment-packs/types';
 import { PrivatePassCategory } from '#libs/private-service/types';
 
 interface Props {
   config?: MarketplacePassData;
-  paymentPackCategories: Array<PaymentPackCategory>;
-  privatePassCategories: Array<PrivatePassCategory>;
+  paymentPackCategories: PaymentPackCategory[];
+  privatePassCategories: PrivatePassCategory[];
   onChange: (config: MarketplacePassData) => void;
 }
 
-const defaultConfig = {
+type DefaultConfig = {
+  hideFilters: boolean;
+  hidePaymentPack: boolean;
+  hidePrivatePass: boolean;
+  hidePaymentCombo: boolean;
+};
+
+const defaultConfig: DefaultConfig = {
+  hideFilters: false,
   hidePaymentPack: false,
   hidePrivatePass: false,
   hidePaymentCombo: false,
 };
 
-const ExportablePassSettingsForm: React.FC<Props> = (props) => {
-  const classes = useStyles();
-  const { t } = useTranslation();
+const ExportablePassSettingsForm: React.FC<Props> = React.memo(
+  ({ paymentPackCategories, privatePassCategories, config, onChange }) => {
+    const classes = useStyles();
+    const { t } = useTranslation();
 
-  return (
-    <div className={classes.flexCol}>
-      {props.paymentPackCategories && (
-        <Autocomplete
-          multiple
-          options={[...props.paymentPackCategories]}
-          getOptionLabel={(cat) => cat.name}
-          value={[
-            ...props.paymentPackCategories.filter(
-              (cat) =>
-                props.config.paymentPackCategories &&
-                props.config.paymentPackCategories.includes(cat.id),
-            ),
-          ]}
-          onChange={(e, cat) =>
-            props.onChange({
-              ...props.config,
-              paymentPackCategories: cat.map((c) => c.id),
-            })
-          }
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label={t('paymentPack:category.category')}
-              placeholder={t('paymentPack:category.category')}
-            />
-          )}
-        />
-      )}
-      {props.privatePassCategories && (
-        <Autocomplete
-          className={classes.selector}
-          multiple
-          options={[...props.privatePassCategories]}
-          getOptionLabel={(cat) => cat.name}
-          value={[
-            ...props.privatePassCategories.filter(
-              (cat) =>
-                props.config.privatePassCategories &&
-                props.config.privatePassCategories.includes(cat.id),
-            ),
-          ]}
-          onChange={(e, cat) =>
-            props.onChange({
-              ...props.config,
-              privatePassCategories: cat.map((c) => c.id),
-            })
-          }
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="standard"
-              label={t('privateService:categoryTitle')}
-              placeholder={t('privateService:categoryTitle')}
-            />
-          )}
-        />
-      )}
-      <FormControl className={classes.marginTop}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={props.config && props.config.hidePaymentPack}
-              onChange={() =>
-                props.onChange({
-                  ...(props.config || defaultConfig),
-                  hidePaymentPack: !(props.config || defaultConfig)
-                    .hidePaymentPack,
-                })
-              }
-              name="gilad"
-            />
-          }
-          label={t('settings:marketplaceSettings.createDialog.hidePaymentPack')}
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={props.config && props.config.hidePrivatePass}
-              onChange={() =>
-                props.onChange({
-                  ...(props.config || defaultConfig),
-                  hidePrivatePass: !(props.config || defaultConfig)
-                    .hidePrivatePass,
-                })
-              }
-              name="gilad"
-            />
-          }
-          label={t('settings:marketplaceSettings.createDialog.hidePrivatePass')}
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={props.config && props.config.hidePaymentCombo}
-              onChange={() =>
-                props.onChange({
-                  ...(props.config || defaultConfig),
-                  hidePaymentCombo: !(props.config || defaultConfig)
-                    .hidePaymentCombo,
-                })
-              }
-              name="gilad"
-            />
-          }
-          label={t(
-            'settings:marketplaceSettings.createDialog.hidePaymentCombo',
-          )}
-        />
-      </FormControl>
-    </div>
-  );
-};
+    const handleChangePaymentPackCategories = useCallback(
+      (
+        _event: React.ChangeEvent<HTMLSelectElement>,
+        categories: PaymentPackCategory[],
+      ) => {
+        onChange({
+          ...config,
+          paymentPackCategories: categories.map((category) => category.id),
+        });
+      },
+      [config, onChange],
+    );
+
+    const handleChangePrivatePassCategories = useCallback(
+      (
+        _event: React.ChangeEvent<HTMLSelectElement>,
+        categories: PrivatePassCategory[],
+      ) => {
+        onChange({
+          ...config,
+          privatePassCategories: categories.map((category) => category.id),
+        });
+      },
+      [config, onChange],
+    );
+
+    const handleChangeConfigSetting = useCallback(
+      (configKey: keyof DefaultConfig) => {
+        onChange({
+          ...(config || defaultConfig),
+          [configKey]: !(config || defaultConfig)[configKey],
+        });
+      },
+      [config, onChange],
+    );
+
+    const handleToggleHidePaymentPack = useCallback(() => {
+      handleChangeConfigSetting('hidePaymentPack');
+    }, [handleChangeConfigSetting]);
+
+    const handleToggleHidePrivatePass = useCallback(() => {
+      handleChangeConfigSetting('hidePrivatePass');
+    }, [handleChangeConfigSetting]);
+
+    const handleToggleHidePaymentCombo = useCallback(() => {
+      handleChangeConfigSetting('hidePaymentCombo');
+    }, [handleChangeConfigSetting]);
+
+    const handleToggleHideFilters = useCallback(() => {
+      handleChangeConfigSetting('hideFilters');
+    }, [handleChangeConfigSetting]);
+
+    const getOptionLabel = useCallback(
+      (category: PaymentPackCategory) => category.name,
+      [],
+    );
+
+    const selectedPaymentPackCategories = useMemo(
+      () => [
+        ...paymentPackCategories.filter(
+          (category) =>
+            config.paymentPackCategories &&
+            config.paymentPackCategories.includes(category.id),
+        ),
+      ],
+      [config.paymentPackCategories, paymentPackCategories],
+    );
+
+    const selectedPrivatePassCategories = useMemo(
+      () => [
+        ...privatePassCategories.filter(
+          (category) =>
+            config.privatePassCategories &&
+            config.privatePassCategories.includes(category.id),
+        ),
+      ],
+      [config.privatePassCategories, privatePassCategories],
+    );
+
+    return (
+      <div className={classes.flexCol}>
+        {paymentPackCategories && (
+          <Autocomplete
+            multiple
+            options={paymentPackCategories}
+            getOptionLabel={getOptionLabel}
+            value={selectedPaymentPackCategories}
+            onChange={handleChangePaymentPackCategories}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                label={t('paymentPack:category.category')}
+                placeholder={t('paymentPack:category.category')}
+              />
+            )}
+          />
+        )}
+        {privatePassCategories && (
+          <Autocomplete
+            className={classes.selector}
+            multiple
+            options={privatePassCategories}
+            getOptionLabel={getOptionLabel}
+            value={selectedPrivatePassCategories}
+            onChange={handleChangePrivatePassCategories}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="standard"
+                label={t('privateService:categoryTitle')}
+                placeholder={t('privateService:categoryTitle')}
+              />
+            )}
+          />
+        )}
+        <FormControl className={classes.marginTop}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={config && config.hidePaymentPack}
+                onChange={handleToggleHidePaymentPack}
+              />
+            }
+            label={t(
+              'settings:marketplaceSettings.createDialog.hidePaymentPack',
+            )}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={config && config.hidePrivatePass}
+                onChange={handleToggleHidePrivatePass}
+              />
+            }
+            label={t(
+              'settings:marketplaceSettings.createDialog.hidePrivatePass',
+            )}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={config && config.hidePaymentCombo}
+                onChange={handleToggleHidePaymentCombo}
+              />
+            }
+            label={t(
+              'settings:marketplaceSettings.createDialog.hidePaymentCombo',
+            )}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={config && config.hideFilters}
+                onChange={handleToggleHideFilters}
+              />
+            }
+            label={t('settings:marketplaceSettings.createDialog.hideFilters')}
+          />
+        </FormControl>
+      </div>
+    );
+  },
+);
 
 const useStyles = makeStyles((theme) => ({
   flexCol: {

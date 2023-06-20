@@ -43,6 +43,7 @@ export type MarketplacePrivateServiceData = {
 };
 
 export type MarketplacePassData = {
+  hideFilters?: boolean;
   hidePaymentPack?: boolean;
   hidePrivatePass?: boolean;
   hidePaymentCombo?: boolean;

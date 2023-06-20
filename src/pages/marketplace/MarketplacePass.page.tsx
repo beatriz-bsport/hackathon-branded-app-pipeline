@@ -92,6 +92,7 @@ import { getAllPrivateSlotsDict } from '#libs/private-service/selectors/private-
 type OwnProps = {
   authenticated: boolean;
   params?: {
+    hideFilters?: string;
     hidePaymentPack?: string;
     hidePrivatePass?: string;
     hidePaymentCombo?: string;
@@ -524,6 +525,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
     const hidePaymentPack = this.props.params?.hidePaymentPack === 'true';
     const hidePrivatePass = this.props.params?.hidePrivatePass === 'true';
     const hidePaymentCombo = this.props.params?.hidePaymentCombo === 'true';
+    const hideFilters = this.props.params?.hideFilters === 'true';
 
     return (
       <>
@@ -547,33 +549,35 @@ export class MarketPlacePassPage extends Component<Props, State> {
           direction="row"
           className={this.props.classes.container}
         >
-          <MarketplacePassFilters
-            searchFiltersState={this.state.passSearchFilters}
-            searchResultState={this.state.passSearchResult}
-            paymentComboList={this.props.paymentComboList}
-            hidePaymentPack={hidePaymentPack}
-            hidePrivatePass={hidePrivatePass}
-            hidePaymentCombo={hidePaymentCombo}
-            paymentPackByCategory={this.props.paymentPackByCategory}
-            restrictedPaymentPackCategories={
-              this.state.restrictedCategories.paymentPack
-            }
-            privatePassByCategory={this.props.privatePassByCategory}
-            restrictedPrivatePassCategories={
-              this.state.restrictedCategories.privatePass
-            }
-            isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
-            onSearchPressEnter={this.handleSearchPressEnter}
-            addPaymentPackToCart={this.addPaymentPackToCart}
-            addPrivatePassToCart={this.addPrivatePassToCart}
-            addComboToCart={this.addComboToCart}
-            onShowPaymentPackDetail={this.handleShowPaymentPackDetail}
-            onShowPrivatePassDetail={this.handleShowPrivatePassDetail}
-            onShowPaymentComboDetail={this.handleShowPaymentComboDetail}
-            onClearSearchResult={this.handleClearSearchResult}
-            onChangeType={this.handlePassFilterChangeType}
-            onChangeCategory={this.handlePassFilterChangeCategory}
-          />
+          {!hideFilters && (
+            <MarketplacePassFilters
+              searchFiltersState={this.state.passSearchFilters}
+              searchResultState={this.state.passSearchResult}
+              paymentComboList={this.props.paymentComboList}
+              hidePaymentPack={hidePaymentPack}
+              hidePrivatePass={hidePrivatePass}
+              hidePaymentCombo={hidePaymentCombo}
+              paymentPackByCategory={this.props.paymentPackByCategory}
+              restrictedPaymentPackCategories={
+                this.state.restrictedCategories.paymentPack
+              }
+              privatePassByCategory={this.props.privatePassByCategory}
+              restrictedPrivatePassCategories={
+                this.state.restrictedCategories.privatePass
+              }
+              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
+              onSearchPressEnter={this.handleSearchPressEnter}
+              addPaymentPackToCart={this.addPaymentPackToCart}
+              addPrivatePassToCart={this.addPrivatePassToCart}
+              addComboToCart={this.addComboToCart}
+              onShowPaymentPackDetail={this.handleShowPaymentPackDetail}
+              onShowPrivatePassDetail={this.handleShowPrivatePassDetail}
+              onShowPaymentComboDetail={this.handleShowPaymentComboDetail}
+              onClearSearchResult={this.handleClearSearchResult}
+              onChangeType={this.handlePassFilterChangeType}
+              onChangeCategory={this.handlePassFilterChangeCategory}
+            />
+          )}
 
           {!!this.state.passSearchResult.query &&
             !!this.state.passSearchResult.paymentCombo.length &&
@@ -808,6 +812,7 @@ export default compose<any, OwnProps>(
   routerParamsToProps({ companyId: 'companyId:number' }),
   withQueryParams([
     [
+      'hideFilters',
       'hidePaymentPack',
       'hidePrivatePass',
       'hidePaymentCombo',

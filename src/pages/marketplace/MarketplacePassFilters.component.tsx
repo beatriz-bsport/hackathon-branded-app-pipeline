@@ -59,8 +59,8 @@ type Props = {
   onChangeCategory: (options: number[]) => void;
 };
 
-const MarketplacePassFilters: React.FC<Props> = (props) => {
-  const {
+const MarketplacePassFilters: React.FC<Props> = React.memo(
+  ({
     searchFiltersState,
     searchResultState,
     paymentComboList,
@@ -82,116 +82,117 @@ const MarketplacePassFilters: React.FC<Props> = (props) => {
     onClearSearchResult,
     onChangeType,
     onChangeCategory,
-  } = props;
-  const { t } = useTranslation();
-  const classes = useStyles();
-  const { filteredPaymentPackList, filteredPrivatePassList } =
-    useMarketplacePassFlatLists({
-      paymentPackByCategory,
-      restrictedPaymentPackCategories,
-      privatePassByCategory,
-      restrictedPrivatePassCategories,
-    });
+  }) => {
+    const { t } = useTranslation();
+    const classes = useStyles();
+    const { filteredPaymentPackList, filteredPrivatePassList } =
+      useMarketplacePassFlatLists({
+        paymentPackByCategory,
+        restrictedPaymentPackCategories,
+        privatePassByCategory,
+        restrictedPrivatePassCategories,
+      });
 
-  const filteredPaymentComboList = useMemo(
-    () => paymentComboList.filter((combo) => !hidePaymentCombo && combo),
-    [hidePaymentCombo, paymentComboList],
-  );
+    const filteredPaymentComboList = useMemo(
+      () => paymentComboList.filter((combo) => !hidePaymentCombo && combo),
+      [hidePaymentCombo, paymentComboList],
+    );
 
-  const searchResultCount = useMemo(
-    () =>
-      searchResultState.paymentPack?.length +
-        searchResultState.privatePass?.length +
-        searchResultState.paymentCombo?.length ?? 0,
-    [
-      searchResultState.paymentCombo?.length,
-      searchResultState.paymentPack?.length,
-      searchResultState.privatePass?.length,
-    ],
-  );
+    const searchResultCount = useMemo(
+      () =>
+        searchResultState.paymentPack?.length +
+          searchResultState.privatePass?.length +
+          searchResultState.paymentCombo?.length ?? 0,
+      [
+        searchResultState.paymentCombo?.length,
+        searchResultState.paymentPack?.length,
+        searchResultState.privatePass?.length,
+      ],
+    );
 
-  const searchFilterTypeOptions = useMemo(
-    () => [
-      {
-        label: t('marketplace:pass.filters.type.paymentPack'),
-        value: 'paymentPack',
-      },
-      {
-        label: t('marketplace:pass.filters.type.privatePass'),
-        value: 'privatePass',
-      },
-    ],
-    [t],
-  );
+    const searchFilterTypeOptions = useMemo(
+      () => [
+        {
+          label: t('marketplace:pass.filters.type.paymentPack'),
+          value: 'paymentPack',
+        },
+        {
+          label: t('marketplace:pass.filters.type.privatePass'),
+          value: 'privatePass',
+        },
+      ],
+      [t],
+    );
 
-  return (
-    <>
-      <div className={classes.searchContainer}>
-        <PassSearch
-          onPressEnter={onSearchPressEnter}
-          paymentPackList={filteredPaymentPackList}
-          paymentComboList={filteredPaymentComboList}
-          privatePassList={filteredPrivatePassList}
-          isExcludingTax={isExcludingTax}
-          onClearInput={onClearSearchResult}
-          showPaymentPackDetail={onShowPaymentPackDetail}
-          addPaymentPackToBasket={addPaymentPackToCart}
-          showPrivatePassDetail={onShowPrivatePassDetail}
-          addPrivatePassToBasket={addPrivatePassToCart}
-          showPaymentComboDetail={onShowPaymentComboDetail}
-          addPaymentComboToBasket={addComboToCart}
-        />
+    return (
+      <>
+        <div className={classes.searchContainer}>
+          <PassSearch
+            onPressEnter={onSearchPressEnter}
+            paymentPackList={filteredPaymentPackList}
+            paymentComboList={filteredPaymentComboList}
+            privatePassList={filteredPrivatePassList}
+            isExcludingTax={isExcludingTax}
+            onClearInput={onClearSearchResult}
+            showPaymentPackDetail={onShowPaymentPackDetail}
+            addPaymentPackToBasket={addPaymentPackToCart}
+            showPrivatePassDetail={onShowPrivatePassDetail}
+            addPrivatePassToBasket={addPrivatePassToCart}
+            showPaymentComboDetail={onShowPaymentComboDetail}
+            addPaymentComboToBasket={addComboToCart}
+          />
 
-        <div
-          className={classNames(
-            classes.searchFilters,
-            'bs-marketplace-pass-filters',
-          )}
-        >
-          {!hidePaymentPack && !hidePrivatePass && (
-            <Select
-              placeholder={t('marketplace:pass.filters.placeholder.type')}
-              value={searchFiltersState.type}
-              options={searchFilterTypeOptions}
-              isClearable
-              onChange={onChangeType}
-            />
-          )}
-
-          {!!searchFiltersState.allCategories?.length && (
-            <MarketplaceFilter
-              text={t('marketplace:pass.filters.placeholder.categories')}
-              options={searchFiltersState.allCategories}
-              selectedOptions={searchFiltersState.selectedCategories}
-              onSelect={onChangeCategory}
-              levelVariant={false}
-            />
-          )}
-        </div>
-      </div>
-
-      {!!searchResultState.query && (
-        <div className={classes.searchResultTextContainer}>
-          <span>
-            {t('marketplace:pass.search.result', {
-              count: searchResultCount,
-              queryText: searchResultState.query,
-            })}
-          </span>
-
-          <Button
-            variant="outlined"
-            color="primary"
-            startIcon={<ArrowBackIcon />}
-            onClick={onClearSearchResult}
+          <div
+            className={classNames(
+              classes.searchFilters,
+              'bs-marketplace-pass-filters',
+            )}
           >
-            {t('marketplace:pass.search.goBack')}
-          </Button>
+            {!hidePaymentPack && !hidePrivatePass && (
+              <Select
+                placeholder={t('marketplace:pass.filters.placeholder.type')}
+                value={searchFiltersState.type}
+                options={searchFilterTypeOptions}
+                isClearable
+                onChange={onChangeType}
+              />
+            )}
+
+            {!!searchFiltersState.allCategories?.length && (
+              <MarketplaceFilter
+                text={t('marketplace:pass.filters.placeholder.categories')}
+                options={searchFiltersState.allCategories}
+                selectedOptions={searchFiltersState.selectedCategories}
+                onSelect={onChangeCategory}
+                levelVariant={false}
+              />
+            )}
+          </div>
         </div>
-      )}
-    </>
-  );
-};
+
+        {!!searchResultState.query && (
+          <div className={classes.searchResultTextContainer}>
+            <span>
+              {t('marketplace:pass.search.result', {
+                count: searchResultCount,
+                queryText: searchResultState.query,
+              })}
+            </span>
+
+            <Button
+              variant="outlined"
+              color="primary"
+              startIcon={<ArrowBackIcon />}
+              onClick={onClearSearchResult}
+            >
+              {t('marketplace:pass.search.goBack')}
+            </Button>
+          </div>
+        )}
+      </>
+    );
+  },
+);
 
 const useStyles = makeStyles((theme: Theme) => ({
   searchContainer: {

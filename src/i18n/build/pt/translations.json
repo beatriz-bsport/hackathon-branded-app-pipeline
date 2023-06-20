@@ -1569,7 +1569,9 @@
                 "label": "Percentagem de redução"
             },
             "expiration_date": {
-                "clear_date": "Sem prazo de validade"
+                "clear_date": "Sem prazo de validade",
+                "cancel": "Cancelar",
+                "label": "Data de caducidade"
             },
             "title": "Cupão",
             "voucher_type": {

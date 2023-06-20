@@ -1,0 +1,160 @@
+.bs-contract-payment-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  overflow-y: auto;
+  flex: 1;
+  padding: var(--spacing-2);
+}
+
+.bs-contract-checkout__container {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - var(--spacing-6));
+  background-color: var(--color-background);
+}
+
+.bs-contract-payment-page__carousel__container {
+  display: none;
+  margin: 0 auto;
+  max-width: 1652px;
+}
+
+.bs-contract-checkout__list__container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: var(--spacing-4) var(--spacing-6);
+  background: #ffffff;
+  max-width: 500px;
+  gap: var(--spacing-2);
+  scroll-behavior: smooth;
+}
+
+.bs-contract-checkout__list__container::-webkit-scrollbar {
+  width: 8px;
+  background: #ffffff;
+}
+
+.bs-contract-checkout__list__container::-webkit-scrollbar-thumb {
+  border-radius: var(--border-radius);
+  background: #687586;
+}
+
+.bs-contract-checkout__list__container::-webkit-scrollbar-track {
+  width: 8px;
+  margin: var(--spacing-1);
+  border-radius: var(--border-radius);
+  background: var(--color-grey-light);
+}
+
+.bs-contract-payment-page__direct__link__container
+  .bs-contract-details-dialog__card {
+  margin: inherit;
+}
+
+.bs-contract-payment-page__direct__link__container {
+  padding: var(--spacing-4);
+  gap: var(--spacing-4);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  max-width: 1400px;
+}
+
+.bs-contract-payment-page form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bs-contract-payment-page .bs-contract-payment__container {
+  height: fit-content;
+  width: 100%;
+  max-width: 800px;
+}
+
+@media screen and (max-width: 1099px) {
+  .bs-contract-checkout__container {
+    display: block;
+    height: auto;
+  }
+
+  .bs-contract-checkout__list__container {
+    display: none;
+    max-width: none;
+    padding: var(--spacing-4) var(--spacing-2);
+  }
+
+  .bs-contract-payment-page__carousel__container {
+    display: flex;
+    width: 100%;
+  }
+
+  .bs-carousel__items__container .bs-contract-checkout {
+    width: 100%;
+  }
+
+  .bs-contract-payment-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+    padding: var(--spacing-3) var(--spacing-1);
+  }
+
+  .bs-contract-payment-page__carousel__container .bs-carousel__item {
+    height: 450px;
+  }
+
+  .bs-contract-payment-page__direct__link__container {
+    gap: var(--spacing-2);
+    padding: var(--spacing-2);
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .bs-contract-checkout__direct__link__container {
+    width: 100%;
+  }
+
+  .bs-contract-checkout__direct__link__container .bs-contract-details__card {
+    margin: 0;
+  }
+
+  .bs-contract-payment-page__direct__link__container {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .bs-contract-payment-page .bs-contract-payment__container {
+    width: calc(100% - var(--spacing-2));
+  }
+
+  .bs-contract-payment-page__direct__link__container {
+    margin-bottom: var(--spacing-10);
+  }
+
+  .bs-contract-payment-page {
+    margin-bottom: var(--spacing-10);
+  }
+
+  .bs-carousel__items__container .bs-contract-checkout__right-button {
+    display: none;
+  }
+
+  .bs-contract-payment-page .bs-contract-payment__actions,
+  .bs-contract-payment-page__direct__link__container
+    .bs-contract-payment__actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    padding: var(--spacing-2);
+    border-top: 2px solid var(--color-grey-light);
+  }
+}

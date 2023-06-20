@@ -12,6 +12,7 @@ import asyncComponent from '../../AsyncComponent';
 import Analytics from '../../components/analytics/Analytics.component';
 import { fetchProfile } from '../../libs/consumer-space/actions';
 import namespaces from '../../i18n/namespaces.json';
+import Config from '../../config';
 
 const MarketplaceAsManager = asyncComponent(() =>
   import('../marketplace/MarketplaceAsManager.page'),
@@ -48,6 +49,9 @@ const PrivatePassPreCheckout = asyncComponent(() =>
 
 const ContractCheckout = asyncComponent(() =>
   import('./ContractCheckout.page'),
+);
+const ContractCheckoutV2 = asyncComponent(() =>
+  import('./ContractCheckoutV2.page'),
 );
 const ContractCheckoutValidation = asyncComponent(() =>
   import('./ContractCheckoutValidation.page'),
@@ -120,7 +124,11 @@ export class PaymentRouter extends React.Component<Props> {
           />
           <Route
             path="/(|customer/)checkout/:companyId/subscription/:contractId"
-            component={ContractCheckout}
+            component={
+              !['production'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT)
+                ? ContractCheckoutV2
+                : ContractCheckout
+            }
           />
 
           <Route

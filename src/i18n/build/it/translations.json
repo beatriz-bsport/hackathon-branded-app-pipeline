@@ -2616,7 +2616,7 @@
             "unpaidBooking": {
                 "header": "Pagare più tardi",
                 "isUnpaid": "Non pagato",
-                "book": "Libro",
+                "book": "Prenota",
                 "helper": "Prenota senza pagare e compra una carta compatibile più tardi.",
                 "dialogHelper": "Con questa opzione puoi prenotare la tua sessione senza pagare subito. La prossima volta che acquisti una carta compatibile con questa sessione, sarà automaticamente addebitata con {{ credits }} credito/i."
             }

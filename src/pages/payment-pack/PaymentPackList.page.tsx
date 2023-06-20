@@ -20,6 +20,7 @@ import { push as pushRouter } from 'connected-react-router';
 import IconButton from '@material-ui/core/IconButton';
 import memoize from 'memoize-one';
 import uniqBy from 'lodash/uniqBy';
+import { Alert } from '@material-ui/lab';
 import { VideoStatusEnum } from '#libs/video/types';
 import { OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers/index';
@@ -150,6 +151,7 @@ type State = {
   }> | null;
   paymentPackToEdit: PaymentPack<PrivatePass>;
   disabledLoading: boolean;
+  showAlert: boolean;
 };
 
 const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
@@ -170,6 +172,7 @@ export class PaymentPackList extends React.Component<Props, State> {
       selectedSortOption: this.props.userPreferenceSortOption,
       paymentPackOrderByCategory: null,
       paymentPackToEdit: null,
+      showAlert: false,
     };
   }
 
@@ -402,6 +405,18 @@ export class PaymentPackList extends React.Component<Props, State> {
     this.props.setOpenPaymentPackFormDialog(false);
   };
 
+  updateCategoryOrder = (
+    data: Array<{ id: number; category_ordering: number }>,
+    options?: OptionCallback,
+  ) => {
+    this.props.updateCategoryOrder(data, {
+      onSuccess: () => {
+        options?.onSuccess();
+        this.setState({ showAlert: true });
+      },
+    });
+  };
+
   render() {
     const {
       loading,
@@ -561,6 +576,20 @@ export class PaymentPackList extends React.Component<Props, State> {
             sortValue={this.state.selectedSortOption}
           />
 
+          {this.state.showAlert && (
+            <Alert
+              severity="warning"
+              className={classes.alertInfo}
+              action={
+                <Button onClick={this.props.goToSettings}>
+                  {t('orderingAlert.button')}
+                </Button>
+              }
+            >
+              <Typography>{t('orderingAlert.text')}</Typography>
+            </Alert>
+          )}
+
           <PaymentPackCategoryList
             paymentPackOrder={this.state.paymentPackOrderByCategory}
             filterManagerOnly={this.state.selectedDisponibility}
@@ -576,7 +605,7 @@ export class PaymentPackList extends React.Component<Props, State> {
               this.props.setShowCategoryDialog(true)
             }
             deletePaymentPackCategory={this.props.deletePaymentPackCategory}
-            updateCategory={this.props.updateCategoryOrder}
+            updateCategory={this.updateCategoryOrder}
           />
           <div className={classes.container}>
             <div className={this.props.classes.buttonTitle}>
@@ -735,6 +764,10 @@ const styles = (theme: Theme) =>
       paddingTop: theme.spacing(2),
       paddingLeft: theme.spacing(2),
       paddingRight: theme.spacing(2),
+    },
+    alertInfo: {
+      display: 'flex',
+      alignItems: 'center',
     },
   });
 const mapStateToProps = (state: RootState) => ({

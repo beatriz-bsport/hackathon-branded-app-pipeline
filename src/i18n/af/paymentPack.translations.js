@@ -904,4 +904,8 @@ exports.default = {
     [PAYMENT_PACK_CAN_NOT_BE_BOUGHT_LATER_FIRST_ATTENDANCE]:
       'La carte commence à la première présence, le ',
   },
+  orderingAlert: {
+    text: `Toute modification de l'ordre des "Catégories" affectera seulement l'affichage de la page "Cartes de cours" de la marketplace et de l'application. Cette mise à jour n'affectera aucune autre section ou catégorie.`,
+    button: 'Page de personnalisation',
+  },
 };

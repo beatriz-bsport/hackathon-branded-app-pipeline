@@ -5802,6 +5802,10 @@
       "2022": "La carte commence à la première présence, le ",
       "2023": "La carte est expirée",
       "paymentPack": "Carte configurée comme incompatible avec l'activité en question :"
+    },
+    "orderingAlert": {
+      "text": "Toute modification de l'ordre des \"Catégories\" affectera seulement l'affichage de la page \"Cartes de cours\" de la marketplace et de l'application. Cette mise à jour n'affectera aucune autre section ou catégorie.",
+      "button": "Page de personnalisation"
     }
   },
   "paymentRules": {

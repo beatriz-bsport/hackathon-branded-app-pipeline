@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import UpdateIcon from '@material-ui/icons/Update';
@@ -14,6 +14,7 @@ import Item, {
   Justification,
 } from '#components/css-only/Grid/GridItem';
 import Price from '#components/css-only/Price';
+import CircularProgress from '#components/css-only/CircularProgress';
 
 import BillingInterval from '../MarketplaceBillingInterval';
 
@@ -21,36 +22,37 @@ import './styles.css';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-import type { ContractWithPaymentPack } from '#libs/subscription/types';
+import { PaymentPack } from '#libs/payment-packs/types';
+import { PrivatePass } from '#libs/private-service/types';
+import { PaymentCombo } from '#libs/payment-combo/types';
+import { Contract } from '#libs/subscription/types';
 
 export type Props = {
-  contract: ContractWithPaymentPack;
+  hideChooseButton?: boolean;
+  contract: Contract;
   isExcludingTax?: boolean;
-  initialIsExpanded?: boolean;
-  onSelect: (contract: ContractWithPaymentPack) => void;
+  isExpanded?: boolean;
+  isSelected?: boolean;
+  onSelect: (contract: Contract) => void;
+  getPaymentPackSelected: (id: number) => PaymentPack;
+  getPrivatePassSelected: (id: number) => PrivatePass;
+  getPaymentComboSelected: (id: number) => PaymentCombo;
 };
 
 const MarketplaceContractCheckout: React.FC<Props> = ({
   contract,
   isExcludingTax,
-  initialIsExpanded,
+  isExpanded,
+  isSelected,
+  hideChooseButton,
   onSelect,
+  getPaymentPackSelected,
+  getPrivatePassSelected,
+  getPaymentComboSelected,
 }) => {
   const { t } = useTranslation('marketplace');
 
-  const [isExpanded, setIsExpanded] = React.useState(false);
-
-  useEffect(() => {
-    if (initialIsExpanded) {
-      setIsExpanded(true);
-    }
-    return () => {
-      setIsExpanded(false);
-    };
-  }, [initialIsExpanded]);
-
-  const handleExpandContent = useCallback(() => {
-    setIsExpanded((previousExpanded) => !previousExpanded);
+  const handleChooseContract = useCallback(() => {
     onSelect && onSelect(contract);
   }, [contract, onSelect]);
 
@@ -75,19 +77,31 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
     [setShowMoreLegalContract],
   );
 
-  const objectIncludedInContract = React.useMemo(
-    () =>
-      contract?.private_pass ||
-      contract?.payment_combo ||
-      contract?.payment_pack,
-    [contract],
-  );
+  const objectIncludedInContract = React.useMemo(() => {
+    if (contract?.payment_pack) {
+      return getPaymentPackSelected(contract?.payment_pack);
+    }
+    if (contract?.private_pass) {
+      return getPrivatePassSelected(contract?.private_pass);
+    }
+    if (contract?.payment_combo) {
+      return getPaymentComboSelected(contract?.payment_combo);
+    }
+    return null;
+  }, [
+    contract?.payment_combo,
+    contract?.payment_pack,
+    contract?.private_pass,
+    getPaymentComboSelected,
+    getPaymentPackSelected,
+    getPrivatePassSelected,
+  ]);
 
   return (
     <Card
       size={CardSize.AUTO}
       classes={{
-        ...(isExpanded && {
+        ...(isSelected && {
           '--expanded-card': '--expanded-card',
         }),
         'bs-contract-checkout': 'bs-contract-checkout',
@@ -151,14 +165,16 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                   </div>
                 )}
               </div>
-              <button
-                type="button"
-                className="bs-contract-checkout__right-button"
-                disabled={isExpanded}
-                onClick={handleExpandContent}
-              >
-                {t('marketplace:contractCard.chooseButton')}
-              </button>
+              {!hideChooseButton && (
+                <button
+                  type="button"
+                  className="bs-contract-checkout__right-button"
+                  disabled={isExpanded}
+                  onClick={handleChooseContract}
+                >
+                  {t('marketplace:contractCard.chooseButton')}
+                </button>
+              )}
             </Item>
           </Grid>
         </Content>
@@ -185,7 +201,11 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
           >
             <div className="bs-contract-checkout__body__title">
               <div className="bs-contract-checkout__body__title__rectangle" />
-              <h4>{objectIncludedInContract?.name}</h4>
+              {objectIncludedInContract?.name ? (
+                <h4>{objectIncludedInContract?.name}</h4>
+              ) : (
+                <CircularProgress size="sm" />
+              )}
             </div>
             <div
               className={classNames('bs-contract-checkout__body__text', {

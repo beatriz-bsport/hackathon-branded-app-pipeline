@@ -1,0 +1,615 @@
+import React, {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { useTranslation } from 'react-i18next';
+
+import {
+  CardElement,
+  IbanElement,
+  Elements,
+  ElementsConsumer,
+} from '@stripe/react-stripe-js';
+import {
+  SetupIntentResult,
+  Stripe,
+  StripeElements,
+  loadStripe,
+} from '@stripe/stripe-js';
+import ErrorIcon from '@material-ui/icons/Error';
+import CheckIcon from '@material-ui/icons/Check';
+import classNames from 'classnames';
+
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
+import { getStripePkKey } from '../../../theme/selectors';
+// @ts-ignore
+import { AVAILABLE_PAYMENT_METHOD_TYPE } from '../../../payment/components/payment-backend-stripe-deprecated/helpers';
+import CircularProgress from '#csscomponents/CircularProgress';
+import Select from '#components/css-only/Select';
+import { LOCALE_LIST } from '#components/input/LocaleSelector.component';
+import { getSepaDebitNeedsBillingAddress } from '#libs/marketplace/utils';
+
+import {
+  MarketplacePaymentMethodBillingDetails,
+  MarketplacePaymentMethods,
+  MarketplaceStripeElementType,
+} from '#libs/marketplace/types';
+import { SelectOptionWithMetaData } from '#components/css-only/Select/Select.component';
+
+import './styles.css';
+import { usePaymentMethodBillingDetails } from '#libs/marketplace/hooks';
+
+const stripePromise = loadStripe(getStripePkKey());
+
+export type Props = {
+  type: MarketplacePaymentMethods;
+  isOpen: boolean;
+  sepaDefaultName?: string;
+  sepaDefaultEmail?: string;
+  stripe: Stripe;
+  elements: StripeElements;
+  requestSetupIntentSecret: () => { data: { client_secret: string } };
+  onSuccess: (setupIntentResult: SetupIntentResult) => void;
+  onCancel: () => void;
+};
+
+type PaymentMethodInputProps = {
+  type: MarketplacePaymentMethods;
+};
+
+type CountryMetaData = {
+  metaData: {
+    locale: string;
+    icon: string;
+  };
+};
+
+const CountryOption: React.FC<{
+  option: SelectOptionWithMetaData<CountryMetaData>;
+}> = React.memo(({ option }) => (
+  <div className="bs-select__dropdown__list__item__with__indicator">
+    <img
+      className="bs-select_dropdown__list__item__indicator"
+      alt={option.metaData.locale}
+      src={option.metaData.icon}
+    />
+    {option.label}
+  </div>
+));
+
+const PaymentMethodInput: React.FC<PaymentMethodInputProps> = React.memo(
+  ({ type }) => {
+    if (type === MarketplacePaymentMethods.card) {
+      return (
+        <div className="bs-collect-payment-method__dialog__sensitive__data__container">
+          <CardElement
+            options={{
+              hidePostalCode: true,
+              style: { base: { fontSize: '18px' } },
+            }}
+          />
+        </div>
+      );
+    }
+    if (type === MarketplacePaymentMethods.sepa) {
+      return (
+        <div className="bs-collect-payment-method__dialog__sensitive__data__container">
+          <IbanElement
+            options={{
+              supportedCountries: ['SEPA'],
+              style: {
+                base: { fontSize: '18px' },
+              },
+            }}
+          />
+        </div>
+      );
+    }
+    return <></>;
+  },
+);
+
+const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
+  ({
+    type,
+    isOpen,
+    sepaDefaultName,
+    sepaDefaultEmail,
+    stripe,
+    elements,
+    requestSetupIntentSecret,
+    onCancel,
+    onSuccess,
+  }) => {
+    const [
+      isSepaDebitBillingAddressRequired,
+      setIsSepaDebitBillingAddressRequired,
+    ] = useState(false);
+    const [processing, setProcessing] = useState(false);
+    const [stripeErrorCode, setStripeErrorCode] = useState<number>(null);
+    const [stripeDeclineCode, setStripeDeclineCode] = useState<number>(null);
+    const [clientSecret, setClientSecret] = useState<string>(null);
+    const [billingDetails, setBillingDetails] =
+      useState<MarketplacePaymentMethodBillingDetails>({
+        name: sepaDefaultName ?? '',
+        email: sepaDefaultEmail ?? '',
+        sortCode: '',
+        accountNumber: '',
+        address: {
+          line1: '',
+          line2: '',
+          postalCode: '',
+          city: '',
+          country: 'GB',
+        },
+      });
+    const [error, setError] = useState(false);
+    const [success, setSuccess] = useState(false);
+
+    const { t } = useTranslation(['payment', 'stripe', 'marketing', 'login']);
+    const stripePaymentMethod: {
+      element?: React.ReactElement;
+      type: MarketplaceStripeElementType;
+      method: string;
+    } = AVAILABLE_PAYMENT_METHOD_TYPE[type];
+
+    const {
+      handleChangeName,
+      handleChangeEmail,
+      handleChangeLineOne,
+      handleChangeLineTwo,
+      handleChangePostalCode,
+      handleChangeCity,
+      handleChangeCountry,
+      handleChangeSortCode,
+      handleChangeAccountNumber,
+    } = usePaymentMethodBillingDetails(setBillingDetails);
+
+    const handleRetry = useCallback(() => {
+      setError(false);
+      setSuccess(false);
+    }, []);
+
+    const detectSepaDebitNeedsBillingAddress = useCallback(
+      (country: string) => {
+        if (getSepaDebitNeedsBillingAddress(country)) {
+          setIsSepaDebitBillingAddressRequired(true);
+          setBillingDetails((prevState) => ({
+            ...prevState,
+            address: { ...prevState.address, country },
+          }));
+        } else {
+          setIsSepaDebitBillingAddressRequired(false);
+        }
+      },
+      [],
+    );
+
+    useEffect(() => {
+      if (!clientSecret) {
+        const getClientSecret = async () => {
+          try {
+            const clientSecretResponse = await requestSetupIntentSecret();
+            setClientSecret(clientSecretResponse.data.client_secret);
+          } catch (err) {
+            setError(true);
+            setStripeErrorCode(err.response?.data?.code ?? null);
+            setStripeDeclineCode(err.response?.data?.decline_code ?? null);
+          }
+        };
+        getClientSecret();
+        handleRetry();
+      }
+      if (isOpen && elements && type === MarketplacePaymentMethods.sepa) {
+        const ibanElement = elements.getElement(
+          stripePaymentMethod.type as MarketplaceStripeElementType.sepa,
+        );
+        ibanElement.on('change', (data: { country: string }) => {
+          detectSepaDebitNeedsBillingAddress(data?.country);
+        });
+      }
+    }, [
+      isOpen,
+      elements,
+      stripePaymentMethod?.type,
+      clientSecret,
+      type,
+      detectSepaDebitNeedsBillingAddress,
+      handleRetry,
+      requestSetupIntentSecret,
+    ]);
+
+    const onDialogClose = useCallback(() => {
+      setProcessing(false);
+      setStripeErrorCode(null);
+      setStripeDeclineCode(null);
+      setClientSecret(null);
+      setBillingDetails({
+        name: sepaDefaultName ?? '',
+        email: sepaDefaultEmail ?? '',
+        sortCode: '',
+        accountNumber: '',
+        address: {
+          line1: '',
+          line2: '',
+          postalCode: '',
+          city: '',
+          country: 'GB',
+        },
+      });
+      setError(false);
+      setSuccess(false);
+      onCancel && onCancel();
+    }, [onCancel, sepaDefaultEmail, sepaDefaultName]);
+
+    const { dialogRef, modalRef } = useDialogClickAwayListener({
+      onDialogClose,
+    });
+
+    const handleSubmit = useCallback(
+      async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setProcessing(true);
+        setStripeErrorCode(null);
+        setStripeDeclineCode(null);
+
+        const element =
+          type ===
+          (MarketplacePaymentMethods.card || MarketplacePaymentMethods.sepa)
+            ? // @ts-ignore
+              elements.getElement(stripePaymentMethod.type)
+            : null;
+
+        const paymentSetupCardParams = {
+          card: element,
+        };
+        const paymentSetupSepaParams = {
+          sepa_debit: element,
+          billing_details: isSepaDebitBillingAddressRequired
+            ? {
+                name: billingDetails.name,
+                email: billingDetails.email,
+                address: {
+                  line1: billingDetails.address.line1,
+                  country: billingDetails.address.country,
+                },
+              }
+            : {
+                name: billingDetails.name,
+                email: billingDetails.email,
+              },
+        };
+        const paymentSetupBacsParams = {
+          billing_details: {
+            name: billingDetails.name,
+            email: billingDetails.email,
+            address: {
+              line1: billingDetails.address.line1,
+              line2: billingDetails.address.line2,
+              country: billingDetails.address.country,
+              city: billingDetails.address.city,
+              postal_code: billingDetails.address.postalCode,
+            },
+          },
+          bacs_debit: {
+            sort_code: billingDetails.sortCode,
+            account_number: billingDetails.accountNumber,
+          },
+        };
+
+        const getPaymentSetupParams = () => {
+          switch (type) {
+            case MarketplacePaymentMethods.card:
+              return paymentSetupCardParams;
+            case MarketplacePaymentMethods.sepa:
+              return paymentSetupSepaParams;
+            case MarketplacePaymentMethods.bacs:
+              return paymentSetupBacsParams;
+            default:
+              return null;
+          }
+        };
+
+        try {
+          const paymentMethodSetupResponse = await stripe[
+            stripePaymentMethod.method as
+              | 'confirmCardSetup'
+              | 'confirmSepaDebitSetup'
+              | 'confirmBacsDebitSetup'
+          ](clientSecret, {
+            // @ts-ignore
+            payment_method: getPaymentSetupParams(),
+          });
+          if (paymentMethodSetupResponse.error) {
+            throw paymentMethodSetupResponse.error;
+          }
+          setSuccess(true);
+          if (onSuccess) {
+            onSuccess(paymentMethodSetupResponse);
+          }
+        } catch (err) {
+          setError(true);
+          err.code && setStripeErrorCode(err.code);
+          err.decline_code && setStripeDeclineCode(err.decline_code);
+        } finally {
+          setProcessing(false);
+        }
+      },
+      [
+        billingDetails,
+        clientSecret,
+        elements,
+        isSepaDebitBillingAddressRequired,
+        stripe,
+        stripePaymentMethod.method,
+        stripePaymentMethod.type,
+        type,
+        onSuccess,
+      ],
+    );
+
+    const countryOptions = useMemo(
+      () =>
+        LOCALE_LIST.map((localeContainer) => {
+          const [, country] = localeContainer.locale.split('_');
+
+          return {
+            label: t(`login:country.${country}`),
+            value: country,
+            metaData: {
+              locale: localeContainer.locale,
+              icon: localeContainer.icon,
+            },
+          };
+        }),
+      [t],
+    );
+
+    return (
+      <>
+        {isOpen && (
+          <form
+            className="bs-collect-payment-method__dialog__backdrop"
+            ref={dialogRef}
+            onSubmit={handleSubmit}
+          >
+            <div
+              className="bs-collect-payment-method__dialog__container"
+              ref={modalRef}
+            >
+              <h6 className="bs-collect-payment-method__dialog__title">
+                {t('forms.paymentMethod.collect.title')}
+              </h6>
+
+              <p className="bs-collect-payment-method__dialog__content">
+                {t('forms.paymentMethod.collect.content')}
+              </p>
+
+              {type === MarketplacePaymentMethods.sepa && !error && !success && (
+                <div className="bs-collect-payment-method__mandate__fields__container">
+                  <input
+                    onChange={handleChangeName}
+                    placeholder={t('subscription:mandate.name')}
+                    className="bs-collect-payment-method__mandate__field"
+                    required
+                    value={billingDetails.name}
+                  />
+                  <input
+                    onChange={handleChangeEmail}
+                    type="email"
+                    placeholder={t('subscription:mandate.email')}
+                    className="bs-collect-payment-method__mandate__field"
+                    required
+                    value={billingDetails.email}
+                  />
+                </div>
+              )}
+
+              {type === MarketplacePaymentMethods.bacs && !error && !success && (
+                <div className="bs-collect-payment-method__mandate__fields__container">
+                  <input
+                    onChange={handleChangeName}
+                    placeholder={t('subscription:mandate.name')}
+                    className="bs-collect-payment-method__mandate__field"
+                    required
+                    value={billingDetails.name}
+                  />
+                  <input
+                    onChange={handleChangeEmail}
+                    type="email"
+                    placeholder={t('subscription:mandate.email')}
+                    className="bs-collect-payment-method__mandate__field"
+                    required
+                    value={billingDetails.email}
+                  />
+                  <Select
+                    fullWidth
+                    classes={{ buttonContainer: 'bs-select__button__square' }}
+                    value={billingDetails.address.country}
+                    placeholder={t('translation:form.address.country')}
+                    options={countryOptions}
+                    renderListItem={(
+                      option: SelectOptionWithMetaData<CountryMetaData>,
+                    ) => <CountryOption option={option} />}
+                    onChange={handleChangeCountry}
+                  />
+                  <input
+                    className="bs-collect-payment-method__mandate__field"
+                    required
+                    value={billingDetails.address.line1}
+                    placeholder={t('marketing:customForm.field.address_line_1')}
+                    onChange={handleChangeLineOne}
+                  />
+                  <input
+                    className="bs-collect-payment-method__mandate__field"
+                    value={billingDetails.address.line2}
+                    placeholder={t('marketing:customForm.field.address_line_2')}
+                    onChange={handleChangeLineTwo}
+                  />
+                  <input
+                    onChange={handleChangePostalCode}
+                    placeholder={t('marketing:customForm.field.zipcode')}
+                    className="bs-collect-payment-method__mandate__field"
+                    required
+                    value={billingDetails.address.postalCode}
+                  />
+                  <input
+                    className="bs-collect-payment-method__mandate__field"
+                    required
+                    value={billingDetails.address.city}
+                    placeholder={t('marketing:customForm.field.city')}
+                    onChange={handleChangeCity}
+                  />
+                  <input
+                    onChange={handleChangeSortCode}
+                    placeholder={t('subscription:mandate.sortCode')}
+                    className="bs-collect-payment-method__mandate__field"
+                    required
+                    value={billingDetails.sortCode}
+                  />
+                  <input
+                    onChange={handleChangeAccountNumber}
+                    placeholder={t('subscription:mandate.accountNumber')}
+                    className="bs-collect-payment-method__mandate__field"
+                    required
+                    value={billingDetails.accountNumber}
+                  />
+                </div>
+              )}
+
+              {error && (
+                <div className="bs-collect-payment-method__info__container">
+                  <ErrorIcon className="bs-collect-payment-method__icon" />
+                  <span className="bs-collect-payment-method__indicator">
+                    {t('forms.paymentMethod.message.error')}
+                  </span>
+                  {stripeErrorCode && (
+                    <span className="bs-collect-payment-method__error__message">
+                      {t(`stripe:error_code.${stripeErrorCode}`)}
+                    </span>
+                  )}
+                  {stripeDeclineCode && (
+                    <span className="bs-collect-payment-method__error__message">
+                      {t(`stripe:decline_code.${stripeDeclineCode}`)}
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {success && (
+                <div className="bs-collect-payment-method__info__container">
+                  <CheckIcon className="bs-collect-payment-method__icon bs-primary-text" />
+                  <span className="bs-collect-payment-method__indicator">
+                    {t('forms.paymentMethod.message.success')}
+                  </span>
+                </div>
+              )}
+
+              {!(error || success) && <PaymentMethodInput type={type} />}
+
+              {isSepaDebitBillingAddressRequired && !error && !success && (
+                <input
+                  className="bs-collect-payment-method__mandate__field"
+                  required={isSepaDebitBillingAddressRequired}
+                  value={billingDetails.address.line1}
+                  placeholder={t('marketing:customForm.field.address_line_1')}
+                  onChange={handleChangeLineOne}
+                />
+              )}
+
+              {type === MarketplacePaymentMethods.sepa &&
+                !error &&
+                !success && (
+                  <div className="bs-collect-payment-method__mandate__terms">
+                    {t('subscription:mandate.contentIban')}
+                  </div>
+                )}
+
+              {type === MarketplacePaymentMethods.bacs &&
+                !error &&
+                !success && (
+                  <div className="bs-collect-payment-method__mandate__terms">
+                    {t('subscription:mandate.contentBacsDebit')}
+                  </div>
+                )}
+
+              <div className="bs-collect-payment-method__dialog__actions">
+                <button
+                  type="button"
+                  className="bs-collect-payment-method__cancel__button"
+                  onClick={onDialogClose}
+                >
+                  {t('forms.paymentMethod.actions.close')}
+                </button>
+                {!!error && (
+                  <button
+                    type="submit"
+                    className="bs-collect-payment-method__try__again__button"
+                    onClick={handleRetry}
+                  >
+                    {t('forms.paymentMethod.actions.retry')}
+                  </button>
+                )}
+                {!error && !success && (
+                  <button
+                    type="submit"
+                    className={classNames(
+                      'bs-collect-payment-method__submit__button',
+                      {
+                        'bs-collect-payment-method__button--disabled':
+                          processing,
+                      },
+                    )}
+                    disabled={processing}
+                  >
+                    {processing ? (
+                      <CircularProgress />
+                    ) : (
+                      t('forms.paymentMethod.actions.collect')
+                    )}
+                  </button>
+                )}
+              </div>
+            </div>
+          </form>
+        )}
+      </>
+    );
+  },
+);
+
+export const MarketplaceCollectPaymentMethodForStorybook = marketplaceCssHoc()(
+  // @ts-ignore
+  (props: Omit<Props, 'stripe' | 'elements'>) => (
+    <Elements stripe={stripePromise}>
+      <ElementsConsumer>
+        {({ stripe, elements }) => (
+          <MarketplaceCollectPaymentMethod
+            stripe={stripe}
+            elements={elements}
+            {...props}
+          />
+        )}
+      </ElementsConsumer>
+    </Elements>
+  ),
+);
+
+export default (props: Omit<Props, 'stripe' | 'elements'>) => (
+  <Elements stripe={stripePromise}>
+    <ElementsConsumer>
+      {({ stripe, elements }) => (
+        <MarketplaceCollectPaymentMethod
+          stripe={stripe}
+          elements={elements}
+          {...props}
+        />
+      )}
+    </ElementsConsumer>
+  </Elements>
+);

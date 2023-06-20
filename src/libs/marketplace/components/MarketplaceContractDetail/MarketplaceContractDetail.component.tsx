@@ -15,70 +15,101 @@ import Content from '#csscomponents/Card/CardContent';
 import Grid from '#csscomponents/Grid';
 import Item, { Justification } from '#csscomponents/Grid/GridItem';
 import Price, { Color } from '#csscomponents/Price';
+import CircularProgress from '#components/css-only/CircularProgress';
 
 import BillingInterval from '../MarketplaceBillingInterval';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-import type { ContractWithPaymentPack } from '#libs/subscription/types';
+import { PaymentPack } from '#libs/payment-packs/types';
+import { PrivatePass } from '#libs/private-service/types';
+import { PaymentCombo } from '#libs/payment-combo/types';
+import { Contract } from '#libs/subscription/types';
 
 export type Props = {
   isExcludingTax?: boolean;
-  contract: ContractWithPaymentPack;
+  contract: Contract;
+  getPaymentPackSelected: (id: number) => PaymentPack;
+  getPrivatePassSelected: (id: number) => PrivatePass;
+  getPaymentComboSelected: (id: number) => PaymentCombo;
 };
 
-const ContractDetailList: React.FC<Props> = React.memo(({ contract }) => {
-  const { t } = useTranslation('marketplace');
+const ContractDetailList: React.FC<Props> = React.memo(
+  ({
+    contract,
+    getPaymentPackSelected,
+    getPrivatePassSelected,
+    getPaymentComboSelected,
+  }) => {
+    const { t } = useTranslation('marketplace');
 
-  const objectIncludedInContract = React.useMemo(
-    () =>
-      contract?.private_pass ||
-      contract?.payment_combo ||
+    const objectIncludedInContract = React.useMemo(() => {
+      if (contract?.payment_pack) {
+        return getPaymentPackSelected(contract?.payment_pack);
+      }
+      if (contract?.private_pass) {
+        return getPrivatePassSelected(contract?.private_pass);
+      }
+      if (contract?.payment_combo) {
+        return getPaymentComboSelected(contract?.payment_combo);
+      }
+      return null;
+    }, [
+      contract?.payment_combo,
       contract?.payment_pack,
-    [contract],
-  );
+      contract?.private_pass,
+      getPaymentComboSelected,
+      getPaymentPackSelected,
+      getPrivatePassSelected,
+    ]);
 
-  return (
-    <ul className="bs-description-details__list">
-      {!!objectIncludedInContract && (
-        <li className="bs-description-details__list__item">
-          <span className="bs-description-details__list__item__icon">
-            <StarIcon />
-          </span>
-          <span className="bs-description-details__list__item__text">
-            {objectIncludedInContract.name}
-          </span>
-        </li>
-      )}
-      {!!contract?.nb_interval && (
-        <li className="bs-description-details__list__item">
-          <span className="bs-description-details__list__item__icon">
-            <ReceiptIcon />
-          </span>
-          <span className="bs-description-details__list__item__text">
-            {t('marketplace:contractCard.invoice', {
-              count: contract.nb_interval,
-            })}
-          </span>
-        </li>
-      )}
-      {contract?.auto_renewal && (
-        <li className="bs-description-details__list__item">
-          <span className="bs-description-details__list__item__icon">
-            <ReplayIcon />
-          </span>
-          <span className="bs-description-details__list__item__text">
-            {t(`marketplace:contractCard.autoRenewal`)}
-          </span>
-        </li>
-      )}
-    </ul>
-  );
-});
+    return (
+      <ul className="bs-description-details__list">
+        {objectIncludedInContract ? (
+          <li className="bs-description-details__list__item">
+            <span className="bs-description-details__list__item__icon">
+              <StarIcon />
+            </span>
+            <span className="bs-description-details__list__item__text">
+              {objectIncludedInContract.name}
+            </span>
+          </li>
+        ) : (
+          <CircularProgress size="sm" />
+        )}
+        {!!contract?.nb_interval && (
+          <li className="bs-description-details__list__item">
+            <span className="bs-description-details__list__item__icon">
+              <ReceiptIcon />
+            </span>
+            <span className="bs-description-details__list__item__text">
+              {t('marketplace:contractCard.invoice', {
+                count: contract.nb_interval,
+              })}
+            </span>
+          </li>
+        )}
+        {contract?.auto_renewal && (
+          <li className="bs-description-details__list__item">
+            <span className="bs-description-details__list__item__icon">
+              <ReplayIcon />
+            </span>
+            <span className="bs-description-details__list__item__text">
+              {t(`marketplace:contractCard.autoRenewal`)}
+            </span>
+          </li>
+        )}
+      </ul>
+    );
+  },
+);
 
 const MarketplaceContractDetail: React.FC<Props> = ({
   contract,
   isExcludingTax,
+  getPaymentPackSelected,
+  getPrivatePassSelected,
+  getPaymentComboSelected,
 }) => {
   const { t } = useTranslation('marketplace');
   const flatFees = getCurrencyDisplayWithPrice(contract?.flat_fee);
@@ -114,28 +145,12 @@ const MarketplaceContractDetail: React.FC<Props> = ({
                   {contract?.name}
                 </h3>
               </div>
-              <div className="bs-contract__header__price-container--mobile">
-                <Price
-                  isExcludingTax={isExcludingTax}
-                  amount={contract?.recurrent_price}
-                  formatPriceWithCurrency={getCurrencyDisplayWithPrice}
-                  color={Color.PRIMARY}
-                  classes={{
-                    'bs-contract-card__header__price':
-                      'bs-contract-card__header__price',
-                  }}
-                >
-                  <BillingInterval contract={contract} />
-                </Price>
-                {!!contract?.flat_fee && (
-                  <div className="bs-contract-card__subtitle">
-                    {t('contractCard.fees', {
-                      fees: flatFees,
-                    })}
-                  </div>
-                )}
-              </div>
-              <ContractDetailList contract={contract} />
+              <ContractDetailList
+                contract={contract}
+                getPaymentPackSelected={getPaymentPackSelected}
+                getPrivatePassSelected={getPrivatePassSelected}
+                getPaymentComboSelected={getPaymentComboSelected}
+              />
             </Item>
             <Item
               rowStart={1}
@@ -150,7 +165,7 @@ const MarketplaceContractDetail: React.FC<Props> = ({
             >
               <Price
                 isExcludingTax={isExcludingTax}
-                amount={contract?.recurrent_price}
+                amount={contract?.recurrent_price ?? 0}
                 color={Color.PRIMARY}
                 formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                 classes={{
@@ -181,6 +196,27 @@ const MarketplaceContractDetail: React.FC<Props> = ({
                 'bs-contract-details__item': 'bs-contract-details__item',
               }}
             >
+              <div className="bs-contract__header__price-container--mobile">
+                <Price
+                  isExcludingTax={isExcludingTax}
+                  amount={contract?.recurrent_price}
+                  formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                  color={Color.PRIMARY}
+                  classes={{
+                    'bs-contract-card__header__price':
+                      'bs-contract-card__header__price',
+                  }}
+                >
+                  <BillingInterval contract={contract} />
+                </Price>
+                {!!contract?.flat_fee && (
+                  <div className="bs-contract-card__subtitle">
+                    {t('contractCard.fees', {
+                      fees: flatFees,
+                    })}
+                  </div>
+                )}
+              </div>
               <div className={classNames('bs-contract-details__body__text')}>
                 {contract?.description}
               </div>

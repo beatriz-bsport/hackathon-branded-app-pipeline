@@ -214,6 +214,13 @@
   background-color: #bdbdbd;
 }
 
+@media screen and (max-width: 749px) {
+  .bs-contract-details__container .bs-contract-details__grid,
+  .bs-contract-details__item {
+    background: none;
+  }
+}
+
 @media screen and (max-width: 570px) {
   .bs-contract-details__body {
     max-height: calc(100vh - 300px);
@@ -235,6 +242,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: var(--spacing-2);
   }
 
   .bs-contract-card__header__price {

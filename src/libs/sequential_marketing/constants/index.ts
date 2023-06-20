@@ -16,11 +16,17 @@ import {
   TriggerIdentifier,
   DestinationKind,
   DestinationStatus,
+  TriggerKind,
+  UNKNOWN_TRIGGER_KIND,
+  DESTINATION_KIND_CHOICES,
+  DESTINATION_STATUS_CHOICES,
 } from './triggers';
 
 import { FilterIdentifier } from './filters';
 
 import { CadencePanelMode } from './panel';
+
+import { SequentialMarketingColors } from './colors';
 
 export {
   // EVENT
@@ -37,10 +43,16 @@ export {
   TriggerIdentifier,
   DestinationKind,
   DestinationStatus,
+  TriggerKind,
+  UNKNOWN_TRIGGER_KIND,
+  DESTINATION_KIND_CHOICES,
+  DESTINATION_STATUS_CHOICES,
   // FILTER
   FilterIdentifier,
-  // PANEL,
+  // PANEL
   CadencePanelMode,
+  // COLORS
+  SequentialMarketingColors,
 };
 
 export const SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS = [498];

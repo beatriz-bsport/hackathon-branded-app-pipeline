@@ -15,10 +15,13 @@ import {
   TriggerIdentifier,
   CADENCE_EVENT_GROUPED_BY_CATEGORY,
   Events,
-} from '../../constants';
+  FilterIdentifier,
+  TriggerKind,
+  UNKNOWN_TRIGGER_KIND,
+} from '#libs/sequential_marketing/constants';
 
 import type { ConnectedTrigger } from '../../types';
-import { SmartList } from '#libs/smart-list/types';
+import type { SmartList } from '#libs/smart-list/types';
 
 type TriggerIconProps = {
   connected_trigger_config: ConnectedTrigger;
@@ -26,8 +29,13 @@ type TriggerIconProps = {
 
 type TriggerTextProps = {
   connected_trigger_config: ConnectedTrigger;
-  smartlist: SmartList | undefined;
+  smartlist?: SmartList | undefined;
 };
+
+/**
+ * @description Dictionnary linking each cadence event category to
+ * the corresponding SvgIcon
+ */
 const categoryIconDict: {
   [key in EventsCategory]: typeof SvgIcon;
 } = {
@@ -38,6 +46,22 @@ const categoryIconDict: {
   [EventsCategory.CADENCE_EVENT_BILLING_PLAN_CATEGORY]: CreditCardIcon,
 };
 
+/**
+ * @description Dictionnary linking each cadence event category to
+ * the corresponding icon name
+ */
+const categoryStringIconDict = {
+  [EventsCategory.CADENCE_EVENT_PURCHASE_CATEGORY]: 'ShoppingCart',
+  [EventsCategory.CADENCE_EVENT_BOOKING_CATEGORY]: 'ConfirmationNumber',
+  [EventsCategory.CADENCE_EVENT_BASKET_CATEGORY]: 'ShoppingBasket',
+  [EventsCategory.CADENCE_EVENT_INVOICE_CATEGORY]: 'Receipt',
+  [EventsCategory.CADENCE_EVENT_BILLING_PLAN_CATEGORY]: 'CreditCard',
+};
+
+/**
+ * @description Dictionnary linking each cadence event category to
+ * the corresponding naming key for translation
+ */
 const categoryChipDict: { [key in EventsCategory]: string } = {
   [EventsCategory.CADENCE_EVENT_PURCHASE_CATEGORY]: 'purchase_chip',
   [EventsCategory.CADENCE_EVENT_BOOKING_CATEGORY]: 'book_chip',
@@ -46,12 +70,27 @@ const categoryChipDict: { [key in EventsCategory]: string } = {
   [EventsCategory.CADENCE_EVENT_BILLING_PLAN_CATEGORY]: 'billing_plan_chip',
 };
 
+/**
+ * @description Dictionnary linking each cadence trigger kind to
+ * the corresponding icon name
+ */
+const triggerIconByKind: { [key in TriggerKind]: string } = {
+  [TriggerKind.ONLY_EVENT_TRIGGER]: 'OfflineBolt',
+  [TriggerKind.ONLY_SMARTLIST_FILTERING]: 'People',
+  [TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING]: 'TriggeredPerson',
+  [TriggerKind.ONLY_TIMEOUT]: 'Timer',
+};
+
+/** Get the SvgIcon which corresponds to the eventType in parameter
+ * @param {Events} eventType - Sequential marketing event type
+ * @returns {SvgIcon} - Return the corresponding SvgIcon
+ */
 const getEventCategoryIcon: (eventType: Events) => typeof SvgIcon = (
   eventType: Events,
 ) => {
   for (const category of Object.keys(CADENCE_EVENT_GROUPED_BY_CATEGORY)) {
     // @ts-expect-error
-    if (CADENCE_EVENT_GROUPED_BY_CATEGORY[category].includes(eventType)) {
+    if (CADENCE_EVENT_GROUPED_BY_CATEGORY[category]?.includes(eventType)) {
       // @ts-expect-error
       return categoryIconDict[category];
     }
@@ -59,12 +98,16 @@ const getEventCategoryIcon: (eventType: Events) => typeof SvgIcon = (
   return ErrorIcon;
 };
 
+/** Get the naming translation key which corresponds to the eventType in parameter
+ * @param {Events} eventType - Sequential marketing event type
+ * @returns {string} - Return the corresponding naming used as key for translation
+ */
 const getEventCategoryText: (eventType: Events) => string = (
   eventType: Events,
 ) => {
   for (const category in EventsCategory) {
     // @ts-expect-error
-    if (CADENCE_EVENT_GROUPED_BY_CATEGORY[category].includes(eventType)) {
+    if (CADENCE_EVENT_GROUPED_BY_CATEGORY[category]?.includes(eventType)) {
       // @ts-expect-error
       return categoryChipDict[category];
     }
@@ -72,6 +115,27 @@ const getEventCategoryText: (eventType: Events) => string = (
   return 'label';
 };
 
+/** Get the icon name which corresponds to the eventType in parameter
+ * @param {Events} eventType - Sequential marketing event type
+ * @returns {string} - Return the corresponding icon name used to build a CustomMuiIcon
+ */
+export const getEventCategoryIconAsString: (eventType: Events) => string = (
+  eventType: Events,
+) => {
+  for (const category of Object.keys(CADENCE_EVENT_GROUPED_BY_CATEGORY)) {
+    // @ts-expect-error
+    if (CADENCE_EVENT_GROUPED_BY_CATEGORY[category]?.includes(eventType)) {
+      // @ts-expect-error
+      return categoryStringIconDict[category];
+    }
+  }
+  return 'Error';
+};
+
+/** Function returning the SvgIcon which corresponds to the connected trigger in parameter
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
+ * @returns {SvgIcon} - Return the corresponding SvgIcon
+ */
 export const TriggerIcon = ({ connected_trigger_config }: TriggerIconProps) => {
   switch (connected_trigger_config?.trigger_config?.identifier) {
     case TriggerIdentifier.EMPTY:
@@ -90,6 +154,11 @@ export const TriggerIcon = ({ connected_trigger_config }: TriggerIconProps) => {
   }
 };
 
+/** Function returning the naming translation key which corresponds to the connected trigger in parameter
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
+ * @param {SmartList} smartlist - Smartlist used in connected_trigger_config filtering
+ * @returns {string} - Return the corresponding naming used as key for translation
+ */
 export const TriggerText = ({
   connected_trigger_config,
   smartlist,
@@ -119,4 +188,44 @@ export const TriggerText = ({
     default:
       return t('Error');
   }
+};
+
+/** Get the trigger kind of the connected trigger in parameter
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
+ * @returns {string} - Return the kind of the trigger passed in paramater or UNKNOWN_TRIGGER_KIND if not recognized
+ */
+export const getTriggerKind = (connected_trigger_config: ConnectedTrigger) => {
+  switch (connected_trigger_config?.trigger_config?.identifier) {
+    case TriggerIdentifier.EVENT:
+      if (
+        connected_trigger_config?.filtering_config?.identifier ===
+        FilterIdentifier.SMARTLIST
+      ) {
+        return TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING;
+      }
+      return TriggerKind.ONLY_EVENT_TRIGGER;
+    case TriggerIdentifier.TIMEOUT:
+      return TriggerKind.ONLY_TIMEOUT;
+    case TriggerIdentifier.EMPTY:
+      if (
+        connected_trigger_config?.filtering_config?.identifier ===
+        FilterIdentifier.SMARTLIST
+      ) {
+        return TriggerKind.ONLY_SMARTLIST_FILTERING;
+      }
+      return UNKNOWN_TRIGGER_KIND;
+    default:
+      return UNKNOWN_TRIGGER_KIND;
+  }
+};
+
+/** Get the icon name which corresponds to the connected trigger in parameter
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
+ * @returns {string} - Return the icon name of the trigger passed in paramater depending
+ *                     on the trigger kind. If the trigger kind is not recognized, return
+ *                     the EVENT icon name.
+ */
+export const getTriggerIcon = (connected_trigger_config: ConnectedTrigger) => {
+  const kind = getTriggerKind(connected_trigger_config);
+  return triggerIconByKind[kind === UNKNOWN_TRIGGER_KIND ? 0 : kind];
 };

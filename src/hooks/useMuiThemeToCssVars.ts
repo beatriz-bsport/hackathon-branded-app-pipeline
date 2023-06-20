@@ -90,6 +90,7 @@ export const useMuiThemeToCssVars = () => {
     --color-info-dark: ${theme.palette.info.dark};
     --color-info-light: ${theme.palette.info.light};
     --color-info-main: ${theme.palette.info.main};
+    --color-info-alert: #0D3C61;
     --color-primary-contrastText: ${theme.palette.primary.contrastText};
     --color-primary-dark: ${theme.palette.primary.dark};
     --color-primary-light: ${theme.palette.primary.light};

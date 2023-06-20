@@ -12,20 +12,20 @@ import {
   SearchItemData,
 } from '#components/css-only/Search/Search.component';
 import ContractSearch from '#components/css-only/Search/ContractSearch';
-import { ContractWithPaymentPack } from '#libs/subscription/types';
+import { Contract } from '#libs/subscription/types';
 
 type Props = {
   searchResultState: {
     query: string;
-    contract: number[] | null;
+    contractIds: number[] | null;
   };
-  contractList: ContractWithPaymentPack[];
+  contractList: Contract[];
   isExcludingTax: boolean;
   onSearchPressEnter: (
     searchResult: SearchItemData<BaseAdditionalData>[],
     searchText: string,
   ) => void;
-  addContractToCart: (contract: ContractWithPaymentPack) => void;
+  addContractToCart: (contract: Contract) => void;
   onShowContractDetail: (id: number) => void;
   onClearSearchResult: () => void;
 };
@@ -59,7 +59,7 @@ const MarketplaceContractFilters: React.FC<Props> = ({
         <div className={classes.searchResultTextContainer}>
           <span>
             {t('marketplace:pass.search.result', {
-              count: searchResultState.contract?.length ?? 0,
+              count: searchResultState.contractIds?.length ?? 0,
               queryText: searchResultState.query,
             })}
           </span>

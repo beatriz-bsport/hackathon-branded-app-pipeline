@@ -15,11 +15,12 @@ import useOnClickOutside from '../../../hooks/useClickOutside';
 import useOnScrollOutside from '../../../hooks/useScrollOutside';
 import './style.css';
 
-type Option = {
+export type SelectOption = {
   label: string;
   value: string;
-  metaData?: Object;
 };
+
+export type SelectOptionWithMetaData<T = unknown> = SelectOption & T;
 
 export type Props = {
   fullWidth?: boolean;
@@ -28,19 +29,19 @@ export type Props = {
   };
   value: string | null;
   placeholder: string;
-  options: Option[];
+  options: SelectOption[];
   isClearable?: boolean;
-  renderListItem?: (option: Option) => React.ReactElement;
+  renderListItem?: (option: SelectOption) => React.ReactElement;
   onChange: (value: string) => void;
 };
 
 type SelectOptionProps = {
-  option: Option;
-  renderListItem?: (option: Option) => React.ReactElement;
+  option: SelectOption;
+  renderListItem?: (option: SelectOption) => React.ReactElement;
   onClick: (option: string) => void;
 };
 
-const SelectOption: React.FC<SelectOptionProps> = React.memo(
+const SelectOptionItem: React.FC<SelectOptionProps> = React.memo(
   ({ option, renderListItem, onClick }) => {
     const handleOptionClick: MouseEventHandler<HTMLButtonElement> =
       useCallback(() => {
@@ -118,7 +119,7 @@ const Select: React.FC<Props> = React.memo(
 
     const optionsWithoutDuplicates = useMemo(
       () =>
-        options?.reduce<Option[]>((accumulator, current) => {
+        options?.reduce<SelectOption[]>((accumulator, current) => {
           if (!accumulator.find((item) => item.value === current.value)) {
             accumulator.push(current);
           }
@@ -186,7 +187,7 @@ const Select: React.FC<Props> = React.memo(
           >
             {!!optionsWithoutDuplicates.length &&
               optionsWithoutDuplicates.map((option) => (
-                <SelectOption
+                <SelectOptionItem
                   key={option.value}
                   onClick={handleOnOptionClick}
                   option={option}

@@ -154,7 +154,7 @@
                 },
                 "delayWeek": {
                     "label": "Número de semanas",
-                    "helperText": "Indique a antecedência em número de semanas com que o membro será registado"
+                    "helperText": "Indique a antecedência em número de semanas com que o aluno será registado"
                 },
                 "title": "Reservar uma periodicidade",
                 "groupWarning": "Tenha em atenção que não é possível criar marcações regulares para grupos de sessões",
@@ -167,7 +167,7 @@
                 "save": "Registo"
             },
             "blockedBookings": "Os alunos podem reservar até {{days}} dias antes do início das aulas, por conseguinte, recomendamos que configure a recorrência para um período mais longo, para evitar uma sobrecarga.",
-            "explain": "O membro será sempre registado {{ delayWeek }} semanas de antecedência para o {{ dayOfWeek}} à {{hour}}:{{minute}}. Só serão registados se possuírem um passe válido.",
+            "explain": "O aluno será sempre registado {{ delayWeek }} semanas de antecedência para o {{ dayOfWeek}} à {{hour}}:{{minute}}. Só serão registados se possuírem um passe válido.",
             "recurrentBookings": "Reservas regulares",
             "needConsumerPack": "Este membro não dispõe de um passe compatível, pelo que é impossível reservar várias sessões",
             "recurrentRuleBooking": "Reserva regular"
@@ -239,7 +239,7 @@
             "tags": {
                 "managerDialogWarningDialog": {
                     "title": "Informação",
-                    "content": "Atenção, este membro não possui créditos suficientes para ser registado nesta sessão. Ainda gostaria de registar este membro?",
+                    "content": "Atenção, este aluno não possui créditos suficientes para ser registado nesta sessão. Gostaria ainda assim de o registar?",
                     "cancel": "Anular",
                     "confirm": "Confirmar"
                 },
@@ -959,7 +959,9 @@
             "cancel": "Cancelar",
             "close": "Fechar",
             "submit": "Enviar",
-            "refresh": "Atualizar"
+            "refresh": "Atualizar",
+            "recipient": "destinatário",
+            "recipient_plural": "destinatários"
         },
         "send": {
             "error": "Erro ao enviar",
@@ -2075,6 +2077,261 @@
         },
         "noEvent": {
             "description": "Descrição do evento"
+        }
+    },
+    "marketing": {
+        "customForm": {
+            "signUpInfoModal": {
+                "content": "Acabou de tornar obrigatório algumas perguntas do formulário de inscrição. As perguntas obrigatórias do formulário de inscrição devem ser editáveis pelos seus membros no respetivo perfil. Por conseguinte, estas perguntas foram adicionadas automaticamente ao formulário de modificação onde podem ser visualizadas e alteradas. Pode personalizar acedendo ao formulário de modificação.",
+                "confirm": "Continuar",
+                "title": "Informações",
+                "cancel": "Cancelar"
+            },
+            "submit": {
+                "errors": {
+                    "requiredField": "Obrigatório",
+                    "passwordMinimumRequirementsError": "A palavra-passe deve conter pelo menos 6 caracteres",
+                    "invalidEmail": "E-mail inválido",
+                    "passwordConfirmationError": "As palavras-passe não são encriptadas",
+                    "requiredSignature": "Por favor, assine o formulário.",
+                    "requiredFile": "Anexar um ficheiro"
+                },
+                "date_submitted": "Data de conclusão",
+                "dialog": {
+                    "title": "Certo ! ",
+                    "content": "Obrigado por preencher este formulário.",
+                    "confirmButton": "Continuar"
+                }
+            },
+            "displayRule": {
+                "kind": {
+                    "connectionLabel": "Antiguidade do membro (dias)",
+                    "connectionHelperText": "Apenas os membros registados há pelo menos {{count}} dias irão receber esta notificação",
+                    "signUp": "Novos membros",
+                    "signUpAlreadyExists": " Regra em vigor",
+                    "connection": "Membros já registados"
+                },
+                "form": {
+                    "dialog": {
+                        "title": "Regras de visualização",
+                        "force_display": "Submeter a apresentação aos membros que já preencheram o formulário",
+                        "helperTextRegisteredMembers": "O formulário aparecerá como um pop-up no marketplace e no widget para todos os membros selecionados.",
+                        "snoozeOptionHelperText": "O formulário será novamente apresentado depois de {{count}} horas, após ter sido ignorado",
+                        "snoozeOption": "Autorizar os membros a adiar o preenchimento do formulário",
+                        "subTitle": "Quais os membros que pretende alcançar?",
+                        "create": "Adicionar",
+                        "helperTextNewMembers": "O formulário aparecerá como um pop-up no marketplace e o widget após o formulário de inscrição.",
+                        "cancel": "Cancelar",
+                        "modify": "Alterar",
+                        "advancedOptions": "Definições avançadas",
+                        "snoozeOptionLabel": "Tempo de adiamento (horas)"
+                    },
+                    "errors": {
+                        "timedeltaBeforeDisplayMustBeGraterThanZero": "Este valor deve ser superior a 0."
+                    }
+                },
+                "forNewMember": "Para os novos membros",
+                "addNewDisplayRule": "Adicionar uma regra",
+                "forRegisteredMemberMinimal": ">{{ count }} horas",
+                "unSnoozableMinimal": "Obrigatório",
+                "forbiddenForSignup": "Este formulário não pode ser associado a regras de notificação",
+                "unForcedModeMinimal": "Não visível para os membros que já preencheram o formulário",
+                "forcedDisplayMinimal": "Visível mesmo para os membros que já preencheram o formulário",
+                "header": "Regras de notificações",
+                "forRegisteredMember": "Para os membros registados há mais de {{ count }} horas",
+                "snoozableMinimal": "Pode ser ignorado",
+                "snoozeTime": "Cuidado com {{ count }} horas",
+                "empty": "Não há regras de notificação para este formulário"
+            },
+            "signUp": {
+                "helperMemberForm": "O formulário de modificação é o formulário que se encontra na página de perfil dos seus membros. Permite-lhes ver e alterar as suas informações. Este formulário também pode ser personalizado.",
+                "signupFields": "Questões do formulário",
+                "helperSignup": "Aqui pode alterar o formulário de registo do seu estabelecimento. Escolha e personalize as perguntas a preencher, para se tornarem membros."
+            },
+            "statistics": {
+                "table": {
+                    "column": {
+                        "display_count": "Número de vagas",
+                        "last_display_date": "Última abertura",
+                        "completed": "Concluído",
+                        "member": "Membro"
+                    },
+                    "row": {
+                        "no": "Não",
+                        "yes": "Sim"
+                    }
+                },
+                "byMember": "Detalhes"
+            },
+            "allFieldDisabled": "Todas as perguntas estão arquivadas",
+            "field": {
+                "zipcode": "Código de postal",
+                "emergency_contact": "Contacto de emergência",
+                "phone": "Telefone",
+                "waiver": "Isenção de responsabilidade",
+                "first_name": "Nome próprio",
+                "address_line_1": "Morada",
+                "paragraph": "Parágrafo",
+                "short_answer": "Resposta breve",
+                "country": "País",
+                "choice_warning": "Todas as opções guardadas já não podem ser modificadas. No entanto, é possível eliminá-las ou acrescentar novas opções.",
+                "location": "Local de preferência",
+                "accept_email": "Aceitar correio electrónico",
+                "long_answer": "Resposta longa",
+                "radio": "Escolha múltipla",
+                "accept_sms": "Aceitar SMS",
+                "vaccination_status": "Estado de vacinação COVID-19",
+                "title": "Título",
+                "email": "E-mail",
+                "password": "Palavra-passe",
+                "isMandatoryOnSignUp": "A questão é obrigatória no ato da inscrição",
+                "sign_up_question": "Pergunta do formulário de inscrição",
+                "last_name": "Apelido",
+                "birthday": "Data de nascimento",
+                "address_line_2": "Informação adicional",
+                "gender": "Género",
+                "photo": "Foto de perfil",
+                "additional_adress": "Endereço adicional",
+                "state": "Estado",
+                "general_terms_and_conditions": "Termos e Condições",
+                "repeatPassword": "Confirmar palavra-passe",
+                "city": "Cidade"
+            },
+            "customFormField": {
+                "modal": {
+                    "disable": {
+                        "title": "Eliminar item",
+                        "cancel": "Cancelar",
+                        "confirm": "Confirmar",
+                        "content": "O item eliminado será colocado nos arquivados e não será eliminado mais visível para os seus membros."
+                    },
+                    "add": {
+                        "title": "Elemento do formulário",
+                        "addField": "Adicionar um ",
+                        "select": "Selecionar um item",
+                        "option": "Adicionar uma opção",
+                        "cancel": "Cancelar",
+                        "confirm": "Confirmar"
+                    },
+                    "signature": {
+                        "addSignatureHelper": "A assinatura pode ser desenhada abaixo",
+                        "addSignature": "Adicionar uma assinatura",
+                        "editSignature": "Editar assinatura",
+                        "clear": "Eliminar assinatura"
+                    },
+                    "error": {
+                        "tooShort": "A palavra-passe deve ter pelo menos 8 caracteres",
+                        "signupQuestionShouldBeSelected": " Deve selecionar uma pergunta no formulário de inscrição",
+                        "choicesLength": "Deve fazer pelo menos 2 escolhas",
+                        "emptyChoice": "As opções têm de estar preenchidas",
+                        "passwordsDontMatch": "As duas palavras-chaves não correspondem"
+                    }
+                }
+            },
+            "clientForms": {
+                "modify": "alterar",
+                "modification": "Alteração",
+                "customize": "Personalizar",
+                "preview": "Resumo dos meus formulários",
+                "signup": "Inscrição"
+            },
+            "changesAreSubmitting": "O formulário está a ser atualizado.",
+            "answerForDisabledField": "Questões arquivadas",
+            "tab": {
+                "general": "Conteúdo",
+                "statistics": "Estatísticas",
+                "layout": "Personalização",
+                "campaign": "Campanha"
+            },
+            "listActions": "Acções",
+            "selectCustomForm": "Selecione um formulário para ver os detalhes",
+            "selectCustomFormFilled": "Seleccione um dos formulários preenchidos para ver o seu conteúdo",
+            "emptyCustomForm": "Este formulário está vazio, mas pode adicionar elementos para o configurar.",
+            "addFieldLong": "Adicionar mais",
+            "unaccessibleForm": "Este formulário está atualmente inacessível. Para voltar à sua página de perfil, clique no botão abaixo.",
+            "disconnect": "Desconectar",
+            "actions": {
+                "configure": "Configurar",
+                "statistics": "Estatísticas",
+                "customization": "Personalização"
+            },
+            "modal": {
+                "delete": {
+                    "title": "Arquivar um formulário",
+                    "cancel": "Anular",
+                    "confirm": "Confirmar",
+                    "content": "Ao arquivar este formulário, este ficará junto dos formulários arquivados e deixa de ser acessível aos seus membros."
+                }
+            },
+            "breakpoints": {
+                "xs": "Telemóvel",
+                "sm": "Ecrã pequeno",
+                "md": "Ecrã médio",
+                "lg": "Ecrã grande"
+            },
+            "display": "Visualizar",
+            "addCustomFrom": "Adicionar um formulário",
+            "changesDetected": "Foram efectuadas alterações. Guarde o formulário para as aplicar.",
+            "noChanges": "Formulário atualizado.",
+            "allStepsCompleted": "Completou todas as etapas",
+            "resetSubmit": "Alterar as minhas respostas",
+            "editable": "Modificar",
+            "numberQuestions": "Número de questões",
+            "disabledCustomForm": "Formulários arquivados",
+            "disabledCustomFormField": "Elementos arquivados",
+            "noCustomForm": "Utilize os formulários para recolher informações adicionais sobre os seus membros.",
+            "backToUserSpace": "Perfil"
+        },
+        "cadence": {
+            "form": {
+                "trigger": {
+                    "helpers": {
+                        "exitFail": "Defina aqui o ativador que define quando um membro será considerado como perdido e sairá da sequência.",
+                        "step": "Defina aqui o ativador para a etapa seguinte. Os membros têm de cumprir os critérios abaixo para passarem à fase seguinte.",
+                        "exitSuccess": "Defina aqui o ativador que define quando um membro será considerado como ganho e sairá da sequência.",
+                        "cadence": "Defina os ativadores para entrar na sequência aqui. Os membros devem cumprir os critérios abaixo para iniciar a sequência de marketing."
+                    },
+                    "labels": {
+                        "exitFail": "A saída de sequência como \"perdido\" pode ser feita através de :",
+                        "cadence": "A sequência é introduzida através de :",
+                        "step": "A entrada para esta fase faz-se através de :",
+                        "exitSuccess": "A saída de sequência como \"ganho\" pode ser feita através de :"
+                    },
+                    "trigger_event_kind_label": "Um evento",
+                    "trigger_smartlist_kind_label": "Uma lista inteligente",
+                    "had_filtering_on_selected_event": "Filtrar o evento selecionado com uma lista inteligente",
+                    "title": "Ativadores"
+                },
+                "delete": "Eliminar",
+                "updateTitle": "Alterar o nome da sequência",
+                "createCadenceHelper": "Ao utilizar as sequências, pode direcionar as ações de marketing que envia aos seus membros com base no seu comportamento na plataforma. Crie uma sequência de ações que os seus membros devem realizar para obter determinadas promoções ou etiquetas, por exemplo.",
+                "cadenceStep": "Etapa",
+                "cancel": "Cancelar",
+                "lose_step": "Perdido",
+                "addACadence": "Adicionar uma sequência",
+                "cadenceStepNameLabel": "Nome da etapa",
+                "cadenceStepHelper": "Defina o nome da etapa aqui para que possa ver onde é que os membros estão na sequência.",
+                "entry_step": "Introdução",
+                "submit": "Criar",
+                "edit": "Alterar",
+                "title": "Criar uma sequência",
+                "cadenceNameLabel": "Nome da sequência",
+                "modify_name_label": "Alterar o nome",
+                "win_step": "Ganho",
+                "previous": "Anterior",
+                "next": "Seguinte",
+                "updateSubmit": "Confirmar"
+            },
+            "back": "Voltar a",
+            "editMode": "Editar",
+            "triggerElement": "Facto gerador",
+            "marketingElement": "Ações de marketing",
+            "cadenceIndexHelper": "A ordem das sequências define a ordem de prioridade. Se um membro puder introduzir 2 sequências diferentes, começará pela mais prioritária da lista.",
+            "shutOff": "Pausa",
+            "editModeLabel": "Mudar para o modo de edição",
+            "exitEditMode": "Terminar",
+            "exitEditModeLabel": "Sair do modo de edição",
+            "cadenceParameters": "Parâmetros da sequência"
         }
     }
 }

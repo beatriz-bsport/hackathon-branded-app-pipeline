@@ -2480,7 +2480,12 @@
                     "all": "Compatível com todos os",
                     "compatible": "Compatível com ",
                     "establishments": "Compatível com {{ count }} sala",
-                    "establishments_plural": "Compatível com {{ count }} salas"
+                    "establishments_plural": "Compatível com {{ count }} salas",
+                    "categoriesAndEstablishment": "Compatível com {{ categories }} e {{ establishments }} ",
+                    "establishmentsAndActivities": "Compatível com {{ establishments }} e {{ activities }} ",
+                    "categoriesAndActivities": "Compatível com {{ categories }} e {{ activities }} ",
+                    "and": " e ",
+                    "categoriesAndActivitiesAndEstablishments": "Compatível com {{ categories }}, {{ establishments }} e {{ activities }} "
                 },
                 "compatible": "Compatível com {{count}} marcação",
                 "compatible_plural": "Compatível com {{count}}  marcações",
@@ -2496,7 +2501,212 @@
                 },
                 "categories": "{{ count }} categoria",
                 "categories_plural": "{{ count }} categorias"
+            },
+            "includedElements": {
+                "fullVodAccess": "Compatível com Vídeos on Demand",
+                "penaltyNoShow": {
+                    "block": "{{days_blocked}} de multa após {{threshold}} , durante um período de {{time_window_days}} dias.",
+                    "threshold": "{{count}} ausência",
+                    "threshold_plural": "{{count}} ausências",
+                    "account": "Um depósito de {{amount}} será aplicado para {{threshold}} num período de {{time_window_days}} dias.",
+                    "penaltyDay": "{{count}} dia",
+                    "penaltyDay_plural": "{{count}} dias"
+                },
+                "penalty": {
+                    "penaltyDay": "{{count}} dia",
+                    "penaltyDay_plural": "{{count}} dias",
+                    "days": "{{penalty_days}} de multa após {{penalty_cancellations}} horas de incumprimento de prazo, num período de {{penalty_days_period}}",
+                    "amount": "{{penalty_amount}} deduzido após {{penalty_cancellations}} horas de atraso, num período de {{penalty_days_period}}"
+                },
+                "onsitePaymentAvailable": "Pagamento no local disponível",
+                "onlyVodAccess": "Disponível apenas para os Vídeos on Demand",
+                "see": "Ver",
+                "cancellation": "{{count}} cancelamento",
+                "cancellation_plural": "{{count}} cancelamentos",
+                "compatibleWithEverything": "Compatível com todos os",
+                "newMemberOnly": "Apenas para os novos membros",
+                "restrictions": {
+                    "title": "Restrições de utilização",
+                    "perWeek": "{{count}} utilização por semana",
+                    "perWeek_plural": "{{count}} utilizações por semana",
+                    "maxPerDay": "Limite de utilização por dia : <strong>{{count}}</strong>",
+                    "maxPerDay_plural": "Limite de utilizações por dia : <strong>{{count}}</strong>",
+                    "perMonth": "{{count}} utilização por mês",
+                    "perMonth_plural": "{{count}} utilizações por mês",
+                    "maxPerWeek": "Limite de utilização por semana : <strong>{{count}}</strong>",
+                    "maxPerWeek_plural": "Limite de utilizações por semana : <strong>{{count}}</strong>",
+                    "perDay": "{{count}} utilização por dia",
+                    "perDay_plural": "{{count}} utilizações por dia",
+                    "maxPerMonth": "Limite de utilização por mês : <strong>{{count}}</strong>",
+                    "maxPerMonth_plural": "Limite de utilizações por mês : <strong>{{count}}</strong>"
+                },
+                "maxPurchasePerMember": "{{count}} compra por membro",
+                "maxPurchasePerMember_plural": "{{count}} compras por membro",
+                "isUniversalPass": "Passe geral"
+            },
+            "restrictions": "Restrições"
+        },
+        "packCard": {
+            "comboItemList": {
+                "paymentPackItem": "{{count}} passe ativo",
+                "paymentPackItem_plural": "{{count}} passes ativos",
+                "privatePassItem": "{{count}} passe de marcação",
+                "privatePassItem_plural": "{{count}} passes de marcações",
+                "hiddenItem": "{{count}} outro elemento...",
+                "hiddenItem_plural": "{{count}} outros elementos..."
+            }
+        },
+        "contractCard": {
+            "fees": "Taxa de inscrição : {{ fees }}",
+            "chooseButton": "Selecione",
+            "registerButton": "Subscrever",
+            "seeMore": "Ver mais",
+            "billingInterval": {
+                "week": "semana",
+                "week_plural": "Todas as {{ count }} semanas",
+                "year": "ano",
+                "year_plural": "Todos os {{ count }} anos",
+                "month": "mês",
+                "month_plural": "Todos os {{ count }} meses",
+                "day": "dia",
+                "day_plural": "Todos os {{ count }} dias"
+            },
+            "autoRenewal": "Plano de renovação",
+            "seeLess": "Ver menos",
+            "legalContract": "Informação legal",
+            "invoice": "{{ count }} fatura",
+            "invoice_plural": "{{ count }} faturas"
+        },
+        "packCardDetail": {
+            "comboItemList": {
+                "content": "Conteúdo"
             }
         }
+    },
+    "member": {
+        "actions": "Ações",
+        "file": {
+            "deleteFileMessage": "Tem a certeza de que pretende eliminar este documento ?",
+            "confirm": "Confirmar",
+            "nofileSaved": "Nenhum documento registado",
+            "upload_file": "Adicionar um documento",
+            "cancel": "Cancelar",
+            "deletion": "Eliminar",
+            "imported": "Documento importado !",
+            "submit": "Adicionar",
+            "name": "Nome",
+            "addButtonBlocked": "Eliminar documentos para adicionar novos",
+            "title": "Os meus documentos",
+            "add": "Adicionar um documento",
+            "drop_file": "Arrastar e largar ou clicar para adicionar um documento"
+        },
+        "menu": {
+            "bookings": "Reservas",
+            "privateConsumerPass": "Passes de marcações",
+            "info": "Geral",
+            "invoices": "Facturas e subscrições",
+            "giftcard": "Cartão de oferta",
+            "payment": "Faturas",
+            "form": "Formulários",
+            "contact": "Contacto",
+            "programs": "Programas",
+            "paymentPack": "Passes ativos",
+            "basket": "Carrinho",
+            "vod": "Vídeos on Demand"
+        },
+        "forms": {
+            "needInformationValidation": {
+                "legend": {
+                    "notMemberYet": "Gostaria de enviar os dados de registo? ",
+                    "memberOfCompany": "Para continuar a utilizar, preencha as informações solicitadas abaixo"
+                },
+                "welcome": "Bom dia {{firstname}}",
+                "subtitle": {
+                    "memberOfCompany": "Conte-nos mais sobre si.",
+                    "notMemberYet": "Parece ser a primeira vez que se conecta ao estúdio."
+                },
+                "button": {
+                    "notMemberYet": "Transferir informações",
+                    "memberOfCompany": "Completar as minhas informações"
+                }
+            },
+            "merge": {
+                "seeMemberPage": " Ver página dos membros",
+                "error": "Impossível unir membros",
+                "srcMember": "Membro a unir (eliminado)",
+                "dstMember": "Membro a manter"
+            },
+            "title": "Informação do utilizador"
+        },
+        "paymentAction": {
+            "toSubscribe": "Subscrever",
+            "toBill": "Fatura"
+        },
+        "merge": "Unir",
+        "accountBalance": "Saldo",
+        "unpaidInvoiceTitle": "Fatura não paga",
+        "unpaidInvoiceTitle_plural": "Faturas não pagas",
+        "relation": {
+            "pleaseSelectRelation": "Selecionar para aceder aos passes ativos partilhados"
+        },
+        "row": {
+            "headers": {
+                "actions": "Ações",
+                "newsletter_email": "Aceitar e-mails"
+            },
+            "yes": "Sim",
+            "no": "Não",
+            "update": "Alterar"
+        },
+        "adjustBalance": "Ajustar",
+        "table": {
+            "show": "Ver"
+        },
+        "date_joined": "Data da inscrição",
+        "invoiceTitle": "Faturas",
+        "birth": {
+            "unknown_F": "Nasceu em -",
+            "unknown": "Nasceu em -",
+            "bornIn_F": "Nasceu em {{-date}} - {{age}} anos",
+            "bornIn": "Nasceu em {{-date}} - {{age}} anos"
+        },
+        "barcode": {
+            "none": "nenhum",
+            "code": "Código do cartão",
+            "display": "Mostrar código de barras"
+        },
+        "pastBooking": "último : ",
+        "engagement": "Engagement",
+        "addMember": "Adicionar um registo de membro",
+        "showNextBooking": "Ver reservas futuras",
+        "nextBooking": "próximo : ",
+        "search": {
+            "createMember": "Adicionar um membro",
+            "cancel": "Encerrar"
+        },
+        "name": "Nome",
+        "memberList": "Lista de membros",
+        "note": {
+            "noNoteSaved": "Não há registos de notas",
+            "addNote": "Adicionar uma nota",
+            "myNotes": "As minhas notas",
+            "healthNotes": "Informações importantes",
+            "is_medical": "Nota importante"
+        },
+        "applyBalanceToUnpaidInvoices": "Aplicar o saldo a montantes pendentes",
+        "cashoutBalance": "Pagar",
+        "showPaymentPack": "Ver os passes ativos",
+        "showInvoices": "Ver faturas",
+        "subscriptionTitle": "Subscrições",
+        "offers_joined": "N.º de sessões registadas",
+        "pass_owner": "Passe válido",
+        "memberSince": "Registado em ",
+        "showPreviousBooking": "Ver marcações anteriores",
+        "regularizeBalance": "Regularização",
+        "restoreMember": "Recuperar",
+        "archiveMember": "Arquivar",
+        "archived": "Arquivado",
+        "showSubscriptions": "Ver subscrições",
+        "creditAccountBalance": "Montante do cliente"
     }
 }

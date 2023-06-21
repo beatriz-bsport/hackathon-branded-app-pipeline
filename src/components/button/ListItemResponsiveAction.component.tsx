@@ -23,8 +23,8 @@ type Props = {
 
 // ------------------------ Menu handler ---------------------
 
-export default function ListItemResponsiveAction(props: Props) {
-  const filteredActions = props.actions?.filter((action) => !!action);
+export const ListItemResponsiveAction: React.FC<Props> = ({ actions }) => {
+  const filteredActions = actions?.filter((action) => !!action) ?? [];
 
   if (filteredActions.length === 0) {
     return null;
@@ -44,47 +44,79 @@ export default function ListItemResponsiveAction(props: Props) {
       </Hidden>
     </div>
   );
-}
+};
 
 // ------------------------ Explicit Menu --------------------------------------
 
-function ShortMenu(props: Props) {
+const ShortMenu: React.FC<Props> = React.memo(({ actions }) => {
+  const clickableActionsWithoutButtonComponent = React.useMemo(() => {
+    return (
+      actions?.filter(
+        (action) => !!action.onClick && !action.iconButtonComponent,
+      ) ?? []
+    );
+  }, [actions]);
+
+  const clickableActionsWithButtonComponent = React.useMemo(() => {
+    return (
+      actions?.filter(
+        (action) => !!action.onClick && !!action.iconButtonComponent,
+      ) ?? []
+    );
+  }, [actions]);
   return (
     <div
       style={{ display: 'flex', flexDirection: 'row' }}
       id="shortMenuContainer"
     >
-      {props.actions
-        .filter((action) => !!action.onClick && !action.iconButtonComponent)
-        .map((option) => (
-          <IconButton
-            key={option.label}
-            onClick={(ev) => {
-              ev.stopPropagation();
-              ev.preventDefault();
-              option.onClick();
-            }}
-            color={option.color}
-            disabled={option.disabled}
-          >
-            <option.icon />
-          </IconButton>
-        ))}
-      {props.actions
-        .filter((action) => !!action.iconButtonComponent)
-        .map((option) => (
-          <option.iconButtonComponent
-            onClick={() => {
-              option.onClick();
-            }}
-            color={option.color}
-            key={option.label}
-            disabled={option.disabled}
-          />
-        ))}
+      {clickableActionsWithoutButtonComponent.map((option) => (
+        <ShortMenuIconButton action={option} />
+      ))}
+      {clickableActionsWithButtonComponent.map((option) => (
+        <ShortMenuCustomButton action={option} />
+      ))}
     </div>
   );
-}
+});
+
+const ShortMenuIconButton: React.FC<{ action: ActionOption }> = React.memo(
+  ({ action }) => {
+    const handleClick = React.useCallback(
+      (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        ev.stopPropagation();
+        ev.preventDefault();
+        action.onClick();
+      },
+      [action],
+    );
+    return (
+      <IconButton
+        key={action.label}
+        onClick={handleClick}
+        color={action.color}
+        disabled={action.disabled}
+      >
+        <action.icon />
+      </IconButton>
+    );
+  },
+);
+
+const ShortMenuCustomButton: React.FC<{ action: ActionOption }> = React.memo(
+  ({ action }) => {
+    const handleClick = React.useCallback(() => {
+      action.onClick();
+    }, [action]);
+    return (
+      <action.iconButtonComponent
+        key={action.label}
+        onClick={handleClick}
+        color={action.color}
+        disabled={action.disabled}
+      />
+    );
+  },
+);
 
 // ------------------------Hidden  Menu -----------------------------
 const ITEM_HEIGHT = 48;
@@ -168,3 +200,5 @@ function HiddenShortMenu(props: Props) {
     </div>
   );
 }
+
+export default React.memo(ListItemResponsiveAction);

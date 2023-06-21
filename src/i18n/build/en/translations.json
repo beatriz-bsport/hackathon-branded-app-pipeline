@@ -3631,6 +3631,9 @@
                     "helperText": "Available until",
                     "label": "Date limit for purchase",
                     "tooltip": "After chosen date, the pack will not be available for sale anymore, for the customers."
+                },
+                "description": {
+                    "label": "Description"
                 }
             },
             "validForDuration": {
@@ -9631,6 +9634,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -10466,7 +10470,8 @@
                 "label": "Date limit for purchase",
                 "helperText": "Available until",
                 "tooltip": "After chosen date, the pack will not be available for sale anymore, for the customers."
-            }
+            },
+            "description": "Description"
         },
         "universalPass": {
             "restore": {

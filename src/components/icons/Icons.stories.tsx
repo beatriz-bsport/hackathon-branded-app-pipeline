@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { SVGProps } from 'react';
 import CalendarIcon from './CalendarIcon.component';
 import ErrorIcon from './ErrorIcon.component';
 import FemaleIcon from './FemaleIcon.component';
@@ -11,6 +11,7 @@ import SuccessIcon from './SuccessIcon.component';
 import ValidationIcon from './ValidationIcon.component';
 import CardRefusedIcon from './CardRefusedIcon.component';
 import WarningIcon from './WarningIcon.component';
+import TriggeredPersonIcon from './TriggeredPersonIcon.component';
 
 const CalendarTemplate = () => <CalendarIcon />;
 export const Calendar = CalendarTemplate.bind({});
@@ -35,6 +36,14 @@ export const Stripe = StripeTemplate.bind({});
 
 const SuccessTemplate = () => <SuccessIcon />;
 export const Success = SuccessTemplate.bind({});
+
+const TriggeredPersonTemplate = (args: SVGProps) => (
+  <TriggeredPersonIcon {...args} />
+);
+export const TriggeredPerson = TriggeredPersonTemplate.bind({});
+TriggeredPerson.args = {
+  fill: 'purple',
+};
 
 const ValidationTemplate = (args: { color?: string }) => (
   <ValidationIcon {...args} />

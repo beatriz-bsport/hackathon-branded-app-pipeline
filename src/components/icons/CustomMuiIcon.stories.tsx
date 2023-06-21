@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import EmailIcon from '@material-ui/icons/Email';
 import AccessibleIcon from '@material-ui/icons/Accessible';

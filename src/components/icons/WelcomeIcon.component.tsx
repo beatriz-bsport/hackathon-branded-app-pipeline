@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { SVGProps } from 'react';
 
 const WelcomeIcon: React.FC<SVGProps<SVGElement>> = ({

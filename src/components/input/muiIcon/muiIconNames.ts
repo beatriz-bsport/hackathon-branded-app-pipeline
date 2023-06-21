@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error
 import asyncComponent from '../../../AsyncComponent';
 import '@material-ui/icons';
 

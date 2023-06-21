@@ -121,23 +121,74 @@ const ShortMenuCustomButton: React.FC<{ action: ActionOption }> = React.memo(
 // ------------------------Hidden  Menu -----------------------------
 const ITEM_HEIGHT = 48;
 
-function HiddenShortMenu(props: Props) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+const HiddenShortMenuItem: React.FC<{
+  action: ActionOption;
+  setAnchorEl: React.Dispatch<React.SetStateAction<EventTarget & HTMLElement>>;
+}> = React.memo(({ action, setAnchorEl }) => {
+  const handleClick = React.useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      event.stopPropagation();
+      event.preventDefault();
+      action.onClick();
+      setAnchorEl(null);
+    },
+    [action, setAnchorEl],
+  );
+  return (
+    <MenuItem
+      onClick={handleClick}
+      key={action.label}
+      disabled={action.disabled}
+    >
+      {!!action.icon && (
+        <ListItemIcon>
+          <action.icon color={action.color} />
+        </ListItemIcon>
+      )}
+      <Typography>{action.label}</Typography>
+    </MenuItem>
+  );
+});
+
+const HiddenShortMenuActionItem: React.FC<{
+  action: ActionOption;
+  setAnchorEl: React.Dispatch<React.SetStateAction<EventTarget & HTMLElement>>;
+}> = React.memo(({ action, setAnchorEl }) => {
+  const handleClick = React.useCallback(() => {
+    action.onClick();
+    setAnchorEl(null);
+  }, [action, setAnchorEl]);
+
+  return (
+    <action.menuItemComponent onClick={handleClick} color={action.color} />
+  );
+});
+
+export const HiddenShortMenu: React.FC<Props> = React.memo(({ actions }) => {
+  const [anchorEl, setAnchorEl] = React.useState<
+    (EventTarget & HTMLElement) | null
+  >(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-    setAnchorEl(event.currentTarget);
-  };
+  const handleClickOnIconButton = React.useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      event.stopPropagation();
+      setAnchorEl(event.currentTarget);
+    },
+    [],
+  );
 
-  const handleClose = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-    setAnchorEl(null);
-  };
+  const handleClose = React.useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      event.stopPropagation();
+      setAnchorEl(null);
+    },
+    [],
+  );
+
   if (
-    !props.actions.filter(
-      (action) => !!action.onClick || !!action.menuItemComponent,
-    ).length
+    !actions.filter((action) => !!action.onClick || !!action.menuItemComponent)
+      .length
   ) {
     return null;
   }
@@ -147,7 +198,7 @@ function HiddenShortMenu(props: Props) {
         aria-label="more"
         aria-controls="long-menu"
         aria-haspopup="true"
-        onClick={handleClick}
+        onClick={handleClickOnIconButton}
       >
         <MoreVertIcon />
       </IconButton>
@@ -164,41 +215,22 @@ function HiddenShortMenu(props: Props) {
           },
         }}
       >
-        {props.actions
+        {actions
           .filter((action) => !!action.onClick && !action.menuItemComponent)
           .map((option) => (
-            <MenuItem
-              onClick={(ev) => {
-                ev.stopPropagation();
-                ev.preventDefault();
-                option.onClick();
-                setAnchorEl(null);
-              }}
-              key={option.label}
-              disabled={option.disabled}
-            >
-              {!!option.icon && (
-                <ListItemIcon>
-                  <option.icon color={option.color} />
-                </ListItemIcon>
-              )}
-              <Typography>{option.label}</Typography>
-            </MenuItem>
+            <HiddenShortMenuItem action={option} setAnchorEl={setAnchorEl} />
           ))}
-        {props.actions
+        {actions
           .filter((action) => !!action.menuItemComponent)
           .map((option) => (
-            <option.menuItemComponent
-              onClick={() => {
-                option.onClick();
-                setAnchorEl(null);
-              }}
-              color={option.color}
+            <HiddenShortMenuActionItem
+              action={option}
+              setAnchorEl={setAnchorEl}
             />
           ))}
       </Menu>
     </div>
   );
-}
+});
 
 export default React.memo(ListItemResponsiveAction);

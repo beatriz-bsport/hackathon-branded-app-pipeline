@@ -34,14 +34,13 @@ export type Props = {
   hideCredits?: boolean;
 };
 
-const MarketplacePaymentPackCard = (props: Props) => {
-  const {
-    paymentPack,
-    isExcludingTax,
-    addToCart,
-    onOpenDetailDialog,
-    hideCredits,
-  } = props;
+const MarketplacePaymentPackCard: React.FC<Props> = ({
+  paymentPack,
+  isExcludingTax,
+  addToCart,
+  onOpenDetailDialog,
+  hideCredits,
+}) => {
   const { t } = useTranslation('marketplace');
   const theme = useTheme();
   const isMobile = useMediaQuery(

@@ -131,6 +131,7 @@ export type WidgetCustomCSS = {
   spacing?: number;
   border?: number;
   backgroundPaper?: string;
+  secondaryBackgroundPaper?: string;
   background?: string;
   primaryColor?: string;
   secondaryColor?: string;

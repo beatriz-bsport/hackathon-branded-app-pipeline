@@ -38,7 +38,7 @@
 .bs-pass-details-dialog__header-container {
   background: linear-gradient(
     100deg,
-    #f6f8fa 50%,
+    var(--color-secondary-background-paper) 50%,
     var(--color-background-paper) 50%
   );
   border-top-left-radius: var(--border-radius-2);

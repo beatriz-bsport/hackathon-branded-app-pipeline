@@ -36,7 +36,7 @@
 .bs-combo-details-dialog__header {
   background: linear-gradient(
     90deg,
-    #f6f8fa 60%,
+    var(--color-secondary-background-paper) 60%,
     var(--color-background-paper) 40%
   );
   border-top-left-radius: var(--border-radius-2);
@@ -206,7 +206,7 @@
 
 @media screen and (max-width: 570px) {
   .bs-combo-details-dialog__header {
-    background: #f6f8fa;
+    background: var(--color-secondary-background-paper);
   }
 
   .bs-combo-details-dialog__header__title-container {

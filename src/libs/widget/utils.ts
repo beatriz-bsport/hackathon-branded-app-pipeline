@@ -16,6 +16,7 @@ export const getCustomWidgetStyle = memoize((styles: WidgetCustomCSS) => {
     spacing,
     border,
     backgroundPaper,
+    secondaryBackgroundPaper,
     background,
     primaryColor,
     secondaryColor,
@@ -63,6 +64,12 @@ export const getCustomWidgetStyle = memoize((styles: WidgetCustomCSS) => {
   }
   if (backgroundPaper) {
     classes += `--color-background-paper: ${backgroundPaper}; \n`;
+  }
+  if (secondaryBackgroundPaper) {
+    classes += `--color-secondary-background-paper: ${secondaryBackgroundPaper}; \n`;
+    classes += `--color-secondary-background-paper-transparent: ${chroma(
+      secondaryBackgroundPaper,
+    ).alpha(0.1)}; \n`;
   }
   if (background) {
     classes += `--color-background: ${background}; \n`;

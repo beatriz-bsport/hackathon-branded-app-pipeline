@@ -72,7 +72,9 @@ exports.default = {
       secondaryColor: 'Couleur secondaire',
       borderColor: 'Couleur des bordures',
       backgroundColorPage: 'Couleur de fond de la page',
-      backgroundColorElement: 'Couleur de fond des éléments',
+      backgroundColorElement: 'Couleur principale de fond des éléments',
+      secondaryBackgroundColorElement:
+        'Couleur secondaire de fond des éléments',
       reset: 'réinitialiser',
       spacingHelper: 'L’espacement se base sur les multiples de {{base}}px',
       roundingHelper: 'Les angles ont un arrondi en multiple {{base}}px',

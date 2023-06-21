@@ -49,6 +49,7 @@ const getDefault = (theme: CompanyTheme) => ({
   spacing: 8,
   border: 4,
   backgroundPaper: '#ffffff',
+  secondaryBackgroundPaper: '#f6f8fa',
   background: '#ffffff00',
   primaryColor: theme.primary_color,
   secondaryColor: theme.secondary_color,
@@ -202,6 +203,14 @@ export const WidgetCssThemeOverrideForm: React.FC<
                 withAlpha
               />
             </ResetableField>
+            <ResetableField theme={theme} name="secondaryBackgroundPaper">
+              <ColorField
+                name="secondaryBackgroundPaper"
+                label={t('widget.cssEditor.secondaryBackgroundColorElement')}
+                withAlpha
+                buttonStyle={classes.colorButton}
+              />
+            </ResetableField>
           </div>
         </div>
         <ButtonWithConfirmMenuItem onClick={handleReset} />
@@ -286,6 +295,9 @@ const SAFE_FONTS = [
 ];
 
 const useStyles = makeStyles((theme: Theme) => ({
+  colorButton: {
+    width: 'fit-content',
+  },
   fieldsWrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -382,6 +394,9 @@ export default compose<any, OuterProps>(
         border: initial?.border ?? defaultStyle?.border,
         backgroundPaper:
           initial?.backgroundPaper ?? defaultStyle?.backgroundPaper,
+        secondaryBackgroundPaper:
+          initial?.secondaryBackgroundPaper ??
+          defaultStyle?.secondaryBackgroundPaper,
         background: initial?.background ?? defaultStyle?.background,
         primaryColor: initial?.primaryColor ?? defaultStyle?.primaryColor,
         secondaryColor: initial?.secondaryColor ?? defaultStyle?.secondaryColor,

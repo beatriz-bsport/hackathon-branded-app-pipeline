@@ -1,7 +1,7 @@
 .bs-paymentpack-card {
   background: linear-gradient(
     120deg,
-    #f6f8fa 50%,
+    var(--color-secondary-background-paper) 50%,
     var(--color-background-paper) 50%
   );
   border-radius: var(--border-radius-4);

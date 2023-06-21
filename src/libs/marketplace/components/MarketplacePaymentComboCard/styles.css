@@ -1,7 +1,7 @@
 .bs-pack-card {
   background: linear-gradient(
     90deg,
-    #f6f8fa 58%,
+    var(--color-secondary-background-paper) 58%,
     var(--color-background-paper) 42%
   );
   border-radius: var(--border-radius-4);

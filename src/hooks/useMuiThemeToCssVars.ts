@@ -79,6 +79,8 @@ export const useMuiThemeToCssVars = () => {
     --color-selected: ${theme.palette.action.selected};
     --color-selectedOpacity: ${theme.palette.action.selectedOpacity};
     --color-background-paper: ${theme.palette.background.paper};
+    --color-secondary-background-paper: #f6f8fa;
+    --color-secondary-background-paper-transparent: #a1b3c71a;
     --color-background: #ffffff00;
     --color-error-contrastText: ${theme.palette.error.contrastText};
     --color-error-dark: ${theme.palette.error.dark};

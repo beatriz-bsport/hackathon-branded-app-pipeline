@@ -6971,7 +6971,7 @@
             "tenMinutes": "10 min"
         },
         "longHourIdentifier": "hours",
-        "longMinuteIdentifier": "minuten",
+        "longMinuteIdentifier": "minutes",
         "longDayIdentifer": "days"
     },
     "shop": {
@@ -7525,7 +7525,7 @@
             "submit_stripe_footer": "Update",
             "forms": {
                 "stripe_footer_placeholder": "No additional legal information",
-                "show_company_email_in_invoice": "Display the company emaill address on all invoices"
+                "show_company_email_in_invoice": "Display the company email address on all invoices"
             },
             "nf525Button": "Download",
             "nf525Explain": "BSPORT Solutions follows the NF525 compliance procedures. Download our official certificate.",
@@ -10574,7 +10574,7 @@
         "settings": {
             "title": "Settings",
             "lastBookingBeforeMinutes": "Members can book up to {{m}} before the start of the session.",
-            "lastDiscardBeforeMinutes": "Members can cancel free-of-charge for up to {{m}} before the start of the session.",
+            "lastDiscardBeforeMinutes": "Members can cancel free of charge up to {{m}} before the start of the session.",
             "firstBookingMinutesUntil": "Members can book sessions for up to {{m}} in the future.",
             "conditions": "Cancellation policy",
             "autoDiscard": "The session will be cancelled if there are {{nb_bookings}} booking(s) or less {{hours}}h before the start of the session.",

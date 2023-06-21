@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import { MenuItem } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import { ImmutableArray } from 'seamless-immutable';
 
 export type ActionOption = {
   menuItemComponent?: any;
@@ -18,7 +19,7 @@ export type ActionOption = {
 };
 
 type Props = {
-  actions: Array<ActionOption>;
+  actions: ImmutableArray<ActionOption> | ActionOption[];
 };
 
 // ------------------------ Menu handler ---------------------

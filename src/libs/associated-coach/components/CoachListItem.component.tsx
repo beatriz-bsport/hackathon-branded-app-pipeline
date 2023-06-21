@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Immutable from 'seamless-immutable';
+
 import { useTranslation } from 'react-i18next';
 
 import ListItem from '@material-ui/core/ListItem';
@@ -20,7 +22,9 @@ import List from '@material-ui/core/List';
 import type { Theme } from '@material-ui/core/styles';
 
 import type { Coach } from '../types';
-import ListItemResponsiveAction from '#components/button/ListItemResponsiveAction.component';
+import ListItemResponsiveAction, {
+  ActionOption,
+} from '#components/button/ListItemResponsiveAction.component';
 
 import { DEFAULT_AVATAR } from '../utils';
 
@@ -47,45 +51,48 @@ const openEmail = (event: React.MouseEvent, email: string) => {
   event.stopPropagation();
   window.location.href = 'mailto:'.concat(email);
 };
-export const CoachListSkeleton: React.FC<PropsSkeleton> = ({ numberItems }) => {
-  const classes = useStyles();
-  return (
-    <List dense disablePadding>
-      {Array.from(Array(numberItems).keys()).map(() => (
-        <ListItem>
-          <Skeleton
-            animation="wave"
-            variant="circle"
-            className={classes.avatar}
-          />
-          <ListItemText
-            id="button_teacher"
-            primary={
-              <Typography component="span" variant="subtitle1">
-                <Skeleton className={classes.nameSkeleton} />
-              </Typography>
-            }
-            secondary={
-              <Typography component="span" variant="subtitle1">
-                <Skeleton className={classes.chipSkeleton} />
-              </Typography>
-            }
-          />
-          <Skeleton
-            animation="wave"
-            variant="rect"
-            className={classes.leftActionButtonSkeleton}
-          />
-          <Skeleton
-            animation="wave"
-            variant="rect"
-            className={classes.rightActionButtonSkeleton}
-          />
-        </ListItem>
-      ))}
-    </List>
-  );
-};
+
+export const CoachListSkeleton: React.FC<PropsSkeleton> = React.memo(
+  ({ numberItems }) => {
+    const classes = useStyles();
+    return (
+      <List dense disablePadding>
+        {Array.from(Array(numberItems).keys()).map((key) => (
+          <ListItem key={key}>
+            <Skeleton
+              animation="wave"
+              variant="circle"
+              className={classes.avatar}
+            />
+            <ListItemText
+              id="button_teacher"
+              primary={
+                <Typography component="span" variant="subtitle1">
+                  <Skeleton className={classes.nameSkeleton} />
+                </Typography>
+              }
+              secondary={
+                <Typography component="span" variant="subtitle1">
+                  <Skeleton className={classes.chipSkeleton} />
+                </Typography>
+              }
+            />
+            <Skeleton
+              animation="wave"
+              variant="rect"
+              className={classes.leftActionButtonSkeleton}
+            />
+            <Skeleton
+              animation="wave"
+              variant="rect"
+              className={classes.rightActionButtonSkeleton}
+            />
+          </ListItem>
+        ))}
+      </List>
+    );
+  },
+);
 
 export const CoachListItem: React.FC<Props> = ({
   coach,
@@ -99,6 +106,49 @@ export const CoachListItem: React.FC<Props> = ({
   const classes = useStyles();
 
   const { t } = useTranslation('translation');
+
+  const handleOpenEmail = React.useCallback(
+    (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      openEmail(event, coach.email);
+    },
+    [coach.email],
+  );
+
+  const handleOpenPhone = React.useCallback(
+    (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      openPhone(event, coach.phone);
+    },
+    [coach.phone],
+  );
+
+  const handleClick = React.useCallback(() => {
+    restoreCoach(coach.id);
+  }, [restoreCoach, coach.id]);
+
+  const actionsList = React.useMemo(
+    () =>
+      Immutable([
+        !coach.disabled &&
+          onEditCoach && {
+            icon: EditIcon,
+            label: t('common.edit'),
+            color: 'primary',
+            onClick: onEditCoach,
+          },
+        !coach.disabled &&
+          deleteCoach && {
+            icon: DeleteIcon,
+            label: t('common.delete'),
+            onClick: deleteCoach,
+          },
+        coach.disabled && {
+          icon: RestoreFromTrashIcon,
+          label: t('common.restore'),
+          onClick: handleClick,
+        },
+      ]),
+    [coach.disabled, handleClick, deleteCoach, onEditCoach, t],
+  ) as Immutable.ImmutableArray<ActionOption>;
 
   return (
     <ListItem
@@ -129,7 +179,7 @@ export const CoachListItem: React.FC<Props> = ({
                 icon={<MailOutlineIcon />}
                 label={coach.email}
                 className={classes.chip}
-                onClick={(e) => openEmail(e, coach.email)}
+                onClick={handleOpenEmail}
                 clickable
                 variant="outlined"
               />
@@ -140,9 +190,7 @@ export const CoachListItem: React.FC<Props> = ({
                 icon={<CallIcon />}
                 label={coach.phone}
                 className={classes.chip}
-                onClick={(e) => {
-                  openPhone(e, coach.phone);
-                }}
+                onClick={handleOpenPhone}
                 clickable
                 variant="outlined"
               />
@@ -150,28 +198,7 @@ export const CoachListItem: React.FC<Props> = ({
           </React.Fragment>
         }
       />
-      <ListItemResponsiveAction
-        actions={[
-          !coach.disabled &&
-            onEditCoach && {
-              icon: EditIcon,
-              label: t('common.edit'),
-              color: 'primary',
-              onClick: onEditCoach,
-            },
-          !coach.disabled &&
-            deleteCoach && {
-              icon: DeleteIcon,
-              label: t('common.delete'),
-              onClick: deleteCoach,
-            },
-          coach.disabled && {
-            icon: RestoreFromTrashIcon,
-            label: t('common.restore'),
-            onClick: () => restoreCoach(coach.id),
-          },
-        ]}
-      />
+      <ListItemResponsiveAction actions={actionsList} />
     </ListItem>
   );
 };
@@ -206,4 +233,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CoachListItem;
+export default React.memo(CoachListItem);

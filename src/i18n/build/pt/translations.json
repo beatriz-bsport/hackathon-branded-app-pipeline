@@ -2708,5 +2708,72 @@
         "archived": "Arquivado",
         "showSubscriptions": "Ver subscrições",
         "creditAccountBalance": "Montante do cliente"
+    },
+    "metaActivity": {
+        "settings": {
+            "seeRestrictions": "Ver",
+            "autoDiscard": "A sessão será cancelada se {{nb_bookings}} rmarcação(s) ou menos {{hours}}h antes do início da sessão",
+            "autoDiscardHeader": "A sessão será cancelada se",
+            "firstBookingMinutesUntil": "As marcações são bloqueadas antes de {{m}} a partir do início da sessão",
+            "restrictionsHeader": "Restrições personalizadas",
+            "restrictions": " Restrição personalizada n.º{{ count }}"
+        },
+        "groupedOption": {
+            "modal": {
+                "form": {
+                    "addOffers": "Adicionar uma sessão",
+                    "allowBookingAfterStartCaption": "Por defeito, se uma sessão de grupo já tiver começado, os seus membros já não poderão registar-se nela. Ao ativar esta função, os membros poderão continuar a inscrever-se nas restantes sessões.",
+                    "timeStartHelper": "Seleccione a data da primeira sessão da cópia de grupo. As outras sessões do grupo serão copiadas e remarcadas de acordo com esta data.",
+                    "daily": "Todos os dias",
+                    "subtitleSettings": "Parâmetros",
+                    "subtitleRecurrence": "Periodicidade",
+                    "recurrenceUntil": "Repetir até",
+                    "recurrence": "Periodicidade",
+                    "delete": {
+                        "selectHeader": "Selecionar os grupos a modificar",
+                        "title": "Cancelamento",
+                        "selectGroup": "Cancelar outros grupos semelhantes",
+                        "firstSession": "Primeira sessão em {{-day}}",
+                        "content": "Tenha em atenção que a eliminação deste grupo cancelará todas as sessões nele incluídas. As reservas dos estudantes registados serão anuladas. Esta operação é definitiva",
+                        "missingOffer": "Não há ofertas no grupo",
+                        "applyRecursive": "Cancelar outros grupos semelhantes"
+                    },
+                    "fullBookingOnly": "Inscrição a todas as sessões de grupo",
+                    "marketPlaceAvailable": "Disponível para marcação (website+app)",
+                    "withRecurrence": "Ativar a periodicidade",
+                    "required": "É necessário pelo menos um grupo",
+                    "copyRecurrence": "Duplicar também as futuras repetições do grupo",
+                    "back": "Anterior",
+                    "allowBookingAfterStart": "Autorizar a inscrição em tempo real",
+                    "preview": "Pré-visualizar",
+                    "recurrenceNumberPrefix": "Repetir tudo",
+                    "groupName": "Nome",
+                    "subtitle": "Informações gerais",
+                    "timeStart": "Data de início",
+                    "recurrenceCount": "Número de repetições",
+                    "uncreatedGroupsTitle": "Grupos não criados",
+                    "next": "Seguinte",
+                    "subtitleOffers": "Adicionar sessões",
+                    "name": "Nome",
+                    "save": "salvar",
+                    "submit": "Confirmar",
+                    "impossibleState": "Os critérios introduzidos não geram um grupo",
+                    "allowGuestUnavailable": "Esta função não está disponível para sessões agrupadas.",
+                    "recurrenceUntilHelper2": "Os grupos com uma última sessão posterior a esta data não serão criados.",
+                    "creationError": "Criação impossível",
+                    "allowGuest": "Pode ser marcado para um convidado",
+                    "fullBookingOnlyCaption": "Por predefinição, se os membros se registarem numa das sessões de grupo, serão automaticamente registados em todas as sessões de grupo. Ao desativar esta definição, os membros poderão registrar-se em todas ou algumas das sessões do grupo.",
+                    "nameCaption": "Nome do grupo de sessões",
+                    "recurrenceUntilHelper": "Indicar a data da última sessão da última etapa."
+                },
+                "subtitlePreview": "Previsão de periodicidade",
+                "duplicate": "Duplicar um grupo",
+                "title": "Sessões de grupo",
+                "subtitleMetaActivitySelect": "Criar um grupo de sessões"
+            }
+        },
+        "packsAvailable": "Elegível para :",
+        "reviews": "Comentários dos alunos ",
+        "disabledMetaActivities": "Actividades arquivadas"
     }
 }

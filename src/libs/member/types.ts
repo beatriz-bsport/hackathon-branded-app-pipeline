@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ErrorAndLoading, ModelReducerI } from '../types';
 
 export type User = {

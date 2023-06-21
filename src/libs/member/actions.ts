@@ -155,9 +155,9 @@ export function refreshFilteredMembers(
     try {
       const response = await fetchFilteredMembersAPI(params);
       dispatch(memberListActions.success(response.data));
-      const member = response.data.results;
+      const members = response.data.results;
       if (options && options.onSuccess) {
-        options.onSuccess(member);
+        options.onSuccess(members);
       }
     } catch (err) {
       console.error(err);
@@ -228,7 +228,10 @@ export function fetchMemberBulkById(ids: Array<number>) {
   };
 }
 
-export function fetchFilteredMembers(params: any, options?: OptionCallback) {
+export function fetchFilteredMembers(
+  params: any,
+  options?: OptionCallback<MemberMinimal[]>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(memberListActions.isLoading(true));
     dispatch(refreshFilteredMembers(params, options));

@@ -154,6 +154,7 @@ import {
   onlyUsable,
 } from '#libs/giftcard/selectors';
 import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
+import type { MemberMinimal } from '#libs/member/types';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -390,19 +391,22 @@ export default compose(
       },
     fetchInvoiceListUnpaid:
       ({ fetchInvoiceList, bookings }) =>
-      (params) => {
+      (params, options) => {
         if (!bookings || bookings.length === 0) return;
         const uniqMemberIds = uniq(bookings.map((b) => b.member)).filter(
           (id) => !!id,
         );
         if (uniqMemberIds.length === 0) return;
-        fetchInvoiceList({
-          is_v2: true,
-          is_draft: false,
-          unpaid: true,
-          ...(params || {}),
-          member__in: uniqMemberIds,
-        });
+        fetchInvoiceList(
+          {
+            is_v2: true,
+            is_draft: false,
+            unpaid: true,
+            ...(params || {}),
+            member__in: uniqMemberIds,
+          },
+          options,
+        );
       },
     fetchConsumerGiftcardList:
       ({ fetchConsumerGiftcardList, fetchGiftcardBulk, fetchMemberBulkById }) =>
@@ -443,11 +447,28 @@ export default compose(
         id,
         fetchPaymentPackBulk,
       }) =>
-      (ordering_field) => {
+      (
+        ordering_field,
+        options: { members: OptionCallback<MemberMinimal[]> },
+      ) => {
         refreshBookingsByOffer(
           id,
           {
             onSuccess: (bookings) => {
+              fetchFilteredMembers(
+                { offer: id, withNotes: true },
+                {
+                  onSuccess: (memberList: MemberMinimal[]) => {
+                    if (
+                      options &&
+                      options.members &&
+                      options.members.onSuccess
+                    ) {
+                      options.members.onSuccess(memberList);
+                    }
+                  },
+                },
+              );
               retrieveConsumerPackBulk(
                 bookings.map((b) => b.consumer_payment_pack),
                 {
@@ -461,8 +482,6 @@ export default compose(
           },
           ordering_field,
         );
-
-        fetchFilteredMembers({ offer: id, withNotes: true });
       },
   }),
 
@@ -596,33 +615,45 @@ export default compose(
         refresh,
         fetchInvoiceListUnpaid,
         id,
-        fetchFilteredMembers,
         fetchOfferStatus,
         fetchOffer,
       }) =>
       (data) => {
         createQuickInvoice(data, {
           onSuccess: (invoice) => {
-            fetchOffer(id);
-            fetchOfferStatus(id);
-            fetchFilteredMembers(
-              { offer: id, withNotes: true },
-
-              {
-                onSuccess: (memberList) => {
-                  if (memberList && memberList.length) {
-                    fetchInvoiceListUnpaid({
-                      member__in: memberList.map((m) => m.id),
-                    });
-                  }
-                },
+            fetchOffer(id, {
+              onSuccess: () => {
+                fetchOfferStatus(
+                  id,
+                  {}, // Empty parameters
+                  {
+                    onSuccess: () => {
+                      refresh(null, {
+                        members: {
+                          onSuccess: (memberList: MemberMinimal[]) => {
+                            if (memberList && memberList.length) {
+                              fetchInvoiceListUnpaid(
+                                {
+                                  member__in: memberList.map((m) => m.id),
+                                },
+                                {
+                                  onSuccess: () => {
+                                    fetchInvoiceItemList({
+                                      invoice__uuid: invoice.uuid,
+                                      page_size: 10,
+                                    });
+                                  },
+                                },
+                              );
+                            }
+                          },
+                        },
+                      });
+                    },
+                  },
+                );
               },
-            );
-            fetchInvoiceItemList({
-              invoice__uuid: invoice.uuid,
-              page_size: 10,
             });
-            refresh();
           },
           onError: () => {
             fetchOffer(id);

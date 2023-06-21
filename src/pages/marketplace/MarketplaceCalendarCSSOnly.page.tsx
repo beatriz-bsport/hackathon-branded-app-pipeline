@@ -56,7 +56,6 @@ import {
   fetchNextAvailableOffer as fetchNextAvailableOfferAction,
   fetchBookedGender as fetchBookedGenderAction,
   fetchOfferRegisteredIds as fetchOfferRegisteredIdsAction,
-  fetchAllOffers as fetchAllOffersAction,
   fetchOffersInGroup as fetchOffersInGroupAction,
 } from '#libs/offer/actions';
 import {
@@ -507,7 +506,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           goToFirstAvailableSession={this.goToFirstAvailableSession}
           getLevel={this.props.getLevel}
           theme={this.props.theme}
-          fetchAllOffers={this.props.fetchAllOffers}
           events={this.props.events}
           groupSessionByPeriod={this.props.groupSessionByPeriod}
           variant={this.props.variant}
@@ -570,7 +568,6 @@ const mapDispatchToProps = {
   fetchMetaActivityBulk: fetchMetaActivityBulkAction,
   fetchBookedGender: fetchBookedGenderAction,
   pushAction: push,
-  fetchAllOffers: fetchAllOffersAction,
   addItemToBasket: addItemToBasketAction,
   fetchAllEstablishmentGroup,
   fetchOfferRegisteredIds: fetchOfferRegisteredIdsAction,

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, {
   useCallback,
   useState,
@@ -14,10 +13,8 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
 import Popper from '@material-ui/core/Popper';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import omit from 'lodash/omit';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import './MarketplaceDatePicker.css';
-import MarketplaceCommonFilter from '../../types';
 
 import MarketplaceDatePickerDay from './MarketplaceDatePickerDay.component';
 import { DATE_FORMAT, formatAsTitle } from '../../../../utils/datetime';
@@ -26,25 +23,12 @@ export type Props = {
   dateSelected: string;
   rangeSize: number;
   onSelect: (date: string) => void;
-  events: Array<Event>;
-  companyId: number;
-  fetchAllOffers: (props: {
-    company: number;
-    min_date: string;
-    max_date: string;
-    filters?: Array<MarketplaceCommonFilter>;
-  }) => void;
-  offerFilters: Array<MarketplaceCommonFilter>;
 };
 
 const MarketplaceDatePicker: React.FC<Props> = ({
   dateSelected,
   rangeSize = 7,
   onSelect,
-  events,
-  companyId,
-  fetchAllOffers,
-  offerFilters,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dateDisplayed, setDateDisplayed] = useState(moment(dateSelected));
@@ -57,25 +41,14 @@ const MarketplaceDatePicker: React.FC<Props> = ({
   const handleOpenMenu = useCallback(() => {
     setDateDisplayed(moment(dateSelected));
     setIsOpen(true);
-    fetchAllOffers({
-      company: companyId,
-      min_date: moment(dateDisplayed)
-        .startOf('month')
-        .startOf('week')
-        .format('YYYY-MM-DD'),
-      max_date: moment(dateDisplayed)
-        .endOf('month')
-        .endOf('week')
-        .format('YYYY-MM-DD'),
-      ...omit(offerFilters || {}),
-    });
-  }, [companyId, dateDisplayed, dateSelected, fetchAllOffers, offerFilters]);
+  }, [dateSelected]);
 
   // Close menu on scroll outside of the menu
   useEffect(() => {
     const onScroll = throttle((ev: Event) => {
       if (
         isOpen &&
+        ev.target instanceof HTMLElement &&
         !ev.target?.className?.includes('bs-marketplace-date-picker__menu')
       ) {
         handleCloseMenu();
@@ -107,24 +80,8 @@ const MarketplaceDatePicker: React.FC<Props> = ({
       setDateDisplayed(
         dateDisplayed.clone().add(type === 'subtract' ? -1 : 1, 'month'),
       );
-      fetchAllOffers({
-        company: companyId,
-        min_date: dateDisplayed
-          .clone()
-          .add(type === 'subtract' ? -1 : 1, 'month')
-          .startOf('month')
-          .startOf('week')
-          .format('YYYY-MM-DD'),
-        max_date: dateDisplayed
-          .clone()
-          .add(type === 'subtract' ? -1 : 1, 'month')
-          .endOf('month')
-          .endOf('week')
-          .format('YYYY-MM-DD'),
-        ...omit(offerFilters || {}),
-      });
     },
-    [companyId, dateDisplayed, fetchAllOffers, offerFilters],
+    [dateDisplayed],
   );
 
   const handleSelect = useCallback(
@@ -288,14 +245,6 @@ const MarketplaceDatePicker: React.FC<Props> = ({
                                   )}
                                   key={dayString}
                                   handleSelect={handleSelect}
-                                  offersThisDay={events.filter(
-                                    (event: Event) => {
-                                      return moment(event.date_start).isSame(
-                                        day,
-                                        'day',
-                                      );
-                                    },
-                                  )}
                                 />
                               );
                             })}

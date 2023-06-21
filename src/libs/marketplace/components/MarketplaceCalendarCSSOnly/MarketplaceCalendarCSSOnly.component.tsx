@@ -19,7 +19,6 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
 import { Theme } from '#libs/theme/types';
 import MarketplaceDatePicker from '../MarketplaceDatePicker';
-import { MarketplaceCommonFilter } from '#libs/marketplace/types';
 import { formatAsTime } from '../../../../utils/datetime';
 import { Coach } from '#libs/associated-coach/types';
 
@@ -64,13 +63,6 @@ type Props = {
   variant?: 'activityName' | 'coach' | 'time';
   groupSessionByPeriod: boolean;
   events: Array<Event>;
-  companyId: number;
-  fetchAllOffers: (props: {
-    company: number;
-    min_date: string;
-    max_date: string;
-    filters?: Array<MarketplaceCommonFilter>;
-  }) => void;
   onSearch: (searchText: string) => void;
   onClearInput: () => void;
   searchedOffers: Offer[];
@@ -163,10 +155,8 @@ export const MarketplaceCalendar = (props: Props) => {
         <div className="bs-calendar__datePicker">
           <MarketplaceDatePicker
             dateSelected={selectedDate}
-            companyId={props.companyId}
             onSelect={onSelectDate}
             offerFilters={filters}
-            fetchAllOffers={props.fetchAllOffers}
             events={props.events}
           />
         </div>

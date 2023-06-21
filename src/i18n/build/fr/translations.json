@@ -1041,7 +1041,7 @@
             }
         },
         "form": {
-            "title": "Coupon",
+            "title": "Promotions",
             "selectorPlaceholder": {
                 "privatePass": "Sélectionner des cartes de rendez-vous (valables sur toutes les cartes si aucune n'est sélectionnée)",
                 "paymentPack": "Sélectionner des cartes de cours (valable sur toutes les cartes de cours si aucune n'est sélectionnée)",
@@ -1057,7 +1057,7 @@
                 "applies_to": "Paramètres",
                 "advanced": "Avancé",
                 "tags": "Tags",
-                "tagInfo": "Utilisez les tags pour rendre le coupon utilisable uniquement par un groupe de membre souhaité sur la marketplace, le widget et l’application. Vous pouvez sélectionner des tags pour rendre le coupon utilisable seulement par les membres possédants un des tags choisis. Ou bien vous pouvez sélectionner des tags pour rendre le coupon inutilisable seulement par les membres possédants un des tags sélectionnés. ",
+                "tagInfo": "Utilisez les tags pour rendre la promotion utilisable uniquement par un groupe de membre souhaité sur la marketplace, le widget et l’application. Vous pouvez sélectionner des tags pour rendre la promotion utilisable seulement par les membres possédants un des tags choisis. Ou bien vous pouvez sélectionner des tags pour rendre la promotion inutilisable seulement par les membres possédants un des tags sélectionnés. ",
                 "whitelist_tags": "Autorisé",
                 "blacklist_tags": "Non - Autorisé"
             },
@@ -1148,7 +1148,7 @@
                 "not_applicable": "Ce code promo n'est pas applicable."
             }
         },
-        "search": "Rechercher un code promo",
+        "search": "Rechercher une promotion",
         "reverted": "Facture annulée"
     },
     "dashboard": {
@@ -3262,8 +3262,8 @@
         "settings": {
             "conditions": "Conditions",
             "title": "Paramètres",
-            "lastBookingBeforeMinutes": "Les membres peuvent annuler sans frais jusqu'à {{m}} avant le début de la séance",
-            "lastDiscardBeforeMinutes": "Les annulations sont possibles jusqu'à {{m}} avant le début de la séance",
+            "lastBookingBeforeMinutes": "Les membres peuvent réserver jusqu'à {{m}} avant le début de la séance",
+            "lastDiscardBeforeMinutes": "Les membres peuvent annuler sans frais jusqu'à {{m}} avant le début de la séance",
             "firstBookingMinutesUntil": "Les réservations sont bloquées avant {{m}} du début de la séance",
             "autoDiscard": "La séance sera annulée si il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance",
             "lastDiscardBeforeMinutesFull": "Annulations possibles jusqu'à {{m}} avant le début de la séance",
@@ -9655,7 +9655,7 @@
             "couponCreate": "Formulaire promotion",
             "couponDetail": "{{name}}",
             "couponEdit": "Formulaire promotion",
-            "couponList": "Codes promotionnels"
+            "couponList": "Promotions"
         },
         "privateService": {
             "serviceList": "Sur rendez-vous"

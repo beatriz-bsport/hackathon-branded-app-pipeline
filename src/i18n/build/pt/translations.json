@@ -2770,10 +2770,68 @@
                 "duplicate": "Duplicar um grupo",
                 "title": "Sessões de grupo",
                 "subtitleMetaActivitySelect": "Criar um grupo de sessões"
-            }
+            },
+            "intervalLabel": {
+                "until": {
+                    "year": "Todos os anos até {{-until}} ",
+                    "year_plural": "Todos os {{ count }} anos até {{-until}} ",
+                    "week": "Todas as semanas até {{-until}} ",
+                    "week_plural": "Todas as {{ count }} semanas até {{-until}} ",
+                    "month": "Todos os meses até {{-until}} ",
+                    "month_plural": "Todos os {{ count }} mês até {{-until}} ",
+                    "day": "Todos os dias até {{-until}} ",
+                    "day_plural": "Todos os {{ count }} dias até {{-until}} "
+                },
+                "month": "O mês inteiro",
+                "month_plural": "Todos os {{ count }} meses",
+                "week": "A semana inteira",
+                "week_plural": "Todas as {{ count }} semanas",
+                "day": "O dia inteiro",
+                "day_plural": "Todos os {{ count }} dias",
+                "year": "O ano inteiro",
+                "year_plural": "Todos os {{ count }} anos"
+            },
+            "helperText": {
+                "month": "Este grupo começa em {{-day}}, o mês inteiro",
+                "month_plural": "Este grupo começa em {{-day}}, todos {{ count }} meses",
+                "day": "Este grupo repete-se o dia inteiro",
+                "day_plural": "Este grupo repete-se a cada {{ count }} dias",
+                "week": "Este grupo começa em {{-day}}, a semana inteira",
+                "week_plural": "Este grupo começa em {{-day}}, todas {{ count }} semanas",
+                "year": "Este grupo começa {{-day}}, de {{-mont}} todos os anos",
+                "year_plural": "Este grupo começa {{-day}}, de {{-month}} todos os {{ count }} anos"
+            },
+            "warning": {
+                "uncreatedGroups": "Tenha em atenção que alguns grupos não serão criados.\n…Pode encontrá-los na secção \"Grupos não criados\" na parte inferior desta lista",
+                "groupsWithOutOfTheRangeOffers": "Os grupos de sessões abaixo não serão criados porque\n…incluem sessões que se realizam há mais de 3 anos"
+            },
+            "offerDescription": "{{ count }} sessões {{- firstSession }} em {{- lastSession }}",
+            "errors": {
+                "offers_length": "Só foi criada uma sessão. Para criar um grupo de sessões,\n…adicione pelo menos duas sessões. Se pretender criar uma única sessão, pode fazê-lo diretamente a partir de\n…o workshop em questão ou o separador do calendário."
+            },
+            "last": "último"
         },
         "packsAvailable": "Elegível para :",
         "reviews": "Comentários dos alunos ",
-        "disabledMetaActivities": "Actividades arquivadas"
+        "disabledMetaActivities": "Actividades arquivadas",
+        "cancelledOffers": "{{count}} cancelamentos"
+    },
+    "navigation": {
+        "paymentMethodMissing": {
+            "banner": "Não introduziu um método de pagamento para a sua subscrição bsport. Por favor, clique aqui.",
+            "closeModal": "Fechar",
+            "explain": "Não introduziu um método de pagamento válido. Confirme-o para continuar a utilizar a sua subscrição bsport."
+        },
+        "backofficeMenu": {
+            "toggle": {
+                "shrink": "Submeter",
+                "expand": "Acrescentar"
+            },
+            "instalmentPayment": "Opções de pagamento",
+            "programs": "Programas"
+        },
+        "stripeOnboardingPending": {
+            "banner": "Se não tiver terminado a configuração da faturação, os pagamentos em linha podem ser desactivados."
+        }
     }
 }

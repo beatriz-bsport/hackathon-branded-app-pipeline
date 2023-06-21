@@ -2478,7 +2478,9 @@
                     "categories": "Compatível com {{ count }} categoria",
                     "categories_plural": "Compatível com {{ count }} categorias",
                     "all": "Compatível com todos os",
-                    "compatible": "Compatível com "
+                    "compatible": "Compatível com ",
+                    "establishments": "Compatível com {{ count }} sala",
+                    "establishments_plural": "Compatível com {{ count }} salas"
                 },
                 "compatible": "Compatível com {{count}} marcação",
                 "compatible_plural": "Compatível com {{count}}  marcações",

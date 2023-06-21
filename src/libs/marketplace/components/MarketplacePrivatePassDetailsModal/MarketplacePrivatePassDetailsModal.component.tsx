@@ -99,12 +99,7 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                   </Grid>
                 </Content>
                 {!!privatePass.description && (
-                  <Content
-                    classes={{
-                      'bs-pass-details-dialog__body':
-                        'bs-pass-details-dialog__body',
-                    }}
-                  >
+                  <Content>
                     <Grid
                       classes={{
                         'bs-pass-details-dialog__grid':
@@ -148,6 +143,8 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                     classes={{
                       'bs-pass-details-dialog__item':
                         'bs-pass-details-dialog__item',
+                      'bs-pack-details-dialog__item__buttons':
+                        'bs-pack-details-dialog__item__buttons',
                     }}
                   >
                     <div className="bs-pass-details-dialog__buttons">

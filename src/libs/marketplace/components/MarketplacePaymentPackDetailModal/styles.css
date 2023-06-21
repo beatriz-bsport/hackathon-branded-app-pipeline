@@ -140,23 +140,19 @@
 }
 
 @media screen and (max-width: 570px) {
-  .bs-pack-details-dialog__body {
-    display: none;
-  }
-
   .bs-pack-details-dialog__header {
     flex-direction: column;
   }
 
   .bs-pack-details-dialog__container {
-    max-height: none;
+    max-height: 85vh;
   }
 
   .bs-pack-details-dialog::-webkit-scrollbar {
     display: none;
   }
 
-  .bs-pack-details-dialog__item {
+  .bs-pack-details-dialog__item__buttons {
     align-items: flex-end;
   }
 }

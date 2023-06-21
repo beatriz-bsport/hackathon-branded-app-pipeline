@@ -209,10 +209,6 @@
     background: #f6f8fa;
   }
 
-  .bs-combo-details-dialog__body {
-    display: none;
-  }
-
   .bs-combo-details-dialog__header__title-container {
     flex-direction: column;
   }

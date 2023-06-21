@@ -157,6 +157,8 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                       classes={{
                         'bs-pack-details-dialog__item':
                           'bs-pack-details-dialog__item',
+                        'bs-pack-details-dialog__item__buttons':
+                          'bs-pack-details-dialog__item__buttons',
                       }}
                     >
                       <div className="bs-pack-details-dialog__buttons">

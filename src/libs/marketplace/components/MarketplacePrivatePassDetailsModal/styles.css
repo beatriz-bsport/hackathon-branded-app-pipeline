@@ -146,16 +146,12 @@
 }
 
 @media screen and (max-width: 570px) {
-  .bs-pass-details-dialog__body {
-    display: none;
-  }
-
   .bs-pass-details-dialog__header {
     flex-direction: column;
   }
 
   .bs-pass-details-dialog__container {
-    max-height: none;
+    max-height: 85vh;
   }
 
   .mobile {
@@ -170,7 +166,7 @@
     display: none;
   }
 
-  .bs-pass-details-dialog__item {
+  .bs-pass-details-dialog__item__buttons {
     align-items: flex-end;
   }
 }

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { TFunction } from 'i18next';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';

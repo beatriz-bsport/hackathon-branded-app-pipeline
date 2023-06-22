@@ -1,14 +1,14 @@
-// @ts-nocheck
 import React from 'react';
 
 import { PaymentPackStorybookListFactory } from '#libs/payment-packs/factory';
 import { PaymentComboStorybookListFactory } from '#libs/payment-combo/factory';
 import { private_services_passes_factory } from '#libs/private-service/factory';
-import PassSearch, { Props } from './index';
+import { PassSearchForStorybook, Props } from './index';
 
 const CustomTemplate = (args: Props) => {
   return (
-    <PassSearch
+    // @ts-ignore
+    <PassSearchForStorybook
       {...args}
       showPaymentPackDetail={() => {}}
       addPaymentPackToBasket={() => {}}
@@ -29,7 +29,7 @@ PassesSearch.args = {
 
 export default {
   title: 'Components/CssOnly/PassSearch',
-  component: PassSearch,
+  component: PassSearchForStorybook,
   argTypes: {
     showPaymentPackDetail: { action: 'showPaymentPackDetail' },
     addPaymentPackToBasket: { actions: 'addPaymentPackToBasket' },

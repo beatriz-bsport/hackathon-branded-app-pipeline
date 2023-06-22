@@ -14,6 +14,7 @@ import {
   useMarketplaceSearchPaymentPackData,
 } from '../hooks';
 import { BaseAdditionalData, SearchItemData } from '../Search.component';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export type Props = {
   paymentPackList: PaymentPack[];
@@ -92,5 +93,7 @@ export const PassSearch: React.FC<Props> = (props) => {
     />
   );
 };
+
+export const PassSearchForStorybook = marketplaceCssHoc()(PassSearch);
 
 export default PassSearch;

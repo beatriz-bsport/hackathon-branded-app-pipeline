@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import './styles.css';
@@ -7,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-import { ContractWithPaymentPack } from '#libs/subscription/types';
+import { Contract, ContractWithPaymentPack } from '#libs/subscription/types';
 
 type Props = {
-  contract: ContractWithPaymentPack;
+  contract: Contract | ContractWithPaymentPack;
   withFees?: boolean;
 };
 

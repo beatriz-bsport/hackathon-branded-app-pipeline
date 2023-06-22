@@ -7,11 +7,11 @@ import ClickableItem from '#components/css-only/ClickableItem';
 import { useMarketplaceSearchContractData } from '../hooks';
 import { BaseAdditionalData, SearchItemData } from '../Search.component';
 
-import { ContractWithPaymentPack } from '#libs/subscription/types';
+import { Contract } from '#libs/subscription/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export type Props = {
-  contractList: ContractWithPaymentPack[];
+  contractList: Contract[];
   isExcludingTax: boolean;
   onPressEnter: (
     searchResult: SearchItemData<BaseAdditionalData>[],
@@ -20,7 +20,7 @@ export type Props = {
   onClearInput: () => void;
 
   showContractDetail: (id: number) => void;
-  addContractToBasket: (contract: ContractWithPaymentPack) => void;
+  addContractToBasket: (contract: Contract) => void;
 };
 
 export const ContractSearch: React.FC<Props> = ({

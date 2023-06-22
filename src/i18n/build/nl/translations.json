@@ -3038,6 +3038,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd"
             ]
         },
@@ -3864,7 +3865,8 @@
                 "label": "Aankooptermijn",
                 "helperText": "Beschikbaar tot",
                 "tooltip": "Na de gekozen datum is de kaart niet meer te koop voor klanten."
-            }
+            },
+            "description": "Beschrijving"
         },
         "unlimitedPlural": "Onbeperkt",
         "universalPass": {
@@ -8490,6 +8492,9 @@
                     "label": "Aankooptermijn",
                     "helperText": "Beschikbaar tot",
                     "tooltip": "Zodra de gekozen datum is verstreken, verschijnt de afsprakenkaart niet meer te koop voor klanten."
+                },
+                "description": {
+                    "label": "Beschrijving"
                 }
             },
             "delete": {

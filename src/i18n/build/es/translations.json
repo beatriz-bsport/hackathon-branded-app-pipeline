@@ -5004,6 +5004,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
+                "Cancelada",
                 "Cancelada"
             ]
         },
@@ -7395,6 +7396,9 @@
                 "onBehalfOfTeacher": {
                     "label": "Pago íntegro al profesor",
                     "helperText": "Este ajuste le permite indicar que los ingresos asociados a las citas de este pase se pagarán íntegramente al profesor. Esta información será visible en sus informes de compra (CA) en la columna 'Pago abonado íntegramente al profesor'."
+                },
+                "description": {
+                    "label": "Descripción"
                 }
             },
             "compatibleServices": {
@@ -11706,7 +11710,8 @@
                 "label": "Fecha límite de compra",
                 "helperText": "Disponible hasta el",
                 "tooltip": "Después de la fecha elegida, el paquete ya no estará a la venta para los clientes."
-            }
+            },
+            "description": "Descripción"
         },
         "paymentPackTemplate": {
             "actions": {

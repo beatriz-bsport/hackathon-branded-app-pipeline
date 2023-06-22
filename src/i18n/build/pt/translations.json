@@ -2828,10 +2828,391 @@
                 "expand": "Acrescentar"
             },
             "instalmentPayment": "Opções de pagamento",
-            "programs": "Programas"
+            "programs": "Programas",
+            "settings": {
+                "waitingList": "Lista de espera",
+                "coachUserspace": "Área do professor",
+                "mobilePersonalization": "Personalização da app",
+                "shop": "Loja",
+                "role": "Staff",
+                "paymentRules": "Regras de remuneração",
+                "partnership": "Parceria",
+                "personalization": "Personalização",
+                "settings": "Parâmetros",
+                "platform_billing": "Subscrição bsport",
+                "notificationRule": "E-mails trocados",
+                "webhook": "Alerta",
+                "active_campaign": "Campanha ativa",
+                "forms": "Formulário de adesão",
+                "invoice": "Faturação",
+                "paymentMethod": "Métodos de pagamento",
+                "company": "Entreprise",
+                "quicksale": "Área de vendas"
+            },
+            "myClub": "Meu Estúdio",
+            "subscription": "Levantamentos",
+            "coupon": "Promoções",
+            "backToFranchiseWorskpace": "Voltar à conta principal",
+            "tutorial": "Tutorial",
+            "cadences": "Sequências",
+            "tutorialInfo": "Pode encontrar o nosso guia de iniciação no separador Tutorial.",
+            "marketingNotification": "Notificações",
+            "contract": "Contratos",
+            "redirecting": "Será redireccionado para a sua página",
+            "clockIn": "Relógio de ponto",
+            "help": "Ajuda",
+            "tags": "Etiquetas",
+            "franchiseConnectedAs": "Registado como: {{- name}}"
         },
         "stripeOnboardingPending": {
             "banner": "Se não tiver terminado a configuração da faturação, os pagamentos em linha podem ser desactivados."
+        },
+        "franchiseMenu": {
+            "reporting": "Relatórios",
+            "staff": "Staff",
+            "products": {
+                "label": "Produtos",
+                "giftcardTemplates": "Cartões de oferta",
+                "couponTemplates": "Promoções",
+                "paymentPackTemplates": "Passes ativos"
+            },
+            "widgets": "Ferramentas",
+            "franchises": "Concessionários",
+            "tag": "Etiquetas",
+            "members": "Membros",
+            "emailTemplates": "E-mails",
+            "notificationRules": "E-mails trocados",
+            "settings": "Parâmetros"
+        },
+        "deprecatedNavigator": {
+            "close": "Encerrar",
+            "downloadChrome": "Descarregue gratuitamente o Google Chrome",
+            "downloadFirefox": "Descarregue gratuitamente o Mozilla Firefox",
+            "navigatorError": "Parece que o browser utilizado é demasiado antigo para utilizar os nossos serviços. Recomendamos que descarregue uma versão mais recente, como sugestão : "
+        },
+        "tab": {
+            "establishment": {
+                "location": "Localização",
+                "general": "Geral",
+                "calendar": "Calendário",
+                "room": "Sala"
+            },
+            "smartList": {
+                "member": "Geral",
+                "campaign": "Campanhas",
+                "statistic": "Estatísticas"
+            },
+            "customForm": {
+                "campaign": "Campanha",
+                "statistics": "Estatísticas",
+                "layout": "Personalizar",
+                "general": "Conteúdo"
+            },
+            "member": {
+                "vod": "Vídeos on Demand",
+                "vod_plural": "Vídeos on Demand  ({{number}})",
+                "payment": "Fatura",
+                "payment_plural": "Faturas ({{number}})",
+                "paymentPack": "Passe ativo",
+                "paymentPack_plural": "Passes ativos ({{number}})",
+                "programs": "Programação",
+                "programs_plural": "Programações ({{number}})",
+                "info": "Geral",
+                "info_plural": "Gerais ({{number}})",
+                "invoices": "Fatura e Subscrição",
+                "invoices_plural": "Faturas e Subscrições ({{number}})",
+                "privateBooking": "Marcação",
+                "privateBooking_plural": "Marcações ({{number}})",
+                "basket": "Carrinho",
+                "basket_plural": "Carrinho ({{number}})",
+                "form": "Formulário",
+                "form_plural": "Formulários ({{number}})",
+                "relation": "Junção",
+                "relation_plural": "Junções ({{number}})",
+                "contact": "Contrato",
+                "contact_plural": "Contratos ({{number}})",
+                "bookings": "Reserva",
+                "bookings_plural": "Reservas ({{number}})",
+                "giftcard": "Cartão de oferta",
+                "giftcard_plural": "Cartões de oferta ({{number}})"
+            },
+            "coach": {
+                "calendar": "Calendário",
+                "general": "Perfil"
+            },
+            "metaActivity": {
+                "group": "Sessões de grupo",
+                "pack": "Passes compatíveis",
+                "general": "Geral"
+            },
+            "franchise": {
+                "staff": {
+                    "staffAccount": "Contas staff",
+                    "role": "Cargo"
+                }
+            },
+            "widget": {
+                "create": "Geral",
+                "customize": "Personalização"
+            },
+            "replacement": {
+                "management": "Gestão",
+                "disciplineGroup": "Aulas de grupo"
+            },
+            "service": {
+                "calendar": "Calendário",
+                "general": "Geral"
+            },
+            "clockIn": {
+                "realTime": "Tempo real",
+                "history": "Histórico"
+            },
+            "quicksale": {
+                "configuration": "Personalizar categorias",
+                "access": "Criar acesso"
+            }
+        },
+        "multiSession": {
+            "previous": "Sessão anterior",
+            "previousSession": " Estava registado como {{name}}",
+            "continue": "Continuar nesta sessão",
+            "franchisor": "público",
+            "current": "Sessão atual",
+            "restore": "Recuperar esta sessão",
+            "title": " Parece estar a utilizar vários separadores em simultâneo",
+            "manager": "manager",
+            "currentSession": "Atualmente, tem sessão iniciada como {{name}}"
         }
+    },
+    "notificationRule": {
+        "caption": {
+            "emailDesign": "E-mail a enviar",
+            "active": "Ativo",
+            "sendCopy": "Receber cópia do e-mail",
+            "event": "Evento"
+        },
+        "tag": {
+            "BillingPlan": {
+                "tags": {
+                    "subscription_name": "Nome da subscrição",
+                    "subscription_flat_fee": "Taxas de inscrição",
+                    "subscription_nb_days_pause": "Pausa: número de dias",
+                    "subscription_next_invoice_date": "Data da próxima fatura",
+                    "subscription_recurrent_price": "Montante mensal deduzido",
+                    "subscription_nb_months": "Número de meses",
+                    "subscription_payment_method": "Método de pagamento"
+                },
+                "name": "Subscrição"
+            },
+            "Birthday": {
+                "name": "Aniversário"
+            },
+            "ConsumerPaymentPack": {
+                "tags": {
+                    "pass_starting_date": "Data de início do passe",
+                    "pass_name": "Nome do passe",
+                    "pass_expiration": "Data de fim do passe",
+                    "pass_price": "Preço do passe",
+                    "pass_credit_left": "Número de créditos restantes"
+                },
+                "name": "Passes ativos"
+            },
+            "GiftCard": {
+                "tags": {
+                    "giftcard_name": "Nome do cartão de oferta",
+                    "giftcard_value": "Valor do cartão de oferta",
+                    "message_is_for": "Destinatário do cartão de oferta",
+                    "giftcard_message": "Mensagem do cartão de oferta",
+                    "activate_giftcard_url": "Ligação para ativar o cartão de oferta",
+                    "message_is_from": "Membro que envia o cartão de oferta"
+                },
+                "name": "Cartão de oferta"
+            },
+            "EmailChange": {
+                "name": "Alteração da conta",
+                "tags": {
+                    "new_email": "Novo e-mail de início de sessão",
+                    "old_email": "Antigo e-mail de início de sessão",
+                    "manage_changing_email_link": "Link de gestão de alterações por correio eletrónico",
+                    "login_link": "Link de início de sessão do espaço pessoal"
+                }
+            },
+            "requiredTags": {
+                "reset_password_url": "Link para redefinir a palavra-passe",
+                "activate_giftcard_url": "Link de ativação do cartão de oferta",
+                "message_is_from": "Membro que envia o cartão de oferta",
+                "manage_changing_email_link": "Link de gestão de alterações por e-mail",
+                "email_confirmation_url": "Link para confirmar e-mail",
+                "new_email": "Novo e-mail de início de sessão",
+                "old_email": "Antigo e-mail de início de sessão",
+                "giftcard_value": "Valor do cartão de oferta",
+                "giftcard_message": "Mensagem do cartão de oferta"
+            },
+            "BookingOption": {
+                "tags": {
+                    "coach": "Professor",
+                    "date": "Hora/Data",
+                    "establishment_practical_info": "Acesso à sala",
+                    "activity": "Atividade",
+                    "option_expiration_date": "Data de expiração da lista de espera",
+                    "address": "Endereço",
+                    "establishment": "Sala"
+                },
+                "name": "Lista de espera"
+            },
+            "RecurrentRule": {
+                "tags": {
+                    "coach": "Professor",
+                    "recurring_booking_fail_reason": "Motivo de falha da reserva",
+                    "address": "Endereço",
+                    "establishment_practical_info": "Acesso à sala",
+                    "activity": "Atividade",
+                    "date": "Hora/Data",
+                    "establishment": "Sala"
+                },
+                "name": "Regra recorrente"
+            },
+            "Booking": {
+                "subtitles": {
+                    "establishment_group": "Localização",
+                    "meta_activity": "Atividade",
+                    "workshop": "Workshop",
+                    "establishment": "Sala"
+                },
+                "name": "Atividade",
+                "tags": {
+                    "canceled_grouped_session": "Grupo de reserva cancelado",
+                    "establishment": "Sala",
+                    "address": "Endereço",
+                    "spot": "Lugar",
+                    "date": "Hora/Data",
+                    "activity": "Atividade",
+                    "coach": "Professor",
+                    "establishment_practical_info": "Acesso à sala"
+                }
+            },
+            "Company": {
+                "tags": {
+                    "ios_app_URL": "URL da aplicação para iOS",
+                    "android_app_URL": "URL da aplicação para android",
+                    "company_info": "Informações sobre o estúdio",
+                    "company_logo": "Logo da empresa",
+                    "company": "Nome da empresa",
+                    "login_url": "URL de ligação",
+                    "company_facebookURL": "URL Facebook",
+                    "company_websiteURL": "URL da página web",
+                    "company_instagramURL": "URL Instagram",
+                    "company_scheduleURL": "URL da planificação"
+                },
+                "name": "Empresa"
+            },
+            "Invoice": {
+                "tags": {
+                    "invoice_sum_up": "Resumo da fatura",
+                    "id": "Identificador da fatura",
+                    "invoice_date": "Data da fatura",
+                    "invoice_download_link": "Descarregar a ligação",
+                    "invoice_price": "Montante da fatura"
+                },
+                "name": "Faturação"
+            },
+            "Offer": {
+                "name": "Sessão",
+                "tags": {
+                    "establishment": "Sala",
+                    "establishment_practical_info": "Acesso à sala",
+                    "address": "Endereço",
+                    "activity": "Atividade",
+                    "coach": "Professor",
+                    "date": "Hora/Data"
+                }
+            },
+            "PrivateConsumerPass": {
+                "tags": {
+                    "pass_name": "Nome do passe",
+                    "pass_starting_date": "Data de início do passe",
+                    "pass_expiration": "Data de fim do passe",
+                    "pass_price": "Preço do passe",
+                    "pass_credit_left": "Número de créditos restantes"
+                },
+                "name": "Passe de marcação"
+            },
+            "PrivateBooking": {
+                "tags": {
+                    "coach": "Professor",
+                    "date": "Hora/Data",
+                    "address": "Endereço",
+                    "activity": "Atividade",
+                    "establishment": "Sala",
+                    "establishment_practical_info": "Acesso à sala"
+                },
+                "name": "Marcações"
+            },
+            "ReplacementRequest": {
+                "name": "Substituição",
+                "tags": {
+                    "closing_date": "Data limite",
+                    "sub_teacher": "Professor substituto"
+                }
+            },
+            "User": {
+                "tags": {
+                    "lastname": "Nome do aluno",
+                    "firstname": "Nome do aluno",
+                    "reset_password_url": "Redefinir a palavra-passe",
+                    "email_confirmation_url": "Confirmar e-mail",
+                    "unsubscribe_link": "Anular a subscrição da newsletter"
+                },
+                "name": "Aluno"
+            }
+        },
+        "eventType": {
+            "10": "O lugar na lista de espera expirou para esta ronda.",
+            "21": "Nova reserva (alunos)",
+            "26": "Subscrição em pausa",
+            "6": "Inscrição de membro (aluno)",
+            "7": "Reserva por cartão de oferta",
+            "12": "Inscrição na lista de espera",
+            "3": "Cancelar sessão (alunos)",
+            "17": "Reserva anulada : crédito não reembolsado (alunos)",
+            "18": "Reserva anulada : crédito reembolsado (alunos)",
+            "8": "Reserva + compra de passe em simultâneo",
+            "9": "Resultado da lista de espera: reserva possível",
+            "13": "Retirar da lista de espera (aluno)",
+            "19": "Inscrição de um aluno (manager)",
+            "20": "Pedido para descarregar fatura",
+            "22": "Confirmação da fatura",
+            "24": "Subscrição criada",
+            "25": "Alterar método de pagamento",
+            "27": "A subscrição foi interrompida ou cancelada",
+            "14": "Retirar da lista de espera (manager)",
+            "16": "Sessão alterada (alunos)"
+        },
+        "emailDesign": {
+            "placeholder": "Criado por bsport",
+            "closePreview": "Encerrar",
+            "birthdayPlaceholder": "Selecionar um e-mail"
+        },
+        "ruleGroup": {
+            "offer": "Sessão",
+            "private_booking": "Marcações",
+            "subscription": "Subscrição",
+            "marketing": "Marketing",
+            "invoice": "Faturação",
+            "payment_pack": "Penalizações",
+            "recurrent_private_booking": "Marcação recorrente",
+            "replacement_request": "Substituição",
+            "booking": "Reserva",
+            "waiting-list": "Lista de espera",
+            "giftcard": "Cartões de oferta",
+            "member": "Criar uma conta de aluno"
+        },
+        "type": {
+            "sendNotification": "Enviar notificação",
+            "days": "Dias",
+            "bookingConcerned": "a sessão abrangida pela notificação",
+            "hours": "Horas"
+        },
+        "pageTitle": "E-mails trocados"
     }
 }

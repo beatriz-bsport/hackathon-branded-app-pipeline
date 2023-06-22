@@ -176,3 +176,7 @@ export enum MarketplacePassPageDialogState {
   PrivatePassCompatibility = 'isPrivatePassCompatibilityDialogOpen',
   PaymentComboDetail = 'isPaymentComboDetailsDialogOpen',
 }
+
+export interface EventWithElementTarget extends Event {
+  target: EventTarget;
+}

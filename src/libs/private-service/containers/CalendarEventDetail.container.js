@@ -431,6 +431,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           }
           snackbarSuccess={this.props.snackbarSuccess}
           companyId={this.props.companyId}
+          stripeId={this.props.theme?.stripe_id}
           fetchMemberPaymentMethod={this.props.fetchMemberPaymentMethod}
           fetchMember={this.props.fetchMember}
           invoiceToBill={this.props.invoiceToBill}

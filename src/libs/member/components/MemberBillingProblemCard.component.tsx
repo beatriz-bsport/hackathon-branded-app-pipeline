@@ -54,6 +54,7 @@ type Props = {
   enableMultiLocalization: boolean;
   selectedInvoiceId: string;
   companyId?: number;
+  stripeId: string | null;
   onInvoicePaymentDialogClose: () => void;
   applyBalanceToInvoice?: (uuid: string, options?: OptionCallback) => void;
   allowConsumerToUseInternalAccount?: boolean;
@@ -380,6 +381,7 @@ export const MemberBillingProblemCard = (props: Props) => {
           applyBalanceLoading={props.applyBalanceLoading}
           stripeReaders={props.stripeReaders}
           companyId={props.companyId}
+          stripeId={props.stripeId}
         />
       )}
     </Paper>

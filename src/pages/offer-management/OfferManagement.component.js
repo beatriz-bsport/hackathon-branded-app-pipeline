@@ -784,6 +784,7 @@ export class OfferManagement extends Component<Props, State> {
             }
             snackbarSuccess={this.props.snackbarSuccess}
             companyId={this.props.companyId}
+            stripeId={this.props.company_theme.stripe_id}
             memberDetails={this.props.memberDetails}
             applyGiftcardOnInvoice={this.props.applyGiftcardOnInvoice}
             consumerGiftcardList={this.props.consumerGiftcardList}

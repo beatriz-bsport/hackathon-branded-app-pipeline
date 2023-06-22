@@ -659,6 +659,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 stripeReaders={this.props.stripeReaders}
                 onlyInternal={!this.props.companyTheme.online_payment_enabled}
                 companyId={this.props.companyId}
+                stripeId={this.props.companyTheme.stripe_id}
               />
             )}
             {this.props.openPlannedPaymentMethodDialog &&

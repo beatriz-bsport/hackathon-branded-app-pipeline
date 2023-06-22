@@ -440,6 +440,7 @@ export class BasketPage extends React.Component<Props> {
                   createPendingBookingsIfNecessary={
                     this.createPendingBookingsIfNecessary
                   }
+                  stripeId={this.props.theme.stripe_id}
                 />
               }
             />

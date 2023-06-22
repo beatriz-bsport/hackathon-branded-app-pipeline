@@ -43,6 +43,7 @@ type Props = {
   fetchMembership: () => void,
   onlinePaymentEnabled?: boolean,
   companyId: number,
+  stripeId: string | null,
 };
 
 type State = {
@@ -225,6 +226,7 @@ export class ConsumerDebtRegularizerDialog extends React.Component<
                   defaultUserName={this.props.member?.name || ''}
                   defaultUserEmail={this.props.member?.email || ''}
                   companyId={this.props.companyId}
+                  stripeId={this.props.stripeId}
                 />
               ) : (
                 <CircularProgress />

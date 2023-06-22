@@ -60,6 +60,7 @@ type Props = {
   fetchInvoiceListUnpaid: (memberId: number) => void,
   unpaidInvoiceList: Array<Invoice>,
   companyId: number,
+  stripeId: string | null,
   snackbarSuccess: (msg: string) => void,
   fetchMemberPaymentMethod: (memberId: number) => void,
   fetchMember: (memberId: number) => void,
@@ -391,6 +392,7 @@ export const PrivateBookingCard = (props: Props) => {
           defaultUserEmail={props.invoiceToBill.member.email}
           onlinePaymentEnabled={props.onlinePaymentEnabled}
           companyId={props.companyId}
+          stripeId={props.stripeId}
         />
       )}
     </>

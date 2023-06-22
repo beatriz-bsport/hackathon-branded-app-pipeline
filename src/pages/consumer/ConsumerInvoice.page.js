@@ -99,6 +99,7 @@ export class ConsumerInvoice extends React.Component<Props> {
                 this.props.companyTheme.online_payment_enabled
               }
               companyId={this.props.companyId}
+              stripeId={this.props.companyTheme.stripe_id}
             />
           )}
 

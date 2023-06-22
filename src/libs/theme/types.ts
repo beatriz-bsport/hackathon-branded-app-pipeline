@@ -41,6 +41,7 @@ export type Theme = {
   stripe_pk_key: string;
   provincial_tax_name?: string;
   provincial_tax_value?: number;
+  stripe_id: string | null;
   // Config
   is_whereby_integration_allowed: boolean;
   is_whereby_integration_enabled: boolean;

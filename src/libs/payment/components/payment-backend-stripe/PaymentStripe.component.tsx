@@ -103,6 +103,7 @@ type Props = {
 
   fromApp: boolean;
   paymentGroupId: number;
+  stripeId: string | null;
 };
 
 const STRIPE_PAYMENT_METHOD_FORM_COMPONENT: { [key: number]: any } = {
@@ -173,6 +174,7 @@ export const PaymentStripe = ({
 
   fromApp,
   paymentGroupId,
+  stripeId,
 }: Props) => {
   const classes = useStyles();
 
@@ -255,12 +257,24 @@ export const PaymentStripe = ({
         setupFutureUsage: saveForLaterBacsDebit
           ? SAVE_FOR_LATER_OFF_SESSION
           : null,
+        // TEMPORARY: The behaviour of PaymentElement for BACS DirectDebit payments needs to be tested in the Stripe live mode.
+        // However since Stripe webhooks for processing BACS DD payments aren't fully operational, we don't want to allow the
+        // BACS DD payments for real members
+        ...(window.location.search.includes('debug=true')
+          ? { onBehalfOf: stripeId }
+          : {}),
       });
       setProcessing(false);
     } else if (clientSecret) {
       setProcessing(false);
     }
-  }, [clientSecret, isBacsDebitSelected, totalPriceCts, saveForLaterBacsDebit]);
+  }, [
+    clientSecret,
+    isBacsDebitSelected,
+    totalPriceCts,
+    saveForLaterBacsDebit,
+    stripeId,
+  ]);
 
   return (
     <div className={classes.container}>

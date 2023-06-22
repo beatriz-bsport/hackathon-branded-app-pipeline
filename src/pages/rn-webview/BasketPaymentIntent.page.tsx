@@ -373,6 +373,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             paymentGroupId={this.state.paymentGroupId}
             paymentProcessing={this.props.paymentProcessing}
             setPaymentProcessing={this.props.setPaymentProcessing}
+            stripeId={this.state.theme.stripe_id}
           />
         )}
 

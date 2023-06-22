@@ -451,6 +451,7 @@ export class MemberDetailPage extends React.Component<Props> {
               this.props.companyTheme.enable_multi_localization
             }
             companyId={this.props.companyId}
+            stripeId={this.props.companyTheme.stripe_id}
             applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
             consumerGiftcardList={this.props.consumerGiftcardList}
             stripeReaders={this.props.stripeReaders || []}

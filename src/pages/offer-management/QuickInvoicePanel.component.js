@@ -33,6 +33,7 @@ type Props = {
   className: {},
   establishments: Array<Establishment>,
   snackbarSuccess: (string) => void,
+  stripeId: string | null,
   companyId: number,
   memberDetails: { [id: number]: Member },
   consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>,
@@ -174,6 +175,7 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
             defaultUserName={this.props.invoiceToBill.member.name}
             defaultUserEmail={this.props.invoiceToBill.member.email}
             companyId={this.props.companyId}
+            stripeId={this.props.stripeId}
             stripeReaders={this.props.stripeReaders}
           />
         )}

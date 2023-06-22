@@ -307,6 +307,8 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
               creditAccountBalance={this.props.creditAccountBalance}
               applyBalanceLoading={this.props.applyBalanceLoading}
               onlinePaymentEnabled={this.props.onlinePaymentEnabled}
+              companyId={this.props.companyTheme.company}
+              stripeId={this.props.companyTheme.stripe_id}
             />
           )}
         </div>

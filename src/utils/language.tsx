@@ -7,7 +7,12 @@ import { availableLanguages } from '../i18n/index';
 // We got 6 languages on Intercom : fr, en, nl, it, es, de
 // So we don't bother with variants like en-US / en-GB
 export const getCurrentLanguageIsoCode = memoize((language: string) => {
-  const languageIso = language?.split('-')?.[0] ?? 'en';
+  let languageIso: string = '';
+  if (['en-GB', 'en-gb'].includes(language)) {
+    languageIso = 'en-GB';
+  } else {
+    languageIso = language?.split('-')?.[0] ?? 'en';
+  }
   const isSplitAvailable = availableLanguages.find(
     ({ lang }: { lang: string }) => lang === languageIso,
   );

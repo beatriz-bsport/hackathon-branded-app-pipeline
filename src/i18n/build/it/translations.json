@@ -2755,6 +2755,9 @@
                     "tooltip": "Dopo la data selezionata, il pass appuntamenti non apparirà più in vendita ai clienti.",
                     "helperText": "Disponibile fino al",
                     "label": "Data limite di acquisto"
+                },
+                "description": {
+                    "label": "Descrizione"
                 }
             },
             "delete": {
@@ -7585,7 +7588,8 @@
                 "Annullata",
                 "Annulla",
                 "Cancella",
-                "Cancella"
+                "Cancella",
+                "Annullata"
             ]
         },
         "payment_method_with_credit_account": {
@@ -8352,7 +8356,8 @@
                 "label": "Data limite di acquisto",
                 "helperText": "Disponibile fino al",
                 "tooltip": "Dopo la data scelta, il pass non apparirà più in vendita ai clienti."
-            }
+            },
+            "description": "Descrizione"
         },
         "paymentPackTemplate": {
             "actions": {

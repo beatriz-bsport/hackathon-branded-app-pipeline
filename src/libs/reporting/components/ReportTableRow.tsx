@@ -61,18 +61,22 @@ const ReportTableRow: React.FC<ReportTableRowsProps> = ({
     link,
     reportStoreRowsLoading,
   ]);
-
+  const chipClass =
+    link && hasAccessToLink ? classes.chipClickable : classes.chipDefault;
   return (
     <TableRow key={index} onClick={goToItemDetail} classes={rowClass}>
-      {columns.map((_, i) => {
+      {columns.map((column, columnIndex) => {
         return (
           <ReportTableCell
-            key={`${index}_${i}`}
-            columnConfig={columnsConfigs[i]}
-            cellValues={serializedRow?.values[i]}
-            converter={converters[i]}
-            columnIndex={i}
+            reportCategory={reportCategory}
+            key={`${index}_${columnIndex}`}
+            columnConfig={columnsConfigs[columnIndex]}
+            cellValues={serializedRow?.values[columnIndex]}
+            converter={converters[columnIndex]}
+            column={column}
             classes={classes}
+            chipClass={chipClass}
+            row_extra_data={serializedRow?.row_extra_data}
           />
         );
       })}

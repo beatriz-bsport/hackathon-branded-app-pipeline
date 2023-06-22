@@ -341,6 +341,9 @@ export const getConverter = (
     if (datatype === 'dispute_status') {
       return { value: t(`payment:disputeStatus.${value}`) };
     }
+    if (datatype === 'payout_status' && typeof value === 'number') {
+      return { value: t(`payment:payout.status.${value}`) };
+    }
     return { value };
   };
 };

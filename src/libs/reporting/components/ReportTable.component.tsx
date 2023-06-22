@@ -192,6 +192,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: theme.spacing(2.5),
   },
   cell: { whiteSpace: 'pre-line' },
+  chipClickable: { cursor: 'pointer' },
+  chipDefault: { cursor: 'default' },
 }));
 
 export default ReportTable;

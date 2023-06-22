@@ -5,7 +5,10 @@ import { ClassNameMap } from '@material-ui/styles';
 
 import { CellConverter, CellData, ReportMetadataColumn } from '../types';
 
+import ReportCellRenderer from './ReportCellRenderer.component';
+
 type ReportTableCellProps = {
+  reportCategory: string;
   columnConfig:
     | ReportMetadataColumn
     | {
@@ -13,16 +16,22 @@ type ReportTableCellProps = {
         datatype: 'string';
       };
   converter: CellConverter;
-  columnIndex: number;
+  column: string;
   cellValues: CellData | null;
   classes: ClassNameMap;
+  row_extra_data: { [key: string]: number | string };
+  chipClass?: string;
 };
 
 const ReportTableCell: React.FC<ReportTableCellProps> = ({
+  reportCategory,
   columnConfig,
   converter,
+  column,
   cellValues,
   classes,
+  chipClass,
+  row_extra_data,
 }) => {
   const { value, cellProps } = converter(cellValues?.value);
   return (
@@ -31,7 +40,15 @@ const ReportTableCell: React.FC<ReportTableCellProps> = ({
       {...(cellProps || {})}
       className={classes.cell}
     >
-      {value}
+      <ReportCellRenderer
+        reportCategory={reportCategory}
+        value={cellValues?.value}
+        datatype={column}
+        extra_data={cellValues?.extra_data}
+        row_extra_data={row_extra_data}
+        formattedValue={value}
+        chipClass={chipClass}
+      />
     </TableCell>
   );
 };

@@ -4181,7 +4181,8 @@
                 "tooltip": "Nach Ablauf des gewählten Datums wird die Karte nicht mehr zum Verkauf für Kunden angezeigt.",
                 "label": "Datumsgrenze für den Kauf",
                 "helperText": "Verfügbar bis"
-            }
+            },
+            "description": "Beschreibung"
         },
         "paymentPackTemplate": {
             "actions": {
@@ -5018,6 +5019,7 @@
                 "Stornieren",
                 "Abbrechen",
                 "Storniert",
+                "Stornieren",
                 "Stornieren",
                 "Stornieren",
                 "Stornieren",
@@ -7349,7 +7351,7 @@
                 "isDisabled": "Der Kurs wurde leider abgesagt.",
                 "isWaitingListFull": "Der Kurs ist abgeschlossen und die Warteliste ist voll.",
                 "isTooLate": "Anmeldungen sind nicht mehr möglich, die Anmeldefrist ist überschritten.",
-                "isTooSoon": "Die Anmeldungen sind vorläufig geschlossen und werden am {{ date_ }}} geöffnet.",
+                "isTooSoon": "Die Anmeldungen sind derzeit geschlossen und werden am {{ -Datum }} geöffnet.",
                 "isAlreadyRegistered": "Sie sind bereits für diese Session registriert",
                 "blockedByTags": "Sie haben nicht die erforderlichen Rechte, um sich für diese Session anzumelden."
             },
@@ -8923,6 +8925,9 @@
                     "helperText": "Verfügbar bis",
                     "tooltip": "Nach dem gewählten Datum wird das Paket für die Kunden nicht mehr zum Verkauf stehen.",
                     "label": "Frist für den Kauf"
+                },
+                "description": {
+                    "label": "Beschreibung"
                 }
             },
             "parameters": {

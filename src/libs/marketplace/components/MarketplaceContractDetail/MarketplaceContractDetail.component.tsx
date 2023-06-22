@@ -104,104 +104,71 @@ const ContractDetailList: React.FC<Props> = React.memo(
   },
 );
 
-const MarketplaceContractDetail: React.FC<Props> = ({
-  contract,
-  isExcludingTax,
-  getPaymentPackSelected,
-  getPrivatePassSelected,
-  getPaymentComboSelected,
-}) => {
-  const { t } = useTranslation('marketplace');
-  const flatFees = getCurrencyDisplayWithPrice(contract?.flat_fee);
+const MarketplaceContractDetail: React.FC<Props> = React.memo(
+  ({
+    contract,
+    isExcludingTax,
+    getPaymentPackSelected,
+    getPrivatePassSelected,
+    getPaymentComboSelected,
+  }) => {
+    const { t } = useTranslation('marketplace');
+    const flatFees = getCurrencyDisplayWithPrice(contract?.flat_fee);
 
-  return (
-    <Card
-      size={CardSize.AUTO}
-      classes={{
-        'bs-contract-details__card': 'bs-contract-details__card',
-      }}
-    >
-      <div className="bs-contract-details__container">
-        <Content
-          padding
-          classes={{
-            'bs-contract-details__header': 'bs-contract-details__header',
-          }}
-        >
-          <Grid
+    return (
+      <Card
+        size={CardSize.AUTO}
+        classes={{
+          'bs-contract-details__card': 'bs-contract-details__card',
+        }}
+      >
+        <div className="bs-contract-details__container">
+          <Content
+            padding
             classes={{
-              'bs-contract-details__header-grid':
-                'bs-contract-details__header-grid',
+              'bs-contract-details__header': 'bs-contract-details__header',
             }}
           >
-            <Item
-              rowStart={1}
-              columnStart={1}
-              columnEnd={1}
-              justification={Justification.FLEX_START}
-            >
-              <div className="bs-contract-details__header__title-container">
-                <h3 className="bs-contract-details__header__title">
-                  {contract?.name}
-                </h3>
-              </div>
-              <ContractDetailList
-                contract={contract}
-                getPaymentPackSelected={getPaymentPackSelected}
-                getPrivatePassSelected={getPrivatePassSelected}
-                getPaymentComboSelected={getPaymentComboSelected}
-              />
-            </Item>
-            <Item
-              rowStart={1}
-              rowEnd={1}
-              columnStart={2}
-              columnEnd={2}
-              justification={Justification.FLEX_START}
+            <Grid
               classes={{
-                'bs-contract__header__price-container--desktop':
-                  'bs-contract__header__price-container--desktop',
+                'bs-contract-details__header-grid':
+                  'bs-contract-details__header-grid',
               }}
             >
-              <Price
-                isExcludingTax={isExcludingTax}
-                amount={contract?.recurrent_price ?? 0}
-                color={Color.PRIMARY}
-                formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+              <Item
+                rowStart={1}
+                columnStart={1}
+                columnEnd={1}
+                justification={Justification.FLEX_START}
+              >
+                <div className="bs-contract-details__header__title-container">
+                  <h3 className="bs-contract-details__header__title">
+                    {contract?.name}
+                  </h3>
+                </div>
+                <ContractDetailList
+                  contract={contract}
+                  getPaymentPackSelected={getPaymentPackSelected}
+                  getPrivatePassSelected={getPrivatePassSelected}
+                  getPaymentComboSelected={getPaymentComboSelected}
+                />
+              </Item>
+              <Item
+                rowStart={1}
+                rowEnd={1}
+                columnStart={2}
+                columnEnd={2}
+                justification={Justification.FLEX_START}
                 classes={{
-                  'bs-contract-card__header__price':
-                    'bs-contract-card__header__price',
+                  'bs-contract__header__price-container--desktop':
+                    'bs-contract__header__price-container--desktop',
                 }}
               >
-                <BillingInterval contract={contract} />
-              </Price>
-              {!!contract?.flat_fee && (
-                <div className="bs-contract-card__subtitle">
-                  {t('contractCard.fees', {
-                    fees: flatFees,
-                  })}
-                </div>
-              )}
-            </Item>
-          </Grid>
-        </Content>
-        <Content>
-          <Grid
-            classes={{
-              'bs-contract-details__grid': 'bs-contract-details__grid',
-            }}
-          >
-            <Item
-              classes={{
-                'bs-contract-details__item': 'bs-contract-details__item',
-              }}
-            >
-              <div className="bs-contract__header__price-container--mobile">
                 <Price
                   isExcludingTax={isExcludingTax}
-                  amount={contract?.recurrent_price}
-                  formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                  amount={contract?.recurrent_price ?? 0}
                   color={Color.PRIMARY}
+                  formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                   classes={{
                     'bs-contract-card__header__price':
                       'bs-contract-card__header__price',
@@ -216,25 +183,62 @@ const MarketplaceContractDetail: React.FC<Props> = ({
                     })}
                   </div>
                 )}
-              </div>
-              <div className={classNames('bs-contract-details__body__text')}>
-                {contract?.description}
-              </div>
-              <div>
-                <h4 className="bs-contract-card__subtitle --legal">
-                  {t('contractCard.legalContract')}
-                </h4>
-                <div className={classNames('bs-contract-details__body__text')}>
-                  {contract?.contract}
+              </Item>
+            </Grid>
+          </Content>
+          <Content>
+            <Grid
+              classes={{
+                'bs-contract-details__grid': 'bs-contract-details__grid',
+              }}
+            >
+              <Item
+                classes={{
+                  'bs-contract-details__item': 'bs-contract-details__item',
+                }}
+              >
+                <div className="bs-contract__header__price-container--mobile">
+                  <Price
+                    isExcludingTax={isExcludingTax}
+                    amount={contract?.recurrent_price}
+                    formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+                    color={Color.PRIMARY}
+                    classes={{
+                      'bs-contract-card__header__price':
+                        'bs-contract-card__header__price',
+                    }}
+                  >
+                    <BillingInterval contract={contract} />
+                  </Price>
+                  {!!contract?.flat_fee && (
+                    <div className="bs-contract-card__subtitle">
+                      {t('contractCard.fees', {
+                        fees: flatFees,
+                      })}
+                    </div>
+                  )}
                 </div>
-              </div>
-            </Item>
-          </Grid>
-        </Content>
-      </div>
-    </Card>
-  );
-};
+                <div className={classNames('bs-contract-details__body__text')}>
+                  {contract?.description}
+                </div>
+                <div>
+                  <h4 className="bs-contract-card__subtitle --legal">
+                    {t('contractCard.legalContract')}
+                  </h4>
+                  <div
+                    className={classNames('bs-contract-details__body__text')}
+                  >
+                    {contract?.contract}
+                  </div>
+                </div>
+              </Item>
+            </Grid>
+          </Content>
+        </div>
+      </Card>
+    );
+  },
+);
 
 export const MarketplaceContractDetailForStorybook = marketplaceCssHoc()(
   MarketplaceContractDetail,

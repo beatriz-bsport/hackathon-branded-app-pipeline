@@ -212,7 +212,7 @@
 }
 
 .bs-contract-details-dialog__body::-webkit-scrollbar-thumb {
-  border-radius: 4px;
+  border-radius: var(--border-radius-1);
   background-color: #bdbdbd;
 }
 

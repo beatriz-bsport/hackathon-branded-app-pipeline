@@ -4061,8 +4061,8 @@
                 "title": "[Form] Shared appointment pass"
             },
             "section": {
-                "titleManagerOnly": "Make this pass unavailable for purchase",
-                "titleAvailable": "Make this pass available for purchase"
+                "titleManagerOnly": "Not available for purchase",
+                "titleAvailable": "Available for purchase"
             },
             "isEmptyExplain": "Members can purchase and use this pass at any of the associated studios.",
             "specification": {

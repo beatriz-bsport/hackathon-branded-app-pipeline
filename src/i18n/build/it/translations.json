@@ -20,7 +20,7 @@
                 "autoDiscard": {
                     "hours_before_start": "Ora(e) prima della sessione:",
                     "min_bookings_nb": "Numero di prenotazione(i):",
-                    "explain": "Annullare la sessione e inviare una notifica via e mail agli allievi se ci sono {{bookings_nb}} o meno, {{hours}} prima dell'inizio della sessione.",
+                    "explain": "Annullare le sessioni con ≤ {{bookings_nb}} prenotazione(i) {{hours}} ore prima dell'inizio della sessione. I soci che avevano prenotato questa sessione saranno informati che la sessione è stata annullata.",
                     "emailRecipients": "Questa email verrà inviata agli account con ruolo Proprietario o Amministratore, nonché all'insegnante (o insegnante supplente) della sessione in questione. Puoi anche configurare un'e-mail da inviare agli studenti.",
                     "checkbox": "Annullare le sessioni con poche prenotazioni"
                 }
@@ -170,7 +170,7 @@
                 "explain": "Questa sessione sarà annullata e nuovamente aperta ai vostri clienti. Tuttavia, le prenotazioni precedentemente cancellate non verranno ripristinate."
             },
             "unpaidInvoices": "Fatture non pagate",
-            "partner_max_booking_count": "Numero massimo di prenotazioni sul mercato (solo OneFit)",
+            "partner_max_booking_count": "Numero massimo di prenotazioni nel marketplace (solo OneFit)",
             "noInConsumerPackAvailableForPurchase": "Nessun pass incompatibile posseduto da questo membro!"
         },
         "companies": {
@@ -538,7 +538,7 @@
             "modify": "Modificare",
             "warningAddEmail": "Questa e-mail è già stata aggiunta.",
             "emailHelper": "Per aggiungere più email, digita una virgola o uno spazio dopo ogni email.",
-            "partner_max_booking_count": "Numero massimo di prenotazioni sul mercato (solo OneFit)",
+            "partner_max_booking_count": "Numero massimo di prenotazioni nel marketplace (solo OneFit)",
             "tenMinutes": "10 min",
             "noWaitingList": "Le liste d'attesa non sono disponibili per gruppi di sessioni",
             "emailError": "Il formato email specificato non è valido.",
@@ -766,7 +766,7 @@
             "packsAvailable": "Idoneo per pass:",
             "addOffers": "Aggiungi sessioni",
             "addActivity": "Aggiungi un'attività",
-            "firstBookingMinutesUntil": "Blocca le prenotazioni fino a ",
+            "firstBookingMinutesUntil": "Le sessioni future possono essere prenotate se iniziano in meno di ",
             "name": "Titolo",
             "color": "Codice colore",
             "noNextSlot": "Nessuna sessione programmata",
@@ -1113,12 +1113,12 @@
         "metaActivityNotificationToolTip": "Le notifiche sono impostate per le prenotazioni relative a questo elemento",
         "metaActivityCategory": {
             "explain": "Queste categorie servono solo per ordinare le attività sul back office come vuoi tu. Non hanno alcun impatto sul lato client",
-            "sctExplain": "Queste categorie indicano il tipo di attività. Appariranno sul mercato e sull'applicazione."
+            "sctExplain": "Queste categorie appariranno sul MarketPlace e sull'App mobile e rappresentano i diversi tipi di attività."
         },
         "restrictions": {
             "header": "Restrizioni",
             "lastBookingBeforeMinutes": "Ultima prenotazione",
-            "firstBookingMinutesUntil": "Prenotazioni aperte",
+            "firstBookingMinutesUntil": "Finestra di prenotazione",
             "personnalizedHelper": "Indica restrizioni diverse per determinati membri utilizzando i tag. I membri con uno dei tag selezionati avranno restrizioni diverse rispetto agli altri.",
             "lastDiscardBeforeMinutes": "Ultima cancellazione",
             "personnalizedHeader": "Restrizioni personalizzate",
@@ -4205,7 +4205,7 @@
             "helperText": "L'IVA è inferiore o uguale all'imposta provinciale indicata. Le fatture mostreranno solo questa tassa senza distinguere tra tassa federale e provinciale."
         },
         "taxDisplay": {
-            "info": "Attivando questa funzione, tutti i prezzi sul mercato, sul widget e sull'app saranno indicati al netto delle tasse.",
+            "info": "Attivando questa funzione, tutti i prezzi nel marketplace, nei widget e nell'app saranno indicati al netto delle tasse.",
             "title": "Visualizzazione del prezzo",
             "checkbox": "Visualizzare l'importo al lordo delle tasse dei prodotti"
         }
@@ -8165,7 +8165,7 @@
                     "titleNew": "Nuova categoria",
                     "name": "Nome della categoria",
                     "titleEdit": "Categoria",
-                    "helper": "Le categorie appariranno sul mercato e sull'applicazione mobile per le carte disponibili alla vendita.",
+                    "helper": "Le categorie appariranno nel marketplace e sull'applicazione mobile per le carte disponibili alla vendita.",
                     "update": "Rinomina",
                     "create": "Aggiungi",
                     "cancel": "Cancella"
@@ -8187,7 +8187,7 @@
         "noCategory": {
             "empty": "Aucune catégorie",
             "name": "Nessuna categoria",
-            "help": "Questi pass appariranno in una categoria senza nome nel mercato"
+            "help": "Questi pass appariranno in una categoria senza nome nel marketplace"
         },
         "noUnauthorizedTag": "Nessuna etichetta non autorizzata",
         "noAuthorizedTag": "Nessun tag consentito",
@@ -8234,7 +8234,7 @@
                 "ascendingCredit": "Credito crescente",
                 "descendingPrice": "Prezzo decrescente",
                 "ascendingPrice": "Prezzo crescente",
-                "customSort": "Ordine lato client (mercato e app)"
+                "customSort": "Ordine lato client (marketplace e app)"
             },
             "unusableByStaff": "Non visibile per lo staff"
         },
@@ -9325,7 +9325,7 @@
             },
             "form": {
                 "delayWeek": {
-                    "helperText": "Indica la settimana di anticipo per l'iscrizione",
+                    "helperText": "indica con quante settimane di anticipo si intende iscrivere il membro (massimo 8 settimane)",
                     "label": "Numero delle settimane"
                 },
                 "metaActivity": {
@@ -10685,12 +10685,12 @@
         },
         "spotScheduling": {
             "delete": {
-                "title": "Cancellazione piano della salla",
+                "title": "Elimina programmazione dei posti",
                 "content": "Sei sicuro di voler cancellare questo piano di salla ? Questa operazione è irreversibile."
             },
-            "add": "Aggiungere un piano della salla",
+            "add": "Aggiungi una programmazione dei posti",
             "subtitle": "Utilizzato per il spot scheduling. Permette ai tuoi studenti di prenotare il posto desiderato nella salla.",
-            "title": "Piano della salla",
+            "title": "Programmazione dei posti",
             "untitled": "Senza titolo",
             "placeCount": "{{count}} posti"
         },
@@ -10724,7 +10724,7 @@
             "modal": {
                 "delete": {
                     "title": "Cancellare una posizione",
-                    "content": "Questa posizione non apparirà più nei filtri disponibili sul mercato, nel widget e nell'applicazione personalizzata.",
+                    "content": "Questa posizione non apparirà più nei filtri disponibili nel marketplace, nel widget e nell'applicazione personalizzata.",
                     "cancel": "Cancellare",
                     "confirm": "Eliminare"
                 }
@@ -13260,7 +13260,7 @@
                         "_label": "Widget"
                     },
                     "marketplace": {
-                        "_label": "Parametri del mercato"
+                        "_label": "Parametri del marketplace"
                     },
                     "generals": {
                         "_label": "Generale"

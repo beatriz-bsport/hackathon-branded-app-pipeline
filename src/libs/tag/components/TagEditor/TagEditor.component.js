@@ -31,19 +31,24 @@ type Props = {
   disabled: boolean,
 };
 
-const styles = {
+const styles = (theme: Theme) => ({
   container: {
     display: 'flex',
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
   },
   tagSelectorContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
   },
-};
+});
 
 export function TagEditor(props: Props) {
   const {

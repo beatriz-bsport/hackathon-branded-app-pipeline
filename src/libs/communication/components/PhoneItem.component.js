@@ -13,6 +13,7 @@ import NotificationOffIcon from '@material-ui/icons/NotificationsOff';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
+import { SMALL_MOBILE_CRITICAL_SIZE } from '#libs/member/constants';
 
 type Props = {
   phoneNumber: string,
@@ -33,38 +34,47 @@ export class PhoneItem extends Component<Props> {
   };
 
   render() {
-    const { phoneNumber, notificationIcon } = this.props;
+    const {
+      phoneNumber,
+      notificationIcon,
+      classes,
+      hideContactButton,
+      openSmsDialog,
+    } = this.props;
+
     return (
-      <ListItem>
-        <CallIcon />
-        <ListItemText
-          primary={phoneNumber || ' - '}
-          className={this.props.classes.listItemText}
-        />
-        {phoneNumber && !this.props.hideContactButton ? (
-          <Button
-            onClick={(e) => {
-              e.stopPropagation();
-              window.location.href = 'sms:'.concat(phoneNumber);
-            }}
-            color="primary"
-          >
-            <PhoneForwardedIcon />
-          </Button>
-        ) : null}
-        {phoneNumber &&
-        this.props.openSmsDialog &&
-        !this.props.hideContactButton ? (
-          <Button
-            onClick={() => {
-              this.props.openSmsDialog();
-            }}
-            color="primary"
-          >
-            <SmsIcon />
-          </Button>
-        ) : null}
-        {notificationIcon ? this.renderNotificationIcon() : null}
+      <ListItem className={classes.listItem}>
+        <div className={classes.phoneContainers}>
+          <CallIcon />
+          <ListItemText
+            primary={phoneNumber || ' - '}
+            className={classes.listItemText}
+          />
+        </div>
+        <div className={classes.phoneContainers}>
+          {phoneNumber && !hideContactButton && (
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                window.location.href = 'sms:'.concat(phoneNumber);
+              }}
+              color="primary"
+            >
+              <PhoneForwardedIcon />
+            </Button>
+          )}
+          {phoneNumber && openSmsDialog && !hideContactButton && (
+            <Button
+              onClick={() => {
+                openSmsDialog();
+              }}
+              color="primary"
+            >
+              <SmsIcon />
+            </Button>
+          )}
+          {notificationIcon && this.renderNotificationIcon()}
+        </div>
       </ListItem>
     );
   }
@@ -76,6 +86,20 @@ const style = (theme) => ({
   },
   notificationIcon: {
     marginLeft: theme.spacing(2),
+  },
+  listItem: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    [theme.breakpoints.down(SMALL_MOBILE_CRITICAL_SIZE)]: {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
+  },
+  phoneContainers: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 

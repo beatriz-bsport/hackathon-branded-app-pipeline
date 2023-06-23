@@ -109,56 +109,70 @@ export function TagSelector(props: Props) {
           <AddIcon />
         </IconButton>
       )}
-      <div className={classes.userInput}>
-        <Selector
-          isClearable
-          onChange={handleChangeOption}
-          onCreateOption={handleOnCreateOption}
-          placeholder={t('tag.noTagAttributed')}
-          selected={tag ? tag.id : null}
-          suggestions={suggestions}
-          isDisabled={disabled}
-        />
+      <div className={classes.selectorContainer}>
+        <div className={classes.userInput}>
+          <Selector
+            isClearable
+            onChange={handleChangeOption}
+            onCreateOption={handleOnCreateOption}
+            placeholder={t('tag.noTagAttributed')}
+            selected={tag ? tag.id : null}
+            suggestions={suggestions}
+            isDisabled={disabled}
+          />
+        </div>
+        {!disabled && (
+          <>
+            <IconButton onClick={handleSetMenuAnchor}>
+              <MoreVertIcon />
+            </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={menuAnchorEl}
+              open={Boolean(menuAnchorEl)}
+              onClose={handleCloseMenu}
+            >
+              <MenuItem onClick={handleTagGroupEdit}>
+                <ListItemIcon>
+                  <EditIcon />
+                </ListItemIcon>
+                {t('form.group.edit')}
+              </MenuItem>
+              <MenuItem onClick={handleTagGroupDelete}>
+                <ListItemIcon>
+                  <DeleteIcon />
+                </ListItemIcon>
+                {t('form.group.deleteCategory')}
+              </MenuItem>
+            </Menu>
+          </>
+        )}
       </div>
-      {!disabled && (
-        <>
-          <IconButton onClick={handleSetMenuAnchor}>
-            <MoreVertIcon />
-          </IconButton>
-          <Menu
-            id="simple-menu"
-            anchorEl={menuAnchorEl}
-            open={Boolean(menuAnchorEl)}
-            onClose={handleCloseMenu}
-          >
-            <MenuItem onClick={handleTagGroupEdit}>
-              <ListItemIcon>
-                <EditIcon />
-              </ListItemIcon>
-              {t('form.group.edit')}
-            </MenuItem>
-            <MenuItem onClick={handleTagGroupDelete}>
-              <ListItemIcon>
-                <DeleteIcon />
-              </ListItemIcon>
-              {t('form.group.deleteCategory')}
-            </MenuItem>
-          </Menu>
-        </>
-      )}
     </div>
   );
 }
 
-const styles = () => ({
+const styles = (theme: Theme) => ({
   tagSelectorContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: 'space-between',
+    },
   },
   userInput: {
-    minWidth: '5rem',
-    width: '18rem',
+    [theme.breakpoints.up('sm')]: {
+      minWidth: '5rem',
+      width: '18rem',
+    },
+  },
+  selectorContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    [theme.breakpoints.down('sm')]: {
+      flex: '1 1 auto',
+    },
   },
 });
 

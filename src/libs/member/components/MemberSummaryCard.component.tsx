@@ -55,7 +55,10 @@ import {
   EmailTemplateDetail,
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
-import { ALLOWED_COUNTRIES_FOR_STATES } from '../constants';
+import {
+  ALLOWED_COUNTRIES_FOR_STATES,
+  SMALL_MOBILE_CRITICAL_SIZE,
+} from '#libs/member/constants';
 import { UPSELL_IDENTIFIER_SMS } from '#libs/platform-billing/upsell-identifiers';
 import { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
@@ -283,15 +286,18 @@ export class MemberSummaryCard extends Component<Props> {
   };
 
   renderAvatarAndName = () => {
-    const { t, member } = this.props;
+    const {
+      t,
+      member,
+      classes,
+      handleOpenResetPasswordDialog,
+      mergeMember,
+      editMember,
+      goToMember,
+    } = this.props;
+
     return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}
-      >
+      <div className={classes.avatarContainer}>
         <div
           style={{
             display: 'flex',
@@ -314,45 +320,35 @@ export class MemberSummaryCard extends Component<Props> {
             </Typography>
           </div>
         </div>
-        <div
-          style={{
-            flexDirection: 'column',
-            display: 'flex',
-            alignItems: 'flex-end',
-          }}
-        >
-          {this.props.mergeMember ? (
+        <div className={classes.icons}>
+          {mergeMember && (
             <Button
-              onClick={this.props.mergeMember}
+              onClick={mergeMember}
               color="secondary"
-              disabled={this.props.member?.archived}
+              disabled={member?.archived}
             >
               <Hidden xsDown>{t('common.merge')}</Hidden>
-              <MergeTypeIcon className={this.props.classes.rightIcon} />
+              <MergeTypeIcon className={classes.rightIcon} />
             </Button>
-          ) : null}
-          {this.props.editMember ? (
-            <Button onClick={this.props.editMember} color="primary">
+          )}
+          {editMember && (
+            <Button onClick={editMember} color="primary">
               <Hidden xsDown>{t('common.edit')}</Hidden>
-              <EditIcon className={this.props.classes.rightIcon} />
+              <EditIcon className={classes.rightIcon} />
             </Button>
-          ) : null}
-          {this.props.goToMember ? (
-            <Button onClick={this.props.goToMember} color="primary">
+          )}
+          {goToMember && (
+            <Button onClick={goToMember} color="primary">
               <Hidden xsDown>{t('common.show')}</Hidden>
-              <ArrowForwardIcon className={this.props.classes.rightIcon} />
+              <ArrowForwardIcon className={classes.rightIcon} />
             </Button>
-          ) : null}
-          {this.props.handleOpenResetPasswordDialog &&
-          this.props.member?.email ? (
-            <Button
-              onClick={this.props.handleOpenResetPasswordDialog}
-              color="primary"
-            >
+          )}
+          {handleOpenResetPasswordDialog && this.props.member?.email && (
+            <Button onClick={handleOpenResetPasswordDialog} color="primary">
               <Hidden xsDown>{t('member:resetPassword.button')}</Hidden>
-              <LockIcon className={this.props.classes.rightIcon} />
+              <LockIcon className={classes.rightIcon} />
             </Button>
-          ) : null}
+          )}
         </div>
       </div>
     );
@@ -535,6 +531,24 @@ const styles = (theme: Theme) =>
     termsAndConditions: {
       paddingLeft: theme.spacing(2),
       paddingTop: theme.spacing(2),
+    },
+    icons: {
+      flexDirection: 'column',
+      display: 'flex',
+      alignItems: 'flex-end',
+      [theme.breakpoints.down(SMALL_MOBILE_CRITICAL_SIZE)]: {
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+    },
+    avatarContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      [theme.breakpoints.down(SMALL_MOBILE_CRITICAL_SIZE)]: {
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+      },
     },
   });
 

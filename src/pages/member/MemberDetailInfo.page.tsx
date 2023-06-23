@@ -407,7 +407,7 @@ export class MemberDetailPage extends React.Component<Props> {
 
     return (
       <Grid container direction="row" spacing={2}>
-        <Grid item md={6} xs={12}>
+        <Grid item lg={6} xs={12}>
           <MemberSummaryCard
             member={this.props.member}
             companyCountry={this.props.companyCountry}
@@ -467,7 +467,7 @@ export class MemberDetailPage extends React.Component<Props> {
             loading={this.props.taskLoading}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item lg={6} xs={12}>
           <MemberCRM
             snackbarSuccess={this.props.snackbarSuccess}
             memberId={this.props.id}

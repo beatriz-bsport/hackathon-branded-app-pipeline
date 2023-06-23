@@ -50,7 +50,6 @@ import {
 } from '../../../libs/payment-packs/actions';
 import { fetchConsumerPaymentPackCompatibleList } from '../../../libs/consumer-payment-pack/actions';
 import { fetchPaymentComboList } from '../../../libs/payment-combo/actions';
-import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import themeSelectors from '#libs/theme/selectors';
 
 import { RootState } from '../../../reducers';
@@ -130,7 +129,6 @@ export class VideoCheckoutBase extends Component<Props, State> {
 
   componentDidMount() {
     // this.props.retrieveVideo(this.props.id);
-    this.props.fetchCompanyTheme();
     this.props.fetchPrivatePassList({ video: this.props.id });
     this.props.fetchPaymentPackList({
       as_consumer: true,
@@ -447,7 +445,6 @@ const connector = connect(
     fetchCurrentBasket,
     addItemToBasket,
     registerVideo,
-    fetchCompanyTheme: fetchCompanyThemeAction,
   },
 );
 

@@ -60,6 +60,20 @@ export default class SpotSchedulingHelper {
 
     return null;
   };
+
+  static getInitialRoomBlueprintSpots = (
+    roomBlueprint: number | null,
+    roomBlueprints: RoomBlueprint[],
+  ) => {
+    const blueprint = roomBlueprints.find((rb) => rb.id === roomBlueprint);
+
+    if (blueprint) {
+      const spotCount = SpotSchedulingHelper.getSpotCount(blueprint);
+      return spotCount;
+    }
+
+    return null;
+  };
 }
 
 export const getSpotIndexType = (

@@ -43,6 +43,7 @@ import {
   PropagateCoachOverrideToSimilarOffers,
 } from '#libs/offer/constants';
 import { OffersGroup } from '#libs/group-offer/types';
+import SpotSchedulingHelper from '#libs/spot-scheduling/utils';
 
 type ComponentProps = {
   metaActivity: MetaActivity<number>;
@@ -382,7 +383,10 @@ const formikFormWrapper = withFormik<
       ? 0
       : props.offer?.partner_max_booking_count ?? 0,
     roomBlueprint: props.offer?.room_blueprint ?? null,
-    roomBlueprintSlots: null,
+    roomBlueprintSlots: SpotSchedulingHelper.getInitialRoomBlueprintSpots(
+      props.offer?.room_blueprint ?? null,
+      props.roomBlueprints,
+    ),
     selectedBlacklistTags: props.offer?.blacklist_tags.map((tag) => tag.id),
     selectedMetaActivity: props.offer?.meta_activity.id,
     selectedSimilarOffers: props.similarOffers?.map((offer) => offer.id) ?? [],

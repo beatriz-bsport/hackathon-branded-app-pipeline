@@ -46,10 +46,10 @@
 .bs-contract-details__header {
   background: linear-gradient(
       110deg,
-      rgba(161, 179, 199, 0.1) 50%,
+      var(--color-secondary-background-paper-transparent) 50%,
       transparent 50%
     ),
-    linear-gradient(70deg, rgba(161, 179, 199, 0.1) 50%, transparent 50%),
+    linear-gradient(70deg, var(--color-secondary-background-paper-transparent) 50%, transparent 50%),
     var(--color-background-paper);
   border-top-left-radius: var(--border-radius-2);
   border-top-right-radius: var(--border-radius-2);

@@ -1,10 +1,10 @@
 .bs-contract-card {
   background: linear-gradient(
       120deg,
-      rgba(161, 179, 199, 0.1) 55%,
+      var(--color-secondary-background-paper-transparent) 55%,
       transparent 45%
     ),
-    linear-gradient(60deg, rgba(161, 179, 199, 0.1) 55%, transparent 45%),
+    linear-gradient(60deg, var(--color-secondary-background-paper-transparent) 55%, transparent 45%),
     #ffffff;
   border-radius: var(--border-radius-4);
   height: 240px;

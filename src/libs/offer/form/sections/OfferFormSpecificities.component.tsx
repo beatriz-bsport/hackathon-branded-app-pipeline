@@ -70,8 +70,15 @@ const OfferFormSpecificities = (props: Props) => {
   const classes = useOfferFormStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
-  const { values, touched, errors, setFieldValue, handleChange, handleBlur } =
-    useFormikContext<OfferFormValues>();
+  const {
+    values,
+    touched,
+    errors,
+    setFieldValue,
+    handleChange,
+    handleBlur,
+    getFieldHelpers,
+  } = useFormikContext<OfferFormValues>();
   const { zoomAppEnabled } = useFeaturesProvider();
   const {
     effectif,
@@ -142,13 +149,15 @@ const OfferFormSpecificities = (props: Props) => {
 
   const handleSetRoomBlueprintSpot = useCallback(
     (blueprintId: number) => {
+      const helpers = getFieldHelpers('roomBlueprint');
+      helpers.setTouched(true);
       const blueprint = roomBlueprints.find(
         (roomBlueprint) => roomBlueprint.id === blueprintId,
       );
       const spotCount = SpotSchedulingHelper.getSpotCount(blueprint);
       setFieldValue('roomBlueprintSlots', spotCount);
     },
-    [roomBlueprints, setFieldValue],
+    [roomBlueprints, setFieldValue, getFieldHelpers],
   );
 
   const handleDisplaySpotSchedulingTooltip = useCallback(() => {
@@ -203,7 +212,9 @@ const OfferFormSpecificities = (props: Props) => {
           id="offer-form-effectif-field"
           label={t('form.section.specificities.field.effectif')}
           isRequired
-          isError={!!errors.effectif && touched.effectif}
+          isError={
+            !!errors.effectif && (touched.effectif || touched.roomBlueprint)
+          }
         >
           <div className={classes.errorContainer}>
             <NumericInput
@@ -211,7 +222,9 @@ const OfferFormSpecificities = (props: Props) => {
               name="effectif"
               value={effectif}
               onChange={handleChange}
-              error={!!errors.effectif && touched.effectif}
+              error={
+                !!errors.effectif && (touched.effectif || touched.roomBlueprint)
+              }
               variant="outlined"
               size="small"
               InputProps={{ inputProps: { min: 0 } }}
@@ -220,7 +233,7 @@ const OfferFormSpecificities = (props: Props) => {
               onBlur={handleBlur}
             />
 
-            {!!errors.effectif && touched.effectif && (
+            {!!errors.effectif && (touched.effectif || touched.roomBlueprint) && (
               <div>
                 <Typography variant="caption" color="error">
                   {t(errors.effectif)}

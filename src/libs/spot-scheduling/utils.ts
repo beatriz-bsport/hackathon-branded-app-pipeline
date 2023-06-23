@@ -58,7 +58,7 @@ export default class SpotSchedulingHelper {
         .length;
     }
 
-    return 0;
+    return null;
   };
 }
 

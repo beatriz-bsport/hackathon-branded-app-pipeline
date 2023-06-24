@@ -3221,7 +3221,49 @@
                 "penalty": {
                     "helperText": "Aplicar penalizações por demasiadas não comparências ou cancelamentos tardios",
                     "label": "Aplicar uma penalidade",
-                    "title": "Penalidades"
+                    "title": "Penalidades",
+                    "deleteNoShowDialog": {
+                        "text": "Acabaram os passes ilimitados com penalizações por falta de comparência. Desactivámos a função \"chamada\", pelo que já não é necessário validar a chamada para cada passe.",
+                        "title": "Penalizações eliminadas"
+                    },
+                    "noShowDialog": {
+                        "alert": "Pode definir as condições de não comparência nas definições de personalização.",
+                        "text": "Acabou de criar as penalizações por falta de comparência.  Acabámos de ativar a função \"chamada\", pelo que agora é necessário fazer a chamada para cada disciplina para ativar as penalizações.",
+                        "title": "Penalizações por não comparência"
+                    },
+                    "account": {
+                        "helperText": "Será aplicado um depósito de {{value}} para este membro",
+                        "label": "Montante do depósito :"
+                    },
+                    "block": {
+                        "helperText": "O passe será bloqueado durante {{nb_days}} dias",
+                        "label": "Período de bloqueio do passe (em dias) :"
+                    },
+                    "kind": {
+                        "account": "Criar um depósito para o membro em causa",
+                        "block": "Bloquear temporariamente o passe ativo",
+                        "label": "Selecionar o tipo de penalização a aplicar"
+                    },
+                    "nb_days": "Número de dias :",
+                    "nb_cancellations": "Número de cancelamentos :",
+                    "explain": "Será aplicada uma penalização se houver {{nb_cancellations}} cancelamentos tardios num período de {{nb_days}} dias.",
+                    "penaltyParams": "",
+                    "cancellationsCheckbox": "",
+                    "errorNoPenaltyRule": "",
+                    "noShowPenaltyTitle": "",
+                    "noShowPenaltyAlert": "",
+                    "bothPenaltiesNumber": "",
+                    "penaltyParamsText": "",
+                    "noShowPenaltyNumber": "",
+                    "cancellationsPenaltyTitle": "",
+                    "titleCheckbox": "",
+                    "noShowCheckbox": "",
+                    "bothPenaltiesTitle": "",
+                    "checkbox": "Aplicar uma penalização por demasiados cancelamentos tardios",
+                    "bothPenaltiesInfo": "",
+                    "bothPenaltiesInfo_plural": "",
+                    "noShowPenaltyInfo": "",
+                    "noShowPenaltyInfo_plural": ""
                 },
                 "delete": {
                     "actions": {
@@ -3323,7 +3365,37 @@
                 },
                 "until": "Até ",
                 "notEditable": "Este mapa de percursos é o resultado de uma migração, pelo que alguns campos não podem ser modificados para respeitar o historial. As actividades/categorias compatíveis podem ainda ser modificadas.",
-                "from": "A partir de "
+                "from": "A partir de ",
+                "universalPass": {
+                    "deativatedTags": "Desativado para passes universais",
+                    "helperText": "Os passes universais podem ser utilizados para marcar aulas de grupo e marcações. Uma vez criado o passe, será criada uma cópia nos passes de marcação. O número de créditos dos dois passes serão associados. Quando comprar um dos dois passes, o outro será automaticamente adicionado ao membro (sem qualquer custo adicional).",
+                    "marketplaceLabel": "Passe universal. Pode ser utilizado para aulas de grupo e para marcações.",
+                    "label": "Passe universal",
+                    "warningIsUniversalPass": "Este passe é um passe universal, uma cópia foi criada nos passes por marcação. Todos os campos modificados neste passe serão igualmente modificados no passe duplo (exceto a categoria). O mesmo se aplica às notificações, extensões e alterações de crédito."
+                },
+                "advancedOptions": {
+                    "appliesForPayroll": {
+                        "helperText": "Por defeito, as sessões são faturadas ao estúdio e incluídas no histórico do professor. Se desativar esta definição, as sessões associadas a este passe deixarão de aparecer no histórico do professor.",
+                        "label": "Sessões consideradas no cálculo da remuneração do professor"
+                    },
+                    "tag": {
+                        "doNotSelectToAllowAllMembers": "Deixar em branco para autorizar todos os membros",
+                        "notAllowedFor": "Não Autorizado para",
+                        "notAllowed": "Não Autorizado",
+                        "allowedFor": "Autorizado para",
+                        "allowed": "Autorizado",
+                        "helperText": "Utilize as etiquetas para tornar o passe visível apenas para um grupo desejado de membros no mercado, ferramentas e aplicação. Pode selecionar etiquetas para tornar o passe visível apenas para membros com uma das etiquetas seleccionadas. Ou pode selecionar etiquetas para tornar o passe oculto apenas para os membros que possuam uma das etiquetas seleccionadas. ",
+                        "header": "Etiquetas"
+                    },
+                    "header": "Avançado"
+                },
+                "error": {
+                    "start_date_method_type": "Indicar a data de validade do passe"
+                },
+                "category": {
+                    "helperText": "Nome da categoria",
+                    "label": "Categoria (opcional)"
+                }
             }
         },
         "extension": {
@@ -3576,6 +3648,20 @@
                 "explain1": "Os seguintes estúdios terão automaticamente este passe disponível para venda. Não poderão alterar o preço ou o número de créditos.",
                 "title": "Configurar os meus estúdios"
             }
+        },
+        "details": {
+            "penaltyBlock": "Passe bloqueado por {{nb_days}} dias",
+            "penaltyTitle": "Penalizações aplicadas",
+            "trackModifiedCreditTitle": "Historico dos créditos alterados",
+            "extensionsTitle": "Extensões de validade",
+            "bookingsTitle": "Reembolso associado",
+            "refundTitle": "Reembolso associado",
+            "invoiceTitle": "Fatura associada",
+            "shareAPass": "Partilhar um passe",
+            "pleaseSelectAPack": "Selecionar um passe para ver detalhes"
+        },
+        "listItem": {
+            "unusableByStaff": "Oculto para o staff"
         }
     },
     "paymentCombo": {

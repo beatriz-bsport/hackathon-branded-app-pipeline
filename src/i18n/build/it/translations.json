@@ -4671,7 +4671,8 @@
             "revert": {
                 "errors": {
                     "14100": "Impossibile annullare una fattura con pagamenti Interac.",
-                    "14101": "Impossibile rimborsare a causa della fattura di adeguamento del saldo."
+                    "14101": "Impossibile rimborsare a causa della fattura di adeguamento del saldo.",
+                    "14102": "È impossibile rimborsare questa fattura."
                 }
             }
         },
@@ -6919,6 +6920,10 @@
                 "validate": "Ok",
                 "title": "Già iscritto"
             }
+        },
+        "subscriptionNotFound": {
+            "explanation": "Questo abbonamento non esiste più. Sceglierne un altro o contattare il manager dello studio.",
+            "title": "Abbonamento non trovato"
         }
     },
     "reporting": {
@@ -7589,6 +7594,7 @@
                 "Annulla",
                 "Cancella",
                 "Cancella",
+                "Annullata",
                 "Annullata"
             ]
         },
@@ -10180,7 +10186,8 @@
             "content_plural": "Non puoi eliminare questa smartlist mentre è utilizzata nelle seguenti cadenze :",
             "cancel": "Chiudi",
             "title": "Utilizzata in una cadenza"
-        }
+        },
+        "downLoadSavedExport": "Scarica l'esportazione precedente"
     },
     "relationship": {
         "member": {
@@ -14363,7 +14370,8 @@
                     "confirm": "Conferma"
                 }
             }
-        }
+        },
+        "errorAvailableOffersScheduled": "Impossibile salvare. La programmazione dei posti non deve essere utilizzato in sessioni future per la modifica."
     },
     "franchise": {
         "companies": {

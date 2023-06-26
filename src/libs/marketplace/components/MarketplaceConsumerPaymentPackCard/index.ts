@@ -1,0 +1,3 @@
+import MarketplaceConsumerPaymentPackCard from './MarketplaceConsumerPaymentPackCard.component';
+
+export default MarketplaceConsumerPaymentPackCard;

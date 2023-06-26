@@ -1,8 +1,7 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import moment from 'moment-timezone';
-import Typography from '@material-ui/core/Typography';
+import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { Variant } from '@material-ui/core/styles/createTypography';
 
@@ -14,6 +13,7 @@ type OwnProps = {
   consumerPack?: ConsumerPaymentPack<number | PaymentPack>;
   paymentPack?: PaymentPack;
   variant?: Variant;
+  textColor?: TypographyProps['color'];
 };
 
 type Props = OwnProps & WithTranslation;
@@ -53,7 +53,7 @@ export const CreditStatus = (props: Props) => {
     return (
       <Typography
         variant={props.variant || 'caption'}
-        color="primary"
+        color={props.textColor ?? 'primary'}
         component="span"
       >
         {`${props.t('unlimitedCredits')}`}
@@ -64,7 +64,10 @@ export const CreditStatus = (props: Props) => {
     <Typography
       component="span"
       variant={props.variant || 'caption'}
-      color={available_credits / credits > 0.2 ? 'primary' : 'error'}
+      color={
+        props.textColor ??
+        (available_credits / credits > 0.2 ? 'primary' : 'error')
+      }
     >
       {`${
         (available_credits || credits - consumerPack?.used_credits) /

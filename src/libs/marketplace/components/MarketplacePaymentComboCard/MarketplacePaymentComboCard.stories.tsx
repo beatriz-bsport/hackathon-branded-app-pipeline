@@ -16,6 +16,12 @@ BasicPackCard.args = {
     paymentCombo: fakePaymentCombo,
 }
 
+export const PricingPagePackCard = PackCardTemplate.bind({});
+PricingPagePackCard.args = {
+    paymentCombo: fakePaymentCombo,
+    variant: 'pricing_page'
+}
+
 export default {
     title: 'Components/Marketplace/PassCards/PaymentComboCard',
     component: MarketplacePaymentComboCard,

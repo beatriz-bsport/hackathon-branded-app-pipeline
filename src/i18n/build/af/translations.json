@@ -12285,16 +12285,29 @@
         "workshopsComponent": "Détails des ateliers",
         "cardOffer": "Détails de séance (affichage calendrier)",
         "groupOfferListItem": "Détails d'un groupe de séance",
-        "workshopCard": "Card d'atelier",
+        "workshopCard": "Carte d'atelier",
         "filters": "Liste des filtres",
         "bookButton": "Bouton de réservation",
         "datePicker": "Sélecteur de date",
         "activity": "Popup de détails activité",
         "workshopPage": "Page workshop",
         "timeTable": "Composant calendrier",
-        "calendar": "Page calendrier"
+        "calendar": "Page calendrier",
+        "paymentComboCard": "Carte de pack",
+        "paymentPackCard": "Carte de carte de cours",
+        "paymentPackCompatibilityModal": "Popup de compatibilité (carte de cours)",
+        "paymentPackRestrictionModal": "Popup de restrictions (carte de cours)",
+        "privatePassCard": "Carte de carte de RDV",
+        "privatePassCompatibilityModal": "Popup de compatibilité (carte de RDV)",
+        "contractCard": "Carte d'abonnement",
+        "contractCheckout": "Carte d'abonnement (paiement)",
+        "contractDetailModal": "Popup de détail d'abonnement",
+        "contractDetail": "Détail d'abonnement",
+        "contractTermsModal": "Popup de mentions légales d'abonnement",
+        "contractCooldownModal": "Popup d'avertissement d'achat d'abonnement",
+        "contractCouponFormModal": "Popup de code promo d'abonnement"
       },
-      "page": { "workshop": "Atelier", "calendar": "Calendrier" },
+      "page": { "workshop": "Atelier", "calendar": "Calendrier", "pass": "Cartes de cours", "subscription": "Abonnements" },
       "cssConfig": {
         "configurationTitle": "Variations",
         "title": {
@@ -12305,7 +12318,8 @@
           "offerStatus": "Disponibilité de l'offre",
           "isRegistered": "Déja inscrit",
           "showDayParts": "Séparer matin, après midi et soir",
-          "nextOffer": "Prochaine séance disponible"
+          "nextOffer": "Prochaine séance disponible",
+          "isExcludingTax": "Hors taxe"
         },
         "option": {
           "true": "Oui",

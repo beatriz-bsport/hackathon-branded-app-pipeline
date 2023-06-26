@@ -88,6 +88,8 @@ export type MarketplaceSettingState = {
 export enum MarketplacePage {
   CALENDAR = 'calendar',
   WORKSHIP = 'workshop',
+  PASS = 'pass',
+  SUBSCRIPTION = 'subscription',
 }
 
 export type VariationConfigurationChoice = {

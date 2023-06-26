@@ -5,6 +5,9 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import UpdateIcon from '@material-ui/icons/Update';
 
+import classNames from 'classnames';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card, { CardSize } from '#csscomponents/Card';
@@ -23,13 +26,20 @@ import './styles.css';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-import type { Contract } from '#libs/subscription/types';
+import type {
+  ContractWithPaymentPack,
+  Contract,
+} from '#libs/subscription/types';
+import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
+import { CARD_VARIANTS } from '#libs/marketplace/constants';
 
 export type Props = {
   isExcludingTax: boolean;
-  contract: Contract;
-  addToCart: (contract: Contract) => void;
-  onOpenDetailDialog: (contract: Contract) => void;
+  contract: Contract | ContractWithPaymentPack;
+  addToCart?: (contract: Contract | ContractWithPaymentPack) => void;
+  onOpenDetailDialog?: (contract: Contract | ContractWithPaymentPack) => void;
+  isSelected?: boolean;
+  variant?: string;
 };
 
 const MarketplaceContractCard: React.FC<Props> = ({
@@ -37,8 +47,12 @@ const MarketplaceContractCard: React.FC<Props> = ({
   isExcludingTax,
   addToCart,
   onOpenDetailDialog,
+  isSelected,
+  variant,
 }) => {
-  const { t } = useTranslation('marketplace');
+  const cardVariant = variant ?? CARD_VARIANTS.MARKETPLACE;
+
+  const { t } = useTranslation(['marketplace', 'booking']);
 
   const handleAddToCart = useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -53,26 +67,45 @@ const MarketplaceContractCard: React.FC<Props> = ({
   }, [contract, onOpenDetailDialog]);
 
   const shouldDisplayFlatFee =
-    !!contract?.flat_fee && parseFloat(contract?.flat_fee) > 0;
+    !!contract?.flat_fee && parseFloat(contract?.flat_fee.toString()) > 0;
+
+  const [showAllDescription, setShowAllDescription] = React.useState(false);
+
+  const onClickSeeMore = useCallback((event: React.MouseEvent) => {
+    event.stopPropagation();
+    setShowAllDescription(
+      (previousShowAllDescription) => !previousShowAllDescription,
+    );
+  }, []);
+
+  const descriptionText = useIsTextExpandable(showAllDescription);
 
   return (
     <Card
-      classes={{ 'bs-contract-card': 'bs-contract-card' }}
       size={CardSize.AUTO}
+      isSelected={isSelected}
+      classes={{
+        'bs-contract-card': 'bs-contract-card',
+        'bs-contract-card--background':
+          cardVariant === CARD_VARIANTS.MARKETPLACE,
+      }}
     >
       <Content padding>
-        <Grid
-          classes={{
-            'bs-contract-card__grid': 'bs-contract-card__grid',
-          }}
-        >
+        <Grid>
           <Item
             alignment={Alignment.FLEX_START}
             columnEnd={1}
             justification={Justification.FLEX_START}
           >
-            <div className="bs-contract-card__title">
-              <UpdateIcon className="bs-contract-card__title__icon" />
+            <div
+              className={classNames('bs-contract-card__title', {
+                ' bs-contract-card__title--small':
+                  cardVariant === CARD_VARIANTS.PRICING_PAGE,
+              })}
+            >
+              {cardVariant === CARD_VARIANTS.MARKETPLACE && (
+                <UpdateIcon className="bs-contract-card__title__icon" />
+              )}
               {contract?.name}
             </div>
             {shouldDisplayFlatFee && (
@@ -82,9 +115,36 @@ const MarketplaceContractCard: React.FC<Props> = ({
                 })}
               </div>
             )}
-            <div className="bs-contract-card__description">
+            <div
+              ref={descriptionText.ref}
+              className={classNames('bs-contract-card__description', {
+                'bs-contract-card__description--short':
+                  cardVariant === CARD_VARIANTS.MARKETPLACE ||
+                  !showAllDescription,
+              })}
+            >
               {contract?.description}
             </div>
+            {descriptionText.isExpandable &&
+              cardVariant === CARD_VARIANTS.PRICING_PAGE && (
+                <button
+                  type="button"
+                  className="bs-paymentpack-card__seemore"
+                  onClick={onClickSeeMore}
+                >
+                  {showAllDescription ? (
+                    <div className="bs-paymentpack-card__seemore__row">
+                      <KeyboardArrowUp />
+                      {t('booking:newBookingModule.cards.seeLess')}
+                    </div>
+                  ) : (
+                    <div className="bs-paymentpack-card__seemore__row">
+                      <KeyboardArrowDown />
+                      {t('booking:newBookingModule.cards.seeMore')}
+                    </div>
+                  )}
+                </button>
+              )}
           </Item>
           <Item
             alignment={Alignment.FLEX_END}
@@ -92,25 +152,40 @@ const MarketplaceContractCard: React.FC<Props> = ({
             rowStart={1}
             columnEnd={2}
           >
-            {!!contract?.nb_interval && (
-              <div className="bs-contract-card__planned-invoices">
-                <div className="bs-contract-card__planned-invoices__content">
-                  {t('contractCard.invoice', {
-                    count: contract.nb_interval,
-                  })}
+            {!!contract?.nb_interval &&
+              cardVariant === CARD_VARIANTS.MARKETPLACE && (
+                <div className="bs-contract-card__planned-invoices">
+                  <div className="bs-contract-card__planned-invoices__content">
+                    {t('contractCard.invoice', {
+                      count: contract.nb_interval,
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
           </Item>
           <Item
             rowStart={1}
             columnStart={1}
-            justification={Justification.FLEX_END}
+            justification={
+              cardVariant === CARD_VARIANTS.PRICING_PAGE
+                ? Justification.FLEX_START
+                : Justification.FLEX_END
+            }
             alignment={Alignment.FLEX_END}
             classes={{
               'bs-contract-card__price-item': 'bs-contract-card__price-item',
             }}
           >
+            {!!contract?.nb_interval &&
+              cardVariant === CARD_VARIANTS.PRICING_PAGE && (
+                <div className="bs-contract-card__planned-invoices">
+                  <div className="bs-contract-card__planned-invoices__content">
+                    {t('contractCard.invoice', {
+                      count: contract.nb_interval,
+                    })}
+                  </div>
+                </div>
+              )}
             <div className="bs-contract-card__price-container">
               <Price
                 isExcludingTax={isExcludingTax}
@@ -119,6 +194,8 @@ const MarketplaceContractCard: React.FC<Props> = ({
                 formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                 classes={{
                   'bs-contract-card__price': 'bs-contract-card__price',
+                  'bs-contract-card__price--small':
+                    cardVariant === CARD_VARIANTS.PRICING_PAGE,
                 }}
               >
                 <div className="bs-contract-card__billing-interval--desktop">
@@ -148,32 +225,34 @@ const MarketplaceContractCard: React.FC<Props> = ({
             </button>
           </Item>
         </Grid>
-        <Item
-          justification={Justification.SPACE_BETWEEN}
-          direction={Direction.ROW}
-          classes={{
-            'bs-contract-card__footer': 'bs-contract-card__footer',
-          }}
-        >
-          <button
-            type="button"
-            className="bs-contract-card__left-button"
-            onClick={handleOpenDetailDialog}
+        {addToCart && onOpenDetailDialog && (
+          <Item
+            justification={Justification.SPACE_BETWEEN}
+            direction={Direction.ROW}
+            classes={{
+              'bs-contract-card__footer': 'bs-contract-card__footer',
+            }}
           >
-            <div className="bs-contract-card__left-button__content">
-              <VisibilityIcon className="bs-contract-card__left-button__icon" />
-              {t('genericCard.details.buttonContent')}
-            </div>
-          </button>
+            <button
+              type="button"
+              className="bs-contract-card__left-button"
+              onClick={handleOpenDetailDialog}
+            >
+              <div className="bs-contract-card__left-button__content">
+                <VisibilityIcon className="bs-contract-card__left-button__icon" />
+                {t('genericCard.details.buttonContent')}
+              </div>
+            </button>
 
-          <button
-            type="button"
-            className="bs-contract-card__right-button"
-            onClick={handleAddToCart}
-          >
-            {t('contractCard.registerButton')}
-          </button>
-        </Item>
+            <button
+              type="button"
+              className="bs-contract-card__right-button"
+              onClick={handleAddToCart}
+            >
+              {t('contractCard.registerButton')}
+            </button>
+          </Item>
+        )}
       </Content>
     </Card>
   );

@@ -31,3 +31,10 @@ BasicSubscriptionCard.args = {
     addToCart: () => { },
     onOpenDetailDialog: () => { },
 }
+
+export const PricingPageSubscriptionCard = SubscriptionTemplate.bind({});
+PricingPageSubscriptionCard.args = {
+    contract: fakeContract,
+    variant:'pricing_page'
+    
+}

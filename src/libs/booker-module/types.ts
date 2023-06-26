@@ -1,8 +1,14 @@
-// @ts-nocheck
+import { ContractWithPaymentPack } from '#libs/subscription/types';
 import { ConsumerPaymentPack } from '../consumer-payment-pack/types';
 import type { Offer_FULL } from '../offer/types';
 import { PaymentCombo } from '../payment-combo/types';
 import { PaymentPack, MaxoutData } from '../payment-packs/types';
+import type {
+  PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
+  PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
+  CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
+  CONSUMER_PAYMENT_PACK_IDENTIFIER,
+} from '#libs/marketplace/constants';
 
 export type OfferData = {
   offer: Offer_FULL;
@@ -31,3 +37,32 @@ export type ExtraDataFromQueryParams = Array<{
   offer_id: number;
   spot_id?: number;
 }>;
+
+export type BuyableItemIdentifier =
+  | typeof PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER
+  | typeof PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER
+  | typeof CONTRACT_BOOKING_FUNNEL_IDENTIFIER;
+
+export type BuyableItemCategory = {
+  index: number;
+  id: string;
+  identifier: BuyableItemIdentifier;
+  name: string;
+  values:
+    | Array<PaymentPack>
+    | Array<PaymentCombo>
+    | Array<ContractWithPaymentPack>;
+};
+
+export type BuyableItem = PaymentPack | PaymentCombo | ContractWithPaymentPack;
+
+export type BookerItem = {
+  data:
+    | ConsumerPaymentPack<PaymentPack>
+    | PaymentPack
+    | PaymentCombo
+    | ContractWithPaymentPack;
+  itemIdentifier:
+    | BuyableItemIdentifier
+    | typeof CONSUMER_PAYMENT_PACK_IDENTIFIER;
+};

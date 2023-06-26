@@ -1,0 +1,3 @@
+import MarketplaceBuyableItemCategoryList from './MarketplaceBuyableItemCategoryList.component';
+
+export default MarketplaceBuyableItemCategoryList;

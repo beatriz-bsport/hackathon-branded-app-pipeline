@@ -7,6 +7,11 @@
   align-items: center;
 }
 
+.bs-generic-card--selected {
+  border-color: var(--color-primary-main);
+  background-color: var(--color-primary-main-background);
+}
+
 .size-m {
   width: 389px;
 }

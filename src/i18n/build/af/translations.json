@@ -191,6 +191,53 @@
         "unAuthorized": "Vous n’avez pas les droits nécessaires pour vous inscrire à cette séance."
       }
     },
+    "newBookingModule": {
+      "filterAll": "Tout",
+      "cards": { "seeLess": "Voir moins", "seeMore": "Voir plus" },
+      "choosePass": "Choisir une carte de cours",
+      "buyPass": "Acheter une carte de cours",
+      "buyNewPass": "Acheter une nouvelle carte de cours",
+      "myPasses": "Ma carte de cours",
+      "myPasses_plural": "Mes cartes de cours",
+      "waitingListWarning": "Avant de vous inscrire sur la liste d'attente, assurez-vous d'avoir acheté une carte de cours, un pack ou un contrat adéquat. Il est essentiel de disposer d'une carte de cours, d'un pack ou d'un contrat actif pour garantir votre place sur la liste d'attente.",
+      "backToCalendar": "Revenir au calendrier",
+      "blockedReasons": {
+        "default": { "title": "Réservation bloquée", "message": "La réservation de cette séance n'est pas disponible" },
+        "blockedByTags": {
+          "title": "Droits insuffisants",
+          "message": "Désolé, mais cette séance n'est actuellement pas disponible à la réservation. Elle a été restreinte à un groupe spécifique de membres."
+        },
+        "isAlreadyRegistered": { "title": "Séance déjà réservée", "message": "Vous êtes déjà inscrit à cette séance." },
+        "isTooSoon": {
+          "title": "Bientôt disponible",
+          "message": "Les inscriptions sont fermées pour le moment et ouvriront le {{-date}}."
+        },
+        "isTooLate": {
+          "title": "Délai dépassé",
+          "message": "Désolé, mais la période de réservation pour cette séance est terminée."
+        },
+        "waitingListLockedByPendingBookings": {
+          "title": "Autres réservations en cours",
+          "message": "D'autres personnes réservent actuellement, la liste d'attente n'est pas disponible pour le moment. Veuillez réessayer dans quelques minutes pour voir si une place est devenue disponible."
+        },
+        "isWaitingListFull": {
+          "title": "Liste d'attente pleine",
+          "message": "Cette séance et la liste d'attente sont complètes. Veuillez réessayer ultérieurement."
+        },
+        "isAlreadyOnWaitingList": {
+          "title": "Déjà sur liste d'attente",
+          "message": "Si vous êtes sur la liste d'attente, nous vous informerons par e-mail dès qu'une place se libère."
+        },
+        "waitingListOpen": {
+          "title": "Séance pleine",
+          "message": "Rejoignez la liste d'attente et vous recevrez un message dès qu'une place se libère."
+        }
+      },
+      "subscriptions": "Contrats",
+      "combos": "Packs",
+      "passes": "Cartes de cours",
+      "otherPasses": "Autres cartes de cours"
+    },
     "details": {
       "pleaseSelectABooking": "Sélectionnez une réservation pour voir le détails",
       "title": "Détails réservation",

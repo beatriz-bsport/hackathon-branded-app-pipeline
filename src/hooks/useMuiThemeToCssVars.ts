@@ -95,6 +95,7 @@ export const useMuiThemeToCssVars = () => {
     --color-primary-dark: ${theme.palette.primary.dark};
     --color-primary-light: ${theme.palette.primary.light};
     --color-primary-main: ${theme.palette.primary.main};
+    --color-primary-main-background: ${theme.palette.primary.main}19;
     --color-secondary-contrastText: ${theme.palette.secondary.contrastText};
     --color-secondary-dark: ${theme.palette.secondary.dark};
     --color-secondary-light: ${theme.palette.secondary.light};

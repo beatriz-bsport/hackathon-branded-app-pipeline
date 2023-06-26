@@ -1,0 +1,3 @@
+import MarketplaceFilterBuyableItemCategory from './MarketplaceFilterBuyableItemCategory.component';
+
+export default MarketplaceFilterBuyableItemCategory;

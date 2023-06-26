@@ -1,0 +1,25 @@
+.bs-marketplace-filter-buyable-item-category {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-bottom: var(--spacing-1);
+  gap: var(--spacing-2);
+}
+
+.bs-marketplace-filter-buyable-item-category__button {
+  cursor: pointer;
+  border-radius: var(--border-radius-1);
+  border: none;
+  background-color: #f1f3f4;
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+  color: var(--color-grey-main);
+}
+
+.bs-marketplace-filter-buyable-item-category__button--selected {
+  background-color: var(--color-primary-main);
+  color: white;
+}

@@ -39,7 +39,6 @@ exports.default = {
     },
     paymentPackPlaceholder: 'Carte de cours',
     privatePassPlaceholder: 'Carte de rendez-vous',
-
     next: 'Suivant',
     cancel: 'Annuler',
     fabLabels: {
@@ -503,6 +502,24 @@ exports.default = {
         triggerCannotBeEmpty: "Vous devez sélectionner un type d'entrée.",
         timeoutMustBeStrictPositive:
           "La limite de temps doit être d'au moins 1 jour.",
+      },
+    },
+    bubble: {
+      cancel: 'Annuler',
+      confirm: 'Sauvegarder',
+      next: 'Suivant',
+      previous: 'Précédent',
+      changeInExit: { title: 'Sortie', label: 'Considérer le membre comme' },
+      changeInStep: { label: "Nom de l'étape", default: "Nom de l'étape" },
+      marketingAction: {
+        title: 'Action marketing',
+        label: 'Sélectionnez une action marketing',
+      },
+      entryTrigger: {
+        title: 'Entrée',
+        addTrigger: "Ajouter un déclencheur d'entrée",
+        helperText:
+          'Veuillez définir quand et qui entrera dans cette cadence avec les critères et les déclencheurs sélectionnés.',
       },
     },
     marketingAction: {

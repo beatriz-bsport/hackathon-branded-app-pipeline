@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useMemo } from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -142,6 +142,31 @@ export const PaymentPackForm = (props: Props) => {
   const now = moment().format(DATE_FORMAT);
   const oneMonthLater = moment(now).add(1, 'M').format(DATE_FORMAT);
 
+  const offPeakGroupDefaultValue = useMemo(() => {
+    return [offPeakGroupDefault()];
+  }, []);
+
+  const offPeakScheduleIsEmpty = useMemo(() => {
+    return (
+      !!initial?.off_peak_schedule &&
+      !!Object.keys(initial.off_peak_schedule)?.length
+    );
+  }, [initial?.off_peak_schedule]);
+
+  const offPeakGroupOnEdit = useMemo(() => {
+    return offPeakScheduleIsEmpty
+      ? formatOffPeakScheduleOnEdit(initial?.off_peak_schedule)
+      : offPeakGroupDefaultValue;
+  }, [
+    initial?.off_peak_schedule,
+    offPeakGroupDefaultValue,
+    offPeakScheduleIsEmpty,
+  ]);
+
+  const getFormInitialValue = useMemo(
+    () => getFormInitial(props.compatibleServicePass),
+    [props.compatibleServicePass],
+  );
   return (
     <div>
       <Formik
@@ -186,17 +211,13 @@ export const PaymentPackForm = (props: Props) => {
                   penaltyKindDict[initial?.no_show_penalty_kind] || 'block',
                 categories: initial?.categories?.map((category) => category.id),
                 is_universal_pass: !!initial?.linked_private_pass,
-                linked_private_pass_compatibility: getFormInitial(
-                  props.compatibleServicePass,
-                ),
+                linked_private_pass_compatibility: getFormInitialValue,
                 apply_penalties:
                   initial?.penalty_active || initial?.no_show_penalty_active,
                 applies_for_payroll: initial?.applies_for_payroll,
                 expiration_date_active: !!initial?.expiration_date,
-                off_peak_active: !!initial?.off_peak_schedule,
-                off_peak_schedule: initial?.off_peak_schedule
-                  ? formatOffPeakScheduleOnEdit(initial.off_peak_schedule)
-                  : {},
+                off_peak_active: offPeakScheduleIsEmpty,
+                off_peak_schedule: offPeakGroupOnEdit,
               }
             : {
                 id: null,
@@ -254,7 +275,7 @@ export const PaymentPackForm = (props: Props) => {
                 expiration_date: null,
                 expiration_date_active: false,
                 description: null,
-                off_peak_schedule: [offPeakGroupDefault()],
+                off_peak_schedule: offPeakGroupDefaultValue,
                 off_peak_active: false,
               }
         }
@@ -768,7 +789,7 @@ const paymentPackSchema = Yup.object().shape({
   description: Yup.string().nullable(),
   off_peak_schedule: Yup.array().of(
     Yup.object().shape({
-      timeslots: Yup.array().of(
+      timeSlots: Yup.array().of(
         Yup.array().test(
           'startBeforeEnd',
           'paymentPack:addPaymentPack.startAfterEnd',

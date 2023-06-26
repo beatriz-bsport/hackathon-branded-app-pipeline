@@ -96,65 +96,67 @@ const OffPeakButtonDay: React.FC<WeekDayButtonProps> = memo(
   },
 );
 
-const OffPeaktimeSlotsRow: React.FC<OffPeaktimeSlotsRowProps> = memo(
-  ({ index, timeSlots, setFieldValue }) => {
-    const classes = useStyles();
-    const { t } = useTranslation('paymentPack');
-    const hideDelete = timeSlots.length > 1;
+const OffPeaktimeSlotsRow: React.FC<OffPeaktimeSlotsRowProps> = ({
+  index,
+  timeSlots,
+  setFieldValue,
+}) => {
+  const classes = useStyles();
+  const { t } = useTranslation('paymentPack');
+  const hideDelete = timeSlots.length > 1;
 
-    const deleteTimeSlot = useCallback(
-      (rowIndex: number) => () => {
-        timeSlots.splice(rowIndex, 1);
-        setFieldValue(`off_peak_schedule[${index}].timeSlots`, timeSlots);
-      },
-      [setFieldValue, timeSlots, index],
-    );
+  const deleteTimeSlot = useCallback(
+    (rowIndex: number) => () => {
+      timeSlots.splice(rowIndex, 1);
+      setFieldValue(`off_peak_schedule[${index}].timeSlots`, timeSlots);
+    },
+    [setFieldValue, timeSlots, index],
+  );
 
-    return (
-      <div>
-        <div className={classes.column}>
-          {timeSlots.map((_, rowIndex) => {
-            const start_time_name = `off_peak_schedule[${index}].timeSlots['${rowIndex}'][0]`;
-            const end_time_name = `off_peak_schedule[${index}].timeSlots['${rowIndex}'][1]`;
+  return (
+    <div>
+      <div className={classes.column}>
+        {timeSlots.map((_, rowIndex) => {
+          const start_time_name = `off_peak_schedule[${index}].timeSlots['${rowIndex}'][0]`;
+          const end_time_name = `off_peak_schedule[${index}].timeSlots['${rowIndex}'][1]`;
 
-            return (
-              <div>
-                <div className={classes.row}>
-                  <TimeField name={start_time_name} outsideErrorDisplay />
-                  <TimeField
-                    name={end_time_name}
-                    className={classes.timeField}
-                    outsideErrorDisplay
-                  />
-                  {hideDelete && (
-                    <ButtonBase
-                      color="primary"
-                      className={classes.deleteIcon}
-                      onClick={deleteTimeSlot(rowIndex)}
-                    >
-                      <CloseIcon />
-                    </ButtonBase>
-                  )}
-                </div>
-                <div>
-                  <ErrorMessage
-                    name={`off_peak_schedule[${index}].timeSlots[${rowIndex}]`}
+          return (
+            <div>
+              <div className={classes.row}>
+                <TimeField name={start_time_name} outsideErrorDisplay />
+                <TimeField
+                  name={end_time_name}
+                  className={classes.timeField}
+                  outsideErrorDisplay
+                />
+                {hideDelete && (
+                  <ButtonBase
+                    color="primary"
+                    className={classes.deleteIcon}
+                    onClick={deleteTimeSlot(rowIndex)}
                   >
-                    {(error_msg) => (
-                      <Typography variant="caption" color="error">
-                        {t(`${error_msg}`)}
-                      </Typography>
-                    )}
-                  </ErrorMessage>
-                </div>
+                    <CloseIcon />
+                  </ButtonBase>
+                )}
               </div>
-            );
-          })}
-        </div>
+              <div>
+                <ErrorMessage
+                  name={`off_peak_schedule[${index}].timeSlots[${rowIndex}]`}
+                >
+                  {(error_msg) => (
+                    <Typography variant="caption" color="error">
+                      {t(`${error_msg}`)}
+                    </Typography>
+                  )}
+                </ErrorMessage>
+              </div>
+            </div>
+          );
+        })}
       </div>
-    );
-  },
-);
+    </div>
+  );
+};
 
 const OffPeaktimeSlotGroup = (props: Props) => {
   const { group, setFieldValue, index, multipleGroups, onGroupDelete } = props;

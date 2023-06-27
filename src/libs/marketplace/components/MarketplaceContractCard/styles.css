@@ -4,7 +4,11 @@
       var(--color-secondary-background-paper-transparent) 55%,
       transparent 45%
     ),
-    linear-gradient(60deg, var(--color-secondary-background-paper-transparent) 55%, transparent 45%),
+    linear-gradient(
+      60deg,
+      var(--color-secondary-background-paper-transparent) 55%,
+      transparent 45%
+    ),
     #ffffff;
   border-radius: var(--border-radius-4);
   height: 240px;

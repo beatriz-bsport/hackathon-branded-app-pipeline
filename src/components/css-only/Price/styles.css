@@ -1,26 +1,26 @@
 .bs-price__container {
-    font-size: var(--h3-fontSize);
-    font-weight: var(--h3-fontWeight);
-    letter-spacing: var(--h3-letterSpacing);
-    line-height: var(--h3-lineHeight);
-    display: flex;
-    align-items: center;
+  font-size: var(--h3-fontSize);
+  font-weight: var(--h3-fontWeight);
+  letter-spacing: var(--h3-letterSpacing);
+  line-height: var(--h3-lineHeight);
+  display: flex;
+  align-items: center;
 }
 
 .primary {
-    color: var(--color-primary-main);
+  color: var(--color-primary-main);
 }
 
 .default {
-    color: var(--color-grey-dark);
+  color: var(--color-grey-dark);
 }
 
 .secondary {
-    color: var(--color-secondary-main);
+  color: var(--color-secondary-main);
 }
 
 @media screen and (max-width: 749px) {
-    .bs-price__container {
-        font-size: var(--h4-fontSize);
-    }
+  .bs-price__container {
+    font-size: var(--h4-fontSize);
+  }
 }

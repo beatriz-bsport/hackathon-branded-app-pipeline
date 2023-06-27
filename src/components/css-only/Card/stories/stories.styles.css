@@ -1,16 +1,16 @@
-.bs-card{
-    min-height: 150px;
-    border-radius: 12px;
+.bs-card {
+  min-height: 150px;
+  border-radius: 12px;
 }
 
-.bs-card-content__children{
-    background-color: aliceblue;
+.bs-card-content__children {
+  background-color: aliceblue;
 }
 
-.bs-card-content{
-    background-color: aquamarine;
+.bs-card-content {
+  background-color: aquamarine;
 }
 
 .container {
-    width: 350px;
+  width: 350px;
 }

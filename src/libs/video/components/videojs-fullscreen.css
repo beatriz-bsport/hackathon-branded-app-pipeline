@@ -5,16 +5,16 @@
  }
 */
 
-.video-container-bsport{
-    display: block;
-    width: 100% !important;
-    background-color: 'red' !important;
-    height: auto;
-    max-height: 100%;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-    position: 'relative';
+.video-container-bsport {
+  display: block;
+  width: 100% !important;
+  background-color: 'red' !important;
+  height: auto;
+  max-height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  position: 'relative';
 }
 
 .vjs-16-9 {
@@ -22,7 +22,7 @@
 }
 
 .data-vjs-player {
-  background-color: "green";
+  background-color: 'green';
 }
 
 .video-js {
@@ -46,5 +46,5 @@
 */
 
 .video-container-bsport-160::before {
-    padding-bottom: 56.25%;
+  padding-bottom: 56.25%;
 }

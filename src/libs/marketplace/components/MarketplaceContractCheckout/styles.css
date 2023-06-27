@@ -12,7 +12,11 @@
       var(--color-secondary-background-paper-transparent) 55%,
       transparent 50%
     ),
-    linear-gradient(50deg, var(--color-secondary-background-paper-transparent) 55%, transparent 50%),
+    linear-gradient(
+      50deg,
+      var(--color-secondary-background-paper-transparent) 55%,
+      transparent 50%
+    ),
     var(--color-background-paper);
   width: 100%;
   border-radius: var(--border-radius-4);

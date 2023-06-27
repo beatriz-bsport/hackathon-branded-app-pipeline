@@ -1,17 +1,17 @@
 .primary {
-    color: var(--color-primary-main);
+  color: var(--color-primary-main);
 }
 
 .default {
-    color: var(--color-grey-dark);
+  color: var(--color-grey-dark);
 }
 
 .secondary {
-    color: var(--color-secondary-main);
+  color: var(--color-secondary-main);
 }
 
-.icon{
-    margin-left: 16px;
-    font-size: 1px;
-    color: steelblue;
+.icon {
+  margin-left: 16px;
+  font-size: 1px;
+  color: steelblue;
 }

@@ -3142,6 +3142,7 @@
           "timeoutMustBeStrictPositive": "La limite de temps doit être d'au moins 1 jour."
         }
       },
+      "marketingAction": { "addAction": "Ajouter une action" },
       "howTo": {
         "title": "Comment éditer votre cadence",
         "explain": "Éditez les éléments du graphique en cliquant sur ses éléments ou créer des liens entre les blocs en glissé déposé.",
@@ -3187,7 +3188,7 @@
         "start": "Entrée",
         "exit": "Sortie",
         "trigger": "Déclencheur",
-        "timeout": { "timout_days_chip": "{{ days }} jours" },
+        "timeout": { "timout_days_chip": "{{ days }} jour", "timout_days_chip_plural": "{{ days }} jours" },
         "events": {
           "purchase_chip": "Achat",
           "book_chip": "Réservation",
@@ -3196,7 +3197,12 @@
           "billing_plan_chip": "Souscription",
           "label": "Évènement"
         },
-        "smartlist": { "label": "Smartlist" }
+        "kinds": { "0": "Évènement", "1": "Smartlist", "2": "Évènement + Smartlist", "3": "Délai" },
+        "smartlist": { "label": "Smartlist" },
+        "delete": "Supprimer"
+      },
+      "steps": {
+        "actions": { "delete": "Supprimer", "changeInExit": "Transformer en sortie", "changeInStep": "Transformer en étape" }
       },
       "graph": {
         "tools": {

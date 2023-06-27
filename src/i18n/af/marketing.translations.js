@@ -1,3 +1,10 @@
+const {
+  ONLY_EVENT_TRIGGER,
+  ONLY_SMARTLIST_FILTERING,
+  EVENT_TRIGGER_AND_SMARTLIST_FILTERING,
+  ONLY_TIMEOUT,
+} = require('../../libs/sequential_marketing/constants/translations.ts');
+
 exports.default = {
   newsletter: {
     form: {
@@ -400,7 +407,6 @@ exports.default = {
       lose_step: 'Perdu',
       previous: 'Précédent',
       next: 'Suivant',
-
       trigger: {
         title: 'Déclencheurs',
         helpers: {
@@ -499,6 +505,9 @@ exports.default = {
           "La limite de temps doit être d'au moins 1 jour.",
       },
     },
+    marketingAction: {
+      addAction: 'Ajouter une action',
+    },
     howTo: {
       title: 'Comment éditer votre cadence',
       explain:
@@ -552,7 +561,8 @@ exports.default = {
       exit: 'Sortie',
       trigger: 'Déclencheur',
       timeout: {
-        timout_days_chip: '{{ days }} jours',
+        timout_days_chip: '{{ days }} jour',
+        timout_days_chip_plural: '{{ days }} jours',
       },
       events: {
         purchase_chip: 'Achat',
@@ -562,8 +572,22 @@ exports.default = {
         billing_plan_chip: 'Souscription',
         label: 'Évènement',
       },
+      kinds: {
+        [ONLY_EVENT_TRIGGER]: 'Évènement',
+        [ONLY_SMARTLIST_FILTERING]: 'Smartlist',
+        [EVENT_TRIGGER_AND_SMARTLIST_FILTERING]: 'Évènement + Smartlist',
+        [ONLY_TIMEOUT]: 'Délai',
+      },
       smartlist: {
         label: 'Smartlist',
+      },
+      delete: 'Supprimer',
+    },
+    steps: {
+      actions: {
+        delete: 'Supprimer',
+        changeInExit: 'Transformer en sortie',
+        changeInStep: 'Transformer en étape',
       },
     },
     graph: {
@@ -581,7 +605,7 @@ exports.default = {
         edgeLabelForNodeCreation: 'En cours de création',
         cancelOnGoingCreation: 'Annuler la création',
         deleteStep: "Supprimer l'étape",
-        deleteTrigger: "Supprimer le déclencheur",
+        deleteTrigger: 'Supprimer le déclencheur',
       },
       alert: {
         cadenceIsActive:

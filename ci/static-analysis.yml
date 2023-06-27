@@ -7,6 +7,8 @@ Lint and Compile:
   script:
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure
+    - echo "Format checking CSS files"
+    - yarn pretty
     - echo "Type checking all files"
     - yarn compile
     - echo "Lint checking all files"

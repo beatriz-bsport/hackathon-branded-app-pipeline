@@ -1,6 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+echo "---------- 🎨 Prettier ----------" &&
+yarn pretty &&
 echo "---------- 👮 TypeScript ----------" && 
 npx tsc -p . &&
 echo "---------- 🧪 Tests ----------" &&

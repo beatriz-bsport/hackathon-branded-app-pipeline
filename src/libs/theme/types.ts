@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   MarketPlaceCoachDisplay,
   MarketPlaceDaysFormatDisplay,
@@ -108,6 +107,7 @@ export type Theme = {
   show_free_session_label: boolean;
   hide_credits_for_customers: boolean;
   hide_book_button: boolean;
+  is_sequential_marketing_active: boolean;
 };
 
 export type ThemeState = {

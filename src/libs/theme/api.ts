@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @ts-ignore
 import { API_V1_URI, getAuth, patchAuth } from '../../http';
 

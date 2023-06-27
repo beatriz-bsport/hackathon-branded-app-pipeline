@@ -424,6 +424,12 @@ exports.default = {
     dst_company: "Studio d'utilisation",
     total_mixed_from_src: 'Nombre de séances réservées',
     shared_pass_ratio: "Pourcentage d'utilisation",
+    last_booked_offer_id: 'ID de la dernière séance réservée',
+    last_booked_offer_date: 'Date de la dernière séance réservée',
+    last_booked_offer_meta_activity_name:
+      "Nom de l'activité de la dernière séance réservée",
+    last_booked_offer_pass_name:
+      'Pass utilisé pour la dernière séance réservée',
   },
   filter: {
     title: 'Vue filtrée',

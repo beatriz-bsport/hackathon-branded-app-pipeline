@@ -10,7 +10,10 @@ import CssEditorPreview from '#libs/exportable-components/components/CssEditorPr
 import { RootState } from '../../reducers';
 import { getCssComponentByLabel } from '#libs/exportable-components/utils';
 import CssEditorSelector from '#libs/exportable-components/components/CssEditorSelector.component';
-import { MarketplacePage } from '#libs/exportable-components/types';
+import {
+  CSSComponentsById,
+  MarketplacePage,
+} from '#libs/exportable-components/types';
 import {
   resetCssWidgetConfiguration as resetCssWidgetConfigurationAction,
   retrieveManagerCssConfiguration as retrieveManagerCssConfigurationAction,
@@ -22,7 +25,7 @@ import { getCustomCssConfiguration } from '#libs/exportable-components/selectors
 import ApplyCustomTheme from '#libs/exportable-components/ApplyCustomTheme.component';
 
 type Props = ConnectedProps<typeof connector> & {
-  componentId: string;
+  componentId: CSSComponentsById;
   page: MarketplacePage;
 };
 

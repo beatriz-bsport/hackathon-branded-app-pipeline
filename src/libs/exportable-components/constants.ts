@@ -1,9 +1,14 @@
-import { ReactElement } from 'react';
+import Immutable from 'seamless-immutable';
 
 import {
   MARKETPLACE_OFFER_CARD_CONFIGURATION,
   MARKETPLACE_OFFER_CARD_PREVIEW,
 } from '#libs/marketplace/components/MarketplaceCardOfferCSSOnly';
+
+import {
+  CSSComponentPreviews,
+  MarketplaceCSSComponentConfig,
+} from '#libs/exportable-components/types';
 
 /* import {
   MARKETPLACE_GROUP_OFFER_LIST_ITEM_CONFIGURATION,
@@ -58,7 +63,6 @@ import {
   MARKETPLACE_WORKSHOP_PREVIEW,
 } from '#libs/marketplace/components/MarketplaceWorkshop.component';
 */
-import { MarketplaceCSSComponentConfig } from './types';
 
 export const EXPORTABLE_COMPONENT_TYPE_VOD = 'vod';
 export const EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2 = 'calendarV2';
@@ -226,11 +230,9 @@ Template
      <MarketplaceFilters {...variations} />
    );
 */
-export const CSS_COMPONENTS_BY_ID: Record<
-  string,
-  (props: any) => ReactElement
-> = {
-  cardOffer: MARKETPLACE_OFFER_CARD_PREVIEW,
-};
+export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
+  Immutable({
+    cardOffer: MARKETPLACE_OFFER_CARD_PREVIEW,
+  });
 
 export default CSS_COMPONENTS;

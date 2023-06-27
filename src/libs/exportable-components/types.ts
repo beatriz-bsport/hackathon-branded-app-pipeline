@@ -2,6 +2,7 @@
  * The available components we can use in the marketplace
  */
 
+import { FC } from 'react';
 import { ErrorAndLoading } from '#libs/types';
 
 export type MarketplaceCommonFilter = {
@@ -121,3 +122,30 @@ export type MarketplaceCSSConfiguration = {
 export type ExportableComponentsState = {
   customCss: MarketplaceCSSConfiguration;
 } & ErrorAndLoading;
+
+export type CSSComponentsById =
+  | 'cardOffer'
+  | 'paymentComboCard'
+  | 'paymentPackCard'
+  | 'paymentPackCompatibilityModal'
+  | 'paymentPackRestrictionModal'
+  | 'privatePassCard'
+  | 'privatePassCompatibilityModal'
+  | 'contractCard'
+  | 'contractCheckout'
+  | 'contractDetail'
+  | 'contractDetailModal'
+  | 'contractTermsModal'
+  | 'contractCooldownModal'
+  | 'contractCouponFormModal';
+
+export type CSSModalComponentById =
+  | 'paymentPackCompatibilityModal'
+  | 'paymentPackRestrictionModal'
+  | 'privatePassCompatibilityModal'
+  | 'contractDetailModal'
+  | 'contractTermsModal'
+  | 'contractCooldownModal'
+  | 'contractCouponFormModal';
+
+export type CSSComponentPreviews = Record<CSSComponentsById, FC<unknown>>;

@@ -141,7 +141,6 @@ export const PaymentPackForm = (props: Props) => {
   const classes = useStyles();
   const now = moment().format(DATE_FORMAT);
   const oneMonthLater = moment(now).add(1, 'M').format(DATE_FORMAT);
-
   const offPeakGroupDefaultValue = useMemo(() => {
     return [offPeakGroupDefault()];
   }, []);
@@ -796,7 +795,7 @@ const paymentPackSchema = Yup.object().shape({
           (value) => {
             if (value && Array.isArray(value) && value.length === 2) {
               const [startTime, endTime] = value;
-              return startTime.isSameOrBefore(endTime);
+              return startTime.isBefore(endTime);
             }
             return false;
           },

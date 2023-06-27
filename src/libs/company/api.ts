@@ -1,6 +1,3 @@
-// @ts-nocheck
-// @flow
-//
 import {
   getAuth,
   post,

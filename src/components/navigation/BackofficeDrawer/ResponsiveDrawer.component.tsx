@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
@@ -61,6 +60,7 @@ import {
   UPSELL_IDENTIFIER_CUSTOM_APP,
   UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
   UPSELL_IDENTIFIER_QUICKSALE,
+  UPSELL_IDENTIFIER_CADENCE,
 } from '#libs/platform-billing/upsell-identifiers';
 
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
@@ -396,8 +396,8 @@ const ResponsiveDrawer: React.FC<Props> = ({
             icon: LabelIcon,
             text: t('backofficeMenu.tags'),
           },
-          ...(!['production'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) ||
-          SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS.includes(companyId)
+          ...(SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS.includes(companyId) ||
+          hasUpsellIdentifier(UPSELL_IDENTIFIER_CADENCE)
             ? [
                 {
                   to: '/cadence',

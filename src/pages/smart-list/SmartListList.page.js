@@ -47,6 +47,7 @@ import type {
   Cadence,
   CadenceQueryParams,
 } from '../../libs/sequential_marketingDEPRECATED/types';
+import { getTheme } from '../../libs/theme/selectors';
 
 type Props = {
   smartlists: Array<SmartList>,
@@ -72,6 +73,7 @@ type Props = {
   getCadences: (id: number) => Cadence[],
   cadencesLoading: boolean,
   fetchCadenceList: (params: CadenceQueryParams) => void,
+  hasSequentialMarketingUpsell: boolean,
 };
 
 type State = {
@@ -217,6 +219,7 @@ export class SmartListList extends Component<Props, State> {
                           }
                           isSequentialMarketingAuthorized={isSequentialMarketingAuthorized(
                             this.props.company_id,
+                            this.props.hasSequentialMarketingUpsell,
                           )}
                           fetchCadences={this.fetchCadences}
                           getCadences={this.props.getCadences}
@@ -250,6 +253,7 @@ export class SmartListList extends Component<Props, State> {
                     }
                     isSequentialMarketingAuthorized={isSequentialMarketingAuthorized(
                       this.props.company_id,
+                      this.props.hasSequentialMarketingUpsell,
                     )}
                     fetchCadences={this.fetchCadences}
                     getCadences={this.props.getCadences}
@@ -343,7 +347,9 @@ export default compose(
       getCadences: (id: number) => getCadencesUsingSmartlist(state, id),
       cadencesLoading: getCadenceIdsUsingSmartlistLoading(state),
       loading: state.smartList.loading,
-      company_id: state.theme.theme.company,
+      company_id: getTheme(state).company,
+      hasSequentialMarketingUpsell:
+        getTheme(state).is_sequential_marketing_active,
     }),
     {
       fetchAllSmartLists,

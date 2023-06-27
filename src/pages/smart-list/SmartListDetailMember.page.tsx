@@ -177,6 +177,7 @@ import { getSmartListPopupSendingList } from '#libs/communication-v2/selectors';
 // CADENCES
 import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketingDEPRECATED/constants';
 import { fetchCadenceList } from '../../libs/sequential_marketingDEPRECATED/actions';
+import { UPSELL_IDENTIFIER_CADENCE } from '#libs/platform-billing/upsell-identifiers';
 
 type OwnProps = {
   id: number;
@@ -239,7 +240,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     this.props.fetchSmartListPopupSendings({ smartlist_id: this.props.id });
     this.props.fetchStoredCsvExports(this.props.id);
     if (
-      Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+      this.hasUpsellIdentifier(UPSELL_IDENTIFIER_CADENCE) ||
       SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS.includes(this.props.companyId)
     ) {
       this.props.fetchCadencesUsingSmartlist(this.props.id, {
@@ -369,6 +370,19 @@ export class SmartListDetailMember extends React.Component<Props, State> {
 
   handleBackgroundCsvExport = () => {
     this.props.getMemberTableBackground(this.props.id);
+  };
+
+  hasUpsellIdentifier = (identifier: number) => {
+    // Always true if the environement is not production
+    // If the environment is production : true if the company
+    // has subscribed the upsell corresponding to the identifier
+    // in parameter, otherwise false
+    return (
+      Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+      this.props.featureList
+        .map((ups) => ups.upsell_identifier)
+        .includes(identifier)
+    );
   };
 
   render() {
@@ -771,6 +785,7 @@ const connector = connect(
 
     // CADENCES
     cadences: getCadencesUsingSmartlist(state, id),
+
     csvExportLink: getSmartListCsvExportLink(state, id),
   }),
   {

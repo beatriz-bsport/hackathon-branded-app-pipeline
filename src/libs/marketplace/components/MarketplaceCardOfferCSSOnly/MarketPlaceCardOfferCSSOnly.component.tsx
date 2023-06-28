@@ -288,6 +288,11 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
             )}
           </div>
           <div className="bs-card-offer__content__status">
+            <FreeOfferChip
+              companyTheme={theme}
+              credits={offer?.credit_price}
+              creditsOverride={offer?.credit_price_override}
+            />
             <MarketplaceLevel
               hideLevel={!theme.show_level}
               customLevel={getLevel?.[offer?.custom_level]}
@@ -424,11 +429,6 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
               ) : (
                 ''
               )}
-              <FreeOfferChip
-                companyTheme={theme}
-                credits={offer?.credit_price}
-                creditsOverride={offer?.credit_price_override}
-              />
             </div>
             <div className="bs-card-offer__content__bottom__buttonContainer">
               <MarketplaceBookButton

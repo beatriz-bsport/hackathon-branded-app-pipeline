@@ -1,25 +1,22 @@
 // @ts-nocheck
-// @flow
 
 import React, { Component } from 'react';
 import { compose, withHandlers, withProps, withStateHandlers } from 'recompose';
 
-import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
-import type { Theme } from '@material-ui/core/styles';
 import {
   CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
 } from '@bsport/common/lib/master-data/custom-form';
 
-import type { Dispatch, OptionCallback } from '../../state/types';
+import type { Dispatch, OptionCallback } from '../../../state/types';
 import themeSelectors from '#libs/theme/selectors';
-import { buildUrlParams, parseQueryString } from '../../http';
-import { requestLogin } from '../../actions/auth.actions';
+import { buildUrlParams, parseQueryString } from '../../../http';
+import { requestLogin } from '../../../actions/auth.actions';
 
 import { fetchCompanyTheme } from '#libs/theme/actions';
 import Analytics from '#components/analytics/Analytics.component';
@@ -30,14 +27,15 @@ import {
 } from '#libs/custom-form/actions';
 import CustomFormView from '#libs/custom-form/components/consumer-form/CustomFormView.form';
 import { getSignUpCustomFormWithEnabledField } from '#libs/custom-form/selectors';
-import type { RootState } from '../../reducers';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import type { RootState } from '../../../reducers';
+import { WithHandlerType } from '../../../utils/types';
 import {
   CustomFormFilled,
   CustomFormFieldAnswer,
 } from '#libs/custom-form/types';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import { CustomFormTitle } from '#libs/custom-form/components/CustomFormTitle.component';
+import './SignupPageStyles.css';
 
 type OwnProps = {
   location: {
@@ -51,6 +49,8 @@ type OwnProps = {
   franchisor: string;
   next: string;
   membership: string;
+
+  simplifyUI?: boolean;
 
   doEmailLogin: ({
     email,
@@ -69,7 +69,6 @@ type Props = OwnProps &
   StateHandlerType &
   ConnectedProps &
   WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>> &
   WithHandlerType<typeof mapWithHandlers>;
 
 export class SignupPage extends Component<Props> {
@@ -120,12 +119,12 @@ export class SignupPage extends Component<Props> {
   render() {
     const {
       authenticated,
-      classes,
       t,
       membership,
       signUpCustomForm,
       theme,
       next,
+      simplifyUI,
     } = this.props;
 
     if (authenticated) {
@@ -135,24 +134,35 @@ export class SignupPage extends Component<Props> {
       return <Redirect to="/" />;
     }
 
-    return (
-      <div className={classes.container}>
-        <CustomFormTitle title={t('signup.title')} company={!!membership} />
-        {signUpCustomForm && (
-          <div className={classes.customForm}>
-            <CustomFormView
-              initial={signUpCustomForm}
-              onSubmit={this.submitCustomForm}
-              onSubmitDraft={this.props.setLoginInformations}
-              layouts={signUpCustomForm.layout}
-              waiver={theme.waiver}
-              general_terms_and_conditions={theme.general_terms_of_use}
-              onCancel={this.handleCancel}
-            />
-          </div>
-        )}
+    const containerClass = WidgetUtils.isWidget()
+      ? 'bs-signup-container--widget'
+      : 'bs-signup-container--default';
 
-        {!!theme && membership && <Analytics username="" theme={theme} />}
+    return (
+      <div className={containerClass}>
+        <div className="bs-signup-container--margin-top">
+          <CustomFormTitle
+            title={t('signup.title')}
+            company={!!membership}
+            simplifyUI={simplifyUI}
+          />
+          {signUpCustomForm && (
+            <div className="bs-signup-container__custom-form">
+              <CustomFormView
+                initial={signUpCustomForm}
+                onSubmit={this.submitCustomForm}
+                onSubmitDraft={this.props.setLoginInformations}
+                layouts={signUpCustomForm.layout}
+                waiver={theme.waiver}
+                general_terms_and_conditions={theme.general_terms_of_use}
+                onCancel={this.handleCancel}
+                simplifyUI={simplifyUI}
+              />
+            </div>
+          )}
+
+          {!!theme && membership && <Analytics username="" theme={theme} />}
+        </div>
       </div>
     );
   }
@@ -223,43 +233,9 @@ const withStateHandlersSetter = {
     return { loginInformations: { email, password } };
   },
 };
-const styles = (theme: Theme): any => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    padding: theme.spacing(1),
-    width: '100%',
-    overflow: 'auto',
-    height: WidgetUtils.isWidget() ? '100%' : '92vh',
-    marginTop: WidgetUtils.isWidget() ? 0 : '8vh',
-    [theme.breakpoints.down('xs')]: {
-      marginTop: 0,
-    },
-  },
-  customForm: {
-    marginBottom: theme.spacing(14),
-    padding: theme.spacing(4),
-    [theme.breakpoints.down('xs')]: {
-      padding: theme.spacing(1),
-    },
-    width: '60%',
-    [theme.breakpoints.down('md')]: {
-      width: '80%',
-    },
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    },
-  },
-});
 
 export default compose(
   withRouter,
-  withStyles(styles),
   withTranslation(['login']),
   withProps((props: OwnProps) => {
     const { membership, franchisor, next, previous } = parseQueryString(

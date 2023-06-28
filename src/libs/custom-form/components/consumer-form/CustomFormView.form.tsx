@@ -44,6 +44,7 @@ type OwnProps = {
   textButtonConfirm?: boolean;
   disableLayout?: boolean;
   fieldsAreIndependent?: boolean;
+  simplifyUI?: boolean;
 };
 type Props = OwnProps &
   WithTranslation &
@@ -90,10 +91,12 @@ export function ConsumerFormView(props: Props) {
         >
           {props.onCancel && (
             <Button
+              className={classes.button}
               onClick={() => props.onCancel(props.values)}
               variant="text"
               color="primary"
               disabled={isSubmitting}
+              id="button_custom_form_cancel"
             >
               {props.disconnectOnCancel
                 ? t('customForm.disconnect')
@@ -101,6 +104,7 @@ export function ConsumerFormView(props: Props) {
             </Button>
           )}
           <Button
+            className={classes.button}
             variant="contained"
             color="primary"
             onClick={() => {
@@ -133,10 +137,11 @@ const styles = (theme: Theme) =>
       display: 'flex',
       justifyContent: 'flex-end',
     },
-    submitAndCancel: {
+    submitAndCancel: (props: Props) => ({
       display: 'flex',
-      justifyContent: 'space-between',
-    },
+      justifyContent: props.simplifyUI ? 'flex-end' : 'space-between',
+      gap: props.simplifyUI ? theme.spacing(1) : 'none',
+    }),
     emptyContainer: {
       padding: theme.spacing(10),
     },
@@ -149,6 +154,9 @@ const styles = (theme: Theme) =>
     leftIcon: {
       marginRight: theme.spacing(1),
     },
+    button: (props: Props) => ({
+      borderRadius: props.simplifyUI ? 24 : 8,
+    }),
   });
 export default compose<any, OwnProps>(
   withTranslation('marketing'),

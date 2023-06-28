@@ -12,6 +12,7 @@ import { openIntercomHelp } from '../../../intercom';
 type Props = {
   title: string;
   company: boolean;
+  simplifyUI?: boolean;
 };
 
 export const CustomFormTitle = (props: Props) => {
@@ -21,19 +22,23 @@ export const CustomFormTitle = (props: Props) => {
   return (
     <div className={classes.signupTitle}>
       <Typography className={classes.title}>{title}</Typography>
-      <div
-        className={`${classes.rectangle} ${
-          props.company
-            ? classes.rectangleCompanyBackground
-            : classes.rectangleBackground
-        }`}
-      />
-      <IconButton
-        className={classes.iconButton}
-        onClick={() => openIntercomHelp('login')}
-      >
-        <HelpIcon />
-      </IconButton>
+      {!props.simplifyUI && (
+        <>
+          <div
+            className={`${classes.rectangle} ${
+              props.company
+                ? classes.rectangleCompanyBackground
+                : classes.rectangleBackground
+            }`}
+          />
+          <IconButton
+            className={classes.iconButton}
+            onClick={() => openIntercomHelp('login')}
+          >
+            <HelpIcon />
+          </IconButton>
+        </>
+      )}
     </div>
   );
 };

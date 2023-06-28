@@ -74,7 +74,7 @@ const AccountConfigurationRouter = asyncComponent(
   () => import('./account-configuration/AccountConfiguration.router'),
 );
 
-const SignupPage = asyncComponent(() => import('./Signup.page'));
+const SignupPage = asyncComponent(() => import('./signup-page/Signup.page'));
 
 type Props = {
   membership: string;

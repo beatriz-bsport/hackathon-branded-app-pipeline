@@ -109,7 +109,7 @@ import type { StripeReader } from '../../libs/terminal/types';
 import { withDefaultBillingEstablishment } from '#libs/member/selectors';
 import { getInvoiceIdentifier } from '#libs/invoice/utils';
 
-import RevalidateSEPAMandateDialog from '#libs/payment/components/payment-backend-stripe/RevalidateSEPAMandateDialog.component';
+import RevalidateMandateDialog from '#libs/payment/components/payment-backend-stripe/RevalidateMandateDialog.component';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 
@@ -226,6 +226,7 @@ type State = {
   clientSecretLoading: boolean,
   coupon_list: Array<{ coupon_code: string, coupon_voucher: number }>,
   paymentGroupPriceCts: number,
+  paymentGroupMethodIdentifierToRevalidate: number,
   paymentMethodIdToRevalidate: string,
   onPaymentMethodRefreshed: () => void,
 };
@@ -472,6 +473,8 @@ export class InvoiceDetail extends React.Component<Props, State> {
     this.setState({
       paymentMethodIdToRevalidate:
         plannedPaymentEvent._payment_backend_payment_method_id,
+      paymentGroupMethodIdentifierToRevalidate:
+        plannedPaymentEvent.payment_method_identifier,
       // we store the callback for what todo when paymentmethod revalidated
       //  so basically we resubmit the plannedpaymentevent immediately
       onPaymentMethodRefreshed: () =>
@@ -500,7 +503,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
     });
   };
 
-  closeRevalidateSEPAMandate = () => {
+  closeRevalidateMandate = () => {
     this.setState({
       paymentMethodIdToRevalidate: '',
     });
@@ -577,14 +580,17 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 consumerGiftcardList={this.props.consumerGiftcardList}
                 applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
               />
-              <RevalidateSEPAMandateDialog
+              <RevalidateMandateDialog
                 open={!!this.state.paymentMethodIdToRevalidate}
                 requestSetupIntentSecret={this.requestSetupIntentSecret}
+                paymentGroupMethodIdentifier={
+                  this.state.paymentGroupMethodIdentifierToRevalidate
+                }
                 paymentMethodIdToRevalidate={
                   this.state.paymentMethodIdToRevalidate
                 }
                 onSuccess={this.state.onPaymentMethodRefreshed}
-                onCancel={this.closeRevalidateSEPAMandate}
+                onCancel={this.closeRevalidateMandate}
               />
             </Grid>
             {!!this.props.isOpenInstalmentPaymentDialog && (

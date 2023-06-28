@@ -9,7 +9,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import { AxiosResponse } from 'axios';
 
-import RevalidateSEPAMandate from './RevalidateSEPAMandate.component';
+import RevalidateMandate from './RevalidateMandate.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 type ReplaceInvalidateMandateProps = {
@@ -17,6 +17,7 @@ type ReplaceInvalidateMandateProps = {
     paymentMethodId: string,
   ) => Promise<AxiosResponse<any>>;
   onSuccess?: () => void;
+  paymentGroupMethodIdentifier: number;
   paymentMethodIdToRevalidate: string;
   onCancel: () => void;
   open: boolean;
@@ -58,9 +59,10 @@ const ReplaceInvalidMandateDialog = (props: ReplaceInvalidateMandateProps) => {
     case STEP.COLLECT:
       return (
         <GenericResponsiveDialog open>
-          <RevalidateSEPAMandate
+          <RevalidateMandate
             variant="div"
             requestSetupIntentSecret={props.requestSetupIntentSecret}
+            paymentGroupMethodIdentifier={props.paymentGroupMethodIdentifier}
             paymentMethodIdToRevalidate={props.paymentMethodIdToRevalidate}
             onSuccess={props.onSuccess}
             onCancel={props.onCancel}

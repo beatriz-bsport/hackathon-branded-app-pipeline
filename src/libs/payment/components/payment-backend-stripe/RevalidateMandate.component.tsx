@@ -1,6 +1,12 @@
 // @ts-nocheck
 import React from 'react';
 
+import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+} from '@bsport/common/lib/master-data/payment-group';
+
+import * as Sentry from '@sentry/react';
 import { Elements, ElementsConsumer, Stripe } from '@stripe/react-stripe-js';
 import ErrorIcon from '@material-ui/icons/Error';
 import Modal from '@material-ui/core/Modal';
@@ -28,6 +34,10 @@ import { getStripePkKey } from '../../../theme/selectors';
 
 const stripePromise = loadStripe(getStripePkKey());
 
+const InvalidPaymentMethodIdentifierException = new Error(
+  'Error during mandate revalidation: no valid payment method identifier provided',
+);
+
 type Props = {
   fullScreen: boolean;
   onClose: () => void;
@@ -39,6 +49,7 @@ type Props = {
   variant?: 'div' | 'modal';
   content?: string;
   labelClose?: string;
+  paymentGroupMethodIdentifier: number;
   paymentMethodIdToRevalidate: string;
 } & WithStyles<typeof styles> &
   WithTranslation;
@@ -59,7 +70,7 @@ const Wrapper: React.FC<{ variant: string }> = ({ children, variant }) => {
   return <Modal open>{children}</Modal>;
 };
 
-export class RevalidateSEPAMandate extends React.Component<Props, State> {
+export class RevalidateMandate extends React.Component<Props, State> {
   state: State = {
     error: false,
     clientSecret: null,
@@ -100,29 +111,43 @@ export class RevalidateSEPAMandate extends React.Component<Props, State> {
       stripe_decline_code: null,
     });
 
-    this.props.stripe
-      .confirmSepaDebitSetup(this.state.clientSecret, {
-        payment_method: this.props.paymentMethodIdToRevalidate,
-      })
-      .then((result: any) => {
-        if (result.error) {
-          this.setState({
-            processing: false,
-            error: true,
-            stripe_error_code: (result.error && result.error.code) || null,
-            stripe_decline_code:
-              (result.error && result.error.decline_code) || null,
-          });
-        } else {
-          this.setState({
-            processing: false,
-            success: true,
-          });
-          if (this.props.onSuccess) {
-            this.props.onSuccess(result);
-          }
+    // Since it is not possible to properly test this part (29/06/2023), we prefer keeping the
+    // old behaviour, which was only for SEPA mandates, as default behaviour.
+    let confirmStripeSetupCallback = this.props.stripe.confirmSepaDebitSetup;
+
+    switch (this.props.paymentGroupMethodIdentifier) {
+      case PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT:
+        confirmStripeSetupCallback = this.props.stripe.confirmBacsDebitSetup;
+        break;
+      case PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA:
+        confirmStripeSetupCallback = this.props.stripe.confirmSepaDebitSetup;
+        break;
+      default:
+        Sentry.captureException(InvalidPaymentMethodIdentifierException);
+        break;
+    }
+
+    confirmStripeSetupCallback(this.state.clientSecret, {
+      payment_method: this.props.paymentMethodIdToRevalidate,
+    }).then((result: any) => {
+      if (result.error) {
+        this.setState({
+          processing: false,
+          error: true,
+          stripe_error_code: (result.error && result.error.code) || null,
+          stripe_decline_code:
+            (result.error && result.error.decline_code) || null,
+        });
+      } else {
+        this.setState({
+          processing: false,
+          success: true,
+        });
+        if (this.props.onSuccess) {
+          this.props.onSuccess(result);
         }
-      });
+      }
+    });
   };
 
   render() {
@@ -312,17 +337,17 @@ const styles = (theme: Theme) =>
     },
   });
 
-const RevalidateSEPAMandateCompose = compose(
+const RevalidateMandateCompose = compose(
   withTranslation(['payment']),
   withStyles(styles),
   withMobileDialog(),
-)(RevalidateSEPAMandate);
+)(RevalidateMandate);
 
 export default (props: Props) => (
   <Elements stripe={stripePromise}>
     <ElementsConsumer>
       {({ stripe, elements }) => (
-        <RevalidateSEPAMandateCompose
+        <RevalidateMandateCompose
           elements={elements}
           stripe={stripe}
           {...props}

@@ -85,7 +85,7 @@ export class MemberDetailBasket extends Component<Props> {
 
   render() {
     if (this.props.basketLoading) {
-      return <BackofficeLinearProgress />;
+      return <BackofficeLinearProgress additionalMargin={1} />;
     }
     const { classes, t } = this.props;
     return (

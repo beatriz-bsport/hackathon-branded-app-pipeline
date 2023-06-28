@@ -142,7 +142,7 @@ export class EstablishmentGroup extends React.Component<Props> {
     }
     const { t } = this.props;
     if (this.props.loading || !this.props.establishments) {
-      return <BackofficeLinearProgress />;
+      return <BackofficeLinearProgress additionalMargin={1} />;
     }
     return (
       <>

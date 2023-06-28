@@ -55,7 +55,7 @@ export class CustomFormStatistics extends React.Component<Props, State> {
 
   render() {
     if (!this.props.customFormStatistic) {
-      return <BackofficeLinearProgress />;
+      return <BackofficeLinearProgress additionalMargin={1} />;
     }
     return (
       <Grid container direction="row" spacing={4}>

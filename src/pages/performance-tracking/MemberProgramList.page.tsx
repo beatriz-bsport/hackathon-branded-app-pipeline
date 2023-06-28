@@ -111,7 +111,7 @@ export class MemberProgramList extends Component<Props> {
       programList?.filter((p) => !alreadyRegisterdProgramIds?.includes(p.id)) ||
       [];
     if (memberProgramLoading || programLoading) {
-      return <BackofficeLinearProgressComponent />;
+      return <BackofficeLinearProgressComponent additionalMargin={1} />;
     }
     return (
       <div className={classes.container}>

@@ -41,7 +41,7 @@ export class CustomFormLayoutPage extends Component<Props> {
 
   render() {
     if (this.props.loading || !this.props.customForm?.custom_form_field) {
-      return <BackofficeLinearProgress color="primary" />;
+      return <BackofficeLinearProgress additionalMargin={1} color="primary" />;
     }
 
     return (

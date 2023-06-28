@@ -130,7 +130,9 @@ export class CustomFormDetail extends React.Component<Props, State> {
       !this.props.customFormRefresh.custom_form_field ||
       this.props.loading
     ) {
-      return <BackofficeLinearProgress color="secondary" />;
+      return (
+        <BackofficeLinearProgress additionalMargin={1} color="secondary" />
+      );
     }
     return (
       <>

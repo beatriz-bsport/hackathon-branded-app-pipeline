@@ -457,7 +457,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
   };
 
   if (groupExistLoading) {
-    return <BackofficeLinearProgress />;
+    return <BackofficeLinearProgress additionalMargin={1} />;
   }
 
   const hideEmptyState = groupExist || groupList.length > 0;

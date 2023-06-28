@@ -87,7 +87,7 @@ export class MemberCustomForm extends React.Component<Props> {
   render() {
     const { t, classes } = this.props;
     if (this.props.loading) {
-      return <BackofficeLinearProgress />;
+      return <BackofficeLinearProgress additionalMargin={1} />;
     }
     return (
       <Grid container direction="row" spacing={3}>

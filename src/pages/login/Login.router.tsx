@@ -185,6 +185,10 @@ export class LoginRouter extends React.Component<Props> {
                   ? getFranchiseTheme(franchiseTheme)
                   : getTheme(this.props.theme)
               }
+              backgroundFixed={
+                location.pathname === '/login/' ||
+                location.pathname === '/login'
+              }
             />
             <Fade in>
               <div className="bs-container__header">

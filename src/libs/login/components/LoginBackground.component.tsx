@@ -1,31 +1,35 @@
 // @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
-import { withStyles, WithTheme, Theme } from '@material-ui/styles';
+import { WithTheme, Theme, makeStyles } from '@material-ui/styles';
 import classNames from 'classnames';
-import { MaterialStyleType } from '../../../utils/types';
 import './LoginBackground.css';
 
 type OwnProps = {
   company?: boolean;
   franchise?: boolean;
+  backgroundFixed?: boolean;
 };
 
-type Props = OwnProps &
-  MaterialStyleType<ReturnType<typeof styles>> &
-  WithTheme;
+type Props = OwnProps & WithTheme;
 
 const effectArray = ['ball1', 'ball2', 'ball3', 'ball4']
   .map((effect) => ({ effect, sort: Math.random() }))
   .sort((a, b) => a.sort - b.sort)
   .map(({ effect }) => effect);
 
-export const LoginBackgroundComponent: React.FC<Props> = (props) => {
-  const { classes } = props;
+export const LoginBackgroundComponent: React.FC<Props> = ({
+  company,
+  franchise,
+  backgroundFixed,
+  theme,
+  children,
+}) => {
+  const classes = useStyles({ backgroundFixed, franchise, company });
 
   return (
     <div className={classes.loginBackground}>
-      {!!props.children && props.children}
+      {!!children && children}
       <div
         className={classNames(
           classes.circle,
@@ -91,8 +95,8 @@ export const LoginBackgroundComponent: React.FC<Props> = (props) => {
             d="M335 203C565 209 863.5 212.5 910.5 294.5H0V0.5C34 50 105 197 335 203Z"
             fillOpacity="0.6"
             fill={
-              props.company || props.franchise
-                ? props.theme.palette.primary.main
+              company || franchise
+                ? theme?.palette.primary.main
                 : 'rgba(44, 118, 126)'
             }
           />
@@ -102,28 +106,29 @@ export const LoginBackgroundComponent: React.FC<Props> = (props) => {
   );
 };
 
-const styles = (theme: Theme): any => ({
-  loginBackground: {
+const useStyles = makeStyles<
+  Theme,
+  { backgroundFixed: boolean; franchise: boolean; company: boolean }
+>((theme) => ({
+  loginBackground: ({ backgroundFixed }) => ({
     width: '100%',
     height: '100vh',
     overflow: 'hidden',
     zIndex: 0,
-    position: 'fixed',
-  },
+    position: backgroundFixed ? 'fixed' : 'relative',
+  }),
   circle: {
     borderRadius: '50%',
     position: 'absolute',
   },
-  dark: (props: Props) => ({
+  dark: ({ franchise, company }) => ({
     background:
-      props.franchise || props.company
-        ? theme.palette.primary.main
-        : 'rgba(44, 118, 126)',
+      franchise || company ? theme.palette.primary.main : 'rgba(44, 118, 126)',
     opacity: 0.6,
   }),
-  light: (props: Props) => ({
+  light: ({ franchise, company }) => ({
     background:
-      props.franchise || props.company
+      franchise || company
         ? theme.palette.secondary.main
         : 'rgba(73, 156, 124)',
     opacity: 0.6,
@@ -175,8 +180,6 @@ const styles = (theme: Theme): any => ({
     left: 0,
     position: 'absolute',
   },
-});
+}));
 
-export default compose<any, OwnProps>(withStyles(styles, { withTheme: true }))(
-  LoginBackgroundComponent,
-);
+export default compose<any, OwnProps>(LoginBackgroundComponent);

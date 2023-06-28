@@ -1,26 +1,23 @@
 // @ts-nocheck
-// @flow
 
 import React, { Component } from 'react';
 import { compose, withHandlers, withProps, withState } from 'recompose';
 
-import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
-import type { Theme } from '@material-ui/core/styles';
-import type { Dispatch } from '../../state/types';
+import type { Dispatch } from '../../../state/types';
 import themeSelectors from '#libs/theme/selectors';
-import { parseQueryString } from '../../http';
-import { requestLogin, disconnect } from '../../actions/auth.actions';
+import { parseQueryString } from '../../../http';
+import { requestLogin, disconnect } from '../../../actions/auth.actions';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 import Analytics from '#components/analytics/Analytics.component';
 import Login from '#libs/login/components/Login.component';
 import { withQueryParamsUndecoded } from '#hocs/with-query-params.hoc';
-import type { RootState } from '../../reducers';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import type { RootState } from '../../../reducers';
+import { WithHandlerType } from '../../../utils/types';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import FranchiseCompanyLogin from '#libs/franchise/components/FranchiseCompanyLogin.component';
 import { FranchiseDetails } from '#libs/franchise/types';
@@ -30,7 +27,9 @@ import {
   getFranchisor,
 } from '#libs/franchise/selectors';
 import { STEPS } from '#libs/login/utils';
-import { buildSignUpUrl } from './utils';
+import { buildSignUpUrl } from '../utils';
+import './LoginPageStyles.css';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 type OwnProps = {
   location: {
@@ -55,6 +54,7 @@ type OwnProps = {
   paymentPackTemplateCompanies: string;
   context: string;
   signUpNext: string;
+  simplifyUI?: boolean;
 };
 
 type ConnectedPropsType = ReturnType<typeof mapStateToProps> &
@@ -64,7 +64,6 @@ type ConnectedPropsType = ReturnType<typeof mapStateToProps> &
 type Props = OwnProps &
   ConnectedPropsType &
   WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>> &
   WithHandlerType<typeof mapWithHandlers>;
 
 export class ConsumerLoginPage extends Component<Props> {
@@ -85,7 +84,6 @@ export class ConsumerLoginPage extends Component<Props> {
   render() {
     const {
       authenticated,
-      classes,
       t,
       theme,
       membership,
@@ -94,8 +92,8 @@ export class ConsumerLoginPage extends Component<Props> {
       step,
       goToSignup,
       goNext,
-
       paymentPackTemplateCompanies,
+      simplifyUI,
     } = this.props;
     if (authenticated) {
       if (goNext) {
@@ -123,47 +121,66 @@ export class ConsumerLoginPage extends Component<Props> {
       );
     }
 
+    let containerClass = WidgetUtils.isWidget()
+      ? 'bs-login-container--widget'
+      : 'bs-login-container--webpage';
+
+    if (simplifyUI) {
+      containerClass += '--simplifyUI';
+    }
+
     return (
-      <div className={classes.container}>
-        {(!franchisorId ||
-          (franchisorId && step === STEPS.loginToFranchise)) && (
-          <Login
-            doEmailLogin={this.props.doEmailLogin}
-            error={this.props.errorLogin}
-            errorFields={this.props.errorFields}
-            loading={this.props.loginProcessing}
-            requestSignUp={
-              franchisorId
-                ? () =>
-                    this.props.setQueryParams('step')(STEPS.franchiseeSelection)
-                : () =>
-                    this.props.replace(`/login/signup${window.location.search}`)
-            }
-            company={!!membership}
-            isPremium={this.props.is_premium}
-            theme={theme}
-            t={t}
-            franchisor={franchisor}
-          />
-        )}
+      <div
+        className={
+          simplifyUI ? 'bs-flex-column--simplifyUI' : 'bs-flex-column--default'
+        }
+      >
+        <div className={containerClass}>
+          {(!franchisorId ||
+            (franchisorId && step === STEPS.loginToFranchise)) && (
+            <Login
+              doEmailLogin={this.props.doEmailLogin}
+              error={this.props.errorLogin}
+              errorFields={this.props.errorFields}
+              loading={this.props.loginProcessing}
+              requestSignUp={
+                franchisorId
+                  ? () =>
+                      this.props.setQueryParams('step')(
+                        STEPS.franchiseeSelection,
+                      )
+                  : () =>
+                      this.props.replace(
+                        `/login/signup${window.location.search}`,
+                      )
+              }
+              company={!!membership}
+              isPremium={this.props.is_premium}
+              theme={theme}
+              t={t}
+              franchisor={franchisor}
+              simplifyUI={simplifyUI}
+            />
+          )}
 
-        {franchisor && step === STEPS.franchiseeSelection && (
-          <FranchiseCompanyLogin
-            companies={companiesSelectable}
-            authenticated={authenticated}
-            disconnect={this.props.disconnect}
-            selectedFranchisee={this.props.selectedFranchisee}
-            setSelectedFranchisee={this.props.setSelectedFranchisee}
-            goToSignup={goToSignup}
-            setStep={this.props.setQueryParams('step')}
-            franchisor={this.props.franchisorId}
-            franchiseTheme={this.props.franchisor}
-          />
-        )}
+          {franchisor && step === STEPS.franchiseeSelection && (
+            <FranchiseCompanyLogin
+              companies={companiesSelectable}
+              authenticated={authenticated}
+              disconnect={this.props.disconnect}
+              selectedFranchisee={this.props.selectedFranchisee}
+              setSelectedFranchisee={this.props.setSelectedFranchisee}
+              goToSignup={goToSignup}
+              setStep={this.props.setQueryParams('step')}
+              franchisor={this.props.franchisorId}
+              franchiseTheme={this.props.franchisor}
+            />
+          )}
 
-        {((!!theme && membership) || franchisor) && (
-          <Analytics username="" theme={theme} />
-        )}
+          {((!!theme && membership) || franchisor) && (
+            <Analytics username="" theme={theme} />
+          )}
+        </div>
       </div>
     );
   }
@@ -239,31 +256,11 @@ const mapStateToProps = (
   // membershipThemeLoading: !!membership && getThemeLoading(state),
 });
 
-const styles = (theme: Theme): any => ({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    padding: theme.spacing(1),
-    width: '100%',
-    overflow: 'auto',
-    height: WidgetUtils.isWidget() ? '100%' : '92vh',
-    marginTop: WidgetUtils.isWidget() ? 0 : '8vh',
-    [theme.breakpoints.down('xs')]: {
-      marginTop: 0,
-    },
-  },
-});
-
 const connector = connect(null, properMapDispatchToProps);
 
 export default compose(
+  marketplaceCssHoc(),
   withRouter,
-  withStyles(styles),
   withTranslation(['login']),
   withQueryParamsUndecoded([['step'], 'queryParams', 'setQueryParams']),
   withState('selectedFranchisee', 'setSelectedFranchisee', null),

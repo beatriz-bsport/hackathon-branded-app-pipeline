@@ -1,32 +1,20 @@
 // @ts-nocheck
-// @flow
 
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { compose } from 'recompose';
-import chroma from 'chroma-js';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Button from '@material-ui/core/Button';
-import Hidden from '@material-ui/core/Hidden';
-import { alpha } from '@material-ui/core';
+import { Button, IconButton } from '@material-ui/core';
 import './LoginBackground.css';
 import './Login.css';
 import HelpIcon from '@material-ui/icons/Help';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import Fade from '@material-ui/core/Fade';
-import { Theme } from '@material-ui/core/styles/createTheme';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
-import Radio from '@material-ui/core/Radio';
 import { CompanyTheme } from '#libs/theme/types';
-import PasswordInput from '../../../components/input/PasswordInput.component';
+import PasswordInput from '#components/input/PasswordInput.component';
+import Radio from '#components/css-only/Radio';
 
-import FormField from '../../../components/input/FormField.component';
+import FormField from '#components/input/FormField.component';
 import { openIntercomHelp } from '../../../intercom';
 import getCalendlyLinkFromCountry from '../../../i18n/utils/calendly-link-language';
 import WidgetUtils from '#libs/widget/WidgetUtils';
@@ -45,6 +33,7 @@ type Props = {
     password?: string;
   };
   t: TFunction;
+  simplifyUI?: boolean;
   isPremium?: boolean;
   company?: boolean;
   theme?: CompanyTheme;
@@ -70,8 +59,10 @@ export class ConsumerLogin extends Component<Props, State> {
     this.setState({ [id]: value });
   };
 
+  onEmailChange = (value: string) => this.onFormFieldChange('email')(value);
+
   getEmailLogin = () => {
-    const { classes, error, errorFields, t } = this.props;
+    const { simplifyUI, error, errorFields, t } = this.props;
     let errorMessage = t('error.authError');
 
     if (errorFields && errorFields.password) {
@@ -80,83 +71,113 @@ export class ConsumerLogin extends Component<Props, State> {
     if (errorFields && errorFields.email) {
       errorMessage = t('error.invalidEmail');
     }
+    let signinButtonClass = 'bs-login-container__signin-button--default';
+    if (simplifyUI) {
+      if (this.props.company || this.props.franchisor) {
+        signinButtonClass =
+          'bs-login-container__signin-button--simplifyUI-company';
+      } else {
+        signinButtonClass = 'bs-login-container__signin-button--simplifyUI';
+      }
+    } else if (this.props.company || this.props.franchisor) {
+      signinButtonClass = 'bs-login-container__signin-button--company';
+    }
+
+    if (this.props.loading) {
+      signinButtonClass += '--loading';
+    }
+
+    const rectangleClass =
+      this.props.company || this.props.franchisor
+        ? 'bs-rectangle--company'
+        : 'bs-rectangle--default';
+
     return (
-      <div className={`${classes.flexColumnCenter} ${classes.getEmailLogin}`}>
+      <div
+        className={`${'bs-flex-column--center'} ${'bs-login-container__get-email-login'}`}
+      >
         {!WidgetUtils.isWidget() && !this.props.logoHidden && (
-          <div className={classes.logoDiv}>
-            <Hidden smUp>
-              <Fade in>
-                <div>
-                  <img
-                    src={
-                      this.props.theme
-                        ? this.props.theme.cover
-                        : 'https://cdn.bsport.io/bsport_logo_txt.png'
-                    }
-                    className={classes.logo}
-                    alt={
-                      this.props.theme
-                        ? `${this.props.theme.company_name} - logo`
-                        : 'bsport-logo'
-                    }
-                  />
-                </div>
-              </Fade>
-            </Hidden>
+          <div className="bs-login-container__logo-div">
+            <div>
+              <img
+                src={
+                  this.props.theme
+                    ? this.props.theme.cover
+                    : 'https://cdn.bsport.io/bsport_logo_txt.png'
+                }
+                className="bs-login-container__logo"
+                alt={
+                  this.props.theme
+                    ? `${this.props.theme.company_name} - logo`
+                    : 'bsport-logo'
+                }
+              />
+            </div>
           </div>
         )}
-        <div className={classes.flexRowCenter}>
+        <div className="bs-flex-row">
           <div
             className={classnames(
-              classes.flexColumnCenter,
-              classes.connectionTitle,
+              'bs-flex-column--center',
+              'bs-login-container__connection-title',
             )}
           >
-            <Typography className={classes.connection}>
+            <div className="bs-login-container__connection">
               {t('signin.connection')}
-            </Typography>
-            <div
-              className={classnames([classes.rectangle, 'reactangle-animated'])}
-            />
-            <IconButton
-              className={classes.iconButton}
-              onClick={() => openIntercomHelp('login')}
-            >
-              <HelpIcon />
-            </IconButton>
+            </div>
+            {!simplifyUI && (
+              <div
+                className={classnames(rectangleClass, 'reactangle-animated')}
+              />
+            )}
+            {!simplifyUI && (
+              <IconButton
+                id="btn-intercom"
+                className="bs-login-container__icon-button"
+                onClick={() => openIntercomHelp('login')}
+              >
+                <HelpIcon />
+              </IconButton>
+            )}
           </div>
         </div>
-        <div className={classes.connect}>
-          <Typography variant="body1">{t('signin.connect')}</Typography>
+        <div className="bs-login-container__connect">
+          <div className="bs-login-container__body1-text">
+            {t('signin.connect')}
+          </div>
         </div>
-        <form className={classes.column} onSubmit={this.doEmailLogin}>
-          <div className={classes.field}>
-            {this.props.emailChoices ? (
-              <RadioGroup
-                id="email"
-                name="login"
-                onChange={(ev) => this.setState({ email: ev.target.value })}
-              >
+        <form className="bs-column" onSubmit={this.doEmailLogin}>
+          <div className="bs-login-container__field">
+            {this.props?.emailChoices ? (
+              <div id="email" name="login">
                 <>
-                  <FormLabel className={classes.emailChoiceLabel}>
+                  <div
+                    className={classnames(
+                      'bs-login-container__email-choice-label',
+                      'bs-login-container__body1-text',
+                    )}
+                  >
                     {t('signin.selectYourCurrentEmail')}
-                  </FormLabel>
-                  {this.props.emailChoices?.map((email_choice) => {
-                    return (
-                      <FormControlLabel
-                        value={email_choice}
-                        control={
+                  </div>
+                  <div className="bs-flex-column--align-left">
+                    {this.props.emailChoices?.map((email_choice) => {
+                      return (
+                        <form className="bs-flex-row">
                           <Radio
-                            checked={this.state.email === email_choice}
+                            isChecked={this.state.email === email_choice}
                             disabled={this.props.loading}
+                            onClick={this.onEmailChange}
+                            value={email_choice}
+                            label={email_choice}
+                            name={email_choice}
+                            labelRight
                           />
-                        }
-                        label={email_choice}
-                      />
-                    );
-                  })}
+                        </form>
+                      );
+                    })}
+                  </div>
                 </>
-              </RadioGroup>
+              </div>
             ) : (
               <FormField
                 id="email"
@@ -168,7 +189,7 @@ export class ConsumerLogin extends Component<Props, State> {
               />
             )}
           </div>
-          <div className={classes.field}>
+          <div className="bs-login-container__field">
             <PasswordInput
               fullWidth
               value={this.state.password}
@@ -176,7 +197,7 @@ export class ConsumerLogin extends Component<Props, State> {
                 this.props.loading ||
                 (!!this.props.emailChoices && !this.state.email)
               }
-              className={classes.field}
+              className="bs-login-container__field"
               onChange={(ev: any) =>
                 this.onFormFieldChange('password')(ev.target.value)
               }
@@ -185,20 +206,29 @@ export class ConsumerLogin extends Component<Props, State> {
           {error ? (
             <div
               className={classnames(
-                classes.errorMessage,
-                classes.flexRowCenter,
+                'bs-login-container__error-message',
+                'bs-flex-row',
               )}
             >
-              <Typography color="error" variant="body2">
+              <div
+                className={classnames(
+                  'bs-login-container__error-text',
+                  'bs-login-container__body2-text',
+                )}
+              >
                 {errorMessage}
-              </Typography>
-              <IconButton onClick={() => openIntercomHelp('login')}>
+              </div>
+              <IconButton
+                id="btn-intercom-error"
+                type="submit"
+                onClick={() => openIntercomHelp('login')}
+              >
                 <HelpIcon />
               </IconButton>
             </div>
           ) : null}
           <Button
-            className={classes.signInButton}
+            className={signinButtonClass}
             disabled={this.props.loading}
             variant="contained"
             type="submit"
@@ -216,8 +246,8 @@ export class ConsumerLogin extends Component<Props, State> {
           </Button>
           <div
             className={classnames(
-              classes.flexRowCenter,
-              classes.forgottenPassword,
+              'bs-flex-row',
+              'bs-login-container__forgotten-password',
             )}
           >
             <a
@@ -231,11 +261,16 @@ export class ConsumerLogin extends Component<Props, State> {
               })}`}
               style={{ textDecoration: 'none' }}
             >
-              <Typography variant="body2" align="center">
-                <p className={classes.forgottenPasswordText}>
+              <div align="center">
+                <p
+                  className={classnames(
+                    'bs-login-container__forgotten-password-text',
+                    'bs-login-container__body2-text',
+                  )}
+                >
                   {t('actions.forgottenPassword')}
                 </p>
-              </Typography>
+              </div>
             </a>
           </div>
         </form>
@@ -250,38 +285,45 @@ export class ConsumerLogin extends Component<Props, State> {
   };
 
   render() {
-    const { loading, t, classes, hideRegister } = this.props;
+    const { simplifyUI, loading, t, hideRegister } = this.props;
 
     const { requestSignUp } = this.props;
+
+    const signUpDividerClass = WidgetUtils.isWidget()
+      ? 'bs-login-container__signup-divider--widget'
+      : 'bs-login-container__signup-divider--default';
+
     return (
-      <div className={classnames(classes.flexColumnCenter, classes.container)}>
+      <div
+        className={classnames('bs-login-container', 'bs-flex-column--center')}
+      >
         {this.getEmailLogin()}
         {!hideRegister && (
           <>
-            <div className={classes.signupDivider} />
-            <div>
-              <Typography variant="body2">
-                {t('actions.signup.noAccount')}
-              </Typography>
+            <div className={signUpDividerClass} />
+            <div className="bs-login-container__body2-text">
+              {t('actions.signup.noAccount')}
             </div>
             <Button
               id="btn-goto-signup"
               variant="outlined"
               disabled={loading}
               onClick={requestSignUp}
-              className={classes.registerButton}
+              className="bs-login-container__register-button"
             >
               {t('actions.signup.register')}
             </Button>
-            {!this.props.isPremium && (
-              <div className={classes.studioManager}>
+            {!this.props.isPremium && !simplifyUI && (
+              <div className="bs-login-container__studio-manager">
                 <a
                   href={getCalendlyLinkFromCountry(
                     this.props.theme?.company_name,
                   )}
-                  className={classes.link}
+                  className="bs-link"
                 >
-                  <Typography variant="body2">{t('contactUs')}</Typography>
+                  <div className="bs-login-container__body2-text">
+                    {t('contactUs')}
+                  </div>
                 </a>
               </div>
             )}
@@ -292,196 +334,4 @@ export class ConsumerLogin extends Component<Props, State> {
   }
 }
 
-const styles = (theme: Theme): any => ({
-  flexRowCenter: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  flexColumnCenter: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  container: {
-    '& > *': {
-      marginBottom: theme.spacing(1),
-    },
-    width: 408,
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
-    },
-    marginBottom: theme.spacing(10),
-  },
-  connectionTitle: {
-    position: 'relative',
-  },
-  iconButton: {
-    position: 'absolute',
-    top: 4,
-    right: '-30%',
-    marginLeft: theme.spacing(2),
-  },
-  signInButton: (props: Props) => ({
-    marginTop: theme.spacing(2),
-    // eslint-disable-next-line
-    background: props.loading
-      ? '#deded'
-      : props.company || props.franchisor
-      ? `linear-gradient(90deg,${theme.palette.primary.main} 4.66%, ${chroma(
-          theme.palette.primary.main,
-        ).darken(1.2)} 88.6%)`
-      : 'linear-gradient(90deg, #499C7C 4.66%, #2D767F 88.6%)',
-    borderRadius: 8,
-    height: 48,
-    color:
-      chroma(theme.palette.primary.main).luminance() > 0.5
-        ? '#000000'
-        : '#ffffff',
-    '&:hover': {
-      // eslint-disable-next-line
-      background: props.loading
-        ? '#dedede'
-        : props.company || props.franchisor
-        ? `linear-gradient(90deg,${chroma(theme.palette.primary.main).darken(
-            1.05,
-          )} 4.66%, ${chroma(theme.palette.primary.main).darken(1.25)} 88.6%)`
-        : `linear-gradient(90deg, ${chroma('#499C7C').darken(
-            1.05,
-          )} 4.66%, ${chroma('#2D767F').darken(1.05)} 88.6%)`,
-    },
-  }),
-  field: {
-    marginBottom: theme.spacing(3),
-    color: 'rgba(117, 117, 117, 1)',
-  },
-  errorMessage: {
-    marginLeft: theme.spacing(2.5),
-    alignSelf: 'center',
-  },
-  column: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'stretch',
-    width: 408,
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
-    },
-  },
-  rectangle: (props: Props) => ({
-    height: 5,
-    background:
-      props.company || props.franchisor
-        ? `linear-gradient(90deg,${theme.palette.primary.main} 4.66%, ${chroma(
-            theme.palette.primary.main,
-          ).darken(1.1)} 88.6%)`
-        : 'linear-gradient(90deg, #499C7C 4.66%, #2D767F 88.6%)',
-    width: 146,
-    marginBottom: theme.spacing(3),
-  }),
-  connection: {
-    fontSize: 36,
-    fontWeight: 700,
-  },
-  connect: {
-    color: 'rgba(0, 0, 0, 0.7)',
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-    marginLeft: theme.spacing(2),
-    textAlign: 'center',
-  },
-  forgottenPassword: {
-    alignSelf: 'center',
-  },
-  forgottenPasswordText: {
-    color:
-      chroma(theme.palette.secondary.main).luminance() < 0.3
-        ? theme.palette.secondary.main
-        : `${chroma(theme.palette.secondary.main).darken(1.1)}`,
-  },
-  registerButton: {
-    borderRadius: 42,
-    border: '1px solid #4D4D4D',
-    minWidth: 200,
-    minHeight: 46,
-    '&:hover': {
-      background: theme.palette.primary.main,
-      color:
-        chroma(theme.palette.primary.main).luminance() > 0.5
-          ? '#000000'
-          : '#ffffff',
-      border: 'none',
-    },
-  },
-  signupDivider: (props: Props) => ({
-    maxWidth: 274,
-    minWidth: '65%',
-    height: 1,
-    border: '0.5px solid #E5E5E5',
-    marginTop:
-      WidgetUtils.isWidget() || props.marketplace
-        ? theme.spacing(2)
-        : theme.spacing(6),
-    marginBottom:
-      WidgetUtils.isWidget() || props.marketplace
-        ? theme.spacing(5)
-        : theme.spacing(9),
-    [theme.breakpoints.down('sm')]: {
-      marginTop: theme.spacing(2),
-      marginBottom: theme.spacing(5),
-      minWidth: '50%',
-      width: 190,
-    },
-  }),
-  studioManager: {
-    marginTop: theme.spacing(5),
-    whiteSpace: 'pre-line',
-    textAlign: 'center',
-    width: 408,
-    background: alpha(theme.palette.background.default, 0.75),
-    boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.1)',
-    backdropFilter: 'blur(4px)',
-    borderRadius: '16px',
-    padding: '10px 0px',
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
-      paddingLeft: theme.spacing(5),
-      paddingRight: theme.spacing(5),
-    },
-  },
-  link: {
-    '&:hover': {
-      color: theme.palette.primary.main,
-    },
-    '&:link': {
-      color:
-        chroma(theme.palette.secondary.main).luminance() < 0.4
-          ? theme.palette.secondary.main
-          : `${chroma(theme.palette.secondary.main).darken(1.1)}`,
-    },
-    '&:visited': {
-      color:
-        chroma(theme.palette.secondary.main).luminance() < 0.4
-          ? theme.palette.secondary.main
-          : `${chroma(theme.palette.secondary.main).darken(1.1)}`,
-    },
-  },
-  logo: {
-    marginBottom: theme.spacing(3),
-    height: 38,
-  },
-  logoDiv: {
-    alignSelf: 'start',
-  },
-  getEmailLogin: {
-    width: '90%',
-  },
-  emailChoiceLabel: {
-    paddingBottom: theme.spacing(2),
-  },
-});
-
-export default compose<any, Props>(
-  withStyles(styles),
-  withTranslation(['login']),
-)(ConsumerLogin);
+export default compose<any, Props>(withTranslation(['login']))(ConsumerLogin);

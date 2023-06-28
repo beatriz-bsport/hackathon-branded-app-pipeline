@@ -15,17 +15,31 @@ export type Props = {
   className?: string;
   disabled?: boolean;
   onClick: (value: string) => void;
+  labelRight?: boolean;
 };
 
 const Checkbox: React.FC<Props> = React.memo(
-  ({ isChecked, label, name, value, className, disabled, onClick }) => {
+  ({
+    isChecked,
+    label,
+    name,
+    value,
+    className,
+    disabled,
+    onClick,
+    labelRight,
+  }) => {
     const handleOnClick = useCallback(() => {
       onClick(value);
     }, [value, onClick]);
 
+    const labelClass = labelRight
+      ? 'bs-radio__label--right'
+      : 'bs-radio__label--default';
+
     return (
       <div className={classNames('bs-radio__container', className)}>
-        <label htmlFor={name} className="bs-radio__label">
+        <label htmlFor={name} className={labelClass}>
           <input
             id={name}
             className="bs-radio__input"

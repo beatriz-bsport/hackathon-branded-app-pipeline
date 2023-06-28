@@ -59,7 +59,7 @@ const ValidateEmailWithTokenPage = asyncComponent(
   () => import('./ValidateEmailWithToken.page'),
 );
 
-const LoginPage = asyncComponent(() => import('./Login.page'));
+const LoginPage = asyncComponent(() => import('./login-page/Login.page'));
 
 const ResetPassword = asyncComponent(() => import('./ResetPassword.page'));
 

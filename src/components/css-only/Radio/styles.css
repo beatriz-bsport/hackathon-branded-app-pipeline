@@ -2,9 +2,17 @@
   width: fit-content;
 }
 
-.bs-radio__label {
+.bs-radio__label--default {
   display: flex;
   flex-direction: column-reverse;
+  align-items: center;
+  gap: var(--spacing-1);
+  cursor: pointer;
+}
+
+.bs-radio__label--right {
+  display: flex;
+  flex-direction: row;
   align-items: center;
   gap: var(--spacing-1);
   cursor: pointer;

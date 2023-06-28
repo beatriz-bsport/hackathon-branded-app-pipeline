@@ -93,6 +93,8 @@ import {
   MARKETPLACE_PATH_TAB_GIFTCARD,
 } from '#libs/marketplace/constants';
 
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
 const MarketplacePassPage = asyncComponent(() =>
   import('./MarketplacePass.page'),
 );
@@ -486,6 +488,7 @@ export class MarketPlace extends Component<Props, State> {
         )}/${this.props.subcomponent || ''}`,
       );
     }
+
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <MemberShipValidationWrapper companyId={this.props.companyId}>
@@ -558,23 +561,25 @@ export class MarketPlace extends Component<Props, State> {
               }
               onClose={this.closeLogin}
             >
-              <DialogContent>
-                <div className={classes.loginDialog}>
-                  <Login
-                    doEmailLogin={this.doEmailLogin}
-                    errorFields={this.props.errorFields}
-                    error={this.props.auth.error}
-                    loading={this.props.auth.loading}
-                    requestSignUp={() => this.toggleSignUp(true)}
-                    franchisor={this.props.franchisor}
-                    company
-                    theme={this.props.theme}
-                    isPremium
-                    logoHidden
-                    marketplace
-                  />
-                </div>
-              </DialogContent>
+              <div id="bs-setup-derived-variable" className="bs-setup-variable">
+                <DialogContent>
+                  <div className={classes.loginDialog}>
+                    <Login
+                      doEmailLogin={this.doEmailLogin}
+                      errorFields={this.props.errorFields}
+                      error={this.props.auth.error}
+                      loading={this.props.auth.loading}
+                      requestSignUp={() => this.toggleSignUp(true)}
+                      franchisor={this.props.franchisor}
+                      company
+                      theme={this.props.theme}
+                      isPremium
+                      logoHidden
+                      marketplace
+                    />
+                  </div>
+                </DialogContent>
+              </div>
             </Dialog>
             <CustomFormViewDialogComponent
               open={
@@ -700,6 +705,7 @@ const withStateHandlersSetter = {
 };
 
 export default compose(
+  marketplaceCssHoc(),
   withStyles(styles),
   withTranslation(),
   withMobileDialog(),

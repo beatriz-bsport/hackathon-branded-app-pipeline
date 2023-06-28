@@ -108,7 +108,7 @@ const styles = (theme: Theme): any => ({
     height: '100vh',
     overflow: 'hidden',
     zIndex: 0,
-    position: 'relative',
+    position: 'fixed',
   },
   circle: {
     borderRadius: '50%',

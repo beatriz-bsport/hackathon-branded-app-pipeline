@@ -3,7 +3,6 @@ import React from 'react';
 
 import { withRouter, Switch, Redirect, Route } from 'react-router-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import withStyles from '@material-ui/core/styles/withStyles';
 
 import { withProps, compose } from 'recompose';
 import { connect } from 'react-redux';
@@ -36,6 +35,23 @@ import {
 import { FranchiseDetails } from '#libs/franchise/types';
 import LanguageButton from '../../components/button/LanguageButton.component';
 import namespaces from '../../i18n/namespaces.json';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import './LoginRouterStyles.css';
+
+/* Some of these pages were reworked to be CSS Only, some were not. Here is which ones and why:
+
+Login, ResetPassword and Signup pages were reworked because they appear on the booking flow on the member side.
+Since the new booking flow can appear in the widget, it was necessary turning these pages into CSS Only
+to allow customization in the widget.
+
+Signout page was not reworked because it doesn't have CSS.
+
+ValidateEmailWithToken, DoubleLogin, CompanyOnboardingRouter and AccountConfigurationRouter were not reworked
+because they do not appear on the booking flow on the member side.
+
+ChangePassword page was not reworked although it can be accessed on the member side because it is only accessible by clicking
+a link on the email sent after reset password request, so it never appears in the widget.
+*/
 
 const Signout = asyncComponent(() => import('./Signout.page'));
 
@@ -81,6 +97,7 @@ type Props = {
     search: string;
     state: string;
   };
+  simplifyUI?: boolean;
 };
 
 export class LoginRouter extends React.Component<Props> {
@@ -129,7 +146,7 @@ export class LoginRouter extends React.Component<Props> {
   }
 
   render() {
-    const { classes, location, franchiseTheme } = this.props;
+    const { location, franchiseTheme, simplifyUI } = this.props;
     let src: string = 'https://cdn.bsport.io/bsport_logo_txt.png';
     let alt: string = 'bsport-logo';
     if (this.props.theme) {
@@ -155,28 +172,34 @@ export class LoginRouter extends React.Component<Props> {
             : getTheme(this.props.theme)
         }
       >
-        <Hidden
-          xsDown={location.pathname !== '/login/signup'}
-          mdDown={location.pathname === '/login/signup'}
-        >
-          <LoginBackground
-            company={!!this.props.membership}
-            franchise={!!this.props.franchisor}
-            theme={
-              this.props.franchisor && franchiseTheme
-                ? getFranchiseTheme(franchiseTheme)
-                : getTheme(this.props.theme)
-            }
-          />
-          <Fade in>
-            <div className={classes.header}>
-              <img src={src} className={classes.logo} alt={alt} />
+        {!simplifyUI && (
+          <Hidden
+            xsDown={location.pathname !== '/login/signup'}
+            mdDown={location.pathname === '/login/signup'}
+          >
+            <LoginBackground
+              company={!!this.props.membership}
+              franchise={!!this.props.franchisor}
+              theme={
+                this.props.franchisor && franchiseTheme
+                  ? getFranchiseTheme(franchiseTheme)
+                  : getTheme(this.props.theme)
+              }
+            />
+            <Fade in>
+              <div className="bs-container__header">
+                <img
+                  src={src}
+                  className="bs-container__header__logo"
+                  alt={alt}
+                />
 
-              <LanguageButton />
-            </div>
-          </Fade>
-        </Hidden>
-        <div className={classes.loginContainer}>
+                <LanguageButton />
+              </div>
+            </Fade>
+          </Hidden>
+        )}
+        <div className="bs-container">
           <Switch>
             <Route
               path="/login/accountConfiguration"
@@ -213,36 +236,9 @@ export class LoginRouter extends React.Component<Props> {
   }
 }
 
-const styles = (theme) => ({
-  loginContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    minHeight: '100vh',
-    zIndex: 2,
-  },
-  header: {
-    display: 'flex',
-    position: 'absolute',
-    padding: theme.spacing(5),
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    zIndex: 9,
-  },
-  logo: {
-    height: 50,
-  },
-  circularProgress: {
-    position: 'fixed',
-    top: '40%',
-    left: '50%',
-  },
-});
-
 export default compose<any, Props>(
+  marketplaceCssHoc(),
   withRouter,
-  withStyles(styles),
   withTranslation(namespaces),
   withProps((props: Props) => ({
     membership: parseQueryString(props.location.search).membership,

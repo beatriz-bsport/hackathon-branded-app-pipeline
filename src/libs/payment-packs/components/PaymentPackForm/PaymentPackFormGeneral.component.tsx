@@ -97,6 +97,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
         validity: 'givenNumber',
         full_vod_access: true,
         only_vod_access: false,
+        off_peak_active: false,
       });
       setDisableUniversalPassFields(true);
     } else {

@@ -202,7 +202,9 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             <div className={classes.row}>
               <SwitchField
                 name="off_peak_active"
-                disabled={!!initial?.template_instance}
+                disabled={
+                  disabledUniversalPassFields || !!initial?.template_instance
+                }
               />
               <Typography>{t('addPaymentPack.offPeak.label')}</Typography>
             </div>

@@ -1,7 +1,24 @@
-// @ts-nocheck
 import { ErrorAndLoading } from '../types';
 import { Company } from '../company/types';
 import { Invoice } from '#libs/invoice/types';
+
+// TODO: Should be deleted when importing the enums from common
+enum CouponKind {
+  COUPON_VIA_CODE = 0,
+  COUPON_VIA_UNIQUE_CODE_PER_USAGE = 1,
+}
+
+enum UniqueCodeStateStatus {
+  AVAILABLE = 'AVAILABLE',
+  LOCKED = 'LOCKED',
+  USED = 'USED',
+  REDEEMED = 'REDEEMED',
+}
+
+enum CouponUniqueCodeEditModeOptions {
+  COUPON_UNIQUE_CODE_EDIT_MODE_APPEND = 0,
+  COUPON_UNIQUE_CODE_EDIT_MODE_REPLACE = 1,
+}
 
 export type Discount = {
   id: string;
@@ -22,7 +39,7 @@ export type Coupon = {
   id?: number;
   available: boolean;
   company: number;
-  code: string;
+  code?: string;
   amount_off: number;
   percent_off: number;
   voucher_type: number;
@@ -42,6 +59,8 @@ export type Coupon = {
   blacklist_tags: number[];
   subscription_mode: number;
   coupon_template_instance: CouponTemplateInstance;
+  coupon_type: CouponKind;
+  available_unique_codes?: AvailableUniqueCodes;
 };
 
 export type CouponState = {
@@ -65,6 +84,15 @@ export type CouponState = {
     upsert: ErrorAndLoading;
   };
 };
+
+export type UniqueCodeState = {
+  status: UniqueCodeStateStatus;
+  date_used?: number; // timestamp in second
+  member_id?: number;
+  invoice_uuid?: number;
+};
+
+type AvailableUniqueCodes = Record<string, UniqueCodeState>;
 
 export type CouponTemplateInstance = {
   id: number;
@@ -96,6 +124,23 @@ export type CouponTemplateAPI = {
   coupon_template_instances: Array<CouponTemplateInstance>;
   subscription_mode: number;
   nb_discounts: number;
+};
+
+export type UniqueCodeCouponCreationPayload = {
+  name: string;
+  is_active: boolean;
+  only_on_first_checkout: boolean;
+  usage_per_member?: number;
+  applies_to: number;
+  only_on_objects: number[];
+  expiration_date?: string;
+  coupon_cost_for_company: number;
+  codes: string[];
+};
+
+export type UniqueCodeCouponUpdatePayload = UniqueCodeCouponCreationPayload & {
+  update_mode?: CouponUniqueCodeEditModeOptions;
+  codes?: string[];
 };
 
 export type CouponTemplate = CouponTemplateAPI & {

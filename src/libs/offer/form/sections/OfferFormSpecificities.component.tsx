@@ -36,6 +36,11 @@ import {
   OptionPaginatedCallback,
 } from '../../../../state/types';
 import { HYBRID_OFFER_DEFAULT_EFFECTIF_FOR_ONLINE_SESSION } from '#libs/offer/constants';
+// @ts-ignore
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { FeatureList } from '#libs/company/types';
 
 type Props = {
   activeCustomLevels: Level[];
@@ -148,7 +153,7 @@ const OfferFormSpecificities = (props: Props) => {
   );
 
   const handleSetRoomBlueprintSpot = useCallback(
-    (blueprintId: number) => {
+    (hasSpiviUpsell: boolean) => (blueprintId: number) => {
       const helpers = getFieldHelpers('roomBlueprint');
       helpers.setTouched(true);
       const blueprint = roomBlueprints.find(
@@ -156,6 +161,10 @@ const OfferFormSpecificities = (props: Props) => {
       );
       const spotCount = SpotSchedulingHelper.getSpotCount(blueprint);
       setFieldValue('roomBlueprintSlots', spotCount);
+
+      if (blueprint?.spivi_box_id && hasSpiviUpsell) {
+        setFieldValue('syncOfferOnSpivi', true);
+      }
       if (blueprint === null || !blueprint?.spivi_box_id) {
         setFieldValue('syncOfferOnSpivi', false);
       }
@@ -343,18 +352,24 @@ const OfferFormSpecificities = (props: Props) => {
             id="offer-form-spot-scheduling-field-container"
             className={classes.stretchSelf}
           >
-            <OfferFormSelector
-              id="offer-form-blueprint-selector"
-              name="roomBlueprint"
-              options={getAvailableRoomBlueprints()}
-              className={classes.bigWidth}
-              placeholder={t(
-                'form.section.specificities.field.roomBlueprint.placeholder',
+            <FeatureListProvider>
+              {(featureList: FeatureList) => (
+                <OfferFormSelector
+                  id="offer-form-blueprint-selector"
+                  name="roomBlueprint"
+                  options={getAvailableRoomBlueprints()}
+                  className={classes.bigWidth}
+                  placeholder={t(
+                    'form.section.specificities.field.roomBlueprint.placeholder',
+                  )}
+                  onSelectedOption={handleSetRoomBlueprintSpot(
+                    hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI),
+                  )}
+                  isClearable
+                  isError={!!errors.roomBlueprint}
+                />
               )}
-              onSelectedOption={handleSetRoomBlueprintSpot}
-              isClearable
-              isError={!!errors.roomBlueprint}
-            />
+            </FeatureListProvider>
 
             <Tooltip
               title={t('form.section.specificities.tooltip.roomBlueprint')}

@@ -1948,7 +1948,8 @@
                 "muted": "Silenzioso",
                 "disabled": "Archiviati"
             },
-            "loadMoreThreads": "Carica altri messaggi"
+            "loadMoreThreads": "Carica altri messaggi",
+            "noThread": "Nessun risultato"
         },
         "sentStatus": {
             "fail": "Si è verificato un errore durante l'invio",
@@ -5803,7 +5804,7 @@
             "blockedDialog": {
                 "alert": "Attenzione, con questo rimborso supererai il limite di scoperto autorizzato di {{ refundBlockingLimit }} {{currencyDisplay}}.",
                 "title": "Saldo Stripe insufficiente",
-                "helper": "Il tuo saldo Stripe di {{ stripeBalanceSum}} {{ currencyDisplay }} non è sufficiente per elaborare il rimborso. Si prega di riprovare dopo alcuni giorni per l'elaborazione dei pagamenti.\n\nPuoi seguire l'importo del tuo saldo in tempo reale in Impostazioni > Abbonamento Bsport."
+                "helper": "Il saldo di Stripe non è sufficiente per elaborare il rimborso. Si prega di riprovare dopo qualche giorno per consentire la riscossione dei pagamenti."
             },
             "autoDebitDialog": {
                 "title": "Saldo Stripe insufficiente",

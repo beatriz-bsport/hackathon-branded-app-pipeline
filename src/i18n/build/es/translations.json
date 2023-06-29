@@ -3164,12 +3164,12 @@
                 "interac": "Se ha realizado al menos un pago con una tarjeta Interac en esta factura. No se admiten reembolsos directos para tarjetas Interac."
             },
             "blockedDialog": {
-                "helper": "Tu saldo de Stripe de {{ stripeBalanceSum}} {{ currencyDisplay }} es insuficiente para procesar el reembolso. Por favor, inténtalo de nuevo pasados unos días para que se puedan cobrar los pagos.\n\nPuedes seguir el importe de tu saldo en directo en Ajustes > Suscripción Bsport.",
+                "helper": "Tu saldo de Stripe es insuficiente para procesar el reembolso. Vuelve a intentarlo pasados unos días para poder cobrar los pagos.",
                 "alert": "Ten cuidado, con este reembolso superarás el límite de descubierto autorizado de {{refundBlockingLimit }} {{currencyDisplay}}.",
                 "title": "Saldo insuficiente de Stripe"
             },
             "autoDebitDialog": {
-                "helper": "Su estudio está actualmente en proceso de cerrar su cuenta Bsport.\n\nAl hacer clic en confirmar, la factura será reembolsada. Su saldo de Stripe se cargará en {{refundAmount}}. {{ currencyDisplay }}. Sin embargo, para restablecer tu saldo de Stripe a 0 {{ currencyDisplay }} se te cargará automáticamente la diferencia directamente en tu cuenta bancaria indicada en Configuración > Empresa.\n\nSi no quieres sobrepasar tu límite de descubierto, puedes esperar a que tu saldo de Stripe vuelva a subir. Puedes seguir el importe de tu saldo en directo en Ajustes > Suscripción bsport.\n\nTraducción realizada con la versión gratuita del traductor www.DeepL.com/Translator",
+                "helper": "Su estudio está actualmente en proceso de cerrar su cuenta Bsport.\n\nAl hacer clic en confirmar, la factura será reembolsada. Su saldo de Stripe se cargará en {{refundAmount}} {{ currencyDisplay }}. Sin embargo, para restablecer tu saldo de Stripe a 0 {{ currencyDisplay }} se te cargará automáticamente la diferencia directamente en tu cuenta bancaria indicada en Configuración > Empresa.\n\nSi no quieres sobrepasar tu límite de descubierto, puedes esperar a que tu saldo de Stripe vuelva a subir. Puedes seguir el importe de tu saldo en directo en Ajustes > Suscripción bsport.",
                 "title": "Saldo insuficiente de Stripe"
             }
         },
@@ -4338,6 +4338,10 @@
                 "content": "Ya ha adquirido esta suscripción recientemente. Si aún no lo ve, espere unos minutos. No obstante, si desea volver a adquirirla, espere unos minutos e inténtelo de nuevo.",
                 "validate": "Ok"
             }
+        },
+        "subscriptionNotFound": {
+            "explanation": "Esta suscripción ya no existe. Elija otra o póngase en contacto con el responsable de su estudio.",
+            "title": "Suscripción no encontrada"
         }
     },
     "reporting": {
@@ -4996,6 +5000,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelado",
+                "Cancelada",
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
@@ -5862,7 +5867,7 @@
             },
             "offer": {
                 "isWaitingListFull": "La sesión está llena, la lista de espera está llena.",
-                "isTooSoon": "El registro está cerrado por el momento y se abrirá el {{ -date }}.",
+                "isTooSoon": "La inscripción está actualmente cerrada y se abrirá el {{-date}}.",
                 "isTooLate": "Las inscripciones están cerradas.",
                 "isDisabled": "La sesión fue desafortunadamente cancelada.",
                 "isAlreadyRegistered": "Ya está inscrito en esta sesión",
@@ -8555,7 +8560,8 @@
                 "smartlist": "Smartlists",
                 "offer": "Sesiones"
             },
-            "loadMoreThreads": "Cargar más mensajes"
+            "loadMoreThreads": "Cargar más mensajes",
+            "noThread": "Ningún resultado"
         },
         "sentStatus": {
             "fail": "Se produjo un error al enviar",
@@ -10096,7 +10102,8 @@
             "revert": {
                 "errors": {
                     "14101": "No se puede reembolsar una factura de ajuste de saldo con una nota de abono.",
-                    "14100": "No es posible anular una factura con los pagos de Interac."
+                    "14100": "No es posible anular una factura con los pagos de Interac.",
+                    "14102": "Es imposible reembolsar esta factura."
                 }
             }
         },
@@ -13320,7 +13327,8 @@
             "content_plural": "No podrá eliminar esta smartlist mientras se utilice en las siguientes cadencias:",
             "cancel": "Cerrar",
             "title": "Utilizada en una de las cadencias"
-        }
+        },
+        "downLoadSavedExport": "Descargar exportación anterior"
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -14424,7 +14432,8 @@
             "name": "Nombre",
             "subtitle": "Creación de un tipo de sitio",
             "title": "Plano del establecimiento"
-        }
+        },
+        "errorAvailableOffersScheduled": "No se puede guardar. Esta disposición no puede editarse, ya que se utiliza en futuras sesiones."
     },
     "franchise": {
         "companies": {

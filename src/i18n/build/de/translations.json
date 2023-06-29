@@ -815,7 +815,11 @@
             "firstBilling": "Bei der ersten Rechnung",
             "creation": "Bei Erstellung des Abonnements"
         },
-        "addNotification": "Benachrichtigung hinzufügen"
+        "addNotification": "Benachrichtigung hinzufügen",
+        "subscriptionNotFound": {
+            "explanation": "Dieses Abonnement existiert nicht mehr. Bitte wählen Sie ein anderes oder kontaktieren Sie Ihren Studioleiter.",
+            "title": "Vertrag nicht gefunden"
+        }
     },
     "translation": {
         "appbar": {
@@ -2655,7 +2659,8 @@
             "content_plural": "Sie können diese Smartlist nicht löschen, solange sie in den folgenden Kadenzen verwendet wird:",
             "cancel": "Schließen",
             "title": "In einer der Kadenzen verwendet"
-        }
+        },
+        "downLoadSavedExport": "Vorherigen Export herunterladen"
     },
     "theme": {
         "forms": {
@@ -5023,6 +5028,7 @@
                 "Stornieren",
                 "Stornieren",
                 "Stornieren",
+                "Stornieren",
                 "Stornieren"
             ]
         }
@@ -5263,7 +5269,8 @@
             "revert": {
                 "errors": {
                     "14101": "Sie können eine Saldokorrektur nicht mit einer Gutschrift erstatten.",
-                    "14100": "Es ist nicht möglich, eine Rechnung mit Interac-Zahlungen zu stornieren."
+                    "14100": "Es ist nicht möglich, eine Rechnung mit Interac-Zahlungen zu stornieren.",
+                    "14102": "Diese Rechnung kann nicht erstattet werden."
                 }
             }
         },
@@ -6263,12 +6270,12 @@
                 "interac": "At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards."
             },
             "autoDebitDialog": {
-                "helper": "Ihr Studio ist gerade dabei, Ihr Bsport-Konto zu schließen.\n\nWenn Sie auf Bestätigen klicken, wird die Rechnung zurückerstattet. Ihr Stripe-Guthaben wird mit {{refundAmount}} belastet. {{ currencyDisplay }}. Um Ihr Stripe-Guthaben jedoch auf 0 {{ currencyDisplay }} zurückzusetzen, wird der Differenzbetrag automatisch direkt von Ihrem unter Einstellungen > Unternehmen angegebenen Bankkonto abgebucht.\n\nWenn Sie Ihr Überziehungslimit nicht überschreiten wollen, können Sie warten, bis Ihr Stripe-Saldo wieder ansteigt. Sie können die Höhe Ihres Guthabens live in Einstellungen > Abonnement bsport verfolgen.",
+                "helper": "Ihr Studio ist gerade dabei, Ihr Bsport-Konto zu schließen.\n\nWenn Sie auf Bestätigen klicken, wird die Rechnung zurückerstattet. Ihr Stripe-Guthaben wird mit {{refundAmount}} belastet. {{ currencyDisplay }}. Um Ihr Stripe-Guthaben jedoch auf 0 {{ currencyDisplay }} zurückzusetzen, wird der Differenzbetrag automatisch direkt von Ihrem unter Einstellungen > Unternehmen angegebenen Bankkonto abgebucht.\n\nWenn Sie Ihr Überziehungslimit nicht überschreiten wollen, können Sie warten, bis Ihr Stripe-Saldo wieder steigt.",
                 "title": "Unzureichendes Strip-Guthaben"
             },
             "blockedDialog": {
                 "title": "Unzureichender Streifensaldo",
-                "helper": "Ihr Stripe-Guthaben in Höhe von {{ stripeBalanceSum}} {{ currencyDisplay }} ist nicht ausreichend, um die Rückerstattung vornehmen zu können. Bitte versuchen Sie es nach einigen Tagen erneut, damit Zahlungen eingezogen werden können.\n\nUnter Einstellungen > Bsport-Abonnement können Sie live verfolgen, wie hoch Ihr Kontostand ist.",
+                "helper": "Ihr Stripe-Guthaben reicht nicht aus, um die Erstattung zu bearbeiten. Bitte versuchen Sie es in ein paar Tagen erneut, damit die Zahlungen gesammelt werden können.",
                 "alert": "Achtung, mit dieser Rückzahlung überschreiten Sie den zulässigen Überziehungsrahmen von {{ refundBlockingLimit }} {{currencyDisplay}}."
             }
         },
@@ -7351,7 +7358,7 @@
                 "isDisabled": "Der Kurs wurde leider abgesagt.",
                 "isWaitingListFull": "Der Kurs ist abgeschlossen und die Warteliste ist voll.",
                 "isTooLate": "Anmeldungen sind nicht mehr möglich, die Anmeldefrist ist überschritten.",
-                "isTooSoon": "Die Anmeldungen sind derzeit geschlossen und werden am {{ -Datum }} geöffnet.",
+                "isTooSoon": "Die Anmeldungen sind derzeit geschlossen und werden am {{-date}} geöffnet.",
                 "isAlreadyRegistered": "Sie sind bereits für diese Session registriert",
                 "blockedByTags": "Sie haben nicht die erforderlichen Rechte, um sich für diese Session anzumelden."
             },
@@ -9614,7 +9621,8 @@
                 "muted": "Stummschalten",
                 "disabled": "Archivieren"
             },
-            "loadMoreThreads": "Weitere Nachrichten laden"
+            "loadMoreThreads": "Weitere Nachrichten laden",
+            "noThread": "Keine Treffer"
         },
         "sentStatus": {
             "fail": "Beim Senden ist ein Fehler aufgetreten",
@@ -9955,7 +9963,7 @@
                     },
                     "submit": "Bestätigen",
                     "impossibleState": "Die eingegebenen Einstellungen lassen die Erstellung einer Gruppe nicht zu",
-                    "recurrenceNumberPrefix": "Jeden Tag wiederholen",
+                    "recurrenceNumberPrefix": "Wiederholung aller",
                     "subtitle": "Allgemein",
                     "subtitleOffers": "Sessions",
                     "addOffers": "Session hinzufügen",
@@ -14268,7 +14276,8 @@
                     "canDelete": "Sind Sie sicher, dass Sie diesen Spot löschen wollen? Diese Aktion ist unwiederruflich. Er wird gelöscht und durch den Standard-Spot auf diesem Plan und allen anderen, auf denen er hinzugefügt wurde, ersetzt."
                 }
             }
-        }
+        },
+        "errorAvailableOffersScheduled": "Kann nicht gespeichert werden. Dieses Layout kann nicht bearbeitet werden, da es in zukünftigen Session verwendet wird."
     },
     "franchise": {
         "companies": {

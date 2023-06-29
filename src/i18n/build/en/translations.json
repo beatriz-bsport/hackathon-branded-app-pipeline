@@ -2985,7 +2985,8 @@
                 "muted": "Mute",
                 "disabled": "Archived"
             },
-            "loadMoreThreads": "Load more messages"
+            "loadMoreThreads": "Load more messages",
+            "noThread": "No result"
         },
         "sentStatus": {
             "fail": "An error occurred while sending",
@@ -7756,12 +7757,12 @@
                 "interac": "At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards."
             },
             "blockedDialog": {
-                "helper": "Your Stripe balance of {{ stripeBalanceSum}} {{ currencyDisplay }} is insufficient to process the refund. Please try again after a few days so that payments can be collected.\n\nYou can follow the amount of your balance live in Settings > Bsport subscription.",
+                "helper": "Your Stripe balance is insufficient to process the refund. Please try again after a few days so that payments can be collected.",
                 "alert": "Be careful, with this refund you will exceed the authorized overdraft limit of {{refundBlockingLimit }} {{currencyDisplay}}.",
                 "title": "Insufficient Stripe balance"
             },
             "autoDebitDialog": {
-                "helper": "Your studio is currently in the process of closing your Bsport account.\n\nBy clicking on confirm, the invoice will be refunded. Your Stripe balance will be debited by {{refundAmount}} {{ currencyDisplay }}. However, to reset your Stripe balance to 0 {{ currencyDisplay }} you will be automatically debited for the difference directly from your bank account indicated in Settings > Company.\n\nIf you don't want to exceed your overdraft limit, you can wait for your Stripe balance to rise again. You can follow the amount of your balance live in Settings > Subscription bsport.",
+                "helper": "Your studio is currently in the process of closing your Bsport account.\n\nBy clicking on confirm, the invoice will be refunded. Your Stripe balance will be debited by {{refundAmount}} {{ currencyDisplay }}. However, to reset your Stripe balance to 0 {{ currencyDisplay }} you will be automatically debited for the difference directly from your bank account indicated in Settings > Company.\n\nIf you don't want to exceed your overdraft limit, you can wait for your Stripe balance to rise again.",
                 "title": "Insufficient Stripe balance"
             }
         },
@@ -8950,6 +8951,10 @@
                 "content": "You have already purchased this subscription recently. If you don't see it yet, please wait a few minutes. However, if you wish to purchase it again, please wait a few minutes and try again.",
                 "validate": "Ok"
             }
+        },
+        "subscriptionNotFound": {
+            "explanation": "This subscription no longer exists. Please choose another one or contact your studio manager.",
+            "title": "Subscription not found"
         }
     },
     "reporting": {
@@ -9609,6 +9614,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
@@ -11516,7 +11522,7 @@
                 "isDisabled": "This session has been cancelled.",
                 "isTooLate": "Bookings are closed.",
                 "isWaitingListFull": "This session and the waitlist are full.",
-                "isTooSoon": "Bookings open on {{ -date }}.",
+                "isTooSoon": "Bookings open on {{-date}}.",
                 "isAlreadyRegistered": "You've already booked this session.",
                 "blockedByTags": "It's not possible to book this session without the correct tags."
             },
@@ -13591,7 +13597,8 @@
             "revert": {
                 "errors": {
                     "14101": "You cannot refund a balance adjustment invoice with a credit note.",
-                    "14100": "You cannot cancel an invoice with Interac payments."
+                    "14100": "You cannot cancel an invoice with Interac payments.",
+                    "14102": "It is impossible to reimburse this invoice."
                 }
             }
         },
@@ -15399,7 +15406,8 @@
             "name": "Name",
             "subtitle": "Creation of a place type",
             "title": "Spot Scheduling"
-        }
+        },
+        "errorAvailableOffersScheduled": "Cannot be saved. This layout cannot be edited since it is used in future sessions."
     },
     "franchise": {
         "companies": {

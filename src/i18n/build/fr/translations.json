@@ -456,7 +456,7 @@
             }
         },
         "myBasket": {
-            "checkingPaymentStatus": "Veuillez patienter, nous vérifions le status de votre paiement",
+            "checkingPaymentStatus": "Veuillez patienter, nous vérifions le statut de votre paiement",
             "finalize": {
                 "steps": {
                     "address": "Adresse",
@@ -812,7 +812,7 @@
                 "member": "Membre",
                 "title": "Aperçu",
                 "date_created": "Date",
-                "status": "Status"
+                "status": "Statut"
             }
         },
         "mail": {
@@ -906,7 +906,7 @@
                     "readCount": "Ouvertures",
                     "lastRead": "Dernière ouverture",
                     "clicked": "Clics",
-                    "status": "Status"
+                    "status": "Statut"
                 }
             }
         },
@@ -3032,7 +3032,7 @@
         "vaccinationStatus": {
             "done": "Pass sanitaire valide",
             "notDone": "Pas de pass sanitaire valide",
-            "unknown": "Status pass sanitaire inconnu"
+            "unknown": "Statut pass sanitaire inconnu"
         },
         "archive": {
             "archivedMember": "Membre Archivé : {{name}}",
@@ -3747,7 +3747,7 @@
         },
         "table": {
             "name": "Acheteur",
-            "state": "Status",
+            "state": "Statut",
             "updated_at": "Mis à jour le",
             "created_at": "Créée le",
             "qty": "Quantité",
@@ -3766,7 +3766,7 @@
         },
         "detail": {
             "section": {
-                "title": "Status de la commande :",
+                "title": "Statut de la commande :",
                 "deliveryInfo": "Adresse de livraison",
                 "productDetail": "Détails du panier",
                 "invoice": "Facture liée",
@@ -6445,7 +6445,7 @@
             "payment_pack": "Carte de cours",
             "fee": "Frais",
             "activity_name": "Activité",
-            "booking_status_code": "status",
+            "booking_status_code": "Statut",
             "was_refunded": "Remboursé",
             "activity_date": "Date de l'activité",
             "activity_duration": "Durée",
@@ -9574,7 +9574,7 @@
                 "email_notification": "Accepte les notifications par email",
                 "sms_notification": "Accepte les notifications par SMS",
                 "accept_email": "Accepte les notifications par email",
-                "vaccination_status": "Status pass sanitaire COVID-19",
+                "vaccination_status": "Statut pass sanitaire COVID-19",
                 "accept_sms": "Accepte les notifications par SMS",
                 "cgu": "Conditions Générales d'Utilisation",
                 "general_terms_and_conditions_accepted": "Conditions Générales d'Utilisation",
@@ -9783,7 +9783,7 @@
         },
         "common": {
             "pickALanguage": "Langue",
-            "vaccination_status": "Status pass sanitaire COVID-19",
+            "vaccination_status": "Statut pass sanitaire COVID-19",
             "vaccinationDone": "Pass sanitaire valide",
             "vaccinationNotDone": "Pas de pass sanitaire valide",
             "vaccinationDontWantToCommunicate": "Ne souhaite pas répondre",
@@ -9844,7 +9844,7 @@
             "emergencyContact": "En cas d'urgence",
             "recipient": "Destinataire",
             "recipients": "Destinataires",
-            "status": "Status",
+            "status": "Statut",
             "ok": "ok",
             "seeMore": "Afficher",
             "coach": "Professeur",
@@ -10115,7 +10115,7 @@
                 "explainUnevenInvoice": "Le total s'élève à {{totalInvoiceItems}}€ quand le total des paiements est à {{ totalPayments }}€. Le compte interne du membre sera crédité/débité pour équilibrer."
             },
             "payment": {
-                "status": "Status",
+                "status": "Statut",
                 "paid": "Payé",
                 "unpaid": "En attente",
                 "noPaymentExtraInfo": "Aucune information additionnelle",
@@ -10374,7 +10374,7 @@
             "pay": "Payer",
             "type": "Type",
             "amount": "Montant",
-            "fullyPaid": "Status",
+            "fullyPaid": "Statut",
             "consumer": "Client",
             "paymentDate": "Date d'achat",
             "object": "Description",

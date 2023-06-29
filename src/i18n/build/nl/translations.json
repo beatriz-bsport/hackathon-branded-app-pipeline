@@ -357,7 +357,7 @@
             },
             "ReplacementRequest": {
                 "tags": {
-                    "sub_teacher": "Plaatsvervangende leraar",
+                    "sub_teacher": "Plaatsvervangende instructeur",
                     "closing_date": "Sluitingsdatum"
                 },
                 "name": "Vervanging"
@@ -510,7 +510,7 @@
     },
     "membership": {
         "selector": {
-            "explainConsumer": "Met <1> BSPORT Solution</2>  heb je een totaalplaatje van al je informatie op één account.",
+            "explainConsumer": "Met <1> BSPORT Solution</2> heb je een totaalplaatje van al je informatie op één account.",
             "noMatchingCompany": "Geen resultaat",
             "placeholder": "Zoek een studio of vestiging...",
             "fetchMore": "Toon meer"
@@ -538,7 +538,7 @@
             "venueIds": "Vestiging-ID's: {{ establishmentIdList }}",
             "partnerId": "Partner-ID: {{ company }}",
             "establishmentMergedAs": "Deze vestigingen samenvoegen",
-            "establishmentMergeMaster": "In deze vestiging samenvoegen:"
+            "establishmentMergeMaster": "Deze vestigingingen samenvoegen:"
         },
         "pageTitle": "Integraties",
         "configurationType": {
@@ -1052,7 +1052,7 @@
                 "offerHelper": "Deze sessie wordt gecrediteerd aan",
                 "paymentLabel": "Een transactie toevoegen",
                 "title": "Een betaling registreren",
-                "backToInvoiceItemList": "Terug naar de lijst",
+                "backToInvoiceItemList": "Terug",
                 "dateStartPaymentPack": "De startdatum van deze leskaart is:"
             },
             "quickInvoice": {
@@ -1251,7 +1251,7 @@
                 "day": "Dagen",
                 "hour": "Uren"
             },
-            "descriptionHelperText": "De beschrijving van de leraar zal zichtbaar zijn voor de leden wanneer een boeking wordt gemaakt",
+            "descriptionHelperText": "De beschrijving van de instructeur is zichtbaar voor leden wanneer zij een reservering maken.",
             "notesHelperText": "Notities zijn privé: ze verschijnen alleen op de Backoffice voor personeelsleden die gemachtigd zijn ze te bewerken",
             "workingDateSection": "Periode van activiteit in de studio",
             "endWorking": "Einddatum",
@@ -1273,7 +1273,7 @@
         "offer": {
             "manageOffer": "Reserveringen beheren",
             "myOpenedInvoices": "Factureren",
-            "noQuickInvoiceOpened": "Begin met het toevoegen van producten.",
+            "noQuickInvoiceOpened": "Er zijn geen openstaande facturen om weer te geven.",
             "reCreateBooking": "Schrijf je opnieuw in",
             "createBookingOption": "Wachtlijst",
             "bill": "Factureren",
@@ -1291,7 +1291,7 @@
             "previousOffer": "Vorige sessie",
             "backToCalendar": "Agenda",
             "noConsumerPackAvailableForPurchase": "Dit lid bezit nog geen compatibele kaarten!",
-            "noncompatibleConsumerPaymentPacksAre": "Leskaart(en) in bezit maar niet compatibel",
+            "noncompatibleConsumerPaymentPacksAre": "Incompatibele leskaarten",
             "noPackAvailableForOfferPurchase": "Er is nog geen enkele compatibele leskaart voor deze sessie!",
             "offersPendingDelete": "Te verwijderen sessies:",
             "offersPendingChange": "Te wijzigen sessies:",
@@ -1308,7 +1308,7 @@
             },
             "unpaidInvoices": "Openstaande facturen",
             "partner_max_booking_count": "(OneFit) Maximum aantal MarketPlace-reserveringen",
-            "noInConsumerPackAvailableForPurchase": "Geen onverenigbare cursuskaarten in het bezit van dit lid!"
+            "noInConsumerPackAvailableForPurchase": "Dit lid is niet in bezit van een geldige leskaart en kan de reservering daarom niet voltooien."
         },
         "time": {
             "month": {
@@ -1894,7 +1894,7 @@
                 "12": "Smartlist",
                 "71": "Ontvangen",
                 "70": "Verzonden",
-                "15": "Cadans"
+                "15": "Cadence"
             },
             "sendParameter": {
                 "placeholder": "Selecteer een instelling",
@@ -1990,7 +1990,7 @@
         },
         "thread": {
             "emptyThread": {
-                "becauseNeverUsed": "Je hebt nog geen communicatie verzonden op dit kanaal.",
+                "becauseNeverUsed": "Er zijn geen berichten om weer te geven.",
                 "becauseOfFilters": "Geen resultaten die overeenkomen met de filters."
             },
             "filterOutCommunicationSent": "De communicatie die je net hebt verzonden wordt verborgen door de actieve filters.",
@@ -2028,19 +2028,20 @@
                 "muted": "Demper",
                 "disabled": "Gearchiveerd"
             },
-            "loadMoreThreads": "Meer berichten laden"
+            "loadMoreThreads": "Meer berichten laden",
+            "noThread": "Geen resultaten."
         },
         "sentStatus": {
             "fail": "Er is een fout opgetreden tijdens het verzenden",
-            "processing": "De communicatie wordt verzonden"
+            "processing": "Het bericht wordt verzonden."
         },
         "forms": {
             "twoWayEmail": {
-                "description": "Houd er rekening mee dat antwoorden per e-mail van leden niet langer in uw mailbox verschijnen, maar rechtstreeks op het platform.",
+                "description": "Gelieve rekening houden met het feit dat antwoorden rechtstreeks op je platform verschijnen en niet meer in je mailbox.",
                 "title": "Antwoorden per e-mail ontvangen op het platform"
             },
-            "submit": "Bewaar",
-            "title": "Chat-instellingen"
+            "submit": "Opslaan",
+            "title": "Chat"
         },
         "smartListPopup": {
             "noSmartListPopup": "Geen opstart pop-up",
@@ -2866,7 +2867,7 @@
             "price": "Prijs",
             "cts": "Prijs (in centen)",
             "coupon": "Promotie",
-            "contract": "Abonnement",
+            "contract": "Abonnementen",
             "date": "Datum",
             "time": "Tijd",
             "dow": "Weekdag",
@@ -3039,6 +3040,7 @@
                 "Geannuleerd",
                 "Annuleren",
                 "Geannuleerd",
+                "Geannuleerd",
                 "Geannuleerd"
             ]
         },
@@ -3066,11 +3068,11 @@
             "9": "Inbox",
             "8": "Late plaatsvervangingen"
         },
-        "showMore": "Zie meer",
+        "showMore": "Toon meer",
         "unevenInvoice": {
             "title": "Openstaande factuur",
             "priceDue": "Openstaand bedrag: {{price_due }}",
-            "explainUneven": "Factuur <1>n°{{uuid, uuid{{ invoice_identifier }}</1> is nog niet betaald.",
+            "explainUneven": "Factuur <1>{{ invoice_identifier }}</1> is nog niet betaald.",
             "pricePayed": "Betaald: {{price_payed}}"
         },
         "newOrder": {
@@ -3107,10 +3109,10 @@
         "newTutorialSectionOrLesson": {
             "newLesson": {
                 "title": "Nieuwe les {{- name}}",
-                "content": "Toegevoegd aan de {{- name}} sectie"
+                "content": "Toegevoegd aan: {{- name}}"
             },
             "newSection": {
-                "content": "De nieuwe handleiding \"{{name}}\" is nu beschikbaar,",
+                "content": "De nieuwe handleiding \"{{name}}\" is nu beschikbaar.",
                 "title": "Nieuwe Sectie"
             }
         },
@@ -3165,7 +3167,7 @@
                 "months": "maand",
                 "weeks": "week",
                 "days": "dag",
-                "limit_reach": "De gebruikslimiet per {{unit}} bereikt!"
+                "limit_reach": "De gebruikslimiet per {{unit}} is bereikt."
             }
         },
         "notification": {
@@ -3209,7 +3211,7 @@
                 "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort:",
                 "noMailAvailable": "Er zijn geen e-mailsjablonen om weer te geven.",
                 "createSmartList": "Een Smartlist toevoegen",
-                "warning": "Door geen Smartlist(s) te selecteren is het mogelijk dat je leden contacteert die recent aankoop hebben gedaan!",
+                "warning": "Door geen Smartlist(s) te selecteren is het mogelijk dat je leden contacteert die recent een aankoop hebben gedaan.",
                 "daysPastType": "Verlopen kaart",
                 "submit": "Bevestigen",
                 "pushTitle": "Berichtgevingsinstellingen",
@@ -3349,7 +3351,7 @@
                     },
                     "title": "Leskaart verwijderen:",
                     "askConfirmation": "Waarschuwing! Deze actie is definitief. Deze kaart zal hierna niet meer zichtbaar of te koop zijn.",
-                    "thereAreConsumers": "Belangrijk! Het is mogelijk dat leden deze leskaart al hebben gekocht. Leden zullen hun credits nog kunnen gebruiken, maar als je deze leskaart direct onbruikbaar wilt maken raden we aan om het aantal credits op 0 te zetten. Leden zullen deze leskaart niet meer kunnen zien en kopen.",
+                    "thereAreConsumers": "Belangrijk! Het is mogelijk dat leden deze leskaart al hebben gekocht. Leden zullen hun credits nog kunnen gebruiken, maar als je deze leskaart direct onbruikbaar wilt maken raden we aan om het aantal credits op 0 te zetten. \n\nLeden zullen deze leskaart niet meer kunnen zien en kopen.",
                     "isUsedInCombo": "Waarschuwing! Door deze leskaart te verwijderen wordt het ook onbruikbaar bij de relevante pakketten."
                 },
                 "theoricalMarginValue": {
@@ -3733,7 +3735,7 @@
         "establishments": "Vestigingen",
         "tags": {
             "blackList": "{{ count }} afgekeurde tag",
-            "blackList_plural": "{{ count }}  afgekeurde tags",
+            "blackList_plural": "{{ count }} afgekeurde tags",
             "whiteList": "{{ count }} goedgekeurde tag",
             "whiteList_plural": "{{ count }} goedgekeurde tags"
         },
@@ -3895,7 +3897,7 @@
             "day_plural": "Deze kaart kan {{count}} keer per jaar gebruikt worden"
         },
         "incompatibilities": {
-            "paymentPack": "Leskaart is ingesteld als niet compatibel met deze activiteit:",
+            "paymentPack": "Deze leskaart is incompatibel met de volgende activiteit(en):",
             "2023": "De leskaart is verlopen",
             "2022": "De leskaart begint bij de eerste aanwezigheid, op ",
             "2021": "De leskaart start bij de eerste boeking, op ",
@@ -4771,25 +4773,26 @@
                 "1": "Geldige leden",
                 "0": "Gearchiveerde en geldige leden"
             },
-            "helperText": "Voor welke leden geldt deze Smartlist?"
+            "helperText": "Selecteer voor welke leden deze Smartlist geldt."
         },
         "popup": {
             "sendPopup": "Stuur een pop-up"
         },
         "cadenceListDialog": {
             "close": "Sluiten",
-            "title": "Lijst van cadansen"
+            "title": "Lijst"
         },
         "cadence": {
-            "content": "Gebruikt in de cadans: {{ cadence_name }}",
-            "content_plural": "Gebruikt in {{ count }} cadansen"
+            "content": "Relevante cadence: {{ cadence_name }}",
+            "content_plural": "Deze Smartlist wordt in {{ count }} cadences gebruikt"
         },
         "cannotBeDeletedDialog": {
-            "content": "Je kunt deze smartlist niet verwijderen zolang deze wordt gebruikt in de volgende cadans:",
-            "content_plural": "Je kunt deze smartlisten niet verwijderen zolang deze wordt gebruikt in de volgende cadans:",
+            "content": "Deze Smartlist kan niet worden verwijderd, omdat het in de volgende cadence gebruikt wordt:",
+            "content_plural": "Deze Smartlist kan niet worden verwijderd, omdat het in de volgende cadences gebruikt wordt:",
             "cancel": "Sluiten",
             "title": "Gebruikt bij cadens"
-        }
+        },
+        "downLoadSavedExport": "Vorige export downloaden"
     },
     "metaActivity": {
         "forms": {
@@ -4851,10 +4854,10 @@
             }
         },
         "settings": {
-            "lastBookingBeforeMinutes": "Leden kunnen zich tot {{m}} voor het begin van de sessie inschrijven.",
+            "lastBookingBeforeMinutes": "Reserveren kan tot {{m}} voor het begin van een sessie.",
             "lastDiscardBeforeMinutes": "Kosteloos annuleren kan tot {{m}} voor het begin van de sessie.",
             "title": "Instellingen",
-            "firstBookingMinutesUntil": "Leden kunnen zich tot {{m}} in de toekomst voor deze sessie inschrijven.",
+            "firstBookingMinutesUntil": "Reserveren kan tot {{m}} in de toekomst.",
             "conditions": "Annuleringsvoorwaarden",
             "autoDiscard": "Deze sessie wordt automatisch {{hours}} uur voor het begin van de sessie geannuleerd als er minder dan {{nb_bookings}} reserveringen zijn.",
             "firstBookingMinutesUntilHeader": "Opening reserveringen",
@@ -4894,7 +4897,7 @@
             },
             "modal": {
                 "form": {
-                    "required": "Selecteer ten minsten één evenement.",
+                    "required": "Selecteer ten minste één evenement.",
                     "withRecurrence": "Activeer herhaling",
                     "allowBookingAfterStart": "Accepteer reserveringen wanneer het evenement al begonnen is",
                     "fullBookingOnly": "Accepteer enkel reserveringen voor alle gekoppelde sessies van dit evenement",
@@ -4967,11 +4970,11 @@
                 "month_plural": "Elke {{ count }} maanden"
             },
             "warning": {
-                "groupsWithOutOfTheRangeOffers": "De volgende groepen sessies zullen niet worden aangemaakt omdat zij sessies omvatten die meer dan 3 jaar verwijderd zijn",
+                "groupsWithOutOfTheRangeOffers": "De onderstaande groepsessies zullen niet worden aangemaakt, \nomdat deze sessies meer dan 3 jaar later plaatsvinden.",
                 "uncreatedGroups": "Sommige groepen worden niet aangemaakt.\nU vindt ze in de sectie \"Niet aangemaakte groepen\" onderaan deze lijst"
             },
             "errors": {
-                "offers_length": "Je hebt maar één sessie aangemaakt. Om een groep sessies te maken, voegt u minstens twee sessies toe. Als u een enkele sessie wilt aanmaken, kunt u dat rechtstreeks doen vanuit de betreffende workshop of vanuit het tabblad agenda."
+                "offers_length": "Je hebt maar één sessie aangemaakt. Een groepsessie moet altijd uit twee of meer sessies bestaan. \nEnkele sessies kunnen direct vanuit de workshop of vanuit de agenda worden gemaakt."
             }
         },
         "cancelledOffers": "{{count}} annuleringen",
@@ -5027,7 +5030,7 @@
         "massDisabler": {
             "explainLoading": "Een moment geduld alstublieft",
             "explain": "Selecteer de data waartussen de sessies geannuleerd moeten worden. Leden die hebben gereserveerd worden per e-mail op de hoogte gebracht en hun credits worden teruggestort.",
-            "explainWarning": "Waarschuwing: deze actie is definitief!",
+            "explainWarning": "Waarschuwing: deze actie is definitief.",
             "actions": {
                 "cancel": "Annuleren",
                 "submit": "Bevestigen",
@@ -5082,7 +5085,7 @@
                         "all": "Verspreid de veranderingen met betrekking tot de vervangende leraar over deze sessies",
                         "offersWithSameCoachOverrideOnly": "Houd de huidige vervanger op deze sessies"
                     },
-                    "warning": "De volgende vergelijkbare sessies hebben al een andere vervangende leraar. Wat zou u willen doen?",
+                    "warning": "De volgende vergelijkbare sessies hebben al een andere plaatsvervanger. Wat wil je doen?",
                     "checkboxInfo": "Als u dit vakje aanvinkt, worden de wijzigingen die voor de vervangende instructeur van deze sessie zijn toegepast, toegepast op alle vergelijkbare sessies. Anders worden ze alleen op deze sessie toegepast.",
                     "checkboxLabel": "De wijzigingen van de vervangende instructeur toepassen op geselecteerde sessies"
                 },
@@ -5129,7 +5132,7 @@
                 "rollCall": "Bellen"
             },
             "chip": {
-                "notValidatedRollCall": "Oproep niet gevalideerd",
+                "notValidatedRollCall": "Onvoltooide aanwezigheidsregistratie",
                 "validatedRollCall": "Beroep gevalideerd op {{-date}} {{time}}"
             },
             "dialog": {
@@ -5137,24 +5140,24 @@
                 "savedRollCall_plural": "De gesprekken zijn opgenomen.",
                 "validatedRollCall": "Beroep geldig verklaard",
                 "validatedRollCall_plural": "Beroepen geldig verklaard",
-                "confirmationRollCall": "Let op: leden die als afwezig zijn gemarkeerd en in het bezit zijn van een onbeperkte kaart waarvoor sancties gelden, worden bestraft. Weet u zeker dat u het gesprek wilt bevestigen?",
-                "confirmationRollCall_plural": "U valideert de oproep voor alle sessies van de dag. Let op: leden die als afwezig zijn gemarkeerd en in het bezit zijn van een onbeperkte kaart waarvoor sancties gelden, worden bestraft. Weet u zeker dat u alle oproepen wilt bevestigen?",
+                "confirmationRollCall": "Attentie: de sancties voor onbeperte leskaarten worden op afwezige leden toegepast. Weet je zeker dat je de aanwezigheidsregistratie wilt voltooien?",
+                "confirmationRollCall_plural": "Je staat op het punt de aanwezigheidsregistratie voor de gehele te voltooien. Attentie: de sancties voor onbeperte leskaarten worden op afwezige leden toegepast. Weet je zeker dat je de gehele aanwezigheidsregistratie wilt voltooien?",
                 "validationRollCall": "Valideer de oproep"
             },
             "button": {
                 "validationRollCall": "Valideer de oproep",
                 "validationRollCall_plural": "Valideer de oproepen",
-                "validationRollCallZero": "Valideer de oproep"
+                "validationRollCallZero": "Aanwezigheidsregistratie"
             },
             "warningIcon": {
                 "stateChanged": "De status is gewijzigd maar niet gevalideerd",
                 "stateChangedTitle": "Status niet gevalideerd"
             },
             "warningText": {
-                "lastValidatedRollCall": "Laatste gevalideerde oproep op {{-date}} {{time}}",
+                "lastValidatedRollCall": "De meest recente aanwezigheidsregistratie was op {{- date }} om {{ time }}",
                 "noRollCallLeft": "Alle oproepen werden gevalideerd",
-                "rollCallsLeftToValidate": "{{ number }} gesprek vereist validatie",
-                "rollCallsLeftToValidate_plural": "{{ number }} gesprekken vereisen validatie",
+                "rollCallsLeftToValidate": "Bevestig {{ number }} aanwezigheid",
+                "rollCallsLeftToValidate_plural": "Bevestig {{ number }} aanwezigheden",
                 "validatedDate": "Gevalideerd op {{- date }} om {{ time }}",
                 "modifiedRollCall": "De oproep is gewijzigd, u moet hem opnieuw valideren",
                 "notValidatedRollCall": "Het beroep werd niet geldig verklaard"
@@ -5174,7 +5177,7 @@
                 "field": {
                     "dateIntervalEnd": "De einddatum kan niet voor de begindatum liggen",
                     "durationMinute": "De duur van een sessie moet groter zijn dan 0 minuten",
-                    "broadcastLink": "De link is verkeerd. Hij moet beginnen met http:// of https:// en geen spaties bevatten.",
+                    "broadcastLink": "Deze link is onjuist. Het moet beginnen met http:// of https:// en mag geen spaties bevatten.",
                     "partnerMaxBookingCount": "Het aantal zitplaatsen hier is groter dan het aantal zitplaatsen in de zitting",
                     "effectif": "De waarde is hoger dan het maximum aantal plaatsen"
                 },
@@ -5195,13 +5198,13 @@
                     "field": {
                         "isCoachOverridePropagate": "De wijzigingen van de vervangende leraar toepassen op de geselecteerde sessies"
                     },
-                    "title": "Verandering van leraar"
+                    "title": "Plaatsvervanger wijzigen"
                 },
                 "similarOffers": {
-                    "info": "Wijzigingen in sessies kunnen deze incompatibel maken met sommige leskaarten. Neem na de wijziging de tijd om te controleren of ze compatibel blijven met eventuele wijzigingen van vestiging / leraar.",
+                    "info": "Gelieve rekening houden dat het wijzigen van sessies kan resulteren in het feit dat sommige leskaarten niet langer geldig of compatibel met elkaar zijn. We raden aan om te controleren of eventuele wijzigingen qua vestiging of instructeur geen onbedoelde gevolgen hebben.",
                     "unselectAll": "Alles deselecteren",
                     "selectAll": "Selecteer alle",
-                    "title": "Selecteer de sessies die zullen worden gewijzigd"
+                    "title": "Selecteer de te wijzigen sessies"
                 },
                 "tags": {
                     "placeholder": "Laat leeg om alle leden toe te laten",
@@ -5214,8 +5217,8 @@
                 },
                 "settings": {
                     "field": {
-                        "isModifyRecursively": "Wilt u soortgelijke sessies veranderen volgens deze nieuwe voorwaarden?",
-                        "isNotifyConsumers": "Wilt u uw klanten informeren over deze verandering?",
+                        "isModifyRecursively": "Wil je soortgelijke sessies wijzigen aan de aan hand van de nieuwe informatie?",
+                        "isNotifyConsumers": "Wil je ingeboekte leden over deze wijzigingen informeren?",
                         "partnership": {
                             "partnerMaxBookingCount": "Maximaal aantal Marketplace (alleen OneFit)",
                             "availableOnPartnership": "Op marketplaces (ClassPass, OneFit...)",
@@ -5230,18 +5233,18 @@
                     "field": {
                         "coachPaymentRule": {
                             "placeholder": "Selecteer een regel",
-                            "title": "Vergoedingsregel"
+                            "title": "Payroll-regel"
                         },
                         "coachOverride": {
-                            "placeholder": "Selecteer vervangende leraar",
+                            "placeholder": "Selecteer een plaatsvervanger",
                             "title": "Vervanging"
                         },
                         "coach": {
-                            "placeholder": "Selecteer een leraar",
-                            "title": "Leraar"
+                            "placeholder": "Selecteer een instructeur",
+                            "title": "Instructeur"
                         }
                     },
-                    "title": "Leraar",
+                    "title": "Instructeur",
                     "additionalCoaches": {
                         "field": {
                             "placeHolder": "Selecteer extra leraren"
@@ -5252,8 +5255,8 @@
                 "dateTime": {
                     "field": {
                         "recurrence": {
-                            "previewCount": "{{count}} sessie zal worden gecreëerd",
-                            "previewCount_plural": "{{count}} sessies zullen worden gecreëerd",
+                            "previewCount": "Er wordt {{count}} sessie aangemaakt.",
+                            "previewCount_plural": "Er worden {{count}} sessies aangemaakt.",
                             "preview": "Voorbeeld",
                             "option": {
                                 "monthly": "Maandelijks",
@@ -5284,31 +5287,31 @@
                     },
                     "field": {
                         "roomBlueprint": {
-                            "placeholder": "Selecteer een plan",
-                            "title": "Spot planning"
+                            "placeholder": "Selecteer een ontwerp",
+                            "title": "Spot Scheduling"
                         },
                         "broadcastLink": "Link naar de livestream",
                         "establishment": "Vestiging",
                         "credits": "Kredieten",
                         "level": "Niveau",
-                        "waitingListMaxSize": "De wachtlijst",
+                        "waitingListMaxSize": "Wachtlijst",
                         "effectif": "Beschikbare plaatsen",
-                        "hybridHelper": "Door deze optie te kiezen, wordt een online sessie aangemaakt met een standaard headcount van {{ onlineOfferDefaultEffectif }}. U kunt de informatie voor de online aanbieding bewerken zodra deze is aangemaakt (distributielink, aantal deelnemers, prijs, enz.)",
-                        "hybridEditHelper": "U bewerkt een online sessie die gekoppeld is aan een sessie op locatie. Om bepaalde informatie te wijzigen, moet u de on-site sessie bewerken.",
+                        "hybridHelper": "Schakel deze optie in voor sessies die tegelijkertijd in een van je vestigingen en online plaatsvinden. De online versie bevat standaard {{ onlineOfferDefaultEffectif }} plaats(en). De informatie voor de online sessie, zoals de link, het aantal deelnemers en de prijs kunnen kun je later wijzigen.",
+                        "hybridEditHelper": "Momenteel bewerk je een online sessie die ook gekoppeld is aan een fysieke sessie. Het toepassen van wijzigingen moet via de fysieke sessie.",
                         "hybridSection": "Hybride sessie",
-                        "hybridManagementHelper": "U kunt de boekingen in verband met deze gekoppelde sessie beheren, zowel in de zaal als online, door op het onderstaande pictogram te klikken om een nieuw beheerstabblad te openen.",
-                        "hybridLabel": "Deze sessie is zowel binnen als online."
+                        "hybridManagementHelper": "Klik op het onderstaande icoontje om de reserveringen die aan deze hybride sessies gekoppeld zijn te beheren.",
+                        "hybridLabel": "Deze sessie is zowel online als in de vestiging te volgen."
                     },
                     "title": "Kenmerken"
                 }
             },
             "groupedOffer": {
-                "warning": "Deze sessie maakt deel uit van de {{ naam }}} groep van sessies."
+                "warning": "Deze sessie is onderdeel van de groepsessie \"{{ name }}\"."
             },
             "stepper": {
                 "step": {
-                    "SETTINGS": "Wijziging van de instellingen",
-                    "INFOS": "Sessie"
+                    "SETTINGS": "Wijzigingen",
+                    "INFOS": "Sessies"
                 }
             }
         },
@@ -5316,8 +5319,8 @@
         "broadcast": "Videoconferenties",
         "onSite": "In de studio",
         "allCoaches": "{{count}} instructeurs",
-        "additionalCoaches": "{{count}} extra leraar",
-        "additionalCoaches_plural": "{{count}} extra leraren"
+        "additionalCoaches": "{{count}} extra instructeur",
+        "additionalCoaches_plural": "{{count}} extra instructeurs"
     },
     "emailTemplate": {
         "editTitle": "E-mail bewerken",
@@ -5747,7 +5750,7 @@
                 "filter": "Betaalde facturen"
             },
             "member-basket_paid": {
-                "filter": "Betaalde mandjes",
+                "filter": "Betaalde winkelmandjes",
                 "primaryText": "Een mandje van {{ amount }} is betaald. "
             },
             "member-booking_registered": {
@@ -5774,15 +5777,15 @@
                 "registerOption": "Op de wachtlijst inschrijven",
                 "isAlreadyOnWaitingList": "Je staat op de wachtlijst. We informeren je wanneer er een plaats vrijkomt.",
                 "isFull": "Deze sessie is volgeboekt. Schrijf je op de wachtlijst in en we sturen je een bericht zodra er een plaats vrijkomt.",
-                "isAlreadyRegistered": "Je reservering is voltooid. De sessie is nu vol.",
+                "isAlreadyRegistered": "Je reservering is voltooid en de sessie is nu vol.",
                 "waitingListOpen": "Deze sessie is vol. Schrijf je in op de wachtlijst en je ontvangt een bericht zodra er een plaats vrijkomt.",
-                "waitingListLockedByPendingBookings": "Andere mensen zijn aan het boeken, de wachtlijst is momenteel niet beschikbaar. Probeer het over een paar minuten opnieuw om te zien of er een plaats beschikbaar is."
+                "waitingListLockedByPendingBookings": "De wachtlijst is momenteel niet beschikbaar, omdat andere mensen aan het reserveren zijn. Probeer het over een paar minuten opnieuw om te zien of er een plaats beschikbaar is."
             },
             "offer": {
                 "isDisabled": "Deze sessie is geannuleerd.",
                 "isTooLate": "De inschrijvingen zijn gesloten.",
                 "isWaitingListFull": "De sessie en de wachtlijst zijn vol.",
-                "isTooSoon": "De registratie is momenteel gesloten en gaat open op {{ -date }}.",
+                "isTooSoon": "Reserven kan vanaf {{-date}}.",
                 "isAlreadyRegistered": "Je hebt deze sessie al gereserveerd.",
                 "blockedByTags": "Het is niet mogelijk om je voor deze sessie in te schrijven."
             },
@@ -5807,7 +5810,7 @@
                     "confirm": "Bevestigen",
                     "cancel": "Annuleren",
                     "content": "Dit lid bezit niet de juiste tags voor deze sessie. Weet je zeker dat je dit lid alsnog wilt inboeken?",
-                    "title": "Attentie"
+                    "title": "Informatie"
                 }
             }
         },
@@ -5990,7 +5993,7 @@
             "form": {
                 "title": "[Formulier] Periodieke reservering",
                 "delayWeek": {
-                    "helperText": "Geef aan hoeveel weken dit lid zal worden ingeschreven (8 weken maximaal)",
+                    "helperText": "Een lid kan tot maximaal 8 weken in de toekomst worden ingeboekt.",
                     "label": "Aantal weken"
                 },
                 "metaActivity": {
@@ -6156,8 +6159,8 @@
                 "placeholder": "Vestiging"
             },
             "additionalCoaches": {
-                "placeholder": "Extra leraar",
-                "placeholder_plural": "Extra leraren"
+                "placeholder": "Extra instructeur",
+                "placeholder_plural": "Extra instructeurs"
             }
         },
         "warning": {
@@ -6199,18 +6202,18 @@
                 "attendance": "Geldig vanaf de eerste aanwezigheid",
                 "booking": "Geldig vanaf de eerste reservering",
                 "purchase": "Geldig vanaf de factuurdatum",
-                "validFromTo": "Geldig vanaf {{duration_date_start}} op {{duration_date_end}}",
-                "validDaysMonthsYears": "Geldig {{duration_years}}, {{ duration_months }} en {{ duration_days }}",
-                "validAnd": "Geldig {{ first }} en {{ second }}",
-                "validYear": "Geldig {{ count }} jaar",
-                "validYear_plural": "Geldig {{ count }} jaren",
-                "validMonth": "Geldig {{ count }} maand",
-                "validMonth_plural": "Geldig {{ count }} maanden",
-                "validDay": "Geldig {{ count }} dag",
-                "validDay_plural": "Geldig {{ count }} dagen"
+                "validFromTo": "Geldig van {{duration_date_start}} tot {{duration_date_end}}",
+                "validDaysMonthsYears": "Geldig voor {{duration_years}}, {{ duration_months }} en {{ duration_days }}",
+                "validAnd": "Geldig van {{ first }} - {{ second }}",
+                "validYear": "Geldig voor {{ count }} jaar",
+                "validYear_plural": "Geldig voor {{ count }} jaar",
+                "validMonth": "Geldig voor {{ count }} maand",
+                "validMonth_plural": "Geldig voor {{ count }} maanden",
+                "validDay": "Geldig voor {{ count }} dag",
+                "validDay_plural": "Geldig voor {{ count }} dagen"
             },
             "title": {
-                "universalPassMessage": "Universele kaart, te gebruiken voor groepscursussen en afspraken"
+                "universalPassMessage": "Een universele kaart van zowel voor groepsactiviteiten en afspraken worden gebruikt."
             },
             "addButton": {
                 "buttonContent": "Toevoegen aan winkelmandje"
@@ -6221,13 +6224,13 @@
                 "month": "{{count}} maand",
                 "month_plural": "{{count}} maanden",
                 "year": "{{count}} jaar",
-                "year_plural": "{{count}} jaren"
+                "year_plural": "{{count}} jaar"
             },
             "details": {
                 "buttonContent": "Details"
             },
             "credits": {
-                "unlimited": "Unlimited",
+                "unlimited": "Onbeperkt",
                 "availableCredit": "{{count}} credit",
                 "availableCredit_plural": "{{count}} credits"
             }
@@ -6362,7 +6365,7 @@
         "contractCard": {
             "autoRenewal": "automatische verlenging",
             "legalContract": "Juridische informatie",
-            "seeMore": "Zie meer",
+            "seeMore": "Toon meer",
             "seeLess": "Zie minder",
             "registerButton": "Abonneren",
             "invoice": "{{ count }} Factuur",
@@ -6392,8 +6395,8 @@
                     "type": "Type"
                 },
                 "type": {
-                    "privatePass": "Afspraakkaart",
-                    "paymentPack": "Cursus kaart"
+                    "privatePass": "Afspraakkaarten",
+                    "paymentPack": "Leskaarten"
                 },
                 "noCategory": "Geen categorie"
             }
@@ -6534,7 +6537,7 @@
             "marketingDashboard": "Campagnes",
             "marketingRule": "Marketingcampagnes",
             "notifications": "Meldingen",
-            "cadence": "Koers"
+            "cadence": "Cadences"
         },
         "settings": "Instellingen",
         "shop": "Webshop",
@@ -6649,7 +6652,7 @@
                     "section": "Instellingen"
                 },
                 "interval": {
-                    "helperText": "Hoe vaak wordt de klant in rekening gebracht?",
+                    "helperText": "Selecteer hoe vaak de klant in rekening moet worden gebracht.",
                     "label": "Facturatie"
                 },
                 "settings": {
@@ -6925,7 +6928,7 @@
                 }
             },
             "prorata": {
-                "helperOnSusscribe": "De eerste betaling is pro rata {{ priceWithCurrency }} en wordt geïnd op {{-firstBillingDate}}. Latere betalingen worden gedaan op elke {{ monthBillingDay }} van de maand, voor het bedrag van {{ recurrentPrice }}"
+                "helperOnSusscribe": "In verband met de pro-rata betaling zal er allereerst {{ priceWithCurrency }} op {{-firstBillingDate}} in rekening worden gebracht. Vervolgens wordt er iedere maandelijks ({{ monthBillingDay }}) een bedrag van {{ recurrentPrice }} geïncasseerd."
             }
         },
         "pause": {
@@ -7076,7 +7079,7 @@
         },
         "form": {
             "check": "Bevestigen",
-            "submit": "Voltooi",
+            "submit": "Voltooien",
             "title": "Nieuwe herhalende betaling",
             "cancel": "Annuleren",
             "note": {
@@ -7227,7 +7230,7 @@
                 "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort:",
                 "smartListHelper": "Stuur GÉÉN melding als een lid tot één van de volgende Smartlists behoort:",
                 "advanced": "Gevorderd",
-                "warning": "Door geen Smartlist(s) te selecteren of te gebruiken is het mogelijk dat je leden contacteert die recent een kaart hebben gekocht!",
+                "warning": "Door geen Smartlist(s) te selecteren of te gebruiken is het mogelijk dat je leden contacteert die recent een kaart hebben gekocht.",
                 "smartListSelection": "(Optioneel) Selecteer Smartlists"
             }
         },
@@ -7378,6 +7381,10 @@
                 "content": "Je hebt dit abonnement onlangs al gekocht. Als u het nog niet ziet, wacht dan even. Als u het echter opnieuw wilt kopen, wacht dan een paar minuten en probeer het opnieuw.",
                 "validate": "Ok"
             }
+        },
+        "subscriptionNotFound": {
+            "explanation": "Dit abonnement is niet meer beschikbaar. Selecteer een ander abonnement of contacteer de onderneming.",
+            "title": "Er zijn geen zoekresultaten voor dit abonnement."
         }
     },
     "coachPerformance": {
@@ -8026,7 +8033,7 @@
                 },
                 "pleaseSelectCoachAndSlot": "Selecteer eerst een instructeur en een sessie.",
                 "cancel": "Annuleren",
-                "compatiblePrivatePass": "Een afspraakkaart factureren",
+                "compatiblePrivatePass": "Factureren",
                 "emptyPrivateConsumerPass": "Dit lid bezit momenteel nog geen compatibele afspraakkaart.",
                 "emptyPrivatePass": "Er zijn geen compatibele afspraakkaarten om weer te geven.",
                 "privateConsumerPassNeedRefresh": "Verversen",
@@ -8034,13 +8041,13 @@
                     "close": "Sluiten",
                     "11109": "De kaart begint met de eerste boeking, de ",
                     "11110": "De kaart is verlopen",
-                    "privateService": "Afspraakkaart geconfigureerd als niet compatibel met de betrokken afspraak:",
+                    "privateService": "Deze afspraakkaart is incompatibel met de volgende afspraken:",
                     "11111": "De data zijn niet compatibel",
                     "11108": "Onvoldoende aantal credits",
                     "11107": "Niet compatibele afspraak"
                 },
-                "noUncompatiblePassToDisplay": "Geen afspraakkaart niet compatibel",
-                "nonCompatiblePrivateConsumerPass": "Niet compatibel met de volgende eigen afsprakenkaarten:"
+                "noUncompatiblePassToDisplay": "Er zijn geen compatibele afspraakkaarten om weer te geven.",
+                "nonCompatiblePrivateConsumerPass": "Incompatibele afspraakkaarten"
             },
             "delete": {
                 "consumer": {
@@ -8144,7 +8151,7 @@
             "selectCoachToModifyAvailability": "Selecteer een instructeur",
             "header": {
                 "threeDaysView": "3 Dagen",
-                "dateSelector": "Kies de datum"
+                "dateSelector": "Datumselectie"
             },
             "form": {
                 "interval": {
@@ -8562,7 +8569,7 @@
                 },
                 "last_discard_minutes": {
                     "label": "Selecteer tot wanneer leden kosteloos kunnen annuleren (late-cancel)",
-                    "helperText": "credits worden bij te late annuleringen niet terugbetaald."
+                    "helperText": "Bij te late annuleringen worden kredieten niet teruggestort."
                 },
                 "establishmentResourceType": {
                     "isHomeService": {
@@ -8585,8 +8592,8 @@
                 },
                 "coach_capacity_used": {
                     "label": "Selecteer het maximaal aantal afspraken dat een instructeur tegelijk kan beheren",
-                    "helperText": "Bijvoorbeeld: een leraar kan twee leerlingen afzonderlijk helpen op twee machines.",
-                    "alertText": "Een leraar kan 1, 2, 3, 4, 6 of 12 afspraken tegelijk beheren."
+                    "helperText": "Bijvoorbeeld: een instructeur kan twee leden afzonderlijk begeleiden op twee apparaten.",
+                    "alertText": "Een instructeur kan 1, 2, 6 of 12 afspraken tegelijk beheren."
                 },
                 "use_full_establishment_capacity": {
                     "label": "Vereist de gehele vestiging",
@@ -8624,7 +8631,7 @@
                     "submit": "Opslaan"
                 },
                 "last_booking_minutes": {
-                    "label": "Selecteer tot wanneer leden zich kunnen inschrijven"
+                    "label": "Selecteer tot wanneer het mogelijk is om deze afspraak te reserveren"
                 },
                 "paddingStart": {
                     "helperText": "De instructeur en/of vestiging wordt {{minutes}} minuten voor het begin van de afspraak als onbeschikbaar weergegeven.",
@@ -8734,7 +8741,7 @@
                     "label": "Bewerken voor:",
                     "cancel": "Annuleren",
                     "submit": "Opslaan",
-                    "warning": "Deze leraar is niet geassocieerd met een benoeming"
+                    "warning": "Er is geen medewerker aan deze afspraak gekoppeld."
                 }
             },
             "private_service": "Afspraak",
@@ -9359,7 +9366,7 @@
             "appointment": "Afspraken",
             "session": "Groepsactiviteiten & Workshops",
             "groups": "Payroll-regel groepen",
-            "groupActivity": "Groepscursussen",
+            "groupActivity": "Groepsactiviteiten",
             "workshop": "Workshops"
         },
         "fabButton": {
@@ -9956,7 +9963,8 @@
             "revert": {
                 "errors": {
                     "14101": "Onmogelijk om terug te betalen door een rekening voor balansaanpassing.",
-                    "14100": "Kan een factuur niet annuleren met Interac betalingen."
+                    "14100": "Kan een factuur niet annuleren met Interac betalingen.",
+                    "14102": "Het is niet mogelijk om deze factuur terug te betalen."
                 }
             }
         },
@@ -9983,7 +9991,7 @@
                 "error": "Deze e-mail kan niet worden opgeslagen"
             },
             "update": {
-                "success": "Wijzigingen opgeslagen!",
+                "success": "Wijzigingen opgeslagen.",
                 "error": "Kan e-mail niet bewerken"
             },
             "delete": {
@@ -10582,12 +10590,12 @@
         "replacement": {
             "errors": {
                 "500004": "Je bent al vervanger voor deze sessie",
-                "500001": "Er bestaat al een verzoek om vervanging",
+                "500001": "Er bestaat al een vervangingsverzoek.",
                 "80003": "Ontbrekende instellingen voor achterstallige aanvragen.",
                 "80002": "De waarde \"Aantal dagen verzoek te laat\" moet groter zijn dan de waarde \"Aantal dagen inschrijving gesloten\".",
                 "50020": "Dit vervangingsverzoek is afgewezen: niet mogelijk om te verwijderen",
-                "50015": "U kunt uw eigen vervangingsverzoek niet beantwoorden",
-                "50013": "U kunt dit vervangingsverzoek niet meer beantwoorden.",
+                "50015": "Het is niet mogelijk om op je eigen vervangingsverzoeken te reageren.",
+                "50013": "Het is niet langer mogelijk om op dit vervangingsverzoek te reageren.",
                 "50012": "Deze instructeur antwoordde dat hij geen vervanger wilde zijn voor deze zitting.",
                 "50011": "Er is al een instructeur toegewezen aan dit verzoek.",
                 "50010": "U kunt dit verzoek niet weigeren omdat er al een instructeur is aangewezen.",
@@ -10600,7 +10608,7 @@
             },
             "cancelReplacementRequest": {
                 "error": "Er is een fout opgetreden bij het verwijderen van het verzoek.",
-                "success": "Het verzoek om vervanging is verwijderd."
+                "success": "Dit vervangingsverzoek is verwijderd."
             },
             "updateCoachReplacementPreferences": {
                 "error": "Niet mogelijk om de regels op te slaan",
@@ -10658,12 +10666,12 @@
         },
         "cadence": {
             "create": {
-                "error": "Er is een fout opgetreden bij het maken van de cadans",
+                "error": "Fout bij het toevoegen van deze cadence.",
                 "success": "Er is een nieuwe cadens aangemaakt"
             },
             "update": {
-                "error": "Er is een fout opgetreden bij het bewerken van de cadans",
-                "success": "Uw cadans is bijgewerkt"
+                "error": "Fout bij het bewerken van deze cadence.",
+                "success": "Je cadence is bijgewerkt."
             }
         },
         "giftCard": {
@@ -10673,8 +10681,8 @@
             "15004": "Het mandje wordt verwerkt, probeer het over een paar minuten nog eens"
         },
         "quicksaleConfiguration": {
-            "error": "Er is een fout opgetreden tijdens de back-up",
-            "updated": "Opgeslagen configuratie"
+            "error": "Fout bij het opslaan van de wijzigingen.",
+            "updated": "Je wijzigingen zijn opgeslagen."
         }
     },
     "coach": {
@@ -10734,7 +10742,7 @@
             },
             "coachSpaceInfo": "In deze ruimte kunnen instructeurs hun payroll per sessie bekijken, hun rooster inzien en hun beschikbaarheid beheren.",
             "coachSpace": "Instructeursweergave",
-            "noPaymentRule": "Voor deze leraar zijn geen bezoldigingsregels vastgesteld."
+            "noPaymentRule": "Er zijn geen payroll-regels aan deze instructeur toegewezen."
         },
         "overrider": "Plaatsvervanger",
         "overrideSelectorTitle": "Instructeur",
@@ -10773,7 +10781,7 @@
         "workingDateSection": "Periode van activiteit in de studio",
         "dateJoinedCompany": "Startdatum",
         "dateLeftCompany": "Einddatum",
-        "emptyNotes": "Geen notities"
+        "emptyNotes": "Er zijn geen notities om weer te geven."
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -11522,7 +11530,7 @@
         "download": "Download",
         "ok": "OK",
         "params": "Parameters",
-        "back": "Retour"
+        "back": "Terug"
     },
     "workshop": {
         "modal": {
@@ -11558,7 +11566,7 @@
         "noWorkshops": "In dit onderdeel kun je al je workshops toevoegen, beheren, wijzigen en verwijderen.",
         "disabledWorkshops": "Gearchiveerde workshops",
         "group": {
-            "emptyState": "Evenementen stellen leden in staat om in één keer alle gekoppelde sessies te reserveren en is perfect voor activiteiten, zoals trainingen en cursussen. ",
+            "emptyState": "Evenementen stellen leden in staat om in één keer alle gekoppelde sessies te reserveren en is perfect voor activiteiten, zoals workshops en groepsactiviteiten. ",
             "emptySearch": "Er zijn geen zoekresultaten om weer te geven.",
             "pageSize": "Toon:",
             "backToGroup": "Terug",
@@ -11768,7 +11776,7 @@
                     "alert": "Geef de vervaldagen van het mandje op!",
                     "placeholder": "Aantal dagen voor de vervaldatum",
                     "helperText": "Dit is het aantal dagen voordat een ongebruikt winkelmandje automatisch wordt geleegd.",
-                    "label": "Vervaldatum van een winkelmandje"
+                    "label": "Activeer deze optie om winkelmandjes automatisch een vervaldatum te geven"
                 },
                 "cancelledOffersManager": "Toon geannuleerde sessies op de agenda van je Back Office",
                 "checkBalance": {
@@ -11818,8 +11826,8 @@
                     "urlHelperText": "Het lid wordt doorverwezen naar deze link na bevestiging van het e-mailadres. Zo niet, dan worden ze doorgestuurd naar hun profiel op de marketplace.",
                     "urlError": "Voer een geldige url in",
                     "urlRedirection": "Omleidings-URL",
-                    "helperText": "Bij de registratie ontvangen uw leden een e-mail om hun e-mailadres te bevestigen, het account wordt pas geactiveerd nadat het e-mailadres is bevestigd.",
-                    "label": "Bevestigingsmail bij registratie",
+                    "helperText": "Zodra nieuwe leden zich inschrijven aan de hand van een nieuw account zullen ze een e-mail ontvangen om het gebruikte e-mailadres te bevestigen. Nieuwe accounts zijn pas na activatie geactiveerd.",
+                    "label": "Bevestigingsmails na nieuwe inschrijvingen sturen",
                     "title": "Registratie"
                 },
                 "coachUserspace": {
@@ -11834,53 +11842,53 @@
                     },
                     "maxNbRequestPerPeriod": {
                         "recap": {
-                            "3": "Elk {{nbPeriods}} jaar kunnen je leraren maximaal {{nbRequests}} te laat aanvragen doen. Zodra dit aantal is overschreden, kunnen ze geen aanvragen meer indienen tot het einde van de periode.",
-                            "2": "Elke {{nbPeriods}} maand kunnen je leraren maximaal {{nbRequests}} te laat aanvragen doen. Zodra dit aantal is overschreden, kunnen ze geen aanvragen meer indienen tot het einde van de periode.",
-                            "1": "Elke {{nbPeriods}} week kunnen je leraren maximaal {{nbRequests}} late verzoeken indienen. Zodra dit aantal is overschreden, kunnen ze geen aanvragen meer indienen tot het einde van de periode."
+                            "3": "Iedere {{nbPeriods}} jaar kunnen instructeurs maximaal {{nbRequests}} laattijdige vervangingsverzoek(en) indienen. Zodra dit aantal wordt overschreden is het niet langer mogelijk om gedurende deze periode nieuwe verzoeken in te dienen.",
+                            "2": "Iedere {{nbPeriods}} maand(en) kunnen instructeurs maximaal {{nbRequests}} laattijdige vervangingsverzoek(en) indienen. Zodra dit aantal wordt overschreden is het niet langer mogelijk om gedurende deze periode nieuwe verzoeken in te dienen.",
+                            "1": "Iedere {{nbPeriods}} week/weken kunnen instructeurs maximaal {{nbRequests}} laattijdige vervangingsverzoek(en) indienen. Zodra dit aantal wordt overschreden is het niet langer mogelijk om gedurende deze periode nieuwe verzoeken in te dienen."
                         },
-                        "helperText": "Maximum aantal late aanvragen"
+                        "helperText": "Maximum aantal late vervangingsverzoeken"
                     },
-                    "isLateReplacementRequestLimited": "Limiet voor late aanvragen",
+                    "isLateReplacementRequestLimited": "Limiet voor laattijdige vervangingsverzoeken",
                     "daysBeforeReplacementClosingAcceptance": {
-                        "description": "Je instructeurs kunnen geen vervangingen meer accepteren op een sessie {{telling}} dag voor aanvang van de cursus.",
-                        "description_plural": "Je instructeurs kunnen geen vervangingen meer accepteren op een sessie {{telling}} dagen voor aanvang van de cursus.",
-                        "helperText": "Sluiting van inschrijvingen bij vervanging",
+                        "description": "Insctructeurs kunnen geen vervangingsverzoeken accepteren als een sessie over {{count}} dag begint.",
+                        "description_plural": "Insctructeurs kunnen geen vervangingsverzoeken accepteren als een sessie over {{count}} dagen begint.",
+                        "helperText": "Sluiting vervangingsverzoeken",
                         "placeholder": "Aantal dagen"
                     },
                     "daysBeforeReplacementClosing": {
                         "interval": "Interval",
-                        "every": "Alle",
-                        "description": "Vervangingsverzoeken die {{count}} dag of meer voor het begin van de zitting worden ingediend, worden als te laat aangegeven.",
-                        "description_plural": "Vervangingsverzoeken die {{count}} dagen of meer voor het begin van de zitting worden ingediend, worden als te laat aangegeven.",
-                        "helperText": "Sluiten van verzoeken om vervanging",
+                        "every": "Iedere",
+                        "description": "Vervangingsverzoeken die minder dan {{count}} dag voor het begin van de sessie worden ingediend worden als te laat beschouwd.",
+                        "description_plural": "Vervangingsverzoeken die minder dan {{count}} dag(en) envoor het begin van de sessie worden ingediend worden als te laat beschouwd.",
+                        "helperText": "Sluiten vervangingsverzoeken",
                         "placeholder": "Aantal dagen"
                     },
                     "daysBeforeRequestIsLate": {
-                        "description": "Vervangingsverzoeken die minder dan {{count}} dag voor het begin van de zitting worden ingediend, worden als te laat aangegeven.",
-                        "description_plural": "Vervangingsverzoeken die minder dan {{count}} dag voor het begin van de zitting worden ingediend, worden als te laat aangegeven.",
-                        "helperText": "Laattijdig verzoek",
+                        "description": "Vervangingsverzoeken die minder dan {{count}} dag voor het begin van de sessie worden ingediend worden als te laat beschouwd.",
+                        "description_plural": "Vervangingsverzoeken die minder dan {{count}} dag(en) voor het begin van de sessie worden ingediend worden als te laat beschouwd.",
+                        "helperText": "Laattijdige verzoeken",
                         "placeholder": "Aantal dagen"
                     },
-                    "replacementSettings": "Instellingen voor vervanging",
+                    "replacementSettings": "Vervangingsinstellingen",
                     "enableReplacement": "Vervanging",
                     "enableRemuneration": "Payroll",
                     "enableSchedule": "Rooster",
-                    "restrictionsDescription": "Geef aan tot welke tabbladen uw instructeurs toegang hebben",
+                    "restrictionsDescription": "Selecteer tot welke tabbladen instructeurs toegang hebben om de instructeursweergave.",
                     "restrictions": "Beperkingen",
-                    "enableDescription": "Als u deze functie inschakelt, hebben al uw nieuwe instructeurs standaard toegang",
+                    "enableDescription": "Zet deze optie aan om standaard de instructeursweergave aan alle instructeurs toe te wijzen.",
                     "enable": "De instructeursweergave standaard inschakelen",
                     "access": "Toegang",
-                    "description": "Pas de weergave van de instructeur op het web aan. Let op: de instellingen hier hebben geen invloed op de weergave van de app voor de instructeur."
+                    "description": "Pas de weergave van de instructeur op het web aan. Let op: deze instellingen hebben geen invloed op de weergave van de app voor de instructeur."
                 },
                 "noShow": {
-                    "notAvailable": "No-show management is niet beschikbaar. Om het te activeren moet u eerst een onbeperkte cursuskaart aanmaken met no-show sancties.",
+                    "notAvailable": "Deze optie is momenteel niet beschikbaar, omdat je eerst een onbeperkte leskaart met no-show sancties moet aanmaken.",
                     "error": "De e-mail ter kennisgeving van afwezigheid kan niet worden verzonden nadat het lid is beschouwd als een no-show.",
                     "sendMailHelpText": "Om de e-mail in/uit te schakelen gaat u naar Instellingen> Transactiemails> Sanctie> Verzuimmelding",
                     "sendMail": "Stuur een e-mail <0/> <1/> na het gesprek om het lid te waarschuwen dat hij als no show wordt beschouwd als hij als afwezig wordt aangemerkt.",
                     "daysBeforeNoShowHelpText": "Met deze instelling kunnen boetes worden toegepast op afwezigheden van leden met een onbeperkte kaart.",
                     "daysBeforeNoShow": "Beschouw het lid als (no-show) <0/> <1/> na de oproep op sessies waar hij/zij als afwezig is aangegeven.",
                     "alert": "Deze instellingen gelden alleen voor no-show boetes op onbeperkte kaarten. Om de volgende tellingen te activeren, moet u de oproep voor elke cursus valideren.",
-                    "title": "Absentie (no-show)",
+                    "title": "Afwezigheid (no-shows)",
                     "errorValidatedTime": "De tijd die verstrijkt voordat een lid als niet aanwezig wordt beschouwd, moet groter zijn dan 0.",
                     "errorEmailTime": "De tijd die verstrijkt voordat de e-mail om het lid te waarschuwen dat hij/zij niet zal komen moet groter zijn dan 0."
                 },
@@ -11888,25 +11896,25 @@
                     "oneLetter": "1 letter",
                     "threeLetters": "3 letters",
                     "fullWord": "Volledig woord",
-                    "label": "Weergave formaat van de dag"
+                    "label": "Weergaveopties voor de dagen op lesroosters"
                 },
                 "showActivityColor": "De kleur van de activiteit weergeven",
                 "sessionDatesDisplayOptions": {
                     "onlyShowStartingTime": "Alleen starttijd weergeven",
-                    "showDuration": "Toon duur",
+                    "showDuration": "Toon de lesduur",
                     "showEndingTime": "Eindtijd weergeven",
-                    "label": "Weergaveopties voor de planning"
+                    "label": "Weergaveopties voor lesroosters"
                 },
-                "showLevel": "Niveau weergeven",
-                "showEstablishment": "Locatie bekijken",
+                "showLevel": "Toon het lesniveau",
+                "showEstablishment": "Toon de vestiging",
                 "coachDisplayOptions": {
                     "showCoachFirstNameWithPicture": "Voornaam en foto",
                     "showCoachFullNameWithoutPicture": "Volledige naam zonder foto",
-                    "onlyShowCoachFirstName": "Alleen de voornaam van de leraar",
+                    "onlyShowCoachFirstName": "Alleen de voornaam van de instructeur",
                     "showCoachFullNameWithPicture": "Volledige naam en foto",
-                    "label": "Weergavemogelijkheden voor leraren informatie"
+                    "label": "Weergavemogelijkheden voor insctructeursinformatie"
                 },
-                "showFreeSessionLabel": "Voeg een label toe aan elke sessie met een kredietprijs van 0",
+                "showFreeSessionLabel": "Voeg het label \"Gratis\" toe als een sessie 0 credits kost",
                 "acceptDoubleBookingMetaActivity": "Accepteer dubbele boekingen voor activiteiten",
                 "acceptDoubleBookingWorkshop": "Accepteer dubbele boekingen voor workshops",
                 "hideBookButton": {
@@ -11955,7 +11963,7 @@
             "general_terms_and_conditions": {
                 "label": "Algemene servicevoorwaarden",
                 "helperText": "Dit dient voor alle betalingen en inschrijvingen te worden geaccepteerd.",
-                "placeholder": "Ik verklaar dat ik in bezit ben van een medisch attest."
+                "placeholder": "Ik verklaar dat ik in bezit ben van een medisch certificaat."
             },
             "general_terms_of_use": {
                 "placeholder": "Ik bevestig dat ik 13 jaar of ouder ben.",
@@ -12384,7 +12392,7 @@
         "section": {
             "paymentList": {
                 "total": "Betaald",
-                "isEmpty": "Geen betaalmethode geregistreerd",
+                "isEmpty": "Er is geen betaalmethode geregistreerd.",
                 "title": "Betaalmethoden"
             },
             "invoiceItemList": {
@@ -12495,7 +12503,7 @@
                 "cancel": "Annuleren",
                 "revert": "Annuleren",
                 "pay": "Betaal factuur",
-                "basketInconsistent": "Uw winkelmandje is gewijzigd, ververs uw pagina voordat u uw betaling valideert.\nEr zijn verder geen kosten in rekening gebracht.",
+                "basketInconsistent": "Je winkelmandje is gewijzigd. Gelieve je pagina verversen voor je de betaling bevestigd.\nEr zijn vooralsnog geen kosten in rekening gebracht.",
                 "billByInstalment": "Termijnbetaling",
                 "paymentLink": "Betaallink",
                 "generatePaymentLink": "Een betaallink genereren"
@@ -12535,7 +12543,7 @@
             "updaterDialog": {
                 "topup": "Incasso",
                 "debt": "Debet",
-                "explainTopup": "Het saldo van de interne rekening (Wallet) van dit lid wordt met €{{ amount }} verhoogd.",
+                "explainTopup": "Het saldo van de interne rekening (Wallet) van dit lid wordt met {{ currencyDisplay }}{{ amount }} verhoogd.",
                 "explainDecaissement": "Het saldo van de interne rekening (Wallet) van dit lid wordt met {{ currencyDisplay }}{{ amount }} verlaagd.",
                 "title": "Saldo wijzigen",
                 "actions": {
@@ -12575,13 +12583,13 @@
                 "interac": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten."
             },
             "autoDebitDialog": {
-                "helper": "Uw studio is momenteel bezig met het afsluiten van haar Bsport account.\n\nDoor op bevestigen te klikken wordt de factuur terugbetaald. Uw Stripe-saldo wordt gedebiteerd met {{refundAmount}} {{ currencyDisplay }}. Als u uw Stripe-saldo echter wilt terugzetten op 0 {{ currencyDisplay }} wordt het verschil automatisch rechtstreeks van uw bankrekening gedebiteerd die is aangegeven in Instellingen > Bedrijf.\n\nAls u uw debetlimiet niet wilt overschrijden, kunt u wachten tot uw Stripe-saldo weer stijgt. U kunt uw saldo live volgen in Instellingen > bsportabonnement.\n\nVertaald met www.DeepL.com/Translator (gratis versie)",
+                "helper": "Je studio is momenteel bezig met het sluiten van hun bsport-account\n\nDe factuur wordt terugbetaald als je op bevestigen klikt. Het resterende saldo op Stripe ter waarde van {{ currencyDisplay }}{{refundAmount}} zal worden teruggestort. Indien je je Stripe-saldo op {{ currencyDisplay }}0 wilt zetten zal het verschil rechtstreeks en automatisch van je betaalgegevens die onder Instellingen > Onderneming staan.\n\nAls je het limiet niet wilt overschrijden, kun je wachten tot je Stripe-saldo weer stijgt. Je kunt je Stripe-saldo live volgen via Instellingen > Abonnement.",
                 "title": "Onvoldoende Stripe saldo"
             },
             "blockedDialog": {
                 "title": "Onvoldoende Stripe saldo",
                 "alert": "Waarschuwing: met deze terugbetaling overschrijdt u de toegestane debetlimiet van {{refundBlockingLimit }} {{currencyDisplay}}.",
-                "helper": "Uw Stripe-saldo van {{ stripeBalanceSum}} {{ currencyDisplay }} is onvoldoende om de terugbetaling te verwerken. Probeer het na een paar dagen opnieuw, zodat de betalingen kunnen worden geïnd.\n\nU kunt uw saldo live volgen in Instellingen > Bsportabonnement."
+                "helper": "Je Stripe-saldo is te laag om een terugbetaling te verwerken. Probeer het gelieve over een paar dagen opnieuw, zodra er meer betalingen verwerkt zijn."
             }
         },
         "table": {
@@ -13387,7 +13395,7 @@
                 "expand": "Uitbreiden",
                 "shrink": "Inklappen"
             },
-            "cadences": "Workflow",
+            "cadences": "Cadences",
             "replacement": "Vervanging"
         },
         "deprecatedNavigator": {
@@ -13457,9 +13465,9 @@
                 "management": "Beheer"
             },
             "widget": {
-                "customize": "Aanpassing",
+                "customize": "Personalisering",
                 "create": "Algemeen",
-                "customizeCss": "Aangepaste CSS"
+                "customizeCss": "CSS"
             },
             "smartList": {
                 "statistic": "Statistieken",
@@ -13517,7 +13525,7 @@
             },
             "quicksale": {
                 "access": "Toegangsverlening",
-                "configuration": "Categorieën personaliseren"
+                "configuration": "Categorieën"
             }
         }
     },
@@ -13580,7 +13588,7 @@
                     "title": "Instellingen herstellen"
                 },
                 "submit": "Opslaan",
-                "selectAlert": "Widgetaanpassing is momenteel alleen beschikbaar op workshops, kalender en kaarten",
+                "selectAlert": "Het personaliseren van de widgets is momenteel alleen beschikbaar voor lesroosters, workshops en producten.",
                 "preview": "Voorvertoning",
                 "spacingHelper": "Spacing is gebaseerd op veelvouden {{base}} pixels.",
                 "roundingHelper": "Rounding is gebaseerd op veelvouden {{base}} pixels.",
@@ -13609,25 +13617,25 @@
                     "none": "Geen",
                     "nextWeek": "Volgende week",
                     "currentWeek": "Deze week",
-                    "future": "Nog niet open voor boeking",
+                    "future": "Gesloten",
                     "bookable": "Boekbaar",
-                    "past": "Verleden",
+                    "past": "Afgelopen",
                     "cancel": "Geannuleerd",
                     "waitingList": "Wachtlijst",
-                    "time": "Dienstregeling",
-                    "coach": "Van de leraar",
+                    "time": "Lestijden",
+                    "coach": "Instructeur",
                     "activityName": "Activiteit",
                     "false": "Nee",
-                    "true": "Ja"
+                    "true": "Gereserveerd"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
-                    "showDayParts": "Aparte ochtenden, middagen en avonden",
-                    "isRegistered": "Al geregistreerd",
-                    "offerStatus": "Beschikbaarheid van het aanbod",
+                    "showDayParts": "Onderscheid ochtenden, middagen en avonden",
+                    "isRegistered": "Gereserveerd?",
+                    "offerStatus": "Beschikbaarheid",
                     "isMobile": "Voor mobiel",
-                    "loading": "Momenteel aan het laden",
-                    "variant": "Markeer",
+                    "loading": "Laden",
+                    "variant": "Benadruk",
                     "filterGroupOptions": "Gebundelde opties"
                 },
                 "configurationTitle": "Variaties"
@@ -13660,8 +13668,8 @@
                 "infoMultiplePage": "Omdat dit element aanwezig is op verschillende widgets, worden de wijzigingen toegepast op de volgende widgets:",
                 "snackbarSuccessResetAll": "Al uw configuraties zijn gereset",
                 "snackbarSuccessSave": "Je item is succesvol opgeslagen",
-                "choiceElement": "Keuze van element",
-                "choiceWidget": "Keuze van widget",
+                "choiceElement": "Selecteer een element",
+                "choiceWidget": "Selecteer een widget",
                 "info": "Je kunt elk element en hun varianten die deel uitmaken van de widgets aanpassen. Selecteer een widget en vervolgens het gewenste element.",
                 "dialog": {
                     "content": "Waarschuwing: je staat op het punt de css voor dit element te resetten. Het zal terugkeren naar de standaardconfiguratie.",
@@ -13669,7 +13677,7 @@
                     "cancel": "Annuleren",
                     "title": "Item resetten"
                 },
-                "save": "Registreer",
+                "save": "Opslaan",
                 "savedChanges": "Laatste wijzigingen opgeslagen",
                 "unsavedChanges": "Er zijn geen wijzigingen geregistreerd",
                 "element": "Element",
@@ -13684,7 +13692,7 @@
     "platformBilling": {
         "platformBillingPlan": {
             "max_coach": {
-                "help": "Een instructeur wordt als actief beschouwt als hij/zij minstens 8 lessen per maand geeft",
+                "help": "Een instructeur wordt als actief beschouwt als deze persoon ten minste 8 lessen per maand geeft.",
                 "label": "Tot {{max_coach}} instructeurs"
             },
             "max_establishment": {
@@ -14074,26 +14082,26 @@
         "cadence": {
             "activate": {
                 "dialog": {
-                    "firstHelper": "Wil je de koers starten?",
+                    "firstHelper": "Wil je de cadence activeren?",
                     "title": "Het tempo bepalen",
                     "cancel": "Annuleren",
                     "secondHelper": "U kunt het niet bewerken gedurende de uitvoering."
                 },
-                "setupBeforeActivationHelper": "Voltooi het opzetten van je cadans en creëer je eerste marketingactie om je koers te lanceren.",
-                "button": "Opstarten"
+                "setupBeforeActivationHelper": "Voltooi het aanmaken van je eerste cadence door verschillende stappen en berichten toe te voegen.",
+                "button": "Starten"
             },
             "archive": {
-                "archivedHeader": "Gearchiveerde koersen",
+                "archivedHeader": "Gearchiveerde cadences",
                 "dialog": {
-                    "helper": "Leden die zich momenteel in de koers bevinden, verlaten deze automatisch. Deze koers wordt gearchiveerd en kunt u later weer activeren.",
-                    "title": "Een koers verwijderen",
+                    "helper": "Deze cadence wordt gearchiveerd en kan op een later moment geheractiveerd worden. Ingeschreven leden worden na de archivering automatisch uit de cadence verwijderd.",
+                    "title": "Een cadence verwijderen",
                     "confirm": "Vervolgen",
                     "cancel": "Annuleren",
-                    "beingArchived": "U staat op het punt {{ naam }} te verwijderen."
+                    "beingArchived": "Je staat op het punt om \"{{ naam }}\" te verwijderen."
                 }
             },
             "howTo": {
-                "title": "Hoe uw koers te bewerken",
+                "title": "Cadence bewerken",
                 "set_trigger_destination": "{{ index }}}. Redirect naar een marketingactie",
                 "add_smartlist_filter": "{{ index }}}. Filteren op smartlists",
                 "add_trigger": "{{ index }}}. Branches toevoegen",
@@ -14101,126 +14109,126 @@
                 "add_event": "{{ index }}}. Een evenement toevoegen",
                 "edit_marketing_action": "{{ index }}}. De marketingactie bewerken",
                 "add_marketing_action": "{{ index }}}. Een marketingactie toevoegen",
-                "explain": "Bewerk de elementen van de grafiek door erop te klikken of maak verbindingen tussen blokken door ze te verslepen."
+                "explain": "Bewerk de verschillende stappen en elementen van de cadence om erop te klikken of om verschillende onderdelen met elkaar te verbinden."
             },
             "form": {
                 "marketing_action": {
                     "select_tag": "Selecteer een tag",
-                    "5": "Sjabloon Email",
-                    "4": "Tag",
-                    "3": "Notificatie push",
-                    "2": "SMS",
-                    "1": "Email",
+                    "5": "E-mailsjabloon",
+                    "4": "Tags",
+                    "3": "Push-notificatie",
+                    "2": "Sms'je",
+                    "1": "Nieuwe e-mail",
                     "form": {
-                        "helper": "Selecteer een of meer acties die moeten worden ondernomen wanneer een lid deze fase ingaat. Deze optie is facultatief.",
-                        "reset": "Verwijder",
-                        "submit": "Valideren"
+                        "helper": "(Optioneel) Selecteer één of meer acties om aan te geven hoe je leden bij deze stap van de cadence wilt contacteren.",
+                        "reset": "Verwijderen",
+                        "submit": "Bevestigen"
                     },
-                    "defaultName": "Standaard naam"
+                    "defaultName": "Standaardnaam"
                 },
                 "event": {
-                    "billing_plan-renew": "Vernieuwing",
-                    "billing_plan-stop": "Stop",
-                    "billing_plan-pause": "Pauze",
-                    "billing_plan-create": "Creatie",
-                    "invoice-create": "Factuur gemaakt",
-                    "basket-finalize": "Betaald mandje",
-                    "basket-additem": "In winkelwagen",
-                    "basket-created": "Creatie",
-                    "private_booking-cancel": "Annulering afspraak",
-                    "private_booking-create": "Afspraak",
-                    "booking-attendance": "Aanwezigheid bij groepslessen",
-                    "booking-create": "Groepsactiviteit",
-                    "private_consumer_pass-create": "Afspraakkaart",
-                    "consumer_payment_pack-create": "Leskaart",
-                    "104": "Abonnement",
+                    "billing_plan-renew": "Hernieuwde abonnementen",
+                    "billing_plan-stop": "Gestopte abonnementen",
+                    "billing_plan-pause": "Gepauzeerde abonnementen",
+                    "billing_plan-create": "Nieuwe abonnementen",
+                    "invoice-create": "Nieuwe facturen",
+                    "basket-finalize": "Betaalde winkelmandjes",
+                    "basket-additem": "Openstaande winkelmandjes",
+                    "basket-created": "Aangemaakte winkelmadjes",
+                    "private_booking-cancel": "Geannuleerde afspraken",
+                    "private_booking-create": "Afspraken",
+                    "booking-attendance": "Aanwezigheid (groepsactiviteiten)",
+                    "booking-create": "Groepsactiviteiten",
+                    "private_consumer_pass-create": "Afspraakkaarten",
+                    "consumer_payment_pack-create": "Leskaarten",
+                    "104": "Abonnementen",
                     "103": "Facturatie",
-                    "102": "Winkelmand",
+                    "102": "Winkelmandjes",
                     "101": "Reservering",
                     "100": "Aankoop",
-                    "14": "Vernieuwing",
-                    "13": "Stop",
+                    "14": "Hernieuwde abonnementen",
+                    "13": "Gestopte abonnementen",
                     "12": "Pauze",
                     "11": "Maken",
-                    "10": "Factuur aangemaakt",
-                    "9": "Betaald mandje",
-                    "8": "Toevoegen aan winkelwagen",
-                    "7": "Creatie",
-                    "6": "Annulering van de afspraak",
-                    "5": "Afspraak",
-                    "4": "Aanwezigheid bij groepslessen",
-                    "3": "Groepsactiviteit",
-                    "2": "Afspraakkaart",
-                    "1": "Leskaart"
+                    "10": "Nieuwe facturen",
+                    "9": "Betaalde winkelmandjes",
+                    "8": "Toevoegen aan winkelmandje",
+                    "7": "Aangemaakte winkelmadjes",
+                    "6": "Geannuleerde afspraken",
+                    "5": "Afspraken",
+                    "4": "Aanwezigheid (groepsactiviteiten)",
+                    "3": "Groepsactiviteiten",
+                    "2": "Afspraakkaarten",
+                    "1": "Leskaarten"
                 },
                 "trigger": {
-                    "trigger_timeout_explain_value_selected": "Als het lid na {{ days }} dagen nog steeds in de cadans aanwezig is, wordt het automatisch uit de koers verwijderd en als verloren beschouwd.",
-                    "trigger_timeout_select_label": "dagen maximaal in de koers",
+                    "trigger_timeout_explain_value_selected": "Een lid wordt automatisch uit de cadence gezet, indien het lid na {{ days }} dag(en) zich nog steeds in de cadence bevindt.",
+                    "trigger_timeout_select_label": "dag(en)",
                     "labels": {
-                        "cadence": "De invoer in de koers gebeurt via :",
-                        "exitFail": "De uitvoer van de koers als verloren wordt gedaan via :",
-                        "exitSuccess": "De uitvoer van de koers als verdiend gebeurt via :",
-                        "step": "De toegang tot deze fase verloopt via :"
+                        "cadence": "Leden worden voor de cadence ingeschreven via:",
+                        "exitFail": "Selecteer wanneer iemand uit de cadence wordt gezet",
+                        "exitSuccess": "Selecteer het gewenste resultaat om iemand uit de cadence te verwijderen",
+                        "step": "Selecteer de criteria"
                     },
-                    "event_and_smartlist_helper": "Leden moeten overeenkomen met het evenement en deel uitmaken van de smartlist om in de koers te komen",
+                    "event_and_smartlist_helper": "Leden moeten zowel aan de criteria van het geselecteerde Evenement voldoen en deel uitmaken van de geselecteerde Smartlist(s) om in deze cadence terecht te komen.",
                     "trigger_timeout_title": "Tijdslimiet",
                     "select_marketing_actions_helper": "Selecteer een of meer acties die moeten worden ondernomen wanneer een lid is gewonnen. Deze optie is facultatief.",
-                    "marketing_actions": "Marketingacties",
+                    "marketing_actions": "Acties",
                     "or_rule_between_triggers": "Of",
                     "and_rule_between_triggers": "En",
-                    "rule_between_triggers": "Regel tussen gebeurtenissen",
-                    "trigger_smartlist_kind_label": "Een smartlist",
-                    "had_filtering_on_selected_event": "Filter de geselecteerde gebeurtenis met een smartlist",
-                    "trigger_event_kind_label": "Een evenement",
+                    "rule_between_triggers": "Regels",
+                    "trigger_smartlist_kind_label": "Smartlist",
+                    "had_filtering_on_selected_event": "Filter op de geselecteerde evenementen met een Smartlist",
+                    "trigger_event_kind_label": "Evenement",
                     "helpers": {
-                        "exitFail": "Definieer hier de trigger die bepaalt dat een lid als verloren wordt beschouwd en de cadans verlaat.",
-                        "exitSuccess": "Definieer hier de trigger die bepaalt dat een lid als gewonnen wordt beschouwd en de cadans verlaat.",
-                        "step": "Stel hier de trigger voor de volgende stap in. De leden moeten aan de onderstaande criteria voldoen om naar de volgende fase over te gaan.",
-                        "cadence": "Definieer hier de triggers voor het invoeren van de cadans. Leden moeten aan de onderstaande criteria voldoen om de marketingreeks te starten."
+                        "exitFail": "Selecteer hieronder de criteria om leden automatisch uit de cadence te verwijderen indien ze niet de gewenste handelingen voltooien.",
+                        "exitSuccess": "Selecteer hieronder de gewenste resultaten. Zodra een lid aan de voorwaarden voldoet wordt de persoon uit de cadence verwijdert, omdat de cadence succesvol was.",
+                        "step": "Selecteer de criteria waar leden aan moeten voldoen om de volgende stappen van de cadence te kunnen betreden.",
+                        "cadence": "Geef hier onder de criteria waar leden aan moeten voldoen om via de cadence automatisch gecontacteerd te kunnen worden."
                     },
-                    "title": "Triggers",
-                    "event_or_smartlist_helper": "De leden moeten bij het evenement passen of deel uitmaken van de smartlist om in de cadence te passen"
+                    "title": "Aanleiding",
+                    "event_or_smartlist_helper": "Leden moeten aan de criteria van het geselecteerde Evenement voldoen óf deel uitmaken van de geselecteerde Smartlists(s) om in deze cadence terecht te komen."
                 },
                 "exit": {
                     "exit_fail_label": "Verloren",
                     "exit_success_label": "Gewonnen",
-                    "title": "Uitgang"
+                    "title": "Einde"
                 },
                 "error": {
                     "triggerCannotBeEmpty": "U moet een invoertype kiezen.",
                     "timeoutMustBeStrictPositive": "De termijn moet minstens 1 dag bedragen."
                 },
                 "next": "Volgende",
-                "previous": "Vorige",
+                "previous": "Terug",
                 "lose_step": "Verloren",
                 "win_step": "Gewonnen",
                 "entry_step": "Invoer",
-                "modify_name_label": "Naam van de kadans",
-                "cadenceNameLabel": "Naam van de cadans",
-                "cadenceStepHelper": "Stel hier de podiumnaam in, hier kun je zien waar de leden zich in de cadans bevinden.",
-                "cadenceStepNameLabel": "Naam van het podium",
+                "modify_name_label": "Naam van de cadence",
+                "cadenceNameLabel": "Naam van de cadence",
+                "cadenceStepHelper": "Selecteer hieronder de naam van deze stap om gemakkelijk in te zien waar leden zich binnen je cadence bevinden.",
+                "cadenceStepNameLabel": "Stap",
                 "cadenceStep": "Stap",
-                "updateTitle": "De naam van de cadans wijzigen",
-                "title": "Een cadans creëren",
-                "addACadence": "Voeg een cadans toe",
-                "createCadenceHelper": "Dankzij de cadans kunt u de marketingacties die u naar uw leden stuurt, afstemmen op hun gedrag op het platform. Maak een reeks acties die uw leden moeten voltooien om bijvoorbeeld bepaalde promoties of tags te verkrijgen.",
+                "updateTitle": "[Formulier] Cadence toevoegen",
+                "title": "[Formulier] Cadence toevoegen",
+                "addACadence": "Een cadence toevoegen",
+                "createCadenceHelper": "Cadences zijn krachtige hulpmiddelen om continue relevante en gepersonaliseerde berichten naar bepaalde doelgroepen binnen je ledenbestand te sturen. Alle instellingen kunnen volledig worden aangepast naar eigen wensen en behoeften. Stuur bijvoorbeeld promoties naar inactieve klanten, beloon vaste bezoekers en meer.",
                 "edit": "Bewerken",
                 "submit": "Aanmaken",
                 "cancel": "Annuleren",
-                "delete": "Verwijder",
-                "updateSubmit": "Valideer"
+                "delete": "Verwijderen",
+                "updateSubmit": "Bevestigen"
             },
             "graph": {
                 "alert": {
-                    "switchToEditMode": "U bent in de weergavemodus, klik op EDIT om de koers te bewerken.",
-                    "cadenceIsActive": "Uw koers is bezig, pauzeer uw koers zodat u deze kunt wijzigen."
+                    "switchToEditMode": "Je bent momenteel in de Weergavemodus. Klik op \"Bewerken\" om de cadence te wijzigen.",
+                    "cadenceIsActive": "Deze koers is actief. Pauzeer de cadence om wijzigingen te kunnen verwerken."
                 },
                 "nodeElement": {
                     "deleteStep": "De stap verwijderen",
                     "cancelOnGoingCreation": "Annuleren",
-                    "edgeLabelForNodeCreation": "In process",
-                    "addElement": "Een trigger toevoegen",
-                    "deleteTrigger": "De aanleiding verwijderen"
+                    "edgeLabelForNodeCreation": "Openstaand",
+                    "addElement": "Een stap toevoegen",
+                    "deleteTrigger": "Stap verwijderen"
                 },
                 "tools": {
                     "showDisabledTriggers": "Uitgeschakelde triggers tonen",
@@ -14240,7 +14248,7 @@
                     "label": "Evenement",
                     "book_chip": "Reservering",
                     "purchase_chip": "Aankoop",
-                    "billing_plan_chip": "Abonnement",
+                    "billing_plan_chip": "Abonnementen",
                     "invoice_chip": "Factuur",
                     "basket_chip": "Winkelmand"
                 },
@@ -14248,8 +14256,8 @@
                     "timout_days_chip": "{{ days }} dagen"
                 },
                 "trigger": "Trigger",
-                "exit": "Uitgang",
-                "start": "Ingang"
+                "exit": "Einde",
+                "start": "Begin"
             },
             "cadenceCard": {
                 "lost": "Verloren",
@@ -14261,19 +14269,19 @@
                 "email": "Email",
                 "select_event": "Selecteer een evenement",
                 "action_name": "{Naam van de marketingactie }",
-                "marketing_actions": "Marketingacties",
+                "marketing_actions": "Acties",
                 "triggers": "Aanleidingen"
             },
-            "cadenceIndexHelper": "De volgorde van de cadetten bepaalt de volgorde van prioriteit, als een lid 2 verschillende cadetten kan invoeren, begint hij met de hoogste in de lijst.",
-            "marketingElement": "Acties marketing",
+            "cadenceIndexHelper": "De volgorde van de cadences bepaalt de prioriteit. Als een lid aan twee of meer cadences is toegevoegd, dan zal de bovenstaande cadence voorrang krijgen.",
+            "marketingElement": "Acties",
             "triggerElement": "Activerende gebeurtenis",
-            "cadenceParameters": "Tariefinstellingen",
+            "cadenceParameters": "Instellingen",
             "exitEditModeLabel": "De bewerkingsmodus verlaten",
-            "exitEditMode": "Afwerking",
-            "editModeLabel": "Overschakelen naar de bewerkingsmodus",
-            "editMode": "Bewerk",
+            "exitEditMode": "Beëindigen",
+            "editModeLabel": "Overschakelen naar de Bewerkingsmode",
+            "editMode": "Bewerken",
             "shutOff": "Pauze",
-            "back": "Retour"
+            "back": "Terug"
         }
     },
     "spotScheduling": {
@@ -14386,7 +14394,8 @@
                 },
                 "title": "Verwijderen"
             }
-        }
+        },
+        "errorAvailableOffersScheduled": "Het is niet mogelijk om deze layout op te slaan, omdat het gebruikt wordt voor toekomstige sessies."
     },
     "franchise": {
         "member": {
@@ -14946,7 +14955,7 @@
             },
             "add": "Een categorie toevoegen",
             "empty": "Deze categorie is leeg.",
-            "noAvailable": "Geen zoekresultaten voor de geselecteerde filters.",
+            "noAvailable": "Er zijn geen zoekresultaten voor de geselecteerde filters.",
             "selector": "Naam van de categorie"
         },
         "disabledItemsTitle": "Archief"
@@ -15243,16 +15252,16 @@
             "offerCancelled": "Deze sessie is geannuleerd"
         },
         "coachEdit": {
-            "allCategories": "Geeft les in alle categorieën",
+            "allCategories": "Beschikbaar voor alle categorieën",
             "pickCategory": "Kies een categorie",
             "categories": "Categorieën",
-            "allWorkshops": "Geeft les in alle workshops",
+            "allWorkshops": "Beschikbaar voor alle workshops",
             "pickWorkshop": "Kies een workshop",
             "workshops": "Workshops",
-            "allActivities": "Geeft les in alle activiteiten",
+            "allActivities": "Beschikbaar voor alle activiteiten",
             "pickActivity": "Kies een activiteit",
             "activities": "Activiteiten",
-            "customRules": "De regels aanpassen",
+            "customRules": "Regels personaliseren",
             "disciplineGroup": "Discipline groepen",
             "description": "Geef aan welke sessies door jouw instructeurs worden gegeven. Als een vervangingsverzoek wordt gedaan in een van deze sessies, wordt die instructeur per e-mail op de hoogte gebracht. Als er niets is geselecteerd, wordt deze instructeur niet op de hoogte gebracht.",
             "title": "Vervanging",
@@ -15276,13 +15285,13 @@
                 "submit": "Opslaan",
                 "close": "Annuleren",
                 "coaches": "Geassocieerde instructeurs",
-                "allCategories": "Geeft les in alle categorieën",
+                "allCategories": "Beschikbaar voor alle categorieën",
                 "pickCategory": "Kies een categorie",
                 "categories": "Categorieën",
-                "allWorkshops": "Geeft les in alle workshops",
+                "allWorkshops": "Beschikbaar voor alle workshops",
                 "pickWorkshop": "Kies een workshop",
                 "workshops": "Workshops",
-                "allActivities": "Geeft les in alle activiteiten",
+                "allActivities": "Beschikbaar voor alle groepsactiviteiten",
                 "pickActivity": "Een activiteit kiezen",
                 "activities": "Activiteiten",
                 "groupTypes": "Soort sessies / categorieën",
@@ -15355,8 +15364,8 @@
         "delete": {
             "confirm": "Bevestigen",
             "cancel": "Annuleren",
-            "description": "Weet u zeker dat u dit verzoek wilt annuleren?",
-            "title": "Het verzoek annuleren"
+            "description": "Weet je zeker dat je dit vervangingsverzoek wilt annuleren?",
+            "title": "Vervangingsverzoek annuleren"
         },
         "askForClosingDateExtension": {
             "close": "Sluiten",
@@ -15377,14 +15386,14 @@
             "lateRequestTypo": "Let op, je verzoek voor een vervanging is laat. Je hebt {{daysBeforeOffer}} dagen voor het begin van de sessie om je verzoek op tijd in te dienen.",
             "lateRequestTypo_plural": "Let op, sommige van uw vervangingsaanvragen zijn laat. Je hebt {{daysBeforeOffer}} dagen voor het begin van de sessie om je verzoek op tijd in te dienen.",
             "close": "Sluiten",
-            "requestSentDescription": "Uw vervangingsverzoek is in behandeling genomen. Ga naar het tabblad \"Mijn aanvragen\" om de voortgang te volgen.",
-            "requestSentDescription_plural": "Uw vervangingsverzoeken zijn in behandeling genomen. Ga naar het tabblad \"Mijn aanvragen\" om de voortgang te volgen.",
+            "requestSentDescription": "Je vervangingsverzoek is in behandeling genomen. Ga naar het tabblad \"Mijn aanvragen\" om de voortgang te volgen.",
+            "requestSentDescription_plural": "Je vervangingsverzoeken zijn in behandeling genomen. Ga naar het tabblad \"Mijn aanvragen\" om de voortgang te volgen.",
             "requestSent": "Verzoek verzonden",
             "requestSent_plural": "Verzoeken verzonden",
             "submit": "Indienen",
             "cancel": "Annuleren",
             "label": "Reden van afwezigheid",
-            "title": "Verzoek om vervanging"
+            "title": "Vervangingsverzoek"
         },
         "replacementStatus": {
             "teacherFound": "Vervangen",
@@ -15393,11 +15402,11 @@
             "deniedByManager": "Geweigerd",
             "pendingForApproval": "Wachtend op goedkeuring",
             "description": {
-                "approvedWithReplacementPropositions": "registratie in behandeling.",
-                "approvedButNoReplacementPropositions": "wachtend op registraties.",
+                "approvedWithReplacementPropositions": "Je verzoek is in behandeling genomen.",
+                "approvedButNoReplacementPropositions": "Je verzoek staat nog open en anderen kunnen hierop reageren.",
                 "pendingForApproval": "wachtend op de manager om actie te ondernemen.",
-                "description": "Met de statistieken kunt u de status van uw verzoek inzien.",
-                "offerCancelled": "cursus geannuleerd."
+                "description": "Deze statusindicaties geven je live inzicht over je vervangingsverzoeken.",
+                "offerCancelled": "De sessie is geannuleerd."
             },
             "offerCancelled": "Geannuleerd"
         },
@@ -15411,13 +15420,13 @@
             "yes": "Ja"
         },
         "managerTableTitles": {
-            "replacementHistory": "Vervangingsgeschiedenis",
+            "replacementHistory": "Geschiedenis",
             "pendingRequests": "Lopende verzoeken"
         },
         "requestTableTitles": {
             "deniedRequests": "Verzoek afgewezen",
             "replacementFound": "Vervanging gevonden",
-            "pending": "In behandeling"
+            "pending": "Openstaande vervangingsverzoeken"
         },
         "header": {
             "class": "Sessie",
@@ -15433,12 +15442,12 @@
             "establishment_group": "Locatie",
             "location": "Vestiging",
             "level": "Niveau",
-            "name": "Naam van de sessie",
+            "name": "Sessie",
             "date": "Datum en tijd"
         },
         "unavailableReplacement": {
-            "refusedByManager": "Uw verzoek om vervanging is afgewezen",
-            "noLateRequestsLeft": "U kunt niet langer nieuwe late vervangingsverzoeken aanmaken",
+            "refusedByManager": "Je vervangingsverzoek is afgewezen.",
+            "noLateRequestsLeft": "Het is niet mogelijk om opnieuw te late vervangingsverzoeken te versturen.",
             "tooEarly": "Er zijn nog geen vervangingen beschikbaar",
             "alreadyAskedFor": "Er loopt al een verzoek",
             "replacing": "U bent de vervanger voor deze sessie",
@@ -15447,24 +15456,24 @@
         "marketplace": {
             "until": "Tot {{-date}}",
             "filters": "Filters",
-            "description": "De volgende sessies hebben een vervangende leraar nodig. Bent u beschikbaar?",
+            "description": "De volgende sessies hebben een plaatsvervanger nodig. Ben je beschikbaar?",
             "title": "Marketplace"
         },
         "confirmations": {
-            "description": "U bent toegevoegd als vervangende leraar voor de volgende sessies.",
+            "description": "Je bent als plaatsvervanger aangewezen voor de volgende sessies.",
             "title": "Bevestigingen"
         },
         "requests": {
             "cancel": "Annuleren",
-            "description": "Vind hier al uw vervangingsverzoeken.",
+            "description": "Hier staan al je vervangingsverzoeken.",
             "title": "Mijn verzoeken"
         },
         "calendar": {
-            "helperTextNotLimited": "Alle aanvragen voor vervangingen die binnen {{count}} dag van de zitting worden gedaan, worden als te laat beschouwd.",
-            "helperTextNotLimited_plural": "Alle aanvragen voor vervangingen die binnen {{count}} dagen van de zitting worden gedaan, worden als te laat beschouwd.",
+            "helperTextNotLimited": "Alle vervangingsverzoeken die binnen {{count}} dag voor het start van de sessie worden gedaan worden als te laat beschouwd.",
+            "helperTextNotLimited_plural": "Alle vervangingsverzoeken die binnen {{count}} dagen voor het start van de sessie worden gedaan worden als te laat beschouwd.",
             "helperTextLimited": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterende laattijdige verzoeken {{-dateEnd}}. Alle aanvragen voor vervangingen die binnen {{count}} dag van de zitting worden gedaan, worden als te laat beschouwd.",
             "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterende laattijdige verzoeken {{-dateEnd}}. Alle aanvragen voor vervangingen die binnen {{count}} dag van de zitting worden gedaan, worden als te laat beschouwd.",
-            "description": "Vind hier al uw groepsactiviteiten.",
+            "description": "Hier staan al je ingeroosterde groepsactiviteiten.",
             "title": "Mijn rooster"
         },
         "requestsLinkedToCancelledOffers": {
@@ -15474,8 +15483,8 @@
             "title": "Actieve vervangingsverzoeken zijn gekoppeld aan geannuleerde sessies.",
             "buttonLabel": "Open",
             "offerHasActiveRequest": {
-                "helper": "Wilt u worden doorverwezen naar de pagina met vervangende verzoeken om verouderde verzoeken te annuleren?",
-                "title": "Aan deze sessie is een actief vervangingsverzoek gekoppeld"
+                "helper": "Wil je worden doorverwezen naar de pagina om oude vervangingsverzoeken te annuleren?",
+                "title": "Er is een actief vervangingsverzoek aan deze sessie gekoppeld"
             }
         }
     },
@@ -15488,7 +15497,7 @@
                 "selectAll": "Alles selecteren",
                 "objectType": "Type object",
                 "category": "Categorie",
-                "add": "Voeg  toe",
+                "add": "Toevoegen",
                 "cancel": "Annuleren",
                 "search": "Zoeken",
                 "tilesColor": "Tegelkleur",
@@ -15497,29 +15506,29 @@
                 "simpleObjectsSubtitle": "Objecten toevoegen",
                 "title": "Verkoopinterface"
             },
-            "goBack": "Retour"
+            "goBack": "Terug"
         },
         "iconSelector": {
-            "searchPlaceholder": "Zoeken (zoeken in het Engels)"
+            "searchPlaceholder": "Zoeken"
         },
         "sectionCard": {
-            "item": "item",
-            "item_plural": "items"
+            "item": "artikel",
+            "item_plural": "artikelen"
         },
         "objectCard": {
             "recurrence": {
-                "year": "elk jaar",
-                "year_plural": "elke {{ recurrence_basis }} jaren",
-                "month": "elke maand",
-                "month_plural": "elke {{ recurrence_basis }} maand",
-                "week": "elke week",
-                "week_plural": "elke {{ recurrence_basis }} week",
-                "day": "elke dag",
-                "day_plural": "elke {{ recurrence_basis }} dag"
+                "year": "jaarlijks",
+                "year_plural": "elke {{ recurrence_basis }} jaar",
+                "month": "maandelijks",
+                "month_plural": "elke {{ recurrence_basis }} maand(en)",
+                "week": "wekelijks",
+                "week_plural": "elke {{ recurrence_basis }} weken",
+                "day": "dagelijks",
+                "day_plural": "elke {{ recurrence_basis }} dag(en)"
             },
             "subtitle": {
-                "giftcard": "Cadeaukaart",
-                "subscription": "Contract",
+                "giftcard": "Cadeaubon",
+                "subscription": "Abonnementen",
                 "paymentCombo": "Pakket",
                 "shopProduct": "Product",
                 "privatePass": "Afspraakkaart",
@@ -15532,48 +15541,48 @@
             }
         },
         "rolePage": {
-            "noResult": "Geen toegang gemaakt",
-            "actionColumn": "Actie",
-            "emailColumn": "Email",
+            "noResult": "Momenteel zijn nog geen mensen gemachtigd om de verkoopinterface te gebruiken.",
+            "actionColumn": "Acties",
+            "emailColumn": "E-mailadres",
             "staffColumn": "Instructeurs",
-            "submit": "Geldig",
+            "submit": "Opslaan",
             "cancel": "Annuleren",
             "password": "Wachtwoord",
-            "email": "Email",
-            "lastName": "Naam",
+            "email": "E-mailadres",
+            "lastName": "Achternaam",
             "firstName": "Voornaam",
-            "modalTitle": "Toegang tot verkoopinterface maken",
-            "addAccess": "Een toegang toevoegen",
-            "subtitle": "Met deze toegangen hebben medewerkers toegang tot de snelle verkoopinterface. Je moet ingelogd zijn om via de interface te kunnen verkopen.",
-            "title": "Toegang tot verkooppunten"
+            "modalTitle": "[Formulier] Toegang verkoopinterface",
+            "addAccess": "Toegang toevoegen",
+            "subtitle": "Selecteer hier de medewerkers die toegang hebben tot deze functie. Medewerkers moeten ingelogd zijn om deze optie te kunnen gebruiken.",
+            "title": "Verkooptoegang"
         },
         "pageTitle": "Verkoopinterface",
         "pageLeavePrompt": {
             "discard": "Afsluiten zonder op te slaan",
             "save": "Opslaan",
-            "description": "Wees voorzichtig, je hebt geen back-up gemaakt. Je staat op het punt om alle wijzigingen die je hebt gemaakt te verliezen. Wil je je werk opslaan?",
-            "title": "Wijzigingen niet opgeslagen"
+            "description": "Omdat je tussentijds niets hebt opgeslagen sta je op het punt om alle wijzigingen ongedaan te maken. Wil je je wijzigingen opslaan?",
+            "title": "De wijzigingen konden niet worden opgeslagen."
         },
         "cardListPage": {
-            "categoryArchivedSnackbar": "De categorie is gearchiveerd",
+            "categoryArchivedSnackbar": "Deze categorie is gearchiveerd.",
             "archivedCategories": "Gearchiveerde categorieën",
             "categoryModalSubtitle": "Kleurenpalet",
             "categoryModalTitle": "Categorie kleur",
             "newSection": "Nieuwe categorie",
-            "addItems": "Je kunt ook objecten toevoegen door op de + tegel in de laatste positie te klikken.",
-            "addSection": "Je kunt ook een categorie toevoegen door op de + tegel op de laatste positie te klikken.",
-            "deleteTile": "De tegel verwijderen",
-            "archiveSection": "Archief categorie",
-            "moveTile": "Verplaats de tegel",
-            "editColor": "Verander de kleur",
-            "editName": "Naam wijzigen",
-            "editIcon": "Het pictogram wijzigen",
-            "seeLess": "Minder zien",
-            "seeMore": "Meer zien",
-            "possibleActionsFull": "Je kunt acties uitvoeren door met je muis over de tegels te bewegen. U kunt :",
-            "possibleActionsShort": "Je kunt acties uitvoeren door met de muis over de tegels te bewegen...",
+            "addItems": "Klik op \"+\" om producten binnen een bepaalde tegel toe te voegen.",
+            "addSection": "Klik op \"+\" om een nieuwe tegel toe te voegen.",
+            "deleteTile": "Tegels verwijderen",
+            "archiveSection": "Categorieën archiveren",
+            "moveTile": "Tegels verplaatsen",
+            "editColor": "Kleuren wijzigen",
+            "editName": "Namen wijzigen",
+            "editIcon": "Icoontjes wijzigen",
+            "seeLess": "Toon minder",
+            "seeMore": "Toon meer",
+            "possibleActionsFull": "Je kunt acties uitvoeren door met je muis over de tegels te bewegen, zoals:",
+            "possibleActionsShort": "Je kunt acties uitvoeren door met de muis over de tegels te bewegen.",
             "save": "Opslaan",
-            "preview": "Voorbeeld"
+            "preview": "Voorvertoning"
         }
     }
 }

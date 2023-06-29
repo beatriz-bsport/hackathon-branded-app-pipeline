@@ -7,7 +7,7 @@ import MarketplaceContractCard from '#libs/marketplace/components/MarketplaceCon
 
 import { Contract } from '#libs/subscription/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
-import { useMarketplaceSubscriptionFilters } from '#libs/marketplace/hooks';
+import { filterSearchedMarketplaceContracts } from '#libs/marketplace/hooks';
 
 type Props = {
   isExcludingTax: boolean;
@@ -65,9 +65,10 @@ const MarketplaceContractList: React.FC<Props> = React.memo(
   }) => {
     const classes = useStyles();
 
-    const filteredContractList = useMarketplaceSubscriptionFilters(
-      contractList,
-      searchedContractIds,
+    const filteredContractList = React.useMemo(
+      () =>
+        filterSearchedMarketplaceContracts(contractList, searchedContractIds),
+      [contractList, searchedContractIds],
     );
 
     return (

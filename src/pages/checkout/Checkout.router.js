@@ -125,7 +125,7 @@ export class PaymentRouter extends React.Component<Props> {
           <Route
             path="/(|customer/)checkout/:companyId/subscription/:contractId"
             component={
-              !['production'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT)
+              Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
                 ? ContractCheckoutV2
                 : ContractCheckout
             }

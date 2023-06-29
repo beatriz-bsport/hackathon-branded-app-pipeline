@@ -323,7 +323,7 @@ export class MarketPlace extends Component<Props, State> {
           />
         );
       case MARKETPLACE_PATH_TAB_CONTRACT:
-        if (!['production'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT)) {
+        if (Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production') {
           return (
             <MarketplaceContractPageV2
               key={this.props.tabSelected}

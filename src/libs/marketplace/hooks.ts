@@ -28,7 +28,7 @@ import { Contract } from '#libs/subscription/types';
  * @param fuzzySearchContractResults The ids returned by fuzzy search
  * @returns {Contract[]} List of searched contracts
  */
-export const useMarketplaceSubscriptionFilters = (
+export const filterSearchedMarketplaceContracts = (
   contractList: Contract[],
   fuzzySearchContractResults: number[],
 ) => {

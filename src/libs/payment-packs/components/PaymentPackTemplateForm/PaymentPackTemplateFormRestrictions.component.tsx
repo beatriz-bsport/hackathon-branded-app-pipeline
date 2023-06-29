@@ -1,11 +1,11 @@
-// @ts-nocheck
-import React, { useState } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { ButtonBase, Collapse, Grid, Typography } from '@material-ui/core';
 import { useFormikContext, FormikProps } from 'formik';
 import CancelIcon from '@material-ui/icons/Cancel';
+import AddIcon from '@material-ui/icons/Add';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
@@ -17,11 +17,14 @@ import {
   TextFieldEnhancedLabelWithError,
   SwitchField,
   DateField,
-} from '../../../../components/forms';
+  // @ts-expect-error
+} from '#components/forms';
 import { CheckboxField } from '#libs/custom-form/components/GenericFormik.input';
 import type { PrivatePass } from '#libs/private-service/types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import ToolTip from '#components/Tooltip.component';
+import { offPeakGroupDefault } from '#libs/payment-packs/utils';
+import OffPeakTimeSlotGroup from '#libs/payment-packs/components/PaymentPackForm/PaymentPackOffPeak.component';
 
 type Props = {
   initial: PaymentPack<PrivatePass>;
@@ -34,7 +37,27 @@ export const PaymentPackFormRestrictions = (props: Props) => {
   );
   const classes = useStyles();
 
-  const { values }: FormikProps<PaymentPackFormValues> = useFormikContext();
+  const { values, setFieldValue }: FormikProps<PaymentPackFormValues> =
+    useFormikContext();
+  const multipleGroups: boolean = values.off_peak_schedule?.length > 1;
+
+  const handleAddGroupTimeSlot = useCallback(() => {
+    const newGroup = offPeakGroupDefault();
+    setFieldValue(`off_peak_schedule`, [...values.off_peak_schedule, newGroup]);
+  }, [setFieldValue, values.off_peak_schedule]);
+
+  const handleDeleteGroup = useCallback(
+    (indexGroup: number) => () => {
+      values.off_peak_schedule.splice(indexGroup, 1);
+      setFieldValue('off_peak_schedule', values.off_peak_schedule);
+    },
+    [setFieldValue, values.off_peak_schedule],
+  );
+
+  const addGroupTimeSlotLabel = t(
+    'addPaymentPack.offPeak.addGroupTimeSlot',
+  )?.toUpperCase();
+
   return (
     <>
       <Grid container spacing={2}>
@@ -140,6 +163,33 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 name="expiration_date"
               />
             </Collapse>
+            <div className={classes.row}>
+              <SwitchField
+                name="off_peak_active"
+                label={t('addPaymentPack.offPeak.label')}
+              />
+            </div>
+            <div>
+              <Collapse in={values.off_peak_active}>
+                {values.off_peak_schedule.map((group, index) => (
+                  <OffPeakTimeSlotGroup
+                    group={group}
+                    setFieldValue={setFieldValue}
+                    index={index}
+                    multipleGroups={multipleGroups}
+                    onGroupDelete={handleDeleteGroup(index)}
+                  />
+                ))}
+                <ButtonBase
+                  color="primary"
+                  className={classes.buttonAdd}
+                  onClick={handleAddGroupTimeSlot}
+                >
+                  <AddIcon color="primary" />
+                  {addGroupTimeSlotLabel}
+                </ButtonBase>
+              </Collapse>
+            </div>
           </div>
         </Grid>
         <Grid item xs={12}>
@@ -195,5 +245,14 @@ const useStyles = makeStyles<Theme>((theme) => ({
     paddingTop: theme.spacing(2),
   },
   inputLabelExpirationDate: { marginTop: theme.spacing(1), fontSize: 12 },
+  buttonAdd: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(2),
+    color: theme.palette.primary.main,
+    marginTop: theme.spacing(2),
+    fontWeight: 'bold',
+    marginLeft: theme.spacing(3.5),
+  },
 }));
-export default PaymentPackFormRestrictions;
+export default memo(PaymentPackFormRestrictions);

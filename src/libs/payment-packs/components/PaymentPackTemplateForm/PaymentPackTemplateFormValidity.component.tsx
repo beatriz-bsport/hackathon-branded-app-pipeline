@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -15,10 +14,8 @@ import {
   START_ON_FIRST_ATTENDANCE,
 } from '@bsport/common/lib/master-data/payment-pack';
 import { PaymentPackFormValues } from '../../types';
-import {
-  TextFieldEnhancedLabelWithError,
-  DateField,
-} from '../../../../components/forms';
+// @ts-expect-error
+import { TextFieldEnhancedLabelWithError, DateField } from '#components/forms';
 import { getValidityString } from '../../utils';
 import {
   VALID_BY_DURATION,

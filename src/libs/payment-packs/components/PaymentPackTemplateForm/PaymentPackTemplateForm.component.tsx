@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { memo } from 'react';
 import pick from 'lodash/pick';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { withFormik } from 'formik';
@@ -18,6 +18,12 @@ import {
   PENALTY_KIND_NEGATIVE_ACCOUNT,
   PENALTY_MODE_FRANCHISOR_PRORATA,
 } from '../../constants';
+import {
+  offPeakGroupDefault,
+  formatOffPeakScheduleOnSubmit,
+  formatOffPeakScheduleOnEdit,
+} from '#libs/payment-packs/utils';
+import { offPeakScheduleSchemaValidation } from '../PaymentPackForm/PaymentPackForm.component';
 
 export const VALID_BY_DURATION = 'VALID_BY_DURATION';
 export const VALID_BY_DATERANGE = 'VALID_BY_DATERANGE';
@@ -28,6 +34,8 @@ const penaltyKindDict = {
 };
 
 type Props = {};
+
+const offPeakGroupDefaultValue = [offPeakGroupDefault()];
 
 const PaymentPackTemplateForm = (props: Props) => {
   const classes = useStyles();
@@ -235,6 +243,7 @@ const PaymentPackTemplateSchema = Yup.object().shape({
   ),
   expiration_date: Yup.date().nullable(),
   description: Yup.string().nullable(),
+  off_peak_schedule: offPeakScheduleSchemaValidation,
 });
 
 export const PaymentPackTemplateFormikHOC = withFormik({
@@ -283,6 +292,14 @@ export const PaymentPackTemplateFormikHOC = withFormik({
         expiration_date: null,
         expiration_date_active: false,
         description: null,
+        off_peak_active:
+          !!initial?.off_peak_schedule &&
+          !!Object.keys(initial.off_peak_schedule ?? {}).length,
+        off_peak_schedule:
+          !!initial?.off_peak_schedule &&
+          Object.keys(initial.off_peak_schedule ?? {}).length
+            ? formatOffPeakScheduleOnEdit(initial.off_peak_schedule)
+            : offPeakGroupDefaultValue,
       },
       (initial && {
         ...initial,
@@ -307,6 +324,8 @@ export const PaymentPackTemplateFormikHOC = withFormik({
           initial?.penalty_active || initial?.no_show_penalty_active,
         unusable_by_staff: !initial.is_usable_by_staff,
         expiration_date_active: !!initial?.expiration_date,
+        off_peak_schedule: offPeakGroupDefaultValue,
+        off_peak_active: false,
       }) ||
         {},
     ),
@@ -348,6 +367,7 @@ export const PaymentPackTemplateFormikHOC = withFormik({
       'is_usable_by_staff',
       'expiration_date',
       'description',
+      'off_peak_schedule',
     ];
     const data = pick(
       { ...values, is_usable_by_staff: !values.unusable_by_staff },
@@ -409,7 +429,13 @@ export const PaymentPackTemplateFormikHOC = withFormik({
     } else {
       data.expiration_date = null;
     }
-
+    if (values.off_peak_active && values.off_peak_schedule) {
+      data.off_peak_schedule = formatOffPeakScheduleOnSubmit(
+        values.off_peak_schedule,
+      );
+    } else {
+      data.off_peak_schedule = {};
+    }
     onSubmit(data, {
       onSuccess: () => setSubmitting(false),
       onError: () => setSubmitting(false),
@@ -417,4 +443,4 @@ export const PaymentPackTemplateFormikHOC = withFormik({
   },
 });
 
-export default PaymentPackTemplateForm;
+export default memo(PaymentPackTemplateForm);

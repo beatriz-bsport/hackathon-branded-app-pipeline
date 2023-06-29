@@ -246,6 +246,7 @@ export type PaymentPackFormValues<LPP = number> = {
   duration_months?: number;
   duration_years?: number;
   start_date_method?: 'billing' | 'booking' | 'attendance' | number;
+  timeType?: string;
   expiration_days_before_first_use?: number;
   penalty_nb_late_cancellations?: number;
   penalty_nb_days?: number;
@@ -277,6 +278,8 @@ export type PaymentPackFormValues<LPP = number> = {
   allow_guest_pass?: boolean;
   unusable_by_staff?: boolean;
   expiration_date: string;
+  expiration_date_active: boolean;
+  off_peak_active: boolean;
   off_peak_schedule: OffPeakSchedule[];
 };
 

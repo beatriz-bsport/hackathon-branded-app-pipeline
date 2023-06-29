@@ -62,6 +62,55 @@ const penaltyKindDict = {
   [PENALTY_KIND_NEGATIVE_ACCOUNT]: 'account',
 };
 
+export const offPeakScheduleSchemaValidation = Yup.array().of(
+  Yup.object().shape({
+    timeSlots: Yup.array().of(
+      Yup.array().test({
+        name: 'startBeforeEnd',
+        test: function startBeforeEnd(timeSlot) {
+          if (timeSlot && Array.isArray(timeSlot) && timeSlot.length === 2) {
+            const [startTime, endTime] = timeSlot;
+            if (!moment(startTime).isBefore(moment(endTime), 'minute')) {
+              return this.createError({
+                message: 'paymentPack:addPaymentPack.startAfterEnd',
+                path: this.path,
+              });
+            }
+          }
+          return true;
+        },
+      }),
+    ),
+    recurrenceWeekDay: Yup.object()
+      .shape({
+        '1': Yup.boolean().required(),
+        '2': Yup.boolean().required(),
+        '3': Yup.boolean().required(),
+        '4': Yup.boolean().required(),
+        '5': Yup.boolean().required(),
+        '6': Yup.boolean().required(),
+        '7': Yup.boolean().required(),
+      })
+      .test({
+        name: 'at-least-one-day',
+        test: function atLeastOneTrue(isoWeekDay) {
+          const { timeSlots } = this.parent;
+          if (
+            timeSlots &&
+            !Object.values(isoWeekDay).some((day) => day === true)
+          ) {
+            return this.createError({
+              message: 'paymentPack:addPaymentPack.atLeastOneDay',
+              path: this.path,
+            });
+          }
+          return true;
+        },
+      }),
+    slotDurationChoice: Yup.string().matches(/^(all_day|time_slot)$/),
+  }),
+);
+
 const getFormInitial = (
   compatibleServicePass: ServiceCompatibilityPass[] = [],
 ) => {
@@ -783,48 +832,5 @@ const paymentPackSchema = Yup.object().shape({
   applies_for_payroll: Yup.boolean().required(),
   expiration_date: Yup.date().nullable(),
   description: Yup.string().nullable(),
-  off_peak_schedule: Yup.array().of(
-    Yup.object().shape({
-      timeSlots: Yup.array().of(
-        Yup.array().test(
-          'startBeforeEnd',
-          'paymentPack:addPaymentPack.startAfterEnd',
-          (value) => {
-            if (value && Array.isArray(value) && value.length === 2) {
-              const [startTime, endTime] = value;
-              return moment(startTime).isBefore(moment(endTime), 'minute');
-            }
-            return false;
-          },
-        ),
-      ),
-      recurrenceWeekDay: Yup.object()
-        .shape({
-          '1': Yup.boolean().required(),
-          '2': Yup.boolean().required(),
-          '3': Yup.boolean().required(),
-          '4': Yup.boolean().required(),
-          '5': Yup.boolean().required(),
-          '6': Yup.boolean().required(),
-          '7': Yup.boolean().required(),
-        })
-        .test({
-          name: 'at-least-one-day',
-          test: function atLeastOneTrue(values) {
-            const { timeSlots } = this.parent;
-            if (
-              timeSlots &&
-              !Object.values(values).some((day) => day === true)
-            ) {
-              return this.createError({
-                message: 'paymentPack:addPaymentPack.atLeastOneDay',
-                path: this.path,
-              });
-            }
-            return true;
-          },
-        }),
-      slotDurationChoice: Yup.string(),
-    }),
-  ),
+  off_peak_schedule: offPeakScheduleSchemaValidation,
 });

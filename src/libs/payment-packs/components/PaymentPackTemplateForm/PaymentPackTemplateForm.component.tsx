@@ -324,8 +324,14 @@ export const PaymentPackTemplateFormikHOC = withFormik({
           initial?.penalty_active || initial?.no_show_penalty_active,
         unusable_by_staff: !initial.is_usable_by_staff,
         expiration_date_active: !!initial?.expiration_date,
-        off_peak_schedule: offPeakGroupDefaultValue,
-        off_peak_active: false,
+        off_peak_active:
+          !!initial?.off_peak_schedule &&
+          !!Object.keys(initial.off_peak_schedule)?.length,
+        off_peak_schedule:
+          initial?.off_peak_schedule &&
+          Object.keys(initial.off_peak_schedule)?.length
+            ? formatOffPeakScheduleOnEdit(initial?.off_peak_schedule)
+            : offPeakGroupDefaultValue,
       }) ||
         {},
     ),

@@ -24,7 +24,7 @@ type Props = {
   group: OffPeakSchedule;
   setFieldValue: FieldValueSetter;
   index: number;
-  multipleGroups: boolean;
+  hasMultipleGroups: boolean;
   onGroupDelete: () => void;
 };
 
@@ -159,7 +159,8 @@ const OffPeaktimeSlotsRow: React.FC<OffPeaktimeSlotsRowProps> = ({
 };
 
 const OffPeaktimeSlotGroup = (props: Props) => {
-  const { group, setFieldValue, index, multipleGroups, onGroupDelete } = props;
+  const { group, setFieldValue, index, hasMultipleGroups, onGroupDelete } =
+    props;
   const classes = useStyles();
   const { t } = useTranslation('paymentPack');
 
@@ -198,9 +199,13 @@ const OffPeaktimeSlotGroup = (props: Props) => {
     setFieldValue(`off_peak_schedule[${index}]`, group);
   }, [group, index, setFieldValue]);
 
+  const addTimeSlotLabel = t(
+    'addPaymentPack.offPeak.addTimeSlot',
+  )?.toUpperCase();
+
   return (
     <div className={classes.container}>
-      {multipleGroups && (
+      {hasMultipleGroups && (
         <ButtonBase
           className={classNames(classes.deleteIcon, classes.groupDelete)}
           color="primary"
@@ -239,7 +244,7 @@ const OffPeaktimeSlotGroup = (props: Props) => {
             onClick={handleAddtimeSlot}
           >
             <AddIcon color="primary" />
-            {t('addPaymentPack.offPeak.addTimeSlot')?.toUpperCase()}
+            <Typography className={classes.bold}>{addTimeSlotLabel}</Typography>
           </ButtonBase>
         </Collapse>
       </div>
@@ -301,7 +306,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     gap: theme.spacing(2),
     color: theme.palette.primary.main,
     marginTop: theme.spacing(2),
-    fontWeight: 'bold',
+  },
+  bold: {
+    fontWeight: 500,
+    fontSize: theme.spacing(1.75),
   },
   error: { color: theme.palette.error.main },
 }));

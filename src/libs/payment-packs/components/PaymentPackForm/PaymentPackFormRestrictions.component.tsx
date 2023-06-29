@@ -61,7 +61,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
   const classes = useStyles();
   const { values, setFieldValue }: FormikProps<PaymentPackFormValues> =
     useFormikContext();
-  const multipleGroups: boolean = values.off_peak_schedule.length > 1;
+  const hasMultipleGroups = values.off_peak_schedule.length > 1;
 
   const handleAddGroupTimeSlot = useCallback(() => {
     const newGroup = offPeakGroupDefault();
@@ -75,6 +75,11 @@ export const PaymentPackFormRestrictions = (props: Props) => {
     },
     [setFieldValue, values.off_peak_schedule],
   );
+
+  const addGroupTimeSlotLabel = t(
+    'addPaymentPack.offPeak.addGroupTimeSlot',
+  )?.toUpperCase();
+
   return (
     <>
       <Grid container id="paymentpack-form-restrictions-section" spacing={2}>
@@ -215,7 +220,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                     key={`${index}`}
                     group={group}
                     index={index}
-                    multipleGroups={multipleGroups}
+                    hasMultipleGroups={hasMultipleGroups}
                     onGroupDelete={handleDeleteGroup(index)}
                     setFieldValue={setFieldValue}
                   />
@@ -226,7 +231,9 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                   onClick={handleAddGroupTimeSlot}
                 >
                   <AddIcon color="primary" />
-                  {t('addPaymentPack.offPeak.addGroupTimeSlot')?.toUpperCase()}
+                  <Typography className={classes.bold}>
+                    {addGroupTimeSlotLabel}
+                  </Typography>
                 </ButtonBase>
               </Collapse>
             </div>
@@ -449,8 +456,11 @@ const useStyles = makeStyles<Theme>((theme) => ({
     gap: theme.spacing(2),
     color: theme.palette.primary.main,
     marginTop: theme.spacing(2),
-    fontWeight: 'bold',
     marginLeft: theme.spacing(3.5),
+  },
+  bold: {
+    fontWeight: 500,
+    fontSize: theme.spacing(1.75),
   },
 }));
 export default PaymentPackFormRestrictions;

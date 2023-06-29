@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -11,6 +11,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import classnames from 'classnames';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { DateRange, Share, Star } from '@material-ui/icons';
 import { getCreditInfo, getValidityInfo } from '../utils';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -18,11 +19,11 @@ import { PaymentPackTemplate } from '../types';
 import CompanyChip from '../../../components/franchise/CompanyChip.component';
 import RedButtonComponent from '#components/button/RedButton.component';
 import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
-
 import {
   PENALTY_KIND_BLOCK_CPP,
   PENALTY_KIND_NEGATIVE_ACCOUNT,
 } from '#libs/payment-packs/constants';
+import OffPeakDisplayByDay from './OffPeakDisplayByDay.component';
 
 type Props = {
   paymentPackTemplate: PaymentPackTemplate;
@@ -36,7 +37,7 @@ type Props = {
 
 const RestrictionsSection: React.FC<{
   paymentPackTemplate: PaymentPackTemplate;
-}> = ({ paymentPackTemplate }) => {
+}> = memo(({ paymentPackTemplate }) => {
   const { t } = useTranslation('paymentPack');
   const classes = useStyles();
   if (!paymentPackTemplate) {
@@ -65,7 +66,7 @@ const RestrictionsSection: React.FC<{
         <div className={classes.detailInfo}>
           <div className={classes.detailCategory}>
             <NotInterestedIcon className={classes.leftIcon} />
-            <Typography variant="h6">
+            <Typography variant="subtitle2">
               {t('detailTitles.restrictions')}
             </Typography>
           </div>
@@ -126,25 +127,23 @@ const RestrictionsSection: React.FC<{
     );
   }
   return null;
-};
+});
 
-const VODSection: React.FC<{ paymentPackTemplate: PaymentPackTemplate }> = ({
-  paymentPackTemplate,
-}) => {
-  const { t } = useTranslation('paymentPack');
-  const classes = useStyles();
-  if (!paymentPackTemplate) {
-    return null;
-  }
-  const { only_vod_access, full_vod_access } = paymentPackTemplate;
+const VODSection: React.FC<{ paymentPackTemplate: PaymentPackTemplate }> = memo(
+  ({ paymentPackTemplate }) => {
+    const { t } = useTranslation('paymentPack');
+    const classes = useStyles();
+    if (!paymentPackTemplate) {
+      return null;
+    }
+    const { only_vod_access, full_vod_access } = paymentPackTemplate;
 
-  if (only_vod_access || full_vod_access) {
-    return (
-      <>
+    if (only_vod_access || full_vod_access) {
+      return (
         <div className={classes.detailInfo}>
           <div className={classes.detailCategory}>
             <OndemandVideoIcon className={classes.leftIcon} />
-            <Typography variant="h6">{t('detailTitles.vod')}</Typography>
+            <Typography variant="subtitle2">{t('detailTitles.vod')}</Typography>
           </div>
           <Typography
             className={classes.packInfo}
@@ -159,11 +158,59 @@ const VODSection: React.FC<{ paymentPackTemplate: PaymentPackTemplate }> = ({
             )}
           </Typography>
         </div>
-      </>
+      );
+    }
+    return null;
+  },
+);
+
+const OffPeakSection: React.FC<{
+  paymentPackTemplate: PaymentPackTemplate;
+}> = memo(({ paymentPackTemplate }) => {
+  const { t } = useTranslation('paymentPack');
+  const classes = useStyles();
+
+  const off_peak_schedule = useMemo(() => {
+    return JSON.parse(
+      JSON.stringify(paymentPackTemplate?.off_peak_schedule ?? {}),
+    );
+  }, [paymentPackTemplate?.off_peak_schedule]);
+
+  const offPeakScheduleMemoized = useMemo(() => {
+    return Object.entries(off_peak_schedule);
+  }, [off_peak_schedule]);
+
+  if (!paymentPackTemplate) {
+    return null;
+  }
+
+  if (off_peak_schedule && offPeakScheduleMemoized.length > 0) {
+    return (
+      <div className={classes.detailInfo}>
+        <div className={classes.detailCategory}>
+          <AccessTimeIcon className={classes.leftIcon} />
+          <Typography variant="subtitle2">
+            {t('detailTitles.offPeak')}
+          </Typography>
+        </div>
+        <div className={classes.allSchedule}>
+          {offPeakScheduleMemoized.map(
+            ([isoWeekday, timeSlots]: [string, string[][]]) => {
+              return (
+                <OffPeakDisplayByDay
+                  timeSlots={timeSlots}
+                  isoWeekday={isoWeekday}
+                />
+              );
+            },
+          )}
+        </div>
+      </div>
     );
   }
   return null;
-};
+});
+
 const PaymentPackTemplateCard = (props: Props) => {
   const { t } = useTranslation(['paymentPack']);
   const classes = useStyles();
@@ -253,7 +300,7 @@ const PaymentPackTemplateCard = (props: Props) => {
               <div className={classes.detailInfo}>
                 <div className={classes.detailCategory}>
                   <Star className={classes.leftIcon} />
-                  <Typography variant="h6">
+                  <Typography variant="subtitle2">
                     {t('detailTitles.credit_quantity')}
                   </Typography>
                 </div>
@@ -264,7 +311,7 @@ const PaymentPackTemplateCard = (props: Props) => {
               <div className={classes.detailInfo}>
                 <div className={classes.detailCategory}>
                   <DateRange className={classes.leftIcon} />
-                  <Typography variant="h6">
+                  <Typography variant="subtitle2">
                     {t('detailTitles.validity')}
                   </Typography>
                 </div>
@@ -293,11 +340,13 @@ const PaymentPackTemplateCard = (props: Props) => {
             paymentPackTemplate={props.paymentPackTemplate}
           />
           <VODSection paymentPackTemplate={props.paymentPackTemplate} />
+          <OffPeakSection paymentPackTemplate={props.paymentPackTemplate} />
+
           <div className={classes.restrictionBlock}>
             <div className={classes.detailInfo}>
               <div className={classes.detailCategory}>
                 <Share className={classes.leftIcon} />
-                <Typography variant="h6">
+                <Typography variant="subtitle2">
                   {t(
                     'paymentPackTemplate.specification.companySharedWithTitle',
                   )}
@@ -470,6 +519,19 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.text.secondary,
     wordBreak: 'break-word',
   },
+  scheduleInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    gap: theme.spacing(1),
+  },
+  allSchedule: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: theme.spacing(1),
+  },
 }));
 
-export default PaymentPackTemplateCard;
+export default memo(PaymentPackTemplateCard);

@@ -39,7 +39,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
 
   const { values, setFieldValue }: FormikProps<PaymentPackFormValues> =
     useFormikContext();
-  const multipleGroups: boolean = values.off_peak_schedule?.length > 1;
+  const hasMultipleGroups: boolean = values.off_peak_schedule?.length > 1;
 
   const handleAddGroupTimeSlot = useCallback(() => {
     const newGroup = offPeakGroupDefault();
@@ -173,10 +173,11 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               <Collapse in={values.off_peak_active}>
                 {values.off_peak_schedule.map((group, index) => (
                   <OffPeakTimeSlotGroup
+                    key={`${index}`}
                     group={group}
                     setFieldValue={setFieldValue}
                     index={index}
-                    multipleGroups={multipleGroups}
+                    hasMultipleGroups={hasMultipleGroups}
                     onGroupDelete={handleDeleteGroup(index)}
                   />
                 ))}
@@ -186,7 +187,9 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                   onClick={handleAddGroupTimeSlot}
                 >
                   <AddIcon color="primary" />
-                  {addGroupTimeSlotLabel}
+                  <Typography className={classes.bold}>
+                    {addGroupTimeSlotLabel}
+                  </Typography>
                 </ButtonBase>
               </Collapse>
             </div>
@@ -253,6 +256,10 @@ const useStyles = makeStyles<Theme>((theme) => ({
     marginTop: theme.spacing(2),
     fontWeight: 'bold',
     marginLeft: theme.spacing(3.5),
+  },
+  bold: {
+    fontWeight: 500,
+    fontSize: theme.spacing(1.75),
   },
 }));
 export default memo(PaymentPackFormRestrictions);

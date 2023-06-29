@@ -1,9 +1,8 @@
 import React, { memo } from 'react';
-import { ClassNameMap, makeStyles } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles';
 import { Theme, Typography } from '@material-ui/core';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
 import { CustomChip } from '#components/chip/CustomChip.component';
 
 type OffPeakDisplayByDayProps = {
@@ -13,13 +12,14 @@ type OffPeakDisplayByDayProps = {
 
 type OffPeakDisplayByTimeSlotsProps = {
   timeSlot: string[];
-  classes: ClassNameMap;
-  t: TFunction;
 };
 
 const OffPeakDisplayByTimeSlots: React.FC<OffPeakDisplayByTimeSlotsProps> =
-  memo(({ timeSlot, classes, t }) => {
+  memo(({ timeSlot }) => {
     const [start, end] = timeSlot;
+    const classes = useStyles();
+    const { t } = useTranslation(['paymentPack']);
+
     const isAllDaySlot = start === '00:00' && end === '23:59';
 
     return (
@@ -39,7 +39,7 @@ const OffPeakDisplayByTimeSlots: React.FC<OffPeakDisplayByTimeSlotsProps> =
 const OffPeakDisplayByDay = (props: OffPeakDisplayByDayProps) => {
   const { timeSlots, isoWeekday } = props;
   const classes = useStyles();
-  const { t } = useTranslation(['paymentPack', 'datetime']);
+  const { t } = useTranslation(['datetime']);
 
   return (
     <div
@@ -51,11 +51,7 @@ const OffPeakDisplayByDay = (props: OffPeakDisplayByDayProps) => {
       </Typography>
       <div className={classes.scheduleInfo}>
         {timeSlots.map((timeSlot) => (
-          <OffPeakDisplayByTimeSlots
-            classes={classes}
-            t={t}
-            timeSlot={timeSlot}
-          />
+          <OffPeakDisplayByTimeSlots timeSlot={timeSlot} />
         ))}
       </div>
     </div>

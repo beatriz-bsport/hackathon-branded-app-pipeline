@@ -142,6 +142,7 @@ export type PaymentPackTemplateAPI = {
   only_vod_access: boolean;
   full_vod_access: boolean;
   is_usable_by_staff: boolean;
+  off_peak_schedule: Record<string, string[][]>;
 };
 
 export type PaymentPackTemplate = PaymentPackTemplateAPI & {

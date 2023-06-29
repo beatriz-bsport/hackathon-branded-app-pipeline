@@ -223,7 +223,9 @@
             "302": "Validatie van e-mail van leden",
             "303": "Samenvoeging van twee studiorekeningen",
             "304": "Cadeaubon activering",
-            "305": "Wijziging van e-mail van leden vanuit de backoffice"
+            "305": "Wijziging van e-mail van leden vanuit de backoffice",
+            "1002": "Lesprestaties",
+            "1001": "Spivi-account aangemaakt"
         },
         "tag": {
             "BookingOption": {
@@ -402,6 +404,23 @@
                 "giftcard_message": "Bericht van de cadeaubon",
                 "giftcard_value": "Waarde van de cadeaubon",
                 "manage_changing_email_link": "E-mail link voor wijzigingsbeheer"
+            },
+            "SpiviPerformance": {
+                "tags": {
+                    "total_distance": "Totale afstand",
+                    "calories_kJ": "Calorieën en kJ",
+                    "calories": "Calorieën",
+                    "max_watts": "Maximaal vermogen",
+                    "maximum_speed": "Maximale snelheid",
+                    "max_RPM": "Maximum RPM",
+                    "max_HR": "Maximale hartslag",
+                    "average_watts": "Watt",
+                    "average_speed": "Gemiddelde snelheid",
+                    "average_RPM": "RPM",
+                    "average_HR": "Gemiddelde hartslag",
+                    "SEP": "Spivi Ecosystem Point"
+                },
+                "name": "Prestaties"
             }
         },
         "emailDesign": {
@@ -421,7 +440,8 @@
             "payment_pack": "Sancties",
             "recurrent_private_booking": "Periodieke afspraken",
             "replacement_request": "Vervanging",
-            "giftcard": "Cadeaubon"
+            "giftcard": "Cadeaubon",
+            "performance": "Prestaties"
         },
         "pageTitle": "Transactionele berichten",
         "caption": {
@@ -999,7 +1019,7 @@
                     "advanced": "Geavanceerd",
                     "explainDeleteLinkedHybridSession": "Annuleer hybride sessies (sessies die op locatie en online plaatsvinden)"
                 },
-                "explainNotificationOnEdit": "Ingeschreven leden informeren",
+                "explainNotificationOnEdit": "Ingeboekte leden informeren",
                 "explainRecursiveOfferEdit": "Wil je alle vergelijkbare sessies wijzigen?",
                 "explainRecursiveOfferDelete": "Wil je alle vergelijkbare sessies verwijderen?",
                 "broadcast_link": {
@@ -2692,7 +2712,7 @@
             "franchisor_commission_amount_notax": "Franchisenemerscommissie percentage voor belasting",
             "staff_commission_amount": "Personeelscommissie inclusief belasting",
             "nb_invoice_items": "Aantal gekochte producten",
-            "on_behalf_of_teacher": "Volledige betaling aan de leraar",
+            "on_behalf_of_teacher": "Instructeurs volledig uitbetalen",
             "date_canceled": "Annuleringsdatum",
             "invoiceitem_pk": "Factuur element ID",
             "price_invoice_items": "Totale hoeveelheid gekochte producten"
@@ -3039,6 +3059,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
@@ -3454,7 +3475,7 @@
                     },
                     "header": "Geavanceerd",
                     "appliesForPayroll": {
-                        "label": "Bij de berekening van de bezoldiging van de leraar in aanmerking genomen zittingen",
+                        "label": "Sessies meeberekenen voor de payroll van de instructeur(s)",
                         "helperText": "Standaard worden sessies gefactureerd aan de studio en opgenomen in het overzicht van de leraar en de vergoeding door de studio. Als u deze instelling uitschakelt, verschijnen de sessies die aan deze kaart zijn gekoppeld niet meer in het overzicht van de leraar."
                     }
                 },
@@ -5005,7 +5026,11 @@
             "modifyOffer": "Bewerken",
             "deleteOffer": "Annuleren",
             "filter": "Filter",
-            "today": "Vandaag"
+            "today": "Vandaag",
+            "alertSpivi": {
+                "textBooking": "Eén of meerdere reserveringen voldoen niet aan de Spivi-voorwaarden.",
+                "title": "Verbindingsproblemen met Spivi"
+            }
         },
         "forms": {
             "old_date": "Origineel:",
@@ -5180,7 +5205,8 @@
                     "durationMinute": "De duur van een sessie moet groter zijn dan 0 minuten",
                     "broadcastLink": "Deze link is onjuist. Het moet beginnen met http:// of https:// en mag geen spaties bevatten.",
                     "partnerMaxBookingCount": "Het aantal zitplaatsen hier is groter dan het aantal zitplaatsen in de zitting",
-                    "effectif": "De waarde is hoger dan het maximum aantal plaatsen"
+                    "effectif": "De waarde is hoger dan het maximum aantal plaatsen",
+                    "durationMinuteSpivi": "Een Spivi-sessie moet tussen 20 minuten en 4 uur zijn."
                 },
                 "dateTooFar": "Onmogelijk om sessies te maken die in meer dan 3 jaar plaatsvinden",
                 "dateFormat": "Ongeldig datumformaat",
@@ -6146,6 +6172,11 @@
         "noShowChip": {
             "message": "Het lid werd als afwezig genoteerd na de zitting",
             "title": "No-show"
+        },
+        "warning": "Waarschuwing",
+        "spivi": {
+            "connectionImpossible": "Het is niet mogelijk om met Spivi te verbinden",
+            "error": "Verbindingsproblemen met Spivi"
         }
     },
     "marketplace": {
@@ -6664,7 +6695,7 @@
                     "fixed_day": {
                         "explain": "Elke factuur wordt op de gekozen dag gefactureerd. De eerste betaling wordt eventueel pro rata berekend.",
                         "label": "Factureren op een vaste dag",
-                        "modification_not_apply_to_past": "U gaat de factuurdag van uw abonnement wijzigen. Alleen nieuw aangemaakte abonnementen worden beïnvloed. Bestaande abonnementen en abonnementen met verlengingen zullen niet veranderen (zelfs niet na verlenging)",
+                        "modification_not_apply_to_past": "Je staat op het punt de factuurdag van dit abonnement te wijzigen. Deze wijzigingen gelden alleen voor nieuwverkochte abonnementen. Bestaande abonnementen worden niet gewijzigd, ook niet als deze automatisch vernieuwd en verlengd worden.",
                         "end_of_month_explain": "Als een maand geen {{ month_billing_day }} heeft, wordt de factuur uitgereikt op de laatste dag van de maand.",
                         "recurrence_explain": {
                             "month": "Het abonnement wordt elke {{ month_billing_day }} van de maand gefactureerd voor een totale duur van {{ nb_interval }} maanden en genereert {{ nb_interval }} {{ invoice }}. De eerste betaling is pro rata indien nodig."
@@ -7841,7 +7872,8 @@
                 "hidePaymentPack": "Geen leskaarten tonen",
                 "hidePaymentCombo": "Geen pakketten tonen",
                 "todayOnly": "Toon alleen de sessies van vandaag",
-                "titleCaption": "Maximaal aantal tekens: {{count}} / {{max}}"
+                "titleCaption": "Maximaal aantal tekens: {{count}} / {{max}}",
+                "hideFilters": "Verberg de zoekbalk en de filters"
             },
             "componentType": {
                 "playlist": "Afspeellijsten",
@@ -8490,11 +8522,11 @@
                 },
                 "appliesForPayroll": {
                     "helperText": "Standaard worden afspraken gefactureerd aan de studio en opgenomen in het overzicht en de vergoeding van de docent. Als u deze instelling uitschakelt, verschijnen de afspraken die aan deze kaart zijn gekoppeld niet meer in het overzicht van de docent.",
-                    "label": "Aanstellingen die in aanmerking worden genomen bij de berekening van de bezoldiging van de leraar"
+                    "label": "Afspraken meeberekenen voor de payroll van de instructeur(s)"
                 },
                 "onBehalfOfTeacher": {
                     "helperText": "Met deze instelling kunt u aangeven dat de inkomsten in verband met afspraken op deze kaart volledig aan de docent worden betaald. Deze informatie zal zichtbaar zijn in uw inkoopverslagen (CA) in de kolom 'Betaling volledig betaald aan de leerkracht'.",
-                    "label": "Volledige betaling aan de leraar"
+                    "label": "Instructeurs volledig uitbetalen"
                 },
                 "expiration_date": {
                     "label": "Aankooptermijn",
@@ -8767,10 +8799,10 @@
             "notAssociatedDialog": {
                 "close": "Sluit",
                 "checkbox": "Herinner me er niet meer aan",
-                "info": "De beschikbaarheid is vastgelegd. Deze leraar is echter niet verbonden aan een benoeming. \nOm een nieuwe afspraak met deze docent vast te leggen, koppelt u hem/haar aan de gewenste afspraak in het tabblad Afspraken.",
+                "info": "De beschikbaarheid is opgelagen, alhoewel er geen instructeur aan deze afspraak gekoppeld is.\nWijs een instructeur toe onder het tabblad Mijn studio > Afspraken.",
                 "title": "Geen bijbehorende afspraken"
             },
-            "notAssociatedWarning": "Deze leraar is niet verbonden aan een benoeming. Om een nieuwe afspraak met deze docent vast te leggen, koppelt u hem/haar aan de gewenste afspraak in het tabblad Afspraken."
+            "notAssociatedWarning": "Deze instructeur is aan geen enkele afspraak gekoppeld. Wijs een instructeur toe onder het tabblad Mijn studio > Afspraken."
         },
         "resource": {
             "form": {
@@ -10594,7 +10626,7 @@
                 "500001": "Er bestaat al een vervangingsverzoek.",
                 "80003": "Ontbrekende instellingen voor achterstallige aanvragen.",
                 "80002": "De waarde \"Aantal dagen verzoek te laat\" moet groter zijn dan de waarde \"Aantal dagen inschrijving gesloten\".",
-                "50020": "Dit vervangingsverzoek is afgewezen: niet mogelijk om te verwijderen",
+                "50020": "Dit vervangingsverzoek is afgewezen en kan niet worden verwijderd.",
                 "50015": "Het is niet mogelijk om op je eigen vervangingsverzoeken te reageren.",
                 "50013": "Het is niet langer mogelijk om op dit vervangingsverzoek te reageren.",
                 "50012": "Deze instructeur antwoordde dat hij geen vervanger wilde zijn voor deze zitting.",
@@ -10602,7 +10634,7 @@
                 "50010": "U kunt dit verzoek niet weigeren omdat er al een instructeur is aangewezen.",
                 "50009": "U kunt dit verzoek niet weigeren omdat er al een instructeur is aangewezen.",
                 "50008": "De sluitingsdatum kan niet worden verschoven na de datum van de sessie.",
-                "50007": "Niet mogelijk om deze vervangingsverzoeken aan te maken: je hebt niet genoeg achterstallige verzoeken over.",
+                "50007": "Je kunt geen vervangingsverzoeken meer aanmaken, omdat je je limiet hebt overschreden.",
                 "50000": "Deze sessie is al afgelopen",
                 "undefined": "Dit vervangingsverzoek is afgewezen: onmogelijk te verwijderen",
                 "50021": "U kunt niet tegelijkertijd instellingen en locaties opgeven."
@@ -10684,6 +10716,12 @@
         "quicksaleConfiguration": {
             "error": "Fout bij het opslaan van de wijzigingen.",
             "updated": "Je wijzigingen zijn opgeslagen."
+        },
+        "spivi": {
+            "error": {
+                "21001": "Er is geen Spot Scheduling-layout geselecteerd.",
+                "21000": "De Spivi-integratie is niet geactiveerd."
+            }
         }
     },
     "coach": {
@@ -13594,7 +13632,7 @@
                 "spacingHelper": "Spacing is gebaseerd op veelvouden {{base}} pixels.",
                 "roundingHelper": "Rounding is gebaseerd op veelvouden {{base}} pixels.",
                 "reset": "Resetten",
-                "backgroundColorElement": "Elementenkleur",
+                "backgroundColorElement": "Primaire kleuren van de elementen",
                 "backgroundColorPage": "Achtergrondkleur",
                 "borderColor": "Randkleur",
                 "secondaryColor": "Secundaire kleur",
@@ -13606,7 +13644,8 @@
                 "backgroundColor": "Achtergrond",
                 "colors": "Kleuren",
                 "typography": "Tekstopmaak",
-                "general": "Spacing & Rounding"
+                "general": "Spacing & Rounding",
+                "secondaryBackgroundColorElement": "Secundaire kleur van de elementen"
             },
             "configDialog": {
                 "cancel": "Sluiten",
@@ -14304,7 +14343,8 @@
                 "elements": "Elementen",
                 "place": "Plaats",
                 "walls": "Muren",
-                "edition": "Bewerken"
+                "edition": "Bewerken",
+                "spivi": "Spivi-integratie"
             },
             "title": "Hulpmiddelen",
             "showGrid": "Toon raster",
@@ -14313,7 +14353,9 @@
             "hand": "Hand",
             "pointer": "Muis",
             "addSpotType": "Een type plaats toevoegen",
-            "helperText": "De grootte moet positief zijn."
+            "helperText": "De grootte moet positief zijn.",
+            "requiredForSpivi": "",
+            "boxId": "Box ID"
         },
         "placeCount": "{{count}} plaats(en)",
         "roomBlueprints": "Plattegrond",
@@ -14335,7 +14377,8 @@
             "loadExistingBlueprint": "Een bestaande plattegrond gebruiken",
             "exit": "Terug",
             "titleLabel": "Naam",
-            "save": "Opslaan"
+            "save": "Opslaan",
+            "spivi": "Spivi"
         },
         "spotImageDialog": {
             "actions": {
@@ -14396,7 +14439,11 @@
                 "title": "Verwijderen"
             }
         },
-        "errorAvailableOffersScheduled": "Het is niet mogelijk om deze layout op te slaan, omdat het gebruikt wordt voor toekomstige sessies."
+        "errorAvailableOffersScheduled": "Het is niet mogelijk om deze layout op te slaan, omdat het gebruikt wordt voor toekomstige sessies.",
+        "spiviDialog": {
+            "spiviIdentifiers": "Spivi ID's",
+            "bsportIdentifiers": "BSPORT ID's"
+        }
     },
     "franchise": {
         "member": {
@@ -15370,7 +15417,7 @@
         },
         "askForClosingDateExtension": {
             "close": "Sluiten",
-            "requestSentDescription": "De verlenging is toegevoegd aan het verzoek om vervanging.",
+            "requestSentDescription": "De verlenging is toegevoegd aan het vervangingsverzoek.",
             "requestSent": "Verzoek verzonden",
             "submit": "Bevestigen",
             "cancel": "Annuleren",

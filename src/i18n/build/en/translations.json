@@ -2074,7 +2074,8 @@
             "payment_pack": "Penalties",
             "recurrent_private_booking": "Recurring appointments",
             "replacement_request": "Substitution",
-            "giftcard": "Gift cards"
+            "giftcard": "Gift cards",
+            "performance": "Performance"
         },
         "emailDesign": {
             "placeholder": "Standard BSPORT template",
@@ -2258,6 +2259,23 @@
                     "manage_changing_email_link": "Email change management link",
                     "login_link": "Personal space login link"
                 }
+            },
+            "SpiviPerformance": {
+                "tags": {
+                    "total_distance": "Distance covered",
+                    "calories_kJ": "Calories in kJ",
+                    "calories": "Calories",
+                    "max_watts": "Maximum power",
+                    "maximum_speed": "Maximum speed",
+                    "max_RPM": "Maximum rpm",
+                    "max_HR": "Maximum heart rate",
+                    "average_watts": "Average power",
+                    "average_speed": "Average speed",
+                    "average_RPM": "Average rpm",
+                    "average_HR": "Average heart rate",
+                    "SEP": "Spivi Ecosystem Point"
+                },
+                "name": "Performance"
             }
         },
         "eventType": {
@@ -2321,7 +2339,9 @@
             "20": "Request for invoice download",
             "302": "Member email validation",
             "304": "Gift card activation",
-            "305": "Change of member email from the backoffice"
+            "305": "Change of member email from the backoffice",
+            "1002": "Spinning session performance",
+            "1001": "Spivi account created"
         },
         "messages": {
             "createOrUpdate": {
@@ -2510,6 +2530,11 @@
             "login": "Login",
             "logout": "Logout",
             "profile": "My account"
+        },
+        "spivi": {
+            "settingsInfo": "If this option is activated, your data (speed, calories burned, etc.) will be displayed in real-time during your session. If you deactivate this option, your data will no longer be displayed, but you will receive your summary by e-mail at the end of the session.",
+            "settings": "Display my data in real time",
+            "settingsTitle": "Spinning data"
         }
     },
     "reminder": {
@@ -5436,7 +5461,8 @@
                 "hideBookButton": {
                     "switchLabel": "Hide the \"{{-bookButtonTranslation}}\" button",
                     "dialogDescription": "By hiding the \"{{-bookButtonTranslation}}\" button, you can click on the pass to book the session."
-                }
+                },
+                "doubleBookingDisabledWithSpivi": "Double booking not compatible with Spivi integration"
             },
             "cover": {
                 "label": "Logo",
@@ -6717,7 +6743,8 @@
                 "hidePaymentCombo": "Hide packs",
                 "hidePrivatePass": "Hide appointment passes",
                 "hidePaymentPack": "Hide passes",
-                "titleCaption": "{{max}} characters max ( {{count}} / {{max}} )"
+                "titleCaption": "{{max}} characters max ( {{count}} / {{max}} )",
+                "hideFilters": "Do not display search bar and filters"
             },
             "componentType": {
                 "playlist": "Playlists",
@@ -9641,6 +9668,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -10660,7 +10688,9 @@
                     "allowGuest": "Compatible with the booking for a guest feature",
                     "allowGuestUnavailable": "This feature isn't available for grouped sessions.",
                     "creationError": "Impossible to create",
-                    "uncreatedGroupsTitle": "Groups not created"
+                    "uncreatedGroupsTitle": "Groups not created",
+                    "syncOnSpivi": "Send to Spivi",
+                    "spiviWarningHelperText": "Please note that if sessions are linked to Spivi, their copies will not be linked to Spivi."
                 },
                 "duplicate": "Duplicate a group",
                 "subtitlePreview": "Preview of the recurrence",
@@ -10735,7 +10765,12 @@
             "modifyOffer": "Edit",
             "deleteOffer": "Cancel",
             "filter": "Filter",
-            "today": "Today"
+            "today": "Today",
+            "alertSpivi": {
+                "textBooking": "One or more reservations do not meet Spivi's conditions.",
+                "textOffer": "The session didn't meet Spivi's requirements, so it couldn't be synchronized.",
+                "title": "Connection problem with Spivi"
+            }
         },
         "manageOffer": "Manage bookings",
         "forms": {
@@ -10909,7 +10944,9 @@
                     "durationMinute": "The duration of a session must be greater than 0 minutes",
                     "broadcastLink": "The link is wrong. It should start with http:// or https:// and not contain any spaces",
                     "partnerMaxBookingCount": "The number of places here is greater than the number of places in the session",
-                    "effectif": "The value is higher than the maximum number of places"
+                    "effectif": "The value is higher than the maximum number of places",
+                    "roomBlueprintSpivi": "A room plan must be selected for sessions synchronized with Spivi",
+                    "durationMinuteSpivi": "A session on Spivi should last between 20 minutes and 4 hours"
                 },
                 "dateTooFar": "Impossible to create sessions taking place in more than 3 years",
                 "dateFormat": "Invalid date format",
@@ -10955,7 +10992,8 @@
                             "title": "Marketplace"
                         },
                         "allowGuestOffer": "Allow booking for a guest",
-                        "isManagerOnly": "Available for booking (web+app)"
+                        "isManagerOnly": "Available for booking (web+app)",
+                        "syncOfferOnSpivi": "Send to Spivi"
                     },
                     "title": "Settings"
                 },
@@ -11872,6 +11910,12 @@
         "noShowChip": {
             "message": "The member was noted absent after the session",
             "title": "no-show"
+        },
+        "warning": "Warning",
+        "spivi": {
+            "errorText": "The member does not meet Spivi's requirements, so the booking was not made on Spivi.",
+            "connectionImpossible": "Unable to connect to Spivi",
+            "error": "Connection problem with Spivi"
         }
     },
     "marketplace": {
@@ -14118,6 +14162,15 @@
         "quicksaleConfiguration": {
             "error": "An error has occurred during save",
             "updated": "Configuration saved"
+        },
+        "spivi": {
+            "error": {
+                "21004": "Double booking not compatible with Spivi integration",
+                "21003": "Spivi sessions should last between 20 minutes and 4 hours",
+                "21002": "The selected room plan must have a Box ID for the session to be linked to Spivi",
+                "21001": "No room plan selected",
+                "21000": "The Spivi upsell is not activated."
+            }
         }
     },
     "navigation": {
@@ -14664,12 +14717,12 @@
                     "title": "Reset settings"
                 },
                 "submit": "Save",
-                "selectAlert": "The widget customisation is only available on the workshops, the calendar and the passes for the moment",
+                "selectAlert": "The widget customization is only available on the workshops, the calendar, the subscriptions, and the passes for the moment",
                 "preview": "Preview",
                 "spacingHelper": "Spacing is based on multiples of {{base}}px",
                 "roundingHelper": "Corners are rounded in multiples {{base}}px",
                 "reset": "Reset",
-                "backgroundColorElement": "Elements color",
+                "backgroundColorElement": "Main element background color",
                 "backgroundColorPage": "Background color",
                 "borderColor": "Border color",
                 "secondaryColor": "Secondary color",
@@ -14679,7 +14732,8 @@
                 "rounding": "Rounding",
                 "spacing": "Spacing",
                 "backgroundColor": "Background color",
-                "colors": "Colors"
+                "colors": "Colors",
+                "secondaryBackgroundColorElement": "Secondary element background color"
             },
             "configDialog": {
                 "cancel": "Close",
@@ -15309,7 +15363,8 @@
                 "elements": "Elements",
                 "place": "Position",
                 "walls": "Walls",
-                "edition": "Edit"
+                "edition": "Edit",
+                "spivi": "Spivi integration"
             },
             "title": "Toolbox",
             "customFill": "Filling",
@@ -15324,7 +15379,9 @@
             "hand": "Hand",
             "pointer": "Cursor",
             "addSpotType": "Add a spot type",
-            "helperText": "The teacher's size must be strictly positive"
+            "helperText": "The teacher's size must be strictly positive",
+            "requiredForSpivi": "Required for Spivi integration",
+            "boxId": "Box ID"
         },
         "placeCount": "{{count}} spot(s)",
         "roomBlueprints": "Spot Scheduling",
@@ -15348,7 +15405,9 @@
             "loadExistingBlueprint": "Load an existing plan",
             "exit": "Close",
             "titleLabel": "Name",
-            "save": "Save"
+            "save": "Save",
+            "spiviHelperText": "See Spivi spots correspondence",
+            "spivi": "Spivi"
         },
         "spotImageDialog": {
             "actions": {
@@ -15407,7 +15466,12 @@
             "subtitle": "Creation of a place type",
             "title": "Spot Scheduling"
         },
-        "errorAvailableOffersScheduled": "Cannot be saved. This layout cannot be edited since it is used in future sessions."
+        "errorAvailableOffersScheduled": "Cannot be saved. This layout cannot be edited since it is used in future sessions.",
+        "spiviDialog": {
+            "spiviIdentifiers": "Spivi logins",
+            "bsportIdentifiers": "bsport logins",
+            "spotCorrespondence": "Corresponding spots"
+        }
     },
     "franchise": {
         "companies": {

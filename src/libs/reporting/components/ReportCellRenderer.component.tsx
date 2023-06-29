@@ -52,7 +52,7 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
     isTagChip;
 
   let tagColor = null;
-  if (isTagChip) {
+  if (isTagChip && extra_data.color) {
     tagColor = extra_data.color.toString();
     if (chroma(tagColor).luminance() > 0.6) {
       tagColor = chroma(tagColor).luminance(0.4).hex();
@@ -110,7 +110,7 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
           row_extra_data={row_extra_data}
         />
       )}
-      {isTagChip && (
+      {isTagChip && extra_data.color && (
         <CustomChip
           displayedValue={displayedValue}
           mainColor={tagColor}

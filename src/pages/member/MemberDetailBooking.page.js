@@ -265,7 +265,9 @@ type State = {
   bookingToRevert: ?Booking,
   isMemberProgramDetailDialogOpen: boolean,
   noShowChipMessageDialogIsOpen: boolean,
-  statusChangedDialogIsOpen: boolean,
+  warningDialogIsOpen: boolean,
+  hasSpiviWarning: boolean,
+  hasRollCallWarning: boolean,
 };
 
 const BOOKING_PAGE_SIZE = 7;
@@ -276,7 +278,9 @@ export class MemberDetailBooking extends Component<Props, State> {
     bookingToRevert: null,
     isMemberProgramDetailDialogOpen: false,
     noShowChipMessageDialogIsOpen: false,
-    statusChangedDialogIsOpen: false,
+    warningDialogIsOpen: false,
+    hasSpiviWarning: false,
+    hasRollCallWarning: false,
   };
 
   componentDidMount() {
@@ -400,15 +404,19 @@ export class MemberDetailBooking extends Component<Props, State> {
     this.setState({ noShowChipMessageDialogIsOpen: false });
   };
 
-  openStatusChangedDialog = (
+  openWarningDialog = (
     ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    rollCallWarning: boolean,
+    spiviWarning: boolean,
   ) => {
     ev.stopPropagation();
-    this.setState({ statusChangedDialogIsOpen: true });
+    this.setState({ warningDialogIsOpen: true });
+    this.setState({ hasRollCallWarning: rollCallWarning });
+    this.setState({ hasSpiviWarning: spiviWarning });
   };
 
-  closeStatusChangedDialog = () => {
-    this.setState({ statusChangedDialogIsOpen: false });
+  closeWarningDialog = () => {
+    this.setState({ warningDialogIsOpen: false });
   };
 
   renderDetails = () => {
@@ -541,19 +549,68 @@ export class MemberDetailBooking extends Component<Props, State> {
               </Button>
             </DialogActions>
           </Dialog>
-          <Dialog open={this.state.statusChangedDialogIsOpen}>
-            <DialogTitle>
-              <Typography variant="h6" className={this.props.classes.bold}>
-                {this.props.t('offer:rollCall.warningIcon.stateChangedTitle')}
-              </Typography>
-            </DialogTitle>
-            <DialogContent>
-              {this.props.t('offer:rollCall.warningIcon.stateChanged')}
-            </DialogContent>
+          <Dialog open={this.state.warningDialogIsOpen}>
+            {this.state.hasRollCallWarning && !this.state.hasSpiviWarning && (
+              <div>
+                <DialogTitle>
+                  <Typography variant="h6" className={this.props.classes.bold}>
+                    {this.props.t(
+                      'offer:rollCall.warningIcon.stateChangedTitle',
+                    )}
+                  </Typography>
+                </DialogTitle>
+                <DialogContent>
+                  {this.props.t('offer:rollCall.warningIcon.stateChanged')}
+                </DialogContent>
+              </div>
+            )}
+            {!this.state.hasRollCallWarning && this.state.hasSpiviWarning && (
+              <div>
+                <DialogTitle>
+                  <Typography variant="h6" className={this.props.classes.bold}>
+                    {this.props.t('booking:spivi.connectionImpossible')}
+                  </Typography>
+                </DialogTitle>
+                <DialogContent>
+                  {this.props.t('booking:spivi.errorText')}
+                </DialogContent>
+              </div>
+            )}
+            {this.state.hasRollCallWarning && this.state.hasSpiviWarning && (
+              <div>
+                <DialogTitle>
+                  <Typography variant="h6" className={this.props.classes.bold}>
+                    {this.props.t('booking:warning')}
+                  </Typography>
+                </DialogTitle>
+                <DialogContent>
+                  <div>
+                    <Typography
+                      variant="subtitle1"
+                      className={this.props.classes.bold}
+                    >
+                      {this.props.t('booking:spivi.connectionImpossible')}
+                    </Typography>
+                    {this.props.t('booking:spivi.errorText')}
+                  </div>
+                  <div className={this.props.classes.secondWarning}>
+                    <Typography
+                      variant="subtitle1"
+                      className={this.props.classes.bold}
+                    >
+                      {this.props.t(
+                        'offer:rollCall.warningIcon.stateChangedTitle',
+                      )}
+                    </Typography>
+                    {this.props.t('offer:rollCall.warningIcon.stateChanged')}
+                  </div>
+                </DialogContent>
+              </div>
+            )}
             <DialogActions>
               <Button
                 className={this.props.classes.grey}
-                onClick={this.closeStatusChangedDialog}
+                onClick={this.closeWarningDialog}
               >
                 {this.props.t('common:close')}
               </Button>
@@ -685,7 +742,7 @@ export class MemberDetailBooking extends Component<Props, State> {
                         this.props.theme.is_roll_call_mandatory
                       }
                       dateRollCallLastModified={b.date_roll_call_last_modified}
-                      onClickWarningIcon={this.openStatusChangedDialog}
+                      onClickWarningIcon={this.openWarningDialog}
                     />
                   )}
                 />

@@ -94,12 +94,12 @@ type Props = {
   noShowChipMessage?: string,
   onClickWarningIcon?: (
     ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    rollCallWarning: boolean,
+    spiviWarning: boolean,
   ) => void,
   onClickNoShowChip?: () => void,
   isRollCallMandatory?: boolean,
   dateRollCallLastModified?: string,
-  setRollCallWarning: (hasRollCallWarning: boolean) => void,
-  setSpiviWarning: (hasSpiviWarning: boolean) => void,
 };
 
 const getPackDate = (consumerPack) => {
@@ -331,6 +331,19 @@ export class BookingItemForManager extends Component<Props, State> {
     );
   };
 
+  openWarningDialog = (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const rollCallWarning =
+      this.props.isRollCallMandatory &&
+      this.props.dateRollCallLastModified &&
+      this.props.booking?.attendance !==
+        this.props.booking?.roll_call_attendance;
+    this.props.onClickWarningIcon?.(
+      ev,
+      rollCallWarning,
+      this.props.booking?.has_spivi_error,
+    );
+  };
+
   renderButtons = () => {
     const {
       t,
@@ -350,9 +363,6 @@ export class BookingItemForManager extends Component<Props, State> {
       this.props.dateRollCallLastModified &&
       booking?.attendance !== booking?.roll_call_attendance;
 
-    this.props.setRollCallWarning(rollCallWarning);
-    this.props.setSpiviWarning(booking?.has_spivi_error);
-
     return (
       <div>
         <Hidden smUp>
@@ -370,7 +380,7 @@ export class BookingItemForManager extends Component<Props, State> {
             )}
           {(rollCallWarning || booking?.has_spivi_error) && (
             <div className={classes.warningIconContainer}>
-              <ButtonBase onClick={this.props.onClickWarningIcon}>
+              <ButtonBase onClick={this.openWarningDialog}>
                 <WarningIcon className={classes.warningIcon} />
               </ButtonBase>
             </div>
@@ -397,7 +407,7 @@ export class BookingItemForManager extends Component<Props, State> {
                     </ul>
                   }
                 >
-                  <ButtonBase onClick={this.props.onClickWarningIcon}>
+                  <ButtonBase onClick={this.openWarningDialog}>
                     <WarningIcon className={classes.warningIcon} />
                   </ButtonBase>
                 </Tooltip>

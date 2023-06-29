@@ -37,7 +37,7 @@ import {
 } from '../../../../state/types';
 import { HYBRID_OFFER_DEFAULT_EFFECTIF_FOR_ONLINE_SESSION } from '#libs/offer/constants';
 // @ts-ignore
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { FeatureList } from '#libs/company/types';

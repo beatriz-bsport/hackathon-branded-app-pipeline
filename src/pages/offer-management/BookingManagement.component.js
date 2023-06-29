@@ -323,11 +323,15 @@ export class BookingManagement extends React.PureComponent<Props, State> {
     this.setState({ lastValidatedRollCallDialogIsOpen: false });
   };
 
-  openWarningDialog = (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  openWarningDialog = (
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    rollCallWarning: boolean,
+    spiviWarning: boolean,
+  ) => {
     ev.stopPropagation();
-    this.setState({
-      warningDialogIsOpen: true,
-    });
+    this.setState({ warningDialogIsOpen: true });
+    this.setState({ hasRollCallWarning: rollCallWarning });
+    this.setState({ hasSpiviWarning: spiviWarning });
   };
 
   closeWarningDialog = () => {
@@ -726,8 +730,6 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         onClickWarningIcon={this.openWarningDialog}
                         onClickNoShowChip={this.openNoShowChipMessageDialog}
                         isRollCallMandatory={this.props.isRollCallMandatory}
-                        setRollCallWarning={this.setRollCallWarning}
-                        setSpiviWarning={this.setSpiviWarning}
                       />
                     </>
                   )}

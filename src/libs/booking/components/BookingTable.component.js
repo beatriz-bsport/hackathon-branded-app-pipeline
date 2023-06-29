@@ -43,8 +43,6 @@ type Props = {
   onClickWarningIcon: () => void,
   onClickNoShowChip: () => void,
   isRollCallMandatory: boolean,
-  setRollCallWarning: (hasRollCallWarning: boolean) => void,
-  setSpiviWarning: (hasSpiviWarning: boolean) => void,
 };
 
 export class BookingTable extends PureComponent<Props> {
@@ -127,8 +125,6 @@ export class BookingTable extends PureComponent<Props> {
             onClickNoShowChip={this.props.onClickNoShowChip}
             isRollCallMandatory={this.props.isRollCallMandatory}
             noShowChipMessage={this.props.t('booking:noShowChip.message')}
-            setRollCallWarning={this.props.setRollCallWarning}
-            setSpiviWarning={this.props.setSpiviWarning}
           />
         ))}
       </List>

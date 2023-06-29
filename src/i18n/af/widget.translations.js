@@ -80,7 +80,7 @@ exports.default = {
       roundingHelper: 'Les angles ont un arrondi en multiple {{base}}px',
       preview: 'Preview',
       selectAlert:
-        'La personnalisation du widget n’est disponible que sur les ateliers, le calendrier et les cartes pour le moment',
+        'La personnalisation du widget n’est disponible que sur les ateliers, le calendrier, les abonnements et les cartes pour le moment',
       submit: 'Enregistrer',
 
       dialog: {

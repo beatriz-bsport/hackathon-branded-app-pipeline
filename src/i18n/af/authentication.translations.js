@@ -12,6 +12,7 @@ exports.default = {
     actions: {
       cancel: 'Annuler',
       reset: 'OK',
+      confirm: 'Confimer',
       backToLogin: 'Retour',
     },
   },

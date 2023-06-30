@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
@@ -6,16 +5,16 @@ import moment from 'moment-timezone';
 import { compose, withProps } from 'recompose';
 import { Redirect, Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import withStyles from '@material-ui/core/styles/withStyles';
 import WarningIcon from '@material-ui/icons/HelpOutlined';
+import { TextField } from '@material-ui/core';
+import classnames from 'classnames';
+import './ResetPasswordStyles.css';
 
 import { withTranslation, TFunction } from 'react-i18next';
-import { parseQueryString, buildUrlParams } from '../../http';
+import { parseQueryString, buildUrlParams } from '../../../http';
 
-import { resetPassword } from '../../actions/auth.actions';
+import { resetPassword } from '../../../actions/auth.actions';
 
 type Props = {
   resetPassword: (
@@ -24,12 +23,12 @@ type Props = {
     options: any,
   ) => void,
   loading: boolean,
-  classes: Object,
   resetError: ?Error,
   t: TFunction,
   last_password_reset_request: string,
   membership: null | number,
   franchisorId: ?string,
+  simplifyUI?: boolean,
 };
 
 type State = {
@@ -81,30 +80,29 @@ export class ResetPassword extends Component<Props, State> {
     return `/login${buildUrlParams(loginPathParams)}`;
   };
 
-  getSendingButton = () => (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-      }}
-    >
+  getSendingButton = (buttonClass) => (
+    <div className="bs-reset-password-container__sending-buttons">
       <Link
-        style={{ textDecoration: 'none' }}
+        className="bs-reset-password-container__link"
         to={this.getRedirectUrlWithParams()}
       >
-        <Button>{this.props.t('resetPassword.actions.cancel')}</Button>
+        <Button id="btn-cancel" className={buttonClass}>
+          {this.props.t('resetPassword.actions.cancel')}
+        </Button>
       </Link>
       {this.props.loading ? (
         <CircularProgress />
       ) : (
         <Button
+          className={buttonClass}
           type="submit"
           color="primary"
           variant="contained"
           id="btn-reset-password"
         >
-          {this.props.t('resetPassword.actions.reset')}
+          {this.props.simplifyUI
+            ? this.props.t('resetPassword.actions.confirm')
+            : this.props.t('resetPassword.actions.reset')}
         </Button>
       )}
     </div>
@@ -120,37 +118,31 @@ export class ResetPassword extends Component<Props, State> {
     });
   };
 
-  getSuccessMsg = () => (
+  getSuccessMsg = (buttonClass) => (
     <div>
-      <Typography>
+      <div>
         {this.props.t('resetPassword.emailHasBeenSent', {
           email: this.state.email,
         })}
-      </Typography>
+      </div>
       {this.props.last_password_reset_request &&
         moment(this.props.last_password_reset_request).isAfter(
           moment().add(-4, 'hours'),
         ) && (
-          <div className={this.props.classes.helpReset}>
+          <div className="bs-reset-password-container__help-reset">
             <WarningIcon
               fontSize="large"
               color="secondary"
-              className={this.props.classes.helpIcon}
+              className="bs-reset-password-container__help-icon"
             />
             <div>
-              <Typography color="error">
+              <div className="bs-reset-password-container__error-text">
                 {this.props.t('resetPassword.hasProblem')}
-              </Typography>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
-                <Typography style={{ marginRight: 12 }}>
+              </div>
+              <div className="bs-reset-password-container__contact-us">
+                <div className="bs-reset-password-container__div--margin-right">
                   {this.props.t('resetPassword.contactUs')}
-                </Typography>
+                </div>
                 <a href="mailto:support+reset-password@bsport.io">
                   support+reset-password@bsport.io
                 </a>
@@ -158,11 +150,13 @@ export class ResetPassword extends Component<Props, State> {
             </div>
           </div>
         )}
-      <div style={{ paddingTop: 20 }}>
+      <div className="bs-reset-password-container__div--padding-top-20">
         <Button
+          className={buttonClass}
           color="primary"
           onClick={this.redirectLogin}
           variant="contained"
+          id="btn-back-to-login"
         >
           {this.props.t('resetPassword.actions.backToLogin')}
         </Button>
@@ -171,35 +165,31 @@ export class ResetPassword extends Component<Props, State> {
   );
 
   render() {
-    const { classes } = this.props;
     const { hasSent, redirectLogin } = this.state;
+    const buttonClass = this.props.simplifyUI
+      ? 'bs-reset-password-container__button--simplifyUI'
+      : 'bs-reset-password-container__button';
     if (redirectLogin) {
       return <Redirect to={this.getRedirectUrlWithParams()} />;
     }
     return (
-      <form onSubmit={this.onSubmit} className={classes.container}>
+      <form onSubmit={this.onSubmit} className="bs-reset-password-container">
         {hasSent ? (
           <div />
         ) : (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'flex-start',
-              flexDirection: 'column',
-            }}
-          >
-            <Typography variant="h6" align="left" style={{ marginBottom: 20 }}>
+          <div className="bs-reset-password-container__flex-column">
+            <div className="bs-reset-password-container__title">
               {this.props.t('resetPassword.title')}
-            </Typography>
-            <Typography align="left" className={this.props.classes.textBlock}>
+            </div>
+            <div className="bs-reset-password-container__text-block">
               {this.props.t('resetPassword.explain1')}
-            </Typography>
-            <Typography align="left" className={this.props.classes.textBlock}>
+            </div>
+            <div className="bs-reset-password-container__text-block">
               {this.props.t('resetPassword.explain2')}
-            </Typography>
+            </div>
             <TextField
               type="email"
-              className={this.props.classes.textBlock}
+              className="bs-reset-password-container__text-block"
               onChange={this.updateEmail}
               variant="outlined"
               name="email"
@@ -209,42 +199,24 @@ export class ResetPassword extends Component<Props, State> {
           </div>
         )}
         {this.props.resetError ? (
-          <Typography color="error" align="left" variant="caption">
+          <div
+            className={classnames(
+              'bs-reset-password-container__error-text',
+              'bs-reset-password-container__caption-text',
+            )}
+          >
             {this.props.t('resetPassword.noEmail')}
-          </Typography>
+          </div>
         ) : null}
-        <div style={{ paddingTop: 16 }}>
-          {!hasSent ? this.getSendingButton() : this.getSuccessMsg()}
+        <div className="bs-reset-password-container__div-send-buttons">
+          {!hasSent
+            ? this.getSendingButton(buttonClass)
+            : this.getSuccessMsg(buttonClass)}
         </div>
       </form>
     );
   }
 }
-
-const styles = (theme) => ({
-  textBlock: { marginBottom: theme.spacing(1) },
-  container: {
-    textAlign: 'center',
-    padding: theme.spacing(6),
-    width: '100%',
-    maxWidth: 600,
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-  },
-  helpReset: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  helpIcon: {
-    height: 90,
-    width: 90,
-    marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(4),
-  },
-});
 
 export default compose(
   withTranslation(['authentication']),
@@ -257,7 +229,6 @@ export default compose(
     }),
     { resetPassword },
   ),
-  withStyles(styles),
   withProps((props) => ({
     membership: parseQueryString(props.location.search)?.membership,
     franchisorId: parseQueryString(props.location.search)?.franchisor,

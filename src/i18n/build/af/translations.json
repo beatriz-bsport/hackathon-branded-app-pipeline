@@ -65,7 +65,7 @@
       "hasProblem": "Vous rencontrez un problème pour réinitialiser ?",
       "contactUs": "Contactez nous via ",
       "emailHasBeenSent": "Un email a été envoyé à {{email}} pour récupérer votre mot de passe",
-      "actions": { "cancel": "Annuler", "reset": "OK", "backToLogin": "Retour" }
+      "actions": { "cancel": "Annuler", "reset": "OK", "confirm": "Confimer", "backToLogin": "Retour" }
     }
   },
   "booking": {

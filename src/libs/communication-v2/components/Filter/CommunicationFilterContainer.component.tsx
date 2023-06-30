@@ -1,6 +1,5 @@
-// @ts-nocheck
 import React from 'react';
-import { Moment as MomentType } from 'moment-timezone';
+import type { Moment as MomentType } from 'moment-timezone';
 import { compose } from 'recompose';
 import {
   Collapse,
@@ -19,7 +18,10 @@ import { withStyles } from '@material-ui/styles';
 import CommunicationFilterCollapse from './CommunicationFilterCollapse.component';
 import CommunicationFilterValuesGenericSummary from './CommunicationFilterValuesGenericSummary.component';
 import CommunicationFilterValuesPeriodSummary from './CommunicationFilterValuesPeriodSummary.component';
-import { SelectFieldItem } from '#libs/communication-v2/types';
+import type {
+  SelectFieldItem,
+  FilterState,
+} from '#libs/communication-v2/types';
 import {
   getFiltersToEnable,
   getFilterOptionsOverride,
@@ -35,18 +37,6 @@ type OwnProps = {
 };
 
 export type Props = OwnProps & WithTranslation & WithStyles;
-
-type FilterState = {
-  dateStart: MomentType;
-  dateEnd: MomentType;
-  kindFilterValues: Array<SelectFieldItem>;
-  recipientFilterValues: Array<SelectFieldItem>;
-  channelFilterValues: Array<SelectFieldItem>;
-  sendParameterFilterValues: Array<SelectFieldItem>;
-  srcOrDstFilterValues: Array<SelectFieldItem>;
-  showFilterModal: boolean;
-  allPreviousFilters: { filters: number[]; dateStart: number; dateEnd: number };
-};
 export class CommunicationFilterContainer extends React.Component<
   Props,
   FilterState

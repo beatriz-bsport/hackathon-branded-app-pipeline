@@ -1,16 +1,31 @@
 import React, { memo, useCallback } from 'react';
 
-import { OptionCallback } from '../../../../state/types';
+import type { OptionCallback } from '../../../../state/types';
 import InboxThreadListItem from '#libs/communication-v2/thread/InboxThreadListItem';
-import { CommunicationThreadWithUnreadAnswersCount } from '#libs/communication-v2/types';
+import type {
+  CommunicationThread,
+  CommunicationThreadWithUnreadAnswersCount,
+} from '#libs/communication-v2/types';
 
 type Props = {
   index: number;
   style: React.CSSProperties;
-  switchFavoriteStatus: (id: number, options?: OptionCallback) => void;
-  switchMutedStatus: (id: number, options?: OptionCallback) => void;
-  switchDisabledStatus: (id: number, options?: OptionCallback) => void;
-  flagAsUnread: (id: number, options?: OptionCallback) => void;
+  switchFavoriteStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  switchMutedStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  switchDisabledStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  flagAsUnread: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
   selectedThreadId: number;
   handleOnItemClick: (threadId?: number, hasBeenRead?: boolean) => void;
   threadList: CommunicationThreadWithUnreadAnswersCount[];

@@ -1,10 +1,11 @@
 import React, { useState, memo, useCallback } from 'react';
-import { IconButton } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import { OptionCallback } from '../../../../state/types';
+import type { OptionCallback } from '../../../../state/types';
+import type { CommunicationThread } from '#libs/communication-v2/types';
 import ThreadMenuActions from '#libs/communication-v2/thread/commons/ThreadMenuActions.component';
 
 type Props = {
@@ -14,10 +15,22 @@ type Props = {
   isMuted: boolean;
   isDisabled: boolean;
   relatedObjectKind?: ChatThreadKinds;
-  switchFavoriteStatus: (id: number, options?: OptionCallback) => void;
-  switchMutedStatus: (id: number, options?: OptionCallback) => void;
-  switchDisabledStatus: (id: number, options?: OptionCallback) => void;
-  flagAsUnread: (id: number, options?: OptionCallback) => void;
+  switchFavoriteStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  switchMutedStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  switchDisabledStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  flagAsUnread: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
   isMobileMenu?: boolean;
   goToDetailPage?: () => void;
   setOpenCollapse?: () => void;

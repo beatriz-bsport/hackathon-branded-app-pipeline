@@ -13,8 +13,11 @@ import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 
-import { OptionCallback } from '../../../../state/types';
-import { CommunicationThreadWithUnreadAnswersCount } from '#libs/communication-v2/types';
+import type { OptionCallback } from '../../../../state/types';
+import type {
+  CommunicationThread,
+  CommunicationThreadWithUnreadAnswersCount,
+} from '#libs/communication-v2/types';
 import ThreadMenu from '#libs/communication-v2/thread/InboxThreadListItem/ThreadMenu.component';
 import ThreadAvatar from '#libs/communication-v2/thread/InboxThreadListItem/ThreadAvatar.component';
 import ThreadItemSkeleton from './ThreadItemSkeleton.component';
@@ -22,10 +25,22 @@ import ThreadItemSkeleton from './ThreadItemSkeleton.component';
 export type Props = {
   thread: CommunicationThreadWithUnreadAnswersCount;
   isLoading: boolean;
-  switchFavoriteStatus: (id: number, options?: OptionCallback) => void;
-  switchMutedStatus: (id: number, options?: OptionCallback) => void;
-  switchDisabledStatus: (id: number, options?: OptionCallback) => void;
-  flagAsUnread: (id: number, options?: OptionCallback) => void;
+  switchFavoriteStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  switchMutedStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  switchDisabledStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  flagAsUnread: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
   isSelected: boolean;
   onClick?: () => void;
 };

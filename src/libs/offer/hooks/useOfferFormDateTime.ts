@@ -24,36 +24,32 @@ const useOfferFormDateTime = (timezone: string) => {
     [getMinutes],
   );
 
-  const _getDays = useCallback(
-    (totalMinutes: number) => {
-      return Math.floor(
-        (totalMinutes - getHours(totalMinutes) - getMinutes(totalMinutes)) /
-          (24 * 60),
-      );
-    },
-    [getHours, getMinutes],
-  );
+  const getDays = useCallback((totalMinutes: number) => {
+    return Math.floor(totalMinutes / (24 * 60));
+  }, []);
 
   const getDurationMinute = useCallback(
-    (durationMinute: number, hourValue?: number, minuteValue?: number) => {
-      if (!hourValue && !minuteValue) {
-        return 0;
-      }
-
-      const days = _getDays(durationMinute) * 24 * 60;
+    (
+      durationMinute: number,
+      dayValue?: number,
+      hourValue?: number,
+      minuteValue?: number,
+    ) => {
+      const days = (dayValue ?? getDays(durationMinute)) * 24 * 60;
       const minutes = minuteValue ?? getMinutes(durationMinute);
       const hours = (hourValue ?? getHours(durationMinute)) * 60;
       const newDurationMinute = days + hours + minutes;
 
       return newDurationMinute;
     },
-    [_getDays, getHours, getMinutes],
+    [getDays, getHours, getMinutes],
   );
 
   return {
     rebuildDatetime,
     getMinutes,
     getHours,
+    getDays,
     getDurationMinute,
   };
 };

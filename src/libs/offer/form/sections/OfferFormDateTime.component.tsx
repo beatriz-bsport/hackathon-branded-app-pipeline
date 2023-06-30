@@ -50,7 +50,7 @@ const OfferFormDateTime = (props: Props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
   const { values, errors, setFieldValue } = useFormikContext<OfferFormValues>();
-  const { rebuildDatetime, getMinutes, getHours, getDurationMinute } =
+  const { rebuildDatetime, getMinutes, getHours, getDays, getDurationMinute } =
     useOfferFormDateTime(timezone);
   const {
     recurrence,
@@ -120,22 +120,33 @@ const OfferFormDateTime = (props: Props) => {
   );
 
   const handleChangeDurationMinute = useCallback(
-    (hour?: number, minute?: number) => {
-      const newDurationMinute = getDurationMinute(durationMinute, hour, minute);
+    (days?: number, hour?: number, minute?: number) => {
+      const newDurationMinute = getDurationMinute(
+        durationMinute,
+        days,
+        hour,
+        minute,
+      );
       setFieldValue('durationMinute', newDurationMinute);
     },
     [durationMinute, getDurationMinute, setFieldValue],
   );
 
+  const handleChangeDays = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) =>
+      handleChangeDurationMinute(parseInt(event.target.value), null, null),
+    [handleChangeDurationMinute],
+  );
+
   const handleChangeHours = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) =>
-      handleChangeDurationMinute(parseInt(event.target.value)),
+      handleChangeDurationMinute(null, parseInt(event.target.value), null),
     [handleChangeDurationMinute],
   );
 
   const handleChangeMinutes = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) =>
-      handleChangeDurationMinute(null, parseInt(event.target.value)),
+      handleChangeDurationMinute(null, null, parseInt(event.target.value)),
     [handleChangeDurationMinute],
   );
 
@@ -253,6 +264,32 @@ const OfferFormDateTime = (props: Props) => {
           isRequired
         >
           <div className={classes.durationField}>
+            <div className={classes.durationFieldInputWithIndicator}>
+              <NumericInput
+                id="offer-form-duration-hours-input"
+                name="durationMinute"
+                value={getDays(durationMinute)}
+                size="small"
+                placeholder="0"
+                onChange={handleChangeDays}
+                inputClass={classes.smallWidth}
+                InputProps={{
+                  disableUnderline: true,
+                  inputProps: { min: 0 },
+                  endAdornment: (
+                    <InputAdornment
+                      position="end"
+                      className={classes.numericInputAdornment}
+                    >
+                      {t('translation:common.daySmall')}
+                    </InputAdornment>
+                  ),
+                }}
+                error={!!errors.durationMinute}
+                disabled={!!disabled}
+              />
+            </div>
+
             <div className={classes.durationFieldInputWithIndicator}>
               <NumericInput
                 id="offer-form-duration-hours-input"

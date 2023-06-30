@@ -90,7 +90,7 @@ type ownProps = {
   };
   companyId: number;
   companyName: string;
-  fetchContractList: (companyId: number) => void;
+  fetchContractList: (companyId: number, options: OptionCallback) => void;
   contractLoading: boolean;
   classes: Object;
   contractList: ContractWithPaymentPack[];
@@ -153,7 +153,18 @@ export class MarketplaceSubscriptionPayment extends React.Component<
   }
 
   componentDidMount() {
-    this.props.fetchContractList(this.props.companyId);
+    this.props.fetchContractList(this.props.companyId, {
+      onSuccess: () =>
+        // Fetch information for the initial selected contract
+        {
+          if (this.props.contractId) {
+            this.fetchAssociatedContractContent(
+              parseInt(this.props.contractId, 10),
+            );
+          }
+        },
+    });
+
     this.props.fetchPaymentMethodList();
     this.props.fetchCompanyTheme(this.props.companyId);
 
@@ -179,15 +190,12 @@ export class MarketplaceSubscriptionPayment extends React.Component<
       this.loadStripe();
     }
 
-    // used for initial selected contract
-    if (
-      (this.props.contractId &&
-        this.props.contractList &&
-        prevProps.contractList?.length !== this.props.contractList?.length) ||
-      (this.state.isDirectBuyingLink &&
-        this.props.contractId &&
-        prevProps.contractId !== this.props.contractId)
-    ) {
+    const isAccessedByDirectBuyingLink =
+      this.state.isDirectBuyingLink &&
+      this.props.contractId &&
+      prevProps.contractId !== this.props.contractId;
+
+    if (isAccessedByDirectBuyingLink) {
       this.fetchAssociatedContractContent(parseInt(this.props.contractId, 10));
     }
 
@@ -293,7 +301,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
   };
 
   fetchAssociatedContractContent = (contractId: number) => {
-    const contract = this.props.contractList.find(
+    const contract = this.props.contractList?.find(
       (contractItem: Contract) => contractItem.id === contractId,
     );
     if (contract?.payment_pack) {

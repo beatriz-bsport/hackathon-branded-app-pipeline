@@ -380,7 +380,7 @@ export const contractMarketplaceListActions = {
 
 export function fetchMarketplaceContractList(
   company: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(contractMarketplaceListActions.error(null));

@@ -122,7 +122,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
   );
 
   const handlePdfExportationAll = React.useCallback(
-    () => handlePdfExportation?.(associatedCoachId, 2), // TODO : FIX BACKEND AND FRONT END VARIABLES,Here just matching the BE constant COACH_PERFORMANCE_FOR_ALL
+    () => handlePdfExportation?.(associatedCoachId, COACH_PERFORMANCE_FOR_ALL),
     [handlePdfExportation, associatedCoachId],
   );
 

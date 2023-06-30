@@ -918,7 +918,10 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                 location.pathname.includes('/cadence/'),
               [classes.content]:
                 !location.pathname.includes('/spot-scheduling') &&
-                !location.pathname.includes('/cadence/'),
+                !location.pathname.includes('/cadence/') &&
+                !location.pathname.includes('/inbox/'),
+              [classes.contentWithoutPadding]:
+                location.pathname.includes('/inbox/'),
             })}
           >
             {displayBanner && <div className={classes.bannerContextspacing} />}
@@ -1005,6 +1008,14 @@ const useStyles = makeStyles<Theme, { drawerIconsOnly: boolean }>((theme) => ({
     flex: '1 1 auto',
     overflow: 'auto',
     paddingTop: theme.spacing(2),
+  },
+  contentWithoutPadding: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1 1 auto',
+    overflow: 'auto',
+    backgroundColor: theme.palette.background.default,
+    width: '100%',
   },
   searchBar: {
     marginRight: theme.spacing(1),

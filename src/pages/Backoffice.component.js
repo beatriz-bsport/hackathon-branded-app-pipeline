@@ -736,6 +736,8 @@ export class Backoffice extends Component<Props, State> {
     const { language } = i18n;
     const isoLanguage = getCurrentLanguageIsoCode(language);
 
+    const isInboxPath = this.props.location.pathname.includes('/inbox/');
+
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <PermissionContext.Provider value={this.props.permissions}>
@@ -816,26 +818,28 @@ export class Backoffice extends Component<Props, State> {
                 clockOut={this.props.clockOut}
                 getLastClockin={this.props.getLastClockin}
               >
-                <Intercom
-                  email={this.props.username}
-                  environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
-                  isBsportChromePluginActivated={this.props.isPluginActivated}
-                  theme={this.props.theme}
-                  company={
-                    this.props.theme && this.props.theme.company_name
-                      ? {
-                          name: this.props.theme.company_name,
-                          id: this.props.theme.company,
-                        }
-                      : {}
-                  }
-                  {...(this.props.name ? { name: this.props.name } : {})}
-                  user_id={this.props.username}
-                  release={RELEASE}
-                  role={this.props.permissions.name}
-                  action_color={this.props.theme.primary_color}
-                  language_override={isoLanguage}
-                />
+                {!isInboxPath && (
+                  <Intercom
+                    email={this.props.username}
+                    environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
+                    isBsportChromePluginActivated={this.props.isPluginActivated}
+                    theme={this.props.theme}
+                    company={
+                      this.props.theme && this.props.theme.company_name
+                        ? {
+                            name: this.props.theme.company_name,
+                            id: this.props.theme.company,
+                          }
+                        : {}
+                    }
+                    {...(this.props.name ? { name: this.props.name } : {})}
+                    user_id={this.props.username}
+                    release={RELEASE}
+                    role={this.props.permissions.name}
+                    action_color={this.props.theme.primary_color}
+                    language_override={isoLanguage}
+                  />
+                )}
 
                 <Analytics username={this.props.username} isInternal />
                 <main
@@ -844,7 +848,9 @@ export class Backoffice extends Component<Props, State> {
                     [classes.fullContent]:
                       this.props.location.pathname.includes(
                         '/spot-scheduling',
-                      ) || this.props.location.pathname.includes('/cadence/'),
+                      ) ||
+                      this.props.location.pathname.includes('/cadence/') ||
+                      this.props.location.pathname.includes('/inbox/'),
                   })}
                 >
                   <BackofficeRoute

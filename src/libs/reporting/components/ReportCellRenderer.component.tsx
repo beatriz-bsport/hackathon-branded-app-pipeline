@@ -16,8 +16,8 @@ type ReportCellRendererProps = {
   reportCategory: string;
   value: number | string | boolean;
   datatype: string;
-  extra_data: { [key: string]: number | string };
-  row_extra_data: { [key: string]: number | string };
+  extra_data?: { [key: string]: number | string };
+  row_extra_data?: { [key: string]: number | string };
   formattedValue: string | number;
   chipClass: string;
 };
@@ -52,7 +52,7 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
     isTagChip;
 
   let tagColor = null;
-  if (isTagChip && extra_data.color) {
+  if (isTagChip && extra_data?.color) {
     tagColor = extra_data.color.toString();
     if (chroma(tagColor).luminance() > 0.6) {
       tagColor = chroma(tagColor).luminance(0.4).hex();
@@ -76,7 +76,7 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
             chipClass={chipClass}
           />
         )}
-      {isBooleanGreenGreyChip && (
+      {isBooleanGreenGreyChip && value !== undefined && (
         <BooleanChip
           value={!!value}
           translation={displayedValue}
@@ -84,7 +84,7 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
           chipClass={chipClass}
         />
       )}
-      {isBooleanRedGreenChip && (
+      {isBooleanRedGreenChip && value !== undefined && (
         <BooleanChip
           value={!!value}
           translation={displayedValue}
@@ -92,7 +92,7 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
           chipClass={chipClass}
         />
       )}
-      {isBooleanRedGreenInvertedChip && (
+      {isBooleanRedGreenInvertedChip && value !== undefined && (
         <BooleanChip
           value={!!value}
           translation={displayedValue}
@@ -110,11 +110,11 @@ const ReportCellRenderer: React.FC<ReportCellRendererProps> = ({
           row_extra_data={row_extra_data}
         />
       )}
-      {isTagChip && extra_data.color && (
+      {isTagChip && extra_data?.color && (
         <CustomChip
           displayedValue={displayedValue}
           mainColor={tagColor}
-          icon={extra_data.icon.toString()}
+          icon={extra_data?.icon.toString()}
           chipClass={chipClass}
         />
       )}

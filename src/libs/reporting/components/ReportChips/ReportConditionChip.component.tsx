@@ -8,7 +8,7 @@ type Props = {
   value: number;
   translation: string;
   datatype: string;
-  row_extra_data: { [key: string]: number | string };
+  row_extra_data?: { [key: string]: number | string };
   chipClass?: string;
 };
 
@@ -242,22 +242,24 @@ const ReportConditionChip: React.FC<Props> = ({
 }) => {
   const theme = useTheme();
 
-  const specs = getSpecs(
-    theme,
-    Number(row_extra_data?.credits),
-    Number(row_extra_data?.price),
-  );
-
-  if (specs[datatype]) {
-    const config = specs[datatype];
-    return (
-      <NumberChip
-        config={config}
-        value={value}
-        displayedValue={translation}
-        chipClass={chipClass}
-      />
+  if (row_extra_data) {
+    const specs = getSpecs(
+      theme,
+      Number(row_extra_data?.credits),
+      Number(row_extra_data?.price),
     );
+
+    if (specs[datatype]) {
+      const config = specs[datatype];
+      return (
+        <NumberChip
+          config={config}
+          value={value}
+          displayedValue={translation}
+          chipClass={chipClass}
+        />
+      );
+    }
   }
 
   return <CustomChip displayedValue={value.toString()} chipClass={chipClass} />;

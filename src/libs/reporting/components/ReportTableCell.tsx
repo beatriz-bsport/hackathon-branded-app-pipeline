@@ -19,7 +19,7 @@ type ReportTableCellProps = {
   column: string;
   cellValues: CellData | null;
   classes: ClassNameMap;
-  row_extra_data: { [key: string]: number | string };
+  row_extra_data?: { [key: string]: number | string };
   chipClass?: string;
 };
 

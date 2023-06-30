@@ -40,8 +40,8 @@ type Props = {
   datatype: string;
   value: string | number;
   translation: string;
-  extra_data: { [key: string]: number | string };
-  row_extra_data: { [key: string]: number | string };
+  extra_data?: { [key: string]: number | string };
+  row_extra_data?: { [key: string]: number | string };
   chipClass?: string;
 };
 
@@ -137,8 +137,15 @@ export const ReportStatusChip = (props: Props) => {
   let icon = null;
   let iconColor = null;
 
-  let non_casted_value = extra_data?.non_casted_value;
-  if (datatype === 'payout_status' && row_extra_data?.payout_status) {
+  let non_casted_value = null;
+  if (extra_data) {
+    non_casted_value = extra_data?.non_casted_value;
+  }
+  if (
+    row_extra_data &&
+    datatype === 'payout_status' &&
+    row_extra_data?.payout_status
+  ) {
     non_casted_value = row_extra_data.payout_status;
   }
   const match = matches[non_casted_value] ?? matches[value];

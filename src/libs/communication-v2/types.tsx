@@ -104,7 +104,7 @@ export type Communication = {
   status: number;
 };
 
-export type ThreadCommunication = {
+export type CommunicationMessage = {
   channel: number; // channel identifier
   communication: Communication;
   photos: string[];
@@ -162,7 +162,7 @@ export type CommunicationFilterParams = {
 
 export type FetchCommunicationParams = {
   page: number;
-  page_size: number;
+  page_size?: number;
 } & CommunicationContext &
   CommunicationFilterParams;
 

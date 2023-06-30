@@ -2,6 +2,7 @@
 import { TFunction } from 'i18next';
 import memoize from 'memoize-one';
 import moment from 'moment-timezone';
+import Immutable from 'seamless-immutable';
 import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,
@@ -440,6 +441,23 @@ export const getAvailableTagsFromContext = memoize(
   },
 );
 
+export const getAvailableTagsFromThread = memoize(
+  (tags: { [tag_name: string]: string[] }) => {
+    const categories = ['User', 'Company'];
+    if (tags) {
+      return Object.entries(tags).reduce((acc, [tagCategory, tagList]) => {
+        if (categories.includes(tagCategory))
+          return Immutable({
+            ...acc,
+            [tagCategory]: tagList,
+          });
+        return Immutable(acc);
+      }, {});
+    }
+    return Immutable({});
+  },
+);
+
 const getAvailableTagsCategoriesByContext = (contextIdentifier: number) => {
   // Keep that function in case one day we would like to apply different kinds depending on the context
   switch (contextIdentifier) {
@@ -623,7 +641,7 @@ export const getFormatedQueryParamsFromContext = memoize(
   ) => {
     switch (contextIdentifier) {
       case CONTEXT_MEMBER:
-        return { id__in: contextObjectId?.toString() || '' };
+        return { id__in: [contextObjectId] };
       case CONTEXT_OFFER:
         return {
           offer_with_selected_categories: `${contextObjectId}::${formatNumberListIntoString(
@@ -632,6 +650,29 @@ export const getFormatedQueryParamsFromContext = memoize(
         };
       case CONTEXT_SMARTLIST:
         return { smartlist: contextObjectId };
+      default:
+        return {};
+    }
+  },
+);
+
+export const getFormatedQueryParamsFromThread = memoize(
+  (
+    relatedObjectKind: ChatThreadKinds,
+    relatedObjectId: number,
+    memberSelectedCategories: number[],
+  ) => {
+    switch (relatedObjectKind) {
+      case ChatThreadKinds.Member:
+        return { id__in: [relatedObjectId] };
+      case ChatThreadKinds.Smartlist:
+        return { smartlist: relatedObjectId };
+      case ChatThreadKinds.Offer:
+        return {
+          offer_with_selected_categories: `${relatedObjectId}::${formatNumberListIntoString(
+            memberSelectedCategories,
+          )}`,
+        };
       default:
         return {};
     }

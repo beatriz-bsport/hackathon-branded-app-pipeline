@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React from 'react';
+import React, { memo } from 'react';
 import { Theme, makeStyles } from '@material-ui/core';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -15,7 +14,7 @@ type Props = {
   buttonConfirmText?: string;
   children: any;
   closeDialog?: () => void;
-  fullScreen: boolean;
+  fullScreen?: boolean;
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   onCancel?: () => void;
   onConfirm?: () => void;
@@ -78,4 +77,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CommunicationWrapperDialog;
+export default memo(CommunicationWrapperDialog);

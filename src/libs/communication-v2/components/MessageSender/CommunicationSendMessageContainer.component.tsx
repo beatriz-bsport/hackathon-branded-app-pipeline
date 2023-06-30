@@ -1,10 +1,10 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { Theme, withStyles, Paper, WithStyles } from '@material-ui/core';
 
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { OptionCallback } from '../../../../state/types';
 import CommunicationRecipientsModal from './ModalRecipient/CommunicationRecipientsModal.component';
 import CommunicationTemplateModal from './ModalTemplate/CommunicationTemplateModal.component';
@@ -23,7 +23,9 @@ import {
 
 import {
   getAvailableTagsFromContext,
+  getAvailableTagsFromThread,
   getFormatedQueryParamsFromContext,
+  getFormatedQueryParamsFromThread,
 } from '#libs/communication-v2/utils';
 import {
   MAX_LENGTH_PUSH_CONTENT,
@@ -51,8 +53,10 @@ import { fetchFirstSelectedRecipientsForChatAllKinds as fetchFirstSelectedRecipi
 type OwnProps = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
   communicationKind: number;
-  contextIdentifier: number;
+  contextIdentifier?: number;
   contextObjectId?: number;
+  relatedObjectKind?: ChatThreadKinds;
+  relatedObjectId?: number;
   countAvailableRecipientsTotal: number;
   countAvailableRecipientsWithEmail: number;
   countAvailableRecipientsWithPhone: number;
@@ -64,7 +68,7 @@ type OwnProps = {
     page: number,
     memberSelectedCategories?: number[],
   ) => void;
-  fullScreen: boolean;
+  fullScreen?: boolean;
   getEmailDetail: (templateId: number) => void;
   loadingPaginatedMemberList: boolean;
   loadingTemplateSummaryList: boolean;
@@ -110,7 +114,7 @@ type State = {
   validity: number;
 };
 
-export class CommunicationSendMessageContainer extends React.Component<
+export class CommunicationSendMessageContainer extends React.PureComponent<
   Props,
   State
 > {
@@ -225,12 +229,30 @@ export class CommunicationSendMessageContainer extends React.Component<
 
   getSelectedMembersDetailsAllKinds = () => {
     this.checkValidity();
-    const params = {
-      ...getFormatedQueryParamsFromContext(
-        this.props.contextIdentifier,
-        this.props.contextObjectId,
+
+    const {
+      relatedObjectKind,
+      relatedObjectId,
+      contextIdentifier,
+      contextObjectId,
+    } = this.props;
+
+    let contextParams = {};
+    if (relatedObjectKind && relatedObjectId) {
+      contextParams = getFormatedQueryParamsFromThread(
+        relatedObjectKind,
+        relatedObjectId,
         this.state.checkedMemberCategoryFilter,
-      ),
+      );
+    } else if (contextIdentifier && contextObjectId) {
+      contextParams = getFormatedQueryParamsFromContext(
+        contextIdentifier,
+        contextObjectId,
+        this.state.checkedMemberCategoryFilter,
+      );
+    }
+    const params = {
+      ...contextParams,
       blacklist_email: this.state.uncheckedMembers.email,
       blacklist_phone: this.state.uncheckedMembers.phone,
       blacklist_notification: this.state.uncheckedMembers.notification,
@@ -518,10 +540,12 @@ export class CommunicationSendMessageContainer extends React.Component<
     const setActionType = (kind: number) => {
       this.props.setCommunicationKind(kind, this.checkValidity);
     };
-    const tags = getAvailableTagsFromContext(
-      this.props.contextIdentifier,
-      this.props.tagCategories,
-    );
+    const tags = this.props.relatedObjectKind
+      ? getAvailableTagsFromThread(this.props.tagCategories)
+      : getAvailableTagsFromContext(
+          this.props.contextIdentifier,
+          this.props.tagCategories,
+        );
     let selectedMemberDetailList: MemberMinimal[] = [];
     switch (this.props.communicationKind) {
       case WRITE_EMAIL:
@@ -618,6 +642,7 @@ export class CommunicationSendMessageContainer extends React.Component<
       !this.props.loadingTemplateDetailList &&
       this.props.emailTemplateDetailList?.[this.state.mailTemplateSelected]
         ?.html;
+
     return (
       <Paper className={this.props.classes.mainContainer}>
         {this.props.communicationKind === WRITE_EMAIL &&

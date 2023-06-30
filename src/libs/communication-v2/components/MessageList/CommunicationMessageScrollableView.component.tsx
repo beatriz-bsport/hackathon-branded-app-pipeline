@@ -1,21 +1,20 @@
-// @ts-nocheck
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import useIsVisibleOnScreen from '../../../../hooks/useIsVisibleOnScreen';
-import CommunicationThreadMessageBubble from './SingleMessage/CommunicationThreadMessageBubble.component';
-import { ThreadCommunication } from '#libs/communication-v2/types';
-import { Member } from '#libs/member/types';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+import CommunicationMessageBubble from './SingleMessage/CommunicationMessageBubble.component';
+import type { CommunicationMessage } from '#libs/communication-v2/types';
+import type { Member } from '#libs/member/types';
+import type { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type Props = {
-  threadCommunicationList: Array<ThreadCommunication>;
+  messageList: Array<CommunicationMessage>;
   fetchOnEndScroll: () => void;
-  oneToOneThreadMember: Member;
-  loadingThreadDataList: boolean;
-  showCommunicationInformation: (communication?: ThreadCommunication) => void;
+  oneToOneMessageMember: Member;
+  loadingCommunicationMessageDataList: boolean;
+  showCommunicationInformation: (communication?: CommunicationMessage) => void;
   showEmailTemplate: (title?: string, html?: string) => void;
   currentPage: number;
   resolvedGenericTags: ResolvedGenericTags;
@@ -25,7 +24,7 @@ type Props = {
 
 const OFFSET = 5;
 
-const CommunicationThreadScrollableView = (props: Props) => {
+const CommunicationMessageScrollableView = (props: Props) => {
   const { t } = useTranslation('communication');
   const classes = useStyles();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -38,15 +37,14 @@ const CommunicationThreadScrollableView = (props: Props) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [scrollToBottomListener, setScrollToBottomListener] = useState(false);
   const [previousNumberCommunication, setPreviousNumberCommunication] =
-    useState((props.threadCommunicationList || []).length);
+    useState((props.messageList || []).length);
 
   const pageHasChanged = props.currentPage !== currentPage;
   const needToScrollToBottom =
     props.scrollToBottomFlag !== scrollToBottomListener;
-  const listIsEmpty = !(props.threadCommunicationList || []).length;
+  const listIsEmpty = !(props.messageList || []).length;
   const listCountHasChanged =
-    previousNumberCommunication !==
-    (props.threadCommunicationList || []).length;
+    previousNumberCommunication !== (props.messageList || []).length;
   const scrollHeightHasChanged =
     !!scrollRef?.current &&
     previousScrollHeight !== scrollRef.current.scrollHeight; // means that the content has changed
@@ -73,53 +71,54 @@ const CommunicationThreadScrollableView = (props: Props) => {
   // When a new communication has been sent and is displayed at the bottom -> go to bottom
   if (needToScrollToBottom && listCountHasChanged && scrollHeightHasChanged) {
     setScrollToBottomListener(!scrollToBottomListener);
-    setPreviousNumberCommunication(
-      (props.threadCommunicationList || []).length,
-    );
+    setPreviousNumberCommunication((props.messageList || []).length);
     setPreviousScrollHeight(scrollRef.current.scrollHeight);
     scrollRef.current.scrollTop =
       scrollRef.current.scrollHeight -
       scrollRef.current.getBoundingClientRect().height;
   }
-  const sortedThreadList = props.threadCommunicationList ?? [];
+  const sortedThreadList = props.messageList ?? [];
 
   return (
     <div ref={scrollRef} className={classes.scrollContainer}>
       <div ref={currentElement} />
       <div className={classes.loadingMoreContainer}>
-        {props.loadingThreadDataList && sortedThreadList.length > 0 ? (
+        {props.loadingCommunicationMessageDataList &&
+        sortedThreadList.length > 0 ? (
           <CircularProgress />
         ) : (
           <></>
         )}
       </div>
-      {props.loadingThreadDataList && sortedThreadList.length === 0 ? (
+      {props.loadingCommunicationMessageDataList &&
+      sortedThreadList.length === 0 ? (
         <div className={classes.loadingContainer}>
           <CircularProgress />
         </div>
       ) : (
-        sortedThreadList.map((threadCommunication: ThreadCommunication) => (
-          <CommunicationThreadMessageBubble
+        sortedThreadList.map((threadCommunication: CommunicationMessage) => (
+          <CommunicationMessageBubble
             key={threadCommunication.communication.uuid}
-            threadCommunication={threadCommunication}
+            communicationMessage={threadCommunication}
             onShowInformationClick={() =>
               props.showCommunicationInformation(threadCommunication)
             }
             onShowEmailTemplate={props.showEmailTemplate}
-            oneToOneThreadMember={props.oneToOneThreadMember}
+            oneToOneMessageMember={props.oneToOneMessageMember}
             resolvedGenericTags={props.resolvedGenericTags}
           />
         ))
       )}
-      {!props.loadingThreadDataList && sortedThreadList.length === 0 && (
-        <Typography variant="subtitle1" className={classes.emptyLabel}>
-          {t(
-            `thread.emptyThread.${
-              props.hasActiveFilters ? 'becauseOfFilters' : 'becauseNeverUsed'
-            }`,
-          )}
-        </Typography>
-      )}
+      {!props.loadingCommunicationMessageDataList &&
+        sortedThreadList.length === 0 && (
+          <Typography variant="subtitle1" className={classes.emptyLabel}>
+            {t(
+              `thread.emptyThread.${
+                props.hasActiveFilters ? 'becauseOfFilters' : 'becauseNeverUsed'
+              }`,
+            )}
+          </Typography>
+        )}
     </div>
   );
 };
@@ -170,4 +169,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CommunicationThreadScrollableView;
+export default memo(CommunicationMessageScrollableView);

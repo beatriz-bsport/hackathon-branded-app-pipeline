@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import moment from 'moment-timezone';
@@ -21,14 +20,14 @@ import { COMMUNICATION_CHANNEL_SMARTLIST } from '@bsport/common/lib/master-data/
 import CommunicationInformationStatusChip from './CommunicationInformationStatusChip.component';
 import CommunicationInformationOpenChip from './CommunicationInformationOpenChip.component';
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
-import {
+import type {
   Recipient,
-  ThreadCommunication,
+  CommunicationMessage,
   Communication,
   FilteringMemberIdsByGenericCategories,
 } from '#libs/communication-v2/types';
 import CommunicationInformationModalFilter from './CommunicationInformationModalFilter.component';
-import { Member } from '#libs/member/types';
+import type { Member } from '#libs/member/types';
 
 type OwnProps = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
@@ -47,7 +46,7 @@ type OwnProps = {
   paginationSize: number;
   recipientList: Recipient<Member>[];
   recipientListCount: number;
-  selectedCommunication: ThreadCommunication;
+  selectedCommunication: CommunicationMessage;
 };
 
 type State = {
@@ -57,7 +56,7 @@ type State = {
 
 export type Props = OwnProps & WithTranslation & WithStyles;
 
-export class CommunicationInformationModal extends React.Component<
+export class CommunicationInformationModal extends React.PureComponent<
   Props,
   State
 > {

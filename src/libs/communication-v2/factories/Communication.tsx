@@ -5,9 +5,12 @@ import {
   COMMUNICATION_FILTER_CHANNELS,
   COMMUNICATION_FILTER_KINDS,
 } from '../constants';
-import { Communication, ThreadCommunication } from '../types';
+import type {
+  Communication,
+  CommunicationMessage,
+} from '#libs/communication-v2/types';
 import { RecipientCompactListFactory } from './RecipientWithMember';
-import { Member } from '#libs/member/types';
+import type { Member } from '#libs/member/types';
 import MembersFactory from '#libs/member/factories/Member';
 import fakerHTML from '#components/html/fakerHTML';
 
@@ -125,12 +128,12 @@ export function ThreadCommunicationFactory(
 export default function ThreadCommunicationListFactory(
   length: number,
   memberListBase?: Member[],
-): Array<ThreadCommunication> {
+): Array<CommunicationMessage> {
   const memberList = !memberListBase?.length
     ? MembersFactory(randomInt(30))
     : memberListBase;
   const nbMember = memberList.length;
-  const list: ThreadCommunication[] = [];
+  const list: CommunicationMessage[] = [];
   let newMemberList: Member[];
   for (let i = 0; i < length; i += 1) {
     newMemberList = [...memberListBase]

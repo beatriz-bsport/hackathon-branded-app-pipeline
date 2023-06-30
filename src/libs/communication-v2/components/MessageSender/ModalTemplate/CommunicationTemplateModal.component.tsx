@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { withStyles, Theme, WithStyles } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
@@ -35,7 +34,7 @@ type OwnProps = {
   emailDetailListLoading: boolean;
   emailDetailList: Record<number, EmailTemplateDetail>;
   fetchEmailSummaryList: () => void;
-  fullScreen: boolean;
+  fullScreen?: boolean;
   getEmailDetail: (id: number) => void;
   open: boolean;
   selectedTemplate: number;
@@ -54,7 +53,7 @@ type State = {
   currentTitle: string;
 };
 
-export class CommunicationTemplateModal extends Component<Props, State> {
+export class CommunicationTemplateModal extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {

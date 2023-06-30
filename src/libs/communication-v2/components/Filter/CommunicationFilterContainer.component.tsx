@@ -265,11 +265,7 @@ export class CommunicationFilterContainer extends React.Component<
         <Hidden smUp>
           <Chip
             clickable={false}
-            label={
-              countFilter > 1
-                ? `${countFilter} ${t('filter.numberFilter.severalFilters')}`
-                : t('filter.numberFilter.oneFilter')
-            }
+            label={t('filter.numberFilter', { count: countFilter })}
             onDelete={() => {
               this.resetFilters();
             }}

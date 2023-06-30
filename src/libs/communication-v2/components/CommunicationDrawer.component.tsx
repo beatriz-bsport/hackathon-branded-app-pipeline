@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -22,7 +21,7 @@ import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communi
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import CommunicationHeader from './CommunicationHeader.component';
 import CommunicationFilterContainer from './Filter/CommunicationFilterContainer.component';
-import CommunicationThreadContainer from './Thread/CommunicationThreadContainer.component';
+import CommunicationMessageListContainer from './MessageList/CommunicationMessageListContainer.component';
 import CommunicationSendMessageContainer from './MessageSender/CommunicationSendMessageContainer.component';
 import withCommunicationData, {
   WithCommunicationDataProps,
@@ -44,43 +43,45 @@ import {
   REFRESH_THREAD_TIMEOUT,
 } from '../constants';
 
+type NullableTimeout = ReturnType<typeof setTimeout> | null;
+
 export type Props = WithCommunicationDataProps &
   WithTranslation &
   WithMobileDialog &
   WithStyles;
 
 type State = {
-  threadPage: number;
+  messagePage: number;
   filters: number[];
   filterDateStart: number;
   filterDateEnd: number;
   showMessageWritter: boolean;
   communicationKindBeingWritten: number;
-  displayThreadSnackbar: boolean;
-  scrollThreadToBottomFlag: boolean;
-  timeoutId: number;
+  displaySnackbar: boolean;
+  scrollToBottomFlag: boolean;
+  timeoutId: NullableTimeout;
 };
 
-export class CommunicationDrawer extends React.Component<Props, State> {
+export class CommunicationDrawer extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      threadPage: 1,
+      messagePage: 1,
       filters: [],
       filterDateStart: null,
       filterDateEnd: null,
       showMessageWritter: false,
       communicationKindBeingWritten:
         props.communicationKindToWrite ?? WRITE_EMAIL,
-      displayThreadSnackbar: false,
-      scrollThreadToBottomFlag: false,
+      displaySnackbar: false,
+      scrollToBottomFlag: false,
       timeoutId: null,
     };
   }
 
   componentDidMount(): void {
     this.props.fetchPaginatedAvailableRecipientMemberList(1);
-    this.fetchThreadCommunicationListAndScheduleRefresh();
+    this.fetchMessageListAndScheduleRefresh();
     this.props.fetchResolvedGenericTags();
     this.props.fetchTagList();
     this.props.flagAllUnreadCommunicationsAsRead();
@@ -88,7 +89,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
 
   componentDidUpdate(prevProps: Readonly<Props>): void {
     if (prevProps.contextObjectId !== this.props.contextObjectId) {
-      this.fetchThreadCommunicationList();
+      this.fetchMessageList();
       this.props.fetchPaginatedAvailableRecipientMemberList(1);
     }
     if (
@@ -108,49 +109,49 @@ export class CommunicationDrawer extends React.Component<Props, State> {
     }
   }
 
-  fetchThreadCommunicationList = () => {
-    this.props.fetchPageThreadCommunicationList(
-      this.state.threadPage,
+  fetchMessageList = () => {
+    this.props.fetchPageMessageList(
+      this.state.messagePage,
       this.state.filters,
       this.state.filterDateStart,
       this.state.filterDateEnd,
     );
   };
 
-  fetchMoreThreadCommunications = () => {
-    if (this.props.threadCommunicationListHasNextPage) {
+  fetchMoreMessages = () => {
+    if (this.props.messageListHasNextPage) {
       this.setState(
         (previousState: State) => ({
-          threadPage: previousState.threadPage + 1,
+          messagePage: previousState.messagePage + 1,
         }),
-        this.fetchThreadCommunicationList,
+        this.fetchMessageList,
       );
     }
   };
 
-  fetchThreadCommunicationListAndScheduleRefresh = () => {
-    this.fetchThreadCommunicationList();
-    this.scheduleRefreshThreadCommunicationList();
+  fetchMessageListAndScheduleRefresh = () => {
+    this.fetchMessageList();
+    this.scheduleRefreshMessageList();
   };
 
-  refreshThreadCommunicationList = () => {
+  refreshMessageList = () => {
     // This will fetch the last three communications (to speed up things)
     // With respect to the active filters
-    this.props.fetchPageThreadCommunicationList(
+    this.props.fetchPageMessageList(
       1,
       this.state.filters,
       this.state.filterDateStart,
       this.state.filterDateEnd,
       true,
     );
-    this.scheduleRefreshThreadCommunicationList(true);
+    this.scheduleRefreshMessageList(true);
   };
 
-  scheduleRefreshThreadCommunicationList = (forceRefresh?: boolean) => {
+  scheduleRefreshMessageList = (forceRefresh?: boolean) => {
     if (!this.state.timeoutId || forceRefresh) {
-      // schedule refresh of the thread
+      // schedule refresh of the message list
       const timeoutId = setTimeout(
-        this.refreshThreadCommunicationList,
+        this.refreshMessageList,
         REFRESH_THREAD_TIMEOUT * 1000,
       );
       this.setState({ timeoutId });
@@ -162,22 +163,22 @@ export class CommunicationDrawer extends React.Component<Props, State> {
     dateStart: number,
     dateEnd: number,
   ) => {
-    // the function will reset the Thread so we cancel the current automatic refresh
+    // the function will reset the message list so we cancel the current automatic refresh
     clearTimeout(this.state.timeoutId);
     this.setState(
       {
-        threadPage: 1,
+        messagePage: 1,
         filters,
         filterDateStart: dateStart,
         filterDateEnd: dateEnd,
         timeoutId: null,
       },
-      this.fetchThreadCommunicationListAndScheduleRefresh, // and we schedule a new refresh
+      this.fetchMessageListAndScheduleRefresh, // and we schedule a new refresh
     );
   };
 
-  onCloseThreadSnackbar = () => {
-    this.setState({ displayThreadSnackbar: false });
+  onCloseSnackbar = () => {
+    this.setState({ displaySnackbar: false });
   };
 
   onShowMessageWriter = () => {
@@ -207,11 +208,11 @@ export class CommunicationDrawer extends React.Component<Props, State> {
           filters,
         );
       if (filterOutNewCommunication) {
-        this.setState({ displayThreadSnackbar: true });
+        this.setState({ displaySnackbar: true });
       } else {
-        // By changing the following value, we force the thread to scroll to bottom
+        // By changing the following value, we force the message list to scroll to bottom
         this.setState((prevState: State) => ({
-          scrollThreadToBottomFlag: !prevState.scrollThreadToBottomFlag,
+          scrollToBottomFlag: !prevState.scrollToBottomFlag,
         }));
       }
       return filterOutNewCommunication;
@@ -237,13 +238,13 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       contextTitle,
       openDrawer,
       onDrawerClose,
-      // --- Thread ---
+      // --- Message List ---
       fetchPageInformationRecipientList,
       informationRecipientList,
       informationRecipientListCount,
       loadingInformationRecipientList,
-      loadingThreadCommunicationList,
-      threadCommunicationList,
+      loadingMessageList,
+      messageList,
       // --- SendMessage ---
       emailTemplateDetailList,
       emailTemplateSummaryList,
@@ -257,7 +258,7 @@ export class CommunicationDrawer extends React.Component<Props, State> {
       tagCategories,
     } = this.props;
 
-    // --- for thread component ---
+    // --- for message list component ---
     const consentWarning =
       contextMember &&
       getConsentWarning(
@@ -287,37 +288,37 @@ export class CommunicationDrawer extends React.Component<Props, State> {
           contextIdentifier={contextIdentifier}
           handleFilters={this.handleFilterChange}
         />
-        <div className={classes.threadContainer}>
+        <div className={classes.messageListContainer}>
           <Snackbar
-            open={this.state.displayThreadSnackbar}
-            onClose={this.onCloseThreadSnackbar}
+            open={this.state.displaySnackbar}
+            onClose={this.onCloseSnackbar}
             autoHideDuration={5000}
             TransitionComponent={this.SlideTransition}
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             className={classes.snackbar}
           >
             <Alert severity="info" className={classes.snackbarContent}>
-              {t('thread.filterOutCommunicationSent')}
+              {t('messageList.filterOutCommunicationSent')}
             </Alert>
           </Snackbar>
-          <CommunicationThreadContainer
+          <CommunicationMessageListContainer
             allMemberCategoryList={this.props.allMemberCategoryList}
             consentWarning={consentWarning}
-            currentPage={this.state.threadPage}
+            currentPage={this.state.messagePage}
             fetchRecipientPaginatedList={fetchPageInformationRecipientList}
-            fetchMoreThreadCommunications={this.fetchMoreThreadCommunications}
+            fetchMoreCommunicationMessages={this.fetchMoreMessages}
             fullScreen={fullScreen}
             contextMember={contextMember}
-            loadingThreadDataList={loadingThreadCommunicationList}
+            loadingCommunicationMessageDataList={loadingMessageList}
             loadingRecipientList={loadingInformationRecipientList}
-            onCloseSnackbar={this.onCloseThreadSnackbar}
-            openSnackbar={this.state.displayThreadSnackbar}
+            onCloseSnackbar={this.onCloseSnackbar}
+            openSnackbar={this.state.displaySnackbar}
             paginationSize={PAGINATION_SIZE_RECIPIENTS}
             recipientList={informationRecipientList}
             recipientListCount={informationRecipientListCount}
-            threadCommunicationList={threadCommunicationList}
+            messageList={messageList}
             resolvedGenericTags={resolvedGenericTags}
-            scrollToBottomFlag={this.state.scrollThreadToBottomFlag}
+            scrollToBottomFlag={this.state.scrollToBottomFlag}
             hasActiveFilters={
               !!this.state.filterDateEnd ||
               !!this.state.filterDateStart ||
@@ -464,7 +465,7 @@ const styles: any = (theme: Theme) => ({
   snackbarContent: {
     boxShadow: '1px 2px 15px lightblue',
   },
-  threadContainer: {
+  messageListContainer: {
     position: 'relative',
     display: 'flex',
     flex: 1,

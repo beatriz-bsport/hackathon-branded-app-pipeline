@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import chroma from 'chroma-js';
 import moment from 'moment-timezone';
 import classNames from 'classnames';
@@ -25,16 +24,16 @@ import Avatar from '@material-ui/core/Avatar';
 import { COMMUNICATION_CHANNEL_SMARTLIST } from '@bsport/common/lib/master-data/communication-filters';
 import Tooltip from '#components/Tooltip.component';
 import { getTextColorFromRGB } from '../../../../../utils/color';
-import { ThreadCommunication } from '#libs/communication-v2/types';
+import type { CommunicationMessage } from '#libs/communication-v2/types';
 import TypographyMultiline from '#components/typo/TypographyMultiline.component';
-import CommunicationThreadNumberRecipients from './CommunicationThreadNumberRecipients.component';
+import CommunicationMessageNumberRecipients from './CommunicationMessageNumberRecipients.component';
 import HTMLPreview from '#components/html/HTMLPreview.component';
 import {
   interpolateHTMLWithTags,
   findMemberAssociatedTagsInTagsGroups,
 } from '#components/html/utils';
-import { Member } from '#libs/member/types';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+import type { Member } from '#libs/member/types';
+import type { ResolvedGenericTags } from '#libs/email-editor/types';
 import {
   COMMUNICATION_SENT_SENDING_FAIL,
   COMMUNICATION_SENT_SENDING_PROCESSING,
@@ -219,11 +218,11 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withTopGap: boolean }>(
 const sanitizeRegex = /<script[\s\S]*?>[\s\S]*?<\/script>/gi;
 
 type OwnProps = {
-  oneToOneThreadMember: Member;
+  oneToOneMessageMember: Member;
   onShowInformationClick: () => void;
   onShowEmailTemplate: (title: string, html: string) => void;
   resolvedGenericTags: ResolvedGenericTags;
-  threadCommunication: ThreadCommunication;
+  communicationMessage: CommunicationMessage;
 };
 
 export type Props = OwnProps;
@@ -241,22 +240,22 @@ const CommunicationKindIcon = (props: { kind: number }) => {
   }
 };
 
-export const CommunicationThreadMessageBubble = (props: Props) => {
+export const CommunicationMessageBubble = (props: Props) => {
   const {
-    oneToOneThreadMember,
+    oneToOneMessageMember,
     onShowInformationClick,
     onShowEmailTemplate,
     resolvedGenericTags,
-    threadCommunication,
+    communicationMessage,
   } = props;
   const { communication, channel, photos, answerSourceMember } =
-    threadCommunication;
+    communicationMessage;
 
   const reverse = !!communication.is_answer;
   const withChannel =
-    (!!oneToOneThreadMember || channel === COMMUNICATION_CHANNEL_SMARTLIST) &&
+    (!!oneToOneMessageMember || channel === COMMUNICATION_CHANNEL_SMARTLIST) &&
     !reverse;
-  const withAnswerPaddingTop = reverse && !oneToOneThreadMember;
+  const withAnswerPaddingTop = reverse && !oneToOneMessageMember;
 
   const classes = useStyles({
     reverse,
@@ -276,10 +275,10 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
     const smartlistChannel = getSmartlistChannelFromMetadata(
       communication.metadata,
     );
-    return !oneToOneThreadMember && smartlistChannel
+    return !oneToOneMessageMember && smartlistChannel
       ? smartlistChannel
       : channel;
-  }, [channel, communication, oneToOneThreadMember]);
+  }, [channel, communication, oneToOneMessageMember]);
 
   const sanitizedHtml = useMemo(() => {
     let html;
@@ -294,18 +293,18 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
 
   const tagsToInterpolate = useMemo(() => {
     let tagsForMember = {};
-    if (oneToOneThreadMember) {
+    if (oneToOneMessageMember) {
       if (communication.data && communication.data.tags_groups) {
         tagsForMember = findMemberAssociatedTagsInTagsGroups(
-          oneToOneThreadMember.firstname,
-          oneToOneThreadMember.lastname,
+          oneToOneMessageMember.firstname,
+          oneToOneMessageMember.lastname,
           communication.data.tags_groups,
         );
       } else {
         tagsForMember = {
-          '{firstname}': oneToOneThreadMember.firstname,
-          '{lastname}': oneToOneThreadMember.lastname,
-          '{unsubscribe_link}': oneToOneThreadMember.unsubscribe_link,
+          '{firstname}': oneToOneMessageMember.firstname,
+          '{lastname}': oneToOneMessageMember.lastname,
+          '{unsubscribe_link}': oneToOneMessageMember.unsubscribe_link,
         };
       }
     }
@@ -313,7 +312,7 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
       ...resolvedGenericTags,
       ...tagsForMember,
     };
-  }, [resolvedGenericTags, communication, oneToOneThreadMember]);
+  }, [resolvedGenericTags, communication, oneToOneMessageMember]);
 
   const communicationContent = useMemo(() => {
     return interpolateHTMLWithTags(
@@ -339,7 +338,7 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
             </Typography>
           </div>
         )}
-        {reverse && !!answerSourceMember && !oneToOneThreadMember && (
+        {reverse && !!answerSourceMember && !oneToOneMessageMember && (
           <div className={classes.answerNameContainer}>
             <Typography variant="body1" color="textSecondary">
               {answerSourceMember.name}
@@ -412,14 +411,14 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
                 {communicationContent}
               </TypographyMultiline>
             )}
-            {!oneToOneThreadMember &&
+            {!oneToOneMessageMember &&
               !reverse &&
               communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
                 <ButtonBase
                   onClick={onShowInformationClick}
                   className={classes.showInfo}
                 >
-                  <CommunicationThreadNumberRecipients
+                  <CommunicationMessageNumberRecipients
                     photos={photos}
                     numberRecipients={communication.total_recipients}
                   />
@@ -438,7 +437,7 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
           <Typography variant="subtitle1">
             {moment(communication.date_created).format('L - LT')}
           </Typography>
-          {reverse && !oneToOneThreadMember && (
+          {reverse && !oneToOneMessageMember && (
             <Typography className={classes.answerWarning} variant="caption">
               {t('recipient.isAnswerWarning')}
             </Typography>
@@ -475,4 +474,4 @@ export const CommunicationThreadMessageBubble = (props: Props) => {
   );
 };
 
-export default CommunicationThreadMessageBubble;
+export default memo(CommunicationMessageBubble);

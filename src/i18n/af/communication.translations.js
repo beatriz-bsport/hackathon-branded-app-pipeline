@@ -228,10 +228,8 @@ exports.default = {
       dateStart: 'Date de début',
       dateEnd: 'Date de fin',
     },
-    numberFilter: {
-      severalFilters: 'filtres appliqués',
-      oneFilter: '1 filtre appliqué',
-    },
+    numberFilter: '1 filtre appliqué',
+    numberFilter_plural: '{{count}} filtres appliqués',
     kind: {
       title: "Type d'envoi",
       placeholder: "Sélectionnez un type d'envoi",
@@ -335,14 +333,16 @@ exports.default = {
     processing: "La communication est en cours d'envoi",
     fail: "Une erreur est survenue lors de l'envoi",
   },
-  thread: {
+  messageList: {
     filterOutCommunicationSent:
       "La communication que vous venez d'envoyer est cachée par les filtres actifs.",
-    emptyThread: {
+    emptyList: {
       becauseOfFilters: 'Aucun résultat correspondant aux filtres.',
       becauseNeverUsed:
         "Vous n'avez pas encore envoyé de communication sur ce canal.",
     },
+  },
+  thread: {
     item: {
       markAsRead: 'Marquer comme non lu',
       addToFavorite: 'Ajouter aux favoris',
@@ -378,7 +378,22 @@ exports.default = {
       disabled: 'Archivés',
     },
     loadMoreThreads: 'Charger plus de messages',
-    noThread: 'Aucun résultat',
+    noThread: {
+      list: 'Aucun résultat',
+      item: {
+        [ChatThreadKinds.Member]:
+          'Retrouvez ici les conversations avec les membres',
+        [ChatThreadKinds.Smartlist]:
+          'Retrouvez ici les conversations de vos smartlists',
+        [ChatThreadKinds.Offer]:
+          'Retrouvez ici les conversations de vos séances',
+      },
+    },
+    selectThread: {
+      title: 'Sélectionnez un chat',
+      description:
+        'Cliquer sur un membre, une smartlist ou une séance pour afficher la conversation associée',
+    },
   },
   generic: {
     communication: 'Communication',

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { CommunicationDrawerWithStyles as CommunicationDrawer } from './CommunicationDrawer.component';
 import MembersFactory, { MemberFactory } from '#libs/member/factories/Member';
@@ -8,7 +7,7 @@ import EmailTemplateDetailSummaryListsFactory from '#libs/email-editor/factories
 
 import { getMemberIdListsFromMemberList } from '../utils';
 
-import { ThreadCommunication, DrawerProps, Communication } from '../types';
+import { CommunicationMessage, DrawerProps, Communication } from '../types';
 import { Member } from '#libs/member/types';
 import { tagCategories } from '#libs/tag/factory';
 
@@ -30,7 +29,7 @@ import {
 
 // UTILS JUST FOR STORYBOOK
 const getAllRecipientsWithMember = (
-  com: ThreadCommunication,
+  com: CommunicationMessage,
   allMembers: Member[],
 ) => {
   return {
@@ -70,7 +69,7 @@ const getFiltersByCategory = (filters: number[]) => {
 };
 
 const getFilteredThreadCommunicationList = (
-  communications: ThreadCommunication[],
+  communications: CommunicationMessage[],
   filters: number[],
 ) => {
   if (filters.length === 0) return communications;
@@ -106,11 +105,12 @@ const DATABASE_THREAD_COMMUNICATION_LIST = ThreadCommunicationListFactory(
   DATABASE_RECIPIENTS_MODAL_MEMBER_LIST,
 );
 const DATABASE_RECIPIENTS_WITH_MEMBERS_BY_COMMUNICATION_SENT =
-  DATABASE_THREAD_COMMUNICATION_LIST.map((communication: ThreadCommunication) =>
-    getAllRecipientsWithMember(
-      communication,
-      DATABASE_RECIPIENTS_MODAL_MEMBER_LIST,
-    ),
+  DATABASE_THREAD_COMMUNICATION_LIST.map(
+    (communication: CommunicationMessage) =>
+      getAllRecipientsWithMember(
+        communication,
+        DATABASE_RECIPIENTS_MODAL_MEMBER_LIST,
+      ),
   );
 
 const WrapperWithState = (args: DrawerProps) => {
@@ -229,7 +229,7 @@ const WrapperWithState = (args: DrawerProps) => {
     recipientsModalMemberList,
     loadingRecipiensModalMemberList: false,
     fetchPaginatedAvailableRecipientMemberList,
-    resolvedGenericTags: [],
+    resolvedGenericTags: {},
     fetchResolvedGenericTags: () => {},
     tagCategories: tagCategories,
     fetchTagList: () => {},

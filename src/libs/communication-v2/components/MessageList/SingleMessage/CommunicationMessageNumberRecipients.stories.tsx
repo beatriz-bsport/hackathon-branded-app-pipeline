@@ -1,13 +1,12 @@
-// @ts-nocheck
 import React from 'react';
 
-import CommunicationThreadNumberRecipients, {
+import CommunicationMessageNumberRecipients, {
   Props,
-} from './CommunicationThreadNumberRecipients.component';
+} from './CommunicationMessageNumberRecipients.component';
 import MembersFactory from '#libs/member/factories/Member';
 
 const CustomTemplate = (args: Props) => (
-  <CommunicationThreadNumberRecipients {...args} />
+  <CommunicationMessageNumberRecipients {...args} />
 );
 
 export const NoPictureToDisplay = CustomTemplate.bind({});
@@ -47,8 +46,8 @@ CompactMode.args = {
 };
 
 export default {
-  title: 'Library/Communication-V2/ThreadNumberRecipients',
-  component: CommunicationThreadNumberRecipients,
+  title: 'Library/Communication-V2/MessageNumberRecipients',
+  component: CommunicationMessageNumberRecipients,
   parameters: {
     docs: {
       page: null,

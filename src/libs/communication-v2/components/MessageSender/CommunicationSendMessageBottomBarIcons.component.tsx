@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { Theme, makeStyles } from '@material-ui/core';
@@ -32,7 +31,7 @@ import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import Config from '../../../../config';
 
 import NestedList from '#components/NestedMenu.component';
-import CommunicationThreadNumberRecipients from '../Thread/SingleMessage/CommunicationThreadNumberRecipients.component';
+import CommunicationMessageNumberRecipients from '../MessageList/SingleMessage/CommunicationMessageNumberRecipients.component';
 
 import { Member, MemberMinimal } from '#libs/member/types';
 import { FeatureList } from '#libs/company/types';
@@ -54,7 +53,7 @@ import { hasUpsell } from '#libs/platform-billing/utils';
 type Props = {
   actionType: number;
   directMember: Member;
-  fullScreen: boolean;
+  fullScreen?: boolean;
   handleSelectTemplate: () => void;
   handleSelectRecipients: () => void;
   memberList: MemberMinimal[];
@@ -229,7 +228,7 @@ const BottomBarIcons = (props: Props) => {
             onClick={handleSelectRecipients}
           >
             {selectedRecipientsCount ? (
-              <CommunicationThreadNumberRecipients
+              <CommunicationMessageNumberRecipients
                 members={
                   memberList?.slice(
                     0,
@@ -360,4 +359,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default BottomBarIcons;
+export default memo(BottomBarIcons);

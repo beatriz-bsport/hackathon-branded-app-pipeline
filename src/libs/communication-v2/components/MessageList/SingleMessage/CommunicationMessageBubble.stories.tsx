@@ -1,9 +1,8 @@
-// @ts-nocheck
 import React from 'react';
 import {
-  CommunicationThreadMessageBubble,
+  CommunicationMessageBubble,
   Props,
-} from './CommunicationThreadMessageBubble.component';
+} from './CommunicationMessageBubble.component';
 import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,
@@ -24,7 +23,7 @@ import {
 } from '#libs/communication-v2/constants';
 
 const CustomTemplate = (args: Props) => (
-  <CommunicationThreadMessageBubble {...args} />
+  <CommunicationMessageBubble {...args} />
 );
 
 const photos = MembersFactory(4).map((member: Member) => member.photo);
@@ -206,8 +205,8 @@ CommunicationSendingFail.args = {
 };
 
 export default {
-  title: 'Library/Communication-V2/ThreadCommunication',
-  component: CommunicationThreadMessageBubble,
+  title: 'Library/Communication-V2/MessageBubble',
+  component: CommunicationMessageBubble,
   parameters: {
     docs: {
       page: null,

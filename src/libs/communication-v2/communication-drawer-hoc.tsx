@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
@@ -18,16 +17,22 @@ import {
 import { fetch as fetchAction } from '#libs/alerting/actions';
 import {
   getRecipientWithMemberPaginatedList,
-  getThreadCommunicationList,
-  getThreadCommunicationListHasNextPage,
-  getThreadCommunicationListLoading,
+  getCommunicationMessageList,
+  getCommunicationMessageListHasNextPage,
+  getCommunicationMessageListLoading,
 } from './selectors';
 import {
   getFormatedFiltersToFetchCommunicationSent,
   getFormatedQueryParamsFromContext,
   getFormatedQueryParamsToFetchRecipientPaginatedList,
 } from './utils';
-import { Communication, MessageData, DrawerProps, Recipient } from './types';
+import type {
+  Communication,
+  MessageData,
+  DrawerProps,
+  Recipient,
+  FetchCommunicationParams,
+} from '#libs/communication-v2/types';
 
 // TEMPLATES
 import {
@@ -68,12 +73,12 @@ export type WithCommunicationDataProps = CommunicationConnectedProps &
   WithHandlers;
 
 type WithHandlers = {
-  fetchPageThreadCommunicationList: (
+  fetchPageMessageList: (
     page: number,
     filters: number[],
     dateStart: number,
     dateEnd: number,
-    isRefreshingThread?: boolean,
+    isRefreshingMessageList?: boolean,
   ) => void;
   fetchPageInformationRecipientList: (
     communication: Communication,
@@ -97,11 +102,10 @@ type WithHandlers = {
 
 const connector = connect(
   (state: RootState) => ({
-    // TRHEADS
-    threadCommunicationList: getThreadCommunicationList(state),
-    loadingThreadCommunicationList: getThreadCommunicationListLoading(state),
-    threadCommunicationListHasNextPage:
-      getThreadCommunicationListHasNextPage(state),
+    // MESSAGE LIST
+    messageList: getCommunicationMessageList(state),
+    loadingMessageList: getCommunicationMessageListLoading(state),
+    messageListHasNextPage: getCommunicationMessageListHasNextPage(state),
     // RECIPIENTS
     informationRecipientList: getRecipientWithMemberPaginatedList(state),
     informationRecipientListCount: state.communicationV2.recipient.count,
@@ -122,6 +126,7 @@ const connector = connect(
     // TAGS
     resolvedGenericTags: getResolvedGenericTags(state),
     tagCategories: getTagCategories(state),
+    // THEME
     theme: themeSelectors.getTheme(state),
   }),
   {
@@ -146,16 +151,16 @@ export default function withCommunicationData(
   return compose(
     connector,
     withHandlers({
-      fetchPageThreadCommunicationList:
+      fetchPageMessageList:
         (props: CommunicationConnectedProps) =>
         (
           page: number,
           filters: number[],
           dateStart: number,
           dateEnd: number,
-          isRefreshingThread?: boolean,
+          isRefreshingMessageList?: boolean,
         ) => {
-          const params = {
+          const params: FetchCommunicationParams = {
             page,
             ...getFormatedFiltersToFetchCommunicationSent(
               filters,
@@ -165,7 +170,7 @@ export default function withCommunicationData(
             context_identifier: props.contextIdentifier,
             context_object_id: props.contextObjectId,
           };
-          if (isRefreshingThread) {
+          if (isRefreshingMessageList) {
             params.page_size = REFRESH_THREAD_PAGINATION_SIZE;
           }
 
@@ -185,7 +190,7 @@ export default function withCommunicationData(
           };
           return props.fetchCommunicationSentList(
             params,
-            !!isRefreshingThread,
+            !!isRefreshingMessageList,
             {
               onSuccess,
             },

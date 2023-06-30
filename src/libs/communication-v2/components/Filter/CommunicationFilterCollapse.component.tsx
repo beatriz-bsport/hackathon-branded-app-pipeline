@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React from 'react';
+import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -46,7 +45,7 @@ export type FilterModalProps = {
   dateEndSetter?: (newDate: MomentType) => void;
   periodHasChanged?: boolean;
   handleFiltersSubmit: () => void;
-  allPreviousFilter: {
+  allPreviousFilter?: {
     filters: number[];
     dateStart: number;
     dateEnd: number;
@@ -64,8 +63,8 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
     .concat(props.srcOrDstFilterValues?.map((field) => field.value));
   const enableSubmitButton =
     (props.dateStartValue?.unix() || null) !==
-      props.allPreviousFilter.dateStart ||
-    (props.dateEndValue?.unix() || null) !== props.allPreviousFilter.dateEnd ||
+      props.allPreviousFilter?.dateStart ||
+    (props.dateEndValue?.unix() || null) !== props.allPreviousFilter?.dateEnd ||
     !isEqual(allFilterNumbers, props.allPreviousFilter.filters);
   return (
     <Paper className={classes.container}>
@@ -200,4 +199,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CommunicationFilterCollapse;
+export default memo(CommunicationFilterCollapse);

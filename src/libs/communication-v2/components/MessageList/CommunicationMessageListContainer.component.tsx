@@ -1,36 +1,35 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles, Theme, WithStyles } from '@material-ui/core';
 import CommunicationInformationModal from './ModalInformation/CommunicationInformationModal.component';
-import CommunicationThreadScrollableView from './CommunicationThreadScrollableView.component';
+import CommunicationMessageScrollableView from './CommunicationMessageScrollableView.component';
 import InfoGenericBox from '#components/box/InfoGenericBox.component';
-import {
-  ThreadCommunication,
+import type {
+  CommunicationMessage,
   Communication,
   Recipient,
   FilteringMemberIdsByGenericCategories,
 } from '#libs/communication-v2/types';
-import { Member } from '#libs/member/types';
+import type { Member } from '#libs/member/types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+import type { ResolvedGenericTags } from '#libs/email-editor/types';
 
 type OwnProps = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
   consentWarning?: string;
   contextMember?: Member;
   currentPage: number;
-  threadCommunicationList: Array<ThreadCommunication>;
+  messageList: CommunicationMessage[];
   fetchRecipientPaginatedList: (
     communication: Communication,
     page: number,
     memberSelectedCategories: number[],
   ) => void;
-  fetchMoreThreadCommunications: () => void;
-  fullScreen: boolean;
+  fetchMoreCommunicationMessages: () => void;
+  fullScreen?: boolean;
   hasActiveFilters: boolean;
-  loadingThreadDataList: boolean;
+  loadingCommunicationMessageDataList: boolean;
   loadingRecipientList: boolean;
   onCloseSnackbar: () => void;
   openSnackbar: boolean;
@@ -48,12 +47,15 @@ type State = {
   forceRerenderAfterMount: boolean;
   openEmailView: boolean;
   openInformationModal: boolean;
-  selectedCommunication: ThreadCommunication;
+  selectedCommunication: CommunicationMessage;
   selectedMailBody: string;
   selectedMailTitle: string;
 };
 
-class CommunicationThreadContainer extends React.Component<Props, State> {
+class CommunicationMessageListContainer extends React.PureComponent<
+  Props,
+  State
+> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -70,9 +72,9 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
 
   closeInformationModal = () => this.setState({ openInformationModal: false });
 
-  showCommunicationInformation = (threadCommunication: ThreadCommunication) => {
+  showCommunicationInformation = (message: CommunicationMessage) => {
     this.setState({
-      selectedCommunication: threadCommunication,
+      selectedCommunication: message,
       openInformationModal: true,
     });
   };
@@ -97,17 +99,20 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
       t,
       consentWarning,
       contextMember,
-      threadCommunicationList,
-      fetchMoreThreadCommunications,
+      messageList,
+      fetchMoreCommunicationMessages,
       fetchRecipientPaginatedList,
       fullScreen,
       hasActiveFilters,
-      loadingThreadDataList,
+      loadingCommunicationMessageDataList,
       loadingRecipientList,
       paginationSize,
       recipientList,
       recipientListCount,
       showMailProviderWarningContent,
+      currentPage,
+      resolvedGenericTags,
+      scrollToBottomFlag,
     } = this.props;
     let modalContextTitle = '';
     let modalContextInformation = '';
@@ -118,8 +123,9 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
       modalContextInformation =
         this.state.selectedCommunication?.communication.data?.subject || '';
     }
+
     return (
-      <div className={classes.threadContainer}>
+      <div className={classes.messageContainer}>
         {consentWarning && (
           <div className={classes.consentContainer}>
             <InfoGenericBox
@@ -144,16 +150,18 @@ class CommunicationThreadContainer extends React.Component<Props, State> {
             />
           </div>
         )}
-        <CommunicationThreadScrollableView
-          threadCommunicationList={threadCommunicationList}
-          fetchOnEndScroll={fetchMoreThreadCommunications}
-          loadingThreadDataList={loadingThreadDataList}
+        <CommunicationMessageScrollableView
+          messageList={messageList}
+          fetchOnEndScroll={fetchMoreCommunicationMessages}
+          loadingCommunicationMessageDataList={
+            loadingCommunicationMessageDataList
+          }
           showCommunicationInformation={this.showCommunicationInformation}
           showEmailTemplate={this.showEmailTemplate}
-          oneToOneThreadMember={contextMember}
-          currentPage={this.props.currentPage}
-          resolvedGenericTags={this.props.resolvedGenericTags}
-          scrollToBottomFlag={this.props.scrollToBottomFlag}
+          oneToOneMessageMember={contextMember}
+          currentPage={currentPage}
+          resolvedGenericTags={resolvedGenericTags}
+          scrollToBottomFlag={scrollToBottomFlag}
           hasActiveFilters={hasActiveFilters}
         />
         {this.state.openEmailView && (
@@ -200,7 +208,7 @@ const styles: any = (theme: Theme) => ({
       marginBottom: theme.spacing(1),
     },
   },
-  threadContainer: {
+  messageContainer: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     display: 'flex',
@@ -212,4 +220,4 @@ const styles: any = (theme: Theme) => ({
 export default compose<any, OwnProps>(
   withTranslation(['communication']),
   withStyles(styles),
-)(CommunicationThreadContainer);
+)(CommunicationMessageListContainer);

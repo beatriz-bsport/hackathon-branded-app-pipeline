@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React from 'react';
+import React, { memo } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -19,7 +18,7 @@ export type Props = {
   loading?: boolean;
 };
 
-const CommunicationThreadNumberRecipients = (props: Props) => {
+const CommunicationMessageNumberRecipients = (props: Props) => {
   const { numberRecipients, compactText, compactAvatars, loading } = props;
   const allImageLinks =
     props.members?.length > 0
@@ -69,4 +68,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CommunicationThreadNumberRecipients;
+export default memo(CommunicationMessageNumberRecipients);

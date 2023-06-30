@@ -41,7 +41,7 @@ const getCommunicationSents = (state: RootState) =>
 const getCommunicationSentPaginatedList = (state: RootState) =>
   state.communicationV2.sent.thread.allIds;
 
-export const getThreadCommunicationList = createSelector(
+export const getCommunicationMessageList = createSelector(
   [getCommunicationSents, getCommunicationSentPaginatedList, getMemberListData],
   (sents, ids, members) =>
     ids
@@ -72,10 +72,10 @@ export const getThreadCommunicationList = createSelector(
       .filter((thread) => !!thread),
 );
 
-export const getThreadCommunicationListHasNextPage = (state: RootState) =>
+export const getCommunicationMessageListHasNextPage = (state: RootState) =>
   !!state.communicationV2.sent.thread.next_page;
 
-export const getThreadCommunicationListLoading = (state: RootState) =>
+export const getCommunicationMessageListLoading = (state: RootState) =>
   !!state.communicationV2.sent.thread.loading;
 
 export const getIsTwoWayEmailActivated = (state: RootState): boolean => {

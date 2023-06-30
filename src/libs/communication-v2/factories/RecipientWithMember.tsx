@@ -1,10 +1,9 @@
-// @ts-nocheck
 import type {
   Recipient,
-  ThreadCommunication,
+  CommunicationMessage,
   RecipientCompact,
 } from '../types';
-import { Member } from '#libs/member/types';
+import type { Member } from '#libs/member/types';
 import { MemberFactory } from '#libs/member/factories/Member';
 
 function randomInt(max: number) {
@@ -86,7 +85,7 @@ export default function RecipientsWithMemberFactory(
 }
 
 export function RecipientWithMemberFromThreadCommunicationFactory(
-  communication: ThreadCommunication,
+  communication: CommunicationMessage,
   allMemberList: Member[],
 ): Array<Recipient<Member>> {
   const recipients: Array<Recipient<Member>> = [];

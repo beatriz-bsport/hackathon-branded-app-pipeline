@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React from 'react';
+import React, { memo } from 'react';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Select from 'react-select';
@@ -45,4 +44,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CommunicationInformationModalFilter;
+export default memo(CommunicationInformationModalFilter);

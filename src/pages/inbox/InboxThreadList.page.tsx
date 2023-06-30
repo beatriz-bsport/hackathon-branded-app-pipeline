@@ -1,11 +1,12 @@
-// @ts-nocheck
 import React, { PureComponent } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
+import { push } from 'connected-react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { compose, withHandlers, withState } from 'recompose';
-import { RootState } from '../../reducers';
+import type { OptionCallback } from '../../state/types';
+import type { RootState } from '../../reducers';
 import InboxThreadList from '#libs/communication-v2/thread/InboxThreadList';
 import {
   getInboxThreadsWithUnreadAnswersCount,
@@ -26,25 +27,30 @@ import {
   isThreadDisplayed,
   fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts,
   handleSwitchStatus,
+  fetchInboxThreadListFromThreadCalledFromURL,
 } from '#libs/communication-v2/utils';
 import { INBOX_ALL_MESSAGES } from '#libs/communication-v2/constants';
-import {
+import type {
   CommunicationThread,
+  CommunicationThreadWithUnreadAnswersCount,
+  InboxThreadRouterProps,
   SelectFieldItem,
 } from '#libs/communication-v2/types';
 
 const PAGE_SIZE = 15;
 
+type OwnProps = InboxThreadRouterProps;
+
 type WithHandlers = {
   fetchInboxThreadListWithContextParams: (
     isThreadListReinitialized?: boolean,
     nextPage?: number,
+    threadId?: number,
   ) => void;
   handleOnItemClick: (id?: number) => void;
   handleFlagAsUnread: (
     id: number,
-    relatedObjectKind: ChatThreadKinds,
-    filterValue: SelectFieldItem,
+    options?: OptionCallback<CommunicationThread>,
   ) => void;
   handleSwitchFavoriteStatus: (threadId: number) => void;
   handleSwitchMutedStatus: (threadId: number) => void;
@@ -52,18 +58,20 @@ type WithHandlers = {
 };
 
 type WithState = {
-  selectedThreadId: number;
-  setSelectedThreadId: (threadId: number) => void;
-  contextSelected: ChatThreadKinds;
-  setContextSelected: (context: ChatThreadKinds) => void;
   filterValue: SelectFieldItem;
-  setFilterValue: (filter: SelectFieldItem) => void;
+  setFilterValue: (filter: SelectFieldItem, options?: () => void) => void;
+  threadItems: (CommunicationThreadWithUnreadAnswersCount | null)[];
+  setThreadItems: (
+    threads: (CommunicationThreadWithUnreadAnswersCount | null)[],
+    options?: () => void,
+  ) => void;
 };
 
-type Props = ConnectedProps<typeof connector> &
-  WithHandlers &
-  WithTranslation &
+type InboxListConnectedProps = OwnProps &
+  ConnectedProps<typeof connector> &
   WithState;
+
+type Props = InboxListConnectedProps & WithHandlers & WithTranslation;
 
 class InboxThreadListPage extends PureComponent<Props> {
   componentDidMount() {
@@ -74,14 +82,36 @@ class InboxThreadListPage extends PureComponent<Props> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    const hasThreadListChanged = this.props.threadList !== prevProps.threadList;
+    const {
+      threadList,
+      isListLoading,
+      setThreadItems,
+      thread,
+      setFilterValue,
+      t,
+      contextSelected,
+      setContextSelected,
+      fetchInboxThreadListWithContextParams,
+    } = this.props;
 
-    const isListLoaded =
-      this.props.isListLoading !== prevProps.isListLoading &&
-      !this.props.isListLoading;
+    const hasThreadListChanged = threadList !== prevProps.threadList;
 
-    if (hasThreadListChanged || isListLoaded) {
-      this.props.setThreadItems(this.props.threadList);
+    const hasListFinishedLoading =
+      isListLoading !== prevProps.isListLoading && !isListLoading;
+
+    if (hasThreadListChanged || hasListFinishedLoading) {
+      setThreadItems(threadList);
+    }
+
+    if (thread && prevProps.thread?.id !== thread.id) {
+      fetchInboxThreadListFromThreadCalledFromURL(
+        thread,
+        setFilterValue,
+        t,
+        fetchInboxThreadListWithContextParams,
+        contextSelected,
+        setContextSelected,
+      );
     }
   }
 
@@ -117,7 +147,7 @@ class InboxThreadListPage extends PureComponent<Props> {
           const isDisplayed = isThreadDisplayed(thread, this.props.filterValue);
 
           if (!isDisplayed) {
-            this.props.setSelectedThreadId(null);
+            this.props.unselectThread();
           }
         }
 
@@ -142,7 +172,7 @@ class InboxThreadListPage extends PureComponent<Props> {
         );
       });
 
-      this.props.setSelectedThreadId(null);
+      this.props.unselectThread();
     }
   };
 
@@ -191,7 +221,7 @@ class InboxThreadListPage extends PureComponent<Props> {
 }
 
 const connector = connect(
-  (state: RootState, { contextSelected }) => ({
+  (state: RootState, { contextSelected }: OwnProps) => ({
     threadList: getInboxThreadsWithUnreadAnswersCount(state, contextSelected),
     isListLoading: state.communicationV2.inboxThread.loading,
     threadsById: state.communicationV2.inboxThread.byId,
@@ -209,13 +239,13 @@ const connector = connect(
     fetchInboxThreadList: fetchInboxThreadListAction,
     fetchUnreadAnswersCounts: fetchUnreadAnswersCountsAction,
     getUnreadAnswersCountFromThread: getUnreadAnswersCountFromThreadAction,
+    selectThread: (id: number) => push(`/inbox/thread/${id}/`),
+    unselectThread: () => push('/inbox/thread/'),
   },
 );
 
-export default compose(
-  withState('contextSelected', 'setContextSelected', ChatThreadKinds.Member),
+export default compose<Props, InboxThreadRouterProps>(
   connector,
-  withState('selectedThreadId', 'setSelectedThreadId', null),
   withState('filterValue', 'setFilterValue', null),
   // null value in threadList allows to display one item with a skeleton during the loading
   withState('threadItems', 'setThreadItems', [null]),
@@ -227,21 +257,36 @@ export default compose(
         filterValue,
         fetchInboxThreadList,
         fetchUnreadAnswersCounts,
-      }) =>
-      (isThreadListReinitialized?: boolean, page?: number) => {
-        fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts(
-          contextSelected,
-          filterValue,
-          fetchInboxThreadList,
-          fetchUnreadAnswersCounts,
-          isThreadListReinitialized,
-          page,
-        );
+      }: InboxListConnectedProps) =>
+      (
+        isThreadListReinitialized?: boolean,
+        page?: number,
+        threadId?: number,
+      ) => {
+        if (!threadId) {
+          fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts(
+            contextSelected,
+            filterValue,
+            fetchInboxThreadList,
+            fetchUnreadAnswersCounts,
+            isThreadListReinitialized,
+            page,
+          );
+        } else {
+          fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts(
+            contextSelected,
+            filterValue,
+            fetchInboxThreadList,
+            fetchUnreadAnswersCounts,
+            isThreadListReinitialized,
+            null,
+            threadId,
+          );
+        }
       },
     handleOnItemClick:
       ({
         selectedThreadId,
-        setSelectedThreadId,
         threadsById,
         flagAsRead,
         contextSelected,
@@ -250,25 +295,27 @@ export default compose(
         fetchInboxThreadList,
         fetchUnreadAnswersCounts,
         getUnreadAnswersCountFromThread,
-      }) =>
+        selectThread,
+        unselectThread,
+      }: InboxListConnectedProps) =>
       (id?: number) => {
         if (id) {
           if (id !== selectedThreadId) {
-            setSelectedThreadId(id, () => {
-              const thread = threadsById[id];
-              if (!thread.has_been_read) {
-                handleSwitchStatus(
-                  flagAsRead,
-                  contextSelected,
-                  filterValue,
-                  id,
-                  threadList,
-                  fetchInboxThreadList,
-                  fetchUnreadAnswersCounts,
-                  getUnreadAnswersCountFromThread,
-                );
-              }
-            });
+            selectThread(id);
+            const thread = threadsById[id];
+            if (!thread.last_communication_has_been_read) {
+              handleSwitchStatus(
+                flagAsRead,
+                contextSelected,
+                filterValue,
+                id,
+                threadList,
+                fetchInboxThreadList,
+                fetchUnreadAnswersCounts,
+                unselectThread,
+                getUnreadAnswersCountFromThread,
+              );
+            }
           }
         }
       },
@@ -277,15 +324,15 @@ export default compose(
         flagAsUnread,
         getUnreadAnswersCountFromThread,
         selectedThreadId,
-        setSelectedThreadId,
-      }) =>
+        unselectThread,
+      }: InboxListConnectedProps) =>
       (threadId: number) => {
         flagAsUnread(threadId, {
           onSuccess: (thread: CommunicationThread) =>
             getUnreadAnswersCountFromThread(thread.id),
         });
         if (selectedThreadId === threadId) {
-          setSelectedThreadId(null);
+          unselectThread();
         }
       },
     handleSwitchFavoriteStatus:
@@ -296,7 +343,8 @@ export default compose(
         threadList,
         fetchInboxThreadList,
         fetchUnreadAnswersCounts,
-      }) =>
+        unselectThread,
+      }: InboxListConnectedProps) =>
       (threadId: number) => {
         handleSwitchStatus(
           switchFavoriteStatus,
@@ -306,6 +354,7 @@ export default compose(
           threadList,
           fetchInboxThreadList,
           fetchUnreadAnswersCounts,
+          unselectThread,
         );
       },
     handleSwitchMutedStatus:
@@ -316,7 +365,8 @@ export default compose(
         threadList,
         fetchInboxThreadList,
         fetchUnreadAnswersCounts,
-      }) =>
+        unselectThread,
+      }: InboxListConnectedProps) =>
       (threadId: number) => {
         handleSwitchStatus(
           switchMutedStatus,
@@ -326,6 +376,7 @@ export default compose(
           threadList,
           fetchInboxThreadList,
           fetchUnreadAnswersCounts,
+          unselectThread,
         );
       },
     handleSwitchDisabledStatus:
@@ -336,7 +387,8 @@ export default compose(
         threadList,
         fetchInboxThreadList,
         fetchUnreadAnswersCounts,
-      }) =>
+        unselectThread,
+      }: InboxListConnectedProps) =>
       (threadId: number) => {
         handleSwitchStatus(
           switchDisabledStatus,
@@ -346,6 +398,7 @@ export default compose(
           threadList,
           fetchInboxThreadList,
           fetchUnreadAnswersCounts,
+          unselectThread,
         );
       },
   }),

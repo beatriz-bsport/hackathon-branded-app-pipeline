@@ -93,6 +93,11 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
     display: 'flex',
     flex: 1,
+    '&:hover': {
+      '@media (hover: none)': {
+        backgroundColor: theme.palette.common.white,
+      },
+    },
   },
   buttonActive: {
     backgroundColor: theme.palette.common.white,

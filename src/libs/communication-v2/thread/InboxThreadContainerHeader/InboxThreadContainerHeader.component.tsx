@@ -1,41 +1,41 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo } from 'react';
 
-import { Collapse, IconButton, makeStyles } from '@material-ui/core';
-import { Moment as MomentType } from 'moment-timezone';
+import type { Moment as MomentType } from 'moment-timezone';
 
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import InboxThreadHeader from '#libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadHeader.component';
-import CommunicationFilterCollapse from '#libs/communication-v2/components/Filter/CommunicationFilterCollapse.component';
-import { SelectFieldItem } from '#libs/communication-v2/types';
-import { OptionCallback } from '../../../../state/types';
+import type {
+  CommunicationThread,
+  SelectFieldItem,
+} from '#libs/communication-v2/types';
+import type { OptionCallback } from '../../../../state/types';
+import InboxThreadFilterContainer from '#libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadFilterContainer.component';
 
 export type Props = {
-  id: number;
-  cover: string;
-  title: string;
-  subtitle?: string;
-  isFavorite: boolean;
-  isMuted: boolean;
-  hasBeenRead: boolean;
-  isDisabled: boolean;
-  relatedObjectKind: ChatThreadKinds;
+  thread: CommunicationThread;
 
-  switchFavoriteStatus: (id: number, options?: OptionCallback) => void;
-  switchMutedStatus: (id: number, options?: OptionCallback) => void;
-  switchDisabledStatus: (id: number, options?: OptionCallback) => void;
-  flagAsUnread: (id: number, options?: OptionCallback) => void;
+  // --- Thread Actions ---
+  switchFavoriteStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  switchMutedStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  switchDisabledStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  flagAsUnread: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+
+  // --- Navigation ---
   goToDetailPage: () => void;
   goToThreadListPage: () => void;
 
-  hasKindFilter?: boolean;
-  hasRecipientFilter?: boolean;
-  hasChannelFilter?: boolean;
-  hasSendParameterFilter?: boolean;
-  hasSrcOrDstFilter?: boolean;
-  hasDatesFilter?: boolean;
-
+  // --- Filtering ---
   kindFilterValues?: SelectFieldItem[];
   kindFilterSetter?: (args: SelectFieldItem[]) => void;
 
@@ -52,7 +52,6 @@ export type Props = {
   dateStartSetter?: (newDate: MomentType) => void;
   dateEndValue?: MomentType;
   dateEndSetter?: (newDate: MomentType) => void;
-  periodHasChanged?: boolean;
 
   handleFiltersSubmit: () => void;
   allPreviousFilter: {
@@ -60,78 +59,111 @@ export type Props = {
     dateStart: number;
     dateEnd: number;
   };
+
+  showFilterModal: boolean;
+  setShowFilterModal: (isShown: boolean) => void;
+  onShowFilterModal: () => void;
+
+  popKindFilterValue: (index: number) => void;
+  resetPeriodFilter: () => void;
+  popRecipientFilterValue: (index: number) => void;
+  popSendParameterFilterValue: (index: number) => void;
+  popSrcOrDstFilterValue: (index: number) => void;
+  resetFilters: () => void;
 };
 
-const InboxThreadContainerHeader: React.FC<Props> = (props: Props) => {
-  const classes = useStyles();
-
-  const [isCollapseOpen, setIsCollapseOpen] = useState(false);
-  const hideCollapse = useCallback(() => {
-    setIsCollapseOpen(false);
-  }, []);
+const InboxThreadContainerHeader: React.FC<Props> = ({
+  thread,
+  switchFavoriteStatus,
+  switchMutedStatus,
+  switchDisabledStatus,
+  flagAsUnread,
+  goToDetailPage,
+  goToThreadListPage,
+  kindFilterValues,
+  kindFilterSetter,
+  recipientFilterValues,
+  recipientFilterSetter,
+  sendParameterFilterValues,
+  sendParameterFilterSetter,
+  srcOrDstFilterValues,
+  srcOrDstFilterSetter,
+  dateStartValue,
+  dateStartSetter,
+  dateEndValue,
+  dateEndSetter,
+  handleFiltersSubmit,
+  allPreviousFilter,
+  showFilterModal,
+  setShowFilterModal,
+  onShowFilterModal,
+  popKindFilterValue,
+  popRecipientFilterValue,
+  popSendParameterFilterValue,
+  popSrcOrDstFilterValue,
+  resetPeriodFilter,
+  resetFilters,
+}) => {
+  const {
+    id,
+    title,
+    cover,
+    subtitle,
+    favorite,
+    muted,
+    last_communication_has_been_read,
+    disabled,
+    related_object_kind,
+  } = thread;
 
   return (
     <>
       <InboxThreadHeader
-        id={props.id}
-        title={props.title}
-        cover={props.cover}
-        subtitle={props.subtitle}
-        isFavorite={props.isFavorite}
-        isMuted={props.isMuted}
-        hasBeenRead={props.hasBeenRead}
-        isDisabled={props.isDisabled}
-        relatedObjectKind={props.relatedObjectKind}
-        isCollapseOpen={isCollapseOpen}
-        setIsCollapseOpen={setIsCollapseOpen}
-        switchFavoriteStatus={props.switchFavoriteStatus}
-        switchMutedStatus={props.switchMutedStatus}
-        switchDisabledStatus={props.switchDisabledStatus}
-        flagAsUnread={props.flagAsUnread}
-        goToDetailPage={props.goToDetailPage}
-        goToThreadListPage={props.goToThreadListPage}
+        id={id}
+        title={title}
+        cover={cover}
+        subtitle={subtitle}
+        isFavorite={favorite}
+        isMuted={muted}
+        hasBeenRead={last_communication_has_been_read}
+        isDisabled={disabled}
+        relatedObjectKind={related_object_kind}
+        onShowFilterModal={onShowFilterModal}
+        switchFavoriteStatus={switchFavoriteStatus}
+        switchMutedStatus={switchMutedStatus}
+        switchDisabledStatus={switchDisabledStatus}
+        flagAsUnread={flagAsUnread}
+        goToDetailPage={goToDetailPage}
+        goToThreadListPage={goToThreadListPage}
       />
-      <Collapse in={isCollapseOpen}>
-        <CommunicationFilterCollapse
-          hasKindFilter={props.hasKindFilter}
-          kindFilterValues={props.kindFilterValues}
-          kindFilterSetter={props.kindFilterSetter}
-          hasRecipientFilter={props.hasRecipientFilter}
-          recipientFilterValues={props.recipientFilterValues}
-          recipientFilterSetter={props.recipientFilterSetter}
-          hasSendParameterFilter={props.hasSendParameterFilter}
-          sendParameterFilterValues={props.sendParameterFilterValues}
-          sendParameterFilterSetter={props.sendParameterFilterSetter}
-          hasSrcOrDstFilter={props.hasSrcOrDstFilter}
-          srcOrDstFilterValues={props.srcOrDstFilterValues}
-          srcOrDstFilterSetter={props.srcOrDstFilterSetter}
-          hasDatesFilter={props.hasDatesFilter}
-          dateStartValue={props.dateStartValue}
-          dateStartSetter={props.dateStartSetter}
-          dateEndValue={props.dateEndValue}
-          dateEndSetter={props.dateEndSetter}
-          periodHasChanged={props.periodHasChanged}
-          handleFiltersSubmit={props.handleFiltersSubmit}
-          allPreviousFilter={props.allPreviousFilter}
-        />
-        <IconButton className={classes.iconButton} onClick={hideCollapse}>
-          <ExpandLessIcon fontSize="large" />
-        </IconButton>
-      </Collapse>
+      <InboxThreadFilterContainer
+        relatedObjectKind={related_object_kind}
+        kindFilterValues={kindFilterValues}
+        popKindFilterValue={popKindFilterValue}
+        recipientFilterValues={recipientFilterValues}
+        popRecipientFilterValue={popRecipientFilterValue}
+        sendParameterFilterValues={sendParameterFilterValues}
+        popSendParameterFilterValue={popSendParameterFilterValue}
+        srcOrDstFilterValues={srcOrDstFilterValues}
+        popSrcOrDstFilterValue={popSrcOrDstFilterValue}
+        dateStart={dateStartValue}
+        dateEnd={dateEndValue}
+        resetPeriodFilter={resetPeriodFilter}
+        resetFilters={resetFilters}
+        kindFilterSetter={kindFilterSetter}
+        recipientFilterSetter={recipientFilterSetter}
+        sendParameterFilterSetter={sendParameterFilterSetter}
+        srcOrDstFilterSetter={srcOrDstFilterSetter}
+        dateStartSetter={dateStartSetter}
+        dateEndSetter={dateEndSetter}
+        handleFiltersSubmit={handleFiltersSubmit}
+        allPreviousFilter={allPreviousFilter}
+        showFilterModal={showFilterModal}
+        setShowFilterModal={setShowFilterModal}
+        onShowFilterModal={onShowFilterModal}
+      />
     </>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  iconButton: {
-    display: 'none',
-    [theme.breakpoints.down('sm')]: {
-      display: 'block',
-      position: 'relative',
-      bottom: 60,
-      left: 10,
-    },
-  },
-}));
 
 export default memo(InboxThreadContainerHeader);

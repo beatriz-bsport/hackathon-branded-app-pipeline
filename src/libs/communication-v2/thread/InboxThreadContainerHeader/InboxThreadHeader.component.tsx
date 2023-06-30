@@ -1,20 +1,19 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 
-import {
-  Avatar,
-  IconButton,
-  Paper,
-  Typography,
-  makeStyles,
-} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import StarIcon from '@material-ui/icons/Star';
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import type { CommunicationThread } from '#libs/communication-v2/types';
 import ThreadMenu from '#libs/communication-v2/thread/InboxThreadListItem/ThreadMenu.component';
-import { OptionCallback } from '../../../../state/types';
+import type { OptionCallback } from '../../../../state/types';
 
 type Props = {
   id: number;
@@ -27,13 +26,24 @@ type Props = {
   isDisabled: boolean;
   relatedObjectKind: ChatThreadKinds;
 
-  isCollapseOpen: boolean;
-  setIsCollapseOpen: (isOpen: boolean) => void;
+  onShowFilterModal: () => void;
 
-  switchFavoriteStatus: (id: number, options?: OptionCallback) => void;
-  switchMutedStatus: (id: number, options?: OptionCallback) => void;
-  switchDisabledStatus: (id: number, options?: OptionCallback) => void;
-  flagAsUnread: (id: number, options?: OptionCallback) => void;
+  switchFavoriteStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  switchMutedStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  switchDisabledStatus: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
+  flagAsUnread: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void;
   goToDetailPage: () => void;
   goToThreadListPage: () => void;
 };
@@ -48,8 +58,7 @@ const InboxThreadHeader: React.FC<Props> = ({
   hasBeenRead,
   isDisabled,
   relatedObjectKind,
-  isCollapseOpen,
-  setIsCollapseOpen,
+  onShowFilterModal,
   switchFavoriteStatus,
   switchMutedStatus,
   switchDisabledStatus,
@@ -58,10 +67,6 @@ const InboxThreadHeader: React.FC<Props> = ({
   goToThreadListPage,
 }) => {
   const classes = useStyles();
-
-  const handleClick = useCallback(() => {
-    setIsCollapseOpen(!isCollapseOpen);
-  }, [isCollapseOpen, setIsCollapseOpen]);
 
   return (
     <Paper className={classes.header} variant="outlined">
@@ -106,7 +111,7 @@ const InboxThreadHeader: React.FC<Props> = ({
       </div>
 
       <div className={classes.right}>
-        <IconButton onClick={handleClick} className={classes.filterIcon}>
+        <IconButton onClick={onShowFilterModal} className={classes.filterIcon}>
           <FilterListIcon />
         </IconButton>
         <div className={classes.threadStatus}>
@@ -123,7 +128,7 @@ const InboxThreadHeader: React.FC<Props> = ({
             flagAsUnread={flagAsUnread}
             isMobileMenu
             goToDetailPage={goToDetailPage}
-            setOpenCollapse={handleClick}
+            setOpenCollapse={onShowFilterModal}
           />
         </div>
       </div>
@@ -136,6 +141,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     height: theme.spacing(10),
+    borderRadius: 0,
   },
   left: {
     display: 'flex',

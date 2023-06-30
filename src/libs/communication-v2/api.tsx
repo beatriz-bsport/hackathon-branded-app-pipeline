@@ -139,9 +139,9 @@ export const fetchInboxThreadList = async (
   );
 };
 
-export const fetchBatchUnreadAnswersCounts = async (
-  params: string,
-): Promise<AxiosResponse<UnreadAnswersCount[]>> => {
+export const fetchBatchUnreadAnswersCounts = async (params: {
+  thread_ids: number[];
+}): Promise<AxiosResponse<UnreadAnswersCount[]>> => {
   return getAuth(
     `${API_V1_URI}/communication/communication_thread/unread_count/${buildUrlParams(
       params,
@@ -195,4 +195,10 @@ export const flagAsUnread = async (
   return postAuth(
     `${API_V1_URI}/communication/communication_thread/${id}/flag_as_unread/`,
   );
+};
+
+export const fetchInboxThreadFromId = async (
+  id: number,
+): Promise<AxiosResponse<CommunicationThread>> => {
+  return getAuth(`${API_V1_URI}/communication/communication_thread/${id}/`);
 };

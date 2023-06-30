@@ -1,11 +1,12 @@
+import type { Moment as MomentType } from 'moment-timezone';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import {
+import type {
   ErrorAndLoading,
   GenericListReducerI,
   GenericPaginationResults,
 } from '#libs/types';
-import { Member, MemberFilter } from '#libs/member/types';
-import { CustomMobilePopup } from '#libs/settings/types';
+import type { Member, MemberFilter } from '#libs/member/types';
+import type { CustomMobilePopup } from '#libs/settings/types';
 
 export type CommunicationProviderState = {
   provider?: CommunicationProvider;
@@ -27,7 +28,7 @@ export type CommunicationState = {
   } & ErrorAndLoading;
   sent: {
     byId: { [id: number]: Communication };
-    thread: GenericListReducerI;
+    messageList: GenericListReducerI;
   };
   send: ErrorAndLoading;
   flagAsReadByContext: ErrorAndLoading;
@@ -47,6 +48,7 @@ export type CommunicationState = {
     smartlist: GenericListReducerI;
     offer: GenericListReducerI;
     unreadAnswersCountsById: { [id: number]: number };
+    currentThread: ErrorAndLoading;
   } & ErrorAndLoading;
 };
 
@@ -122,8 +124,9 @@ export type CommunicationMetadata = {
 };
 
 export type CommunicationContext = {
-  context_identifier: number;
-  context_object_id: number;
+  context_identifier?: number;
+  context_object_id?: number;
+  communication_thread?: number;
 };
 
 export type SelectFieldItem = {
@@ -158,6 +161,18 @@ export type CommunicationFilterParams = {
   filter_src_or_dst?: number;
   filter_date_start?: number;
   filter_date_end?: number;
+};
+
+export type FilterState = {
+  dateStart: MomentType;
+  dateEnd: MomentType;
+  kindFilterValues: SelectFieldItem[];
+  recipientFilterValues: SelectFieldItem[];
+  channelFilterValues?: SelectFieldItem[];
+  sendParameterFilterValues: SelectFieldItem[];
+  srcOrDstFilterValues: SelectFieldItem[];
+  showFilterModal: boolean;
+  allPreviousFilters: { filters: number[]; dateStart: number; dateEnd: number };
 };
 
 export type FetchCommunicationParams = {
@@ -226,6 +241,7 @@ export type InboxThreadListParams = {
   favorite?: boolean;
   muted?: boolean;
   disabled?: boolean;
+  current_item_id?: number;
 };
 
 export type UnreadAnswersCount = {
@@ -237,3 +253,10 @@ export type FetchInboxThreadListPayload = {
   related_object_kind: ChatThreadKinds;
   fetchedPage: number;
 } & GenericPaginationResults<CommunicationThread>;
+
+export type InboxThreadRouterProps = {
+  selectedThreadId?: number;
+  contextSelected?: ChatThreadKinds;
+  setContextSelected?: (context: ChatThreadKinds, options?: () => void) => void;
+  thread?: CommunicationThread;
+};

@@ -29,6 +29,7 @@ import {
   switchDisabledStatus as switchDisabledStatusAPI,
   flagAsUnread as flagAsUnreadAPI,
   flagAsRead as flagAsReadAPI,
+  fetchInboxThreadFromId as fetchInboxThreadFromIdAPI,
 } from './api';
 import {
   FetchCommunicationParams,
@@ -101,18 +102,18 @@ export const communicationSentAction = {
 
 export function fetchCommunicationSentList(
   params: FetchCommunicationParams,
-  isRefreshingThread: boolean,
+  isRefreshingMessageList: boolean,
   options?: OptionCallback<Communication[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    if (params.page === 1 && !isRefreshingThread) {
+    if (params.page === 1 && !isRefreshingMessageList) {
       dispatch(communicationSentAction.reset());
     }
     dispatch(communicationSentAction.isLoading(true));
     dispatch(communicationSentAction.error(null));
     try {
       const response = await fetchCommunicationSentListAPI(params);
-      if (isRefreshingThread) {
+      if (isRefreshingMessageList) {
         dispatch(communicationSentAction.refresh(response.data));
       } else {
         dispatch(communicationSentAction.success(response.data));
@@ -475,7 +476,7 @@ export const fetchUnreadAnswersCountsActions = {
 };
 
 export const fetchBatchUnreadAnswersCounts = (
-  params: string,
+  params: { thread_ids: number[] },
   options?: OptionCallback,
 ): ThunkAction => {
   return async (dispatch: Dispatch) => {
@@ -563,3 +564,33 @@ export const flagAsRead = (
   id: number,
   options?: OptionCallback<CommunicationThread>,
 ): ThunkAction => switchStatus(flagAsReadAPI, id, options);
+
+// --------INBOX CONTAINER--------
+
+export const getCommunicationThreadActions = {
+  error: createAction<Error>('COMMUNICATION_THREAD/FETCH/ERROR'),
+  loading: createAction<boolean>('COMMUNICATION_THREAD/FETCH/LOADING'),
+  success: createAction<CommunicationThread>(
+    'COMMUNICATION_THREAD/FETCH/SUCCESS',
+  ),
+};
+
+export const fetchInboxThreadFromId = (
+  id: number,
+  options?: OptionCallback<CommunicationThread>,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    dispatch(getCommunicationThreadActions.loading(true));
+    dispatch(getCommunicationThreadActions.error(null));
+
+    try {
+      const response = await fetchInboxThreadFromIdAPI(id);
+      dispatch(getCommunicationThreadActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(getCommunicationThreadActions.error(error));
+      options?.onError?.();
+    }
+    dispatch(getCommunicationThreadActions.loading(false));
+  };
+};

@@ -15,6 +15,7 @@ import {
   fetchCommunicationThreadActions,
   fetchUnreadAnswersCountsActions,
   switchStatusActions,
+  getCommunicationThreadActions,
 } from './actions';
 
 import {
@@ -42,7 +43,7 @@ const initialState: Immutable.Immutable<CommunicationState> =
     },
     sent: {
       byId: {},
-      thread: {
+      messageList: {
         allIds: [],
         loading: false,
         error: null,
@@ -108,6 +109,10 @@ const initialState: Immutable.Immutable<CommunicationState> =
         ]),
       ),
       unreadAnswersCountsById: {},
+      currentThread: {
+        loading: false,
+        error: null,
+      },
       loading: false,
       error: null,
     },
@@ -135,8 +140,8 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
           { deep: true },
         )
         .setIn(
-          ['sent', 'thread', 'allIds'],
-          [...state.sent.thread.allIds, payload.id],
+          ['sent', 'messageList', 'allIds'],
+          [...state.sent.messageList.allIds, payload.id],
         );
     },
     [recipientAction.isLoading.toString()]: (state, { payload }: any) => {
@@ -171,10 +176,10 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       state,
       { payload }: any,
     ) => {
-      return state.setIn(['sent', 'thread', 'loading'], payload);
+      return state.setIn(['sent', 'messageList', 'loading'], payload);
     },
     [communicationSentAction.error.toString()]: (state, { payload }: any) => {
-      return state.setIn(['sent', 'thread', 'error'], payload);
+      return state.setIn(['sent', 'messageList', 'error'], payload);
     },
     [communicationSentAction.success.toString()]: (state, { payload }: any) => {
       const communicationSorted = payload.results
@@ -197,21 +202,21 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
           { deep: true },
         )
         .setIn(
-          ['sent', 'thread', 'allIds'],
+          ['sent', 'messageList', 'allIds'],
           payload.page > 1
-            ? [...communicationSorted, ...state.sent.thread.allIds]
+            ? [...communicationSorted, ...state.sent.messageList.allIds]
             : communicationSorted,
         )
-        .setIn(['sent', 'thread', 'count'], payload.count)
-        .setIn(['sent', 'thread', 'page'], payload.page)
-        .setIn(['sent', 'thread', 'next_page'], payload.next_page);
+        .setIn(['sent', 'messageList', 'count'], payload.count)
+        .setIn(['sent', 'messageList', 'page'], payload.page)
+        .setIn(['sent', 'messageList', 'next_page'], payload.next_page);
     },
     [communicationSentAction.refresh.toString()]: (state, { payload }: any) => {
       const lastCommunicationSorted = payload.results
         .map((communication: Communication) => communication.id)
         .slice()
         .reverse();
-      const previousCommunicationSorted = state.sent.thread.allIds.filter(
+      const previousCommunicationSorted = state.sent.messageList.allIds.filter(
         (id: number) => !lastCommunicationSorted.includes(id),
       );
       return state
@@ -230,14 +235,14 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
           { deep: true },
         )
         .setIn(
-          ['sent', 'thread', 'allIds'],
+          ['sent', 'messageList', 'allIds'],
           [...previousCommunicationSorted, ...lastCommunicationSorted],
         );
     },
     [communicationSentAction.reset.toString()]: (state) => {
       return state
-        .setIn(['sent', 'thread', 'allIds'], [])
-        .setIn(['sent', 'thread', 'next_page'], null);
+        .setIn(['sent', 'messageList', 'allIds'], [])
+        .setIn(['sent', 'messageList', 'next_page'], null);
     },
     [retrieveCommunicationSentAction.success.toString()]: (
       state,
@@ -481,6 +486,24 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       );
     },
     [switchStatusActions.success.toString()]: (
+      state,
+      { payload }: { payload: CommunicationThread },
+    ) => {
+      return state.setIn(['inboxThread', 'byId', payload.id], payload);
+    },
+    [getCommunicationThreadActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['inboxThread', 'currentThread', 'loading'], payload);
+    },
+    [getCommunicationThreadActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error },
+    ) => {
+      return state.setIn(['inboxThread', 'currentThread', 'error'], payload);
+    },
+    [getCommunicationThreadActions.success.toString()]: (
       state,
       { payload }: { payload: CommunicationThread },
     ) => {

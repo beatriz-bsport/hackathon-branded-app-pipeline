@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { TFunction } from 'i18next';
 import memoize from 'memoize-one';
 import moment from 'moment-timezone';
@@ -65,6 +64,7 @@ import {
 import { Booking, BookingOption } from '#libs/booking/types';
 import { Member } from '#libs/member/types';
 import { OptionCallback } from '../../state/types';
+import { WaitingListBookingOption } from '#libs/waiting-list/types';
 
 // #region FILTER CONTAINER
 
@@ -197,6 +197,11 @@ export const getFilterOptionsOverride = memoize(
               t,
             )
           : undefined,
+      // in case these filters are overriden in the future
+      recipientFilterOptionsOverride: undefined,
+      channelFilterOptionsOverride: undefined,
+      sendParameterFilterOptionsOverride: undefined,
+      srcOrDstFilterOptionsOverride: undefined,
     };
   },
 );
@@ -239,6 +244,36 @@ export const getFiltersToEnable = memoize((contextIdentifier: number) => {
   }
 });
 
+export const getFiltersToEnableForThread = memoize(
+  (relatedObjectKind: ChatThreadKinds) => {
+    const sharedFilters = {
+      hasKindFilter: true,
+      hasDatesFilter: true,
+      hasSrcOrDstFilter: true,
+    };
+    switch (relatedObjectKind) {
+      case ChatThreadKinds.Offer:
+        return {
+          ...sharedFilters,
+          hasRecipientFilter: true,
+          hasSendParameterFilter: false,
+        };
+      case ChatThreadKinds.Smartlist:
+        return {
+          ...sharedFilters,
+          hasRecipientFilter: false,
+          hasSendParameterFilter: true,
+        };
+      default:
+        return {
+          ...sharedFilters,
+          hasRecipientFilter: false,
+          hasSendParameterFilter: false,
+        };
+    }
+  },
+);
+
 // #endregion
 
 // #region THREAD CONTAINER
@@ -266,7 +301,7 @@ export const getConsentWarning = memoize(
 );
 
 /**
- * When we send a communication from the communication chat, we would like to see it appears directly in the thread.
+ * When we send a communication from the communication chat, we would like to see it appears directly in the message list.
  * However, there could be some active filters. To know if the communication that has just been sent (and which is sent back from the backend),
  * We need to check for each current active filter if the communication has to be filtered out.
  *
@@ -301,6 +336,7 @@ export const needToFilterOutReceivedCommunicationSentWithActiveFilters =
         ];
       if (
         !!formatedFilters.filter_channel &&
+        // @ts-expect-error
         !formatedFilters.filter_channel.includes(channel)
       )
         return true;
@@ -345,7 +381,7 @@ export const getOfferCategories = memoize(
   (
     t: TFunction,
     bookings: Array<Booking>,
-    bookingOptionsPending: Array<BookingOption>,
+    bookingOptionsPending: Array<BookingOption | WaitingListBookingOption>,
   ) => {
     const memberCategoriesInOffer = [
       {
@@ -664,17 +700,17 @@ export const getFormatedQueryParamsFromThread = memoize(
   ) => {
     switch (relatedObjectKind) {
       case ChatThreadKinds.Member:
-        return { id__in: [relatedObjectId] };
+        return Immutable({ id__in: [relatedObjectId] });
       case ChatThreadKinds.Smartlist:
-        return { smartlist: relatedObjectId };
+        return Immutable({ smartlist: relatedObjectId });
       case ChatThreadKinds.Offer:
-        return {
+        return Immutable({
           offer_with_selected_categories: `${relatedObjectId}::${formatNumberListIntoString(
             memberSelectedCategories,
           )}`,
-        };
+        });
       default:
-        return {};
+        return Immutable({});
     }
   },
 );
@@ -738,10 +774,19 @@ export const threadFilteringChoices = memoize(
   },
 );
 
+/**
+ * Formats the query params in order to fetch the thread list, according to the filtering conditions
+ * @param contextSelected Context in the thread list (member/offer/smartlist)
+ * @param filterValue Filter value in the thread list (all/unread/favorite/muted/disabled)
+ * @param page Current page (ie 15 threads) in the thread list
+ * @param threadId Optionnal id of a thread called directly from the URL
+ * @returns A json with the query params formatted
+ */
 export const threadListQueryParamsSetter = (
   contextSelected: ChatThreadKinds,
   filterValue?: SelectFieldItem,
   page?: number,
+  threadId?: number,
 ): InboxThreadListParams => {
   const params: InboxThreadListParams = {
     related_object_kind: contextSelected,
@@ -773,13 +818,22 @@ export const threadListQueryParamsSetter = (
     params.disabled = false;
   }
 
-  if (page) {
+  if (threadId) {
+    params.current_item_id = threadId;
+  } else if (page) {
     params.page = page;
   }
 
   return params;
 };
 
+/**
+ * Checks if a thread is supposed to be displayed in the thread list according to its status,
+ * its related object kind and the filtering conditions
+ * @param thread Thread checked
+ * @param filterValue Filter value in the thread list (all/unread/favorite/muted/disabled)
+ * @returns True if the thread must be displayed, else false
+ */
 export const isThreadDisplayed = (
   thread: CommunicationThread,
   filterValue: SelectFieldItem,
@@ -798,22 +852,40 @@ export const isThreadDisplayed = (
   }
 };
 
+/**
+ * Function doing the fetch of the thread list according to the filtering conditions and fetching the count of
+ * unread answers for these threads
+ * @param contextSelected Current context in the inbox thread list (member/offer/smartlist)
+ * @param filterValue Current filter value in the inbox thread list (unread/favorite/muted/disabled)
+ * @param fetchInboxThreadList Function doing the fetch of the inbox thread list
+ * @param fetchUnreadAnswersCounts Function doing the fetch of the count of unread answers for a batch of threads
+ * @param isThreadListReinitialized Boolean indicating if the thread list must b reinitialized before the fetch
+ * in case of a change of context or filter
+ * @param page Current page of thread (ie 15 threads)
+ * @param threadId Id of an optionnal thread called directly from the URL, allowing to display this thread
+ * in the thread whatever its context and its disabled status
+ */
 export const fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts = (
   contextSelected: ChatThreadKinds,
   filterValue: SelectFieldItem,
   fetchInboxThreadList: (
     params: InboxThreadListParams,
     isThreadListReinitialized?: boolean,
+    options?: OptionCallback<CommunicationThread[]>,
+  ) => void,
+  fetchUnreadAnswersCounts: (
+    params: { thread_ids: number[] },
     options?: OptionCallback,
   ) => void,
-  fetchUnreadAnswersCounts: (params: string, options?: OptionCallback) => void,
   isThreadListReinitialized?: boolean,
   page?: number,
+  threadId?: number,
 ) => {
   const params = threadListQueryParamsSetter(
     contextSelected,
     filterValue,
     page,
+    threadId,
   );
 
   fetchInboxThreadList(params, isThreadListReinitialized, {
@@ -823,15 +895,33 @@ export const fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts = (
         threadIds.push(thread.id);
       }
       if (threadIds.length) {
-        const queryParams = { thread_ids: threadIds.join() };
+        const queryParams = { thread_ids: threadIds };
         fetchUnreadAnswersCounts(queryParams);
       }
     },
   });
 };
 
+/**
+ * Function handling the switch of status of the thread, especially in the case in which the thread
+ * is not supposed to be displayed anymore in the current filtering conditions (e.g you remove the favorite status of a
+ * thread in the favorite filter).
+ * If the thread is not displayed anmymore, the current page of the concerned thread is reloaded from the backend.
+ * @param switchStatusAction Action switching the status of a thread
+ * @param contextSelected Current context in the inbox thread list
+ * @param filterValue Current filter value in the inbox thread list
+ * @param threadId Id of the thread switched
+ * @param threadList Current list displayed (= inboxThread.{contextSelected}.allIds)
+ * @param fetchInboxThreadList Function doing the fetch of the thread list
+ * @param fetchUnreadAnswersCounts Function doing the fetch of the count of unread answers for a batch of threads
+ * @param unselectThread Function unselecting the current selected thread removing its id from the URL
+ * @param getUnreadAnswersCountFromThread Function fetching the count of unread answers for only one thread
+ */
 export const handleSwitchStatus = (
-  switchStatusAction: (id: number, options?: OptionCallback) => void,
+  switchStatusAction: (
+    id: number,
+    options?: OptionCallback<CommunicationThread>,
+  ) => void,
   contextSelected: ChatThreadKinds,
   filterValue: SelectFieldItem,
   threadId: number,
@@ -839,12 +929,16 @@ export const handleSwitchStatus = (
   fetchInboxThreadList: (
     params: InboxThreadListParams,
     isThreadListReinitialized?: boolean,
+    options?: OptionCallback<CommunicationThread[]>,
+  ) => void,
+  fetchUnreadAnswersCounts: (
+    params: { thread_ids: number[] },
     options?: OptionCallback,
   ) => void,
-  fetchUnreadAnswersCounts: (params: string, options?: OptionCallback) => void,
+  unselectThread: () => void,
   getUnreadAnswersCountFromThread?: (
     id: number,
-    options: OptionCallback,
+    options?: OptionCallback,
   ) => void,
 ) => {
   switchStatusAction(threadId, {
@@ -852,7 +946,18 @@ export const handleSwitchStatus = (
       getUnreadAnswersCountFromThread?.(threadId);
       const isDisplayed = isThreadDisplayed(thread, filterValue);
       if (!isDisplayed) {
-        const index = threadList.indexOf(threadId);
+        // If the thread musn't be displayed in the current filtering conditions anymore,
+        // the page of the modified thread is fetched.
+        // It is not the best solution because the position of the threads between the pages
+        // may have changed (if a thread in the third page receives an answer, it moves directly
+        // at the top of the list in the first page).
+
+        const index =
+          threadList.findIndex(
+            (communicationThread: CommunicationThread) =>
+              communicationThread.id === threadId,
+          ) + 1;
+
         const threadPage = Math.ceil(index / INBOX_THREAD_PAGE_SIZE);
 
         fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts(
@@ -863,7 +968,79 @@ export const handleSwitchStatus = (
           false,
           threadPage,
         );
+
+        unselectThread();
       }
     },
   });
+};
+
+/**
+ * Function doing the fetch of the thread list when a thread is called directly from the URL,
+ * in order to display the thread concerned in the thread list whatever its related object kind
+ * @param thread Thread called directly from the URL
+ * @param fetchInboxThreadListWithContextParams Function doing the fetch of the current page of threads
+ * with the current context and filters, and fetching the count of unread answers for these threads
+ * @param contextSelected Current context selected in the inbox thread list
+ * @param setContextSelected Context setter
+ */
+const handleFetchInboxThreadListWithContext = (
+  thread: CommunicationThread,
+  fetchInboxThreadListWithContextParams: (
+    isThreadListReinitialized?: boolean,
+    nextPage?: number,
+    threadId?: number,
+  ) => void,
+  contextSelected: ChatThreadKinds,
+  setContextSelected: (context: ChatThreadKinds, options?: () => void) => void,
+) => {
+  if (contextSelected !== thread.related_object_kind) {
+    setContextSelected(thread.related_object_kind, () => {
+      fetchInboxThreadListWithContextParams(true, null, thread.id);
+    });
+  } else {
+    fetchInboxThreadListWithContextParams(true, null, thread.id);
+  }
+};
+
+/**
+ * Function doing the fetch of the threads in the list when a thread is called directly from the URL,
+ * allowing to display it in the thread list whatever its disabled status and its related object kind
+ * @param thread Thread called directly from the URL
+ * @param setFilterValue Thread filter value (all/favorite/muted/disabled) setter
+ * @param t Translation function
+ * @param fetchInboxThreadListWithContextParams Function doing the fetch of the current page of threads
+ * with the current context and filters, and fetching the count of unread answers for these threads
+ * @param contextSelected Current context selected in the inbox thread list
+ * @param setContextSelected Context setter
+ */
+export const fetchInboxThreadListFromThreadCalledFromURL = (
+  thread: CommunicationThread,
+  setFilterValue: (filter: SelectFieldItem, options?: () => void) => void,
+  t: TFunction,
+  fetchInboxThreadListWithContextParams: (
+    isThreadListReinitialized?: boolean,
+    nextPage?: number,
+    threadId?: number,
+  ) => void,
+  contextSelected: ChatThreadKinds,
+  setContextSelected: (context: ChatThreadKinds, options?: () => void) => void,
+) => {
+  if (thread.disabled) {
+    setFilterValue(threadFilteringChoices(t)[INBOX_DISABLED_MESSAGES], () => {
+      handleFetchInboxThreadListWithContext(
+        thread,
+        fetchInboxThreadListWithContextParams,
+        contextSelected,
+        setContextSelected,
+      );
+    });
+  } else {
+    handleFetchInboxThreadListWithContext(
+      thread,
+      fetchInboxThreadListWithContextParams,
+      contextSelected,
+      setContextSelected,
+    );
+  }
 };

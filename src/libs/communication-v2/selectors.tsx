@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import { getMemberListData } from '#libs/member/selectors';
+import { getMemberDetailData, getMemberListData } from '#libs/member/selectors';
 import { RootState } from '../../reducers';
 import { Communication } from './types';
 import { Member } from '#libs/member/types';
@@ -39,7 +39,7 @@ const getCommunicationSents = (state: RootState) =>
   state.communicationV2.sent.byId;
 
 const getCommunicationSentPaginatedList = (state: RootState) =>
-  state.communicationV2.sent.thread.allIds;
+  state.communicationV2.sent.messageList.allIds;
 
 export const getCommunicationMessageList = createSelector(
   [getCommunicationSents, getCommunicationSentPaginatedList, getMemberListData],
@@ -69,14 +69,14 @@ export const getCommunicationMessageList = createSelector(
           answerSourceMember,
         };
       })
-      .filter((thread) => !!thread),
+      .filter((messageList) => !!messageList),
 );
 
 export const getCommunicationMessageListHasNextPage = (state: RootState) =>
-  !!state.communicationV2.sent.thread.next_page;
+  !!state.communicationV2.sent.messageList.next_page;
 
 export const getCommunicationMessageListLoading = (state: RootState) =>
-  !!state.communicationV2.sent.thread.loading;
+  !!state.communicationV2.sent.messageList.loading;
 
 export const getIsTwoWayEmailActivated = (state: RootState): boolean => {
   const provider =
@@ -133,3 +133,25 @@ export const getThreadsPaginationResults = createCachedSelector(
     return Immutable({ count, nextPage });
   },
 )((state: RootState, threadKind: ChatThreadKinds) => threadKind);
+
+const getInboxThreadFromId = (state: RootState, threadId: number) =>
+  state.communicationV2.inboxThread.byId[threadId];
+
+export const getInboxThreadFromSelectedId = createCachedSelector(
+  [getInboxThreadFromId],
+  (thread) => thread,
+)((state: RootState, threadId: number) => threadId);
+
+export const getMemberFromThreadId = createCachedSelector(
+  [getMemberDetailData, getMemberListData, getInboxThreadFromId],
+  (memberDetailData, memberListData, thread) => {
+    if (thread && thread.related_object_kind === ChatThreadKinds.Member) {
+      const memberId = thread.related_object_id;
+      const detail = memberDetailData[memberId];
+
+      if (detail) return detail;
+      return memberListData[memberId];
+    }
+    return undefined;
+  },
+)((state: RootState, threadId: number) => threadId);

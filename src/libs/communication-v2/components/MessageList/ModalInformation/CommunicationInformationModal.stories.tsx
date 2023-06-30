@@ -4,7 +4,7 @@ import CommunicationInformationModal, {
   Props,
 } from './CommunicationInformationModal.component';
 import RecipientsWithMemberFactory from '#libs/communication-v2/factories/RecipientWithMember';
-import { ThreadCommunicationFactory } from '#libs/communication-v2/factories/Communication';
+import { CommunicationMessageFactory } from '#libs/communication-v2/factories/Communication';
 import { PAGINATION_SIZE_RECIPIENTS } from '#libs/communication-v2/constants';
 import { Recipient } from '#libs/communication-v2/types';
 import { Member } from '#libs/member/types';
@@ -41,7 +41,7 @@ InformationModal.args = {
   open: true,
   paginationSize: PAGINATION_SIZE_RECIPIENTS,
   recipientList: recipientsWithMember,
-  selectedCommunication: ThreadCommunicationFactory(
+  selectedCommunication: CommunicationMessageFactory(
     1,
     recipientsWithMember.map(
       (recipient: Recipient<Member>) => recipient.member,
@@ -81,7 +81,7 @@ InformationModalWithEmptyList.args = {
   open: true,
   paginationSize: PAGINATION_SIZE_RECIPIENTS,
   recipientList: [],
-  selectedCommunication: ThreadCommunicationFactory(
+  selectedCommunication: CommunicationMessageFactory(
     1,
     recipientsWithMember.map(
       (recipient: Recipient<Member>) => recipient.member,

@@ -52,6 +52,7 @@ const CustomTemplate = (args: Props) => {
       handleContextThreadChange={setContextSelected}
       isListLoading={isListLoading}
       nextPage={nextPage}
+      count={threadList.length}
       {...args}
     />
   );

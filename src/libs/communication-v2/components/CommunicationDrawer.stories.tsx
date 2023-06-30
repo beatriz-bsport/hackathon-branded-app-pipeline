@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { CommunicationDrawerWithStyles as CommunicationDrawer } from './CommunicationDrawer.component';
 import MembersFactory, { MemberFactory } from '#libs/member/factories/Member';
-import ThreadCommunicationListFactory from '../factories/Communication';
-import { RecipientWithMemberFromThreadCommunicationFactory } from '../factories/RecipientWithMember';
+import CommunicationMessageListFactory from '../factories/Communication';
+import { RecipientWithMemberFromCommunicationMessageFactory } from '../factories/RecipientWithMember';
 import EmailTemplateDetailSummaryListsFactory from '#libs/email-editor/factories/Emails';
 
 import { getMemberIdListsFromMemberList } from '../utils';
 
 import { CommunicationMessage, DrawerProps, Communication } from '../types';
 import { Member } from '#libs/member/types';
-import { tagCategories } from '#libs/tag/factory';
+import { tagCategories, tagListFactory } from '#libs/tag/factory';
 
 import {
   CONTEXT_NOTIFICATION,
@@ -26,15 +26,18 @@ import {
   COMMUNICATION_FILTER_RECIPIENTS,
   COMMUNICATION_FILTER_SEND_PARAMETERS,
 } from '../constants';
+import { useMediaQuery, useTheme } from '@material-ui/core';
 
 // UTILS JUST FOR STORYBOOK
+const randomBoolean = () => Math.random() > 0.5;
+const randomInt = (max: number): number => Math.ceil(Math.random() * max);
 const getAllRecipientsWithMember = (
   com: CommunicationMessage,
   allMembers: Member[],
 ) => {
   return {
     key: com.communication.id,
-    value: RecipientWithMemberFromThreadCommunicationFactory(com, allMembers),
+    value: RecipientWithMemberFromCommunicationMessageFactory(com, allMembers),
   };
 };
 
@@ -68,7 +71,7 @@ const getFiltersByCategory = (filters: number[]) => {
   return filtersByCategory;
 };
 
-const getFilteredThreadCommunicationList = (
+const getFilteredCommunicationMessageList = (
   communications: CommunicationMessage[],
   filters: number[],
 ) => {
@@ -96,16 +99,21 @@ const getFilteredThreadCommunicationList = (
   return communicationsFiltered;
 };
 
+const themeForDrawer = {
+  hide_intercom: randomBoolean(),
+  is_two_way_email_activated: randomBoolean(),
+};
+
 // DATABASES FOR STORYBOOK
 const [emailTemplateDetailList, emailTemplateSummaryList] =
   EmailTemplateDetailSummaryListsFactory(6);
 const DATABASE_RECIPIENTS_MODAL_MEMBER_LIST = MembersFactory(50, true); // REPRESENTS THE MEMBERS IN THE BACK
-const DATABASE_THREAD_COMMUNICATION_LIST = ThreadCommunicationListFactory(
+const DATABASE_COMMUNICATION_MESSAGE_LIST = CommunicationMessageListFactory(
   60,
   DATABASE_RECIPIENTS_MODAL_MEMBER_LIST,
 );
 const DATABASE_RECIPIENTS_WITH_MEMBERS_BY_COMMUNICATION_SENT =
-  DATABASE_THREAD_COMMUNICATION_LIST.map(
+  DATABASE_COMMUNICATION_MESSAGE_LIST.map(
     (communication: CommunicationMessage) =>
       getAllRecipientsWithMember(
         communication,
@@ -114,45 +122,48 @@ const DATABASE_RECIPIENTS_WITH_MEMBERS_BY_COMMUNICATION_SENT =
   );
 
 const WrapperWithState = (args: DrawerProps) => {
-  // ---------- THREADS PROPS ----------
-  const THREAD_DATA_PAGINATION_SIZE = 5;
-  const initialThreadData = DATABASE_THREAD_COMMUNICATION_LIST.slice(
-    0,
-    THREAD_DATA_PAGINATION_SIZE,
+  // ---------- COMMUNICATION MESSAGES PROPS ----------
+  const COMMUNICATION_MESSAGE_DATA_PAGINATION_SIZE = 5;
+  const initialCommunicationMessageData =
+    DATABASE_COMMUNICATION_MESSAGE_LIST.slice(
+      0,
+      COMMUNICATION_MESSAGE_DATA_PAGINATION_SIZE,
+    );
+  const [communicationMessageList, setCommunicationMessageList] = useState(
+    initialCommunicationMessageData,
   );
-  const [threadCommunicationList, setThreadCommunicationList] =
-    useState(initialThreadData);
-  const loadingThreadCommunicationList = false;
+  const loadingCommunicationMessageList = false;
   const [
-    threadCommunicationListHasNextPage,
-    setThreadCommunicationListHasNextPage,
+    communicationMessageListHasNextPage,
+    setCommunicationMessageListHasNextPage,
   ] = useState(
-    DATABASE_THREAD_COMMUNICATION_LIST.length > initialThreadData.length,
+    DATABASE_COMMUNICATION_MESSAGE_LIST.length >
+      initialCommunicationMessageData.length,
   );
-  const fetchPageThreadCommunicationList = (
+  const fetchPageMessageList = (
     page: number,
     filters: number[],
     dateStart: number,
     dateEnd: number,
   ) => {
-    const allCommunicationFiltered = getFilteredThreadCommunicationList(
-      DATABASE_THREAD_COMMUNICATION_LIST,
+    const allCommunicationFiltered = getFilteredCommunicationMessageList(
+      DATABASE_COMMUNICATION_MESSAGE_LIST,
       filters,
     );
     const indexEnd = Math.min(
-      page * THREAD_DATA_PAGINATION_SIZE,
+      page * COMMUNICATION_MESSAGE_DATA_PAGINATION_SIZE,
       allCommunicationFiltered.length,
     );
-    setThreadCommunicationList(allCommunicationFiltered.slice(0, indexEnd));
-    setThreadCommunicationListHasNextPage(
-      DATABASE_THREAD_COMMUNICATION_LIST.length > indexEnd,
+    setCommunicationMessageList(allCommunicationFiltered.slice(0, indexEnd));
+    setCommunicationMessageListHasNextPage(
+      DATABASE_COMMUNICATION_MESSAGE_LIST.length > indexEnd,
     );
   };
-  const threadProps = {
-    threadCommunicationList: threadCommunicationList.reverse(),
-    threadCommunicationListHasNextPage,
-    loadingThreadCommunicationList,
-    fetchPageThreadCommunicationList,
+  const communicationMessageProps = {
+    communicationMessageList: communicationMessageList.reverse(),
+    communicationMessageListHasNextPage,
+    loadingCommunicationMessageList,
+    fetchPageMessageList,
   };
 
   // ---------- RECIPIENTS PROPS ----------
@@ -229,21 +240,26 @@ const WrapperWithState = (args: DrawerProps) => {
     recipientsModalMemberList,
     loadingRecipiensModalMemberList: false,
     fetchPaginatedAvailableRecipientMemberList,
-    resolvedGenericTags: {},
+    resolvedGenericTags: tagListFactory(randomInt(5)),
     fetchResolvedGenericTags: () => {},
     tagCategories: tagCategories,
     fetchTagList: () => {},
   };
 
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
   // ---------- HOC PROPS ----------
   const composeProps = {
-    ...threadProps,
+    ...communicationMessageProps,
     ...recipientsProps,
     ...templatesProps,
     ...membersProps,
     ...args,
     sendCommunication: () => {},
+    fullScreen,
   };
+
   return <CommunicationDrawer {...composeProps} />;
 };
 
@@ -261,6 +277,7 @@ MemberContext.args = {
   ...drawerProps,
   contextIdentifier: CONTEXT_MEMBER,
   contextMember: MemberFactory({ number_tags: 10 }, true),
+  theme: themeForDrawer,
 };
 
 export const NotificationContext = CustomTemplate.bind({});
@@ -270,6 +287,7 @@ NotificationContext.args = {
   contextIdentifier: CONTEXT_NOTIFICATION,
   contextTitle:
     "Le nom de l'object de ma push notif - essayons un text genre super long, .. ",
+  theme: themeForDrawer,
 };
 
 export const SessionContext = CustomTemplate.bind({});
@@ -290,6 +308,7 @@ SessionContext.args = {
       categoryIdentifier: 2,
     },
   ],
+  theme: themeForDrawer,
 };
 
 export const SmartlistContext = CustomTemplate.bind({});
@@ -298,11 +317,17 @@ SmartlistContext.args = {
   ...drawerProps,
   contextIdentifier: CONTEXT_SMARTLIST,
   contextTitle: 'Le nom de ma smartlist',
+  theme: themeForDrawer,
 };
 
 export default {
   title: 'Library/Communication-V2/Drawer',
   component: CommunicationDrawer,
+  argTypes: {
+    flagAllUnreadCommunicationsAsRead: {
+      action: 'flagAllUnreadCommunicationsAsRead',
+    },
+  },
   parameters: {
     docs: {
       page: null,

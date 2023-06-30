@@ -103,7 +103,7 @@ export const Email = CustomTemplate.bind({});
 
 Email.args = {
   ...options,
-  threadCommunication: {
+  communicationMessage: {
     photos,
     channel: COMMUNICATION_CHANNEL_SESSION,
     communication: communicationEmail,
@@ -115,7 +115,7 @@ export const EmailOnSingleMemberThread = CustomTemplate.bind({});
 EmailOnSingleMemberThread.args = {
   ...options,
   oneToOneThreadMember: singleMember,
-  threadCommunication: {
+  communicationMessage: {
     photos,
     channel: COMMUNICATION_CHANNEL_SESSION,
     communication: communicationEmail,
@@ -126,7 +126,7 @@ export const Sms = CustomTemplate.bind({});
 
 Sms.args = {
   ...options,
-  threadCommunication: {
+  communicationMessage: {
     photos,
     channel: COMMUNICATION_CHANNEL_SMARTLIST,
     communication: communicationSMS,
@@ -138,7 +138,7 @@ export const SmsOnSingleMemberThread = CustomTemplate.bind({});
 SmsOnSingleMemberThread.args = {
   ...options,
   oneToOneThreadMember: singleMember,
-  threadCommunication: {
+  communicationMessage: {
     photos,
     channel: COMMUNICATION_CHANNEL_SMARTLIST,
     communication: communicationSMS,
@@ -149,7 +149,7 @@ export const PushNotif = CustomTemplate.bind({});
 
 PushNotif.args = {
   ...options,
-  threadCommunication: {
+  communicationMessage: {
     photos,
     channel: COMMUNICATION_CHANNEL_MESSAGE_DIRECT,
     communication: communicationPush,
@@ -160,7 +160,7 @@ export const EmailAnswerOnSmartlistChat = CustomTemplate.bind({});
 
 EmailAnswerOnSmartlistChat.args = {
   ...options,
-  threadCommunication: {
+  communicationMessage: {
     channel: COMMUNICATION_CHANNEL_SMARTLIST,
     communication: answerEmail,
     photos: photos,
@@ -172,7 +172,7 @@ export const SmsAnswer = CustomTemplate.bind({});
 
 SmsAnswer.args = {
   ...options,
-  threadCommunication: {
+  communicationMessage: {
     channel: COMMUNICATION_CHANNEL_SMARTLIST,
     communication: answerSMS,
     photos: photos,
@@ -185,7 +185,7 @@ export const CommunicationSendingProcessing = CustomTemplate.bind({});
 
 CommunicationSendingProcessing.args = {
   ...options,
-  threadCommunication: {
+  communicationMessage: {
     channel: COMMUNICATION_CHANNEL_MESSAGE_DIRECT,
     communication: communicationSendingProcessing,
     photos: photos,
@@ -197,7 +197,7 @@ export const CommunicationSendingFail = CustomTemplate.bind({});
 
 CommunicationSendingFail.args = {
   ...options,
-  threadCommunication: {
+  communicationMessage: {
     channel: COMMUNICATION_CHANNEL_SESSION,
     communication: communicationSendingFail,
     photos: photos,

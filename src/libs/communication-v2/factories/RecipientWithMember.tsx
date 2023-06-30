@@ -84,7 +84,7 @@ export default function RecipientsWithMemberFactory(
   return res.map(() => RecipientWithMemberFactory());
 }
 
-export function RecipientWithMemberFromThreadCommunicationFactory(
+export function RecipientWithMemberFromCommunicationMessageFactory(
   communication: CommunicationMessage,
   allMemberList: Member[],
 ): Array<Recipient<Member>> {

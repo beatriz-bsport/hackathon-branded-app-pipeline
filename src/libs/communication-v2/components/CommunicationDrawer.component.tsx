@@ -475,7 +475,6 @@ const styles: any = (theme: Theme) => ({
 // For storybook
 export const CommunicationDrawerWithStyles = compose<any, DrawerProps>(
   withTranslation(['communication']),
-  withMobileDialog(),
   withStyles(styles),
 )(CommunicationDrawer);
 

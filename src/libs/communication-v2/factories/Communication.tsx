@@ -105,7 +105,7 @@ export function CommunicationFactory(
   };
 }
 
-export function ThreadCommunicationFactory(
+export function CommunicationMessageFactory(
   id?: number,
   communicationMemberList?: Member[],
 ) {
@@ -125,7 +125,7 @@ export function ThreadCommunicationFactory(
   };
 }
 
-export default function ThreadCommunicationListFactory(
+export default function CommunicationMessageListFactory(
   length: number,
   memberListBase?: Member[],
 ): Array<CommunicationMessage> {
@@ -139,7 +139,7 @@ export default function ThreadCommunicationListFactory(
     newMemberList = [...memberListBase]
       .sort(() => 0.5 - Math.random())
       .slice(0, randomInt(nbMember) + 1);
-    list.push(ThreadCommunicationFactory(i, newMemberList));
+    list.push(CommunicationMessageFactory(i, newMemberList));
   }
   return list;
 }

@@ -9,48 +9,45 @@ import {
   SmartListThread,
 } from '#libs/communication-v2/factories/CommunicationThread';
 import { Moment as MomentType } from 'moment-timezone';
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { SelectFieldItem } from '#libs/communication-v2/types';
 
 const memberThreadProps = MemberThread();
 const smartlistThreadProps = SmartListThread();
 const offerThreadProps = OfferThread();
 
-const flagAsUnread = () => {};
-const switchFavoriteStatus = () => {};
-const switchMutedStatus = () => {};
-const switchDisabledStatus = () => {};
-
 const CustomMemberTemplate = (args: Props) => {
   const [dateStartValue, setDateStartValue] = useState<MomentType | null>(null);
   const [dateEndValue, setDateEndValue] = useState<MomentType | null>(null);
   const [kindFilter, kindFilterSetter] = useState<SelectFieldItem[]>([]);
+  const [recipientFilter, setRecipientFilter] = useState<SelectFieldItem[]>([]);
   const [srcOrDstFilter, setSrcOrDstFilter] = useState<SelectFieldItem[]>([]);
+  const [sendParameterFilter, setSendParameterFilter] = useState<
+    SelectFieldItem[]
+  >([]);
+  const [showFilterModal, setShowFilterModal] = useState(false);
 
-  const periodHasChanged = !!dateStartValue || !!dateEndValue;
+  const onShowFilterModal = () => {
+    setShowFilterModal(true);
+  };
 
   return (
     <InboxThreadContainerHeader
-      relatedObjectKind={ChatThreadKinds.Member}
-      hasKindFilter
       kindFilterValues={kindFilter}
       kindFilterSetter={kindFilterSetter}
-      hasRecipientFilter={false}
-      hasSendParameterFilter={false}
-      hasSrcOrDstFilter
+      sendParameterFilterValues={sendParameterFilter}
+      sendParameterFilterSetter={setSendParameterFilter}
+      recipientFilterValues={recipientFilter}
+      recipientFilterSetter={setRecipientFilter}
       srcOrDstFilterValues={srcOrDstFilter}
       srcOrDstFilterSetter={setSrcOrDstFilter}
-      hasDatesFilter
       dateStartValue={dateStartValue}
       dateStartSetter={setDateStartValue}
       dateEndValue={dateEndValue}
       dateEndSetter={setDateEndValue}
-      periodHasChanged={periodHasChanged}
       allPreviousFilter={{ filters: [], dateStart: null, dateEnd: null }}
-      flagAsUnread={flagAsUnread}
-      switchFavoriteStatus={switchFavoriteStatus}
-      switchMutedStatus={switchMutedStatus}
-      switchDisabledStatus={switchDisabledStatus}
+      showFilterModal={showFilterModal}
+      setShowFilterModal={setShowFilterModal}
+      onShowFilterModal={onShowFilterModal}
       {...args}
     />
   );
@@ -63,34 +60,32 @@ const CustomSmartlistTemplate = (args: Props) => {
     SelectFieldItem[]
   >([]);
   const [kindFilter, kindFilterSetter] = useState<SelectFieldItem[]>([]);
+  const [recipientFilter, setRecipientFilter] = useState<SelectFieldItem[]>([]);
   const [srcOrDstFilter, setSrcOrDstFilter] = useState<SelectFieldItem[]>([]);
+  const [showFilterModal, setShowFilterModal] = useState(false);
 
-  const periodHasChanged = !!dateStartValue || !!dateEndValue;
+  const onShowFilterModal = () => {
+    setShowFilterModal(true);
+  };
 
   return (
     <InboxThreadContainerHeader
-      relatedObjectKind={ChatThreadKinds.Smartlist}
-      hasKindFilter
       kindFilterValues={kindFilter}
       kindFilterSetter={kindFilterSetter}
-      hasRecipientFilter={false}
-      hasSendParameterFilter
       sendParameterFilterValues={sendParameterFilter}
       sendParameterFilterSetter={setSendParameterFilter}
-      hasSrcOrDstFilter
+      recipientFilterValues={recipientFilter}
+      recipientFilterSetter={setRecipientFilter}
       srcOrDstFilterValues={srcOrDstFilter}
       srcOrDstFilterSetter={setSrcOrDstFilter}
-      hasDatesFilter
       dateStartValue={dateStartValue}
       dateStartSetter={setDateStartValue}
       dateEndValue={dateEndValue}
       dateEndSetter={setDateEndValue}
-      periodHasChanged={periodHasChanged}
       allPreviousFilter={{ filters: [], dateStart: null, dateEnd: null }}
-      flagAsUnread={flagAsUnread}
-      switchFavoriteStatus={switchFavoriteStatus}
-      switchMutedStatus={switchMutedStatus}
-      switchDisabledStatus={switchDisabledStatus}
+      showFilterModal={showFilterModal}
+      setShowFilterModal={setShowFilterModal}
+      onShowFilterModal={onShowFilterModal}
       {...args}
     />
   );
@@ -102,33 +97,33 @@ const CustomOfferTemplate = (args: Props) => {
   const [dateEndValue, setDateEndValue] = useState<MomentType | null>(null);
   const [recipientFilter, setRecipientFilter] = useState<SelectFieldItem[]>([]);
   const [srcOrDstFilter, setSrcOrDstFilter] = useState<SelectFieldItem[]>([]);
+  const [sendParameterFilter, setSendParameterFilter] = useState<
+    SelectFieldItem[]
+  >([]);
+  const [showFilterModal, setShowFilterModal] = useState(false);
 
-  const periodHasChanged = !!dateStartValue || !!dateEndValue;
+  const onShowFilterModal = () => {
+    setShowFilterModal(true);
+  };
 
   return (
     <InboxThreadContainerHeader
-      relatedObjectKind={ChatThreadKinds.Offer}
-      hasKindFilter
       kindFilterValues={kindFilter}
       kindFilterSetter={kindFilterSetter}
-      hasRecipientFilter
+      sendParameterFilterValues={sendParameterFilter}
+      sendParameterFilterSetter={setSendParameterFilter}
       recipientFilterValues={recipientFilter}
       recipientFilterSetter={setRecipientFilter}
-      hasSendParameterFilter={false}
-      hasSrcOrDstFilter
       srcOrDstFilterValues={srcOrDstFilter}
       srcOrDstFilterSetter={setSrcOrDstFilter}
-      hasDatesFilter
       dateStartValue={dateStartValue}
       dateStartSetter={setDateStartValue}
       dateEndValue={dateEndValue}
       dateEndSetter={setDateEndValue}
-      periodHasChanged={periodHasChanged}
       allPreviousFilter={{ filters: [], dateStart: null, dateEnd: null }}
-      flagAsUnread={flagAsUnread}
-      switchFavoriteStatus={switchFavoriteStatus}
-      switchMutedStatus={switchMutedStatus}
-      switchDisabledStatus={switchDisabledStatus}
+      showFilterModal={showFilterModal}
+      setShowFilterModal={setShowFilterModal}
+      onShowFilterModal={onShowFilterModal}
       {...args}
     />
   );
@@ -136,27 +131,17 @@ const CustomOfferTemplate = (args: Props) => {
 
 export const MemberThreadHeader = CustomMemberTemplate.bind({});
 MemberThreadHeader.args = {
-  title: memberThreadProps.title,
-  cover: memberThreadProps.cover,
-  isFavorite: memberThreadProps.favorite,
-  isMuted: memberThreadProps.muted,
+  thread: memberThreadProps,
 };
 
 export const SmartlistThreadHeader = CustomSmartlistTemplate.bind({});
 SmartlistThreadHeader.args = {
-  title: smartlistThreadProps.title,
-  cover: smartlistThreadProps.cover,
-  isFavorite: smartlistThreadProps.favorite,
-  isMuted: smartlistThreadProps.muted,
+  thread: smartlistThreadProps,
 };
 
 export const OfferThreadHeader = CustomOfferTemplate.bind({});
 OfferThreadHeader.args = {
-  title: offerThreadProps.title,
-  subtitle: offerThreadProps.subtitle,
-  cover: offerThreadProps.cover,
-  isFavorite: offerThreadProps.favorite,
-  isMuted: offerThreadProps.muted,
+  thread: offerThreadProps,
 };
 
 export default {
@@ -170,6 +155,12 @@ export default {
     switchDisabledStatus: { action: 'switchDisabledStatus' },
     goToDetailPage: { action: 'goToDetailPage' },
     goToThreadListPage: { action: 'goToThreadListPage' },
+    popKindFilterValue: { action: 'popKindFilterValue' },
+    popRecipientFilterValue: { action: 'popRecipientFilterValue' },
+    popSendParameterFilterValue: { action: 'popSendParameterFilterValue' },
+    popSrcOrDstFilterValue: { action: 'popSrcOrDstFilterValue' },
+    resetPeriodFilter: { action: 'resetPeriodFilter' },
+    resetFilters: { action: 'resetFilters' },
   },
   parameters: {
     docs: {

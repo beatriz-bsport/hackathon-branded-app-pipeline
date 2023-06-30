@@ -284,6 +284,7 @@ export const CustomFormConsumerInput = (props: Props) => {
             file={props.values.custom_form_field[props.index].answer}
             disabled={props.asManager}
             allowPreview={props.asManager}
+            label={t('member:file.drop_file')}
           />
           <ErrorMessage name={`custom_form_field.${props.index}.answer`}>
             {() => (
@@ -356,6 +357,6 @@ const styles = (theme: Theme) => ({
 });
 
 export default compose<any, OwnProps>(
-  withTranslation('marketing'),
+  withTranslation(['marketing', 'member']),
   withStyles(styles),
 )(CustomFormConsumerInput);

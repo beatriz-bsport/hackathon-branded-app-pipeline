@@ -1,37 +1,38 @@
-// @ts-nocheck
-import React from 'react'
-import FactoryBotPaymentCombo from '#libs/payment-combo/factory'
-import { Props, MarketplacePaymentComboDetailsModalForStorybook } from '.'
+import React from 'react';
+import { paymentComboFactory } from '#libs/payment-combo/factory';
+import { Props, MarketplacePaymentComboDetailsModalForStorybook } from '.';
 
-const fakePaymentCombo = FactoryBotPaymentCombo.PaymentCombo.create()
+const fakePaymentCombo = paymentComboFactory();
 
 const ComboCardModalTemplate = (args: Props) => (
-    <MarketplacePaymentComboDetailsModalForStorybook {...args} />
+  // @ts-expect-error
+  <MarketplacePaymentComboDetailsModalForStorybook {...args} />
 );
 
-export const ComboCardModal = ComboCardModalTemplate.bind({})
+export const ComboCardModal = ComboCardModalTemplate.bind({});
 ComboCardModal.args = {
-    paymentCombo: fakePaymentCombo,
-    isOpen: true,
-    onDialogClose: () => {},
-    onAddToCart: () => {},
-}
+  paymentCombo: fakePaymentCombo,
+  isOpen: true,
+  onDialogClose: () => {},
+  onAddToCart: () => {},
+};
 
-export const ComboCardModalWithUndefinedPaymentCombo = ComboCardModalTemplate.bind({})
+export const ComboCardModalWithUndefinedPaymentCombo =
+  ComboCardModalTemplate.bind({});
 ComboCardModalWithUndefinedPaymentCombo.args = {
-    paymentCombo: undefined,
-    isOpen: true,
-    onDialogClose: () => {},
-    onAddToCart: () => {},
-}
+  paymentCombo: undefined,
+  isOpen: true,
+  onDialogClose: () => {},
+  onAddToCart: () => {},
+};
 
 export default {
-    title: 'Components/Marketplace/PassCards/PaymentComboCard/Modal',
-    component: MarketplacePaymentComboDetailsModalForStorybook,
-    parameters: {
-        docs: {
-            page: null,
-        },
-        layout: 'centered',
+  title: 'Components/Marketplace/PassCards/PaymentComboCard/Modal',
+  component: MarketplacePaymentComboDetailsModalForStorybook,
+  parameters: {
+    docs: {
+      page: null,
     },
+    layout: 'centered',
+  },
 };

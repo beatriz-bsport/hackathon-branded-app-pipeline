@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { paymentPackListFactory } from '#libs/payment-packs/factory';
-import { PaymentComboStorybookListFactory } from '#libs/payment-combo/factory';
+import { paymentComboListFactory } from '#libs/payment-combo/factory';
 import { private_services_passes_factory } from '#libs/private-service/factory';
 import { PassSearchForStorybook, Props } from './index';
 
@@ -24,7 +24,7 @@ export const PassesSearch = CustomTemplate.bind({});
 PassesSearch.args = {
   paymentPackList: paymentPackListFactory(5),
   privatePassList: private_services_passes_factory(5),
-  paymentComboList: PaymentComboStorybookListFactory(5),
+  paymentComboList: paymentComboListFactory(5),
 };
 
 export default {

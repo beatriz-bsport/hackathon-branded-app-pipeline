@@ -1,11 +1,11 @@
-// @ts-nocheck
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import withFormik from '@bbbtech/storybook-formik';
+// @ts-expect-error
 import PaymentComboSelectorField from './PaymentComboSelectorField.component';
-import PaymentComboFactoryBot from '../factory';
+import { paymentComboListFactory } from '#libs/payment-combo/factory';
 
-const basicChoices = PaymentComboFactoryBot.PaymentCombo.create(10);
+const basicChoices = paymentComboListFactory(10);
 
 export default {
   title: 'Library/PaymentCombo/Selector Field',

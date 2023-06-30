@@ -1,78 +1,99 @@
-// @ts-expect-error
-import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
-import { private_services_passes_factory } from '#libs/private-service/factory';
+import moment from 'moment-timezone';
+
 import {
-  paymentPackFactory,
-  paymentPackListFactory,
-} from '#libs/payment-packs/factory';
+  CB,
+  BACS_DEBIT,
+  SEPA,
+} from '@bsport/common/lib/master-data/payment-methods';
 
-import { PaymentCombo, PaymentComboItem } from '#libs/payment-combo/types';
+import { paymentPackFactory } from '#libs/payment-packs/factory';
+import { private_services_passes_factory } from '#libs/private-service/factory';
+import { shopItemFactory } from '#libs/shop/factory';
 
-FactoryBot.define('PaymentComboCategory', {
-  id: FactoryBot.sequence(),
-  name: () => faker.lorem.word(),
-  company_id: 1,
-  category_ordering: () => Math.floor(Math.random() * 10),
-});
+import {
+  generateRandomName,
+  generateRandomDescription,
+  generateRandomPrice,
+} from '../../utils/factories';
 
+/**
+ * Generates a payment combo item with Faker
+ * @param count The number of payment combo item to generate
+ */
 const paymentComboItemListFactory = (
-  numberOfElements: number,
-): PaymentComboItem[] => {
-  const paymentComboItemsIds: number[] = [...Array(numberOfElements).keys()];
-  return paymentComboItemsIds.map((id) => {
-    return {
-      id: id + 1,
-      price: Math.floor(Math.random() * 100),
-      name: faker.lorem.word(),
-      quantity: Math.floor(Math.random() * 10),
-      tax: 'VAT',
-      data: paymentPackFactory(),
-    };
-  });
-};
-
-export const PaymentComboStorybookFactory = (id?: number) => {
-  const paymentCombo: Partial<PaymentCombo> = {
-    id: id || Math.floor(Math.random() * 1000),
-    name: faker.hacker.phrase(),
-    price: Math.floor(Math.random() * 100),
-    tax: Math.floor(Math.random() * 100),
-    // @ts-expect-error
-    payment_packs: paymentPackListFactory(2),
-    // @ts-expect-error
-    private_passes: private_services_passes_factory(2),
-    shop_items: [],
-    available: Math.random() < 0.5,
+  count: number,
+  itemType: 'paymentPack' | 'privatePass' | 'shopItem',
+) => {
+  const getPaymentComboData = () => {
+    switch (itemType) {
+      case 'paymentPack':
+        return paymentPackFactory();
+      case 'privatePass':
+        return private_services_passes_factory(1)[0];
+      case 'shopItem':
+        return shopItemFactory();
+      default:
+        return {};
+    }
   };
-  return paymentCombo;
+  return faker.helpers.multiple(
+    () => {
+      return {
+        id: parseInt(faker.finance.accountNumber(4), 10),
+        price: generateRandomPrice(faker, { min: 5, max: 100 }),
+        name: generateRandomName(faker),
+        quantity: faker.number.int(10),
+        tax: 'VAT',
+        data: getPaymentComboData(),
+      };
+    },
+    { count },
+  );
 };
 
-export const PaymentComboStorybookListFactory = (nb: number) => {
-  const paymentPackIds = [...Array(nb).keys()];
-  return paymentPackIds.map((id) => {
-    return PaymentComboStorybookFactory(id + 1);
-  });
+/**
+ * Generates a payment combo with Faker
+ * @returns {PaymentCombo}
+ */
+export const paymentComboFactory = () => {
+  return {
+    id: parseInt(faker.finance.accountNumber(4), 10),
+    name: generateRandomName(faker),
+    description: generateRandomDescription(faker),
+    price: generateRandomPrice(faker, { min: 5, max: 100 }),
+    use_payment_combo_tax_on_items: faker.datatype.boolean(),
+    tax: faker.number.int(20),
+    tax_calculation: faker.number.int(15),
+    company: faker.number.int({ max: 10000 }),
+    available: faker.datatype.boolean(),
+    manager_only: faker.datatype.boolean(),
+    date_created: moment().subtract(1, 'week').format(),
+    payment_packs: paymentComboItemListFactory(
+      faker.number.int(3),
+      'paymentPack',
+    ),
+    shop_items: paymentComboItemListFactory(faker.number.int(3), 'shopItem'),
+    private_passes: paymentComboItemListFactory(
+      faker.number.int(3),
+      'privatePass',
+    ),
+    max_purchase_per_member: faker.helpers.arrayElement([
+      null,
+      faker.number.int(5),
+    ]),
+    barcode: faker.finance.accountNumber(13),
+    available_payment_method_identifier: [CB.id, BACS_DEBIT.id, SEPA.id],
+    new_member_only: faker.datatype.boolean(),
+    is_usable_by_staff: faker.datatype.boolean(),
+  };
 };
-FactoryBot.define('PaymentCombo', {
-  id: FactoryBot.sequence(),
-  name: () => faker.lorem.word(),
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nisi at sapien fringilla lobortis. Quisque rhoncus accumsan vulputate. Praesent ultricies neque lacus. Duis non iaculis ex. Nullam in ante id turpis lobortis ullamcorper vel eu sapien. Nullam varius urna at dapibus aliquam. Donec elit ex, scelerisque non pretium non, iaculis et justo.',
-  price: Math.floor(Math.random() * 100),
-  use_payment_combo_tax_on_items: Math.random() < 0.5,
-  tax: Math.floor(Math.random() * 40),
-  tax_calculation: Math.floor(Math.random() * 40),
-  available: Math.random() < 0.5,
-  manager_only: Math.random() < 0.5,
-  date_created: faker.date.recent(),
-  payment_packs: paymentComboItemListFactory(Math.floor(Math.random() * 3)),
-  shop_items: paymentComboItemListFactory(Math.floor(Math.random() * 3)),
-  private_passes: paymentComboItemListFactory(Math.floor(Math.random() * 3)),
-  max_purchase_per_member: Math.floor(Math.random() * 5),
-  barcode: faker.lorem.word(),
-  available_payment_method_identifier: [1, 2, 3],
-  new_member_only: Math.random() < 0.5,
-});
 
-export default FactoryBot;
+/**
+ * Generates a list of payment combo with Faker
+ * @param count The number of payment combo to generate
+ * @returns {PaymentCombo[]}
+ */
+export const paymentComboListFactory = (count: number) => {
+  return faker.helpers.multiple(() => paymentComboFactory(), { count });
+};

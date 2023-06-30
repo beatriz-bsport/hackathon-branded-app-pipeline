@@ -1,4 +1,5 @@
 import { PrivatePass } from '#libs/private-service/types';
+import { ShopItem } from '#libs/shop/types';
 import { ErrorAndLoading } from '#libs/types';
 import { PaymentPack } from '../payment-packs/types';
 
@@ -8,7 +9,7 @@ export type PaymentComboItem = {
   name: string;
   quantity: number;
   tax: string;
-  data: PaymentPack;
+  data: PaymentPack | ShopItem | PrivatePass;
 };
 
 export type PaymentCombo = {

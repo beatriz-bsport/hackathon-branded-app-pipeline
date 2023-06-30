@@ -1,19 +1,19 @@
 import React from 'react';
-import FactoryBotPaymentCombo from '#libs/payment-combo/factory'
-import MarketplacePaymentComboCard, {
-    Props,
-} from '.';
 
-const fakePaymentCombo = FactoryBotPaymentCombo.PaymentCombo.create()
+import { paymentComboFactory } from '#libs/payment-combo/factory';
+import { MarketplacePaymentComboCardForStorybook, Props } from '.';
+
+const fakePaymentCombo = paymentComboFactory();
 
 const PackCardTemplate = (args: Props) => (
-    <MarketplacePaymentComboCard {...args} />
+  // @ts-expect-error
+  <MarketplacePaymentComboCardForStorybook {...args} />
 );
 
 export const BasicPackCard = PackCardTemplate.bind({});
 BasicPackCard.args = {
-    paymentCombo: fakePaymentCombo,
-}
+  paymentCombo: fakePaymentCombo,
+};
 
 export const PricingPagePackCard = PackCardTemplate.bind({});
 PricingPagePackCard.args = {
@@ -22,12 +22,12 @@ PricingPagePackCard.args = {
 }
 
 export default {
-    title: 'Components/Marketplace/PassCards/PaymentComboCard',
-    component: MarketplacePaymentComboCard,
-    parameters: {
-        docs: {
-            page: null,
-        },
-        layout: 'centered',
+  title: 'Components/Marketplace/PassCards/PaymentComboCard',
+  component: MarketplacePaymentComboCardForStorybook,
+  parameters: {
+    docs: {
+      page: null,
     },
+    layout: 'centered',
+  },
 };

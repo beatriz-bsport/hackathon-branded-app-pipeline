@@ -5093,12 +5093,18 @@
                 "changeDateCoachUnaivalable": "Impossível reservar nesta data: o professor não está disponível.",
                 "changeDateEstablishmentUnaivalable": "Impossível reservar nesta data: a sala não está disponível.",
                 "overrideCoachNotAllowed": "Não é possível realizar uma marcação com este professor.",
-                "overrideEstablishmentNotAllowed": "Não se pode realiza a reunião nesta sala.",
+                "overrideEstablishmentNotAllowed": "Não é permitido realizar a aula nesta sala.",
                 "overbookingNotAllowedInWaitingList": "Não pode exceder a capacidade máxima da lista de espera.",
                 "overbookingNotAllowed": "O número máximo de reservas não pode ser ultrapassado."
             },
             "error": {
-                "errorCommission": "O valor introduzido deve estar entre 0 e 100"
+                "errorCommission": "O valor introduzido deve estar entre 0 e 100",
+                "errorEmail": "Este e-mail já está a ser utilizado por outra conta",
+                "generic": "Impossível alterar esta autorização"
+            },
+            "update": {
+                "successCommission": "A taxa de comissão foi alterada",
+                "success": "Autorizações alteradas"
             }
         },
         "relationship": {
@@ -5205,6 +5211,34 @@
             "creditUpdate": {
                 "error": "Não é possível registar o crédito"
             }
+        },
+        "notificationRule": {
+            "createOrUpdate": {
+                "errorLackRequiredVariables": "Não foi possível guardar este modelo",
+                "error": "Não é possível registar",
+                "success": "Alterado com sucesso"
+            }
+        },
+        "activity": {
+            "update": {
+                "error": "Não é possível atualizar a atividade",
+                "success": "Atividade atualizada"
+            },
+            "create": {
+                "error": "Não é possível guardar a atividade",
+                "success": "Atividade guardada"
+            }
+        },
+        "member": {
+            "changeEmailRequest": {
+                "create": {
+                    "error": "Não é possível criar um pedido de alteração do e-mail",
+                    "success": "Enviamos por e-mail a confirmação para a alteração"
+                }
+            },
+            "createOrUpdate": {
+                "error": "Erro de registo"
+            }
         }
     },
     "theme": {
@@ -5231,7 +5265,150 @@
                     "errorValidatedTime": "O tempo decorrido antes do membro ser considerado como \"ausente\", deve ser superior a 0",
                     "error": "O e-mail de notificação da ausência não pode ser enviada depois de o membro não ter comparecido."
                 }
+            },
+            "warningColorBrightness": {
+                "save": "Guardar",
+                "cancel": "Cancelar",
+                "text": "Uma das cores seleccionadas é muito clara e pode ser difícil de ver",
+                "title": "Atenção",
+                "example": "Exemplo"
+            },
+            "submit": "Guardar",
+            "productsThemePersonalization": {
+                "credits": {
+                    "description": "Ativar ou desativar a visualização dos créditos para os clientes",
+                    "label": "Ocultar créditos",
+                    "subTitle": "Créditos"
+                },
+                "title": "Produtos"
+            },
+            "instagramURL": {
+                "helperText": "O meu Instagram",
+                "label": "Link Instagram"
+            },
+            "extra_info": {
+                "label": "Informações do estúdio"
+            },
+            "facebookPixelId": {
+                "label": "Facebook Pixel ID",
+                "placeholder": "ID"
+            },
+            "gtmId": {
+                "label": "Etiqueta Google ID"
+            },
+            "waiver": {
+                "placeholder": "Certifico que tenho mais de 13 anos de idade",
+                "helperText": "Para todas as inscrições devem ser aceites os seguintes elementos",
+                "label": "Isenção de responsabilidade"
+            },
+            "general_terms_of_use": {
+                "placeholder": "Certifico que tenho mais de 13 anos de idade",
+                "helperText": "Para todas as inscrições devem ser aceites os seguintes elementos",
+                "label": "Termos e condições de utilização"
+            },
+            "general_terms_and_conditions": {
+                "placeholder": "Certifico que disponho de um atestado médico e que o levarei para o estúdio",
+                "helperText": "Todos os pagamentos devem ser aceites da seguinte forma",
+                "label": "Termos e condições gerais de venda"
+            },
+            "android_app_url": {
+                "helperText": "A aplicação Android",
+                "label": "Link para a aplicação Android"
+            },
+            "ios_app_url": {
+                "helperText": "A aplicação iOS",
+                "label": "Link para a aplicação iOS"
+            },
+            "facebookURL": {
+                "helperText": "Página do Facebook",
+                "label": "Link Facebook"
+            },
+            "scheduleURL": {
+                "placeholder": "https://studio.com/calendar/",
+                "helperText": "Ligação predefinida para calendário pessoal"
             }
+        },
+        "marketingEmail": {
+            "caption": "As cópias dos e-mails trocados serão enviados para este e-mail se o parâmetro estiver ativado.",
+            "placeholder": "E-mail",
+            "label": "E-mail de seguimento"
+        },
+        "quickbooks": {
+            "confirmDialog": {
+                "text": "Tem a certeza de que pretende autorizar a Bsport a aceder à sua candidatura?"
+            }
+        },
+        "signUpForm": {
+            "customQuestionDialog": {
+                "confirm": "Criar um formulário",
+                "cancel": "Cancelar",
+                "title": "Perguntas personalizadas",
+                "content": "Para adicionar novas perguntas ao formulário de adesão, pode criar um novo formulário no separador Marketing > Formulários. Adicione as suas perguntas e em seguida anexe este formulário ao formulário de adesão, seleccionando a condição \"Autenticar novos membros\"."
+            },
+            "addQuestions": "Adicionar perguntas",
+            "additionalCustomForm": "Formulários adicionais",
+            "error": "Surgiu um problema",
+            "success": "Configuração guardada",
+            "save": "Guardar",
+            "editable": "Pode ser modificado",
+            "required": "Obrigatório",
+            "show": "Ver",
+            "label": "Etiqueta",
+            "field_identifier": "Áreas",
+            "account_modification": "Editar uma conta",
+            "account_creation": "Criar uma conta",
+            "fields": {
+                "accept_email": "Aceitar notificações por e-mail",
+                "sms_notification": "Aceitar notificações por SMS",
+                "email_notification": "Aceitar notificações por e-mail",
+                "emergency_contact": "Contacto de urgência",
+                "photo": "Foto de Perfil",
+                "profile_picture": "Foto de Perfil",
+                "zipcode": "Código de Postal",
+                "zip_code": "Código de Postal",
+                "country": "País",
+                "city": "Cidade",
+                "additionnal_address_info": "Informação adicional",
+                "address_line_2": "Informação adicional",
+                "address_line_1": "Morada",
+                "address": "Morada",
+                "birthday": "Data de nascimento",
+                "birthdate": "Data de nascimento",
+                "phone": "Telefone",
+                "main_phone": "Telemóvel",
+                "gender": "Género",
+                "email": "E-mail",
+                "last_name": "Nome",
+                "first_name": "Nome próprio"
+            }
+        },
+        "zoom": {
+            "confirmDialog": {
+                "text": "Se já tiver introduzido manualmente os links para as suas sessões online, estas serão eliminadas e substituídas por por links do zoom gerados automaticamente. As aulas já criadas no calendário ZOOM terão de ser eliminadas manualmente e serão substituídas por aulas criadas automaticamente.",
+                "title": "Integração com ZOOM"
+            }
+        },
+        "analytics": {
+            "workshopClick": "Quando o utilizador selecciona uma data de workshop",
+            "contractPaymentShow": "Quando o utilizador estiver na página de pagamento da subscrição",
+            "contractShow": "Quando o utilizador apresenta uma subscrição",
+            "contractPaymentSuccess": "Quando o utilizador estiver subscrito",
+            "sessionShow": "Quando o utilizador selecciona uma sessão",
+            "signupSuccess": "Quando o utilizador cria uma conta",
+            "signupShow": "Quando o utilizador mostra o formulário de registo",
+            "signinShow": "Quando o utilizador chega à página de início de sessão",
+            "paymentSuccess": "Quando o utilizador tiver efectuado um pagamento bem sucedido",
+            "addPrivatePassToCart": "Quando os utilizadores adicionam um passe ao seu carrinho",
+            "addShopItemToCart": "Quando o utilizador adiciona um artigo da loja ao seu carrinho de compras",
+            "addPackToCart": "Quando o utilizador adiciona um pack ao seu carrinho",
+            "addPassToCart": "Quando os utilizadores adicionam um passe ao seu cesto",
+            "showPass": "Quando o utilizador apresenta um passe",
+            "showBasket": "Quando o utilizador mostra o seu carrinho",
+            "cancel": "Cancelar",
+            "fbPixelEvent": "FB Pixel Nome do Evento",
+            "gtmEvent": "Nome do evento",
+            "eventDesc": "Descrição do evento",
+            "showAnalyticsInformation": "Exibir eventos monitorizados"
         }
     },
     "privateService": {
@@ -5818,6 +5995,71 @@
                 "first": "um número de telefone",
                 "false": "Não preenchido"
             }
+        }
+    },
+    "titles": {
+        "workshopActivity": {
+            "workshopActivityCreate": "Criar um workshop",
+            "workshopActivityList": "Workshops"
+        },
+        "subscription": {
+            "subscriptions": "Subscrições",
+            "subscriptionCreate": "Criar uma subscrição"
+        },
+        "dashboard": {
+            "dashboard": "Painel Principal",
+            "reportingDashboard": "Relatórios",
+            "marketingDashboard": "Marketing"
+        },
+        "marketplace": {
+            "marketplaceGiftcard": "Passes caducados",
+            "marketplacePass": "Passes ativos",
+            "marketplaceCalendar": "Calendário",
+            "marketplaceWorkshop": "Workshops",
+            "marketplaceShop": "Loja"
+        },
+        "establishment": {
+            "establishmentGroupPage": "Localizações",
+            "establishmentFormPage": "Formulário da sala",
+            "establishmentList": "Estabelecimentos"
+        },
+        "privateService": {
+            "serviceList": "Apenas por marcação"
+        },
+        "coupon": {
+            "couponList": "Códigos promocionais",
+            "couponEdit": "Formulário de promoção",
+            "couponCreate": "Formulário de promoção"
+        },
+        "coach": {
+            "coachPerformance": "Regras do professor {{name}}",
+            "coachList": "Professores"
+        },
+        "expense": {
+            "expenseList": "Minhas despesas"
+        },
+        "invoice": {
+            "invoiceEdit": "Editar fatura",
+            "invoiceCreate": "Fatura",
+            "invoiceList": "Os meus movimentos"
+        },
+        "metaActivity": {
+            "metaActivityEditFormSubtitle": "Alterar atividade",
+            "metaActivityFormSubtitle": "Criar uma atividade",
+            "metaActivityList": "Atividades"
+        },
+        "member": {
+            "memberFormPage": "Formulário",
+            "mergeMember": "Agregar membro",
+            "members": "Membros",
+            "memberForm": "Adicionar um membro"
+        },
+        "banner": {
+            "franchiseConnection": "Está atualmente ligado a uma das aplicações dos seus franchisados",
+            "networkError": "Não está ligado à Internet"
+        },
+        "video": {
+            "videoList": "Biblioteca de vídeos"
         }
     }
 }

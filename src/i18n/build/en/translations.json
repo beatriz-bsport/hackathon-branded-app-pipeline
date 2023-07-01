@@ -6196,7 +6196,7 @@
                 "title": "Waitlist management"
             },
             "auto_consume_pack": {
-                "helper": "A member that joined the waitlist will be automatically booked in once a spot becomes available. The system will automatically deduct the credits from passes that expires the soonest.",
+                "helper": "A member that joined the waitlist will be automatically booked in once a spot becomes available. The system will automatically deduct the credits from passes that expire the soonest.",
                 "label": "Automatically book in a member from the waitlist once a spot becomes available and the deduct the credit(s) from a valid pass"
             },
             "is_option_blocking": {
@@ -6204,20 +6204,20 @@
                 "label": "Save openings exclusively for members that joined the waitlist"
             },
             "autokick_delay": {
-                "helper": "This is the number of notifications a member on a waitlist will receive before they're automatically removes if no response is registered.",
+                "helper": "This is the number of notifications a member on a waitlist will receive before they're automatically removed if no response is registered.",
                 "label": "Automatic waitlist removal"
             },
             "dynamic": {
-                "label": "Select your waitlist priorty management",
+                "label": "Select your waitlist priority management",
                 "1": {
-                    "explain": "This is an unsorted and unranked waitlists. All members that joined this waitlist will be informed simultanously once a spot becomes available.",
+                    "explain": "This is an unsorted and unranked waitlist. All members that joined this waitlist will be informed simultaneously once a spot becomes available.",
                     "label": "First come, first served"
                 },
                 "0": {
                     "explain": "Each member that joins the waitlist will be ranked. The first person will be notified automatically once a spot becomes available.",
                     "settingsDelay": "Time between recalls",
                     "label": "One by one",
-                    "overallExplainSmart": "If a spot becomes available, the student has {{ autokick_delay }} reminders spaced at {{ smart_delay_percentage }}% of the time remaining before the session starts to register. For example, if there are {{ example_hours_before }}hours left before the session, the student has {{ example_computed_delay_one }} minutes to register, and then {{ example_computed_delay_two }} minutes after the first retry, and so on, before the next student is allowed to register.",
+                    "overallExplainSmart": "If a spot becomes available, the student has {{ autokick_delay }} reminders spaced at {{ smart_delay_percentage }}% of the time remaining before the session starts to register. For example, if there are {{ example_hours_before }} hours left before the session, the student has {{ example_computed_delay_one }} minutes to register, and then {{ example_computed_delay_two }} minutes after the first retry, and so on, before the next student is allowed to register.",
                     "overallExplainSimple": "If a spot becomes available, the student has {{ autokick_delay }} reminders spaced {{ dumb_delay_minutes }} minutes apart to book before giving their spot to the next student."
                 }
             },

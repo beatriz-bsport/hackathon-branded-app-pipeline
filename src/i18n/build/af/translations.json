@@ -2198,6 +2198,7 @@
         "source": { "0": "App", "1": "Web", "2": "Backoffice", "3": "Autre", "label": "Canal : {{ source }}" }
       }
     },
+    "anonymousMember": "Membre anonyme",
     "paymentEngine": { "label": { "0": "Paiement manuel", "1": "Paiement en ligne" } },
     "paymentMethod": {
       "title": "Moyen de paiement",

@@ -203,7 +203,11 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
         {!props.hideMemberName && (
           <TableCell component="th" scope="row">
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Typography>{invoice.memberName}</Typography>
+              <Typography>
+                {invoice.is_member_pos
+                  ? t('invoice:anonymousMember')
+                  : invoice.memberName}
+              </Typography>
               {invoice.memberArchived && (
                 <Typography variant="caption" color="secondary">
                   {`${' '}(${t('member:archived')})`}

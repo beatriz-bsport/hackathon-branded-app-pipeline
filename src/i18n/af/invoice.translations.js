@@ -96,6 +96,7 @@ exports.default = {
       },
     },
   },
+  anonymousMember: 'Membre anonyme',
   paymentEngine: {
     label: {
       [PAYMENT_ENGINE_STRIPE]: 'Paiement en ligne',

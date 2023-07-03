@@ -74,6 +74,7 @@ export type Invoice<M = number, PI = number, II = number> = {
   invoice_legal_identifier: string | null;
   establishment: number | null;
   author: number;
+  is_member_pos: boolean;
 };
 
 export enum InvoiceType {

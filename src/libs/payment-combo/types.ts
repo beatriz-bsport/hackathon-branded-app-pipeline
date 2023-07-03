@@ -106,6 +106,7 @@ export type FetchPaymentComboListParams = {
   video?: number;
   id__in?: number[];
   include_expired?: boolean;
+  ignore_new_member_only?: boolean; // When making a request from an authenticated member, bypasses filter on "new_member_only" field
 };
 
 export type FetchPaymentComboPurchaseListParams = {

@@ -314,6 +314,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
       this.props.fetchPaymentComboList({
         id__in: [contract.payment_combo],
         company: this.props.companyId,
+        ignore_new_member_only: true,
       });
     }
   };

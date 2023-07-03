@@ -157,6 +157,7 @@ export class MarketplaceContract extends React.Component<Props, State> {
       this.props.fetchPaymentComboList({
         id__in: [contract.payment_combo],
         company: this.props.companyId,
+        ignore_new_member_only: true,
       });
     }
     this.setSelectedContract(contract);

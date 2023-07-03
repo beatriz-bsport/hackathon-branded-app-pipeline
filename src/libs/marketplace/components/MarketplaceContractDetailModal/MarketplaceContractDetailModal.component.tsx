@@ -8,6 +8,7 @@ import StarIcon from '@material-ui/icons/Star';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import ReplayIcon from '@material-ui/icons/Replay';
 
+import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
 import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
@@ -133,14 +134,13 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
   }) => {
     const { t } = useTranslation('marketplace');
 
-    const { dialogRef, modalRef } = useDialogClickAwayListener({
-      onDialogClose,
-    });
-
     const [showMoreDescription, setShowMoreDescription] =
       React.useState<boolean>(false);
     const [showMoreLegalContract, setShowMoreLegalContract] =
       React.useState<boolean>(false);
+
+    const descriptionText = useIsTextExpandable(showMoreDescription);
+    const legalContractText = useIsTextExpandable(showMoreLegalContract);
 
     const handleShowMoreDescription = React.useCallback(
       () => setShowMoreDescription((previousShowMore) => !previousShowMore),
@@ -152,10 +152,20 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
       [setShowMoreLegalContract],
     );
 
+    const handleDialogClose = React.useCallback(() => {
+      onDialogClose();
+      setShowMoreDescription(false);
+      setShowMoreLegalContract(false);
+    }, [onDialogClose]);
+
     const handleAddToCart = React.useCallback(
       () => onAddToCart(contract),
       [contract, onAddToCart],
     );
+
+    const { dialogRef, modalRef } = useDialogClickAwayListener({
+      onDialogClose: handleDialogClose,
+    });
 
     const flatFees = getCurrencyDisplayWithPrice(contract?.flat_fee);
 
@@ -278,6 +288,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                       }}
                     >
                       <div
+                        ref={descriptionText.ref}
                         className={classNames(
                           'bs-contract-details-dialog__body__text',
                           { '--hide': !showMoreDescription },
@@ -285,20 +296,23 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                       >
                         {contract?.description}
                       </div>
-                      <button
-                        type="button"
-                        onClick={handleShowMoreDescription}
-                        className="bs-contract-details-dialog__body__button"
-                      >
-                        {showMoreDescription
-                          ? t('contractCard.seeLess')
-                          : t('contractCard.seeMore')}
-                      </button>
+                      {descriptionText.isExpandable && (
+                        <button
+                          type="button"
+                          onClick={handleShowMoreDescription}
+                          className="bs-contract-details-dialog__body__button"
+                        >
+                          {showMoreDescription
+                            ? t('contractCard.seeLess')
+                            : t('contractCard.seeMore')}
+                        </button>
+                      )}
                       <div>
                         <h4 className="bs-contract-card__subtitle --legal">
                           {t('contractCard.legalContract')}
                         </h4>
                         <div
+                          ref={legalContractText.ref}
                           className={classNames(
                             'bs-contract-details-dialog__body__text',
                             { '--hide': !showMoreLegalContract },
@@ -307,15 +321,17 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                           {contract?.contract}
                         </div>
                       </div>
-                      <button
-                        type="button"
-                        onClick={handleShowMoreLegalContract}
-                        className="bs-contract-details-dialog__body__button"
-                      >
-                        {showMoreLegalContract
-                          ? t('contractCard.seeLess')
-                          : t('contractCard.seeMore')}
-                      </button>
+                      {legalContractText.isExpandable && (
+                        <button
+                          type="button"
+                          onClick={handleShowMoreLegalContract}
+                          className="bs-contract-details-dialog__body__button"
+                        >
+                          {showMoreLegalContract
+                            ? t('contractCard.seeLess')
+                            : t('contractCard.seeMore')}
+                        </button>
+                      )}
                     </Item>
                   </Grid>
                 </Content>
@@ -348,7 +364,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                         <button
                           className="bs-contract-details-dialog__buttons__cancel"
                           type="button"
-                          onClick={onDialogClose}
+                          onClick={handleDialogClose}
                         >
                           {t('common:cancel')}
                         </button>

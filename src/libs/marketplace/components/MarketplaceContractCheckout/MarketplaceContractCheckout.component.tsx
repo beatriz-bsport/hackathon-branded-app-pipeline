@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import UpdateIcon from '@material-ui/icons/Update';
 
 import classNames from 'classnames';
+import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card, { CardSize } from '#components/css-only/Card';
@@ -15,13 +16,11 @@ import Item, {
 } from '#components/css-only/Grid/GridItem';
 import Price from '#components/css-only/Price';
 import CircularProgress from '#components/css-only/CircularProgress';
-
 import BillingInterval from '../MarketplaceBillingInterval';
 
 import './styles.css';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-
 import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
@@ -56,11 +55,12 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('marketplace');
 
-  const handleChooseContract = useCallback(() => {
-    onSelect && onSelect(contract);
-  }, [contract, onSelect]);
-
   const [showMoreDescription, setShowMoreDescription] = React.useState(false);
+  const [showMoreLegalContract, setShowMoreLegalContract] =
+    React.useState(false);
+
+  const descriptionText = useIsTextExpandable(showMoreDescription);
+  const legalContractText = useIsTextExpandable(showMoreLegalContract);
 
   const handleShowMoreDescription = useCallback(
     () =>
@@ -70,9 +70,6 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
     [setShowMoreDescription],
   );
 
-  const [showMoreLegalContract, setShowMoreLegalContract] =
-    React.useState(false);
-
   const handleShowMoreLegal = useCallback(
     () =>
       setShowMoreLegalContract(
@@ -80,6 +77,10 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
       ),
     [setShowMoreLegalContract],
   );
+
+  const handleChooseContract = useCallback(() => {
+    onSelect && onSelect(contract);
+  }, [contract, onSelect]);
 
   const objectIncludedInContract = React.useMemo(() => {
     if (contract?.payment_pack) {
@@ -216,26 +217,30 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
               </div>
             )}
             <div
+              ref={descriptionText.ref}
               className={classNames('bs-contract-checkout__body__text', {
                 '--hide': !showMoreDescription,
               })}
             >
               {contract?.description}
             </div>
-            <button
-              type="button"
-              onClick={handleShowMoreDescription}
-              className="bs-contract-checkout__body__button"
-            >
-              {showMoreDescription
-                ? t('marketplace:contractCard.seeLess')
-                : t('marketplace:contractCard.seeMore')}
-            </button>
+            {descriptionText.isExpandable && (
+              <button
+                type="button"
+                onClick={handleShowMoreDescription}
+                className="bs-contract-checkout__body__button"
+              >
+                {showMoreDescription
+                  ? t('marketplace:contractCard.seeLess')
+                  : t('marketplace:contractCard.seeMore')}
+              </button>
+            )}
             <div>
               <h4 className="bs-contract-checkout__subtitle --legal">
                 {t('marketplace:contractCard.legalContract')}
               </h4>
               <div
+                ref={legalContractText.ref}
                 className={classNames('bs-contract-checkout__body__text', {
                   '--hide': !showMoreLegalContract,
                 })}
@@ -243,15 +248,17 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                 {contract?.contract}
               </div>
             </div>
-            <button
-              type="button"
-              onClick={handleShowMoreLegal}
-              className="bs-contract-checkout__body__button"
-            >
-              {showMoreLegalContract
-                ? t('marketplace:contractCard.seeLess')
-                : t('marketplace:contractCard.seeMore')}
-            </button>
+            {legalContractText.isExpandable && (
+              <button
+                type="button"
+                onClick={handleShowMoreLegal}
+                className="bs-contract-checkout__body__button"
+              >
+                {showMoreLegalContract
+                  ? t('marketplace:contractCard.seeLess')
+                  : t('marketplace:contractCard.seeMore')}
+              </button>
+            )}
           </Item>
         </Grid>
       </Content>

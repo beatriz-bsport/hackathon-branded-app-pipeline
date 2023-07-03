@@ -5,7 +5,7 @@ import { Button, CircularProgress, makeStyles, Theme } from '@material-ui/core';
 import UpdateIcon from '@material-ui/icons/Update';
 import { Info } from '@material-ui/icons';
 import PopOver from '#components/Popover';
-import { SUBMIT_BUTTONS } from './NewCheckoutFlow.component';
+import { SUBMIT_BUTTONS } from '#libs/checkout/types';
 
 type CheckoutButtonsProps = {
   handleSubmitButtonsCallbacks: {

@@ -120,3 +120,24 @@ export type PrepaidLine = {
   extra_data: any;
   name: string;
 };
+
+export const SUBMIT_BUTTONS = {
+  NEXT_BUTTON: { id: 0, textPath: 'forms.delivery.actions.submit' },
+  PAY_NOW_BUTTON: { id: 1, textPath: 'validation.actions.payNow' },
+  PAY_LATER_BUTTON: { id: 2, textPath: 'payLater.submit' },
+};
+
+export const STEPS = {
+  ADDRESS_STEP: {
+    id: 0,
+    label: 'address',
+    submitButtonTextPath: 'forms.delivery.actions.submit',
+  },
+  PAYMENT_STEP: {
+    id: 1,
+    label: 'payment',
+    submitButtonTextPath: 'validation.actions.payNow',
+  },
+};
+
+export type StepType = typeof STEPS[keyof typeof STEPS];

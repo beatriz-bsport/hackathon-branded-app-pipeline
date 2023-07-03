@@ -26,6 +26,8 @@ import {
   BasketAddress,
   CheckoutItemData,
   OnRemoveCheckoutItemData,
+  StepType,
+  STEPS,
 } from '../../types';
 import { OptionCallback } from '../../../../state/types';
 import { ActivitiesSummary } from './ActivitiesSummary.component';
@@ -40,29 +42,15 @@ import { Offer } from '#libs/offer/types';
 import { Establishment } from '#libs/establishment/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 
+import {
+  useHandleSubmitButtonsCallbacks,
+  useSubmitButtonsDisabledState,
+  useSubmitButtonsDisplayableState,
+  useSubmitButtonsProcessingState,
+} from './submitButtonsHooks';
+
 // These checkout item types are displayed in the bill after the basket summary
 const BILL_CHECKOUT_ITEMS = [BUYABLE_ITEM_COUPON, BUYABLE_ITEM_FEE];
-
-export const STEPS = {
-  ADDRESS_STEP: {
-    id: 0,
-    label: 'address',
-    submitButtonTextPath: 'forms.delivery.actions.submit',
-  },
-  PAYMENT_STEP: {
-    id: 1,
-    label: 'payment',
-    submitButtonTextPath: 'validation.actions.payNow',
-  },
-};
-
-export const SUBMIT_BUTTONS = {
-  NEXT_BUTTON: { id: 0, textPath: 'forms.delivery.actions.submit' },
-  PAY_NOW_BUTTON: { id: 1, textPath: 'validation.actions.payNow' },
-  PAY_LATER_BUTTON: { id: 2, textPath: 'payLater.submit' },
-};
-
-export type StepType = typeof STEPS[keyof typeof STEPS];
 
 type NewCheckoutFlowProps = {
   addItemToBasket: (
@@ -191,121 +179,31 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   // state of the submit button.
 
   // Definition of the activated/disabled state of each button
-  const submitButtonsDisabledState = useMemo(() => {
-    const submitButtonsDisabled: { [key: number]: boolean } = {};
-
-    Object.values(SUBMIT_BUTTONS).forEach((button) => {
-      submitButtonsDisabled[button.id] = false;
-      switch (button.id) {
-        case SUBMIT_BUTTONS.NEXT_BUTTON.id:
-          if (currentStep.id === STEPS.ADDRESS_STEP.id && basketLoading)
-            submitButtonsDisabled[button.id] = true;
-          break;
-        case SUBMIT_BUTTONS.PAY_NOW_BUTTON.id:
-          if (
-            basketLoading ||
-            (!isTotalPriceNull && isOnlinePaymentDisabled) ||
-            !termsAndConditionsAccepted
-          )
-            submitButtonsDisabled[button.id] = true;
-          break;
-        case SUBMIT_BUTTONS.PAY_LATER_BUTTON.id:
-          if (basketLoading || !termsAndConditionsAccepted)
-            submitButtonsDisabled[button.id] = true;
-          break;
-        default:
-          break;
-      }
-    });
-    return submitButtonsDisabled;
-  }, [
+  const submitButtonsDisabledState = useSubmitButtonsDisabledState({
     basketLoading,
-    currentStep.id,
+    currentStepId: currentStep.id,
     isOnlinePaymentDisabled,
     isTotalPriceNull,
     termsAndConditionsAccepted,
-  ]);
+  });
 
   // Definition of the presence on the screen or not of each button
-  const submitButtonsDisplayableState = useMemo(() => {
-    const submitButtonsDisplayable: { [key: number]: boolean } = {};
-
-    Object.values(SUBMIT_BUTTONS).forEach((button) => {
-      submitButtonsDisplayable[button.id] = false;
-      switch (button.id) {
-        case SUBMIT_BUTTONS.NEXT_BUTTON.id:
-          if (currentStep.id === STEPS.ADDRESS_STEP.id)
-            submitButtonsDisplayable[button.id] = true;
-          break;
-        case SUBMIT_BUTTONS.PAY_NOW_BUTTON.id:
-          if (
-            currentStep.id === STEPS.PAYMENT_STEP.id &&
-            isOnlinePaymentAvailable
-          )
-            submitButtonsDisplayable[button.id] = true;
-          break;
-        case SUBMIT_BUTTONS.PAY_LATER_BUTTON.id:
-          if (currentStep.id === STEPS.PAYMENT_STEP.id && isPayLaterAvailable)
-            submitButtonsDisplayable[button.id] = true;
-          break;
-        default:
-          break;
-      }
-    });
-    return submitButtonsDisplayable;
-  }, [currentStep, isOnlinePaymentAvailable, isPayLaterAvailable]);
+  const submitButtonsDisplayableState = useSubmitButtonsDisplayableState({
+    currentStepId: currentStep.id,
+    isOnlinePaymentAvailable,
+    isPayLaterAvailable,
+  });
 
   // Definition of the processing state of each button, processing meaning that the
   // button will be filled with a Circular Progress an disabled
-  const submitButtonsProcessingState = useMemo(() => {
-    const submitButtonsProcessing: { [key: number]: boolean } = {};
-
-    Object.values(SUBMIT_BUTTONS).forEach((button) => {
-      submitButtonsProcessing[button.id] = false;
-      switch (button.id) {
-        case SUBMIT_BUTTONS.NEXT_BUTTON.id:
-          break;
-        case SUBMIT_BUTTONS.PAY_NOW_BUTTON.id:
-        case SUBMIT_BUTTONS.PAY_LATER_BUTTON.id:
-          if (paymentProcessing) submitButtonsProcessing[button.id] = true;
-          break;
-        default:
-          break;
-      }
-    });
-    return submitButtonsProcessing;
-  }, [paymentProcessing]);
+  const submitButtonsProcessingState = useSubmitButtonsProcessingState({
+    paymentProcessing,
+  });
 
   // Definition of the callbacks called on click for each button
-  const handleSubmitButtonsCallbacks = useMemo(() => {
-    const submitButtonsCallbacks: {
-      [key: number]: (event: React.MouseEvent<any>) => Promise<void>;
-    } = {};
-
-    Object.values(SUBMIT_BUTTONS).forEach((button) => {
-      submitButtonsCallbacks[button.id] = async () => {};
-      switch (button.id) {
-        case SUBMIT_BUTTONS.NEXT_BUTTON.id:
-        case SUBMIT_BUTTONS.PAY_NOW_BUTTON.id:
-          // The `onSubmit` method defined in the `CheckoutSteps` component will handle the submit for
-          // the `ADDRESS_STEP` or the `PAYMENT_STEP`, according to the `currentStep` provided to him.
-          submitButtonsCallbacks[button.id] = async (
-            event: React.FormEvent<HTMLFormElement>,
-          ) => {
-            checkoutStepsRef.current.onSubmit(event);
-          };
-          break;
-        case SUBMIT_BUTTONS.PAY_LATER_BUTTON.id:
-          submitButtonsCallbacks[button.id] = async () => {
-            checkoutStepsRef.current.onPayLaterSubmit();
-          };
-          break;
-        default:
-          break;
-      }
-    });
-    return submitButtonsCallbacks;
-  }, []);
+  const handleSubmitButtonsCallbacks = useHandleSubmitButtonsCallbacks({
+    checkoutStepsRef,
+  });
 
   // In the basket summary we don't want to display the checkout items already in the bill
   // below (the NOT_DISPLAYABLE_CHECKOUT_ITEMS), and also all items linked to an offer since

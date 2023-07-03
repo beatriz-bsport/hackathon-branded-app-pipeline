@@ -12,9 +12,14 @@ import AcceptTermsAndConditions from '#libs/payment/components/AcceptTermsAndCon
 import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
 
 import type { OptionCallback } from '../../../../state/types';
-import { BasketAddress, Basket, PrepaidLine } from '../../types';
+import {
+  BasketAddress,
+  Basket,
+  PrepaidLine,
+  StepType,
+  STEPS,
+} from '../../types';
 import { PaymentStep } from './PaymentStep.component';
-import { STEPS, StepType } from './NewCheckoutFlow.component';
 import { TermsAndConditionType } from '#libs/payment/types';
 
 type CheckoutStepsProps = {

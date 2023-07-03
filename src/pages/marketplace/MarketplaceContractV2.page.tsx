@@ -136,7 +136,7 @@ export class MarketplaceContract extends React.Component<Props, State> {
       );
       const pathname = `${this.props.location?.pathname}?${filtered_params.join(
         '&',
-      )}&selected=${contract.id}`;
+      )}&selected=${contract?.id}`;
       this.props.replace(pathname);
     }
 
@@ -147,13 +147,13 @@ export class MarketplaceContract extends React.Component<Props, State> {
   };
 
   handleOpenContractDialog = (contract: Contract) => {
-    if (contract.payment_pack) {
+    if (contract?.payment_pack) {
       this.props.fetchPaymentPackBulk([contract.payment_pack]);
     }
-    if (contract.private_pass) {
+    if (contract?.private_pass) {
       this.props.fetchPrivatePassBulk([contract.private_pass]);
     }
-    if (contract.payment_combo) {
+    if (contract?.payment_combo) {
       this.props.fetchPaymentComboList({
         id__in: [contract.payment_combo],
         company: this.props.companyId,

@@ -4436,7 +4436,7 @@
       "987": "Tentative d'encaissement d'un paiement échelonné",
       "1001": "Compte Spivi créé (élèves)",
       "1002": "Performance de la séance de spinning",
-      "undefined": "Compte Spivi créé (professeurs)"
+      "1003": "Compte Spivi créé (professeurs)"
     },
     "franchise": {
       "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",
@@ -5828,8 +5828,8 @@
       "2021": "La carte commence à la première réservation, le ",
       "2022": "La carte commence à la première présence, le ",
       "2023": "La carte est expirée",
-      "paymentPack": "Carte configurée comme incompatible avec l'activité en question :",
-      "undefined": "Le créneau horaire est incompatible"
+      "2027": "Le créneau horaire est incompatible",
+      "paymentPack": "Carte configurée comme incompatible avec l'activité en question :"
     },
     "orderingAlert": {
       "text": "Toute modification de l'ordre des \"Catégories\" affectera seulement l'affichage de la page \"Cartes de cours\" de la marketplace et de l'application. Cette mise à jour n'affectera aucune autre section ou catégorie.",

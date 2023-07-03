@@ -1,0 +1,44 @@
+.bs-signup-title {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+}
+
+.bs-signup-title__title {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.bs-signup-title__rectangle {
+  height: 5px;
+  width: 90%;
+  margin-bottom: var(--spacing-3);
+}
+
+.bs-signup-title__rectangle-background--default {
+  background: linear-gradient(
+    90deg,
+    var(--color-primary-main) 0%,
+    var(--color-secondary-main) 100%
+  );
+}
+
+.bs-signup-title__rectangle-background--company {
+  background: linear-gradient(
+    90deg,
+    var(--color-primary-main) 4.66%,
+    var(--color-primary-dark) 88.6%
+  );
+}
+
+@media (max-device-width: 570px) {
+  .bs-signup-title__title {
+    font-size: 28px;
+    font-weight: 700;
+    min-height: 300px;
+  }
+}

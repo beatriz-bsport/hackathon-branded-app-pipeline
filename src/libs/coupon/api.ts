@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { AxiosResponse } from 'axios';
 import { PaginatedResponse } from '../../state/types';
 import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
@@ -21,6 +20,7 @@ import {
   Discount,
   InvoiceParams,
   FetchDiscountParams,
+  UniqueCodeCouponCreationPayload,
 } from './types';
 
 const COUPON_URI = `${API_V1_URI}/coupon/`;
@@ -163,4 +163,10 @@ export const deleteCouponTemplateInstance: (
   id: number,
 ) => Promise<AxiosResponse<null>> = async (id) => {
   return deleteAuth(`${API_V1_URI}/coupon/coupon_template_instance/${id}/`);
+};
+
+export const createUniqueCodeCoupon: (
+  data: UniqueCodeCouponCreationPayload,
+) => Promise<AxiosResponse<Coupon>> = (data) => {
+  return postAuth(`${COUPON_URI}unique_code/`, data);
 };

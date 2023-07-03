@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
@@ -17,6 +16,7 @@ import {
   retrieveCouponTemplate as retrieveCouponTemplateAPI,
   createCouponTemplateInstance as createCouponTemplateInstanceAPI,
   deleteCouponTemplateInstance as deleteCouponTemplateInstanceAPI,
+  createUniqueCodeCoupon as createUniqueCodeCouponAPI,
 } from './api';
 
 import { OptionCallback, Dispatch, ThunkAction } from '../../state/types';
@@ -28,13 +28,14 @@ import {
   FetchCouponsParams,
   FetchDiscountParams,
   ResetDiscountList,
+  UniqueCodeCouponCreationPayload,
 } from '#libs/coupon/types';
 import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 
 export const couponList = {
   error: createAction<Error | null>('COUPON/LIST/ERROR'),
   isLoading: createAction<boolean>('COUPON/LIST/IS_LOADING'),
-  success: createAction<{ items: Coupon[] }>('COUPON/LIST/SUCCESS'),
+  success: createAction<{ results: Coupon[] }>('COUPON/LIST/SUCCESS'),
   delete: createAction<string>('COUPON/LIST/DELETE'),
 };
 
@@ -48,7 +49,7 @@ export function fetchCouponPage(
 
     try {
       const response = await fetchCouponPageAPI(page);
-      dispatch(couponList.success({ items: response.data }));
+      dispatch(couponList.success({ results: response.data }));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
@@ -72,7 +73,7 @@ export function fetchCoupons(
       const response = await fetchCouponsAPI(data);
       dispatch(
         couponList.success({
-          items: response.data,
+          results: response.data,
         }),
       );
       if (options && options.onSuccess) {
@@ -129,7 +130,6 @@ export function createCoupon(
     try {
       const response = await createCouponAPI(data);
       dispatch(couponCreateOrUpdate.success(response.data));
-      dispatch(couponCreateOrUpdate.error(null));
       dispatch(snackbarSuccess('coupon.create.success'));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
@@ -154,7 +154,6 @@ export function updateCoupon(
     try {
       const response = await updateCouponAPI(id, data);
       dispatch(couponCreateOrUpdate.success(response.data));
-      dispatch(couponCreateOrUpdate.error(null));
       dispatch(snackbarSuccess('coupon.update.success'));
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
@@ -189,7 +188,6 @@ export function fetchCouponDiscounts(
       const optionalPageResponse = page
         ? { ...response.data, page }
         : { ...response.data };
-
       dispatch(discountList.success(optionalPageResponse));
       dispatch(discountList.error(null));
     } catch (error) {
@@ -436,5 +434,31 @@ export function retrieveCouponTemplate(
       if (options && options.onError) options.onError(err);
     }
     dispatch(retrieveCouponTemplateActions.isLoading(false));
+  };
+}
+
+export function createUniqueCodeCoupon(
+  data: UniqueCodeCouponCreationPayload,
+  options?: OptionCallback<Coupon>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(couponCreateOrUpdate.isLoading(true));
+    dispatch(couponCreateOrUpdate.error(null));
+
+    try {
+      const response = await createUniqueCodeCouponAPI(data);
+      dispatch(couponCreateOrUpdate.success(response.data));
+      dispatch(snackbarSuccess('coupon.create.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(couponCreateOrUpdate.error(error));
+      dispatch(snackbarError('coupon.create.error'));
+      if (options && options.onError) {
+        options.onError();
+      }
+    }
+    dispatch(couponCreateOrUpdate.isLoading(false));
   };
 }

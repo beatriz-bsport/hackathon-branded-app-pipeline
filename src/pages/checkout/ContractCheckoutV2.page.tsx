@@ -135,8 +135,11 @@ export class MarketplaceSubscriptionPayment extends React.Component<
   Props,
   State
 > {
+  selectedContractRef: React.RefObject<HTMLDivElement> = null;
+
   constructor(props: Props) {
     super(props);
+    this.selectedContractRef = React.createRef();
 
     this.state = {
       processing: false,
@@ -186,6 +189,12 @@ export class MarketplaceSubscriptionPayment extends React.Component<
         prevProps.contractId !== this.props.contractId)
     ) {
       this.fetchAssociatedContractContent(parseInt(this.props.contractId, 10));
+    }
+
+    if (this.props.contractList?.length && this.selectedContractRef?.current) {
+      this.selectedContractRef.current.scrollIntoView({
+        block: 'center',
+      });
     }
   }
 
@@ -406,6 +415,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                     getPaymentPackSelected={this.props.getPaymentPackSelected}
                     getPrivatePassSelected={this.props.getPrivatePassSelected}
                     getPaymentComboSelected={this.props.getPaymentComboSelected}
+                    customRef={this.selectedContractRef}
                   />
                 ))}
             </div>

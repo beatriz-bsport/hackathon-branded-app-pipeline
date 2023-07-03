@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import classNames from 'classnames';
 import './styles.css';
@@ -9,6 +8,7 @@ export type Props = {
   children: React.ReactNode;
   size?: CardSize;
   classes?: { [key: string]: string };
+  customRef?: React.RefObject<HTMLDivElement>;
   onClick?: () => void;
 };
 
@@ -16,6 +16,7 @@ export const Container: React.FC<Props> = ({
   children,
   size,
   classes,
+  customRef,
   onClick,
 }) => {
   return (
@@ -27,6 +28,7 @@ export const Container: React.FC<Props> = ({
       })}
       onClick={onClick}
       aria-hidden="true"
+      ref={customRef}
     >
       {children}
     </div>

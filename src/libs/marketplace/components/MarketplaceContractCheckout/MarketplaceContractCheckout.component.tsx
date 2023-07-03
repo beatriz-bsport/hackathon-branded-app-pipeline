@@ -33,6 +33,7 @@ export type Props = {
   isExcludingTax?: boolean;
   isExpanded?: boolean;
   isSelected?: boolean;
+  customRef?: React.RefObject<HTMLDivElement>;
   onSelect: (contract: Contract) => void;
   getPaymentPackSelected: (id: number) => PaymentPack;
   getPrivatePassSelected: (id: number) => PrivatePass;
@@ -45,6 +46,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
   isExpanded,
   isSelected,
   hideChooseButton,
+  customRef,
   onSelect,
   getPaymentPackSelected,
   getPrivatePassSelected,
@@ -106,6 +108,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
         }),
         'bs-contract-checkout': 'bs-contract-checkout',
       }}
+      customRef={isSelected && customRef ? customRef : null}
     >
       <div
         className={classNames('bs-contract-checkout__header', {

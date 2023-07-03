@@ -3,7 +3,7 @@ import React from 'react';
 import { compose, withProps } from 'recompose';
 
 import { connect } from 'react-redux';
-import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import { Route, Switch } from 'react-router-dom';
 import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
@@ -15,22 +15,25 @@ import withQueryParams from '#hocs/with-query-params.hoc';
 import themeSelectors from '#libs/theme/selectors';
 import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '#libs/theme/actions';
-import LoginBackgroundComponent from '#libs/login/components/LoginBackground.component';
+import { LoginBackgroundCssHoc } from '#libs/login/components/LoginBackground.component';
 import LanguageButton from '../../components/button/LanguageButton.component';
 import { Theme } from '#libs/theme/types';
 import { refreshValidationEmailStatus as refreshValidationEmailStatusAction } from '#libs/login/actions';
 
 import namespaces from '../../i18n/namespaces.json';
 
+import './ConfirmEmailRouterStyles.css';
+
 const ConfirmingEmailPage = asyncComponent(
   () => import('./ConfirmingEmail.page'),
 );
 const EmailConfirmationPage = asyncComponent(
-  () => import('./EmailConfirmation.page'),
+  () => import('./email-confirmation/EmailConfirmation.page'),
 );
 
 type Props = {
   theme: Theme;
+  simplifyUI?: boolean;
 };
 
 export const ConfirmEmailRouter = (props: Props) => {
@@ -47,24 +50,28 @@ export const ConfirmEmailRouter = (props: Props) => {
     alt = `${theme.company_name} - logo`;
   }
 
-  const classes = useStyles();
-
   React.useEffect(() => {
     refreshValidationEmailStatus();
   }, [refreshValidationEmailStatus]);
 
   return (
     <MuiThemeProvider theme={getTheme(theme)}>
-      <Hidden xsDown>
-        <LoginBackgroundComponent company />
-        <Fade in>
-          <div className={classes.header}>
-            <img src={src} className={classes.logo} alt={alt} />
+      {!props.simplifyUI && (
+        <Hidden xsDown>
+          <LoginBackgroundCssHoc company backgroundFixed />
+          <Fade in>
+            <div className="bs-confirm-email-header">
+              <img
+                src={src}
+                className="bs-confirm-email-header__logo"
+                alt={alt}
+              />
 
-            <LanguageButton />
-          </div>
-        </Fade>
-      </Hidden>
+              <LanguageButton />
+            </div>
+          </Fade>
+        </Hidden>
+      )}
       <Switch>
         <Route
           path="/login/email_confirmation/:uuid/"
@@ -79,27 +86,6 @@ export const ConfirmEmailRouter = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
-  loginContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    minHeight: '100vh',
-    zIndex: 2,
-  },
-  header: {
-    display: 'flex',
-    position: 'absolute',
-    padding: theme.spacing(5),
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    zIndex: 9,
-  },
-  logo: {
-    height: 50,
-  },
-}));
 export default compose(
   withQueryParams([['membership'], 'queryParams']),
   withProps(({ queryParams }) => ({

@@ -4,21 +4,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
 import { push, goBack as goBackRouter } from 'connected-react-router';
-import {
-  isWidthDown,
-  Paper,
-  withWidth,
-  Theme,
-  makeStyles,
-} from '@material-ui/core';
-import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
+import { withWidth } from '@material-ui/core';
 import withQueryParams from '#hocs/with-query-params.hoc';
-import { EmailConfirmation } from '#libs/login/components/EmailConfirmation.component';
+import { EmailConfirmation } from '#libs/login/components/email-confirmation/EmailConfirmation.component';
 import {
   sendEmailForConfirmation as sendEmailForConfirmationAction,
   disconnect as disconnectAction,
   goToLastCompanySignup as goToLastCompanySignupAction,
-} from '../../actions/auth.actions';
+} from '../../../actions/auth.actions';
+
+import './EmailConfirmationStyles.css';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 type Props = {
   sendEmailForConfirmation: (companyId: number, options: any) => void;
@@ -29,17 +25,17 @@ type Props = {
   goToCompanySignup: (companyId: number) => void;
   isAuthenticated: boolean;
 
-  width: Breakpoint;
+  simplifyUI?: boolean;
 };
 
 export const EmailConfirmationPage = (props: Props) => {
   const {
-    width,
     companyId,
     goToLastCompanySignup,
     isAuthenticated,
     goToCompanySignup,
     disconnect,
+    simplifyUI,
   } = props;
 
   const goBackToSignup = () => {
@@ -51,10 +47,8 @@ export const EmailConfirmationPage = (props: Props) => {
     disconnect();
   };
 
-  const classes = useStyles();
-  const isMobile = isWidthDown('sm', width);
   return (
-    <Paper className={classes.container}>
+    <div className="bs-email-confirmation-container">
       <div>
         <EmailConfirmation
           goBackToLogin={goBackToSignup}
@@ -62,34 +56,13 @@ export const EmailConfirmationPage = (props: Props) => {
             props.sendEmailForConfirmation(props?.companyId, options)
           }
           lastTimeSentEmailConfirmation={props.lastTimeSentEmailConfirmation}
-          isMobile={isMobile}
+          simplifyUI={simplifyUI}
+          company={!!companyId}
         />
       </div>
-    </Paper>
+    </div>
   );
 };
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    textAlign: 'center',
-    padding: 0,
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    background: 'transparent',
-    boxShadow: 'none',
-    minWidth: '80%',
-    maxWidth: '800px',
-  },
-  bsportLogo: {
-    marginTop: 30,
-    height: 80,
-    width: 80,
-  },
-  content: {
-    padding: theme.spacing(1),
-  },
-}));
 
 export default compose(
   connect(
@@ -117,4 +90,5 @@ export default compose(
     token: queryParams?.token,
   })),
   withWidth(),
+  marketplaceCssHoc(),
 )(EmailConfirmationPage);

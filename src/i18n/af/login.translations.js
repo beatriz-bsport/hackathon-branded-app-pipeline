@@ -92,7 +92,7 @@ exports.default = {
     title: 'Votre inscription a bien été enregistrée',
     textExplain:
       "Un email de confirmation vient de vous être envoyé afin de confirmer l'adresse mail indiquée. Pour finaliser votre inscription, cliquez sur le lien pour activer votre compte.",
-    backToLogin: 'Retour',
+    backToLogin: 'Retour à la page de connexion',
     notReceived: "Vous n'avez rien reçu ?",
     clickHere: 'Cliquez ici',
     helperToSendOnceAgain: "pour envoyer de nouveau l'email de confirmation",

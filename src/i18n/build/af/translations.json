@@ -4979,7 +4979,11 @@
     },
     "forms": {
       "cancelPayment": "Précédent",
-      "savePaymentMethod": { "label": "Sauvegarder ce moyen de paiement", "section": "Sélectionner une méthode de paiement" },
+      "savePaymentMethod": {
+        "label": "Sauvegarder ce moyen de paiement",
+        "select": "Sélectionner une méthode de paiement",
+        "add": "Données de paiement"
+      },
       "credit": { "explain": "Votre club sera informé du débit, vous règlerez cette commande sur place", "pay": "Confirmer" },
       "paymentIntent": { "pay": "Payer" },
       "paymentMethod": {

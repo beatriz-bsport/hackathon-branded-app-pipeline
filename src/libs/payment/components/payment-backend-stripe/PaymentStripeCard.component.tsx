@@ -308,7 +308,11 @@ const StripePaymentCard = forwardRef(
     return (
       <form onSubmit={handleSubmit} className={classes.container}>
         <Typography variant="h6">
-          {t('payment:forms.savePaymentMethod.section')}
+          {t(
+            `payment:forms.savePaymentMethod.${
+              addPaymentMethod ? 'add' : 'select'
+            }`,
+          )}
         </Typography>
         {addPaymentMethod && (
           <div>

@@ -177,7 +177,11 @@ const OfferSummary: React.FC<Props> = (props) => {
           {establishment && theme?.show_establishment && (
             <div className={classes.lineGap1}>
               <LocationOn className={classes.icon} />
-              <Typography>{`${establishment?.title} - ${establishment?.location?.address}`}</Typography>
+              <Typography>
+                {variant === 'default'
+                  ? `${establishment?.title} - ${establishment?.location?.address}`
+                  : `${establishment?.title}`}
+              </Typography>
             </div>
           )}
 

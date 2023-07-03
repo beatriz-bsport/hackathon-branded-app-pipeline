@@ -150,7 +150,8 @@ exports.default = {
     cancelPayment: 'Précédent',
     savePaymentMethod: {
       label: 'Sauvegarder ce moyen de paiement',
-      section: 'Sélectionner une méthode de paiement',
+      select: 'Sélectionner une méthode de paiement',
+      add: 'Données de paiement',
     },
     credit: {
       explain:

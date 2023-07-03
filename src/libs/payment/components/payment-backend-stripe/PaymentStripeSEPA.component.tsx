@@ -456,7 +456,11 @@ export const PaymentStripeSEPA = forwardRef(
         style={{ display: 'flex', flexDirection: 'column' }}
       >
         <Typography variant="h6">
-          {t('payment:forms.savePaymentMethod.section')}
+          {t(
+            `payment:forms.savePaymentMethod.${
+              addPaymentMethod ? 'add' : 'select'
+            }`,
+          )}
         </Typography>
         {addPaymentMethod && (
           <div>
@@ -580,6 +584,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
+    margin: theme.spacing(2),
   },
   sensitiveData: {
     backgroundColor: '#EFEFEF',
@@ -594,6 +599,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     margin: theme.spacing(2),
+    gap: theme.spacing(2),
   },
   mandate: {
     padding: theme.spacing(2),

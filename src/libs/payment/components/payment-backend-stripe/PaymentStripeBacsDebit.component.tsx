@@ -351,6 +351,13 @@ const PaymentStripeBacsDebit = forwardRef(
 
     return (
       <form onSubmit={handleSubmit}>
+        <Typography variant="h6">
+          {t(
+            `payment:forms.savePaymentMethod.${
+              addPaymentMethod ? 'add' : 'select'
+            }`,
+          )}
+        </Typography>
         {addPaymentMethod && (
           <div>
             <PaymentElement />

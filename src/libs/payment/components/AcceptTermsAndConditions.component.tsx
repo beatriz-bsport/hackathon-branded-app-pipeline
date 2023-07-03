@@ -88,14 +88,14 @@ type NewCheckoutFlowThemeProps = {
   isNewCheckoutFlow?: boolean;
 };
 
-const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
+const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>(() => ({
   container: ({ isNewCheckoutFlow }) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
     width: '100%',
-    ...(isNewCheckoutFlow ? { marginLeft: theme.spacing(2) } : {}),
+    ...(isNewCheckoutFlow ? { marginLeft: '9.5px' } : {}),
   }),
   termsAndConditions: {
     display: 'flex',

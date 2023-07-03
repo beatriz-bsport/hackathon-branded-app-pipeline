@@ -26,6 +26,9 @@ const styles = (theme: Theme) => ({
   formContainer: {
     margin: theme.spacing(2),
   },
+  button: (props: Props) => ({
+    borderRadius: props.simplifyUI ? 24 : 8,
+  }),
 });
 
 type OwnProps = {
@@ -37,6 +40,7 @@ type OwnProps = {
   };
   classes: Object;
   membership: number | null;
+  simplifyUI?: boolean;
 };
 
 type Props = OwnProps &
@@ -187,8 +191,9 @@ export class ChangePassword extends Component<Props, State> {
                   variant="contained"
                   type="submit"
                   id="btn-new-password-confirm"
+                  className={classes.button}
                 >
-                  OK
+                  {t('common.ok')}
                 </Button>
               )}
               {!!hasExpired && (
@@ -201,6 +206,7 @@ export class ChangePassword extends Component<Props, State> {
                   }
                   color="primary"
                   variant="contained"
+                  className={classes.button}
                 >
                   {this.props.t('form.login.resetAgainPassword')}
                 </Button>
@@ -260,7 +266,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(
   withStyles(styles),
-  withTranslation(),
+  withTranslation(['translation', 'common']),
   withProps((props) => {
     const { membership, franchisor } = parseQueryString(
       props.location?.search || '',

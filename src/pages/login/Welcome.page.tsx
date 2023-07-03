@@ -3,17 +3,8 @@ import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
-import {
-  Fade,
-  Hidden,
-  isWidthDown,
-  MuiThemeProvider,
-  Paper,
-  withWidth,
-} from '@material-ui/core';
+import { Fade, Hidden, MuiThemeProvider, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import classNames from 'classnames';
-import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import themeSelectors from '#libs/theme/selectors';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import Welcome from '#libs/login/components/Welcome.component';
@@ -28,16 +19,13 @@ type Props = {
   fetchCompanyTheme: any;
   companyId: number;
   theme: CompanyTheme;
-
-  width: Breakpoint;
+  simplifyUI?: boolean;
 };
 
 export const WelcomePage = (props: Props) => {
   const classes = useStyles();
 
   const { fetchCompanyTheme, companyId } = props;
-
-  const isMobile = isWidthDown('xs', props.width);
 
   useEffect(() => {
     fetchCompanyTheme(companyId);
@@ -51,28 +39,26 @@ export const WelcomePage = (props: Props) => {
 
   return (
     <MuiThemeProvider theme={getTheme(props.theme)}>
-      <Hidden xsDown>
-        <LoginBackgroundComponent company />
-        <Fade in>
-          <div className={classes.header}>
-            <img src={src} className={classes.logo} alt={alt} />
+      {!props.simplifyUI && (
+        <Hidden xsDown>
+          <LoginBackgroundComponent company />
+          <Fade in>
+            <div className={classes.header}>
+              <img src={src} className={classes.logo} alt={alt} />
 
-            <LanguageButton />
-          </div>
-        </Fade>
-      </Hidden>
-      <Paper
-        className={classNames(classes.container, {
-          [classes.containerIsMobile]: isMobile,
-        })}
-      >
+              <LanguageButton />
+            </div>
+          </Fade>
+        </Hidden>
+      )}
+      <Paper className={classes.container}>
         <Welcome
           companyName={props.theme.company_name}
           urlRedirection={
             props.theme.confirm_email_url_redirection ||
             `${Config.PUBLIC_URL}/c/${props.companyId}`
           }
-          isMobile={isMobile}
+          simplifyUI={props.simplifyUI}
         />
       </Paper>
     </MuiThemeProvider>
@@ -89,9 +75,9 @@ const useStyles = makeStyles((theme) => ({
     background: 'transparent',
     boxShadow: 'none',
     minWidth: '340px',
-  },
-  containerIsMobile: {
-    top: '50%',
+    [theme.breakpoints.down('xs')]: {
+      top: '50%',
+    },
   },
   loginContainer: {
     display: 'flex',
@@ -124,7 +110,6 @@ export default compose(
   withProps(({ membership }) => ({
     companyId: parseInt(membership),
   })),
-  withWidth(),
   connect(
     (state) => ({
       theme: themeSelectors.getTheme(state),

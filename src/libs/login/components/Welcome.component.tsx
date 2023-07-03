@@ -10,14 +10,14 @@ import { lighten } from '@material-ui/core/styles/colorManipulator';
 import { Theme } from '@material-ui/core/styles/createTheme';
 import { Typography } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/styles';
-import LoginTitle from './LoginTitle.component';
+import { LoginTitleCssHoc } from './LoginTitle.component';
 import WelcomeIcon from '#components/icons/WelcomeIcon.component';
 import { httpParser } from '#libs/marketplace/utils';
 
 type Props = {
   companyName: string;
   urlRedirection: string;
-  isMobile: boolean;
+  simplifyUI?: boolean;
 };
 
 export const WelcomeComponent = (props: Props) => {
@@ -27,22 +27,26 @@ export const WelcomeComponent = (props: Props) => {
 
   return (
     <div className={classes.content}>
-      <LoginTitle
+      <LoginTitleCssHoc
         title={t('welcome.title', { companyName: props.companyName })}
-        isMobile={props.isMobile}
+        company={!!props.companyName}
+        simplifyUI={props.simplifyUI}
       />
-      <div className={classes.welcomeIconContainer}>
-        <WelcomeIcon
-          className={classes.welcomeIcon}
-          fill={theme.palette.primary.main}
-        />
-      </div>
+      {!props.simplifyUI && (
+        <div className={classes.welcomeIconContainer}>
+          <WelcomeIcon
+            className={classes.welcomeIcon}
+            fill={theme.palette.primary.main}
+          />
+        </div>
+      )}
       <Typography variant="body1" className={classes.textExplain}>
         {t('welcome.textExplain')}
       </Typography>
       <Button
         color="primary"
         variant="contained"
+        id="btn-begin"
         onClick={() => {
           window.location.href = httpParser(props.urlRedirection);
         }}

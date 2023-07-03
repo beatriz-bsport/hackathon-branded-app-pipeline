@@ -733,7 +733,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
             stripeBalanceSum={this.props.stripeBalanceSum}
           />
           <CheckPermission requiredPermissions="member.retrieve">
-            {this.props.invoice.member && (
+            {this.props.invoice.member && !this.props.invoice.is_member_pos && (
               <div className={this.props.classes.navigationButton}>
                 <Grow in={this.props.invoice && this.props.invoice.member}>
                   <CreditMemberBadge

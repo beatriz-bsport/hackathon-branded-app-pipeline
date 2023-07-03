@@ -118,6 +118,12 @@ const PaymentActions: FC<{
       </div>
     );
   }
+
+  const shouldPaymentPanelActionsBeDisplayed =
+    !props.is_reverse &&
+    !props.invoice.reverse_invoices?.length &&
+    !props.invoice.is_member_pos;
+
   return (
     <React.Fragment>
       {props.invoice.invoice_type === INVOICE_TYPE_REGULAR &&
@@ -164,7 +170,7 @@ const PaymentActions: FC<{
             </div>
           </div>
         )}
-      {!props.is_reverse && !props.invoice.reverse_invoices.length && (
+      {shouldPaymentPanelActionsBeDisplayed && (
         <div className={classes.row}>
           <div className={classes.buttonRow}>
             {props.invoice.invoice_type === INVOICE_TYPE_REGULAR && (
@@ -333,6 +339,11 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
     [props.plannedPaymentEventList],
   );
 
+  const paymentActionsLoading =
+    !props.accountBalance &&
+    props.accountBalance !== 0 &&
+    !props.invoice.is_member_pos;
+
   return (
     <div className={classes.container}>
       <div className={classes.innerContainer}>
@@ -497,7 +508,7 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
           amountToPayCts={amountToPayCts}
           onPaymentIntent={props.onPaymentIntent}
           onInstalmentPayment={props.onInstalmentPayment}
-          loading={!props.accountBalance && props.accountBalance !== 0}
+          loading={paymentActionsLoading}
           companyId={props.companyId}
           snackbarSuccess={props.snackbarSuccess}
           consumerGiftcardList={props.consumerGiftcardList}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
@@ -121,7 +120,11 @@ export const InvoiceHeader = (props: Props) => {
         <div className={classes.row}>
           <PersonIcon fontSize="small" className={classes.leftIcon} />
           <Typography color="textSecondary">
-            {(invoice && invoice.member && invoice.member.name) || ''}
+            {(invoice?.member &&
+              (invoice.is_member_pos
+                ? t('anonymousMember')
+                : invoice.member.name)) ||
+              ''}
           </Typography>
         </div>
         <div className={classes.row}>
@@ -264,4 +267,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default InvoiceHeader;
+export default React.memo(InvoiceHeader);

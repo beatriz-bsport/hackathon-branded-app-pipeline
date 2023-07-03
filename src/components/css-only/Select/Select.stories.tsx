@@ -1,24 +1,25 @@
-// @ts-nocheck
 import React from 'react';
 
 import { Props, SelectForStorybook } from '#components/css-only/Select';
-import { paymentPackFactory } from '#libs/payment-packs/factory';
-import { LOCALE_LIST } from '../../input/LocaleSelector.component.tsx';
+import { paymentPackListFactory } from '#libs/payment-packs/factory';
+import { LOCALE_LIST } from '../../input/LocaleSelector.component';
 
 import './style.css';
 import { useTranslation } from 'react-i18next';
 
-const options: { label: string; value: string }[] = paymentPackFactory(20).map(
+const options: { label: string; value: string }[] = paymentPackListFactory(20).map(
   (paymentPack) => ({
     label: paymentPack.name,
     value: paymentPack.id.toString(),
   }),
 );
 
+// @ts-expect-error
 const SelectTemplate = (args: Props) => <SelectForStorybook {...args} />;
 const CountrySelectTemplate = (args: Props) => {
   const { t } = useTranslation('login');
   return (
+    // @ts-expect-error
     <SelectForStorybook
       options={LOCALE_LIST.map((localeContainer) => {
         const [_, country] = localeContainer.locale.split('_');
@@ -73,8 +74,7 @@ CountrySelect.args = {
   classes: { buttonContainer: 'bs-select__button__square' },
   value: 'FR',
   placeholder: 'Select a country',
-  onChange: (country: string) =>
-    handleChangeBillingDetails(country, 'address.country'),
+  onChange: () => {},
 };
 
 export default {

@@ -288,18 +288,6 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
       [],
     );
 
-    const isZeroPrice = useMemo(() => {
-      if (contract) {
-        return (
-          contract.recurrent_price +
-            (parseInt(contract.flat_fee, 10) || 0) -
-            (voucher || 0) <=
-          0
-        );
-      }
-      return false;
-    }, [contract, voucher]);
-
     const isDisplayPaymentMethodList = useMemo(
       () =>
         [
@@ -346,60 +334,55 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
             />
 
             {(enabledPaymentMethodsIds?.length > 1 ||
-              enabledPaymentGroupMethodIdentifierIds?.length > 1) &&
-              !isZeroPrice && (
-                <div className="bs-contract-payment__payment__method__switcher">
-                  {getIsPaymentMethodAvailable(
-                    BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-                    PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-                  ) && (
+              enabledPaymentGroupMethodIdentifierIds?.length > 1) && (
+              <div className="bs-contract-payment__payment__method__switcher">
+                {getIsPaymentMethodAvailable(
+                  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+                ) && (
+                  <Radio
+                    className="bs-contract-payment__payment__method__option"
+                    name="payment-method-card"
+                    value={MarketplacePaymentMethods.card}
+                    label={t('subscription:paymentMethod.card')}
+                    isChecked={paymentMethod === MarketplacePaymentMethods.card}
+                    disabled={!isContractLegalTermsAccepted}
+                    onClick={handleSetPaymentMethod}
+                  />
+                )}
+                {getIsPaymentMethodAvailable(
+                  BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+                ) && (
+                  <Radio
+                    className="bs-contract-payment__payment__method__option"
+                    name="payment-method-bacs_debit"
+                    value={MarketplacePaymentMethods.bacs}
+                    label={t('subscription:paymentMethod.bacs_debit')}
+                    isChecked={paymentMethod === MarketplacePaymentMethods.bacs}
+                    disabled={!isContractLegalTermsAccepted}
+                    onClick={handleSetPaymentMethod}
+                  />
+                )}
+                {getIsPaymentMethodAvailable(
+                  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+                  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+                ) &&
+                  isCurrencyEuro && (
                     <Radio
                       className="bs-contract-payment__payment__method__option"
-                      name="payment-method-card"
-                      value={MarketplacePaymentMethods.card}
-                      label={t('subscription:paymentMethod.card')}
+                      name="payment-method-sepa_debit"
+                      value={MarketplacePaymentMethods.sepa}
+                      label={t('subscription:paymentMethod.sepa')}
                       isChecked={
-                        paymentMethod === MarketplacePaymentMethods.card
+                        paymentMethod === MarketplacePaymentMethods.sepa
                       }
                       disabled={!isContractLegalTermsAccepted}
                       onClick={handleSetPaymentMethod}
                     />
                   )}
-                  {getIsPaymentMethodAvailable(
-                    BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
-                    PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
-                  ) && (
-                    <Radio
-                      className="bs-contract-payment__payment__method__option"
-                      name="payment-method-bacs_debit"
-                      value={MarketplacePaymentMethods.bacs}
-                      label={t('subscription:paymentMethod.bacs_debit')}
-                      isChecked={
-                        paymentMethod === MarketplacePaymentMethods.bacs
-                      }
-                      disabled={!isContractLegalTermsAccepted}
-                      onClick={handleSetPaymentMethod}
-                    />
-                  )}
-                  {getIsPaymentMethodAvailable(
-                    BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-                    PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-                  ) &&
-                    isCurrencyEuro && (
-                      <Radio
-                        className="bs-contract-payment__payment__method__option"
-                        name="payment-method-sepa_debit"
-                        value={MarketplacePaymentMethods.sepa}
-                        label={t('subscription:paymentMethod.sepa')}
-                        isChecked={
-                          paymentMethod === MarketplacePaymentMethods.sepa
-                        }
-                        disabled={!isContractLegalTermsAccepted}
-                        onClick={handleSetPaymentMethod}
-                      />
-                    )}
-                </div>
-              )}
+              </div>
+            )}
           </div>
 
           {isDisplayPaymentMethodList && (

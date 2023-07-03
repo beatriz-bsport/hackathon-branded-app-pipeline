@@ -11,7 +11,12 @@ import {
   goBack,
   push as pushRouter,
 } from 'connected-react-router';
-import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items';
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_SHOP_ITEM,
+  BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_COMBO_ITEM,
+} from '@bsport/common/lib/master-data/buyable-items';
 import { withTranslation } from 'react-i18next';
 
 import {
@@ -126,7 +131,7 @@ type Props = {
   addItemToBasket: (
     basketId: string,
     data: any,
-    options: OptionCallback,
+    options?: OptionCallback,
   ) => void,
 
   snackbarError: (string) => void,
@@ -270,6 +275,7 @@ export class BasketPage extends React.Component<Props> {
     validateUnpaidAPI(this.props.basket.id)
       .then(() => {
         this.props.onSuccess();
+        Analytics.onPaymentSuccess(this.props.basket);
         if (options && options.onSuccess) {
           options.onSuccess();
         }
@@ -674,18 +680,72 @@ export default compose(
           },
         }),
   }),
-
+  withHandlers({
+    trackOnAddingOne:
+      () => (checkoutItemAnalyticsData: CheckoutItemAnalytics) => {
+        switch (checkoutItemAnalyticsData.buyable_item_identifier) {
+          case BUYABLE_ITEM_PRIVATE_PASS:
+            Analytics.addPrivatePassToCart(
+              checkoutItemAnalyticsData.checkoutItemToTrack,
+            );
+            break;
+          case BUYABLE_ITEM_SHOP_ITEM:
+            Analytics.addShopItemToCart(
+              checkoutItemAnalyticsData.checkoutItemToTrack,
+            );
+            break;
+          case BUYABLE_ITEM_COMBO_ITEM:
+            Analytics.addPackToCart(
+              checkoutItemAnalyticsData.checkoutItemToTrack,
+            );
+            break;
+          case BUYABLE_ITEM_PASS:
+            Analytics.addPassToCart(
+              checkoutItemAnalyticsData.checkoutItemToTrack,
+              'payment_pack',
+            );
+            break;
+          default:
+            break;
+        }
+      },
+  }),
   withHandlers({
     addItemToBasket:
-      ({ addItemToBasket, basket, fetchInstalmentPaymentByBasket }) =>
-      (basketId, data, options) =>
-        addItemToBasket(basketId, data, {
-          onSuccess: () => {
-            fetchInstalmentPaymentByBasket(basket.id);
-            if (options && options.onSuccess) options.onSuccess();
+      ({
+        addItemToBasket,
+        basket,
+        fetchInstalmentPaymentByBasket,
+        trackOnAddingOne,
+      }) =>
+      (basketId, addCheckoutItemData, options) =>
+        addItemToBasket(
+          basketId,
+          {
+            quantity: addCheckoutItemData.quantity,
+            buyable_item_identifier:
+              addCheckoutItemData.buyable_item_identifier,
+            buyable_item_id: addCheckoutItemData.buyable_item_id,
+            extra_data: addCheckoutItemData.extra_data,
           },
-          onError: options?.onError,
-        }),
+          {
+            onSuccess: () => {
+              fetchInstalmentPaymentByBasket(basket.id);
+              if (options && options.onSuccess) options.onSuccess();
+              if (addCheckoutItemData.name && addCheckoutItemData.price)
+                trackOnAddingOne({
+                  checkoutItemToTrack: {
+                    name: addCheckoutItemData.name,
+                    id: addCheckoutItemData.buyable_item_id,
+                    price: addCheckoutItemData.price,
+                  },
+                  buyable_item_identifier:
+                    addCheckoutItemData.buyable_item_identifier,
+                });
+            },
+            onError: options?.onError,
+          },
+        ),
     removeItemFromBasket:
       ({ removeItemFromBasket, basket, fetchInstalmentPaymentByBasket }) =>
       (basketId, data) =>

@@ -94,8 +94,8 @@ export const CheckoutFlow: React.FC<Props> = (props) => {
           onRemoveCheckoutItem={(data) =>
             props.removeItemFromBasket(props.basket.id, data)
           }
-          onAddCheckoutItem={(data, options) => {
-            props.addItemToBasket(props.basket.id, data, options);
+          onAddCheckoutItem={(data) => {
+            props.addItemToBasket(props.basket.id, data);
           }}
           onItemExpire={props.onItemExpire}
           onRemoveInternalAccountPrepaidLine={

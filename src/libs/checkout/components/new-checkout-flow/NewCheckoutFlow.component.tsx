@@ -343,8 +343,8 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   );
 
   const handleAddCheckoutItem = React.useCallback(
-    (handleAddCheckoutItemData: CheckoutItemData, options: OptionCallback) => {
-      addItemToBasket(basket.id, handleAddCheckoutItemData, options);
+    (handleAddCheckoutItemData: CheckoutItemData) => {
+      addItemToBasket(basket.id, handleAddCheckoutItemData);
     },
     [addItemToBasket, basket.id],
   );

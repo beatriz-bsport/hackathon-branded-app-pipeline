@@ -6,13 +6,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import {
-  BUYABLE_ITEM_PASS,
-  BUYABLE_ITEM_SHOP_ITEM,
-  BUYABLE_ITEM_PRIVATE_PASS,
-  BUYABLE_ITEM_COMBO_ITEM,
-} from '@bsport/common/lib/master-data/buyable-items';
-import { OptionCallback } from '../../../state/types';
 
 import CheckoutItemListItem from './CheckoutItemListItem.component';
 import PrepaidLineListItem from './PrepaidLineListItem.component';
@@ -20,7 +13,6 @@ import PrepaidLineListItem from './PrepaidLineListItem.component';
 import { CheckoutItem, Basket, CheckoutItemData, PrepaidLine } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { getBasketTotalPriceExcludingTax } from '../utils';
-import Analytics from '#components/analytics/Analytics.component';
 
 const useStyles = makeStyles((theme: Theme) => ({
   centeredAndPadded: {
@@ -56,7 +48,7 @@ type Props = {
     checkout_item: string;
     quantity: number;
   }) => void;
-  onAddCheckoutItem: (data: CheckoutItemData, options?: OptionCallback) => void;
+  onAddCheckoutItem: (data: CheckoutItemData) => void;
   withPrice?: boolean;
   loading?: boolean;
   fullWidth?: boolean;
@@ -80,61 +72,37 @@ export const BasketConsumer = (props: Props) => {
     ? getBasketTotalPriceExcludingTax(props.basket)
     : props.basket.total_price;
 
-  const trackOnAddingOne = (ci: CheckoutItem) => {
-    const objToTrack = {
-      name: ci.name,
-      id: ci.buyable_item_id,
-      price: Number(ci.unit_price),
-    };
-    switch (ci.buyable_item_identifier) {
-      case BUYABLE_ITEM_PRIVATE_PASS:
-        Analytics.addPrivatePassToCart(objToTrack);
-        break;
-      case BUYABLE_ITEM_SHOP_ITEM:
-        Analytics.addShopItemToCart(objToTrack);
-        break;
-      case BUYABLE_ITEM_COMBO_ITEM:
-        Analytics.addPackToCart(objToTrack);
-        break;
-      case BUYABLE_ITEM_PASS:
-        Analytics.addPassToCart(objToTrack, 'payment_pack');
-        break;
-      default:
-        break;
-    }
-  };
-
   return (
     <div className={props.fullWidth === true ? classes.fullWidth : ''}>
       {props.loading ? <LinearProgress /> : null}
       <List dense disablePadding>
         {props.basket.checkout_items.length ? (
           <>
-            {props.basket.checkout_items.map((ci) => (
+            {props.basket.checkout_items.map((checkoutItem) => (
               <CheckoutItemListItem
                 isExcludingTax={props.isExcludingTax}
-                checkout_item={ci}
-                key={ci.id}
+                checkout_item={checkoutItem}
+                key={checkoutItem.id}
                 loading={props.loading}
                 onRemoveOne={
                   props.onRemoveCheckoutItem
                     ? () =>
                         props.onRemoveCheckoutItem({
-                          checkout_item: ci.id,
+                          checkout_item: checkoutItem.id,
                           quantity: 1,
                         })
                     : null
                 }
                 onAddOne={() => {
-                  props.onAddCheckoutItem(
-                    {
-                      quantity: 1,
-                      buyable_item_identifier: ci.buyable_item_identifier,
-                      buyable_item_id: ci.buyable_item_id,
-                      extra_data: null,
-                    },
-                    { onSuccess: () => trackOnAddingOne(ci) },
-                  );
+                  props.onAddCheckoutItem({
+                    quantity: 1,
+                    buyable_item_identifier:
+                      checkoutItem.buyable_item_identifier,
+                    buyable_item_id: checkoutItem.buyable_item_id,
+                    extra_data: null,
+                    name: checkoutItem.name,
+                    price: Number(checkoutItem.unit_price),
+                  });
                 }}
                 onItemExpire={props.onItemExpire}
               />

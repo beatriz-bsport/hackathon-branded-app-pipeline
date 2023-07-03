@@ -58,6 +58,24 @@ export type CheckoutItemData = {
   extra_data: { [key: string]: string | number };
 };
 
+export type CheckoutItemAnalytics = {
+  objectToTrack: {
+    name: string;
+    id: number | string;
+    price: number;
+  };
+  buyable_item_identifier: number;
+};
+
+export type HandleAddCheckoutItemData = {
+  buyable_item_id: number | string;
+  buyable_item_identifier: number;
+  quantity: number;
+  extra_data: { [key: string]: string | number };
+  name: string;
+  price: number;
+};
+
 export type CheckoutItemExtraData = {
   offers_data?: Array<CheckoutItemOfferData>;
 };

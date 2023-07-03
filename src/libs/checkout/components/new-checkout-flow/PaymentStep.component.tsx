@@ -5,8 +5,6 @@ import type { OptionCallback } from '../../../../state/types';
 import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
 import PaymentStripe from '#libs/payment/components/payment-backend-stripe/PaymentStripe.component';
 import { BasketNullPrice } from './BasketNullPrice.component';
-// @ts-ignore
-import Analytics from '#components/analytics/Analytics.component';
 import { Basket, PrepaidLine } from '#libs/checkout/types';
 import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
 
@@ -126,7 +124,6 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       validateUnpaid({
         onSuccess: () => {
           setPaymentProcessing(false);
-          Analytics.onPaymentSuccess(basket);
         },
         onError: () => setPaymentProcessing(false),
       });

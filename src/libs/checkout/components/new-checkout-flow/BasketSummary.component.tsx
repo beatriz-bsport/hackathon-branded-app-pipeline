@@ -1,31 +1,21 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  BUYABLE_ITEM_PASS,
-  BUYABLE_ITEM_SHOP_ITEM,
-  BUYABLE_ITEM_PRIVATE_PASS,
-  BUYABLE_ITEM_COMBO_ITEM,
-} from '@bsport/common/lib/master-data/buyable-items';
 import { Divider } from '@material-ui/core';
-import { OptionCallback } from '../../../../state/types';
 import { NewCheckoutItemListItem } from './NewCheckoutItemListItem.component';
 import {
   CheckoutItem,
-  CheckoutItemData,
+  HandleAddCheckoutItemData,
   OnRemoveCheckoutItemData,
 } from '#libs/checkout/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-// @ts-ignore
-import Analytics from '#components/analytics/Analytics.component';
 
 type BasketSummaryProps = {
   basketSummaryCheckoutItems: Array<CheckoutItem>;
   isExcludingTax?: boolean;
   isItemEditionDisabled: boolean;
   onAddCheckoutItem: (
-    handleAddCheckoutItemData: CheckoutItemData,
-    options: OptionCallback,
+    handleAddCheckoutItemData: HandleAddCheckoutItemData,
   ) => void;
   onRemoveCheckoutItem: (onRemoveItemdata: OnRemoveCheckoutItemData) => void;
 };
@@ -39,43 +29,18 @@ export const BasketSummary: React.FC<BasketSummaryProps> = ({
 }) => {
   const classes = useStyles();
 
-  const trackOnAddingOne = React.useCallback((ci: CheckoutItem) => {
-    const objToTrack = {
-      name: ci.name,
-      id: ci.buyable_item_id,
-      price: Number(ci.unit_price),
-    };
-    switch (ci.buyable_item_identifier) {
-      case BUYABLE_ITEM_PRIVATE_PASS:
-        Analytics.addPrivatePassToCart(objToTrack);
-        break;
-      case BUYABLE_ITEM_SHOP_ITEM:
-        Analytics.addShopItemToCart(objToTrack);
-        break;
-      case BUYABLE_ITEM_COMBO_ITEM:
-        Analytics.addPackToCart(objToTrack);
-        break;
-      case BUYABLE_ITEM_PASS:
-        Analytics.addPassToCart(objToTrack, 'payment_pack');
-        break;
-      default:
-        break;
-    }
-  }, []);
-
   const onAddOneItem = React.useCallback(
     (checkoutItem: CheckoutItem) => {
-      onAddCheckoutItem(
-        {
-          quantity: 1,
-          buyable_item_identifier: checkoutItem.buyable_item_identifier,
-          buyable_item_id: checkoutItem.buyable_item_id,
-          extra_data: null,
-        },
-        { onSuccess: () => trackOnAddingOne(checkoutItem) },
-      );
+      onAddCheckoutItem({
+        quantity: 1,
+        buyable_item_identifier: checkoutItem.buyable_item_identifier,
+        buyable_item_id: checkoutItem.buyable_item_id,
+        extra_data: null,
+        name: checkoutItem.name,
+        price: Number(checkoutItem.unit_price),
+      });
     },
-    [onAddCheckoutItem, trackOnAddingOne],
+    [onAddCheckoutItem],
   );
 
   return (

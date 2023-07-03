@@ -15,7 +15,6 @@ import {
   CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
   CB as PAYMENT_METHOD_CB,
 } from '@bsport/common/lib/master-data/payment-methods';
-import Analytics from '#components/analytics/Analytics.component';
 
 import type { Basket } from '../types';
 
@@ -137,7 +136,6 @@ export class BasketFinalizer extends React.Component<Props, State> {
                 this.props.validateUnpaid({
                   onSuccess: () => {
                     this.props.setProcessing(false);
-                    Analytics.onPaymentSuccess(this.props.basket);
                   },
                   onError: () => this.props.setProcessing(false),
                 });
@@ -224,7 +222,6 @@ export class BasketFinalizer extends React.Component<Props, State> {
                     this.props.validateUnpaid({
                       onSuccess: () => {
                         this.props.setProcessing(false);
-                        Analytics.onPaymentSuccess(this.props.basket);
                       },
                       onError: () => this.props.setProcessing(false),
                     });

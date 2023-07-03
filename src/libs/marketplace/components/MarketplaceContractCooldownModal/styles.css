@@ -60,3 +60,8 @@
   border-radius: var(--border-radius-10);
   background: none;
 }
+
+.bs-contract-cooldown-dialog__button:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
+import { CONTRACT_CHECKOUT_COOLDOWN_MODAL_SECONDS } from '#libs/marketplace/constants';
 
 import './styles.css';
 
@@ -17,10 +18,20 @@ const MarketplaceContractCooldownModal: React.FC<Props> = ({
   onDialogClose,
 }) => {
   const { t } = useTranslation('subscription');
+  const [modalCountdown, setModalCountdown] = useState(
+    CONTRACT_CHECKOUT_COOLDOWN_MODAL_SECONDS,
+  );
 
   const { dialogRef, modalRef } = useDialogClickAwayListener({
     onDialogClose,
   });
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setModalCountdown((seconds) => seconds - 1);
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <>
@@ -43,8 +54,11 @@ const MarketplaceContractCooldownModal: React.FC<Props> = ({
                 className="bs-contract-cooldown-dialog__button"
                 type="button"
                 onClick={onDialogClose}
+                disabled={modalCountdown > 0}
               >
-                {t('subscription:alreadySubscribed.dialog.validate')}
+                {modalCountdown > 0
+                  ? modalCountdown
+                  : t('subscription:alreadySubscribed.dialog.validate')}
               </button>
             </div>
           </div>

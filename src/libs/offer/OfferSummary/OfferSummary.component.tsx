@@ -32,7 +32,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 import { DEFAULT_AVATAR } from '#libs/associated-coach/utils';
-import { Offer, OfferStatus } from '#libs/offer/types';
+import type { OfferStatus, Offer_FULL, Offer } from '#libs/offer/types';
 import { CompanyTheme } from '#libs/theme/types';
 
 import BookingConfirmButton from '#libs/booking/components/BookingConfirmButton.component';
@@ -65,8 +65,10 @@ export type Props = {
           number,
           number
         >
-      >;
-  spotId?: number;
+      >
+    | Offer_FULL;
+
+  spotId?: string;
   price?: string;
   onConfirm?: () => void;
   disableButton?: boolean;
@@ -155,7 +157,7 @@ const OfferSummary: React.FC<Props> = (props) => {
           {(metaActivity?.is_broadcast || waitlistExists) && (
             <div className={classes.lineGap1}>
               {metaActivity?.is_broadcast && <MarketplaceBroadcastCSSOnly />}
-              {waitlistExists && (
+              {waitlistExists && offer.full && (
                 <Chip
                   icon={<HourglassFull fontSize="small" />}
                   label={
@@ -188,10 +190,10 @@ const OfferSummary: React.FC<Props> = (props) => {
           {relevantCoach && !theme?.hideCoach && variant === 'default' && (
             <div className={classes.itemWithIcon}>
               {displayCoachPicture ? (
-                <Avatar className={classes.avatar}>
-                  src=
-                  {relevantCoach?.photo ?? DEFAULT_AVATAR}
-                </Avatar>
+                <Avatar
+                  className={classes.avatar}
+                  src={relevantCoach?.photo ?? DEFAULT_AVATAR}
+                />
               ) : (
                 <Person className={classes.icon} />
               )}
@@ -220,41 +222,45 @@ const OfferSummary: React.FC<Props> = (props) => {
           )}
         </div>
       </div>
-      {!isWaitlistFull && onConfirm && variant === 'default' && (
+      {(!isWaitlistFull || isBookable) && onConfirm && variant === 'default' && (
         <div className={classes.columnGap2}>
-          {displayTax && (
-            <div className={classes.columnGap1}>
+          {!!price && (
+            <>
+              {displayTax && (
+                <div className={classes.columnGap1}>
+                  <div className={classes.price}>
+                    <Typography variant="body2" className={classes.grey}>
+                      {t(`checkout:payment.taxExcluded`)}
+                    </Typography>
+                    <Typography variant="body2">
+                      {getCurrencyDisplayWithPrice(price, true, tax)}
+                    </Typography>
+                  </div>
+                  <div className={classes.price}>
+                    <Typography variant="body2" className={classes.grey}>
+                      {t(`checkout:payment.tax`)}
+                    </Typography>
+                    <Typography variant="body2">
+                      {getCurrencyDisplayWithPrice(getTaxPrice(price, tax))}
+                    </Typography>
+                  </div>
+                </div>
+              )}
               <div className={classes.price}>
-                <Typography variant="body2" className={classes.grey}>
-                  {t(`checkout:payment.taxExcluded`)}
+                <Typography variant="h6">
+                  {t(`checkout:payment.globalTotal`)}
                 </Typography>
-                <Typography variant="body2">
-                  {getCurrencyDisplayWithPrice(price, true, tax)}
+                <Typography variant="h6">
+                  {getCurrencyDisplayWithPrice(price)}
                 </Typography>
               </div>
-              <div className={classes.price}>
-                <Typography variant="body2" className={classes.grey}>
-                  {t(`checkout:payment.tax`)}
-                </Typography>
-                <Typography variant="body2">
-                  {getCurrencyDisplayWithPrice(getTaxPrice(price, tax))}
-                </Typography>
-              </div>
-            </div>
+            </>
           )}
-          <div className={classes.price}>
-            <Typography variant="h6">
-              {t(`checkout:payment.globalTotal`)}
-            </Typography>
-            <Typography variant="h6">
-              {getCurrencyDisplayWithPrice(price)}
-            </Typography>
-          </div>
           <BookingConfirmButton
             value={
-              isWaitlistOpen
-                ? t(`booking:offer.mainButton.registerWaitingList`)
-                : t(`booking:notification.form.submit`)
+              !offer.full
+                ? t(`booking:notification.form.submit`)
+                : t(`booking:offer.mainButton.registerWaitingList`)
             }
             disabled={
               (offerStatus && !isBookable && !isWaitlistOpen) ||

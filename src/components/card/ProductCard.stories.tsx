@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { ProductCard, Props } from './ProductCard.component';
 
@@ -46,7 +45,7 @@ GenericProductCard.args = {
 };
 
 export default {
-  title: 'Components/Card',
+  title: 'Components/Cards/ProductCard',
   component: ProductCard,
   parameters: {
     docs: {

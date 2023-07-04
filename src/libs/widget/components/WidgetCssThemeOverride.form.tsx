@@ -149,12 +149,14 @@ export const WidgetCssThemeOverrideForm: React.FC<
               <ColorField
                 name="greyDark"
                 label={t('widget.cssEditor.typographyColor')}
+                buttonStyle={classes.colorButton}
               />
             </ResetableField>
             <ResetableField theme={theme} name="grey">
               <ColorField
                 name="grey"
                 label={t('widget.cssEditor.subtypographyColor')}
+                buttonStyle={classes.colorButton}
               />
             </ResetableField>
           </div>
@@ -169,18 +171,21 @@ export const WidgetCssThemeOverrideForm: React.FC<
               <ColorField
                 name="primaryColor"
                 label={t('widget.cssEditor.mainColor')}
+                buttonStyle={classes.colorButton}
               />
             </ResetableField>
             <ResetableField theme={theme} name="secondaryColor">
               <ColorField
                 name="secondaryColor"
                 label={t('widget.cssEditor.secondaryColor')}
+                buttonStyle={classes.colorButton}
               />
             </ResetableField>
             <ResetableField theme={theme} name="greyLight">
               <ColorField
                 name="greyLight"
                 label={t('widget.cssEditor.borderColor')}
+                buttonStyle={classes.colorButton}
               />
             </ResetableField>
           </div>
@@ -194,6 +199,7 @@ export const WidgetCssThemeOverrideForm: React.FC<
                 name="background"
                 label={t('widget.cssEditor.backgroundColorPage')}
                 withAlpha
+                buttonStyle={classes.colorButton}
               />
             </ResetableField>
             <ResetableField theme={theme} name="backgroundPaper">
@@ -201,6 +207,7 @@ export const WidgetCssThemeOverrideForm: React.FC<
                 name="backgroundPaper"
                 label={t('widget.cssEditor.backgroundColorElement')}
                 withAlpha
+                buttonStyle={classes.colorButton}
               />
             </ResetableField>
             <ResetableField theme={theme} name="secondaryBackgroundPaper">

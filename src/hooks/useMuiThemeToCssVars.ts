@@ -85,6 +85,8 @@ export const useMuiThemeToCssVars = () => {
     --color-error-contrastText: ${theme.palette.error.contrastText};
     --color-error-dark: ${theme.palette.error.dark};
     --color-error-light: ${theme.palette.error.light};
+    /* adding 19 at the end of a color sets the opacity to have a background effect */
+    --color-error-background: ${theme.palette.error.main}19;
     --color-error-main: ${theme.palette.error.main};
     --color-info-contrastText: ${theme.palette.info.contrastText};
     --color-info-dark: ${theme.palette.info.dark};
@@ -103,7 +105,11 @@ export const useMuiThemeToCssVars = () => {
     --color-success-contrastText: ${theme.palette.success.contrastText};
     --color-success-dark: ${theme.palette.success.dark};
     --color-success-light: ${theme.palette.success.light};
+    --color-success-background: ${theme.palette.success.main}19;
     --color-success-main: ${theme.palette.success.main};
+    --color-warning-light: ${theme.palette.warning.light};
+    --color-warning-background: ${theme.palette.warning.main}19;
+    --color-warning-main: ${theme.palette.warning.main};
     --color-grey-50: ${theme.palette.grey[50]};
     --color-grey-100: ${theme.palette.grey[100]};
     --color-grey-200: ${theme.palette.grey[200]};

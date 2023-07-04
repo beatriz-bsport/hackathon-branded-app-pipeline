@@ -1,0 +1,102 @@
+.bs-new-offer-booking {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: var(--spacing-4);
+  padding-bottom: 300px;
+  margin-top: var(--spacing-4);
+}
+
+.bs-new-offer-booking-with-header {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin-top: var(--spacing-4);
+}
+
+@media screen and (max-width: 570px) {
+  .bs-new-offer-booking-with-header {
+    width: 95%;
+  }
+}
+
+.bs-new-offer-booking__offer-summary {
+  width: 50%;
+}
+
+@media screen and (max-width: 570px) {
+  .bs-new-offer-booking__offer-summary {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: 9999;
+  }
+}
+
+.bs-new-offer-booking__waiting-list-warning {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-4);
+}
+
+.bs-new-offer-booking__cards-list {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bs-new-offer-booking__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.bs-new-offer-booking__consumer-payment-packs__arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-grey-main);
+  padding-left: 0;
+}
+
+.bs-new-offer-booking__consumer-payment-packs__title {
+  font-size: var(--h5-fontSize);
+  font-family: var(--h5-fontFamily);
+  margin-left: var(--spacing-2);
+}
+
+.bs-new-offer-booking__consumer-payment-packs__subtitle {
+  font-size: var(--h6-fontSize);
+  font-weight: 500;
+  font-family: var(--h6-fontFamily);
+  margin-bottom: var(--spacing-1);
+}
+
+.bs-new-offer-booking__skeleton {
+  font-size: var(--h6-fontSize);
+  font-weight: 500;
+  font-family: var(--h6-fontFamily);
+  margin-bottom: var(--spacing-1);
+}
+
+.bs-new-offer-booking__buyable_items__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: var(--spacing-4);
+  margin-bottom: var(--spacing-2);
+}
+
+.bs-new-offer-booking__buyable_items__header__arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-grey-main);
+  padding-left: 0;
+}
+
+.bs-new-offer-booking__buyable_items__header__title {
+  font-size: var(--h5-fontSize);
+  font-family: var(--h5-fontFamily);
+}

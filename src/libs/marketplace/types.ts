@@ -228,3 +228,25 @@ export type MarketplacePaymentMethodBillingDetails = {
     country: string;
   };
 };
+
+export type OfferFeature =
+  | {
+      isBookable: boolean;
+      isWaitingList: boolean;
+      loading: boolean;
+      isRegistered: boolean;
+      isRegisteredWaitingList: boolean;
+      noInteraction: boolean;
+      blocked_by_tags: boolean;
+      blockedByTags?: undefined;
+    }
+  | {
+      isBookable: boolean;
+      isWaitingList: boolean;
+      loading: boolean;
+      isRegistered: any;
+      isRegisteredWaitingList: boolean;
+      noInteraction: any;
+      blockedByTags: any;
+      blocked_by_tags?: undefined;
+    };

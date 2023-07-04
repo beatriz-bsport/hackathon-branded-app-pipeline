@@ -1,0 +1,64 @@
+.bs-marketplace-booking-blocked-reason {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bs-marketplace-booking-blocked-reason__icon-container {
+  border-radius: var(--spacing-1);
+  padding: var(--spacing-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bs-marketplace-booking-blocked-reason__icon-container--success {
+  background-color: var(--color-success-background);
+}
+.bs-marketplace-booking-blocked-reason__icon-container--warning {
+  background-color: var(--color-warning-background);
+}
+.bs-marketplace-booking-blocked-reason__icon-container--error {
+  background-color: var(--color-error-background);
+}
+
+.bs-marketplace-booking-blocked-reason__icon--success {
+  color: var(--color-success-main);
+}
+.bs-marketplace-booking-blocked-reason__icon--warning {
+  color: var(--color-warning-main);
+}
+.bs-marketplace-booking-blocked-reason__icon--error {
+  color: var(--color-error-main);
+}
+
+.bs-marketplace-booking-blocked-reason__title {
+  margin-top: var(--spacing-2);
+  font-size: var(--h6-fontSize);
+  font-weight: 500;
+  font-family: var(--h6-fontFamily);
+  color: var(--color-grey-dark);
+  text-align: center;
+}
+
+.bs-marketplace-booking-blocked-reason__message {
+  margin-top: var(--spacing-1);
+  font-size: var(--body1-fontSize);
+  font-family: var(--body1-fontFamily);
+  color: var(--color-grey-main);
+  text-align: center;
+}
+
+.bs-marketplace-booking-blocked-reason__back-button {
+  margin-top: var(--spacing-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: var(--color-grey-dark);
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  line-height: var(--button-lineHeight);
+}

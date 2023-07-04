@@ -25,6 +25,7 @@ export interface Props<T = unknown> {
   initialSelectedItemIndex?: number;
   renderItem: (item: T, index: number) => React.ReactElement;
   onSwipe?: (itemId: number | null) => void;
+  onScroll?: (itemid: number | null) => void;
 }
 
 export interface BaseData {
@@ -37,6 +38,7 @@ const Carousel = <T extends BaseData>({
   initialSelectedItemIndex,
   renderItem,
   onSwipe,
+  onScroll,
 }: Props<T>) => {
   const [currentIndex, setCurrentIndex] = useState<number>(null);
   const [lastClickAction, setlastClickAction] = useState(null);
@@ -113,11 +115,13 @@ const Carousel = <T extends BaseData>({
     onScrollDown: () => {
       if (itemCount > 1 && !isTransition) {
         handleNagivate(nextItemIndex);
+        onScroll && onScroll(data[nextItemIndex]?.id);
       }
     },
     onScrollUp: () => {
       if (itemCount > 1 && !isTransition) {
         handleNagivate(previousItemIndex);
+        onScroll && onScroll(data[previousItemIndex]?.id);
       }
     },
   });

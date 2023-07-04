@@ -33,6 +33,7 @@ export type Props = {
   isExcludingTax?: boolean;
   isExpanded?: boolean;
   isSelected?: boolean;
+  isContractObjectLoading: boolean;
   customRef?: React.RefObject<HTMLDivElement>;
   onSelect: (contract: Contract) => void;
   getPaymentPackSelected: (id: number) => PaymentPack;
@@ -47,6 +48,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
   isSelected,
   hideChooseButton,
   customRef,
+  isContractObjectLoading,
   onSelect,
   getPaymentPackSelected,
   getPrivatePassSelected,
@@ -202,14 +204,17 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                 'bs-contract-checkout__body__item',
             }}
           >
-            <div className="bs-contract-checkout__body__title">
-              <div className="bs-contract-checkout__body__title__rectangle" />
-              {objectIncludedInContract?.name ? (
-                <h4>{objectIncludedInContract?.name}</h4>
-              ) : (
-                <CircularProgress size="sm" />
-              )}
-            </div>
+            {(isContractObjectLoading || objectIncludedInContract?.name) && (
+              <div className="bs-contract-checkout__body__title">
+                <div className="bs-contract-checkout__body__title__rectangle" />
+                {isContractObjectLoading && !objectIncludedInContract?.name && (
+                  <CircularProgress size="sm" />
+                )}
+                {objectIncludedInContract?.name && (
+                  <h4>{objectIncludedInContract?.name}</h4>
+                )}
+              </div>
+            )}
             <div
               className={classNames('bs-contract-checkout__body__text', {
                 '--hide': !showMoreDescription,

@@ -12,26 +12,23 @@ export type Props = {
   onClick?: () => void;
 };
 
-export const Container: React.FC<Props> = ({
-  children,
-  size,
-  classes,
-  customRef,
-  onClick,
-}) => {
-  return (
-    <div
-      className={classNames('bs-generic-card', {
-        'size-m': !size,
-        [`size-${size}`]: size,
-        ...classes,
-      })}
-      onClick={onClick}
-      aria-hidden="true"
-      ref={customRef}
-    >
-      {children}
-    </div>
-  );
-};
+export const Container: React.FC<Props> = React.memo(
+  ({ children, size, classes, customRef, onClick }) => {
+    return (
+      <div
+        className={classNames('bs-generic-card', {
+          'size-m': !size,
+          [`size-${size}`]: size,
+          ...classes,
+        })}
+        onClick={onClick}
+        aria-hidden="true"
+        ref={customRef}
+      >
+        {children}
+      </div>
+    );
+  },
+);
+
 export default Container;

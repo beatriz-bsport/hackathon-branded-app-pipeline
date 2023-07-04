@@ -192,7 +192,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     }
 
     if (this.props.contractList?.length && this.selectedContractRef?.current) {
-      this.selectedContractRef.current.scrollIntoView({
+      this.selectedContractRef?.current?.scrollIntoView({
         block: 'center',
       });
     }
@@ -352,6 +352,19 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     return 0;
   };
 
+  getContractObjectLoading = (contract: Contract) => {
+    if (contract?.payment_pack) {
+      return this.props.paymentPackLoading;
+    }
+    if (contract?.private_pass) {
+      return this.props.privatePassLoading;
+    }
+    if (contract?.payment_combo) {
+      return this.props.paymentComboLoading;
+    }
+    return false;
+  };
+
   getCarouselRenderItem = (contractInCarousel: Contract) => {
     const contract =
       this.props.contractList.find(
@@ -364,6 +377,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
         hideChooseButton
         contract={contractInCarousel}
         isExpanded
+        isContractObjectLoading={this.getContractObjectLoading(
+          contractInCarousel,
+        )}
         isSelected={contract?.id === contractInCarousel.id}
         isExcludingTax={this.getIsTaxExcluded()}
         onSelect={this.handleSelectContract}
@@ -408,6 +424,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                   <MarketplaceContractCheckout
                     key={contractItem.id}
                     contract={contractItem}
+                    isContractObjectLoading={this.getContractObjectLoading(
+                      contractItem,
+                    )}
                     isExpanded={contract?.id === contractItem.id}
                     isSelected={contract?.id === contractItem.id}
                     isExcludingTax={this.getIsTaxExcluded()}
@@ -439,6 +458,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                     data={this.props.contractList}
                     renderItem={this.getCarouselRenderItem}
                     onSwipe={this.handleOnCarouselItemSwipe}
+                    onScroll={this.handleOnCarouselItemSwipe}
                   />
                 </div>
               )}
@@ -519,6 +539,9 @@ const mapStateToProps = (
   contractList: getMarketplaceContractList(state),
   contract: getContract(state, parseInt(contractId, 10)),
   contractLoading: state.subscription.contract.byMarketplace.loading,
+  paymentPackLoading: state.paymentPack.loading,
+  privatePassLoading: state.privateService.privatePass.loading,
+  paymentComboLoading: state.paymentCombo.loading,
   theme: themeSelectors.getTheme(state),
   savedPaymentMethodList: getSavedPaymentMethodList(state),
   detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,

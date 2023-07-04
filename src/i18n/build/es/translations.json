@@ -2318,7 +2318,8 @@
                 "hidePaymentCombo": "Ocultar packs",
                 "hidePrivatePass": "Pases ocultos para clases particulares",
                 "hidePaymentPack": "Pases ocultos para las clases colectivas",
-                "titleCaption": "{{max}} caracteres máximos ({{count}}/{max}})"
+                "titleCaption": "{{max}} caracteres máximos ({{count}}/{max}})",
+                "hideFilters": "No mostrar la barra de búsqueda ni los filtros"
             },
             "componentType": {
                 "playlist": "Playlist",
@@ -5010,6 +5011,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
+                "Cancelada",
                 "Cancelada"
             ]
         },
@@ -5096,7 +5098,8 @@
         "booking": {
             "confirmed": "Confirmada",
             "fillRate": "Tasa de ocupación",
-            "waiting": "Lista de espera"
+            "waiting": "Lista de espera",
+            "comesFromMigration": "Esta sesión procede de una migración"
         },
         "extraordinaryEstablishment": "lugar temporal",
         "substitute": "Sustituto",
@@ -5104,7 +5107,12 @@
             "modifyOffer": "Modificar",
             "deleteOffer": "Cancelar",
             "filter": "Filtrar",
-            "today": "Hoy"
+            "today": "Hoy",
+            "alertSpivi": {
+                "textBooking": "Una o varias reservas no cumplen las condiciones de Spivi.",
+                "textOffer": "La sesión no cumplía los requisitos de Spivi, por lo que no pudo sincronizarse.",
+                "title": "Problema de conexión con Spivi"
+            }
         },
         "manageOffer": "Gestionar las reservas",
         "forms": {
@@ -5288,7 +5296,9 @@
                     "durationMinute": "La duración de una sesión debe ser superior a 0 minutos",
                     "broadcastLink": "El enlace es incorrecto. Debe empezar por http:// o https:// y no contener espacios.",
                     "partnerMaxBookingCount": "El número de plazas aquí es mayor que el número de plazas en la sesión",
-                    "effectif": "El valor es superior al número máximo de plazas"
+                    "effectif": "El valor es superior al número máximo de plazas",
+                    "roomBlueprintSpivi": "Debe seleccionarse un plano de la sala para las sesiones sincronizadas con Spivi",
+                    "durationMinuteSpivi": "Una sesión en Spivi debe durar entre 20 minutos y 4 horas"
                 },
                 "dateTooFar": "Imposible crear sesiones que tengan lugar en más de 3 años",
                 "dateFormat": "Formato de fecha inválido",
@@ -5334,7 +5344,8 @@
                             "title": "Marketplace"
                         },
                         "allowGuestOffer": "Permitir reservar para invitados",
-                        "isManagerOnly": "Disponible para reservas (web+app)"
+                        "isManagerOnly": "Disponible para reservas (web+app)",
+                        "syncOfferOnSpivi": "Enviar a Spivi"
                     },
                     "title": "Parámetros"
                 },
@@ -6201,6 +6212,12 @@
         "noShowChip": {
             "message": "El miembro fue registrado como ausente después de la sesión",
             "title": "no se presenta"
+        },
+        "warning": "Atención",
+        "spivi": {
+            "errorText": "El miembro no cumple los requisitos de Spivi, por lo que la reserva no se realizó en Spivi.",
+            "connectionImpossible": "Imposible conectarse a Spivi",
+            "error": "Problema de conexión con Spivi"
         }
     },
     "marketplace": {
@@ -6471,7 +6488,8 @@
             "payment_pack": "Penalizaciones",
             "recurrent_private_booking": "Cita periódica",
             "replacement_request": "Sustitución",
-            "giftcard": "Tarjetas regalo"
+            "giftcard": "Tarjetas regalo",
+            "performance": "Rendimiento"
         },
         "eventType": {
             "14": "Cancelación de la inscripción en la lista de espera (mánager)",
@@ -6534,7 +6552,9 @@
             "302": "Validación del email del miembro",
             "303": "Fusión de dos cuentas de estudio",
             "304": "Activación de la tarjeta regalo",
-            "305": "Cambio del email del miembro desde el backoffice"
+            "305": "Cambio del email del miembro desde el backoffice",
+            "1002": "Rendimiento de la sesión de spinning",
+            "1001": "Cuenta Spivi creada"
         },
         "tag": {
             "BookingOption": {
@@ -6713,6 +6733,23 @@
                 "giftcard_message": "Mensaje de la tarjeta regalo",
                 "giftcard_value": "Valor de la tarjeta regalo",
                 "manage_changing_email_link": "Enlace de gestión de cambios de e-mail"
+            },
+            "SpiviPerformance": {
+                "tags": {
+                    "total_distance": "Distancia recorrida",
+                    "calories_kJ": "Calorías en kJ",
+                    "calories": "Calorías",
+                    "max_watts": "Potencia máxima",
+                    "maximum_speed": "Velocidad máxima",
+                    "max_RPM": "RPM máximas",
+                    "max_HR": "Ritmo cardíaco máximo",
+                    "average_watts": "Potencia media",
+                    "average_speed": "Velocidad media",
+                    "average_RPM": "Media de rpm",
+                    "average_HR": "Ritmo cardíaco medio",
+                    "SEP": "Spivi Ecosystem Point"
+                },
+                "name": "Rendimiento"
             }
         },
         "emailDesign": {
@@ -6949,6 +6986,11 @@
             "profile": "Ir a mi perfil",
             "logout": "Desconexión",
             "login": "Conexión"
+        },
+        "spivi": {
+            "settingsInfo": "Si esta opción está activada, sus datos (velocidad, calorías quemadas, etc.) se mostrarán en tiempo real durante su sesión. Si desactiva esta opción, sus datos dejarán de mostrarse, pero recibirá su resumen por correo electrónico al final de la sesión.",
+            "settings": "Visualizar mis datos en tiempo real",
+            "settingsTitle": "Datos de spinning"
         }
     },
     "coupon": {
@@ -8883,7 +8925,8 @@
                 "hideBookButton": {
                     "switchLabel": "Ocultar el botón \"{{-bookButtonTranslation}}",
                     "dialogDescription": "Al ocultar el botón \"{{-bookButtonTranslation}}\", puede hacer clic en el pase para reservar la sesión."
-                }
+                },
+                "doubleBookingDisabledWithSpivi": "Doble reserva no compatible con la integración de Spivi"
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -11029,6 +11072,15 @@
         },
         "modifyBasket": {
             "15004": "La cesta se está procesando. Por favor, inténtelo de nuevo en unos minutos."
+        },
+        "spivi": {
+            "error": {
+                "21004": "Doble reserva no compatible con la integración de Spivi",
+                "21003": "Las sesiones de Spivi deben durar entre 20 minutos y 4 horas",
+                "21002": "El plan de salas seleccionado debe tener un Box ID para que la sesión se vincule a Spivi",
+                "21001": "No se ha seleccionado ningún plano",
+                "21000": "La venta adicional Spivi no está activada."
+            }
         }
     },
     "paymentPack": {
@@ -12077,7 +12129,9 @@
                     "preview": "Previsualizar",
                     "recurrenceUntilHelper2": "No se crearán grupos cuya última sesión sea posterior a esta fecha.",
                     "creationError": "Imposible crear",
-                    "uncreatedGroupsTitle": "Grupos no creados"
+                    "uncreatedGroupsTitle": "Grupos no creados",
+                    "syncOnSpivi": "Enviar a Spivi",
+                    "spiviWarningHelperText": "Tenga en cuenta que si las sesiones están vinculadas a Spivi, las copias no estarán vinculadas a Spivi."
                 },
                 "duplicate": "Duplicar un grupo",
                 "subtitlePreview": "Pre-visualización de la recurrencia",
@@ -13625,7 +13679,7 @@
                     "title": "Restablecer la configuración"
                 },
                 "submit": "Salvar",
-                "selectAlert": "Por el momento, la personalización de los widgets sólo está disponible en los talleres, el calendario y los bonos",
+                "selectAlert": "Por el momento, la personalización de los widgets sólo está disponible para los talleres, el calendario, las suscripciones y los pases.",
                 "preview": "Preview",
                 "spacingHelper": "El espaciado se basa en múltiplos de {{base}}px",
                 "roundingHelper": "Las esquinas se redondean en múltiplos {{base}}px",
@@ -13635,7 +13689,8 @@
                 "borderColor": "Color de los bordes",
                 "secondaryColor": "Color secundario",
                 "mainColor": "Color principal",
-                "subtypographyColor": "Color de los subtítulos"
+                "subtypographyColor": "Color de los subtítulos",
+                "secondaryBackgroundColorElement": "Color de fondo del elemento secundario"
             },
             "groupSessionByPeriod": "Separar la mañana, la tarde y la noche",
             "variantOption": {
@@ -14341,7 +14396,8 @@
                 "elements": "Elementos",
                 "place": "Ubicación",
                 "walls": "Paredes",
-                "edition": "Edición"
+                "edition": "Edición",
+                "spivi": "Integración de Spivi"
             },
             "title": "Caja de herramientas",
             "customIconLabel": "Iconos de ubicación",
@@ -14350,7 +14406,9 @@
             "pointer": "Cursor",
             "hand": "Mano",
             "addSpotType": "Añadir un tipo de sitio",
-            "helperText": "El tamaño del profesor debe ser estrictamente positivo"
+            "helperText": "El tamaño del profesor debe ser estrictamente positivo",
+            "requiredForSpivi": "Necesario para la integración de Spivi",
+            "boxId": "Box ID"
         },
         "spotImageDialog": {
             "helper": "Puede personalizar la forma de las ranuras importando sus propias imágenes. Para ello necesitamos 2 iconos diferentes. Uno para indicar que el lugar está disponible, otro cuando está reservado. Asegúrese de que son del mismo tamaño y no incluya ningún número en sus iconos.",
@@ -14370,7 +14428,9 @@
             "save": "Salvar",
             "titleLabel": "Nombre del plan",
             "exit": "Salir",
-            "loadExistingBlueprint": "Cargar un plan existente"
+            "loadExistingBlueprint": "Cargar un plan existente",
+            "spiviHelperText": "Ver correspondencia de posiciones en Spivi",
+            "spivi": "Spivi"
         },
         "spotSelectorDialog": {
             "title": "Selecciona un sitio",
@@ -14433,7 +14493,12 @@
             "subtitle": "Creación de un tipo de sitio",
             "title": "Plano del establecimiento"
         },
-        "errorAvailableOffersScheduled": "No se puede guardar. Esta disposición no puede editarse, ya que se utiliza en futuras sesiones."
+        "errorAvailableOffersScheduled": "No se puede guardar. Esta disposición no puede editarse, ya que se utiliza en futuras sesiones.",
+        "spiviDialog": {
+            "spiviIdentifiers": "Identificadores de acceso a Spivi",
+            "bsportIdentifiers": "Identificadores de acceso a bsport",
+            "spotCorrespondence": "Posiciones correspondientes"
+        }
     },
     "franchise": {
         "companies": {

@@ -158,6 +158,11 @@
             "login": "Aanmelden",
             "logout": "Afmelden",
             "profile": "Mijn profiel"
+        },
+        "spivi": {
+            "settingsInfo": "Activeer deze optie om spinning-informatie live tijdens een sessie te tonen, zoals snelheid, verbrande calorieën, etc. Als deze optie gedeactiveerd is wordt de informatie niet live getoond, maar zullen deelnemers een samenvatting per e-mail na het einde van de sessie ontvangen.",
+            "settingsTitle": "Spinning-informatie",
+            "settings": "Mijn data live weergeven"
         }
     },
     "notificationRule": {
@@ -558,7 +563,7 @@
             "venueIds": "Vestiging-ID's: {{ establishmentIdList }}",
             "partnerId": "Partner-ID: {{ company }}",
             "establishmentMergedAs": "Deze vestigingen samenvoegen",
-            "establishmentMergeMaster": "Deze vestigingingen samenvoegen:"
+            "establishmentMergeMaster": "Deze vestigingen samenvoegen:"
         },
         "pageTitle": "Integraties",
         "configurationType": {
@@ -1272,7 +1277,7 @@
                 "hour": "Uren"
             },
             "descriptionHelperText": "De beschrijving van de instructeur is zichtbaar voor leden wanneer zij een reservering maken.",
-            "notesHelperText": "Notities zijn privé: ze verschijnen alleen op de Backoffice voor personeelsleden die gemachtigd zijn ze te bewerken",
+            "notesHelperText": "Deze notities zijn intern en worden alleen aan de gemachtigde medewerkers getoond.",
             "workingDateSection": "Periode van activiteit in de studio",
             "endWorking": "Einddatum",
             "notes": "Notes",
@@ -3063,6 +3068,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
+                "Geannuleerd",
                 "Geannuleerd"
             ]
         },
@@ -3734,7 +3740,7 @@
             },
             "isEmptyExplain": "Leden kunnen deze kaarten bij alle gekoppelde studio aanschaffen en gebruiken.",
             "specification": {
-                "companySharedWithTitle": "Beschikbare studio's:"
+                "companySharedWithTitle": "Beschikbare vestigingen:"
             },
             "widget": {
                 "choose": "Filter op leskaarten"
@@ -4962,7 +4968,9 @@
                     "allowGuest": "Dit product kan voor het uitnodigen van gasten worden gebruikt",
                     "allowGuestUnavailable": "Deze functie is niet beschikbaar voor groepsactiviteiten.",
                     "creationError": "Onmogelijk te maken",
-                    "uncreatedGroupsTitle": "Niet aangemaakte groepen"
+                    "uncreatedGroupsTitle": "Niet aangemaakte groepen",
+                    "syncOnSpivi": "Doorsturen naar Spivi",
+                    "spiviWarningHelperText": "Gelieve rekening houden met het feit dat als sessies aan Spivi gekoppeld zijn dat de kopieën hiervan niet aan Spivi gekoppeld zullen worden."
                 },
                 "duplicate": "Een evenement dupliceren",
                 "subtitleMetaActivitySelect": "Configuratie",
@@ -5019,7 +5027,8 @@
         "booking": {
             "confirmed": "Reserveringen",
             "fillRate": "Bezettingsgraad",
-            "waiting": "Wachtlijst"
+            "waiting": "Wachtlijst",
+            "comesFromMigration": "Deze reservering is afkomstig van een gegevensoverdracht"
         },
         "extraordinaryEstablishment": "(tijdelijke plaats)",
         "calendar": {
@@ -5029,7 +5038,8 @@
             "today": "Vandaag",
             "alertSpivi": {
                 "textBooking": "Eén of meerdere reserveringen voldoen niet aan de Spivi-voorwaarden.",
-                "title": "Verbindingsproblemen met Spivi"
+                "title": "Verbindingsproblemen met Spivi",
+                "textOffer": "De sessie voldoet niet aan de voorwaarden van Spivi. De informatie kon daarom niet gesynchroniseerd worden."
             }
         },
         "forms": {
@@ -5206,7 +5216,8 @@
                     "broadcastLink": "Deze link is onjuist. Het moet beginnen met http:// of https:// en mag geen spaties bevatten.",
                     "partnerMaxBookingCount": "Het aantal zitplaatsen hier is groter dan het aantal zitplaatsen in de zitting",
                     "effectif": "De waarde is hoger dan het maximum aantal plaatsen",
-                    "durationMinuteSpivi": "Een Spivi-sessie moet tussen 20 minuten en 4 uur zijn."
+                    "durationMinuteSpivi": "Een Spivi-sessie moet tussen 20 minuten en 4 uur zijn.",
+                    "roomBlueprintSpivi": "Er moet een Spot Scheduling-layout voor de synchronisatie met Spivi geselecteerd worden"
                 },
                 "dateTooFar": "Onmogelijk om sessies te maken die in meer dan 3 jaar plaatsvinden",
                 "dateFormat": "Ongeldig datumformaat",
@@ -5252,7 +5263,8 @@
                             "title": "Marketplace"
                         },
                         "allowGuestOffer": "De reservering voor een gast autoriseren",
-                        "isManagerOnly": "Beschikbaar voor reservering (web+app)"
+                        "isManagerOnly": "Beschikbaar voor reservering (web+app)",
+                        "syncOfferOnSpivi": "Doorsturen naar Spivi"
                     },
                     "title": "Instellingen"
                 },
@@ -5346,8 +5358,8 @@
         "broadcast": "Videoconferenties",
         "onSite": "In de studio",
         "allCoaches": "{{count}} instructeurs",
-        "additionalCoaches": "{{count}} extra instructeur",
-        "additionalCoaches_plural": "{{count}} extra instructeurs"
+        "additionalCoaches": "{{count}} aanvullende instructeur",
+        "additionalCoaches_plural": "{{count}} aanvullende instructeurs"
     },
     "emailTemplate": {
         "editTitle": "E-mail bewerken",
@@ -6176,7 +6188,8 @@
         "warning": "Waarschuwing",
         "spivi": {
             "connectionImpossible": "Het is niet mogelijk om met Spivi te verbinden",
-            "error": "Verbindingsproblemen met Spivi"
+            "error": "Verbindingsproblemen met Spivi",
+            "errorText": "Dit lid voldoet niet aan de voorwaarden van Spivi. De reservering kon daarom niet worden voltooid."
         }
     },
     "marketplace": {
@@ -6191,8 +6204,8 @@
                 "placeholder": "Vestiging"
             },
             "additionalCoaches": {
-                "placeholder": "Extra instructeur",
-                "placeholder_plural": "Extra instructeurs"
+                "placeholder": "Aanvullende instructeur",
+                "placeholder_plural": "Aanvullende instructeurs"
             }
         },
         "warning": {
@@ -6248,7 +6261,7 @@
                 "universalPassMessage": "Een universele kaart van zowel voor groepsactiviteiten en afspraken worden gebruikt."
             },
             "addButton": {
-                "buttonContent": "Toevoegen aan winkelmandje"
+                "buttonContent": "Toevoegen"
             },
             "validity": {
                 "day": "{{count}} dag",
@@ -6430,7 +6443,7 @@
                     "privatePass": "Afspraakkaarten",
                     "paymentPack": "Leskaarten"
                 },
-                "noCategory": "Geen categorie"
+                "noCategory": "Zonder categorie"
             }
         }
     },
@@ -6688,7 +6701,7 @@
                     "label": "Facturatie"
                 },
                 "settings": {
-                    "title": "Parameters"
+                    "title": "Instellingen"
                 },
                 "invoicing": {
                     "invoicing_type_readonly": "Het is niet mogelijk het facturerings type te wijzigen",
@@ -8177,7 +8190,7 @@
                 "explain4": "[GEDEACTIVEERD] Afspraken worden geaccepteerd en de vestiging wordt 15 minuten voor én na de reservering als bezet gemarkeerd. De eerstvolgende afspraak kan vanaf 11:30 worden gereserveerd.",
                 "explain3": "[GEACTIVEERD] Afspraken worden niet geaccepteerd, omdat de vestiging van 09:45 tot en met 11:15 beschikbaar moet zijn. De eerstvolgende afspraak is pas mogelijk vanaf 11:30.",
                 "explain2": "Voorbeeld: de vestiging is van 10:00 tot 11:00 beschikbaar en de afspraak duurt 60 minuten voor de klant, alhoewel je een 15 min. buffer voor én na de afspraak nodig hebt i.v.m. schoonmaak/onderhoud.",
-                "explain1": "Activeer deze functie om reserveringen alleen te accepteren als de kalender beschikbaar is."
+                "explain1": "Activeer deze functie om reserveringen alleen te accepteren als er beschikbaarheid is."
             }
         },
         "calendar": {
@@ -8825,7 +8838,7 @@
                 "title": "Filter op beschikbaarheid"
             },
             "allocationWarning": {
-                "showCalendar": "Toon de kalender",
+                "showCalendar": "Toon agenda",
                 "establishment": "Deze vestiging is niet beschikbaar op dit tijdstip.",
                 "coach": "Deze instructeur is niet beschikbaar op dit tijdstip.",
                 "title": "Er is geen beschikbaarheid om weer te geven.",
@@ -9328,7 +9341,7 @@
                 "helper": "Controleer hier of je payroll-regels met je verwachtingen overeenkomen.",
                 "resultTitle": "Resultaten",
                 "title": "Simulatie",
-                "which": "Verdiensten:",
+                "which": "Verdiensten",
                 "marginalValueOfReservation": "Marginale waarde per reservering",
                 "numberOfCancellations": "Aantal afwezigen/te late annuleringen",
                 "numberOfStudent": "Aantal leden"
@@ -10720,7 +10733,10 @@
         "spivi": {
             "error": {
                 "21001": "Er is geen Spot Scheduling-layout geselecteerd.",
-                "21000": "De Spivi-integratie is niet geactiveerd."
+                "21000": "De Spivi-integratie is niet geactiveerd.",
+                "21004": "Dubbele reserveringen zijn niet mogelijk met de Spivi-integratie.",
+                "21003": "Spivi-sessies moeten ten minste 20 minuten en maximaal 4 uur duren.",
+                "21002": "Het geselecteerde Spot Scheduling-layout moet een Box ID hebben voor de Spivi-sessie(s)."
             }
         }
     },
@@ -11568,7 +11584,7 @@
         },
         "download": "Download",
         "ok": "OK",
-        "params": "Parameters",
+        "params": "Instellingen",
         "back": "Terug"
     },
     "workshop": {
@@ -11959,7 +11975,8 @@
                 "hideBookButton": {
                     "switchLabel": "Verberg de knop \"{{bookButtonTranslation}}\"",
                     "dialogDescription": "Door de \"{{-bookButtonTranslation}}\" knop te verbergen, wordt de kaart klikbaar om de sessie te boeken."
-                }
+                },
+                "doubleBookingDisabledWithSpivi": "Dubbele reserveringen zijn niet mogelijk met de Spivi-integratie."
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -13000,7 +13017,7 @@
                 }
             }
         },
-        "userRoles": "Medewerkersaccount",
+        "userRoles": "Medewerkersaccounts",
         "pageTitle": "Medewerkers",
         "roleDescription": {
             "4": {
@@ -13484,7 +13501,7 @@
         },
         "tab": {
             "coach": {
-                "calendar": "Kalender",
+                "calendar": "Agenda",
                 "general": "Profiel"
             },
             "customForm": {
@@ -13496,7 +13513,7 @@
             "franchise": {
                 "staff": {
                     "role": "Rollen",
-                    "staffAccount": "Personeelsrekeningen"
+                    "staffAccount": "Medewerkers"
                 }
             },
             "replacement": {
@@ -13548,13 +13565,13 @@
                 "realTime": "Echte tijd"
             },
             "service": {
-                "calendar": "Kalender",
+                "calendar": "Agenda",
                 "general": "Algmeen"
             },
             "establishment": {
                 "location": "Locatie",
                 "room": "Zaal",
-                "calendar": "Kalender",
+                "calendar": "Agenda",
                 "general": "Algemeen"
             },
             "metaActivity": {
@@ -13609,7 +13626,7 @@
                 "window": "Venster",
                 "fullScreen": "Volledig scherm"
             },
-            "dialogSizeLabel": "Dimensie",
+            "dialogSizeLabel": "Afmetingen",
             "responsiveIframe": "Activeer de responsieve-modus",
             "groupSessionByPeriod": "Splits de ochtend, middag en avond op",
             "variantOption": {
@@ -13627,7 +13644,7 @@
                     "title": "Instellingen herstellen"
                 },
                 "submit": "Opslaan",
-                "selectAlert": "Het personaliseren van de widgets is momenteel alleen beschikbaar voor lesroosters, workshops en producten.",
+                "selectAlert": "Het personaliseren van de widgets is momenteel alleen beschikbaar voor lesroosters, abonnementen, workshops en producten.",
                 "preview": "Voorvertoning",
                 "spacingHelper": "Spacing is gebaseerd op veelvouden {{base}} pixels.",
                 "roundingHelper": "Rounding is gebaseerd op veelvouden {{base}} pixels.",
@@ -13681,12 +13698,12 @@
                 "configurationTitle": "Variaties"
             },
             "page": {
-                "calendar": "Kalender",
+                "calendar": "Agenda",
                 "workshop": "Workshop"
             },
             "components": {
-                "calendar": "Kalender",
-                "timeTable": "Kalenderonderdeel",
+                "calendar": "Agenda",
+                "timeTable": "Agenda-onderdelen",
                 "workshopPage": "Pagina workshop",
                 "activity": "Activiteit details popup",
                 "datePicker": "Datumkiezer",
@@ -13694,7 +13711,7 @@
                 "filters": "Lijst met filters",
                 "workshopCard": "Workshop kaart",
                 "groupOfferListItem": "Details van een sessiegroep",
-                "cardOffer": "Sessiegegevens (kalenderweergave)",
+                "cardOffer": "Sessiegegevens (agendaweergave)",
                 "workshopsComponent": "Details workshop",
                 "vodTag": "Chip vod",
                 "level": "Niveau chip",
@@ -14123,12 +14140,12 @@
             "activate": {
                 "dialog": {
                     "firstHelper": "Wil je de cadence activeren?",
-                    "title": "Het tempo bepalen",
+                    "title": "Activatie",
                     "cancel": "Annuleren",
-                    "secondHelper": "U kunt het niet bewerken gedurende de uitvoering."
+                    "secondHelper": "Het is niet mogelijk om de cadence te wijzigen zodra de cadence geactiveerd is."
                 },
                 "setupBeforeActivationHelper": "Voltooi het aanmaken van je eerste cadence door verschillende stappen en berichten toe te voegen.",
-                "button": "Starten"
+                "button": "Activeren"
             },
             "archive": {
                 "archivedHeader": "Gearchiveerde cadences",
@@ -14316,7 +14333,7 @@
             "marketingElement": "Acties",
             "triggerElement": "Activerende gebeurtenis",
             "cadenceParameters": "Instellingen",
-            "exitEditModeLabel": "De bewerkingsmodus verlaten",
+            "exitEditModeLabel": "Overschakelen naar de Weergavemodus",
             "exitEditMode": "Beëindigen",
             "editModeLabel": "Overschakelen naar de Bewerkingsmode",
             "editMode": "Bewerken",
@@ -14354,7 +14371,7 @@
             "pointer": "Muis",
             "addSpotType": "Een type plaats toevoegen",
             "helperText": "De grootte moet positief zijn.",
-            "requiredForSpivi": "",
+            "requiredForSpivi": "Dit is een vereiste voor de Spivi-integratie.",
             "boxId": "Box ID"
         },
         "placeCount": "{{count}} plaats(en)",
@@ -14378,7 +14395,8 @@
             "exit": "Terug",
             "titleLabel": "Naam",
             "save": "Opslaan",
-            "spivi": "Spivi"
+            "spivi": "Spivi",
+            "spiviHelperText": "Toon Overeenkomende Spivi Spots"
         },
         "spotImageDialog": {
             "actions": {
@@ -14442,7 +14460,8 @@
         "errorAvailableOffersScheduled": "Het is niet mogelijk om deze layout op te slaan, omdat het gebruikt wordt voor toekomstige sessies.",
         "spiviDialog": {
             "spiviIdentifiers": "Spivi ID's",
-            "bsportIdentifiers": "BSPORT ID's"
+            "bsportIdentifiers": "BSPORT ID's",
+            "spotCorrespondence": "Overeenkomende Spots"
         }
     },
     "franchise": {
@@ -14520,7 +14539,7 @@
                     "restore": "Herstellen"
                 },
                 "fuzzySearch": "Zoek een kaart",
-                "titleInactive": "Niet beschikbaar voor verkoop",
+                "titleInactive": "Onbeschikbare leskaarten",
                 "titleActive": "Beschikbaar voor verkoop",
                 "visibility": "Niet beschikbaar voor verkoop"
             },
@@ -14644,7 +14663,7 @@
             "form": {
                 "footer": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} om {{- hour_send }} naar de ontvanger verstuurd. Vervolgens heeft de ontvanger {{ expiration_days }} dag(en) om de cadeaubon te gebruiken, voordat het vervalt.",
                 "actions": {
-                    "submit": "Aan winkelmandje toevoegen",
+                    "submit": "Toevoegen aan winkelmandje",
                     "cancel": "Annuleer"
                 },
                 "date_send": {
@@ -15129,7 +15148,7 @@
             "customInstalmentAmount": {
                 "label": "Het bedrag van de eerste termijn aanpassen",
                 "type": {
-                    "percent": "Als percentage van de totale mandprijs",
+                    "percent": "Percentage",
                     "amount": "Vast bedrag"
                 },
                 "amountHelperText": {
@@ -15138,10 +15157,10 @@
                 }
             },
             "partialPaymentRadio": {
-                "disabled": "Betaal de volledige mand in meerdere termijnen",
+                "disabled": "Termijnbetalingen activeren",
                 "enabled": {
-                    "label": "Gedeeltelijke betaling van de mand",
-                    "helperText": "De leden betalen slechts een deel van het totale bedrag van hun mandje onmiddellijk, en het restant wordt van hun intern depot afgeschreven"
+                    "label": "Aanbetalingen activeren",
+                    "helperText": "Activeer deze optie op leden eerst een deelbedrag/borg te laten betalen. Het resterende bedrag wordt van leden hun interne rekening (Wallet) afgeschreven."
                 }
             }
         },
@@ -15431,7 +15450,7 @@
             "lateRequestInfo_plural": "De verzoeken zullen worden geregistreerd, maar zorg ervoor dat u rechtstreeks contact opneemt met uw studio om hen zo snel mogelijk op de hoogte te brengen.",
             "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterend laat verzoek tot {{-dateEnd}}.",
             "lateRequestCounterInfo_plural": "<strong>{{requestsLeft}}</strong> op <strong>{{requestsMax}}</strong> resterende late verzoeken tot {{-dateEnd}}.",
-            "lateRequestTypo": "Let op, je verzoek voor een vervanging is laat. Je hebt {{daysBeforeOffer}} dagen voor het begin van de sessie om je verzoek op tijd in te dienen.",
+            "lateRequestTypo": "Let op, je verzoek voor een vervanging is laat. Je hebt {{daysBeforeOffer}} dag(en) voor het begin van de sessie om je verzoek op tijd in te dienen.",
             "lateRequestTypo_plural": "Let op, sommige van uw vervangingsaanvragen zijn laat. Je hebt {{daysBeforeOffer}} dagen voor het begin van de sessie om je verzoek op tijd in te dienen.",
             "close": "Sluiten",
             "requestSentDescription": "Je vervangingsverzoek is in behandeling genomen. Ga naar het tabblad \"Mijn aanvragen\" om de voortgang te volgen.",

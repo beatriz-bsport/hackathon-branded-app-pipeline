@@ -9669,6 +9669,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -10757,7 +10758,8 @@
         "booking": {
             "confirmed": "Bookings",
             "fillRate": "Occupancy rate",
-            "waiting": "Waitlist"
+            "waiting": "Waitlist",
+            "comesFromMigration": "This session comes from a migration"
         },
         "extraordinaryEstablishment": "(temporary establishments)",
         "substitute": "Substitute",

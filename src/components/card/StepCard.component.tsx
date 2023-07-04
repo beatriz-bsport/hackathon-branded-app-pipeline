@@ -1,9 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
+
 import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import IconButton from '@material-ui/core/IconButton';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
+
 import {
   CARD_HEIGHT_IF_EMPTY,
   CARD_MAX_WIDTH,
@@ -14,6 +18,9 @@ import {
   HEADER_FONT_SIZE,
   HEADER_MIN_HEIGHT,
 } from '#libs/sequential_marketing/constants/steps';
+import ToolTip from '#components/Tooltip.component';
+
+const DEFAULT_ADD_BUTTON_COLOR = '#777';
 
 type StepCardStylesProps = {
   color?: string;
@@ -33,6 +40,10 @@ export type StepCardProps = {
   isEmpty?: boolean;
   minHeight?: boolean;
   disableRipple?: boolean;
+  onCardClick?: () => void;
+  addButtonAction?: () => void;
+  addButtonLabel?: string;
+  addButtonColor?: string;
 } & Omit<StepCardStylesProps, 'heightSize' | 'selected'>;
 
 type Props = {
@@ -64,6 +75,10 @@ const StepCard: React.FC<StepCardProps> = ({
   maxWidth,
   minHeight,
   disableRipple,
+  onCardClick,
+  addButtonAction,
+  addButtonLabel,
+  addButtonColor,
 }) => {
   const [selected, setSelected] = useState(false);
 
@@ -86,8 +101,9 @@ const StepCard: React.FC<StepCardProps> = ({
       event.stopPropagation();
       event.preventDefault();
       setSelected(true);
+      onCardClick?.();
     },
-    [],
+    [onCardClick],
   );
 
   const handleClickAway = useCallback(
@@ -100,20 +116,34 @@ const StepCard: React.FC<StepCardProps> = ({
   );
 
   return (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <ButtonBase
-        onClick={handleClick}
-        className={classes.container}
-        disabled={disabled}
-        disableRipple={disableRipple}
-      >
-        <div className={classes.card}>
-          <StepCardHeader>{header}</StepCardHeader>
-          {!!isDivided && <div className={classes.divider} />}
-          {!!content && <StepCardContent>{content}</StepCardContent>}
+    <div className={classes.stepCard}>
+      <ClickAwayListener onClickAway={handleClickAway}>
+        <ButtonBase
+          onClick={handleClick}
+          className={classes.container}
+          disabled={disabled}
+          disableRipple={disableRipple}
+        >
+          <div className={classes.card}>
+            <StepCardHeader>{header}</StepCardHeader>
+            {!!isDivided && <div className={classes.divider} />}
+            {!!content && <StepCardContent>{content}</StepCardContent>}
+          </div>
+        </ButtonBase>
+      </ClickAwayListener>
+      {!!addButtonAction && (
+        <div
+          className={classes.addButtonContainer}
+          style={{ color: addButtonColor || DEFAULT_ADD_BUTTON_COLOR }}
+        >
+          <ToolTip title={addButtonLabel || ''}>
+            <IconButton onClick={addButtonAction} size="small" color="inherit">
+              <AddCircleIcon fontSize="small" />
+            </IconButton>
+          </ToolTip>
         </div>
-      </ButtonBase>
-    </ClickAwayListener>
+      )}
+    </div>
   );
 };
 
@@ -142,6 +172,11 @@ const useStylesHeaderAndContent = makeStyles<Theme>((theme) => ({
 }));
 
 const useStyles = makeStyles<Theme, StepCardStylesProps>((theme) => ({
+  stepCard: {
+    display: 'flex',
+    flexDirection: 'row',
+    position: 'relative',
+  },
   container: {
     borderRadius: theme.spacing(1),
     position: 'relative',
@@ -165,16 +200,16 @@ const useStyles = makeStyles<Theme, StepCardStylesProps>((theme) => ({
         : color || lighten(theme.palette.primary.light, 0.75),
     boxShadow: ({ withShadow }) =>
       withShadow &&
-      `${theme.spacing(0)} ${theme.spacing(0.5)} ${theme.spacing(
+      `${theme.spacing(0)}px ${theme.spacing(0.5)}px ${theme.spacing(
         1,
-      )} ${theme.spacing(0.5)} #00000010`,
+      )}px ${theme.spacing(0.5)}px #00000005`,
     '&:hover': {
       overflow: ({ withShadow }) => withShadow && 'visible',
       boxShadow: ({ withShadow }) =>
         withShadow &&
-        `${theme.spacing(0)} ${theme.spacing(0.5)} ${theme.spacing(
+        `${theme.spacing(0)}px ${theme.spacing(0.5)}px ${theme.spacing(
           2,
-        )} ${theme.spacing(0.5)} #00000010`,
+        )}px ${theme.spacing(0.5)}px #00000010`,
     },
   },
   divider: {
@@ -183,6 +218,11 @@ const useStyles = makeStyles<Theme, StepCardStylesProps>((theme) => ({
     width: '100%',
     backgroundColor: ({ color }) =>
       color || lighten(theme.palette.primary.light, 0.75),
+  },
+  addButtonContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }));
 

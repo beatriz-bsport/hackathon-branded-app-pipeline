@@ -7,9 +7,19 @@ import { fakerEN as faker } from '@faker-js/faker';
 export default {
   title: 'Components/Cards/StepCard',
   component: StepCard,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          margin: '3em',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
 } as ComponentMeta<typeof StepCard>;
 
 const StepCardTemplate: ComponentStory<typeof StepCard> = (
@@ -56,4 +66,15 @@ LargeStepCard.args = {
   isDivided: false,
   withShadow: true,
   disabled: false,
+};
+
+export const StepCardWithAddButton = StepCardTemplate.bind({});
+StepCardWithAddButton.args = {
+  header: <Typography variant="subtitle2">Title</Typography>,
+  content: <div>Content</div>,
+  disabled: false,
+  addButtonAction: () => {},
+  addButtonLabel: 'add action',
+  addButtonColor: '#999',
+  withShadow: false,
 };

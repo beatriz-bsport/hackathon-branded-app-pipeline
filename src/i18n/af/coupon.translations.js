@@ -211,4 +211,51 @@ exports.default = {
     },
     companyEmpty: "Aucun studio n'est configuré pour accepter cette promotion",
   },
+  uniqueCodeCoupon: {
+    form: {
+      alertInfo:
+        "Les bons d'achat sont des codes uniques qui offrent une réduction de 100% sur un produit spécifique pour le membre. Ces codes ne sont pas générés par la plateforme elle-même, mais doivent être téléchargés ici sous forme de fichier CSV. Cette fonctionnalité est particulièrement utile si vous avez établi un partenariat avec une entité externe comme Groupon pour organiser une campagne promotionnelle. Dans ce cas, Groupon (ou une entité similaire) génère et vend les bons d'achat au nom de votre studio.",
+      alertWarning: 'Non applicable aux souscriptions',
+      couponCostForCompany: {
+        label: 'Prix TTC',
+        helperText:
+          "Les revenus que vous obtenez du partenaire de la campagne pour chaque bon d'achat vendu. Ils seront utilisés lors du calcul de la valeur marginale pour la rénumération des professeurs ainsi que dans les rapports. Pour tout calcul ne tenant pas compte de la valeur marginale, les rapports ignoreront ce prix donné et traiteront cette promotion comme une remise de 100%.",
+      },
+      usage_per_member: {
+        label: "Limiter le nombre de bons d'achat qu'un membre peut acheter",
+        helperText: 'Limite maximale',
+      },
+      only_on_first_checkout: {
+        label: 'Ne peut être utilisé que pour le premier achat',
+      },
+      fileUploader: {
+        title: "Télécharger des bons d'achat uniques",
+        label: 'Glisser/Déposer ou cliquer pour sélectionner le fichier',
+        sizeLimitHelper: 'Fichier CSV (1Mo maximum)',
+        helperText:
+          "Veuillez télécharger un fichier CSV avec tous les codes de bons d'achat dans la première colonne, un code par ligne, sans en-tête.",
+      },
+      errors: {
+        required: 'Ce champ est requis',
+        positiveNumber: 'La valeur doit être supérieure à 0',
+        expirationDate: {
+          dateBeforeNow:
+            "La date d'expiration ne peut pas être antérieure à la date actuelle.",
+          format: 'Erreur lors du formatage de la date',
+        },
+        fileUploader: {
+          fileTooLargeError:
+            'Le fichier est trop volumineux. Veuillez ne pas dépasser 1 Mo.',
+          incorrectDataError:
+            'Le fichier ne contient pas de données correctes.',
+          notCsvFileError:
+            'Le type de fichier ne correspond pas à un fichier CSV.',
+        },
+        only_on_objects:
+          'Vous devez impérativement choisir un objet sur lequel appliquer la réduction',
+        applies_to:
+          "L'objet sur lequel appliquer la réduction doit être impérativement une carte de cours, une carte de rendez-vous, un pack ou un article du magasin",
+      },
+    },
+  },
 };

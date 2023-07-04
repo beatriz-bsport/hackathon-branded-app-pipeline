@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { AxiosResponse } from 'axios';
 import { PaginatedResponse } from '../../state/types';
 import {
@@ -19,6 +18,12 @@ export const fetchConfiguration = async (): Promise<
   AxiosResponse<WaitingListConfiguration>
 > => {
   return getAuth(`${API_V1_URI}/waiting-list/configuration/me/`);
+};
+
+export const fetchCompanyConfiguration = async (params?: {
+  company?: number;
+}): Promise<AxiosResponse<WaitingListConfiguration>> => {
+  return getAuth(`${API_V1_URI}/waiting-list/configuration/${params.company}/`);
 };
 
 export const patchConfiguration = async (

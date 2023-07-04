@@ -1,9 +1,9 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import { OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
 import {
   fetchConfiguration as fetchConfigurationAPI,
+  fetchCompanyConfiguration as fetchCompanyConfigurationAPI,
   patchConfiguration as patchConfigurationAPI,
   fetchFilteredBookingOptions as fetchFilteredBookingOptionsAPI,
   fetchFilteredBookingOptionsPaginated as fetchFilteredBookingOptionsPaginatedAPI,
@@ -73,6 +73,25 @@ export function fetchConfiguration(): ThunkAction {
 
     try {
       const response = await fetchConfigurationAPI();
+      dispatch(configurationDetail.success(response.data));
+    } catch (err) {
+      console.error(err);
+      dispatch(configurationDetail.error(err));
+    }
+
+    dispatch(configurationDetail.isLoading(false));
+  };
+}
+
+export function fetchCompanyConfiguration(company?: number): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(configurationDetail.isLoading(true));
+    dispatch(configurationDetail.error(null));
+
+    try {
+      const response = await fetchCompanyConfigurationAPI(
+        company ? { company } : {},
+      );
 
       dispatch(configurationDetail.success(response.data));
     } catch (err) {

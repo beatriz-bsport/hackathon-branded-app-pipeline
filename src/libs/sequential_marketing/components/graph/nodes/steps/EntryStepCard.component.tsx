@@ -5,11 +5,15 @@ import StepCard from '#components/card/StepCard.component';
 import CadenceNodeTitle from '../internals/CadenceNodeTitle.component';
 import CadenceNodeContent from '../internals/CadenceNodeContent.component';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import {
-  type ConnectedTrigger,
-  type GlobalCadenceChip,
+
+import type {
+  CadenceStep,
+  ConnectedTrigger,
+  StepMarketingActions,
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
+import type { Tag } from '#libs/tag/types';
+import type { EmailTemplateSummary } from '#libs/email-editor/types';
 
 type EntryStepHeaderProps = {
   triggerList?: ConnectedTrigger[];
@@ -17,15 +21,20 @@ type EntryStepHeaderProps = {
 };
 
 type EntryStepContentProps = {
-  marketingActionChipList?: GlobalCadenceChip[];
-  addMarketingAction?: () => void;
-  onClickNewMarketingAction: () => void;
+  marketingActionList?: StepMarketingActions[];
+  onClickNewMarketingAction?: () => void;
+  getTag?: (id: string) => Tag;
+  getEmailTemplate?: (id: string) => EmailTemplateSummary;
 };
 
 export type EntryStepCardProps = {
+  step: CadenceStep;
+  onCardClick: () => void;
+  addNextStep: () => void;
+  addMarketingAction?: () => void;
   isSelected?: boolean;
   disabled?: boolean;
-} & EntryStepHeaderProps &
+} & Omit<EntryStepHeaderProps, 'onClickNewMarketingAction'> &
   EntryStepContentProps;
 
 const EntryStepHeader: React.FC<EntryStepHeaderProps> = React.memo(
@@ -46,16 +55,19 @@ const EntryStepHeader: React.FC<EntryStepHeaderProps> = React.memo(
 
 const EntryStepContent: React.FC<EntryStepContentProps> = React.memo(
   ({
-    marketingActionChipList,
-    addMarketingAction,
+    marketingActionList,
     onClickNewMarketingAction,
+    getTag,
+    getEmailTemplate,
   }) => {
     return (
       <CadenceNodeContent
-        marketingActionChipList={
-          !!marketingActionChipList && marketingActionChipList
+        marketingActionList={!!marketingActionList && marketingActionList}
+        addMarketingAction={
+          !!onClickNewMarketingAction && onClickNewMarketingAction
         }
-        addMarketingAction={!!addMarketingAction && onClickNewMarketingAction}
+        getTag={getTag}
+        getEmailTemplate={getEmailTemplate}
       />
     );
   },
@@ -63,12 +75,18 @@ const EntryStepContent: React.FC<EntryStepContentProps> = React.memo(
 
 const EntryStepCard: React.FC<EntryStepCardProps> = ({
   triggerList,
-  marketingActionChipList,
+  marketingActionList,
   isSelected,
   disabled,
+  getTag,
+  getEmailTemplate,
   addMarketingAction,
   getSmartlist,
+  onCardClick,
+  addNextStep,
 }) => {
+  const { t } = useTranslation('marketing');
+
   const [disableRipple, setDisableRipple] = useState(false);
   const [clickDone, setClickDone] = useState(false);
 
@@ -81,7 +99,7 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
 
   const onClickNewMarketingAction = useCallback(() => {
     setDisableRipple(true);
-    addMarketingAction();
+    addMarketingAction?.();
     setClickDone(true);
   }, [addMarketingAction]);
 
@@ -94,11 +112,14 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
         />
       }
       content={
-        (!!marketingActionChipList || !!addMarketingAction) && (
+        (!!marketingActionList || !!addMarketingAction) && (
           <EntryStepContent
-            marketingActionChipList={marketingActionChipList}
-            addMarketingAction={addMarketingAction}
-            onClickNewMarketingAction={onClickNewMarketingAction}
+            marketingActionList={marketingActionList}
+            onClickNewMarketingAction={
+              !!addMarketingAction && onClickNewMarketingAction
+            }
+            getTag={getTag}
+            getEmailTemplate={getEmailTemplate}
           />
         )
       }
@@ -106,9 +127,13 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
       selectedColor={SequentialMarketingColors.ENTRY_COLOR}
       isSelected={isSelected}
       disabled={disabled}
-      isDivided={!!marketingActionChipList || !!addMarketingAction}
-      isEmpty={!triggerList && !marketingActionChipList && !addMarketingAction}
+      isDivided={!!marketingActionList || !!addMarketingAction}
+      isEmpty={!triggerList && !marketingActionList && !addMarketingAction}
       disableRipple={disableRipple}
+      onCardClick={onCardClick}
+      addButtonAction={addNextStep}
+      addButtonLabel={t('cadence.steps.actions.addNextStep')}
+      addButtonColor={SequentialMarketingColors.INNER_STEP_COLOR}
       maxWidth
     />
   );

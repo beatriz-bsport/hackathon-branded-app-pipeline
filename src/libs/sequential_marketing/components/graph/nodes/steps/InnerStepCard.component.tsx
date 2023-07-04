@@ -6,29 +6,38 @@ import StepCard from '#components/card/StepCard.component';
 import CadenceNodeTitle from '../internals/CadenceNodeTitle.component';
 import CadenceNodeContent from '../internals/CadenceNodeContent.component';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import type { GlobalCadenceChip } from '#libs/sequential_marketing/types';
+
+import type {
+  CadenceStep,
+  StepMarketingActions,
+} from '#libs/sequential_marketing/types';
 import type { Action } from '#components/button/MultipleActionsButton.component';
+import type { EmailTemplateSummary } from '#libs/email-editor/types';
+import type { Tag } from '#libs/tag/types';
 
 export type InnerStepCardProps = {
-  stepName: string;
-  marketingActionChipList?: GlobalCadenceChip[];
-  addMarketingAction?: () => void;
+  step: CadenceStep;
   isSelected?: boolean;
   disabled?: boolean;
-  disableAddMarketingAction?: boolean;
   onDelete: () => void;
   handleChangeInExit: () => void;
-};
+  onCardClick: () => void;
+  addNextStep: () => void;
+} & InnerStepContentProps;
 
-type InnerStepHeaderProps = Pick<InnerStepCardProps, 'stepName'> & {
+type InnerStepHeaderProps = {
+  stepName: string;
   actions: Immutable.ImmutableArray<Action>;
   handleDisableRipple: () => void;
 };
 
-type InnerStepContentProps = Pick<
-  InnerStepCardProps,
-  'marketingActionChipList' | 'addMarketingAction' | 'disableAddMarketingAction'
->;
+type InnerStepContentProps = {
+  marketingActionList?: StepMarketingActions[];
+  disableAddMarketingAction?: boolean;
+  addMarketingAction?: () => void;
+  getTag?: (id: string) => Tag;
+  getEmailTemplate?: (id: string) => EmailTemplateSummary;
+};
 
 const InnerStepHeader: React.FC<InnerStepHeaderProps> = React.memo(
   ({ stepName, actions, handleDisableRipple }) => {
@@ -47,36 +56,42 @@ const InnerStepHeader: React.FC<InnerStepHeaderProps> = React.memo(
 
 const InnerStepContent: React.FC<InnerStepContentProps> = React.memo(
   ({
-    marketingActionChipList,
-    addMarketingAction,
+    marketingActionList,
     disableAddMarketingAction,
+    addMarketingAction,
+    getTag,
+    getEmailTemplate,
   }) => {
     const isMarctingActionFull =
-      !!marketingActionChipList && marketingActionChipList.length >= 5;
+      !!marketingActionList && marketingActionList.length >= 5;
 
     return (
       <CadenceNodeContent
-        marketingActionChipList={
-          !!marketingActionChipList && marketingActionChipList
-        }
+        marketingActionList={!!marketingActionList && marketingActionList}
         addMarketingAction={addMarketingAction}
         disableAddMarketingAction={
           isMarctingActionFull || disableAddMarketingAction
         }
+        getTag={getTag}
+        getEmailTemplate={getEmailTemplate}
       />
     );
   },
 );
 
 const InnerStepCard: React.FC<InnerStepCardProps> = ({
-  stepName,
-  marketingActionChipList,
+  step,
+  marketingActionList,
   addMarketingAction,
+  getTag,
+  getEmailTemplate,
   isSelected,
   disabled,
   disableAddMarketingAction,
   onDelete,
   handleChangeInExit,
+  onCardClick,
+  addNextStep,
 }) => {
   const { t } = useTranslation('marketing');
 
@@ -129,19 +144,22 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
     <StepCard
       header={
         <InnerStepHeader
-          stepName={stepName}
+          stepName={step?.name}
           actions={actions}
           handleDisableRipple={handleDisableRipple}
         />
       }
       content={
-        (!!marketingActionChipList || !!addMarketingAction) && (
+        ((!!marketingActionList && marketingActionList.length > 0) ||
+          !!addMarketingAction) && (
           <InnerStepContent
-            marketingActionChipList={marketingActionChipList}
+            marketingActionList={marketingActionList}
             addMarketingAction={
               !!addMarketingAction && onClickNewMarketingAction
             }
             disableAddMarketingAction={disableAddMarketingAction}
+            getTag={getTag}
+            getEmailTemplate={getEmailTemplate}
           />
         )
       }
@@ -149,9 +167,13 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
       selectedColor={SequentialMarketingColors.INNER_STEP_COLOR}
       isSelected={isSelected}
       disabled={disabled}
-      isDivided={!!marketingActionChipList || !!addMarketingAction}
-      isEmpty={!marketingActionChipList && !addMarketingAction}
+      isDivided={!!marketingActionList || !!addMarketingAction}
+      isEmpty={!marketingActionList && !addMarketingAction}
       disableRipple={disableRipple}
+      onCardClick={onCardClick}
+      addButtonAction={addNextStep}
+      addButtonLabel={t('cadence.steps.actions.addNextStep')}
+      addButtonColor={SequentialMarketingColors.INNER_STEP_COLOR}
       maxWidth
     />
   );

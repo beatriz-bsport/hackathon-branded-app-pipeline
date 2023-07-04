@@ -3213,7 +3213,12 @@
         "delete": "Supprimer"
       },
       "steps": {
-        "actions": { "delete": "Supprimer", "changeInExit": "Transformer en sortie", "changeInStep": "Transformer en étape" }
+        "actions": {
+          "delete": "Supprimer",
+          "changeInExit": "Transformer en sortie",
+          "changeInStep": "Transformer en étape",
+          "addNextStep": "Ajouter prochaine étape"
+        }
       },
       "graph": {
         "tools": {

@@ -2,11 +2,18 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import EntryStepCard, { EntryStepCardProps } from './EntryStepCard.component';
-import { TriggerKind } from '#libs/sequential_marketing/constants';
+import {
+  MarketingActionKind,
+  MarketingActions,
+  TriggerKind,
+} from '#libs/sequential_marketing/constants';
 import {
   triggerFactory,
   triggerBatchFactory,
+  stepMarketingActionFactory,
 } from '#libs/sequential_marketing/factories';
+import { tagWithoutGroupFactory } from '#libs/tag/factory';
+import { companyEmailListFactory } from '#libs/email-editor/factories/EmailTemplateSummary';
 
 export default {
   title: 'Components/Cadences/CadenceNodes/EntryStep',
@@ -31,6 +38,59 @@ const EntryStepCardTemplate: ComponentStory<typeof EntryStepCard> = (
 ) => <EntryStepCard {...args} />;
 
 const eventTrigger = triggerFactory(TriggerKind.ONLY_EVENT_TRIGGER);
+
+const emailMarketingAction = stepMarketingActionFactory({
+  kind: MarketingActionKind.COMMUNICATION,
+  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+});
+
+const marketingActionList = [
+  stepMarketingActionFactory({
+    kind: MarketingActionKind.COMMUNICATION,
+    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+  }),
+  stepMarketingActionFactory({
+    kind: MarketingActionKind.COMMUNICATION,
+    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+  }),
+  stepMarketingActionFactory({
+    kind: MarketingActionKind.COMMUNICATION,
+    communication_kind:
+      MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+  }),
+];
+
+const tag = tagWithoutGroupFactory();
+const getTag = (_id: string) => tag;
+
+const emailTemplateSummary = companyEmailListFactory(1, 1)[0];
+const getEmailTemplate = (_id: string) => emailTemplateSummary;
+
+const marketingActionFullList = [
+  stepMarketingActionFactory({
+    kind: MarketingActionKind.COMMUNICATION,
+    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+  }),
+  stepMarketingActionFactory({
+    kind: MarketingActionKind.COMMUNICATION,
+    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+  }),
+  stepMarketingActionFactory({
+    kind: MarketingActionKind.COMMUNICATION,
+    communication_kind:
+      MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+  }),
+  stepMarketingActionFactory({
+    kind: MarketingActionKind.COMMUNICATION,
+    communication_kind:
+      MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
+    email_design: emailTemplateSummary.id,
+  }),
+  stepMarketingActionFactory({
+    kind: MarketingActionKind.TAG,
+    tag_id: tag.id,
+  }),
+];
 
 const getSmartlist = (id: number) => {
   return {
@@ -60,7 +120,7 @@ WithMultipleTriggers.args = {
 export const TriggerAndMarketingAction = EntryStepCardTemplate.bind({});
 TriggerAndMarketingAction.args = {
   triggerList: [eventTrigger],
-  marketingActionChipList: [{ name: '{ Email object }', icon: 'Email' }],
+  marketingActionList: [emailMarketingAction],
   getSmartlist: getSmartlist,
 };
 
@@ -74,7 +134,7 @@ TriggerAndAddAction.args = {
 export const All = EntryStepCardTemplate.bind({});
 All.args = {
   triggerList: [eventTrigger],
-  marketingActionChipList: [{ name: '{ Email object }', icon: 'Email' }],
+  marketingActionList: [emailMarketingAction],
   addMarketingAction: () => {},
   getSmartlist: getSmartlist,
 };
@@ -82,11 +142,18 @@ All.args = {
 export const Full = EntryStepCardTemplate.bind({});
 Full.args = {
   triggerList: triggerBatchFactory(2),
-  marketingActionChipList: [
-    { name: '{ Email object }', icon: 'Email' },
-    { name: '{ Notification title... }', icon: 'Notifications' },
-    { name: '{ Message preview... }', icon: 'Textsms' },
-  ],
+  getSmartlist: getSmartlist,
+  marketingActionList: marketingActionFullList,
+  addMarketingAction: () => {},
+  getTag: getTag,
+  getEmailTemplate: getEmailTemplate,
+};
+
+export const FullWithAddStep = EntryStepCardTemplate.bind({});
+FullWithAddStep.args = {
+  triggerList: triggerBatchFactory(2),
+  marketingActionList: marketingActionList,
   addMarketingAction: () => {},
   getSmartlist: getSmartlist,
+  addNextStep: () => {},
 };

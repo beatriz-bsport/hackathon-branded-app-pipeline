@@ -588,6 +588,7 @@ exports.default = {
         delete: 'Supprimer',
         changeInExit: 'Transformer en sortie',
         changeInStep: 'Transformer en étape',
+        addNextStep: 'Ajouter prochaine étape',
       },
     },
     graph: {

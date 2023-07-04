@@ -6,7 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 type Props = {
-  Icon: React.ComponentType<SvgIconProps>;
+  Icon?: React.ComponentType<SvgIconProps>;
   title: string;
   iconStyle?: SvgIconProps['color'];
   customIconStyle?: string;
@@ -33,12 +33,14 @@ const FormSectionTitle = React.memo((props: Props) => {
     return (
       <Button className={classes.expandButton} onClick={onToggleExpandSection}>
         <div className={classes.sectionTitleContainer}>
-          <div className={iconContainerStyle ?? classes.iconContainer}>
-            <Icon
-              className={customIconStyle ?? classes.icon}
-              color={iconStyle}
-            />
-          </div>
+          {Icon && (
+            <div className={iconContainerStyle ?? classes.iconContainer}>
+              <Icon
+                className={customIconStyle ?? classes.icon}
+                color={iconStyle}
+              />
+            </div>
+          )}
           <Typography className={classes.text}>{title}</Typography>
           <div className={classes.expandIcon}>
             {isExpanded && <ExpandLessIcon />}
@@ -51,9 +53,11 @@ const FormSectionTitle = React.memo((props: Props) => {
 
   return (
     <div className={classes.sectionTitleContainer}>
-      <div className={iconContainerStyle ?? classes.iconContainer}>
-        <Icon className={customIconStyle ?? classes.icon} color={iconStyle} />
-      </div>
+      {Icon && (
+        <div className={iconContainerStyle ?? classes.iconContainer}>
+          <Icon className={customIconStyle ?? classes.icon} color={iconStyle} />
+        </div>
+      )}
       <Typography className={classes.text}>{title}</Typography>
     </div>
   );

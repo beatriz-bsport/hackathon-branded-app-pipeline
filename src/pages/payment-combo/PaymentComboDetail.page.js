@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 
-import { BUYABLE_ITEM_COMBO_ITEM } from '@bsport/common/lib/master-data/buyable-items';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import BottomActionsButton from '#components/button/BottomActionsButton.component';
@@ -103,8 +102,11 @@ export class PaymentComboDetail extends React.Component<Props> {
     });
   };
 
-  goToInvoiceUsingPaymentComboPurchaseId = (id: number) => {
-    this.props.fetchInvoiceByInvoiceItem(BUYABLE_ITEM_COMBO_ITEM, id, {
+  goToInvoiceUsingPaymentComboPurchaseId = (
+    buyable_item_identifier: number,
+    id: number,
+  ) => {
+    this.props.fetchInvoiceByInvoiceItem(buyable_item_identifier, id, {
       onSuccess: () =>
         this.props.goToInvoice(this.props.paymentComboPurchaseInvoice.uuid),
     });

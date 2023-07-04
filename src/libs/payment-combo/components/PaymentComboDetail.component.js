@@ -29,7 +29,10 @@ type Props = {
   page: number,
   setPage: (page: number) => void,
 
-  goToInvoiceUsingPaymentComboPurchaseId: (id: string) => void,
+  goToInvoiceUsingPaymentComboPurchaseId: (
+    buyable_item_identifier: number,
+    id: number,
+  ) => void,
   snackbarSuccess: (string) => void,
 
   classes: Object,
@@ -62,9 +65,7 @@ export const PaymentComboDetail = (props: Props) => (
               key={item.id}
               divider
               paymentComboPurchase={item}
-              onClick={() =>
-                props.goToInvoiceUsingPaymentComboPurchaseId(item.id)
-              }
+              onClick={props.goToInvoiceUsingPaymentComboPurchaseId}
             />
           )}
           itemPerPage={15}

@@ -6,8 +6,10 @@ import PaymentPackSummary from '../../../components/payment-pack/PaymentPackSumm
 
 import Selector from '../../../components/Selector.component';
 
-import { PaymentPack } from '../../../api/types';
-import type { PaymentPackTemplate } from '#libs/payment-packs/types';
+import type {
+  PaymentPack,
+  PaymentPackTemplate,
+} from '#libs/payment-packs/types';
 
 type Props = {
   classes?: Object;

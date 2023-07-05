@@ -1,24 +1,12 @@
+import {
+  CouponKind,
+  UniqueCodeStateStatus,
+  CouponUniqueCodeEditModeOptions,
+} from '@bsport/common/lib/master-data/coupon';
+import moment from 'moment-timezone';
 import { ErrorAndLoading } from '../types';
 import { Company } from '../company/types';
 import { Invoice } from '#libs/invoice/types';
-
-// TODO: Should be deleted when importing the enums from common
-enum CouponKind {
-  COUPON_VIA_CODE = 0,
-  COUPON_VIA_UNIQUE_CODE_PER_USAGE = 1,
-}
-
-enum UniqueCodeStateStatus {
-  AVAILABLE = 'AVAILABLE',
-  LOCKED = 'LOCKED',
-  USED = 'USED',
-  REDEEMED = 'REDEEMED',
-}
-
-enum CouponUniqueCodeEditModeOptions {
-  COUPON_UNIQUE_CODE_EDIT_MODE_APPEND = 0,
-  COUPON_UNIQUE_CODE_EDIT_MODE_REPLACE = 1,
-}
 
 export type Discount = {
   id: string;
@@ -133,7 +121,7 @@ export type UniqueCodeCouponCreationPayload = {
   usage_per_member?: number;
   applies_to: number;
   only_on_objects: number[];
-  expiration_date?: string;
+  expiration_date?: moment.Moment | string;
   coupon_cost_for_company: number;
   codes: string[];
 };

@@ -43,6 +43,7 @@ export type ShopItem = {
   is_deliverable: boolean;
   available_payment_method_identifiers: number[];
   current_stock?: number;
+  disabled: boolean;
 };
 
 export type ShopState = {

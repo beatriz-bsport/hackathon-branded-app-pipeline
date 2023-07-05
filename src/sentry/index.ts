@@ -25,6 +25,7 @@ const exceptionMessageRegexpToIgnore = [
    * https://sentry.io/organizations/bsport-cg/issues/3183750570/
    */
   /\[CF\] failed to load config files/i,
+  /\[CF\] failed to load configs, check api key/i,
 ];
 
 Sentry.init({

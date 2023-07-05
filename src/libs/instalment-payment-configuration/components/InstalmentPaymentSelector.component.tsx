@@ -6,6 +6,7 @@ import BasketInstalmentEmptyPlaceholder from '#libs/instalment-payment-configura
 import BasketInstalmentPaymentOption from './BasketInstalmentPaymentConfigurationOption.component';
 import { InstalmentPayment } from '../types';
 import { OptionCallback } from '../../../state/types';
+import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
 
 type Props = {
   instalmentPaymentConfigurationList: null | Array<InstalmentPayment>;
@@ -21,7 +22,8 @@ type Props = {
 };
 
 const InstalmentPaymentSelector = (props: Props) => {
-  const classes = useStyles();
+  const isNewCheckoutFlow = React.useContext(CheckoutContext);
+  const classes = useStyles({ isNewCheckoutFlow });
   const [processing, setProcessing] = React.useState(false);
   const isLoadingMain =
     props.instalmentPaymentConfigurationSelectedId &&
@@ -73,7 +75,11 @@ const InstalmentPaymentSelector = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+type NewCheckoutFlowThemeProps = {
+  isNewCheckoutFlow?: boolean;
+};
+
+const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
   center: {
     width: '100%',
     alignItems: 'center',
@@ -82,14 +88,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
-  row: {
+  row: ({ isNewCheckoutFlow }) => ({
     displayt: 'flex',
     flexDirection: 'column',
-    marginLeft: theme.spacing(1),
+    marginLeft: isNewCheckoutFlow ? 0 : theme.spacing(1),
     '&>*': {
       marginBottom: theme.spacing(2),
     },
-  },
+  }),
 }));
 
 export default InstalmentPaymentSelector;

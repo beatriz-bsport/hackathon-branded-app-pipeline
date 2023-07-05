@@ -126,6 +126,10 @@ const useStyles = makeStyles(() => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
+    listStyleType: 'none',
+    li: {
+      listStyleType: 'none',
+    },
   },
   item: {
     flex: '1',

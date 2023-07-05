@@ -42,10 +42,20 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(0.5),
     borderRadius: 5,
     flexGrow: 1,
+    listStyleType: 'none',
+    li: {
+      listStyleType: 'none',
+    },
   },
   listItemIcon: {
     marginLeft: theme.spacing(3),
   },
+  radio: {
+    '&$checked': {
+      color: theme.palette.primary.main,
+    },
+  },
+  checked: {},
 }));
 
 export const PaymentMethodListItem: FC<Props> = (props) => {
@@ -81,6 +91,7 @@ export const PaymentMethodListItem: FC<Props> = (props) => {
           checked={props.selected ? props.selected : false}
           onChange={handleChangePaymentMethod}
           name="radio-buttons"
+          classes={{ root: classes.radio, checked: classes.checked }}
         />
       )}
       <ListItemIcon className={classes.listItemIcon}>

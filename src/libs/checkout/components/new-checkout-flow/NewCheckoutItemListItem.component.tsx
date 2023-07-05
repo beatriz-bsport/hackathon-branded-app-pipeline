@@ -56,6 +56,7 @@ export const NewCheckoutItemListItem: React.FC<
           <IconButton
             onClick={onDeleteCheckoutItem}
             disabled={isItemEditionDisabled}
+            className={classes.removeIconButton}
           >
             <DeleteIcon className={classes.deleteIcon} />
           </IconButton>
@@ -70,7 +71,7 @@ export const NewCheckoutItemListItem: React.FC<
           onRemoveOneItem={onRemoveOneItem}
         />
         <Typography
-          variant="subtitle1"
+          variant="subtitle2"
           className={classes.checkoutItemPriceClass}
         >
           {checkoutItemPrice}
@@ -86,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'stretch',
     padding: theme.spacing(1),
+    gap: theme.spacing(1),
   },
   checkoutItemName: { fontWeight: 500 },
   checkoutItemPriceClass: {
@@ -101,6 +103,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  removeIconButton: { padding: '0' },
 }));
 
 export default React.memo(NewCheckoutItemListItem);

@@ -44,6 +44,7 @@ export const AcceptTermsAndConditions = (props: Props) => {
             checked={props.accepted}
             onChange={(ev) => props.onChecked(ev.target.checked)}
             disabled={props.disabled}
+            classes={{ root: classes.checkbox, checked: classes.checked }}
           />
         }
         label={
@@ -88,7 +89,7 @@ type NewCheckoutFlowThemeProps = {
   isNewCheckoutFlow?: boolean;
 };
 
-const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>(() => ({
+const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
   container: ({ isNewCheckoutFlow }) => ({
     display: 'flex',
     flexDirection: 'row',
@@ -104,6 +105,12 @@ const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>(() => ({
   terms: {
     paddingLeft: '4px',
   },
+  checkbox: {
+    '&$checked': {
+      color: theme.palette.primary.main,
+    },
+  },
+  checked: {},
 }));
 
 const withStateHandlersInit = {

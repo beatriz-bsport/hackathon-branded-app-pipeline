@@ -1,6 +1,6 @@
 // @flow
 import React, { useImperativeHandle, forwardRef } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -74,7 +74,9 @@ type PropsIban = {
 
 const IbanForm = (props: PropsIban) => {
   const { t } = useTranslation(['invoice']);
-  const classes = useStyles();
+  const isNewCheckoutFlow = React.useContext(CheckoutContext);
+  const classes = useStyles({ isNewCheckoutFlow });
+
   const { billingDetails, setBillingDetails, processing } = props;
 
   return (
@@ -220,7 +222,8 @@ export const PaymentStripeSEPA = forwardRef(
     }: PaymentStripeSEPAProps,
     ref,
   ) => {
-    const classes = useStyles();
+    const isNewCheckoutFlow = React.useContext(CheckoutContext);
+    const classes = useStyles({ isNewCheckoutFlow });
     const { t } = useTranslation('invoice');
 
     const stripe = useStripe();
@@ -235,8 +238,6 @@ export const PaymentStripeSEPA = forwardRef(
       React.useState(null);
     const [hasDetached, setHasDetached] = React.useState(null);
     const [addPaymentMethod, setAddPaymentMethod] = React.useState(true);
-
-    const isNewCheckoutFlow = React.useContext(CheckoutContext);
 
     const setPaymentPageProcessing = React.useCallback(
       (process) => {
@@ -579,13 +580,19 @@ export const PaymentStripeSEPA = forwardRef(
   },
 );
 
-const useStyles = makeStyles((theme) => ({
-  sensitiveDataContainer: {
+type NewCheckoutFlowThemeProps = {
+  isNewCheckoutFlow?: boolean;
+};
+
+const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
+  sensitiveDataContainer: (isNewCheckoutFlow) => ({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
-    margin: theme.spacing(2),
-  },
+    margin: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
+      2,
+    )}px ${isNewCheckoutFlow ? 0 : theme.spacing(2)}px`,
+  }),
   sensitiveData: {
     backgroundColor: '#EFEFEF',
     padding: theme.spacing(2),
@@ -593,18 +600,22 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '80vw',
     width: '100%',
   },
-  nameAndEmailContainer: {
+  nameAndEmailContainer: (isNewCheckoutFlow) => ({
     flexDirection: 'column',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: theme.spacing(2),
+    margin: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
+      2,
+    )}px ${isNewCheckoutFlow ? 0 : theme.spacing(2)}px`,
     gap: theme.spacing(2),
-  },
-  mandate: {
-    padding: theme.spacing(2),
+  }),
+  mandate: (isNewCheckoutFlow) => ({
+    padding: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
+      2,
+    )}px ${isNewCheckoutFlow ? 0 : theme.spacing(2)}px`,
     maxWidth: 700,
-  },
+  }),
   conditions: {
     display: 'flex',
     flexDirection: 'row',

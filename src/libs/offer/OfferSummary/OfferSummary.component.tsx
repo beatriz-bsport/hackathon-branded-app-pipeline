@@ -350,4 +350,4 @@ const useStyles = makeStyles((theme) => ({
 
 export const OfferSummaryForStorybook = marketplaceCssHoc()(OfferSummary);
 
-export default OfferSummary;
+export default marketplaceCssHoc()(OfferSummary);

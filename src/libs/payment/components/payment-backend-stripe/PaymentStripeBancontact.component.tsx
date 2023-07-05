@@ -241,16 +241,16 @@ export const PaymentStripeBancontact = forwardRef(
             >
               {t('paymentPanel.actions.saveForLaterAsSEPA')}
             </Typography>
-            <div className={classes.securityInformationContainer}>
-              <PopOver
-                title={t('paymentPanel.actions.paymentSecurityInformation')}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                className={classes.securityInformationText}
-              >
-                <Info className={classes.infoIcon} />
-              </PopOver>
-            </div>
+          </div>
+          <div className={classes.securityInformationContainer}>
+            <PopOver
+              title={t('paymentPanel.actions.paymentSecurityInformation')}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+              className={classes.securityInformationText}
+            >
+              <Info className={classes.infoIcon} />
+            </PopOver>
           </div>
         </div>
         {!isNewCheckoutFlow && (

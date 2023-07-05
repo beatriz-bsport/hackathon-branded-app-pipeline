@@ -195,6 +195,7 @@ const useStyles = makeStyles((theme) => ({
     borderStyle: 'solid',
     borderWidth: '1px 1px 0 1px',
     borderColor: theme.palette.grey[100],
+    padding: theme.spacing(1),
   },
   subContainer: {
     display: 'flex',
@@ -210,7 +211,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
   },
   totalPriceText: {
     fontWeight: 500,

@@ -46,6 +46,7 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
       {checkoutItemsWithDetails?.map((checkoutItem, index) => (
         <div key={`checkout-item-details-${checkoutItem.id}`}>
           {checkoutItem.offers.map((offer) => (
+            // @ts-expect-error
             <OfferSummary
               key={`offer-summary-${offer?.id}`}
               metaActivity={offer?.meta_activity}
@@ -64,7 +65,7 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
               {checkoutItem.name}
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="subtitle2"
               className={classes.checkoutItemPriceClass}
             >
               {getCurrencyDisplayWithPrice(checkoutItem.unit_price)}

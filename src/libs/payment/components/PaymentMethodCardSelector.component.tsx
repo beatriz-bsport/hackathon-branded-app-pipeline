@@ -2,11 +2,12 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import FormControl from '@material-ui/core/FormControl';
+import { Theme, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import classnames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import { makeStyles } from '@material-ui/core/styles';
+import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
 
 import PaymentMethodIcon from './PaymentMethodIcon.component';
 
@@ -23,8 +24,10 @@ export const PaymentMethodCardSelector = ({
   selectPaymentMethod,
   paymentProcessing,
 }: Props) => {
-  const classes = useStyles();
   const { t } = useTranslation(['invoice']);
+
+  const isNewCheckoutFlow = React.useContext(CheckoutContext);
+  const classes = useStyles({ isNewCheckoutFlow });
 
   const handleClick = useCallback(
     (pm: number) => {
@@ -62,8 +65,11 @@ export const PaymentMethodCardSelector = ({
     </FormControl>
   );
 };
+type NewCheckoutFlowThemeProps = {
+  isNewCheckoutFlow?: boolean;
+};
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
   formControl: {
     display: 'flex',
     flexDirection: 'column',
@@ -78,15 +84,17 @@ const useStyles = makeStyles((theme) => ({
     border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: 4,
   },
-  row: {
+  row: ({ isNewCheckoutFlow }) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: theme.spacing(1),
+    padding: `${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(
+      1,
+    )}px ${isNewCheckoutFlow ? 0 : theme.spacing(1)}px`,
     '&>*': {
       marginRight: theme.spacing(1),
     },
-  },
+  }),
   paper: {
     padding: theme.spacing(1),
   },

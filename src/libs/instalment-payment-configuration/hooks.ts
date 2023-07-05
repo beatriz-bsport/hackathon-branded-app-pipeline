@@ -4,9 +4,9 @@ import chroma from 'chroma-js';
 
 export const useBasketInstalmentPaymentOptionStyle = makeStyles<
   Theme,
-  { checked: boolean }
+  { checked: boolean; isNewCheckoutFlow?: boolean }
 >((theme: Theme) => ({
-  container: (props: { checked: boolean }) => ({
+  container: (props: { checked: boolean; isNewCheckoutFlow?: boolean }) => ({
     backgroundColor: props.checked
       ? chroma(theme.palette.primary.main).alpha(0.05).hex()
       : 'unset',
@@ -14,7 +14,9 @@ export const useBasketInstalmentPaymentOptionStyle = makeStyles<
     borderRadius: '4px',
     display: 'flex',
     flexDirection: 'column',
-    padding: theme.spacing(1),
+    padding: `${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(
+      1,
+    )}px ${props.isNewCheckoutFlow ? 0 : theme.spacing(1)}px`,
   }),
   column: {
     display: 'flex',

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import InstalmentPaymentMultiplyIcon from '#libs/instalment-payment-configuration/components/InstalmentPaymentConfigurationMultiplyIcon.component';
 import { useBasketInstalmentPaymentOptionStyle } from '#libs/instalment-payment-configuration/hooks';
+import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
 
 type Props = {
   checked: boolean;
@@ -19,7 +20,11 @@ export const BasketInstalmentEmptyPlaceholder: React.FC<Props> = ({
   disabled,
 }) => {
   const { t } = useTranslation(['instalmentPayment']);
-  const classes = useBasketInstalmentPaymentOptionStyle({ checked });
+  const isNewCheckoutFlow = React.useContext(CheckoutContext);
+  const classes = useBasketInstalmentPaymentOptionStyle({
+    checked,
+    isNewCheckoutFlow,
+  });
 
   return (
     <div className={classes.container}>

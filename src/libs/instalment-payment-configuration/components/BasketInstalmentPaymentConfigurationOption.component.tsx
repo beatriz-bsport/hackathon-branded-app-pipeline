@@ -8,6 +8,7 @@ import InstalmentPaymentMultiplyIcon from './InstalmentPaymentConfigurationMulti
 import { DAILY, MONTHLY, WEEKLY } from '../constants';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { useBasketInstalmentPaymentOptionStyle } from '#libs/instalment-payment-configuration/hooks';
+import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
 
 type OwnProps = {
   checked: boolean;
@@ -22,9 +23,13 @@ type Props = OwnProps;
 
 export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
   const { checked, instalmentPayment, basketPrice, disabled, onSelect } = props;
+  const isNewCheckoutFlow = React.useContext(CheckoutContext);
 
   const { t } = useTranslation(['instalmentPayment']);
-  const classes = useBasketInstalmentPaymentOptionStyle({ checked });
+  const classes = useBasketInstalmentPaymentOptionStyle({
+    checked,
+    isNewCheckoutFlow,
+  });
 
   const {
     recurrency,

@@ -76,7 +76,6 @@ const useStyles = makeStyles((theme) => ({
   basketContainer: {
     display: 'flex',
     flexDirection: 'column',
-    gap: theme.spacing(1),
     padding: theme.spacing(1),
     boxSizing: 'border-box',
     borderStyle: 'solid',

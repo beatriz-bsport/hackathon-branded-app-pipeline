@@ -162,6 +162,12 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   const [isOnlinePaymentDisabled, setIsOnlinePaymentDisabled] =
     React.useState<boolean>(false);
 
+  // If the basket does not need anymore an adress, we should go to the next step directly
+  React.useEffect(() => {
+    if (!steps.map((step) => step.id).includes(currentStep.id))
+      setCurrentStep(steps[0]);
+  }, [currentStep, steps]);
+
   // DISPLAY CONSTANTS DEFINITION
 
   // All the submit buttons display logic should be here.
@@ -382,6 +388,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch',
+    maxHeight: '75vh',
   },
   scrollableItems: { overflowY: 'auto', maxHeight: '600px' },
 }));

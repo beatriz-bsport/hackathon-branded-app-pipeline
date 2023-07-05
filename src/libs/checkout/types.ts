@@ -125,6 +125,7 @@ export const SUBMIT_BUTTONS = {
   NEXT_BUTTON: { id: 0, textPath: 'forms.delivery.actions.submit' },
   PAY_NOW_BUTTON: { id: 1, textPath: 'validation.actions.payNow' },
   PAY_LATER_BUTTON: { id: 2, textPath: 'payLater.submit' },
+  CONFIRM_BUTTON: { id: 3, textPath: 'validation.actions.confirmPriceNull' },
 };
 
 export const STEPS = {

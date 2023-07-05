@@ -183,7 +183,6 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
     basketLoading,
     currentStepId: currentStep.id,
     isOnlinePaymentDisabled,
-    isTotalPriceNull,
     termsAndConditionsAccepted,
   });
 
@@ -192,6 +191,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
     currentStepId: currentStep.id,
     isOnlinePaymentAvailable,
     isPayLaterAvailable,
+    isTotalPriceNull,
   });
 
   // Definition of the processing state of each button, processing meaning that the

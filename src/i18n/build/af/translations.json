@@ -455,7 +455,8 @@
         "member": "Espace Membre",
         "back": "Précédent",
         "widgetContinue": "Continuer",
-        "payNow": "Payer"
+        "payNow": "Payer",
+        "confirmPriceNull": "Confirmer"
       },
       "sections": {
         "explain": "Votre opération a bien été prise en compte. Nous vous enverrons un mail de confirmation.",

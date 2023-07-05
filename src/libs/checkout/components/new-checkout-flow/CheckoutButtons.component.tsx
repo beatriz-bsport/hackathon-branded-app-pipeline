@@ -27,33 +27,35 @@ export const CheckoutButtons: React.FC<CheckoutButtonsProps> = ({
 
   return (
     <div className={classes.buttonsContainer}>
-      {[SUBMIT_BUTTONS.NEXT_BUTTON, SUBMIT_BUTTONS.PAY_NOW_BUTTON].map(
-        (button) => (
-          <>
-            {submitButtonsDisplayableState[button.id] && (
-              <Button
-                key={button.id}
-                className={classes.submitButton}
-                disabled={
-                  submitButtonsDisabledState[button.id] ||
-                  submitButtonsProcessingState[button.id]
-                }
-                onClick={handleSubmitButtonsCallbacks[button.id]}
-                variant="outlined"
-              >
-                {submitButtonsProcessingState[button.id] && (
-                  <CircularProgress
-                    style={{ marginRight: 8 }}
-                    size={24}
-                    color="inherit"
-                  />
-                )}
-                {t(button.textPath)}
-              </Button>
-            )}
-          </>
-        ),
-      )}
+      {[
+        SUBMIT_BUTTONS.NEXT_BUTTON,
+        SUBMIT_BUTTONS.PAY_NOW_BUTTON,
+        SUBMIT_BUTTONS.CONFIRM_BUTTON,
+      ].map((button) => (
+        <>
+          {submitButtonsDisplayableState[button.id] && (
+            <Button
+              key={button.id}
+              className={classes.submitButton}
+              disabled={
+                submitButtonsDisabledState[button.id] ||
+                submitButtonsProcessingState[button.id]
+              }
+              onClick={handleSubmitButtonsCallbacks[button.id]}
+              variant="outlined"
+            >
+              {submitButtonsProcessingState[button.id] && (
+                <CircularProgress
+                  style={{ marginRight: 8 }}
+                  size={24}
+                  color="inherit"
+                />
+              )}
+              {t(button.textPath)}
+            </Button>
+          )}
+        </>
+      ))}
       {submitButtonsDisplayableState[SUBMIT_BUTTONS.PAY_LATER_BUTTON.id] && (
         <div className={classes.payLaterContainer}>
           <Button

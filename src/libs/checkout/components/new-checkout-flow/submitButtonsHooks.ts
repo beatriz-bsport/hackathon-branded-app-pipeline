@@ -5,13 +5,13 @@ export type UseSubmitButtonsDisplayableStateProps = {
   currentStepId: number;
   isOnlinePaymentAvailable: boolean;
   isPayLaterAvailable: boolean;
+  isTotalPriceNull: boolean;
 };
 
 export type UseSubmitButtonsDisabledStateProps = {
   currentStepId: number;
   basketLoading: boolean;
   isOnlinePaymentDisabled: boolean;
-  isTotalPriceNull: boolean;
   termsAndConditionsAccepted: boolean;
 };
 
@@ -27,6 +27,7 @@ export const useSubmitButtonsDisplayableState = ({
   currentStepId,
   isOnlinePaymentAvailable,
   isPayLaterAvailable,
+  isTotalPriceNull,
 }: UseSubmitButtonsDisplayableStateProps): { [key: number]: boolean } =>
   useMemo(() => {
     const submitButtonsDisplayable: { [key: number]: boolean } = {};
@@ -41,26 +42,38 @@ export const useSubmitButtonsDisplayableState = ({
         case SUBMIT_BUTTONS.PAY_NOW_BUTTON.id:
           if (
             currentStepId === STEPS.PAYMENT_STEP.id &&
-            isOnlinePaymentAvailable
+            isOnlinePaymentAvailable &&
+            !isTotalPriceNull
           )
             submitButtonsDisplayable[button.id] = true;
           break;
         case SUBMIT_BUTTONS.PAY_LATER_BUTTON.id:
-          if (currentStepId === STEPS.PAYMENT_STEP.id && isPayLaterAvailable)
+          if (
+            currentStepId === STEPS.PAYMENT_STEP.id &&
+            isPayLaterAvailable &&
+            !isTotalPriceNull
+          )
             submitButtonsDisplayable[button.id] = true;
+          break;
+        case SUBMIT_BUTTONS.CONFIRM_BUTTON.id:
+          if (isTotalPriceNull) submitButtonsDisplayable[button.id] = true;
           break;
         default:
           break;
       }
     });
     return submitButtonsDisplayable;
-  }, [currentStepId, isOnlinePaymentAvailable, isPayLaterAvailable]);
+  }, [
+    currentStepId,
+    isOnlinePaymentAvailable,
+    isPayLaterAvailable,
+    isTotalPriceNull,
+  ]);
 
 export const useSubmitButtonsDisabledState = ({
   basketLoading,
   currentStepId,
   isOnlinePaymentDisabled,
-  isTotalPriceNull,
   termsAndConditionsAccepted,
 }: UseSubmitButtonsDisabledStateProps): { [key: number]: boolean } =>
   useMemo(() => {
@@ -76,12 +89,13 @@ export const useSubmitButtonsDisabledState = ({
         case SUBMIT_BUTTONS.PAY_NOW_BUTTON.id:
           if (
             basketLoading ||
-            (!isTotalPriceNull && isOnlinePaymentDisabled) ||
+            isOnlinePaymentDisabled ||
             !termsAndConditionsAccepted
           )
             submitButtonsDisabled[button.id] = true;
           break;
         case SUBMIT_BUTTONS.PAY_LATER_BUTTON.id:
+        case SUBMIT_BUTTONS.CONFIRM_BUTTON.id:
           if (basketLoading || !termsAndConditionsAccepted)
             submitButtonsDisabled[button.id] = true;
           break;
@@ -94,7 +108,6 @@ export const useSubmitButtonsDisabledState = ({
     basketLoading,
     currentStepId,
     isOnlinePaymentDisabled,
-    isTotalPriceNull,
     termsAndConditionsAccepted,
   ]);
 
@@ -111,6 +124,7 @@ export const useSubmitButtonsProcessingState = ({
           break;
         case SUBMIT_BUTTONS.PAY_NOW_BUTTON.id:
         case SUBMIT_BUTTONS.PAY_LATER_BUTTON.id:
+        case SUBMIT_BUTTONS.CONFIRM_BUTTON.id:
           if (paymentProcessing) submitButtonsProcessing[button.id] = true;
           break;
         default:
@@ -135,6 +149,7 @@ export const useHandleSubmitButtonsCallbacks = ({
       switch (button.id) {
         case SUBMIT_BUTTONS.NEXT_BUTTON.id:
         case SUBMIT_BUTTONS.PAY_NOW_BUTTON.id:
+        case SUBMIT_BUTTONS.CONFIRM_BUTTON.id:
           // The `onSubmit` method defined in the `CheckoutSteps` component will handle the submit for
           // the `ADDRESS_STEP` or the `PAYMENT_STEP`, according to the `currentStep` provided to him.
           submitButtonsCallbacks[button.id] = async (

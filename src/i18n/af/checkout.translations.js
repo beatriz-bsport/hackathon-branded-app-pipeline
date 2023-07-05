@@ -105,6 +105,7 @@ exports.default = {
       back: 'Précédent',
       widgetContinue: 'Continuer',
       payNow: 'Payer',
+      confirmPriceNull: 'Confirmer',
     },
     sections: {
       explain:

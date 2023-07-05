@@ -6,15 +6,18 @@ import './styles.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export type Props = {
-  size?: 'sm';
+  size?: 'xs' | 'sm';
   contrastStrokeColor?: boolean;
+};
+
+const circularProgressSizeClasses = {
+  xs: 'bs-circular-progress__container--x-small',
+  sm: 'bs-circular-progress__container--small',
 };
 
 const CircularProgress: React.FC<Props> = ({ size, contrastStrokeColor }) => {
   const circleContainerClass =
-    size === 'sm'
-      ? 'bs-circular-progress__container--small'
-      : 'bs-circular-progress__container';
+    circularProgressSizeClasses[size] ?? 'bs-circular-progress__container';
 
   return (
     <div className={circleContainerClass}>

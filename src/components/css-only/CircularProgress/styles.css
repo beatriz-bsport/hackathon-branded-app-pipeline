@@ -35,6 +35,11 @@
   height: 40px;
 }
 
+.bs-circular-progress__container--x-small {
+  width: 18px;
+  height: 18px;
+}
+
 .bs-circular-progress__container--small {
   width: 24px;
   height: 24px;

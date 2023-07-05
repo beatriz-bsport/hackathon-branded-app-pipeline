@@ -20,6 +20,7 @@
 
 .bs-pack-card .bs-generic-card__content__grid {
   flex-grow: 1;
+  gap: 0;
 }
 
 .bs-pack-card__item {

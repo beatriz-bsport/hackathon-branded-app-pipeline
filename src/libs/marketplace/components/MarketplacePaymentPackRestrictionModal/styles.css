@@ -67,6 +67,6 @@
   text-transform: uppercase;
 }
 
-li {
+.bs-restrictions-modal li {
   list-style-type: none;
 }

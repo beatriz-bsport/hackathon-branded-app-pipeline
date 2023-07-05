@@ -68,10 +68,6 @@ export const EXPORTABLE_COMPONENT_WITH_ADVANCED_SETTINGS = Object.keys(
   EXPORTABLE_COMPONENT_SETTINGS_BY_TYPE,
 );
 
-export const getCssComponentPages = () => {
-  return Array.from(new Set(CSS_COMPONENTS.flatMap((c) => c.pages)));
-};
-
 export const getCssComponentsForPage = (page: MarketplacePage) => {
   return CSS_COMPONENTS.filter((c) => c.pages.includes(page));
 };

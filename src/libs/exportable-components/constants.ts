@@ -60,6 +60,7 @@ import {
 import {
   CSSComponentPreviews,
   MarketplaceCSSComponentConfig,
+  MarketplacePage,
 } from '#libs/exportable-components/types';
 
 /* import {
@@ -315,5 +316,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
     contractCooldownModal: MARKETPLACE_CONTRACT_COOLDOWN_MODAL_PREVIEW,
     contractCouponFormModal: MARKETPLACE_CONTRACT_COUPON_FORM_MODAL_PREVIEW,
   });
+
+export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =
+  Immutable(Array.from(new Set(CSS_COMPONENTS.flatMap((c) => c.pages))));
 
 export default CSS_COMPONENTS;

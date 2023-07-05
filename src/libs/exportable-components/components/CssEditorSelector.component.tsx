@@ -7,13 +7,13 @@ import { ButtonBase, Typography } from '@material-ui/core';
 import { TFunction } from 'i18next';
 // @ts-ignore
 import withConfirm from '#hocs/with-confirm.hoc';
-import { getCssComponentPages, getCssComponentsForPage } from '../utils';
+import { getCssComponentsForPage } from '../utils';
 import { MarketplaceCSSComponentConfig, MarketplacePage } from '../types';
 import DoubleIndicatorSelector from '#components/Selector/DoubleIndicatorSelector.component';
 import HoverableInfo from '#components/HoverableInfo.component';
+import { CSS_COMPONENT_PAGES } from '#libs/exportable-components/constants';
 
-const PAGES = getCssComponentPages();
-const COMPONENTS_BY_PAGE = PAGES.reduce<
+const COMPONENTS_BY_PAGE = CSS_COMPONENT_PAGES.reduce<
   Record<string, MarketplaceCSSComponentConfig[]>
 >((acc, page) => {
   acc[page] = getCssComponentsForPage(page);
@@ -46,7 +46,7 @@ const CssEditorSelector: React.FC<Props> = ({
 
   const componentOptions = useMemo(
     () =>
-      (COMPONENTS_BY_PAGE?.[page] || []).map((component) => ({
+      Array.from(COMPONENTS_BY_PAGE?.[page] || []).map((component) => ({
         label: t(`widget.components.${component.label}`),
         value: component.label,
       })),
@@ -55,7 +55,7 @@ const CssEditorSelector: React.FC<Props> = ({
 
   const pageOptions = useMemo(
     () =>
-      PAGES.map((_page) => ({
+      Array.from(CSS_COMPONENT_PAGES).map((_page) => ({
         value: _page,
         label: t(`widget.page.${_page}`),
       })),

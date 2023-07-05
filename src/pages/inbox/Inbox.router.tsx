@@ -1,11 +1,11 @@
-// @ts-nocheck
 import React from 'react';
 import { Route, Switch } from 'react-router';
 
-import InboxThreadList from './InboxThreadList.page';
+import InboxContainer from './InboxContainer.page';
 
 export default () => (
   <Switch>
-    <Route exact path="/inbox/threads/" component={InboxThreadList} />
+    <Route path="/inbox/thread/:id/" component={InboxContainer} />
+    <Route path="/inbox/thread/" component={InboxContainer} />
   </Switch>
 );

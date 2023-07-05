@@ -288,6 +288,7 @@ export class OfferManagement extends Component<Props, State> {
   }
 
   fetchOfferAndData = () => {
+    this.props.resetInvoiceList();
     this.props.fetchOffer(this.props.offerId, {
       onSuccess: (data) => {
         const coach_id =
@@ -306,7 +307,6 @@ export class OfferManagement extends Component<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     if (!!this.props.offerId && this.props.offerId !== prevProps.offerId) {
-      this.props.resetInvoiceList();
       this.fetchOfferAndData();
     }
     if (

@@ -577,7 +577,7 @@ export const listInvoiceActions = {
 };
 
 export function resetInvoiceList() {
-  return async (dispatch: Dispatch) => {
+  return (dispatch: Dispatch) => {
     dispatch(listInvoiceActions.reset());
   };
 }

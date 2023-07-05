@@ -1,3 +1,5 @@
+const { RoleType } = require('@bsport/common/lib/master-data/user-role');
+
 const {
   OWNER_ROLE,
   STAFF_ROLE,
@@ -344,6 +346,9 @@ exports.default = {
         subscription: {
           _label: 'Abonnement bsport',
         },
+        quicksale: {
+          _label: 'Interface de vente rapide',
+        },
       },
       tutorial: {
         _label: 'Tutoriel',
@@ -426,6 +431,10 @@ exports.default = {
       description:
         'Accès uniquements aux rapports, utile pour vos comptables par exemple',
       name: 'Rapports',
+    },
+    [RoleType.USER_ROLE_QUICKSALE]: {
+      description: "Accès uniquement à l'interface de vente rapide",
+      name: 'Checkin interface de vente',
     },
   },
 };

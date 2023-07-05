@@ -8180,7 +8180,8 @@
           "partnership": { "_label": "Partenariat" },
           "quickBooks": { "_label": "QuickBooks" },
           "activeCampaign": { "_label": "ActiveCampaign" },
-          "subscription": { "_label": "Abonnement bsport" }
+          "subscription": { "_label": "Abonnement bsport" },
+          "quicksale": { "_label": "Interface de vente rapide" }
         },
         "tutorial": { "_label": "Tutoriel" }
       },
@@ -8215,7 +8216,8 @@
         "description": "Compte pour application d'auto-checkin (contactez votre chargé de compte bsport)"
       },
       "4": { "name": "Admin", "description": "Admin, même accès que Owner mais peut être supprimé/créé" },
-      "5": { "description": "Accès uniquements aux rapports, utile pour vos comptables par exemple", "name": "Rapports" }
+      "5": { "description": "Accès uniquements aux rapports, utile pour vos comptables par exemple", "name": "Rapports" },
+      "-1": { "description": "Accès uniquement à l'interface de vente rapide", "name": "Checkin interface de vente" }
     }
   },
   "search": {

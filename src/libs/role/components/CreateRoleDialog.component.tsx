@@ -146,6 +146,7 @@ const defaultPermissions: RolePermission = {
       activeCampaign: true,
       subscription: true,
       mobilePersonalization: true,
+      quicksale: true,
     },
     tutorial: true,
   },

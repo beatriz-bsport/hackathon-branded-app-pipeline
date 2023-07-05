@@ -124,6 +124,7 @@ export type RolePermission = {
       activeCampaign: boolean;
       subscription: boolean;
       mobilePersonalization: boolean;
+      quicksale: boolean;
     };
     tutorial: boolean;
   };

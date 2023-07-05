@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import cloneDeep from 'lodash/cloneDeep';

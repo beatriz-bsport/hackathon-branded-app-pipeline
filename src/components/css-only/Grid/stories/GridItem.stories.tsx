@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import './stories.styles.css';
 import GridItem, { Props } from '../GridItem';

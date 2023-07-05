@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Button, Typography } from '@material-ui/core';

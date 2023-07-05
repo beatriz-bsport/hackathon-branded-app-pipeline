@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import './LoginBackground.css';
 import Button from '@material-ui/core/Button';

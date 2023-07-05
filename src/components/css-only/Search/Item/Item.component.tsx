@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { BaseAdditionalData, SearchItemData } from '../Search.component';

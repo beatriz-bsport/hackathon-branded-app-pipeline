@@ -5,6 +5,7 @@ import { Skeleton } from '@material-ui/lab';
 
 type Props = {
   fieldsCount: number;
+  withoutIcon?: boolean;
 };
 
 const FormSectionSkeleton = React.memo((props: Props) => {
@@ -17,12 +18,14 @@ const FormSectionSkeleton = React.memo((props: Props) => {
     <div id="offer-form-skeleton">
       <Box className={classes.container}>
         <div className={classes.titleSkeleton}>
-          <Skeleton
-            className={classes.skeletonBase}
-            height={44}
-            variant="rect"
-            width={44}
-          />
+          {!props.withoutIcon && (
+            <Skeleton
+              className={classes.skeletonBase}
+              height={44}
+              variant="rect"
+              width={44}
+            />
+          )}
           <Skeleton
             className={classes.skeletonBase}
             height={27}

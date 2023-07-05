@@ -48,6 +48,7 @@ const ComponentPreview: React.FC<
   return (
     <div
       style={{
+        position: 'relative',
         height: '1000px',
         maxHeight: pageHeight,
       }}

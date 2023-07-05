@@ -41,6 +41,10 @@
 }
 
 .bs-contract-terms-dialog__button {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
   border: none;
   font-size: var(--button-fontSize);
   font-weight: var(--button-fontWeight);

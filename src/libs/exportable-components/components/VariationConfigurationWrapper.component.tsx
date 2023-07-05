@@ -15,15 +15,21 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 import { getCssComponentByLabel } from '../utils';
-import { VariationConfigurationChoice } from '../types';
+import {
+  CSSComponentsById,
+  VariationConfigurationChoice,
+} from '#libs/exportable-components/types';
 /*  Wrapper that dynamically passes different props based on the current state.
  * This wrapper is utilized to display the appropriate React component (children) sourced from the configurations.
  * It is also responsible for managing the state/variant in which the user wants to view the displayed component.
  * Once the different variants are selected, it renders the cloned children in the DOM and adds variant-specific inherited props.
  * The "variationsSelected" is then utilized within the component to generate data from factories, modify default props, change states, and more.
  */
+
+import './variation_configuration_preview.css';
+
 const VariationConfigurationWrapper: React.FC<{
-  componentId: string;
+  componentId: CSSComponentsById;
   // By default React.FC interface interpolates the children as a React.ReactNode
   children: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
 }> = ({ componentId, children }) => {
@@ -74,6 +80,27 @@ const VariationConfigurationWrapper: React.FC<{
     [variationsSelected],
   );
 
+  const isSelectedComponentModal = useMemo(() => {
+    switch (componentId) {
+      case 'contractDetailModal':
+        return true;
+      case 'contractTermsModal':
+        return true;
+      case 'contractCooldownModal':
+        return true;
+      case 'contractCouponFormModal':
+        return true;
+      case 'paymentPackCompatibilityModal':
+        return true;
+      case 'paymentPackRestrictionModal':
+        return true;
+      case 'privatePassCompatibilityModal':
+        return true;
+      default:
+        return false;
+    }
+  }, [componentId]);
+
   return (
     <div className={classes.config}>
       {config.variations.length > 0 && (
@@ -123,12 +150,23 @@ const VariationConfigurationWrapper: React.FC<{
         </div>
       )}
       <div
-        className={classNames(classes.preview, classes.absoluteCentered, {
-          [classes.flex]: config.showAsFlex,
-        })}
+        className={classNames(
+          'bs-custom-css__component__preview',
+          classes.preview,
+          classes.centered,
+          {
+            [classes.flex]: config.showAsFlex,
+          },
+        )}
       >
         {/* Here injecting the new props to the children */}
-        <div>{React.cloneElement(children, { variationsSelected })}</div>
+        <div
+          className={classNames(classes.componentWrapper, {
+            [classes.fullHeight]: isSelectedComponentModal,
+          })}
+        >
+          {React.cloneElement(children, { variationsSelected })}
+        </div>
       </div>
     </div>
   );
@@ -163,12 +201,17 @@ const useStyles = makeStyles((theme) => ({
   whiteBg: {
     marginBottom: theme.spacing(2),
   },
-  absoluteCentered: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+  centered: {
     width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  componentWrapper: {
+    width: '100%',
+  },
+  fullHeight: {
+    height: '100%',
   },
 }));
 

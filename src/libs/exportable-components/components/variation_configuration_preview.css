@@ -1,0 +1,40 @@
+/* 
+Certain CSS rules need to be overridden solely for the purpose of previewing.
+In order to maintain the integrity of the source CSS files
+these overrides will be overwritten within this file.
+*/
+
+/* MarketPlaceContractCooldownModal */
+.bs-custom-css__component__preview .bs-contract-cooldown-dialog__backdrop {
+  position: relative;
+}
+
+/* MarketPlaceContractDetailModal */
+.bs-custom-css__component__preview .bs-contract-details-dialog {
+  position: relative;
+}
+
+/* MarketplaceContractTermsModal */
+.bs-custom-css__component__preview .bs-contract-terms-dialog__backdrop {
+  position: relative;
+}
+
+/* MarketplaceCouponFormModal */
+.bs-custom-css__component__preview .bs-coupon-form__backdrop {
+  position: relative;
+}
+
+/* MarketplacePaymentPackCompatibilityModal */
+.bs-custom-css__component__preview .bs-pack-compatibility-dialog__backdrop {
+  position: relative;
+}
+
+/* MarketplacePaymentPackRestrictionModal */
+.bs-custom-css__component__preview .bs-restrictions-modal__backdrop {
+  position: relative;
+}
+
+/* MarketplacePrivatePassCompatibilityModal */
+.bs-custom-css__component__preview .bs-pass-compatibility-dialog__backdrop {
+  position: relative;
+}

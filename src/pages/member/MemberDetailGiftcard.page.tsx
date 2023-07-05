@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withState, withHandlers } from 'recompose';
 
@@ -14,6 +13,7 @@ import { push } from 'connected-react-router';
 import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-items';
 import uniq from 'lodash/uniq';
 import themeSelectors from '#libs/theme/selectors';
+// @ts-expect-error
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
@@ -34,6 +34,7 @@ import {
   WithReceiver,
 } from '#libs/giftcard/types';
 import ConsumerGiftcardDetail from '#libs/giftcard/components/ConsumerGiftcardDetail.component';
+// @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
 import {
@@ -49,6 +50,7 @@ import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/a
 import { RootState } from '../../reducers';
 import { Invoice } from '#libs/invoice/types';
 import ConsumerGiftcardInvitationModal from '#libs/giftcard/components/ConsumerGiftcardInvitationModal.components';
+import { getMember } from '#libs/member/selectors';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -84,8 +86,8 @@ const PAGE_SIZE = 15;
 type State = {
   consumerGiftcardToInvite: ConsumerGiftcard | null;
 };
-export class MemberDetailGiftcard extends Component<Props, State> {
-  state = {
+export class MemberDetailGiftcard extends PureComponent<Props, State> {
+  state: State = {
     consumerGiftcardToInvite: null,
   };
 
@@ -132,7 +134,7 @@ export class MemberDetailGiftcard extends Component<Props, State> {
     }
   };
 
-  sendInvitations = (data: any, options: OptionCallback) => {
+  sendInvitations = (data: any, options: OptionCallback<ConsumerGiftcard>) => {
     this.props.sendEmailInvitation(
       this.state.consumerGiftcardToInvite.id,
       data,
@@ -219,55 +221,63 @@ export class MemberDetailGiftcard extends Component<Props, State> {
               snackbarSuccess={this.props.snackbarSuccess}
             />
           )}
-          <Typography variant="h5">
-            {t('consumerGiftcard.list.myGifted')}
-          </Typography>
-          <Paper className={classes.listConsumerGiftcard}>
-            <PaginatedListBase
-              listProps={{
-                disablePadding: 'true',
-                dense: 'true',
-              }}
-              items={this.props.receivedState.consumerGiftcardList}
-              nbItems={this.props.receivedState.consumerGiftcardCount}
-              loading={this.props.receivedState.consumerGiftcardLoading}
-              page={this.props.receivedState.consumerGiftcardPage}
-              itemPerPage={PAGE_SIZE}
-              onPageRequested={(page: number, pageSize: number) =>
-                this.props.fetchConsumerGiftcardReceivedList(
-                  this.props.id,
-                  page,
-                  pageSize,
-                )
-              }
-              renderEmpty={() => (
-                <div className={classes.emptyContainer}>
-                  <Typography variant="caption" color="textSecondary">
-                    {t('consumerGiftcard.isEmpty')}
-                  </Typography>
-                  <Divider />
-                </div>
-              )}
-              renderItem={(
-                cgc: WithGiftcard<WithSender<WithReceiver<ConsumerGiftcard>>>,
-              ) => (
-                <ConsumerGiftcardListItem
-                  key={cgc.id}
-                  consumerGiftcard={cgc}
-                  selected={cgc.id === this.props.selectedConsumerGiftcardId}
-                  giftcard={cgc.giftcard}
-                  showAsRecipient
-                  showSender
-                  divider
-                  onClickSender={this.props.goToMemberGiftcard}
-                  onClickReceiver={this.props.goToMemberGiftcard}
-                  memberReceiver={cgc.dst_member}
-                  memberSender={cgc.src_member}
-                  sharedFromFranchisor={!!cgc.consumer_giftcard_source}
+          {!this.props.is_pos_member && (
+            <>
+              <Typography variant="h5">
+                {t('consumerGiftcard.list.myGifted')}
+              </Typography>
+              <Paper className={classes.listConsumerGiftcard}>
+                <PaginatedListBase
+                  listProps={{
+                    disablePadding: 'true',
+                    dense: 'true',
+                  }}
+                  items={this.props.receivedState.consumerGiftcardList}
+                  nbItems={this.props.receivedState.consumerGiftcardCount}
+                  loading={this.props.receivedState.consumerGiftcardLoading}
+                  page={this.props.receivedState.consumerGiftcardPage}
+                  itemPerPage={PAGE_SIZE}
+                  onPageRequested={(page: number, pageSize: number) =>
+                    this.props.fetchConsumerGiftcardReceivedList(
+                      this.props.id,
+                      page,
+                      pageSize,
+                    )
+                  }
+                  renderEmpty={() => (
+                    <div className={classes.emptyContainer}>
+                      <Typography variant="caption" color="textSecondary">
+                        {t('consumerGiftcard.isEmpty')}
+                      </Typography>
+                      <Divider />
+                    </div>
+                  )}
+                  renderItem={(
+                    cgc: WithGiftcard<
+                      WithSender<WithReceiver<ConsumerGiftcard>>
+                    >,
+                  ) => (
+                    <ConsumerGiftcardListItem
+                      key={cgc.id}
+                      consumerGiftcard={cgc}
+                      selected={
+                        cgc.id === this.props.selectedConsumerGiftcardId
+                      }
+                      giftcard={cgc.giftcard}
+                      showAsRecipient
+                      showSender
+                      divider
+                      onClickSender={this.props.goToMemberGiftcard}
+                      onClickReceiver={this.props.goToMemberGiftcard}
+                      memberReceiver={cgc.dst_member}
+                      memberSender={cgc.src_member}
+                      sharedFromFranchisor={!!cgc.consumer_giftcard_source}
+                    />
+                  )}
                 />
-              )}
-            />
-          </Paper>
+              </Paper>
+            </>
+          )}
         </Grid>
         <Grid item sm={12} md={6}>
           {this.props.selectedConsumerGiftcardId && (
@@ -288,7 +298,10 @@ export class MemberDetailGiftcard extends Component<Props, State> {
 const connector = connect(
   (
     state: RootState,
-    { selectedConsumerGiftcardId }: { selectedConsumerGiftcardId: number },
+    {
+      id,
+      selectedConsumerGiftcardId,
+    }: { id: number; selectedConsumerGiftcardId: number },
   ) => ({
     receivedState: {
       consumerGiftcardCount: state.giftcard.consumerGiftcard.asReceiver.count,
@@ -299,6 +312,7 @@ const connector = connect(
         withReceiver(withSender(getConsumerGiftcardReceivedList)),
       )(state),
     },
+    is_pos_member: getMember(state, id)?.is_pos,
     sentState: {
       consumerGiftcardCount: state.giftcard.consumerGiftcard.asSender.count,
       consumerGiftcardLoading: state.giftcard.consumerGiftcard.asSender.loading,
@@ -309,6 +323,7 @@ const connector = connect(
     },
     selectedConsumerGiftcard: withGiftcard(getConsumerGiftcard)(
       state,
+      // @ts-expect-error
       selectedConsumerGiftcardId,
     ),
     companyTheme: themeSelectors.getTheme(state),

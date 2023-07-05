@@ -191,7 +191,6 @@ const connector = connect(
     // MEMBERS
     contextMember:
       thread?.related_object_kind === ChatThreadKinds.Member &&
-      // @ts-expect-error
       getMember(state, thread?.related_object_id),
     countAvailableRecipientsTotal: state.member.communication.countTotal,
     countAvailableRecipientsWithEmail:

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +18,7 @@ import EmailInputWithChips from '../../../components/input/email-input-with-chip
 type Props = {
   onSubmit: (
     data: { recipients: Array<string> },
-    options: OptionCallback,
+    options: OptionCallback<ConsumerGiftcard>,
   ) => void;
   onClose: () => void;
   consumerGiftcard: ConsumerGiftcard;
@@ -95,6 +94,7 @@ const ConsumerGiftcardInvitationModal = (props: Props) => {
           onClick={() => {
             setProcessing(true);
             props.onSubmit(
+              // @ts-expect-error
               { email_sent_to: recipient },
               {
                 onSuccess: () => setProcessing(false),

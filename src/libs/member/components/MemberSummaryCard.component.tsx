@@ -1,6 +1,5 @@
 // @ts-nocheck
-// @flow
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -93,7 +92,7 @@ type OwnProps = {
 
 type Props = OwnProps & WithTranslation & WithStyles<typeof styles>;
 
-export class MemberSummaryCard extends Component<Props> {
+export class MemberSummaryCard extends PureComponent<Props> {
   state = {
     displayMailDialog: false,
     displayBarcodeDialog: false,
@@ -320,36 +319,38 @@ export class MemberSummaryCard extends Component<Props> {
             </Typography>
           </div>
         </div>
-        <div className={classes.icons}>
-          {mergeMember && (
-            <Button
-              onClick={mergeMember}
-              color="secondary"
-              disabled={member?.archived}
-            >
-              <Hidden xsDown>{t('common.merge')}</Hidden>
-              <MergeTypeIcon className={classes.rightIcon} />
-            </Button>
-          )}
-          {editMember && (
-            <Button onClick={editMember} color="primary">
-              <Hidden xsDown>{t('common.edit')}</Hidden>
-              <EditIcon className={classes.rightIcon} />
-            </Button>
-          )}
-          {goToMember && (
-            <Button onClick={goToMember} color="primary">
-              <Hidden xsDown>{t('common.show')}</Hidden>
-              <ArrowForwardIcon className={classes.rightIcon} />
-            </Button>
-          )}
-          {handleOpenResetPasswordDialog && this.props.member?.email && (
-            <Button onClick={handleOpenResetPasswordDialog} color="primary">
-              <Hidden xsDown>{t('member:resetPassword.button')}</Hidden>
-              <LockIcon className={classes.rightIcon} />
-            </Button>
-          )}
-        </div>
+        {member && !member.is_pos && (
+          <div className={classes.icons}>
+            {mergeMember && (
+              <Button
+                onClick={mergeMember}
+                color="secondary"
+                disabled={member?.archived}
+              >
+                <Hidden xsDown>{t('common.merge')}</Hidden>
+                <MergeTypeIcon className={classes.rightIcon} />
+              </Button>
+            )}
+            {editMember && (
+              <Button onClick={editMember} color="primary">
+                <Hidden xsDown>{t('common.edit')}</Hidden>
+                <EditIcon className={classes.rightIcon} />
+              </Button>
+            )}
+            {goToMember && (
+              <Button onClick={goToMember} color="primary">
+                <Hidden xsDown>{t('common.show')}</Hidden>
+                <ArrowForwardIcon className={classes.rightIcon} />
+              </Button>
+            )}
+            {handleOpenResetPasswordDialog && this.props.member?.email && (
+              <Button onClick={handleOpenResetPasswordDialog} color="primary">
+                <Hidden xsDown>{t('member:resetPassword.button')}</Hidden>
+                <LockIcon className={classes.rightIcon} />
+              </Button>
+            )}
+          </div>
+        )}
       </div>
     );
   };

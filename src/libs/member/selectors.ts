@@ -50,7 +50,11 @@ export const getSearchedMembersArchived = createSelector(
 );
 
 export const getMember = createSelector(
-  [getMemberDetailData, (_state, memberId) => memberId, getMemberListData],
+  [
+    getMemberDetailData,
+    (_state, memberId: number) => memberId,
+    getMemberListData,
+  ],
   (memberDetailData, memberId, memberListData) => {
     const detail = memberDetailData[memberId];
     if (detail) return detail;

@@ -155,7 +155,7 @@ type State = {
   isResetPasswordError: boolean;
 };
 
-export class MemberDetailPage extends React.Component<Props> {
+export class MemberDetailPage extends React.PureComponent<Props> {
   state: State = {
     searchModalOpen: false,
     tagToDelete: null,
@@ -428,45 +428,53 @@ export class MemberDetailPage extends React.Component<Props> {
             resolvedGenericTags={this.props.resolvedGenericTags}
             handleOpenResetPasswordDialog={this.handleOpenResetPasswordDialog}
           />
-          <MemberBillingProblemCard
-            invoiceLoading={this.props.invoiceLoading}
-            member={this.props.member}
-            memberId={this.props.id}
-            memberLoading={this.props.memberLoading}
-            unpaidInvoiceList={this.props.unpaidInvoiceList}
-            onClickInvoice={this.props.goToInvoice}
-            asConsumer={false}
-            balance={this.props.member.credit_account_balance}
-            applyBalanceToUnpaidInvoices={this.applyBalanceToUnpaidInvoices}
-            adjustCreditWithoutPaymentNote={this.adjustCreditWithoutPaymentNote}
-            fetchInvoiceListUnpaid={this.fetchInvoiceListUnpaid}
-            availablePaymentMethodList={
-              this.props.payment_method_available_manager
-            }
-            detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
-            snackbarErrorMsg={this.props.snackbarErrorMsg}
-            snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-            detachPaymentMethod={this.props.detachPaymentMethod}
-            establishments={this.props.establishmentList}
-            enableMultiLocalization={
-              this.props.companyTheme.enable_multi_localization
-            }
-            companyId={this.props.companyId}
-            stripeId={this.props.companyTheme.stripe_id}
-            applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
-            consumerGiftcardList={this.props.consumerGiftcardList}
-            stripeReaders={this.props.stripeReaders || []}
-            onlinePaymentEnabled={this.props.onlinePaymentEnabled}
-            forceOnlyInternal={this.props.onlinePaymentEnabled === false}
-          />
-          <TaskList
-            taskList={this.props.taskList}
-            updateTaskStatus={this.props.updateTaskStatus}
-            createOrUpdateTask={this.props.createOrUpdateTask}
-            fetchCompanyUserRoles={this.props.fetchCompanyUserRoles}
-            staffList={this.props.staffList}
-            loading={this.props.taskLoading}
-          />
+          {member && !member.is_pos && (
+            <>
+              <MemberBillingProblemCard
+                invoiceLoading={this.props.invoiceLoading}
+                member={this.props.member}
+                memberId={this.props.id}
+                memberLoading={this.props.memberLoading}
+                unpaidInvoiceList={this.props.unpaidInvoiceList}
+                onClickInvoice={this.props.goToInvoice}
+                asConsumer={false}
+                balance={this.props.member.credit_account_balance}
+                applyBalanceToUnpaidInvoices={this.applyBalanceToUnpaidInvoices}
+                adjustCreditWithoutPaymentNote={
+                  this.adjustCreditWithoutPaymentNote
+                }
+                fetchInvoiceListUnpaid={this.fetchInvoiceListUnpaid}
+                availablePaymentMethodList={
+                  this.props.payment_method_available_manager
+                }
+                detachPaymentMethodLoading={
+                  this.props.detachPaymentMethodLoading
+                }
+                snackbarErrorMsg={this.props.snackbarErrorMsg}
+                snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                detachPaymentMethod={this.props.detachPaymentMethod}
+                establishments={this.props.establishmentList}
+                enableMultiLocalization={
+                  this.props.companyTheme.enable_multi_localization
+                }
+                companyId={this.props.companyId}
+                stripeId={this.props.companyTheme.stripe_id}
+                applyGiftcardOnInvoice={this.applyGiftcardOnInvoice}
+                consumerGiftcardList={this.props.consumerGiftcardList}
+                stripeReaders={this.props.stripeReaders || []}
+                onlinePaymentEnabled={this.props.onlinePaymentEnabled}
+                forceOnlyInternal={this.props.onlinePaymentEnabled === false}
+              />
+              <TaskList
+                taskList={this.props.taskList}
+                updateTaskStatus={this.props.updateTaskStatus}
+                createOrUpdateTask={this.props.createOrUpdateTask}
+                fetchCompanyUserRoles={this.props.fetchCompanyUserRoles}
+                staffList={this.props.staffList}
+                loading={this.props.taskLoading}
+              />
+            </>
+          )}
         </Grid>
         <Grid item lg={6} xs={12}>
           <MemberCRM

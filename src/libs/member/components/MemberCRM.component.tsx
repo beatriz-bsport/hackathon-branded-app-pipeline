@@ -6,8 +6,8 @@ import { makeStyles, Theme } from '@material-ui/core';
 import MemberNotePanel from './MemberNotePanel.component';
 // @ts-ignore
 import TagPanel from '../../tag/components/TagPanel.component';
-import { MemberNote, Member, MemberUploadedFile } from '../types';
-import { Tag, TagGroup } from '../../tag/types';
+import type { MemberNote, Member, MemberUploadedFile } from '../types';
+import type { Tag, TagGroup } from '../../tag/types';
 import MemberFilesPanel from './MemberFilesPanel.component';
 import MemberPaymentMethodPanel from './MemberPaymentMethodPanel.component';
 import SpiviPrivacySettingsPanel from '../../spivi/components/SpiviPrivacySettingsPanel.component';
@@ -50,7 +50,7 @@ type Props = {
   spiviPrivacySettingsLoading: boolean;
 };
 
-export const MemberCRM = (props: Props) => {
+export const MemberCRM: React.FC<Props> = (props) => {
   const {
     member,
     memberId,
@@ -109,22 +109,26 @@ export const MemberCRM = (props: Props) => {
     [notes],
   );
 
+  const is_not_pos_member = member && !member.is_pos;
+
   return (
     <Paper className={classes.noteContainer}>
-      <TagPanel
-        tagGroups={tagGroups}
-        attributedTags={memberTags}
-        createTagGroup={createTagGroup}
-        createTag={createTag}
-        attributeTag={attributeTag}
-        untag={untag}
-        deleteTagGroup={deleteTagGroup}
-        tagGroupsLoading={tagGroupsLoading}
-        deleteTag={deleteTag}
-        updateTag={updateTag}
-        updateTagGroup={updateTagGroup}
-        member={member}
-      />
+      {is_not_pos_member && (
+        <TagPanel
+          tagGroups={tagGroups}
+          attributedTags={memberTags}
+          createTagGroup={createTagGroup}
+          createTag={createTag}
+          attributeTag={attributeTag}
+          untag={untag}
+          deleteTagGroup={deleteTagGroup}
+          tagGroupsLoading={tagGroupsLoading}
+          deleteTag={deleteTag}
+          updateTag={updateTag}
+          updateTagGroup={updateTagGroup}
+          member={member}
+        />
+      )}
       <div className={classes.separator} />
       <MemberNotePanel
         notes={medicalNotes}
@@ -148,15 +152,17 @@ export const MemberCRM = (props: Props) => {
         updateVisibility={updateVisibility}
       />
       <div className={classes.separator} />
-      <MemberPaymentMethodPanel
-        snackbarSuccess={props.snackbarSuccessMsg}
-        companyId={companyId}
-        paymentMethod={paymentMethod}
-        paymentMethodLoading={paymentMethodLoading}
-        detachPaymentMethod={detachPaymentMethod}
-        detachPaymentMethodLoading={detachPaymentMethodLoading}
-        openAddPaymentMethodDialog={props.openAddPaymentMethodDialog}
-      />
+      {is_not_pos_member && (
+        <MemberPaymentMethodPanel
+          snackbarSuccess={props.snackbarSuccessMsg}
+          companyId={companyId}
+          paymentMethod={paymentMethod}
+          paymentMethodLoading={paymentMethodLoading}
+          detachPaymentMethod={detachPaymentMethod}
+          detachPaymentMethodLoading={detachPaymentMethodLoading}
+          openAddPaymentMethodDialog={props.openAddPaymentMethodDialog}
+        />
+      )}
       {props.member?.spivi_privacy_settings_accepted !== null &&
         props.member?.spivi_privacy_settings_accepted !== undefined && (
           <div>
@@ -186,4 +192,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default MemberCRM;
+export default React.memo(MemberCRM);

@@ -189,7 +189,6 @@ const connector = connect(
     tags: tagSelectors.getMemberTagsWithTagGroup(state),
     member:
       thread?.related_object_kind === ChatThreadKinds.Member &&
-      // @ts-expect-error
       getMember(state, thread.related_object_id),
     unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
     smartlist:

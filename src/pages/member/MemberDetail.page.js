@@ -196,53 +196,65 @@ const getTabsData = (
   private_consumer_pass: number,
   form: number,
   performance_tracking: number,
+  is_member_pos?: boolean,
 ) => {
-  const tabsData = [
-    { label: 'tab.member.info', value: 'info' },
-    {
-      label: 'tab.member.bookings',
-      value: 'bookings',
-      count: bookings,
-    },
-    {
-      label: 'tab.member.vod',
-      value: 'vod',
-      count: vod,
-    },
-    {
-      label: 'tab.member.paymentPack',
-      value: 'pass',
-      count: pass,
-    },
-    {
-      label: 'tab.member.payment',
-      value: 'payment',
-      count: payment,
-    },
-    { label: 'tab.member.contact', value: 'contact' },
-    {
-      label: 'tab.member.relation',
-      value: 'relation',
-      count: relation,
-    },
-    {
-      label: 'tab.member.privateBooking',
-      value: 'private-booking',
-      count: private_booking,
-    },
-    { label: 'tab.member.giftcard', value: 'giftcard' },
-    {
-      label: 'tab.member.privateConsumerPass',
-      value: 'private-consumer-pass',
-      count: private_consumer_pass,
-    },
-    {
-      label: 'tab.member.form',
-      value: 'form',
-      count: form,
-    },
-    { label: 'tab.member.basket', value: 'basket' },
-  ];
+  const tabsData = !is_member_pos
+    ? [
+        { label: 'tab.member.info', value: 'info' },
+        {
+          label: 'tab.member.bookings',
+          value: 'bookings',
+          count: bookings,
+        },
+        {
+          label: 'tab.member.vod',
+          value: 'vod',
+          count: vod,
+        },
+        {
+          label: 'tab.member.paymentPack',
+          value: 'pass',
+          count: pass,
+        },
+        {
+          label: 'tab.member.payment',
+          value: 'payment',
+          count: payment,
+        },
+        { label: 'tab.member.contact', value: 'contact' },
+        {
+          label: 'tab.member.relation',
+          value: 'relation',
+          count: relation,
+        },
+        {
+          label: 'tab.member.privateBooking',
+          value: 'private-booking',
+          count: private_booking,
+        },
+        { label: 'tab.member.giftcard', value: 'giftcard' },
+        {
+          label: 'tab.member.privateConsumerPass',
+          value: 'private-consumer-pass',
+          count: private_consumer_pass,
+        },
+        {
+          label: 'tab.member.form',
+          value: 'form',
+          count: form,
+        },
+        { label: 'tab.member.basket', value: 'basket' },
+      ]
+    : [
+        { label: 'tab.member.info', value: 'info' },
+        {
+          label: 'tab.member.payment',
+          value: 'payment',
+          count: payment,
+        },
+        { label: 'tab.member.giftcard', value: 'giftcard' },
+        { label: 'tab.member.basket', value: 'basket' },
+      ];
   if (performance_tracking) {
     const newTab = {
       label: 'tab.member.programs',
@@ -358,6 +370,7 @@ export class MemberDetail extends React.Component<Props> {
       this.props.infosOfMember?.nb_private_consumer_pass,
       this.props.customFormFilledList?.length,
       this.props.programList?.length,
+      this.props.member?.is_pos,
     );
 
     return (
@@ -457,16 +470,18 @@ export class MemberDetail extends React.Component<Props> {
           />
           <Route exact path="/member/:id/form" component={MemberCustomForm} />
         </Switch>
-        <MemberActions
-          billMember={this.handleBillMember}
-          subscribeMember={this.props.openContractDialog}
-          interrogateMemberStatus={this.interrogateMemberStatus}
-          member={this.props.member}
-          unArchiveMember={this.unArchiveMember}
-          openCommunicationDrawer={this.handleOpenCommunicationDrawer}
-          companyId={this.props.companyId}
-          numberOfUnreadAnswers={numberOfUnreadAnswers}
-        />
+        {member && !member.is_pos && (
+          <MemberActions
+            billMember={this.handleBillMember}
+            subscribeMember={this.props.openContractDialog}
+            interrogateMemberStatus={this.interrogateMemberStatus}
+            member={this.props.member}
+            unArchiveMember={this.unArchiveMember}
+            openCommunicationDrawer={this.handleOpenCommunicationDrawer}
+            companyId={this.props.companyId}
+            numberOfUnreadAnswers={numberOfUnreadAnswers}
+          />
+        )}
         {!!this.props.invoiceInfo && (
           <InvoiceInfoDialog
             invoiceInfo={this.props.invoiceInfo}

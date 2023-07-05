@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -7,12 +7,14 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { OptionCallback } from '../../../../state/types';
 import { downloadDocument } from '../../../../utils/downloader';
 import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
+import CircularProgress from '#components/css-only/CircularProgress';
 
 import './styles.css';
 
 export type Props = {
   contractTerms: string;
   isOpen: boolean;
+  isContractTermsDownloadLoading?: boolean;
   contractTermsLink?: string;
   onDialogClose: () => void;
   onDownloadTerms: (options?: OptionCallback) => void;
@@ -22,11 +24,11 @@ const MarketplaceContractTermsModal: React.FC<Props> = ({
   contractTerms,
   isOpen,
   contractTermsLink,
+  isContractTermsDownloadLoading,
   onDialogClose,
   onDownloadTerms,
 }) => {
   const { t } = useTranslation('common');
-  const [isProcessing, setIsProcessing] = useState(false);
 
   const { dialogRef, modalRef } = useDialogClickAwayListener({
     onDialogClose,
@@ -37,14 +39,9 @@ const MarketplaceContractTermsModal: React.FC<Props> = ({
       downloadDocument(contractTermsLink);
       onDialogClose();
     } else {
-      setIsProcessing(true);
       onDownloadTerms({
         onSuccess: () => {
-          setIsProcessing(false);
           onDialogClose();
-        },
-        onError: () => {
-          setIsProcessing(false);
         },
       });
     }
@@ -67,14 +64,19 @@ const MarketplaceContractTermsModal: React.FC<Props> = ({
               </button>
               <button
                 className={classNames('bs-contract-terms-dialog__button', {
-                  'bs-contract-terms-dialog__download--disabled': isProcessing,
-                  'bs-contract-terms-dialog__download': !isProcessing,
+                  'bs-contract-terms-dialog__download--disabled':
+                    isContractTermsDownloadLoading,
+                  'bs-contract-terms-dialog__download':
+                    !isContractTermsDownloadLoading,
                 })}
                 type="button"
-                disabled={isProcessing}
+                disabled={isContractTermsDownloadLoading}
                 onClick={handleDownloadTerms}
               >
                 {t('common:download')}
+                {isContractTermsDownloadLoading && (
+                  <CircularProgress size="xs" />
+                )}
               </button>
             </div>
           </div>
@@ -88,4 +90,4 @@ export const MarketplaceContractTermsModalForStorybook = marketplaceCssHoc()(
   MarketplaceContractTermsModal,
 );
 
-export default MarketplaceContractTermsModal;
+export default React.memo(MarketplaceContractTermsModal);

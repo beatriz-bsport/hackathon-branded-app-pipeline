@@ -522,6 +522,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
 
         <MarketplaceContractTermsModal
           contractTerms={contract?.contract}
+          isContractTermsDownloadLoading={
+            this.props.contractTermsDownloadLoading
+          }
           onDownloadTerms={this.props.downloadContractTerms}
           isOpen={this.state.openContractTermsDialog}
           onDialogClose={this.handleCloseContractTermsDialog}
@@ -557,6 +560,8 @@ const mapStateToProps = (
   theme: themeSelectors.getTheme(state),
   savedPaymentMethodList: getSavedPaymentMethodList(state),
   detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
+  contractTermsDownloadLoading:
+    state.subscription.contractTermsDownload.loading,
   auth: state.auth,
 });
 

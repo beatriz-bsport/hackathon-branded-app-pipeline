@@ -16,3 +16,28 @@ export const CONTENT_FONT_SIZE = '11px';
 // ========== CADENCE CHIP SIZES ==========
 
 export const CADENCE_CHIP_MAX_SIZE = '176px';
+
+// ========== CADENCE HANDLE STYLE ==========
+
+const CADENCE_STEP_HANDLE_STYLE = {
+  background: '#FFF',
+  width: '10px',
+  height: '10px',
+  border: '2px solid #046DC8',
+  boxShadow: '0px 0px 8px 0px rgba(0, 0, 0, 0.08)',
+};
+
+export const LEFT_HANDLE_STYLE = {
+  ...CADENCE_STEP_HANDLE_STYLE,
+  left: '-10px',
+};
+
+export const RIGHT_HANDLE_STYLE = {
+  ...CADENCE_STEP_HANDLE_STYLE,
+  right: '-10px',
+};
+
+export enum HandleTypeChoices {
+  SOURCE = 'source',
+  TARGET = 'target',
+}

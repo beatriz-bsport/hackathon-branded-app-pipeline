@@ -54,3 +54,12 @@ export enum TriggerKind {
  * @description This constant represents a trigger kind which is not recognized
  */
 export const UNKNOWN_TRIGGER_KIND = 4;
+
+// ========== CADENCE HANDLE STYLE ==========
+
+export const TRIGGER_LEFT_HANDLE_STYLE = {
+  left: '0px',
+};
+export const TRIGGER_RIGHT_HANDLE_STYLE = {
+  right: '0px',
+};

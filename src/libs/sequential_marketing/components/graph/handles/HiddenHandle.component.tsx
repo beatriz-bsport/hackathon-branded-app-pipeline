@@ -6,7 +6,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 type Props = {
   position: Position;
   type: HandleType;
-  isConnectable: boolean;
+  isConnectable?: boolean;
   style?: React.CSSProperties;
 };
 
@@ -35,6 +35,7 @@ const useStyles = makeStyles(() => ({
     '& > .react-flow__handle': {
       backgroundColor: 'transparent',
       PointerEvents: 'none',
+      border: 'none',
     },
     '& > .react-flow__handle.connectable': {
       cursor: 'not-allowed',

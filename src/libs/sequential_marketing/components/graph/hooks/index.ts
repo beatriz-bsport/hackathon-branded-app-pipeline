@@ -5,7 +5,6 @@ import {
   useStepsAndTriggersRecorder,
   CustomNodesEnum,
   NodeIdentifiersEnum,
-  computeBottomPosition,
 } from './useNodes.hooks';
 
 export {
@@ -13,7 +12,6 @@ export {
   useGraphStyles,
   useNodeTypes,
   useStepsAndTriggersRecorder,
-  computeBottomPosition,
   CustomNodesEnum,
   NodeIdentifiersEnum,
 };

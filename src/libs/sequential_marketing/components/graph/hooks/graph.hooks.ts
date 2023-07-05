@@ -1,29 +1,29 @@
 import React from 'react';
 
 import { getConnectedEdges } from 'react-flow-renderer';
-import type {
-  Cadence,
-  ConnectedTrigger,
-  CadenceStep,
-} from '#libs/sequential_marketing/types';
 
 import {
   CustomNodesEnum,
-  NodeIdentifiersEnum,
   useStepsAndTriggersRecorder,
   useNodeElementsRecorder,
-  computeBottomPosition,
 } from './useNodes.hooks';
 
 import useEdgesRenderer from './useEdges.hook';
 
-import { CustomNode } from './types';
-import { SmartList } from '#libs/smart-list/types';
+import type {
+  Cadence,
+  ConnectedTrigger,
+  CadenceStep,
+  StepMarketingActions,
+} from '#libs/sequential_marketing/types';
+import type { CustomNode } from './types';
+import type { SmartList } from '#libs/smart-list/types';
+import type { EmailTemplateSummary } from '#libs/email-editor/types';
+import type { Tag } from '#libs/tag/types';
 
 export type Props = {
   cadence: Cadence;
   steps: CadenceStep[];
-  smartlistById: { [id: number]: SmartList };
   updateCadenceStepCanvasPosition: (
     id: number,
     { x, y }: { x: number; y: number },
@@ -37,7 +37,6 @@ export type Props = {
     destination_step?: number | string | null,
   ) => void;
   onClickEntryStep: (step: CadenceStep) => void;
-  stepNodeFakerSource: CadenceStep | null;
   onClickConnectedTrigger: (
     step: CadenceStep,
     connected_trigger: ConnectedTrigger,
@@ -51,6 +50,10 @@ export type Props = {
     connectedTriggerUUID: string,
     sourceStepId: number,
   ) => void;
+  getSmartlist: (id: number) => SmartList;
+  getStepMarketingActions: (stepId: number) => StepMarketingActions[];
+  getTag: (id: string) => Tag;
+  getEmailTemplate: (id: string) => EmailTemplateSummary;
   cadenceEditMode: boolean;
 };
 
@@ -58,18 +61,20 @@ export const useGraph = ({
   cadence,
   cadenceEditMode,
   steps,
-  smartlistById,
+  displayDisabledTriggers,
   onClickEntryStep,
   updateCadenceStepCanvasPosition,
   updateConnectedTriggerPosition,
   enterSubscriptionMode,
-  stepNodeFakerSource,
   onClickConnectedTrigger,
-  displayDisabledTriggers,
   resetAllSelection,
   handleSelectedStepForEdition,
   deleteCadenceStep,
   deleteConnectedTrigger,
+  getSmartlist,
+  getStepMarketingActions,
+  getTag,
+  getEmailTemplate,
 }: Props) => {
   const [nodes, setNodes] = React.useState([]);
   const [edges, setEdges] = React.useState([]);
@@ -87,26 +92,19 @@ export const useGraph = ({
     },
     [edges, edgesIdsToHighlight],
   );
-  const {
-    storedEntryStep,
-    storedTriggers,
-    storedSteps,
-    storedStepNodeFakerSource,
-  } = useStepsAndTriggersRecorder({
-    steps,
-    displayDisabledTriggers,
-    stepNodeFakerSource,
-  });
+  const { storedEntryStep, storedTriggers, storedSteps } =
+    useStepsAndTriggersRecorder({
+      steps,
+      displayDisabledTriggers,
+    });
 
-  const { entryNode, triggerNodeElements, fakeNodeElement, stepNodesElements } =
+  const { entryNode, triggerNodeElements, stepNodeElements, exitNodeElements } =
     useNodeElementsRecorder({
       cadence,
       cadenceEditMode,
       storedEntryStep,
-      smartlistById,
       storedSteps,
       storedTriggers,
-      storedStepNodeFakerSource,
       onClickEntryStep,
       enterSubscriptionMode,
       onClickConnectedTrigger,
@@ -115,7 +113,12 @@ export const useGraph = ({
       handleSelectedStepForEdition,
       deleteCadenceStep,
       deleteConnectedTrigger,
+      getSmartlist,
+      getStepMarketingActions,
+      getTag,
+      getEmailTemplate,
     });
+
   const onNodeDragStop = React.useCallback(
     (
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -125,9 +128,8 @@ export const useGraph = ({
       __: CustomNode[],
     ) => {
       switch (node.type) {
-        case CustomNodesEnum.EntryStepNodeElementFlowVersionNode:
-        case CustomNodesEnum.StepNodeElementFlowVersionNode:
-        case CustomNodesEnum.ExitStepNodeElementFlowVersionNode:
+        case CustomNodesEnum.EntryStepFlowVersionNode:
+        case CustomNodesEnum.InnerStepFlowVersionNode:
           if (node?.data?.step?.id) {
             updateCadenceStepCanvasPosition(node.data.step.id, {
               x: node.position.x,
@@ -135,7 +137,9 @@ export const useGraph = ({
             });
           }
           break;
-        case CustomNodesEnum.ConnectedTriggerNodeElementFlowVersionNode:
+        case CustomNodesEnum.ExitCardFlowVersionNode:
+          break;
+        case CustomNodesEnum.TriggerCardFlowVersionNode:
           if (
             node?.data?.trigger?.trigger_config?.uuid &&
             node?.data?.step?.id
@@ -155,49 +159,40 @@ export const useGraph = ({
 
   React.useEffect(() => {
     const controlledNodes = [];
+
     if (entryNode) {
       controlledNodes.push(entryNode);
     }
-    if (fakeNodeElement) {
-      controlledNodes.push(fakeNodeElement);
-    }
-    if (triggerNodeElements && triggerNodeElements.length !== 0) {
+
+    if (triggerNodeElements && triggerNodeElements?.length) {
       controlledNodes.push(...triggerNodeElements);
     }
 
-    if (stepNodesElements && stepNodesElements.length !== 0) {
-      controlledNodes.push(...stepNodesElements);
+    if (stepNodeElements && stepNodeElements?.length) {
+      controlledNodes.push(...stepNodeElements);
     }
 
-    controlledNodes.push({
-      id: NodeIdentifiersEnum.EXIT_NODE_IDENTIFIER,
-      type: CustomNodesEnum.ExitStepNodeElementFlowVersionNode,
-      data: { cadence },
-      // Position ExitNode at the very bottom
-      position: computeBottomPosition({ nodes: controlledNodes }),
-    });
+    if (exitNodeElements && exitNodeElements?.length) {
+      controlledNodes.push(...exitNodeElements);
+    }
+
     setNodes(controlledNodes);
   }, [
     cadence,
     entryNode,
-    stepNodesElements,
-    fakeNodeElement,
+    stepNodeElements,
     triggerNodeElements,
+    exitNodeElements,
     storedEntryStep,
     storedSteps,
-    storedStepNodeFakerSource,
     setNodes,
   ]);
 
-  const {
-    edgesFromTriggersToDestination,
-    edgesFromStepNodeToTriggers,
-    edgeForStoredNodeFaker,
-  } = useEdgesRenderer({
-    storedTriggers,
-    storedStepNodeFakerSource,
-    edgesIdsToHighlight,
-  });
+  const { edgesFromTriggersToDestination, edgesFromStepNodeToTriggers } =
+    useEdgesRenderer({
+      storedTriggers,
+      edgesIdsToHighlight,
+    });
 
   React.useEffect(() => {
     const newEdges = [];
@@ -213,16 +208,8 @@ export const useGraph = ({
     ) {
       newEdges.push(...edgesFromStepNodeToTriggers);
     }
-    if (edgeForStoredNodeFaker) {
-      newEdges.push(edgeForStoredNodeFaker);
-    }
-
     setEdges(newEdges);
-  }, [
-    edgesFromTriggersToDestination,
-    edgesFromStepNodeToTriggers,
-    edgeForStoredNodeFaker,
-  ]);
+  }, [edgesFromTriggersToDestination, edgesFromStepNodeToTriggers]);
 
   return {
     nodes,

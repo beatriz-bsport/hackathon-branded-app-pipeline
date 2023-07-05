@@ -1,30 +1,24 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
+
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 
-import { useTranslation } from 'react-i18next';
 import type { StoredTrigger } from './types';
 import {
   DestinationKind,
   DestinationStatus,
+  SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
-
-import { NodeIdentifiersEnum } from './useNodes.hooks';
-import type { CadenceStep } from '#libs/sequential_marketing/types';
 
 type EdgesRendererProps = {
   storedTriggers: Immutable.ImmutableArray<StoredTrigger>;
-  storedStepNodeFakerSource: CadenceStep;
   edgesIdsToHighlight: string[];
 };
 export const useEdgesRenderer = ({
   storedTriggers,
-  storedStepNodeFakerSource,
   edgesIdsToHighlight,
 }: EdgesRendererProps) => {
-  const { t } = useTranslation('marketing');
-
   // Edges that must be drawn from  Triggers to their destination.
   // If the destination config doesn't contains any id then we link them to the exit.
   const edgesFromTriggersToDestination = React.useMemo(() => {
@@ -35,7 +29,7 @@ export const useEdgesRenderer = ({
         source: __triggerNode?.trigger?.trigger_config?.uuid,
         target:
           __triggerNode?.trigger?.destination_config?.destination_id?.toString() ||
-          NodeIdentifiersEnum.EXIT_NODE_IDENTIFIER,
+          `exit_node_for_trigger_${__triggerNode?.trigger?.trigger_config?.uuid}`,
         style: getEdgeStyle({
           destination_config: __triggerNode?.trigger?.destination_config,
         }),
@@ -70,26 +64,9 @@ export const useEdgesRenderer = ({
     return [];
   }, [storedTriggers, edgesIdsToHighlight]);
 
-  // Edge that must be drawn between a Node to a fake element displayed usely after opening a form (pre-display)
-  const edgeForStoredNodeFaker = React.useMemo(() => {
-    if (storedStepNodeFakerSource) {
-      return {
-        id: 'fakerNodeEdge',
-        type: 'smoothstep',
-        source: storedStepNodeFakerSource.id.toString(),
-        target: 'NewFakerNode',
-        animated: true,
-        label: t('cadence.graph.nodeElement.edgeLabelForNodeCreation'),
-        style: { stroke: green[400], strokeWidth: 2 },
-      };
-    }
-    return null;
-  }, [storedStepNodeFakerSource, t]);
-
   return {
     edgesFromTriggersToDestination,
     edgesFromStepNodeToTriggers,
-    edgeForStoredNodeFaker,
   };
 };
 
@@ -97,6 +74,7 @@ export default useEdgesRenderer;
 
 const baseEdgeStyle = {
   strokeWidth: 2,
+  stroke: SequentialMarketingColors.INNER_STEP_COLOR,
 };
 
 const getEdgeStyle = ({

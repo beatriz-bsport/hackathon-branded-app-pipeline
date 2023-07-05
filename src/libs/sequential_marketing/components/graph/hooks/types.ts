@@ -4,9 +4,10 @@ import type {
   CadenceStep,
   ConnectedTrigger,
 } from '#libs/sequential_marketing/types';
-// import { ConnectedTriggerNodeProps } from '#libs/sequential_marketing/components/graph/nodes/ConnectedTriggerNodeElement.component';
-import { StepNodeElementProps } from '#libs/sequential_marketing/components/graph/nodes/StepNodeElement.component';
-import { FlowVersionProps } from '#libs/sequential_marketing/components/graph/nodes/ConnectedTriggerNodeElementFlowVersion.component';
+import { InnerStepCardProps } from '../nodes/steps/InnerStepCard.component';
+import { EntryStepCardProps } from '../nodes/steps/EntryStepCard.component';
+import { TriggerCardProps } from '../nodes/triggers/TriggerCard.component';
+import { CadenceExitCardProps } from '../nodes/exits/CadenceExitCard.component';
 /* 
 Overidding some types coming from react-flow libs to ensure stronger typing
 */
@@ -17,22 +18,22 @@ export interface OverridenCustomNode<T = CustomNodesEnum, Data = unknown>
 }
 
 export type CustomNodeEntryStep = OverridenCustomNode<
-  CustomNodesEnum.EntryStepNodeElementFlowVersionNode,
-  StepNodeElementProps
+  CustomNodesEnum.EntryStepFlowVersionNode,
+  EntryStepCardProps
 >;
 
 export type CustomNodeStep = OverridenCustomNode<
-  CustomNodesEnum.StepNodeElementFlowVersionNode,
-  StepNodeElementProps
+  CustomNodesEnum.InnerStepFlowVersionNode,
+  InnerStepCardProps
 >;
 
 export type CustomNodeExit = OverridenCustomNode<
-  CustomNodesEnum.ExitStepNodeElementFlowVersionNode,
-  any
+  CustomNodesEnum.ExitCardFlowVersionNode,
+  CadenceExitCardProps
 >;
 export type CustomNodeTrigger = OverridenCustomNode<
-  CustomNodesEnum.ConnectedTriggerNodeElementFlowVersionNode,
-  FlowVersionProps
+  CustomNodesEnum.TriggerCardFlowVersionNode,
+  TriggerCardProps
 >;
 
 export type CustomNode =

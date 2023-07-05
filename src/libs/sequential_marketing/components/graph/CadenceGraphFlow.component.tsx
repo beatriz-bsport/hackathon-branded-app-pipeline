@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import ReactFlow, {
   addEdge,
   applyEdgeChanges,
@@ -9,16 +8,18 @@ import ReactFlow, {
 } from 'react-flow-renderer';
 
 import { useNodeTypes, useGraphStyles, useGraph } from './hooks';
+import CadenceGraphViewPort from './CadenceGraphViewPort.component';
+import { isMinimalCadenceConfigurationCompleted } from '#libs/sequential_marketing/utils';
 
 import type {
   Cadence,
   CadenceStep,
   ConnectedTrigger,
+  StepMarketingActions,
 } from '#libs/sequential_marketing/types';
-
-import CadenceGraphViewPort from './CadenceGraphViewPort.component';
-import { SmartList } from '#libs/smart-list/types';
-import { isMinimalCadenceConfigurationCompleted } from '#libs/sequential_marketing/utils';
+import type { SmartList } from '#libs/smart-list/types';
+import type { EmailTemplateSummary } from '#libs/email-editor/types';
+import type { Tag } from '#libs/tag/types';
 
 const rfStyle = {
   backgroundColor: 'transparent',
@@ -27,7 +28,6 @@ const rfStyle = {
 type Props = {
   cadence: Cadence;
   steps: CadenceStep[];
-  smartlistById: { [id: number]: SmartList };
   updateCadenceStepCanvasPosition: (
     id: number,
     { x, y }: { x: number; y: number },
@@ -46,7 +46,6 @@ type Props = {
     cadenceLoseConfigured: boolean;
     cadenceEntryConfigured: boolean;
   };
-  stepNodeFakerSource: CadenceStep | null;
   onClickConnectedTrigger: (
     step: CadenceStep,
     connected_trigger: ConnectedTrigger,
@@ -60,24 +59,30 @@ type Props = {
     connectedTriggerUUID: string,
     sourceStepId: number,
   ) => void;
+  getSmartlist: (id: number) => SmartList;
+  getStepMarketingActions: (stepId: number) => StepMarketingActions[];
+  getTag: (id: string) => Tag;
+  getEmailTemplate: (id: string) => EmailTemplateSummary;
 };
 
-export const Flow: React.FC<Props> = ({
+export const CadenceGraphFlow: React.FC<Props> = ({
   cadence,
   steps,
-  smartlistById,
+  cadenceMinimalConfigurationState,
+  cadenceEditMode,
   updateCadenceStepCanvasPosition,
   updateConnectedTriggerPosition,
   onClickEntryStep,
   handleSelectStepForSubscription,
-  cadenceMinimalConfigurationState,
-  stepNodeFakerSource,
   onClickConnectedTrigger,
   resetAllSelection,
-  cadenceEditMode,
   handleSelectedStepForEdition,
   deleteCadenceStep,
   deleteConnectedTrigger,
+  getSmartlist,
+  getStepMarketingActions,
+  getTag,
+  getEmailTemplate,
 }) => {
   const [disabledMode, setDisabledMode] = React.useState(true);
   const [displayDisabledTriggers, setDisplayDisabledTriggers] =
@@ -85,29 +90,31 @@ export const Flow: React.FC<Props> = ({
 
   const classes = useGraphStyles();
 
-  const enterSubscriptionMode = (
-    step: CadenceStep,
-    destination_step: number | null | string = null,
-  ) => {
-    handleSelectStepForSubscription(step, destination_step);
-  };
+  const enterSubscriptionMode = React.useCallback(
+    (step: CadenceStep, destination_step: number | null | string = null) => {
+      handleSelectStepForSubscription(step, destination_step);
+    },
+    [handleSelectStepForSubscription],
+  );
 
   const { nodes, setNodes, edges, setEdges, onNodeDragStop } = useGraph({
     cadence,
     cadenceEditMode,
     steps,
-    smartlistById,
+    displayDisabledTriggers,
     onClickEntryStep,
     updateCadenceStepCanvasPosition,
     updateConnectedTriggerPosition,
     enterSubscriptionMode,
-    stepNodeFakerSource,
     onClickConnectedTrigger,
-    displayDisabledTriggers,
     resetAllSelection,
     handleSelectedStepForEdition,
     deleteCadenceStep,
     deleteConnectedTrigger,
+    getSmartlist,
+    getStepMarketingActions,
+    getTag,
+    getEmailTemplate,
   });
 
   const onNodesChange = React.useCallback(
@@ -174,4 +181,4 @@ export const Flow: React.FC<Props> = ({
   );
 };
 
-export default React.memo(Flow);
+export default React.memo(CadenceGraphFlow);

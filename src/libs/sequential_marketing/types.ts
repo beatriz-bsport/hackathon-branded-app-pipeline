@@ -76,17 +76,17 @@ export type DestinationConfig = {
   destination_id: number;
   kind: DestinationKind;
   reason: string;
-  source_id?: number;
   status: DestinationStatus;
   uuid: string;
+  source_id?: number;
 };
 
 export type ConnectedTrigger = {
   trigger_config: TriggerConfig;
   destination_config: DestinationConfig;
   filtering_config: FilteringConfig;
-  disabled?: boolean;
   canvas: GraphCanvas;
+  disabled?: boolean;
 };
 
 export type StepMarketingActionsCommunicationSpec = {

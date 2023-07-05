@@ -1,44 +1,49 @@
 import React from 'react';
 import omit from 'lodash/omit';
 import Immutable from 'seamless-immutable';
-import ConnectedTriggerNodeElementFlowVersion from '../nodes/ConnectedTriggerNodeElementFlowVersion.component';
-import EntryStepNodeElementFlowVersion from '../nodes/EntryStepNodeElementFlowVersion.component';
-import StepNodeElementFlowVersion from '../nodes/StepNodeElementFlowVersion.component';
-import ExitStepNodeElementFlowVersion from '../nodes/ExitStepNodeElementFlowVersion.component';
+import EntryStepFlowVersion from '../nodes/steps/EntryStepFlowVersion.component';
+import InnerStepFlowVersion from '../nodes/steps/InnerStepFlowVersion.component';
+import TriggerCardFlowVersion from '../nodes/triggers/TriggerCardFlowVersion.component';
+import ExitCardFlowVersion from '../nodes/exits/CadenceExitCardFlowVersion.component';
+
+import {
+  DestinationKind,
+  TriggerIdentifier,
+} from '#libs/sequential_marketing/constants';
 
 import type {
   Cadence,
   ConnectedTrigger,
   CadenceStep,
+  StepMarketingActions,
 } from '#libs/sequential_marketing/types';
-
-import type { CustomNode, StoredStep, StoredTrigger } from './types';
-
-import { TriggerIdentifier } from '#libs/sequential_marketing/constants';
-import { SmartList } from '#libs/smart-list/types';
+import type { StoredStep, StoredTrigger } from './types';
+import type { SmartList } from '#libs/smart-list/types';
+import type { EmailTemplateSummary } from '#libs/email-editor/types';
+import type { Tag } from '#libs/tag/types';
 
 export enum CustomNodesEnum {
   // Nodes for steps
-  EntryStepNodeElementFlowVersionNode = 'EntryStepNodeElementFlowVersion',
-  StepNodeElementFlowVersionNode = 'StepNodeElementFlowVersion',
-  ExitStepNodeElementFlowVersionNode = 'ExitStepNodeElementFlowVersion',
+  EntryStepFlowVersionNode = 'EntryStepFlowVersion',
+  InnerStepFlowVersionNode = 'InnerStepFlowVersion',
+  ExitCardFlowVersionNode = 'ExitCardFlowVersion',
   // Nodes for triggers
-  ConnectedTriggerNodeElementFlowVersionNode = 'ConnectedTriggerNodeElementFlowVersion',
+  TriggerCardFlowVersionNode = 'TriggerCardFlowVersion',
 }
+
 export enum NodeIdentifiersEnum {
   EXIT_NODE_IDENTIFIER = 'exit_node_element',
 }
 
-export const NODE_FAKER_IDENTIFIER = 'NewFakerNode';
 export const useNodeTypes = () => {
   // Memo mandatory
   // [DOCUMENTATION] : https://reactflow.dev/docs/guides/custom-nodes/#adding-the-node-type
   const nodeTypes = React.useMemo(() => {
     return {
-      EntryStepNodeElementFlowVersion,
-      ConnectedTriggerNodeElementFlowVersion,
-      StepNodeElementFlowVersion,
-      ExitStepNodeElementFlowVersion,
+      EntryStepFlowVersion,
+      TriggerCardFlowVersion,
+      InnerStepFlowVersion,
+      ExitCardFlowVersion,
     };
   }, []);
 
@@ -47,14 +52,12 @@ export const useNodeTypes = () => {
 
 type NodeElementStoreProps = {
   steps: CadenceStep[];
-  stepNodeFakerSource: CadenceStep | null;
   displayDisabledTriggers: boolean;
 };
 
 export const useStepsAndTriggersRecorder = ({
   steps,
   displayDisabledTriggers,
-  stepNodeFakerSource,
 }: NodeElementStoreProps) => {
   /*
   Hook handling storage of the element that must be displayed as nodes 
@@ -109,27 +112,18 @@ export const useStepsAndTriggersRecorder = ({
     return Immutable<StoredTrigger[]>([]);
   }, [steps, displayDisabledTriggers]);
 
-  const storedStepNodeFakerSource = React.useMemo(
-    () => stepNodeFakerSource,
-    [stepNodeFakerSource],
-  );
-
   return {
     storedEntryStep,
     storedTriggers,
     storedSteps,
-    storedStepNodeFakerSource,
   };
 };
 
 type NodeRendererProps = {
   cadence: Cadence;
-  smartlistById: { [id: number]: SmartList };
   storedEntryStep: CadenceStep;
-
   storedSteps: StoredStep[];
   storedTriggers: Immutable.ImmutableArray<StoredTrigger>;
-  storedStepNodeFakerSource: CadenceStep;
   onClickEntryStep: (step: CadenceStep) => void;
   enterSubscriptionMode: (
     step: StoredStep,
@@ -148,25 +142,30 @@ type NodeRendererProps = {
     connectedTriggerUUID: string,
     sourceStepId: number,
   ) => void;
+  getSmartlist: (id: number) => SmartList;
+  getStepMarketingActions: (stepId: number) => StepMarketingActions[];
+  getTag: (id: string) => Tag;
+  getEmailTemplate: (id: string) => EmailTemplateSummary;
   cadenceEditMode: boolean;
 };
 
 export const useNodeElementsRecorder = ({
   cadence,
   cadenceEditMode,
-  smartlistById,
   storedEntryStep,
   storedSteps,
   storedTriggers,
-  storedStepNodeFakerSource,
   onClickEntryStep,
   enterSubscriptionMode,
   onClickConnectedTrigger,
-  resetAllSelection,
   handleGetNodeConnectedEgdes,
   handleSelectedStepForEdition,
   deleteCadenceStep,
   deleteConnectedTrigger,
+  getSmartlist,
+  getStepMarketingActions,
+  getTag,
+  getEmailTemplate,
 }: NodeRendererProps) => {
   const handleSelectEntryStepForSubscription = React.useCallback(
     () => enterSubscriptionMode(storedEntryStep),
@@ -174,8 +173,7 @@ export const useNodeElementsRecorder = ({
     [storedEntryStep],
   );
 
-  // console.log(storedSteps);
-  const onConnectToStep = React.useCallback(
+  const onConnectToEntryStep = React.useCallback(
     (cadence_step_id: number) =>
       enterSubscriptionMode(storedEntryStep, cadence_step_id),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -187,7 +185,7 @@ export const useNodeElementsRecorder = ({
     if (storedEntryStep) {
       return {
         id: storedEntryStep.id.toString(),
-        type: CustomNodesEnum.EntryStepNodeElementFlowVersionNode,
+        type: CustomNodesEnum.EntryStepFlowVersionNode,
         ...(storedEntryStep.canvas.position?.x &&
         storedEntryStep.canvas?.position?.y
           ? {
@@ -199,30 +197,40 @@ export const useNodeElementsRecorder = ({
           : { position: { x: 0, y: 0 } }),
         data: {
           step: storedEntryStep,
-          cadence,
-          smartlistById,
-          onCardClick: () => onClickEntryStep(storedEntryStep),
-          handleSelectStepForSubscription: handleSelectEntryStepForSubscription,
-          onConnectToStep,
+          triggerList: cadence.entries,
+          disabled: !cadenceEditMode,
+          marketingActionList: getStepMarketingActions?.(storedEntryStep?.id),
+          onCardClick: () => onClickEntryStep(storedEntryStep), // TODO: code the onClickEntryStep function
+          addNextStep: handleSelectEntryStepForSubscription,
+          handleChangeInExit: () => {}, // TODO: code the changeInExit function
+          addMarketingAction: () => {}, // TODO: code the newMA function
+          getSmartlist,
+          getTag,
+          getEmailTemplate,
+          onConnectToStep: onConnectToEntryStep,
         },
       };
     }
     return null;
   }, [
-    onClickEntryStep,
-    handleSelectEntryStepForSubscription,
-    onConnectToStep,
     storedEntryStep,
-    cadence,
-    smartlistById,
+    cadence.entries,
+    cadenceEditMode,
+    getStepMarketingActions,
+    handleSelectEntryStepForSubscription,
+    onConnectToEntryStep,
+    getSmartlist,
+    getTag,
+    getEmailTemplate,
+    onClickEntryStep,
   ]);
 
-  // The tiggerNodeElements consumes the list of storedTriggers data to draw the ConnecteTriggers Elements on the graph.
+  // The tiggerNodeElements consumes the list of storedTriggers data to draw the ConnectedTriggerElements on the graph.
   const triggerNodeElements = React.useMemo(() => {
     if (storedTriggers) {
       return storedTriggers.map((triggerNode) => ({
         id: triggerNode.trigger.trigger_config?.uuid,
-        type: CustomNodesEnum.ConnectedTriggerNodeElementFlowVersionNode,
+        type: CustomNodesEnum.TriggerCardFlowVersionNode,
         ...(triggerNode?.trigger?.canvas?.position?.x &&
         triggerNode?.trigger.canvas?.position?.y
           ? {
@@ -231,11 +239,10 @@ export const useNodeElementsRecorder = ({
                 y: parseFloat(triggerNode.trigger.canvas.position.y),
               },
             }
-          : { position: { x: 0, y: 0 } }),
+          : { position: { x: 400, y: 0 } }),
         data: {
           step: triggerNode.step,
           trigger: triggerNode.trigger,
-          cadence,
           onCardClick: () =>
             onClickConnectedTrigger(triggerNode.step, triggerNode.trigger),
           onDelete: () =>
@@ -244,8 +251,8 @@ export const useNodeElementsRecorder = ({
               triggerNode.trigger?.trigger_config?.uuid,
               triggerNode.trigger.destination_config.source_id,
             ),
-          disabled: triggerNode.trigger.disabled,
-          cadenceEditMode,
+          getSmartlist,
+          disabled: !cadenceEditMode,
         },
       }));
     }
@@ -256,29 +263,8 @@ export const useNodeElementsRecorder = ({
     storedTriggers,
     deleteConnectedTrigger,
     onClickConnectedTrigger,
+    getSmartlist,
   ]);
-
-  // The fakeNodeElement consumes the storedStepNodeFakerSource to draw a fake node
-  // knowing from which source(aka node of the graph) it must de displayed.
-  const fakeNodeElement = React.useMemo(() => {
-    if (storedStepNodeFakerSource) {
-      return {
-        id: NODE_FAKER_IDENTIFIER,
-        type: CustomNodesEnum.ConnectedTriggerNodeElementFlowVersionNode,
-        position: {
-          x: parseFloat(storedStepNodeFakerSource?.canvas?.position?.x),
-          y: parseFloat(storedStepNodeFakerSource?.canvas?.position?.y) + 200,
-        },
-        draggable: false,
-        data: {
-          faker: true,
-          resetFaker: () => resetAllSelection(),
-          cadenceEditMode,
-        },
-      };
-    }
-    return null;
-  }, [cadenceEditMode, storedStepNodeFakerSource, resetAllSelection]);
 
   const handleOnConnectedStep = React.useCallback(
     (cadence_step_id: string, stepNode) => {
@@ -295,12 +281,18 @@ export const useNodeElementsRecorder = ({
     [],
   );
 
-  // The stepNodesElements consumes the storedSteps data to draw the steps
-  const stepNodesElements = React.useMemo(() => {
+  const onConnectToInnerStep = React.useCallback(
+    (stepNode: StoredStep) => (cadence_step_id: string) =>
+      handleOnConnectedStep(cadence_step_id, stepNode),
+    [handleOnConnectedStep],
+  );
+
+  // The stepNodeElements consumes the storedSteps data to draw the steps
+  const stepNodeElements = React.useMemo(() => {
     if (storedSteps && storedSteps.length !== 0) {
       return storedSteps.map((stepNode) => ({
         id: stepNode?.id?.toString(),
-        type: CustomNodesEnum.StepNodeElementFlowVersionNode,
+        type: CustomNodesEnum.InnerStepFlowVersionNode,
         ...(stepNode?.canvas?.position?.x && stepNode?.canvas?.position?.y
           ? {
               position: {
@@ -308,43 +300,71 @@ export const useNodeElementsRecorder = ({
                 y: parseFloat(stepNode.canvas.position.y),
               },
             }
-          : { position: { x: 0, y: 0 } }),
+          : { position: { x: 800, y: 0 } }),
         data: {
           step: stepNode,
-          cadenceEditMode,
-          handleSelectStepForSubscription: () =>
-            enterSubscriptionMode(stepNode),
-          onConnectToStep: (cadence_step_id: string) =>
-            handleOnConnectedStep(cadence_step_id, stepNode),
+          disabled: !cadenceEditMode,
+          marketingActionList: getStepMarketingActions?.(stepNode?.id),
+          onDelete: () => deleteCadenceStep(stepNode?.id),
+          handleChangeInExit: () => {}, // TODO: code the changeInExit function
+          addMarketingAction: () => {}, // TODO: code the newMA function
+          addNextStep: () => enterSubscriptionMode(stepNode),
           onCardClick: () => {
             handleSelectedStepForEdition(stepNode?.id);
             handleGetNodeConnectedEgdes(stepNode?.id?.toString());
           },
-          onDelete: () => deleteCadenceStep(stepNode?.id),
+          onConnectToStep: onConnectToInnerStep(stepNode),
+          getTag,
+          getEmailTemplate,
         },
       }));
     }
     return [];
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cadenceEditMode, storedSteps, handleOnConnectedStep]);
+  }, [
+    cadenceEditMode,
+    storedSteps,
+    handleOnConnectedStep,
+    getTag,
+    getEmailTemplate,
+  ]);
 
-  return { entryNode, triggerNodeElements, fakeNodeElement, stepNodesElements };
-};
+  const storedTriggersToOutside = React.useMemo(
+    () =>
+      storedTriggers.filter(
+        (storedTrigger) =>
+          storedTrigger.trigger.destination_config.kind ===
+          DestinationKind.STEP_TO_OUTSIDE,
+      ),
+    [storedTriggers],
+  );
 
-export const computeBottomPosition = ({ nodes }: { nodes: CustomNode[] }) => {
-  const positionX =
-    nodes?.find(
-      (_node) =>
-        _node.type === CustomNodesEnum.EntryStepNodeElementFlowVersionNode,
-    )?.position?.x ?? 0;
+  // The exitNodeElements consumes the list of storedTriggersToOutside data to draw the ExitElements on the graph.
+  const exitNodeElements = React.useMemo(() => {
+    if (storedTriggersToOutside && storedTriggersToOutside?.length > 0) {
+      return storedTriggersToOutside.map((triggerNode) => ({
+        id: `exit_node_for_trigger_${triggerNode?.trigger?.trigger_config?.uuid}`,
+        type: CustomNodesEnum.ExitCardFlowVersionNode,
+        ...(triggerNode?.trigger?.canvas?.position?.x &&
+        triggerNode?.trigger?.canvas?.position?.y
+          ? {
+              position: {
+                x: parseFloat(triggerNode.trigger.canvas.position.x) + 400,
+                y: parseFloat(triggerNode.trigger.canvas.position.y) + 25,
+              },
+            }
+          : { position: { x: 1200, y: 0 } }),
+        data: {
+          step: triggerNode?.step,
+          status: triggerNode?.trigger?.destination_config?.status,
+          onDelete: () => {},
+          handleChangeInStep: () => {},
+          disabled: !cadenceEditMode,
+        },
+      }));
+    }
+    return [];
+  }, [cadenceEditMode, storedTriggersToOutside]);
 
-  const positionY =
-    (nodes
-      .map((_node) => _node?.position?.y)
-      .reduce((a, b) => Math.max(a, b), 0) || 100) + 100;
-
-  return {
-    x: positionX,
-    y: positionY,
-  };
+  return { entryNode, triggerNodeElements, stepNodeElements, exitNodeElements };
 };

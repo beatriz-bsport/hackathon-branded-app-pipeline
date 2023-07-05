@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Chip from '@material-ui/core/Chip';
 import {
@@ -7,12 +6,19 @@ import {
   Theme,
   useTheme,
 } from '@material-ui/core/styles';
-import { compose } from 'recompose';
-import { withTranslation, WithTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
 import Avatar from '@material-ui/core/Avatar';
 import type { Tag, TagGroup } from '../types';
-import MuiIcon from '../../../components/MuiIcon.component';
+import MuiIcon from '#components/MuiIcon.component';
+
+type Props = {
+  tag: Tag<TagGroup>;
+  onDelete?: () => void;
+  variant?: 'default' | 'outlined';
+  onClick?: () => void;
+  size?: 'small' | 'medium';
+  deleteOnClick?: boolean;
+};
 
 const newTheme = (color: string) =>
   createTheme({
@@ -23,8 +29,14 @@ const newTheme = (color: string) =>
     },
   });
 
-export const TagChip = (props: Props) => {
-  const { tag, onDelete, onClick, variant, size, deleteOnClick } = props;
+export const TagChip: React.FC<Props> = ({
+  tag,
+  onDelete,
+  onClick,
+  variant,
+  size,
+  deleteOnClick,
+}) => {
   const classes = useStyle({ deleteOnClick });
   const companyTheme = useTheme();
   const theme = tag?.color ? newTheme(tag?.color) : companyTheme;
@@ -69,15 +81,4 @@ const useStyle = makeStyles<Theme, { deleteOnClick: boolean }>((theme) => ({
   },
 }));
 
-type OwnProps = {
-  tag: Tag<TagGroup>;
-  onDelete?: () => void;
-  variant?: 'default' | 'outlined';
-  onClick?: () => void;
-  size?: 'small' | 'medium';
-  deleteOnClick?: boolean;
-};
-
-type Props = OwnProps & WithTranslation;
-
-export default compose<any, OwnProps>(withTranslation('tag'))(TagChip);
+export default React.memo(TagChip);

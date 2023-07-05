@@ -1,6 +1,9 @@
-// @ts-nocheck
-import MUIDataTable from 'mui-datatables';
-import React, { Component } from 'react';
+import React, { PureComponent, JSX } from 'react';
+import MUIDataTable, {
+  MUIDataTableState,
+  Responsive,
+  SelectableRows,
+} from 'mui-datatables';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import TableFooter from '@material-ui/core/TableFooter';
@@ -29,7 +32,7 @@ const MEMBER_PER_PAGE = 50;
 const renderRows = (
   members: MemberMinimal[],
   t: TFunction,
-  goToMember: (id: number) => any,
+  goToMember: (id: number) => void,
   interrogateMemberStatus: (id: number) => void,
 ) => {
   return members.map((member) =>
@@ -89,7 +92,7 @@ const renderCreditAccountBalance = (credit_account_balance: number) => (
 
 const renderActions = (
   id: number,
-  goToMemberPage: (id: number) => any,
+  goToMemberPage: (id: number) => void,
   interrogateMemberStatus: (id: number) => void,
 ) => (
   <>
@@ -112,7 +115,7 @@ const renderActions = (
 const renderRow = (
   member: MemberMinimal,
   t: TFunction,
-  goToMemberPage: (id: number) => any,
+  goToMemberPage: (id: number) => void,
   interrogateMemberStatus: (id: number) => void,
 ) => {
   const { credit_account_balance, date_joined, name, id, accept_email } =
@@ -150,7 +153,7 @@ type OwnProps = {
   addMember?: () => void;
   tagsExcluded?: Array<Tag['id']>;
   tagsIncluded?: Array<Tag['id']>;
-  customToolBar?: () => any;
+  customToolBar?: () => JSX.Element;
   onValueChangeActiveMemberFetch?: boolean;
   hideAddButton: boolean;
   interrogateMemberStatus?: (id: number) => void;
@@ -168,7 +171,7 @@ type State = {
   memberPerPage: number;
 };
 
-export class MemberTable extends Component<Props, State> {
+export class MemberTable extends PureComponent<Props, State> {
   state = {
     members: [] as Array<MemberMinimal>,
     loading: false,
@@ -230,7 +233,7 @@ export class MemberTable extends Component<Props, State> {
     this.fetchMemberPage(1, true);
   };
 
-  onRowClick = (rowData: any, { rowIndex }: { rowIndex: number }) => {
+  onRowClick = (rowData: string[], { rowIndex }: { rowIndex: number }) => {
     this.props.goToMember(this.state.members[rowIndex].id);
   };
 
@@ -251,8 +254,8 @@ export class MemberTable extends Component<Props, State> {
       filter: false,
       search: false,
       sort: false,
-      responsive: 'scroll',
-      selectableRows: false,
+      responsive: 'scroll' as Responsive,
+      selectableRows: 'none' as SelectableRows,
       download: false,
       print: false,
       viewColumns: false,
@@ -265,7 +268,7 @@ export class MemberTable extends Component<Props, State> {
           noMatch: loading ? null : noMember,
         },
       },
-      onTableChange: (action: any, tableState: any) => {
+      onTableChange: (action: string, tableState: MUIDataTableState) => {
         this.fetchMemberPage(tableState.page + 1);
       },
       customToolbar: this.props.customToolBar,
@@ -316,6 +319,7 @@ export class MemberTable extends Component<Props, State> {
 
     return (
       <MUIDataTable
+        title=""
         data={renderRows(
           this.state.members?.filter(
             (mem) => !this.props.disabledMemberId?.includes(mem.id),
@@ -343,7 +347,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-export default compose<any, OwnProps>(
+export default compose<Props, OwnProps>(
   withStyles(styles),
   withTranslation(['member']),
 )(MemberTable);

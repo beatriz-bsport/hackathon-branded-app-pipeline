@@ -1,15 +1,11 @@
-// @ts-nocheck
 import memoize from 'lodash/memoize';
 import { createSelector } from 'reselect';
 
-import { RootState } from '../../reducers';
+import type { RootState } from '../../reducers';
 import { getMembership } from '../membership/selectors';
-import { Member } from './types';
+import type { Member } from './types';
 import { getTagGroupsDict, getTagsDict } from '../tag/selectors';
-import {
-  getAllAssociatedEstablishmentGroupDict,
-  getAllEstablishmentsDict,
-} from '../establishment/selectors';
+import { getAllEstablishmentsDict } from '#libs/establishment/selectors';
 import {
   getMemberProgramByMemberDict,
   getMemberProgramDict,
@@ -63,12 +59,12 @@ export const getMember = createSelector(
 );
 
 export const getMemberDetail = createSelector(
-  [getMemberDetailData, (_state, id) => id],
+  [getMemberDetailData, (_state, id: number) => id],
   (memberDetailData, id) => memberDetailData[id],
 );
 
 export const getMemberArchiveStatus = createSelector(
-  [_getMemberArchiveStatus, (_state, id) => id],
+  [_getMemberArchiveStatus, (_state, id: number) => id],
   (memberArchiveStatus, id) => memberArchiveStatus[id],
 );
 
@@ -168,20 +164,6 @@ export const withMemberProgram = memoize(
     ),
 );
 
-export const withEstablishmentGroup = memoize(
-  (selector: typeof getMemberDetail) =>
-    createSelector(
-      [selector, getAllAssociatedEstablishmentGroupDict],
-      (member, associatedGroupData) => ({
-        ...member,
-        favourite_establishment_group:
-          member?.favourite_establishment_group?.map(
-            (id) => associatedGroupData[id],
-          ),
-      }),
-    ),
-);
-
 export const withDefaultBillingEstablishment = memoize((selector) =>
   createSelector(
     [selector, getAllEstablishmentsDict],
@@ -236,4 +218,5 @@ export const getIncrementalSearchedMembers = createSelector(
 
 // Events
 export const getMemberEventState = (state: RootState) =>
+  // @ts-expect-error
   getEventState(state.event, 'member');

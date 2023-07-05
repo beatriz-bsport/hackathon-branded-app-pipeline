@@ -1,6 +1,3 @@
-// @ts-nocheck
-// @flow
-
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
@@ -86,6 +83,7 @@ export class Members extends Component<Props, State> {
   tagFilterBar = () => (
     <div className={this.props.classes.actionBar}>
       <TagChipList
+        // @ts-expect-error tags actually has the type Tag<TagGroup>[]
         tags={this.props.tags}
         includes={this.state.tagsIncluded}
         excludes={this.state.tagsExcluded}

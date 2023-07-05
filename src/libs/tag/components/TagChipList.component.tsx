@@ -1,5 +1,3 @@
-// @ts-nocheck
-// @flow
 import React from 'react';
 
 import AddIcon from '@material-ui/icons/Add';
@@ -7,15 +5,14 @@ import IconButton from '@material-ui/core/IconButton';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Typography from '@material-ui/core/Typography';
-import { WithTranslation, withTranslation } from 'react-i18next';
-import { compose } from 'recompose';
+import { useTranslation } from 'react-i18next';
 import useTheme from '@material-ui/core/styles/useTheme';
 import makeStyles from '@material-ui/styles/makeStyles';
 import { Theme } from '@material-ui/core/styles';
 import type { Tag, TagGroup } from '../types';
 import TagChip from './TagChip.component';
 
-type OwnProps = {
+type Props = {
   includes: Array<number>;
   excludes: Array<number>;
   tags: Array<Tag<TagGroup>>;
@@ -23,8 +20,6 @@ type OwnProps = {
   handleDeleteTag: (tagId: number, wasIncluded: boolean) => void;
   handleReinit: () => void;
 };
-
-type Props = OwnProps & WithTranslation;
 
 export const TagChipList = (props: Props) => {
   const includedTags = props.includes.map((id) =>
@@ -35,6 +30,8 @@ export const TagChipList = (props: Props) => {
   );
   const companyTheme = useTheme();
   const classes = useStyles();
+  const { t } = useTranslation('tag');
+
   return (
     <div className={classes.container}>
       <IconButton onClick={props.handleAdd}>
@@ -85,7 +82,7 @@ export const TagChipList = (props: Props) => {
           {excludedTags.length === 0 && includedTags.length === 0 ? (
             <ButtonBase onClick={props.handleAdd}>
               <Typography color="textSecondary" className={classes.emptyText}>
-                {props.t('filter.addATagFilter')}
+                {t('filter.addATagFilter')}
               </Typography>
             </ButtonBase>
           ) : null}
@@ -128,4 +125,4 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-export default compose<any, Props>(withTranslation(['tag']))(TagChipList);
+export default React.memo(TagChipList);

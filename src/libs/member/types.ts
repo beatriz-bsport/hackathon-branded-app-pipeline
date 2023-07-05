@@ -1,4 +1,4 @@
-import { ErrorAndLoading, ModelReducerI } from '../types';
+import type { ErrorAndLoading, ModelReducerI } from '#libs/types';
 
 export type User = {
   id: number;

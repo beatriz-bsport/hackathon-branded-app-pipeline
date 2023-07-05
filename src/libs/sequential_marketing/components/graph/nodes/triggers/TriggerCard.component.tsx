@@ -10,14 +10,19 @@ import {
   getTriggerKind,
 } from '#libs/sequential_marketing/components/icons/utils';
 import type { SmartList } from '#libs/smart-list/types';
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import type {
+  CadenceStep,
+  ConnectedTrigger,
+} from '#libs/sequential_marketing/types';
 import type { Action } from '#components/button/MultipleActionsButton.component';
 
 export type TriggerCardProps = {
+  step: CadenceStep;
   trigger: ConnectedTrigger;
   isSelected?: boolean;
   disabled?: boolean;
   getSmartlist: (id: number) => SmartList;
+  onCardClick: () => void;
   onDelete?: () => void;
 };
 

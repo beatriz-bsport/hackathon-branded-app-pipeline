@@ -152,6 +152,7 @@ export function MemberFactory(
     default_billing_establishment: null,
     unsubscribe_link: faker.hacker.phrase(),
     spivi_privacy_settings_accepted: randomBoolean(),
+    is_pos: Math.random() < 0.25,
   };
 }
 

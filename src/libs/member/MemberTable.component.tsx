@@ -20,18 +20,19 @@ import { AxiosResponse } from 'axios';
 import { getCurrencyDisplayWithPrice } from '../theme/selectors';
 import { formatAsDate } from '../../utils/datetime';
 
-import { Member } from '#libs/member/types';
-import { Tag } from '#libs/tag/types';
+import type { MemberMinimal } from '#libs/member/types';
+import type { Tag } from '#libs/tag/types';
+import type { GenericPaginationResults } from '#libs/types';
 
 const MEMBER_PER_PAGE = 50;
 
 const renderRows = (
-  members: Member[],
+  members: MemberMinimal[],
   t: TFunction,
   goToMember: (id: number) => any,
   interrogateMemberStatus: (id: number) => void,
 ) => {
-  return members.map((member: Member) =>
+  return members.map((member) =>
     renderRow(member, t, goToMember, interrogateMemberStatus),
   );
 };
@@ -109,7 +110,7 @@ const renderActions = (
   </>
 );
 const renderRow = (
-  member: Member,
+  member: MemberMinimal,
   t: TFunction,
   goToMemberPage: (id: number) => any,
   interrogateMemberStatus: (id: number) => void,
@@ -144,7 +145,7 @@ type OwnProps = {
     tags_excluded?: Array<Tag['id']>;
     exclude_archived?: boolean;
     email_confirmed?: boolean;
-  }) => Promise<AxiosResponse<any>>;
+  }) => Promise<AxiosResponse<GenericPaginationResults<MemberMinimal>>>;
   goToMember: (id: number) => void;
   addMember?: () => void;
   tagsExcluded?: Array<Tag['id']>;
@@ -160,7 +161,7 @@ type OwnProps = {
 type Props = OwnProps & WithTranslation & WithStyles;
 
 type State = {
-  members: Array<Member>;
+  members: Array<MemberMinimal>;
   loading: boolean;
   count: number;
   tableState: { page: number };
@@ -169,7 +170,7 @@ type State = {
 
 export class MemberTable extends Component<Props, State> {
   state = {
-    members: [],
+    members: [] as Array<MemberMinimal>,
     loading: false,
     count: 0,
     tableState: {
@@ -192,7 +193,8 @@ export class MemberTable extends Component<Props, State> {
         })
         .then((response) => {
           this.setState((prevState) => ({
-            members: response.data.results,
+            members:
+              response.data.results?.filter((member) => !member.is_pos) ?? [],
             count: response.data.count,
             loading: false,
             tableState: {

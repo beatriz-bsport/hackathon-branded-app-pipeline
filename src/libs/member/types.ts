@@ -68,6 +68,7 @@ export type MemberMinimal<Tag = number, CA = number> = {
   tags: Array<Tag>;
   total_unpaid_amount: string;
   vaccination_status?: boolean;
+  is_pos: boolean;
 };
 
 export type Member<Tag = number, CA = number> = {
@@ -109,6 +110,7 @@ export type Member<Tag = number, CA = number> = {
   default_billing_establishment: number | null;
   unsubscribe_link: string;
   spivi_privacy_settings_accepted: boolean;
+  is_pos: boolean;
 };
 
 export type MemberState = ErrorAndLoading &

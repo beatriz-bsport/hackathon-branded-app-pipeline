@@ -39,8 +39,10 @@ export const getAllMembers = createSelector(
 
 export const getSearchedMembers = createSelector(
   [_getSearchedMemberIds, getMemberListData],
-  (ids, data) => ids.map((id) => data[id]).filter((m) => !!m),
+  (ids, data) =>
+    ids.map((id) => data[id]).filter((member) => !!member && !member.is_pos),
 );
+
 export const getFilteredSearchedMembers = createSelector(
   [getSearchedMembers, (_state, id) => id],
   (searchedMembers, id) => searchedMembers.filter((m) => m.id !== id),

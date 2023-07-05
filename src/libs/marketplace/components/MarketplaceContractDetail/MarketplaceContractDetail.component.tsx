@@ -44,13 +44,13 @@ const ContractDetailList: React.FC<Props> = React.memo(
     const { t } = useTranslation('marketplace');
 
     const objectIncludedInContract = React.useMemo(() => {
-      if (contract?.payment_pack) {
+      if (contract?.payment_pack && getPaymentPackSelected) {
         return getPaymentPackSelected(contract?.payment_pack);
       }
-      if (contract?.private_pass) {
+      if (contract?.private_pass && getPrivatePassSelected) {
         return getPrivatePassSelected(contract?.private_pass);
       }
-      if (contract?.payment_combo) {
+      if (contract?.payment_combo && getPaymentComboSelected) {
         return getPaymentComboSelected(contract?.payment_combo);
       }
       return null;

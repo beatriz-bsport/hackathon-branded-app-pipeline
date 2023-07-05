@@ -9,7 +9,7 @@
       var(--color-secondary-background-paper-transparent) 55%,
       transparent 45%
     ),
-    #ffffff;
+    var(--color-background-paper);
   border-radius: var(--border-radius-4);
   height: 240px;
   z-index: 0;

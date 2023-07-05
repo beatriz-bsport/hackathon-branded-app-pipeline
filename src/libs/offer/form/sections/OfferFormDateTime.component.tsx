@@ -35,6 +35,7 @@ import { isAmPmTimeFormat } from '../../../../utils/datetime';
 
 import { OfferFormValues } from '#libs/offer/types';
 import { getOfferRecurrenceDates } from '#libs/offer/utils';
+import { DATE_PICKER_MASK } from '../../../../constants';
 
 type Props = {
   timezone: string;
@@ -152,7 +153,7 @@ const OfferFormDateTime = (props: Props) => {
 
   const getDatePickerMask = useCallback((value) => {
     if (value) {
-      return [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
+      return DATE_PICKER_MASK;
     }
     return [];
   }, []);

@@ -15,3 +15,19 @@ export enum BsportRequestFromHeaderValue {
 export const BSPORT_REQUEST_FROM_HEADER = 'X-bsport-request-from';
 export const BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION =
   'bsport-request-from';
+
+/**
+ *  @description The given sequence is a regular expression that represents a pattern for a date in the format "dd/mm/yyyy.
+ */
+export const DATE_PICKER_MASK = [
+  /\d/,
+  /\d/,
+  '/',
+  /\d/,
+  /\d/,
+  '/',
+  /\d/,
+  /\d/,
+  /\d/,
+  /\d/,
+];

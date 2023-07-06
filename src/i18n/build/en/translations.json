@@ -5582,7 +5582,15 @@
                     "label": "Hide credits",
                     "subTitle": "Credits"
                 },
-                "title": "Products"
+                "title": "Products",
+                "productsOrdering": {
+                    "itemNumberCaption": "{{count}} product",
+                    "itemNumberCaption_plural": "{{count}} products",
+                    "description": "Organize your products so that they are visible to your customers when they book an activity and need passes, packs or subscriptions.",
+                    "reset": "Reset",
+                    "label": "Customised order",
+                    "subTitle": "Product order"
+                }
             }
         },
         "general_terms_and_conditions": {
@@ -9675,6 +9683,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -10556,6 +10565,10 @@
         "noShowPenalty": {
             "block": "{{days_blocked}} days blocked after {{treshold}} no shows over a period of {{time_window_days}} days.",
             "account": "A {{amount}} fine will be applied for {{treshold}} no shows over a period of {{time_window_days}} days."
+        },
+        "orderingAlert": {
+            "button": "Customisation page",
+            "text": "Any change to the order of the \"Categories\" will only affect the display of the \"Passes\" page of the marketplace and the application. This update will not affect any other section or category."
         }
     },
     "metaActivity": {

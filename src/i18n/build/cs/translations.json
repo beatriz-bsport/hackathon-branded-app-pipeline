@@ -16,12 +16,17 @@
     "alerting": {
         "companyOnboarding": {
             "payout": {
-                "title": "Chybíci bankovní informace"
+                "title": "Chybíci bankovní informace",
+                "content": "Nemůžeme provádět platby na váš bankovní účet, protože neexistuje nebo je nesprávně nakonfigurován."
             },
             "verification": {
                 "warning": "Online platby mužou být <1>deaktivován</1> potom datu !",
-                "content": "Několik čekajícých dokumentů, můžete ověřit váš učet do <1>{{ datum }}</1>.",
+                "content": "Několik čekajícých dokumentů, můžete ověřit váš učet do <1>{{ date }}</1>.",
                 "title": "Řízení mé společnosti"
+            },
+            "creation": {
+                "content": "Abyste mohl(a) vybírat platby kartou a SEPA platby, zkontrolujte prosím své právní údaje",
+                "title": "Online platba zakázána"
             }
         },
         "task": {
@@ -62,6 +67,218 @@
         "list": {
             "emptyAlerting": "Žádné nové oznámení.",
             "title": "Oznámení"
+        },
+        "lateReplacementRequest": {
+            "content": "požádal(a) o náhradu na následující hodinu: {{activity_name}} - {{-date_start}}",
+            "title": "Pozdní výměna"
+        },
+        "newTutorialSectionOrLesson": {
+            "newLesson": {
+                "content": "Přidáno do sekce {{- name}}",
+                "title": "Nový kurz {{- name}}"
+            },
+            "newSection": {
+                "content": "Byla přidána sekce {{- name}}, mužete začit trénovat.",
+                "title": "Nová sekce"
+            }
+        }
+    },
+    "booking": {
+        "parameters": {
+            "noShow": "No show ",
+            "source": "Rezervační způsob",
+            "by": "Od",
+            "cancelledOn": "Zrušeno ",
+            "registeredOn": "Rezervováno "
+        },
+        "source": {
+            "migration": "Migrace",
+            "other": "Jiné",
+            "saas": "Backoffice",
+            "app": "Mobilní aplikace",
+            "web": "Web"
+        },
+        "details": {
+            "consumerPaymentPackTitle": "Použita karta",
+            "offerTitle": "Propojená relace",
+            "title": "Podrobnosti rezervace",
+            "pleaseSelectABooking": "Chcete-li zobrazit podrobnosti, vyberte rezervaci"
+        },
+        "bookingModule": {
+            "tags": {
+                "unAuthorized": "K registraci na tuto hodinu nemáte potřebná práva.",
+                "managerDialogWarningDialog": {
+                    "confirm": "Potvrdit",
+                    "cancel": "Zrušit",
+                    "content": "Pozor tento člen nemá potřebné štítky (tags) pro tuto hodinu. Chcete ji/ho i tak zaregistrovat?",
+                    "title": "Informace"
+                }
+            },
+            "messages": {
+                "maleUnavailable": "Na tuto hodinu již není možné se zarezervovat pro muži.",
+                "femaleUnavailable": "Na tuto hodinu již není možné se zarezervovat pro ženy.",
+                "offerLocked": "Na tuto hodinu si nemůžete zarezervovat"
+            },
+            "offer": {
+                "blockedByTags": "K registraci na tuto relaci nemáte potřebná práva.",
+                "isWaitingListFull": "Sezení je dokončeno, a čekací listina je plná.",
+                "isTooSoon": "Registrace jsou momentálně uzavřeny a budou otevřeny {{-date}}.",
+                "isAlreadyRegistered": "Jste už zaregistrováni na tuto hodinu",
+                "isTooLate": "Registrace jsou uzavřeny.",
+                "isDisabled": "Hodina byla bohužel zrušená."
+            },
+            "option": {
+                "waitingListLockedByPendingBookings": "Ostatní lidé rezervují, čekací listina je momentálně nedostupná. Zkuste to prosím znovu za několik minut, abyste zjistili, zda se uvolnilo místo.",
+                "registerOption": "Přidat se na čekací listinu",
+                "isFull": "Sezení je ukončeno, můžete se zaregistrovat na čekací listinu, až se místo uvolní, budete informováni e-mailem.",
+                "isAlreadyRegistered": "Registrace dokončena, děkujeme!",
+                "isAlreadyOnWaitingList": "Jste na čekací listině, až se místo uvolní, budeme vás informovat e-mailem.",
+                "waitingListOpen": "Hodina je plná, ale můžete se přihlásit na čekací listinu. Jakmile se místo uvolní, budeme vás informovat e-mailem"
+            },
+            "section": {
+                "contract": "Koupím předplatné",
+                "paymentCombos": "Akční nabídky",
+                "paymentPacks": "Koupím kartu na lekci",
+                "contracts": "Předplatné",
+                "consumerPacks": "Moje karty"
+            },
+            "recurrent": {
+                "backToRegistererChoice": "Zpět",
+                "bookMultiple": "Rezervovat",
+                "title": "Budoucí relace"
+            },
+            "book": {
+                "unknowError": "Nelze rezervovat, zkuste to prosím znovu za chvíli"
+            },
+            "isLoading": "Hledát hodiny...",
+            "hasRegistered": "Jste zaregistrováni na tuto hodinu"
+        },
+        "filters": {
+            "pickCoach": "Najít instruktora...",
+            "coach": "Instruktor",
+            "isUnpaid": "Nezaplacené rezervace",
+            "isPaid": "Zaplacené rezervace",
+            "paid": "Platba",
+            "withoutRecurrentBookings": "Neopakované rezervace",
+            "withRecurrentBookings": "Opakující se rezervace",
+            "recurrentBooking": "Opakující se rezervace",
+            "notRefunded": "Neproplaceno",
+            "isRefunded": "Proplaceno",
+            "refunded": "Refundace",
+            "pastBooking": "Minulé rezervace",
+            "futureBooking": "Budoucí rezervace",
+            "time": "Rezervace včas",
+            "attendance": "Přítomnost",
+            "cancel": "Zrušení",
+            "notCancelled": "Nezrušeno",
+            "consumerCanceled": "Storno klienta",
+            "managerCanceled": "Změnit zrušení",
+            "canceled": "Hodina zrušena",
+            "absent": "Nepřítomný",
+            "present": "Přitomen",
+            "all": "Všechny rezervace"
+        },
+        "recurrenceRule": {
+            "explain": "Člen bude vždy registrován {{ delayWeek }} týdny předem na kurzy dne{{ dayOfWeek}} v {{hour}}:{{minute}}. Přihlášen bude pouze v případě, že bude mít platnou kartu kurzu.",
+            "actions": {
+                "save": "Uložit",
+                "close": "Zavřit"
+            },
+            "form": {
+                "delayWeek": {
+                    "helperText": "Uveďte na kolik týdnů předem bude člen zaregistrován",
+                    "label": "Počet týdnů"
+                },
+                "groupWarning": "Pozor není možné vytvořit opakování rezervace u skupin relací",
+                "metaActivity": {
+                    "helperText": "Aktivita",
+                    "label": "Aktivita"
+                },
+                "minute": {
+                    "label": "minut"
+                },
+                "hour": {
+                    "label": "hodina"
+                },
+                "dayOfWeek": {
+                    "label": "Všední dny"
+                },
+                "at": " v ",
+                "timeGroup": "Datum zasedání",
+                "startFromDate": {
+                    "label": "Začátek opakování "
+                },
+                "title": "Naplánujte opakování"
+            },
+            "recurrentRuleBooking": "Opakující se rezervace",
+            "item": {
+                "explain": "Všichni {{dayOfWeek}} – {{hour}}:{{minute}}, {{delayWeek}} týdny předtím"
+            },
+            "needConsumerPack": "Tento člen nemá kompatibilní kartu kurzu, nelze naprogramovat opakování",
+            "recurrentBookings": "Opakující se rezervace",
+            "createModal": {
+                "create": "Vytvořit opakovanou rezervaci",
+                "info": "Nelze znovu vytvořit opakovanou rezervaci, která již existuje",
+                "success": "Opakovaná rezervace byla vytvořena."
+            },
+            "editModal": {
+                "success": "Opakovaná rezervace byla změněna"
+            },
+            "deleteModal": {
+                "success": "Opakovaná rezervace byla zrušená",
+                "title": "Odstranění pravidla opakování",
+                "content": "Smazání pravidla opakování bude mít za následek zrušení budoucích rezervací provedených prostřednictvím tohoto pravidla.",
+                "cancel": "Zrušit",
+                "confirm": "Zrušit"
+            },
+            "blockedBookings": "Vaši studenti si na tuto aktivitu mohou rezervovat až {{days}} dní před začátkem lekcí, proto doporučujeme naplánovat opakování na delší dobu, abyste předešli přetížení.",
+            "notifyIfCanceled": "Poslat mail zrušení rezervací",
+            "notify": "Při registraci členství zašlete potvrzovací e-mail",
+            "showLess": "Ukázat méně",
+            "showMore": "Zobrazit více ({{count}})"
+        },
+        "performanceTracking": {
+            "stat": "Statistiky"
+        },
+        "guest": {
+            "form": {
+                "actions": {
+                    "limitGuest": "(Žádná karta třídy neumožňuje přidat hosty)",
+                    "addGuest": "Přidat hosta",
+                    "close": "Zrušit",
+                    "submit": "Potvrdit"
+                },
+                "lastname": {
+                    "label": "Příjmení"
+                },
+                "firstname": {
+                    "label": "Jméno"
+                },
+                "email": {
+                    "label": "Email"
+                }
+            }
+        },
+        "actions": {
+            "unregister": "Odhlásit",
+            "bill": "Fakturovat"
+        },
+        "attendanceUpdatedOn": "Aktualizováno {{- d }} v {{- t }}"
+    },
+    "authentication": {
+        "resetPassword": {
+            "actions": {
+                "backToLogin": "Zpět",
+                "reset": "OK",
+                "cancel": "Storno"
+            },
+            "emailHasBeenSent": "Na adresu {{email}} byl odeslán e-mail, abyste obnovil(a) vaše heslo",
+            "contactUs": "Kontaktujte nás přes ",
+            "hasProblem": "Máte potíže s resetováním?",
+            "explain2": "Zašleme vám pokyny k obnovení",
+            "explain1": "Jaký byl e-mail účtu?",
+            "noEmail": "Tento email nebyl zaregistrován",
+            "title": "Obnovení hesla"
         }
     }
 }

@@ -1,0 +1,55 @@
+.bs-subscription-processing-payment-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bs-subscription-processing-payment-dialog__card {
+  width: 600px;
+  height: 212px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: white;
+  padding: var(--spacing-2) var(--spacing-3) var(--spacing-2) var(--spacing-3);
+  border-radius: var(--spacing-1);
+  gap: var(--spacing-2);
+}
+
+.bs-subscription-processing-payment-dialog__loader {
+  color: var(--color-primary-main);
+}
+
+.bs-subscription-processing-payment-dialog__card__title {
+  font-size: var(--h6-fontSize);
+  font-weight: var(--fontWeightMedium);
+  line-height: var(--spacing-4);
+  text-align: center;
+  color: var(--color-text-primary);
+}
+
+.bs-subscription-processing-payment-dialog__card__text {
+  font-size: var(--body1-fontSize);
+  font-size: var(--spacing-2);
+  font-weight: 400;
+  line-height: var(--spacing-3);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.bs-subscription-processing-payment-dialog__card__time {
+  font-size: var(--subtitle1-fontSize);
+  font-weight: var(--fontWeightMedium);
+  line-height: var(--spacing-4);
+  text-align: center;
+  color: var(--color-text-primary);
+}

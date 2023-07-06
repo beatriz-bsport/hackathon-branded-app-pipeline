@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import chroma from 'chroma-js';
+import Immutable from 'seamless-immutable';
+
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -13,7 +15,7 @@ import {
 type StylesProps = { color: string; open: boolean };
 
 export type MultipleActionsMenuOnHoverProps = {
-  actionList: Action[];
+  actionList: Immutable.ImmutableArray<Action>;
   customIcon?: string;
   customColor?: string;
   optionOnClick?: () => void;

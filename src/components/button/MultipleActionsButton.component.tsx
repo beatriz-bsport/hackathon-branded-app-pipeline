@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import chroma from 'chroma-js';
+import Immutable from 'seamless-immutable';
+
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Menu from '@material-ui/core/Menu';
@@ -20,7 +22,7 @@ export const MULTIPLE_ACTION_BUTTON_MAX_SIZE = '32px';
 type StylesProps = { color: string; open: boolean };
 
 export type MultipleActionsButtonProps = {
-  actionList: Action[];
+  actionList: Immutable.ImmutableArray<Action>;
   customIcon?: string;
   customColor?: string;
   optionOnClick?: () => void;

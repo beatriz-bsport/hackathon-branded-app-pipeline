@@ -108,6 +108,7 @@ export type Theme = {
   hide_credits_for_customers: boolean;
   hide_book_button: boolean;
   is_sequential_marketing_active: boolean;
+  display_new_checkout_flow: boolean;
 };
 
 export type ThemeState = {

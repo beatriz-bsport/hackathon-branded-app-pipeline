@@ -144,26 +144,30 @@ export class ThemePersonalize extends Component<Props> {
                 }}
                 onSubmit={submitTheme}
               />
-              <Divider className={classes.divider} />
-              <ProductsOrderingPersonalizeForm
-                companyId={theme?.company}
-                customPricingOptionOrderingEnabled={
-                  bookingFunnelConfiguration?.custom_pricing_option_ordering_enabled
-                }
-                customPricingOptionOrdering={
-                  bookingFunnelConfiguration?.custom_pricing_option_ordering ??
-                  []
-                }
-                currentPricingOptionOrdering={
-                  bookingFunnelConfiguration?.current_pricing_option_ordering ??
-                  []
-                }
-                paymentPackCategories={paymentPackCategories}
-                paymentPackByCategorySummary={paymentPackByCategorySummary}
-                paymentComboNumberItems={paymentComboNumberItems}
-                contractNumberItems={contractNumberItems}
-                onSubmit={submitBookingFunnelConfiguration}
-              />
+              {theme.display_new_checkout_flow && (
+                <>
+                  <Divider className={classes.divider} />
+                  <ProductsOrderingPersonalizeForm
+                    companyId={theme?.company}
+                    customPricingOptionOrderingEnabled={
+                      bookingFunnelConfiguration?.custom_pricing_option_ordering_enabled
+                    }
+                    customPricingOptionOrdering={
+                      bookingFunnelConfiguration?.custom_pricing_option_ordering ??
+                      []
+                    }
+                    currentPricingOptionOrdering={
+                      bookingFunnelConfiguration?.current_pricing_option_ordering ??
+                      []
+                    }
+                    paymentPackCategories={paymentPackCategories}
+                    paymentPackByCategorySummary={paymentPackByCategorySummary}
+                    paymentComboNumberItems={paymentComboNumberItems}
+                    contractNumberItems={contractNumberItems}
+                    onSubmit={submitBookingFunnelConfiguration}
+                  />
+                </>
+              )}
             </div>
           </Paper>
         </div>

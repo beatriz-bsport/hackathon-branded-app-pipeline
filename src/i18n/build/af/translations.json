@@ -11342,6 +11342,24 @@
         "title": "Paiement en cours",
         "text": "Veuillez patienter le temps que le paiment soit effectué. Ne quittez pas et ne rechargez pas cette page.",
         "timeEstimation": "Cela peut prendre jusqu'à une minute"
+      },
+      "subscriptionSummary": {
+        "startDate": "Date de début",
+        "credit": "{{count}} crédit",
+        "credit_plural": "{{count}} crédits",
+        "item": "{{count}} élément",
+        "item_plural": "{{count}} éléments",
+        "prorataPriceText": "{{proratedPrice}} dûs le {{-today}}, puis {{recurrentPrice}} chaque {{monthBillingDay}} du mois.",
+        "billingInterval": {
+          "month": "chaque mois",
+          "month_plural": "tous les {{ count }} mois",
+          "week": "chaque semaine",
+          "week_plural": "toutes les {{ count }} semaines",
+          "year": "chaque année",
+          "year_plural": "tous les {{ count }} ans",
+          "day": "chaque jour",
+          "day_plural": "tous les {{ count }} jours"
+        }
       }
     }
   },

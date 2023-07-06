@@ -172,7 +172,7 @@ const FileUploaderCustomized: React.FC<Props> = React.memo(
           <input {...inputProps} />
           <div className={classes.dropHere}>
             <div className={classes.iconContainer}>
-              {file ? (
+              {file && !error ? (
                 <>
                   <IconButton
                     color="secondary"
@@ -200,7 +200,7 @@ const FileUploaderCustomized: React.FC<Props> = React.memo(
               )}
             </div>
 
-            {!file ? (
+            {!file || error ? (
               <>
                 <Typography
                   align="center"

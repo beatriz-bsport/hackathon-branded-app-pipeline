@@ -1,0 +1,208 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useFormikContext, Form, withFormik, type FormikProps } from 'formik';
+import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import { Theme, makeStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
+import { ImmutableArray } from 'seamless-immutable';
+import moment from 'moment-timezone';
+import type { OptionCallback } from '../../../../state/types';
+import type {
+  Coupon,
+  UniqueCodeCouponCreationPayload,
+} from '#libs/coupon/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { PrivatePass } from '#libs/private-service/types';
+import type { ShopItem } from '#libs/shop/types';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import UniqueCodeCouponFormSkeleton from './UniqueCodeCouponFormSkeleton.component';
+import UniqueCodeCouponFormGeneral from './sections/UniqueCodeCouponFormGeneral.component';
+import ValidationSchema from './ValidationSchema';
+import UniqueCodeCouponFormSettings from './sections/UniqueCodeCouponFormSettings.component';
+import UniqueCodeCouponFormAvailability from './sections/UniqueCodeCouponFormAvailability.component';
+import UniqueCodeCouponFormUsability from './sections/UniqueCodeCouponFormUsability.component';
+import UniqueCodeCouponFormUpload from './sections/UniqueCodeCouponFormUpload.component';
+
+type ComponentProps = {
+  onCancel: () => void;
+  isLoading: boolean;
+  isProcessing: boolean;
+  paymentPacks: PaymentPack[];
+  paymentPacksById: { [key: number]: PaymentPack };
+  shopItems: ImmutableArray<ShopItem>;
+  shopItemsById: { [key: number]: ShopItem };
+  privatePasses: PrivatePass[];
+  privatePassesById: { [key: number]: PrivatePass };
+  paymentCombos: PaymentCombo[];
+  paymentCombosById: { [key: number]: PaymentCombo };
+  withExpirationDate: boolean;
+  setWithExpirationDate: React.Dispatch<React.SetStateAction<boolean>>;
+  isUsagePerMemberLimited: boolean;
+  setIsUsagePerMemberLimited: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+type FormProps = {
+  onSubmit: (
+    data: UniqueCodeCouponCreationPayload,
+    options?: OptionCallback<Coupon>,
+  ) => void;
+};
+
+type Props = ComponentProps & FormikProps<UniqueCodeCouponCreationPayload>;
+
+const useStyles = makeStyles((theme: Theme) => ({
+  buttonsContainer: {
+    padding: theme.spacing(4),
+    gap: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+}));
+
+export const UniqueCodeCouponForm: React.FC<Props> = React.memo(
+  ({
+    onCancel,
+    isLoading,
+    isProcessing,
+    paymentPacks,
+    paymentPacksById,
+    shopItems,
+    shopItemsById,
+    privatePasses,
+    privatePassesById,
+    paymentCombos,
+    paymentCombosById,
+    withExpirationDate,
+    setWithExpirationDate,
+    isUsagePerMemberLimited,
+    setIsUsagePerMemberLimited,
+  }) => {
+    const { t } = useTranslation('coupon');
+
+    const classes = useStyles();
+
+    const { handleSubmit, isValid, isSubmitting } =
+      useFormikContext<UniqueCodeCouponCreationPayload>();
+
+    if (isLoading && !isSubmitting) {
+      return (
+        <div data-testid="unique-code-coupon-form">
+          <UniqueCodeCouponFormSkeleton />
+        </div>
+      );
+    }
+    return (
+      <Form
+        noValidate
+        data-testid="unique-code-coupon-form"
+        onSubmit={handleSubmit}
+      >
+        <UniqueCodeCouponFormGeneral isProcessing={isProcessing} />
+
+        <UniqueCodeCouponFormSettings
+          isProcessing={isProcessing}
+          paymentCombos={paymentCombos}
+          paymentCombosById={paymentCombosById}
+          paymentPacks={paymentPacks}
+          paymentPacksById={paymentPacksById}
+          privatePasses={privatePasses}
+          privatePassesById={privatePassesById}
+          shopItems={shopItems}
+          shopItemsById={shopItemsById}
+        />
+
+        <UniqueCodeCouponFormAvailability
+          isProcessing={isProcessing}
+          setWithExpirationDate={setWithExpirationDate}
+          withExpirationDate={withExpirationDate}
+        />
+
+        <UniqueCodeCouponFormUsability
+          isProcessing={isProcessing}
+          isUsagePerMemberLimited={isUsagePerMemberLimited}
+          setIsUsagePerMemberLimited={setIsUsagePerMemberLimited}
+        />
+
+        <UniqueCodeCouponFormUpload isProcessing={isProcessing} />
+
+        <div
+          className={classes.buttonsContainer}
+          id="unique-code-coupon-form-actions"
+        >
+          <Button onClick={onCancel}>{t('form.actions.cancel')}</Button>
+          <Button
+            color="primary"
+            disabled={isProcessing || !isValid}
+            type="submit"
+            variant="contained"
+          >
+            {t('form.actions.submit')}
+          </Button>
+        </div>
+      </Form>
+    );
+  },
+);
+
+const formikFormWrapper = withFormik<
+  ComponentProps & FormProps,
+  UniqueCodeCouponCreationPayload
+>({
+  mapPropsToValues: () => {
+    const initialExpirationDate = moment().add(1, 'month');
+    return {
+      name: '',
+      is_active: false,
+      only_on_first_checkout: false,
+      usage_per_member: 1,
+      applies_to: BUYABLE_ITEM_PASS,
+      only_on_objects: [],
+      expiration_date: initialExpirationDate,
+      coupon_cost_for_company: null,
+      codes: [],
+    };
+  },
+  handleSubmit: (
+    values,
+    {
+      props: { onSubmit, withExpirationDate, isUsagePerMemberLimited },
+      setSubmitting,
+    },
+  ) => {
+    const {
+      name,
+      is_active,
+      only_on_first_checkout,
+      usage_per_member,
+      applies_to,
+      only_on_objects,
+      expiration_date,
+      coupon_cost_for_company,
+      codes,
+    } = values;
+
+    const formatedDate =
+      withExpirationDate && expiration_date
+        ? moment(expiration_date, 'DD/MM/YYYY').format('YYYY-MM-DD')
+        : null;
+
+    const uniqueCodeCoupon: UniqueCodeCouponCreationPayload = {
+      name,
+      is_active,
+      only_on_first_checkout,
+      usage_per_member: isUsagePerMemberLimited ? null : usage_per_member,
+      applies_to,
+      only_on_objects,
+      expiration_date: formatedDate,
+      coupon_cost_for_company,
+      codes,
+    };
+    onSubmit(uniqueCodeCoupon, {
+      onSuccess: () => setSubmitting(false),
+      onError: () => setSubmitting(false),
+    });
+  },
+  validationSchema: ValidationSchema,
+});
+
+export default formikFormWrapper(UniqueCodeCouponForm);

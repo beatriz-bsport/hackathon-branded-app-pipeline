@@ -319,8 +319,8 @@ export const offPeakGroupDefault = () => {
   return {
     timeSlots: [
       [
-        moment().hours(6).minutes(0).seconds(0),
-        moment().hours(7).minutes(0).seconds(0),
+        moment().hours(6).minutes(0).seconds(0).format(),
+        moment().hours(7).minutes(0).seconds(0).format(),
       ],
     ],
     recurrenceWeekDay: {
@@ -336,18 +336,18 @@ export const offPeakGroupDefault = () => {
   };
 };
 
-const sortTimeSlotsByStartDate = (timeSlot: Moment[][]) => {
+const sortTimeSlotsByStartDate = (timeSlot: string[][]) => {
   timeSlot.sort((start, end) => {
-    return start[0].diff(end[0]);
+    return moment(start[0]).diff(end[0]);
   });
 };
 
-// This method format every [start,end] of timeslot (which are Moment) into strings
-const stringifyTimeSlots = (timeSlots: Moment[][]): string[][] => {
+// This method format every [start,end] of timeslot into HH:mm
+const stringifyTimeSlots = (timeSlots: string[][]): string[][] => {
   return timeSlots.map((timeSlot) => {
     const formattedTimeSlot = [
-      timeSlot[0].format('HH:mm'),
-      timeSlot[1].format('HH:mm'),
+      moment(timeSlot[0]).format('HH:mm'),
+      moment(timeSlot[1]).format('HH:mm'),
     ];
     return formattedTimeSlot;
   });
@@ -360,13 +360,13 @@ export const formatOffPeakScheduleOnSubmit = (
 ): Record<string, string[][]> => {
   /* This part format the off_peak_schedule from the front-end to the format 
   of the back-end */
-  const sanitizedOffPeakSchedule = {} as Record<string, Moment[][]>;
+  const sanitizedOffPeakSchedule = {} as Record<string, string[][]>;
   off_peak_schedule.forEach((group) => {
-    const groupedTimeSlots = [] as Moment[][];
+    const groupedTimeSlots = [] as string[][];
     group.slotDurationChoice === 'all_day'
       ? groupedTimeSlots.push([
-          moment().hours(0).minutes(0).seconds(0),
-          moment().hours(23).minutes(59).seconds(59),
+          moment().hours(0).minutes(0).seconds(0).format('HH:mm'),
+          moment().hours(23).minutes(59).seconds(59).format('HH:mm'),
         ])
       : group.timeSlots.forEach((timeSlot) => {
           groupedTimeSlots.push(timeSlot);
@@ -377,8 +377,8 @@ export const formatOffPeakScheduleOnSubmit = (
         if (!sanitizedOffPeakSchedule[isoWeekday]) {
           sanitizedOffPeakSchedule[isoWeekday] = [];
         }
-        groupedTimeSlots.forEach((timeSlot) => {
-          sanitizedOffPeakSchedule[isoWeekday].push(timeSlot);
+        groupedTimeSlots.forEach((timeSlotBis) => {
+          sanitizedOffPeakSchedule[isoWeekday].push([...timeSlotBis]);
         });
       }
     });
@@ -387,26 +387,33 @@ export const formatOffPeakScheduleOnSubmit = (
   // This part manages the merge of overlapped timeslots and format moment into string
   const formattedOffPeakSchedule = {} as Record<string, string[][]>;
   Object.entries(sanitizedOffPeakSchedule).forEach((day) => {
-    const [isoWeekday, timeSlots]: [string, Moment[][]] = day;
+    const [isoWeekday, timeSlots]: [string, string[][]] = day;
     sortTimeSlotsByStartDate(timeSlots);
     const momentTimeSlots = [timeSlots.shift()];
-
     timeSlots.forEach((timeArray) => {
       const [current_start_time, current_end_time]: [Moment, Moment] = [
-        timeArray[0],
-        timeArray[1],
+        moment(timeArray[0]),
+        moment(timeArray[1]),
       ];
       const [last_start_time, last_end_time] = momentTimeSlots.slice(-1)[0];
-      if (current_start_time.isSameOrBefore(last_end_time, 'minute')) {
+      if (current_start_time.isSameOrBefore(moment(last_end_time), 'minute')) {
+        const maxEndTime = current_end_time.isSameOrAfter(
+          moment(last_end_time),
+          'minute',
+        )
+          ? current_end_time
+          : moment(last_end_time);
         momentTimeSlots[momentTimeSlots.length - 1] = [
           last_start_time,
-          moment.max([current_end_time, last_end_time]),
+          maxEndTime.format(),
         ];
       } else {
-        momentTimeSlots.push([current_start_time, current_end_time]);
+        momentTimeSlots.push([
+          current_start_time.format(),
+          current_end_time.format(),
+        ]);
       }
     });
-
     const sanithizedTimeSlot = stringifyTimeSlots(momentTimeSlots);
     formattedOffPeakSchedule[isoWeekday] = sanithizedTimeSlot;
   });
@@ -457,7 +464,7 @@ export const formatOffPeakScheduleOnEdit = (
 
     const formattedTimeSlotValue = timeSlot.map((slot) => {
       const [start, end] = slot.split(',');
-      return [moment(start, 'HH:mm'), moment(end, 'HH:mm')];
+      return [moment(start, 'HH:mm').format(), moment(end, 'HH:mm').format()];
     });
 
     const groupedDays = days.split(',');
@@ -471,10 +478,8 @@ export const formatOffPeakScheduleOnEdit = (
       '7': groupedDays.includes('7'),
     };
 
-    if (
-      formattedTimeSlotValue[0][0].format('HH:mm') === '00:00' &&
-      formattedTimeSlotValue[0][1].format('HH:mm') === '23:59'
-    ) {
+    // From the back-end, if the slot duration choice was all_day, it only has 1 timeslot
+    if (timeSlot[0][0] === '00:00' && timeSlot[0][1] === '23:59') {
       slotDurationChoiceValue = 'all_day';
     } else {
       slotDurationChoiceValue = 'time_slot';

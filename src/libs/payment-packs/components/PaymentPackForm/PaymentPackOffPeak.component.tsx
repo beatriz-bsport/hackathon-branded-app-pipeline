@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, memo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
-import moment, { Moment } from 'moment-timezone';
+import moment from 'moment-timezone';
 import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
@@ -43,7 +43,7 @@ const WEEK_DAYS: WeekDay[] = [0, 1, 2, 3, 4, 5, 6];
 type OffPeaktimeSlotsRowProps = {
   index: number;
   setFieldValue: FieldValueSetter;
-  timeSlots: Moment[][];
+  timeSlots: string[][];
 };
 
 const OffPeakButtonDay: React.FC<WeekDayButtonProps> = memo(
@@ -191,8 +191,8 @@ const OffPeaktimeSlotGroup = (props: Props) => {
   const handleAddtimeSlot = useCallback(() => {
     const newGroup = group.timeSlots;
     const newRow = [
-      moment().hours(6).minutes(0).seconds(0),
-      moment().hours(7).minutes(0).seconds(0),
+      moment().hours(6).minutes(0).seconds(0).format(),
+      moment().hours(7).minutes(0).seconds(0).format(),
     ];
     newGroup.push(newRow);
     setFieldValue(`off_peak_schedule[${index}]`, group);

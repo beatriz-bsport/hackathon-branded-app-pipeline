@@ -212,7 +212,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               <Collapse in={values.off_peak_active}>
                 {values.off_peak_schedule.map((group, index) => (
                   <OffPeakTimeSlotGroup
-                    key={index}
+                    key={`${index}`}
                     group={group}
                     setFieldValue={setFieldValue}
                     index={index}

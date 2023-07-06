@@ -1,6 +1,5 @@
 // @ts-nocheck
 import Immutable from 'seamless-immutable';
-import { Moment } from 'moment-timezone';
 import { ErrorAndLoading } from '../../state/types';
 import { Company } from '../company/types';
 import type { CompatiblePrivateService } from '#libs/private-service/types';
@@ -293,7 +292,7 @@ export type OffPeakIsoWeekdays = {
 };
 
 export type OffPeakSchedule = {
-  timeSlots: Moment[][];
+  timeSlots: string[][];
   recurrenceWeekDay?: OffPeakIsoWeekdays;
   slotDurationChoice: string;
 };

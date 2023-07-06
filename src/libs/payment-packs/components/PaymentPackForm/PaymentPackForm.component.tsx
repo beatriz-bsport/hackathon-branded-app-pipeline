@@ -795,7 +795,7 @@ const paymentPackSchema = Yup.object().shape({
           (value) => {
             if (value && Array.isArray(value) && value.length === 2) {
               const [startTime, endTime] = value;
-              return startTime.isBefore(endTime);
+              return moment(startTime).isBefore(moment(endTime), 'minute');
             }
             return false;
           },

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useMemo, useState } from 'react';
 
 import Info from '@material-ui/icons/Info';
@@ -22,7 +21,9 @@ import OfferFormSelector from '#libs/offer/form/OfferFormSelector.component';
 import SpotSchedulingHelper from '#libs/spot-scheduling/utils';
 import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook ';
 import OfferFormTooltip from '#libs/offer/form/OfferFormTooltip.dialog';
+// @ts-expect-error
 import MetaActivitySelector from '../../../meta-activity/components/MetaActivitySelector.component';
+// @ts-expect-error
 import { TextField } from '../../../../components/forms';
 import { SwitchField } from '#libs/custom-form/components/GenericFormik.input';
 import { OfferFormValues } from '#libs/offer/types';
@@ -162,14 +163,22 @@ const OfferFormSpecificities = (props: Props) => {
       const spotCount = SpotSchedulingHelper.getSpotCount(blueprint);
       setFieldValue('roomBlueprintSlots', spotCount);
 
-      if (blueprint?.spivi_box_id && hasSpiviUpsell) {
-        setFieldValue('syncOfferOnSpivi', true);
-      }
-      if (blueprint === null || !blueprint?.spivi_box_id) {
-        setFieldValue('syncOfferOnSpivi', false);
+      if (!isOfferInGroup && !touched.syncOfferOnSpivi) {
+        if (blueprint?.spivi_box_id && hasSpiviUpsell) {
+          setFieldValue('syncOfferOnSpivi', true);
+        }
+        if (blueprint === null || !blueprint?.spivi_box_id) {
+          setFieldValue('syncOfferOnSpivi', false);
+        }
       }
     },
-    [roomBlueprints, setFieldValue, getFieldHelpers],
+    [
+      roomBlueprints,
+      setFieldValue,
+      getFieldHelpers,
+      isOfferInGroup,
+      touched.syncOfferOnSpivi,
+    ],
   );
 
   const handleDisplaySpotSchedulingTooltip = useCallback(() => {
@@ -401,7 +410,7 @@ const OfferFormSpecificities = (props: Props) => {
             name="credits"
             value={credits}
             onChange={handleChange}
-            isError={!!errors.credits && touched.credits}
+            error={!!errors.credits && touched.credits}
             helperText={
               !!errors.credits && touched.credits && t(errors.credits)
             }

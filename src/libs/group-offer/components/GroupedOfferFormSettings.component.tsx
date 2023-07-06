@@ -31,10 +31,7 @@ import {
 } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Alert } from '@material-ui/lab';
-import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
-import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { FeatureList } from '#libs/company/types';
+import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook ';
 
 import {
   TextField,
@@ -202,6 +199,7 @@ export const GroupedOfferFormSettings: React.FC<
   handlePreviousStep,
   resetForm,
   zoomAppDetail,
+  getFieldHelpers,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -245,65 +243,106 @@ export const GroupedOfferFormSettings: React.FC<
     });
   };
 
+  const { spiviEnabled } = useFeaturesProvider();
+
+  const allOffersHaveSpiviBoxId = useCallback(
+    (offers: Offer[]) => {
+      return (
+        offers.length > 0 &&
+        offers.filter((offer) => {
+          return availableRoomBlueprints.find(
+            (roomBlueprint) => roomBlueprint.id === offer.room_blueprint,
+          )?.spivi_box_id;
+        }).length === offers.length
+      );
+    },
+    [availableRoomBlueprints],
+  );
+
+  const editSyncOnSpivi = useCallback(
+    (offers: Offer[]) => {
+      const offersHaveSpiviBoxId = allOffersHaveSpiviBoxId(offers);
+      if (offersHaveSpiviBoxId && !touched.sync_on_spivi) {
+        setFieldValue('sync_on_spivi', true);
+      } else if (!offersHaveSpiviBoxId) {
+        setFieldValue('sync_on_spivi', false);
+      }
+    },
+    [touched.sync_on_spivi, setFieldValue, allOffersHaveSpiviBoxId],
+  );
+
+  const handleChangeSyncOnSpivi = useCallback(
+    (sync_on_spivi) => {
+      const helpers = getFieldHelpers('sync_on_spivi');
+      helpers.setTouched(true);
+      setFieldValue('sync_on_spivi', !sync_on_spivi);
+    },
+    [getFieldHelpers, setFieldValue],
+  );
+
   const handleAddOffer = useCallback(
     (data) => {
-      setFieldValue(
-        'offers',
-        [
-          ...values.offers,
-          ...data.dates.map((date) => ({
-            ...data,
-            group: -1,
-            meta_activity: metaActivity,
-            dates: [],
-            date_start: date,
-            customlevel: {
-              id: values.level,
-            },
-          })),
-        ].sort((a, b) => a.date_start - b.date_start),
-      );
+      const offers = [
+        ...values.offers,
+        ...data.dates.map((date) => ({
+          ...data,
+          group: -1,
+          meta_activity: metaActivity,
+          dates: [],
+          date_start: date,
+          customlevel: {
+            id: values.level,
+          },
+        })),
+      ].sort((a, b) => a.date_start - b.date_start);
+      setFieldValue('offers', offers);
+      if (spiviEnabled) editSyncOnSpivi(offers);
       handleCloseOffersModal();
     },
-    [metaActivity, setFieldValue, values.level, values.offers],
+    [
+      metaActivity,
+      setFieldValue,
+      values.level,
+      values.offers,
+      editSyncOnSpivi,
+      spiviEnabled,
+    ],
   );
 
   const handleEditOffer = useCallback(
     ({ data }) => {
-      setFieldValue(
-        'offers',
-
-        values.offers
-          .reduce((acc, value) => {
-            if (
-              moment.unix(value.date_start).format('YYYY-MM-DD HH:mm') !==
-              offerEdited.date_start
-            ) {
-              acc.push(value);
-              return acc;
-            }
-
-            acc.push({
-              ...offerEdited,
-              establishment: offerEdited?.establishment?.id,
-              coach: offerEdited?.coach?.id,
-              coach_override: offerEdited?.coach_override?.id,
-              ...data,
-              ...(data?.date_start
-                ? {
-                    date_start: data.date_start.unix(),
-                  }
-                : {
-                    date_start: moment(offerEdited.date_start).unix(),
-                  }),
-            });
+      const offers = values.offers
+        .reduce((acc, value) => {
+          if (
+            moment.unix(value.date_start).format('YYYY-MM-DD HH:mm') !==
+            offerEdited.date_start
+          ) {
+            acc.push(value);
             return acc;
-          }, [])
-          .sort((a, b) => a.date_start - b.date_start),
-      );
+          }
+
+          acc.push({
+            ...offerEdited,
+            establishment: offerEdited?.establishment?.id,
+            coach: offerEdited?.coach?.id,
+            coach_override: offerEdited?.coach_override?.id,
+            ...data,
+            ...(data?.date_start
+              ? {
+                  date_start: data.date_start.unix(),
+                }
+              : {
+                  date_start: moment(offerEdited.date_start).unix(),
+                }),
+          });
+          return acc;
+        }, [])
+        .sort((a, b) => a.date_start - b.date_start);
+      setFieldValue('offers', offers);
+      if (spiviEnabled) editSyncOnSpivi(offers);
       handleResetEdit();
     },
-    [offerEdited, setFieldValue, values.offers],
+    [offerEdited, setFieldValue, values.offers, editSyncOnSpivi, spiviEnabled],
   );
 
   const handleWhiteListChange = (tags: number[]) => {
@@ -371,6 +410,7 @@ export const GroupedOfferFormSettings: React.FC<
                     recurrence_frequence={values.recurrence_frequence}
                     recurrence_interval={values.recurrence_interval}
                     level={values.level}
+                    syncEditOnSpivi={editSyncOnSpivi}
                   />
                 )}
               </FieldArray>
@@ -438,21 +478,13 @@ export const GroupedOfferFormSettings: React.FC<
               </Typography>
             </div>
           )}
-          <FeatureListProvider>
-            {(featureList: FeatureList) => (
-              <>
-                {hasUpsell(featureList, UPSELL_IDENTIFIER_SPIVI) && (
-                  <FormToggle
-                    onChange={(sync_on_spivi) => {
-                      setFieldValue('sync_on_spivi', !sync_on_spivi);
-                    }}
-                    value={values.sync_on_spivi}
-                    title={t('groupedOption.modal.form.syncOnSpivi')}
-                  />
-                )}
-              </>
-            )}
-          </FeatureListProvider>
+          <Collapse in={spiviEnabled && allOffersHaveSpiviBoxId(values.offers)}>
+            <FormToggle
+              onChange={handleChangeSyncOnSpivi}
+              value={values.sync_on_spivi}
+              title={t('groupedOption.modal.form.syncOnSpivi')}
+            />
+          </Collapse>
         </div>
         <Divider className={classes.divider} />
         <div className={classes.wrapper}>
@@ -722,6 +754,7 @@ const OffersList: React.FC<{
   recurrence_frequence: string;
   recurrence_interval: number;
   level: number;
+  syncEditOnSpivi: (offers: Offer[]) => void;
 }> = ({
   offers,
   establishments,
@@ -732,6 +765,7 @@ const OffersList: React.FC<{
   recurrence_frequence,
   recurrence_interval,
   level,
+  syncEditOnSpivi,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -827,6 +861,7 @@ const OffersList: React.FC<{
               <IconButton
                 onClick={() => {
                   onRemove(index);
+                  syncEditOnSpivi(offers.filter((_, i) => i !== index));
                 }}
               >
                 <DeleteIcon />

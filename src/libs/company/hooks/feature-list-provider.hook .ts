@@ -5,6 +5,7 @@ import Config from '../../../config';
 import { getCompanyFeatureState } from '../selectors';
 import type { State } from '../../../state/types';
 import {
+  UPSELL_IDENTIFIER_SPIVI,
   UPSELL_IDENTIFIER_STRIPE_TERMINAL,
   UPSELL_IDENTIFIER_ZOOM_APP,
 } from '#libs/platform-billing/upsell-identifiers';
@@ -43,11 +44,18 @@ const useFeaturesProvider = () => {
     );
   }, [feature]);
 
+  const spiviEnabled = React.useMemo(() => {
+    return feature.data.upsell.some(
+      (f) => f.upsell_identifier === UPSELL_IDENTIFIER_SPIVI,
+    );
+  }, [feature]);
+
   return {
     pushNotificationEnabled,
     smsEnabled,
     zoomAppEnabled,
     stripeTerminalEnabled,
+    spiviEnabled,
     featuresLoading: feature.loading,
   };
 };

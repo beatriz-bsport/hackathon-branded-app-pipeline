@@ -4421,8 +4421,9 @@
       "906": "Date de clôture repoussée (remplaçant)",
       "907": "Remplaçant trouvé (remplaçant)",
       "987": "Tentative d'encaissement d'un paiement échelonné",
-      "1001": "Compte Spivi créé",
-      "1002": "Performance de la séance de spinning"
+      "1001": "Compte Spivi créé (élèves)",
+      "1002": "Performance de la séance de spinning",
+      "1003": "Compte Spivi créé (professeurs)"
     },
     "franchise": {
       "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",

@@ -64,6 +64,7 @@ const {
   NOTIFICATION_INVOICE_PDF_REQUESTED_BY_MEMBER,
   NOTIFICATION_SPIVI_ACCOUNT_CREATED,
   NOTIFICATION_SPIVI_PERFORMANCE,
+  NOTIFICATION_SPIVI_COACH_ACCOUNT_CREATED,
 } = NOTIFICATION_EVENTS;
 
 exports.default = {
@@ -411,8 +412,10 @@ exports.default = {
     [NOTIFICATION_GIFTCARD_ACTIVATION]: 'Activation de carte cadeau',
     [NOTIFICATION_INVOICE_PDF_REQUESTED_BY_MEMBER]:
       'Demande de téléchargement de facture',
-    [NOTIFICATION_SPIVI_ACCOUNT_CREATED]: 'Compte Spivi créé',
+    [NOTIFICATION_SPIVI_ACCOUNT_CREATED]: 'Compte Spivi créé (élèves)',
     [NOTIFICATION_SPIVI_PERFORMANCE]: 'Performance de la séance de spinning',
+    [NOTIFICATION_SPIVI_COACH_ACCOUNT_CREATED]:
+      'Compte Spivi créé (professeurs)',
   },
   franchise: {
     emptySelect:

@@ -108,6 +108,10 @@ export const PaymentStripeEPS = forwardRef(
           }
         }
 
+        const return_url = window.location.search
+          ? `${window.location.href}&check_payment_intent=true`
+          : `${window.location.href}?check_payment_intent=true`;
+
         // For brevity, this example is using uncontrolled components for
         // the accountholder's name. In a real world app you will
         // probably want to use controlled components.
@@ -120,7 +124,7 @@ export const PaymentStripeEPS = forwardRef(
               name,
             },
           },
-          return_url: `${window.location.href}?check_payment_intent=true`,
+          return_url,
         });
 
         if (error) {

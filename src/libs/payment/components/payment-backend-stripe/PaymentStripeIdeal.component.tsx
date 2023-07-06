@@ -157,6 +157,10 @@ export const PaymentStripeIdeal = forwardRef(
 
         const idealBank = elements.getElement(IdealBankElement);
 
+        const return_url = window.location.search
+          ? `${window.location.href}&check_payment_intent=true`
+          : `${window.location.href}?check_payment_intent=true`;
+
         const { error } = await stripe.confirmIdealPayment(clientSecret, {
           payment_method: {
             ideal: idealBank,
@@ -168,7 +172,7 @@ export const PaymentStripeIdeal = forwardRef(
           ...(saveForLater || forceSave
             ? { setup_future_usage: 'off_session' }
             : {}),
-          return_url: `${window.location.href}?check_payment_intent=true`,
+          return_url,
         });
 
         if (error) {

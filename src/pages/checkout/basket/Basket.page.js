@@ -360,7 +360,11 @@ export class BasketPage extends React.Component<Props> {
       this.props.queryParams &&
       this.props.queryParams.check_payment_intent === 'true'
     ) {
-      if (this.props.queryParams.redirect_status === 'succeeded') {
+      if (
+        ['succeeded', 'pending'].includes(
+          this.props.queryParams.redirect_status,
+        )
+      ) {
         return (
           <CheckPaymentStatus
             paymentIntent={this.props.queryParams.payment_intent}

@@ -106,13 +106,17 @@ export const PaymentStripeGiropay = forwardRef(
           }
         }
 
+        const return_url = window.location.search
+          ? `${window.location.href}&check_payment_intent=true`
+          : `${window.location.href}?check_payment_intent=true`;
+
         const { error } = await stripe.confirmGiropayPayment(clientSecret, {
           payment_method: {
             billing_details: {
               name,
             },
           },
-          return_url: window.location.href,
+          return_url,
         });
 
         if (error) {

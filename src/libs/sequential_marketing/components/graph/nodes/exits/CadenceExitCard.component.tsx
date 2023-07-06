@@ -8,9 +8,11 @@ import {
   DestinationStatus,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
+import type { StoredStep } from '../../hooks/types';
 
-export type CadenceExitProps = {
+export type CadenceExitCardProps = {
   status: DestinationStatus;
+  step: StoredStep;
   onDelete: () => void;
   handleChangeInStep: () => void;
   isSelected?: boolean;
@@ -18,7 +20,7 @@ export type CadenceExitProps = {
 
 type CadenceExitHeaderProps = {
   handleDisableRipple: () => void;
-} & Omit<CadenceExitProps, 'isSelected'>;
+} & Omit<CadenceExitCardProps, 'step' | 'isSelected'>;
 
 const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
   ({ status, onDelete, handleChangeInStep, handleDisableRipple }) => {
@@ -69,7 +71,7 @@ const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
   },
 );
 
-const CadenceExit: React.FC<CadenceExitProps> = ({
+const CadenceExitCard: React.FC<CadenceExitCardProps> = ({
   status,
   onDelete,
   handleChangeInStep,
@@ -118,4 +120,4 @@ const CadenceExit: React.FC<CadenceExitProps> = ({
   );
 };
 
-export default React.memo(CadenceExit);
+export default React.memo(CadenceExitCard);

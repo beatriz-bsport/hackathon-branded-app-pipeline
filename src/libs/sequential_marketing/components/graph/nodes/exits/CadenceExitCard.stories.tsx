@@ -1,12 +1,14 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import CadenceExit, { CadenceExitProps } from './CadenceExit.component';
+import CadenceExitCard, {
+  CadenceExitCardProps,
+} from './CadenceExitCard.component';
 import { DestinationStatus } from '#libs/sequential_marketing/constants';
 
 export default {
   title: 'Components/Cadences/CadenceNodes/Exit',
-  component: CadenceExit,
+  component: CadenceExitCard,
   decorators: [
     (Story) => (
       <div
@@ -20,11 +22,11 @@ export default {
       </div>
     ),
   ],
-} as ComponentMeta<typeof CadenceExit>;
+} as ComponentMeta<typeof CadenceExitCard>;
 
-const Template: ComponentStory<typeof CadenceExit> = (
-  args: CadenceExitProps,
-) => <CadenceExit {...args} />;
+const Template: ComponentStory<typeof CadenceExitCard> = (
+  args: CadenceExitCardProps,
+) => <CadenceExitCard {...args} />;
 
 export const Win = Template.bind({});
 Win.args = { status: DestinationStatus.WIN };

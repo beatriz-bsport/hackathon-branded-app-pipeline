@@ -90,6 +90,9 @@ const MarketplaceContractPaymentPricing: React.FC<Props> = React.memo(
       );
     }, [contract.flat_fee, contract.tax, getPriceDisplay]);
 
+    const shouldDisplayFlatFee =
+      !!contract?.flat_fee && parseFloat(contract?.flat_fee) > 0;
+
     return (
       <>
         {contract?.month_billing_day && (
@@ -120,7 +123,7 @@ const MarketplaceContractPaymentPricing: React.FC<Props> = React.memo(
                     {contractPriceExcludingTax}
                   </span>
                 </div>
-                {contractFlatFee && (
+                {shouldDisplayFlatFee && (
                   <div className="bs-contract-payment__tax__info__row">
                     <span className="bs-contract-payment__tax__info__row__title">
                       {t('checkout:payment.flat_fee')}
@@ -148,11 +151,13 @@ const MarketplaceContractPaymentPricing: React.FC<Props> = React.memo(
               <span className="bs-contract-payment__price">
                 {getCurrencyDisplayWithPrice(getPriceDisplay())}
               </span>
-              <span className="bs-contract-payment__price_fee">
-                {`+${getCurrencyDisplayWithPrice(
-                  parseFloat(contract.flat_fee.toString()).toFixed(2),
-                )}`}
-              </span>
+              {shouldDisplayFlatFee && (
+                <span className="bs-contract-payment__price_fee">
+                  {`+${getCurrencyDisplayWithPrice(
+                    parseFloat(contract.flat_fee.toString()).toFixed(2),
+                  )}`}
+                </span>
+              )}
             </div>
           </div>
         </div>

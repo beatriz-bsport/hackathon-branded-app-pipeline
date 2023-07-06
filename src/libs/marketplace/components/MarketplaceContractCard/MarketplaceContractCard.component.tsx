@@ -52,6 +52,9 @@ const MarketplaceContractCard: React.FC<Props> = ({
     onOpenDetailDialog(contract);
   }, [contract, onOpenDetailDialog]);
 
+  const shouldDisplayFlatFee =
+    !!contract?.flat_fee && parseFloat(contract?.flat_fee) > 0;
+
   return (
     <Card
       classes={{ 'bs-contract-card': 'bs-contract-card' }}
@@ -72,7 +75,7 @@ const MarketplaceContractCard: React.FC<Props> = ({
               <UpdateIcon className="bs-contract-card__title__icon" />
               {contract?.name}
             </div>
-            {!!contract?.flat_fee && (
+            {shouldDisplayFlatFee && (
               <div className="bs-contract-card__subtitle">
                 {t('contractCard.fees', {
                   fees: getCurrencyDisplayWithPrice(contract.flat_fee),

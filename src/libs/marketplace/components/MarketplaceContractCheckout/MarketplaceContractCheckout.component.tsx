@@ -102,6 +102,9 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
     getPrivatePassSelected,
   ]);
 
+  const shouldDisplayFlatFee =
+    !!contract?.flat_fee && parseFloat(contract?.flat_fee) > 0;
+
   return (
     <Card
       size={CardSize.AUTO}
@@ -134,7 +137,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                 <UpdateIcon className="bs-contract-card__title__icon" />
                 {contract?.name}
               </div>
-              {!!contract?.flat_fee && (
+              {shouldDisplayFlatFee && (
                 <div className="bs-contract-checkout__subtitle">
                   {t('marketplace:contractCard.fees', {
                     fees: getCurrencyDisplayWithPrice(contract.flat_fee),

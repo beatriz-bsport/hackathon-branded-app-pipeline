@@ -115,6 +115,9 @@ const MarketplaceContractDetail: React.FC<Props> = React.memo(
     const { t } = useTranslation('marketplace');
     const flatFees = getCurrencyDisplayWithPrice(contract?.flat_fee);
 
+    const shouldDisplayFlatFee =
+      !!contract?.flat_fee && parseFloat(contract?.flat_fee) > 0;
+
     return (
       <Card
         size={CardSize.AUTO}
@@ -176,7 +179,7 @@ const MarketplaceContractDetail: React.FC<Props> = React.memo(
                 >
                   <BillingInterval contract={contract} />
                 </Price>
-                {!!contract?.flat_fee && (
+                {shouldDisplayFlatFee && (
                   <div className="bs-contract-card__subtitle">
                     {t('contractCard.fees', {
                       fees: flatFees,

@@ -449,8 +449,15 @@ export class MarketplaceSubscriptionPayment extends React.Component<
             </div>
           )}
 
-          {contract?.disabled ? (
-            <MarketplaceContractNotFound />
+          {!contract || contract?.disabled ? (
+            <div
+              className={classNames({
+                'bs-contract-payment-page__not__found__container__payment__page':
+                  !this.state.isDirectBuyingLink,
+              })}
+            >
+              <MarketplaceContractNotFound />
+            </div>
           ) : (
             <div
               className={classNames({

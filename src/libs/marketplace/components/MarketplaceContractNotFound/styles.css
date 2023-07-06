@@ -1,3 +1,10 @@
+.bs-contract-payment-page__not__found__container__payment__page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 .bs-contract-payment-page__not__found__container {
   gap: var(--spacing-2);
   display: flex;
@@ -9,6 +16,7 @@
   justify-self: center;
   border-radius: var(--border-radius-2);
   flex-direction: column;
+  height: fit-content;
 }
 
 .bs-contract-payment-page__not__found__title {

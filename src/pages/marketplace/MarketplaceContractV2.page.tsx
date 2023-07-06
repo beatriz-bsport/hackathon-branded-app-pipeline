@@ -160,11 +160,13 @@ export class MarketplaceContract extends React.Component<Props, State> {
         ignore_new_member_only: true,
       });
     }
-    this.setSelectedContract(contract);
+    if (contract) {
+      this.setSelectedContract(contract);
+    }
   };
 
   handleShowContractDetail = (id: number) => {
-    const contract = this.props.contractList.find(
+    const contract = this.props.contractList?.find(
       (contractItem: Contract) => contractItem.id === id,
     );
     this.handleOpenContractDialog(contract);

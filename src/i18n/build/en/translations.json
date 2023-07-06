@@ -2341,7 +2341,8 @@
             "304": "Gift card activation",
             "305": "Change of member email from the backoffice",
             "1002": "Spinning session performance",
-            "1001": "Spivi account created"
+            "1001": "Spivi account created (for members)",
+            "1003": "Spivi account created (for teachers)"
         },
         "messages": {
             "createOrUpdate": {
@@ -9653,6 +9654,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",

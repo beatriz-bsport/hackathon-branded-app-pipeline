@@ -230,7 +230,8 @@
             "304": "Cadeaubon activering",
             "305": "Wijziging van e-mail van leden vanuit de backoffice",
             "1002": "Lesprestaties",
-            "1001": "Spivi-account aangemaakt"
+            "1001": "Spivi-account aangemaakt (leden)",
+            "1003": "Spivi-account aangemaakt (instructeurs)"
         },
         "tag": {
             "BookingOption": {
@@ -2720,7 +2721,11 @@
             "on_behalf_of_teacher": "Instructeurs volledig uitbetalen",
             "date_canceled": "Annuleringsdatum",
             "invoiceitem_pk": "Factuur element ID",
-            "price_invoice_items": "Totale hoeveelheid gekochte producten"
+            "price_invoice_items": "Totale hoeveelheid gekochte producten",
+            "last_booked_offer_pass_name": "Gebruikte leskaart voor de laatste reservering",
+            "last_booked_offer_meta_activity_name": "Naam van de laatste reservering",
+            "last_booked_offer_date": "Datum van de laatste reservering",
+            "last_booked_offer_id": "ID van de laatste reservering"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -3064,6 +3069,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
@@ -3943,6 +3949,10 @@
         "noShowPenalty": {
             "account": "Een voorschot van {{bedrag}} wordt toegepast voor {{treshold}} afwezigheden over een periode van {{time_window_days}} dagen",
             "block": "{{days_blocked}} geblokkeerde dagen na {{treshold}} afwezigheden over een periode van {{time_window_days}} dagen"
+        },
+        "orderingAlert": {
+            "button": "Personalisering",
+            "text": "Het wijzigen van de volgorde van de \"Categorieën\" is alleen te zien om het tabblad \"Leskaarten\" op de marketplace en op de mobiele app. Deze update zal geen enkel ander onderdeel wijzigen."
         }
     },
     "establishment": {
@@ -12086,7 +12096,15 @@
                     "label": "Credits verbergen",
                     "subTitle": "Credits"
                 },
-                "title": "Producten"
+                "title": "Producten",
+                "productsOrdering": {
+                    "itemNumberCaption": "{{count}} product",
+                    "itemNumberCaption_plural": "{{count}} producten",
+                    "description": "Rangschik je producten om verschillende producten, zoals leskaarten, pakketten en abonnementen tijdens het reserveerproces te tonen.",
+                    "reset": "Herstellen",
+                    "label": "Gepersonaliseerde rangschikking",
+                    "subTitle": "Rangschikking"
+                }
             }
         },
         "pageTitles": {

@@ -4617,7 +4617,11 @@
             "on_behalf_of_teacher": "Pago íntegro al profesor",
             "date_canceled": "Fecha de cancelación",
             "invoiceitem_pk": "ID del elemento de facturación",
-            "price_invoice_items": "Importe total de los productos comprados"
+            "price_invoice_items": "Importe total de los productos comprados",
+            "last_booked_offer_pass_name": "Bono utilizado para la última sesión reservada",
+            "last_booked_offer_meta_activity_name": "Nombre de la actividad de la última sesión reservada",
+            "last_booked_offer_date": "Fecha de la última sesión reservada",
+            "last_booked_offer_id": "ID de la última sesión reservada"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -5001,6 +5005,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelado",
+                "Cancelada",
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
@@ -6554,7 +6559,8 @@
             "304": "Activación de la tarjeta regalo",
             "305": "Cambio del email del miembro desde el backoffice",
             "1002": "Rendimiento de la sesión de spinning",
-            "1001": "Cuenta Spivi creada"
+            "1001": "Cuenta Spivi creada (alumnos)",
+            "1003": "Cuenta Spivi creada (profesores)"
         },
         "tag": {
             "BookingOption": {
@@ -9035,7 +9041,15 @@
                     "label": "Ocultar créditos",
                     "subTitle": "Créditos"
                 },
-                "title": "Productos"
+                "title": "Productos",
+                "productsOrdering": {
+                    "itemNumberCaption": "{{count}} producto",
+                    "itemNumberCaption_plural": "{{count}} productos",
+                    "description": "Organice sus productos de modo que sean visibles para sus clientes cuando reserven una actividad y necesiten bonos, packs o suscripciones.",
+                    "reset": "Restablecer",
+                    "label": "Pedido personalizado",
+                    "subTitle": "Pedido de productos"
+                }
             }
         },
         "pageTitles": {
@@ -11875,6 +11889,10 @@
         "noShowPenalty": {
             "account": "Se aplicará una multa de {{amount}} por {{treshold}} no presentarse durante un periodo de {{time_window_days}} días.",
             "block": "{{days_blocked}} días bloqueados después de {{treshold}} \"no se presenta\" durante un período de {{time_window_days}} días."
+        },
+        "orderingAlert": {
+            "button": "Página de personalización",
+            "text": "Cualquier cambio en el orden de las \"Categorías\" sólo afectará a la visualización de la página \"Bonos\" del marketplace y de la aplicación. Esta actualización no afectará a ninguna otra sección o categoría."
         }
     },
     "selfCheckIn": {
@@ -14325,11 +14343,19 @@
                     "basket_chip": "Cesta"
                 },
                 "timeout": {
-                    "timout_days_chip": "{{ days }} días"
+                    "timout_days_chip": "{{ days }} día",
+                    "timout_days_chip_plural": "{{ days }} días"
                 },
                 "trigger": "Desencadenante",
                 "exit": "Salida",
-                "start": "Ingreso"
+                "start": "Ingreso",
+                "delete": "Borrar",
+                "kinds": {
+                    "3": "Demora",
+                    "2": "Evento + Smartlist",
+                    "1": "Smartlist",
+                    "0": "Evento"
+                }
             },
             "cadenceCard": {
                 "lost": "Perdido",
@@ -14374,6 +14400,16 @@
                 "add_marketing_action": "{{ index }}. Añadir una acción marketing",
                 "explain": "Modifique los elementos del gráfico haciendo clic en estos elementos o cree vínculos entre los bloques con drag and drop.",
                 "title": "Cómo modificar su cadencia"
+            },
+            "steps": {
+                "actions": {
+                    "changeInStep": "Transformar en un paso",
+                    "changeInExit": "Convertir en salida",
+                    "delete": "Borrar"
+                }
+            },
+            "marketingAction": {
+                "addAction": "Añadir una acción"
             }
         }
     },

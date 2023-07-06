@@ -263,7 +263,99 @@
             "unregister": "Odhlásit",
             "bill": "Fakturovat"
         },
-        "attendanceUpdatedOn": "Aktualizováno {{- d }} v {{- t }}"
+        "attendanceUpdatedOn": "Aktualizováno {{- d }} v {{- t }}",
+        "notification": {
+            "form": {
+                "help": {
+                    "allEvents": {
+                        "absence": "Nápověda: upozornění bude zasláno členovi při každé jeho(ji) nepřítomnosti",
+                        "attendance": "Nápověda: upozornění bude zasláno členovi pokaždé, když se zúčastní"
+                    },
+                    "notRefunded": "pozdní storno č. {{notify_booking_nb}}",
+                    "refunded": "storno vráceno č. {{notify_booking_nb}}",
+                    "absence": "nepřítomnost č. {{notify_booking_nb}}",
+                    "attendance": "přítomnost č. {{notify_booking_nb}}",
+                    "text": "Nápověda: upozornění bude odesláno členovi, když"
+                },
+                "createSmartList": "Vytvořit smartlist",
+                "smartListHelperInclude": "Poslat e-mail pouze v případě, že člen patří do jednoho z následujících seznamů",
+                "smartListHelper": "Neposílejte email, pokud člen patří do jednoho z následujících seznamů",
+                "advanced": "Pokročilé",
+                "warning": "Pokud nevyberete žádný smartlist, riskujete, že upozorníte členy, kteří si již zakoupili další kartu lekce",
+                "smartListSelection": "Vybrat seznamy (volitelné)",
+                "bookingNumberN": "{{notify_booking_nb}}. rezervace",
+                "bookingNumberThird": "3. rezervace",
+                "bookingNumberSecond": "2. rezervace",
+                "bookingNumberFirst": "1. rezervace",
+                "bookingNumberAll": "Všechny rezervace",
+                "ifKind": {
+                    "notRefunded": "Pokud byla rezervace zrušena pozdě",
+                    "refunded": "Pokud byla rezervace zrušena včas",
+                    "absence": "Pokud je člen nepřítomen",
+                    "attendance": "Pokud je člen přítomen"
+                },
+                "chooseKind": {
+                    "notRefunded": "Zrušení je opožděné",
+                    "refunded": "Vrácení peněz za zrušení",
+                    "absence": "Nepřítomnost členů na lekci",
+                    "attendance": "Přítomnost člena v seanci",
+                    "title": "Událost, která spouští upozornění"
+                },
+                "chooseStatus": {
+                    "cancelled": "Rezervace zrušena klientem",
+                    "valid": "Rezervace platná",
+                    "title": "Vyberte typ rezervace, kterou chcete upozornit"
+                },
+                "chooseTime": {
+                    "second_after_days": "hodina(y) po lekce",
+                    "second_after": "hodina(y) po lekce",
+                    "second_before_days": "den(y) před lekci",
+                    "second_before": "hodinu(y) před lekci",
+                    "first": "Poslat email"
+                },
+                "sendAfterNotifications": "Odesílat oznámení členovi před lekci, které se oznámení týká",
+                "sendAfterNotification": "Odeslat oznámení push členovi před lekci, které se oznámení týká",
+                "sendAfterMail": "Pošlete e-mail členovi před lekci, které se oznámení týká",
+                "sendBeforeNotifications": "Odesílat oznámení členovi před lekci, které se oznámení týká",
+                "sendBeforeNotification": "Odeslat oznámení push členovi před lekci, které se oznámení týká",
+                "sendBeforeMail": "Pošlete e-mail členovi před lekci, které se oznámení týká",
+                "notifyAllEvents": "Informujte členy na každé události",
+                "eventNb": "Informujte člena během události č.:",
+                "settingTitle": "Parametry",
+                "typeTitle": "Typ oznámení",
+                "explain": "Své klienty můžete varovat před nebo po určitých sezeních v závislosti na různých kritériích, jako je počet docházek, nepřítomností nebo dokonce zrušení.",
+                "title": "Oznamovací formulář"
+            },
+            "addNotification": "Přidat oznámení",
+            "title": "Oznámení"
+        },
+        "statusCode": {
+            "cancelledByOfferDate": "Seance zrušena klubem dne {{-date}} v {{time}}",
+            "cancelledByOffer": "Hodina byla zrušena od klubu",
+            "cancelledByConsumerDate": "Storno klienta dne {{-date}} v {{time}}",
+            "cancelledByConsumer": "Storno klienta",
+            "cancelledByManagerDate": "Manažer zrušení dne {{-date}} v {{time}} od {{cancelled_by}}",
+            "cancelledByManager": "Zrušené od {{cancelled_by}}",
+            "cancelledByAnonymousManagerDate": "Zrušení dne {{-date}} v {{time}}",
+            "cancelledByAnonymousManager": "Změnit zrušení"
+        },
+        "setSpot": "Přiřadit místo",
+        "changeSpot": "Změnit místo",
+        "noSpotAttributed": "Žádné místo přiděleno",
+        "asGuest": "Host",
+        "place": "Místo",
+        "creditConsumed_0": "{{credit_consumed}} kredit",
+        "creditConsumed_1": "{{credit_consumed}} kredity",
+        "creditConsumed_2": "{{credit_consumed}} kredity",
+        "unlimited": "Neomezený",
+        "wasRefunded": "Proplaceno",
+        "loading": "Nabíjení",
+        "doNotAttend": "Nepřítomný",
+        "attend": "Přitomen",
+        "customerView": {
+            "cancelled": "Zrušeno",
+            "wasRefunded": "Proplaceno"
+        }
     },
     "authentication": {
         "resetPassword": {

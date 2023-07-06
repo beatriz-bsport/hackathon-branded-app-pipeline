@@ -2973,7 +2973,15 @@
                     "label": "Credits ausblenden",
                     "subTitle": "Credits"
                 },
-                "title": "Produkte"
+                "title": "Produkte",
+                "productsOrdering": {
+                    "itemNumberCaption": "{{count}} Produkt",
+                    "itemNumberCaption_plural": "{{count}} Produkte",
+                    "description": "Organisieren Sie Ihre Produkte so, dass sie für Ihre Kunden sichtbar sind, wenn sie eine Aktivität buchen und Pässe, Pakete oder Abonnements benötigen.",
+                    "reset": "Zurücksetzen",
+                    "label": "Persönlicher Auftrag",
+                    "subTitle": "Reihenfolge der Produkte"
+                }
             }
         },
         "pageTitles": {
@@ -4293,7 +4301,11 @@
             "2020": "Die Daten sind nicht kompatibel",
             "paymentPack": "Karte als inkompatibel mit der betreffenden Aktivität konfiguriert :"
         },
-        "next": "Weiter"
+        "next": "Weiter",
+        "orderingAlert": {
+            "button": "Seite zur Personalisierung",
+            "text": "Jede Änderung der Reihenfolge der \"Kategorien\" wirkt sich nur auf die Anzeige der Seite \"Kurskarten\" im Marketplace und in der Anwendung aus. Diese Aktualisierung wird keine anderen Abschnitte oder Kategorien beeinflussen."
+        }
     },
     "alerting": {
         "task": {
@@ -4682,7 +4694,11 @@
             "nb_invoice_items": "Anzahl der gekauften Produkte",
             "on_behalf_of_teacher": "Vollständig an die Lehrkraft gezahlte Vergütung",
             "date_canceled": "Stornierungsdatum",
-            "price_invoice_items": "Gesamtbetrag der gekauften Produkte"
+            "price_invoice_items": "Gesamtbetrag der gekauften Produkte",
+            "last_booked_offer_pass_name": "Pass, der für die letzte gebuchte Session verwendet wurde",
+            "last_booked_offer_meta_activity_name": "Name der Aktivität der letzten gebuchten Session",
+            "last_booked_offer_date": "Datum der letzten gebuchten Session",
+            "last_booked_offer_id": "ID der zuletzt gebuchten Session"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -5031,7 +5047,8 @@
                 "Stornieren",
                 "Stornieren",
                 "Stornieren",
-                "Storniert"
+                "Storniert",
+                "Stornieren"
             ]
         }
     },
@@ -10380,7 +10397,8 @@
             "304": "Aktivierung der Geschenkkarte",
             "305": "Änderung der Mitglieds-E-Mail aus dem Backoffice",
             "1002": "Leistung der Spinning-Sitzung",
-            "1001": "Spivi-Konto erstellt"
+            "1001": "Spivi-Konto erstellt (Schüler)",
+            "1003": "Spivi-Konto erstellt (Lehrkraft)"
         },
         "tag": {
             "BookingOption": {
@@ -14177,7 +14195,8 @@
             "triggers": {
                 "trigger": "Auslöser",
                 "timeout": {
-                    "timout_days_chip": "{{ Tage }} Tage"
+                    "timout_days_chip": "{{ days }} Tag",
+                    "timout_days_chip_plural": "{{ days }} Tage"
                 },
                 "events": {
                     "book_chip": "Buchung",
@@ -14191,6 +14210,13 @@
                 "exit": "Ausgang",
                 "smartlist": {
                     "label": "Smartlist"
+                },
+                "delete": "Löschen",
+                "kinds": {
+                    "3": "Verspätung",
+                    "2": "Event + Smartlist",
+                    "0": "Event",
+                    "1": "Smartlist"
                 }
             },
             "graph": {
@@ -14218,7 +14244,17 @@
             "back": "Zurück",
             "editModeLabel": "In den Bearbeitungsmodus wechseln",
             "exitEditMode": "Beenden",
-            "exitEditModeLabel": "Bearbeitungsmodus beenden"
+            "exitEditModeLabel": "Bearbeitungsmodus beenden",
+            "steps": {
+                "actions": {
+                    "changeInStep": "In einen Schritt umwandeln",
+                    "changeInExit": "Von der Kadenz entfernen",
+                    "delete": "Löschen"
+                }
+            },
+            "marketingAction": {
+                "addAction": "Eine Aktion hinzufügen"
+            }
         }
     },
     "spotScheduling": {

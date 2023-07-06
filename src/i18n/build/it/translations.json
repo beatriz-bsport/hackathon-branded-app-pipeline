@@ -1393,7 +1393,8 @@
             "304": "Attivazione della gift card",
             "305": "Modifica della email del membro dal backoffice",
             "1002": "Performance della sessione di spinning",
-            "1001": "Account Spivi creato"
+            "1001": "Account Spivi creato (membri)",
+            "1003": "Account Spivi creato (insegnanti)"
         },
         "ruleGroup": {
             "private_booking": "Appuntamento",
@@ -4130,7 +4131,15 @@
                     "label": "Nascondi i crediti",
                     "subTitle": "Crediti"
                 },
-                "title": "Prodotti"
+                "title": "Prodotti",
+                "productsOrdering": {
+                    "itemNumberCaption": "{{count}} prodotto",
+                    "itemNumberCaption_plural": "{{count}} prodotti",
+                    "description": "Organizzate i vostri prodotti in modo che siano visibili ai vostri clienti quando prenotano un'attività e hanno bisogno di un pass, di un pacchetto o di un abbonamento.",
+                    "reset": "Reset",
+                    "label": "Ordine personalizzato",
+                    "subTitle": "Ordine del prodotto"
+                }
             }
         },
         "pageTitles": {
@@ -7235,7 +7244,11 @@
             "on_behalf_of_teacher": "Pagamento interamente trasferito all'insegnante",
             "nb_invoice_items": "Numero di prodotti acquistati",
             "date_canceled": "Data di cancellazione",
-            "price_invoice_items": "Importo totale dei prodotti acquistati"
+            "price_invoice_items": "Importo totale dei prodotti acquistati",
+            "last_booked_offer_pass_name": "Pass utilizzato per l'ultima sessione prenotata",
+            "last_booked_offer_meta_activity_name": "Nome dell'attività dell'ultima sessione prenotata",
+            "last_booked_offer_date": "Data dell'ultima sessione prenotata",
+            "last_booked_offer_id": "ID dell'ultima sessione prenotata"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -7633,7 +7646,8 @@
                 "Cancella",
                 "Annullata",
                 "Annullata",
-                "Cancellata"
+                "Cancellata",
+                "Annulla"
             ]
         },
         "payment_method_with_credit_account": {
@@ -8506,6 +8520,10 @@
         "noShowPenalty": {
             "block": "{{days_blocked}} giorni bloccati dopo {{treshold}} assenze per un periodo di {{time_window_days}} giorni",
             "account": "Verrà richiesto un acconto di {{amount}} per {{treshold}} assenze per un periodo di {{time_window_days}} giorni."
+        },
+        "orderingAlert": {
+            "button": "Pagina di personalizzazione",
+            "text": "Qualsiasi modifica riguardo le \"Categorie\" avrà effetto solo sulla visualizzazione della pagina \"Pass\" del marketplace e dell'applicazione. Questo aggiornamento non influirà su nessun'altra sezione o categoria."
         }
     },
     "metaActivity": {
@@ -14264,11 +14282,19 @@
                     "basket_chip": "Carrello"
                 },
                 "timeout": {
-                    "timout_days_chip": "{{ days }} giorni"
+                    "timout_days_chip": "{{ days }} giorno",
+                    "timout_days_chip_plural": "{{ days }} giorni"
                 },
                 "trigger": "Trigger",
                 "exit": "Uscita",
-                "start": "Ingresso"
+                "start": "Ingresso",
+                "delete": "Elimina",
+                "kinds": {
+                    "3": "Ritardo",
+                    "2": "Evento + Smartlist",
+                    "1": "Smartlist",
+                    "0": "Evento"
+                }
             },
             "cadenceCard": {
                 "lost": "Perso",
@@ -14313,6 +14339,16 @@
                 "add_marketing_action": "{{ index }}. Aggiungi un'azione di marketing",
                 "explain": "Modifica gli elementi del grafico facendo clic sui suoi elementi o crea collegamenti tra i blocchi trascinandoli e rilasciandoli.",
                 "title": "Come modificare la tua cadenza"
+            },
+            "steps": {
+                "actions": {
+                    "changeInStep": "Trasforma in step",
+                    "changeInExit": "Trasforma in output",
+                    "delete": "Elimina"
+                }
+            },
+            "marketingAction": {
+                "addAction": "Aggiungi un'azione"
             }
         }
     },

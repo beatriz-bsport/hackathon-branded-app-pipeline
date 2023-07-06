@@ -29,14 +29,13 @@ class SubscriptionWidget extends Component<Props> {
 
   render() {
     const { companyId, store, theme } = this.props;
+
     return (
       <MarketplaceContractStyled
         companyId={companyId}
         theme={theme}
         store={store}
         onAddToCart={this.addToCart}
-        setSelected={(selected) => this.setState({ selected })}
-        selected={this.state.selected}
       />
     );
   }

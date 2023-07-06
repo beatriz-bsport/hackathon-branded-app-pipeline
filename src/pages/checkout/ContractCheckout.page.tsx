@@ -1,26 +1,22 @@
-// @ts-nocheck
 import React from 'react';
-import { compose, withProps, withHandlers, withState } from 'recompose';
+import { compose, withProps, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import withStyles from '@material-ui/styles/withStyles';
-import { Theme, Typography } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Grid from '@material-ui/core/Grid';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
 import moment from 'moment-timezone';
 import { withRouter } from 'react-router-dom';
 import {
   replace as replaceAction,
   push as pushRouter,
 } from 'connected-react-router';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
+import { Stripe, loadStripe } from '@stripe/stripe-js';
+import classNames from 'classnames';
+
+// @ts-ignore
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { RootState } from '../../reducers';
-import { MaterialStyleType } from '../../utils/types';
 import themeSelectors, { getStripePkKey } from '#libs/theme/selectors';
+// @ts-ignore
 import asyncComponent from '../../AsyncComponent';
 
 import {
@@ -32,9 +28,9 @@ import {
   fetchPrivatePassAsConsumerList,
 } from '#libs/private-service/actions';
 import {
-  getMarketplaceContractList as getContractList,
   getContract,
-  withPaymentPack,
+  getMarketplaceContractList,
+  // @ts-ignore
 } from '#libs/subscription/selectors';
 import {
   fetchMarketplaceContractList,
@@ -42,131 +38,141 @@ import {
   registerContractBackground,
   downloadPDFContractTermsForContract as downloadPDFContractTermsForContractAction,
 } from '#libs/subscription/actions';
-import SubscriptionContractDetail from '#libs/subscription/components/SubscriptionContractDetail.component';
-import MarketplaceSubscriptionContractList from '#libs/subscription/components/MarketplaceSubscriptionContractList.component';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/payment/api';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   detachPaymentMethod,
 } from '#libs/payment/actions';
 import { getSavedPaymentMethodList } from '#libs/payment/selectors';
+import { getPaymentPack } from '#libs/payment-packs/selectors';
+import { getPrivatePass } from '#libs/private-service/selectors/private-pass';
+import { getPaymentCombo } from '#libs/payment-combo/selectors';
+// @ts-ignore
 import Analytics from '#components/analytics/Analytics.component';
 import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
 import WidgetUtils from '#libs/widget/WidgetUtils';
-import type { ContractWithPaymentPack } from '#libs/subscription/types';
+import type {
+  Contract,
+  ContractWithPaymentPack,
+} from '#libs/subscription/types';
 import type { Theme as CompanyTheme } from '#libs/theme/types';
 import type { PaymentMethod } from '#libs/payment/types';
 import type { OptionCallback } from '../../state/types';
+import { PaymentPack } from '#libs/payment-packs/types';
+// @ts-ignore
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import ConsumerAppBar from './ConsumerAppBar.container';
 import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
-import ContractTermsDialog from '#libs/subscription/components/contract/ContractTermsDialog.component';
 import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
-import GenericDialogWithCountdownConfirm from '#components/genericDialog/GenericDialogWithCountdownConfirm.component';
-import { COUNTDOWN_BEFORE_ACTIVATION } from './constants';
-import SadSmileyIcon from '#components/icons/SadSmileyIcon.component';
+import MarketplaceContractCheckout from '#libs/marketplace/components/MarketplaceContractCheckout';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import MarketplaceContractDetail from '#libs/marketplace/components/MarketplaceContractDetail';
+import MarketplaceContractTermsModal from '#libs/marketplace/components/MarketplaceContractTermsModal';
+import MarketplaceContractCooldownModal from '#libs/marketplace/components/MarketplaceContractCooldownModal';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
+import Carousel from '#components/css-only/Carousel';
+import MarketplaceContractNotFound from '#libs/marketplace/components/MarketplaceContractNotFound';
+
+import './styles.css';
 
 const {
   CONTRACT_IS_ALREADY_SUBSCRIBED,
 } = require('@bsport/common/lib/master-data/error-codes/subscription');
 
-const SubscriptionPayment = asyncComponent(
-  () => import('#libs/subscription/components/SubscriptionPayment.component'),
+const MarketplaceContractPayment = asyncComponent(
+  () => import('#libs/marketplace/components/MarketplaceContractPayment'),
 );
 
 type ownProps = {
+  queryParams?: {
+    force?: string;
+  };
   companyId: number;
-  fetchContractList: (companyId: number) => void;
+  companyName: string;
+  fetchContractList: (companyId: number, options: OptionCallback) => void;
   contractLoading: boolean;
   classes: Object;
-  contractList: Array<ContractWithPaymentPack>;
-
+  contractList: ContractWithPaymentPack[];
   goToUserSpace: (companyId: number) => void;
-  companyTheme: CompanyTheme;
-
+  theme: CompanyTheme;
   contractId: string;
   setSelected: (contractId: number) => void;
-
   authenticated: boolean;
-
   fullScreen: boolean;
-
   paymentDialogOpen: boolean;
-
-  requestSetupIntentSecret: () => void;
+  requestSetupIntentSecret: () => { data: { client_secret: string } };
   fetchPaymentMethodList: () => void;
-  savedPaymentMethodList: Array<PaymentMethod>;
+  savedPaymentMethodList: PaymentMethod[];
   detachPaymentMethodLoading: boolean;
-  detachPaymentMethod: (pm_id: string) => void;
+  detachPaymentMethod: (
+    paymentMethodId: string,
+    options?: OptionCallback,
+  ) => void;
   snackbarErrorMsg: (msg: string) => void;
   snackbarSuccessMsg: (msg: string) => void;
   auth: any;
-  acceptContract: boolean;
-  setAcceptContract: (value: boolean) => void;
-  date: string;
-  setDate: (value: string) => void;
   onPayRequest: (date: string) => void;
-  setShowPaymentStatusDialog: ({
-    open,
-    error,
-    success,
-  }: {
-    open: boolean;
-    error: boolean;
-    success: boolean;
-  }) => void;
-  showPaymentStatusDialog: { open: boolean; error: boolean; success: boolean };
   downloadContractTerms: (options: OptionCallback) => void;
 };
 
 type ConnectedProps = ownProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
-type Props = ConnectedProps &
-  WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>>;
+type Props = ConnectedProps & WithTranslation;
 
 type State = {
   processing: boolean;
-  stripePromise: Promise | null;
+  stripePromise: Promise<Stripe> | null;
   openContractTermsDialog: boolean;
-  openGenericDialogWithCountdownConfirm: boolean;
+  isContractCooldownDialogOpen: boolean;
+  billingStartDate: string;
+  isDirectBuyingLink: boolean;
+  isContractLegalTermsAccepted: boolean;
 };
 
 export class MarketplaceSubscriptionPayment extends React.Component<
   Props,
   State
 > {
-  state: State = {
-    processing: false,
-    stripePromise: null,
-    openContractTermsDialog: false,
-    openGenericDialogWithCountdownConfirm: false,
-  };
+  selectedContractRef: React.RefObject<HTMLDivElement> = null;
 
-  componentWillMount() {
-    this.props.fetchContractList(this.props.companyId);
-    this.props.fetchPaymentMethodList();
-    this.props.fetchPaymentComboList({
-      company: this.props.companyId,
-      manager_only: false,
-    });
-    this.props.fetchPaymentPacks({
-      company: this.props.companyId,
-      manager_only: false,
-      disabled: false,
-      as_consumer: true,
-      page_size: 300,
-    });
-    this.props.fetchPrivatePassAsConsumerList(this.props.companyId);
+  constructor(props: Props) {
+    super(props);
+    this.selectedContractRef = React.createRef();
+
+    this.state = {
+      processing: false,
+      stripePromise: null,
+      billingStartDate: moment().format('YYYY-MM-DD'),
+      isDirectBuyingLink: false,
+      isContractCooldownDialogOpen: false,
+      openContractTermsDialog: false,
+      isContractLegalTermsAccepted: false,
+    };
   }
 
   componentDidMount() {
+    this.props.fetchContractList(this.props.companyId, {
+      onSuccess: () =>
+        // Fetch information for the initial selected contract
+        {
+          if (this.props.contractId) {
+            this.fetchAssociatedContractContent(
+              parseInt(this.props.contractId, 10),
+            );
+          }
+        },
+    });
+
+    this.props.fetchPaymentMethodList();
+    this.props.fetchCompanyTheme(this.props.companyId);
+
     if (this.props.queryParams?.force === 'true' && this.props.contractId) {
-      this.props.fetchContractDetail(this.props.contractId);
+      this.props.fetchContractDetail(parseInt(this.props.contractId, 10));
+      this.setState({ isDirectBuyingLink: true });
     }
-    if (this.props.companyTheme) {
+    if (this.props.theme) {
       this.loadStripe();
     }
   }
@@ -177,23 +183,51 @@ export class MarketplaceSubscriptionPayment extends React.Component<
 
   componentDidUpdate(prevProps: Props, prevState: State) {
     if (
-      !prevProps.companyTheme?.id &&
-      !!this.props.companyTheme?.id &&
+      !prevProps.theme?.id &&
+      !!this.props.theme?.id &&
       !prevState.stripePromise
     ) {
       this.loadStripe();
     }
+
+    const isAccessedByDirectBuyingLink =
+      this.state.isDirectBuyingLink &&
+      this.props.contractId &&
+      prevProps.contractId !== this.props.contractId;
+
+    if (isAccessedByDirectBuyingLink) {
+      this.fetchAssociatedContractContent(parseInt(this.props.contractId, 10));
+    }
+
+    if (this.props.contractList?.length && this.selectedContractRef?.current) {
+      this.selectedContractRef?.current?.scrollIntoView({
+        block: 'center',
+      });
+    }
   }
 
-  disableOpenGenericDialogWithCountdownConfirm = () => {
-    this.setState({ openGenericDialogWithCountdownConfirm: false });
+  handleCloseContractCooldownDialog = () => {
+    this.setState({ isContractCooldownDialogOpen: false });
   };
 
-  onSubmit = async (
-    _,
+  handleDetachPaymentMethod = async (
+    paymentMethodId: number,
+    options: OptionCallback,
+  ) => {
+    try {
+      await this.props.detachPaymentMethod(paymentMethodId.toString());
+      this.props.fetchPaymentMethodList();
+      options.onSuccess && options.onSuccess();
+    } catch (err) {
+      options.onError && options.onError();
+    }
+  };
+
+  handleSubmitContractPayment = async (
+    _: unknown,
     payment_method_id: string,
-    __,
-    ___,
+    _isPaymentMethodForPastInvoicesSaved: boolean,
+    _paymentMethodPastInvoicesId: number,
     options: OptionCallback,
     coupon?: string,
   ) => {
@@ -202,26 +236,29 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     const contract =
       this.props.contractList.find(
         (c: ContractWithPaymentPack) =>
-          c.id === parseInt(this.props.contractId),
+          c.id === parseInt(this.props.contractId, 10),
       ) || this.props.contract;
     try {
-      const first_billing_timestamp = moment(this.props.date).unix();
+      const first_billing_timestamp = moment(
+        this.state.billingStartDate,
+      ).unix();
       this.props.registerContractBackground(
-        this.props.contractId,
+        parseInt(this.props.contractId, 10),
         {
           payment_method_id,
           first_billing_timestamp,
           coupon,
-          ...(_ === 'bsport:credit' ? { stripe_source: 'bsport:credit' } : {}), // TODO: payment refacto
+          ...(_ === 'bsport:credit' ? { stripe_source: 'bsport:credit' } : {}),
           with_prorata: !!contract?.month_billing_day,
         },
         {
-          onError: (err) => {
+          // @ts-ignore
+          onError: (err: { response: { data: { error_code: string } } }) => {
             this.setState({ processing: false });
             if (
               err.response?.data?.error_code === CONTRACT_IS_ALREADY_SUBSCRIBED
             ) {
-              this.setState({ openGenericDialogWithCountdownConfirm: true });
+              this.setState({ isContractCooldownDialogOpen: true });
             }
           },
           onBackgroundError: () => this.setState({ processing: false }),
@@ -231,8 +268,8 @@ export class MarketplaceSubscriptionPayment extends React.Component<
             try {
               const contractValues =
                 this.props.contractList.find(
-                  (c: ContractWithPaymentPack) =>
-                    c.id === parseInt(this.props.contractId),
+                  (contractItem: ContractWithPaymentPack) =>
+                    contractItem.id === parseInt(this.props.contractId, 10),
                 ) || this.props.contract;
               Analytics.contractPaymentSuccess(contractValues);
             } catch (err) {
@@ -257,14 +294,112 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     );
   };
 
+  handleCancelContractPayment = () => {
+    this.props.push(
+      `/m/${this.props.companyName}/${this.props.companyId}/subscription`,
+    );
+  };
+
+  fetchAssociatedContractContent = (contractId: number) => {
+    const contract = this.props.contractList?.find(
+      (contractItem: Contract) => contractItem.id === contractId,
+    );
+    if (contract?.payment_pack) {
+      this.props.fetchPaymentPackBulk([contract.payment_pack]);
+    }
+    if (contract?.private_pass) {
+      this.props.fetchPrivatePassBulk([contract.private_pass]);
+    }
+    if (contract?.payment_combo) {
+      this.props.fetchPaymentComboList({
+        id__in: [contract.payment_combo],
+        company: this.props.companyId,
+        ignore_new_member_only: true,
+      });
+    }
+  };
+
+  handleSelectContract = (contract: Contract) => {
+    this.fetchAssociatedContractContent(contract.id);
+    this.handleSetAcceptContractLegalTerms(false);
+    this.props.setSelected(contract.id);
+    Analytics.contractShow(contract);
+  };
+
   handleOpenContractTermsDialog = () =>
     this.setState({ openContractTermsDialog: true });
 
   handleCloseContractTermsDialog = () =>
     this.setState({ openContractTermsDialog: false });
 
+  handleSetBillingStartDate = (newDate: string) => {
+    this.setState({ billingStartDate: newDate });
+  };
+
+  handleOnCarouselItemSwipe = (contractId: number | null) => {
+    if (contractId) {
+      this.props.setSelected(contractId);
+      this.fetchAssociatedContractContent(contractId);
+    }
+  };
+
+  handleSetAcceptContractLegalTerms = (value: boolean) => {
+    this.setState({ isContractLegalTermsAccepted: value });
+  };
+
+  getIsTaxExcluded = () => {
+    return this.props.theme.is_tax_excluded_in_marketplace;
+  };
+
+  getInitialCarouselItemIndex = () => {
+    if (this.props.contractId && this.props.contractList?.length) {
+      return this.props.contractList.findIndex(
+        (contract: Contract) =>
+          contract.id === parseInt(this.props.contractId, 10),
+      );
+    }
+    return 0;
+  };
+
+  getContractObjectLoading = (contract: Contract) => {
+    if (contract?.payment_pack) {
+      return this.props.paymentPackLoading;
+    }
+    if (contract?.private_pass) {
+      return this.props.privatePassLoading;
+    }
+    if (contract?.payment_combo) {
+      return this.props.paymentComboLoading;
+    }
+    return false;
+  };
+
+  getCarouselRenderItem = (contractInCarousel: Contract) => {
+    const contract =
+      this.props.contractList.find(
+        (contractItem: Contract) =>
+          contractItem.id === parseInt(this.props.contractId, 10),
+      ) || this.props.contract;
+
+    return (
+      <MarketplaceContractCheckout
+        hideChooseButton
+        contract={contractInCarousel}
+        isExpanded
+        isContractObjectLoading={this.getContractObjectLoading(
+          contractInCarousel,
+        )}
+        isSelected={contract?.id === contractInCarousel.id}
+        isExcludingTax={this.getIsTaxExcluded()}
+        onSelect={this.handleSelectContract}
+        getPaymentPackSelected={this.props.getPaymentPackSelected}
+        getPrivatePassSelected={this.props.getPrivatePassSelected}
+        getPaymentComboSelected={this.props.getPaymentComboSelected}
+      />
+    );
+  };
+
   render() {
-    const { classes, t } = this.props;
     if (
       this.props.contractLoading ||
       (this.props.contractId &&
@@ -276,201 +411,147 @@ export class MarketplaceSubscriptionPayment extends React.Component<
 
     const contract =
       this.props.contractList.find(
-        (c: ContractWithPaymentPack) =>
-          c.id === parseInt(this.props.contractId),
+        (contractItem: ContractWithPaymentPack) =>
+          contractItem.id === parseInt(this.props.contractId, 10),
       ) || this.props.contract;
+
+    const isWidget = WidgetUtils.isWidget();
 
     return (
       <ConsumerAppBar>
-        <div className={classes.mainContainer}>
-          {!WidgetUtils.isWidget() &&
-            !window.location.search.includes('?force=true') && (
-              <div className={classes.upperContainer}>
-                <Grid
-                  container
-                  spacing={2}
-                  direction="row"
-                  justify="space-evenly"
-                >
-                  <Grid item xs={12}>
-                    <MarketplaceSubscriptionContractList
-                      isExcludingTax={
-                        this.props.companyTheme.is_tax_excluded_in_marketplace
-                      }
-                      contractList={this.props.contractList}
-                      selected={parseInt(this.props.contractId)}
-                      onClick={(c: ContractWithPaymentPack) => {
-                        this.props.setAcceptContract(false);
-                        this.props.setSelected(c.id);
-                        Analytics.contractShow(c);
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-              </div>
-            )}
-
-          {!contract || contract?.disabled ? (
-            <div className={classes.notFoundBoxContainer}>
-              <div className={classes.notFoundBox}>
-                <SadSmileyIcon />
-                <Typography variant="h6">
-                  {t('subscriptionNotFound.title')}
-                </Typography>
-                <Typography variant="body2" align="center">
-                  {t('subscriptionNotFound.explanation')}
-                </Typography>
-              </div>
+        <div
+          className={classNames({
+            'bs-contract-checkout__container': !this.state.isDirectBuyingLink,
+            'bs-contract-checkout__direct__link__container':
+              this.state.isDirectBuyingLink,
+          })}
+        >
+          {!isWidget && !this.state.isDirectBuyingLink && (
+            <div className="bs-contract-checkout__list__container">
+              {!!this.props.contractList.length &&
+                this.props.contractList.map((contractItem: Contract) => (
+                  <MarketplaceContractCheckout
+                    key={contractItem.id}
+                    contract={contractItem}
+                    isContractObjectLoading={this.getContractObjectLoading(
+                      contractItem,
+                    )}
+                    isExpanded={contract?.id === contractItem.id}
+                    isSelected={contract?.id === contractItem.id}
+                    isExcludingTax={this.getIsTaxExcluded()}
+                    onSelect={this.handleSelectContract}
+                    getPaymentPackSelected={this.props.getPaymentPackSelected}
+                    getPrivatePassSelected={this.props.getPrivatePassSelected}
+                    getPaymentComboSelected={this.props.getPaymentComboSelected}
+                    customRef={this.selectedContractRef}
+                  />
+                ))}
             </div>
+          )}
+
+          {contract?.disabled ? (
+            <MarketplaceContractNotFound />
           ) : (
-            <div className={classes.centeredContainer}>
-              <Grid
-                container
-                spacing={2}
-                direction="row"
-                justify="space-evenly"
-              >
-                <Grid item xs={12} md={6}>
-                  {this.props.contractId &&
-                    this.props.contractList &&
-                    (this.props.contractList.length || this.props.contract) && (
-                      <SubscriptionContractDetail
-                        isExcludingTax={
-                          this.props.companyTheme.is_tax_excluded_in_marketplace
-                        }
-                        contract={contract}
-                      />
-                    )}
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <Paper className={classes.paymentPanelContainer}>
-                    {!!this.state.stripePromise && (
-                      <Elements stripe={this.state.stripePromise}>
-                        <SubscriptionPayment
-                          onCancel={() => {
-                            this.props.setAcceptContract(false);
-                          }}
-                          isExcludingTax={
-                            this.props.companyTheme
-                              .is_tax_excluded_in_marketplace
-                          }
-                          onSubmit={this.onSubmit}
-                          processing={this.state.processing}
-                          requestSetupIntentSecret={
-                            this.props.requestSetupIntentSecret
-                          }
-                          savedPaymentMethodList={
-                            this.props.savedPaymentMethodList
-                          }
-                          withCoupon
-                          contract={contract}
-                          refreshSavedPaymentMethodList={
-                            this.props.fetchPaymentMethodList
-                          }
-                          enabledPaymentMethods={getMarketplaceEnabledPaymentMethods(
-                            {
-                              paymentMethodAvailableSubscription:
-                                this.props.companyTheme
-                                  .payment_method_available_subscription,
-                            },
-                          )}
-                          enabledPaymentGroupMethodIdentifier={
-                            this.props.companyTheme
-                              .payment_method_available_subscription
-                          }
-                          detachPaymentMethodLoading={
-                            this.props.detachPaymentMethodLoading
-                          }
-                          companyId={this.props.companyId}
-                          detachPaymentMethod={this.props.detachPaymentMethod}
-                          snackbarErrorMsg={this.props.snackbarErrorMsg}
-                          snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                          sepaDefaultName={this.props.auth.name}
-                          sepaDefaultEmail={this.props.auth.username}
-                          withGeneralConditions
-                          disabled={!this.props.acceptContract}
-                          acceptContract={this.props.acceptContract}
-                          setAcceptContract={(value: boolean) => {
-                            this.props.setAcceptContract(value);
-                          }}
-                          date={this.props.date}
-                          setDate={this.props.setDate}
-                          onOpenContractTermsDialog={
-                            this.handleOpenContractTermsDialog
-                          }
-                        />
-                      </Elements>
-                    )}
-                  </Paper>
-                </Grid>
-              </Grid>
+            <div
+              className={classNames({
+                'bs-contract-payment-page': !this.state.isDirectBuyingLink,
+                'bs-contract-payment-page__direct__link__container':
+                  this.state.isDirectBuyingLink,
+              })}
+            >
+              {!this.state.isDirectBuyingLink && (
+                <div className="bs-contract-payment-page__carousel__container">
+                  <Carousel
+                    isSlideshowDisabled
+                    initialSelectedItemIndex={this.getInitialCarouselItemIndex()}
+                    data={this.props.contractList}
+                    renderItem={this.getCarouselRenderItem}
+                    onSwipe={this.handleOnCarouselItemSwipe}
+                    onScroll={this.handleOnCarouselItemSwipe}
+                  />
+                </div>
+              )}
+
+              {this.state.isDirectBuyingLink && (
+                <MarketplaceContractDetail
+                  contract={contract}
+                  getPaymentPackSelected={this.props.getPaymentPackSelected}
+                  getPrivatePassSelected={this.props.getPrivatePassSelected}
+                  getPaymentComboSelected={this.props.getPaymentComboSelected}
+                />
+              )}
+
+              <MarketplaceContractPayment
+                isWidget={isWidget}
+                contract={contract}
+                isExcludingTax={this.getIsTaxExcluded()}
+                refreshSavedPaymentMethodList={
+                  this.props.fetchPaymentMethodList
+                }
+                savedPaymentMethodList={this.props.savedPaymentMethodList}
+                isLoading={this.state.processing}
+                isContractLegalTermsAccepted={
+                  this.state.isContractLegalTermsAccepted
+                }
+                billingStartDate={this.state.billingStartDate}
+                sepaDefaultName={this.props.auth.name}
+                sepaDefaultEmail={this.props.auth.username}
+                setBillingStartDate={this.handleSetBillingStartDate}
+                setAcceptContractLegalTerms={
+                  this.handleSetAcceptContractLegalTerms
+                }
+                enabledPaymentMethodsIds={getMarketplaceEnabledPaymentMethods({
+                  paymentMethodAvailableSubscription:
+                    this.props.theme.payment_method_available_subscription,
+                })}
+                enabledPaymentGroupMethodIdentifierIds={
+                  this.props.theme.payment_method_available_subscription
+                }
+                detachPaymentMethod={this.props.detachPaymentMethod}
+                requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+                onOpenContractTermsDialog={this.handleOpenContractTermsDialog}
+                onCancelContractPayment={this.handleCancelContractPayment}
+                onSubmitContractPayment={this.handleSubmitContractPayment}
+              />
             </div>
           )}
         </div>
-        <ContractTermsDialog
-          closeContractTermsDialog={this.handleCloseContractTermsDialog}
+
+        <MarketplaceContractTermsModal
           contractTerms={contract?.contract}
-          downloadContractTerms={this.props.downloadContractTerms}
-          open={this.state.openContractTermsDialog}
+          onDownloadTerms={this.props.downloadContractTerms}
+          isOpen={this.state.openContractTermsDialog}
+          onDialogClose={this.handleCloseContractTermsDialog}
         />
-        <GenericDialogWithCountdownConfirm
-          open={this.state.openGenericDialogWithCountdownConfirm}
-          onValidate={this.disableOpenGenericDialogWithCountdownConfirm}
-          countdownBeforeActivation={COUNTDOWN_BEFORE_ACTIVATION}
-          validateLabel={t('alreadySubscribed.dialog.validate')}
-          content={t('alreadySubscribed.dialog.content')}
-          title={t('alreadySubscribed.dialog.title')}
+        <MarketplaceContractCooldownModal
+          isOpen={this.state.isContractCooldownDialogOpen}
+          onDialogClose={this.handleCloseContractCooldownDialog}
         />
       </ConsumerAppBar>
     );
   }
 }
 
-const styles = (theme: Theme) => ({
-  mainContainer: {
-    width: '100%',
-    height: '100vh',
-  },
-  upperContainer: {
-    margin: theme.spacing(2),
-    display: 'flex',
-    direction: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  centeredContainer: {
-    maxWidth: '1600px',
-    margin: theme.spacing(2),
-  },
-  paymentPanelContainer: {
-    padding: theme.spacing(2),
-  },
-  notFoundBoxContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    marginTop: theme.spacing(4),
-  },
-  notFoundBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifySelf: 'center',
-    padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
-    gap: theme.spacing(2),
-    background: 'white',
-    borderRadius: theme.spacing(1),
-    maxWidth: '600px',
-  },
-});
-
 const mapStateToProps = (
   state: RootState,
   { contractId }: { contractId: string },
 ) => ({
-  contractList: withPaymentPack(getContractList)(state),
+  getPaymentPackSelected: (id: number) => {
+    return getPaymentPack(state, id) as PaymentPack;
+  },
+  getPrivatePassSelected: (id: number) => {
+    return getPrivatePass(state, id);
+  },
+  getPaymentComboSelected: (id: number) => {
+    return getPaymentCombo(state, id);
+  },
+  contractList: getMarketplaceContractList(state),
   contract: getContract(state, parseInt(contractId, 10)),
   contractLoading: state.subscription.contract.byMarketplace.loading,
-  companyTheme: themeSelectors.getTheme(state),
+  paymentPackLoading: state.paymentPack.loading,
+  privatePassLoading: state.privateService.privatePass.loading,
+  paymentComboLoading: state.paymentCombo.loading,
+  theme: themeSelectors.getTheme(state),
   savedPaymentMethodList: getSavedPaymentMethodList(state),
   detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
   auth: state.auth,
@@ -479,6 +560,7 @@ const mapStateToProps = (
 const mapDispatchToProps = {
   replace: replaceAction,
   push: pushRouter,
+  fetchCompanyTheme: fetchCompanyThemeAction,
   fetchContractList: fetchMarketplaceContractList,
   fetchContractDetail,
   fetchPaymentPackBulk: fetchPaymentPackBulkAction,
@@ -516,15 +598,6 @@ export default compose<any, ownProps>(
   routerParamsToProps({ contractId: 'contractId', companyId: 'companyId' }),
   connect(mapStateToProps, mapDispatchToProps),
   withQueryParams([['force'], 'queryParams']),
-  // @ts-ignore
-  withStyles(styles),
-  withState('date', 'setDate', moment().format('YYYY-MM-DD')),
-  withState('acceptContract', 'setAcceptContract', false),
-  withState('showPaymentStatusDialog', 'setShowPaymentStatusDialog', {
-    open: false,
-    error: false,
-    success: false,
-  }),
   withTranslation(['subscription', 'payment', 'invoice', 'translation']),
   withRouter,
   withHandlers({
@@ -537,22 +610,6 @@ export default compose<any, ownProps>(
       () =>
         fetchPaymentMethodList({ company: companyId }),
   }),
-  withProps(
-    ({ fetchContractList, fetchPaymentPackBulk, fetchPrivatePassBulk }) => ({
-      fetchContractList: (params) =>
-        fetchContractList(params, {
-          onSuccess: (contractList: Array<ContractWithPaymentPack>) => {
-            fetchPaymentPackBulk([
-              ...contractList.map((contract) => contract.payment_pack),
-            ]);
-            fetchPrivatePassBulk([
-              ...contractList.map((contract) => contract.private_pass),
-            ]);
-          },
-        }),
-    }),
-  ),
-  withMobileDialog(),
   withProps(({ push, companyId }) => ({
     setSelected: (id: number) => {
       push(`/checkout/${companyId}/subscription/${id}/`);
@@ -560,13 +617,13 @@ export default compose<any, ownProps>(
   })),
   withHandlers({
     detachPaymentMethod:
-      ({ detachPaymentMethodAction, fetchpaymentMethod, companyId }) =>
+      ({ detachPaymentMethodAction, fetchPaymentMethodList, companyId }) =>
       (pm_id: number, options: OptionCallback) => {
         detachPaymentMethodAction(
           { company: companyId, payment_method_id: pm_id },
           {
             onSuccess: () => {
-              fetchpaymentMethod({ company: companyId });
+              fetchPaymentMethodList({ company: companyId });
               if (options && options.onSuccess) options.onSuccess();
             },
             onError: options && options.onError,
@@ -578,4 +635,5 @@ export default compose<any, ownProps>(
       (options: OptionCallback) =>
         downloadPDFContractTermsForContract(parseInt(contractId), options),
   }),
+  marketplaceCssHoc(),
 )(MarketplaceSubscriptionPayment);

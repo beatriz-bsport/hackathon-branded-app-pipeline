@@ -92,7 +92,6 @@ import {
   MARKETPLACE_PATH_TAB_SHOP,
   MARKETPLACE_PATH_TAB_GIFTCARD,
 } from '#libs/marketplace/constants';
-import Config from '../../config';
 
 const MarketplacePassPage = asyncComponent(() =>
   import('./MarketplacePass.page'),
@@ -110,11 +109,8 @@ const MarketplaceCalendarPage = asyncComponent(() =>
 const MarketplaceWorkshopPage = asyncComponent(() =>
   import('./MarketplaceWorkshop.page'),
 );
-const MarketplaceContractPageV2 = asyncComponent(() =>
-  import('./MarketplaceContractV2.page'),
-);
 const MarketplaceContractPage = asyncComponent(() =>
-  import('./MarketplaceContract.page'),
+  import('./MarketplaceContract.page.tsx'),
 );
 const MarketplaceVodRouter = asyncComponent(() =>
   import('./MarketplaceVod.router'),
@@ -323,19 +319,6 @@ export class MarketPlace extends Component<Props, State> {
           />
         );
       case MARKETPLACE_PATH_TAB_CONTRACT:
-        if (Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production') {
-          return (
-            <MarketplaceContractPageV2
-              key={this.props.tabSelected}
-              companyId={this.props.companyId}
-              requestSignUp={this.openLogin}
-              authenticated={this.props.auth.authenticated}
-              goToUserSpace={() =>
-                this.props.goToUserSpace(this.props.companyId)
-              }
-            />
-          );
-        }
         return (
           <MarketplaceContractPage
             key={this.props.tabSelected}

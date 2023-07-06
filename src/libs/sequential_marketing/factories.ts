@@ -1,5 +1,7 @@
 import { faker } from '@faker-js/faker';
+
 import { generateRandomInt } from '../../utils/factories';
+import { smartlistFactory } from '#libs/smart-list/factories';
 import {
   FilterIdentifier,
   TriggerIdentifier,
@@ -8,16 +10,24 @@ import {
   DESTINATION_KIND_CHOICES,
   DESTINATION_STATUS_CHOICES,
 } from './constants';
-import {
+import type {
+  CadenceStep,
   ConnectedTrigger,
   DestinationConfig,
   FilteringConfig,
   GraphCanvas,
+  StepMarketingActions,
+  StepMarketingActionsCommunicationSpec,
+  StepMarketingActionsTagSpec,
   TriggerEmptyConfig,
   TriggerEventConfig,
   TriggerTimeoutConfig,
 } from './types';
-import { smartlistFactory } from '#libs/smart-list/factories';
+import {
+  CADENCE_MARKETING_ACTION_KIND_CHOICES,
+  CADENCE_MARKETING_ACTION_CHOICES,
+  MarketingActionKind,
+} from './constants/marketing_actions';
 
 function TriggerEmptyConfigFactory(): TriggerEmptyConfig {
   return {
@@ -133,4 +143,87 @@ export function triggerBatchFactory(
       return triggerFactory(kind, smartlistFactory().id);
     return triggerFactory(kind);
   });
+}
+
+export function cadenceStepFactory({
+  name,
+  company,
+  cadence,
+  is_entrypoint,
+  disabled,
+  exits,
+}: Partial<CadenceStep>): CadenceStep {
+  return {
+    id: faker.number.int(),
+    company: company || generateRandomInt(100),
+    cadence: cadence || generateRandomInt(50),
+    name: name || faker.lorem.word(),
+    is_entrypoint: is_entrypoint || false,
+    disabled: disabled || false,
+    exits: exits || [],
+    canvas: GraphCanvasFactory(),
+  };
+}
+
+function stepMarketingActionsTagSpecFactory({
+  tag_id,
+}: Partial<StepMarketingActionsTagSpec>): StepMarketingActionsTagSpec {
+  return { tag_id: tag_id || faker.number.int() };
+}
+
+function stepMarketingActionsCommunicationSpecFactory({
+  email_design,
+  text_content,
+  subject,
+  communication_kind,
+}: Partial<StepMarketingActionsCommunicationSpec>): StepMarketingActionsCommunicationSpec {
+  return {
+    email_design: email_design || generateRandomInt(50),
+    text_content: text_content || faker.hacker.phrase(),
+    subject: subject || faker.lorem.word(),
+    communication_kind:
+      communication_kind ||
+      CADENCE_MARKETING_ACTION_CHOICES[
+        generateRandomInt(CADENCE_MARKETING_ACTION_CHOICES.length)
+      ],
+  };
+}
+
+type StepMarketingActionFactoryProps = Partial<StepMarketingActions> &
+  Partial<StepMarketingActionsCommunicationSpec> &
+  Partial<StepMarketingActionsTagSpec>;
+
+export function stepMarketingActionFactory({
+  company,
+  cadence_step,
+  name,
+  disabled,
+  kind,
+  email_design,
+  communication_kind,
+  tag_id,
+}: StepMarketingActionFactoryProps): Partial<StepMarketingActions> {
+  const factoryKind =
+    kind ||
+    CADENCE_MARKETING_ACTION_KIND_CHOICES[
+      generateRandomInt(CADENCE_MARKETING_ACTION_KIND_CHOICES.length)
+    ];
+
+  const factoryActionSpec =
+    factoryKind === MarketingActionKind.TAG
+      ? stepMarketingActionsTagSpecFactory({ tag_id })
+      : stepMarketingActionsCommunicationSpecFactory({
+          email_design,
+          communication_kind,
+        });
+
+  return {
+    id: faker.number.int(),
+    company: company || generateRandomInt(100),
+    cadence_step: cadence_step || generateRandomInt(50),
+    name: name || faker.lorem.word(),
+    disabled: disabled || false,
+    kind: factoryKind,
+    action_spec: factoryActionSpec,
+  };
 }

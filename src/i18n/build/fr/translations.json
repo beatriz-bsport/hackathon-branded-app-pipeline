@@ -4079,7 +4079,7 @@
             "title": "Acheter un abonnement",
             "success": {
                 "recap": "Récapitulatif",
-                "contract": "Mon contract",
+                "contract": "Mon contrat",
                 "title": "Félicitations !",
                 "text_content": "Votre achat a bien été pris en compte, vous pouvez dès maintenant retrouver les détails de votre abonnement sur votre espace membre.",
                 "text_status": "Achat réalisé avec succès !",
@@ -9452,7 +9452,10 @@
                         "explain": "Si plus de {{ numberCheck }} réservations sont enregistrées sur une séance, aucune réservation ne sera autorisée qui crée un déséquilibre FEMME/HOMME supérieur à {{ gender_max_shift_for_booking }} personnes."
                     }
                 },
-                "errorURL": "Veuillez saisir une URL valide avant de sauvegarder le formulaire"
+                "errorURL": "Veuillez saisir une URL valide avant de sauvegarder le formulaire",
+                "doubleBookingDisabledWithSpivi": "La réservation multiple n'est pas compatible avec l'intégration Spivi",
+                "acceptDoubleBookingWorkshop": "Accepter la réservation multiple pour les ateliers",
+                "acceptDoubleBookingMetaActivity": "Accepter la réservation multiple pour les activités"
             },
             "cover": {
                 "label": "Logo",

@@ -18,7 +18,7 @@
         "showMore": "Ver mais",
         "readAll": "Marcar tudo como lido",
         "unevenInvoice": {
-            "priceDue": "Montante a dever :{{ price_due }}.",
+            "priceDue": "Montante a dever : {{ price_due }}.",
             "pricePayed": "Montante cobrado : {{ price_payed }}.",
             "title": "Pagamento não efetuado",
             "explainUneven": "O pagamento <1>{{ invoice_identifier }}</1> não foi efetuado."
@@ -1394,7 +1394,7 @@
         },
         "mandate": {
             "contentIban": "Ao fornecer o seu IBAN e confirmar o seu pagamento, autoriza a bsport e o Stripe, o nosso sistema de pagamento, a enviar instruções de débito ao seu banco, de acordo com o calendário de pagamentos. Pode pedir um reembolso ao seu banco nos termos do seu contrato com ele. O reembolso deve ser solicitado no prazo de 8 semanas após o primeiro débito.",
-            "contentBacsDebit": "Ao fornecer os seus dados bancários e confirmar o seu pagamento, o utilizador autoriza o bsport e o Stripe, o nosso sistema de pagamento, a enviar instruções de débito ao seu banco, de acordo com o calendário de pagamento. Pode pedir um reembolso ao seu banco nos termos do seu contrato com ele. Pode pedir ao seu banco que cancele o mandato de débito direto em qualquer altura.",
+            "contentBacsDebit": "Ao fornecer os seus dados bancários e confirmar o seu pagamento, o utilizador autoriza o bsport e o Stripe a enviar instruções de débito ao seu banco, de acordo com o calendário de pagamento. Pode solicitar um reembolso ao seu banco nos termos do seu contrato com o mesmo. Pode também solicitar ao seu banco que cancele o pagamento de débito direto em qualquer altura.",
             "name": "Nome e apelido do titular",
             "email": "Endereço eletrónico do titular"
         },
@@ -1497,6 +1497,37 @@
         },
         "actions": {
             "addFooter": "Alteração da nota de rodapé"
+        },
+        "applyGiftcard": {
+            "actions": {
+                "apply": "Pagamento com passe de oferta"
+            },
+            "form": {
+                "usedGiftcard": "Passe de oferta utilizado",
+                "amountToPay": "Montante pago com o passe de oferta"
+            },
+            "giftcard": "Passe de oferta"
+        },
+        "invoiceItem": {
+            "buyableItemIdentifier": {
+                "11": "passe de oferta"
+            }
+        },
+        "quickbooks": {
+            "send": {
+                "errors": {
+                    "title": "Erro no envio da fatura",
+                    "934006": "Esta fatura já foi guardada no QuickBooks",
+                    "934005": "A sua fatura não pode ser enviada para o QuickBooks",
+                    "934004": "Não é possível enviar uma fatura não finalizada no QuickBooks",
+                    "934003": "Não é possível enviar uma fatura não finalizada no QuickBooks",
+                    "934002": "Não é possível enviar uma fatura cancelada no QuickBooks",
+                    "934001": "Impossível criar uma fatura sem itens associados",
+                    "934000": "A fatura não tem as informações mínimas necessárias para ser criada no Quickbooks",
+                    "933103": "A plataforma QuickBooks suporta várias moedas, por favor especifique o imposto a ser utilizado.",
+                    "933102": "Erro ao criar uma fatura no Quickbooks"
+                }
+            }
         }
     },
     "consumerSpace": {
@@ -1974,7 +2005,7 @@
             "activeTitle": "Disponível para venda",
             "unavailableForSaleTitle": "Indisponível para venda",
             "archivedTitle": "Arquivado",
-            "isEmpty": "Não estão disponíveis cartões de oferta",
+            "isEmpty": "Não estão disponíveis passes de oferta",
             "actions": {
                 "goToGiftcard": "Ver todos os passes de oferta",
                 "create": "Criar um passe de oferta"
@@ -2037,6 +2068,9 @@
                 "actions": {
                     "submit": "Adicionar ao cesto",
                     "cancel": "Cancelar"
+                },
+                "message_is_from": {
+                    "label": "A partir de "
                 }
             },
             "list": {
@@ -2048,7 +2082,8 @@
             "sendTo": "Reenviar convite",
             "linkedInvoice": "Fatura válida",
             "invitedOn": "Enviado em {{- d }}",
-            "willInviteOn": "Convite a enviar em {{- d }}"
+            "willInviteOn": "Convite a enviar em {{- d }}",
+            "isFrom": "A partir de "
         },
         "form": {
             "giftcard": {
@@ -2068,7 +2103,7 @@
                 },
                 "section": {
                     "parameters": {
-                        "title": "Padrões"
+                        "title": "Parâmetros"
                     }
                 },
                 "title": "Passe de oferta",
@@ -2696,7 +2731,7 @@
             "privateConsumerPass": "Passes de marcações",
             "info": "Geral",
             "invoices": "Facturas e subscrições",
-            "giftcard": "Cartão de oferta",
+            "giftcard": "Passe de oferta",
             "payment": "Faturas",
             "form": "Formulários",
             "contact": "Contacto",
@@ -2798,7 +2833,13 @@
         "archiveMember": "Arquivar",
         "archived": "Arquivado",
         "showSubscriptions": "Ver subscrições",
-        "creditAccountBalance": "Montante do cliente"
+        "creditAccountBalance": "Montante do cliente",
+        "events": {
+            "member-giftcard_used": {
+                "primaryText": "O passe de oferta {{- giftcardName }} está ativado.",
+                "filter": "Passes de oferta utilizados"
+            }
+        }
     },
     "metaActivity": {
         "settings": {
@@ -2971,7 +3012,8 @@
             "help": "Ajuda",
             "tags": "Etiquetas",
             "franchiseConnectedAs": "Registado como: {{- name}}",
-            "replacement": "Substituição"
+            "replacement": "Substituição",
+            "giftcard": "Passes de oferta"
         },
         "stripeOnboardingPending": {
             "banner": "Se não tiver terminado a configuração da faturação, os pagamentos em linha podem ser desactivados."
@@ -2981,7 +3023,7 @@
             "staff": "Staff",
             "products": {
                 "label": "Produtos",
-                "giftcardTemplates": "Cartões de oferta",
+                "giftcardTemplates": "Passes de oferta",
                 "couponTemplates": "Promoções",
                 "paymentPackTemplates": "Passes ativos"
             },
@@ -3042,8 +3084,8 @@
                 "contact_plural": "Subscrição ({{number}})",
                 "bookings": "Reserva",
                 "bookings_plural": "Reservas ({{number}})",
-                "giftcard": "Cartão de oferta",
-                "giftcard_plural": "Cartões de oferta ({{number}})"
+                "giftcard": "Passe de oferta",
+                "giftcard_plural": "Passes de oferta ({{number}})"
             },
             "coach": {
                 "calendar": "Calendário",
@@ -3128,14 +3170,14 @@
             },
             "GiftCard": {
                 "tags": {
-                    "giftcard_name": "Nome do cartão de oferta",
-                    "giftcard_value": "Valor do cartão de oferta",
-                    "message_is_for": "Destinatário do cartão de oferta",
-                    "giftcard_message": "Mensagem do cartão de oferta",
-                    "activate_giftcard_url": "Ligação para ativar o cartão de oferta",
-                    "message_is_from": "Membro que envia o cartão de oferta"
+                    "giftcard_name": "Nome do passe de oferta",
+                    "giftcard_value": "Valor do passe de oferta",
+                    "message_is_for": "Destinatário do passe de oferta",
+                    "giftcard_message": "Mensagem do passe de oferta",
+                    "activate_giftcard_url": "Link para ativar o passe de oferta",
+                    "message_is_from": "Membro que envia o passe de oferta"
                 },
-                "name": "Cartão de oferta"
+                "name": "Passe de oferta"
             },
             "EmailChange": {
                 "name": "Alteração da conta",
@@ -3148,14 +3190,14 @@
             },
             "requiredTags": {
                 "reset_password_url": "Link para redefinir a palavra-passe",
-                "activate_giftcard_url": "Link de ativação do cartão de oferta",
-                "message_is_from": "Membro que envia o cartão de oferta",
+                "activate_giftcard_url": "Link de ativação do passe de oferta",
+                "message_is_from": "Membro que envia o passe de oferta",
                 "manage_changing_email_link": "Link de gestão de alterações por e-mail",
                 "email_confirmation_url": "Link para confirmar e-mail",
                 "new_email": "Novo e-mail de início de sessão",
                 "old_email": "Antigo e-mail de início de sessão",
-                "giftcard_value": "Valor do cartão de oferta",
-                "giftcard_message": "Mensagem do cartão de oferta"
+                "giftcard_value": "Valor do passe de oferta",
+                "giftcard_message": "Mensagem do passe de oferta"
             },
             "BookingOption": {
                 "tags": {
@@ -3297,7 +3339,8 @@
             "14": "Retirar da lista de espera (manager)",
             "16": "Sessão alterada (alunos)",
             "902": "Pedido de substituição anulado (substituto)",
-            "904": "Novo pedido de substituição (substituto)"
+            "904": "Novo pedido de substituição (substituto)",
+            "304": "Ativar o passe de oferta"
         },
         "emailDesign": {
             "placeholder": "Criado por bsport",
@@ -3315,7 +3358,7 @@
             "replacement_request": "Substituição",
             "booking": "Reserva",
             "waiting-list": "Lista de espera",
-            "giftcard": "Cartões de oferta",
+            "giftcard": "Passes de oferta",
             "member": "Criar uma conta de aluno"
         },
         "type": {
@@ -4300,6 +4343,18 @@
                     "replacement": {
                         "_label": "Substituição"
                     }
+                },
+                "products": {
+                    "giftcards": {
+                        "_label": "Passes de oferta"
+                    }
+                }
+            },
+            "franchiseMenu": {
+                "products": {
+                    "giftcardTemplates": {
+                        "_label": "Passe de oferta"
+                    }
                 }
             }
         },
@@ -4404,7 +4459,7 @@
             "expense": "As despesas são filtradas por data de vencimento.",
             "cashbook": "Durante o período selecionado, é possível ver a evolução do capital em cada dia.",
             "shop": "Para cada um dos seus artigos, consiga perceber a variação de stock entre a data de início e a data de fim, no intervalo selecionado.",
-            "consumer_giftcard": "Os cartões presente são filtrados pela data em que foram comprados.",
+            "consumer_giftcard": "Os passes de oferta são filtrados pela data em que foram comprados.",
             "discount": "As promoções são filtradas pela data em que foram utilizadas.",
             "universal_passes": "Os passes universais apresentados são os válidos nessa data.",
             "private_cpasses": "Os passes que aparecem são os válidos nessa data.",
@@ -4481,7 +4536,7 @@
             "delete_message": "Tem a certeza de que pretende eliminar o relatório {{name}} ?"
         },
         "product_type": {
-            "giftcard": "Cartão presente",
+            "giftcard": "Passe de oferta",
             "coupon": "Cupão",
             "booking": "Reserva",
             "private_pass": "Passe para Aulas Privadas",
@@ -4875,8 +4930,8 @@
             "universal_passes": "Passes Universais",
             "expense": "Despesas",
             "payment_installments": "Pagamentos em prestações",
-            "consumer_giftcard": "Cartões presente comprados",
-            "giftcard": "Cartão presente",
+            "consumer_giftcard": "Passes de oferta comprados",
+            "giftcard": "Passe de oferta",
             "video_purchase": "Aquisição de vídeo",
             "video": "Vídeo",
             "dayBookings": "Reservas (aulas de grupo) por dia",
@@ -5012,7 +5067,7 @@
             "payment_pack_category": "Categoria dos passes ativos",
             "payment_pack": "Passes ativos",
             "video": "Vídeo",
-            "giftcard": "Cartão presente",
+            "giftcard": "Passe de oferta",
             "coach": "Professores",
             "establishment": "Estabelecimento",
             "datetime": "Data",
@@ -6591,7 +6646,7 @@
     "settings": {
         "marketplaceSettings": {
             "componentType": {
-                "giftcard": "Cartão de oferta",
+                "giftcard": "Passe de oferta",
                 "loginButton": "Início de sessão",
                 "newsletter": "Newsletter",
                 "playlist": "Playlist",
@@ -6697,6 +6752,14 @@
                 "deleteModal": {
                     "content": "Tem a certeza de que pretende eliminar esta ligação ? Esta operação é definitiva",
                     "confirm": "Eliminar"
+                },
+                "popupPreview": {
+                    "category": {
+                        "giftcard": "Passes de oferta"
+                    },
+                    "membershipCard": {
+                        "giftcardSubtitle": "Encontre todos os passes de oferta do seu estúdio aqui"
+                    }
                 }
             }
         },
@@ -7330,8 +7393,13 @@
         "spotScheduling": {
             "subtitle": "Utilizado para marcação de lugares. Permite aos seus alunos reservar o lugar que pretendem na sala.",
             "delete": {
-                "content": "Tem a certeza de que pretende eliminar este plano para a sala ? Esta operação é irreversível."
-            }
+                "content": "Tem a certeza de que pretende eliminar este plano para a sala ? Esta operação é irreversível.",
+                "title": "Eliminar o plano de sala"
+            },
+            "untitled": "Sem título",
+            "placeCount": "{{count}} lugares",
+            "add": "Adicionar um plano de sala",
+            "title": "Plano da sala"
         },
         "establishment_override": "Sala de substituição",
         "overrider": "Substituição",
@@ -7339,17 +7407,60 @@
             "modal": {
                 "delete": {
                     "confirm": "Eliminar",
-                    "content": "Pretende eliminar este grupo de faturação ? A eliminação deste grupo terá efeitos retroactivos: deixará de aparecer nos relatórios associados."
+                    "content": "Pretende eliminar este grupo de faturação ? A eliminação deste grupo terá efeitos retroactivos: deixará de aparecer nos relatórios associados.",
+                    "cancel": "Cancelar",
+                    "title": "Eliminar um grupo de faturação"
                 }
-            }
+            },
+            "table": {
+                "name": "Nome",
+                "establishment": "Estabelecimentos",
+                "actions": "Ações"
+            },
+            "form": {
+                "error": {
+                    "groupShouldHaveName": "É necessário dar um nome a este grupo de faturação",
+                    "groupShouldContainsOneRoom": "Seleccione pelo menos uma sala"
+                },
+                "dialog": {
+                    "save": "Registar",
+                    "cancel": "Cancelar",
+                    "title": "Grupo de faturação"
+                },
+                "associated_localizations": "Salas associadas",
+                "name": "Nome"
+            },
+            "actions": "Ações",
+            "name": " Nome"
         },
         "group": {
             "modal": {
                 "delete": {
                     "confirm": "Eliminar",
-                    "title": "Eliminar uma localização"
+                    "title": "Eliminar uma localização",
+                    "cancel": "Cancelar",
+                    "content": "Esta localização deixará de aparecer nos filtros disponíveis no marketplace, no widget e na aplicação personalizada."
                 }
-            }
+            },
+            "table": {
+                "name": "Nome",
+                "establishment": "Estabelecimentos",
+                "actions": "Ações"
+            },
+            "form": {
+                "dialog": {
+                    "save": "Registar",
+                    "cancel": "Eliminar",
+                    "title": "Localização"
+                },
+                "associated_localizations": "Salas associadas",
+                "name": "Nome"
+            },
+            "noGroupHelper": "Os locais permitem-lhe agrupar várias moradas. Se tiver vários estúdios em cidades diferentes, pode agrupar os estúdios da mesma cidade num local. No marketplace, no widget e na aplicação personalizada, os seus alunos poderão selecionar o local que mais lhes interessa para que só vejam aulas perto de casa.",
+            "actions": "Ações",
+            "name": " Nome",
+            "addLocalisation": "Adicionar uma localização",
+            "groupButton": "Agrupar estabelecimentos"
         },
         "forms": {
             "delete": {
@@ -7358,19 +7469,88 @@
                     "canDelete": "Tem a certeza de pretende eliminar esta sala? Esta operação é irreversível. As sessões e reservas anteriores não serão afectadas"
                 },
                 "actions": {
-                    "confirm": "Eliminar"
-                }
+                    "confirm": "Eliminar",
+                    "cancel": "cancelar"
+                },
+                "title": "Eliminar uma sala"
             },
-            "edit": "Alterar"
+            "edit": "Alterar",
+            "update": {
+                "title": "Editar informações"
+            },
+            "create": {
+                "title": "Nova sala"
+            }
         },
         "notification": {
             "modal": {
                 "content": "Tem a certeza de que pretende eliminar esta notificação? Esta operação é definitiva",
-                "confirm": "Eliminar"
+                "confirm": "Eliminar",
+                "cancel": "Cancelar",
+                "title": "Eliminar notificação"
             }
         },
         "card": {
             "update": "Alterar"
+        },
+        "notificationToolTip": "Foram criadas notificações para as reservas desta sala",
+        "location": {
+            "country": "País",
+            "zip_code": "Código de Postal",
+            "state": "Estado",
+            "city": "Cidade",
+            "address_line_2": "Endereço linha 2",
+            "address_line_1": "Endereço linha 1",
+            "address": "Endereço",
+            "search_address": "Procurar um endereço"
+        },
+        "update": {
+            "imageUploaderRequireEditMessage": "Uma vez criada, pode adicionar imagens adicionais."
+        },
+        "form": {
+            "new": {
+                "title": "Título"
+            }
+        },
+        "practical_info": {
+            "helperText": "Esta informação só será apresentada no momento da reserva",
+            "placeholder": "Código 1234 porta direita",
+            "label": "Informações de acesso"
+        },
+        "pleaseFill": "Introduzir uma sala",
+        "noMoreOffers": "Não há mais sessões agendadas",
+        "offers": "Calendário das sessões:",
+        "noEstablishement": "Aqui pode gerir as salas, perceber a localização, preencher e consultar o calendário",
+        "pleaseSelectOne": "Seleccione um local no passe",
+        "addButton": "Adicionar uma sala",
+        "search": "Procurar uma sala",
+        "baseEstablishment": "Habitual",
+        "capacity": {
+            "helperText": "Utilizado apenas para calcular a disponibilidade de marcações",
+            "explain": "Capacidade: {{ capacity }} lugar",
+            "explain_plural": "Capacidade: {{ capacity }} lugares",
+            "label": "Capacidade da sala"
+        },
+        "roomRequiredIsMissing": "Não seleccionou um estabelecimento de faturação.",
+        "roomRequired": "Sala *",
+        "room": "Sala",
+        "favouriteLocation": "Local de preferência",
+        "localisation": "Localização",
+        "description": "Descrição",
+        "establishment": "Estabelecimento",
+        "detail": {
+            "tab": {
+                "calendar": "Calendário",
+                "general": "Geral"
+            }
+        },
+        "list": {
+            "section": {
+                "archived": "Salas arquivadas"
+            }
+        },
+        "marketing": {
+            "notification": "Notificações"
         }
     },
     "instalmentPayment": {
@@ -7510,6 +7690,11 @@
             "editColor": "Alterar cor",
             "editName": "Alterar nome",
             "editIcon": "Alterar ícone"
+        },
+        "objectCard": {
+            "subtitle": {
+                "giftcard": "Passe de oferta"
+            }
         }
     },
     "performanceTracking": {
@@ -7556,22 +7741,231 @@
         "modal": {
             "delete": {
                 "confirm": "Eliminar",
-                "content": "Se este modelo estiver ligado a uma configuração de e-mail transacional, também será eliminado. Tem a certeza de que pretende eliminar este modelo de e-mail?"
+                "content": "Se este modelo estiver ligado a uma configuração de e-mail transacional, também será eliminado. Tem a certeza de que pretende eliminar este modelo de e-mail?",
+                "cancel": "Cancelar",
+                "title": "Eliminar modelo de e-mail"
             }
         },
-        "edit": "Alterar"
+        "edit": "Alterar",
+        "allCompanies": "Todos os franchisados",
+        "seeAll": "Ver tudo",
+        "autoSave": "Cópia de segurança automática",
+        "leaveAlert": "Quer mesmo sair desta página?",
+        "infoBsportTemplateEmails": "Se pretender enviar comunicações ou editar os modelos desta secção, tem de criar uma cópia do modelo que pretende. Em seguida, seleccione a cópia da mensagem quando enviar uma comunicação.",
+        "franchiseEmails": "Modelos franchising",
+        "bsportTemplateEmails": "Modelos Bsport",
+        "companieEmails": "Os meus modelos",
+        "editor": {
+            "closeButton": "Fechar",
+            "dialogWindowTitle": "Variáveis obrigatórias",
+            "infoBoxTextLastLine": "Certifique-se de que os adiciona ao seu modelo para o poder guardar.",
+            "alertBoxTextFirstLine": "Este e-mail está ligado ao seguinte e-mail '{{-names}}'. Deve conter as seguintes variáveis : ",
+            "infoBoxTextFirstLine": "Esta e-mail está ligada ao seguinte e-mail '{{-names}}'. Algumas variáveis são obrigatórias.",
+            "showRequiredTags": "Ver as variáveis",
+            "selectorPlaceholder": "Seleção de franchisados",
+            "error": {
+                "subject": "Introduzir um objeto",
+                "content": "Introduzir conteúdo na mensagem",
+                "title": "Introduza um nome"
+            },
+            "shareWithHelper": "O modelo não pode ser alterado pelos franchisados",
+            "shareWith": "Partilhar com",
+            "cancel": "Cancelar",
+            "subject": "Assunto do e-mail",
+            "exportHtml": "Exportar HTML",
+            "save": "Registar",
+            "title": "Nome do modelo"
+        },
+        "no_subject": "Nenhum assunto",
+        "preview": "Pré-visualização",
+        "subject": "Assunto:",
+        "modification_date": "Última notificação em",
+        "templateListEmpty": "Sem nenhum modelo, crie o primeiro aqui.",
+        "create": "Criar um modelo",
+        "selectToShowPreview": "Selecionar um modelo",
+        "detail": "Informações detalhadas",
+        "createTitle": "Criar um modelo",
+        "editTitle": "Editar modelo",
+        "listTitle": "Os meus modelos de e-mail",
+        "search": "Procurar um modelo",
+        "copy": "copiar",
+        "duplicate": "Duplicar"
     },
     "dashboard": {
         "graphActions": {
             "delete": "Eliminar",
             "edit": "Alterar"
+        },
+        "placeholderEmptyValues": {
+            "establishment": "Nenhum estabelecimento",
+            "coach": "Nenhum professor"
+        },
+        "graphDefaultTitles": {
+            "privateBookingTemporal": "Marcações",
+            "memberTemporal": "Novos membros",
+            "billingPlanTemporal": "Subscrições",
+            "subscriptionTemporalSum": "Quantidade de subscrições",
+            "subscriptionTemporalCount": "Número de faturas de subscrição",
+            "bookingTemporal": "Reservas",
+            "bookingQualitative": "Origem das reservas",
+            "paymentTemporal": "Coleções",
+            "invoiceItemTemporal": "Soma de itens faturados"
+        },
+        "dataSourceIdentifiers": {
+            "is_no_show": "Ausente (não compareceu)",
+            "dispute_status": "Estado"
+        },
+        "graphFormDrawer": {
+            "aggregation": {
+                "sum": "Soma",
+                "max": "Máximo",
+                "min": "Mínimo",
+                "avg": "Média"
+            },
+            "helperText": {
+                "subscriptionPrice": {
+                    "sum": "Soma de todos os pagamentos recebidos no âmbito das subscrições."
+                },
+                "plannedInvoiceCount": "Número de faturas associadas a subscrições.",
+                "dateCreated": "Os dados serão apresentados ao longo do tempo de acordo com a data em que as reservas foram efectuadas.",
+                "dateStart": "Os dados serão representados ao longo do tempo de acordo com a data de início das sessões."
+            },
+            "accumulate": {
+                "total": "Acumulado"
+            },
+            "dashboardGraphIdentifier": {
+                "graph_invoice_items": "Compras",
+                "graph_billing_plan": "Subscrições",
+                "graph_subscriptions": "Faturas de subscrições",
+                "graph_payments": "Pagamentos",
+                "graph_bookings": "Reservas",
+                "graph_members": "Novos membros"
+            },
+            "graphFamily": {
+                "week_timeslots": "Frequência diária e horária",
+                "qualitative": "Repartir",
+                "temporal": "Evolução ao longo do tempo"
+            },
+            "chartComponents": {
+                "timeslots": "Frequência diária e horária",
+                "pie": "Esquema circular",
+                "area": "Esquema da área",
+                "qualitativeBar": "Histograma",
+                "bar": "Histograma"
+            },
+            "placeholders": {
+                "aggregationSelector": "Selecionar uma operação",
+                "dashboardGraphIdentifier": "Selecionar um tipo de dados"
+            },
+            "labels": {
+                "aggregationName": "Agregação",
+                "dividedBy": "Dividido por"
+            }
+        },
+        "plannedPayment": {
+            "popover": "Soma de todos os pagamentos recebidos a título de subscrições"
+        },
+        "turnover": {
+            "popover": "Soma de todos os pagamentos recebidos indicados nas faturas"
         }
     },
     "login": {
         "accountConfiguration": {
             "bankAccountSuccess": "O seu IBAN foi validado. Pode alterar esta informação mais tarde no backoffice, nas definições da empresa.",
             "accountSuccess": "A sua conta Stripe foi criada. Pode alterar esta informação mais tarde no backoffice, nas definições da empresa.",
-            "paymentMethodSuccess": "O método de pagamento indicado é válido. Pode sempre alterá-lo nas definições de subscrição da Bsport."
+            "paymentMethodSuccess": "O método de pagamento indicado é válido. Pode sempre alterá-lo nas definições de subscrição da Bsport.",
+            "welcomeDescription": "Temos o prazer de o receber na sua nova plataforma. Antes de começar a sua experiência, faltam-nos algumas informações."
         }
+    },
+    "datetime": {
+        "form": {
+            "never": "Nunca",
+            "oneMonth": "1 mês",
+            "twoWeeks": "2 semanas",
+            "tenDays": "10 horas",
+            "oneWeek": "1 semana",
+            "twoDays": "2 dias",
+            "oneDay": "1 dia",
+            "twelveHour": "12h",
+            "eightHour": "8h",
+            "sixHour": "6h",
+            "fourHour": "4h",
+            "threeHour": "3h",
+            "twoHour": "2h",
+            "oneHourAndHalf": "1h30",
+            "oneHourFifteen": "1h15",
+            "oneHour": "1h",
+            "fiftyMinutes": "50 min",
+            "halfAndQuarterHour": "45 min",
+            "halfHour": "30 min",
+            "twentyMinutes": "20 min",
+            "quarterHour": "15 min",
+            "tenMinutes": "10 min",
+            "zeroMinute": "0 min"
+        },
+        "time": {
+            "month": {
+                "december": "Dezembro",
+                "november": "Novembro",
+                "october": "Outubro",
+                "september": "Setembro",
+                "august": "Agosto",
+                "july": "Julho",
+                "june": "Junho",
+                "may": "Maio",
+                "april": "Abril",
+                "march": "Março",
+                "february": "Fevereiro",
+                "january": "Janeiro"
+            },
+            "monthShort": {
+                "december": "Dez",
+                "november": "Nov",
+                "october": "Out",
+                "september": "Set",
+                "august": "Agos",
+                "july": "Jul",
+                "june": "Jun",
+                "april": "Abr",
+                "march": "Mar",
+                "february": "Fev",
+                "january": "Jan",
+                "may": "Maio"
+            },
+            "isoWeekdayNumber": {
+                "7": "Domingo",
+                "6": "Sábado",
+                "5": "Sexta",
+                "4": "Quinta",
+                "3": "Quarta",
+                "2": "Terça",
+                "1": "Segunda"
+            },
+            "weekdayNumber": {
+                "6": "Domingo",
+                "5": "Sábado",
+                "4": "Sexta",
+                "3": "Quinta",
+                "2": "Quarta",
+                "1": "Terça",
+                "0": "Segunda"
+            },
+            "weekday": {
+                "satursday": "Sábado",
+                "friday": "Sexta",
+                "thursday": "Quinta",
+                "wednesday": "Quarta",
+                "tuesday": "Terça",
+                "monday": "Segunda",
+                "sunday": "Domingo"
+            }
+        },
+        "longHourIdentifier": "horas",
+        "shortHourIdentifier": "h",
+        "longMinuteIdentifier": "minutos",
+        "shortMinuteIdentifier": "min",
+        "never": "Nunca",
+        "longDayIdentifer": "dias",
+        "shortDayIdentifier": "d"
     }
 }

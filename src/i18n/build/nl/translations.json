@@ -563,7 +563,7 @@
             "venueIds": "Vestiging-ID's: {{ establishmentIdList }}",
             "partnerId": "Partner-ID: {{ company }}",
             "establishmentMergedAs": "Deze vestigingen samenvoegen",
-            "establishmentMergeMaster": "Deze vestigingen samenvoegen:"
+            "establishmentMergeMaster": "Deze vestigingen samenvoegen"
         },
         "pageTitle": "Integraties",
         "configurationType": {
@@ -3069,6 +3069,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
+                "Geannuleerd",
                 "Geannuleerd"
             ]
         },
@@ -3235,8 +3236,8 @@
                 "settingTitle": "Instellingen",
                 "hideMail": "Verberg e-mail",
                 "cancel": "Annuleren",
-                "smartListHelper": "Stuur GÉÉN melding als een lid tot één van de volgende Smartlists behoort:",
-                "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort:",
+                "smartListHelper": "Stuur GÉÉN melding als een lid tot één van de volgende Smartlists behoort",
+                "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort",
                 "noMailAvailable": "Er zijn geen e-mailsjablonen om weer te geven.",
                 "createSmartList": "Een Smartlist toevoegen",
                 "warning": "Door geen Smartlist(s) te selecteren is het mogelijk dat je leden contacteert die recent een aankoop hebben gedaan.",
@@ -5232,7 +5233,7 @@
             },
             "section": {
                 "coachOverride": {
-                    "info": "Als u dit vakje aanvinkt, worden de wijzigingen die op de vervangende leraar van deze sessie zijn toegepast, toegepast op alle vergelijkbare sessies. Anders worden ze alleen op deze sessie toegepast.",
+                    "info": "Vink dit vakje aan om de vervangende instructeur op alle soortgelijke sessie toe te passen. Als dit vakje niet is aangevinkt dan zijn de wijzigingen alleen op deze sessie van toepassing.",
                     "field": {
                         "isCoachOverridePropagate": "De wijzigingen van de vervangende leraar toepassen op de geselecteerde sessies"
                     },
@@ -14310,11 +14311,19 @@
                     "basket_chip": "Winkelmand"
                 },
                 "timeout": {
-                    "timout_days_chip": "{{ days }} dagen"
+                    "timout_days_chip": "{{ days }} dag(en)",
+                    "timout_days_chip_plural": "{{ days }} dagen"
                 },
                 "trigger": "Trigger",
                 "exit": "Einde",
-                "start": "Begin"
+                "start": "Begin",
+                "delete": "Verwijderen",
+                "kinds": {
+                    "3": "Tijdslimiet",
+                    "2": "Evenementen & Smartlists",
+                    "0": "Evenementen",
+                    "1": "Smartlists"
+                }
             },
             "cadenceCard": {
                 "lost": "Verloren",
@@ -14338,7 +14347,17 @@
             "editModeLabel": "Overschakelen naar de Bewerkingsmode",
             "editMode": "Bewerken",
             "shutOff": "Pauze",
-            "back": "Terug"
+            "back": "Terug",
+            "steps": {
+                "actions": {
+                    "changeInStep": "Omzetten in stap",
+                    "changeInExit": "Uit cadence zetten",
+                    "delete": "Verwijderen"
+                }
+            },
+            "marketingAction": {
+                "addAction": "Een actie toevoegen"
+            }
         }
     },
     "spotScheduling": {
@@ -15628,7 +15647,7 @@
             "discard": "Afsluiten zonder op te slaan",
             "save": "Opslaan",
             "description": "Omdat je tussentijds niets hebt opgeslagen sta je op het punt om alle wijzigingen ongedaan te maken. Wil je je wijzigingen opslaan?",
-            "title": "De wijzigingen konden niet worden opgeslagen."
+            "title": "Onopgeslagen wijzigingen"
         },
         "cardListPage": {
             "categoryArchivedSnackbar": "Deze categorie is gearchiveerd.",

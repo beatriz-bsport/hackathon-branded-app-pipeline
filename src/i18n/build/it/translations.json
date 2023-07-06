@@ -9163,7 +9163,7 @@
                 "isTooLate": "Le registrazioni non sono più possibili.",
                 "isWaitingListFull": "La sessione è piena, la lista di attesa è piena.",
                 "isDisabled": "La sessione è stata purtroppo annullata.",
-                "isTooSoon": "La registrazione è chiusa per il momento e si aprirà il {{ -date }}.",
+                "isTooSoon": "La registrazione è chiusa per il momento e si aprirà il {{-date}}.",
                 "isAlreadyRegistered": "Sei già registrato per questa sessione",
                 "blockedByTags": "Non hai i diritti necessari per iscriverti a questa sessione."
             },
@@ -12741,7 +12741,7 @@
                 "month": "mese",
                 "month_plural": "Ogni {{ count }} mesi"
             },
-            "chooseButton": "Scegliere"
+            "chooseButton": "Abbonati"
         },
         "pass": {
             "search": {

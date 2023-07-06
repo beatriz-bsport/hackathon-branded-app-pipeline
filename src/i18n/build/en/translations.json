@@ -9256,7 +9256,11 @@
             "price_invoice_items": "Total amount of products purchased",
             "nb_invoice_items": "Number of products purchased",
             "date_canceled": "Cancellation date",
-            "invoiceitem_pk": "Billing element ID"
+            "invoiceitem_pk": "Billing element ID",
+            "last_booked_offer_pass_name": "Pass used for the last session booked",
+            "last_booked_offer_meta_activity_name": "Name of activity of last session booked",
+            "last_booked_offer_date": "Date of last session booked",
+            "last_booked_offer_id": "ID of last session booked"
         },
         "yes": "Yes",
         "no": "No",
@@ -9641,6 +9645,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
@@ -15299,11 +15304,19 @@
                     "basket_chip": "Basket"
                 },
                 "timeout": {
-                    "timout_days_chip": "{{ days }} days"
+                    "timout_days_chip": "{{ days }} day",
+                    "timout_days_chip_plural": "{{ days }} days"
                 },
                 "trigger": "Trigger",
                 "exit": "Exit",
-                "start": "Entry"
+                "start": "Entry",
+                "delete": "Delete",
+                "kinds": {
+                    "3": "Delay",
+                    "2": "Event + Smartlist",
+                    "1": "Smartlist",
+                    "0": "Event"
+                }
             },
             "cadenceCard": {
                 "lost": "Lost",
@@ -15349,7 +15362,17 @@
             "editModeLabel": "Switch to edit mode",
             "editMode": "Edit",
             "shutOff": "Pause",
-            "back": "Back"
+            "back": "Back",
+            "steps": {
+                "actions": {
+                    "changeInStep": "Convert to step",
+                    "changeInExit": "Convert to output",
+                    "delete": "Delete"
+                }
+            },
+            "marketingAction": {
+                "addAction": "Add an action"
+            }
         }
     },
     "spotScheduling": {

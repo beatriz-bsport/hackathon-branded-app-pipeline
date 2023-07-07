@@ -4,23 +4,45 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import CadenceChip from '../../chips/CadenceChip.component';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import type { GlobalCadenceChip } from '#libs/sequential_marketing/types';
+import MarketingActionChip from '#libs/sequential_marketing/components/graph/chips/MarketingActionChip.component';
+
+import type { StepMarketingActions } from '#libs/sequential_marketing/types';
+import type { Tag } from '#libs/tag/types';
+import type { EmailTemplateSummary } from '#libs/email-editor/types';
 
 export type CadenceNodeContentProps = {
-  marketingActionChipList?: GlobalCadenceChip[];
-  addMarketingAction?: () => void;
+  marketingActionList?: StepMarketingActions[];
   disableAddMarketingAction?: boolean;
+  addMarketingAction?: () => void;
+  getTag?: (id: string) => Tag;
+  getEmailTemplate?: (id: string) => EmailTemplateSummary;
 };
 
 const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
-  marketingActionChipList,
-  addMarketingAction,
+  marketingActionList,
   disableAddMarketingAction,
+  addMarketingAction,
+  getTag,
+  getEmailTemplate,
 }) => {
   const { t } = useTranslation('marketing');
   const classes = useStyles();
+
+  const isFullOfMarketingActions = React.useCallback(
+    (marketingActions: StepMarketingActions[]) =>
+      !!marketingActions &&
+      marketingActions?.reduce<StepMarketingActions[]>(
+        (acc, currentMarketinAction) => {
+          if (!currentMarketinAction?.disabled) {
+            acc.push(currentMarketinAction);
+          }
+          return acc;
+        },
+        [],
+      )?.length >= 5,
+    [],
+  );
 
   const handleAddMarketingAction = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,18 +55,16 @@ const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
 
   return (
     <div className={classes.container}>
-      {!!marketingActionChipList && marketingActionChipList.length > 0 && (
+      {!!marketingActionList && marketingActionList.length > 0 && (
         <div className={classes.chipSection}>
-          {marketingActionChipList.map(
-            (chip) =>
-              !!chip && (
-                <CadenceChip
-                  key={chip.name}
-                  name={chip.name}
-                  icon={chip.icon}
-                  color={SequentialMarketingColors.MARKETING_ACTION_COLOR}
-                  withBackground={false}
-                  blackText
+          {marketingActionList.map(
+            (marketingAction) =>
+              !!marketingAction && (
+                <MarketingActionChip
+                  key={marketingAction.id}
+                  marketingAction={marketingAction}
+                  getTag={getTag}
+                  getEmailTemplate={getEmailTemplate}
                 />
               ),
           )}
@@ -56,7 +76,10 @@ const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
           className={classes.button}
           variant="text"
           color="inherit"
-          disabled={disableAddMarketingAction}
+          disabled={
+            disableAddMarketingAction ||
+            isFullOfMarketingActions(marketingActionList)
+          }
         >
           + {t('cadence.marketingAction.addAction')}
         </Button>

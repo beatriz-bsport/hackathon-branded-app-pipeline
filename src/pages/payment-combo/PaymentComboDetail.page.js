@@ -208,7 +208,7 @@ export default compose(
       fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
       updatePaymentCombo: createOrUpdatePaymentCombo,
       onShopItemClick: (id) => push(`/shop/${id}`),
-      onPrivatePassClick: () => push('/private-service/pass'),
+      onPrivatePassClick: (id) => push(`/private-service/pass/${id}`),
       onPaymentPackClick: (id) => push(`/payment-pack/${id}`),
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),
       goToPaymentComboList: () => push('/combo/'),

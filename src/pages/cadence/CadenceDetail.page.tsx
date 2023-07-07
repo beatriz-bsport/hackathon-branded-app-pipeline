@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { push as pushRouter } from 'connected-react-router';
 import classNames from 'classnames';
@@ -32,6 +31,7 @@ import {
 
 import {
   getAllSmartList,
+  getSmartList,
   getSmartListDict,
 } from '../../libs/smart-list/selectors';
 
@@ -39,7 +39,7 @@ import {
   DestinationStatus,
   CadencePanelMode,
 } from '#libs/sequential_marketing/constants';
-import { WithHandlerType } from '../../utils/types';
+import type { WithHandlerType } from '../../utils/types';
 import {
   getCadenceOnlyActiveCTs,
   getCadenceStepList,
@@ -48,7 +48,7 @@ import {
   getStepMarketingActionsLoading,
   getStepMarketingActionsUpsertLoading,
 } from '#libs/sequential_marketing/selectors';
-import { OptionCallback } from '../../state/types';
+import type { OptionCallback } from '../../state/types';
 import type {
   Cadence,
   ConnectedTrigger,
@@ -72,8 +72,9 @@ import {
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
+  getEmailTemplateSummary,
 } from '#libs/email-editor/selectors';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { getAllTagsWithTagGroup, getTag } from '#libs/tag/selectors';
 
 import { NodeIdentifiersEnum } from '#libs/sequential_marketing/components/graph/hooks';
 
@@ -296,7 +297,6 @@ export class CadenceDetailPage extends Component<Props> {
           <div className={classes.mainPanelContent}>
             <CadenceGraphFlow
               cadence={this.props.cadence}
-              smartlistById={this.props.smartlistById}
               steps={this.props.steps}
               updateCadenceStepCanvasPosition={
                 this.props.updateCadenceStepCanvasPosition
@@ -311,13 +311,16 @@ export class CadenceDetailPage extends Component<Props> {
               cadenceMinimalConfigurationState={
                 this.props.cadenceMinimalConfigurationState
               }
-              stepNodeFakerSource={this.props.stepNodeFakerSource}
               onClickConnectedTrigger={this.handleClickConnectedTrigger}
               resetAllSelection={this.resetAllSelection}
               cadenceEditMode={this.props.cadenceEditMode}
               handleSelectedStepForEdition={this.handleSelectedStepForEdition}
               deleteCadenceStep={this.props.deleteCadenceStep}
               deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
+              getSmartlist={this.props.getSmartlist}
+              getStepMarketingActions={this.props.getStepMarketingActions}
+              getTag={this.props.getTag}
+              getEmailTemplate={this.props.getEmailTemplate}
             />
           </div>
         </div>
@@ -351,7 +354,6 @@ type StateHandlerInit = {
     cadenceWinConfigured: boolean;
     cadenceLoseConfigured: boolean;
   };
-  stepNodeFakerSource: CadenceStep | null;
   triggerForEdition: {
     trigger: ConnectedTrigger | null;
     step: CadenceStep | null;
@@ -369,7 +371,6 @@ const StateHandlersInit: StateHandlerInit = {
     cadenceWinConfigured: false,
     cadenceLoseConfigured: false,
   },
-  stepNodeFakerSource: null,
   triggerForEdition: { trigger: null, step: null },
   cadenceEditMode: false,
 };
@@ -378,6 +379,7 @@ const StateHandlersSetter = {
   setRightPanelMode: () => (rightPanelMode: CadencePanelMode) => {
     return { rightPanelMode };
   },
+
   setStepFormSubscription:
     () =>
     (
@@ -387,15 +389,12 @@ const StateHandlersSetter = {
         exit?: boolean;
       },
     ) => {
-      const notDestination =
-        !subscriptionDestinationConfig?.step &&
-        !subscriptionDestinationConfig.exit;
       return {
         stepForSubscription,
         subscriptionDestinationConfig,
-        stepNodeFakerSource: notDestination ? stepForSubscription : null,
       };
     },
+
   setCadenceMinimalConfigurationState:
     () =>
     (cadenceMinimalConfigurationState: {
@@ -405,9 +404,11 @@ const StateHandlersSetter = {
     }) => ({ cadenceMinimalConfigurationState }),
 
   resetSubscriptionDestination: () => () => ({
-    stepNodeFakerSource: null,
     subscriptionDestinationConfig: {},
-    triggerForEdition: { step: null, trigger: null },
+    triggerForEdition: {
+      step: null as CadenceStep,
+      trigger: null as ConnectedTrigger,
+    },
   }),
 
   setTriggerForEdition:
@@ -433,9 +434,10 @@ const mapRefreshAllHandler = {
     (options?: OptionCallback) => {
       props.retrieveCadenceAction(props.cadenceId, {
         onSuccess: (cadence) => {
+          props.fetchMarketingActionsAction({ cadence: cadence.id });
           props.fetchCadenceStepListAction(
             { id__in: cadence.steps },
-            { onSuccess: options?.onSuccess },
+            { onSuccess: () => options?.onSuccess?.() },
           );
         },
       });
@@ -628,7 +630,7 @@ const mapWithHandlers = {
     (stepId: number) => {
       if (stepId) {
         props.deleteCadenceStepAction(stepId, {
-          onSuccess: props.retrieveCadence,
+          onSuccess: () => props.retrieveCadence?.(),
         });
       }
     },
@@ -638,11 +640,11 @@ const mapWithHandlers = {
     (data: Values, options?: OptionCallback) => {
       if (
         props.triggerForEdition?.step?.id &&
-        props.triggerForEdition?.trigger?.uuid
+        props.triggerForEdition?.trigger?.trigger_config?.uuid
       ) {
         props.updateConnectedTriggerAction(
           props.cadenceId,
-          props.triggerForEdition.trigger.uuid,
+          props.triggerForEdition.trigger.trigger_config.uuid,
           props.triggerForEdition?.trigger?.canvas,
           { ...props.triggerForEdition, values: data },
           {
@@ -725,6 +727,9 @@ const connector = connect(
     stepMarketingActionsLoading: getStepMarketingActionsLoading(state),
     stepMarketingActionsUpsertLoading:
       getStepMarketingActionsUpsertLoading(state),
+    getSmartlist: (id: number) => getSmartList(state, id),
+    getTag: (id: string) => getTag(state, id),
+    getEmailTemplate: (id: string) => getEmailTemplateSummary(state, id),
   }),
   {
     retrieveCadenceAction,

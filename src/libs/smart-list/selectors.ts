@@ -2,7 +2,7 @@
 import objectAssign from 'object-assign';
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
-import type { AutoTagRule, email_template_state } from './types';
+import type { AutoTagRule, SmartList, email_template_state } from './types';
 import { RootState } from '../../reducers';
 import { getEnabledCadencesList } from '#libs/sequential_marketingDEPRECATED/selectors';
 
@@ -18,8 +18,9 @@ export const getAllSmartList = createSelector(
   (smartListDict, IdList) => Immutable(IdList.map((id) => smartListDict[id])),
 );
 
-export const getSmartList = (state: RootState, id: number): any =>
+export const getSmartList = (state: RootState, id: number): SmartList =>
   state.smartList.byId[id];
+
 export const getFreshSmartListIds = createSelector(getAllSmartList, (sl) =>
   sl.map((list) => list.id),
 );

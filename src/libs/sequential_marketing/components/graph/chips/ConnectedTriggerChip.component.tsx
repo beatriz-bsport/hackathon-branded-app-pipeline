@@ -1,10 +1,6 @@
 import React, { useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  ConnectedTrigger,
-  TriggerEventConfig,
-} from '#libs/sequential_marketing/types';
-import { CadenceChip } from './CadenceChip.component';
+
 import {
   TriggerText,
   getEventCategoryIconAsString,
@@ -14,7 +10,13 @@ import {
   TriggerKind,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
+import { CadenceChip } from './CadenceChip.component';
 import { CustomMuiIcon } from '#components/icons/CustomMuiIcon.component';
+
+import type {
+  ConnectedTrigger,
+  TriggerEventConfig,
+} from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
 
 export type ConnectedTriggerChipProps = {

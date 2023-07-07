@@ -16,7 +16,7 @@ export const CadenceChip: React.FC<CadenceChipProps> = ({
   icon,
   color,
   withBackground = true,
-  blackText,
+  blackText = true,
 }) => {
   const classes = useStyles();
 

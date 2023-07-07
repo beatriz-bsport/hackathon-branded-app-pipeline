@@ -3,6 +3,11 @@ export enum MarketingActionKind {
   TAG = 'TAG',
 }
 
+export const CADENCE_MARKETING_ACTION_KIND_CHOICES = [
+  MarketingActionKind.COMMUNICATION,
+  MarketingActionKind.TAG,
+];
+
 export enum MarketingActions {
   CADENCE_MARKETING_ACTION_WRITTEN_EMAIL = 1,
   CADENCE_MARKETING_ACTION_SMS = 2,

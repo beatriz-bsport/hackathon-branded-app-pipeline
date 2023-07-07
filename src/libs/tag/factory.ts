@@ -1,6 +1,7 @@
 // @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
+import { generateRandomInt } from '../../utils/factories';
 import { Tag, TagGroup } from './types';
 
 const random_hex_color_code = () => {
@@ -14,22 +15,37 @@ FactoryBot.define('Tag', {
   id: FactoryBot.sequence(),
   name: () => faker.lorem.word(2),
   group: () => ({
-    id: Math.floor(Math.random() * 1000),
+    id: generateRandomInt(1000),
     name: faker.lorem.word(),
-    kind: Math.floor(Math.random() * 1000),
+    kind: generateRandomInt(400),
   }),
   color: () => random_hex_color_code(),
   icon: () => iconNameList[Math.floor(Math.random() * iconNameList.length)],
 });
 
+export const tagWithoutGroupFactory = (): Tag => {
+  return {
+    id: generateRandomInt(1000),
+    name: faker.lorem.words(2),
+    group: generateRandomInt(1000),
+    color: faker.internet.color(),
+    icon: '',
+  };
+};
+
+export const tagWithoutGroupListFactory = (num_el: number): Tag[] => {
+  const tagItemsList = new Array(num_el).fill(0);
+  return tagItemsList.map(() => tagWithoutGroupFactory());
+};
+
 export const tagFactory = (): Partial<Tag<TagGroup>> => {
   return {
-    id: Math.floor(Math.random() * 1000),
+    id: generateRandomInt(1000),
     name: faker.lorem.words(2),
     group: {
-      id: Math.floor(Math.random() * 1000),
+      id: generateRandomInt(1000),
       name: faker.lorem.word(),
-      kind: Math.floor(Math.random() * 1000),
+      kind: generateRandomInt(400),
       tags: [],
     },
     color: faker.internet.color(),

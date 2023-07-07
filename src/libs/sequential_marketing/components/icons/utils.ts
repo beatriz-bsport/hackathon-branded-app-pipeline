@@ -18,10 +18,18 @@ import {
   FilterIdentifier,
   TriggerKind,
   UNKNOWN_TRIGGER_KIND,
+  MarketingActionKind,
+  MarketingActions,
 } from '#libs/sequential_marketing/constants';
 
-import type { ConnectedTrigger } from '../../types';
+import type {
+  ConnectedTrigger,
+  StepMarketingActions,
+  StepMarketingActionsCommunicationSpec,
+  StepMarketingActionsTagSpec,
+} from '../../types';
 import type { SmartList } from '#libs/smart-list/types';
+import { MarketingActionChipProps } from '../graph/chips/MarketingActionChip.component';
 
 type TriggerIconProps = {
   connected_trigger_config: ConnectedTrigger;
@@ -33,8 +41,7 @@ type TriggerTextProps = {
 };
 
 /**
- * @description Dictionnary linking each cadence event category to
- * the corresponding SvgIcon
+ * @description Dictionnary linking each cadence event category to its corresponding SvgIcon
  */
 const categoryIconDict: {
   [key in EventsCategory]: typeof SvgIcon;
@@ -47,8 +54,7 @@ const categoryIconDict: {
 };
 
 /**
- * @description Dictionnary linking each cadence event category to
- * the corresponding icon name
+ * @description Dictionnary linking each cadence event category to its corresponding icon name
  */
 const categoryStringIconDict = {
   [EventsCategory.CADENCE_EVENT_PURCHASE_CATEGORY]: 'ShoppingCart',
@@ -59,8 +65,7 @@ const categoryStringIconDict = {
 };
 
 /**
- * @description Dictionnary linking each cadence event category to
- * the corresponding naming key for translation
+ * @description Dictionnary linking each cadence event category to its corresponding naming key for translation
  */
 const categoryChipDict: { [key in EventsCategory]: string } = {
   [EventsCategory.CADENCE_EVENT_PURCHASE_CATEGORY]: 'purchase_chip',
@@ -71,14 +76,25 @@ const categoryChipDict: { [key in EventsCategory]: string } = {
 };
 
 /**
- * @description Dictionnary linking each cadence trigger kind to
- * the corresponding icon name
+ * @description Dictionnary linking each cadence trigger kind to its corresponding icon name
  */
 const triggerIconByKind: { [key in TriggerKind]: string } = {
   [TriggerKind.ONLY_EVENT_TRIGGER]: 'OfflineBolt',
   [TriggerKind.ONLY_SMARTLIST_FILTERING]: 'People',
   [TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING]: 'TriggeredPerson',
   [TriggerKind.ONLY_TIMEOUT]: 'Timer',
+};
+
+/**
+ * @description Dictionnary linking each MarketingAction to its corresponding icon name
+ */
+const marketingActionIconDict: { [key in MarketingActions]: string } = {
+  [MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL]: 'Mail',
+  [MarketingActions.CADENCE_MARKETING_ACTION_SMS]: 'Textsms',
+  [MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION]:
+    'Notifications',
+  [MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT]: 'Label',
+  [MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE]: 'LibraryBooks',
 };
 
 /** Get the SvgIcon which corresponds to the eventType in parameter
@@ -132,8 +148,8 @@ export const getEventCategoryIconAsString: (eventType: Events) => string = (
   return 'Error';
 };
 
-/** Function returning the SvgIcon which corresponds to the connected trigger in parameter
- * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
+/** Function returning the SvgIcon which corresponds to the ConnectedTrigger in parameter
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence ConnectedTrigger config
  * @returns {SvgIcon} - Return the corresponding SvgIcon
  */
 export const TriggerIcon = ({ connected_trigger_config }: TriggerIconProps) => {
@@ -154,8 +170,8 @@ export const TriggerIcon = ({ connected_trigger_config }: TriggerIconProps) => {
   }
 };
 
-/** Function returning the naming translation key which corresponds to the connected trigger in parameter
- * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
+/** Function returning the naming translation key which corresponds to the ConnectedTrigger in parameter
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence ConnectedTrigger config
  * @param {SmartList} smartlist - Smartlist used in connected_trigger_config filtering
  * @returns {string} - Return the corresponding naming used as key for translation
  */
@@ -190,8 +206,8 @@ export const TriggerText = ({
   }
 };
 
-/** Get the trigger kind of the connected trigger in parameter
- * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
+/** Get the trigger kind of the ConnectedTrigger in parameter
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence ConnectedTrigger config
  * @returns {string} - Return the kind of the trigger passed in paramater or UNKNOWN_TRIGGER_KIND if not recognized
  */
 export const getTriggerKind = (connected_trigger_config: ConnectedTrigger) => {
@@ -219,13 +235,77 @@ export const getTriggerKind = (connected_trigger_config: ConnectedTrigger) => {
   }
 };
 
-/** Get the icon name which corresponds to the connected trigger in parameter
- * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
- * @returns {string} - Return the icon name of the trigger passed in paramater depending
- *                     on the trigger kind. If the trigger kind is not recognized, return
- *                     the EVENT icon name.
+/** Get the icon name which corresponds to the ConnectedTrigger in parameter
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence ConnectedTrigger config
+ * @returns {string} - Return the icon name of the trigger passed in paramater depending on the trigger kind.
+ *                     If the trigger kind is not recognized, return the EVENT icon name.
  */
 export const getTriggerIcon = (connected_trigger_config: ConnectedTrigger) => {
   const kind = getTriggerKind(connected_trigger_config);
   return triggerIconByKind[kind === UNKNOWN_TRIGGER_KIND ? 0 : kind];
+};
+
+/** Get the icon name which corresponds to the StepMarketingAction in parameter
+ * @param {StepMarketingActions} marketingAction - Cadence StepMarketingAction
+ * @returns {string} - Return the icon name of the StepMarketingAction passed in paramater.
+ *                     If the StepMarketingAction kind is not recognized, return the SMS icon name.
+ */
+export const getMarketingActionChipIcon = (
+  marketingAction: StepMarketingActions,
+) => {
+  let actionSpec = marketingAction?.action_spec;
+
+  switch (marketingAction?.kind) {
+    case MarketingActionKind.TAG:
+      return marketingActionIconDict[
+        MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT
+      ];
+    case MarketingActionKind.COMMUNICATION:
+      actionSpec =
+        marketingAction?.action_spec as StepMarketingActionsCommunicationSpec;
+      return marketingActionIconDict[actionSpec.communication_kind];
+    default:
+      return marketingActionIconDict[
+        MarketingActions.CADENCE_MARKETING_ACTION_SMS
+      ];
+  }
+};
+
+/** Function returning the naming for the StepMarketingAction in parameter
+ * @param {StepMarketingActions} marketingAction - Cadence StepMarketingAction
+ * @param {(id: string) => Tag} getTag - Tag getter for the marketingAction if kind is MarketingActionKind.TAG
+ * @param {(id: string) => EmailTemplateSummary} getEmailTemplate - EmailTemplate getter for the marketingAction
+ * @returns {string} - Return the corresponding naming for the chip
+ */
+export const getMarketingActionChipName = ({
+  marketingAction,
+  getTag,
+  getEmailTemplate,
+}: Partial<MarketingActionChipProps>) => {
+  let actionSpec = marketingAction?.action_spec;
+
+  switch (marketingAction?.kind) {
+    case MarketingActionKind.TAG:
+      actionSpec = marketingAction.action_spec as StepMarketingActionsTagSpec;
+      return !!getTag && getTag(actionSpec?.tag_id?.toString())?.name;
+    case MarketingActionKind.COMMUNICATION:
+      actionSpec =
+        marketingAction.action_spec as StepMarketingActionsCommunicationSpec;
+      switch (actionSpec.communication_kind) {
+        case MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL:
+        case MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION:
+          return actionSpec?.subject;
+        case MarketingActions.CADENCE_MARKETING_ACTION_SMS:
+          return actionSpec?.text_content;
+        case MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE:
+          return (
+            !!getEmailTemplate &&
+            getEmailTemplate(actionSpec?.email_design.toString())?.title
+          );
+        default:
+          return null;
+      }
+    default:
+      return null;
+  }
 };

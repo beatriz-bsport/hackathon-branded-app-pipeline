@@ -659,6 +659,7 @@ export default compose(
     refreshBasket:
       ({
         fetchCurrentBasket,
+        fetchInstalmentPaymentByBasket,
         companyId,
         fetchOfferWithEstablishmentAndActivityBulk,
       }) =>
@@ -669,6 +670,7 @@ export default compose(
             if (options && options.onSuccess) {
               options.onSuccess();
             }
+            fetchInstalmentPaymentByBasket(basket.id);
             const offerIdsList = basket.checkout_items
               ?.filter(
                 (checkoutItem) =>

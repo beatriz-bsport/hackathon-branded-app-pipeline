@@ -148,11 +148,16 @@ export function formatAsTitle(date: string) {
 /**
  * Send back a new array sorted by the key for collection or directly in case of list
  */
-export function sortByDate<T, K extends keyof T>(values: T[], key?: K) {
+export function sortByDate<T, K extends keyof T>(
+  values: T[],
+  key?: K,
+  decreasingOrder?: boolean,
+) {
   if (!values) return [];
   if (key) {
+    const factor = decreasingOrder ? -1 : 1;
     return [...values].sort((a, b) =>
-      moment(a?.[key]).isBefore(moment(b?.[key])) ? -1 : 1,
+      moment(a?.[key]).isBefore(moment(b?.[key])) ? -1 * factor : 1 * factor,
     );
   }
 

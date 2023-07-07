@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { generateRandomInt } from '../../utils/factories';
 
 const names = [
@@ -74,6 +73,17 @@ export const basketFactory = (nb_items: number) => {
     city: 'Paris',
     available_payment_methods: [0],
     total_price_prepaid_lines: 0,
-    prepaid_lines: [],
+    prepaid_lines: [] as number[],
+    invoice: generateRandomInt(2) === 1 ? '123456' : undefined,
+    is_fully_paid: generateRandomInt(2) === 1 ? true : undefined,
+    date_created: new Date().toISOString(),
+    date_updated: new Date().toISOString(),
   };
+};
+
+export const createManyBaskets = (amount = 1) => {
+  const basketsIds = [...Array(amount).keys()];
+  return basketsIds.map(() => {
+    return basketFactory(generateRandomInt(10, 1));
+  });
 };

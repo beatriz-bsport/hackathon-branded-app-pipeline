@@ -7146,6 +7146,82 @@
       "emailColumn": "Email",
       "actionColumn": "Action",
       "noResult": "Aucun accès créé"
+    },
+    "interface": {
+      "seller": "Vendeur",
+      "anonymousSale": "Vente anonyme",
+      "searchAProduct": "Rechercher un produit",
+      "noResult": "Aucun résultat",
+      "resultsForString": "{{ count }} résultat pour \"{{ searchText }}\"",
+      "resultsForString_plural": "{{ count }} résultats pour \"{{ searchText }}\"",
+      "goBack": "Retour",
+      "totalExcludingTax": "Total HT",
+      "taxes": "Taxes",
+      "totalIncludingTax": "Total",
+      "payment": "Paiement",
+      "selectItemToStart": "Cliquez sur un objet pour commencer un panier",
+      "memberModal": { "title": "Identification du membre", "confirm": "Enregistrer", "cancel": "Annuler" },
+      "authenticationNecessary": "L'authentification d'un membre est nécessaire pour cette section.",
+      "ongoingBaskets": {
+        "title": "Paniers en cours",
+        "subText": "Des factures sont en cours, veuillez les fermer avant de vous déconnecter."
+      },
+      "deleteCurrentBasket": {
+        "title": "Suppression du panier en cours",
+        "subText": "Êtes-vous sûr de vouloir supprimer le panier actuel ?",
+        "cancel": "Annuler",
+        "delete": "Supprimer"
+      },
+      "payLater": {
+        "title": "Remettre à plus tard",
+        "subText": "Ce panier est déjà partiellement payé. En le fermant, vous remettez le reste du paiement à plus tard. Vous pourrez retrouver la facture sur le backoffice.",
+        "cancel": "Annuler",
+        "payLater": "Remettre à plus tard"
+      },
+      "cannotEdit": {
+        "title": "Modifications impossibles",
+        "subText": "Le panier ne peut plus être modifié car il a déjà été partiellement payé.",
+        "payment": "Paiement"
+      },
+      "scannerMode": { "title": "Mode scanner", "subText": "Scannez des articles pour les ajouter au panier.", "done": "Terminer" },
+      "objectAdded": { "title": "Objet ajouté", "subText": "L'objet a bien été ajouté au panier." },
+      "outOfStock": {
+        "title": "Plus de stock",
+        "subText": "Le produit que vous tentez d'ajouter au panier n'est plus en stock dans votre établiussement. Voulez-vous tout de même l'ajouter ?",
+        "addAnyway": "Ajouter quand même"
+      },
+      "cannotAdd": {
+        "title": "Ajout impossible",
+        "subTextListItem": "Malheureusement, l'article n'a pas pu être ajouté car",
+        "newMember": { "subText": "{{ optionalBeginning }} {{ name }} n'est pas un nouveau membre." },
+        "tag": {
+          "hasTag": "{{ optionalBeginning }} {{ name }} possède le tag {{ tagName }}.",
+          "doesNotHaveTag": "{{ optionalBeginning }} {{ name }} ne possède pas le tag {{ tagName }}.",
+          "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{ name }} possède le tag {{ ownedTagName }} et ne possède pas le tag {{ notOwnedTagName }}."
+        }
+      },
+      "authenticationRequired": {
+        "title": "Identification nécessaire",
+        "subTextListItem": "L'article que vous souhaitez ajouter est",
+        "bottomSubText": "Sans identification du membre, les vérifications nécessaires ne peuvent être faites.",
+        "identifyMember": "Identifier un membre",
+        "newMember": {
+          "subText": "L'article que vous souhaitez ajouter est réservé aux nouveaux membres.",
+          "subTextListItem": "Réservé aux nouveaux membres"
+        },
+        "maxPurchase": {
+          "subText": "L'article que vous souhaitez ajouter est soumis à une limitation du nombre d'achats.",
+          "subTextListItem": "Soumis à une limitation du nombre d'achats"
+        },
+        "tag": {
+          "subText": "L'article que vous souhaitez ajouter est réservé aux membres possédant certains tags.",
+          "subTextListItem": "Réservé aux membres possédant certains tags"
+        }
+      },
+      "itemsRemovedFromBasket": {
+        "title": "Items retirés du panier",
+        "subText": "Lors du changement de membre, certains items ont été retirés du panier car ils ne sont pas compatibles avec le nouveau membre."
+      }
     }
   },
   "relationship": {

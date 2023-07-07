@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 // we import from src and not lib bvecause there is some shittery happening that
@@ -22,27 +21,34 @@ import {
   fetchBasketHistoryList as fetchBasketHistoryListAPI,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAPI,
   assignInstalmentPayment as assignInstalmentPaymentAPI,
+  fetchOpenQuicksaleBaskets as fetchOpenQuicksaleBasketsAPI,
+  createQuicksaleBasket as createQuicksaleBasketAPI,
+  updateQuicksaleBasketMember as updateQuicksaleBasketMemberAPI,
+  dropQuicksaleBasket as dropQuicksaleBasketAPI,
 } from './api';
 import { getCurrentBasket } from './selectors';
-import { snackbarError } from '../snackbar/actions';
+import { snackbarError } from '#libs/snackbar/actions';
 
-import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
-import { RootState } from '../../reducers';
+import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import type { RootState } from '../../reducers';
 import type {
   AddItemToBasketParams,
   CheckoutItemData,
   Basket,
   BasketAddress,
+  GeneratedObject,
+  QuicksaleMemberUpdateResponse,
 } from './types';
+// @ts-expect-error
 import { COMPANY_EVENTS } from './event.utils';
 import { fetchEventList } from '#libs/event/actions';
-import { EventListParams } from '#libs/event/types';
+import type { EventListParams } from '#libs/event/types';
 
 export const currentBasket = {
-  error: createAction('CHECKOUT_BASKET/CURRENT/ERROR'),
-  isLoading: createAction('CHECKOUT_BASKET/CURRENT/IS_LOADING'),
-  isUpdating: createAction('CHECKOUT_BASKET/CURRENT/IS_UPDATING'),
-  success: createAction('CHECKOUT_BASKET/CURRENT/SUCCESS'),
+  error: createAction<Error>('CHECKOUT_BASKET/CURRENT/ERROR'),
+  isLoading: createAction<boolean>('CHECKOUT_BASKET/CURRENT/IS_LOADING'),
+  isUpdating: createAction<boolean>('CHECKOUT_BASKET/CURRENT/IS_UPDATING'),
+  success: createAction<Basket>('CHECKOUT_BASKET/CURRENT/SUCCESS'),
 };
 
 export function fetchCurrentBasket(
@@ -68,9 +74,11 @@ export function fetchCurrentBasket(
 }
 
 export const createOrRefreshInternalAccountPrepaidLineActions = {
-  error: createAction('CHECKOUT_BASKET/CREATE_PREPAID_LINE/ERROR'),
-  isLoading: createAction('CHECKOUT_BASKET/CREATE_PREPAID_LINE/IS_LOADING'),
-  success: createAction('CHECKOUT_BASKET/CREATE_PREPAID_LINE/SUCCESS'),
+  error: createAction<Error>('CHECKOUT_BASKET/CREATE_PREPAID_LINE/ERROR'),
+  isLoading: createAction<boolean>(
+    'CHECKOUT_BASKET/CREATE_PREPAID_LINE/IS_LOADING',
+  ),
+  success: createAction<Basket>('CHECKOUT_BASKET/CREATE_PREPAID_LINE/SUCCESS'),
 };
 export function createOrRefreshInternalAccountPrepaidLine(
   basket_uuid: string,
@@ -120,9 +128,9 @@ export function createOrRefreshInternalAccountPrepaidLine(
 }
 
 export const retrieveBasket = {
-  error: createAction('CHECKOUT_BASKET/RETRIEVE/ERROR'),
-  isLoading: createAction('CHECKOUT_BASKET/RETRIEVE/IS_LOADING'),
-  success: createAction('CHECKOUT_BASKET/RETRIEVE/SUCCESS'),
+  error: createAction<Error>('CHECKOUT_BASKET/RETRIEVE/ERROR'),
+  isLoading: createAction<boolean>('CHECKOUT_BASKET/RETRIEVE/IS_LOADING'),
+  success: createAction<Basket>('CHECKOUT_BASKET/RETRIEVE/SUCCESS'),
 };
 
 export function fetchBasket(
@@ -160,6 +168,7 @@ export function attachPayment(data: any, options: OptionCallback): ThunkAction {
       if (response.data.is_finalized) {
         dispatch(currentBasket.success(response.data));
       }
+      // @ts-expect-error: would imply too many changes
       if (options && options.onSuccess) options.onSuccess(response);
     } catch (error) {
       dispatch(currentBasket.error(error));
@@ -184,6 +193,7 @@ export function attachPaymentToBasketId(
       if (response.data.is_finalized) {
         dispatch(currentBasket.success(response.data));
       }
+      // @ts-expect-error: would imply too many changes
       if (options && options.onSuccess) options.onSuccess(response);
     } catch (error) {
       dispatch(currentBasket.error(error));
@@ -197,7 +207,7 @@ export function attachPaymentToBasketId(
 export function addItemToBasket(
   basketId: string,
   data: CheckoutItemData,
-  options?: OptionCallback,
+  options?: OptionCallback<Basket>,
   params?: AddItemToBasketParams,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
@@ -207,7 +217,7 @@ export function addItemToBasket(
     try {
       const response = await addItemToBasketAPI(basketId, data, params);
       dispatch(currentBasket.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(currentBasket.error(error));
       if (
@@ -242,7 +252,7 @@ export function removeItemFromBasket(
     checkout_item: string;
     quantity: number;
   },
-  options: OptionCallback,
+  options: OptionCallback<Basket>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(currentBasket.isLoading(true));
@@ -339,9 +349,13 @@ export function attachCoupon(
 }
 
 export const generatedObjectsActions = {
-  error: createAction('CHECKOUT_BASKET/GENERATED_OBJECTS/ERROR'),
-  isLoading: createAction('CHECKOUT_BASKET/GENERATED_OBJECTS/IS_LOADING'),
-  success: createAction('CHECKOUT_BASKET/GENERATED_OBJECTS/SUCCESS'),
+  error: createAction<Error>('CHECKOUT_BASKET/GENERATED_OBJECTS/ERROR'),
+  isLoading: createAction<boolean>(
+    'CHECKOUT_BASKET/GENERATED_OBJECTS/IS_LOADING',
+  ),
+  success: createAction<GeneratedObject[]>(
+    'CHECKOUT_BASKET/GENERATED_OBJECTS/SUCCESS',
+  ),
 };
 
 export function fetchBasketGeneratedObjects(
@@ -382,14 +396,14 @@ export const fetchBasketEventList = (
   );
 
 export const basketHistoryActions = {
-  error: createAction('CHECKOUT_BASKET/HISTORY/ERROR'),
-  isLoading: createAction('CHECKOUT_BASKET/HISTORY/IS_LOADING'),
-  success: createAction('CHECKOUT_BASKET/HISTORY/SUCCESS'),
+  error: createAction<Error>('CHECKOUT_BASKET/HISTORY/ERROR'),
+  isLoading: createAction<boolean>('CHECKOUT_BASKET/HISTORY/IS_LOADING'),
+  success: createAction<Basket[]>('CHECKOUT_BASKET/HISTORY/SUCCESS'),
 };
 
 export function fetchBasketHistoryList(
   memberId: number,
-  options?: OptionCallback,
+  options?: OptionCallback<Basket[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(basketHistoryActions.isLoading(true));
@@ -408,14 +422,16 @@ export function fetchBasketHistoryList(
   };
 }
 export const assignInstalmentPaymentActions = {
-  error: createAction('CHECKOUT_BASKET/ASSIGN_INSTALMENT/ERROR'),
-  isLoading: createAction('CHECKOUT_BASKET/ASSIGN_INSTALMENT/IS_LOADING'),
-  success: createAction('CHECKOUT_BASKET/ASSIGN_INSTALMENT/SUCCESS'),
+  error: createAction<Error>('CHECKOUT_BASKET/ASSIGN_INSTALMENT/ERROR'),
+  isLoading: createAction<boolean>(
+    'CHECKOUT_BASKET/ASSIGN_INSTALMENT/IS_LOADING',
+  ),
+  success: createAction<Basket>('CHECKOUT_BASKET/ASSIGN_INSTALMENT/SUCCESS'),
 };
 
 export function assignInstalmentPayment(
   basketId: string,
-  instalment_payment,
+  instalment_payment: number,
   options?: OptionCallback<Basket>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -435,5 +451,130 @@ export function assignInstalmentPayment(
     }
 
     dispatch(assignInstalmentPaymentActions.isLoading(false));
+  };
+}
+
+export const fetchQuicksaleBasketsActions = {
+  error: createAction<Error>('CHECKOUT_BASKET/QUICKSALE_FETCH/ERROR'),
+  isLoading: createAction<boolean>(
+    'CHECKOUT_BASKET/QUICKSALE_FETCH/IS_LOADING',
+  ),
+  success: createAction<Basket[]>('CHECKOUT_BASKET/QUICKSALE_FETCH/SUCCESS'),
+};
+
+export function fetchOpenQuicksaleBaskets(
+  options?: OptionCallback<Basket[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchQuicksaleBasketsActions.isLoading(true));
+    dispatch(fetchQuicksaleBasketsActions.error(null));
+
+    try {
+      const response = await fetchOpenQuicksaleBasketsAPI();
+      dispatch(fetchQuicksaleBasketsActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(fetchQuicksaleBasketsActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+
+    dispatch(fetchQuicksaleBasketsActions.isLoading(false));
+  };
+}
+
+export const createQuicksaleBasketActions = {
+  error: createAction<Error>('CHECKOUT_BASKET/QUICKSALE_CREATE/ERROR'),
+  isLoading: createAction<boolean>(
+    'CHECKOUT_BASKET/QUICKSALE_CREATE/IS_LOADING',
+  ),
+  success: createAction<Basket>('CHECKOUT_BASKET/QUICKSALE_CREATE/SUCCESS'),
+};
+
+export function createQuicksaleBasket(
+  options?: OptionCallback<Basket>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(createQuicksaleBasketActions.isLoading(true));
+    dispatch(createQuicksaleBasketActions.error(null));
+
+    try {
+      const response = await createQuicksaleBasketAPI();
+      dispatch(createQuicksaleBasketActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(createQuicksaleBasketActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+
+    dispatch(createQuicksaleBasketActions.isLoading(false));
+  };
+}
+
+export const updateQuicksaleBasketMemberActions = {
+  error: createAction<Error>('CHECKOUT_BASKET/QUICKSALE_UPDATE_MEMBER/ERROR'),
+  isLoading: createAction<boolean>(
+    'CHECKOUT_BASKET/QUICKSALE_UPDATE_MEMBER/IS_LOADING',
+  ),
+  success: createAction<{
+    updated_member: boolean;
+    basket: Basket;
+  }>('CHECKOUT_BASKET/QUICKSALE_UPDATE_MEMBER/SUCCESS'),
+};
+
+export function updateQuicksaleBasketMember(
+  basketId: string,
+  memberId: number,
+  options?: OptionCallback<QuicksaleMemberUpdateResponse>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateQuicksaleBasketMemberActions.isLoading(true));
+    dispatch(updateQuicksaleBasketMemberActions.error(null));
+
+    try {
+      const response = await updateQuicksaleBasketMemberAPI(basketId, memberId);
+      dispatch(
+        updateQuicksaleBasketMemberActions.success({
+          updated_member: response.data.updated_member,
+          basket: response.data.basket,
+        }),
+      );
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(updateQuicksaleBasketMemberActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+
+    dispatch(updateQuicksaleBasketMemberActions.isLoading(false));
+  };
+}
+
+export const dropQuicksaleBasketActions = {
+  error: createAction<Error>('CHECKOUT_BASKET/QUICKSALE_DROP/ERROR'),
+  isLoading: createAction<boolean>('CHECKOUT_BASKET/QUICKSALE_DROP/IS_LOADING'),
+  success: createAction<{ dropped: boolean; basketId: string }>(
+    'CHECKOUT_BASKET/QUICKSALE_DROP/SUCCESS',
+  ),
+};
+
+export function dropQuicksaleBasket(
+  basketId: string,
+  options?: OptionCallback<{ dropped: boolean }>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(dropQuicksaleBasketActions.isLoading(true));
+    dispatch(dropQuicksaleBasketActions.error(null));
+
+    try {
+      const response = await dropQuicksaleBasketAPI(basketId);
+      dispatch(
+        dropQuicksaleBasketActions.success({ ...response.data, basketId }),
+      );
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(dropQuicksaleBasketActions.error(error));
+      if (options && options.onError) options.onError();
+    }
+
+    dispatch(dropQuicksaleBasketActions.isLoading(false));
   };
 }

@@ -7,6 +7,7 @@ import type {
   DestinationKind,
   DestinationStatus,
   MarketingActionKind,
+  MarketingActions,
 } from './constants';
 
 // ========== BACKEND MODELS & JSON SPECIFICATIONS ==========
@@ -92,7 +93,7 @@ export type StepMarketingActionsCommunicationSpec = {
   email_design: number | null;
   text_content: string | null;
   subject: string | null;
-  communication_kind: MarketingActionKind;
+  communication_kind: MarketingActions;
 };
 
 export type StepMarketingActionsTagSpec = {
@@ -136,12 +137,12 @@ export type SequentialMarketingState = {
 } & ErrorAndLoading;
 
 export type CadenceState = {
-  allIds: Array<number>;
+  allIds: number[];
   byId: { [id: number]: Cadence };
 } & ErrorAndLoading;
 
 export type CadenceStepState = {
-  allIds: Array<number>;
+  allIds: number[];
   byId: { [id: number]: CadenceStep };
   subscribe: ErrorAndLoading;
   position: ErrorAndLoading;
@@ -149,14 +150,14 @@ export type CadenceStepState = {
 } & ErrorAndLoading;
 
 export type MarketingActionState = {
-  allIds: [];
+  allIds: number[];
   byId: { [id: number]: StepMarketingActions };
   byStepId: { [id: number]: StepMarketingActions[] };
   upsert: ErrorAndLoading;
 } & ErrorAndLoading;
 
 export type TriggerState = {
-  allIds: [];
+  allIds: number[];
   byId: { [id: number]: ConnectedTrigger };
 } & ErrorAndLoading;
 

@@ -1,6 +1,5 @@
 import { ErrorAndLoading } from '../../state/types';
 
-// @ts-nocheck
 export type EmailTemplateSummary = {
   id: number;
   date_created?: string;

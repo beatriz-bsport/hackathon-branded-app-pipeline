@@ -345,6 +345,7 @@ export class PaymentPackList extends React.Component<Props, State> {
             onRestore={() => this.restorePaymentPack(pack.id)}
             key={pack.id}
             disabled
+            creditScaleFactor={this.props.theme.pass_credit_factor}
           />
         ))}
       </List>
@@ -479,6 +480,7 @@ export class PaymentPackList extends React.Component<Props, State> {
             }
             initial={this.state.paymentPackToEdit}
             privateServices={this.props.privateServices}
+          creditFactor={this.props.theme.pass_credit_factor}
             compatibleServicePass={this.props.compatibleServicePass}
             allowGuestMaster={
               this.props.theme.allow_guest_activatable &&
@@ -560,6 +562,7 @@ export class PaymentPackList extends React.Component<Props, State> {
                       }
                       onRestore={() => this.restorePaymentPack(pack.id)}
                       key={pack.id}
+                    creditScaleFactor={this.props.theme.pass_credit_factor}
                     />
                   ))}
                 </List>
@@ -687,6 +690,7 @@ export class PaymentPackList extends React.Component<Props, State> {
             initial={this.state.paymentPackToEdit}
             privateServices={this.props.privateServices}
             compatibleServicePass={this.props.compatibleServicePass}
+            creditScaleFactor={this.props.theme.pass_credit_factor}
             allowGuestMaster={
               this.props.theme.allow_guest &&
               this.props.theme.allow_guest_activatable

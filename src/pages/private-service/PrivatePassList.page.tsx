@@ -381,6 +381,7 @@ export class PrivatePassList extends React.Component<Props, State> {
               categoryList={paymentPackCategoryList}
               establishmentList={establishmentList}
               metaActivityList={metaActivities}
+              creditScaleFactor={this.props.theme.pass_credit_factor}
             />
           </GenericResponsiveDrawer>
         </div>
@@ -549,6 +550,7 @@ export class PrivatePassList extends React.Component<Props, State> {
             categoryList={paymentPackCategoryList}
             establishmentList={establishmentList}
             metaActivityList={metaActivities}
+            creditScaleFactor={this.props.theme.pass_credit_factor}
           />
         </GenericResponsiveDrawer>
         <PrivatePassDeleteDialog

@@ -89,6 +89,7 @@ export const PaymentPackFormDrawer = (props: Props) => {
         privateServices={privateServices}
         compatibleServicePass={compatibleServicePass}
         allowGuestMaster={!!allowGuestMaster}
+        creditScaleFactor={props.creditScaleFactor}
       />
     </GenericResponsiveDrawer>
   );

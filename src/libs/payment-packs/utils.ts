@@ -249,11 +249,12 @@ export const getCreditInfo = (
   pack: PaymentPack | PaymentPackTemplate,
   t: TFunction,
   isManager: boolean = false,
+  creditScaleFactor: number = 1,
 ) => {
   const { unlimited, theorical_margin_value, credits } = pack;
   let creditInfo: string = '';
   if (!unlimited) {
-    creditInfo = `${credits}\u00A0${t('credits', {
+    creditInfo = `${credits/(creditScaleFactor||1)}\u00A0${t('credits', {
       count: credits,
     }).toLowerCase()}`;
   } else {

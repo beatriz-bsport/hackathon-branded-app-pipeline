@@ -74,6 +74,7 @@ type Props = {
   showVaccinationStatus: boolean,
   onModifyTags?: (offer: Offer) => void,
   companyTheme?: CompanyTheme,
+  creditScaleFactor: number,
 };
 
 type State = {
@@ -90,7 +91,7 @@ export class OfferCard extends Component<Props, State> {
   }
 
   getHeader = () => {
-    const { classes, t, offer, companyTheme } = this.props;
+    const { classes, t, offer, companyTheme, creditScaleFactor } = this.props;
     const {
       available,
       name,
@@ -114,8 +115,10 @@ export class OfferCard extends Component<Props, State> {
           <ListItemText
             primary={name || meta_activity?.name}
             secondary={
-              credit_price_override !== 1
-                ? `${credit_price_override} ${t('offer:credit_price')}`
+              credit_price_override !== 1 * creditScaleFactor
+                ? `${credit_price_override / (creditScaleFactor || 1)} ${t(
+                    'offer:credit_price',
+                  )}`
                 : null
             }
           />

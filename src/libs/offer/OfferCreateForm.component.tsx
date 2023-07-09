@@ -64,6 +64,7 @@ type ComponentProps = {
   deleteLevel?: (id: number, options?: OptionCallback) => void;
   onCancel: () => void;
   onBannerGoBack?: () => void;
+  creditScaleFactor: number;
 };
 
 type FormProps = {
@@ -100,6 +101,7 @@ export const OfferCreateForm = (props: Props) => {
     deleteLevel,
     onCancel,
     onBannerGoBack,
+    creditScaleFactor,
   } = props;
   const { t } = useTranslation('common');
   const classes = useOfferFormStyles();
@@ -255,7 +257,7 @@ const formikFormWrapper = withFormik<
   enableReinitialize: false,
   validationSchema: OfferFormCreationValidationSchema,
   validateOnBlur: false,
-  handleSubmit: (values, { props: { timezone, onSubmit } }) => {
+  handleSubmit: (values, { props: { timezone, creditScaleFactor, onSubmit } }) => {
     const {
       level,
       effectif,
@@ -295,7 +297,7 @@ const formikFormWrapper = withFormik<
       partner_max_booking_count: partnerMaxBookingCount,
       waiting_list_max_size: waitingListMaxSize,
       level,
-      credits,
+      credits: credits * (creditScaleFactor||1),
       duration_minute: durationMinute,
       broadcast_link: broadcastLink,
       coach_payment_rule: coachPaymentRule,

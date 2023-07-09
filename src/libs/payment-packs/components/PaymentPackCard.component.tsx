@@ -65,6 +65,7 @@ type OwnProps = {
   onScaleCredit: (paymentPackId: number, data: any) => void;
   isManager?: boolean;
   isExcludingTax?: boolean;
+  creditScaleFactor: number;
 };
 
 type Props = OwnProps & WithStyles & WithTranslation;
@@ -238,7 +239,7 @@ export class PaymentPackCard extends Component<Props, State> {
                     color="textSecondary"
                     className={classes.packInfo}
                   >
-                    {getCreditInfo(pack, t, isManager)}
+                    {getCreditInfo(pack, t, isManager, this.props.creditScaleFactor)}
                   </Typography>
                 </div>
               </div>

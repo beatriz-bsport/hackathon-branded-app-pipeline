@@ -13,6 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import { MaterialStyleType } from '../../../../utils/types';
 import type { PrivateSlot } from '#libs/private-service/types';
+import { getCreditFactor } from '#libs/theme/selectors';
 
 type OwnProps = {
   onBook?: () => void;
@@ -65,7 +66,7 @@ export const UnpaidPrivateConsumerPassBookerListItem = (props: Props) => {
         <DialogTitle> {t('bookerModule.unpaidBooking.header')}</DialogTitle>
         <DialogContent>
           {t('bookerModule.unpaidBooking.dialogHelper', {
-            credits: props.privateSlot?.credit || props.privateSlotCredit,
+            credits: (props.privateSlot?.credit || props.privateSlotCredit) / getCreditFactor(),
           })}
         </DialogContent>
         <DialogActions>

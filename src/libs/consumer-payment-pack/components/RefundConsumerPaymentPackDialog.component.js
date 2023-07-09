@@ -77,7 +77,7 @@ export const RefundConsumerPaymentPack = (props: Props) => {
             {!props.consumerPaymentPack.payment_pack.unlimited &&
               props.showCreditRefund && (
                 <TextField
-                  value={props.credits}
+                  value={props.credits / getCreditFactor()}
                   className={classes.field}
                   InputProps={{ inputProps: { step: 1, min: 1 } }}
                   variant="outlined"
@@ -86,7 +86,8 @@ export const RefundConsumerPaymentPack = (props: Props) => {
                   onBlur={() =>
                     props.handleCreditChange({
                       target: {
-                        value: parseInt(props.credits, 10) || 0,
+                        value:
+                          parseInt(props.credits * getCreditFactor(), 10) || 0,
                       },
                     })
                   }

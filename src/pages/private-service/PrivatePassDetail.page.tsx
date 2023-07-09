@@ -416,6 +416,7 @@ export class PrivatePassDetails extends Component<Props> {
             onCancel={() => this.props.setOpenEditForm(false)}
             privateServices={this.props.private_services}
             compatibleServicePass={this.props.compatibleServicePass}
+            creditScaleFactor={this.props.theme.pass_credit_factor}
           />
         </GenericResponsiveDrawer>
 

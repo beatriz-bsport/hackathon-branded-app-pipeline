@@ -95,6 +95,7 @@ type ComponentProps = {
   onCancel: () => void;
   onBannerGoBack?: () => void;
   fetchSimilarOffers: (id: number, params?: OfferFilterData) => void;
+  creditScaleFactor: number;
 };
 
 type FormProps = {
@@ -136,6 +137,7 @@ export const OfferEditForm = (props: Props) => {
     deleteLevel,
     onCancel,
     onBannerGoBack,
+    creditScaleFactor,
   } = props;
 
   const [editCurrentStep, setEditCurrentStep] = useState(
@@ -296,7 +298,7 @@ export const OfferEditForm = (props: Props) => {
             isOfferInGroup={isOfferInGroup}
             isEditOffer
             metaActivities={metaActivities}
-            initialOfferCredits={offer?.credit_price}
+            initialOfferCredits={offer?.credit_price ? (offer?.credit_price / (creditScaleFactor||1)) : offer?.credit_price}
             updateLevel={updateLevel}
             createLevel={createLevel}
             deleteLevel={handleDeleteLevel}
@@ -366,8 +368,8 @@ const formikFormWrapper = withFormik<
     coachPaymentRule: props.offer?.coach_payment_rule_id ?? null,
     credits:
       props.offer?.credit_price !== undefined
-        ? props.offer?.credit_price
-        : props.offer?.credits,
+        ? props.offer?.credit_price / props.creditScaleFactor
+        : props.offer?.credits / props.creditScaleFactor,
     dateIntervalStart: moment(props.offer?.date_start),
     durationMinute: props.offer?.duration_minute,
     effectif: props.offer?.effectif,
@@ -400,7 +402,7 @@ const formikFormWrapper = withFormik<
   enableReinitialize: true,
   validationSchema: OfferEditFormValidationSchema,
   validateOnBlur: false,
-  handleSubmit: (values, { props: { offer, similarOffers, onSubmit } }) => {
+  handleSubmit: (values, { props: { offer, similarOffers, onSubmit, creditScaleFactor } }) => {
     const {
       level,
       effectif,
@@ -466,9 +468,9 @@ const formikFormWrapper = withFormik<
     };
 
     if (offer.credit_price !== undefined && credits !== offer.credit_price) {
-      offerData.credit_price_override = credits;
+      offerData.credit_price_override = credits * creditScaleFactor;
     } else {
-      offerData.credits = credits;
+      offerData.credits = credits * creditScaleFactor;
     }
 
     if (roomBlueprint) {

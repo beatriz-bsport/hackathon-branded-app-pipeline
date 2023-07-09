@@ -783,6 +783,7 @@ export class Planning extends PureComponent<Props, State> {
             allowGuestMaster={this.getAllowGuestMaster()}
             zoomAppDetail={this.props.zoomAppDetail}
             editableCoachPaymentRule
+            creditScaleFactor={this.props.theme.pass_credit_factor}
           />
         </GenericResponsiveDrawer>
       );
@@ -834,6 +835,7 @@ export class Planning extends PureComponent<Props, State> {
             zoomAppDetail={this.props.zoomAppDetail}
             coachesLoading={this.props.coachesLoading}
             establishmentsLoading={this.props.establishmentsLoading}
+            creditScaleFactor={this.props.theme.pass_credit_factor}
           />
         </div>
       </GenericResponsiveDrawer>
@@ -1446,6 +1448,7 @@ export class Planning extends PureComponent<Props, State> {
                   showVaccinationStatus={this.props.showVaccinationStatus}
                   onModifyTags={this.onModifyTags}
                   companyTheme={this.props.theme}
+                  creditScaleFactor={this.props.theme.pass_credit_factor}
                 />
               </div>
             </Grid>

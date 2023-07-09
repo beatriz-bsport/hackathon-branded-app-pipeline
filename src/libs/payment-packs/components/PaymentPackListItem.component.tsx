@@ -28,6 +28,7 @@ import classNames from 'classnames';
 import Tooltip from '../../../components/Tooltip.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { getCreditFactor } from '#libs/theme/selectors';
 
 import { getValidityInfo } from '../utils';
 
@@ -54,6 +55,7 @@ type OwnProps = {
   attributes?: any;
   isExcludingTax?: boolean;
   isFlexContainerOnMobile?: boolean;
+  creditScaleFactor: number;
 };
 
 type Props = WithTranslation &
@@ -127,8 +129,8 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
           secondary={`${
             !this.props.pack.unlimited
               ? this.props.t('specifications.nbCredits', {
-                  count: this.props.pack.credits,
-                  credits: this.props.pack.credits,
+                  count: this.props.pack.credits / getCreditFactor(),
+                  credits: this.props.pack.credits / getCreditFactor()
                 })
               : this.props.t('specifications.unlimitedCredits')
           } - ${getCurrencyDisplayWithPrice(

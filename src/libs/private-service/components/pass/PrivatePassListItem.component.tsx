@@ -19,6 +19,7 @@ import type { PrivatePass } from '../../types';
 import { getValidityInfo } from '../../utils';
 import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
 import ConditionalWrapper from '#components/ConditionnalWrapper.component';
+import { getCreditFactor } from '#libs/theme/selectors';
 
 type Props = {
   pass: PrivatePass;
@@ -65,8 +66,8 @@ export const PrivatePassListItem = (props: Props) => {
           style={{ marginLeft: 10 }}
           primary={props.pass.name}
           secondary={`${t('privatePass.parameters.nbCredits', {
-            count: props.pass.credits,
-            credits: props.pass.credits,
+            count: props.pass.credits / getCreditFactor(),
+            credits: props.pass.credits / getCreditFactor(),
           })} - ${dateInfo}`}
         />
         {!props.pass.is_usable_by_staff && props.pass.available && (

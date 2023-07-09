@@ -370,6 +370,7 @@ export class PaymentPackDetail extends Component<Props, State> {
             loadingMassExtension={this.props.loadingMassExtension}
             isManager
             paymentPackCategory={paymentPackCategory?.name}
+            creditScaleFactor={this.props.theme.pass_credit_factor}
           />
           {pack?.linked_private_pass && (
             <div className={classes.compatiblePSCard}>
@@ -554,6 +555,7 @@ export class PaymentPackDetail extends Component<Props, State> {
           }}
           privateServices={this.props.privateServices}
           compatibleServicePass={this.props.compatibleServicePass}
+          creditScaleFactor={this.props.theme.pass_credit_factor}
           allowGuestMaster={
             this.props.theme?.allow_guest &&
             this.props.theme?.allow_guest_activatable

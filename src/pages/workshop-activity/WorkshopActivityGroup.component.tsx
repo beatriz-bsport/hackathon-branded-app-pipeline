@@ -576,6 +576,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
                     onDeleteButtonClick={handleOpenOfferDeleteModal}
                     onRestoreButtonClick={handleOpenOfferRestoreModal}
                     onModifyTags={handleOpenOfferEditModal}
+                    creditScaleFactor={theme.pass_credit_factor}
                   />
                 </div>
               ) : (
@@ -624,6 +625,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           onClose={handleCloseCreateModal}
           zoomAppDetail={zoomAppDetail}
           fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
+          creditScaleFactor={theme.pass_credit_factor}
         />
         <GroupedOfferEditDrawer
           open={!!editingGroup}
@@ -648,6 +650,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
           onClose={handleCloseEditGroupModal}
           zoomAppDetail={zoomAppDetail}
           fetchSimilarOffersWithReset={fetchSimilarOffersWithReset}
+          creditScaleFactor={theme.pass_credit_factor}
         />
         {deletingGroup && (
           <GroupedOfferDeleteDialog
@@ -711,6 +714,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
               similarOffers={similarOffers}
               coachPaymentRulesByKind={coachPaymentRulesByKind}
               showPartnership={theme.has_partnership}
+              creditScaleFactor={theme.pass_credit_factor}
               tagList={allTagsWithTagGroup}
               activeCustomLevels={customLevels}
               allCustomLevels={allCustomLevels}

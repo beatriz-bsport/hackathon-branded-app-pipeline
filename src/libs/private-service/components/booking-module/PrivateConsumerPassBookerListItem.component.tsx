@@ -25,6 +25,7 @@ import type { PrivateConsumerPass } from '../../types';
 import { getPassDate, getSpecificIncompatibilitiesReasons } from '../../utils';
 import { Member } from '#libs/member/types';
 import ConsumerPrivatePassIncompatibilitiesReasons from './ConsumerPrivatePassIncompatibilitiesReasons.component';
+import { getCreditFactor } from '#libs/theme/selectors';
 
 type Props = {
   private_consumer_pass: PrivateConsumerPass<Member>;
@@ -279,9 +280,9 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
               )}
               <Typography variant="caption">
                 {t('consumerPass.current_credits', {
-                  credits: private_pass.credits,
+                  credits: private_pass.credits / getCreditFactor(),
                   current_credits:
-                    private_pass.credits - private_consumer_pass.used_credits,
+                    (private_pass.credits - private_consumer_pass.used_credits) / getCreditFactor(),
                 })}
               </Typography>
             </div>

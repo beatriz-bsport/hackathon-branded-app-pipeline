@@ -272,9 +272,10 @@ export const PrivatePassForm = (props: Props) => {
           />
         </div>
         <div className={classes.fieldBlock}>
-          <IntegerField
+          <TextField
             id="private-pass-credit-field"
             name="credits"
+            type='number'
             fullWidth
             disabled={props.initial && props.initial.editable === false}
             label={t('privatePass.form.credits.label')}
@@ -907,7 +908,7 @@ export const PrivatePassSchema = Yup.object().shape({
 });
 
 export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
-  mapPropsToValues: ({ initial }) => {
+  mapPropsToValues: ({ initial, creditScaleFactor }) => {
     if (initial && initial.id)
       return {
         ...initial,
@@ -924,6 +925,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         applies_for_payroll: initial.applies_for_payroll,
         on_behalf_of_teachr: initial.on_behalf_of_teacher,
         expiration_date_active: !!initial?.expiration_date,
+        credits: initial?.credits / (creditScaleFactor ||1),
       };
 
     return {
@@ -956,8 +958,8 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
   },
   enableReinitialize: true,
   validationSchema: PrivatePassSchema,
-  handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
-    const { linked_payment_pack, ...otherValues } = values;
+  handleSubmit: (values, { props: { onSubmit, initial, creditScaleFactor, }, setSubmitting }) => {
+    const { linked_payment_pack, credits, ...otherValues } = values;
 
     const newValues = {
       ...otherValues,
@@ -975,6 +977,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         values.expiration_date_active && values.expiration_date
           ? moment(values.expiration_date).format('YYYY-MM-DD')
           : null,
+      credits: credits * (creditScaleFactor || 1),
     };
     onSubmit(newValues, {
       onSuccess: () => {

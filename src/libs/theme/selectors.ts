@@ -46,6 +46,13 @@ export const getCompanyCountry = () => {
   }
   return key;
 };
+export const getCreditFactor = () => {
+  const key = storage.getItem('bsport:display:pass_credit_factor');
+  if (!key || key === 'null' || key === 'undefined') {
+    return 1;
+  }
+  return parseInt(key, 10);
+};
 
 /**
  * @returns the price of the product, possibly excluded from tax, with its currency.

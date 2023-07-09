@@ -51,6 +51,12 @@ export default handleActions<Immutable.Immutable<ThemeState>>(
             payload.locale.split('_')[1],
           );
         }
+        if (payload.pass_credit_factor) {
+          storage.setItem(
+            'bsport:display:pass_credit_factor',
+            payload.pass_credit_factor,
+          );
+        }
       } catch (err) {
         console.error(err);
       }

@@ -696,6 +696,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
               this.props.theme.allow_guest
             }
             editableCoachPaymentRule
+            creditScaleFactor={this.props.theme.pass_credit_factor}
           />
         </GenericResponsiveDrawer>
       </div>

@@ -149,6 +149,7 @@ export class OfferFormPage extends Component<Props, {}> {
               }
               zoomAppDetail={this.props.zoomAppDetail}
               isLoading={loading || !metaActivity}
+              creditScaleFactor={this.props.theme.pass_credit_factor}
             />
           </Paper>
         </Grid>

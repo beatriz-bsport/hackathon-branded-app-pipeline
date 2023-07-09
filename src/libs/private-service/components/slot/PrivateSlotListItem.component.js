@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { withTranslation, TFunction } from 'react-i18next';
 import { formatMinutes } from '../../../../utils/datetime';
 import withConfirm from '../../../../hocs/with-confirm.hoc';
+import { getCreditFactor } from '#libs/theme/selectors';
 
 import type { PrivateSlot } from '../../types';
 
@@ -52,7 +53,7 @@ export const PrivateSlotListItem = (props: Props) => {
             ? ''
             : ' - '.concat(
                 props.t('privateService:slot.parameters.credit', {
-                  credit: props.slot.credit,
+                  credit: props.slot.credit / getCreditFactor(),
                 }),
               )
         }`}

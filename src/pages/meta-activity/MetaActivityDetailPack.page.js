@@ -136,6 +136,7 @@ export class MetaActivityDetailPacks extends Component<state, Props> {
                     divider
                     selected={pack.id === this.props.packId}
                     onClick={() => this.props.goToPack(this.props.id, pack.id)}
+                    creditScaleFactor={this.props.theme.pass_credit_factor}
                   />
                 )}
               />
@@ -259,6 +260,7 @@ export default compose(
         page: state.consumerPaymentPack.byPaymentPack.page,
         updatingById: state.consumerPaymentPack.updatingById,
       },
+      theme: state.theme.theme,
     }),
     {
       fetchConsumerPacks: (

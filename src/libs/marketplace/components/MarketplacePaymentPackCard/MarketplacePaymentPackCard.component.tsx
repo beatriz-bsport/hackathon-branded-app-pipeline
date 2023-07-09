@@ -23,6 +23,7 @@ import type { PaymentPack } from '#libs/payment-packs/types';
 import { CardSize } from '#components/css-only/Card/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import { useValidityInfoForPaymentPackCard } from '../../utils/payment-pack';
+import { getCreditFactor } from '#libs/theme/selectors';
 
 import './styles.css';
 
@@ -50,7 +51,7 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
   const formatedCredits = paymentPack.unlimited
     ? t('genericCard.credits.unlimited')
     : t('genericCard.credits.availableCredit', {
-        count: paymentPack.credits,
+        count: paymentPack.credits / getCreditFactor(),
       });
 
   const handleAddToCart = useCallback(

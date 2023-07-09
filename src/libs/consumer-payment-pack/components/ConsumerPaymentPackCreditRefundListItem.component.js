@@ -7,6 +7,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
+import { getCreditFactor } from '#libs/theme/selectors';
 
 type Props = {
   creditRefund: ConsumerPaymentPackCreditRefund,
@@ -18,7 +19,7 @@ export const ConsumerPaymentPackCreditRefundListItem = (props: Props) => {
   const { t } = useTranslation(['paymentPack']);
   const description = props.creditRefund.credits
     ? t('consumerPaymentPack.refund.description', {
-        credits: props.creditRefund.credits,
+        credits: props.creditRefund.credits / getCreditFactor(),
         note: props.creditRefund.note,
       })
     : props.creditRefund.note;

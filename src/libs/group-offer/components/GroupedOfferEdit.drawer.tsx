@@ -55,6 +55,7 @@ export type Props = {
   handlePreviousStep: () => void;
   onClose?: () => void;
   zoomAppDetail: ZoomApp;
+  creditScaleFactor: number;
 };
 
 export const GroupedOfferEditDrawer: React.FC<Props> = ({
@@ -77,6 +78,7 @@ export const GroupedOfferEditDrawer: React.FC<Props> = ({
   deleteLevel,
   onClose,
   zoomAppDetail,
+  creditScaleFactor,
 }) => {
   const { t } = useTranslation('metaActivity');
   const classes = useStyles();
@@ -134,6 +136,7 @@ export const GroupedOfferEditDrawer: React.FC<Props> = ({
           deleteLevel={deleteLevel}
           editingLiveOffer
           zoomAppDetail={zoomAppDetail}
+          creditScaleFactor={creditScaleFactor}
         />
       </div>
     </GenericResponsiveDrawer>

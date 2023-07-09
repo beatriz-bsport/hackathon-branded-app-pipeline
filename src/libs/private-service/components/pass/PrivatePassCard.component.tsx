@@ -17,6 +17,7 @@ import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import PaymentIcon from '@material-ui/icons/Payment';
 import { useTranslation } from 'react-i18next';
 import StyleIcon from '@material-ui/icons/Style';
+import { getCreditFactor } from '#libs/theme/selectors';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -130,8 +131,8 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                       color="textSecondary"
                       className={classes.passInfo}
                     >
-                      {`${pass.credits}${t('privatePass.parameters.nbCredits', {
-                        count: pass.credits,
+                      {`${pass.credits / getCreditFactor()}${t('privatePass.parameters.nbCredits', {
+                        count: pass.credits / getCreditFactor(),
                       }).toLowerCase()}`}
                     </Typography>
                   </div>

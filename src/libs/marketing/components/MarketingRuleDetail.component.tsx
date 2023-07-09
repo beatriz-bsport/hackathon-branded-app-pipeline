@@ -20,6 +20,7 @@ import {
 } from '@material-ui/core';
 
 import { TFunction } from 'i18next';
+import { getCreditFactor } from '#libs/theme/selectors';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
@@ -219,7 +220,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
       const notificationKind = this.getPaymentPackNotificationKind(notif);
       if (notificationKind === 'creditsLeft') {
         return `${t('paymentPack:notification.creditsLeft.first')} ${
-          notif.event_rules.credits_left
+          notif.event_rules.credits_left / getCreditFactor()
         } ${t('paymentPack:notification.creditsLeft.second')}`;
       }
       return `${t(
@@ -232,7 +233,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
       const notificationKind = this.getPrivatePassNotificationKind(notif);
       if (notificationKind === 'creditsLeft') {
         return `${t('paymentPack:notification.creditsLeft.first')} ${
-          notif.event_rules.credits_left
+          notif.event_rules.credits_left / getCreditFactor()
         } ${t('paymentPack:notification.creditsLeft.second')}`;
       }
       return `${t(
@@ -281,7 +282,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
         return (
           <Typography>
             {`${t('paymentPack:notification.creditsLeft.first')} ${
-              notif.event_rules.credits_left
+              notif.event_rules.credits_left / getCreditFactor()
             } ${t('paymentPack:notification.creditsLeft.second')}`}
           </Typography>
         );
@@ -302,7 +303,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
         return (
           <Typography>
             {`${t('paymentPack:notification.creditsLeft.first')} ${
-              notif.event_rules.credits_left
+              notif.event_rules.credits_left / getCreditFactor()
             } ${t('paymentPack:notification.creditsLeft.second')}`}
           </Typography>
         );

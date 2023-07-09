@@ -18,14 +18,16 @@ import { compose } from 'recompose';
 
 import { PAYMENT_PACK_EVENT_RULE } from '@bsport/common/lib/master-data/notification-rule-events';
 import { Divider, Switch } from '@material-ui/core';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
-
 import {
+  TextField,
   IntegerField,
   RadioGroupField,
   Actions,
   Submit,
 } from '#components/forms';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { getCreditFactor } from '#libs/theme/selectors';
+
 import { MarketingNotification } from '../../types';
 import {
   PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
@@ -239,7 +241,8 @@ const ProductNotificationForm = (props: Props) => {
                 <Typography variant="body2">
                   {t('notification.creditsLeft.first')}
                 </Typography>
-                <IntegerField
+                <TextField
+                  type="number"
                   name="credits_left"
                   className={classes.textInput}
                 />
@@ -555,7 +558,7 @@ export default compose<any, Props>(
           payment_pack_id,
           private_pass_id,
           days_left: Math.abs(days_left) || 0,
-          credits_left: credits_left || 0,
+          credits_left: (credits_left || 0) / getCreditFactor(),
           smartlist_include: smartlist_include || [],
           smartlist_exclude: smartlist_exclude || [],
           hours: Math.abs(hours) || 0,
@@ -628,7 +631,8 @@ export default compose<any, Props>(
             data.event_rules.hours = values.hours;
             data.event_rules.kind = getEventRulesKind(values);
           }
-          data.event_rules.credits_left = values.credits_left;
+          data.event_rules.credits_left =
+            values.credits_left * getCreditFactor();
           break;
       }
       onSubmit(data);

@@ -27,8 +27,10 @@ import StyleIcon from '@material-ui/icons/Style';
 import classNames from 'classnames';
 import Tooltip from '../../../components/Tooltip.component';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import { getCreditFactor } from '#libs/theme/selectors';
+import {
+  getCurrencyDisplayWithPrice,
+  getCreditFactor,
+} from '../../theme/selectors';
 
 import { getValidityInfo } from '../utils';
 
@@ -130,7 +132,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
             !this.props.pack.unlimited
               ? this.props.t('specifications.nbCredits', {
                   count: this.props.pack.credits / getCreditFactor(),
-                  credits: this.props.pack.credits / getCreditFactor()
+                  credits: this.props.pack.credits / getCreditFactor(),
                 })
               : this.props.t('specifications.unlimitedCredits')
           } - ${getCurrencyDisplayWithPrice(

@@ -18,13 +18,15 @@ import Item, {
   Justification,
 } from '#components/css-only/Grid/GridItem';
 import Price from '#components/css-only/Price';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import {
+  getCurrencyDisplayWithPrice,
+  getCreditFactor,
+} from '#libs/theme/selectors';
 import type { PrivatePass } from '#libs/private-service/types';
 import { CardSize } from '#components/css-only/Card/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 
 import { useValidityInfoForPrivatePassCard } from '../../utils/private-pass';
-import { getCreditFactor } from '#libs/theme/selectors';
 import './styles.css';
 
 export type Props = {

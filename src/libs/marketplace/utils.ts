@@ -6,7 +6,11 @@ import { Immutable } from 'seamless-immutable';
 
 import Config from '../../config';
 
-import { MarketplaceOfferStatus, Offer, Offer_FULL } from '#libs/offer/types';
+import type {
+  MarketplaceOfferStatus,
+  Offer,
+  Offer_FULL,
+} from '#libs/offer/types';
 import type { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
 import type { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
 import type { OffersGroup } from '#libs/group-offer/types';

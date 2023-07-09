@@ -669,6 +669,7 @@ const OfferDialogs: React.FC<{
   handleCloseOffersModal,
   coachPaymentRulesByKind,
   offerEdited,
+  creditScaleFactor,
   handleResetEdit,
   allRoomBlueprints,
   handleEditOffer,
@@ -738,7 +739,7 @@ const OfferDialogs: React.FC<{
           zoomAppDetail={zoomAppDetail}
           editableCoachPaymentRule
           isOfferInGroup
-          creditScaleFactor={props.creditScaleFactor}
+          creditScaleFactor={creditScaleFactor}
         />
       </GenericResponsiveDrawer>
     </>

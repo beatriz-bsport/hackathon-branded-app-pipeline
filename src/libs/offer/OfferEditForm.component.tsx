@@ -298,7 +298,11 @@ export const OfferEditForm = (props: Props) => {
             isOfferInGroup={isOfferInGroup}
             isEditOffer
             metaActivities={metaActivities}
-            initialOfferCredits={offer?.credit_price ? (offer?.credit_price / (creditScaleFactor||1)) : offer?.credit_price}
+            initialOfferCredits={
+              offer?.credit_price
+                ? offer?.credit_price / (creditScaleFactor || 1)
+                : offer?.credit_price
+            }
             updateLevel={updateLevel}
             createLevel={createLevel}
             deleteLevel={handleDeleteLevel}
@@ -402,7 +406,10 @@ const formikFormWrapper = withFormik<
   enableReinitialize: true,
   validationSchema: OfferEditFormValidationSchema,
   validateOnBlur: false,
-  handleSubmit: (values, { props: { offer, similarOffers, onSubmit, creditScaleFactor } }) => {
+  handleSubmit: (
+    values,
+    { props: { offer, similarOffers, onSubmit, creditScaleFactor } },
+  ) => {
     const {
       level,
       effectif,

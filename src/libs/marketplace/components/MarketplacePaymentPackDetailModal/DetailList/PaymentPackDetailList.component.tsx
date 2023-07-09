@@ -16,15 +16,16 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import { getCreditFactor } from '#libs/theme/selectors';
+import {
+  getCreditFactor,
+  getCurrencyDisplayWithPrice,
+} from '#libs/theme/selectors';
 
 import {
   useCompatibilityInfoForPaymentPackDetailCard,
   useValidityInfoForPaymentPackCard,
   formatOffPeakScheduleOnDisplay,
 } from '#libs/marketplace/utils/payment-pack';
-
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 import './styles.css';
 

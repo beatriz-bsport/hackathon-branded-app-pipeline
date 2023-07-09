@@ -66,7 +66,9 @@ export const UnpaidPrivateConsumerPassBookerListItem = (props: Props) => {
         <DialogTitle> {t('bookerModule.unpaidBooking.header')}</DialogTitle>
         <DialogContent>
           {t('bookerModule.unpaidBooking.dialogHelper', {
-            credits: (props.privateSlot?.credit || props.privateSlotCredit) / getCreditFactor(),
+            credits:
+              (props.privateSlot?.credit || props.privateSlotCredit) /
+              getCreditFactor(),
           })}
         </DialogContent>
         <DialogActions>

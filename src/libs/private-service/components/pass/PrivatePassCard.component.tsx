@@ -17,7 +17,6 @@ import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import PaymentIcon from '@material-ui/icons/Payment';
 import { useTranslation } from 'react-i18next';
 import StyleIcon from '@material-ui/icons/Style';
-import { getCreditFactor } from '#libs/theme/selectors';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -26,9 +25,12 @@ import {
   CB,
   CREDIT_ACCOUNT,
 } from '@bsport/common/lib/master-data/payment-methods';
+import {
+  getCreditFactor,
+  getCurrencyDisplayWithPrice,
+} from '#libs/theme/selectors';
 import RedButton from '#components/button/RedButton.component';
 import { getValidityInfo } from '../../utils';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 import type { PrivatePass, PrivatePassCategory } from '../../types';
 import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
@@ -131,9 +133,12 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                       color="textSecondary"
                       className={classes.passInfo}
                     >
-                      {`${pass.credits / getCreditFactor()}${t('privatePass.parameters.nbCredits', {
-                        count: pass.credits / getCreditFactor(),
-                      }).toLowerCase()}`}
+                      {`${pass.credits / getCreditFactor()}${t(
+                        'privatePass.parameters.nbCredits',
+                        {
+                          count: pass.credits / getCreditFactor(),
+                        },
+                      ).toLowerCase()}`}
                     </Typography>
                   </div>
                 </div>

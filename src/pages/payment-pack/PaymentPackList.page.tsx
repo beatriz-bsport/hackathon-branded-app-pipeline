@@ -480,7 +480,7 @@ export class PaymentPackList extends React.Component<Props, State> {
             }
             initial={this.state.paymentPackToEdit}
             privateServices={this.props.privateServices}
-          creditFactor={this.props.theme.pass_credit_factor}
+            creditFactor={this.props.theme.pass_credit_factor}
             compatibleServicePass={this.props.compatibleServicePass}
             allowGuestMaster={
               this.props.theme.allow_guest_activatable &&
@@ -562,7 +562,7 @@ export class PaymentPackList extends React.Component<Props, State> {
                       }
                       onRestore={() => this.restorePaymentPack(pack.id)}
                       key={pack.id}
-                    creditScaleFactor={this.props.theme.pass_credit_factor}
+                      creditScaleFactor={this.props.theme.pass_credit_factor}
                     />
                   ))}
                 </List>

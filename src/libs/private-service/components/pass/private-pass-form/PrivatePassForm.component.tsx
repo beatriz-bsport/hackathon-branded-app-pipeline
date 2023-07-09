@@ -275,7 +275,7 @@ export const PrivatePassForm = (props: Props) => {
           <TextField
             id="private-pass-credit-field"
             name="credits"
-            type='number'
+            type="number"
             fullWidth
             disabled={props.initial && props.initial.editable === false}
             label={t('privatePass.form.credits.label')}
@@ -925,7 +925,7 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
         applies_for_payroll: initial.applies_for_payroll,
         on_behalf_of_teachr: initial.on_behalf_of_teacher,
         expiration_date_active: !!initial?.expiration_date,
-        credits: initial?.credits / (creditScaleFactor ||1),
+        credits: initial?.credits / (creditScaleFactor || 1),
       };
 
     return {
@@ -958,7 +958,10 @@ export const PrivatePassFormikHOC = withFormik<Props, FormikValues>({
   },
   enableReinitialize: true,
   validationSchema: PrivatePassSchema,
-  handleSubmit: (values, { props: { onSubmit, initial, creditScaleFactor, }, setSubmitting }) => {
+  handleSubmit: (
+    values,
+    { props: { onSubmit, initial, creditScaleFactor }, setSubmitting },
+  ) => {
     const { linked_payment_pack, credits, ...otherValues } = values;
 
     const newValues = {

@@ -239,7 +239,12 @@ export class PaymentPackCard extends Component<Props, State> {
                     color="textSecondary"
                     className={classes.packInfo}
                   >
-                    {getCreditInfo(pack, t, isManager, this.props.creditScaleFactor)}
+                    {getCreditInfo(
+                      pack,
+                      t,
+                      isManager,
+                      this.props.creditScaleFactor,
+                    )}
                   </Typography>
                 </div>
               </div>

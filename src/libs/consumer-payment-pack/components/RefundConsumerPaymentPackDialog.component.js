@@ -14,6 +14,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
+import { getCreditFactor } from '#libs/theme/selectors';
 
 type Props = {
   open: boolean,

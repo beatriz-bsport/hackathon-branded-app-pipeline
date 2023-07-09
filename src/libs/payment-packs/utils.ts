@@ -254,7 +254,7 @@ export const getCreditInfo = (
   const { unlimited, theorical_margin_value, credits } = pack;
   let creditInfo: string = '';
   if (!unlimited) {
-    creditInfo = `${credits/(creditScaleFactor||1)}\u00A0${t('credits', {
+    creditInfo = `${credits / (creditScaleFactor || 1)}\u00A0${t('credits', {
       count: credits,
     }).toLowerCase()}`;
   } else {

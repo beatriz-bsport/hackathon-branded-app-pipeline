@@ -67,7 +67,8 @@ export const CreditStatus = (props: Props) => {
       color={available_credits / credits > 0.2 ? 'primary' : 'error'}
     >
       {`${
-        (available_credits || credits - consumerPack?.used_credits) / getCreditFactor()
+        (available_credits || credits - consumerPack?.used_credits) /
+        getCreditFactor()
       } / ${credits / getCreditFactor()} ${props.t('credits').toLowerCase()}`}
     </Typography>
   );

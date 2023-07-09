@@ -18,12 +18,14 @@ import Item, {
   Justification,
 } from '#components/css-only/Grid/GridItem';
 import Price from '#components/css-only/Price';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import {
+  getCurrencyDisplayWithPrice,
+  getCreditFactor,
+} from '#libs/theme/selectors';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import { CardSize } from '#components/css-only/Card/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import { useValidityInfoForPaymentPackCard } from '../../utils/payment-pack';
-import { getCreditFactor } from '#libs/theme/selectors';
 
 import './styles.css';
 

@@ -5,9 +5,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { useTranslation } from 'react-i18next';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Typography from '@material-ui/core/Typography';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import {
+  getCurrencyDisplayWithPrice,
+  getCreditFactor,
+} from '../../theme/selectors';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
-import { getCreditFactor } from '#libs/theme/selectors';
 
 type Props = {
   creditRefund: ConsumerPaymentPackCreditRefund,

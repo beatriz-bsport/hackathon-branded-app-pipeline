@@ -166,13 +166,6 @@ export const PaymentPackForm = (props: Props) => {
     () => getFormInitial(props.compatibleServicePass),
     [props.compatibleServicePass],
   );
-  console.log('init from ',
-                initial?.credits ,
-                'to', 
-                initial?.credits / (props.creditScaleFactor ||1) || 0,
-                'with factor of ',
-                props.creditScaleFactor,
-             )
   return (
     <div>
       <Formik
@@ -183,7 +176,7 @@ export const PaymentPackForm = (props: Props) => {
             ? {
                 ...initial,
                 credit_number: initial?.unlimited ? 'unlimited' : 'limited',
-                credits: initial?.credits / (props.creditScaleFactor ||1) || 0,
+                credits: initial?.credits / (props.creditScaleFactor || 1) || 0,
                 penalty_active: !!initial?.penalty_active,
                 no_show_penalty_active: !!initial?.no_show_penalty_active,
                 validity: initial?.validity_daterange ? 'slot' : 'givenNumber',
@@ -336,9 +329,7 @@ export const PaymentPackForm = (props: Props) => {
               break;
           }
           if (values.credit_number === 'limited') {
-            console.log('sanitized from ', sanitizedValues.credits, 'to ')
-            sanitizedValues.credits *= (props.creditScaleFactor || 1)
-            console.log(sanitizedValues.credits)
+            sanitizedValues.credits *= props.creditScaleFactor || 1;
             sanitizedValues.apply_penalties = false;
           }
           if (!values.full_vod_access) {

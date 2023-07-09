@@ -282,7 +282,9 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
                 {t('consumerPass.current_credits', {
                   credits: private_pass.credits / getCreditFactor(),
                   current_credits:
-                    (private_pass.credits - private_consumer_pass.used_credits) / getCreditFactor(),
+                    (private_pass.credits -
+                      private_consumer_pass.used_credits) /
+                    getCreditFactor(),
                 })}
               </Typography>
             </div>

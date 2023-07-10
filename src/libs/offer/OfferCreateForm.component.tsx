@@ -65,6 +65,7 @@ type ComponentProps = {
   onCancel: () => void;
   onBannerGoBack?: () => void;
   // @ts-ignore
+  // eslint-disable-next-line
   creditScaleFactor: number;
 };
 

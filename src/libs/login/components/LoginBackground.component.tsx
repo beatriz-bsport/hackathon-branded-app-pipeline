@@ -1,9 +1,9 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
-import { WithTheme, Theme, makeStyles } from '@material-ui/styles';
+import { WithTheme } from '@material-ui/styles';
 import classNames from 'classnames';
 import './LoginBackground.css';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 type OwnProps = {
   company?: boolean;
@@ -25,65 +25,78 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
   theme,
   children,
 }) => {
-  const classes = useStyles({ backgroundFixed, franchise, company });
+  const loginBackgroundClass = backgroundFixed
+    ? 'bs-login-background--fixed'
+    : 'bs-login-background--default';
+  const darkClass =
+    franchise || company
+      ? 'bs-login-background__dark--company'
+      : 'bs-login-background__dark--default';
+  const lightClass =
+    franchise || company
+      ? 'bs-login-background__light--company'
+      : 'bs-login-background__light--default';
 
   return (
-    <div className={classes.loginBackground}>
+    <div className={loginBackgroundClass}>
       {!!children && children}
       <div
         className={classNames(
-          classes.circle,
-          classes.dark,
-          classes.size2,
+          'bs-login-background__circle',
+          darkClass,
+          'bs-login-background__size-2',
           effectArray[0],
         )}
       />
       <div
         className={classNames(
-          classes.circle,
-          classes.dark,
-          classes.size3,
-          classes.left,
+          'bs-login-background__circle',
+          darkClass,
+          'bs-login-background__size-3',
+          'bs-login-background__left',
           effectArray[2],
         )}
       />
       <div
         className={classNames(
-          classes.circle,
-          classes.light,
-          classes.size6,
+          'bs-login-background__circle',
+          lightClass,
+          'bs-login-background__size-6',
           'bigBall',
         )}
       />
       <div
-        className={classNames(classes.circle, classes.light, classes.size1)}
-      />
-      <div
         className={classNames(
-          classes.circle,
-          classes.light,
-          classes.size3,
-          classes.right,
+          'bs-login-background__circle',
+          lightClass,
+          'bs-login-background__size-1',
         )}
       />
       <div
         className={classNames(
-          classes.circle,
-          classes.light,
-          classes.size4,
-          classes.animate1,
+          'bs-login-background__circle',
+          lightClass,
+          'bs-login-background__size-3',
+          'bs-login-background__right',
+        )}
+      />
+      <div
+        className={classNames(
+          'bs-login-background__circle',
+          lightClass,
+          'bs-login-background__size-4',
           effectArray[1],
         )}
       />
       <div
         className={classNames(
-          classes.circle,
-          classes.dark,
-          classes.size5,
+          'bs-login-background__circle',
+          darkClass,
+          'bs-login-background__size-5',
           effectArray[3],
         )}
       />
-      <div className={classNames(classes.svg, 'svgMove')}>
+      <div className={classNames('bs-login-background__svg', 'svgMove')}>
         <svg
           width="911"
           height="295"
@@ -96,7 +109,8 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
             fillOpacity="0.6"
             fill={
               company || franchise
-                ? theme?.palette.primary.main
+                ? // @ts-ignore
+                  theme?.palette.primary.main
                 : 'rgba(44, 118, 126)'
             }
           />
@@ -106,80 +120,8 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles<
-  Theme,
-  { backgroundFixed: boolean; franchise: boolean; company: boolean }
->((theme) => ({
-  loginBackground: ({ backgroundFixed }) => ({
-    width: '100%',
-    height: '100vh',
-    overflow: 'hidden',
-    zIndex: 0,
-    position: backgroundFixed ? 'fixed' : 'relative',
-  }),
-  circle: {
-    borderRadius: '50%',
-    position: 'absolute',
-  },
-  dark: ({ franchise, company }) => ({
-    background:
-      franchise || company ? theme.palette.primary.main : 'rgba(44, 118, 126)',
-    opacity: 0.6,
-  }),
-  light: ({ franchise, company }) => ({
-    background:
-      franchise || company
-        ? theme.palette.secondary.main
-        : 'rgba(73, 156, 124)',
-    opacity: 0.6,
-  }),
-  size1: {
-    height: 28,
-    width: 28,
-    top: '45%',
-    left: '11%',
-  },
-  size2: {
-    height: 63,
-    width: 63,
-    top: '35%',
-    right: '3%',
-  },
-  size3: {
-    height: 71,
-    width: 71,
-  },
-  size4: {
-    height: 127,
-    width: 127,
-    top: '60%',
-    left: '2%',
-  },
-  size5: {
-    height: 155,
-    width: 155,
-    bottom: '30%',
-    right: '4%',
-  },
-  size6: {
-    height: 500,
-    width: 500,
-    bottom: -80,
-    right: -250,
-  },
-  left: {
-    top: '35%',
-    left: '3%',
-  },
-  right: {
-    top: '52%',
-    right: '18%',
-  },
-  svg: {
-    bottom: -8,
-    left: 0,
-    position: 'absolute',
-  },
-}));
+export const LoginBackgroundCssHoc = marketplaceCssHoc()(
+  LoginBackgroundComponent,
+);
 
-export default compose<any, OwnProps>(LoginBackgroundComponent);
+export default compose<any, OwnProps>()(React.memo(LoginBackgroundComponent));

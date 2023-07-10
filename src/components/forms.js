@@ -322,9 +322,8 @@ export const DateField = (
   const now = moment().startOf('year').add(-30, 'years').format('YYYY-MM-DD');
 
   return (
-    <Field
-      {...props}
-      render={({
+    <Field {...props}>
+      {({
         field,
         meta: { touched, error },
         form: { setFieldValue, setFieldTouched },
@@ -374,20 +373,15 @@ export const DateField = (
           )}
         </MuiPickersUtilsProvider>
       )}
-    />
+    </Field>
   );
 };
 
 export const TimeField = (props: TimeFieldProps) => {
   const { t } = useTranslation();
   return (
-    <Field
-      {...props}
-      render={({
-        field,
-        meta: { touched, error },
-        form: { setFieldValue },
-      }) => (
+    <Field {...props}>
+      {({ field, meta: { touched, error }, form: { setFieldValue } }) => (
         <>
           <MuiPickersUtilsProvider
             utils={MomentUtils}
@@ -423,7 +417,7 @@ export const TimeField = (props: TimeFieldProps) => {
           />
         </>
       )}
-    />
+    </Field>
   );
 };
 const DurationFieldstyles = (theme) => ({
@@ -440,13 +434,8 @@ const DurationFieldstyles = (theme) => ({
 export const DurationField = withStyles(DurationFieldstyles)(
   withTranslation(['common'])((props: DateFieldProps) => {
     return (
-      <Field
-        {...props}
-        render={({
-          field,
-          form: { setFieldValue },
-          meta: { touched, error },
-        }) => {
+      <Field {...props}>
+        {({ field, form: { setFieldValue }, meta: { touched, error } }) => {
           const total = parseInt(field.value || 0, 10);
           const days = parseInt(total / (60 * 24), 10);
           const hours = parseInt((total - days * 24 * 60) / 60, 10);
@@ -592,7 +581,7 @@ export const DurationField = withStyles(DurationFieldstyles)(
             </MuiFormControl>
           );
         }}
-      />
+      </Field>
     );
   }),
 );

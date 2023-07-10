@@ -428,7 +428,7 @@ export class PaymentPackCard extends Component<Props, State> {
     const tags = getTagInfo(pack, t);
     const VOD = this.renderVODInfo();
     const off_peak_schedule = JSON.parse(
-      JSON.stringify(pack?.off_peak_schedule),
+      JSON.stringify(pack?.off_peak_schedule ?? {}),
     );
     return (
       <div>

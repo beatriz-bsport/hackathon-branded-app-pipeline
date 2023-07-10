@@ -22,13 +22,9 @@ const MarketplacePaymentPackOffPeakRestrictionModal: React.FC<Props> = ({
   onDialogClose,
 }) => {
   const { t } = useTranslation(['marketplace', 'paymentPack', 'datetime']);
-  let offPeakSchedule = {};
-  paymentPack
-    ? (offPeakSchedule = JSON.parse(
-        JSON.stringify(paymentPack?.off_peak_schedule),
-      ) as Record<string, string[]>)
-    : (offPeakSchedule = {});
-
+  const offPeakSchedule = JSON.parse(
+    JSON.stringify(paymentPack?.off_peak_schedule ?? {}),
+  );
   return (
     <>
       {isOpen && (

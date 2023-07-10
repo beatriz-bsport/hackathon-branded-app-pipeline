@@ -5,18 +5,20 @@ import MarketplacePrivatePassCompatibilityModal, {
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
 import MarketplacePrivatePassCompatibilityModalCss from '!!raw-loader!./styles.css';
-import { private_services_factory } from '#libs/private-service/factory';
+import { privateServiceListFactory } from '#libs/private-service/factory';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
 } from '#libs/exportable-components/types';
+import { PrivateServiceWithSlots } from '#libs/private-service/types';
 
-const fakePrivateServices = private_services_factory(3);
+const fakePrivateServices = privateServiceListFactory(3, { withCoaches: true });
 
 const usePropsFromVariation =
   (): MarketplacePrivatePassCompatibilityModalProps => {
     return {
-      compatiblePrivateServices: fakePrivateServices,
+      compatiblePrivateServices:
+        fakePrivateServices as PrivateServiceWithSlots[],
       isOpen: true,
       onDialogClose: () => {},
     };

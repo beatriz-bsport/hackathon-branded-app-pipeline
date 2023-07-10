@@ -11,6 +11,7 @@ import {
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 import { CompanyTheme } from '#libs/theme/types';
+import { PaymentCombo } from '#libs/payment-combo/types';
 
 import { paymentComboFactory } from '#libs/payment-combo/factory';
 
@@ -34,8 +35,7 @@ const usePropsFromVariation = (
     variationsSelected?.isExcludingTax?.value === 'true';
 
   return {
-    // @ts-expect-error
-    paymentCombo: paymentComboFromFactory,
+    paymentCombo: paymentComboFromFactory as PaymentCombo,
     isExcludingTax: isExcludingTaxSelected,
     onClick: () => {},
     addToCart: () => {},

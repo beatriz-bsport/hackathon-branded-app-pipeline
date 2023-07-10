@@ -11,7 +11,7 @@ import { PaymentPack } from '#libs/payment-packs/types';
 import withFormik from '@bbbtech/storybook-formik';
 import ValidationSchema from '../ValidationSchema';
 import { PrivatePass } from '#libs/private-service/types';
-import { private_services_passes_factory } from '#libs/private-service/factory';
+import { privatePassListFactory } from '#libs/private-service/factory';
 import { paymentComboListFactory } from '#libs/payment-combo/factory';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
@@ -33,8 +33,7 @@ const fakeAllPaymentPacksById = fakePaymentPacks.reduce(
   {},
 );
 
-// @ts-ignore
-const fakePrivatePasses: PrivatePass[] = private_services_passes_factory(10);
+const fakePrivatePasses: PrivatePass[] = privatePassListFactory(10);
 
 const fakePrivatePassesById = fakePrivatePasses.reduce(
   (result: { [key: number]: PrivatePass }, privatePass) => {

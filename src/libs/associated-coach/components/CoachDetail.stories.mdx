@@ -6,7 +6,7 @@ import {
   coachPaymentRulesByKindFactory,
   coachPaymentRuleGroupsFactory,
 } from '../../coach-payment-rules/factories';
-import { private_services_factory } from '../../private-service/factory';
+import { privateServiceListFactory } from '../../private-service/factory';
 
 <Meta
   title="Library/Coach/CoachDetail "
@@ -81,7 +81,7 @@ This `CoachDetail` is a component that shows some details about the coach
       coach: coachFactory(coach_payment_rule_groups[0].id),
       coachPaymentRulesByKind: coachPaymentRulesByKindFactory(3),
       coachPaymentRuleGroups: coach_payment_rule_groups,
-      privateServices: private_services_factory(3),
+      privateServices: privateServiceListFactory(3),
     }}
   >
     {Template.bind({})}

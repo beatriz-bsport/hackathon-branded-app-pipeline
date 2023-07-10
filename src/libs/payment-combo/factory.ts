@@ -8,7 +8,7 @@ import {
 } from '@bsport/common/lib/master-data/payment-methods';
 
 import { paymentPackFactory } from '#libs/payment-packs/factory';
-import { private_services_passes_factory } from '#libs/private-service/factory';
+import { privatePassFactory } from '#libs/private-service/factory';
 import { shopItemFactory } from '#libs/shop/factory';
 
 import {
@@ -30,7 +30,7 @@ const paymentComboItemListFactory = (
       case 'paymentPack':
         return paymentPackFactory();
       case 'privatePass':
-        return private_services_passes_factory(1)[0];
+        return privatePassFactory();
       case 'shopItem':
         return shopItemFactory();
       default:

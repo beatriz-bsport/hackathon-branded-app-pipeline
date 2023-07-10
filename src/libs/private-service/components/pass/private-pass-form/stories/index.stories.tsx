@@ -5,8 +5,8 @@ import { action } from '@storybook/addon-actions';
 import { factory_scts } from '#libs/category/factory';
 import { meta_activity_factory } from '#libs/meta-activity/factory';
 import {
-  privatePassCategoryFactory,
-  private_services_factory,
+  privatePassCategoryListFactory,
+  privateServiceListFactory,
 } from '#libs/private-service/factory';
 import FactoryBotEstablishment from '#libs/establishment/factories/Establishments';
 
@@ -50,12 +50,12 @@ const actionsData = {
   onCancel: action('onCancel'),
 };
 
-const privateServices = private_services_factory(3);
+const privateServices = privateServiceListFactory(3, { withSlots: true });
 const randomSCT = factory_scts(5);
 const randomMetaActivity = meta_activity_factory(5);
 const randomEstablishments: Establishment[] =
   FactoryBotEstablishment.Establishment.create(5);
-const privatePassCategories = privatePassCategoryFactory(5);
+const privatePassCategories = privatePassCategoryListFactory(5);
 
 export default {
   title: 'Library/PrivatePass/PrivatePassForm',

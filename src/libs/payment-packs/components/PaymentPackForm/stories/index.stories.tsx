@@ -1,18 +1,16 @@
-// @ts-nocheck
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import FactoryBotPaymentPackCategories from '../../../../payment-packs/factory';
-import FactoryBotEstablishment from '../../../../establishment/factories/Establishments';
-import FactoryBotTag from '../../../../tag/factory';
-import { factory_scts } from '../../../../category/factory';
-import { meta_activity_factory } from '../../../../meta-activity/factory';
-import { private_services_factory } from '#libs/private-service/factory';
-
+import { paymentPackCategoryListFactory } from '#libs/payment-packs/factory';
+import FactoryBotEstablishment from '#libs/establishment/factories/Establishments';
+import FactoryBotTag from '#libs/tag/factory';
+import { factory_scts } from '#libs/category/factory';
+import { meta_activity_factory } from '#libs/meta-activity/factory';
+import { privateServiceListFactory } from '#libs/private-service/factory';
 import { newStoryFromTemplate } from '../../../../../utils/storybookHelper';
 
-import PaymentPackForm from '../PaymentPackForm.component';
+import PaymentPackForm from '#libs/payment-packs/components/PaymentPackForm/PaymentPackForm.component';
 
 import {
   emptyFormRenderingTest,
@@ -46,14 +44,13 @@ import {
   validitySectionErrorsTests,
 } from './error-tests';
 
-const randomPaymentPackCategorieList =
-  FactoryBotPaymentPackCategories.PaymentPackCategory.create(2);
+const randomPaymentPackCategorieList = paymentPackCategoryListFactory(2);
 const randomSCT = factory_scts(5);
 const randomEstablishments: Establishment[] =
   FactoryBotEstablishment.Establishment.create(5);
 const randomMetaActivity = meta_activity_factory(5);
 const randomTagList = FactoryBotTag.Tag.create(5);
-const privateServices = private_services_factory(3);
+const privateServices = privateServiceListFactory(3, { withSlots: true });
 
 const actionsData = {
   onSubmit: action('onSubmit'),

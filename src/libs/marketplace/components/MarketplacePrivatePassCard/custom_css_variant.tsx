@@ -12,7 +12,7 @@ import {
 } from '#libs/exportable-components/types';
 import { CompanyTheme } from '#libs/theme/types';
 
-import { private_services_passes_factory } from '#libs/private-service/factory';
+import { privatePassFactory } from '#libs/private-service/factory';
 
 const privatePassCardVariationRegistry = [
   {
@@ -25,7 +25,7 @@ const privatePassCardVariationRegistry = [
   },
 ];
 
-const privatePassFromFactory = private_services_passes_factory(1)[0];
+const privatePassFromFactory = privatePassFactory();
 
 const usePropsFromVariation = (
   variationsSelected: Record<string, VariationConfigurationChoice>,
@@ -34,7 +34,6 @@ const usePropsFromVariation = (
     variationsSelected?.isExcludingTax?.value === 'true';
 
   return {
-    // @ts-ignore
     privatePass: privatePassFromFactory,
     isExcludingTax: isExcludingTaxSelected,
     addToCart: () => {},

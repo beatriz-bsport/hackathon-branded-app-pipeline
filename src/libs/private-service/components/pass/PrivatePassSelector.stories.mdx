@@ -1,7 +1,7 @@
 import { Meta, Canvas, Story } from '@storybook/addon-docs';
 import PrivatePassSelector from './PrivatePassSelector.component';
 import { action } from '@storybook/addon-actions';
-import { private_services_passes_factory } from '../../factory.ts';
+import { privatePassListFactory } from '../../factory.ts';
 
 <Meta 
     title="Library/PrivateBooking/Selector/PrivatePassSelector"
@@ -45,7 +45,7 @@ export const WithSelectedTemplate = (args) => {
     const onChange = (e) => setValue(e)
     return (<PrivatePassSelector {...args} value={value} onChange={onChange}/>)};
 
-export const privatePassList = private_services_passes_factory(10);
+export const privatePassList = privatePassListFactory(10);
 
 #SELECT A PRIVATE PASS
 

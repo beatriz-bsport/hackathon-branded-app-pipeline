@@ -1,7 +1,7 @@
 import { Meta, Canvas, Story } from '@storybook/addon-docs';
 import PrivateSlotSelector from './PrivateSlotSelector.component';
 import { action } from '@storybook/addon-actions';
-import { private_services_factory } from '../../factory.ts';
+import { privateServiceListFactory } from '../../factory.ts';
 
 <Meta 
     title="Library/PrivateBooking/Selector/PrivateSlotSelector"
@@ -31,7 +31,7 @@ export const actionsData = {
 
 export const Template = (args) => <PrivateSlotSelector {...args} />;
 
-export const privateServices = private_services_factory(10);
+export const privateServices = privateServiceListFactory(10);
 
 #SELECT A PRIVATE SERVICE, THEN A SLOT
 

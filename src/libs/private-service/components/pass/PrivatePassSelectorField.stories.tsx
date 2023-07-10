@@ -1,11 +1,11 @@
-// @ts-nocheck
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import withFormik from '@bbbtech/storybook-formik';
+// @ts-expect-error
 import PrivatePassSelectorField from './PrivatePassSelectorField.component';
-import { private_services_passes_factory } from '../../../private-service/factory';
+import { privatePassListFactory } from '../../../private-service/factory';
 
-const basicChoices = private_services_passes_factory(4);
+const basicChoices = privatePassListFactory(4);
 
 export default {
   title: 'Library/PrivateBooking/Selector/PrivatePassSelectorField',

@@ -16,7 +16,7 @@ import { PaymentCombo } from '#libs/payment-combo/types';
 import FactoryBotSubscription from '#libs/subscription/factory';
 import { paymentComboFactory } from '#libs/payment-combo/factory';
 import { paymentPackFactory } from '#libs/payment-packs/factory';
-import { private_services_passes_factory } from '#libs/private-service/factory';
+import { privatePassFactory } from '#libs/private-service/factory';
 
 const contractCardVariationRegistry = [
   {
@@ -32,7 +32,7 @@ const contractCardVariationRegistry = [
 const contractFromFactory = FactoryBotSubscription.Contract.create();
 const fakePaymentCombo = paymentComboFactory();
 const fakepaymentPack = paymentPackFactory();
-const fakePrivatePass = private_services_passes_factory(1)[0];
+const fakePrivatePass = privatePassFactory();
 
 const usePropsFromVariation = (
   variationsSelected: Record<string, VariationConfigurationChoice>,
@@ -43,6 +43,7 @@ const usePropsFromVariation = (
   return {
     contract: contractFromFactory,
     isExcludingTax: isExcludingTaxSelected,
+    isContractObjectLoading: false,
     onSelect: () => {},
     getPaymentComboSelected: (id: number) => {
       return { ...fakePaymentCombo, id } as PaymentCombo;
@@ -50,7 +51,6 @@ const usePropsFromVariation = (
     getPaymentPackSelected: (id: number) => {
       return { ...fakepaymentPack, id };
     },
-    // @ts-expect-error
     getPrivatePassSelected: (id: number) => {
       return { ...fakePrivatePass, id };
     },

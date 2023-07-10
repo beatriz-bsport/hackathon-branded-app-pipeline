@@ -1,11 +1,13 @@
-// @ts-nocheck
 import React from 'react';
-import { MarketplacePrivatePassCompatibilityModalForStorybook, Props } from '.';
-import { private_services_factory } from '#libs/private-service/factory';
 
-const fakePrivateServices = private_services_factory(3)
+import { MarketplacePrivatePassCompatibilityModalForStorybook } from '.';
+import type { Props } from '.';
+import { privateServiceListFactory } from '#libs/private-service/factory';
+
+const fakePrivateServices = privateServiceListFactory(3);
 
 const Template = (args: Props) => {
+  // @ts-expect-error
   return <MarketplacePrivatePassCompatibilityModalForStorybook {...args} />;
 };
 
@@ -16,7 +18,8 @@ privatePassWithPrivateSlots.args = {
 };
 
 export default {
-  title: 'Components/Marketplace/PassCards/Modals/PrivatePassCompatibilityModal',
+  title:
+    'Components/Marketplace/PassCards/Modals/PrivatePassCompatibilityModal',
   component: MarketplacePrivatePassCompatibilityModalForStorybook,
   parameters: {
     docs: {

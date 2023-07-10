@@ -569,6 +569,7 @@ export type PrivatePassFactoryOptions = {
   isUsableByStaff?: boolean;
   isAppliesForPayroll?: boolean;
   isOnBehalfOfTeacher?: boolean;
+  isGenerateTemplateInstance?: boolean;
 };
 
 export type PrivateServiceFactoryOptions = {

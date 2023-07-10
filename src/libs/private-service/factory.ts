@@ -1,180 +1,220 @@
-// @ts-nocheck
-import { generateRandomInt } from '../../utils/factories';
+import { fakerEN as faker } from '@faker-js/faker';
+
+import { CB } from '@bsport/common/lib/master-data/payment-methods';
 
 import {
+  generateRandomDescription,
+  generateRandomIdList,
+  generateRandomName,
+  generateRandomPrice,
+} from '../../utils/factories';
+import { coachesFactory } from '#libs/associated-coach/factories';
+
+import type {
   PrivateSlot,
-  PrivateServiceGroup,
-  PrivatePass,
   PrivateService,
-  PrivatePassCategory,
+  PrivatePassFactoryOptions,
+  PrivateServiceFactoryOptions,
 } from '#libs/private-service/types';
+import type { Coach } from '#libs/associated-coach/types';
 
-function random_choice(arr: Array<any>): any {
-  return arr[generateRandomInt(arr.length)];
-}
+/**
+ * Generates a private slot with Faker.
+ * @returns {PrivateSlot}
+ */
+export const privateSlotFactory = () => {
+  return {
+    id: parseInt(faker.finance.accountNumber(4), 10),
+    name: generateRandomName(faker),
+    private_service: parseInt(faker.finance.accountNumber(4), 10),
+    available: faker.datatype.boolean(),
+    credit: faker.number.int(10),
+    duration_minutes: faker.number.int({ min: 30, max: 120 }),
+    people_capacity_used: faker.number.int(5),
+    booking_interval_minutes: faker.helpers.arrayElement([5, 10, 15, 20]),
+  };
+};
 
-const slots_names: Array<string> = [
-  'Tuesday morning',
-  'Thursday evening',
-  'Wednesday noon',
-  'Friday afternoon',
-  'Monday morning',
-];
+/**
+ * Generates a list of private slot with Faker
+ * @param count The number of private slot to generate
+ * @returns {PrivateSlot[]}
+ */
+export const privateSlotListFactory = (count: number) => {
+  return faker.helpers.multiple(() => privateSlotFactory(), { count });
+};
 
-function slots_factory(num_el: number, ps_id?: number): Array<PrivateSlot> {
-  const slots_ids: Array<number> = [...Array(num_el || 1).keys()];
+/**
+ * Generates a private service with Faker.
+ * @param options Parameters that transform property IDs into faker objects
+ * @returns {PrivateService}
+ * @example
+ * const privateServiceWithSlots = privateServiceFactory({ withSlots });
+ */
+export const privateServiceFactory = (
+  options?: PrivateServiceFactoryOptions,
+) => {
+  const privateService: PrivateService<
+    number | Partial<Coach>,
+    number,
+    number | PrivateSlot
+  > = {
+    id: parseInt(faker.finance.accountNumber(4), 10),
+    name: generateRandomName(faker),
+    description: generateRandomDescription(faker),
+    available: faker.datatype.boolean(),
+    establishments: generateRandomIdList(faker, 3),
+    coach_capacity_used: faker.number.int(5),
+    use_full_establishment_capacity: faker.datatype.boolean(),
+    coaches: generateRandomIdList(faker, 3),
+    color: faker.internet.color(),
+    company: faker.number.int({ max: 10000 }),
+    slots: generateRandomIdList(faker, 5),
+    establishment_attribution: faker.number.int(4),
+    is_home_service: faker.datatype.boolean(),
+    coach_attribution: faker.number.int(4),
+    manager_only: faker.datatype.boolean(),
+    has_own_availability_slots: faker.datatype.boolean(),
+    last_discard_minutes: faker.helpers.arrayElement([5, 10, 15]),
+    last_booking_minutes: faker.helpers.arrayElement([5, 10, 15]),
+    cover_main: faker.image.url({ width: 800, height: 400 }),
+    private_service_group: parseInt(faker.finance.accountNumber(4), 10),
+    slots_duration_minute: [60, 90, 120],
+    availability_padding_start_minutes: faker.helpers.arrayElement([5, 10, 15]),
+    availability_padding_end_minutes: faker.helpers.arrayElement([5, 10, 15]),
+    pad_before_stop: faker.datatype.boolean(),
+  };
 
-  return slots_ids.map((id) => {
-    return {
-      id: (ps_id || 0) * 1000 + id + 1,
-      name: `${random_choice(slots_names)} #${id + 1}-${ps_id || 0}`,
-      private_service: ps_id,
-      available: random_choice([true, false]),
-      credit: 1,
-      duration_minutes: 60,
-      people_capacity_used: 1,
-      booking_interval_minutes: 20,
-    };
+  if (options?.withSlots) {
+    privateService.slots = privateSlotListFactory(3);
+  }
+
+  if (options?.withCoaches) {
+    privateService.coaches = coachesFactory(3);
+  }
+
+  return privateService;
+};
+
+/**
+ * Generates a list of private service with Faker
+ * @param count The number of private service to generate
+ * @param options Parameters that transform property IDs into faker objects
+ * @returns {PrivateService[]}
+ */
+export const privateServiceListFactory = (
+  count: number,
+  options?: PrivateServiceFactoryOptions,
+) => {
+  return faker.helpers.multiple(() => privateServiceFactory(options), {
+    count,
   });
-}
+};
 
-const private_services_names: Array<string> = [
-  'Pilates private class',
-  'Yoga private class',
-  'Yoga and massage',
-  'Relaxation',
-  'Water aerobics private class',
-];
+/**
+ * Generates a private service group with Faker
+ * @returns {PrivateServiceGroup}
+ */
+export const privateServiceGroupFactory = () => {
+  return {
+    id: parseInt(faker.finance.accountNumber(4), 10),
+    name: generateRandomName(faker),
+    private_services: generateRandomIdList(faker, 5),
+  };
+};
 
-const colors: Array<string> = ['', 'blue', 'red', 'green', 'pink', 'black'];
-
-const covers_main: Array<string> = [
-  'https://assets.staging.bsport.io/activity/boxethai.jpg',
-  'https://assets.staging.bsport.io/activity/ladyboxing.jpg',
-  'https://assets.staging.bsport.io/activity/boxefitness.jpg',
-  'https://assets.staging.bsport.io/activity/multiboxealterne.jpeg',
-  'https://assets.staging.bsport.io/activity/kickboxing.jpg',
-  'https://assets.staging.bsport.io/activity/Image_Boxe_Anglise.jpg',
-  'https://assets.staging.bsport.io/activity/Boxe_Francaise.jpg',
-];
-
-export function private_services_factory(
-  num_el: number,
-  onlyAvailable?: boolean,
-): Array<any> {
-  const private_services_ids: Array<number> = [...Array(num_el).keys()];
-  const private_service_res: Partial<PrivateService>[] =
-    private_services_ids.map((id) => {
-      return {
-        id: id + 1,
-        name: `${random_choice(private_services_names)} #${id + 1}`,
-        description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nisi at sapien fringilla lobortis. Quisque rhoncus accumsan vulputate. Praesent ultricies neque lacus. Duis non iaculis ex. Nullam in ante id turpis lobortis ullamcorper vel eu sapien. Nullam varius urna at dapibus aliquam. Donec elit ex, scelerisque non pretium non, iaculis et justo.',
-        establishments: [],
-        coach_capacity_used: 1,
-        available: onlyAvailable || random_choice([true, false]),
-        use_full_establishment_capacity: random_choice([true, false]),
-        coaches: [],
-        color: random_choice([colors]),
-        company: 1,
-        slots: slots_factory(generateRandomInt(5), id + 1),
-        establishment_attribution: 0,
-        is_home_service: random_choice([true, false]),
-        coach_attribution: 3,
-        manager_only: random_choice([true, false]),
-        has_own_availability_slots: random_choice([true, false]),
-        last_discard_minutes: 50,
-        last_booking_minutes: 10,
-        cover_main: random_choice(covers_main),
-        private_service_group: 5,
-        slots_duration_minute: [60, 90, 120],
-        availability_padding_start_minutes: 10,
-        availability_padding_end_minutes: 10,
-      };
-    });
-
-  return private_service_res;
-}
-
-const groups_names: Array<string> = [
-  'Assessment',
-  'Individual support',
-  '1:1 training',
-  '2:1 training',
-  'Coaching',
-];
-
-export function private_service_groups_factory(
-  num_el: number,
-): Array<PrivateServiceGroup> {
-  const groups_ids: Array<number> = [...Array(num_el || 1).keys()];
-
-  return groups_ids.map((id) => {
-    return {
-      id: id + 1,
-      name: `${random_choice(groups_names)} #${id + 1}`,
-      private_services: [],
-    };
+/**
+ * Generates a list of private service group with Faker
+ * @param count The number of private service group to generate
+ * @returns {PrivateServiceGroup[]}
+ */
+export const privateServiceGroupListFactory = (count: number) => {
+  return faker.helpers.multiple(() => privateServiceGroupFactory(), {
+    count,
   });
-}
+};
 
-const passes_names: Array<string> = [
-  'Online private class',
-  '10 private classes pass',
-  '20 private classes pass',
-  'Private classes pass (5)',
-];
+/**
+ * Generates a private pass with Faker. You can use the options parameter to alter properties of the returned object
+ * @param options The options given to alter properties of generated private pass
+ * @returns {PrivatePass}
+ * @example
+ * const fakePrivatePass = privatePassFactory({
+ *  is_unpaid_private_booking_integration: true,
+ *  new_member_only: false
+ * })
+ */
+export const privatePassFactory = (options?: PrivatePassFactoryOptions) => {
+  return {
+    id: parseInt(faker.finance.accountNumber(4), 10),
+    name: generateRandomName(faker),
+    credits: faker.number.int(10),
+    price: generateRandomPrice(faker, { min: 5, max: 100 }),
+    tax: faker.number.int(20),
+    private_services: generateRandomIdList(faker, 3),
+    manager_only: options?.isManagerOnly ?? faker.datatype.boolean(),
+    available: options?.isAvailable ?? faker.datatype.boolean(),
+    duration_days: faker.number.int(30),
+    duration_months: faker.number.int(12),
+    duration_years: faker.number.int(2),
+    available_payment_method_identifiers: [CB.id],
+    full_vod_access: faker.datatype.boolean(),
+    editable: options?.isEditable ?? faker.datatype.boolean(),
+    expiration_days_before_first_use: faker.number.int({ min: 30, max: 60 }),
+    start_date_method: faker.number.int(4),
+    new_member_only: options?.isNewMemberOnly ?? faker.datatype.boolean(),
+    company: parseInt(faker.finance.accountNumber(4), 10),
+    category: parseInt(faker.finance.accountNumber(3), 10),
+    ordering_in_category: faker.number.int(10),
+    template_instance: options?.isGenerateTemplateInstance
+      ? parseInt(faker.finance.accountNumber(4), 10)
+      : null,
+    is_unpaid_private_booking_integration:
+      options?.isUnpaidPrivateBookingIntegration ?? faker.datatype.boolean(),
+    linked_payment_pack: parseInt(faker.finance.accountNumber(4), 10),
+    description: faker.lorem.sentence(100),
+    is_usable_by_staff: options?.isUsableByStaff ?? faker.datatype.boolean(),
+    applies_for_payroll:
+      options?.isAppliesForPayroll ?? faker.datatype.boolean(),
+    on_behalf_of_teacher:
+      options?.isOnBehalfOfTeacher ?? faker.datatype.boolean(),
+  };
+};
 
-export function private_services_passes_factory(
-  num_el: number,
-): Partial<PrivatePass>[] {
-  const passes_ids: Array<number> = [...Array(num_el).keys()];
-
-  return passes_ids.map((id) => {
-    return {
-      id: id + 1,
-      name: random_choice(passes_names),
-      credits: 5,
-      price: 200.0,
-      tax: 20.0,
-      private_services: private_services_factory(5),
-      manager_only: random_choice([true, false]),
-      available: random_choice([true, false]),
-      duration_days: Math.floor(Math.random() * 30),
-      duration_months: Math.floor(Math.random() * 12),
-      duration_years: Math.floor(Math.random() * 3),
-      available_payment_method_identifiers: [],
-      full_vod_access: random_choice([true, false]),
-      editable: random_choice([true, false]),
-      expiration_days_before_first_use: 30,
-      start_date_method: 5,
-      new_member_only: random_choice([true, false]),
-      company: 1,
-      linked_payment_pack: Math.floor(Math.random() * 2),
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nisi at sapien fringilla lobortis. Quisque rhoncus accumsan vulputate. Praesent ultricies neque lacus. Duis non iaculis ex. Nullam in ante id turpis lobortis ullamcorper vel eu sapien. Nullam varius urna at dapibus aliquam. Donec elit ex, scelerisque non pretium non, iaculis et justo.',
-    };
+/**
+ * Generates a list of private pass with Faker
+ * @param count The number of private pass to generate
+ * @returns {PrivatePass[]}
+ */
+export const privatePassListFactory = (
+  count: number,
+  options?: PrivatePassFactoryOptions,
+) => {
+  return faker.helpers.multiple(() => privatePassFactory(options), {
+    count,
   });
-}
+};
 
-const privatePassCategoryNames = [
-  'Boxe',
-  'Piscine',
-  'Spa',
-  'Cardio',
-  'Accrobranche',
-];
+/**
+ * Generates a private pass category with Faker
+ * @returns {PrivatePassCategory}
+ */
+export const privatePassCategoryFactory = () => {
+  return {
+    id: parseInt(faker.finance.accountNumber(4), 10),
+    name: generateRandomName(faker),
+    company_id: parseInt(faker.finance.accountNumber(4), 10),
+    category_ordering: faker.number.int(10),
+  };
+};
 
-export function privatePassCategoryFactory(
-  num_el: number,
-): PrivatePassCategory[] {
-  const privatePassCategoryIds: number[] = [...Array(num_el).keys()];
-  return privatePassCategoryIds.map((id) => {
-    return {
-      id,
-      name: privatePassCategoryNames[id],
-      company_id: Math.random() * 100,
-      category_ordering: Math.random() * 10,
-    };
+/**
+ * Generates a list of private pass category with Faker
+ * @param count The number of private pass category to generate
+ * @returns {PrivatePassCategory[]}
+ */
+export const privatePassCategoryListFactory = (count: number) => {
+  return faker.helpers.multiple(() => privatePassCategoryFactory(), {
+    count,
   });
-}
+};

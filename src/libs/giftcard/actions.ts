@@ -542,10 +542,11 @@ export function fetchConsumerGiftcardReceivedList(
         ...(params || {}),
         ...(memberId ? { dst_member: memberId } : { as_received: true }),
       });
+      const current_page = response.data?.page ?? params?.page;
       dispatch(
         listConsumerGiftcardReceivedActions.success({
           ...response.data,
-          page: params?.page,
+          page: current_page,
         }),
       );
       if (options && options.onSuccess) {
@@ -581,10 +582,11 @@ export function fetchConsumerGiftcardSentList(
         ...(params || {}),
         ...(memberId ? { src_member: memberId } : { as_sent: true }),
       });
+      const current_page = response.data?.page ?? params?.page;
       dispatch(
         listConsumerGiftcardSentActions.success({
           ...response.data,
-          page: params?.page,
+          page: current_page,
         }),
       );
       if (options && options.onSuccess) {

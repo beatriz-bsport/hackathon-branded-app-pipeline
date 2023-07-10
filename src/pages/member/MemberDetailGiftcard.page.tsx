@@ -178,6 +178,7 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
                 )
               }
               page={this.props.sentState.consumerGiftcardPage}
+              renderCustomPageFirst={!!this.props.selectedConsumerGiftcardId}
               renderEmpty={() => (
                 <div className={classes.emptyContainer}>
                   <Typography color="textSecondary" variant="caption">
@@ -244,6 +245,9 @@ export class MemberDetailGiftcard extends PureComponent<Props, State> {
                     )
                   }
                   page={this.props.receivedState.consumerGiftcardPage}
+                  renderCustomPageFirst={
+                    !!this.props.selectedConsumerGiftcardId
+                  }
                   renderEmpty={() => (
                     <div className={classes.emptyContainer}>
                       <Typography color="textSecondary" variant="caption">
@@ -378,11 +382,12 @@ export default compose(
         fetchConsumerGiftcardSentList,
         fetchGiftcardBulk,
         fetchMemberBulkById,
+        selectedConsumerGiftcardId,
       }) =>
       (id: number, page: number, page_size: number) => {
         fetchConsumerGiftcardSentList(
           id,
-          { page, page_size },
+          { page, page_size, current_item_id: selectedConsumerGiftcardId },
           {
             onSuccess: (consumerGiftcardList: ConsumerGiftcard[]) => {
               fetchGiftcardBulk(
@@ -403,11 +408,12 @@ export default compose(
         fetchConsumerGiftcardReceivedList,
         fetchGiftcardBulk,
         fetchMemberBulkById,
+        selectedConsumerGiftcardId,
       }) =>
       (id: number, page: number, page_size: number) => {
         fetchConsumerGiftcardReceivedList(
           id,
-          { page, page_size },
+          { page, page_size, current_item_id: selectedConsumerGiftcardId },
           {
             onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
               fetchGiftcardBulk(consumerGiftcardList.map((cg) => cg.giftcard));

@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { cleanParams } from '../../utils/createUrlHandlers';
 import {
   API_V1_URI,
   getAuth,
@@ -45,8 +46,9 @@ export const deleteGiftcard = (
 export const fetchConsumerGiftcardList = (
   params: any,
 ): Promise<AxiosResponse<Array<ConsumerGiftcard>>> => {
+  const cleanedParams = cleanParams(params);
   return getAuth(
-    `${API_V1_URI}/giftcard/consumer_giftcard/${buildUrlParams(params)}`,
+    `${API_V1_URI}/giftcard/consumer_giftcard/${buildUrlParams(cleanedParams)}`,
   );
 };
 

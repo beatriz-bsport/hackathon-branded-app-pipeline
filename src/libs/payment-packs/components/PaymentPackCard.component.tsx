@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { Component } from 'react';
+import memoize from 'memoize-one';
 import { compose, withStateHandlers } from 'recompose';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
@@ -436,6 +437,15 @@ export class PaymentPackCard extends Component<Props, State> {
     const off_peak_schedule = JSON.parse(
       JSON.stringify(pack?.off_peak_schedule ?? {}),
     );
+
+    const getOffPeakScheduleMapped = memoize(
+      (offPeakSchedule: Record<string, string[][]>): [string, string[][]][] => {
+        return Object.entries(offPeakSchedule);
+      },
+    );
+
+    const offPeakScheduleMapped = getOffPeakScheduleMapped(off_peak_schedule);
+
     return (
       <div>
         {pack.disabled ? (
@@ -585,7 +595,7 @@ export class PaymentPackCard extends Component<Props, State> {
           </div>
         )}
 
-        {!!Object.keys(off_peak_schedule).length && (
+        {!!offPeakScheduleMapped.length && (
           <div className={classes.detailInfo}>
             <div className={classes.detailCategory}>
               <AccessTimeIcon className={classes.leftIcon} />
@@ -594,16 +604,15 @@ export class PaymentPackCard extends Component<Props, State> {
               </Typography>
             </div>
             <div className={classes.allSchedule}>
-              {Object.entries(off_peak_schedule).map(
-                ([isoWeekday, timeSlots]: [string, string[][]]) => {
-                  return (
-                    <OffPeakDisplayByDay
-                      isoWeekday={isoWeekday}
-                      timeSlots={timeSlots}
-                    />
-                  );
-                },
-              )}
+              {offPeakScheduleMapped.map(([isoWeekday, timeSlots], index) => {
+                return (
+                  <OffPeakDisplayByDay
+                    key={`${isoWeekday}-${index}`}
+                    timeSlots={timeSlots}
+                    isoWeekday={isoWeekday}
+                  />
+                );
+              })}
             </div>
           </div>
         )}

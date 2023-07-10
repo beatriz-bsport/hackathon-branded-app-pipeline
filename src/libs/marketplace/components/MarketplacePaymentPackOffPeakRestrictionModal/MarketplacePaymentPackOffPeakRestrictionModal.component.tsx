@@ -9,6 +9,7 @@ import Item, { Alignment } from '#components/css-only/Grid/GridItem';
 
 import './styles.css';
 import { PaymentPack } from '#libs/payment-packs/types';
+import MarketplacePaymentPackOffPeakSchedule from './MarketplacePaymentPackOffPeakSchedule.component';
 
 export type Props = {
   paymentPack: PaymentPack;
@@ -21,10 +22,8 @@ const MarketplacePaymentPackOffPeakRestrictionModal: React.FC<Props> = ({
   isOpen,
   onDialogClose,
 }) => {
-  const { t } = useTranslation(['marketplace', 'paymentPack', 'datetime']);
-  const offPeakSchedule = JSON.parse(
-    JSON.stringify(paymentPack?.off_peak_schedule ?? {}),
-  );
+  const { t } = useTranslation(['marketplace']);
+
   return (
     <>
       {isOpen && (
@@ -49,52 +48,9 @@ const MarketplacePaymentPackOffPeakRestrictionModal: React.FC<Props> = ({
                   }}
                   rowStart={2}
                 >
-                  {!!Object.keys(offPeakSchedule).length && (
-                    <div>
-                      {Object.entries(offPeakSchedule).map(
-                        ([isoWeekday, timeSlots]: [string, string[][]]) => {
-                          return (
-                            <div
-                              key={isoWeekday}
-                              className="bs-off_peak-days-body"
-                            >
-                              {t(
-                                `datetime:time.isoWeekdayNumber.${isoWeekday}`,
-                              )}
-                              <div className="bs-off_peak-timeSlots-body">
-                                {timeSlots.map((timeSlot: string[]) => {
-                                  const [start, end] = timeSlot;
-                                  const isAllDaySlot =
-                                    start === '00:00' && end === '23:59';
-                                  return (
-                                    <div>
-                                      {isAllDaySlot ? (
-                                        <div
-                                          key={`${isoWeekday}-all_day`}
-                                          className="bs-off_peak-all_day"
-                                        >
-                                          {t(
-                                            'paymentPack:addPaymentPack.offPeak.choice.allDay',
-                                          )}
-                                        </div>
-                                      ) : (
-                                        <div
-                                          key={`${isoWeekday}-${start}-${end}`}
-                                          className="bs-off_peak-timeSlot"
-                                        >
-                                          {start} → {end}
-                                        </div>
-                                      )}
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          );
-                        },
-                      )}
-                    </div>
-                  )}
+                  <MarketplacePaymentPackOffPeakSchedule
+                    paymentPack={paymentPack}
+                  />
                 </Item>
                 <Item alignment={Alignment.CENTER} rowStart={3}>
                   <button

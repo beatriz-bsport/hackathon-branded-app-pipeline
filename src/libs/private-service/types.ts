@@ -559,3 +559,19 @@ export type AvailabilityDetail = {
   isFirst?: boolean;
   isLast?: boolean;
 };
+
+export type PrivatePassFactoryOptions = {
+  isManagerOnly?: boolean;
+  isAvailable?: boolean;
+  isEditable?: boolean;
+  isNewMemberOnly?: boolean;
+  isUnpaidPrivateBookingIntegration?: boolean;
+  isUsableByStaff?: boolean;
+  isAppliesForPayroll?: boolean;
+  isOnBehalfOfTeacher?: boolean;
+};
+
+export type PrivateServiceFactoryOptions = {
+  withSlots?: boolean;
+  withCoaches?: boolean;
+};

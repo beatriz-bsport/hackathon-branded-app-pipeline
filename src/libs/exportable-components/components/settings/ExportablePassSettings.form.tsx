@@ -99,22 +99,22 @@ const ExportablePassSettingsForm: React.FC<Props> = React.memo(
       () => [
         ...paymentPackCategories.filter(
           (category) =>
-            config.paymentPackCategories &&
-            config.paymentPackCategories.includes(category.id),
+            config?.paymentPackCategories &&
+            config?.paymentPackCategories.includes(category.id),
         ),
       ],
-      [config.paymentPackCategories, paymentPackCategories],
+      [config?.paymentPackCategories, paymentPackCategories],
     );
 
     const selectedPrivatePassCategories = useMemo(
       () => [
         ...privatePassCategories.filter(
           (category) =>
-            config.privatePassCategories &&
-            config.privatePassCategories.includes(category.id),
+            config?.privatePassCategories &&
+            config?.privatePassCategories.includes(category.id),
         ),
       ],
-      [config.privatePassCategories, privatePassCategories],
+      [config?.privatePassCategories, privatePassCategories],
     );
 
     return (

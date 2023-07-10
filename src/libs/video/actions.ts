@@ -430,6 +430,7 @@ export function fetchUniqueVideoPurchaseByMember(
   memberId: number,
   page: number,
   page_size: number,
+  current_video_id: number,
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
@@ -440,9 +441,14 @@ export function fetchUniqueVideoPurchaseByMember(
         page,
         page_size,
         member_id: memberId,
+        current_item_id: current_video_id,
       });
+      const current_page = response.data?.page ?? page;
       dispatch(
-        listVideoPurchaseByMemberActions.success({ ...response.data, page }),
+        listVideoPurchaseByMemberActions.success({
+          ...response.data,
+          page: current_page,
+        }),
       );
       if (options && options.onSuccess) {
         if (response.data.results) {

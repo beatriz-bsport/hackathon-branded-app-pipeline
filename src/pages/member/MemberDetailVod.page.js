@@ -141,6 +141,7 @@ export class MemberDetailVod extends Component<Props, state> {
                   this.props.onPageRequested(page, page_size)
                 }
                 page={this.props.videoCurrentPage}
+                renderCustomPageFirst={!!this.props.vodId}
                 renderItem={(purchasedVideo) =>
                   purchasedVideo.video && (
                     <VideoItemForManager
@@ -396,6 +397,7 @@ export default compose(
     onPageRequested:
       ({
         id,
+        vodId,
         fetchVideoPurchaseAction,
         fetchVideoListBulkAction,
         retrieveConsumerPackBulkAction,
@@ -403,7 +405,7 @@ export default compose(
         fetchPrivateConsumerPassBulk,
       }) =>
       (page, page_size) => {
-        fetchVideoPurchaseAction(id, page, page_size, {
+        fetchVideoPurchaseAction(id, page, page_size, !page ? vodId : null, {
           onSuccess: (payload) => {
             fetchVideoListBulkAction(payload.map((purVideo) => purVideo.video));
             retrieveConsumerPackBulkAction(

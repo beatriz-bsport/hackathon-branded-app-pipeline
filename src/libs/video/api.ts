@@ -1,3 +1,4 @@
+import { cleanParams } from '../../utils/createUrlHandlers';
 import {
   getAuth,
   buildUrlParams,
@@ -92,9 +93,10 @@ export const fetchNumberVideoPurchase = async (params?: any) => {
 };
 
 export const fetchUniqueVideoPurchaseByMember = async (params?: any) => {
+  const cleanedParams = cleanParams(params);
   return getAuthDeprecated(
     `${API_V1_URI}/vod/video_purchase/get_unique_video_purchased_by_member/${buildUrlParams(
-      { ...(params || {}) },
+      { ...(cleanedParams || {}) },
     )}`,
   );
 };

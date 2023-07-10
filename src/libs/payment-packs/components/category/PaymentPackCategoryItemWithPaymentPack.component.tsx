@@ -147,27 +147,27 @@ const SortablePaymentPackList = React.memo((props: PackListProps) => {
             : p2.ordering_in_category),
       );
 
-  const items = packs.map((e) => e.id.toString(10));
+  const items = packs.filter(e => !!e?.id).map((e) => e.id.toString(10));
 
   const showManagerOnly =
     props.filterManagerOnly === ManagerOnly.showManagerOnly &&
-    packs.filter((pp) => pp.manager_only).length;
+    packs.filter(pp => !!pp).filter((pp) => pp.manager_only).length;
 
   const showManagerExclude =
     props.filterManagerOnly === ManagerOnly.showManagerExclude &&
-    packs.filter((pp) => !pp.manager_only).length;
+    packs.filter(pp => !!pp).filter((pp) => !pp.manager_only).length;
 
   const showInvisibleForStaff =
     props.filterManagerOnly === ManagerOnly.showInvisibleForStaff &&
-    packs.filter((pp) => !pp.is_usable_by_staff).length;
+    packs.filter(pp => !!pp).filter((pp) => !pp.is_usable_by_staff).length;
 
   return (
-    <SortableContext items={items} strategy={verticalListSortingStrategy}>
+    <SortableContext items={items.filter(pp => !!pp)} strategy={verticalListSortingStrategy}>
       {props.filterManagerOnly === ManagerOnly.showAll ||
       showManagerOnly ||
       showManagerExclude ||
       showInvisibleForStaff ? (
-        packs.map((pack: PaymentPack) => {
+          packs.filter(pp => !!pp).map((pack: PaymentPack) => {
           return props.filterManagerOnly === ManagerOnly.showAll ||
             (props.filterManagerOnly === ManagerOnly.showManagerOnly &&
               pack.manager_only) ||
@@ -193,7 +193,7 @@ const SortablePaymentPackList = React.memo((props: PackListProps) => {
                 props.onRestore ? () => props.onRestore(pack.id) : null
               }
               classes={props.classes}
-              sortedItems={packs}
+              sortedItems={packs.filter(pp => !!pp)}
             />
           ) : null;
         })

@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Typography from '@material-ui/core/Typography';
 import StepCard, { StepCardProps } from './StepCard.component';
 // @ts-expect-error
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 faker.locale = 'en';
 
 export default {

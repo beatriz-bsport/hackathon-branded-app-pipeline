@@ -3,7 +3,7 @@ import React from 'react';
 import CreateFranchiseRole, {
   OwnProps,
 } from './FranchiseCreateRoleDialog.component';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import {
   FranchiseesFactory,
   FranchiseRolesFactory,

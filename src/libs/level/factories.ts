@@ -1,5 +1,5 @@
 // @ts-nocheck
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { generateRandomInt } from '../../utils/factories';
 
 import { Level } from './types';

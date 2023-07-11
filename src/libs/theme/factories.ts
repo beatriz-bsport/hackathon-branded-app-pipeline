@@ -1,6 +1,6 @@
 // @ts-nocheck
 import FactoryBot from 'ya-factorybot';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import moment from 'moment-timezone';
 import { BOOKING_DATE_ORDER } from '@bsport/common/lib/master-data/settings';
 import {

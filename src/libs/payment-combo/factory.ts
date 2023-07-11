@@ -1,6 +1,6 @@
 // @ts-nocheck
 import FactoryBot from 'ya-factorybot';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { private_services_passes_factory } from '#libs/private-service/factory';
 import FactoryBotPaymentPack, {

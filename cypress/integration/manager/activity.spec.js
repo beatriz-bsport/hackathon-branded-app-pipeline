@@ -1,5 +1,5 @@
 // <reference types="Cypress" />
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { REACT_APP_URI, REACT_APP_TEST_URI } from '../common.utils';
 
 const activity_description = faker.lorem.sentence();

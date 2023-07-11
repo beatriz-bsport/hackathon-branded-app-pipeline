@@ -2,7 +2,7 @@
 import React from 'react';
 
 import MultipleSessionDetails, { OwnProps } from './MultipleSessions.component';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 const CustomTemplate = (args: OwnProps) => <MultipleSessionDetails {...args} />;
 

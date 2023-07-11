@@ -1,5 +1,5 @@
 // @ts-nocheck
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import React from 'react';
 import HighlitedText, { OwnProps } from './HighlightedText.component';
 

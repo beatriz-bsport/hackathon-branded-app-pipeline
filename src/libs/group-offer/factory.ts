@@ -1,5 +1,5 @@
 // @ts-nocheck
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import moment from 'moment-timezone';
 import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports';
 import { generateRandomInt } from '../../utils/factories';

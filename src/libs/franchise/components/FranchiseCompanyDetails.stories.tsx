@@ -6,7 +6,7 @@ import FranchiseCompanyDetails, {
 import FactoryBot from '../factories/FranchiseCompanyFactory';
 import FactoryBotMember from '../../member/factories/MemberMinimal';
 import FactoryBotEstablishment from '../../establishment/factories/Establishments';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 const CompleteDefaultState = (args: OwnProps) => (
   <FranchiseCompanyDetails {...args} />

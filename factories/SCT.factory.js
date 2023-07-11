@@ -1,5 +1,5 @@
 import FactoryBot from 'ya-factorybot';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import SPORTS from '@bsport/common/lib/master-data/sports';
 

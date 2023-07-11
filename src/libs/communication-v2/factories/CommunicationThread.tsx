@@ -1,5 +1,5 @@
 // @ts-nocheck
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { CommunicationThreadWithUnreadAnswersCount } from '#libs/communication-v2/types';

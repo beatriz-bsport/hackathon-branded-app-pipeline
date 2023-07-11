@@ -1,5 +1,5 @@
 // @ts-nocheck
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { TutorialLesson, TutorialSection } from './types';
 
 faker.locale = 'fr';

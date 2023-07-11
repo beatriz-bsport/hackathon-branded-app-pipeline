@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import FactoryBot from 'ya-factorybot';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { MONTHLY } from './constants';
 
 faker.locale = 'fr';

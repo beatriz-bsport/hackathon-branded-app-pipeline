@@ -1,5 +1,5 @@
 // @ts-ignore
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 // @ts-ignore
 import FactoryBot from 'ya-factorybot';
 import moment from 'moment-timezone';

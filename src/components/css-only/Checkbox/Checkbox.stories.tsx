@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // @ts-ignore
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { CheckboxForStorybook, Props } from './Checkbox.component';
 

@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import InfoGenericBox, { OwnProps } from './InfoGenericBox.component';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 faker.locale = 'fr';
 
 const CustomTemplate = (args: OwnProps) => <InfoGenericBox {...args} />;

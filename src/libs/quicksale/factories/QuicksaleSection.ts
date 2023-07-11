@@ -1,6 +1,6 @@
 // @ts-nocheck
 import FactoryBot from 'ya-factorybot';
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { QuicksaleSection } from '../types';
 import { QuicksaleSectionColor } from '../constants';
 import ItemFactoryBot from './QuicksaleItem';

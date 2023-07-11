@@ -1,5 +1,5 @@
 // @ts-nocheck
-import faker from 'faker';
+import { faker } from '@faker-js/faker';
 import { CanvasSelectableToolsEnum } from '#libs/spot-scheduling/CanvasSvg/tools/CanvasStrategy';
 import { RoomBlueprint } from './types';
 

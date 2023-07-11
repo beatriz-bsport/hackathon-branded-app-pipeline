@@ -153,12 +153,13 @@ export default handleActions<ImmutableCadenceStepState, any>(
         );
     },
 
-    [updateCadenceStepCanvasPositionActions.isLoading.toString()]: (
-      state,
-      { payload }: { payload: boolean },
-    ) => {
-      return state.setIn(['position', 'loading'], payload);
-    },
+    /* Commented code for achieving smoother drag and drop with instant position change */
+    // [updateCadenceStepCanvasPositionActions.isLoading.toString()]: (
+    //   state,
+    //   { payload }: { payload: boolean },
+    // ) => {
+    //   return state.setIn(['position', 'loading'], payload);
+    // },
     [updateCadenceStepCanvasPositionActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
@@ -172,10 +173,11 @@ export default handleActions<ImmutableCadenceStepState, any>(
       return state.setIn(['byId', payload.id.toString()], payload);
     },
 
-    [updateCadenceStepConnectedTriggerCanvasPositionActions.isLoading.toString()]:
-      (state, { payload }: { payload: boolean }) => {
-        return state.setIn(['position', 'loading'], payload);
-      },
+    /* Commented code for achieving smoother drag and drop with instant position change */
+    // [updateCadenceStepConnectedTriggerCanvasPositionActions.isLoading.toString()]:
+    //   (state, { payload }: { payload: boolean }) => {
+    //     return state.setIn(['position', 'loading'], payload);
+    //   },
     [updateCadenceStepConnectedTriggerCanvasPositionActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },

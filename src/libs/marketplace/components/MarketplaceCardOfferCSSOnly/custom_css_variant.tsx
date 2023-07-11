@@ -73,7 +73,7 @@ Each component hook used to inject props must be type safe to ensure that
 any modification of component (additional props, removed props, props changed)
 must throw a Typescript Error.
 */
-const usePropsFromVaration = (
+const usePropsFromVariation = (
   variationsSelected: Record<string, VariationConfigurationChoice>,
 ): Omit<
   MarketplaceOfferCardProps,
@@ -167,14 +167,11 @@ export const MARKETPLACE_OFFER_CARD_CONFIGURATION: MarketplaceCSSComponentConfig
     variations: offerCardVariationRegistry,
   };
 
-export const MARKETPLACE_OFFER_CARD_PREVIEW = ({
-  theme,
-  variationsSelected,
-}: {
+export const MARKETPLACE_OFFER_CARD_PREVIEW: React.FC<{
   theme: CompanyTheme;
   variationsSelected: Record<string, VariationConfigurationChoice>;
-}) => {
-  const componentProps = usePropsFromVaration(variationsSelected);
+}> = React.memo(({ theme, variationsSelected }) => {
+  const componentProps = usePropsFromVariation(variationsSelected);
   return (
     <MarketPlaceCardOfferCSSOnly
       theme={theme}
@@ -184,6 +181,6 @@ export const MARKETPLACE_OFFER_CARD_PREVIEW = ({
       {...componentProps}
     />
   );
-};
+});
 
 export default MarketPlaceCardOfferCSSOnly;

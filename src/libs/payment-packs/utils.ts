@@ -365,8 +365,8 @@ export const formatOffPeakScheduleOnSubmit = (
     const groupedTimeSlots = [] as string[][];
     group.slotDurationChoice === 'all_day'
       ? groupedTimeSlots.push([
-          moment().hours(0).minutes(0).seconds(0).format('HH:mm'),
-          moment().hours(23).minutes(59).seconds(59).format('HH:mm'),
+          moment().hours(0).minutes(0).seconds(0).format(),
+          moment().hours(23).minutes(59).seconds(59).format(),
         ])
       : group.timeSlots.forEach((timeSlot) => {
           groupedTimeSlots.push(timeSlot);
@@ -479,7 +479,11 @@ export const formatOffPeakScheduleOnEdit = (
     };
 
     // From the back-end, if the slot duration choice was all_day, it only has 1 timeslot
-    if (timeSlot[0][0] === '00:00' && timeSlot[0][1] === '23:59') {
+    const isAllDay =
+      moment(formattedTimeSlotValue[0][0]).format('HH:mm') === '00:00' &&
+      moment(formattedTimeSlotValue[0][1]).format('HH:mm') === '23:59';
+
+    if (isAllDay) {
       slotDurationChoiceValue = 'all_day';
     } else {
       slotDurationChoiceValue = 'time_slot';

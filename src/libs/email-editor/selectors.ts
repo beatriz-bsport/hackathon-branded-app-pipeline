@@ -15,6 +15,9 @@ export const getAllEmailTemplatesSummariesDict = (state: RootState) =>
 export const getAllEmailTemplatesId = (state: RootState) =>
   state.emailTemplate.allIds;
 
+export const getEmailTemplateSummary = (state: RootState, id: string) =>
+  state.emailTemplate.byId[id];
+
 export const getAllEmailTemplatesSummaries = createSelector(
   [getAllEmailTemplatesSummariesDict, getAllEmailTemplatesId],
   (summaryDict, IdList) =>

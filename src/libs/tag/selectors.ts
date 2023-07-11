@@ -1,4 +1,3 @@
-// @ts-nocheck
 import memoize from 'memoize-one';
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag';
 import { createSelector } from 'reselect';
@@ -20,6 +19,8 @@ export const getAll: (state: RootState) => Array<TagGroup> = createSelector(
       tags: tags.filter((t) => t.group === g.id),
     })),
 );
+
+export const getTag = (state: RootState, id: string) => state.tag.tag.byId[id];
 
 export const getMemberTagGroups: (state: RootState) => Array<TagGroup> =
   createSelector(getAll, (tgs) =>
@@ -98,6 +99,6 @@ export const getAllTemplate: (state: RootState) => Array<TagGroup> =
     (tagTemplates, groupTemplates) =>
       groupTemplates.map((g) => ({
         ...g,
-        tags: tagTemplates.filter((t) => t.group_template === g.id),
+        tags: tagTemplates.filter((t) => t.group === g.id),
       })),
   );

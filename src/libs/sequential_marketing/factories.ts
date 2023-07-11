@@ -21,14 +21,14 @@ import { smartlistFactory } from '#libs/smart-list/factories';
 
 function TriggerEmptyConfigFactory(): TriggerEmptyConfig {
   return {
-    uuid: faker.random.uuid(),
+    uuid: faker.string.uuid(),
     identifier: TriggerIdentifier.EMPTY,
   };
 }
 
 function TriggerTimeoutConfigFactory(): TriggerTimeoutConfig {
   return {
-    uuid: faker.random.uuid(),
+    uuid: faker.string.uuid(),
     identifier: TriggerIdentifier.TIMEOUT,
     timeout: generateRandomInt(7),
   };
@@ -36,7 +36,7 @@ function TriggerTimeoutConfigFactory(): TriggerTimeoutConfig {
 
 function TriggerEventConfigFactory(): TriggerEventConfig {
   return {
-    uuid: faker.random.uuid(),
+    uuid: faker.string.uuid(),
     identifier: TriggerIdentifier.EVENT,
     event_type:
       CADENCE_EVENT_ALL_CHOICES[
@@ -56,13 +56,13 @@ function DestinationConfigFactory(): DestinationConfig {
       DESTINATION_STATUS_CHOICES[
         generateRandomInt(DESTINATION_STATUS_CHOICES.length - 1)
       ],
-    uuid: faker.random.uuid(),
+    uuid: faker.string.uuid(),
   };
 }
 
 function FilteringConfigFactory(smartlistId?: number): FilteringConfig {
   return {
-    uuid: faker.random.uuid(),
+    uuid: faker.string.uuid(),
     identifier: smartlistId
       ? FilterIdentifier.SMARTLIST
       : FilterIdentifier.EMPTY,

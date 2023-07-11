@@ -5,7 +5,7 @@ import { QuicksaleCardInfo } from '../types';
 import { QuicksaleItemColor } from '../constants';
 
 FactoryBot.define('QuicksaleCardInfo', {
-  id: () => faker.random.uuid(),
+  id: () => faker.string.uuid(),
   title: () => faker.random.words(3),
   subtitle: () => faker.random.words(2),
   price: () => faker.random.number(100),

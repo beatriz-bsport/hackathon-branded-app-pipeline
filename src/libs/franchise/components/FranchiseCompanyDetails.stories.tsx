@@ -45,8 +45,8 @@ CustomTemplate.args = {
   memberCounts: 10,
   page: 1,
   establishmentsByLocation: {
-    [faker.address.streetAddress()]: establishment.slice(0, 5),
-    [faker.address.streetAddress()]: establishment.slice(5),
+    [faker.location.street()]: establishment.slice(0, 5),
+    [faker.location.street()]: establishment.slice(5),
   },
   handleChangePage: () => {},
   goToCompany: () => {},

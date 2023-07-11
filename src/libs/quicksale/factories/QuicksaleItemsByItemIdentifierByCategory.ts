@@ -7,7 +7,9 @@ import createQuicksaleCardInfo from './QuicksaleCardInfo';
 FactoryBot.define('QuicksaleItemsByItemIdentifierByCategory', {
   [QuicksaleBasketItem.PaymentPackIdentifier]: () => ({
     hasCategories: true,
-    itemsByCategory: [...Array(faker.random.number(5)).keys()].map((index) => ({
+    itemsByCategory: [
+      ...Array(faker.helpers.multiple(faker.number.int)).keys(),
+    ].map((index) => ({
       id: FactoryBot.sequence(),
       name: `Catégorie carte de cours ${index}`,
       items: createQuicksaleCardInfo(5),
@@ -15,7 +17,9 @@ FactoryBot.define('QuicksaleItemsByItemIdentifierByCategory', {
   }),
   [QuicksaleBasketItem.PrivatePassIdentifier]: () => ({
     hasCategories: true,
-    itemsByCategory: [...Array(faker.random.number(5)).keys()].map((index) => ({
+    itemsByCategory: [
+      ...Array(faker.helpers.multiple(faker.number.int)).keys(),
+    ].map((index) => ({
       id: FactoryBot.sequence(),
       name: `Catégorie cartes de rdv ${index}`,
       items: createQuicksaleCardInfo(5),
@@ -23,7 +27,9 @@ FactoryBot.define('QuicksaleItemsByItemIdentifierByCategory', {
   }),
   [QuicksaleBasketItem.ShopItemIdentifier]: () => ({
     hasCategories: true,
-    itemsByCategory: [...Array(faker.random.number(5)).keys()].map((index) => ({
+    itemsByCategory: [
+      ...Array(faker.helpers.multiple(faker.number.int)).keys(),
+    ].map((index) => ({
       id: FactoryBot.sequence(),
       name: `Catégorie produits ${index}`,
       items: createQuicksaleCardInfo(5),
@@ -31,7 +37,9 @@ FactoryBot.define('QuicksaleItemsByItemIdentifierByCategory', {
   }),
   [QuicksaleBasketItem.PaymentComboIdentifier]: () => ({
     hasCategories: false,
-    itemsByCategory: [...Array(faker.random.number(5)).keys()].map((index) => ({
+    itemsByCategory: [
+      ...Array(faker.helpers.multiple(faker.number.int)).keys(),
+    ].map((index) => ({
       id: FactoryBot.sequence(),
       name: `Catégorie packs ${index}`,
       items: createQuicksaleCardInfo(5),
@@ -39,7 +47,9 @@ FactoryBot.define('QuicksaleItemsByItemIdentifierByCategory', {
   }),
   [QuicksaleBasketItem.SubscriptionIdentifier]: () => ({
     hasCategories: false,
-    itemsByCategory: [...Array(faker.random.number(5)).keys()].map((index) => ({
+    itemsByCategory: [
+      ...Array(faker.helpers.multiple(faker.number.int)).keys(),
+    ].map((index) => ({
       id: FactoryBot.sequence(),
       name: `Catégorie contrats ${index}`,
       items: createQuicksaleCardInfo(5),
@@ -47,7 +57,9 @@ FactoryBot.define('QuicksaleItemsByItemIdentifierByCategory', {
   }),
   [QuicksaleBasketItem.GiftcardIdentifier]: () => ({
     hasCategories: false,
-    itemsByCategory: [...Array(faker.random.number(5)).keys()].map((index) => ({
+    itemsByCategory: [
+      ...Array(faker.helpers.multiple(faker.number.int)).keys(),
+    ].map((index) => ({
       id: FactoryBot.sequence(),
       name: `Catégorie cartes cadeau ${index}`,
       items: createQuicksaleCardInfo(5),

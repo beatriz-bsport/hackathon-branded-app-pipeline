@@ -1,9 +1,6 @@
 // @ts-nocheck
-// @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import { push } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -75,6 +72,7 @@ import {
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
+import FabWithItems from '#components/button/FabWithItems';
 
 type OwnProps = {
   couponToDelete: (id: string) => void;
@@ -98,6 +96,7 @@ type State = {
   searchText: string;
   searchResult: Array<PaymentCombo>;
   couponFormState: { open: boolean; initial: Coupon | null };
+  uniqueCodeCouponFormState: { open: boolean };
 };
 
 export class CouponList extends React.PureComponent<Props, State> {
@@ -105,6 +104,7 @@ export class CouponList extends React.PureComponent<Props, State> {
     searchText: '',
     searchResult: [],
     couponFormState: { open: false, initial: null },
+    uniqueCodeCouponFormState: { open: false },
   };
 
   componentDidMount() {
@@ -171,9 +171,37 @@ export class CouponList extends React.PureComponent<Props, State> {
   onCloseFormDrawer = () =>
     this.setState({ couponFormState: { open: false, initial: null } });
 
+  onOpenFormDrawer = () =>
+    this.setState({
+      couponFormState: { open: true, initial: null },
+    });
+
+  onOpenUniqueCodeCouponFormDrawer = () => {
+    this.setState({
+      uniqueCodeCouponFormState: { open: true },
+    });
+  };
+
+  onCloseUniqueCodeCouponFormDrawer = () => {
+    this.setState({
+      uniqueCodeCouponFormState: { open: false },
+    });
+  };
+
   componentWillUnmount() {
     this.props.resetDisabledPaymentPack();
   }
+
+  fabItems = [
+    {
+      label: this.props.t('fabLabels.voucherCodes'),
+      onClick: this.onOpenUniqueCodeCouponFormDrawer,
+    },
+    {
+      label: this.props.t('fabLabels.discountCode'),
+      onClick: this.onOpenFormDrawer,
+    },
+  ];
 
   render() {
     const { classes, t } = this.props;
@@ -289,18 +317,7 @@ export class CouponList extends React.PureComponent<Props, State> {
         {(!!this.props.inactiveCoupons?.length ||
           !!this.props.activeCoupons?.length) && (
           <div className={classes.addButtonContainer}>
-            <Fab
-              color="primary"
-              onClick={() =>
-                this.setState({
-                  couponFormState: { open: true, initial: null },
-                })
-              }
-              variant="extended"
-            >
-              <AddIcon />
-              {t('createCoupon')}
-            </Fab>
+            <FabWithItems items={this.fabItems} label={t('createCoupon')} />
           </div>
         )}
       </div>

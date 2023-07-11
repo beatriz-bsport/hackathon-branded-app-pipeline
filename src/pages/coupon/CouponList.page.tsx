@@ -24,6 +24,7 @@ import {
   deleteCoupon,
   createCoupon,
   updateCoupon,
+  createUniqueCodeCoupon,
 } from '#libs/coupon/actions';
 import {
   getActiveCoupons,
@@ -31,7 +32,10 @@ import {
   getAllCoupons,
   withTags,
 } from '#libs/coupon/selectors';
-import type { Coupon } from '#libs/coupon/types';
+import type {
+  Coupon,
+  UniqueCodeCouponCreationPayload,
+} from '#libs/coupon/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component';
@@ -73,6 +77,7 @@ import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 import FabWithItems from '#components/button/FabWithItems';
+import UniqueCodeCouponFormDrawer from '#libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
 
 type OwnProps = {
   couponToDelete: (id: string) => void;
@@ -158,6 +163,25 @@ export class CouponList extends React.PureComponent<Props, State> {
           couponFormState: {
             open: false,
             initial: null,
+          },
+        });
+        if (options && options.onSuccess) options.onSuccess();
+      },
+      onError: () => {
+        if (options && options.onError) options.onError();
+      },
+    });
+  };
+
+  createUniqueCodeCoupon = (
+    data: UniqueCodeCouponCreationPayload,
+    options?: OptionCallback<Coupon>,
+  ) => {
+    return this.props.createUniqueCodeCoupon(data, {
+      onSuccess: () => {
+        this.setState({
+          uniqueCodeCouponFormState: {
+            open: false,
           },
         });
         if (options && options.onSuccess) options.onSuccess();
@@ -309,6 +333,21 @@ export class CouponList extends React.PureComponent<Props, State> {
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
         />
+        <UniqueCodeCouponFormDrawer
+          isLoading={this.props.loading}
+          isProcessing={this.props.createOrUpdateLoading}
+          onCancel={this.onCloseUniqueCodeCouponFormDrawer}
+          onSubmit={this.createUniqueCodeCoupon}
+          open={this.state.uniqueCodeCouponFormState.open}
+          paymentCombos={this.props.paymentCombos}
+          paymentCombosById={this.props.allPaymentCombosById}
+          paymentPacks={this.props.paymentPacks}
+          paymentPacksById={this.props.allPaymentPacksById}
+          privatePasses={this.props.privatePasses}
+          privatePassesById={this.props.allPrivatePassesById}
+          shopItems={this.props.shopItems}
+          shopItemsById={this.props.allShopItemsById}
+        />
         <CouponDeleteModal
           onClose={this.props.closeDeleteModal}
           onSubmit={this.props.deleteCoupon}
@@ -380,6 +419,7 @@ const connector = connect(
     fetchTags,
     createCouponAction: createCoupon,
     updateCouponAction: updateCoupon,
+    createUniqueCodeCouponAction: createUniqueCodeCoupon,
     resetDisabledPaymentPack: resetDisabledPaymentPackAction,
   },
 );
@@ -404,6 +444,22 @@ const mapWithHandlers = {
           props.goToCoupon(id?.toString());
         },
       }),
+  createUniqueCodeCoupon:
+    (props: ConnectedProps<typeof connector>) =>
+    (
+      data: UniqueCodeCouponCreationPayload,
+      options?: OptionCallback<Coupon>,
+    ) => {
+      props.createUniqueCodeCouponAction(data, {
+        onSuccess: (couponCreated: Coupon) => {
+          if (options && options.onSuccess) options.onSuccess(couponCreated);
+          props.goToCoupon(couponCreated.id?.toString());
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
+      });
+    },
 };
 export default compose(
   withTranslation(['coupon']),

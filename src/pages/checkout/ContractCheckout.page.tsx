@@ -417,6 +417,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
 
     const isWidget = WidgetUtils.isWidget();
 
+    const displayCarousel = !this.state.isDirectBuyingLink && !isWidget;
+    const displayDirectLinkLayout = this.state.isDirectBuyingLink || isWidget;
+
     return (
       <ConsumerAppBar>
         <div
@@ -454,12 +457,12 @@ export class MarketplaceSubscriptionPayment extends React.Component<
           ) : (
             <div
               className={classNames({
-                'bs-contract-payment-page': !this.state.isDirectBuyingLink,
+                'bs-contract-payment-page': displayCarousel,
                 'bs-contract-payment-page__direct__link__container':
-                  this.state.isDirectBuyingLink,
+                  displayDirectLinkLayout,
               })}
             >
-              {!this.state.isDirectBuyingLink && (
+              {displayCarousel && (
                 <div className="bs-contract-payment-page__carousel__container">
                   <Carousel
                     isSlideshowDisabled
@@ -472,7 +475,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                 </div>
               )}
 
-              {this.state.isDirectBuyingLink && (
+              {displayDirectLinkLayout && (
                 <MarketplaceContractDetail
                   contract={contract}
                   getPaymentPackSelected={this.props.getPaymentPackSelected}

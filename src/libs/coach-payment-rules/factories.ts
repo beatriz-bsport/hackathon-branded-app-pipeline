@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { faker } from '@faker-js/faker';
 import { generateRandomInt } from '../../utils/factories';
 import type { CoachPaymentRule, CoachPaymentRuleGroup } from './types';
@@ -39,7 +37,7 @@ export function coachPaymentRuleFactory(coachId?: number): CoachPaymentRule {
   const max_remuneration = generateRandomInt(999999, min_remuneration);
   return {
     id: generateRandomInt(1000),
-    name: faker.random.words(2),
+    name: faker.lorem.words(2),
     kind: generateRandomInt(100),
     base_remuneration: generateRandomInt(1000000, 0),
     min_remuneration,
@@ -73,7 +71,7 @@ export function coachPaymentRulesByKindFactory(
 export function coachPaymentRuleGroupFactory(): CoachPaymentRuleGroup {
   return {
     id: generateRandomInt(1000),
-    name: faker.random.words(2),
+    name: faker.lorem.words(2),
     company: generateRandomInt(1000),
     session_coach_payment_rule: coachPaymentRuleFactory(),
     workshop_coach_payment_rule: coachPaymentRuleFactory(),

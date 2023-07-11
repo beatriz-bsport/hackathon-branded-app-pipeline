@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 import moment from 'moment-timezone';
@@ -25,8 +25,8 @@ const defaultScheduleEnd = moment()
 
 FactoryBot.define('companyTheme', {
   id: FactoryBot.sequence(),
-  company_name: () => faker.random.word(),
-  stripe_pk_key: () => faker.random.word(),
+  company_name: () => faker.lorem.word(),
+  stripe_pk_key: () => faker.lorem.word(),
   locale: 'fr_FR',
   show_offers_filling: false,
   accept_double_booking: false,
@@ -69,8 +69,8 @@ FactoryBot.define('companyTheme', {
 
 FactoryBot.define('ProvincialTax', {
   id: FactoryBot.sequence(),
-  name: () => faker.random.word(),
-  value: () => faker.datatype.float(),
+  name: () => faker.lorem.word(),
+  value: () => faker.number.float(),
 });
 
 export default FactoryBot;

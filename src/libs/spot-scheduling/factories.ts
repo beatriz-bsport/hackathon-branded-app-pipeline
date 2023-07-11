@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { fakerFR as faker } from '@faker-js/faker';
 import { CanvasSelectableToolsEnum } from '#libs/spot-scheduling/CanvasSvg/tools/CanvasStrategy';
 import { RoomBlueprint } from './types';
@@ -47,7 +46,7 @@ export const roomBlueprintFactory = (
 ): Partial<RoomBlueprint> => {
   return {
     id: Math.floor(Math.random() * 1000),
-    name: faker.random.words(2),
+    name: faker.lorem.words(2),
     establishment: establishmentId ?? Math.floor(Math.random() * 1000),
     disabled: false,
     company: Math.floor(Math.random() * 1000),

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import FranchiseCompanyDetails, {
   OwnProps,
@@ -14,7 +13,6 @@ const CompleteDefaultState = (args: OwnProps) => (
 
 export const EmptyState = CompleteDefaultState.bind({});
 
-// @ts-ignore
 const company = FactoryBot.FranchiseCompany.createOne();
 const members = FactoryBotMember.MemberMinimal.create(5);
 const establishment = FactoryBotEstablishment.Establishment.create(10);

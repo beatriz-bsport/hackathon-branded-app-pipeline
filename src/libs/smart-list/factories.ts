@@ -27,7 +27,7 @@ export function smartlistFactory(
   return {
     id: smartlistId,
     company: companyId || generateRandomInt(300),
-    name: randomName ? faker.random.words(2) : `Smartlist n°${smartlistId}`,
+    name: randomName ? faker.lorem.words(2) : `Smartlist n°${smartlistId}`,
     description: faker.hacker.phrase(),
     members: generateMemberIdsBatch(numberOfMembers || 3),
     member_base: 0,

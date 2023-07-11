@@ -7,7 +7,7 @@ FactoryBot.define('EmailTemplateDetail', {
   name: faker.lorem.words(5),
   company_id: undefined,
   design: {},
-  html: '<div> i am html </div>',
+  html: `<div> ${faker.lorem.paragraph()} </div>`,
 });
 
 export default FactoryBot;

@@ -1,10 +1,10 @@
-// @ts-nocheck
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 
 FactoryBot.define('MetaActivity', {
   id: 1,
-  name: faker.lorem.word,
+  name: faker.lorem.word(),
   SCT: 1,
   description: faker.lorem.sentence(),
   coach: 1,

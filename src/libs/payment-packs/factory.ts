@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 
@@ -6,14 +6,14 @@ import { PaymentPack } from '#libs/payment-packs/types';
 
 FactoryBot.define('PaymentPackCategory', {
   id: FactoryBot.sequence(),
-  name: () => faker.random.word(2),
+  name: () => faker.lorem.word(2),
   company_id: 1,
   category_ordering: () => Math.floor(Math.random() * 10),
 });
 
 FactoryBot.define('PaymentPack', {
   id: FactoryBot.sequence(),
-  name: () => faker.random.word(),
+  name: () => faker.lorem.word(),
   price: Math.floor(Math.random() * 100),
   credits: Math.floor(Math.random() * 30),
   unlimited: Math.random() < 0.5,
@@ -25,7 +25,7 @@ FactoryBot.define('PaymentPack', {
 
 FactoryBot.define('PaymentPackWithDateRange', {
   id: FactoryBot.sequence(),
-  name: () => faker.random.word(),
+  name: () => faker.lorem.word(),
   price: Math.floor(Math.random() * 100),
   credits: Math.floor(Math.random() * 30),
   unlimited: Math.random() < 0.5,
@@ -61,7 +61,7 @@ export const PaymentPackStorybookListFactory = (
 
 FactoryBot.define('PaymentPackFullDetails', {
   id: FactoryBot.sequence(),
-  name: () => faker.random.word(),
+  name: () => faker.lorem.word(),
   price: Math.floor(Math.random() * 100),
   credits: Math.floor(Math.random() * 30),
   unlimited: Math.random() < 0.5,
@@ -93,7 +93,7 @@ FactoryBot.define('PaymentPackFullDetails', {
   penalty_nb_late_cancellations: Math.floor(Math.random() * 30),
   penalty_nb_days: Math.floor(Math.random() * 30),
   penalty_account_value: Math.floor(Math.random() * 30),
-  description: () => faker.random.words(100),
+  description: () => faker.lorem.words(100),
   off_peak_schedule: {
     '1': [['08:00', '12:00']],
     '2': [['08:00', '12:00']],

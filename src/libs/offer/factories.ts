@@ -1,6 +1,6 @@
-import { fakerFR as faker } from '@faker-js/faker';
-// @ts-ignore
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
+import { fakerFR as faker } from '@faker-js/faker';
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 
@@ -24,7 +24,7 @@ FactoryBot.define('Offer', {
   activity_id: 1,
   waiting_list_max_size: 5,
   category: '',
-  cover_main: faker.image.food(),
+  cover_main: faker.image.urlLoremFlickr({ category: 'food' }),
   effectif: 20,
   nb_option: 1,
   nb_bookings: 1,

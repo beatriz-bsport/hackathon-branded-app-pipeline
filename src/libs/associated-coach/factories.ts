@@ -1,4 +1,3 @@
-// @ts-ignore
 import { faker } from '@faker-js/faker';
 
 import { generateRandomInt } from '../../utils/factories';
@@ -66,8 +65,8 @@ function randomPrivate_slots_coach_payment_rules(length: number) {
 
 export function coachFactory(coach_payment_rule_group_id?: number): Coach {
   const wichGender = generateRandomInt(2);
-  const firstName = faker.name.firstName();
-  const lastName = faker.name.lastName();
+  const firstName = faker.person.firstName();
+  const lastName = faker.person.lastName();
   const name = `${firstName} ${lastName}`;
 
   return {
@@ -81,7 +80,7 @@ export function coachFactory(coach_payment_rule_group_id?: number): Coach {
     photo: photo[wichGender],
     description: `Hello, my name is ${name}`,
     phone: `00645545${generateRandomInt(9)}`,
-    email: faker.internet.email(firstName, lastName),
+    email: faker.internet.email({ firstName, lastName }),
     color: randomColor(),
     associated_coach_id: generateRandomInt(1000),
     default_payment_rule_id: generateRandomInt(1000),

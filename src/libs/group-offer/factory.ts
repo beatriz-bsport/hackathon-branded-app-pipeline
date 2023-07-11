@@ -1,10 +1,10 @@
-// @ts-nocheck
 import { faker } from '@faker-js/faker';
 import moment from 'moment-timezone';
 import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports';
 import { generateRandomInt } from '../../utils/factories';
 
-import { MetaActivity } from './types';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { RecurrenceRuleGroupOffer } from './types';
 
 const NAMES: Array<string> = [
   'Boxing',
@@ -64,6 +64,7 @@ export function meta_activity_factory(num_el: number): Array<MetaActivity> {
     id,
     image: random_choice(IMAGES),
   }));
+  // @ts-expect-error
   return META_ACTIVITY_IDS.map((id) => {
     return {
       id: id + 1,
@@ -98,7 +99,7 @@ export const offerGroupFactory = () => ({
   id: 1,
   company: 1,
   meta_activity: 1,
-  offers: [],
+  offers: [] as number[],
   level: 1,
   full_booking_only: true,
   allow_booking_after_start: true,
@@ -110,7 +111,7 @@ export const offerGroupFactory = () => ({
     frequence: 0,
     interval: null,
     until: null,
-  },
+  } as RecurrenceRuleGroupOffer,
   manager_only: false,
   recurrence_index: 1,
 });

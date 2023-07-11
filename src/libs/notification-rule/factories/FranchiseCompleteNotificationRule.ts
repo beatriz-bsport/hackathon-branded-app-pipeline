@@ -1,8 +1,7 @@
-// @ts-nocheck
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 
-// @ts-ignore
 FactoryBot.define('FranchiseCompleteNotificationRule', {
   id: Math.floor(Math.random() * 1000),
   title: faker.lorem.words(5),

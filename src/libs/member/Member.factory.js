@@ -2,8 +2,8 @@ import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 
 FactoryBot.define('Member', {
-  first_name: faker.name.firstName,
-  last_name: faker.name.lastName,
+  first_name: faker.person.firstName(),
+  last_name: faker.person.lastName(),
   email: faker.internet.email().toLowerCase(),
   gender: 'M',
   membership_id: faker.random.number(),

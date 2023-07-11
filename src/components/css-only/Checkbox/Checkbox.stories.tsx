@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// @ts-ignore
 import { faker } from '@faker-js/faker';
 
 import { CheckboxForStorybook, Props } from './Checkbox.component';
@@ -10,7 +9,7 @@ const CheckboxTemplate = (args: Props) => {
   const handleOnChange = () => setIsChecked((prevState) => !prevState);
   const label = faker.hacker.phrase();
   return (
-    // @ts-ignore
+    //@ts-expect-error
     <CheckboxForStorybook
       name="idle-checkbox"
       isChecked={isChecked}

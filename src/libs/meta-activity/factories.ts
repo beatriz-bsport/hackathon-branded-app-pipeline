@@ -1,5 +1,4 @@
-// @ts-nocheck
-
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 

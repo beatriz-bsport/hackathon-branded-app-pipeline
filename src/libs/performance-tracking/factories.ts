@@ -1,5 +1,4 @@
-// @ts-nocheck
-
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 import moment from 'moment-timezone';
@@ -16,8 +15,8 @@ FactoryBot.define('Metric', {
   id: FactoryBot.sequence(),
   is_disable: false,
   program: () => 0,
-  name: () => faker.random.word(),
-  machine_id: () => faker.random.word(),
+  name: () => faker.lorem.word(),
+  machine_id: () => faker.lorem.word(),
   min_value: () => 0,
   max_value: () => 100,
   default_value: () => 50,
@@ -28,9 +27,9 @@ FactoryBot.define('Metric', {
 FactoryBot.define('Program', {
   company: 0,
   id: FactoryBot.sequence(),
-  name: () => faker.random.word(),
+  name: () => faker.lorem.word(),
   description: () => faker.lorem.sentence(),
-  machine_id: () => faker.random.word(),
+  machine_id: () => faker.lorem.word(),
   icon: () => iconNameList[Math.floor(Math.random() * iconNameList.length)],
   color: () => faker.internet.color(),
   is_disabled: false,

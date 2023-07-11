@@ -3,6 +3,6 @@ import { fakerFR as faker } from '@faker-js/faker';
 
 FactoryBot.define('Coach', {
   id: FactoryBot.sequence(),
-  name: () => faker.name.findName(),
+  name: () => faker.person.findName(),
   photo: () => faker.image.avatar(),
 });

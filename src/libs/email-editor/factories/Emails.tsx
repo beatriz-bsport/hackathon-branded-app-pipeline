@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { fakerFR as faker } from '@faker-js/faker';
 import {
   EmailTemplateDetail,
@@ -22,6 +21,7 @@ export function EmailTemplateDetailFactory(id?: number): EmailTemplateDetail {
 }
 
 export function EmailTemplateSummaryFactory(id?: number): EmailTemplateSummary {
+  // @ts-expect-error
   return {
     id: id ?? randomInt(1000),
     date_created: faker.date.past().toString(),

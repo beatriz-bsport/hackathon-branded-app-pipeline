@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// @ts-ignore
 import { faker } from '@faker-js/faker';
 
 import { RadioForStorybook, Props } from './Radio.component';
@@ -14,7 +13,7 @@ const RadioTemplate = (args: Props) => {
   };
 
   return (
-    // @ts-ignore
+    //@ts-expect-error
     <RadioForStorybook
       name="radio-css-only"
       isChecked={selectedValue == IDLE_RADIO_VALUE}

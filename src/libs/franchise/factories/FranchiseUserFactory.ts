@@ -1,17 +1,16 @@
-// @ts-nocheck
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 import { FranchiseUser } from '../types';
 
-// @ts-ignore
 FactoryBot.define('FranchiseUser', {
   companies: [],
   companiesMember: {},
-  name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+  name: `${faker.person.firstName()} ${faker.person.lastName()}`,
   email: faker.internet.email().toLowerCase(),
   gender: 'M',
   membership_id: faker.number.int(),
-  phone: faker.phone.phoneNumber(),
+  phone: faker.phone.number(),
   address: {
     address_line_1: faker.location.streetAddress(),
     address_line_2: faker.location.street(),
@@ -28,16 +27,17 @@ FactoryBot.define('FranchiseUser', {
 
 export const FranchiseUserFactory = (nbUsers: number): Array<FranchiseUser> => {
   const USER_IDS: Array<number> = [...Array(nbUsers).keys()];
+  // @ts-expect-error
   return USER_IDS.map((id) => {
     return {
       id: id + 1,
       companies: [],
       companiesMember: {},
-      name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+      name: `${faker.person.firstName()} ${faker.person.lastName()}`,
       email: faker.internet.email().toLowerCase(),
       gender: 'M',
-      membership_id: faker.random.number(),
-      phone: faker.phone.phoneNumber(),
+      membership_id: faker.number.int(),
+      phone: faker.phone.number(),
       address: {
         address_line_1: faker.location.streetAddress(),
         address_line_2: faker.location.street(),

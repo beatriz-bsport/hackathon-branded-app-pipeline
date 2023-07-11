@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { faker } from '@faker-js/faker';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
@@ -28,7 +27,7 @@ export function randomInt(max: number): number {
 }
 
 function fakerName(): string {
-  return faker.name.findName();
+  return faker.person.fullName();
 }
 
 function fakerTextContent(length: number): string {
@@ -76,6 +75,7 @@ function randomDate(): string {
 export function MemberThread(
   index?: number,
 ): CommunicationThreadWithUnreadAnswersCount {
+  // @ts-expect-error
   return {
     id: index || randomInt(1000),
     title: fakerName(),
@@ -107,6 +107,7 @@ function MemberThreadBatch(): CommunicationThreadWithUnreadAnswersCount[] {
 }
 
 export function OfferThread(): CommunicationThreadWithUnreadAnswersCount {
+  // @ts-expect-error
   return {
     id: randomInt(1000),
     title: fakerName(),
@@ -139,6 +140,7 @@ function OfferThreadBatch(): CommunicationThreadWithUnreadAnswersCount[] {
 }
 
 export function SmartListThread(): CommunicationThreadWithUnreadAnswersCount {
+  // @ts-expect-error
   return {
     id: randomInt(1000),
     title: fakerName(),

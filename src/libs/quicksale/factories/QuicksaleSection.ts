@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 import { QuicksaleSection } from '../types';
@@ -16,10 +16,10 @@ const sectionIconChoices = [
 
 FactoryBot.define('QuicksaleSection', {
   section_id: FactoryBot.sequence(),
-  section_name: () => faker.random.words(3),
-  section_icon: () => faker.random.arrayElement(sectionIconChoices),
+  section_name: () => faker.lorem.words(3),
+  section_icon: () => faker.helpers.arrayElement(sectionIconChoices),
   section_color: () =>
-    faker.random.arrayElement(Object.values(QuicksaleSectionColor)),
+    faker.helpers.arrayElement(Object.values(QuicksaleSectionColor)),
   items: ItemFactoryBot.QuicksaleItem.create(
     2 + Math.floor(Math.random() * 10),
   ),

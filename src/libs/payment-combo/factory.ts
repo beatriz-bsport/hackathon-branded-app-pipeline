@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 import { private_services_passes_factory } from '#libs/private-service/factory';
@@ -10,7 +10,7 @@ import { PaymentCombo, PaymentComboItem } from '#libs/payment-combo/types';
 
 FactoryBot.define('PaymentComboCategory', {
   id: FactoryBot.sequence(),
-  name: () => faker.random.word(),
+  name: () => faker.lorem.word(),
   company_id: 1,
   category_ordering: () => Math.floor(Math.random() * 10),
 });
@@ -23,7 +23,7 @@ const paymentComboItemListFactory = (
     return {
       id: id + 1,
       price: Math.floor(Math.random() * 100),
-      name: faker.random.word(),
+      name: faker.lorem.word(),
       quantity: Math.floor(Math.random() * 10),
       tax: 'VAT',
       data: FactoryBotPaymentPack.PaymentPack.create(),
@@ -37,7 +37,9 @@ export const PaymentComboStorybookFactory = (id?: number) => {
     name: faker.hacker.phrase(),
     price: Math.floor(Math.random() * 100),
     tax: Math.floor(Math.random() * 100),
+    // @ts-expect-error
     payment_packs: PaymentPackStorybookListFactory(2),
+    // @ts-expect-error
     private_passes: private_services_passes_factory(2),
     shop_items: [],
   };
@@ -52,7 +54,7 @@ export const PaymentComboStorybookListFactory = (nb: number) => {
 };
 FactoryBot.define('PaymentCombo', {
   id: FactoryBot.sequence(),
-  name: () => faker.random.word(),
+  name: () => faker.lorem.word(),
   description:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed nisi at sapien fringilla lobortis. Quisque rhoncus accumsan vulputate. Praesent ultricies neque lacus. Duis non iaculis ex. Nullam in ante id turpis lobortis ullamcorper vel eu sapien. Nullam varius urna at dapibus aliquam. Donec elit ex, scelerisque non pretium non, iaculis et justo.',
   price: Math.floor(Math.random() * 100),
@@ -66,7 +68,7 @@ FactoryBot.define('PaymentCombo', {
   shop_items: paymentComboItemListFactory(Math.floor(Math.random() * 3)),
   private_passes: paymentComboItemListFactory(Math.floor(Math.random() * 3)),
   max_purchase_per_member: Math.floor(Math.random() * 5),
-  barcode: faker.random.word(),
+  barcode: faker.lorem.word(),
   available_payment_method_identifier: [1, 2, 3],
   new_member_only: Math.random() < 0.5,
 });

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { fakerFR as faker } from '@faker-js/faker';
 import { TutorialLesson, TutorialSection } from './types';
 

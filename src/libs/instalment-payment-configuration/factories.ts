@@ -7,7 +7,7 @@ import { MONTHLY } from './constants';
 FactoryBot.define('InstalmentPayment', {
   id: FactoryBot.sequence(),
   company: 1,
-  name: () => faker.random.word(),
+  name: faker.lorem.word(),
   recurrency: MONTHLY,
   frequency: 12,
   number_of_billing: 3,

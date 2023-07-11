@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 import FactoryBotPaymentPack from '#libs/payment-packs/factory';
@@ -10,7 +10,7 @@ const fakePaymentPack = FactoryBotPaymentPack.PaymentPack.create();
 
 FactoryBot.define('Contract', {
   id: FactoryBot.sequence(),
-  name: () => faker.random.word(),
+  name: () => faker.lorem.word(),
   flat_fee: Math.floor(Math.random() * 20),
   description:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
@@ -30,12 +30,12 @@ export const ContractStorybookFactory = (id?: number) => {
   const contract: Partial<Contract> = {
     id: id || Math.floor(Math.random() * 1000),
     name: faker.hacker.phrase(),
-    recurrent_price: faker.finance.amount(5, 100),
+    recurrent_price: parseFloat(faker.finance.amount(5, 100)),
     tax: '0.0000',
     company: Math.floor(Math.random() * 1000),
     manager_only: false,
     auto_renewal: true,
-    flat_fee: 0,
+    flat_fee: '0',
     nb_interval: 12,
     disabled: false,
     interval: 'month',
@@ -54,7 +54,7 @@ export const ContractStorybookListFactory = (nb: number) => {
 
 FactoryBot.define('Subscription', {
   id: FactoryBot.sequence(),
-  name: () => faker.random.word(),
+  name: () => faker.lorem.word(),
   flat_fee: Math.floor(Math.random() * 20),
   description:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',

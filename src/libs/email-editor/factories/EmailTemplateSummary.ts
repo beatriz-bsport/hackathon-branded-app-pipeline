@@ -3,7 +3,6 @@ import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 import { EmailTemplateSummary } from '../types';
 
-// @ts-ignore
 FactoryBot.define('EmailTemplateSummary', {
   id: Math.floor(Math.random() * 1000),
   date_created: faker.date.past().toString(),

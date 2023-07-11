@@ -1,19 +1,18 @@
-// @ts-nocheck
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 import { FranchiseCompany } from '../types';
 
 const getRandomInt = () => Math.floor(Math.random() * 244);
 
-// @ts-ignore
 FactoryBot.define('FranchiseCompany', {
   id: Math.floor(Math.random() * 10000),
-  name: faker.company.companyName(),
+  name: faker.company.name(),
   email: faker.internet.email().toLowerCase(),
   cover: faker.image.avatar(),
   primaryRGB: [getRandomInt(), getRandomInt(), getRandomInt()],
   secondaryRGB: [getRandomInt(), getRandomInt(), getRandomInt()],
-  websiteURL: `${faker.company.companyName()}.com`,
+  websiteURL: faker.internet.domainName(),
 });
 
 export const FranchiseCompanyListFactory = (
@@ -23,12 +22,12 @@ export const FranchiseCompanyListFactory = (
   return COMPANY_IDS.map((id) => {
     return {
       id: id + 1,
-      name: faker.company.companyName(),
+      name: faker.company.name(),
       email: faker.internet.email().toLowerCase(),
       cover: faker.image.avatar(),
       primaryRGB: [getRandomInt(), getRandomInt(), getRandomInt()],
       secondaryRGB: [getRandomInt(), getRandomInt(), getRandomInt()],
-      websiteURL: `${faker.company.companyName()}.com`,
+      websiteURL: faker.internet.domainName(),
       isAllowed: Math.random() < 0.5,
       company_group: getRandomInt(),
     };

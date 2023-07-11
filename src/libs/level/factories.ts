@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { faker } from '@faker-js/faker';
 import { generateRandomInt } from '../../utils/factories';
 
@@ -57,7 +56,7 @@ export function levelFactory(): Partial<Level> {
   return {
     id: generateRandomInt(1000),
     company: generateRandomInt(999),
-    name: faker.random.words(2),
+    name: faker.lorem.words(2),
     color: randomColor(),
     enabled: true,
   };

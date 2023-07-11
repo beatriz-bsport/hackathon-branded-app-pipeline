@@ -30,7 +30,7 @@ function randomMetadata() {
     'automated_campaign_id',
   ];
   const metadata = {};
-  // @ts-ignore
+  // @ts-expect-error
   metadata[keys[randomInt(5)]] = randomInt(2000);
   return metadata;
 }

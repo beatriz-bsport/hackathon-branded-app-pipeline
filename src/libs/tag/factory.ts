@@ -1,4 +1,4 @@
-// @ts-nocheck
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerFR as faker } from '@faker-js/faker';
 import { Tag, TagGroup } from './types';
@@ -12,10 +12,10 @@ const iconNameList = ['AcUnit', 'AccessAlarm', 'Accessible', 'AddBox'];
 
 FactoryBot.define('Tag', {
   id: FactoryBot.sequence(),
-  name: () => faker.random.word(2),
+  name: () => faker.lorem.word(2),
   group: () => ({
     id: Math.floor(Math.random() * 1000),
-    name: faker.random.word(),
+    name: faker.lorem.word(),
     kind: Math.floor(Math.random() * 1000),
   }),
   color: () => random_hex_color_code(),
@@ -25,10 +25,10 @@ FactoryBot.define('Tag', {
 export const tagFactory = (): Partial<Tag<TagGroup>> => {
   return {
     id: Math.floor(Math.random() * 1000),
-    name: faker.random.words(2),
+    name: faker.lorem.words(2),
     group: {
       id: Math.floor(Math.random() * 1000),
-      name: faker.random.word(),
+      name: faker.lorem.word(),
       kind: Math.floor(Math.random() * 1000),
       tags: [],
     },

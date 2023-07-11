@@ -1,4 +1,3 @@
-// @ts-ignore
 import { faker } from '@faker-js/faker';
 import { Level } from './types';
 

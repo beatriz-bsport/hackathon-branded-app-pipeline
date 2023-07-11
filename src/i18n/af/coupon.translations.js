@@ -55,6 +55,8 @@ exports.default = {
   },
   form: {
     title: 'Coupon',
+    alert:
+      "Un code de réduction peut être utilisé par un membre pour réduire le prix d'un panier. Dans ce formulaire, vous pouvez entièrement personnaliser les modalités d'application du code. Vous choisissez vous-même le code et c'est à vous de décider comment le partager avec vos membres.",
     selectorPlaceholder: {
       privatePass:
         "Sélectionner des cartes de rendez-vous (valables sur toutes les cartes si aucune n'est sélectionnée)",
@@ -257,5 +259,9 @@ exports.default = {
           "L'objet sur lequel appliquer la réduction doit être impérativement une carte de cours, une carte de rendez-vous, un pack ou un article du magasin",
       },
     },
+  },
+  fabLabels: {
+    voucherCodes: "Bons d'achat",
+    discountCode: 'Code de réduction',
   },
 };

@@ -23,9 +23,7 @@ import Typography from '@material-ui/core/Typography';
 import TypographyMultiline from '#components/typo/TypographyMultiline.component';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 import Alert from '@material-ui/lab/Alert';
-// @ts-ignore
-import { faker } from '@faker-js/faker';
-faker.locale = 'fr';
+import { fakerFR as faker } from '@faker-js/faker';
 
 const fakeSentence = faker.hacker.phrase();
 

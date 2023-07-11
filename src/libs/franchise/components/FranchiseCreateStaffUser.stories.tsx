@@ -3,13 +3,13 @@ import React from 'react';
 import CreateFranchiseStaffUser, {
   OwnProps,
 } from './FranchiseCreateStaffUser.component';
-import { faker } from '@faker-js/faker';
+
 import {
   FranchiseesFactory,
   FranchiseRolesFactory,
 } from '../factories/FranchiseRoleFactory';
 import { FranchiseUserRoleData } from '#libs/role/types';
-faker.locale = 'fr';
+
 const CustomTemplate = (args: OwnProps) => (
   <CreateFranchiseStaffUser {...args} />
 );

@@ -1,9 +1,7 @@
 // @ts-nocheck
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 import { FranchiseCompany } from '../types';
-
-faker.locale = 'fr';
 
 const getRandomInt = () => Math.floor(Math.random() * 244);
 

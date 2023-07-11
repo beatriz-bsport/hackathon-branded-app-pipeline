@@ -1,8 +1,6 @@
 // @ts-nocheck
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
-
-faker.locale = 'fr';
+import { fakerFR as faker } from '@faker-js/faker';
 
 // @ts-ignore
 FactoryBot.define('MemberMinimal', {

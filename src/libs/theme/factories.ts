@@ -1,6 +1,6 @@
 // @ts-nocheck
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 import moment from 'moment-timezone';
 import { BOOKING_DATE_ORDER } from '@bsport/common/lib/master-data/settings';
 import {
@@ -8,8 +8,6 @@ import {
   MarketPlaceDaysFormatDisplay,
   MarketPlaceSessionTimeDisplay,
 } from '@bsport/common/lib/master-data/personalization';
-
-faker.locale = 'fr';
 
 const defaultScheduleBegin = moment()
   .hours(6)

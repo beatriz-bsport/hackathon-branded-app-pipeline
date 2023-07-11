@@ -1,9 +1,7 @@
 // @ts-nocheck
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 import { Tag, TagGroup } from './types';
-
-faker.locale = 'fr';
 
 const random_hex_color_code = () => {
   const n = (Math.random() * 0xfffff * 1000000).toString(16);

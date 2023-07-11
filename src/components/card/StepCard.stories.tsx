@@ -2,8 +2,7 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Typography from '@material-ui/core/Typography';
 import StepCard, { StepCardProps } from './StepCard.component';
-import { faker } from '@faker-js/faker';
-faker.locale = 'en';
+import { fakerEN as faker } from '@faker-js/faker';
 
 export default {
   title: 'Components/Cards/StepCard',

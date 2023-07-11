@@ -1,7 +1,5 @@
-// @ts-nocheck
 import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communication-kind';
-// @ts-ignore
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 import {
   COMMUNICATION_SENT_SENDING_SUCCESS,
   COMMUNICATION_FILTER_CHANNELS,
@@ -12,8 +10,6 @@ import { RecipientCompactListFactory } from './RecipientWithMember';
 import { Member } from '#libs/member/types';
 import MembersFactory from '#libs/member/factories/Member';
 import fakerHTML from '#components/html/fakerHTML';
-
-faker.locale = 'fr';
 
 function randomInt(max: number) {
   return Math.floor(Math.random() * max - 0.00001);

@@ -1,9 +1,6 @@
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
-
+import { fakerFR as faker } from '@faker-js/faker';
 import SPORTS from '@bsport/common/lib/master-data/sports';
-
-faker.locale = 'fr';
 
 FactoryBot.define('SCT', {
   id: FactoryBot.sequence(),

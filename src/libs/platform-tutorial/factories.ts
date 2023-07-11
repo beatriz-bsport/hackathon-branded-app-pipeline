@@ -1,8 +1,6 @@
 // @ts-nocheck
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 import { TutorialLesson, TutorialSection } from './types';
-
-faker.locale = 'fr';
 
 function randomInt(max: number) {
   return Math.floor(Math.random() * max);

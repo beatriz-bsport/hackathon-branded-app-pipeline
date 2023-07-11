@@ -1,10 +1,9 @@
 // @ts-nocheck
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 import FactoryBotPaymentPack from '#libs/payment-packs/factory';
 import { Contract } from '#libs/subscription/types';
 
-faker.locale = 'fr';
 const intervals = ['month', 'week', 'day', 'year'];
 
 const fakePaymentPack = FactoryBotPaymentPack.PaymentPack.create();
@@ -52,8 +51,6 @@ export const ContractStorybookListFactory = (nb: number) => {
     return ContractStorybookFactory(id + 1);
   });
 };
-
-faker.locale = 'fr';
 
 FactoryBot.define('Subscription', {
   id: FactoryBot.sequence(),

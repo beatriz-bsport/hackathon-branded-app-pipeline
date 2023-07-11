@@ -1,5 +1,4 @@
-// @ts-ignore
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 // @ts-ignore
 import FactoryBot from 'ya-factorybot';
 import moment from 'moment-timezone';
@@ -10,8 +9,6 @@ import { levelFactory } from '#libs/level/factory';
 import { coachFactory } from '#libs/associated-coach/factories';
 import { establishment_factory } from '#libs/establishment/factory';
 import { offerGroupFactory } from '#libs/group-offer/factory';
-
-faker.locale = 'fr';
 
 FactoryBot.define('Offer', {
   company: 1,

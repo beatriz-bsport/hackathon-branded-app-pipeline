@@ -1,9 +1,7 @@
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 
 import { METRO_COLORS } from '@bsport/common/lib/colors';
-
-faker.locale = 'fr';
 
 const LINES = Object.keys(METRO_COLORS);
 

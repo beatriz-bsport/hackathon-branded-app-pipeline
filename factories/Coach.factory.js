@@ -1,7 +1,5 @@
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
-
-faker.locale = 'fr';
+import { fakerFR as faker } from '@faker-js/faker';
 
 FactoryBot.define('Coach', {
   id: FactoryBot.sequence(),

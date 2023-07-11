@@ -1,7 +1,5 @@
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
-
-faker.locale = 'fr';
+import { fakerFR as faker } from '@faker-js/faker';
 
 FactoryBot.define('Member', {
   first_name: faker.name.firstName,

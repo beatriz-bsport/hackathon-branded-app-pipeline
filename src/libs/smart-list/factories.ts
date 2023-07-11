@@ -1,8 +1,6 @@
-import { faker } from '@faker-js/faker';
+import { fakerEN as faker } from '@faker-js/faker';
 import { generateRandomInt } from '../../utils/factories';
 import { SmartList } from './types';
-
-faker.locale = 'en';
 
 function generateMemberIdsBatch(length?: number): number[] {
   const intTab: number[] = [];

@@ -1,9 +1,7 @@
 // @ts-nocheck
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 import { CanvasSelectableToolsEnum } from '#libs/spot-scheduling/CanvasSvg/tools/CanvasStrategy';
 import { RoomBlueprint } from './types';
-
-faker.locale = 'fr';
 
 const canvasElementTypes: CanvasSelectableToolsEnum[] = [
   'eraser',

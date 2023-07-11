@@ -1,8 +1,6 @@
-// @ts-nocheck
+// @ts-expect-error
 import FactoryBotCompany from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
-
-faker.locale = 'fr';
+import { fakerFR as faker } from '@faker-js/faker';
 
 FactoryBotCompany.define('company', {
   id: FactoryBotCompany.sequence(),

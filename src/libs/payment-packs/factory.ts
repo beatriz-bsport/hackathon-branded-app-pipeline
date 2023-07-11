@@ -1,10 +1,8 @@
 // @ts-nocheck
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 
 import { PaymentPack } from '#libs/payment-packs/types';
-
-faker.locale = 'fr';
 
 FactoryBot.define('PaymentPackCategory', {
   id: FactoryBot.sequence(),

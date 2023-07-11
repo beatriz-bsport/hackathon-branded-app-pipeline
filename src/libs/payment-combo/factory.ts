@@ -1,7 +1,6 @@
 // @ts-nocheck
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
-
+import { fakerFR as faker } from '@faker-js/faker';
 import { private_services_passes_factory } from '#libs/private-service/factory';
 import FactoryBotPaymentPack, {
   PaymentPackStorybookListFactory,
@@ -9,16 +8,12 @@ import FactoryBotPaymentPack, {
 
 import { PaymentCombo, PaymentComboItem } from '#libs/payment-combo/types';
 
-faker.locale = 'fr';
-
 FactoryBot.define('PaymentComboCategory', {
   id: FactoryBot.sequence(),
   name: () => faker.random.word(),
   company_id: 1,
   category_ordering: () => Math.floor(Math.random() * 10),
 });
-
-faker.locale = 'fr';
 
 const paymentComboItemListFactory = (
   numberOfElements: number,

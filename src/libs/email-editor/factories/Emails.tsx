@@ -1,14 +1,11 @@
 // @ts-nocheck
-// @ts-ignore
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,
 } from '#libs/email-editor/types';
 
 import fakerHTML from '#components/html/fakerHTML';
-
-faker.locale = 'fr';
 
 function randomInt(max: number) {
   return Math.floor(Math.random() * max);

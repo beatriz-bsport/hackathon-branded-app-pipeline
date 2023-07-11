@@ -1,10 +1,7 @@
-// @ts-nocheck
+// @ts-expect-error
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 
-faker.locale = 'fr';
-
-// @ts-ignore
 FactoryBot.define('EmailTemplateDetail', {
   id: Math.floor(Math.random() * 1000),
   name: faker.lorem.words(5),

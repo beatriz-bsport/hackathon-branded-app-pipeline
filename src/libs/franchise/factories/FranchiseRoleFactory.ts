@@ -1,7 +1,4 @@
 // @ts-nocheck
-import { faker } from '@faker-js/faker';
-
-faker.locale = 'fr';
 
 type FranchiseRole = {
   id: number;

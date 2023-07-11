@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 import moment from 'moment-timezone';
 import {
   PerformanceTrackingMemberProgram,
@@ -10,7 +10,6 @@ import {
 } from './types';
 import MemberFactory from '#libs/member/factories/MemberMinimal';
 
-faker.locale = 'fr';
 const iconNameList = ['AcUnit', 'AccessAlarm', 'Accessible', 'AddBox'];
 
 FactoryBot.define('Metric', {

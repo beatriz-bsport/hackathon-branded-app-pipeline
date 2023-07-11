@@ -1,10 +1,8 @@
 // @ts-expect-error
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
 import createQuicksaleCardInfo from './QuicksaleCardInfo';
-
-faker.locale = 'fr';
 
 FactoryBot.define('QuicksaleItemsByItemIdentifierByCategory', {
   [QuicksaleBasketItem.PaymentPackIdentifier]: () => ({

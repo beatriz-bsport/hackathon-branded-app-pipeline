@@ -1,10 +1,8 @@
 // @ts-nocheck
 import FactoryBot from 'ya-factorybot';
-import { faker } from '@faker-js/faker';
+import { fakerFR as faker } from '@faker-js/faker';
 import { QuicksaleCardInfo } from '../types';
 import { QuicksaleItemColor } from '../constants';
-
-faker.locale = 'fr';
 
 FactoryBot.define('QuicksaleCardInfo', {
   id: () => faker.random.uuid(),

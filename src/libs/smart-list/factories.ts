@@ -1,4 +1,3 @@
-// @ts-expect-error
 import { faker } from '@faker-js/faker';
 import { generateRandomInt } from '../../utils/factories';
 import { SmartList } from './types';

@@ -301,7 +301,7 @@ export class CadenceDetailPage extends Component<Props> {
               updateConnectedTriggerPosition={
                 this.props.updateCadenceStepConnectedTriggerCanvasPosition
               }
-              onClickEntryStep={this.props.onClickStepItem}
+              onClickEntryStep={this.props.onClickEntryStep}
               handleSelectStepForSubscription={
                 this.handleSelectStepForSubscription
               }
@@ -610,10 +610,11 @@ const mapWithHandlers = {
       );
     },
 
-  onClickStepItem:
+  onClickEntryStep:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (step: CadenceStep) => {
-      if (step?.is_entry_step) {
+      if (step?.is_entry_step && step?.id) {
+        props.fetchMarketingActionsAction({ cadence_step: step?.id });
         props.setRightPanelMode(
           CadencePanelMode.CADENCE_PANEL_ENTRY_PARAMETERS,
         );

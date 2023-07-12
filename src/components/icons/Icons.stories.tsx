@@ -18,6 +18,7 @@ import CardRefusedIcon, {
 } from './CardRefusedIcon.component';
 import WarningIcon from './WarningIcon.component';
 import TriggeredPersonIcon from './TriggeredPersonIcon.component';
+import WarningIconRounded from './WarningIconRounded.component';
 
 const FILL_CONTROL = { fill: { control: 'color' } };
 
@@ -90,6 +91,14 @@ Warning.argTypes = { color: { control: 'color' } };
 const EmailTemplate = (args: SVGProps<SVGElement>) => <EmailIcon {...args} />;
 export const Email = EmailTemplate.bind({});
 Email.argTypes = FILL_CONTROL;
+
+const WarningIconRoundedTemplate = (args: SVGProps<SVGElement>) => (
+  <WarningIconRounded {...args} />
+);
+export const WarningRounded = WarningIconRoundedTemplate.bind({});
+WarningRounded.args = {
+  fill: '#FF9800',
+};
 
 export default {
   title: 'Components/Icons',

@@ -51,7 +51,7 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
         <CadenceChip
           name={TriggerText({
             connected_trigger_config: trigger,
-            smartlist: getSmartlist(trigger?.filtering_config?.smartlist_pk),
+            smartlist: getSmartlist?.(trigger?.filtering_config?.smartlist_pk),
           })}
           icon="People"
           color={color}
@@ -82,7 +82,9 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
               defaultBackGround
             />
             <CadenceChip
-              name={getSmartlist(trigger?.filtering_config?.smartlist_pk)?.name}
+              name={
+                getSmartlist?.(trigger?.filtering_config?.smartlist_pk)?.name
+              }
               icon="People"
               color={color}
             />

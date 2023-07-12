@@ -826,5 +826,11 @@ exports.default = {
         day_plural: 'tous les {{ count }} jours',
       },
     },
+    terms: {
+      title: 'Termes du contrat',
+      seeMore: 'Voir plus',
+      seeLess: 'Voir moins',
+      acceptTerms: "J'accepte les <0>mentions légales</0>.",
+    },
   },
 };

@@ -1,0 +1,88 @@
+.bs-subscription-terms__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.bs-subscription-terms__title {
+  font-size: var(--h6-fontSize);
+  font-weight: var(--fontWeightMedium);
+  color: var(--color-text-primary);
+}
+
+.bs-subscription-terms__collapsible-section {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-grey-light);
+  padding: var(--spacing-1);
+  gap: var(--spacing-1);
+  border-radius: var(--spacing-1);
+}
+
+.bs-subscription-terms__text-content {
+  font-size: var(--body2-fontSize);
+  color: var(--color-text-secondary);
+  white-space: pre-wrap;
+  padding-right: var(--spacing-2);
+  transition: max-height 0.5s;
+}
+
+.bs-subscription-terms__text-content.--expanded {
+  max-height: 750px;
+  overflow: unset;
+  overflow-y: scroll;
+}
+
+.bs-subscription-terms__text-content.--shrinked {
+  max-height: 72px;
+  overflow: hidden;
+  display: -webkit-box;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  white-space: pre-wrap;
+  background: linear-gradient(
+    to bottom,
+    var(--color-text-secondary) 40%,
+    var(--color-grey-light)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bs-subcription-terms--text-button {
+  border: none;
+  background: none;
+  color: var(--color-grey-dark);
+  font-size: var(--body2-fontSize);
+  font-weight: var(--h5-fontWeight);
+  margin-top: var(--spacing-1);
+  padding-left: 0px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.bs-subscription-terms__accept__label {
+  font-size: var(--subtitle2-fontSize);
+  color: var(--color-text-primary);
+}
+
+.bs-subscription-terms__accept__label__button {
+  background: none;
+  outline: none;
+  border: none;
+  color: var(--color-primary-main);
+  cursor: pointer;
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+  padding: 0;
+}
+
+.bs-subscription-terms-accept-container {
+  margin-bottom: 20vh;
+}

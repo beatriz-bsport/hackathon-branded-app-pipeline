@@ -372,5 +372,23 @@
             "noEmail": "Tento email nebyl zaregistrován",
             "title": "Obnovení hesla"
         }
+    },
+    "translation": {
+        "payment": {
+            "paymentMethods": {
+                "HOLIDAY_CHECK": "Stravenky"
+            }
+        },
+        "paymentMethod": {
+            "HOLIDAY_CHECK": "Stravenky"
+        }
+    },
+    "reporting": {
+        "payment_method": {
+            "holiday_check": "Stravenky"
+        },
+        "columns": {
+            "payment_method_holiday_check": "Stravenky"
+        }
     }
 }

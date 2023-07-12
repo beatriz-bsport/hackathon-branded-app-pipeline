@@ -4379,6 +4379,7 @@
         "createCoupon": "Add a promotion",
         "code": {
             "addCoupon": {
+                "apply": "Apply",
                 "label": "Promotional code",
                 "placeholder": "PROMOTIONAL CODE",
                 "cancel": "Cancel",
@@ -6309,7 +6310,10 @@
             },
             "isFinalized": "Your basket has been validated.",
             "checkingPaymentStatus": "Your payment status is being reviewed.",
-            "totalQuantity": "Contains: {{ qty }} product(s)"
+            "totalQuantity": "Contains: {{ qty }} product(s)",
+            "checkAndFinalize": "Please check your basket and finalize your booking",
+            "acceptTermsAndFinalize": "Please accept the general terms and conditions and finalize your booking",
+            "almostDone": "Almost done"
         },
         "payLater": {
             "submit": "Pay later",
@@ -6341,7 +6345,9 @@
                 "back": "Go back",
                 "continue": "Continue shopping",
                 "widgetContinue": "Next",
-                "member": "My account"
+                "member": "My account",
+                "payNow": "Pay now",
+                "confirmPriceNull": "Confirm"
             }
         },
         "expire_in": "Expires in ",
@@ -6381,7 +6387,11 @@
             "tax": "VAT / Sales Taxes",
             "taxExcluded": "Subtotal (excl. VAT / Sales Tax)",
             "flat_fee": "Enrolment fee",
-            "globalTotal": "Total"
+            "globalTotal": "Total",
+            "internalAccount": "My internal account balance",
+            "deliveryFee": "Delivery Fee",
+            "title": "Payment",
+            "totalHiddingTax": "Total"
         }
     },
     "establishment": {
@@ -7342,8 +7352,9 @@
                 }
             },
             "savePaymentMethod": {
-                "section": "Select a payment method",
-                "label": "Save this payment method"
+                "select": "Select a payment method",
+                "label": "Save this payment method",
+                "add": "Payment details"
             }
         },
         "generalTermsAndConditions": {
@@ -7881,6 +7892,7 @@
             "actions": {
                 "saveForLaterAsSEPA": "The mandate will be registered as \"SEPA\"",
                 "saveForLater": "Save this payment method",
+                "paymentSecurityInformation": "You can securely store your preferred payment details for future purchases, your information will be encrypted and stored securely",
                 "showInvoice": "See invoice",
                 "confirmPayment": "Confirm payment",
                 "payAll": "Settle customer debt",
@@ -8002,7 +8014,7 @@
         "mandate": {
             "content": "By completing this payment and by using your IBAN, you authorize BSPORT Solution and Stripe (our payment processor) to start billing you for all payments. You can request refunds through your bank and should be done within 8 weeks of the first payment.",
             "email": "Email address",
-            "name": "Accountholder's full name",
+            "name": "Account holder's full name",
             "contentBacsDebit": "By providing your bank details and confirming your payment, you authorise bsport and Stripe, our payment system, to send debit instructions to your bank in accordance with the payment schedule. You may request a refund from your bank in accordance with the terms of your contract with your bank. You can request your bank to cancel the Direct Debit mandate at any time.",
             "contentIban": "By providing your IBAN and confirming your payment, you authorise bsport and Stripe, our payment system, to send debit instructions to your bank in accordance with the payment schedule. You may request a refund from your bank in accordance with the terms of your contract with your bank. A refund must be requested within 8 weeks of the first debit."
         },
@@ -9686,6 +9698,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Cancelled",
                 "Cancelled"
             ]
         },
@@ -10421,7 +10434,8 @@
             "validity": "Validity",
             "credit_quantity": "Credits",
             "universalPass": "Universal pass",
-            "compatibilityPaymentPack": "Compatibility for group activities"
+            "compatibilityPaymentPack": "Compatibility for group activities",
+            "offPeak": "Time slots"
         },
         "unlimitedAndCalculatedMargin": " The marginal value per booking is calculate as PRICE / NUMBER Of BOOKINGS ",
         "unlimitedAndMargin": " The marginal value per booking is ",
@@ -10522,7 +10536,18 @@
                 "helperText": "Available until",
                 "tooltip": "After chosen date, the pack will not be available for sale anymore, for the customers."
             },
-            "description": "Description"
+            "description": "Description",
+            "offPeak": {
+                "label": "Limit bookings to certain time slots",
+                "addGroupTimeSlot": "Add a group of time slots",
+                "addTimeSlot": "Add a time slot",
+                "choice": {
+                    "allDay": "All day",
+                    "timeSlot": "Time slots"
+                }
+            },
+            "atLeastOneDay": "At least one day must be selected",
+            "startAfterEnd": "Start time must be less than end time"
         },
         "universalPass": {
             "restore": {
@@ -10559,7 +10584,8 @@
             "2018": "Insufficient credits",
             "2010": "Incompatible establishment",
             "2009": "Incompatible category",
-            "2008": "Incompatible activity"
+            "2008": "Incompatible activity",
+            "2027": "Time slot is incompatible"
         },
         "listItem": {
             "unusableByStaff": "Invisible for the staff"
@@ -12079,6 +12105,9 @@
                     "penaltyDay_plural": "{{count}} days",
                     "threshold": "{{count}} no-show",
                     "threshold_plural": "{{count}} no-shows"
+                },
+                "offPeakRestrictions": {
+                    "title": "Compatible only with certain time slots"
                 }
             },
             "restrictions": "Restrictions",
@@ -12122,7 +12151,8 @@
                 "unlimited": "Unlimited",
                 "availableCredit": "{{count}} credit",
                 "availableCredit_plural": "{{count}} credits"
-            }
+            },
+            "compatibleTimeSlot": "Compatible time slots"
         },
         "packCard": {
             "comboItemList": {

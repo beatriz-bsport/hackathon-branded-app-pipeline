@@ -2305,7 +2305,19 @@
                 "state": "Estado",
                 "general_terms_and_conditions": "Termos e Condições",
                 "repeatPassword": "Confirmar palavra-passe",
-                "city": "Cidade"
+                "city": "Cidade",
+                "tag_name": "Etiqueta",
+                "tag_group": "Categoria",
+                "link_to_tag_popover": "Associar uma etiqueta a esta opção",
+                "signature": "Assinatura",
+                "text_size_limit": "O comprimento da resposta será limitado a {{count}} caracteres.",
+                "link_to_note_helper": "Ao associar a pergunta a uma nota, a resposta será automaticamente adicionada ao perfil do membro.",
+                "link_to_note": "Criar uma nota",
+                "fileHelper": "Os ficheiros carregados serão adicionados diretamente à secção \"Os meus documentos\" do ficheiro do membro.",
+                "file": "Anexar um ficheiro",
+                "select_placeholder": "Selecionar",
+                "select": "Lista pendente",
+                "check_box": "Assinalar"
             },
             "customFormField": {
                 "modal": {
@@ -2390,7 +2402,41 @@
             "disabledCustomForm": "Formulários arquivados",
             "disabledCustomFormField": "Elementos arquivados",
             "noCustomForm": "Utilize os formulários para recolher informações adicionais sobre os seus membros.",
-            "backToUserSpace": "Perfil"
+            "backToUserSpace": "Perfil",
+            "mandatory": "Obrigatório",
+            "send": "Enviar",
+            "submitLater": "Responder mais tarde",
+            "previous": "Voltar",
+            "next": "Seguinte",
+            "cancel": "Cancelar",
+            "kind": "Tipo",
+            "label": "Etiqueta",
+            "preview": "Visão geral do formulário",
+            "content": "Conteúdo do formulário",
+            "name": "Nome",
+            "search": "Procurar um formulário",
+            "linkHelper": "Para enviar o formulário aos seus membros copie o link acima no seu e-mail. Apenas as alterações guardadas serão visíveis.",
+            "CustomFormLink": "Link do formulário",
+            "title": "Formulários",
+            "editLayoutSubtitle": "Alterou um formulário para um esquema personalizado. Verifique aqui e modifique, se necessário, a pré-visualização dos seus formulários em diferentes tamanhos de ecrã",
+            "editLayoutTitle": "Editar a apresentação do formulário",
+            "navigateToMemberForm": "Editar o formulário do perfil do aluno",
+            "navigateToSignup": "Editar formulário de inscrição",
+            "memberFormHelper": "As perguntas obrigatórias do formulário de inscrição são apresentadas e podem ser alteradas por defeito. Não podem ser eliminadas.",
+            "signupFormHelper": "As perguntas obrigatórias do formulário de inscrição devem ser editáveis pelos seus membros, no respetivo perfil. Estas perguntas serão adicionadas automaticamente ao formulário de inscrição no perfil do aluno e podem ser visualizadas e alteradas.",
+            "memberFormTitle": "Formulário de edição de perfil (páginas de perfil dos membros)",
+            "signupFormTitle": "Formulário de inscrição",
+            "save": "Guardar",
+            "layout": {
+                "layoutUpdating": "Está a ser efectuada uma cópia de segurança",
+                "layoutUpTodate": "Não existem gravações ativas",
+                "saveAndExit": "Guardar e Fechar",
+                "save": "Guardar",
+                "redo": " Reaplicar",
+                "reset": "Reiniciar",
+                "undo": "Voltar",
+                "editLayout": "Editar apresentação"
+            }
         },
         "cadence": {
             "form": {
@@ -2410,7 +2456,17 @@
                     "trigger_event_kind_label": "Um evento",
                     "trigger_smartlist_kind_label": "Uma lista inteligente",
                     "had_filtering_on_selected_event": "Filtrar o evento selecionado com uma lista inteligente",
-                    "title": "Ativadores"
+                    "title": "Ativadores",
+                    "trigger_timeout_explain_value_selected": "Se o membro ainda estiver presente na sequência após {{ days }} dias, será automaticamente retirado da lista e é considerado como perdido",
+                    "trigger_timeout_select_label": "máximo de dias na sequência",
+                    "trigger_timeout_title": "Tempo limite",
+                    "select_marketing_actions_helper": "Seleccione uma ou mais ações a realizar quando há um novo membro. Esta opção é opcional.",
+                    "marketing_actions": "Ações de marketing",
+                    "event_or_smartlist_helper": "Os membros terão de corresponder ao evento ou fazer parte da lista inteligente para serem incluídos na sequência",
+                    "event_and_smartlist_helper": "Os membros terão de corresponder ao evento e fazer parte da lista inteligente para entrar na sequência",
+                    "or_rule_between_triggers": "Ou",
+                    "and_rule_between_triggers": "E",
+                    "rule_between_triggers": "Regra entre eventos"
                 },
                 "delete": "Eliminar",
                 "updateTitle": "Alterar o nome da sequência",
@@ -2433,13 +2489,64 @@
                 "updateSubmit": "Confirmar",
                 "marketing_action": {
                     "form": {
-                        "reset": "Eliminar"
-                    }
+                        "reset": "Eliminar",
+                        "helper": "Selecione uma ou mais ações a realizar quando um membro entra nesta fase. Esta opção é opcional.",
+                        "submit": "Confirmar"
+                    },
+                    "defaultName": "Nome predefinido",
+                    "select_tag": "Selecionar uma etiqueta",
+                    "5": "Modelo de E-mail",
+                    "4": "Etiqueta",
+                    "3": "Notificação push",
+                    "2": "SMS",
+                    "1": "E-mail"
+                },
+                "error": {
+                    "timeoutMustBeStrictPositive": "O prazo deve ser de, pelo menos, 1 dia.",
+                    "triggerCannotBeEmpty": "É necessário selecionar um tipo de entrada."
+                },
+                "event": {
+                    "billing_plan-renew": "Renovar",
+                    "billing_plan-stop": "Parar",
+                    "billing_plan-pause": "Pausa",
+                    "billing_plan-create": "Criar",
+                    "invoice-create": "Fatura criada",
+                    "basket-finalize": "Carrinho pago",
+                    "basket-additem": "Adicionar ao carrinho",
+                    "basket-created": "Criar",
+                    "booking-attendance": "Frequência de sessões de grupo",
+                    "booking-create": "Passe coletivo",
+                    "private_consumer_pass-create": "Passe de Marcação",
+                    "consumer_payment_pack-create": "Passes",
+                    "104": "Subscrição",
+                    "103": "Faturação",
+                    "102": "Carrinho",
+                    "101": "Reserva",
+                    "100": "Comprar",
+                    "14": "Renovação",
+                    "13": "Parar",
+                    "12": "Pausa",
+                    "11": "Criar",
+                    "10": "Fatura criada",
+                    "9": "Carrinho pago",
+                    "8": "Adicionar ao carrinho",
+                    "7": "Criar",
+                    "6": "Anular Marcações",
+                    "5": "Marcações",
+                    "4": "Frequência das aulas em grupo",
+                    "3": "Sessões em grupo",
+                    "2": "Passe de marcação",
+                    "1": "Passes"
+                },
+                "exit": {
+                    "exit_fail_label": "Perdido",
+                    "exit_success_label": "Ganho",
+                    "title": "Saída"
                 }
             },
             "back": "Anterior",
             "editMode": "Editar",
-            "triggerElement": "Facto gerador",
+            "triggerElement": "Elemento desencadeador",
             "marketingElement": "Ações de marketing",
             "cadenceIndexHelper": "A ordem das sequências define a ordem de prioridade. Se um membro puder introduzir 2 sequências diferentes, começará pela mais prioritária da lista.",
             "shutOff": "Pausa",
@@ -2470,15 +2577,139 @@
             },
             "archive": {
                 "dialog": {
-                    "beingArchived": "Está prestes a eliminar {{ name }}."
-                }
+                    "beingArchived": "Está prestes a eliminar {{ name }}.",
+                    "confirm": "Continuar",
+                    "cancel": "Cancelar",
+                    "helper": "Os membros atualmente na sequência serão automaticamente removidos. Esta sequência será arquivada, pelo que poderá reactivá-la mais tarde.",
+                    "title": "Eliminar uma sequência"
+                },
+                "archivedHeader": "Sequências arquivadas"
+            },
+            "triggers": {
+                "timeout": {
+                    "timout_days_chip": "{{ days }} dia",
+                    "timout_days_chip_plural": "{{ days }} dias"
+                },
+                "trigger": "Acionador",
+                "exit": "Saída",
+                "start": "Entrar"
+            },
+            "cadenceCard": {
+                "lost": "Perdido",
+                "win": "Ganho"
+            },
+            "activate": {
+                "dialog": {
+                    "cancel": "Cancelar",
+                    "secondHelper": "Não será possível editá-lo enquanto estiver a decorrer.",
+                    "firstHelper": "Gostaria de lançar a sequência?",
+                    "title": "Definir o ritmo"
+                },
+                "setupBeforeActivationHelper": "Termine de configurar a sua sequência e crie a primeira ação de marketing para lançar a mesma.",
+                "button": "Lançamento"
+            },
+            "svgText": {
+                "push_notification": "Notificação Push",
+                "sms": "SMS",
+                "email": "E-mail",
+                "select_event": "Selecionar um evento",
+                "action_name": "{ Nome da ação de marketing }",
+                "marketing_actions": "Ações de marketing",
+                "triggers": "Acionadores"
+            },
+            "howTo": {
+                "set_trigger_destination": "{{ index }}. Redirecionar para uma ação de marketing",
+                "add_smartlist_filter": "{{ index }}. Filtrar pelas listas inteligentes",
+                "add_trigger": "{{ index }}. Adicionar separações",
+                "edit_event": "{{ index }}. Editar evento",
+                "add_event": "{{ index }}. Adicionar um evento",
+                "edit_marketing_action": "{{ index }}. Editar uma ação de marketing",
+                "add_marketing_action": "{{ index }}. Adicionar uma ação de marketing",
+                "explain": "Edite os elementos do gráfico clicando neles ou crie ligações entre blocos arrastando e largando.",
+                "title": "Como editar a cadência"
+            },
+            "marketingAction": {
+                "addAction": "Adicionar uma ação"
             }
         },
         "notifications": {
             "deleteDialogText": "Tem a certeza de que quer eliminar esta regra ? Esta operação é definitiva",
             "deleteDialogTitle": "Eliminar a regra",
             "removeRule": "Eliminar a regra",
-            "editRule": "Alterar a regra"
+            "editRule": "Alterar a regra",
+            "stats": {
+                "total_mail_opened": "Número de e-mails abertos",
+                "opened_rate": "Taxa de abertura",
+                "total_mail_send": "Número de e-mails enviados"
+            },
+            "mailTitle": "Pré-visualização do e-mail",
+            "mail": "E-mail ",
+            "createNotificationFabLabel": "Criar uma nota",
+            "notificationsEmpty": "Não existe nenhuma notificação para este grupo",
+            "notificationPreview": "Pré-visualização da notificação",
+            "statisticDetails": "Estatísticas",
+            "notificationDetails": "Detalhes da notificação",
+            "contractKind": {
+                "contractEnd": "Fim da subscrição",
+                "contractStart": "Início da subscrição"
+            },
+            "paymentPackKind": {
+                "credit": "Número de créditos",
+                "validity": "Validade do passe"
+            },
+            "groupTitle": {
+                "contract": "Subscrição",
+                "privatePass": "Passe de marcações",
+                "paymentPack": "Passes",
+                "privateBooking": "Marcação",
+                "booking": "Reserva",
+                "birthday": "Aniversário"
+            },
+            "fabLabels": {
+                "contract": "Subscrição",
+                "private_pass": "Passes de marcação",
+                "payment_pack": "Passes",
+                "private_service": "Marcação",
+                "establishment": "Sala",
+                "workshop": "Workshop",
+                "meta_activity": "Atividade",
+                "birthday": "Aniversário",
+                "establishmentGroup": "Localização"
+            },
+            "cancel": "Anular",
+            "next": "Seguinte",
+            "privatePassPlaceholder": "Passes de marcação",
+            "paymentPackPlaceholder": "Passes de aulas",
+            "selectIdentifierLabel": {
+                "contract": "Selecionar uma subscrição",
+                "private_service": "Selecionar uma marcação",
+                "private_pass": "Selecionar um passe de marcação",
+                "payment_pack": "Selecionar um passe ativo",
+                "establishment": "Selecionar uma sala",
+                "workshop": "Selecionar um workshop",
+                "meta_activity": "Selecionar uma atividade",
+                "establishment_group": "Selecionar um local"
+            },
+            "createNotification": "Formulário de notificação",
+            "selectNotificationRules": "Selecionar uma regra para ver os detalhes",
+            "listTitle": "Notificações",
+            "dialogTitle": "Criar uma notificação",
+            "create": "Criar uma notificação",
+            "handleNotification": "Gerir as notificações",
+            "noNotification": "Nenhuma notificação ativada"
+        },
+        "newsletter": {
+            "messages": {
+                "success": "Está registado !",
+                "error": "Impossível registar o seu e-mail de momento"
+            },
+            "form": {
+                "validate": "Confirmar",
+                "lastName": "Nome",
+                "firstName": "Nome próprio",
+                "email": "E-mail",
+                "title": "Subscrever à nossa newsletter"
+            }
         }
     },
     "marketplace": {
@@ -7875,6 +8106,92 @@
             "accountSuccess": "A sua conta Stripe foi criada. Pode alterar esta informação mais tarde no backoffice, nas definições da empresa.",
             "paymentMethodSuccess": "O método de pagamento indicado é válido. Pode sempre alterá-lo nas definições de subscrição da Bsport.",
             "welcomeDescription": "Temos o prazer de o receber na sua nova plataforma. Antes de começar a sua experiência, faltam-nos algumas informações."
+        },
+        "language": {
+            "cs": "checo",
+            "pt": "português",
+            "es": "espanhol",
+            "nl": "holandês",
+            "it": "italiano",
+            "de": "alemão",
+            "en": "Inglês",
+            "fr": "francês"
+        },
+        "country": {
+            "LI": "Liechenstein",
+            "MX": "México",
+            "SI": "Eslovénia",
+            "RO": "Roménia",
+            "BG": "Bulgária",
+            "CZ": "República Checa",
+            "GR": "Grécia",
+            "IN": "Índia",
+            "MY": "Malásia",
+            "LV": "Letónia",
+            "LT": "Lituânia",
+            "NZ": "Nova Zelândia",
+            "SG": "Singapura",
+            "BR": "Brasil",
+            "PT": "Portugal",
+            "PL": "Polónia",
+            "HK": "Hong Kong",
+            "AU": "Austrália",
+            "SK": "Eslováquia",
+            "CY": "Chipre",
+            "AE": "Emirados Árabes Unidos",
+            "CA": "Canadá",
+            "LU": "Luxemburgo",
+            "DK": "Dinamarca",
+            "FI": "Finlândia",
+            "SE": "Suécia",
+            "US": "Estados Unidos da America",
+            "EE": "Estónia",
+            "NO": "Noruega",
+            "MT": "Malta",
+            "CH": "Suiça",
+            "ES": "Espanha",
+            "BE": "Bélgica",
+            "IE": "Irlanda",
+            "NL": "Países Baixos",
+            "IT": "Itália",
+            "AT": "Áustria",
+            "GB": "Reino Unido",
+            "DE": "Alemanha",
+            "FR": "França"
+        },
+        "signupCompany": {
+            "form": {
+                "next": "Confirmar",
+                "previous": "Anterior",
+                "timezone": {
+                    "label": "Fuso de horário"
+                },
+                "country": {
+                    "label": "País"
+                },
+                "password2": {
+                    "error": "As palavras passe não coincidem",
+                    "label": "Confirmação"
+                },
+                "password1": {
+                    "label": "Palavra passe"
+                },
+                "email": {
+                    "errorExists": "Este e-mail já existe, por favor escolha outro.",
+                    "placeholder": "eu@bsport.io",
+                    "label": "E-mail"
+                },
+                "name": {
+                    "helperText": "Este nome será visível para os seus membros",
+                    "placeholder": "Yoga Shala",
+                    "label": "Nome do estúdio/ginásio/empresa"
+                },
+                "title": "Mais informações"
+            },
+            "welcome": {
+                "next": "Continuar",
+                "content": "A bsport reúne profissionais cujo objetivo é simplificar as ferramentas de IT e dar-lhe uma melhor compreensão da sua comunidade."
+            }
         }
     },
     "datetime": {

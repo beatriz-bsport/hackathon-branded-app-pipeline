@@ -2689,7 +2689,9 @@
             },
             "savePaymentMethod": {
                 "section": "Seleccione un método de pago",
-                "label": "Guarda este método de pago"
+                "label": "Guarda este método de pago",
+                "add": "Datos de pago",
+                "select": "Seleccione un método de pago"
             }
         },
         "method": {
@@ -3258,7 +3260,8 @@
                 "basketInconsistent": "Su cesta ha sido modificada, por favor actualice su página antes de validar su pago.\n No ha sido acusado.",
                 "billByInstalment": "Pago a plazos",
                 "paymentLink": "Enlace de pago",
-                "generatePaymentLink": "Generar un enlace de pago"
+                "generatePaymentLink": "Generar un enlace de pago",
+                "paymentSecurityInformation": "Puede almacenar de forma segura sus datos de pago preferidos para futuras compras, su información será encriptada y almacenada de forma segura"
             },
             "paymentList": {
                 "isEmpty": "No hay pago",
@@ -5017,7 +5020,8 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
-                "Cancelada"
+                "Cancelada",
+                "Cancelled"
             ]
         },
         "payment_method_with_credit_account": {
@@ -6364,6 +6368,9 @@
                     "penaltyDay_plural": "{{count}} días",
                     "threshold": "{{count}} ausencia",
                     "threshold_plural": "{{count}} ausencias"
+                },
+                "offPeakRestrictions": {
+                    "title": "Compatible sólo con determinadas franjas horarias"
                 }
             },
             "restrictions": "Restricciones",
@@ -6407,7 +6414,8 @@
                 "unlimited": "Ilimitado",
                 "availableCredit": "{{count}} crédito",
                 "availableCredit_plural": "{{count}} créditos"
-            }
+            },
+            "compatibleTimeSlot": "Franjas horarias compatibles"
         },
         "packCard": {
             "comboItemList": {
@@ -7007,7 +7015,8 @@
                 "cancel": "cancelar",
                 "submit": "Enviar",
                 "not_found": "Este código promocional no es válido.",
-                "not_applicable": "Este código promocional no es aplicable."
+                "not_applicable": "Este código promocional no es aplicable.",
+                "apply": "Solicitar"
             }
         },
         "createCoupon": "Añadir un código",
@@ -9804,7 +9813,10 @@
             },
             "isFinalized": "Su cesta ha sido validada",
             "checkingPaymentStatus": "Por favor, espere, estamos comprobando el estado de su pago",
-            "totalQuantity": "Contiene elementos {{ qty }}"
+            "totalQuantity": "Contiene elementos {{ qty }}",
+            "acceptTermsAndFinalize": "Por favor, acepte las condiciones generales y finalice su reserva",
+            "checkAndFinalize": "Compruebe su cesta y finalice su reserva",
+            "almostDone": "Última etapa"
         },
         "autoAdd": {
             "paymentPack": {
@@ -9860,7 +9872,9 @@
                 "back": "Anteriormente",
                 "continue": "Seguir comprando",
                 "widgetContinue": "Siguiente",
-                "member": "Área de miembro"
+                "member": "Área de miembro",
+                "confirmPriceNull": "Confirmar",
+                "payNow": "Pagar"
             }
         },
         "expire_in": "Expira en ",
@@ -9900,7 +9914,11 @@
             "tax": "Tasas",
             "taxExcluded": "Subtotal excluido",
             "flat_fee": "Tasa de solicitud",
-            "globalTotal": "Total"
+            "globalTotal": "Total",
+            "internalAccount": "Saldo de la cuenta del cliente",
+            "totalHiddingTax": "Total",
+            "deliveryFee": "Gastos de envío",
+            "title": "Pago"
         }
     },
     "waitingList": {
@@ -11683,7 +11701,8 @@
             "validity": "Validez",
             "credit_quantity": "Número de créditos",
             "universalPass": "Tarjeta universal",
-            "compatibilityPaymentPack": "Compatibilidad de los cursos en grupo"
+            "compatibilityPaymentPack": "Compatibilidad de los cursos en grupo",
+            "offPeak": "Franjas horarias"
         },
         "unlimitedAndCalculatedMargin": " - Contribución marginal teórica calculada: precio / nb_bookings ",
         "unlimitedAndMargin": " - Contribución marginal teórica de ",
@@ -11784,7 +11803,18 @@
                 "helperText": "Disponible hasta el",
                 "tooltip": "Después de la fecha elegida, el paquete ya no estará a la venta para los clientes."
             },
-            "description": "Descripción"
+            "description": "Descripción",
+            "offPeak": {
+                "addGroupTimeSlot": "Añadir un grupo de franjas horarias",
+                "addTimeSlot": "Añadir una franja horaria",
+                "choice": {
+                    "allDay": "Todo el día",
+                    "timeSlot": "Franjas horarias"
+                },
+                "label": "Limitar las reservas a determinadas franjas horarias"
+            },
+            "atLeastOneDay": "Debe seleccionarse al menos un día",
+            "startAfterEnd": "La hora de inicio debe ser inferior a la hora de finalización"
         },
         "paymentPackTemplate": {
             "actions": {
@@ -11881,7 +11911,8 @@
             "2018": "Número de créditos insuficiente",
             "2010": "Establecimiento no compatible",
             "2009": "Categoría no compatible",
-            "2008": "Actividad no compatible"
+            "2008": "Actividad no compatible",
+            "2027": "La franja horaria es incompatible"
         },
         "listItem": {
             "unusableByStaff": "Invisible para el personal"

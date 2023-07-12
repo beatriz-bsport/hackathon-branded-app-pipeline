@@ -2696,7 +2696,7 @@
             "is_unpaid": "Onbetaald",
             "total_payments_made": "Aantal uitgevoerde collecties",
             "plan_recurrent_price": "Terugkerende betaling",
-            "plan_flat_fee": "Aanvraagkosten",
+            "plan_flat_fee": "Inschrijfkosten",
             "plan_status": "Abonnementsstatus",
             "plan_date_start": "Datum eerste factuur",
             "plan_date_end": "Einddatum factuur",
@@ -3069,6 +3069,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
@@ -3805,7 +3806,8 @@
             "validity": "Geldigheid",
             "credit_quantity": "credits",
             "universalPass": "Universele kaart",
-            "compatibilityPaymentPack": "Groepsactiviteiten"
+            "compatibilityPaymentPack": "Groepsactiviteiten",
+            "offPeak": "Tijdsloten"
         },
         "validityTo": " tot ",
         "addPaymentPack": {
@@ -3903,7 +3905,18 @@
                 "helperText": "Beschikbaar tot",
                 "tooltip": "Na de gekozen datum is de kaart niet meer te koop voor klanten."
             },
-            "description": "Beschrijving"
+            "description": "Beschrijving",
+            "offPeak": {
+                "addGroupTimeSlot": "Een nieuwe groep tijdsloten toevoegen",
+                "choice": {
+                    "timeSlot": "Tijdsloten",
+                    "allDay": "Gehele dag"
+                },
+                "addTimeSlot": "Een tijdslot toevoegen",
+                "label": "Reserveringen zijn alleen tussen bepaalde tijden mogelijk"
+            },
+            "atLeastOneDay": "Selecteer ten minste één dag",
+            "startAfterEnd": "De starttijd moet vóór de eindtijd zijn"
         },
         "unlimitedPlural": "Onbeperkt",
         "universalPass": {
@@ -3941,7 +3954,8 @@
             "2018": "Onvoldoende credits",
             "2010": "Incompatibele vestiging",
             "2009": "Incompatibele categorie",
-            "2008": "Incompatibele activiteit"
+            "2008": "Incompatibele activiteit",
+            "2027": "Dit tijdslot is incompatibel"
         },
         "listItem": {
             "unusableByStaff": "Onzichtbaar voor het personeel"
@@ -6342,6 +6356,9 @@
                     "penaltyDay_plural": "{{count}} dagen",
                     "threshold": "{{count}} absent",
                     "threshold_plural": "{{count}} absenties"
+                },
+                "offPeakRestrictions": {
+                    "title": "Alleen compatibel tussen bepaalde tijden"
                 }
             },
             "restrictions": "Restricties",
@@ -6385,7 +6402,8 @@
                 "unlimited": "Onbeperkt",
                 "availableCredit": "{{count}} credit",
                 "availableCredit_plural": "{{count}} credits"
-            }
+            },
+            "compatibleTimeSlot": "Compatibele tijdsloten"
         },
         "packCard": {
             "comboItemList": {
@@ -6420,13 +6438,13 @@
         },
         "contractCard": {
             "autoRenewal": "automatische verlenging",
-            "legalContract": "Juridische informatie",
+            "legalContract": "Voorwaarden",
             "seeMore": "Toon meer",
             "seeLess": "Zie minder",
             "registerButton": "Abonneren",
             "invoice": "{{ count }} Factuur",
             "invoice_plural": "{{ count }} factures",
-            "fees": "Aanvraagkosten : {{ fees }}",
+            "fees": "Inschrijfkosten: {{ fees }}",
             "billingInterval": {
                 "day": "dag",
                 "day_plural": "Elke {{ count }} dagen",
@@ -6667,7 +6685,7 @@
                 },
                 "title": "[Formulier] Abonnement",
                 "contract": {
-                    "placeholder": "Vul hier alle relevante juridische informatie toe (bijv. terugbetaling, etc.).",
+                    "placeholder": "Vul hier alle relevante juridische informatie en voorwaarden toe, zoals de looptijd, terugbetalingen en meer.",
                     "label": "Voorwaarden"
                 },
                 "managerOnly": {
@@ -8794,7 +8812,7 @@
         "availabilitySlot": {
             "form": {
                 "resourceSelector": {
-                    "title": "Wijzig tijdslot",
+                    "title": "Tijdslot wijzigen",
                     "label": "Bewerken voor:",
                     "cancel": "Annuleren",
                     "submit": "Opslaan",
@@ -9573,7 +9591,9 @@
             },
             "savePaymentMethod": {
                 "section": "Selecteer een betaalmethode",
-                "label": "Deze betaalmethode opslaan voor toekomstige betalingen."
+                "label": "Deze betaalmethode opslaan voor toekomstige betalingen.",
+                "add": "Betaalgegevens",
+                "select": "Selecteer een betaalmethode"
             }
         },
         "goBack": "Terug",
@@ -11105,7 +11125,8 @@
                 "cancel": "annuleren",
                 "submit": "Bevestigen",
                 "not_applicable": "Deze promotiecode kan niet voor deze aankoop gebruikt worden.",
-                "not_found": "Deze promotiecode is ongeldig."
+                "not_found": "Deze promotiecode is ongeldig.",
+                "apply": "Toepassen"
             }
         },
         "search": "Zoek een promotiecode",
@@ -11238,7 +11259,7 @@
         },
         "bookingsWeektimeSlot": {
             "title": "Bezoekersgemiddelde",
-            "popover": "Gemiddeld aantal reserveringen per tijdsperiode"
+            "popover": "Gemiddeld aantal reserveringen per tijdslot"
         },
         "billedSubscriptions": {
             "title": "Aantal gefactureerde abonnementen",
@@ -11488,7 +11509,7 @@
             "nb_planned_invoices": "Totaal aantal collecties",
             "plan_status": "Abonnementsstatus",
             "plan_recurrent_price": "Terugkerend betalingsbedrag",
-            "plan_flat_fee": "Aanvraagkosten",
+            "plan_flat_fee": "Inschrijfkosten",
             "plan_date_start": "Datum eerste factuur",
             "plan_date_end": "Einddatum factuur",
             "new_member_only": "Aanbod voor nieuwe leden",
@@ -12254,7 +12275,10 @@
             },
             "isFinalized": "Je winkelmandje is bevestigd.",
             "checkingPaymentStatus": "We controleren momenteel de status van de betaling.",
-            "totalQuantity": "Inhoud: {{ qty }} product(en)"
+            "totalQuantity": "Inhoud: {{ qty }} product(en)",
+            "acceptTermsAndFinalize": "Accepteer de voorwaarden om je reservering te voltooien",
+            "checkAndFinalize": "Controleer je winkelmandje en voltooi je betaling",
+            "almostDone": "Laatste stap"
         },
         "paymentIntent": {
             "isProcessing": "Laden..."
@@ -12290,7 +12314,9 @@
                 "back": "Terug",
                 "continue": "Verder winkelen",
                 "widgetContinue": "Verder",
-                "member": "Mijn profiel"
+                "member": "Mijn profiel",
+                "confirmPriceNull": "Bevestigen",
+                "payNow": "Afrekenen"
             }
         },
         "historyTitle": "Geschiedenis",
@@ -12329,7 +12355,11 @@
             "tax": "Btw",
             "taxExcluded": "Subtotaal (excl. btw)",
             "flat_fee": "Inschrijfkosten",
-            "globalTotal": "Totaal"
+            "globalTotal": "Totaal",
+            "internalAccount": "Interne rekening (Wallet)",
+            "totalHiddingTax": "Totaal",
+            "deliveryFee": "Bezorgkosten",
+            "title": "Betaling"
         }
     },
     "invoice": {
@@ -12581,7 +12611,8 @@
                 "basketInconsistent": "Je winkelmandje is gewijzigd. Gelieve je pagina verversen voor je de betaling bevestigd.\nEr zijn vooralsnog geen kosten in rekening gebracht.",
                 "billByInstalment": "Termijnbetaling",
                 "paymentLink": "Betaallink",
-                "generatePaymentLink": "Een betaallink genereren"
+                "generatePaymentLink": "Een betaallink genereren",
+                "paymentSecurityInformation": "Je kunt je betaalgegevens en informatie veilig en versleuteld opslaan voor toekomstige aankopen."
             },
             "sumup": {
                 "amountPaid": "Betaald",

@@ -3955,7 +3955,8 @@
             "2010": "Incompatibele vestiging",
             "2009": "Incompatibele categorie",
             "2008": "Incompatibele activiteit",
-            "2027": "Dit tijdslot is incompatibel"
+            "2027": "Dit tijdslot is incompatibel",
+            "undefined": "Deze tijdsloten zijn incompatibel"
         },
         "listItem": {
             "unusableByStaff": "Onzichtbaar voor het personeel"

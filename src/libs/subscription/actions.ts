@@ -52,6 +52,8 @@ import {
 import { fetchEventList } from '../event/actions';
 import { downloadDocument } from '../../utils/downloader';
 
+import type { Contract } from '#libs/subscription/types';
+
 export const fetchSubscriptionEventList = (
   params: { event_types?: any } = {},
   options: OptionCallback,
@@ -303,7 +305,10 @@ export const contractDetailActions = {
   success: createAction('SUBSCRIPTION_CONTRACT/DETAIL/SUCCESS'),
 };
 
-export function fetchContractDetail(id: number, options?: OptionCallback) {
+export function fetchContractDetail(
+  id: number,
+  options?: OptionCallback<Contract>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(contractDetailActions.isLoading(true));
     dispatch(contractDetailActions.error(null));

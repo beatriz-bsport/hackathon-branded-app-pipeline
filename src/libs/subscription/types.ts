@@ -76,7 +76,7 @@ export type SubscriptionData = {
   nb_interval: number;
   recurrent_price: number;
   trial_nb: number;
-  interval: 'month' | 'week';
+  interval: 'month' | 'week' | 'day' | 'year';
   recurrent_voucher: number;
   payment_pack: number;
   first_billing_timestamp: number;
@@ -112,7 +112,7 @@ export type Contract = {
   recurrent_price: string;
   nb_interval: number;
   disabled: boolean;
-  interval: 'month' | 'week';
+  interval: 'month' | 'week' | 'day' | 'year';
   recurrence_basis: number;
   tax: string;
   contract_terms_pdf_link: string | null;
@@ -137,7 +137,7 @@ export type ContractWithPaymentPack<
   recurrent_price: string;
   nb_interval: number;
   disabled: boolean;
-  interval: 'month' | 'week';
+  interval: 'month' | 'week' | 'day' | 'year';
   recurrence_basis: number;
   payment_pack?: PaymentPack;
   private_pass?: PrivatePassType;

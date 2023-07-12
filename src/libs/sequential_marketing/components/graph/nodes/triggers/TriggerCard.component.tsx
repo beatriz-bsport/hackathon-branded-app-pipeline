@@ -3,17 +3,18 @@ import { useTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
 
 import StepCard from '#components/card/StepCard.component';
-import CadenceNodeTitle from '../internals/CadenceNodeTitle.component';
+import CadenceNodeTitle from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
 import {
   getTriggerIcon,
   getTriggerKind,
-} from '#libs/sequential_marketing/components/icons/utils';
-import type { SmartList } from '#libs/smart-list/types';
+} from '#libs/sequential_marketing/components/helpers/utils';
+
 import type {
   CadenceStep,
   ConnectedTrigger,
 } from '#libs/sequential_marketing/types';
+import type { SmartList } from '#libs/smart-list/types';
 import type { Action } from '#components/button/MultipleActionsButton.component';
 
 export type TriggerCardProps = {

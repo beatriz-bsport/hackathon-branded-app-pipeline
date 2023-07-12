@@ -17,16 +17,21 @@ import Chip from '@material-ui/core/Chip';
 
 import ToolTip from '#components/Tooltip.component';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import { TriggerIcon, TriggerText } from './icons/utils';
-
-import { TriggerIdentifier, DestinationStatus } from '../constants';
+import { getCadenceWinOrLoseConnectedTriggers } from '#libs/sequential_marketing/utils';
+import {
+  TriggerIcon,
+  TriggerText,
+} from '#libs/sequential_marketing/components/helpers/utils';
+import {
+  TriggerIdentifier,
+  DestinationStatus,
+} from '#libs/sequential_marketing/constants';
 
 import type {
   Cadence,
   ConnectedTrigger,
 } from '#libs/sequential_marketing/types';
-import { SmartList } from '#libs/smart-list/types';
-import { getCadenceWinOrLoseConnectedTriggers } from '#libs/sequential_marketing/utils';
+import type { SmartList } from '#libs/smart-list/types';
 
 type TriggerChipProps = {
   connected_trigger_config: ConnectedTrigger;

@@ -5,7 +5,7 @@ import {
   TriggerText,
   getEventCategoryIconAsString,
   getTriggerKind,
-} from '../../icons/utils';
+} from '#libs/sequential_marketing/components/helpers/utils';
 import {
   TriggerKind,
   SequentialMarketingColors,

@@ -2,14 +2,14 @@ import React from 'react';
 
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
 import { CadenceChip } from './CadenceChip.component';
+import {
+  getMarketingActionChipIcon,
+  getMarketingActionChipName,
+} from '#libs/sequential_marketing/components/helpers/utils';
 
 import type { StepMarketingActions } from '#libs/sequential_marketing/types';
 import type { Tag } from '#libs/tag/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
-import {
-  getMarketingActionChipIcon,
-  getMarketingActionChipName,
-} from '../../icons/utils';
 
 export type MarketingActionChipProps = {
   marketingAction: StepMarketingActions;

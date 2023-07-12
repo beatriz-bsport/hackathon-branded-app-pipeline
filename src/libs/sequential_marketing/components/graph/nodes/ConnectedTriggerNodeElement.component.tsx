@@ -10,7 +10,7 @@ import GroupIcon from '@material-ui/icons/Group';
 
 import ToolTip from '#components/Tooltip.component';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import { TriggerIcon } from '#libs/sequential_marketing/components/icons/utils';
+import { TriggerIcon } from '#libs/sequential_marketing/components/helpers/utils';
 
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 

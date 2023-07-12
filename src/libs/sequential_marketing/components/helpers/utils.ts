@@ -21,6 +21,7 @@ import {
   MarketingActionKind,
   MarketingActions,
 } from '#libs/sequential_marketing/constants';
+import { MarketingActionChipProps } from '#libs/sequential_marketing/components/graph/chips/MarketingActionChip.component';
 
 import type {
   ConnectedTrigger,
@@ -29,7 +30,6 @@ import type {
   StepMarketingActionsTagSpec,
 } from '../../types';
 import type { SmartList } from '#libs/smart-list/types';
-import { MarketingActionChipProps } from '../graph/chips/MarketingActionChip.component';
 
 type TriggerIconProps = {
   connected_trigger_config: ConnectedTrigger;

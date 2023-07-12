@@ -17,7 +17,7 @@ import type { Action } from '#components/button/MultipleActionsButton.component'
 import {
   HEADER_FONT_SIZE,
   HEADER_ICON_SIZE,
-  HEADER_LABEL_MAX_SIZE,
+  HEADER_MAX_WIDTH,
 } from '#libs/sequential_marketing/constants/steps';
 
 type StylesProps = {
@@ -84,11 +84,9 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
               )}
             </div>
           </div>
-          <div className={classes.labelContainer}>
-            <Typography variant="subtitle2" className={classes.label}>
-              {name}
-            </Typography>
-          </div>
+          <Typography variant="subtitle2" className={classes.label}>
+            {name}
+          </Typography>
         </div>
         {!!actions && actions.length > 0 && (
           <div className={classes.actionSection}>
@@ -147,6 +145,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     position: 'relative',
   },
   flexIconAndText: {
+    flexShrink: 0,
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -154,7 +153,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     width: '100%',
-    flex: 1,
+    maxWidth: ({ hasActions }) => hasActions && HEADER_MAX_WIDTH,
   },
   losange: {
     flexShrink: 0,
@@ -178,18 +177,16 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
         ? 'translate(-45%,-45%)'
         : 'translate(-45%,-45%) rotate(-45deg)',
   },
-  labelContainer: {
-    overflow: 'hidden',
-  },
   label: {
-    flex: 1,
     fontSize: HEADER_FONT_SIZE,
     fontWeight: 'bold',
     overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+    display: '-webkit-box',
+    whiteSpace: 'pre-wrap',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    textAlign: 'left',
     color: ({ disabled }) => (disabled ? theme.palette.grey[600] : 'default'),
-    maxWidth: ({ hasActions }) => hasActions && HEADER_LABEL_MAX_SIZE,
   },
   actionSection: {
     display: 'flex',

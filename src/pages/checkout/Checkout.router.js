@@ -6,12 +6,16 @@ import { compose } from 'recompose';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withTranslation } from 'react-i18next';
+import { MuiThemeProvider } from '@material-ui/core';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import themeSelectors from '../../libs/theme/selectors';
 
 import asyncComponent from '../../AsyncComponent';
 import Analytics from '../../components/analytics/Analytics.component';
 import { fetchProfile } from '../../libs/consumer-space/actions';
+import { fetchCompanyTheme } from '../../libs/theme/actions';
 import namespaces from '../../i18n/namespaces.json';
+import { getTheme } from '../../theme';
 
 const MarketplaceAsManager = asyncComponent(() =>
   import('../marketplace/MarketplaceAsManager.page'),
@@ -68,6 +72,7 @@ type Props = {
   is_manager: ?boolean,
   companyId: number,
   theme: CompanyTheme,
+  fetchCompanyTheme: (number) => void,
 };
 
 export class PaymentRouter extends React.Component<Props> {
@@ -75,6 +80,7 @@ export class PaymentRouter extends React.Component<Props> {
     if (this.props.authenticated) {
       this.props.fetchProfile();
     }
+    this.props.fetchCompanyTheme(this.props.companyId);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -100,9 +106,12 @@ export class PaymentRouter extends React.Component<Props> {
     if (this.props.is_manager) {
       return <MarketplaceAsManager />;
     }
-
     return (
-      <>
+      /* NOTE: The marketplaceCssHoc will look at its parents to search for a Themeprovider. 
+      Some pages (like the contract checkout) are wraped into the marketplaceCssHoc but don't have parent 
+      that provide a theme. That's why we need to wrap the router into a MuiThemeProvider
+       */
+      <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <Analytics theme={this.props.theme} />
         <Switch>
           <Route
@@ -164,7 +173,7 @@ export class PaymentRouter extends React.Component<Props> {
             component={BasketPage}
           />
         </Switch>
-      </>
+      </MuiThemeProvider>
     );
   }
 }
@@ -187,7 +196,8 @@ export default compose(
     (state) => ({
       authenticated: state.auth.authenticated,
       is_manager: state.auth.is_manager,
+      theme: themeSelectors.getTheme(state),
     }),
-    { fetchProfile },
+    { fetchProfile, fetchCompanyTheme },
   ),
 )(PaymentRouter);

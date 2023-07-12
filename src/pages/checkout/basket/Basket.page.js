@@ -160,6 +160,7 @@ type Props = {
   ) => void,
   basketOffers: Array<Offer<number, Establishment, MetaActivity>>,
   isNewCheckoutFlow?: boolean,
+  fetchInstalmentPaymentByBasket: (basketId: string) => void,
 };
 
 export class BasketPage extends React.Component<Props> {
@@ -182,6 +183,7 @@ export class BasketPage extends React.Component<Props> {
       this.props.fetchPaymentMethod({ company: this.props.companyId });
     }
     if (this.props.basket && !prevProps.basket) {
+      this.props.fetchInstalmentPaymentByBasket(this.props.basket.id);
       Analytics.showBasket(this.props.basket);
       if (this.props.basket.total_price_cts) {
         this.getSecret();
@@ -231,6 +233,7 @@ export class BasketPage extends React.Component<Props> {
       this.props.fetchProfile();
     }
     if (this.props.basket) {
+      this.props.fetchInstalmentPaymentByBasket(this.props.basket.id);
       Analytics.showBasket(this.props.basket);
       if (this.props.basket.total_price_cts) {
         this.getSecret();
@@ -656,7 +659,6 @@ export default compose(
     refreshBasket:
       ({
         fetchCurrentBasket,
-        fetchInstalmentPaymentByBasket,
         companyId,
         fetchOfferWithEstablishmentAndActivityBulk,
       }) =>
@@ -667,7 +669,6 @@ export default compose(
             if (options && options.onSuccess) {
               options.onSuccess();
             }
-            fetchInstalmentPaymentByBasket(basket.id);
             const offerIdsList = basket.checkout_items
               ?.filter(
                 (checkoutItem) =>

@@ -19,6 +19,7 @@ export type MultipleActionsMenuOnHoverProps = {
   customIcon?: string;
   customColor?: string;
   optionOnClick?: () => void;
+  optionOnLeave?: () => void;
 };
 
 const MultipleActionsMenuOnHover: React.FC<MultipleActionsMenuOnHoverProps> = ({
@@ -26,6 +27,7 @@ const MultipleActionsMenuOnHover: React.FC<MultipleActionsMenuOnHoverProps> = ({
   customIcon,
   customColor,
   optionOnClick,
+  optionOnLeave,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -46,26 +48,29 @@ const MultipleActionsMenuOnHover: React.FC<MultipleActionsMenuOnHoverProps> = ({
   const handleMouseEnter = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
       event.preventDefault();
+      optionOnClick?.();
       setAnchorEl(event.currentTarget);
     },
-    [],
+    [optionOnClick],
   );
 
   const handleMouseLeave = useCallback(
     (event: React.MouseEvent<HTMLMenuElement>) => {
       event.preventDefault();
+      optionOnLeave?.();
       setAnchorEl(null);
     },
-    [],
+    [optionOnLeave],
   );
 
   const handleClickAway = useCallback(
     (event: React.MouseEvent<Document, MouseEvent>) => {
       event.stopPropagation();
       event.preventDefault();
+      optionOnLeave?.();
       setAnchorEl(null);
     },
-    [],
+    [optionOnLeave],
   );
 
   const handleOnClickAction = useCallback(

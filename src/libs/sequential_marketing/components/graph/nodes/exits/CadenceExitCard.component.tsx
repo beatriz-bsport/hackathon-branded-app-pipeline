@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
 
@@ -20,10 +20,17 @@ export type CadenceExitCardProps = {
 
 type CadenceExitHeaderProps = {
   handleDisableRipple: () => void;
+  handleEnableRipple: () => void;
 } & Omit<CadenceExitCardProps, 'step' | 'isSelected'>;
 
 const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
-  ({ status, onDelete, handleChangeInStep, handleDisableRipple }) => {
+  ({
+    status,
+    onDelete,
+    handleChangeInStep,
+    handleDisableRipple,
+    handleEnableRipple,
+  }) => {
     const { t } = useTranslation('marketing');
 
     const onClickAction = useCallback(
@@ -65,7 +72,8 @@ const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
             : SequentialMarketingColors.LOSE_COLOR
         }
         actions={actions}
-        disableRippleOnClick={handleDisableRipple}
+        handleDisableRipple={handleDisableRipple}
+        handleEnableRipple={handleEnableRipple}
       />
     );
   },
@@ -78,18 +86,13 @@ const CadenceExitCard: React.FC<CadenceExitCardProps> = ({
   isSelected,
 }) => {
   const [disableRipple, setDisableRipple] = useState(false);
-  const [clickDone, setClickDone] = useState(false);
-
-  useEffect(() => {
-    if (clickDone) {
-      setDisableRipple(false);
-      setClickDone(false);
-    }
-  }, [clickDone]);
 
   const handleDisableRipple = useCallback(() => {
     setDisableRipple(true);
-    setClickDone(true);
+  }, []);
+
+  const handleEnableRipple = useCallback(() => {
+    setDisableRipple(false);
   }, []);
 
   return (
@@ -100,6 +103,7 @@ const CadenceExitCard: React.FC<CadenceExitCardProps> = ({
           onDelete={onDelete}
           handleChangeInStep={handleChangeInStep}
           handleDisableRipple={handleDisableRipple}
+          handleEnableRipple={handleEnableRipple}
         />
       }
       color={

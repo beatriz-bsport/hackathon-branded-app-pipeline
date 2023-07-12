@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
 
@@ -29,6 +29,7 @@ type InnerStepHeaderProps = {
   stepName: string;
   actions: Immutable.ImmutableArray<Action>;
   handleDisableRipple: () => void;
+  handleEnableRipple: () => void;
 };
 
 type InnerStepContentProps = {
@@ -40,14 +41,15 @@ type InnerStepContentProps = {
 };
 
 const InnerStepHeader: React.FC<InnerStepHeaderProps> = React.memo(
-  ({ stepName, actions, handleDisableRipple }) => {
+  ({ stepName, actions, handleDisableRipple, handleEnableRipple }) => {
     return (
       <CadenceNodeTitle
         name={stepName}
         icon="DeviceHub"
         color={SequentialMarketingColors.INNER_STEP_COLOR}
         actions={actions}
-        disableRippleOnClick={handleDisableRipple}
+        handleDisableRipple={handleDisableRipple}
+        handleEnableRipple={handleEnableRipple}
         squareIcon
       />
     );
@@ -82,12 +84,12 @@ const InnerStepContent: React.FC<InnerStepContentProps> = React.memo(
 const InnerStepCard: React.FC<InnerStepCardProps> = ({
   step,
   marketingActionList,
-  addMarketingAction,
-  getTag,
-  getEmailTemplate,
   isSelected,
   disabled,
   disableAddMarketingAction,
+  addMarketingAction,
+  getTag,
+  getEmailTemplate,
   onDelete,
   handleChangeInExit,
   onCardClick,
@@ -96,18 +98,13 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
   const { t } = useTranslation('marketing');
 
   const [disableRipple, setDisableRipple] = useState(false);
-  const [clickDone, setClickDone] = useState(false);
-
-  useEffect(() => {
-    if (clickDone) {
-      setDisableRipple(false);
-      setClickDone(false);
-    }
-  }, [clickDone]);
 
   const handleDisableRipple = useCallback(() => {
     setDisableRipple(true);
-    setClickDone(true);
+  }, []);
+
+  const handleEnableRipple = useCallback(() => {
+    setDisableRipple(false);
   }, []);
 
   const onClickNewMarketingAction = useCallback(() => {
@@ -147,6 +144,7 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
           stepName={step?.name}
           actions={actions}
           handleDisableRipple={handleDisableRipple}
+          handleEnableRipple={handleEnableRipple}
         />
       }
       content={

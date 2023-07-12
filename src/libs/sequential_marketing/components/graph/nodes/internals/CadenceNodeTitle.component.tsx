@@ -32,7 +32,8 @@ export type CadenceNodeTitleProps = {
   icon: string;
   triggerList?: ConnectedTrigger[];
   actions?: Immutable.ImmutableArray<Action>;
-  disableRippleOnClick?: () => void;
+  handleDisableRipple?: () => void;
+  handleEnableRipple?: () => void;
   getSmartlist?: (id: number) => SmartList;
 } & Omit<StylesProps, 'hasActions'>;
 
@@ -44,7 +45,8 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
   actions,
   disabled,
   squareIcon,
-  disableRippleOnClick,
+  handleDisableRipple,
+  handleEnableRipple,
   getSmartlist,
 }) => {
   const classes = useStyles({
@@ -93,7 +95,8 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
             {actions.length > 1 ? (
               <MultipleActionsMenuOnHover
                 actionList={actions}
-                optionOnClick={disableRippleOnClick}
+                optionOnClick={handleDisableRipple}
+                optionOnLeave={handleEnableRipple}
               />
             ) : (
               <Tooltip title={actions[0].label}>

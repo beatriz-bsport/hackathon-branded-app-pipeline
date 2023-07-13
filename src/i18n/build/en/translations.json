@@ -2595,7 +2595,8 @@
             "actions": {
                 "cancel": "Cancel",
                 "reset": "OK",
-                "backToLogin": "Back"
+                "backToLogin": "Back",
+                "confirm": "Confirm"
             },
             "contactUs": "Contact us via ",
             "hasProblem": "Are you experiencing issues resetting your password?"
@@ -6179,7 +6180,7 @@
             "notReceived": "Have you not received anything?",
             "title": "You have been registered",
             "clickHere": "Click here",
-            "backToLogin": "Back"
+            "backToLogin": "Back to login page"
         },
         "welcome": {
             "textExplain": "Congratulations, your registration has been completed. You can now start enjoying your account and book your first sessions.",
@@ -7577,7 +7578,7 @@
             },
             "nf525Button": "Download",
             "nf525Explain": "BSPORT Solutions follows the NF525 compliance procedures. Download our official certificate.",
-            "nf525": "NF252 Certification",
+            "nf525": "NF525 Certification",
             "subscription": {
                 "forms": {
                     "revert_bookings_on_fail_subscription_payment": {
@@ -9666,6 +9667,7 @@
                 "Cancelled",
                 "Canceled",
                 "Canceled",
+                "Cancelled",
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
@@ -14816,13 +14818,16 @@
                     "isMobile": "For mobile",
                     "loading": "Currently loading",
                     "variant": "Highlight",
-                    "filterGroupOptions": "Grouped options"
+                    "filterGroupOptions": "Grouped options",
+                    "isExcludingTax": "Excluding tax"
                 },
                 "configurationTitle": "Variations"
             },
             "page": {
                 "calendar": "Calendar",
-                "workshop": "Workshop"
+                "workshop": "Workshop",
+                "subscription": "Subscriptions",
+                "pass": "Passes"
             },
             "components": {
                 "calendar": "Calendar page",
@@ -14839,7 +14844,20 @@
                 "vodTag": "VOD chip",
                 "level": "Level chip",
                 "offerListItem": "Session details",
-                "filter": "Single filter"
+                "filter": "Single filter",
+                "contractCouponFormModal": "Subscription promo code popup",
+                "contractCooldownModal": "Subscription purchase warning popup",
+                "contractTermsModal": "Subscription legal notice popup",
+                "contractDetail": "Subscription details",
+                "contractDetailModal": "Subscription details popup",
+                "contractCheckout": "Subscription card (payment)",
+                "contractCard": "Subscription card",
+                "privatePassCompatibilityModal": "Compatibility popup (appointment pass)",
+                "privatePassCard": "Appointment pass card",
+                "paymentPackRestrictionModal": "Restrictions popup (pass)",
+                "paymentPackCompatibilityModal": "Compatibility popup (pass)",
+                "paymentPackCard": "Pass card",
+                "paymentComboCard": "Pack card"
             },
             "customCss": {
                 "yourCode": "Your complementary implementation:",
@@ -15412,7 +15430,8 @@
                 "actions": {
                     "changeInStep": "Convert to step",
                     "changeInExit": "Convert to output",
-                    "delete": "Delete"
+                    "delete": "Delete",
+                    "addNextStep": "Add next step"
                 }
             },
             "marketingAction": {

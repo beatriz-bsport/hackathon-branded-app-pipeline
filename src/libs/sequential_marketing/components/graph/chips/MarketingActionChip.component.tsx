@@ -31,6 +31,7 @@ const MarketingActionChip: React.FC<MarketingActionChipProps> = ({
       })}
       icon={getMarketingActionChipIcon(marketingAction)}
       color={SequentialMarketingColors.MARKETING_ACTION_COLOR}
+      withBackgroundOnHover
     />
   );
 };

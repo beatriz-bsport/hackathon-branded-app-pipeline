@@ -149,6 +149,7 @@ exports.default = {
       contractCooldownModal: "Popup d'avertissement d'achat d'abonnement",
       contractCouponFormModal: "Popup de code promo d'abonnement",
       contractNotFound: "Avertissement d'abonnement non trouvé",
+      contractPayment: "Module de paiement d'abonnement",
     },
     page: {
       workshop: 'Atelier',
@@ -168,6 +169,8 @@ exports.default = {
         showDayParts: 'Séparer matin, après midi et soir',
         nextOffer: 'Prochaine séance disponible',
         isExcludingTax: 'Hors taxe',
+        isContractLegalTermsAccepted:
+          "Mentions légales de l'abonnement acceptées",
       },
       option: {
         true: 'Oui',

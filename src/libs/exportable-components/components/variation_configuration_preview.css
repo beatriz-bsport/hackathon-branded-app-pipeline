@@ -43,3 +43,10 @@ these overrides will be overwritten within this file.
 .bs-custom-css__component__preview .bs-off_peak-modal__backdrop {
   position: relative;
 }
+
+/* MarketplaceContractPayment */
+.bs-custom-css__component__preview
+  .bs-contract-payment__container
+  .bs-collect-payment-method__dialog__backdrop {
+  position: absolute;
+}

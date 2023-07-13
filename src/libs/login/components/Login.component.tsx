@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { compose } from 'recompose';
@@ -8,12 +6,12 @@ import { Button, IconButton } from '@material-ui/core';
 import './LoginBackground.css';
 import './Login.css';
 import HelpIcon from '@material-ui/icons/Help';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { CompanyTheme } from '#libs/theme/types';
 import PasswordInput from '#components/input/PasswordInput.component';
 import Radio from '#components/css-only/Radio';
-
+// @ts-expect-error
 import FormField from '#components/input/FormField.component';
 import { openIntercomHelp } from '../../../intercom';
 import getCalendlyLinkFromCountry from '../../../i18n/utils/calendly-link-language';
@@ -32,7 +30,6 @@ type Props = {
     email?: string;
     password?: string;
   };
-  t: TFunction;
   simplifyUI?: boolean;
   isPremium?: boolean;
   company?: boolean;
@@ -42,7 +39,7 @@ type Props = {
   franchisor?: Franchise;
   hideRegister?: boolean;
   emailChoices?: Array<string>;
-};
+} & WithTranslation;
 
 type State = {
   email: string;
@@ -55,8 +52,12 @@ export class ConsumerLogin extends Component<Props, State> {
     password: '',
   };
 
-  onFormFieldChange = (id: string) => (value: any) => {
-    this.setState({ [id]: value });
+  onFormFieldChange = (id: string) => (value: string) => {
+    if (id === 'email') {
+      this.setState({ [id]: value });
+    } else if (id === 'password') {
+      this.setState({ [id]: value });
+    }
   };
 
   onEmailChange = (value: string) => this.onFormFieldChange('email')(value);
@@ -91,7 +92,6 @@ export class ConsumerLogin extends Component<Props, State> {
       this.props.company || this.props.franchisor
         ? 'bs-rectangle--company'
         : 'bs-rectangle--default';
-
     return (
       <div
         className={`${'bs-flex-column--center'} ${'bs-login-container__get-email-login'}`}
@@ -148,8 +148,8 @@ export class ConsumerLogin extends Component<Props, State> {
         </div>
         <form className="bs-column" onSubmit={this.doEmailLogin}>
           <div className="bs-login-container__field">
-            {this.props?.emailChoices ? (
-              <div id="email" name="login">
+            {this.props.emailChoices ? (
+              <div id="email-choices">
                 <>
                   <div
                     className={classnames(
@@ -197,7 +197,6 @@ export class ConsumerLogin extends Component<Props, State> {
                 this.props.loading ||
                 (!!this.props.emailChoices && !this.state.email)
               }
-              className="bs-login-container__field"
               onChange={(ev: any) =>
                 this.onFormFieldChange('password')(ev.target.value)
               }
@@ -237,7 +236,7 @@ export class ConsumerLogin extends Component<Props, State> {
           >
             {!!this.props.loading && (
               <CircularProgress
-                style={{ marginRight: 8 }}
+                className="bs-login-container__signin-button__circular-progress"
                 size={24}
                 color="inherit"
               />
@@ -259,18 +258,16 @@ export class ConsumerLogin extends Component<Props, State> {
                   ? { franchisor: this.props.franchisor.id }
                   : {}),
               })}`}
-              style={{ textDecoration: 'none' }}
+              className="bs-login-container__forgotten-password__link"
             >
-              <div align="center">
-                <p
-                  className={classnames(
-                    'bs-login-container__forgotten-password-text',
-                    'bs-login-container__body2-text',
-                  )}
-                >
-                  {t('actions.forgottenPassword')}
-                </p>
-              </div>
+              <p
+                className={classnames(
+                  'bs-login-container__forgotten-password__link__text',
+                  'bs-login-container__body2-text',
+                )}
+              >
+                {t('actions.forgottenPassword')}
+              </p>
             </a>
           </div>
         </form>

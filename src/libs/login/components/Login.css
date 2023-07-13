@@ -176,6 +176,10 @@
   );
 }
 
+.bs-login-container__signin-button__circular-progress {
+  margin-right: 8px;
+}
+
 .bs-login-container__field {
   margin-bottom: var(--spacing-3);
   color: rgba(117, 117, 117, 1);
@@ -232,7 +236,12 @@
   align-self: center;
 }
 
-.bs-login-container__forgotten-password-text {
+.bs-login-container__forgotten-password__link {
+  text-decoration: none;
+  text-align: center;
+}
+
+.bs-login-container__forgotten-password__link__text {
   color: var(--color-secondary-dark);
 }
 

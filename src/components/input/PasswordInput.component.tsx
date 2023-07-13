@@ -15,7 +15,8 @@ type Props = {
   onChange: (e: React.ChangeEvent<HTMLElement>) => void;
   error?: Error | boolean;
   label?: string;
-  helperText: string;
+  helperText?: string;
+  disabled?: boolean;
 };
 
 export const PasswordInput = (props: Props) => {

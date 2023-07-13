@@ -7,6 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import {
   BUYABLE_ITEM_COUPON,
   BUYABLE_ITEM_FEE,
+  BUYABLE_ITEM_SUBSCRIPTION,
 } from '@bsport/common/lib/master-data/buyable-items';
 import {
   Basket,
@@ -20,7 +21,7 @@ import { getBasketTotalPriceExcludingTax } from '../../utils';
 import { BillItem } from './BilllItem.component';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-type PriceCountProps = {
+export type PriceCountProps = {
   basket: Basket<string, PrepaidLine>;
   isDeleteButtonDisabled: boolean;
   isExcludingTax?: boolean;
@@ -45,6 +46,15 @@ export const PriceCount: React.FC<PriceCountProps> = ({
       basket.checkout_items?.find(
         (checkoutItem) =>
           checkoutItem.buyable_item_identifier === BUYABLE_ITEM_FEE,
+      ),
+    [basket.checkout_items],
+  );
+
+  const flatFeeItem = React.useMemo(
+    () =>
+      basket.checkout_items?.find(
+        (checkoutItem) =>
+          checkoutItem.buyable_item_identifier === BUYABLE_ITEM_SUBSCRIPTION,
       ),
     [basket.checkout_items],
   );
@@ -95,7 +105,7 @@ export const PriceCount: React.FC<PriceCountProps> = ({
 
   return (
     <div className={classes.priceCountContainer}>
-      {!!(deliveryFeeItem || discountItemList?.length) && (
+      {!!(deliveryFeeItem || discountItemList?.length || flatFeeItem) && (
         <>
           <div className={classes.subContainer}>
             {deliveryFeeItem && (
@@ -108,6 +118,18 @@ export const PriceCount: React.FC<PriceCountProps> = ({
                   deliveryFeeItem.tax,
                 )}
                 isDeleteButtonDisabled={isDeleteButtonDisabled}
+              />
+            )}
+            {flatFeeItem && (
+              <BillItem
+                isBillItemPricePositive
+                isDeleteButtonDisabled
+                billItemName={t('payment.flatFeeSubscription')}
+                billItemPrice={getCurrencyDisplayWithPrice(
+                  flatFeeItem.unit_price,
+                  isExcludingTax,
+                  flatFeeItem.tax,
+                )}
               />
             )}
             {discountItemList.map((discountItem) => (
@@ -129,13 +151,13 @@ export const PriceCount: React.FC<PriceCountProps> = ({
         </>
       )}
       {isExcludingTax && (
-        <>
+        <div className={classes.subContainer}>
           <BasketTaxInfo
             excludingTaxPrice={basketPriceExcludingTax}
             taxPrice={taxPrice}
           />
           <Divider className={classes.divider} variant="middle" />
-        </>
+        </div>
       )}
       {!!(giftcardItemList?.length || internalAccountItem) && (
         <>

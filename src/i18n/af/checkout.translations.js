@@ -5,6 +5,7 @@ exports.default = {
     title: 'Paiement',
     flat_fee: 'Frais de dossier',
     deliveryFee: 'Frais de livraison',
+    flatFeeSubscription: 'Frais de dossier',
     taxExcluded: 'Sous-total HT',
     tax: 'Taxes',
     total: 'Total TTC',

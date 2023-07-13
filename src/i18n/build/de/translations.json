@@ -5062,6 +5062,7 @@
                 "Stornieren",
                 "Storniert",
                 "Stornieren",
+                "Stornieren",
                 "Stornieren"
             ]
         }
@@ -10293,7 +10294,8 @@
             "actions": {
                 "backToLogin": "Zurück",
                 "reset": "OK",
-                "cancel": "Abbrechen"
+                "cancel": "Abbrechen",
+                "confirm": "Bestätigen"
             },
             "title": "Passwort wiederherstellen",
             "emailHasBeenSent": "Eine E-Mail wurde an {{email}} gesendet, um Dein Passwort wiederherzustellen",
@@ -12051,7 +12053,7 @@
             "title": "Sie sind bereits registriert",
             "clickHere": "hier klicken",
             "helperToSendOnceAgain": "um die Bestätigungsmail erneut zu senden",
-            "backToLogin": "Zurück",
+            "backToLogin": "Zurück zur Login-Seite",
             "notReceived": "Sie haben noch nichts erhalten?"
         },
         "welcome": {
@@ -13698,11 +13700,26 @@
                 "vodTag": "Chip VOD",
                 "workshopsComponent": "Details zum Workshop",
                 "workshopPage": "Workshops-Seite",
-                "timeTable": "Kalender-Komponente"
+                "timeTable": "Kalender-Komponente",
+                "contractCouponFormModal": "Abonnement Promo Popup-Code",
+                "contractCooldownModal": "Warn-Pop-up für Abonnement-Kauf",
+                "contractTermsModal": "Registrierung von Pop-up-Hinweisen",
+                "contractDetail": "Details zum Abonnement",
+                "contractDetailModal": "Abonnement Popup-Details",
+                "contractCheckout": "Abo-Karte (Bezahlung)",
+                "contractCard": "Abo-Karte",
+                "privatePassCompatibilityModal": "Kompatibilitäts-Popup (Terminkarte)",
+                "privatePassCard": "Terminkarte",
+                "paymentPackRestrictionModal": "Popup mit Einschränkungen (Kurskarte)",
+                "paymentPackCompatibilityModal": "Kompatibilitäts-Popup (Kurskarte)",
+                "paymentPackCard": "Kurs-Karte",
+                "paymentComboCard": "Pass-Karte"
             },
             "page": {
                 "calendar": "Kalender",
-                "workshop": "Workshop"
+                "workshop": "Workshop",
+                "subscription": "Abonnements",
+                "pass": "Kurspass"
             },
             "cssConfig": {
                 "configurationTitle": "Variationen",
@@ -13714,7 +13731,8 @@
                     "offerStatus": "Verfügbarkeit des Angebots",
                     "isRegistered": "Bereits eingeschrieben",
                     "nextOffer": "Nächste verfügbare Session",
-                    "showDayParts": "Morgens, nachmittags und abends trennen"
+                    "showDayParts": "Morgens, nachmittags und abends trennen",
+                    "isExcludingTax": "Vor Steuern"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -14280,7 +14298,8 @@
                 "actions": {
                     "changeInStep": "In einen Schritt umwandeln",
                     "changeInExit": "Von der Kadenz entfernen",
-                    "delete": "Löschen"
+                    "delete": "Löschen",
+                    "addNextStep": "Nächsten Schritt hinzufügen"
                 }
             },
             "marketingAction": {

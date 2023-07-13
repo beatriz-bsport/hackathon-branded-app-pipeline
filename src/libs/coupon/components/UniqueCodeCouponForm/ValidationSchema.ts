@@ -4,6 +4,9 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_SHOP_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items';
+
+import { CouponUniqueCodeEditModeOptions } from '@bsport/common/lib/master-data/coupon';
+
 import moment from 'moment-timezone';
 import * as Yup from 'yup';
 
@@ -89,6 +92,31 @@ const ValidationSchema = Yup.object().shape({
       'You must add at least one code',
       function isCodesAnEmptyArray(value) {
         return value.length > 0;
+      },
+    ),
+});
+
+export const ValidationSchemaOnUpdate = ValidationSchema.shape({
+  update_mode: Yup.number()
+    .nullable()
+    .oneOf(
+      [
+        CouponUniqueCodeEditModeOptions.COUPON_UNIQUE_CODE_EDIT_MODE_APPEND,
+        CouponUniqueCodeEditModeOptions.COUPON_UNIQUE_CODE_EDIT_MODE_REPLACE,
+        null,
+      ],
+      'coupon:uniqueCodeCoupon.form.errors.update_mode',
+    ),
+  codes: Yup.array()
+    .of(Yup.string())
+    .nullable()
+    .test(
+      'is-codes-an-empty-array',
+      'You must add at least one code',
+      function isCodesAnEmptyArray(value) {
+        if (this.parent.update_mode !== null)
+          return !!value && value.length > 0;
+        return true;
       },
     ),
 });

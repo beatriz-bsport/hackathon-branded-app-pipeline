@@ -1957,7 +1957,7 @@
             "helperToSendOnceAgain": "para reenviar el correo electrónico de confirmación",
             "clickHere": "Haga clic aquí",
             "notReceived": "¿No has recibido nada?",
-            "backToLogin": "Volver",
+            "backToLogin": "Volver a la página de inicio de sesión",
             "textExplain": "Se le acaba de enviar un correo electrónico de confirmación de la dirección de correo electrónico indicada. Para finalizar tu registro, haz clic en el enlace para activar tu cuenta.",
             "title": "Tu registro se ha realizado con éxito"
         }
@@ -5021,7 +5021,8 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelada",
-                "Cancelled"
+                "Cancelled",
+                "Cancelada"
             ]
         },
         "payment_method_with_credit_account": {
@@ -9591,7 +9592,8 @@
             "actions": {
                 "backToLogin": "Volver",
                 "reset": "OK",
-                "cancel": "Cancelar"
+                "cancel": "Cancelar",
+                "confirm": "Confirmar"
             },
             "emailHasBeenSent": "Se ha enviado un email a {{email}} para recuperar tu contraseña",
             "explain2": "Te enviaremos instrucciones de recuperación",
@@ -13778,13 +13780,16 @@
                     "isMobile": "Para el móvil",
                     "loading": "Cargando",
                     "variant": "Destacar",
-                    "filterGroupOptions": "Opciones de agrupación"
+                    "filterGroupOptions": "Opciones de agrupación",
+                    "isExcludingTax": "Impuestos no incluidos"
                 },
                 "configurationTitle": "Variaciones"
             },
             "page": {
                 "calendar": "Calendario",
-                "workshop": "Taller"
+                "workshop": "Taller",
+                "subscription": "Suscripciones",
+                "pass": "Bonos"
             },
             "components": {
                 "calendar": "Página del calendario",
@@ -13801,7 +13806,20 @@
                 "vodTag": "Ficha VOD",
                 "level": "Ficha de nivel",
                 "offerListItem": "Detalles de la sesión",
-                "filter": "Filtro único"
+                "filter": "Filtro único",
+                "contractCouponFormModal": "Ventana emergente de código promocional de suscripción",
+                "contractCooldownModal": "Ventana emergente de advertencia de compra de suscripción",
+                "contractTermsModal": "Ventana emergente de aviso legal de suscripción",
+                "contractDetail": "Datos de suscripción",
+                "contractDetailModal": "Ventana emergente de detalles de suscripción",
+                "contractCheckout": "Tarjeta de suscripción (pago)",
+                "contractCard": "Tarjeta de suscripción",
+                "privatePassCompatibilityModal": "Ventana emergente de compatibilidad (Tarjeta de citas)",
+                "privatePassCard": "Tarjeta de citas",
+                "paymentPackRestrictionModal": "Ventana emergente de restricciones (bono)",
+                "paymentPackCompatibilityModal": "Ventana emergente de compatibilidad (bono)",
+                "paymentPackCard": "Tarjeta de Bono",
+                "paymentComboCard": "Tarjeta de pack"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -14436,7 +14454,8 @@
                 "actions": {
                     "changeInStep": "Transformar en un paso",
                     "changeInExit": "Convertir en salida",
-                    "delete": "Borrar"
+                    "delete": "Borrar",
+                    "addNextStep": "Añadir el paso siguiente"
                 }
             },
             "marketingAction": {

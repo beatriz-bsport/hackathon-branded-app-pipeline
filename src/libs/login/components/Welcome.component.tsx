@@ -28,7 +28,7 @@ export const WelcomeComponent: React.FC<Props> = ({
     <div className={classes.content}>
       <LoginTitleCssHoc
         title={t('welcome.title', { companyName })}
-        company={!!companyName}
+        isCompany={!!companyName}
         simplifyUI={simplifyUI}
       />
       {!simplifyUI && (

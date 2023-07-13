@@ -41,7 +41,7 @@ export const EmailConfirmation: React.FC<Props> = ({
           <LoginTitle
             title={t('emailConfirmation.title')}
             simplifyUI={simplifyUI}
-            company={company}
+            isCompany={company}
           />
         </div>
         {!simplifyUI && (

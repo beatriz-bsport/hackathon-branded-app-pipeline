@@ -6,6 +6,15 @@ import CadenceChip, { CadenceChipProps } from './CadenceChip.component';
 export default {
   title: 'Components/Cadences/Chips/CadenceChips',
   component: CadenceChip,
+  parameters: {
+    docs: {
+      page: null,
+      description: {
+        component:
+          'This component is a custom chip skeleton for sequential marketing chips.',
+      },
+    },
+  },
   decorators: [
     (Story) => (
       <div
@@ -37,8 +46,6 @@ Marketing.args = {
   name: '{ Email object}',
   icon: 'Email',
   color: 'rgba(4, 109, 200, 1)',
-  withBackground: false,
-  blackText: true,
 };
 
 export const MarketingSelected = Template.bind({});
@@ -46,7 +53,6 @@ MarketingSelected.args = {
   name: '{ Email object}',
   icon: 'Email',
   color: 'rgba(4, 109, 200, 1)',
-  blackText: true,
 };
 
 export const Empty = Template.bind({});

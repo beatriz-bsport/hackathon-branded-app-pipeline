@@ -38,3 +38,8 @@ these overrides will be overwritten within this file.
 .bs-custom-css__component__preview .bs-pass-compatibility-dialog__backdrop {
   position: relative;
 }
+
+/* paymentPackOffPeakRestrictionModal */
+.bs-custom-css__component__preview .bs-off_peak-modal__backdrop {
+  position: relative;
+}

@@ -96,6 +96,8 @@ const VariationConfigurationWrapper: React.FC<{
         return true;
       case 'privatePassCompatibilityModal':
         return true;
+      case 'paymentPackOffPeakRestrictionModal':
+        return true;
       default:
         return false;
     }

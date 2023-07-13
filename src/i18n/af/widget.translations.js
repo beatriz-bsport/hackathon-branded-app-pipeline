@@ -137,6 +137,8 @@ exports.default = {
       paymentPackCard: 'Carte de carte de cours',
       paymentPackCompatibilityModal: 'Popup de compatibilité (carte de cours)',
       paymentPackRestrictionModal: 'Popup de restrictions (carte de cours)',
+      paymentPackOffPeakRestrictionModal:
+        'Popup de restriction de crenéaux horaires (carte de cours)',
       privatePassCard: 'Carte de carte de RDV',
       privatePassCompatibilityModal: 'Popup de compatibilité (carte de RDV)',
       contractCard: "Carte d'abonnement",

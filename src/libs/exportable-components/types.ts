@@ -137,7 +137,8 @@ export type CSSComponentsById =
   | 'contractDetailModal'
   | 'contractTermsModal'
   | 'contractCooldownModal'
-  | 'contractCouponFormModal';
+  | 'contractCouponFormModal'
+  | 'paymentPackOffPeakRestrictionModal';
 
 export type CSSModalComponentById =
   | 'paymentPackCompatibilityModal'
@@ -146,6 +147,7 @@ export type CSSModalComponentById =
   | 'contractDetailModal'
   | 'contractTermsModal'
   | 'contractCooldownModal'
-  | 'contractCouponFormModal';
+  | 'contractCouponFormModal'
+  | 'paymentPackOffPeakRestrictionModal';
 
 export type CSSComponentPreviews = Record<CSSComponentsById, FC<unknown>>;

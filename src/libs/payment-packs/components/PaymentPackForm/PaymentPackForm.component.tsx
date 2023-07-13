@@ -166,6 +166,7 @@ export const PaymentPackForm = (props: Props) => {
     () => getFormInitial(props.compatibleServicePass),
     [props.compatibleServicePass],
   );
+
   return (
     <div>
       <Formik
@@ -217,6 +218,7 @@ export const PaymentPackForm = (props: Props) => {
                 expiration_date_active: !!initial?.expiration_date,
                 off_peak_active: offPeakScheduleIsEmpty,
                 off_peak_schedule: offPeakGroupOnEdit,
+                unusable_by_staff: !initial.is_usable_by_staff,
               }
             : {
                 id: null,

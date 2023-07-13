@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
+  EventTriggerDetailText,
   TriggerText,
   getEventCategoryIconAsString,
   getTriggerKind,
@@ -42,6 +43,9 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
       return (
         <CadenceChip
           name={TriggerText({ connected_trigger_config: trigger })}
+          toolTipValue={EventTriggerDetailText({
+            connected_trigger_config: trigger,
+          })}
           icon={getEventCategoryIconAsString(triggerConfig.event_type)}
           color={color}
         />
@@ -71,6 +75,9 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
         <>
           <CadenceChip
             name={TriggerText({ connected_trigger_config: trigger })}
+            toolTipValue={EventTriggerDetailText({
+              connected_trigger_config: trigger,
+            })}
             icon={getEventCategoryIconAsString(triggerConfig.event_type)}
             color={color}
           />

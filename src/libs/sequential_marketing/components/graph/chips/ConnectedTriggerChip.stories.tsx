@@ -14,6 +14,15 @@ import { smartlistFactory } from '#libs/smart-list/factories';
 export default {
   title: 'Components/Cadences/Chips/TriggerChips',
   component: ConnectedTriggerChip,
+  parameters: {
+    docs: {
+      page: null,
+      description: {
+        component:
+          'This component is a ConnectedTrigger chip used in sequential marketing.',
+      },
+    },
+  },
   decorators: [
     (Story) => (
       <div

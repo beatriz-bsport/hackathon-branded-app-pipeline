@@ -170,10 +170,10 @@ export const TriggerIcon = ({ connected_trigger_config }: TriggerIconProps) => {
   }
 };
 
-/** Function returning the naming translation key which corresponds to the ConnectedTrigger in parameter
- * @param {ConnectedTrigger} connected_trigger_config - Cadence ConnectedTrigger config
+/** Function returning the name corresponding to the connected trigger in parameter
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
  * @param {SmartList} smartlist - Smartlist used in connected_trigger_config filtering
- * @returns {string} - Return the corresponding naming used as key for translation
+ * @returns {string} - Return the corresponding translated name
  */
 export const TriggerText = ({
   connected_trigger_config,
@@ -206,8 +206,28 @@ export const TriggerText = ({
   }
 };
 
-/** Get the trigger kind of the ConnectedTrigger in parameter
- * @param {ConnectedTrigger} connected_trigger_config - Cadence ConnectedTrigger config
+/** Function returning the exact name corresponding to the event connected trigger in parameter
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence event connected trigger config
+ * @returns {string} - Return the corresponding translated name
+ */
+export const EventTriggerDetailText = ({
+  connected_trigger_config,
+}: TriggerTextProps) => {
+  const { t } = useTranslation('marketing');
+
+  if (
+    connected_trigger_config?.trigger_config?.identifier !==
+    TriggerIdentifier.EVENT
+  ) {
+    return TriggerText({ connected_trigger_config });
+  }
+  return t(
+    `cadence.form.event.${connected_trigger_config?.trigger_config?.event_type}`,
+  );
+};
+
+/** Get the trigger kind of the connected trigger in parameter
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
  * @returns {string} - Return the kind of the trigger passed in paramater or UNKNOWN_TRIGGER_KIND if not recognized
  */
 export const getTriggerKind = (connected_trigger_config: ConnectedTrigger) => {

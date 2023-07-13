@@ -61,4 +61,4 @@ WelcomeIcon.defaultProps = {
   xmlns: 'http://www.w3.org/2000/svg',
 };
 
-export default WelcomeIcon;
+export default React.memo(WelcomeIcon);

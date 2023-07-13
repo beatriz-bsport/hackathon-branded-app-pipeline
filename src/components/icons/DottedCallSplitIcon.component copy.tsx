@@ -14,4 +14,4 @@ const DottedCallSplitIcon: React.FC<SvgIconProps> = (props) => {
 };
 
 // CF :  TODO (Use this component as reference to build CustomIcons): https://gitlab.com/bsport/bsport-saas/-/issues/1282
-export default DottedCallSplitIcon;
+export default React.memo(DottedCallSplitIcon);

@@ -51,6 +51,7 @@ export const ValidationIcon: React.FC<Props> = (props) => {
     </div>
   );
 };
+
 const useStyles = makeStyles<Theme>(() => ({
   checkIcon: {
     position: 'absolute',
@@ -63,4 +64,5 @@ const useStyles = makeStyles<Theme>(() => ({
 ValidationIcon.defaultProps = {
   fillOpacity: '0.3',
 };
-export default ValidationIcon;
+
+export default React.memo(ValidationIcon);

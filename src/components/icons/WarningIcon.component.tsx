@@ -40,6 +40,7 @@ export const WarningIcon: React.FC<Props> = React.memo((props) => {
     </div>
   );
 });
+
 const useStyles = makeStyles<Theme>((theme) => ({
   muiIcon: {
     position: 'absolute',
@@ -56,4 +57,5 @@ const useStyles = makeStyles<Theme>((theme) => ({
     position: 'relative',
   },
 }));
-export default WarningIcon;
+
+export default React.memo(WarningIcon);

@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { SVGProps } from 'react';
 
-type OwnProps = { className?: string };
-type Props = OwnProps;
-export const SuccessIcon: React.FC<Props> = ({ className }) => {
+type SuccessIconProps = { className?: string } & SVGProps<SVGElement>;
+
+export const SuccessIcon: React.FC<SuccessIconProps> = ({
+  className,
+  width,
+  height,
+  viewBox,
+  xmlns,
+  fill,
+}) => {
   return (
     <svg
-      width="22"
-      height="21"
-      viewBox="0 0 22 21"
-      xmlns="http://www.w3.org/2000/svg"
       className={className}
+      width={width}
+      height={height}
+      viewBox={viewBox}
+      fill={fill}
+      xmlns={xmlns}
     >
       <path d="M0 21L14 16L5 6.99997L0 21Z" />
       <path d="M12.5302 11.53L18.1202 5.93995C18.6102 5.44995 19.4002 5.44995 19.8902 5.93995L20.4802 6.52995L21.5402 5.46995L20.9502 4.87995C19.8802 3.80995 18.1302 3.80995 17.0602 4.87995L11.4702 10.47L12.5302 11.53Z" />
@@ -19,4 +27,13 @@ export const SuccessIcon: React.FC<Props> = ({ className }) => {
     </svg>
   );
 };
-export default SuccessIcon;
+
+SuccessIcon.defaultProps = {
+  width: '22',
+  height: '21',
+  viewBox: '0 0 22 21',
+  fill: '#000',
+  xmlns: 'http://www.w3.org/2000/svg',
+};
+
+export default React.memo(SuccessIcon);

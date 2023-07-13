@@ -14,4 +14,4 @@ MuiSvgIcon.defaultProps = {
 };
 
 // CF :  TODO (Use this component as reference to build CustomIcons): https://gitlab.com/bsport/bsport-saas/-/issues/1282
-export default MuiSvgIcon;
+export default React.memo(MuiSvgIcon);

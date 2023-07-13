@@ -1,24 +1,41 @@
-import React from 'react';
+import React, { SVGProps } from 'react';
 import './GenderIcon.css';
 
-export const FemaleIcon = (isMobile: boolean) => {
+export type FemaleIconProps = { isMobile: boolean } & SVGProps<SVGElement>;
+
+export const FemaleIcon: React.FC<FemaleIconProps> = ({
+  isMobile,
+  width,
+  height,
+  viewBox,
+  xmlns,
+  fill,
+}) => {
   return (
     <div className="bs-genderIconContainer">
       <svg
         className={isMobile ? 'bs-genderIconMobile' : 'bs-genderIcon'}
-        xmlns="http://www.w3.org/2000/svg"
-        width="8"
-        height="12"
-        viewBox="0 0 8 12"
-        fill="none"
+        width={width}
+        height={height}
+        viewBox={viewBox}
+        fill={fill}
+        xmlns={xmlns}
       >
         <path
           d="M4 0.666626C5.06087 0.666626 6.07828 1.08805 6.82843 1.8382C7.57857 2.58834 8 3.60576 8 4.66663C8 6.64663 6.56 8.29329 4.66667 8.61329V9.99996H6V11.3333H4.66667V12.6666H3.33333V11.3333H2V9.99996H3.33333V8.61329C1.44 8.29329 0 6.64663 0 4.66663C0 3.60576 0.421427 2.58834 1.17157 1.8382C1.92172 1.08805 2.93913 0.666626 4 0.666626ZM4 1.99996C3.29276 1.99996 2.61448 2.28091 2.11438 2.78101C1.61428 3.2811 1.33333 3.95938 1.33333 4.66663C1.33333 5.37387 1.61428 6.05215 2.11438 6.55224C2.61448 7.05234 3.29276 7.33329 4 7.33329C4.70724 7.33329 5.38552 7.05234 5.88562 6.55224C6.38572 6.05215 6.66667 5.37387 6.66667 4.66663C6.66667 3.95938 6.38572 3.2811 5.88562 2.78101C5.38552 2.28091 4.70724 1.99996 4 1.99996Z"
-          fill="currentColor"
+          fill={fill}
         />
       </svg>
     </div>
   );
 };
 
-export default FemaleIcon;
+FemaleIcon.defaultProps = {
+  width: '8',
+  height: '12',
+  viewBox: '0 0 8 12',
+  fill: 'currentColor',
+  xmlns: 'http://www.w3.org/2000/svg',
+};
+
+export default React.memo(FemaleIcon);

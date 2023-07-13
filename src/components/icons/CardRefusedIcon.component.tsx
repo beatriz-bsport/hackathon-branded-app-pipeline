@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { SVGProps } from 'react';
 
-type Props = {
-  color?: string;
-};
+export type CardRefusedIconProps = { color?: string } & SVGProps<SVGElement>;
 
-export const CardRefusedIcon: React.FC<Props> = ({ color }) => {
+export const CardRefusedIcon: React.FC<CardRefusedIconProps> = ({
+  color,
+  width,
+  height,
+  viewBox,
+  xmlns,
+  fill,
+}) => {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="110"
-      height="110"
-      fill="none"
+      width={width}
+      height={height}
+      viewBox={viewBox}
+      fill={fill}
+      xmlns={xmlns}
     >
       <circle cx="55" cy="55" r="55" fill={color} fillOpacity=".08" />
       <g fill={color} clipPath="url(#a)">
@@ -28,5 +34,11 @@ export const CardRefusedIcon: React.FC<Props> = ({ color }) => {
 
 CardRefusedIcon.defaultProps = {
   color: '#F44336',
+  width: '110',
+  height: '110',
+  viewBox: '0 0 110 110',
+  fill: 'none',
+  xmlns: 'http://www.w3.org/2000/svg',
 };
-export default CardRefusedIcon;
+
+export default React.memo(CardRefusedIcon);

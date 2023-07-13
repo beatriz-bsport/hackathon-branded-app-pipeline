@@ -33,4 +33,4 @@ CheckIcon.defaultProps = {
   xmlns: 'http://www.w3.org/2000/svg',
 };
 
-export default CheckIcon;
+export default React.memo(CheckIcon);

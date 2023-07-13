@@ -1,7 +1,13 @@
 import React, { SVGProps } from 'react';
 
-const EmailIcon: React.FC<SVGProps<SVGElement>> = (props) => {
-  const { width, height, viewBox, xmlns, fill, className } = props;
+const EmailIcon: React.FC<SVGProps<SVGElement>> = ({
+  width,
+  height,
+  viewBox,
+  xmlns,
+  fill,
+  className,
+}) => {
   return (
     <>
       <svg
@@ -29,4 +35,4 @@ EmailIcon.defaultProps = {
   xmlns: 'http://www.w3.org/2000/svg',
 };
 
-export default EmailIcon;
+export default React.memo(EmailIcon);

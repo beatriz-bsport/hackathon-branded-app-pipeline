@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { SVGProps } from 'react';
 
-export const SadSmileyIcon: React.FC = () => {
+export const SadSmileyIcon: React.FC<SVGProps<SVGElement>> = ({
+  width,
+  height,
+  viewBox,
+  xmlns,
+  fill,
+}) => {
   return (
     <svg
-      width="110"
-      height="110"
-      viewBox="0 0 110 110"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox={viewBox}
+      fill={fill}
+      xmlns={xmlns}
     >
       <circle cx="55" cy="55" r="55" fill="#2196F3" fillOpacity="0.08" />
       <path
@@ -25,4 +31,13 @@ export const SadSmileyIcon: React.FC = () => {
     </svg>
   );
 };
-export default SadSmileyIcon;
+
+SadSmileyIcon.defaultProps = {
+  width: '110',
+  height: '110',
+  viewBox: '0 0 110 110',
+  fill: 'none',
+  xmlns: 'http://www.w3.org/2000/svg',
+};
+
+export default React.memo(SadSmileyIcon);

@@ -41,6 +41,7 @@ export const UpdateIcon: React.FC<Props> = (props) => {
     </div>
   );
 };
+
 const useStyles = makeStyles<Theme>(() => ({
   muiIcon: {
     position: 'absolute',
@@ -52,4 +53,5 @@ const useStyles = makeStyles<Theme>(() => ({
   container: { display: 'flex' },
   updateIcon: { position: 'relative' },
 }));
-export default UpdateIcon;
+
+export default React.memo(UpdateIcon);

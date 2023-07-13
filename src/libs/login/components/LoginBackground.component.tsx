@@ -120,8 +120,6 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
   );
 };
 
-export const LoginBackgroundCssHoc = marketplaceCssHoc()(
-  LoginBackgroundComponent,
+export default compose<any, OwnProps>(marketplaceCssHoc())(
+  React.memo(LoginBackgroundComponent),
 );
-
-export default compose<any, OwnProps>()(React.memo(LoginBackgroundComponent));

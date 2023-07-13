@@ -15,7 +15,7 @@ import withQueryParams from '#hocs/with-query-params.hoc';
 import themeSelectors from '#libs/theme/selectors';
 import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '#libs/theme/actions';
-import { LoginBackgroundCssHoc } from '#libs/login/components/LoginBackground.component';
+import LoginBackground from '#libs/login/components/LoginBackground.component';
 import LanguageButton from '../../components/button/LanguageButton.component';
 import { Theme } from '#libs/theme/types';
 import { refreshValidationEmailStatus as refreshValidationEmailStatusAction } from '#libs/login/actions';
@@ -58,7 +58,7 @@ export const ConfirmEmailRouter = (props: Props) => {
     <MuiThemeProvider theme={getTheme(theme)}>
       {!props.simplifyUI && (
         <Hidden xsDown>
-          <LoginBackgroundCssHoc company backgroundFixed />
+          <LoginBackground company backgroundFixed />
           <Fade in>
             <div className="bs-confirm-email-header">
               <img

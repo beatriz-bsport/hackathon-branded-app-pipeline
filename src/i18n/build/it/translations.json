@@ -1667,7 +1667,8 @@
             "actions": {
                 "reset": "ok",
                 "backToLogin": "Indietro",
-                "cancel": "Annulla"
+                "cancel": "Annulla",
+                "confirm": "Conferma"
             },
             "title": "Recupero della password",
             "noEmail": "Questa email non è stata salvata",
@@ -7649,6 +7650,7 @@
                 "Annullata",
                 "Cancellata",
                 "Annulla",
+                "Cancellata",
                 "Cancellata"
             ]
         },
@@ -11503,7 +11505,7 @@
             "helperToSendOnceAgain": "per inviare nuovamente l'e-mail di conferma",
             "clickHere": "Clicca qui",
             "notReceived": "Non hai ricevuto nulla?",
-            "backToLogin": "Indietro",
+            "backToLogin": "Ritorna alla pagina di log in",
             "textExplain": "Ti è appena stata inviata un'e-mail di conferma per l'indirizzo e-mail fornito. Per finalizzare la tua registrazione, clicca sul link per attivare il tuo account.",
             "title": "La tua registrazione è andata a buon fine"
         },
@@ -13731,7 +13733,20 @@
                 "cardOffer": "Dettagli della sessione (visualizzazione del calendario)",
                 "workshopPage": "Pagina dei workshop",
                 "timeTable": "Componenti del calendario",
-                "calendar": "Pagina del calendario"
+                "calendar": "Pagina del calendario",
+                "contractCouponFormModal": "Popup del codice promozionale dell'abbonamento",
+                "contractCooldownModal": "Popup di avviso per l'acquisto di un abbonamento",
+                "contractTermsModal": "Popup delle menzioni legali dell'abbonamento",
+                "contractDetail": "Dettagli dell'abbonamento",
+                "contractDetailModal": "Popup dei dettagli dell'abbonamento",
+                "contractCheckout": "Tessera abbonamento (pagamento)",
+                "contractCard": "Tessera abbonamento",
+                "privatePassCompatibilityModal": "Popup di compatibilità (pass per appuntamenti)",
+                "privatePassCard": "Tessera dei pass per appuntamenti",
+                "paymentPackRestrictionModal": "Popup delle restrizioni (pass)",
+                "paymentPackCompatibilityModal": "Popup di compatibilità (pass)",
+                "paymentPackCard": "Tessera Pass",
+                "paymentComboCard": "Tessera pacchetto"
             },
             "cssConfig": {
                 "title": {
@@ -13742,7 +13757,8 @@
                     "offerStatus": "Disponibilità dell'offerta",
                     "isRegistered": "Già registrato",
                     "showDayParts": "Mattine, pomeriggi e sere separati",
-                    "nextOffer": "Prossima sessione disponibile"
+                    "nextOffer": "Prossima sessione disponibile",
+                    "isExcludingTax": "Tasse escluse"
                 },
                 "option": {
                     "false": "No",
@@ -13763,7 +13779,9 @@
             },
             "page": {
                 "workshop": "Workshop",
-                "calendar": "Calendario"
+                "calendar": "Calendario",
+                "subscription": "Abbonamenti",
+                "pass": "Pass"
             }
         },
         "create": "Generale",
@@ -14375,7 +14393,8 @@
                 "actions": {
                     "changeInStep": "Trasforma in step",
                     "changeInExit": "Trasforma in output",
-                    "delete": "Elimina"
+                    "delete": "Elimina",
+                    "addNextStep": "Aggiungi il prossimo step"
                 }
             },
             "marketingAction": {

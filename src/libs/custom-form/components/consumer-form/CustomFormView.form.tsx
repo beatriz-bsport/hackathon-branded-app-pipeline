@@ -1,19 +1,16 @@
-// @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
 import { compose } from 'recompose';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert/Alert';
 
-import { createStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Form } from 'formik';
-import withStyles from '@material-ui/core/styles/withStyles';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 import ConsumerFormFields, {
   ConsumerFormFieldsHOC,
 } from './CustomForm.formik-hoc';
-import { MaterialStyleType } from '../../../../utils/types';
 import {
   CustomForm,
   CustomFormFieldAnswer,
@@ -25,9 +22,10 @@ import {
   USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY,
 } from '../../../member/utils';
 
-type OwnProps = {
+type Props = {
   asManager?: boolean;
   handleCancel?: () => void;
+  handleSubmit?: () => void;
   isSubmitting?: boolean;
   initial?: CustomForm;
   onSubmit?: (data: FormData, options: any) => void;
@@ -45,13 +43,20 @@ type OwnProps = {
   disableLayout?: boolean;
   fieldsAreIndependent?: boolean;
   simplifyUI?: boolean;
+  data?: FormData;
+  values?: CustomFormFilled;
 };
-type Props = OwnProps &
-  WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>>;
 
-export function ConsumerFormView(props: Props) {
-  const { t, isSubmitting, classes, asManager } = props;
+const ConsumerFormView: React.FC<Props> = (props: Props) => {
+  const { isSubmitting, asManager, simplifyUI, onCancel, data } = props;
+
+  const { t } = useTranslation('marketing');
+  const classes = useStyles({ simplifyUI });
+
+  const handleCancel = useCallback(() => {
+    onCancel(data);
+  }, [data, onCancel]);
+
   const renderConfirmButtonText = (userStatus?: number) => {
     if (userStatus === USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY) {
       return 'member:forms.needInformationValidation.button.notMemberYet';
@@ -92,7 +97,7 @@ export function ConsumerFormView(props: Props) {
           {props.onCancel && (
             <Button
               className={classes.button}
-              onClick={() => props.onCancel(props.values)}
+              onClick={handleCancel}
               variant="text"
               color="primary"
               disabled={isSubmitting}
@@ -122,44 +127,43 @@ export function ConsumerFormView(props: Props) {
       )}
     </Form>
   );
-}
+};
 
-const styles = (theme: Theme) =>
-  createStyles({
-    alertInfo: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-    form: {
-      padding: theme.spacing(1),
-    },
-    submit: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-    },
-    submitAndCancel: (props: Props) => ({
-      display: 'flex',
-      justifyContent: props.simplifyUI ? 'flex-end' : 'space-between',
-      gap: props.simplifyUI ? theme.spacing(1) : 'none',
-    }),
-    emptyContainer: {
-      padding: theme.spacing(10),
-    },
-    column: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    leftIcon: {
-      marginRight: theme.spacing(1),
-    },
-    button: (props: Props) => ({
-      borderRadius: props.simplifyUI ? 24 : 8,
-    }),
-  });
-export default compose<any, OwnProps>(
-  withTranslation('marketing'),
-  withStyles(styles),
+const useStyles = makeStyles<Theme, { simplifyUI: boolean }>((theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  form: {
+    padding: theme.spacing(1),
+  },
+  submit: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  submitAndCancel: ({ simplifyUI }) => ({
+    display: 'flex',
+    justifyContent: simplifyUI ? 'flex-end' : 'space-between',
+    gap: simplifyUI ? theme.spacing(1) : 'none',
+  }),
+  emptyContainer: {
+    padding: theme.spacing(10),
+  },
+  column: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1),
+  },
+  button: ({ simplifyUI }) => ({
+    borderRadius: simplifyUI ? theme.spacing(3) : theme.spacing(1),
+  }),
+}));
+
+export default compose<any, Props>(
   ConsumerFormFieldsHOC,
+  React.memo,
 )(ConsumerFormView);

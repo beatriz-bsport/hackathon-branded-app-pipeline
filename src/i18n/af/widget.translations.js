@@ -148,6 +148,7 @@ exports.default = {
       contractTermsModal: "Popup de mentions légales d'abonnement",
       contractCooldownModal: "Popup d'avertissement d'achat d'abonnement",
       contractCouponFormModal: "Popup de code promo d'abonnement",
+      contractNotFound: "Avertissement d'abonnement non trouvé",
     },
     page: {
       workshop: 'Atelier',

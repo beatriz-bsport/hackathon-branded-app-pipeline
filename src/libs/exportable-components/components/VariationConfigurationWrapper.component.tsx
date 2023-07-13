@@ -211,6 +211,8 @@ const useStyles = makeStyles((theme) => ({
   },
   componentWrapper: {
     width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
   },
   fullHeight: {
     height: '100%',

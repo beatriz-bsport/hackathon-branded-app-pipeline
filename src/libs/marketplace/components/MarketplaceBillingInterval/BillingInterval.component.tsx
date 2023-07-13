@@ -19,7 +19,7 @@ const BillingInterval: React.FC<Props> = ({ contract, withFees }) => {
   const interval =
     (contract?.interval &&
       t(`contractCard.billingInterval.${contract?.interval}`, {
-        count: contract?.nb_interval,
+        count: contract?.recurrence_basis,
       })) ??
     '';
 
@@ -29,7 +29,7 @@ const BillingInterval: React.FC<Props> = ({ contract, withFees }) => {
     return (
       <div className="bs-billing-interval">
         {!!interval &&
-          (contract?.nb_interval > 1
+          (contract?.recurrence_basis > 1
             ? `${interval} +\u00A0${fees}`
             : `/ ${interval} +\u00A0${fees}`)}
       </div>
@@ -38,7 +38,8 @@ const BillingInterval: React.FC<Props> = ({ contract, withFees }) => {
 
   return (
     <div className="bs-billing-interval">
-      {!!interval && (contract?.nb_interval > 1 ? interval : `/${interval}`)}
+      {!!interval &&
+        (contract?.recurrence_basis > 1 ? interval : `/${interval}`)}
     </div>
   );
 };

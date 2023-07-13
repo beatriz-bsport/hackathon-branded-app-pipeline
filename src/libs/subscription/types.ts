@@ -1,7 +1,7 @@
 import { ErrorAndLoading } from '../../state/types';
-import type { PaymentPack } from '../payment-packs/types';
-import type { PrivatePass } from '../private-service/types';
-import type { PaymentCombo } from '../payment-combo/types';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import type { PrivatePass } from '#libs/private-service/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
 
 export type PlannedInvoice = {
   date: string;
@@ -67,6 +67,8 @@ export type Subscription<
   month_billing_day: number | null;
   has_discount: boolean;
 };
+
+export type SubscriptionInterval = 'month' | 'week' | 'day' | 'year';
 
 export type SubscriptionData = {
   name: string;
@@ -142,6 +144,8 @@ export type ContractWithPaymentPack<
   is_usable_by_staff: boolean;
   month_billing_day: number | null;
 };
+
+export type ContractInterval = 'month' | 'week';
 
 export type ContractPause = {
   company?: number;
@@ -247,4 +251,36 @@ export type SubscriptionQueryParams = {
   page_size?: number;
   member?: number;
   id__in?: number[];
+};
+
+export type SubscriptionFactoryOptions = {
+  isAutoRenewal?: boolean;
+  isCanceled?: boolean;
+  isEditable?: boolean;
+  isSubscriptionEnded?: boolean;
+  isV2?: boolean;
+  isMemberArchived?: boolean;
+  nextBillingDate?: string;
+  hasPaymentCombo?: boolean;
+  hasPaymentPack?: boolean;
+  hasPrivatePass?: boolean;
+  status?: number;
+  hasDiscount?: boolean;
+};
+
+export type PlannedInvoiceFactoryOptions = {
+  status?: number;
+  isLastInvoiceBeforeScheduledStop?: boolean;
+  isReverted?: boolean;
+};
+
+export type ContractFactoryOptions = {
+  hasPaymentCombo?: boolean;
+  hasPaymentPack?: boolean;
+  hasPrivatePass?: boolean;
+  isManagerOnly?: boolean;
+  isAutoRenewal?: boolean;
+  isDisabled?: boolean;
+  isUsableByStaff?: boolean;
+  monthBillingDay?: number;
 };

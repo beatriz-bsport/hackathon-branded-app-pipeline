@@ -646,7 +646,7 @@
                 "submit": "Valider",
                 "title": "Adresse email du professeur",
                 "emailLabel": "Email",
-                "explain": "Si cet email existe déjà dans notre système, nous vous créerons le professeur automatiquement. Si vous ne connaissez pas l'email de votre professeur, laissez ce champ vide.",
+                "explain": "Si cet email existe déjà dans notre système, nous vous créerons le professeur automatiquement.",
                 "emailPlaceHolder": "professeur@bsport.io"
             },
             "error_email_exists": "Un professeur avec cet email existe déjà, utilisez le formulaire de création Professeur",

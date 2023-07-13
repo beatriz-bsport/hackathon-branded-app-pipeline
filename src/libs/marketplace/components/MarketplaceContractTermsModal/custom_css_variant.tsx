@@ -10,9 +10,9 @@ import {
   MarketplacePage,
 } from '#libs/exportable-components/types';
 
-import FactoryBotSubscription from '#libs/subscription/factory';
+import { contractFactory } from '#libs/subscription/factory';
 
-const contractFromFactory = FactoryBotSubscription.Contract.create();
+const contractFromFactory = contractFactory();
 
 const usePropsFromVariation = (): MarketplaceContractTermsModalProps => {
   return {

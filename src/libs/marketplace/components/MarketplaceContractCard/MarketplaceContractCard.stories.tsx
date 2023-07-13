@@ -2,7 +2,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import FactoryBotSubscription from '#libs/subscription/factory'
+import { contractFactory } from '#libs/subscription/factory'
 import {
   MarketplaceContractCardForStorybook,
     Props,
@@ -19,7 +19,7 @@ export default {
     },
 } as ComponentMeta<typeof MarketplaceContractCardForStorybook>;
 
-const fakeContract = FactoryBotSubscription.Contract.create()
+const fakeContract = contractFactory();
 
 const SubscriptionTemplate: ComponentStory<typeof MarketplaceContractCardForStorybook> = (args: Props) => (
     <MarketplaceContractCardForStorybook {...args} />

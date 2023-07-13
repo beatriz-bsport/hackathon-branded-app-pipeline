@@ -1,16 +1,14 @@
-// @ts-nocheck
 import React from 'react';
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 import { Props, SearchForStorybook } from '#components/css-only/Search';
 import ClickableItem from '#components/css-only/ClickableItem';
-import { ContractStorybookListFactory } from '#libs/subscription/factory';
-import { Contract } from '#libs/subscription/types';
+import { contractListFactory } from '#libs/subscription/factory';
 import { useMarketplaceSearchContractData } from './hooks';
 import { BaseAdditionalData, SearchItemData } from './Search.component';
 
-const contractList: Partial<Contract>[] = ContractStorybookListFactory(10);
+const contractList = contractListFactory(10);
 
 /**
  * Fix "rendered more hooks than during previous render" in storybook preview
@@ -19,11 +17,13 @@ const CustomTemplateComponent = (args: Props) => {
   const { contractItems } = useMarketplaceSearchContractData({
     contractList,
     actionIcon: <ShoppingCartIcon className="bs-search__item__icon" />,
+    isExcludingTax: false,
     showContractDetail: () => {},
     addContractToBasket: () => {},
   });
 
   return (
+    /* @ts-expect-error */
     <SearchForStorybook
       data={contractItems}
       renderItem={(item: SearchItemData<BaseAdditionalData>) => (

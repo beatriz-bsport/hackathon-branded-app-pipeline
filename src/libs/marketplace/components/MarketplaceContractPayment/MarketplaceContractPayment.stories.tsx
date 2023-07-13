@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment-timezone';
 
 import { MarketplaceContractPaymentForStorybook, Props } from '.';
-import FactoryBotSubscription from '#libs/subscription/factory';
+import { contractFactory } from '#libs/subscription/factory';
 import { payment_method_list_factory } from '#libs/payment/factory';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
@@ -10,7 +10,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group';
 
-const fakeContract = FactoryBotSubscription.Contract.create();
+const fakeContract = contractFactory();
 const defaultArgs = {
   contract: fakeContract,
   isContractLegalTermsAccepted: false,

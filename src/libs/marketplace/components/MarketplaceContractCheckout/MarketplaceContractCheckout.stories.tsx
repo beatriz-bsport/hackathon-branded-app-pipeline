@@ -1,14 +1,14 @@
-// @ts-nocheck
 import React from 'react';
-import FactoryBot from '#libs/subscription/factory'
+import { contractFactory } from '#libs/subscription/factory'
 import {
   MarketplaceContractCheckoutForStorybook,
     Props,
 } from '.';
 
-const fakeContract = FactoryBot.Contract.create();
+const fakeContract = contractFactory();
 
 const ContractCheckoutTemplate = (args: Props) => (
+    // @ts-expect-error
     <MarketplaceContractCheckoutForStorybook {...args} />
 );
 

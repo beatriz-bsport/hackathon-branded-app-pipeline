@@ -1,8 +1,8 @@
 import React from 'react';
-import FactoryBotContract from '#libs/subscription/factory';
+import { contractFactory } from '#libs/subscription/factory';
 import { MarketplaceContractDetailForStorybook, Props } from '.';
 
-const fakeContract = FactoryBotContract.Contract.create();
+const fakeContract = contractFactory();
 
 export default {
   title: 'Components/Marketplace/Subscriptions/MarketplaceContractDetail',

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ContractSearchForStorybook, Props } from './index';
-import { ContractStorybookListFactory } from '#libs/subscription/factory';
+import { contractListFactory } from '#libs/subscription/factory';
 
 const CustomTemplate = (args: Props) => {
   // @ts-ignore
@@ -10,7 +10,7 @@ const CustomTemplate = (args: Props) => {
 
 export const ContractsSearch = CustomTemplate.bind({});
 ContractsSearch.args = {
-  contractList: ContractStorybookListFactory(10),
+  contractList: contractListFactory(10),
   isExcludingTax: false,
   onPressEnter: () => {},
   onClearInput: () => {},

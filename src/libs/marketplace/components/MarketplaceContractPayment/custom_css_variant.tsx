@@ -19,7 +19,7 @@ import {
 } from '#libs/exportable-components/types';
 import { CompanyTheme } from '#libs/theme/types';
 
-import FactoryBotSubscription from '#libs/subscription/factory';
+import { contractFactory } from '#libs/subscription/factory';
 
 const contractPaymentVariationRegistry = [
   {
@@ -40,7 +40,7 @@ const contractPaymentVariationRegistry = [
   },
 ];
 
-const contractFromFactory = FactoryBotSubscription.Contract.create();
+const contractFromFactory = contractFactory();
 
 const usePropsFromVariation = (
   variationsSelected: Record<string, VariationConfigurationChoice>,

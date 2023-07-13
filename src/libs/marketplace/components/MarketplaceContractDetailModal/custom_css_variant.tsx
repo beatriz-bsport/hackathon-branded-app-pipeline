@@ -13,7 +13,7 @@ import {
 import { CompanyTheme } from '#libs/theme/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 
-import FactoryBotSubscription from '#libs/subscription/factory';
+import { contractFactory } from '#libs/subscription/factory';
 import { paymentComboFactory } from '#libs/payment-combo/factory';
 import { paymentPackFactory } from '#libs/payment-packs/factory';
 import { privatePassFactory } from '#libs/private-service/factory';
@@ -29,7 +29,7 @@ const contractDetailModalVariationRegistry = [
   },
 ];
 
-const contractFromFactory = FactoryBotSubscription.Contract.create();
+const contractFromFactory = contractFactory();
 const fakePaymentCombo = paymentComboFactory();
 const fakepaymentPack = paymentPackFactory();
 const fakePrivatePass = privatePassFactory();

@@ -4,10 +4,24 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import CadenceNodeContent, {
   CadenceNodeContentProps,
 } from './CadenceNodeContent.component';
+import { stepMarketingActionFactory } from '#libs/sequential_marketing/factories';
+import {
+  MarketingActionKind,
+  MarketingActions,
+} from '#libs/sequential_marketing/constants';
 
 export default {
   title: 'Components/Cadences/CadenceNodes/Content',
   component: CadenceNodeContent,
+  parameters: {
+    docs: {
+      page: null,
+    },
+    description: {
+      component:
+        "This component represents the core structure of a cadence card's content, its skeletal framework.",
+    },
+  },
   decorators: [
     (Story) => (
       <div
@@ -29,32 +43,35 @@ const Template: ComponentStory<typeof CadenceNodeContent> = (
   args: CadenceNodeContentProps,
 ) => <CadenceNodeContent {...args} />;
 
+const emailMarketingAction = stepMarketingActionFactory({
+  kind: MarketingActionKind.COMMUNICATION,
+  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+});
+
+const marketingActionList = [
+  stepMarketingActionFactory({
+    kind: MarketingActionKind.COMMUNICATION,
+    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+  }),
+  stepMarketingActionFactory({
+    kind: MarketingActionKind.COMMUNICATION,
+    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+  }),
+  stepMarketingActionFactory({
+    kind: MarketingActionKind.COMMUNICATION,
+    communication_kind:
+      MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+  }),
+];
+
 export const OneMarketingAction = Template.bind({});
 OneMarketingAction.args = {
-  marketingActionChipList: [
-    {
-      name: '{ Email object }',
-      icon: 'Email',
-    },
-  ],
+  marketingActionList: [emailMarketingAction],
 };
 
 export const MultipleMarketingAction = Template.bind({});
 MultipleMarketingAction.args = {
-  marketingActionChipList: [
-    {
-      name: '{ Email object }',
-      icon: 'Email',
-    },
-    {
-      name: '{ Message preview... }',
-      icon: 'Textsms',
-    },
-    {
-      name: '{ Notification title... }',
-      icon: 'Notifications',
-    },
-  ],
+  marketingActionList: marketingActionList,
 };
 
 export const AddMarketingAction = Template.bind({});

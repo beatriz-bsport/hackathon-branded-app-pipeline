@@ -17,6 +17,7 @@ import {
   createCouponTemplateInstance as createCouponTemplateInstanceAPI,
   deleteCouponTemplateInstance as deleteCouponTemplateInstanceAPI,
   createUniqueCodeCoupon as createUniqueCodeCouponAPI,
+  updateUniqueCodeCoupon as updateUniqueCodeCouponAPI,
 } from './api';
 
 import { OptionCallback, Dispatch, ThunkAction } from '../../state/types';
@@ -459,6 +460,34 @@ export function createUniqueCodeCoupon(
         options.onError();
       }
     }
+    dispatch(couponCreateOrUpdate.isLoading(false));
+  };
+}
+
+export function updateUniqueCodeCoupon(
+  id: number,
+  data: UniqueCodeCouponCreationPayload,
+  options?: OptionCallback<Coupon>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(couponCreateOrUpdate.isLoading(true));
+    dispatch(couponCreateOrUpdate.error(null));
+
+    try {
+      const response = await updateUniqueCodeCouponAPI(id, data);
+      dispatch(couponCreateOrUpdate.success(response.data));
+      dispatch(snackbarSuccess('coupon.update.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(couponCreateOrUpdate.error(error));
+      dispatch(snackbarError('coupon.update.error'));
+      if (options && options.onError) {
+        options.onError();
+      }
+    }
+
     dispatch(couponCreateOrUpdate.isLoading(false));
   };
 }

@@ -170,3 +170,10 @@ export const createUniqueCodeCoupon: (
 ) => Promise<AxiosResponse<Coupon>> = (data) => {
   return postAuth(`${COUPON_URI}unique_code/`, data);
 };
+
+export const updateUniqueCodeCoupon = (
+  id: number,
+  data: UniqueCodeCouponCreationPayload,
+) => {
+  return putAuth<Coupon>(`${COUPON_URI}unique_code/${id}/`, data);
+};

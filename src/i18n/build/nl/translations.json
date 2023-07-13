@@ -226,10 +226,10 @@
             "703": "Afwezigheid: geblokkeerde kaart (leden)",
             "20": "Verzoek om factuur te downloaden",
             "301": "Wachtwoord opnieuw instellen",
-            "302": "Validatie van e-mail van leden",
-            "303": "Samenvoeging van twee studiorekeningen",
+            "302": "Registratiebevestiging",
+            "303": "Samenvoeging ledenaccounts",
             "304": "Cadeaubon activering",
-            "305": "Wijziging van e-mail van leden vanuit de backoffice",
+            "305": "Wijziging e-mailadres vanuit de BackOffice",
             "1002": "Lesprestaties",
             "1001": "Spivi-account aangemaakt (leden)",
             "1003": "Spivi-account aangemaakt (instructeurs)"
@@ -1004,7 +1004,7 @@
             "recurrence": "Frequentie",
             "offerWillBeGenerated": "sessies worden toegevoegd.",
             "offersWillBeGenerated": "sessies worden toegevoegd.",
-            "credit_price": "Aantal vereiste credits voor een reservering",
+            "credit_price": "Dit is het benodigd aantal credits voor een reservering.",
             "generateOffers": "Sessies toevoegen",
             "default_waiting_list_max_size": "Grootte van de wachtlijst",
             "password": "Wachtwoord",
@@ -2755,7 +2755,7 @@
             "shop": "Webshop",
             "private_cpasses": "Afspraakkaarten",
             "payment_sumup": "Totaal aantal betalingen",
-            "credit": "credits",
+            "credit": "Credits",
             "basket": "Winkelmandje",
             "memberships": "Leskaarten",
             "invoices": "Aankopen",
@@ -3806,7 +3806,7 @@
             "accessibility": "Toegankelijkheid",
             "compatibility": "Compatibiliteit",
             "validity": "Geldigheid",
-            "credit_quantity": "credits",
+            "credit_quantity": "Credits",
             "universalPass": "Universele kaart",
             "compatibilityPaymentPack": "Groepsactiviteiten",
             "offPeak": "Tijdsloten"
@@ -3873,7 +3873,7 @@
             "penality": "Een sanctie bij te veel te late annuleringen toepassen",
             "packValidity": "Geldigheid",
             "numberOfAvailableCredits": "Aantal beschikbare credits",
-            "credit": "credits",
+            "credit": "Credits",
             "unlimited": "Onbeperkt",
             "numberOfCredit": "Aantal credits",
             "namePaymentPack": "Naam van de leskaart.",
@@ -5314,9 +5314,9 @@
                     "title": "Instructeur",
                     "additionalCoaches": {
                         "field": {
-                            "placeHolder": "Selecteer extra leraren"
+                            "placeHolder": "Selecteer extra instructeur(s)"
                         },
-                        "title": "Extra leraren"
+                        "title": "Extra instructeur(s)"
                     }
                 },
                 "dateTime": {
@@ -5336,7 +5336,7 @@
                         "dateIntervalEnd": "Einddatum",
                         "dateIntervalStart": "Datum van de les",
                         "durationMinute": "Duur",
-                        "dateIntervalStartTime": "Begin tijd"
+                        "dateIntervalStartTime": "Starttijd"
                     },
                     "title": "Tijd en datum"
                 },
@@ -5349,7 +5349,7 @@
                 "specificities": {
                     "tooltip": {
                         "roomBlueprint": "Laat uw leerlingen de plek in de zaal reserveren die ze willen",
-                        "credits": "Aantal vereiste kredieten voor boeking",
+                        "credits": "Het vereiste aantal credits voor een reservering.",
                         "broadcastLink": "De link wordt automatisch gegenereerd voor ZOOM door bsport"
                     },
                     "field": {
@@ -5367,7 +5367,7 @@
                         "hybridEditHelper": "Momenteel bewerk je een online sessie die ook gekoppeld is aan een fysieke sessie. Het toepassen van wijzigingen moet via de fysieke sessie.",
                         "hybridSection": "Hybride sessie",
                         "hybridManagementHelper": "Klik op het onderstaande icoontje om de reserveringen die aan deze hybride sessies gekoppeld zijn te beheren.",
-                        "hybridLabel": "Deze sessie is zowel online als in de vestiging te volgen."
+                        "hybridLabel": "Maak dit een Hybride Sessie dat zowel online als in de vestiging te volgen is"
                     },
                     "title": "Kenmerken"
                 }
@@ -5719,7 +5719,7 @@
                     "error": {
                         "alreadyDenied": {
                             "helper": "Je hebt al een e-mailadres voor het inloggen bij {{- company }} geselecteerd.",
-                            "currentEmail": "Huidige e-mailadres voor het inloggen: \"{{ email }}\"",
+                            "currentEmail": "Huidige e-mailadres voor het inloggen: \"{{ email }}\".",
                             "contactCompany": "Gelieve direct de studio contacteren indien je je e-mailadres voor het inloggen niet wilt wijzigen.",
                             "title": "Dit verzoek is reeds geweigerd."
                         },
@@ -5782,7 +5782,7 @@
         "accountBalance": "Saldo",
         "communication": "Communicatie",
         "resetPassword": {
-            "dialogTitle": "Wachtwoord opnieuw instellen",
+            "dialogTitle": "Wachtwoord herstellen",
             "confirmation": "Instructies correct verzonden naar {{memberEmail}}",
             "dialogContent": "U staat op het punt wachtwoord reset instructies te sturen naar {{memberEmail}}",
             "error": "Fout bij het verzenden van wachtwoord reset instructies",
@@ -7938,7 +7938,7 @@
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
             "link": "Afmelden en MarketPlace openen",
-            "explainMarketplace": "Leden hebben op hun telefoon, computer en tablet toegang tot je MarketPlace (je agenda, webshop, kaarten, enz.). In dit onderdeel kan de MarketPlace verder gepersonaliseerd worden.",
+            "explainMarketplace": "Leden hebben op hun telefoon, computer en tablet toegang tot je Marketplace waar je agenda, webshop, lidmaatschappen e.d. te vinden zijn. In dit onderdeel kan de MarketPlace verder gepersonaliseerd worden.",
             "addButton": "Een tabblad toevoegen"
         },
         "companyOnboarding": {
@@ -7946,7 +7946,7 @@
         },
         "paymentMethods": {
             "methodPaymentBasket": "Eenmalige betalingen",
-            "methodPaymentSubscription": "Terugkerende betalingen",
+            "methodPaymentSubscription": "Doorlopende betalingen",
             "save": "Opslaan",
             "methodPaymentSubscriptionError": "Selecteer ten minste één betaalmethode",
             "methodPaymentSubscriptionHelper": "Selecteer welke betaalmethode(n) je voor abonnementen wilt accepteren:",
@@ -8121,7 +8121,7 @@
                     "11110": "De kaart is verlopen",
                     "privateService": "Deze afspraakkaart is incompatibel met de volgende afspraken:",
                     "11111": "De data zijn niet compatibel",
-                    "11108": "Onvoldoende aantal credits",
+                    "11108": "Onvoldoende credits",
                     "11107": "Niet compatibele afspraak"
                 },
                 "noUncompatiblePassToDisplay": "Er zijn geen compatibele afspraakkaarten om weer te geven.",
@@ -8476,7 +8476,7 @@
             },
             "form": {
                 "credits": {
-                    "label": "Aantal credits",
+                    "label": "Credits",
                     "helperText": "Geef aan wat het aantal inbegrepen credits is."
                 },
                 "durationDays": {
@@ -8618,7 +8618,7 @@
                 "vod": "Video On Demand",
                 "accessibility": "Toegankelijkheid",
                 "validity": "Geldigheid",
-                "credit_quantity": "credits"
+                "credit_quantity": "Credits"
             },
             "ht": "Excl. btw",
             "actions": {
@@ -9266,7 +9266,7 @@
             "detail": {
                 "provisionHistory": "Voorraadgeschiedenis",
                 "title": "Productbeschrijving",
-                "parameters": "Instellingen",
+                "parameters": "Informatie",
                 "supplier_price": "Leveranciersprijs",
                 "marketplace_enabled": "Beschikbaar op de webshop",
                 "enabled": "Ja",
@@ -11399,7 +11399,7 @@
                 "timePeriod": "Periode",
                 "graphParams": "Gegevens",
                 "graphFamily": "Grafiek",
-                "dashboardGraphIdentifier": "Onderwerp",
+                "dashboardGraphIdentifier": "Data",
                 "general": "Algemeen"
             },
             "title": {
@@ -11918,7 +11918,7 @@
                     "urlRedirection": "Omleidings-URL",
                     "helperText": "Zodra nieuwe leden zich inschrijven aan de hand van een nieuw account zullen ze een e-mail ontvangen om het gebruikte e-mailadres te bevestigen. Nieuwe accounts zijn pas na activatie geactiveerd.",
                     "label": "Bevestigingsmails na nieuwe inschrijvingen sturen",
-                    "title": "Registratie"
+                    "title": "Registratiebevestiging"
                 },
                 "coachUserspace": {
                     "errors": {
@@ -12934,7 +12934,7 @@
                     "explain": "Ieder lid dat zich op de wachtlijst krijgt een plaats. De eerstvolgende op de wachtlijst wordt geïnformeerd zodra er een plaats vrijkomt.",
                     "settingsDelay": "Tijd tussen terugroepacties",
                     "label": "Eén voor één",
-                    "overallExplainSmart": "Als er een plaats vrijkomt, krijgt de leerling {{ autokick_delay }} herinneringen met een interval van {{ smart_delay_percentage }}% van de resterende tijd voordat de sessie begint om zich in te schrijven. Bijvoorbeeld, als er nog {{ example_hours_before }} uur over is voor de sessie, heeft de leerling {{ example_computed_delay_one }} minuten om zich te registreren, en vervolgens {{ example_computed_delay_two }} minuten na de eerste poging, enzovoort, voordat de volgende leerling zich mag registreren.",
+                    "overallExplainSmart": "Als er een plaats vrijkomt, krijgen leden {{ autokick_delay }} herinnering(en) met een interval van {{ smart_delay_percentage }}% van de resterende tijd voordat de sessie begint om zich in te schrijven. Bijvoorbeeld, als er nog {{ example_hours_before }} uur over is voor de sessie, hebben leden {{ example_computed_delay_one }} minuten om zich te registreren, en vervolgens {{ example_computed_delay_two }} minuten na de eerste poging, enzovoort, voordat het volgende lid zich kan inschrijven.",
                     "overallExplainSimple": "Als er een plek vrijkomt, heeft de leerling {{ autokick_delay }} herinneringen met een tussenruimte van {{ dumb_delay_minutes }} minuten om te reserveren voordat hij zijn plek aan de volgende leerling geeft."
                 }
             },
@@ -13110,7 +13110,7 @@
                         "_label": "Algemeen"
                     },
                     "marketplace": {
-                        "_label": "MarketPlace"
+                        "_label": "Marketplace"
                     },
                     "widgets": {
                         "_label": "Widgets"
@@ -13452,7 +13452,7 @@
                 "broadcast": "Livestreamen",
                 "general": "Algemeen",
                 "platform_billing": "Abonnement",
-                "marketplaceSettings": "MarketPlace",
+                "marketplaceSettings": "Marketplace",
                 "widget": "Widgets",
                 "paymentMethod": "Betaalmethoden",
                 "forms": "Ledenformulieren",
@@ -15589,7 +15589,7 @@
             "request": "Verzoek",
             "availability": "Beschikbaar",
             "closing_date": "Sluitingsdatum",
-            "teacher_override": "Plaatsvervangend instructeur",
+            "teacher_override": "Plaatsvervangende instructeur",
             "teacher": "Instructeur",
             "status": "Status",
             "reason": "Reden",

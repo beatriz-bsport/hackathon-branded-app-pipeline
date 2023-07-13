@@ -48,8 +48,6 @@ const ComponentPreview: React.FC<
   return (
     <div
       style={{
-        position: 'relative',
-        height: '1000px',
         maxHeight: pageHeight,
       }}
       className={classes.previewWrapper}
@@ -63,6 +61,9 @@ const ComponentPreview: React.FC<
 
 const useStyles = makeStyles(() => ({
   previewWrapper: {
+    position: 'relative',
+    minHeight: '1000px',
+    padding: '16px',
     overflowY: 'auto',
     flexDirection: 'column',
     flex: 1,

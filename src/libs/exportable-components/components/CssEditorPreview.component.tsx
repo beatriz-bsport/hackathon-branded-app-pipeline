@@ -71,6 +71,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     position: 'sticky',
     top: '0',
+    maxWidth: '50%',
   },
   title: {
     display: 'flex',

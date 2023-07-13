@@ -12478,7 +12478,8 @@
         "contractCooldownModal": "Popup d'avertissement d'achat d'abonnement",
         "contractCouponFormModal": "Popup de code promo d'abonnement",
         "contractNotFound": "Avertissement d'abonnement non trouvé",
-        "contractPayment": "Module de paiement d'abonnement"
+        "contractPayment": "Module de paiement d'abonnement",
+        "collectPaymentMethod": "Ajout de méthode de paiement"
       },
       "page": { "workshop": "Atelier", "calendar": "Calendrier", "pass": "Cartes de cours", "subscription": "Abonnements" },
       "cssConfig": {
@@ -12493,7 +12494,8 @@
           "showDayParts": "Séparer matin, après midi et soir",
           "nextOffer": "Prochaine séance disponible",
           "isExcludingTax": "Hors taxe",
-          "isContractLegalTermsAccepted": "Mentions légales de l'abonnement acceptées"
+          "isContractLegalTermsAccepted": "Mentions légales de l'abonnement acceptées",
+          "paymentMethodType": "Méthode de paiement"
         },
         "option": {
           "true": "Oui",
@@ -12508,7 +12510,11 @@
           "future": "Pas encore ouvert à la réservation",
           "currentWeek": "Cette semaine",
           "nextWeek": "La semaine prochaine",
-          "none": "Aucune"
+          "none": "Aucune",
+          "card": "Carte",
+          "sepa_debit": "Prélèvement SEPA",
+          "bacs_debit": "Bacs Direct debit",
+          "sepa": "Prélèvement SEPA"
         }
       }
     }

@@ -50,3 +50,9 @@ these overrides will be overwritten within this file.
   .bs-collect-payment-method__dialog__backdrop {
   position: absolute;
 }
+
+/* MarketplaceCollectPaymentMethod */
+.bs-custom-css__component__preview
+  .bs-collect-payment-method__dialog__backdrop {
+  position: relative;
+}

@@ -317,7 +317,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
 
         try {
           const paymentMethodSetupResponse = await stripe[
-            stripePaymentMethod.method as
+            stripePaymentMethod?.method as
               | 'confirmCardSetup'
               | 'confirmSepaDebitSetup'
               | 'confirmBacsDebitSetup'
@@ -346,8 +346,8 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
         elements,
         isSepaDebitBillingAddressRequired,
         stripe,
-        stripePaymentMethod.method,
-        stripePaymentMethod.type,
+        stripePaymentMethod?.method,
+        stripePaymentMethod?.type,
         type,
         onSuccess,
       ],

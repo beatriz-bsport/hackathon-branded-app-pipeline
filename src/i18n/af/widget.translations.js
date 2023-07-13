@@ -150,6 +150,7 @@ exports.default = {
       contractCouponFormModal: "Popup de code promo d'abonnement",
       contractNotFound: "Avertissement d'abonnement non trouvé",
       contractPayment: "Module de paiement d'abonnement",
+      collectPaymentMethod: 'Ajout de méthode de paiement',
     },
     page: {
       workshop: 'Atelier',
@@ -171,6 +172,7 @@ exports.default = {
         isExcludingTax: 'Hors taxe',
         isContractLegalTermsAccepted:
           "Mentions légales de l'abonnement acceptées",
+        paymentMethodType: 'Méthode de paiement',
       },
       option: {
         true: 'Oui',
@@ -186,6 +188,10 @@ exports.default = {
         currentWeek: 'Cette semaine',
         nextWeek: 'La semaine prochaine',
         none: 'Aucune',
+        card: 'Carte',
+        sepa_debit: 'Prélèvement SEPA',
+        bacs_debit: 'Bacs Direct debit',
+        sepa: 'Prélèvement SEPA',
       },
     },
   },

@@ -15,6 +15,7 @@ import {
 
   // INVOICE
   INVOICE_EVENTS,
+
   // BILLING PLAN
   EVENT_BILLING_PLAN_CREATE,
   EVENT_BILLING_PLAN_PAUSE,
@@ -22,43 +23,28 @@ import {
   EVENT_BILLING_PLAN_RENEW,
 } from '@bsport/common/lib/master-data/events';
 
-// Edge case below regarding string enums with computed values - Issue : https://gitlab.com/bsport/bsport-saas/-/issues/1714
-// And ts-ignore not available by block : https://gitlab.com/bsport/bsport-saas/-/issues/1713
 export enum Events {
   // PURCHASE
-  // @ts-ignore
   CADENCE_EVENT_PURCHASE_PAYMENT_PACK = CONSUMER_PAYMENT_PACK_EVENTS.CREATE,
 
   // BOOKING & RIVATE BOOKING
-  // @ts-ignore
   CADENCE_EVENT_BOOK_OFFER = BOOKING_EVENTS.CREATE,
-  // @ts-ignore
   CADENCE_EVENT_ATTENDANCE_BOOKING = BOOKING_EVENTS.ATTENDANCE,
-  // @ts-ignore
   CADENCE_EVENT_BOOK_APPOINTMENT = PRIVATE_BOOOKING_EVENTS.CREATE,
-  // @ts-ignore
   CADENCE_EVENT_CANCELLED_APPOINTMENT = PRIVATE_BOOOKING_EVENTS.CANCEL,
 
   // BASKET
-  // @ts-ignore
   CADENCE_EVENT_BASKET_CREATION = BASKET_CREATED,
-  // @ts-ignore
   CADENCE_EVENT_BASKET_ADD_ITEM = BASKET_ADD_ITEM,
-  // @ts-ignore
   CADENCE_EVENT_BASKET_FINALIZED = BASKET_FINALIZED,
 
   // INVOICE
-  // @ts-ignore
   CADENCE_EVENT_INVOICE_CREATED = INVOICE_EVENTS.CREATE,
 
   // BILLING PLAN
-  // @ts-ignore
   CADENCE_EVENT_BILLING_PLAN_CREATED = EVENT_BILLING_PLAN_CREATE,
-  // @ts-ignore
   CADENCE_EVENT_BILLING_PLAN_PAUSED = EVENT_BILLING_PLAN_PAUSE,
-  // @ts-ignore
   CADENCE_EVENT_BILLING_PLAN_STOPPED = EVENT_BILLING_PLAN_STOP,
-  // @ts-ignore
   CADENCE_EVENT_BILLING_PLAN_RENEWED = EVENT_BILLING_PLAN_RENEW,
 }
 

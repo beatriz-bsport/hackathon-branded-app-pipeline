@@ -1,10 +1,10 @@
 import React from 'react';
 import CustomChip, { CustomChipProps } from './CustomChip.component';
+import { ComponentMeta } from '@storybook/react';
 
 const CustomChipTemplate = (args: CustomChipProps) => <CustomChip {...args} />;
 
 export const DefaultCustomChip = CustomChipTemplate.bind({});
-
 DefaultCustomChip.args = {
   displayedValue: 'Success',
   mainColor: '#388e3c',
@@ -13,7 +13,6 @@ DefaultCustomChip.args = {
 };
 
 export const NoIconCustomChip = CustomChipTemplate.bind({});
-
 NoIconCustomChip.args = {
   displayedValue: '50',
   mainColor: '#d32f2f',
@@ -22,12 +21,28 @@ NoIconCustomChip.args = {
 };
 
 export const GreyCustomChip = CustomChipTemplate.bind({});
-
 GreyCustomChip.args = {
   displayedValue: 'No',
   mainColor: null,
   icon: 'Cancel',
   iconColor: null,
+};
+
+export const TooltipChip = CustomChipTemplate.bind({});
+TooltipChip.args = {
+  displayedValue: 'Tooltip here',
+  mainColor: '#388e3c',
+  icon: 'CheckCircle',
+  toolTip: true,
+  toolTipValue: 'This is the tooltip displayed value',
+};
+
+export const BackgroundHoverChip = CustomChipTemplate.bind({});
+BackgroundHoverChip.args = {
+  displayedValue: 'Hover to display background',
+  mainColor: '#388e3c',
+  icon: 'CheckCircle',
+  withBackgroundOnHover: true,
 };
 
 export default {
@@ -68,6 +83,14 @@ export default {
       description:
         "(Optional) A boolean true if the chip has a tooltip displaying the text of the chip and false if it hasn't.",
     },
+    toolTipValue: {
+      description:
+        "(Optional) A string containing the text to display the chip's tooltip.",
+    },
+    withBackgroundOnHover: {
+      description:
+        '(Optional) A boolean true if the background should only be displayed on mouse over.',
+    },
   },
   parameters: {
     docs: {
@@ -78,4 +101,19 @@ export default {
       },
     },
   },
-};
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          margin: '3em',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <div>
+          <Story />
+        </div>
+      </div>
+    ),
+  ],
+} as ComponentMeta<typeof CustomChip>;

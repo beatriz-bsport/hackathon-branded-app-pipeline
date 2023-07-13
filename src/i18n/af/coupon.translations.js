@@ -237,6 +237,16 @@ exports.default = {
         helperText:
           "Veuillez télécharger un fichier CSV avec tous les codes de bons d'achat dans la première colonne, un code par ligne, sans en-tête.",
       },
+      update: {
+        alertInfo:
+          'Il y a {{count}} code enregistré pour cette promotion, vous pouvez télécharger de nouveaux codes.',
+        alertInfo_plural:
+          'Il y a {{count}} codes enregistrés pour cette promotion, vous pouvez télécharger de nouveaux codes.',
+        append: 'Ajouter aux codes existants',
+        replace: 'Remplacer les codes existants',
+        popover:
+          'Les codes non utilisés seront supprimés, mais les codes utilisés seront conservés.',
+      },
       errors: {
         required: 'Ce champ est requis',
         positiveNumber: 'La valeur doit être supérieure à 0',
@@ -257,6 +267,8 @@ exports.default = {
           'Vous devez impérativement choisir un objet sur lequel appliquer la réduction',
         applies_to:
           "L'objet sur lequel appliquer la réduction doit être impérativement une carte de cours, une carte de rendez-vous, un pack ou un article du magasin",
+        update_mode:
+          'Si vous souhaitez modifier les codes enregistrés pour cette promotion vous pouvez ajouter les codes aux existants, ou remplacer les codes existants',
       },
     },
   },

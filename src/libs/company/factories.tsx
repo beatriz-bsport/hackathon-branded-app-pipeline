@@ -1,6 +1,6 @@
 // @ts-expect-error
 import FactoryBotCompany from 'ya-factorybot';
-import { fakerFR as faker } from '@faker-js/faker';
+import { fakerEN as faker } from '@faker-js/faker';
 
 FactoryBotCompany.define('company', {
   id: FactoryBotCompany.sequence(),

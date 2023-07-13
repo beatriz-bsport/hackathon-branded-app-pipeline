@@ -1,6 +1,6 @@
 import React from 'react'
 import InfoBox, { OwnProps } from './InfoBox.component';
-import { fakerFR as faker } from '@faker-js/faker';
+import { fakerEN as faker } from '@faker-js/faker';
 
 const CustomTemplate = (args: OwnProps) => (
     <InfoBox {...args} />

@@ -1,5 +1,5 @@
 import FactoryBot from 'ya-factorybot';
-import { fakerFR as faker } from '@faker-js/faker';
+import { fakerEN as faker } from '@faker-js/faker';
 
 FactoryBot.define('Member', {
   id: FactoryBot.sequence(),

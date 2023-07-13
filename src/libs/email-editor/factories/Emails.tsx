@@ -1,4 +1,4 @@
-import { fakerFR as faker } from '@faker-js/faker';
+import { fakerEN as faker } from '@faker-js/faker';
 import {
   EmailTemplateDetail,
   EmailTemplateSummary,

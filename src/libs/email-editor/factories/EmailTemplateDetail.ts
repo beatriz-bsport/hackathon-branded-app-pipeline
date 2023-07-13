@@ -1,6 +1,6 @@
 // @ts-expect-error
 import FactoryBot from 'ya-factorybot';
-import { fakerFR as faker } from '@faker-js/faker';
+import { fakerEN as faker } from '@faker-js/faker';
 
 FactoryBot.define('EmailTemplateDetail', {
   id: Math.floor(Math.random() * 1000),

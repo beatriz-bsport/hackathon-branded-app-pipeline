@@ -1,5 +1,5 @@
 import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communication-kind';
-import { fakerFR as faker } from '@faker-js/faker';
+import { fakerEN as faker } from '@faker-js/faker';
 import {
   COMMUNICATION_SENT_SENDING_SUCCESS,
   COMMUNICATION_FILTER_CHANNELS,

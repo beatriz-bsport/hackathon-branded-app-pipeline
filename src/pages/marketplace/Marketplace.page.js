@@ -592,7 +592,7 @@ export class MarketPlace extends Component<Props, State> {
               fullWidth
             >
               <DialogTitle>
-                <CustomFormTitle title={t('form.signUpTitle')} company />
+                <CustomFormTitle title={t('form.signUpTitle')} isCompany />
               </DialogTitle>
               <div className={classes.customFormContainer}>
                 <CustomFormView

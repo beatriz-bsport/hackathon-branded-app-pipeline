@@ -1,32 +1,34 @@
-// @ts-nocheck
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import HelpIcon from '@material-ui/icons/Help';
 
-import { makeStyles, Theme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import chroma from 'chroma-js';
 import { openIntercomHelp } from '../../../intercom';
 
 type Props = {
   title: string;
-  company: boolean;
+  isCompany: boolean;
   simplifyUI?: boolean;
 };
 
-export const CustomFormTitle = (props: Props) => {
-  const { title } = props;
-  const classes = useStyles(props);
+export const CustomFormTitle: React.FC<Props> = ({
+  title,
+  isCompany,
+  simplifyUI,
+}) => {
+  const classes = useStyles();
 
   return (
     <div className={classes.signupTitle}>
       <Typography className={classes.title}>{title}</Typography>
-      {!props.simplifyUI && (
+      {!simplifyUI && (
         <>
           <div
             className={`${classes.rectangle} ${
-              props.company
+              isCompany
                 ? classes.rectangleCompanyBackground
                 : classes.rectangleBackground
             }`}
@@ -43,7 +45,7 @@ export const CustomFormTitle = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 36,
     fontWeight: 700,
@@ -76,4 +78,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CustomFormTitle;
+export default React.memo(CustomFormTitle);

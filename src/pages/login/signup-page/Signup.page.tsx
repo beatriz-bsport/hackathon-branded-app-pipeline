@@ -143,7 +143,7 @@ export class SignupPage extends Component<Props> {
         <div className="bs-signup-container--margin-top">
           <CustomFormTitle
             title={t('signup.title')}
-            company={!!membership}
+            isCompany={!!membership}
             simplifyUI={simplifyUI}
           />
           {signUpCustomForm && (

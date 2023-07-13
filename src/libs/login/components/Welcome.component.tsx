@@ -1,15 +1,10 @@
-// @ts-nocheck
 import React from 'react';
-import { compose } from 'recompose';
 import './LoginBackground.css';
 import Button from '@material-ui/core/Button';
 import './Login.css';
-import { useTranslation, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
-
-import { Theme } from '@material-ui/core/styles/createTheme';
-import { Typography } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/styles';
+import { Typography, useTheme, makeStyles } from '@material-ui/core';
 import { LoginTitleCssHoc } from './LoginTitle.component';
 import WelcomeIcon from '#components/icons/WelcomeIcon.component';
 import { httpParser } from '#libs/marketplace/utils';
@@ -20,7 +15,11 @@ type Props = {
   simplifyUI?: boolean;
 };
 
-export const WelcomeComponent = (props: Props) => {
+export const WelcomeComponent: React.FC<Props> = ({
+  companyName,
+  urlRedirection,
+  simplifyUI,
+}) => {
   const { t } = useTranslation('login');
   const classes = useStyles();
   const theme = useTheme();
@@ -28,11 +27,11 @@ export const WelcomeComponent = (props: Props) => {
   return (
     <div className={classes.content}>
       <LoginTitleCssHoc
-        title={t('welcome.title', { companyName: props.companyName })}
-        company={!!props.companyName}
-        simplifyUI={props.simplifyUI}
+        title={t('welcome.title', { companyName })}
+        company={!!companyName}
+        simplifyUI={simplifyUI}
       />
-      {!props.simplifyUI && (
+      {!simplifyUI && (
         <div className={classes.welcomeIconContainer}>
           <WelcomeIcon
             className={classes.welcomeIcon}
@@ -48,7 +47,7 @@ export const WelcomeComponent = (props: Props) => {
         variant="contained"
         id="btn-begin"
         onClick={() => {
-          window.location.href = httpParser(props.urlRedirection);
+          window.location.href = httpParser(urlRedirection);
         }}
         className={classes.beginButton}
       >
@@ -58,7 +57,7 @@ export const WelcomeComponent = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   content: {
     display: 'flex',
     flexDirection: 'column',
@@ -89,6 +88,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default compose<any, Props>(withTranslation(['login']))(
-  WelcomeComponent,
-);
+export default React.memo(WelcomeComponent);

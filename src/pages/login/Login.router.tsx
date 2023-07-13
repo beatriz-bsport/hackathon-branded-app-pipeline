@@ -37,6 +37,7 @@ import LanguageButton from '../../components/button/LanguageButton.component';
 import namespaces from '../../i18n/namespaces.json';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import './LoginRouterStyles.css';
+import { isLoginBackgroundFixed } from './utils';
 
 /* Some of these pages were reworked to be CSS Only, some were not. Here is which ones and why:
 
@@ -187,10 +188,7 @@ export class LoginRouter extends React.Component<Props> {
                   ? getFranchiseTheme(franchiseTheme)
                   : getTheme(this.props.theme)
               }
-              backgroundFixed={
-                location.pathname === '/login/' ||
-                location.pathname === '/login'
-              }
+              backgroundFixed={isLoginBackgroundFixed(location.pathname)}
             />
             <Fade in>
               <div className="bs-container__header">

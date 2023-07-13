@@ -8,7 +8,8 @@
             "actions": {
                 "backToLogin": "Terug",
                 "reset": "Oké",
-                "cancel": "Annuleren"
+                "cancel": "Annuleren",
+                "confirm": "Confimeer"
             },
             "emailHasBeenSent": "We hebben een e-mail naar \"{{email}}\" gestuurd om je wachtwoord te herstellen.",
             "contactUs": "Stuur een e-mail naar: ",
@@ -2395,7 +2396,7 @@
             "helperToSendOnceAgain": "om de bevestigingsmail opnieuw te versturen",
             "clickHere": "Klik hier",
             "notReceived": "Heeft u niets ontvangen?",
-            "backToLogin": "Terug",
+            "backToLogin": "Terug naar de inlogpagina",
             "textExplain": "Er is zojuist een bevestigingsmail verzonden om uw e-mailadres te bevestigen. Om uw registratie te voltooien klikt u op de link om uw account te activeren.",
             "title": "Uw registratie is geregistreerd"
         }
@@ -3077,6 +3078,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
+                "Geannuleerd",
                 "Geannuleerd"
             ]
         },
@@ -3490,7 +3492,7 @@
                     "header": "Geavanceerd",
                     "appliesForPayroll": {
                         "label": "Sessies meeberekenen voor de payroll van de instructeur(s)",
-                        "helperText": "Standaard worden sessies gefactureerd aan de studio en opgenomen in het overzicht van de leraar en de vergoeding door de studio. Als u deze instelling uitschakelt, verschijnen de sessies die aan deze kaart zijn gekoppeld niet meer in het overzicht van de leraar."
+                        "helperText": "Standaard worden sessies gefactureerd aan de studio en opgenomen in het overzicht van de leraar en de beloning door de studio. Als je deze instelling uitschakelt, verschijnen de sessies die aan deze kaart gekoppeld zijn niet meer in het overzicht van de docent."
                     }
                 },
                 "universalPass": {
@@ -9411,7 +9413,7 @@
             "paymentPackPlaceHolder": "Selecteer leskaarten",
             "excludePaymentPack": {
                 "title": "Reserveringen op bepaalde kaarten uitsluiten",
-                "warning": "Als u leskaarten al hebt uitgesloten van de beloning via de parameter \"Sessies in aanmerking genomen bij de berekening van de leraarsbezoldiging\", hoeft u ze hier niet opnieuw op te geven."
+                "warning": "Als je leskaarten al hebt uitgesloten van de beloning met de parameter 'Sessies in rekening gebracht bij berekening leraarsbeloning', dan hoef je ze hier niet opnieuw op te geven."
             },
             "bonusForEachReservationInInterval": "Een bonus per reservering toevoegen",
             "fixedBonusbyInterval": "Een bonus per interval toevoegen",
@@ -13744,13 +13746,16 @@
                     "isMobile": "Voor mobiel",
                     "loading": "Laden",
                     "variant": "Benadruk",
-                    "filterGroupOptions": "Gebundelde opties"
+                    "filterGroupOptions": "Gebundelde opties",
+                    "isExcludingTax": "Vóór belastingen"
                 },
                 "configurationTitle": "Variaties"
             },
             "page": {
                 "calendar": "Agenda",
-                "workshop": "Workshop"
+                "workshop": "Workshop",
+                "subscription": "Abonnementen",
+                "pass": "Leskaart"
             },
             "components": {
                 "calendar": "Agenda",
@@ -13760,14 +13765,27 @@
                 "datePicker": "Datumkiezer",
                 "bookButton": "Boekingsknop",
                 "filters": "Lijst met filters",
-                "workshopCard": "Workshop kaart",
+                "workshopCard": "Workshop leskaart",
                 "groupOfferListItem": "Details van een sessiegroep",
                 "cardOffer": "Sessiegegevens (agendaweergave)",
                 "workshopsComponent": "Details workshop",
                 "vodTag": "Chip vod",
                 "level": "Niveau chip",
                 "offerListItem": "Details sessie",
-                "filter": "Enkel filter"
+                "filter": "Enkel filter",
+                "contractCouponFormModal": "Abonnement promo code popup",
+                "contractCooldownModal": "Waarschuwingspop-up voor aankoop abonnement",
+                "contractTermsModal": "Pop-up wettelijke kennisgeving inschrijving",
+                "contractDetail": "Abonnementsgegevens",
+                "contractDetailModal": "Abonnement details popup",
+                "contractCheckout": "Abonnementskaart (betaling)",
+                "contractCard": "Abonnement",
+                "privatePassCompatibilityModal": "Compatibiliteit popup (Afspraakkaart)",
+                "privatePassCard": "Afsprakenkaart",
+                "paymentPackRestrictionModal": "Pop-up met beperkingen (leskaart)",
+                "paymentPackCompatibilityModal": "Compatibiliteit popup (leskaart)",
+                "paymentPackCard": "leskaart",
+                "paymentComboCard": "Pakketkaart"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -14400,9 +14418,10 @@
             "back": "Terug",
             "steps": {
                 "actions": {
-                    "changeInStep": "Omzetten in stap",
-                    "changeInExit": "Uit cadence zetten",
-                    "delete": "Verwijderen"
+                    "changeInStep": "Transformeer in een stap",
+                    "changeInExit": "Converteren naar uitvoer",
+                    "delete": "Verwijderen",
+                    "addNextStep": "Volgende stap toevoegen"
                 }
             },
             "marketingAction": {

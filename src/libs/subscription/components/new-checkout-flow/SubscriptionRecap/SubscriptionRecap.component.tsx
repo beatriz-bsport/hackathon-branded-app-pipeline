@@ -53,9 +53,11 @@ export const ContractRecap: React.FC<Props> = (props) => {
           <ul className="bs-subscription-checkout__recap__content">
             {payment_pack && !hideCredits && (
               <li>
-                {t('newCheckout.subscriptionSummary.credit', {
-                  count: payment_pack?.credits,
-                })}
+                {payment_pack?.credits === null
+                  ? t('newCheckout.subscriptionSummary.unlimited')
+                  : t('newCheckout.subscriptionSummary.credit', {
+                      count: payment_pack?.credits,
+                    })}
               </li>
             )}
             {private_pass && !hideCredits && (

@@ -811,6 +811,7 @@ exports.default = {
       startDate: 'Date de début',
       credit: '{{count}} crédit',
       credit_plural: '{{count}} crédits',
+      unlimited: 'Illimité',
       item: '{{count}} élément',
       item_plural: '{{count}} éléments',
       prorataPriceText:
@@ -831,6 +832,10 @@ exports.default = {
       seeMore: 'Voir plus',
       seeLess: 'Voir moins',
       acceptTerms: "J'accepte les <0>mentions légales</0>.",
+    },
+    subscriptionBasketSummary: {
+      payNow: 'Payer maintenant',
+      message: 'Vous pourrez voir votre abonnement sur la page de votre profil',
     },
   },
 };

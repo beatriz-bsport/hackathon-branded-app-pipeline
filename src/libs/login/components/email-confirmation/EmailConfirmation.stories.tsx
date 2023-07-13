@@ -1,9 +1,9 @@
-// @ts-nocheck
 import React from 'react';
-import { EmailConfirmationStorybook } from './EmailConfirmation.component';
+import { EmailConfirmationForStorybook } from './EmailConfirmation.component';
 
 const EmailConfirmationTemplate = (args: {}) => (
-  <EmailConfirmationStorybook {...args} />
+  // @ts-expect-error
+  <EmailConfirmationForStorybook {...args} />
 );
 
 export const Validation = EmailConfirmationTemplate.bind({});

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import '../Login.css';
-import { useTranslation, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
-import { StylesProvider, useTheme } from '@material-ui/styles';
+import { StylesProvider } from '@material-ui/styles';
+import { useTheme } from '@material-ui/core';
 import classNames from 'classnames';
 import EmailIcon from '#components/icons/EmailIcon.component';
 import ResendEmailForConfirmationDialog from '../ResendEmailForConfirmationDialog.component';
@@ -21,7 +21,13 @@ type Props = {
   company?: boolean;
 };
 
-export const EmailConfirmation = (props: Props) => {
+export const EmailConfirmation: React.FC<Props> = ({
+  goBackToLogin,
+  sendEmailForConfirmation,
+  lastTimeSentEmailConfirmation,
+  simplifyUI,
+  company,
+}) => {
   const { t } = useTranslation('login');
   const theme = useTheme();
 
@@ -34,11 +40,11 @@ export const EmailConfirmation = (props: Props) => {
         <div className="bs-email-confirmation-content__top-container">
           <LoginTitle
             title={t('emailConfirmation.title')}
-            simplifyUI={props.simplifyUI}
-            company={props.company}
+            simplifyUI={simplifyUI}
+            company={company}
           />
         </div>
-        {!props.simplifyUI && (
+        {!simplifyUI && (
           <div className="bs-email-confirmation-content__icon-container">
             <div className="bs-email-confirmation-content__icon-container__background" />
             <EmailIcon
@@ -58,7 +64,7 @@ export const EmailConfirmation = (props: Props) => {
         </div>
         <Button
           id="btn-back-to-log-in"
-          onClick={props.goBackToLogin}
+          onClick={goBackToLogin}
           className="bs-email-confirmation-content__back-button"
         >
           {t('emailConfirmation.backToLogin')}
@@ -89,18 +95,15 @@ export const EmailConfirmation = (props: Props) => {
           onClose={() => {
             setResendEmailForConfirmation(false);
           }}
-          lastTimeSentEmailConfirmation={props.lastTimeSentEmailConfirmation}
-          resendEmailForConfirmation={props.sendEmailForConfirmation}
+          lastTimeSentEmailConfirmation={lastTimeSentEmailConfirmation}
+          resendEmailForConfirmation={sendEmailForConfirmation}
         />
       </div>
     </StylesProvider>
   );
 };
 
-export const EmailConfirmationStorybook =
-  // @ts-expect-error
+export const EmailConfirmationForStorybook =
   marketplaceCssHoc()(EmailConfirmation);
 
-export default compose<any, Props>(withTranslation(['login']))(
-  React.memo(EmailConfirmation),
-);
+export default React.memo(EmailConfirmation);

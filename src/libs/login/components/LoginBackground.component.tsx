@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import classNames from 'classnames';
-import './LoginBackground.css';
 import { useTheme } from '@material-ui/core';
+import './LoginBackground.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 type Props = {
@@ -23,6 +23,7 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
   children,
 }) => {
   const theme = useTheme();
+
   const loginBackgroundClass = backgroundFixed
     ? 'bs-login-background--fixed'
     : 'bs-login-background--default';

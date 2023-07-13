@@ -81,7 +81,8 @@
             "actions": {
                 "cancel": "Anular",
                 "reset": "OK",
-                "backToLogin": "Anterior"
+                "backToLogin": "Anterior",
+                "confirm": "Confirmar"
             }
         }
     },
@@ -452,7 +453,11 @@
             "label": "Marcações"
         },
         "creditConsumed": "{{credit_consumed}} crédito",
-        "creditConsumed_plural": "{{credit_consumed}} créditos"
+        "creditConsumed_plural": "{{credit_consumed}} créditos",
+        "spivi": {
+            "connectionImpossible": "Não é possível estabelecer ligação ao Spivi",
+            "error": "Problema de ligação com o Spivi"
+        }
     },
     "coach": {
         "workingDateSection": "Período de atividade no estúdio",

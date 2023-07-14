@@ -49,14 +49,17 @@ type OwnProps = {
   assets: { [identifier: string]: AssetForBlueprint };
   onSelectElement?: (element: CanvasElement<any>) => void;
   coach?: any;
-  openSpotCreationForm: (defaultSpot: boolean) => void;
-  onCreateSpot: (spot: SpotType) => void;
+  openSpotCreationForm?: (defaultSpot: boolean) => void;
+  onCreateSpot?: (spot: SpotType) => void;
   selectingSpot: boolean;
-  spotToSelect: SpotType;
+  spotToSelect?: SpotType;
   spotTypes: SpotType[];
-  openSpotUpdateForm: (spotType: SpotType) => void;
-  openDeleteModal: () => void;
-  openSpiviDialog: () => void;
+  openSpotUpdateForm?: (spotType: SpotType) => void;
+  openDeleteModal?: () => void;
+  openSpiviDialog?: () => void;
+  condensed: boolean;
+  fetchSpotForBlueprint: (data: { company: number }) => void;
+  isMobile: boolean;
 };
 
 type Props = OwnProps &
@@ -256,11 +259,14 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
           [classes.containerIsMobile]: this.props.isMobile,
           [classes.containerSelecting]: this.props.selectingSpot,
           [classes.containerSelectingIsNotMobile]:
-            this.props.selectingSpot && !this.props.isMobile,
+            this.props.selectingSpot &&
+            !this.props.isMobile &&
+            !this.props.condensed,
+          [classes.containerSelectingIsCondensed]: this.props.condensed,
         })}
       >
         <div className={classes.toolbarCanvasContainer}>
-          {!this.props.disableEdit && (
+          {!this.props.disableEdit && !this.props.condensed && (
             <CanvasToolbar
               blueprints={this.props.blueprints}
               disableSave={!this.hasBlueprintChanged()}
@@ -278,6 +284,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
             <CanvasViewController
               coach={this.props.coach}
               coachHeight={this.state.coachHeight}
+              condensed={this.props.condensed}
               disabledEdit={this.props.disableEdit}
               elements={this.elements}
               fillColor={this.props.current.fillColor}
@@ -298,7 +305,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
           </div>
         </div>
 
-        {!this.props.disableEdit && (
+        {!this.props.disableEdit && !this.props.condensed && (
           <div className={classes.toolMenuContainer}>
             <CanvasToolsMenu
               coachHeight={this.state.coachHeight}
@@ -349,7 +356,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
           </div>
         )}
 
-        {!this.props.disableEdit && (
+        {!this.props.disableEdit && !this.props.condensed && (
           <SpotImageUploadDialog
             onClose={() => this.setState({ showImageDialog: false })}
             onSubmit={this.updateSpotImages}
@@ -378,6 +385,9 @@ const styles = (theme: Theme) => ({
   },
   containerSelectingIsNotMobile: {
     minHeight: '100vh',
+  },
+  containerSelectingIsCondensed: {
+    border: 'none',
   },
   containerSelecting: {
     paddingRight: theme.spacing(3),

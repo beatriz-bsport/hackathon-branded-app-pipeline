@@ -1,8 +1,7 @@
-// @ts-nocheck
 import React from 'react';
 import CanvasEditor from '../../CanvasSvg/CanvasEditor.component';
 import { CANVAS_SELECTABLE_TOOLS } from '../../CanvasSvg/tools/CanvasStrategy';
-import { AssetForBlueprint, RoomBlueprint } from '../../types';
+import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
 import { CanvasElement } from '../../CanvasSvg/tools/BaseClasses/Base.tool';
 import SpotSchedulingHelper from '../../utils';
 
@@ -12,8 +11,12 @@ interface Props {
   takenSpot: number[];
   onSelectSpot: (spot: number, spotTypeId: number) => void;
   selectedSpot?: number;
-  onSelectTakenSpot: () => void;
+  onSelectTakenSpot?: () => void;
   coach?: any;
+  condensed?: boolean;
+  fetchSpotForBlueprint: (data: { company: number }) => void;
+  spotTypesOfBlueprint: SpotType[];
+  isMobile: boolean;
 }
 
 export default class SpotSelector extends React.PureComponent<Props> {
@@ -48,6 +51,7 @@ export default class SpotSelector extends React.PureComponent<Props> {
         assets={this.props.assets}
         blueprints={[]}
         coach={this.props.coach}
+        condensed={this.props.condensed}
         fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
         isMobile={this.props.isMobile}
         onSelectElement={this.onSelectElement}

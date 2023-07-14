@@ -38,6 +38,7 @@ interface OwnProps {
   coachHeight: number;
   spotType?: number;
   spotTypes: SpotType[];
+  condensed: boolean;
 }
 
 type Props = OwnProps &
@@ -415,10 +416,13 @@ class CanvasViewController extends React.PureComponent<Props> {
       >
         <CanvasSvg
           disabledEdit={this.props.disabledEdit}
-          enablePan={[
-            CANVAS_SELECTABLE_TOOLS.hand,
-            CANVAS_SELECTABLE_TOOLS.spot_selector,
-          ].includes(this.props.selectedTool)}
+          enablePan={
+            !this.props.condensed &&
+            [
+              CANVAS_SELECTABLE_TOOLS.hand,
+              CANVAS_SELECTABLE_TOOLS.spot_selector,
+            ].includes(this.props.selectedTool)
+          }
           onClick={this.onSvgClick}
           onEnterUnsafeZone={() => this.setState({ isUnsafeZone: true })}
           onLeaveUnsafeZone={() => this.setState({ isUnsafeZone: false })}
@@ -435,15 +439,17 @@ class CanvasViewController extends React.PureComponent<Props> {
           {this.renderCursor()}
         </div>
 
-        <CanvasZoomButtons
-          onClickCenter={
-            this.props.disabledEdit
-              ? this.centerAccordingToElementBoundaries
-              : undefined
-          }
-          onClickZoomIn={this.zoomIn}
-          onClickZoomOut={this.zoomOut}
-        />
+        {!this.props.condensed && (
+          <CanvasZoomButtons
+            onClickCenter={
+              this.props.disabledEdit
+                ? this.centerAccordingToElementBoundaries
+                : undefined
+            }
+            onClickZoomIn={this.zoomIn}
+            onClickZoomOut={this.zoomOut}
+          />
+        )}
       </div>
     );
   }

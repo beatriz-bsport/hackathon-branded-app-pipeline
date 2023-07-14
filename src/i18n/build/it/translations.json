@@ -11916,8 +11916,8 @@
             "unselectAll": "Deseleziona tutti",
             "selectAll": "Seleziona tutti"
         },
-        "cancel": "Cancella",
-        "confirm": "Confermare",
+        "cancel": "Annulla",
+        "confirm": "Conferma",
         "disconnectInfo": "Torna alla pagina di accesso",
         "disconnect": "Log-out",
         "activate": "Attivare",

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { expect } from '@storybook/jest';
 import { userEvent, within, screen } from '@storybook/testing-library';
 

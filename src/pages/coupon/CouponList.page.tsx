@@ -13,6 +13,13 @@ import { Fab, List } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
 import Fuse, { FuseOptions } from 'fuse.js';
+import { CouponKind } from '@bsport/common/lib/master-data/coupon';
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_SHOP_ITEM,
+  BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_COMBO_ITEM,
+} from '@bsport/common/lib/master-data/buyable-items';
 import FuzeSearch from '../../components/FuzeSearch.component';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
@@ -219,6 +226,31 @@ export class CouponList extends React.PureComponent<Props, State> {
     });
   };
 
+  fetchItemsOnUpdateMode = (uniqueCodeCoupon: Coupon) => {
+    switch (uniqueCodeCoupon.applies_to) {
+      case BUYABLE_ITEM_PASS:
+        fetchSelectedPaymentPacks(uniqueCodeCoupon.only_on_objects);
+        break;
+      case BUYABLE_ITEM_SHOP_ITEM:
+        fetchSelectedShopItems(
+          uniqueCodeCoupon.company,
+          uniqueCodeCoupon.only_on_objects,
+        );
+        break;
+      case BUYABLE_ITEM_PRIVATE_PASS:
+        fetchSelectedPrivatePasses(uniqueCodeCoupon.only_on_objects);
+        break;
+      case BUYABLE_ITEM_COMBO_ITEM:
+        fetchSelectedPaymentCombos({
+          company: uniqueCodeCoupon.company,
+          id__in: uniqueCodeCoupon.only_on_objects,
+        });
+        break;
+      default:
+        break;
+    }
+  };
+
   onCloseFormDrawer = () =>
     this.setState({ couponFormState: { open: false, initial: null } });
 
@@ -237,6 +269,51 @@ export class CouponList extends React.PureComponent<Props, State> {
     this.setState({
       uniqueCodeCouponFormState: { open: false, initial: null },
     });
+  };
+
+  onEditCouponListItem = (couponSelected: Coupon) => {
+    this.fetchItemsOnUpdateMode(couponSelected);
+    if (
+      couponSelected.coupon_type === CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE
+    ) {
+      this.setState({
+        uniqueCodeCouponFormState: {
+          open: true,
+          initial: couponSelected,
+        },
+      });
+    } else {
+      this.setState({
+        couponFormState: {
+          open: true,
+          initial: couponSelected,
+        },
+      });
+    }
+  };
+
+  onEditCouponListComponent = (couponSelected: Coupon) => {
+    this.fetchItemsOnUpdateMode(couponSelected);
+    if (
+      couponSelected.coupon_type === CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE
+    ) {
+      this.setState({
+        uniqueCodeCouponFormState: {
+          open: true,
+          initial: couponSelected,
+        },
+      });
+    } else {
+      this.setState(
+        {
+          couponFormState: {
+            open: true,
+            initial: couponSelected,
+          },
+        },
+        () => this.props.fetchPaymentPackList({ page_size: 70000 }),
+      );
+    }
   };
 
   componentWillUnmount() {
@@ -307,14 +384,7 @@ export class CouponList extends React.PureComponent<Props, State> {
                         coupon={coupon}
                         onClick={() => this.props.goToCoupon(coupon.id)}
                         onDelete={this.props.setCouponToDelete}
-                        onEdit={(couponSelected: Coupon) =>
-                          this.setState({
-                            couponFormState: {
-                              open: false,
-                              initial: couponSelected,
-                            },
-                          })
-                        }
+                        onEdit={this.onEditCouponListItem}
                       />
                     ))}
                   </List>
@@ -326,17 +396,7 @@ export class CouponList extends React.PureComponent<Props, State> {
               activeCoupons={this.props.activeCoupons}
               goToCoupon={this.props.goToCoupon}
               inactiveCoupons={this.props.inactiveCoupons}
-              onEdit={(couponSelected: Coupon) =>
-                this.setState(
-                  {
-                    couponFormState: {
-                      open: true,
-                      initial: couponSelected,
-                    },
-                  },
-                  () => this.props.fetchPaymentPackList({ page_size: 70000 }),
-                )
-              }
+              onEdit={this.onEditCouponListComponent}
               setCouponToDelete={this.props.setCouponToDelete}
             />
           </div>

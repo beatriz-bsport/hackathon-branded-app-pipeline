@@ -90,7 +90,7 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   is_universal_pass: boolean;
   is_usable_by_staff: boolean;
   applies_for_payroll: boolean;
-  off_peak_schedule: {};
+  off_peak_schedule: Record<string, string[][]>;
 };
 
 export type ConsumerPaymentPack = {
@@ -358,4 +358,24 @@ export type MaxoutData = {
     period: 'day' | 'week' | 'month';
     nb: number;
   };
+};
+
+export type PaymentPackFactoryOptions = {
+  isUnlimited?: boolean;
+  validityDaterange?: {
+    upper: string;
+    lower: string;
+  };
+  isDisabled?: boolean;
+  isNewMemberOnly?: boolean;
+  isManagerOnly?: boolean;
+  isEditable?: boolean;
+  isOnsitePaymentAvailable?: boolean;
+  isPenaltyActive?: boolean;
+  isNoShowPenaltyActive?: boolean;
+  isStartOnFirstUser?: boolean;
+  isAllowGuestPass?: boolean;
+  isUniversalPass?: boolean;
+  isUsableByStaff?: boolean;
+  isAppliesForPayroll?: boolean;
 };

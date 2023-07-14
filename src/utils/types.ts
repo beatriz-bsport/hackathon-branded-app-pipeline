@@ -14,3 +14,8 @@ export type WithHandlerType<
 export type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>;
 };
+
+export enum FakerTextLength {
+  SMALL = 'sm',
+  LONG = 'lg',
+}

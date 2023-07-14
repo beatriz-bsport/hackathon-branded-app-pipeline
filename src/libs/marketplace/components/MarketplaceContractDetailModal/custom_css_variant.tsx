@@ -14,7 +14,7 @@ import { CompanyTheme } from '#libs/theme/types';
 
 import FactoryBotSubscription from '#libs/subscription/factory';
 import FactoryBotPaymentCombo from '#libs/payment-combo/factory';
-import FactoryBotPaymentPack from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#libs/payment-packs/factory';
 import { private_services_passes_factory } from '#libs/private-service/factory';
 
 const contractDetailModalVariationRegistry = [
@@ -30,7 +30,7 @@ const contractDetailModalVariationRegistry = [
 
 const contractFromFactory = FactoryBotSubscription.Contract.create();
 const fakePaymentCombo = FactoryBotPaymentCombo.PaymentCombo.create();
-const fakepaymentPack = FactoryBotPaymentPack.PaymentPack.create();
+const fakepaymentPack = paymentPackFactory();
 const fakePrivatePass = private_services_passes_factory(1)[0];
 
 const usePropsFromVariation = (

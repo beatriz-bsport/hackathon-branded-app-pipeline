@@ -1,13 +1,12 @@
-// @ts-nocheck
 import React from 'react';
 import { MarketplacePaymentPackDetailsModalForStorybook, Props } from '.';
 
-import FactoryBotPaymentPack from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#libs/payment-packs/factory';
 
-const fakepaymentPackFullDetails =
-  FactoryBotPaymentPack.PaymentPackFullDetails.create();
+const fakepaymentPackFullDetails = paymentPackFactory();
 
 const Template = (args: Props) => {
+  // @ts-expect-error
   return <MarketplacePaymentPackDetailsModalForStorybook {...args} />;
 };
 

@@ -1,15 +1,18 @@
 import React from 'react';
-import FactoryBotPaymentPack from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#libs/payment-packs/factory';
 
 import { MarketplacePaymentPackCardForStorybook } from '.';
 
 import type { Props } from '.';
 
-const fakepaymentPackWithDateRange =
-  FactoryBotPaymentPack.PaymentPackWithDateRange.create();
+const fakepaymentPackWithDateRange = paymentPackFactory({
+  validityDaterange: {
+    lower: '2023-04-27',
+    upper: '2023-06-10',
+  },
+});
 
-const fakepaymentPackWithoutDateRange =
-  FactoryBotPaymentPack.PaymentPack.create();
+const fakepaymentPackWithoutDateRange = paymentPackFactory();
 
 const Template = (args: Props) => {
   return (
@@ -23,8 +26,6 @@ const Template = (args: Props) => {
 export const paymentPackCardWithoutDateRange = Template.bind({});
 paymentPackCardWithoutDateRange.args = {
   paymentPack: fakepaymentPackWithoutDateRange,
-  description: 'Test micro un, deux',
-  isUniversalPass: false,
   addToCart: () => {},
   onOpenDetailDialog: () => {},
 };
@@ -32,8 +33,6 @@ paymentPackCardWithoutDateRange.args = {
 export const paymentPackCardWithDateRange = Template.bind({});
 paymentPackCardWithDateRange.args = {
   paymentPack: fakepaymentPackWithDateRange,
-  description: 'Test micro un, deux',
-  isUniversalPass: false,
   addToCart: () => {},
   onOpenDetailDialog: () => {},
 };

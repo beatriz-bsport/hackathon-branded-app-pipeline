@@ -12,7 +12,7 @@ import {
 } from '#libs/exportable-components/types';
 import { CompanyTheme } from '#libs/theme/types';
 
-import paymentPackFactory from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#libs/payment-packs/factory';
 
 const paymentPackCardVariationRegistry = [
   {
@@ -25,7 +25,7 @@ const paymentPackCardVariationRegistry = [
   },
 ];
 
-const paymentPackFromFactory = paymentPackFactory.PaymentPack.create();
+const paymentPackFromFactory = paymentPackFactory();
 
 const usePropsFromVariation = (
   variationsSelected: Record<string, VariationConfigurationChoice>,

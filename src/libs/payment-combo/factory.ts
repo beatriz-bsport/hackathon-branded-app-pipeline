@@ -2,8 +2,9 @@
 import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
 import { private_services_passes_factory } from '#libs/private-service/factory';
-import FactoryBotPaymentPack, {
-  PaymentPackStorybookListFactory,
+import {
+  paymentPackFactory,
+  paymentPackListFactory,
 } from '#libs/payment-packs/factory';
 
 import { PaymentCombo, PaymentComboItem } from '#libs/payment-combo/types';
@@ -26,7 +27,7 @@ const paymentComboItemListFactory = (
       name: faker.lorem.word(),
       quantity: Math.floor(Math.random() * 10),
       tax: 'VAT',
-      data: FactoryBotPaymentPack.PaymentPack.create(),
+      data: paymentPackFactory(),
     };
   });
 };
@@ -38,7 +39,7 @@ export const PaymentComboStorybookFactory = (id?: number) => {
     price: Math.floor(Math.random() * 100),
     tax: Math.floor(Math.random() * 100),
     // @ts-expect-error
-    payment_packs: PaymentPackStorybookListFactory(2),
+    payment_packs: paymentPackListFactory(2),
     // @ts-expect-error
     private_passes: private_services_passes_factory(2),
     shop_items: [],

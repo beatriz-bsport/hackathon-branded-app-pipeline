@@ -3,9 +3,9 @@ import {
   MarketplacePaymentPackOffPeakRestrictionModalForStorybook,
   Props,
 } from '.';
-import FactoryBotPaymentPack from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#libs/payment-packs/factory';
 
-const fakePaymentPack = FactoryBotPaymentPack.PaymentPackFullDetails.create();
+const fakePaymentPack = paymentPackFactory();
 
 const Template = (args: Props) => {
   return (

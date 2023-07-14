@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 
-import { PaymentPackStorybookListFactory } from '#libs/payment-packs/factory';
+import { paymentPackListFactory } from '#libs/payment-packs/factory';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { Props, CarouselForStorybook } from '#csscomponents/Carousel';
 
@@ -9,7 +9,7 @@ const CarouselTemplate = (args: Props<PaymentPack>) => <Carousel {...args} />;
 
 export const ItemCarousel = CarouselTemplate.bind({});
 ItemCarousel.args = {
-  data: PaymentPackStorybookListFactory(10),
+  data: paymentPackListFactory(10),
   renderItem: (item: Partial<PaymentPack>, index: number) => {
     return <div key={index}>{item.name}</div>;
   },

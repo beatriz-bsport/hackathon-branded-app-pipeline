@@ -2,17 +2,18 @@
 import React from 'react';
 
 import { Props, SelectForStorybook } from '#components/css-only/Select';
-import { PaymentPackStorybookListFactory } from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#libs/payment-packs/factory';
 import { LOCALE_LIST } from '../../input/LocaleSelector.component.tsx';
 
 import './style.css';
 import { useTranslation } from 'react-i18next';
 
-const options: { label: string; value: string }[] =
-  PaymentPackStorybookListFactory(20).map((paymentPack) => ({
+const options: { label: string; value: string }[] = paymentPackFactory(20).map(
+  (paymentPack) => ({
     label: paymentPack.name,
     value: paymentPack.id.toString(),
-  }));
+  }),
+);
 
 const SelectTemplate = (args: Props) => <SelectForStorybook {...args} />;
 const CountrySelectTemplate = (args: Props) => {

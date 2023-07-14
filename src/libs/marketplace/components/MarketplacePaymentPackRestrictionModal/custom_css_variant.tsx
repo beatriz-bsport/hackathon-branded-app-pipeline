@@ -10,9 +10,9 @@ import {
   MarketplacePage,
 } from '#libs/exportable-components/types';
 
-import FactoryBotPaymentPack from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#libs/payment-packs/factory';
 
-const fakePaymentPack = FactoryBotPaymentPack.PaymentPackFullDetails.create();
+const fakePaymentPack = paymentPackFactory();
 
 const usePropsFromVariation =
   (): MarketplacePaymentPackRestrictionModalProps => {

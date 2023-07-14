@@ -4,7 +4,7 @@ import moment from 'moment-timezone';
 import FranchiseGenericProductDoubleList, {
   Props,
 } from './FranchiseGenericProductDoubleList.component';
-import { PaymentPackStorybookListFactory } from '#libs/payment-packs/factory';
+import { paymentPackListFactory } from '#libs/payment-packs/factory';
 import { PaymentPackTemplate } from '#libs/payment-packs/types';
 import { GiftcardTemplateListFactory } from '#libs/giftcard/factory';
 import { GiftcardTemplate } from '#libs/giftcard/types';
@@ -29,8 +29,8 @@ export const PaymentPackTemplateList = FranchisePaymentPackTemplateList.bind(
 
 PaymentPackTemplateList.args = {
   ...defaultArgs,
-  activeItemList: PaymentPackStorybookListFactory(6),
-  inactiveItemList: PaymentPackStorybookListFactory(6, true),
+  activeItemList: paymentPackListFactory(6),
+  inactiveItemList: paymentPackListFactory(6, { isDisabled: true }),
   deleteTemplateDialogContent:
     'Tu vas supprimer ce payment pack template, tention',
   emptyExplainLabel: 'Aucune carte de cours',

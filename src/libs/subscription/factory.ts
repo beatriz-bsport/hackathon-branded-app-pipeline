@@ -1,12 +1,12 @@
 // @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
-import FactoryBotPaymentPack from '#libs/payment-packs/factory';
+import { paymentPackFactory } from '#libs/payment-packs/factory';
 import { Contract } from '#libs/subscription/types';
 
 const intervals = ['month', 'week', 'day', 'year'];
 
-const fakePaymentPack = FactoryBotPaymentPack.PaymentPack.create();
+const fakePaymentPack = paymentPackFactory();
 
 FactoryBot.define('Contract', {
   id: FactoryBot.sequence(),

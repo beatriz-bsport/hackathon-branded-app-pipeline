@@ -234,6 +234,9 @@
 .bs-carousel__item {
   opacity: 0.75;
   flex-basis: calc(100% / 3);
+}
+
+.bs-carousel__item--hidden {
   display: none;
 }
 

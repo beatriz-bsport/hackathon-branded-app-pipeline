@@ -24,7 +24,17 @@ export const getCarouselItemClasses = (carouselParams: carouselParams) => {
     itemCount,
   } = carouselParams;
 
-  const itemClasses = ['bs-carousel__item'];
+  const itemMustBeHidden =
+    !isCurrentItem &&
+    !isPreviousItem &&
+    !isNextItem &&
+    itemIndex !== nextItemIndex + 1 &&
+    itemIndex !== previousItemIndex - 1;
+
+  const itemClasses = [
+    'bs-carousel__item',
+    ...(itemMustBeHidden ? ['bs-carousel__item--hidden'] : []),
+  ];
 
   if (isPreviousItem) itemClasses.push('bs-carousel__item__left');
   if (isCurrentItem && itemIndex === 0 && itemCount === 1) {

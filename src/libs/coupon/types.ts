@@ -49,6 +49,8 @@ export type Coupon = {
   coupon_template_instance: CouponTemplateInstance;
   coupon_type: CouponKind;
   available_unique_codes?: AvailableUniqueCodes;
+  coupon_cost_for_company: number;
+  nb_unique_codes: number;
 };
 
 export type CouponState = {

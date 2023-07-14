@@ -1,20 +1,22 @@
 // @ts-nocheck
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { Theme } from '@material-ui/core/styles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Form, Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
-import Button from '@material-ui/core/Button';
-import { Divider, LinearProgress } from '@material-ui/core';
 import moment from 'moment-timezone';
 import pick from 'lodash/pick';
+
+import { Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Button from '@material-ui/core/Button';
+import { Divider, LinearProgress } from '@material-ui/core';
 import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
   START_ON_FIRST_ATTENDANCE,
 } from '@bsport/common/lib/master-data/payment-pack';
+
 import {
   offPeakGroupDefault,
   formatOffPeakScheduleOnSubmit,
@@ -26,30 +28,30 @@ import {
   PaymentPack,
   PaymentPackCategory,
   PaymentPackFormValues,
-} from '../../types';
+} from '#libs/payment-packs/types';
 import PaymentPackFormGeneral from './PaymentPackFormGeneral.component';
 import PaymentPackFormValidity from './PaymentPackFormValidity.component';
 import PaymentPackFormRestrictions from './PaymentPackFormRestrictions.component';
-import UniversalPassFormPrivateserviceCompatibility from '../../../universal-pass/components/UniversalPassFormPrivateserviceCompatibility.component';
-import { SCT } from '#libs/category/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
+import UniversalPassFormPrivateserviceCompatibility from '#libs/universal-pass/components/UniversalPassFormPrivateserviceCompatibility.component';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import {
+  PENALTY_KIND_BLOCK_CPP,
+  PENALTY_KIND_NEGATIVE_ACCOUNT,
+} from '#libs/payment-packs/constants';
 import PaymentPackFormAdvancedOptions from './PaymentPackFormAdvancedOptions.component';
-import { Tag, TagGroup } from '#libs/tag/types';
 import { Actions } from '#components/forms';
 import { Moment } from '../../../../i18n';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+
+import type { Tag, TagGroup } from '#libs/tag/types';
+import type { SCT } from '#libs/category/types';
+import type { Establishment } from '#libs/establishment/types';
+import type { MetaActivity } from '#libs/meta-activity/types';
 import type {
   PrivateServiceWithSlots,
   PrivatePass,
   ServiceCompatibilityPass,
 } from '#libs/private-service/types';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-
-import {
-  PENALTY_KIND_BLOCK_CPP,
-  PENALTY_KIND_NEGATIVE_ACCOUNT,
-} from '../../constants';
 
 const validityDict = {
   [START_ON_PURCHASE]: 'billing',
@@ -61,6 +63,7 @@ const penaltyKindDict = {
   [PENALTY_KIND_BLOCK_CPP]: 'block',
   [PENALTY_KIND_NEGATIVE_ACCOUNT]: 'account',
 };
+
 const getFormInitial = (
   compatibleServicePass: Array<ServiceCompatibilityPass> = [],
 ) => {
@@ -81,6 +84,7 @@ const getFormInitial = (
   }
   return [];
 };
+
 type OwnProps = {
   paymentPackCategories: Array<PaymentPackCategory>;
   categoryList: Array<SCT>;
@@ -102,6 +106,7 @@ type OwnProps = {
   compatibleServicePass: Array<ServiceCompatibilityPass>;
   allowGuestMaster?: boolean;
 };
+
 type Props = OwnProps & WithTranslation;
 
 const {
@@ -112,35 +117,41 @@ const {
 } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.PaymentPack,
 );
-export const PaymentPackForm = (props: Props) => {
+
+export const PaymentPackForm: React.FC<Props> = ({
+  t,
+  paymentPackCategories,
+  categoryList,
+  availableEstablishmentList,
+  metaActivityList,
+  tagList,
+  initial,
+  onCancelText,
+  provincialTax,
+  isInDrawer,
+  onCancel,
+  onSubmit,
+  closeForm,
+  clearPaymentPackToEdit,
+  privateServices,
+  compatibleServicePass,
+  allowGuestMaster,
+  creditScaleFactor,
+}) => {
   const [disabledUniversalPassFields, setDisableUniversalPassFields] =
     React.useState<boolean>(false);
+
   React.useEffect(() => {
-    trackFormAdd(props.initial?.id);
+    trackFormAdd(initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const {
-    t,
-    paymentPackCategories,
-    categoryList,
-    availableEstablishmentList,
-    metaActivityList,
-    tagList,
-    initial,
-    onCancelText,
-    provincialTax,
-    isInDrawer,
-    onCancel,
-    onSubmit,
-    closeForm,
-    clearPaymentPackToEdit,
-    privateServices,
-    compatibleServicePass,
-    allowGuestMaster,
-  } = props;
+
   const classes = useStyles();
+
   const now = moment().format(DATE_FORMAT);
+
   const oneMonthLater = moment(now).add(1, 'M').format(DATE_FORMAT);
+
   const offPeakGroupDefaultValue = useMemo(() => {
     return [offPeakGroupDefault()];
   }, []);
@@ -163,9 +174,16 @@ export const PaymentPackForm = (props: Props) => {
   ]);
 
   const getFormInitialValue = useMemo(
-    () => getFormInitial(props.compatibleServicePass),
-    [props.compatibleServicePass],
+    () => getFormInitial(compatibleServicePass),
+    [compatibleServicePass],
   );
+
+  const handleCancel = useCallback(() => {
+    trackFormCancel(initial?.id);
+    clearPaymentPackToEdit?.();
+    closeForm?.();
+    onCancel?.();
+  }, [clearPaymentPackToEdit, closeForm, initial?.id, onCancel]);
 
   return (
     <div>
@@ -177,7 +195,7 @@ export const PaymentPackForm = (props: Props) => {
             ? {
                 ...initial,
                 credit_number: initial?.unlimited ? 'unlimited' : 'limited',
-                credits: initial?.credits / (props.creditScaleFactor || 1) || 0,
+                credits: initial?.credits / (creditScaleFactor || 1) || 0,
                 penalty_active: !!initial?.penalty_active,
                 no_show_penalty_active: !!initial?.no_show_penalty_active,
                 validity: initial?.validity_daterange ? 'slot' : 'givenNumber',
@@ -331,7 +349,7 @@ export const PaymentPackForm = (props: Props) => {
               break;
           }
           if (values.credit_number === 'limited') {
-            sanitizedValues.credits *= props.creditScaleFactor || 1;
+            sanitizedValues.credits *= creditScaleFactor || 1;
             sanitizedValues.apply_penalties = false;
           }
           if (!values.full_vod_access) {
@@ -409,19 +427,13 @@ export const PaymentPackForm = (props: Props) => {
           onSubmit(data, {
             onSuccess: () => {
               actions.setSubmitting(false);
-              trackFormSuccess(props.initial?.id);
-              if (clearPaymentPackToEdit) {
-                clearPaymentPackToEdit();
-              }
+              trackFormSuccess(initial?.id);
+              clearPaymentPackToEdit?.();
             },
             onError: () => {
               actions.setSubmitting(false);
-              if (clearPaymentPackToEdit) {
-                clearPaymentPackToEdit();
-              }
-              if (closeForm) {
-                closeForm();
-              }
+              clearPaymentPackToEdit?.();
+              closeForm?.();
             },
           });
         }}
@@ -492,27 +504,14 @@ export const PaymentPackForm = (props: Props) => {
                 id="paymentpack-form-actions"
               >
                 <Actions>
-                  {onCancel || closeForm ? (
-                    <Button
-                      onClick={() => {
-                        trackFormCancel(props.initial?.id);
-                        if (clearPaymentPackToEdit) {
-                          clearPaymentPackToEdit();
-                        }
-                        if (closeForm) {
-                          closeForm();
-                        }
-                        if (onCancel) {
-                          onCancel();
-                        }
-                      }}
-                    >
+                  {!!onCancel || !!closeForm ? (
+                    <Button onClick={handleCancel}>
                       {onCancelText || t('form.paymentPack.actions.cancel')}
                     </Button>
                   ) : null}
                   <Button
                     onClick={() => {
-                      trackFormSubmitIntent(props.initial?.id);
+                      trackFormSubmitIntent(initial?.id);
                       handleSubmit();
                     }}
                     disabled={isSubmitting}
@@ -559,8 +558,8 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-export default compose<any, OwnProps>(withTranslation('paymentPack'))(
-  PaymentPackForm,
+export default React.memo(
+  compose<any, OwnProps>(withTranslation('paymentPack'))(PaymentPackForm),
 );
 
 const paymentPackSchema = Yup.object().shape({

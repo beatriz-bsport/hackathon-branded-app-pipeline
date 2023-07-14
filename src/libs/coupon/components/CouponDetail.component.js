@@ -18,6 +18,7 @@ import { Discount, Coupon } from '../types';
 type Props = {
   coupon: Coupon,
   discountLoading: boolean,
+  isLoading: boolean,
   discounts: Array<Discount>,
   goToInvoice: (uuid: string) => void,
   goToBillingPlan: (id: number) => void,
@@ -45,7 +46,11 @@ export class CouponDetail extends React.PureComponent<Props> {
         <Grid container>
           <Grid item className={classes.paperContainer} md={6} xs={12}>
             <Paper>
-              <CouponCard coupon={coupon} goToEdit={this.props.goToEdit} />
+              <CouponCard
+                coupon={coupon}
+                goToEdit={this.props.goToEdit}
+                isLoading={this.props.isLoading}
+              />
             </Paper>
           </Grid>
           <Grid item className={classes.paperContainer} md={6} xs={12}>

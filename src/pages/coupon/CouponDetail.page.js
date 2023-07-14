@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 
 import { withTranslation } from 'react-i18next';
@@ -6,6 +5,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import { compose, withState, withProps, withHandlers } from 'recompose';
+import { CouponKind } from '@bsport/common/lib/master-data/coupon';
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_SHOP_ITEM,
+  BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_COMBO_ITEM,
+} from '@bsport/common/lib/master-data/buyable-items';
 import CouponDeleteModal from '../../libs/coupon/components/CouponDeleteModal.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
@@ -23,10 +29,14 @@ import {
   deleteCoupon,
   resetDiscounts,
   updateCoupon,
+  updateUniqueCodeCoupon,
+  retrieveCoupon,
 } from '../../libs/coupon/actions';
 import type { Coupon, Discount } from '../../libs/coupon/types';
 import CouponDetail from '../../libs/coupon/components/CouponDetail.component';
 import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component';
+import UniqueCodeCouponFormDrawer from '#libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
+
 import {
   fetchAllPaymentPacks,
   fetchPaymentPackBulk as fetchSelectedPaymentPacks,
@@ -117,6 +127,7 @@ export class CouponCreate extends Component<Props, State> {
     super(props);
     this.state = {
       couponFormState: { open: false, initial: null },
+      uniqueCodeCouponFormState: { open: false, initial: null },
     };
   }
 
@@ -134,7 +145,7 @@ export class CouponCreate extends Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.fetchCouponPage(1);
+    this.props.retrieveCoupon(this.props.id);
     this.props.fetchTags();
   }
 
@@ -173,8 +184,85 @@ export class CouponCreate extends Component<Props, State> {
     );
   };
 
+  updateUniqueCodeCoupon = (data: Coupon, options?: OptionCallback) => {
+    if (this.state.uniqueCodeCouponFormState?.initial?.id) {
+      return this.props.updateUniqueCodeCoupon(
+        this.state.uniqueCodeCouponFormState.initial.id,
+        data,
+        {
+          onSuccess: () => {
+            this.setState({
+              uniqueCodeCouponFormState: {
+                open: false,
+                initial: null,
+              },
+            });
+            this.props.retrieveCoupon(this.props.coupon.id);
+            if (options && options.onSuccess) {
+              options.onSuccess();
+            }
+          },
+          onError: () => {
+            if (options && options.onError) options.onError();
+          },
+        },
+      );
+    }
+    return null;
+  };
+
+  fetchItemsOnUpdateMode = (uniqueCodeCoupon: Coupon) => {
+    switch (uniqueCodeCoupon.applies_to) {
+      case BUYABLE_ITEM_PASS:
+        fetchSelectedPaymentPacks(uniqueCodeCoupon.only_on_objects);
+        break;
+      case BUYABLE_ITEM_SHOP_ITEM:
+        fetchSelectedShopItems(
+          uniqueCodeCoupon.company,
+          uniqueCodeCoupon.only_on_objects,
+        );
+        break;
+      case BUYABLE_ITEM_PRIVATE_PASS:
+        fetchSelectedPrivatePasses(uniqueCodeCoupon.only_on_objects);
+        break;
+      case BUYABLE_ITEM_COMBO_ITEM:
+        fetchSelectedPaymentCombos({
+          company: uniqueCodeCoupon.company,
+          id__in: uniqueCodeCoupon.only_on_objects,
+        });
+        break;
+      default:
+        break;
+    }
+  };
+
+  handleOnEdit = () => {
+    if (
+      this.props.coupon &&
+      this.props.coupon.coupon_type === CouponKind.COUPON_VIA_CODE
+    ) {
+      this.setState({
+        couponFormState: { open: true, initial: this.props.coupon },
+      });
+    } else if (
+      this.props.coupon &&
+      this.props.coupon.coupon_type ===
+        CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE
+    ) {
+      this.fetchItemsOnUpdateMode(this.props.coupon);
+      this.setState({
+        uniqueCodeCouponFormState: { open: true, initial: this.props.coupon },
+      });
+    }
+  };
+
   onCloseFormDrawer = () =>
     this.setState({ couponFormState: { open: false, initial: null } });
+
+  onCloseUniqueCodeCouponFormDrawer = () =>
+    this.setState({
+      uniqueCodeCouponFormState: { open: false, initial: null },
+    });
 
   render() {
     if (!this.props.coupon) {
@@ -189,26 +277,21 @@ export class CouponCreate extends Component<Props, State> {
           discounts={this.props.discounts}
           fetchCouponDiscounts={this.props.fetchCouponDiscounts}
           goToBillingPlan={this.props.goToBillingPlan}
-          goToEdit={() =>
-            this.setState({
-              couponFormState: { open: true, initial: this.props.coupon },
-            })
-          }
+          goToEdit={this.handleOnEdit}
           goToInvoice={this.props.goToInvoice}
+          isLoading={this.props.loading}
           itemPerPage={PAGE_SIZE}
         />
-        <BottomActionButtons
-          onDelete={
-            this.props.coupon.coupon_template_instance
-              ? null
-              : this.openDeleteModal
-          }
-          onEdit={() =>
-            this.setState({
-              couponFormState: { open: true, initial: this.props.coupon },
-            })
-          }
-        />
+        {!this.props.loading && (
+          <BottomActionButtons
+            onDelete={
+              this.props.coupon.coupon_template_instance
+                ? null
+                : this.openDeleteModal
+            }
+            onEdit={this.handleOnEdit}
+          />
+        )}
         <CouponDeleteModal
           onClose={this.closeDeleteModal}
           onSubmit={this.props.deleteCoupon}
@@ -236,6 +319,22 @@ export class CouponCreate extends Component<Props, State> {
           tagList={this.props.tagList}
           tagsLoading={this.props.tagsLoading}
         />
+        <UniqueCodeCouponFormDrawer
+          isLoading={this.props.loading}
+          isProcessing={this.props.createOrUpdateLoading}
+          onCancel={this.onCloseUniqueCodeCouponFormDrawer}
+          onSubmit={this.updateUniqueCodeCoupon}
+          open={this.state.uniqueCodeCouponFormState.open}
+          paymentCombos={this.props.paymentCombos}
+          paymentCombosById={this.props.allPaymentCombosById}
+          paymentPacks={this.props.paymentPacks}
+          paymentPacksById={this.props.allPaymentPacksById}
+          privatePasses={this.props.privatePasses}
+          privatePassesById={this.props.allPrivatePassesById}
+          shopItems={this.props.shopItems}
+          shopItemsById={this.props.allShopItemsById}
+          uniqueCodeCoupon={this.state.uniqueCodeCouponFormState.initial}
+        />
       </div>
     );
   }
@@ -250,6 +349,22 @@ const mapWithHandlers = {
           if (options && options.onSuccess) options.onSuccess(couponUpdated);
         },
       }),
+  updateUniqueCodeCoupon:
+    (props: ConnectedProps<typeof connector>) =>
+    (
+      id: number,
+      data: UniqueCodeCouponUpdatePayload,
+      options?: OptionCallback<Coupon>,
+    ) => {
+      props.updateUniqueCodeCouponAction(id, data, {
+        onSuccess: (couponUpdated: Coupon) => {
+          if (options && options.onSuccess) options.onSuccess(couponUpdated);
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
+      });
+    },
 };
 
 const connector = connect(
@@ -293,7 +408,9 @@ const connector = connect(
     fetchPaymentComboList,
     fetchSelectedPaymentCombos,
     updateCouponAction: updateCoupon,
+    updateUniqueCodeCouponAction: updateUniqueCodeCoupon,
     resetDisabledPaymentPack: resetDisabledPaymentPackAction,
+    retrieveCoupon,
   },
 );
 export default compose(

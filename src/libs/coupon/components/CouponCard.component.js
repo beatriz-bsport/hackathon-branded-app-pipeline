@@ -28,6 +28,7 @@ type Props = {
   classes: Object,
   t: TFunction,
   goToEdit: () => void,
+  isLoading: boolean,
 };
 
 export const CouponCard = (props: Props) => {
@@ -152,7 +153,11 @@ export const CouponCard = (props: Props) => {
         ) : null}
       </div>
       <div className={classes.actionButtons}>
-        <Button color="primary" onClick={props.goToEdit}>
+        <Button
+          color="primary"
+          disabled={props.isLoading}
+          onClick={props.goToEdit}
+        >
           {props.t('detail.seeParameters')}
         </Button>
       </div>

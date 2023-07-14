@@ -133,4 +133,15 @@ exports.default = {
     bsportIdentifiers: 'Identifiants bsport',
     spiviIdentifiers: 'Identifiants Spivi',
   },
+  spotSelector: {
+    legend: 'Légende',
+    available: 'Disponible',
+    availableSpot: 'Place disponible',
+    availablePersonalizedSpot: '{{ spotName }} disponible',
+    unavailable: 'Non disponible',
+    unavailableSpot: 'Place non disponible',
+    unavailablePersonalizedSpot: '{{ spotName }} non disponible',
+    seeAll: 'Voir tout',
+    confirm: 'Confirmer',
+  },
 };

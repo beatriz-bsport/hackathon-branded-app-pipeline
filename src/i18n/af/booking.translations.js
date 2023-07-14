@@ -249,6 +249,7 @@ exports.default = {
     combos: 'Packs',
     passes: 'Cartes de cours',
     otherPasses: 'Autres cartes de cours',
+    spotSelectorTitle: 'Choisissez votre place',
   },
   details: {
     pleaseSelectABooking: 'Sélectionnez une réservation pour voir le détails',

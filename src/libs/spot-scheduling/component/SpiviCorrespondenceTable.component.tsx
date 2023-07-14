@@ -36,7 +36,7 @@ export const SpiviCorrespondenceTable: React.FC<Props> = (props) => {
   return (
     <div className={classes.tableContainer}>
       <div className={classes.header}>
-        <CanvasSpotIcon spotType={props.spotType} />
+        <CanvasSpotIcon spotType={props.spotType} size={71} />
         <Typography className={classes.bold}>
           {props.spotType?.name || t('spotScheduling:toolsMenu.spot')}
         </Typography>

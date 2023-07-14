@@ -236,7 +236,8 @@
       "subscriptions": "Contrats",
       "combos": "Packs",
       "passes": "Cartes de cours",
-      "otherPasses": "Autres cartes de cours"
+      "otherPasses": "Autres cartes de cours",
+      "spotSelectorTitle": "Choisissez votre place"
     },
     "details": {
       "pleaseSelectABooking": "Sélectionnez une réservation pour voir le détails",
@@ -9998,6 +9999,17 @@
       "spotCorrespondence": "Correspondance des spots",
       "bsportIdentifiers": "Identifiants bsport",
       "spiviIdentifiers": "Identifiants Spivi"
+    },
+    "spotSelector": {
+      "legend": "Légende",
+      "available": "Disponible",
+      "availableSpot": "Place disponible",
+      "availablePersonalizedSpot": "{{ spotName }} disponible",
+      "unavailable": "Non disponible",
+      "unavailableSpot": "Place non disponible",
+      "unavailablePersonalizedSpot": "{{ spotName }} non disponible",
+      "seeAll": "Voir tout",
+      "confirm": "Confirmer"
     }
   },
   "stripe": {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import Price from '#csscomponents/Price';
@@ -10,9 +9,13 @@ import type { PaymentCombo } from '#libs/payment-combo/types';
 
 export type Props = {
   paymentCombo: PaymentCombo;
+  isExcludingTax: boolean;
 };
 
-export const InitialPrice: React.FC<Props> = ({ paymentCombo }) => {
+export const InitialPrice: React.FC<Props> = ({
+  paymentCombo,
+  isExcludingTax,
+}) => {
   const totalPricePaymentPacks =
     paymentCombo?.payment_packs?.reduce(
       (accumulator, currentValue) =>
@@ -38,6 +41,8 @@ export const InitialPrice: React.FC<Props> = ({ paymentCombo }) => {
     <>
       {sumOfPackItemsPrices > paymentCombo?.price && (
         <Price
+          tax={paymentCombo.tax}
+          isExcludingTax={isExcludingTax}
           amount={sumOfPackItemsPrices}
           formatPriceWithCurrency={getCurrencyDisplayWithPrice}
           classes={{ 'bs-initial-price__price': 'bs-initial-price__price' }}

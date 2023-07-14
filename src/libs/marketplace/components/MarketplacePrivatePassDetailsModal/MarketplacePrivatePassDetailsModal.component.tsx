@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import './styles.css';
 import { useTranslation } from 'react-i18next';
@@ -23,7 +22,7 @@ export type Props = {
   privatePass: PrivatePass;
   isOpen: boolean;
   isExcludingTax: boolean;
-  tax: number | undefined;
+  tax: number;
   compatiblePrivateServices: number;
   onDialogClose: () => void;
   onAddToCart: (packId: number) => void;

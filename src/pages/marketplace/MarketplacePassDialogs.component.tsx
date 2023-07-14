@@ -194,7 +194,7 @@ const MarketplacePassDialogs = (props: Props) => {
         isOpen={isPaymentPackDetailsDialogOpen && !!dialogSelectedItem}
         onAddToCart={addPaymentPackToCart}
         isExcludingTax={isExcludingTax}
-        tax={dialogSelectedItem?.tax}
+        tax={dialogSelectedItem?.tax || 0}
         onDialogClose={handleClosePaymentPackDetailsDialog}
         onShowRestrictionDialog={handleOpenPaymentPackRestrictionDialog}
         onShowCompatibilityDialog={handleOpenPaymentPackCompatibilityDialog}
@@ -232,7 +232,7 @@ const MarketplacePassDialogs = (props: Props) => {
         isOpen={isPrivatePassDetailsDialogOpen && !!dialogSelectedItem}
         onDialogClose={handleClosePrivatePassDetailsDialog}
         isExcludingTax={isExcludingTax}
-        tax={dialogSelectedItem?.tax}
+        tax={dialogSelectedItem?.tax || 0}
         compatiblePrivateServices={privatePassCompatibleServices?.length ?? 0}
         onAddToCart={addPrivatePassToCart}
         onShowCompatibilityDialog={handleOpenPrivatePassCompatibilityDialog}
@@ -249,7 +249,7 @@ const MarketplacePassDialogs = (props: Props) => {
         paymentCombo={dialogSelectedItem as PaymentCombo}
         isOpen={isPaymentComboDetailsDialogOpen && !!dialogSelectedItem}
         isExcludingTax={isExcludingTax}
-        tax={dialogSelectedItem?.tax}
+        tax={dialogSelectedItem?.tax || 0}
         onDialogClose={handleClosePaymentComboDetailsDialog}
         onAddToCart={handleAddToCart}
       />

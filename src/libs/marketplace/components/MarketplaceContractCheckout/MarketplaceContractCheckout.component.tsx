@@ -153,6 +153,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                       'bs-contract-checkout__price',
                   }}
                   isExcludingTax={isExcludingTax}
+                  tax={parseFloat(contract?.tax) || 0}
                 >
                   <BillingInterval contract={contract} />
                 </Price>

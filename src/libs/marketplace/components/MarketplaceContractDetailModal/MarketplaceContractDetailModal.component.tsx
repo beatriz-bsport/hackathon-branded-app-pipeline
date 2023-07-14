@@ -214,6 +214,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                       <div className="bs-contract-dialog__header__price-container--mobile">
                         <Price
                           isExcludingTax={isExcludingTax}
+                          tax={parseFloat(contract?.tax) || 0}
                           amount={contract?.recurrent_price}
                           formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                           color={Color.PRIMARY}
@@ -252,6 +253,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                     >
                       <Price
                         isExcludingTax={isExcludingTax}
+                        tax={parseFloat(contract?.tax) || 0}
                         amount={contract?.recurrent_price}
                         color={Color.PRIMARY}
                         formatPriceWithCurrency={getCurrencyDisplayWithPrice}

@@ -77,7 +77,10 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
               onOpenDetailDialog={onOpenDetailDialog}
             />
             <div className="bs-pack-card__prices-container">
-              <InitialPrice paymentCombo={paymentCombo} />
+              <InitialPrice
+                paymentCombo={paymentCombo}
+                isExcludingTax={isExcludingTax}
+              />
               <Price
                 tax={paymentCombo.tax}
                 isExcludingTax={isExcludingTax}

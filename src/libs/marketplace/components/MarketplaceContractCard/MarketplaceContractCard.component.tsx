@@ -114,6 +114,7 @@ const MarketplaceContractCard: React.FC<Props> = ({
             <div className="bs-contract-card__price-container">
               <Price
                 isExcludingTax={isExcludingTax}
+                tax={parseFloat(contract?.tax) || 0}
                 amount={contract?.recurrent_price}
                 formatPriceWithCurrency={getCurrencyDisplayWithPrice}
                 classes={{

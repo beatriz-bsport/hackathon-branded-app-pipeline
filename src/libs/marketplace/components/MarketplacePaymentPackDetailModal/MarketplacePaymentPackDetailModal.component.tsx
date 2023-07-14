@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import './styles.css';
 import { useTranslation } from 'react-i18next';
@@ -27,7 +26,7 @@ export type Props = {
   isOpen: boolean;
   isCompatibleWithAll?: boolean;
   isExcludingTax: boolean;
-  tax: number | undefined;
+  tax: number;
   onDialogClose: () => void;
   onAddToCart: (packId: number) => void;
   onShowCompatibilityDialog: () => void;

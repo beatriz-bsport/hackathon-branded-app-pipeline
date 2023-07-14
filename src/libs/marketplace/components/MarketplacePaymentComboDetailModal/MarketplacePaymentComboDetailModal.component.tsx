@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -29,7 +28,7 @@ import type { PaymentCombo } from '#libs/payment-combo/types';
 export type Props = {
   paymentCombo: PaymentCombo;
   isOpen: boolean;
-  tax: number | undefined;
+  tax: number;
   isExcludingTax: boolean;
   onDialogClose: () => void;
   onAddToCart: () => void;
@@ -95,7 +94,10 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                             isExcludingTax={isExcludingTax}
                             tax={tax}
                           />
-                          <InitialPrice paymentCombo={paymentCombo} />
+                          <InitialPrice
+                            paymentCombo={paymentCombo}
+                            isExcludingTax={isExcludingTax}
+                          />
                         </div>
                       </div>
                     </Item>

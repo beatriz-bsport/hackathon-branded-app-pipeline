@@ -27,6 +27,8 @@ import {
   createCoupon,
   updateCoupon,
   createUniqueCodeCoupon,
+  updateUniqueCodeCoupon,
+  retrieveCoupon,
 } from '#libs/coupon/actions';
 import {
   getActiveCoupons,
@@ -37,6 +39,7 @@ import {
 import type {
   Coupon,
   UniqueCodeCouponCreationPayload,
+  UniqueCodeCouponUpdatePayload,
 } from '#libs/coupon/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
@@ -176,15 +179,36 @@ export class CouponList extends React.PureComponent<Props, State> {
     });
   };
 
-  createUniqueCodeCoupon = (
+  createOrUpdateUniqueCodeCoupon = (
     data: UniqueCodeCouponCreationPayload,
     options?: OptionCallback<Coupon>,
   ) => {
+    if (this.state.uniqueCodeCouponFormState.initial?.id) {
+      return this.props.updateUniqueCodeCoupon(
+        this.state.uniqueCodeCouponFormState.initial.id,
+        data,
+        {
+          onSuccess: (couponUpdated) => {
+            this.setState({
+              uniqueCodeCouponFormState: {
+                open: false,
+                initial: null,
+              },
+            });
+            if (options && options.onSuccess) options.onSuccess(couponUpdated);
+          },
+          onError: () => {
+            if (options && options.onError) options.onError();
+          },
+        },
+      );
+    }
     return this.props.createUniqueCodeCoupon(data, {
       onSuccess: () => {
         this.setState({
           uniqueCodeCouponFormState: {
             open: false,
+            initial: null,
           },
         });
         if (options && options.onSuccess) options.onSuccess();
@@ -344,7 +368,7 @@ export class CouponList extends React.PureComponent<Props, State> {
             isLoading={this.props.loading}
             isProcessing={this.props.createOrUpdateLoading}
             onCancel={this.onCloseUniqueCodeCouponFormDrawer}
-            onSubmit={this.createUniqueCodeCoupon}
+            onSubmit={this.createOrUpdateUniqueCodeCoupon}
             open={this.state.uniqueCodeCouponFormState.open}
             paymentCombos={this.props.paymentCombos}
             paymentCombosById={this.props.allPaymentCombosById}
@@ -443,7 +467,9 @@ const connector = connect(
     createCouponAction: createCoupon,
     updateCouponAction: updateCoupon,
     createUniqueCodeCouponAction: createUniqueCodeCoupon,
+    updateUniqueCodeCouponAction: updateUniqueCodeCoupon,
     resetDisabledPaymentPack: resetDisabledPaymentPackAction,
+    retrieveCoupon,
   },
 );
 
@@ -477,6 +503,23 @@ const mapWithHandlers = {
         onSuccess: (couponCreated: Coupon) => {
           if (options && options.onSuccess) options.onSuccess(couponCreated);
           props.goToCoupon(couponCreated.id?.toString());
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
+      });
+    },
+  updateUniqueCodeCoupon:
+    (props: ConnectedProps<typeof connector>) =>
+    (
+      id: number,
+      data: UniqueCodeCouponUpdatePayload,
+      options?: OptionCallback<Coupon>,
+    ) => {
+      props.updateUniqueCodeCouponAction(id, data, {
+        onSuccess: (couponUpdated: Coupon) => {
+          if (options && options.onSuccess) options.onSuccess(couponUpdated);
+          props.goToCoupon(couponUpdated.id?.toString());
         },
         onError: () => {
           if (options && options.onError) options.onError();

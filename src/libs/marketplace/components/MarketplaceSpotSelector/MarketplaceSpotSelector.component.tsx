@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import './MarketplaceSpotSelector.css';
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import { TFunction } from 'i18next';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
-import { OptionCallback } from '../../../../state/types';
+import type { OptionCallback } from '../../../../state/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import OfferSummary from '#libs/offer/OfferSummary';
-import { OfferStatus, Offer_FULL } from '#libs/offer/types';
-import { CompanyTheme } from '#libs/theme/types';
-import {
+import type { OfferStatus, Offer_FULL } from '#libs/offer/types';
+import type { CompanyTheme } from '#libs/theme/types';
+import type {
   AssetForBlueprint,
   RoomBlueprint,
   SpotType,
@@ -21,14 +20,16 @@ import ToolTip from '#components/Tooltip.component';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import SpotSelector from '#libs/spot-scheduling/component/SpotSelector/SpotSelector.component';
 import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
+import { CanvasElement } from '#libs/spot-scheduling/CanvasSvg/tools/BaseClasses/Base.tool';
+
+const SPOT_LEGEND_ICON_SIZE = 40;
 
 type SpotLegendProps = {
   spotTypes: SpotType[];
-  t: TFunction;
 };
 
 const SpotLegend: React.FC<SpotLegendProps> = (props) => {
-  const { t } = props;
+  const { t } = useTranslation('spotScheduling');
   return (
     <>
       {props.spotTypes.map((spotType: SpotType) => {
@@ -53,13 +54,20 @@ const SpotLegend: React.FC<SpotLegendProps> = (props) => {
         return (
           <div key={`spot-type-${spotType.id}`}>
             <div className="bs-marketplace-spot-selector__legend__row">
-              <CanvasSpotIcon spotType={spotType} size={40} />
+              <CanvasSpotIcon
+                size={SPOT_LEGEND_ICON_SIZE}
+                spotType={spotType}
+              />
               <div className="bs-marketplace-spot-selector__legend__row-text">
                 {availableLegend}
               </div>
             </div>
             <div className="bs-marketplace-spot-selector__legend__row">
-              <CanvasSpotIcon spotType={spotType} size={40} taken />
+              <CanvasSpotIcon
+                taken
+                size={SPOT_LEGEND_ICON_SIZE}
+                spotType={spotType}
+              />
               <div className="bs-marketplace-spot-selector__legend__row-text">
                 {unavailableLegend}
               </div>
@@ -102,15 +110,31 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
   );
   const [isPanningDisabled, setIsPanningDisabled] = useState(true);
 
-  const onSelectSpot = (spot: number) => {
-    props.fetchOfferStatus(props.offer.id);
-    props.updateSpotForOffer(props.offer.id, spot);
-  };
+  const { offer, fetchOfferStatus, updateSpotForOffer, closeSpotSelector } =
+    props;
 
-  const onSelectSpotAndCloseSelector = (spot: number) => {
-    onSelectSpot(spot);
-    props.closeSpotSelector();
-  };
+  const onSelectSpot = useCallback(
+    (spot: number) => {
+      fetchOfferStatus(offer.id);
+      updateSpotForOffer(offer.id, spot);
+    },
+    [offer, fetchOfferStatus, updateSpotForOffer],
+  );
+
+  const onMouseOverSpot = useCallback(
+    (spot: CanvasElement<any>) => {
+      updateSpotForOffer(offer.id, spot.data.index);
+    },
+    [offer, updateSpotForOffer],
+  );
+
+  const onSelectSpotAndCloseSelector = useCallback(
+    (spot: number) => {
+      onSelectSpot(spot);
+      closeSpotSelector();
+    },
+    [onSelectSpot, closeSpotSelector],
+  );
 
   const roomBlueprint = props.roomBlueprintsById[props.offer.room_blueprint];
   const assets = props.assetByIdBlueprintByIdentifier[roomBlueprint?.id];
@@ -122,33 +146,44 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
     .filter((element) => element.type === 'spot')
     .map((element) => element.data.spotTypeId || DEFAULT_SPOT_TYPE_ID);
 
-  const spotTypesOfBlueprint = props.spotTypes.filter((spotType) =>
-    spotTypesIdOfBlueprint?.includes(spotType.id),
+  const spotTypesOfBlueprint = useMemo(
+    () =>
+      props.spotTypes.filter((spotType) =>
+        spotTypesIdOfBlueprint?.includes(spotType.id),
+      ),
+    [props.spotTypes, spotTypesIdOfBlueprint],
   );
+
+  const firstSpotTypes = spotTypesOfBlueprint.slice(0, 2);
+
+  const lastSpotTypes = spotTypesOfBlueprint.slice(2);
+
+  const onZoomStop = useCallback((ref) => {
+    setIsPanningDisabled(ref.state.scale < 1);
+  }, []);
+
   return (
-    <>
+    <div className="bs-marketplace-spot-selector">
       <div className="bs-marketplace-spot-selector__header">
         {/* @ts-expect-error */}
         <OfferSummary
-          metaActivity={props.offer?.meta_activity}
           establishment={props.offer?.establishment}
+          metaActivity={props.offer?.meta_activity}
           offer={props.offer}
-          variant="basket"
           theme={props.theme}
+          variant="basket"
         />
         {!isMobile && (
           <div className="bs-marketplace-spot-selector__legend">
             <div className="bs-marketplace-spot-selector__legend-text">
-              {t('spotSelectorDialog.legend')}
+              {t('spotSelector.legend')}
             </div>
-            <SpotLegend spotTypes={spotTypesOfBlueprint.slice(0, 2)} t={t} />
+            <SpotLegend spotTypes={firstSpotTypes} />
 
             {spotTypesOfBlueprint.length > 2 && (
               <ToolTip
                 style={{ backgroundColor: 'white', color: 'white' }}
-                title={
-                  <SpotLegend spotTypes={spotTypesOfBlueprint.slice(2)} t={t} />
-                }
+                title={<SpotLegend spotTypes={lastSpotTypes} />}
               >
                 <div className="bs-marketplace-spot-selector__legend__row">
                   <VisibilityIcon className="bs-marketplace-spot-selector__legend__icon" />
@@ -163,37 +198,37 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
       </div>
       {!isMobile ? (
         <SpotSelector
-          roomBlueprint={roomBlueprint}
+          isBoutiqueDisplay
           assets={assets}
-          takenSpot={takenSpots}
-          onSelectSpot={onSelectSpotAndCloseSelector}
-          selectedSpot={props.selectedSpot}
-          fetchSpotForBlueprint={props.fetchSpotForBlueprint}
-          spotTypesOfBlueprint={spotTypesOfBlueprint}
           coach={props.offer?.coach_override ?? props.offer?.coach}
+          fetchSpotForBlueprint={props.fetchSpotForBlueprint}
           isMobile={isMobile}
-          condensed
+          onMouseOverSpot={onMouseOverSpot}
+          onSelectSpot={onSelectSpotAndCloseSelector}
+          roomBlueprint={roomBlueprint}
+          selectedSpot={props.selectedSpot}
+          spotTypesOfBlueprint={spotTypesOfBlueprint}
+          takenSpot={takenSpots}
         />
       ) : (
         <TransformWrapper
           initialScale={1}
+          minScale={1}
+          onZoomStop={onZoomStop}
           panning={{ disabled: isPanningDisabled }}
-          onZoomStop={(ref) => {
-            setIsPanningDisabled(ref.state.scale < 1);
-          }}
         >
           <TransformComponent>
             <SpotSelector
-              roomBlueprint={roomBlueprint}
+              isBoutiqueDisplay
               assets={assets}
-              takenSpot={takenSpots}
-              onSelectSpot={onSelectSpot}
-              selectedSpot={props.selectedSpot}
-              fetchSpotForBlueprint={props.fetchSpotForBlueprint}
-              spotTypesOfBlueprint={spotTypesOfBlueprint}
               coach={props.offer?.coach_override ?? props.offer?.coach}
+              fetchSpotForBlueprint={props.fetchSpotForBlueprint}
               isMobile={isMobile}
-              condensed
+              onSelectSpot={onSelectSpot}
+              roomBlueprint={roomBlueprint}
+              selectedSpot={props.selectedSpot}
+              spotTypesOfBlueprint={spotTypesOfBlueprint}
+              takenSpot={takenSpots}
             />
           </TransformComponent>
         </TransformWrapper>
@@ -201,15 +236,16 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
       {isMobile && (
         <div className="bs-marketplace-spot-selector__legend">
           <div className="bs-marketplace-spot-selector__legend-text">
-            {t('spotSelectorDialog.legend')}
+            {t('spotSelector.legend')}
           </div>
-          <SpotLegend spotTypes={spotTypesOfBlueprint} t={t} />
+          <SpotLegend spotTypes={spotTypesOfBlueprint} />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
-export default compose<Props, Props>(marketplaceCssHoc())(
-  MarketplaceSpotSelector,
-);
+export default compose<Props, Props>(
+  marketplaceCssHoc(),
+  React.memo,
+)(MarketplaceSpotSelector);

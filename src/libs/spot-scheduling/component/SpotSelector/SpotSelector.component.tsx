@@ -1,7 +1,7 @@
 import React from 'react';
 import CanvasEditor from '../../CanvasSvg/CanvasEditor.component';
 import { CANVAS_SELECTABLE_TOOLS } from '../../CanvasSvg/tools/CanvasStrategy';
-import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
+import type { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
 import { CanvasElement } from '../../CanvasSvg/tools/BaseClasses/Base.tool';
 import SpotSchedulingHelper from '../../utils';
 
@@ -13,10 +13,11 @@ interface Props {
   selectedSpot?: number;
   onSelectTakenSpot?: () => void;
   coach?: any;
-  condensed?: boolean;
+  isBoutiqueDisplay?: boolean;
   fetchSpotForBlueprint: (data: { company: number }) => void;
   spotTypesOfBlueprint: SpotType[];
   isMobile: boolean;
+  onMouseOverSpot?: (spot: CanvasElement<any>) => void;
 }
 
 export default class SpotSelector extends React.PureComponent<Props> {
@@ -38,7 +39,7 @@ export default class SpotSelector extends React.PureComponent<Props> {
           element.data?.spotTypeId || -1,
         );
       } else {
-        this.props.onSelectTakenSpot();
+        this.props.onSelectTakenSpot?.();
       }
     }
   };
@@ -51,9 +52,10 @@ export default class SpotSelector extends React.PureComponent<Props> {
         assets={this.props.assets}
         blueprints={[]}
         coach={this.props.coach}
-        condensed={this.props.condensed}
         fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+        isBoutiqueDisplay={this.props.isBoutiqueDisplay}
         isMobile={this.props.isMobile}
+        onMouseOverSpot={this.props.onMouseOverSpot}
         onSelectElement={this.onSelectElement}
         selectedRoomBlueprint={this.getRoomBlueprint()}
         selectedTool={CANVAS_SELECTABLE_TOOLS.spot_selector}

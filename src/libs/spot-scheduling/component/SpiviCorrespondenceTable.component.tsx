@@ -15,6 +15,8 @@ import CanvasSpotIcon from '../CanvasSvg/CanvasSpotIcon.component';
 import { SpotType } from '../types';
 import { SPIVI_CORRESPONDENCE_TABLE_PAGE_SIZE } from '../utils';
 
+const SPIVI_CORRESPONDENCE_TABLE_SPOT_ICON_SIZE = 71;
+
 export type Props = {
   spotCorrespondence: Array<string>;
   spotType: SpotType;
@@ -36,7 +38,10 @@ export const SpiviCorrespondenceTable: React.FC<Props> = (props) => {
   return (
     <div className={classes.tableContainer}>
       <div className={classes.header}>
-        <CanvasSpotIcon spotType={props.spotType} size={71} />
+        <CanvasSpotIcon
+          size={SPIVI_CORRESPONDENCE_TABLE_SPOT_ICON_SIZE}
+          spotType={props.spotType}
+        />
         <Typography className={classes.bold}>
           {props.spotType?.name || t('spotScheduling:toolsMenu.spot')}
         </Typography>

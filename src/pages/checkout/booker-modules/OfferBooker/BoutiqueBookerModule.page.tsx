@@ -26,6 +26,7 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import type { SvgIconComponent } from '@material-ui/icons';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert';
+import classNames from 'classnames';
 // @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
 import type { WithHandlerType } from '../../../../utils/types';
@@ -115,7 +116,6 @@ import {
   PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
   PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
 } from '#libs/marketplace/constants';
-import OfferSpotSelector from './OfferSpotSelector';
 import {
   fetchSpotForBlueprint,
   fetchRoomBlueprintDetail,
@@ -138,6 +138,8 @@ import type {
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { Contract } from '#libs/subscription/types';
 import MarketplaceBookingBlockedReason from '#libs/marketplace/components/MarketplaceBookingBlockedReason';
+import MarketplaceSpotSelector from '#libs/marketplace/components/MarketplaceSpotSelector';
+import type { SpotType } from '#libs/spot-scheduling/types';
 import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
@@ -405,6 +407,18 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       date: moment(this.props.offer.date_start).format('YYYY-MM-DD'),
     });
 
+  goBackToCalendarOrSpotSelector = () => {
+    if (this.state.selectedSpot) {
+      this.setState({
+        isSpotSelectorOpen: true,
+        selectedSpot: undefined,
+        selectedSpotId: null,
+      });
+    } else {
+      this.goBackToCalendar();
+    }
+  };
+
   fetchOfferStatus = () => {
     if (this.props.offer.id) {
       this.props.fetchOfferStatus(
@@ -438,8 +452,19 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     this.setState({
       selectedSpot,
       selectedSpotId: index,
+    });
+  };
+
+  closeSpotSelector = () => {
+    this.setState({
       isSpotSelectorOpen: false,
     });
+  };
+
+  closeSpotSelectorIfSpotSelected = () => {
+    if (this.state.selectedSpotId !== null) {
+      this.closeSpotSelector();
+    }
   };
 
   goToValidationPage = (contractId: number, success: boolean) => {
@@ -565,11 +590,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       },
     });
 
-  onCancelSpotSelector = (offer: Offer) => () =>
-    this.props.goToCalendar({
-      date: moment(offer.date_start).format('YYYY-MM-DD'),
-    });
-
   arePropsLoading = (props: Props) =>
     !props.offer ||
     props.offerStatusLoading ||
@@ -676,21 +696,58 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       return (
         // @ts-expect-error
         <ConsumerAppBarContainer backgroundColor="white">
-          <OfferSpotSelector
-            assetByIdBlueprintByIdentifier={
-              this.props.assetByIdBlueprintByIdentifier
-            }
-            fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
-            // @ts-expect-error
-            offer={this.props.offer}
-            offerStatusById={this.props.offerStatusById}
-            onCancel={this.onCancelSpotSelector}
-            refreshOfferStatus={this.fetchOfferStatus}
-            roomBlueprintsById={this.props.roomBlueprintsById}
-            // @ts-expect-error
-            spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
-            updateSpotsForOffer={this.updateSpotForOffer}
-          />
+          <div className="bs-new-offer-booking-page">
+            <div className="bs-new-offer-booking__spot-selector">
+              <div className="bs-new-offer-booking__spot-selector__header">
+                <button
+                  className="bs-new-offer-booking__consumer-payment-packs__arrow"
+                  onClick={this.goBackToCalendar}
+                  type="button"
+                >
+                  <ArrowBack />
+                </button>
+                <div className="bs-new-offer-booking__spot-selector__header__text">
+                  {t('newBookingModule.spotSelectorTitle')}
+                </div>
+              </div>
+              {this.props.roomBlueprintsById[
+                this.props.offer.room_blueprint
+              ] && (
+                <MarketplaceSpotSelector
+                  assetByIdBlueprintByIdentifier={
+                    this.props.assetByIdBlueprintByIdentifier
+                  }
+                  closeSpotSelector={this.closeSpotSelector}
+                  fetchOfferStatus={this.fetchOfferStatus}
+                  fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+                  offer={this.props.offer}
+                  offerStatusById={this.props.offerStatusById}
+                  roomBlueprintsById={this.props.roomBlueprintsById}
+                  selectedSpot={this.state.selectedSpotId}
+                  spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
+                    this.props.spotTypes,
+                  )}
+                  theme={this.props.theme}
+                  updateSpotForOffer={this.updateSpotForOffer}
+                />
+              )}
+            </div>
+            <div className="bs-new-offer-booking__spot-selector__confirm">
+              <button
+                className={classNames(
+                  'bs-new-offer-booking__spot-selector__confirm-button',
+                  {
+                    'bs-new-offer-booking__spot-selector__confirm-button--disabled':
+                      this.state.selectedSpotId === null,
+                  },
+                )}
+                onClick={this.closeSpotSelectorIfSpotSelected}
+                type="button"
+              >
+                {t('spotScheduling:spotSelector.confirm')}
+              </button>
+            </div>
+          </div>
         </ConsumerAppBarContainer>
       );
     }
@@ -730,163 +787,167 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     return (
       // @ts-expect-error
       <ConsumerAppBarContainer backgroundColor="white">
-        {this.state.isContractSelected && (
-          <SubscriptionContractBooking
-            companyId={this.props.offer && this.props.offer.company}
-            contract={this.state.selectedItem.data}
-            isExcludingTax={this.props.isExcludingTax}
-            onCancel={this.closeSubscripionDialog}
-            onSubmit={this.goToValidationPage}
-            requestSetupIntentSecret={this.requestSetupIntentSecret}
-          />
-        )}
-        <div className="bs-new-offer-booking-with-header">
-          <div className="bs-new-offer-booking__header">
-            <button
-              className="bs-new-offer-booking__consumer-payment-packs__arrow"
-              onClick={this.goBackToCalendar}
-              type="button"
-            >
-              <ArrowBack />
-            </button>
-            <div className="bs-new-offer-booking__consumer-payment-packs__title">
-              {pageTitle}
+        <div className="bs-new-offer-booking-page">
+          {this.state.isContractSelected && (
+            <SubscriptionContractBooking
+              companyId={this.props.offer && this.props.offer.company}
+              contract={this.state.selectedItem.data}
+              isExcludingTax={this.props.isExcludingTax}
+              onCancel={this.closeSubscripionDialog}
+              onSubmit={this.goToValidationPage}
+              requestSetupIntentSecret={this.requestSetupIntentSecret}
+            />
+          )}
+          <div className="bs-new-offer-booking-with-header">
+            <div className="bs-new-offer-booking__header">
+              <button
+                className="bs-new-offer-booking__consumer-payment-packs__arrow"
+                onClick={this.goBackToCalendarOrSpotSelector}
+                type="button"
+              >
+                <ArrowBack />
+              </button>
+              <div className="bs-new-offer-booking__consumer-payment-packs__title">
+                {pageTitle}
+              </div>
             </div>
-          </div>
-          <div className="bs-new-offer-booking">
-            <div className="bs-new-offer-booking__cards-list">
-              {!this.state.isBookingBlocked ? (
-                <>
-                  {this.state.isWaitingList && (
-                    <Alert
-                      className="bs-new-offer-booking__waiting-list-warning"
-                      severity="warning"
-                    >
-                      {t('newBookingModule.waitingListWarning')}
-                    </Alert>
-                  )}
-                  {this.state.availableConsumerPacks.length > 0 && (
-                    <>
-                      <div className="bs-new-offer-booking__consumer-payment-packs__subtitle">
-                        {t('newBookingModule.myPasses', {
-                          count: this.state.availableConsumerPacks.length,
-                        })}
-                      </div>
-                      {this.state.availableConsumerPacks.map(
-                        (
-                          consumerPaymentPack: ConsumerPaymentPack<PaymentPack> &
-                            MaxoutData,
-                        ) => {
-                          return (
-                            <MarketplaceConsumerPaymentPackCard
-                              key={consumerPaymentPack.id}
-                              consumerPaymentPack={consumerPaymentPack}
-                              isSelected={isEqual(
-                                consumerPaymentPack,
-                                this.state.selectedItem?.data,
-                              )}
-                              onSelectConsumerPaymentPack={
-                                this.onSelectConsumerPaymentPack
-                              }
-                            />
-                          );
-                        },
-                      )}
-                      {!this.props.theme
-                        .hide_unnecessary_compatible_purchase_method && (
-                        <div className="bs-new-offer-booking__buyable_items__header">
-                          <button
-                            className="bs-new-offer-booking__buyable_items__header__arrow"
-                            onClick={this.onClickShowBuyableItems}
-                            type="button"
-                          >
-                            {this.state.showBuyableItems ? (
-                              <KeyboardArrowDown />
-                            ) : (
-                              <KeyboardArrowRight />
-                            )}
-                          </button>
-                          <div className="bs-new-offer-booking__buyable_items__header__title">
-                            {t('newBookingModule.buyNewPass')}
-                          </div>
+            <div className="bs-new-offer-booking">
+              <div className="bs-new-offer-booking__cards-list">
+                {!this.state.isBookingBlocked ? (
+                  <>
+                    {this.state.isWaitingList && (
+                      <Alert
+                        className="bs-new-offer-booking__waiting-list-warning"
+                        severity="warning"
+                      >
+                        {t('newBookingModule.waitingListWarning')}
+                      </Alert>
+                    )}
+                    {this.state.availableConsumerPacks.length > 0 && (
+                      <>
+                        <div className="bs-new-offer-booking__consumer-payment-packs__subtitle">
+                          {t('newBookingModule.myPasses', {
+                            count: this.state.availableConsumerPacks.length,
+                          })}
                         </div>
-                      )}
-                    </>
-                  )}
-                  {((this.state.availableConsumerPacks.length !== 0 &&
-                    !this.props.theme
-                      .hide_unnecessary_compatible_purchase_method &&
-                    this.state.showBuyableItems) ||
-                    this.state.availableConsumerPacks.length === 0) && (
-                    <>
-                      <MarketplaceFilterBuyableItemCategory
-                        buyableItemCategories={this.state.buyableItemCategories}
-                        onClickCategory={this.onClickCategory}
-                        selectedBuyableItemCategory={
-                          this.state.selectedBuyableItemCategory
-                        }
-                      />
-                      {!this.state.selectedBuyableItemCategory ? (
-                        this.state.buyableItemCategories.map(
-                          (buyableItemCategory) => (
-                            <MarketplaceBuyableItemCategoryList
-                              key={buyableItemCategory.index}
-                              buyableItemCategory={buyableItemCategory}
-                              isExcludingTax={this.props.isExcludingTax}
-                              selectBuyableItem={this.onClickBuyableItem}
-                              selectedBuyableItem={
-                                this.state.selectedItem?.data as BuyableItem
-                              }
-                              theme={this.props.theme}
-                            />
-                          ),
-                        )
-                      ) : (
-                        <MarketplaceBuyableItemCategoryList
-                          buyableItemCategory={
+                        {this.state.availableConsumerPacks.map(
+                          (
+                            consumerPaymentPack: ConsumerPaymentPack<PaymentPack> &
+                              MaxoutData,
+                          ) => {
+                            return (
+                              <MarketplaceConsumerPaymentPackCard
+                                key={consumerPaymentPack.id}
+                                consumerPaymentPack={consumerPaymentPack}
+                                isSelected={isEqual(
+                                  consumerPaymentPack,
+                                  this.state.selectedItem?.data,
+                                )}
+                                onSelectConsumerPaymentPack={
+                                  this.onSelectConsumerPaymentPack
+                                }
+                              />
+                            );
+                          },
+                        )}
+                        {!this.props.theme
+                          .hide_unnecessary_compatible_purchase_method && (
+                          <div className="bs-new-offer-booking__buyable_items__header">
+                            <button
+                              className="bs-new-offer-booking__buyable_items__header__arrow"
+                              onClick={this.onClickShowBuyableItems}
+                              type="button"
+                            >
+                              {this.state.showBuyableItems ? (
+                                <KeyboardArrowDown />
+                              ) : (
+                                <KeyboardArrowRight />
+                              )}
+                            </button>
+                            <div className="bs-new-offer-booking__buyable_items__header__title">
+                              {t('newBookingModule.buyNewPass')}
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    )}
+                    {((this.state.availableConsumerPacks.length !== 0 &&
+                      !this.props.theme
+                        .hide_unnecessary_compatible_purchase_method &&
+                      this.state.showBuyableItems) ||
+                      this.state.availableConsumerPacks.length === 0) && (
+                      <>
+                        <MarketplaceFilterBuyableItemCategory
+                          buyableItemCategories={
+                            this.state.buyableItemCategories
+                          }
+                          onClickCategory={this.onClickCategory}
+                          selectedBuyableItemCategory={
                             this.state.selectedBuyableItemCategory
                           }
-                          isExcludingTax={this.props.isExcludingTax}
-                          selectBuyableItem={this.onClickBuyableItem}
-                          selectedBuyableItem={
-                            this.state.selectedItem?.data as BuyableItem
-                          }
-                          theme={this.props.theme}
                         />
-                      )}
-                    </>
-                  )}
-                </>
-              ) : (
-                <MarketplaceBookingBlockedReason
-                  bookingBlockedReason={this.state.bookingBlockedReason}
-                  goBackToCalendar={this.goBackToCalendar}
+                        {!this.state.selectedBuyableItemCategory ? (
+                          this.state.buyableItemCategories.map(
+                            (buyableItemCategory) => (
+                              <MarketplaceBuyableItemCategoryList
+                                key={buyableItemCategory.index}
+                                buyableItemCategory={buyableItemCategory}
+                                isExcludingTax={this.props.isExcludingTax}
+                                selectBuyableItem={this.onClickBuyableItem}
+                                selectedBuyableItem={
+                                  this.state.selectedItem?.data as BuyableItem
+                                }
+                                theme={this.props.theme}
+                              />
+                            ),
+                          )
+                        ) : (
+                          <MarketplaceBuyableItemCategoryList
+                            buyableItemCategory={
+                              this.state.selectedBuyableItemCategory
+                            }
+                            isExcludingTax={this.props.isExcludingTax}
+                            selectBuyableItem={this.onClickBuyableItem}
+                            selectedBuyableItem={
+                              this.state.selectedItem?.data as BuyableItem
+                            }
+                            theme={this.props.theme}
+                          />
+                        )}
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <MarketplaceBookingBlockedReason
+                    bookingBlockedReason={this.state.bookingBlockedReason}
+                    goBackToCalendar={this.goBackToCalendar}
+                  />
+                )}
+              </div>
+              <div className="bs-new-offer-booking__offer-summary">
+                {/* @ts-expect-error */}
+                <OfferSummary
+                  coach={this.props.offer.coach}
+                  confirmLoading={this.state.confirmLoading}
+                  disableButton={
+                    this.state.selectedItem === null ||
+                    (this.state.isBookingBlocked &&
+                      !this.state.bookingBlockedReason
+                        .isWaitingListOpenMainReason)
+                  }
+                  establishment={this.props.offer.establishment}
+                  loading={loading}
+                  metaActivity={this.props.offer.meta_activity}
+                  offer={this.props.offer}
+                  offerStatus={this.props.offerStatusById[this.props.id]}
+                  onConfirm={this.onConfirm}
+                  price={displayPrice}
+                  spotId={this.state.selectedSpot}
+                  tax={this.props.offer.tax}
+                  theme={this.props.theme}
+                  variant="default"
                 />
-              )}
-            </div>
-            <div className="bs-new-offer-booking__offer-summary">
-              {/* @ts-expect-error */}
-              <OfferSummary
-                coach={this.props.offer.coach}
-                confirmLoading={this.state.confirmLoading}
-                disableButton={
-                  this.state.selectedItem === null ||
-                  (this.state.isBookingBlocked &&
-                    !this.state.bookingBlockedReason
-                      .isWaitingListOpenMainReason)
-                }
-                establishment={this.props.offer.establishment}
-                loading={loading}
-                metaActivity={this.props.offer.meta_activity}
-                offer={this.props.offer}
-                offerStatus={this.props.offerStatusById[this.props.id]}
-                onConfirm={this.onConfirm}
-                price={displayPrice}
-                spotId={this.state.selectedSpot}
-                tax={this.props.offer.tax}
-                theme={this.props.theme}
-                variant="default"
-              />
+              </div>
             </div>
           </div>
         </div>
@@ -1051,6 +1112,6 @@ export default compose(
   withQueryParams([['fromWorkshop'], 'queryParams']),
   connector,
   withHandlers(mapHandlers),
-  withTranslation(['booking']),
+  withTranslation(['booking', 'spotScheduling']),
   marketplaceCssHoc(),
 )(BoutiqueBookerModule);

@@ -1,3 +1,13 @@
+.bs-new-offer-booking-page {
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .bs-new-offer-booking {
   display: flex;
   flex-direction: row;
@@ -99,4 +109,62 @@
 .bs-new-offer-booking__buyable_items__header__title {
   font-size: var(--h5-fontSize);
   font-family: var(--h5-fontFamily);
+}
+
+.bs-new-offer-booking__spot-selector {
+  width: 62vw;
+}
+
+@media screen and (max-width: 750px) {
+  .bs-new-offer-booking__spot-selector {
+    width: 95vw;
+  }
+}
+
+.bs-new-offer-booking__spot-selector__header {
+  margin-left: var(--spacing-2);
+  margin-top: var(--spacing-4);
+  display: flex;
+  align-items: center;
+}
+
+.bs-new-offer-booking__spot-selector__header__text {
+  margin-left: var(--spacing-2);
+  font-size: var(--h5-fontSize);
+  font-family: var(--h5-fontFamily);
+}
+
+.bs-new-offer-booking__spot-selector__confirm {
+  background-color: var(--color-grey-light);
+  border-radius: var(--spacing-1) var(--spacing-1) 0 0;
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  padding: var(--spacing-1);
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  z-index: 9999;
+}
+
+@media screen and (min-width: 750px) {
+  .bs-new-offer-booking__spot-selector__confirm {
+    visibility: hidden;
+  }
+}
+
+.bs-new-offer-booking__spot-selector__confirm-button {
+  border: none;
+  background: none;
+  background-color: var(--color-primary-main);
+  color: white;
+  font-weight: 500;
+  text-transform: uppercase;
+  border-radius: var(--spacing-3);
+  width: 100%;
+  font-family: var(--fontFamily);
+}
+
+.bs-new-offer-booking__spot-selector__confirm-button--disabled {
+  background-color: var(--color-disabledBackground);
 }

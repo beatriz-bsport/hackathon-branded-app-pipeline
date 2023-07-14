@@ -10,11 +10,10 @@ import {
 type Props = {
   spotType: SpotType;
   size: number;
-  taken: boolean;
+  taken?: boolean;
 };
 
-export const CanvasSpotIcon = (props: Props) => {
-  const { spotType, size, taken } = props;
+export const CanvasSpotIcon: React.FC<Props> = ({ spotType, size, taken }) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -153,4 +152,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CanvasSpotIcon;
+export default React.memo(CanvasSpotIcon);

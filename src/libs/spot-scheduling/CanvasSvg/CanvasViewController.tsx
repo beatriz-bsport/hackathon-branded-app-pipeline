@@ -38,7 +38,8 @@ interface OwnProps {
   coachHeight: number;
   spotType?: number;
   spotTypes: SpotType[];
-  condensed: boolean;
+  isBoutiqueDisplay: boolean;
+  onMouseOverSpot?: (spot: CanvasElement<any>) => void;
 }
 
 type Props = OwnProps &
@@ -238,6 +239,8 @@ class CanvasViewController extends React.PureComponent<Props> {
     mouseEvent: any,
     clickedElement: CanvasElement<any>,
   ) => {
+    clickedElement.type === CANVAS_SELECTABLE_TOOLS.spot &&
+      this.props.onMouseOverSpot?.(clickedElement);
     if (this.tool && this.tool.onMouseOverElement) {
       const elements = this.tool.onMouseOverElement({
         elements: this.props.elements,
@@ -417,7 +420,7 @@ class CanvasViewController extends React.PureComponent<Props> {
         <CanvasSvg
           disabledEdit={this.props.disabledEdit}
           enablePan={
-            !this.props.condensed &&
+            !this.props.isBoutiqueDisplay &&
             [
               CANVAS_SELECTABLE_TOOLS.hand,
               CANVAS_SELECTABLE_TOOLS.spot_selector,
@@ -439,7 +442,7 @@ class CanvasViewController extends React.PureComponent<Props> {
           {this.renderCursor()}
         </div>
 
-        {!this.props.condensed && (
+        {!this.props.isBoutiqueDisplay && (
           <CanvasZoomButtons
             onClickCenter={
               this.props.disabledEdit

@@ -50,16 +50,16 @@ type OwnProps = {
   onSelectElement?: (element: CanvasElement<any>) => void;
   coach?: any;
   openSpotCreationForm?: (defaultSpot: boolean) => void;
-  onCreateSpot?: (spot: SpotType) => void;
   selectingSpot: boolean;
   spotToSelect?: SpotType;
   spotTypes: SpotType[];
   openSpotUpdateForm?: (spotType: SpotType) => void;
   openDeleteModal?: () => void;
   openSpiviDialog?: () => void;
-  condensed: boolean;
+  isBoutiqueDisplay: boolean;
   fetchSpotForBlueprint: (data: { company: number }) => void;
   isMobile: boolean;
+  onMouseOverSpot?: (spot: CanvasElement<any>) => void;
 };
 
 type Props = OwnProps &
@@ -261,12 +261,13 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
           [classes.containerSelectingIsNotMobile]:
             this.props.selectingSpot &&
             !this.props.isMobile &&
-            !this.props.condensed,
-          [classes.containerSelectingIsCondensed]: this.props.condensed,
+            !this.props.isBoutiqueDisplay,
+          [classes.containerSelectingIsisBoutiqueDisplay]:
+            this.props.isBoutiqueDisplay,
         })}
       >
         <div className={classes.toolbarCanvasContainer}>
-          {!this.props.disableEdit && !this.props.condensed && (
+          {!this.props.disableEdit && !this.props.isBoutiqueDisplay && (
             <CanvasToolbar
               blueprints={this.props.blueprints}
               disableSave={!this.hasBlueprintChanged()}
@@ -284,14 +285,15 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
             <CanvasViewController
               coach={this.props.coach}
               coachHeight={this.state.coachHeight}
-              condensed={this.props.condensed}
               disabledEdit={this.props.disableEdit}
               elements={this.elements}
               fillColor={this.props.current.fillColor}
               getAsset={this.getAsset}
+              isBoutiqueDisplay={this.props.isBoutiqueDisplay}
               onElementsChange={(elements: CanvasElement<any>[]) =>
                 this.props.setStateWithHistory({ elements })
               }
+              onMouseOverSpot={this.props.onMouseOverSpot}
               onSelectElement={this.props.onSelectElement}
               selectedTool={this.state.selectedTool}
               selectingSpot={this.props.selectingSpot}
@@ -305,7 +307,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
           </div>
         </div>
 
-        {!this.props.disableEdit && !this.props.condensed && (
+        {!this.props.disableEdit && !this.props.isBoutiqueDisplay && (
           <div className={classes.toolMenuContainer}>
             <CanvasToolsMenu
               coachHeight={this.state.coachHeight}
@@ -338,11 +340,11 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               openDeleteModal={this.props.openDeleteModal}
               openSpotCreationForm={(defaultSpot: boolean) => {
                 this.onClickSave();
-                this.props.openSpotCreationForm(defaultSpot);
+                this.props.openSpotCreationForm?.(defaultSpot);
               }}
               openSpotUpdateForm={(spotType: SpotType) => {
                 this.onClickSave();
-                this.props.openSpotUpdateForm(spotType);
+                this.props.openSpotUpdateForm?.(spotType);
               }}
               selectedTool={this.state.selectedTool}
               showGrid={this.state.showGrid}
@@ -356,7 +358,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
           </div>
         )}
 
-        {!this.props.disableEdit && !this.props.condensed && (
+        {!this.props.disableEdit && !this.props.isBoutiqueDisplay && (
           <SpotImageUploadDialog
             onClose={() => this.setState({ showImageDialog: false })}
             onSubmit={this.updateSpotImages}
@@ -386,7 +388,7 @@ const styles = (theme: Theme) => ({
   containerSelectingIsNotMobile: {
     minHeight: '100vh',
   },
-  containerSelectingIsCondensed: {
+  containerSelectingIsisBoutiqueDisplay: {
     border: 'none',
   },
   containerSelecting: {

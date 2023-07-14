@@ -1,10 +1,13 @@
+.bs-marketplace-spot-selector {
+  container-type: inline-size;
+}
+
 .bs-marketplace-spot-selector__header {
   display: flex;
-  flex-direction: row;
   justify-content: space-around;
 }
 
-@media screen and (max-width: 750px) {
+@container (max-width: 750px) {
   .bs-marketplace-spot-selector__header {
     justify-content: center;
   }
@@ -16,7 +19,7 @@
   margin-top: var(--spacing-2);
 }
 
-@media screen and (max-width: 750px) {
+@container (max-width: 750px) {
   .bs-marketplace-spot-selector__legend {
     padding-bottom: 5vh;
   }
@@ -37,6 +40,7 @@
 .bs-marketplace-spot-selector__legend__row-text {
   font-family: var(--caption-fontFamily);
   font-size: var(--caption-fontSize);
+  white-space: nowrap;
 }
 
 .bs-marketplace-spot-selector__legend__icon {

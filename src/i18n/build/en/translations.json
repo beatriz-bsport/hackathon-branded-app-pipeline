@@ -4412,7 +4412,7 @@
                     "submit": "Delete",
                     "cancel": "Cancel"
                 },
-                "content": "Are you sure that you want to delete this promotion? You'll use the usage history. This action can't be undone.",
+                "content": "Are you sure you want to delete this promotion? You will lose access to its usage history. This action cannot be reverted.",
                 "title": "Delete"
             }
         },
@@ -12005,7 +12005,7 @@
                 "bookTitle": "Overview"
             },
             "warningPartialBooking": "You are booking a group of sessions. However, you are not required to attend all the sessions in that group. You will be able to select the sessions you wish to attend.",
-            "warningFullBooking": "Complete this booking to enroll for {{count}} session(s).",
+            "warningFullBooking": "You are booking a group of sessions. You will be enrolled for all {{count}} sessions in this group.",
             "confirm": "Continue",
             "cancel": "Cancel",
             "loadMore": "See more",

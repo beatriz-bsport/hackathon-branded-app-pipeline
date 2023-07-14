@@ -7,23 +7,21 @@ import { Button } from '@material-ui/core';
 import { ImmutableArray } from 'seamless-immutable';
 import moment from 'moment-timezone';
 import type { OptionCallback } from '../../../../state/types';
-import type {
-  Coupon,
-  UniqueCodeCouponCreationPayload,
-} from '#libs/coupon/types';
+import type { Coupon, UniqueCodeCouponUpdatePayload } from '#libs/coupon/types';
 import type { PaymentCombo } from '#libs/payment-combo/types';
 import type { PrivatePass } from '#libs/private-service/types';
 import type { ShopItem } from '#libs/shop/types';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import UniqueCodeCouponFormSkeleton from './UniqueCodeCouponFormSkeleton.component';
 import UniqueCodeCouponFormGeneral from './sections/UniqueCodeCouponFormGeneral.component';
-import ValidationSchema from './ValidationSchema';
+import ValidationSchema, { ValidationSchemaOnUpdate } from './ValidationSchema';
 import UniqueCodeCouponFormSettings from './sections/UniqueCodeCouponFormSettings.component';
 import UniqueCodeCouponFormAvailability from './sections/UniqueCodeCouponFormAvailability.component';
 import UniqueCodeCouponFormUsability from './sections/UniqueCodeCouponFormUsability.component';
 import UniqueCodeCouponFormUpload from './sections/UniqueCodeCouponFormUpload.component';
 
 type ComponentProps = {
+  uniqueCodeCoupon?: Coupon;
   onCancel: () => void;
   isLoading: boolean;
   isProcessing: boolean;
@@ -41,14 +39,16 @@ type ComponentProps = {
   setIsUsagePerMemberLimited: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+type UniqueCodeCouponPayload = UniqueCodeCouponUpdatePayload;
+
 type FormProps = {
   onSubmit: (
-    data: UniqueCodeCouponCreationPayload,
+    data: UniqueCodeCouponPayload,
     options?: OptionCallback<Coupon>,
   ) => void;
 };
 
-type Props = ComponentProps & FormikProps<UniqueCodeCouponCreationPayload>;
+type Props = ComponentProps & FormikProps<UniqueCodeCouponPayload>;
 
 const useStyles = makeStyles((theme: Theme) => ({
   buttonsContainer: {
@@ -76,13 +76,14 @@ export const UniqueCodeCouponForm: React.FC<Props> = React.memo(
     setWithExpirationDate,
     isUsagePerMemberLimited,
     setIsUsagePerMemberLimited,
+    uniqueCodeCoupon,
   }) => {
     const { t } = useTranslation('coupon');
 
     const classes = useStyles();
 
     const { handleSubmit, isValid, isSubmitting } =
-      useFormikContext<UniqueCodeCouponCreationPayload>();
+      useFormikContext<UniqueCodeCouponPayload>();
 
     if (isLoading && !isSubmitting) {
       return (
@@ -123,7 +124,10 @@ export const UniqueCodeCouponForm: React.FC<Props> = React.memo(
           setIsUsagePerMemberLimited={setIsUsagePerMemberLimited}
         />
 
-        <UniqueCodeCouponFormUpload isProcessing={isProcessing} />
+        <UniqueCodeCouponFormUpload
+          isProcessing={isProcessing}
+          uniqueCodeCoupon={uniqueCodeCoupon}
+        />
 
         <div
           className={classes.buttonsContainer}
@@ -146,9 +150,23 @@ export const UniqueCodeCouponForm: React.FC<Props> = React.memo(
 
 const formikFormWrapper = withFormik<
   ComponentProps & FormProps,
-  UniqueCodeCouponCreationPayload
+  UniqueCodeCouponPayload
 >({
-  mapPropsToValues: () => {
+  mapPropsToValues: ({ uniqueCodeCoupon }) => {
+    if (uniqueCodeCoupon) {
+      return {
+        name: uniqueCodeCoupon.name,
+        is_active: uniqueCodeCoupon.is_active,
+        only_on_first_checkout: uniqueCodeCoupon.only_on_first_checkout,
+        usage_per_member: uniqueCodeCoupon.usage_per_member,
+        applies_to: uniqueCodeCoupon.applies_to,
+        only_on_objects: uniqueCodeCoupon.only_on_objects,
+        expiration_date: uniqueCodeCoupon.expiration_date,
+        coupon_cost_for_company: uniqueCodeCoupon.coupon_cost_for_company,
+        codes: null,
+        update_mode: null,
+      };
+    }
     const initialExpirationDate = moment().add(1, 'month');
     return {
       name: '',
@@ -179,6 +197,7 @@ const formikFormWrapper = withFormik<
       expiration_date,
       coupon_cost_for_company,
       codes,
+      update_mode,
     } = values;
 
     const formatedDate =
@@ -186,7 +205,7 @@ const formikFormWrapper = withFormik<
         ? moment(expiration_date, 'DD/MM/YYYY').format('YYYY-MM-DD')
         : null;
 
-    const uniqueCodeCoupon: UniqueCodeCouponCreationPayload = {
+    const uniqueCodeCoupon: UniqueCodeCouponPayload = {
       name,
       is_active,
       only_on_first_checkout,
@@ -196,13 +215,15 @@ const formikFormWrapper = withFormik<
       expiration_date: formatedDate,
       coupon_cost_for_company,
       codes,
+      update_mode,
     };
     onSubmit(uniqueCodeCoupon, {
       onSuccess: () => setSubmitting(false),
       onError: () => setSubmitting(false),
     });
   },
-  validationSchema: ValidationSchema,
+  validationSchema: (props: ComponentProps) =>
+    props.uniqueCodeCoupon ? ValidationSchemaOnUpdate : ValidationSchema,
 });
 
 export default formikFormWrapper(UniqueCodeCouponForm);

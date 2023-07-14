@@ -11,6 +11,7 @@ import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsive
 import { Coupon, UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
 
 type Props = {
+  uniqueCodeCoupon?: Coupon;
   open: boolean;
   onCancel: () => void;
   onSubmit: (
@@ -30,6 +31,7 @@ type Props = {
 };
 
 const UniqueCodeCouponFormDrawer: React.FC<Props> = ({
+  uniqueCodeCoupon,
   open,
   onCancel,
   onSubmit,
@@ -73,6 +75,7 @@ const UniqueCodeCouponFormDrawer: React.FC<Props> = ({
         setWithExpirationDate={setWithExpirationDate}
         shopItems={shopItems}
         shopItemsById={shopItemsById}
+        uniqueCodeCoupon={uniqueCodeCoupon}
         withExpirationDate={withExpirationDate}
       />
     </GenericResponsiveDrawer>

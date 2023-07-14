@@ -103,16 +103,16 @@ type Props = OwnProps &
 type State = {
   searchText: string;
   searchResult: Array<PaymentCombo>;
-  couponFormState: { open: boolean; initial: Coupon | null };
-  uniqueCodeCouponFormState: { open: boolean };
+  couponFormState: { open: boolean; initial?: Coupon };
+  uniqueCodeCouponFormState: { open: boolean; initial?: Coupon };
 };
 
 export class CouponList extends React.PureComponent<Props, State> {
   state = {
     searchText: '',
     searchResult: [],
-    couponFormState: { open: false, initial: null },
-    uniqueCodeCouponFormState: { open: false },
+    couponFormState: { open: false, initial: null as Coupon },
+    uniqueCodeCouponFormState: { open: false, initial: null as Coupon },
   };
 
   componentDidMount() {
@@ -205,13 +205,13 @@ export class CouponList extends React.PureComponent<Props, State> {
 
   onOpenUniqueCodeCouponFormDrawer = () => {
     this.setState({
-      uniqueCodeCouponFormState: { open: true },
+      uniqueCodeCouponFormState: { open: true, initial: null },
     });
   };
 
   onCloseUniqueCodeCouponFormDrawer = () => {
     this.setState({
-      uniqueCodeCouponFormState: { open: false },
+      uniqueCodeCouponFormState: { open: false, initial: null },
     });
   };
 
@@ -354,6 +354,7 @@ export class CouponList extends React.PureComponent<Props, State> {
             privatePassesById={this.props.allPrivatePassesById}
             shopItems={this.props.shopItems}
             shopItemsById={this.props.allShopItemsById}
+            uniqueCodeCoupon={this.state.uniqueCodeCouponFormState.initial}
           />
         )}
         <CouponDeleteModal

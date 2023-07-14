@@ -1,16 +1,32 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CSSProperties, makeStyles } from '@material-ui/styles';
+import { CSSProperties } from '@material-ui/styles';
 import { useFormikContext } from 'formik';
-import { Theme } from '@material-ui/core';
+import {
+  FormControlLabel,
+  IconButton,
+  Radio,
+  RadioGroup,
+  makeStyles,
+} from '@material-ui/core';
+import { CouponUniqueCodeEditModeOptions } from '@bsport/common/lib/master-data/coupon';
+import { Alert } from '@material-ui/lab';
+import InfoIcon from '@material-ui/icons/Info';
 import FormSection from '#components/forms/FormSection';
 import FileUploaderCustomized from '#components/FileUploaderCustomized';
-import { UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
+import { Coupon, UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
 import { parseCSVFileToGetVoucherCodes } from '#libs/coupon/utils';
+import Popover from '#components/Popover';
 
 type Props = {
   isProcessing: boolean;
+  uniqueCodeCoupon?: Coupon;
 };
+
+type ExtendedUniqueCodeCouponCreationPayload =
+  UniqueCodeCouponCreationPayload & {
+    update_mode?: CouponUniqueCodeEditModeOptions;
+  };
 
 const customStyle: CSSProperties = {
   height: '136px',
@@ -27,22 +43,16 @@ const customStyle: CSSProperties = {
   transition: 'border .24s ease-in-out',
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
-  title: {
-    color: theme.palette.text.primary,
-  },
-  folderIcon: {
-    color: 'inherit',
-  },
-}));
-
-const UniqueCodeCouponFormUpload: React.FC<Props> = ({ isProcessing }) => {
+const UniqueCodeCouponFormUpload: React.FC<Props> = ({
+  isProcessing,
+  uniqueCodeCoupon,
+}) => {
   const { t } = useTranslation('coupon');
 
   const classes = useStyles();
 
-  const { setFieldValue, errors, validateField, setFieldError } =
-    useFormikContext<UniqueCodeCouponCreationPayload>();
+  const { setFieldValue, errors, validateField, setFieldError, values } =
+    useFormikContext<ExtendedUniqueCodeCouponCreationPayload>();
 
   const [csvFile, setCsvFile] = useState<File>(null);
 
@@ -63,6 +73,13 @@ const UniqueCodeCouponFormUpload: React.FC<Props> = ({ isProcessing }) => {
     [setFieldValue, validateField, setFieldError, t],
   );
 
+  const handleOnChangeUpdateMode = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setFieldValue('update_mode', parseInt(event.target.value, 10));
+    },
+    [setFieldValue],
+  );
+
   useEffect(() => {
     if (errors.codes) {
       setCsvFile(null);
@@ -79,6 +96,47 @@ const UniqueCodeCouponFormUpload: React.FC<Props> = ({ isProcessing }) => {
       id="unique-code-coupon-form-upload"
       sectionTitle={t('uniqueCodeCoupon.form.fileUploader.title')}
     >
+      {uniqueCodeCoupon && (
+        <>
+          <Alert
+            className={classes.alert}
+            id="unique-code-coupon-form-main-alert"
+            severity="info"
+          >
+            {t('uniqueCodeCoupon.form.update.alertInfo', {
+              count: uniqueCodeCoupon.nb_unique_codes,
+            })}
+          </Alert>
+          <RadioGroup
+            aria-label="Update mode"
+            name="update_mode"
+            onChange={handleOnChangeUpdateMode}
+            value={values.update_mode}
+          >
+            <FormControlLabel
+              control={<Radio disabled={isProcessing} />}
+              label={t('uniqueCodeCoupon.form.update.append')}
+              value={
+                CouponUniqueCodeEditModeOptions.COUPON_UNIQUE_CODE_EDIT_MODE_APPEND
+              }
+            />
+            <div className={classes.radioWithInfo}>
+              <FormControlLabel
+                control={<Radio disabled={isProcessing} />}
+                label={t('uniqueCodeCoupon.form.update.replace')}
+                value={
+                  CouponUniqueCodeEditModeOptions.COUPON_UNIQUE_CODE_EDIT_MODE_REPLACE
+                }
+              />
+              <Popover title={t('uniqueCodeCoupon.form.update.popover')}>
+                <IconButton aria-label="info" size="medium">
+                  <InfoIcon />
+                </IconButton>
+              </Popover>
+            </div>
+          </RadioGroup>
+        </>
+      )}
       <FileUploaderCustomized
         isFullWidth
         allowPreview={false}
@@ -96,5 +154,21 @@ const UniqueCodeCouponFormUpload: React.FC<Props> = ({ isProcessing }) => {
     </FormSection>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    color: theme.palette.text.primary,
+  },
+  folderIcon: {
+    color: 'inherit',
+  },
+  alert: {
+    alignItems: 'center',
+  },
+  radioWithInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+}));
 
 export default React.memo(UniqueCodeCouponFormUpload);

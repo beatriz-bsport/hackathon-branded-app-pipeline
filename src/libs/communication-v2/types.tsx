@@ -242,6 +242,7 @@ export type InboxThreadListParams = {
   muted?: boolean;
   disabled?: boolean;
   current_item_id?: number;
+  search?: string;
 };
 
 export type UnreadAnswersCount = {

@@ -65,6 +65,8 @@ type WithState = {
     threads: (CommunicationThreadWithUnreadAnswersCount | null)[],
     options?: () => void,
   ) => void;
+  search: string;
+  setSearch: (search: string, options?: () => void) => void;
 };
 
 type InboxListConnectedProps = OwnProps &
@@ -176,7 +178,16 @@ class InboxThreadListPage extends PureComponent<Props> {
     }
   };
 
-  searchThread = (): void => {};
+  searchThread = (search: string) => {
+    const hasSearchChanged = search !== this.props.search;
+
+    if (hasSearchChanged) {
+      this.props.setSearch(search, () => {
+        this.props.fetchInboxThreadListWithContextParams(true);
+        this.props.setThreadItems([null]);
+      });
+    }
+  };
 
   createNewThread = (): void => {};
 
@@ -249,12 +260,14 @@ export default compose<Props, InboxThreadRouterProps>(
   withState('filterValue', 'setFilterValue', null),
   // null value in threadList allows to display one item with a skeleton during the loading
   withState('threadItems', 'setThreadItems', [null]),
+  withState('search', 'setSearch', ''),
   withTranslation('communication'),
   withHandlers({
     fetchInboxThreadListWithContextParams:
       ({
         contextSelected,
         filterValue,
+        search,
         fetchInboxThreadList,
         fetchUnreadAnswersCounts,
       }: InboxListConnectedProps) =>
@@ -271,6 +284,8 @@ export default compose<Props, InboxThreadRouterProps>(
             fetchUnreadAnswersCounts,
             isThreadListReinitialized,
             page,
+            null,
+            search,
           );
         } else {
           fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts(
@@ -281,6 +296,7 @@ export default compose<Props, InboxThreadRouterProps>(
             isThreadListReinitialized,
             null,
             threadId,
+            search,
           );
         }
       },

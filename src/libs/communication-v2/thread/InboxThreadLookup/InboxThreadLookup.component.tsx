@@ -22,25 +22,32 @@ type selectorStateType = {
 };
 
 export type Props = {
-  searchThread: (e: React.ChangeEvent<HTMLInputElement>) => void;
   filterValue: SelectFieldItem;
   handleFilterChange: (value: SelectFieldItem) => void;
   handleContextThreadChange: (context: ChatThreadKinds) => void;
   createNewThread: () => void;
+  searchThread: (search: string) => void;
   contextSelected: ChatThreadKinds;
 };
 
 const InboxThreadLookup: React.FC<Props> = ({
-  searchThread,
   filterValue,
   handleFilterChange,
   handleContextThreadChange,
   createNewThread,
+  searchThread,
   contextSelected,
 }) => {
   const { t } = useTranslation('communication');
 
   const classes = useStyles();
+
+  const useSearch = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      return searchThread(event.target.value);
+    },
+    [searchThread],
+  );
 
   return (
     <div className={classes.container}>
@@ -52,7 +59,7 @@ const InboxThreadLookup: React.FC<Props> = ({
       <div className={classes.secondGroup}>
         <div className={classes.searchThread}>
           <DelayedTextField
-            onChange={searchThread}
+            onChange={useSearch}
             placeholder={t('thread.search')}
             variant="outlined"
             InputProps={{

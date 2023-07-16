@@ -787,6 +787,7 @@ export const threadListQueryParamsSetter = (
   filterValue?: SelectFieldItem,
   page?: number,
   threadId?: number,
+  search?: string,
 ): InboxThreadListParams => {
   const params: InboxThreadListParams = {
     related_object_kind: contextSelected,
@@ -822,6 +823,10 @@ export const threadListQueryParamsSetter = (
     params.current_item_id = threadId;
   } else if (page) {
     params.page = page;
+  }
+
+  if (search && search?.length > 3) {
+    params.search = search;
   }
 
   return params;
@@ -880,12 +885,14 @@ export const fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts = (
   isThreadListReinitialized?: boolean,
   page?: number,
   threadId?: number,
+  search: string,
 ) => {
   const params = threadListQueryParamsSetter(
     contextSelected,
     filterValue,
     page,
     threadId,
+    search,
   );
 
   fetchInboxThreadList(params, isThreadListReinitialized, {

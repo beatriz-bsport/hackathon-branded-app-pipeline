@@ -37,11 +37,11 @@ type Props = {
   searchedMembers: Array<Member>;
   onClose: () => void;
   handlMemberSelected: (id: number, member: Member) => void;
-
-  createMember: (data: any, options: OptionCallback<Member>) => void;
+  disabled?: boolean;
+  createMember?: (data: any, options: OptionCallback<Member>) => void;
   country: string;
-  waiver: string;
-  generalTermsAndConditions: string;
+  waiver?: string;
+  generalTermsAndConditions?: string;
 };
 
 const MemberListItem = (props: {
@@ -49,8 +49,13 @@ const MemberListItem = (props: {
   isBirthday: boolean;
   theme: Theme;
   onClick?: () => void;
+  disabled: boolean;
 }) => (
-  <ListItem button={!!props.onClick} onClick={props.onClick}>
+  <ListItem
+    disabled={props.disabled}
+    button={!!props.onClick}
+    onClick={props.onClick}
+  >
     <ListItemText
       primary={
         <div
@@ -99,6 +104,7 @@ export const MemberSearchModal: React.FC<Props> = ({
   createMember,
   country,
   waiver,
+  disabled,
   generalTermsAndConditions,
 }) => {
   const { t } = useTranslation(['member']);
@@ -113,7 +119,7 @@ export const MemberSearchModal: React.FC<Props> = ({
   const openCreateForm = () => setIsOpenCreateForm(true);
   const closeCreateForm = () => setIsOpenCreateForm(false);
 
-  if (isOpenCreateForm) {
+  if (isOpenCreateForm && !!createMember) {
     return (
       <Dialog fullScreen={fullScreen} open={open}>
         <MemberForm
@@ -149,6 +155,7 @@ export const MemberSearchModal: React.FC<Props> = ({
       <DialogTitle>
         <SearchMemberInput
           searchedText={searchedText}
+          disabled={disabled}
           onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
             setSearchedText(ev.target.value);
             searchMembers(ev.target.value);
@@ -167,7 +174,7 @@ export const MemberSearchModal: React.FC<Props> = ({
           }}
         >
           {!!createMember && (
-            <ListItem button onClick={openCreateForm}>
+            <ListItem button disabled={disabled} onClick={openCreateForm}>
               <ListItemIcon>
                 <PersonAddIcon />
               </ListItemIcon>
@@ -184,6 +191,7 @@ export const MemberSearchModal: React.FC<Props> = ({
               return (
                 <MemberListItem
                   member={member}
+                  disabled={disabled}
                   key={member.id}
                   isBirthday={isBirthday}
                   theme={theme}
@@ -196,7 +204,7 @@ export const MemberSearchModal: React.FC<Props> = ({
       </DialogContent>
       <Divider />
       <DialogActions>
-        <Button onClick={onClose} color="secondary">
+        <Button onClick={onClose} disabled={disabled} color="secondary">
           {t('search.cancel')}
         </Button>
       </DialogActions>

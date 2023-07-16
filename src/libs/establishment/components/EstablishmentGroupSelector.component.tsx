@@ -88,16 +88,16 @@ type OwnProps = {
       | EstablishmentGroupSelectOption[]
       | EstablishmentGroupSelectOption,
   ) => void;
-  selectMultipleOptions: (itemsValueList: Array<number>) => void;
+  selectMultipleOptions?: (itemsValueList: Array<number>) => void;
   selectedEstablishmentGroups: Array<number> | null;
   disabled?: boolean;
-  noMulti: boolean;
+  noMulti?: boolean;
   closeMenuOnSelect: boolean;
-  isClearable: boolean;
-  nullCurrentValue: boolean;
+  isClearable?: boolean;
+  nullCurrentValue?: boolean;
   placeholder?: string;
   isLoading?: boolean;
-  onChange: () => void;
+  onChange?: () => void;
 };
 
 type Props = OwnProps & WithTranslation;

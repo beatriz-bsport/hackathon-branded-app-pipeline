@@ -885,7 +885,7 @@ export const fetchInboxThreadListWithContextParamsAndUpdateUnreadCounts = (
   isThreadListReinitialized?: boolean,
   page?: number,
   threadId?: number,
-  search: string,
+  search?: string,
 ) => {
   const params = threadListQueryParamsSetter(
     contextSelected,

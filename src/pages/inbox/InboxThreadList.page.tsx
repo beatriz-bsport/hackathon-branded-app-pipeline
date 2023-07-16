@@ -21,6 +21,7 @@ import {
   fetchInboxThreadList as fetchInboxThreadListAction,
   fetchBatchUnreadAnswersCounts as fetchUnreadAnswersCountsAction,
   getUnreadAnswersCountFromThread as getUnreadAnswersCountFromThreadAction,
+  getOrCreateInboxThread,
 } from '#libs/communication-v2/actions';
 import {
   threadFilteringChoices,
@@ -30,6 +31,7 @@ import {
   fetchInboxThreadListFromThreadCalledFromURL,
 } from '#libs/communication-v2/utils';
 import { INBOX_ALL_MESSAGES } from '#libs/communication-v2/constants';
+import InboxThreadCreator from './InboxThreadCreator.page';
 import type {
   CommunicationThread,
   CommunicationThreadWithUnreadAnswersCount,
@@ -67,6 +69,8 @@ type WithState = {
   ) => void;
   search: string;
   setSearch: (search: string, options?: () => void) => void;
+  createThreadIsOpen: boolean;
+  setOpenThreadCreator: (isOpen: boolean) => void;
 };
 
 type InboxListConnectedProps = OwnProps &
@@ -189,7 +193,9 @@ class InboxThreadListPage extends PureComponent<Props> {
     }
   };
 
-  createNewThread = (): void => {};
+  toggleThreadCreator = () => {
+    this.props.setOpenThreadCreator(!this.props.createThreadIsOpen);
+  };
 
   render() {
     const {
@@ -208,25 +214,34 @@ class InboxThreadListPage extends PureComponent<Props> {
     const { count, nextPage } = this.props.threadsPaginationResults;
 
     return (
-      <InboxThreadList
-        threadList={threadItems}
-        switchFavoriteStatus={handleSwitchFavoriteStatus}
-        switchMutedStatus={handleSwitchMutedStatus}
-        switchDisabledStatus={handleSwitchDisabledStatus}
-        flagAsUnread={handleFlagAsUnread}
-        selectedThreadId={selectedThreadId}
-        handleOnItemClick={handleOnItemClick}
-        loadMoreItems={this.loadMoreItems}
-        searchThread={this.searchThread}
-        filterValue={filterValue}
-        handleFilterChange={this.handleFilterChange}
-        handleContextThreadChange={this.handleContextThreadChange}
-        createNewThread={this.createNewThread}
-        contextSelected={contextSelected}
-        isListLoading={isListLoading}
-        nextPage={nextPage}
-        count={count}
-      />
+      <>
+        <InboxThreadList
+          threadList={threadItems}
+          switchFavoriteStatus={handleSwitchFavoriteStatus}
+          switchMutedStatus={handleSwitchMutedStatus}
+          switchDisabledStatus={handleSwitchDisabledStatus}
+          flagAsUnread={handleFlagAsUnread}
+          selectedThreadId={selectedThreadId}
+          handleOnItemClick={handleOnItemClick}
+          loadMoreItems={this.loadMoreItems}
+          searchThread={this.searchThread}
+          filterValue={filterValue}
+          handleFilterChange={this.handleFilterChange}
+          handleContextThreadChange={this.handleContextThreadChange}
+          createNewThread={this.toggleThreadCreator}
+          contextSelected={contextSelected}
+          isListLoading={isListLoading}
+          nextPage={nextPage}
+          count={count}
+        />
+        <InboxThreadCreator
+          open={!!this.props.createThreadIsOpen}
+          contextSelected={this.props.contextSelected}
+          onClose={this.toggleThreadCreator}
+          getOrCreateThread={this.props.getOrCreateInboxThread}
+          redirectToThread={this.props.selectThread}
+        />
+      </>
     );
   }
 }
@@ -252,6 +267,7 @@ const connector = connect(
     getUnreadAnswersCountFromThread: getUnreadAnswersCountFromThreadAction,
     selectThread: (id: number) => push(`/inbox/thread/${id}/`),
     unselectThread: () => push('/inbox/thread/'),
+    getOrCreateInboxThread,
   },
 );
 
@@ -261,6 +277,7 @@ export default compose<Props, InboxThreadRouterProps>(
   // null value in threadList allows to display one item with a skeleton during the loading
   withState('threadItems', 'setThreadItems', [null]),
   withState('search', 'setSearch', ''),
+  withState('createThreadIsOpen', 'setOpenThreadCreator', false),
   withTranslation('communication'),
   withHandlers({
     fetchInboxThreadListWithContextParams:

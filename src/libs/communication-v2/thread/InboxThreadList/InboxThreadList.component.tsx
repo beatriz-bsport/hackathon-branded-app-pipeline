@@ -45,7 +45,7 @@ export type Props = {
   selectedThreadId: number;
   handleOnItemClick: (threadId?: number, hasBeenRead?: boolean) => void;
   loadMoreItems: (nextPage?: number, count?: number) => void;
-  searchThread: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  searchThread: (search: string) => void;
   filterValue: SelectFieldItem;
   handleFilterChange: (value: SelectFieldItem) => void;
   handleContextThreadChange: (context: ChatThreadKinds) => void;

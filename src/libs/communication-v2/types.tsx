@@ -255,6 +255,10 @@ export type FetchInboxThreadListPayload = {
   fetchedPage: number;
 } & GenericPaginationResults<CommunicationThread>;
 
+export type FetchInboxThreadPayload = {
+  related_object_kind: ChatThreadKinds;
+} & CommunicationThread;
+
 export type InboxThreadRouterProps = {
   selectedThreadId?: number;
   contextSelected?: ChatThreadKinds;

@@ -3,6 +3,7 @@ import React, { FocusEventHandler } from 'react';
 import chroma from 'chroma-js';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import Immutable from 'seamless-immutable';
 import { colors } from '@bsport/common/lib/colors';
 import Select, { components } from 'react-select';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
@@ -220,7 +221,7 @@ const establishmentStyles = {
 
 export type OwnProps = {
   id?: string;
-  establishments?: Array<Establishment>;
+  establishments?: Array<Establishment> | Immutable.ImmutableArray<Establishment>;
   selectOption: (
     suggestion: EstablishmentSelectOption[] | EstablishmentSelectOption,
   ) => void;

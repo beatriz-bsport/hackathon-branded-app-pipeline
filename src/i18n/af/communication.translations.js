@@ -50,6 +50,10 @@ exports.default = {
       status: 'Status',
     },
   },
+  createThread: {
+    close: 'Fermer',
+    confirmResourceSelected: 'Confirmer',
+  },
   mail: {
     dialogTitle: 'Communication',
     title: 'Objet du mail',

@@ -24,7 +24,6 @@ import Typography from '@material-ui/core/Typography';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import AddIcon from '@material-ui/icons/Add';
 
-import Immutable from 'seamless-immutable';
 import {
   push as pushRouter,
   goBack as goBackRouter,
@@ -44,8 +43,6 @@ import {
   getNumberOfMassDisabledOffer,
   getMassDisabledOfferInGroup,
   getSimilars as getSimilarsOffers,
-  getSimilarsPage as getSimilarsOffersPage,
-  getSimilarsCount as getSimilarsOffersCount,
 } from '#libs/offer/selectors';
 import OfferCard from '#components/offer/OfferCard.component';
 import TimeTable from '#components/offer/TimeTable.component';
@@ -126,19 +123,19 @@ import {
 import type { Offer, Coach } from '#api/types';
 import type { OfferFilter } from '#libs/offer/types';
 
-import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
+import { snackbarSuccess } from '#libs/snackbar/actions';
 import MassDisablerDialog from '#libs/offer/components/MassDisablerDialog.component';
+import OfferSearchBar, {
+  FILTER_COACH,
+  FILTER_ESTABLISHMENT,
+  FILTER_ESTABLISHMENT_GROUP,
+  FILTER_ACTIVITY,
+  FILTER_ROLLCALL,
+} from '#libs/offer/components/OfferSearchBar.component';
 import OfferFormWithActivity from '#libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '#libs/offer/DeleteOfferForm.component';
 import { DATE_FORMAT } from '../../utils/datetime';
 
-import CoachSelector from '#libs/associated-coach/components/coach-selector/CoachSelector.component';
-import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
-import MetaActivitySelector from '#libs/meta-activity/components/MetaActivitySelector.component';
-import EstablishmentGroupSelector from '#libs/establishment/components/EstablishmentGroupSelector.component';
-import RollCallSelector from '#libs/offer/components/RollCallSelector.component';
-
-import { monitorBackgroundTask } from '#libs/background-task/actions';
 import CheckPermission from '#libs/role/components/CheckPermission.component';
 import { PermissionContext } from '../../context';
 import {
@@ -189,11 +186,6 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  selector: {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
   button: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
@@ -224,7 +216,7 @@ const styles = (theme) => ({
   },
 });
 
-const omit_list = (offerFilters: OfferFilters, available: boolean) => {
+export const omit_list = (offerFilters: OfferFilters, available: boolean) => {
   const list = available ? ['available'] : [];
   for (const filter in offerFilters) {
     if (!offerFilters[filter] || offerFilters[filter].length === 0) {
@@ -233,6 +225,18 @@ const omit_list = (offerFilters: OfferFilters, available: boolean) => {
   }
   return list;
 };
+
+export const getDayOffers = memoize((events) => {
+  const events_ = {};
+  events?.forEach((o) => {
+    const midnight = moment(o.date_start).startOf('day');
+    if (!events_[midnight]) {
+      events_[midnight] = [];
+    }
+    events_[midnight].push(o);
+  });
+  return events_;
+});
 
 type Props = {
   t: TFunction,
@@ -289,7 +293,6 @@ type Props = {
   fetchSimilarOffers: (offerId: number) => void,
 
   snackbarSuccess: (string) => void,
-  snackbarError: (string) => void,
 
   offerFilters: OfferFilter,
   setCalendarFilter: (OfferFilter) => null,
@@ -314,7 +317,6 @@ type Props = {
   setOpenDeleteDialog: () => void,
   openDeleteDialog: boolean,
 
-  monitorBackgroundTask: (uuid: string, options?: OptionCallback) => void,
   restoreOffer: (offerId: number, options: any) => void,
   fetchRoomBlueprints: () => void,
   roomBlueprints: Array<RoomBlueprint>,
@@ -354,7 +356,6 @@ type Props = {
 
   activeCustomLevels: Level[],
   allCustomLevels: Level[],
-  isDownloadingReport: boolean,
   fetchReportOfferManagement: (
     params: {
       coach_in?: number[],
@@ -389,8 +390,6 @@ type Props = {
   zoomAppDetail: ZoomApp,
   fetchZoomApp: (companyId: number) => void,
   getHasPendingReplacementRequest: (offerId: number) => boolean,
-  similarOffersPage: number,
-  similarOffersCount: number,
   goToReplacementRequestManagementPage: () => void,
   setReplacementRequestManagerFilter: (
     filters: ReplacementRequestFilter,
@@ -423,11 +422,6 @@ type State = {
   indexOfferInDrawer: number | null,
   isConfirmationRollCallDialogOpen: boolean,
 };
-
-const FILTER_COACH = 0;
-const FILTER_ESTABLISHMENT = 1;
-const FILTER_ACTIVITY = 2;
-const FILTER_ROLLCALL = 3;
 
 export class Planning extends PureComponent<Props, State> {
   constructor(props: Props) {
@@ -552,7 +546,7 @@ export class Planning extends PureComponent<Props, State> {
     });
   };
 
-  loadDayData = (day: ?string) => {
+  loadDayData = (day?: string) => {
     const date = moment(day || this.props.date, DATE_FORMAT);
     const base = `/calendar/${date.year()}/${date.month() + 1}/${date.date()}/${
       this.props.offerId ?? ''
@@ -1013,18 +1007,6 @@ export class Planning extends PureComponent<Props, State> {
     return null;
   };
 
-  getDayOffers = memoize((events) => {
-    const events_ = {};
-    events?.forEach((o) => {
-      const midnight = moment(o.date_start).startOf('day');
-      if (!events_[midnight]) {
-        events_[midnight] = [];
-      }
-      events_[midnight].push(o);
-    });
-    return events_;
-  });
-
   selectOffer = (offer) => {
     if (this.props.selectedOffer && offer.id === this.props.selectedOffer.id) {
       this.props.goToOfferManagement(offer.id);
@@ -1054,6 +1036,12 @@ export class Planning extends PureComponent<Props, State> {
           establishments: newValues.map((e) => e.value),
         });
         break;
+      case FILTER_ESTABLISHMENT_GROUP:
+        this.props.setCalendarFilter({
+          ...this.props.offerFilters,
+          establishment_group__in: newValues.map((e) => e.value),
+        });
+        break;
       case FILTER_ACTIVITY:
         this.props.setCalendarFilter({
           ...this.props.offerFilters,
@@ -1072,137 +1060,6 @@ export class Planning extends PureComponent<Props, State> {
   };
 
   selectRollCallFilter = (ev) => this.setCalendarFilter(ev, FILTER_ROLLCALL);
-
-  searchBar = () => {
-    const {
-      theme,
-      establishmentGroupList,
-      allEstablishments,
-      establishmentsLoading,
-      offerFilters,
-      classes,
-      coachesLoading,
-      metaActivities,
-      activitiesLoading,
-      coachesSelectedInRole,
-    } = this.props;
-
-    const coachBaselist =
-      coachesSelectedInRole?.length > 0
-        ? coachesSelectedInRole
-        : this.props.coaches;
-    const coachList = coachBaselist.map((e) => ({
-      ...e,
-      user: { name: e.name },
-    }));
-    const hasMultiLocation =
-      theme?.enable_multi_localization &&
-      establishmentGroupList &&
-      establishmentGroupList.length !== 0;
-    let mediumSize = 4;
-    if (hasMultiLocation || this.props.theme.is_roll_call_mandatory) {
-      mediumSize = 3;
-    }
-    if (hasMultiLocation && this.props.theme.is_roll_call_mandatory) {
-      mediumSize = 2;
-    }
-
-    let filteredEstablishments: Array<Establishment> = [...allEstablishments];
-
-    if (offerFilters?.establishment_group__in?.length) {
-      const filteredEstablishmentIds: Array<number> = establishmentGroupList
-        .filter((eg: EstablishmentGroup) =>
-          offerFilters.establishment_group__in.includes(eg.id),
-        )
-        .flatMap((eg: EstablishmentGroup) => eg.establishment)
-        .map((e: Establishment) => e.id);
-
-      const uniqueEstIds = offerFilters.establishments?.length
-        ? [
-            ...new Set(
-              filteredEstablishmentIds.concat(offerFilters.establishments),
-            ),
-          ]
-        : filteredEstablishmentIds;
-
-      filteredEstablishments = [...allEstablishments].filter(
-        (e: Establishment) => uniqueEstIds.includes(e.id),
-      );
-    }
-
-    return (
-      <Grid container style={{ overflow: 'auto' }}>
-        <Grid item xs={6} md={mediumSize} className={classes.selector}>
-          <CoachSelector
-            coaches={Immutable(coachList)}
-            selectedCoaches={
-              this.props.filterVerification && offerFilters.coaches
-            }
-            selectOption={(ev) => this.setCalendarFilter(ev, FILTER_COACH)}
-            isLoading={coachesLoading}
-          />
-        </Grid>
-        {hasMultiLocation && (
-          <Grid item xs={6} md={mediumSize} className={classes.selector}>
-            <EstablishmentGroupSelector
-              isMulti
-              establishmentGroups={establishmentGroupList.filter(
-                (group) => group.establishment.length !== 0,
-              )}
-              selectOption={(ev: SelectOptions) => {
-                const { establishments: _establishments, ...rest } =
-                  offerFilters;
-                this.props.setCalendarFilter({
-                  ...rest,
-                  establishment_group__in: ev.map((e) => e.value),
-                });
-              }}
-              closeMenuOnSelect
-              selectedEstablishmentGroups={
-                this.props.filterVerification &&
-                offerFilters.establishment_group__in
-              }
-            />
-          </Grid>
-        )}
-        <Grid item xs={6} md={mediumSize} className={classes.selector}>
-          <EstablishmentSelector
-            establishments={Immutable(filteredEstablishments)}
-            selectedEstablishments={
-              this.props.filterVerification && offerFilters.establishments
-            }
-            selectOption={(ev) =>
-              this.setCalendarFilter(ev, FILTER_ESTABLISHMENT)
-            }
-            isLoading={establishmentsLoading}
-          />
-        </Grid>
-        <Grid item xs={6} md={mediumSize} className={classes.selector}>
-          <MetaActivitySelector
-            metaActivities={metaActivities.filter(
-              (ma) => ma.customer_enabled && !ma.is_workshop,
-            )}
-            selectedMetaActivities={
-              this.props.filterVerification && offerFilters.activity__in
-            }
-            selectOption={(ev) => this.setCalendarFilter(ev, FILTER_ACTIVITY)}
-            isLoading={activitiesLoading}
-          />
-        </Grid>
-        {this.props.theme.is_roll_call_mandatory && (
-          <Grid item xs={6} md={mediumSize} className={classes.selector}>
-            <RollCallSelector
-              selectedRollCallStatus={
-                this.props.filterVerification &&
-                offerFilters.roll_call_needs_validation
-              }
-              selectOption={this.selectRollCallFilter}
-            />
-          </Grid>
-        )}
-      </Grid>
-    );
-  };
 
   fetchOffersOfDate = (date) => {
     this.props.fetchOffersByDay({
@@ -1317,11 +1174,25 @@ export class Planning extends PureComponent<Props, State> {
       selectedOffer,
       hybridOfferLinkedToSelectedOffer,
     } = this.props;
-    const events_ = this.getDayOffers(events);
+    const events_ = getDayOffers(events);
 
     return (
       <div className={classes.container}>
-        {this.searchBar()}
+        <OfferSearchBar
+          theme={this.props.theme}
+          establishmentGroupList={this.props.establishmentGroupList}
+          allEstablishments={this.props.allEstablishments}
+          establishmentsLoading={this.props.establishmentsLoading}
+          offerFilters={this.props.offerFilters}
+          coachesLoading={this.props.coachesLoading}
+          metaActivities={this.props.metaActivities}
+          activitiesLoading={this.props.activitiesLoading}
+          coachesSelectedInRole={this.props.coachesSelectedInRole}
+          coaches={this.props.coaches}
+          filterVerification={this.props.filterVerification}
+          setCalendarFilter={this.setCalendarFilter}
+          selectRollCallFilter={this.selectRollCallFilter}
+        />
         <Grid className={classes.innerContainer} container spacing={3}>
           {isWidthDown('md', width) && selectedOffer
             ? this.renderGoBackButton()
@@ -1564,8 +1435,6 @@ export default compose(
         state.establishment.loading,
 
       similarOffers: getSimilarsOffers(state),
-      similarOffersPage: getSimilarsOffersPage(state),
-      similarOffersCount: getSimilarsOffersCount(state),
       offerFilters: state.userPreference.calendarFilter,
       offerByDayLoading: state.offer.byDay.loading,
 
@@ -1597,7 +1466,6 @@ export default compose(
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       activeCustomLevels: getActiveCustomLevels(state),
       allCustomLevels: getAllCustomLevels(state),
-      isDownloadingReport: state.reports.offerManagement.loading,
       deletingOffer: state.offer.delete.loading || state.offer.disable.loa,
       zoomAppDetail: zoomAppSelectors.getZoomApp(state),
       replacementRequestManagerFilter:
@@ -1608,7 +1476,6 @@ export default compose(
       goBack: goBackRouter,
       pushToSchedule: () => pushRouter('/schedule'),
       snackbarSuccess,
-      snackbarError,
       goToOfferManagement: (offerId) => pushRouter(`/offer/${offerId}`),
       fetchAllOffers: fetchAllOffersAction,
       deleteOffer: deleteOfferAction,
@@ -1626,7 +1493,6 @@ export default compose(
 
       disableMassOffers,
       fetchBookingStatistics: fetchBookingStatisticsAction,
-      monitorBackgroundTask,
       restoreOffer,
       fetchBookedGender: fetchBookedGenderAction,
       fetchRoomBlueprints,

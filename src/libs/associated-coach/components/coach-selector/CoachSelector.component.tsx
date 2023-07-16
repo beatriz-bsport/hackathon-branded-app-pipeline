@@ -10,6 +10,7 @@ import Select, {
 } from 'react-select';
 import { colors } from '@bsport/common/lib/colors';
 import { Typography } from '@material-ui/core';
+import Immutable from 'seamless-immutable';
 
 import type { Coach } from '../../types';
 
@@ -17,7 +18,7 @@ import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '#libs/video/constant';
 
 type Props = {
   id?: string;
-  coaches: Array<Coach>;
+  coaches: Array<Coach> | Immutable.Immutable<Array<Coach>>;
   selectedCoaches: Array<number>;
   placeholder?: string;
   noMulti?: boolean;

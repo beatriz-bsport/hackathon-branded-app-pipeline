@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import {
   API_V1_URI,
   postAuth,
@@ -136,6 +137,16 @@ export const fetchInboxThreadList = async (
     `${API_V1_URI}/communication/communication_thread/${buildUrlParams(
       params,
     )}`,
+  );
+};
+
+export const getOrCreateThread = async (
+  context: ChatThreadKinds,
+  resourceId: number,
+): Promise<AxiosResponse<CommunicationThread>> => {
+  return postAuth(
+    `${API_V1_URI}/communication/communication_thread/get_or_create/`,
+    { related_object_kind: context, related_object_id: resourceId },
   );
 };
 

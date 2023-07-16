@@ -30,6 +30,7 @@ import {
   flagAsUnread as flagAsUnreadAPI,
   flagAsRead as flagAsReadAPI,
   fetchInboxThreadFromId as fetchInboxThreadFromIdAPI,
+  getOrCreateThread as getOrCreateThreadAPI,
 } from './api';
 import {
   FetchCommunicationParams,
@@ -42,6 +43,7 @@ import {
   CommunicationThread,
   UnreadAnswersCount,
   FetchInboxThreadListPayload,
+  FetchInboxThreadPayload,
 } from './types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from './constants';
 import { monitorBackgroundTask } from '#libs/background-task/actions';
@@ -463,6 +465,39 @@ export const fetchInboxThreadList = (
       options?.onError?.();
     }
     dispatch(fetchCommunicationThreadActions.loading(false));
+  };
+};
+
+export const getOrCreateThreadActions = {
+  error: createAction<Error>('COMMUNICATION_THREADS/GET_OR_CREATE/ERROR'),
+  loading: createAction<boolean>('COMMUNICATION_THREADS/GET_OR_CREATE/LOADING'),
+  success: createAction<FetchInboxThreadPayload>(
+    'COMMUNICATION_THREADS/GET_OR_CREATE/SUCCESS',
+  ),
+};
+
+export const getOrCreateInboxThread = (
+  context: ChatThreadKinds,
+  resourceId: number,
+  options?: OptionCallback<CommunicationThread>,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    dispatch(getOrCreateThreadActions.loading(true));
+    dispatch(getOrCreateThreadActions.error(null));
+
+    try {
+      const response = await getOrCreateThreadAPI(context, resourceId);
+      const payload = {
+        ...response.data,
+        related_object_kind: context,
+      };
+      dispatch(getOrCreateThreadActions.success(payload));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(getOrCreateThreadActions.error(error));
+      options?.onError?.();
+    }
+    dispatch(getOrCreateThreadActions.loading(false));
   };
 };
 

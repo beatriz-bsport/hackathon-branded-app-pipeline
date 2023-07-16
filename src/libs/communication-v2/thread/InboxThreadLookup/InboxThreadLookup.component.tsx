@@ -26,7 +26,7 @@ export type Props = {
   handleFilterChange: (value: SelectFieldItem) => void;
   handleContextThreadChange: (context: ChatThreadKinds) => void;
   createNewThread: () => void;
-  searchThread: (search: string) => void;
+  searchThread?: (search: string) => void;
   contextSelected: ChatThreadKinds;
 };
 
@@ -44,7 +44,9 @@ const InboxThreadLookup: React.FC<Props> = ({
 
   const useSearch = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      return searchThread(event.target.value);
+      if (!!searchThread) {
+        return searchThread(event.target.value);
+      }
     },
     [searchThread],
   );

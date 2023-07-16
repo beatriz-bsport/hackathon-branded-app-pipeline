@@ -16,6 +16,7 @@ import {
   fetchUnreadAnswersCountsActions,
   switchStatusActions,
   getCommunicationThreadActions,
+  getOrCreateThreadActions,
 } from './actions';
 
 import {
@@ -504,6 +505,24 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       return state.setIn(['inboxThread', 'currentThread', 'error'], payload);
     },
     [getCommunicationThreadActions.success.toString()]: (
+      state,
+      { payload }: { payload: CommunicationThread },
+    ) => {
+      return state.setIn(['inboxThread', 'byId', payload.id], payload);
+    },
+    [getOrCreateThreadActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['inboxThread', 'getOrCreate', 'loading'], payload);
+    },
+    [getOrCreateThreadActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error },
+    ) => {
+      return state.setIn(['inboxThread', 'getOrCreate', 'error'], payload);
+    },
+    [getOrCreateThreadActions.success.toString()]: (
       state,
       { payload }: { payload: CommunicationThread },
     ) => {

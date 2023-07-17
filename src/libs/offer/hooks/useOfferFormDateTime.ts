@@ -35,9 +35,21 @@ const useOfferFormDateTime = (timezone: string) => {
       hourValue?: number,
       minuteValue?: number,
     ) => {
-      const days = (dayValue ?? getDays(durationMinute)) * 24 * 60;
-      const minutes = minuteValue ?? getMinutes(durationMinute);
-      const hours = (hourValue ?? getHours(durationMinute)) * 60;
+      // This sanity check prevents NaN values from spreading around inside computations
+      // NaN ?? 2 = NaN
+      const sanitizedDayValue = Number.isNaN(dayValue) ? 0 : dayValue;
+      let sanitizedHourValue = Number.isNaN(hourValue) ? 0 : hourValue;
+      let sanitizedMinuteValue = Number.isNaN(minuteValue) ? 0 : minuteValue;
+
+      if (sanitizedHourValue)
+        sanitizedHourValue = Math.min(sanitizedHourValue, 23);
+      if (sanitizedMinuteValue)
+        sanitizedMinuteValue = Math.min(sanitizedMinuteValue, 59);
+
+      const days = (sanitizedDayValue ?? getDays(durationMinute)) * 24 * 60;
+      const minutes = sanitizedMinuteValue ?? getMinutes(durationMinute);
+      const hours = (sanitizedHourValue ?? getHours(durationMinute)) * 60;
+
       const newDurationMinute = days + hours + minutes;
 
       return newDurationMinute;

@@ -34,8 +34,8 @@ import MemberShipValidationWrapperInnerComponent from './MemberShipValidationWra
 
 type OwnProps = {
   companyId: number;
-  membership: Membership;
-  authenticated: boolean;
+  membership?: Membership;
+  authenticated?: boolean;
 };
 
 type Props = OwnProps &

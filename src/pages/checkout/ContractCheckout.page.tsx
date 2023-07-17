@@ -73,6 +73,7 @@ import MarketplaceContractCooldownModal from '#libs/marketplace/components/Marke
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 import Carousel from '#components/css-only/Carousel';
 import MarketplaceContractNotFound from '#libs/marketplace/components/MarketplaceContractNotFound';
+import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 
 import './styles.css';
 
@@ -102,7 +103,10 @@ type ownProps = {
   fullScreen: boolean;
   paymentDialogOpen: boolean;
   requestSetupIntentSecret: () => { data: { client_secret: string } };
-  fetchPaymentMethodList: () => void;
+  fetchPaymentMethodList: (
+    params: { company: number },
+    options?: OptionCallback<PaymentMethod[]>,
+  ) => void;
   savedPaymentMethodList: PaymentMethod[];
   detachPaymentMethodLoading: boolean;
   detachPaymentMethod: (
@@ -421,121 +425,124 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     const displayDirectLinkLayout = this.state.isDirectBuyingLink || isWidget;
 
     return (
-      <ConsumerAppBar>
-        <div
-          className={classNames({
-            'bs-contract-checkout__container': !this.state.isDirectBuyingLink,
-            'bs-contract-checkout__direct__link__container':
-              this.state.isDirectBuyingLink,
-          })}
-        >
-          {!isWidget && !this.state.isDirectBuyingLink && (
-            <div className="bs-contract-checkout__list__container">
-              {!!this.props.contractList.length &&
-                this.props.contractList.map((contractItem: Contract) => (
-                  <MarketplaceContractCheckout
-                    key={contractItem.id}
-                    contract={contractItem}
-                    isContractObjectLoading={this.getContractObjectLoading(
-                      contractItem,
-                    )}
-                    isExpanded={contract?.id === contractItem.id}
-                    isSelected={contract?.id === contractItem.id}
-                    isExcludingTax={this.getIsTaxExcluded()}
-                    onSelect={this.handleSelectContract}
+      <MemberShipValidationWrapper companyId={this.props.companyId}>
+        <ConsumerAppBar>
+          <div
+            className={classNames({
+              'bs-contract-checkout__container': !this.state.isDirectBuyingLink,
+              'bs-contract-checkout__direct__link__container':
+                this.state.isDirectBuyingLink,
+            })}
+          >
+            {!isWidget && !this.state.isDirectBuyingLink && (
+              <div className="bs-contract-checkout__list__container">
+                {!!this.props.contractList.length &&
+                  this.props.contractList.map((contractItem: Contract) => (
+                    <MarketplaceContractCheckout
+                      key={contractItem.id}
+                      contract={contractItem}
+                      isContractObjectLoading={this.getContractObjectLoading(
+                        contractItem,
+                      )}
+                      isExpanded={contract?.id === contractItem.id}
+                      isSelected={contract?.id === contractItem.id}
+                      isExcludingTax={this.getIsTaxExcluded()}
+                      onSelect={this.handleSelectContract}
+                      getPaymentPackSelected={this.props.getPaymentPackSelected}
+                      getPrivatePassSelected={this.props.getPrivatePassSelected}
+                      getPaymentComboSelected={
+                        this.props.getPaymentComboSelected
+                      }
+                      customRef={this.selectedContractRef}
+                    />
+                  ))}
+              </div>
+            )}
+
+            {!contract || contract?.disabled ? (
+              <div className="bs-contract-payment-page">
+                <MarketplaceContractNotFound />
+              </div>
+            ) : (
+              <div
+                className={classNames({
+                  'bs-contract-payment-page': displayCarousel,
+                  'bs-contract-payment-page__direct__link__container':
+                    displayDirectLinkLayout,
+                })}
+              >
+                {displayCarousel && (
+                  <div className="bs-contract-payment-page__carousel__container">
+                    <Carousel
+                      isSlideshowDisabled
+                      initialSelectedItemIndex={this.getInitialCarouselItemIndex()}
+                      data={this.props.contractList}
+                      renderItem={this.getCarouselRenderItem}
+                      onSwipe={this.handleOnCarouselItemSwipe}
+                      onScroll={this.handleOnCarouselItemSwipe}
+                    />
+                  </div>
+                )}
+
+                {displayDirectLinkLayout && (
+                  <MarketplaceContractDetail
+                    contract={contract}
                     getPaymentPackSelected={this.props.getPaymentPackSelected}
                     getPrivatePassSelected={this.props.getPrivatePassSelected}
                     getPaymentComboSelected={this.props.getPaymentComboSelected}
-                    customRef={this.selectedContractRef}
                   />
-                ))}
-            </div>
-          )}
+                )}
 
-          {!contract || contract?.disabled ? (
-            <div className="bs-contract-payment-page">
-              <MarketplaceContractNotFound />
-            </div>
-          ) : (
-            <div
-              className={classNames({
-                'bs-contract-payment-page': displayCarousel,
-                'bs-contract-payment-page__direct__link__container':
-                  displayDirectLinkLayout,
-              })}
-            >
-              {displayCarousel && (
-                <div className="bs-contract-payment-page__carousel__container">
-                  <Carousel
-                    isSlideshowDisabled
-                    initialSelectedItemIndex={this.getInitialCarouselItemIndex()}
-                    data={this.props.contractList}
-                    renderItem={this.getCarouselRenderItem}
-                    onSwipe={this.handleOnCarouselItemSwipe}
-                    onScroll={this.handleOnCarouselItemSwipe}
-                  />
-                </div>
-              )}
-
-              {displayDirectLinkLayout && (
-                <MarketplaceContractDetail
+                <MarketplaceContractPayment
+                  isWidget={isWidget}
                   contract={contract}
-                  getPaymentPackSelected={this.props.getPaymentPackSelected}
-                  getPrivatePassSelected={this.props.getPrivatePassSelected}
-                  getPaymentComboSelected={this.props.getPaymentComboSelected}
+                  isExcludingTax={this.getIsTaxExcluded()}
+                  refreshSavedPaymentMethodList={
+                    this.props.fetchPaymentMethodList
+                  }
+                  savedPaymentMethodList={this.props.savedPaymentMethodList}
+                  isLoading={this.state.processing}
+                  isContractLegalTermsAccepted={
+                    this.state.isContractLegalTermsAccepted
+                  }
+                  billingStartDate={this.state.billingStartDate}
+                  sepaDefaultName={this.props.auth.name}
+                  sepaDefaultEmail={this.props.auth.username}
+                  setBillingStartDate={this.handleSetBillingStartDate}
+                  setAcceptContractLegalTerms={
+                    this.handleSetAcceptContractLegalTerms
+                  }
+                  enabledPaymentMethodsIds={getMarketplaceEnabledPaymentMethods(
+                    {
+                      paymentMethodAvailableSubscription:
+                        this.props.theme.payment_method_available_subscription,
+                    },
+                  )}
+                  enabledPaymentGroupMethodIdentifierIds={
+                    this.props.theme.payment_method_available_subscription
+                  }
+                  detachPaymentMethod={this.props.detachPaymentMethod}
+                  requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+                  onOpenContractTermsDialog={this.handleOpenContractTermsDialog}
+                  onCancelContractPayment={this.handleCancelContractPayment}
+                  onSubmitContractPayment={this.handleSubmitContractPayment}
                 />
-              )}
+              </div>
+            )}
+          </div>
 
-              <MarketplaceContractPayment
-                isWidget={isWidget}
-                contract={contract}
-                isExcludingTax={this.getIsTaxExcluded()}
-                refreshSavedPaymentMethodList={
-                  this.props.fetchPaymentMethodList
-                }
-                savedPaymentMethodList={this.props.savedPaymentMethodList}
-                isLoading={this.state.processing}
-                isContractLegalTermsAccepted={
-                  this.state.isContractLegalTermsAccepted
-                }
-                billingStartDate={this.state.billingStartDate}
-                sepaDefaultName={this.props.auth.name}
-                sepaDefaultEmail={this.props.auth.username}
-                setBillingStartDate={this.handleSetBillingStartDate}
-                setAcceptContractLegalTerms={
-                  this.handleSetAcceptContractLegalTerms
-                }
-                enabledPaymentMethodsIds={getMarketplaceEnabledPaymentMethods({
-                  paymentMethodAvailableSubscription:
-                    this.props.theme.payment_method_available_subscription,
-                })}
-                enabledPaymentGroupMethodIdentifierIds={
-                  this.props.theme.payment_method_available_subscription
-                }
-                detachPaymentMethod={this.props.detachPaymentMethod}
-                requestSetupIntentSecret={this.props.requestSetupIntentSecret}
-                onOpenContractTermsDialog={this.handleOpenContractTermsDialog}
-                onCancelContractPayment={this.handleCancelContractPayment}
-                onSubmitContractPayment={this.handleSubmitContractPayment}
-              />
-            </div>
-          )}
-        </div>
-
-        <MarketplaceContractTermsModal
-          contractTerms={contract?.contract}
-          isContractTermsDownloadLoading={
-            this.props.contractTermsDownloadLoading
-          }
-          onDownloadTerms={this.props.downloadContractTerms}
-          isOpen={this.state.openContractTermsDialog}
-          onDialogClose={this.handleCloseContractTermsDialog}
-        />
-        <MarketplaceContractCooldownModal
-          isOpen={this.state.isContractCooldownDialogOpen}
-          onDialogClose={this.handleCloseContractCooldownDialog}
-        />
-      </ConsumerAppBar>
+          <MarketplaceContractTermsModal
+            contractTerms={contract?.contract}
+            onDownloadTerms={this.props.downloadContractTerms}
+            isOpen={this.state.openContractTermsDialog}
+            onDialogClose={this.handleCloseContractTermsDialog}
+          />
+          <MarketplaceContractCooldownModal
+            isOpen={this.state.isContractCooldownDialogOpen}
+            onDialogClose={this.handleCloseContractCooldownDialog}
+          />
+        </ConsumerAppBar>
+      </MemberShipValidationWrapper>
     );
   }
 }

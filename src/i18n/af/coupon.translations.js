@@ -276,4 +276,8 @@ exports.default = {
     voucherCodes: "Bons d'achat",
     discountCode: 'Code de réduction',
   },
+  couponFilter: {
+    title: 'Type de promotion',
+    allType: 'Tout type de promotion',
+  },
 };

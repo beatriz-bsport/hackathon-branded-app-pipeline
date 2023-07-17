@@ -1391,7 +1391,8 @@
         }
       }
     },
-    "fabLabels": { "voucherCodes": "Bons d'achat", "discountCode": "Code de réduction" }
+    "fabLabels": { "voucherCodes": "Bons d'achat", "discountCode": "Code de réduction" },
+    "couponFilter": { "title": "Type de promotion", "allType": "Tout type de promotion" }
   },
   "dashboard": {
     "save": "Sauvegarder",

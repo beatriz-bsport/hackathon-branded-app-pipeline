@@ -51,6 +51,7 @@ export type Coupon = {
   available_unique_codes?: AvailableUniqueCodes;
   coupon_cost_for_company: number;
   nb_unique_codes: number;
+  nb_discounts: number;
 };
 
 export type CouponState = {

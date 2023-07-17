@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
@@ -39,6 +38,7 @@ import {
 import Block from '@material-ui/icons/Block';
 import Check from '@material-ui/icons/Check';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
+import { Alert } from '@material-ui/lab';
 import TagSelector from '#libs/tag/components/TagSelector.selector';
 import { Moment } from '../../../i18n';
 
@@ -779,6 +779,9 @@ export class CouponForm extends React.Component<Props, State> {
             </Typography>
           </div>
         )}
+        <Alert className={classes.alert} severity="info">
+          {t('form.alert')}
+        </Alert>
         <Typography variant="h6">{t('form.section.general')}</Typography>
         <TextField
           fullWidth
@@ -1005,6 +1008,9 @@ const styles = (theme) => ({
   selector: {
     width: '100%',
     marginBottom: theme.spacing(1),
+  },
+  alert: {
+    alignItems: 'center',
   },
 });
 

@@ -1,29 +1,48 @@
-// @flow
 import React, { useCallback, useEffect, useState } from 'react';
 import List from '@material-ui/core/List';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { withTranslation, TFunction } from 'react-i18next';
-import { compose } from 'recompose';
+import { useTranslation } from 'react-i18next';
 
-import { Divider } from '@material-ui/core';
+import { Divider, makeStyles } from '@material-ui/core';
+import { CouponKind } from '@bsport/common/lib/master-data/coupon';
 import CouponListItem from './CouponListItem.component';
 import CouponTypeFilter from './CouponTypeFilter/CouponTypeFilter.component';
 import { CouponFilterOptions, type Coupon } from '../types';
 
 type Props = {
-  classes: Object,
-  activeCoupons: Array<Coupon>,
-  inactiveCoupons: Array<Coupon>,
-  goToCoupon: (id: number) => void,
-  onEdit: (coupon: Coupon) => void,
-  setCouponToDelete: (id: number) => void,
-  t: TFunction,
+  activeCoupons: Coupon[];
+  inactiveCoupons: Coupon[];
+  goToCoupon: (id: number) => void;
+  onEdit: (coupon: Coupon) => void;
+  setCouponToDelete: (id: number) => void;
 };
 
-export const CouponList = (props: Props) => {
-  const { classes, activeCoupons, inactiveCoupons, goToCoupon, t } = props;
+const useStyles = makeStyles((theme) => ({
+  section: {
+    marginBottom: theme.spacing(2),
+  },
+  sectionTitle: {
+    marginBottom: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
+  },
+  filter: {
+    width: '20%',
+    minWidth: '290px',
+  },
+}));
+
+export const CouponList: React.FC<Props> = ({
+  activeCoupons,
+  inactiveCoupons,
+  goToCoupon,
+  onEdit,
+  setCouponToDelete,
+}) => {
+  const { t } = useTranslation('coupon');
+  const classes = useStyles();
 
   const [filteredInactiveCoupons, setFilteredInactiveCoupons] =
     useState(inactiveCoupons);
@@ -73,16 +92,15 @@ export const CouponList = (props: Props) => {
           </Typography>
           <Divider className={classes.divider} />
           <Paper>
-            <List dense disablePadding divider>
+            <List dense disablePadding>
               {filteredActiveCoupons.map((coupon) => (
                 <CouponListItem
                   key={coupon.id}
                   divider
                   coupon={coupon}
-                  onClick={() => goToCoupon(coupon.id)}
-                  onDelete={props.setCouponToDelete}
-                  onEdit={props.onEdit}
-                  onEditCoupon={() => goToCoupon(coupon.id)}
+                  onClick={goToCoupon}
+                  onDelete={setCouponToDelete}
+                  onEdit={onEdit}
                 />
               ))}
             </List>
@@ -94,17 +112,17 @@ export const CouponList = (props: Props) => {
           <Typography className={classes.sectionTitle} variant="h5">
             {t('list.inactiveCoupons')}
           </Typography>
-          <Divider className={props.classes.divider} />
+          <Divider className={classes.divider} />
           <Paper>
-            <List dense disablePadding divider>
+            <List dense disablePadding>
               {filteredInactiveCoupons.map((coupon) => (
                 <CouponListItem
                   key={coupon.id}
                   divider
                   coupon={coupon}
-                  onClick={() => props.goToCoupon(coupon.id)}
-                  onDelete={props.setCouponToDelete}
-                  onEdit={props.onEdit}
+                  onClick={goToCoupon}
+                  onDelete={setCouponToDelete}
+                  onEdit={onEdit}
                 />
               ))}
             </List>
@@ -115,22 +133,4 @@ export const CouponList = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
-  section: {
-    marginBottom: theme.spacing(2),
-  },
-  sectionTitle: {
-    marginBottom: theme.spacing(1),
-  },
-  divider: {
-    marginBottom: theme.spacing(2),
-  },
-  filter: {
-    width: '20%',
-    minWidth: '290px',
-  },
-});
-export default compose(
-  withTranslation(['coupon']),
-  withStyles(styles),
-)(CouponList);
+export default React.memo(CouponList);

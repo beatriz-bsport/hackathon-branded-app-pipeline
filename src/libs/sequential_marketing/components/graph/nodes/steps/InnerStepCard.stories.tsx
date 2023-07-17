@@ -16,6 +16,14 @@ import { companyEmailListFactory } from '#libs/email-editor/factories/EmailTempl
 export default {
   title: 'Components/Cadences/CadenceNodes/InnerStep',
   component: InnerStepCard,
+  parameters: {
+    docs: {
+      page: null,
+    },
+    description: {
+      component: 'Inner step card component for cadence graph',
+    },
+  },
   decorators: [
     (Story) => (
       <div

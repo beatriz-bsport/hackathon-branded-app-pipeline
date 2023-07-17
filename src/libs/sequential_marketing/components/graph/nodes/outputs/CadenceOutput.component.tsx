@@ -2,11 +2,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import StepCard from '#components/card/StepCard.component';
-import CadenceNodeTitle from '../internals/CadenceNodeTitle.component';
+import CadenceNodeTitle from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
 import {
   DestinationStatus,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
+
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
 

@@ -11,14 +11,15 @@ import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import MultipleActionsMenuOnHover from '#components/button/MultipleActionsMenuOnHover.component';
 import ConnectedTriggerChip from '#libs/sequential_marketing/components/graph/chips/ConnectedTriggerChip.component';
 import TriggeredPersonIcon from '#components/icons/TriggeredPersonIcon.component';
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
-import type { Action } from '#components/button/MultipleActionsButton.component';
 import {
   HEADER_FONT_SIZE,
   HEADER_ICON_SIZE,
   HEADER_MAX_WIDTH,
 } from '#libs/sequential_marketing/constants/steps';
+
+import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import type { SmartList } from '#libs/smart-list/types';
+import type { Action } from '#components/button/MultipleActionsButton.component';
 
 type StylesProps = {
   color: string;

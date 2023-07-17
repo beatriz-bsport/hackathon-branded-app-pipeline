@@ -18,6 +18,14 @@ import { companyEmailListFactory } from '#libs/email-editor/factories/EmailTempl
 export default {
   title: 'Components/Cadences/CadenceNodes/EntryStep',
   component: EntryStepCard,
+  parameters: {
+    docs: {
+      page: null,
+    },
+    description: {
+      component: 'Entry step card component for cadence graph',
+    },
+  },
   decorators: [
     (Story) => (
       <div

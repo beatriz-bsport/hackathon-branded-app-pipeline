@@ -9,6 +9,20 @@ import { DestinationStatus } from '#libs/sequential_marketing/constants';
 export default {
   title: 'Components/Cadences/CadenceNodes/Exit',
   component: CadenceExitCard,
+  parameters: {
+    docs: {
+      page: null,
+    },
+    description: {
+      component: 'Exit card for cadence graph',
+    },
+  },
+  argTypes: {
+    status: {
+      control: 'inline-radio',
+      options: [DestinationStatus.WIN, DestinationStatus.FAIL],
+    },
+  },
   decorators: [
     (Story) => (
       <div

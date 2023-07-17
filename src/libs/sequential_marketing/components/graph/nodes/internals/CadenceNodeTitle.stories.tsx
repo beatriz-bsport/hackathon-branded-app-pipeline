@@ -10,6 +10,19 @@ import { smartlistFactory } from '#libs/smart-list/factories';
 export default {
   title: 'Components/Cadences/CadenceNodes/Title',
   component: CadenceNodeTitle,
+  parameters: {
+    docs: {
+      page: null,
+    },
+    description: {
+      component: 'Title component used in cadences',
+    },
+  },
+  argTypes: {
+    color: { control: 'color' },
+    disabled: { control: 'boolean' },
+    squareIcon: { control: 'boolean' },
+  },
   decorators: [
     (Story) => (
       <div

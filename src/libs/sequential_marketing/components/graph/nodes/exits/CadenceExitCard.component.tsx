@@ -3,12 +3,13 @@ import { useTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
 
 import StepCard from '#components/card/StepCard.component';
-import CadenceNodeTitle from '../internals/CadenceNodeTitle.component';
+import CadenceNodeTitle from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
 import {
   DestinationStatus,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
-import type { StoredStep } from '../../hooks/types';
+
+import type { StoredStep } from '#libs/sequential_marketing/components/graph/hooks/types';
 
 export type CadenceExitCardProps = {
   status: DestinationStatus;

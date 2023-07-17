@@ -9,6 +9,14 @@ import { smartlistFactory } from '#libs/smart-list/factories';
 export default {
   title: 'Components/Cadences/CadenceNodes/TriggerCard',
   component: TriggerCard,
+  parameters: {
+    docs: {
+      page: null,
+    },
+    description: {
+      component: 'Trigger card component for cadence graph',
+    },
+  },
   decorators: [
     (Story) => (
       <div

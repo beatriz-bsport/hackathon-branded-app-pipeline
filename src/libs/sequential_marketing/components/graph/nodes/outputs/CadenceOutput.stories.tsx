@@ -15,6 +15,20 @@ import { smartlistFactory } from '#libs/smart-list/factories';
 export default {
   title: 'Components/Cadences/CadenceNodes/Output',
   component: CadenceOutput,
+  parameters: {
+    docs: {
+      page: null,
+    },
+    description: {
+      component: 'Output card for cadence graph',
+    },
+  },
+  argTypes: {
+    status: {
+      control: 'inline-radio',
+      options: [DestinationStatus.WIN, DestinationStatus.FAIL],
+    },
+  },
   decorators: [
     (Story) => (
       <div

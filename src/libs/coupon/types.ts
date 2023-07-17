@@ -166,3 +166,9 @@ export type ResetDiscountList = {
   count: number;
   page: number;
 };
+
+export enum CouponFilterOptions {
+  VIA_CODE = 0,
+  VIA_UNIQUE_CODE_PER_USAGE = 1,
+  DEFAULT = 2,
+}

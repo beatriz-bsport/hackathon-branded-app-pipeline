@@ -456,8 +456,10 @@
         "creditConsumed_plural": "{{credit_consumed}} créditos",
         "spivi": {
             "connectionImpossible": "Não é possível estabelecer ligação ao Spivi",
-            "error": "Problema de ligação com o Spivi"
-        }
+            "error": "Problema de ligação com o Spivi",
+            "errorText": "O membro não preenche as condições do Spivi, pelo que a reserva não foi efectuada através do Spivi."
+        },
+        "warning": "Atenção"
     },
     "coach": {
         "workingDateSection": "Período de atividade no estúdio",
@@ -582,7 +584,7 @@
         },
         "advancedFilters": {
             "apply": "Aplicar filtros",
-            "privateserviceCoachPaymentRuleSelector": "Nomeações",
+            "privateserviceCoachPaymentRuleSelector": "Marcações",
             "header": "Filtros avançados",
             "reset": "Redefinir filtros",
             "coachSelector": "Selecionar professores",
@@ -660,7 +662,7 @@
                 "vod": "VOD",
                 "credits": "Número de créditos"
             },
-            "copyLink": "Copiar ligação"
+            "copyLink": "Copiar link"
         },
         "duration": {
             "hour": "{{ count }} hora",
@@ -726,7 +728,7 @@
             "sendSms": "Enviar um SMS",
             "refreshText": "Recarregue a página para atualizar as alterações do e-mail",
             "mailSelection": "Escolher um e-mail",
-            "title": "Assunto do correio",
+            "title": "Assunto do e-mail",
             "titleInterpolated": "As variáveis contidas na linha de assunto e no corpo do e-mail são actualizadas de acordo com o destinatário",
             "writeMail": "Escrever uma mensagem de email",
             "selectTemplate": "Seleccionar um modelo de template",
@@ -957,7 +959,8 @@
                 "content": "Mensagem",
                 "warningLength": "{{number_sms}} serão enviadas mensagens SMS"
             },
-            "refresh": "Para ver a nova versão do seu modelo, clique no botão atualizar."
+            "refresh": "Para ver a nova versão do seu modelo, clique no botão atualizar.",
+            "writeCommunication": "Enviar mensagem"
         },
         "common": {
             "confirm": "Confirmar",
@@ -987,7 +990,7 @@
             "cancelPreview": "Cancelar",
             "drawerTitle": "Histórico dos pop-ups de arranque",
             "close": "Fechar",
-            "recipients": "Beneficiários ",
+            "recipients": "Destinatários ",
             "see": "Ver",
             "seeRecipients": "Ver os destinatários",
             "noSmartListPopup": "Sem pop-up de arranque",
@@ -1016,7 +1019,15 @@
                 "weeks": "sem",
                 "minutes": "min",
                 "year": "{{count}} um",
-                "year_plural": "{{count}} uns"
+                "year_plural": "{{count}} uns",
+                "filterMessages": "Filtrar as mensagens",
+                "unarchive": "Restaurar",
+                "archive": "Arquivar",
+                "unmute": "Reativar",
+                "mute": "Silenciar",
+                "removeFavorite": "Retirar dos favoritos",
+                "addToFavorite": "Adicionar aos favoritos",
+                "markAsRead": "Marcar como não lida"
             },
             "loadMoreThreads": "Carregar mais mensagens",
             "kind": {
@@ -1031,11 +1042,21 @@
                 "favorites": "Favoritos",
                 "muted": "Silenciar",
                 "disabled": "Arquivar"
-            }
+            },
+            "noThread": "Sem resultados",
+            "emptyThread": {
+                "becauseNeverUsed": "Ainda não enviou uma comunicação para este canal.",
+                "becauseOfFilters": "Nenhum resultado correspondente aos filtros."
+            },
+            "filterOutCommunicationSent": "A comunicação que acabou de enviar está oculta pelos filtros ativos."
         },
         "generic": {
             "communication": "Comunicação",
             "history": "Histórico"
+        },
+        "sentStatus": {
+            "fail": "Ocorreu um erro durante a transmissão",
+            "processing": "A comunicação está a ser enviada"
         }
     },
     "checkout": {
@@ -1055,7 +1076,11 @@
             "globalTotal": "Total",
             "flat_fee": "Taxas de inscrições",
             "taxExcluded": "Subtotal insento de imposto",
-            "tax": "Impostos"
+            "tax": "Impostos",
+            "internalAccount": "Conta interna",
+            "totalHiddingTax": "Total",
+            "deliveryFee": "Despesas de envio",
+            "title": "Pagamento"
         },
         "events": {
             "basket-created": "Cesto criado",
@@ -1085,14 +1110,19 @@
             "error": {
                 "invalidBasket": "O seu cesto continha artigos que já não estão disponíveis para venda. Não foi registado qualquer pagamento",
                 "inconsistentBasket": "O seu cesto foi modificado. Actualize a sua página antes de validar o pagamento.\nNão foi debitado."
-            }
+            },
+            "acceptTermsAndFinalize": "Aceite os termos e condições e complete a reserva",
+            "checkAndFinalize": "Verifique o seu carrinho e complete a reserva",
+            "almostDone": "Última etapa"
         },
         "validation": {
             "actions": {
                 "continue": "Continuar a comprar",
                 "member": "Área de Membros",
                 "back": "Anterior",
-                "widgetContinue": "Continuar"
+                "widgetContinue": "Continuar",
+                "confirmPriceNull": "Confirmar",
+                "payNow": "Pagar"
             },
             "sections": {
                 "errorExplain": {
@@ -1547,7 +1577,7 @@
             "bookAgain": "Remarcar",
             "accessLive": "Aceder à transmissão em direto",
             "spotNumber": "Local {{count}}",
-            "titlePrivateBooking": "Nomeações",
+            "titlePrivateBooking": "Marcações",
             "discard": "Cancelar",
             "noShow": "Foi registada a sua ausência nesta sessão",
             "titleBooking": "Aulas em grupo",
@@ -1560,7 +1590,7 @@
             "noBookingFuture": "Não há sessões futuras"
         },
         "unsubscriber": {
-            "explain": "Gostaria de cancelar a subscrição de todos os newsletters do seu estabelecimento?",
+            "explain": "Gostaria de cancelar a subscrição das newsletters do seu estabelecimento?",
             "error": "Erro ao cancelar a subscrição",
             "success": "A sua inscrição foi cancelada",
             "doUnsubscribe": "Cancelar a subscrição"
@@ -1631,6 +1661,11 @@
         },
         "subscription": {
             "isEmpty": "Não tem uma subscrição atual"
+        },
+        "spivi": {
+            "settingsInfo": "Se esta opção estiver ativada, os seus dados (velocidade, calorias queimadas, etc.) serão apresentados em tempo real durante a sessão. Se desativar esta opção, os seus dados deixarão de ser visualizados, mas receberá o resumo por e-mail no final da sessão.",
+            "settings": "Ver os meus dados em tempo real",
+            "settingsTitle": "Dados de rotação"
         }
     },
     "coupon": {
@@ -1651,7 +1686,7 @@
                 "advanced": "Avançado",
                 "tags": "Etiquetas",
                 "availability": "Disponibilidade",
-                "usability": "Utilidade",
+                "usability": "Utilização",
                 "voucherConfig": "Desconto"
             },
             "name": {
@@ -1662,7 +1697,7 @@
                 "helperText": "Um código não ativo não pode ser utilizado pelos membros"
             },
             "code": {
-                "helperText": "O código que transmitirá aos membros",
+                "helperText": "O código que transmitirá aos alunos em causa",
                 "helperTextFranchise": "O código que irá transmitir aos clientes. Certifique-se de que o código não existe já nos seus diferentes estabelecimentos.",
                 "label": "Código"
             },
@@ -1690,6 +1725,50 @@
             },
             "with_expiration_date": {
                 "label": "Com prazo de validade"
+            },
+            "tag": {
+                "select": {
+                    "error": "A mesma etiqueta não pode estar presente em ambas as listas",
+                    "empty_tag_list": "Nenhuma etiqueta selecionada",
+                    "tag": "Selecionar uma etiqueta",
+                    "tag_group": "Selecionar um grupo de etiquetas"
+                },
+                "tag": "Etiqueta",
+                "tag_group": "Grupo"
+            },
+            "actions": {
+                "submit": "Confirmar",
+                "cancel": "Cancelar"
+            },
+            "applies_to": {
+                "choicesFranchise": {
+                    "9": "Passes de Marcações partilhados",
+                    "1": "Passes partilhados"
+                },
+                "choices": {
+                    "null": "Conjunto do carrinho",
+                    "all": "Conjunto do carrinho",
+                    "10": "Pack",
+                    "9": "Passe de marcações",
+                    "6": "Despesas de envio",
+                    "2": "Loja",
+                    "1": "Passes ativos"
+                }
+            },
+            "minimum_amount": {
+                "label": "Montante mínimo de compra"
+            },
+            "combinable": {
+                "label": "Pode ser utilizado com outros códigos"
+            },
+            "only_on_first_checkout": {
+                "label": "Apenas a primeira compra"
+            },
+            "usage_total": {
+                "label": "Limite de utilização para o conjunto de membros"
+            },
+            "usage_per_member": {
+                "label": "Limite de utilização por cliente"
             }
         },
         "card": {
@@ -1705,7 +1784,8 @@
             "no_expiration": "Sem prazo de validade",
             "uses": "Aplicações",
             "member_use": "utilização por membro",
-            "limitation": "Limitado a"
+            "limitation": "Limitado a",
+            "member_uses": "utilizações por membro"
         },
         "modal": {
             "delete": {
@@ -1722,16 +1802,51 @@
             "inactiveCoupons": "Promoções desactivadas ou vencido",
             "activeCoupons": "Promoções em vigor"
         },
-        "noDiscount": "Nenhuma compra efectuada com o código",
+        "noDiscount": "Nenhuma compra foi efectuada com este código",
         "detail": {
             "seeParameters": "Ver os parâmetros"
         },
         "couponTemplate": {
             "warningDialog": {
-                "content1": "Tenha em atenção que pretende alterar as definições para aplicar a promoção partilhada a determinados passes."
+                "content1": "Atenção, vai pretender alterar as definições para aplicar a promoção partilhada a determinados passes.",
+                "content3": "Mais uma vez, pode escolher quais os estúdios que irão partilhar esta promoção.",
+                "content2": "Esta operação reiniciará a lista de estúdios com os quais a promoção será partilhada.",
+                "title": "Confirmar a alteração"
             },
-            "formDisclaimer": "Se, no futuro, pretender alterar esta secção para tornar esta promoção válida para mais que um passe específico, a lista de estúdios que partilharão esta promoção será reposta a zero por razões de compatibilidade."
-        }
+            "formDisclaimer": "Se, no futuro, pretender alterar esta secção para tornar esta promoção válida para mais que um passe específico, a lista de estúdios que partilharão esta promoção será reposta a zero por razões de compatibilidade.",
+            "notEditable": "Este cupão é um cupão partilhado pela conta do franchisador. Os elementos foram definidos pela conta do franchisador e não podem ser alterados.",
+            "isEmptyExplain": "Nenhum código promocional partilhado registado",
+            "actions": {
+                "create": "Adicionar um passe partilhado"
+            }
+        },
+        "couponTemplateInstance": {
+            "companyEmpty": "Nenhum estúdio está configurado para aceitar esta promoção",
+            "delete": {
+                "explain2": "Pode adicioná-lo novamente mais tarde.",
+                "explain1": "Tem a certeza de que pretende deixar de partilhar o código promocional para {{name}} ?",
+                "title": "Parar de partilhar"
+            },
+            "create": {
+                "explain2": "Se um membro aplicar um código promocional num dos estúdios compatíveis, também o poderá utilizar nos outros estúdios que definiu.",
+                "explain1": "Os estúdios seguintes serão compatíveis com os produtos selecionados no cupão.",
+                "title": "Configurar os meus estúdios"
+            }
+        },
+        "reverted": "Fatura anulada",
+        "search": "Procurar um código promocional",
+        "code": {
+            "addCoupon": {
+                "not_found": "Este código promocional não é válido.",
+                "not_applicable": "Este código promocional não é aplicável.",
+                "placeholder": "RESERVA_ESPECIAL",
+                "label": "Código promocional",
+                "cancel": "cancelar",
+                "submit": "Confirmar",
+                "apply": "Aplicar"
+            }
+        },
+        "createCoupon": "Adicionar um código"
     },
     "expense": {
         "form": {
@@ -8103,7 +8218,29 @@
         },
         "turnover": {
             "popover": "Soma de todos os pagamentos recebidos indicados nas faturas"
-        }
+        },
+        "nbOffers": "Sessões",
+        "newMembers": "Novos membros",
+        "thisMonth": "Este mês",
+        "thisWeek": "Esta semana",
+        "current_year": "Ano passado",
+        "last_three_months": "Últimos três meses",
+        "current_month": "Mês passado",
+        "current_week": "Última semana",
+        "current_day": "Últimas 24 horas",
+        "noGraphToDisplay": "Nenhum gráfico configurado neste separador. Adicione um aqui.",
+        "tabNameDialog": {
+            "placeholder": "Nome",
+            "titleRename": "Renomear separador",
+            "titleAdd": "Adicionar um novo separador"
+        },
+        "resetModal": {
+            "confirm": "Continuar",
+            "cancel": "Cancelar",
+            "content": "As definições dos vários separadores voltam aos seus valores predefinidos. Deseja continuar ?",
+            "title": "Repor definições"
+        },
+        "save": "Guardar"
     },
     "login": {
         "accountConfiguration": {

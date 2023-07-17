@@ -112,6 +112,7 @@ export function MetaActivityForm(props: Props) {
       />
       <div className={classnames(classes.field, classes.altField)}>
         <TextField
+          fullWidth
           label={t('activity.altCoverMain')}
           name="alt_cover_main"
           inputProps={{ maxLength: 100 }}
@@ -372,7 +373,6 @@ const styles = (theme) => ({
   },
   altField: {
     marginLeft: theme.spacing(3),
-    width: 400,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'stretch',

@@ -1,0 +1,83 @@
+import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+
+import CadenceBubble, { CadenceBubbleProps } from './CadenceBubble.component';
+
+export default {
+  title: 'Components/Cadences/Bubbles/Generic',
+  component: CadenceBubble,
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          margin: '3em',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
+  parameters: {
+    docs: {
+      page: null,
+    },
+    description: {
+      component: 'Bubbles for cadence graph forms',
+    },
+  },
+  argTypes: {
+    title: {
+      control: 'text',
+      description: "Bubble's title",
+    },
+    icon: {
+      control: 'text',
+      description: 'String corresponding to the bubble icon',
+    },
+    color: {
+      control: 'color',
+      description: 'Color of the bubble icon',
+    },
+    onCancelClick: {
+      action: 'onCancelClicked',
+      description: 'Cancel button',
+    },
+    onConfirmClick: {
+      action: 'onConfirmClicked',
+      description: 'Confirm button',
+    },
+    onCancelText: {
+      control: 'text',
+      description: 'String describing the cancel action',
+    },
+    onConfirmText: {
+      control: 'text',
+      description: 'String describing the confirm action',
+    },
+    minimalIcon: {
+      control: 'boolean',
+      description: 'True for an icon without losange background',
+    },
+    withoutBottomActions: {
+      control: 'boolean',
+      description: 'True to hide bottom action buttons',
+    },
+  },
+} as ComponentMeta<typeof CadenceBubble>;
+
+const Template: ComponentStory<typeof CadenceBubble> = (
+  args: CadenceBubbleProps,
+) => <CadenceBubble {...args} />;
+
+export const Primary = Template.bind({});
+Primary.args = {
+  title: 'Title',
+  icon: 'PlayArrow',
+  color: '#60caff',
+  onCancelText: 'Cancel',
+  onConfirmText: 'Confirm',
+  minimalIcon: false,
+  withoutBottomActions: false,
+};

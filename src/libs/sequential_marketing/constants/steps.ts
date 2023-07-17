@@ -1,4 +1,4 @@
-// ========== CADENCE STEP SIZES ==========
+// ========== CADENCE STEP CARD SIZES ==========
 
 export const CARD_MIN_WIDTH = '200px';
 export const CARD_MAX_WIDTH = '280px';
@@ -42,9 +42,14 @@ export enum HandleTypeChoices {
   TARGET = 'target',
 }
 
-// ========== CADENCE STEP POSITIIONS ==========
+// ========== CADENCE STEP POSITIONS ==========
 
 export const DEFAULT_X_FOR_ENTRYSTEP = 0;
 export const DEFAULT_X_FOR_TRIGGER = 400;
 export const DEFAULT_X_FOR_INNERSTEP = 800;
 export const DEFAULT_X_FOR_EXIT = 1200;
+
+// ========== CADENCE BUBBLES ==========
+
+export const CADENCE_BUBBLE_HEADER_FONT_SIZE = '20px';
+export const CADENCE_BUBBLE_WIDTH = '470px';

@@ -1,5 +1,5 @@
-// @ts-nocheck
-import type { Member } from '../types';
+import { faker } from '@faker-js/faker';
+import type { Member, MemberNote, MemberUploadedFile } from '../types';
 import FactoryBotTag from '../../tag/factory';
 import { generateRandomInt } from '../../../utils/factories';
 
@@ -63,10 +63,39 @@ function randomBoolean() {
   return table[generateRandomInt(2)];
 }
 
+const randomMemberNote = (): MemberNote => {
+  return {
+    id: generateRandomInt(1000),
+    text: faker.hacker.phrase(),
+    highlighted: randomBoolean(),
+    date: randomDate(),
+    is_medical: randomBoolean(),
+  };
+};
+
+const randomNotes = (): MemberNote[] => {
+  return new Array(generateRandomInt(10)).fill(randomMemberNote());
+};
+
+const randomFile = (): MemberUploadedFile => {
+  return {
+    id: generateRandomInt(1000),
+    member: generateRandomInt(1000),
+    name: faker.person.fullName(),
+    updated_at: randomDate(),
+    file_path: 'random_path.doc',
+    coach_has_access: randomBoolean(),
+  };
+};
+
+const randomFiles = (): MemberUploadedFile[] => {
+  return new Array(generateRandomInt(10)).fill(randomFile());
+};
+
 type MemberProps = {
   credit_account_balance?: number;
   total_unpaid_amount?: string;
-  number_tags: number;
+  number_tags?: number;
 };
 
 export function MemberFactory(
@@ -103,7 +132,7 @@ export function MemberFactory(
     internal_account: generateRandomInt(50),
     credit_account_balance,
     total_unpaid_amount,
-    notes: [],
+    notes: randomNotes(),
     tags: FactoryBotTag.Tag.create(number_tags),
     next_booking: randomDate(),
     previous_booking: randomDate(),
@@ -111,7 +140,7 @@ export function MemberFactory(
     photo: photo[wichGender],
     phone_number,
     birthday: randomDate(),
-    files: [],
+    files: randomFiles(),
     general_terms_and_conditions_date_accepted: null,
     general_terms_and_conditions_accepted: null,
     general_terms_of_use_date_accepted: null,
@@ -120,6 +149,9 @@ export function MemberFactory(
     emergency_contact: 'bar',
     archived: false,
     pending_email: null,
+    default_billing_establishment: null,
+    unsubscribe_link: faker.hacker.phrase(),
+    spivi_privacy_settings_accepted: randomBoolean(),
   };
 }
 

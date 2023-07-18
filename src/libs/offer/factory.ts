@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Offer } from './types';
 import { Coach } from '#libs/associated-coach/types';
 import { Tag } from '#libs/tag/types';
@@ -9,6 +8,8 @@ import { tagListFactory } from '../tag/factory';
 import { establishment_factory } from '#libs/establishment/factory';
 import { levelFactory } from '#libs/level/factories';
 import { generateRandomInt } from '../../utils/factories';
+import type { OffersGroup } from '#libs/group-offer/types';
+import { offerGroupFactory } from '#libs/group-offer/factory';
 
 const categories = ['Swimming', 'Running', 'Collective'];
 
@@ -21,7 +22,15 @@ function randomDate(start: Date, end: Date) {
 export function offerFactory(overrideData?: {
   level?: Partial<Level>;
   credits?: number;
-}): Offer<Coach, Establishment, number, number, Tag, number, Level> {
+}): Offer<
+  Coach,
+  Establishment,
+  number,
+  number,
+  Tag,
+  number | OffersGroup,
+  Level
+> {
   const level = levelFactory();
   const date_start = randomDate(
     new Date(2022, 0, 1, 0, 0),
@@ -55,6 +64,7 @@ export function offerFactory(overrideData?: {
     date_end: date_end.toString(),
     date_start: date_start.toString(),
     effectif: generateRandomInt(100),
+    // @ts-expect-error
     level: overrideData?.level ?? level,
     level_id: overrideData?.level?.id ?? level.id,
     meta_activity_id: generateRandomInt(1000),
@@ -71,9 +81,13 @@ export function offerFactory(overrideData?: {
     meta_activity: generateRandomInt(1000),
     timezone_name: 'Europe/Paris',
     room_blueprint: generateRandomInt(100),
+    // @ts-expect-error
     whitelist_tags: tagListFactory(3),
+    // @ts-expect-error
     blacklist_tags: tagListFactory(3),
-    group: generateRandomInt(100),
+    // @ts-expect-error
+    group: offerGroupFactory(),
+    is_broadcast: Math.random() > 0.5,
   };
 }
 
@@ -84,5 +98,6 @@ export function offersFactory(
   for (let i = 0; i < number; i += 1) {
     list_offers.push(offerFactory());
   }
+  // @ts-expect-error
   return list_offers;
 }

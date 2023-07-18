@@ -271,6 +271,30 @@ exports.default = {
           'Si vous souhaitez modifier les codes enregistrés pour cette promotion vous pouvez ajouter les codes aux existants, ou remplacer les codes existants',
       },
     },
+    voucherCodesDialog: {
+      header: {
+        codes: 'Codes',
+        status: 'Statut',
+      },
+      selector: {
+        allStatus: 'Tous les statuts',
+        redeemed: 'Marqué comme utilisé',
+        pending: 'En attente de validation externe',
+        notUsed: 'Non utilisé',
+      },
+      checkBoxes: {
+        selectAll: 'Tout sélectionner',
+        unselectAll: 'Tout désélectionner',
+      },
+      searchBar: {
+        placeHolder: 'Chercher un code',
+      },
+      noResult: 'Aucun résultat',
+      export: 'Exporter',
+      markAsRedeemed: 'Marquer comme utilisé',
+      markAsRedeemed_plural: 'Marquer comme utilisés',
+      close: 'Fermer',
+    },
   },
   fabLabels: {
     voucherCodes: "Bons d'achat",

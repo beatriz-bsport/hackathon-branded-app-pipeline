@@ -535,6 +535,10 @@ exports.default = {
         error: 'Impossible de partager cette promotion avec ce(s) studio(s)',
       },
     },
+    exportCodes: {
+      success: "Bons d'achat correctement exportés",
+      error: "Impossible d'exporter les codes sélectionnés",
+    },
   },
   email: {
     create: {

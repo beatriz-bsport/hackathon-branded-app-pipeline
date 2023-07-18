@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
-import FolderIcon from '@material-ui/icons/Folder';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Paper from '@material-ui/core/Paper';
@@ -24,17 +23,12 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import IconButton from '@material-ui/core/IconButton';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Divider from '@material-ui/core/Divider';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import TimeIcon from '@material-ui/icons/AccessTime';
 import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
 import { BOOKING_SOURCE_MIGRATION } from '@bsport/common/lib/master-data/booking_source';
 
 import { Alert, AlertTitle } from '@material-ui/lab';
 import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
-import Level from '#libs/level/components/Level.component';
 import Sport from '../../libs/category/components/SCT.component';
 import RedButton from '../button/RedButton.component';
 import type { Offer } from '../../api/types';
@@ -44,13 +38,9 @@ import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPa
 import FreeOfferChip from '#libs/offer/components/FreeOfferChip.component';
 
 import { getRecurrenceTrad } from '#libs/group-offer/utils';
-import { formatAsDatetimeAdapted, formatAsTime } from '../../utils/datetime';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
-import OfferCardStastitics from '../../libs/offer/components/OfferCardStastistics.compant';
-import { ADDITIONAL_COACHES_MAX_DISPLAY } from '../../libs/offer/constants';
-import CustomAvatarGroup from '../CustomAvatarGroup.component';
-import Tooltip from '../Tooltip.component';
-import { AdditionalCoachesTooltipTitle } from '../../libs/associated-coach/components/CoachToolTip.component';
+import OfferCardStastiticsContainer from '../../libs/offer/components/OfferCardStastisticsContainer.component';
+import OfferDetail from './OfferDetail.component';
 
 import type { Theme as CompanyTheme } from '#libs/theme/types';
 
@@ -98,7 +88,6 @@ export class OfferCard extends Component<Props, State> {
       parent_category,
       credit_price,
       credit_price_override,
-      customLevel,
       meta_activity,
       linked_hybrid_offer_id,
     } = offer;
@@ -137,7 +126,6 @@ export class OfferCard extends Component<Props, State> {
               companyTheme={companyTheme}
               size="large"
             />
-            <Level customLevel={customLevel} />
           </div>
         </ListItem>
       </div>
@@ -226,16 +214,6 @@ export class OfferCard extends Component<Props, State> {
     const { available } = offer;
 
     if (offer) {
-      const coach = offer.coach_override || offer.coach || null;
-      const allImageLinks =
-        offer?.additional_coaches?.map(
-          (offerCoach) => offerCoach?.photo ?? '',
-        ) || [];
-      const slicedImageLinks =
-        allImageLinks.length > ADDITIONAL_COACHES_MAX_DISPLAY
-          ? allImageLinks.slice(0, ADDITIONAL_COACHES_MAX_DISPLAY)
-          : allImageLinks;
-
       return (
         <div style={{ width: '100%' }}>
           <PaymentPackTagsDialog
@@ -250,13 +228,12 @@ export class OfferCard extends Component<Props, State> {
           />
           <Paper square className={available ? null : classes.disabledPaper}>
             {noHeader ? null : this.getHeader()}
-            <OfferCardStastitics
+            <OfferCardStastiticsContainer
               offer={this.props.offer}
               linkedHybridSession={this.props.linkedHybridSession}
               bookings={this.props.bookings}
               showOfferGender={this.props.showOfferGender}
             />
-            <Divider />
             {offer?.source === BOOKING_SOURCE_MIGRATION.id && (
               <ListItem className={classes.migrationAlertListItem}>
                 <Alert severity="info">
@@ -264,87 +241,10 @@ export class OfferCard extends Component<Props, State> {
                 </Alert>
               </ListItem>
             )}
-            <div className={classes.row}>
-              <ListItem>
-                <ListItemIcon>
-                  <TimeIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary={formatAsTime(offer.date_start, offer.timezone_name)}
-                  secondary={formatAsDatetimeAdapted(
-                    offer.date_start,
-                    'LL',
-                    offer.timezone_name,
-                  )}
-                />
-              </ListItem>
+            <div className={classes.offerDetailContainer}>
+              <OfferDetail offer={offer} />
             </div>
-            {!!coach && (
-              <div className={classes.row}>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar src={coach.photo} />{' '}
-                  </ListItemAvatar>
-                  <ListItemText primary={coach.name} />
-                </ListItem>
-              </div>
-            )}
-            {offer?.additional_coaches?.length > 0 && (
-              <div className={classes.row}>
-                <ListItem>
-                  <Tooltip
-                    title={
-                      <AdditionalCoachesTooltipTitle
-                        coaches={offer.additional_coaches}
-                      />
-                    }
-                  >
-                    <ListItemAvatar
-                      className={classes.additionalCoachAvatarList}
-                    >
-                      <CustomAvatarGroup
-                        imgLinks={slicedImageLinks}
-                        imgStyle={classes.additionalCoachAvatar}
-                      />{' '}
-                    </ListItemAvatar>
-                  </Tooltip>
-                  <ListItemText
-                    primary={t('offer:additionalCoaches', {
-                      count: offer.additional_coaches?.length,
-                    })}
-                  />
-                </ListItem>
-              </div>
-            )}
-            {!!offer.establishment && (
-              <div className={classes.row}>
-                <ListItem>
-                  <ListItemIcon>
-                    <LocationOnIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={
-                      offer.establishment ? offer.establishment.title : '  -  '
-                    }
-                    secondary={
-                      offer.establishment && offer.establishment.location
-                        ? offer.establishment.location.address
-                        : '  -  '
-                    }
-                  />
-                </ListItem>
-              </div>
-            )}
-            {offer?.group && (
-              <div className={classes.row}>
-                <ListItem>
-                  <ListItemIcon>
-                    <FolderIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={offer.group?.name} />
-                </ListItem>
-              </div>
-            )}
+
             {offer?.group &&
               Object.keys(offer.group?.recurrence_rule ?? {}).length > 0 && (
                 <>
@@ -506,13 +406,6 @@ export class OfferCard extends Component<Props, State> {
 }
 
 const styles = (theme) => ({
-  paddedBlock: {
-    padding: theme.spacing(4),
-  },
-  footer: {
-    borderTop: 'solid 1px #EEEEEE',
-    borderBottom: 'solid 1px #EEEEEE',
-  },
   bookingList: {
     backgroundColor: '#F8F8F8',
   },
@@ -522,19 +415,11 @@ const styles = (theme) => ({
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(1) * 1,
   },
-  editButtonContainer: {
-    margin: theme.spacing(2),
-  },
   iconLeft: {
     marginRight: theme.spacing(1),
   },
   disabledPaper: {
     backgroundColor: '#F6F6F6',
-  },
-  modifierButtonsBlock: {
-    marginTop: theme.spacing(1),
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
   },
   manageButton: {
     width: '100%',
@@ -596,14 +481,6 @@ const styles = (theme) => ({
     alignItems: 'center',
     gap: theme.spacing(1),
   },
-  additionalCoachAvatarList: {
-    marginRight: theme.spacing(2),
-  },
-  additionalCoachAvatar: {
-    height: theme.spacing(5),
-    width: theme.spacing(5),
-    marginRight: theme.spacing(0),
-  },
   alertSpiviContainer: { margin: theme.spacing(2) },
   list: {
     margin: 'unset',
@@ -614,6 +491,9 @@ const styles = (theme) => ({
   },
   migrationAlertListItem: {
     paddingTop: theme.spacing(2),
+  },
+  offerDetailContainer: {
+    padding: theme.spacing(2),
   },
 });
 

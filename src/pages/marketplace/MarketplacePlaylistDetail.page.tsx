@@ -125,6 +125,7 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
 
   onRegisterSuccess = () => {
     this.props.retrieveVideo(this.props.videoId);
+    this.props.getPlaybackUrl(this.props.videoId);
     this.props.setRegisterVideoOpen(false);
   };
 

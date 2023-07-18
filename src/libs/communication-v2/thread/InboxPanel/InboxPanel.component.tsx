@@ -1,0 +1,195 @@
+import React, { memo, useCallback } from 'react';
+
+import classnames from 'classnames';
+import { useTranslation } from 'react-i18next';
+import type { CallHistoryMethodAction } from 'connected-react-router';
+import { makeStyles } from '@material-ui/core';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import KeyboardTabIcon from '@material-ui/icons/KeyboardTab';
+
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import type { Member } from '#libs/member/types';
+import type { Tag, TagGroup } from '#libs/tag/types';
+import type { SmartList } from '#libs/smart-list/types';
+import type { Coach } from '#libs/associated-coach/types';
+import type { Establishment } from '#libs/establishment/types';
+import type { OffersGroup } from '#libs/group-offer/types';
+import type { Level } from '#libs/level/types';
+
+import InboxPanelMember from './InboxPanelMember/InboxPanelMember.component';
+import InboxPanelSmartlist from './InboxPanelSmartlist/InboxPanelSmartlist.component';
+import type { Offer } from '#libs/offer/types';
+import InboxPanelOffer from './InboxPanelOffer/InboxPanelOffer.component';
+import type { CommunicationThread } from '#libs/communication-v2/types';
+import InboxThreadHeader from '#libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadHeader.component';
+
+export type Props = {
+  isPanelOpen?: boolean;
+  setIsPanelOpen?: (isOpen: boolean) => void;
+  thread: CommunicationThread;
+  isLoadingThread: boolean;
+  tags?: Tag<TagGroup>[];
+  member?: Member;
+  goToMemberPage?: (id: number) => CallHistoryMethodAction<[string, unknown?]>;
+  unpaidInvoicesCount?: number;
+  smartlist?: SmartList;
+  memberInSmartlistCount?: number;
+  filtersSmartlist?: number[];
+  includedTagsForSmartlist?: Tag<TagGroup>[];
+  excludedTagsForSmartlist?: Tag<TagGroup>[];
+  goToSmartlistPage?: (
+    id: number,
+  ) => CallHistoryMethodAction<[string, unknown?]>;
+  offer?: Offer<
+    Coach,
+    Establishment,
+    number,
+    number,
+    number,
+    OffersGroup,
+    Level
+  > & { customLevel: Level };
+  goToOfferPage?: (id: number) => CallHistoryMethodAction<[string, unknown?]>;
+  closeInboxPanel: (id: number) => CallHistoryMethodAction<[string, unknown?]>;
+  showOfferGender: boolean;
+};
+
+const InboxPanel: React.FC<Props> = ({
+  isPanelOpen,
+  setIsPanelOpen,
+  thread,
+  isLoadingThread,
+  tags,
+  member,
+  goToMemberPage,
+  unpaidInvoicesCount,
+  smartlist,
+  memberInSmartlistCount,
+  filtersSmartlist,
+  includedTagsForSmartlist,
+  excludedTagsForSmartlist,
+  goToSmartlistPage,
+  offer,
+  goToOfferPage,
+  closeInboxPanel,
+  showOfferGender,
+}) => {
+  const classes = useStyles();
+
+  const { t } = useTranslation('communication');
+
+  const handleClick = useCallback(() => {
+    setIsPanelOpen(!isPanelOpen);
+  }, [isPanelOpen, setIsPanelOpen]);
+
+  const isLoading =
+    isLoadingThread || (thread && !member && !offer && !smartlist);
+
+  const isMobile = !isPanelOpen && !setIsPanelOpen;
+  const panelClosedOnFullScreen = !isPanelOpen && !!setIsPanelOpen;
+
+  return (
+    <div
+      className={classnames(classes.panelContainer, {
+        [classes.openPanel]: isPanelOpen,
+      })}
+    >
+      {panelClosedOnFullScreen ? (
+        <IconButton onClick={handleClick}>
+          <ChevronLeftIcon />
+        </IconButton>
+      ) : (
+        <>
+          {isLoading ? (
+            <div className={classes.loadingContainer}>
+              <CircularProgress />
+            </div>
+          ) : (
+            <>
+              {isMobile && (
+                <InboxThreadHeader
+                  id={thread?.id}
+                  cover={thread?.cover}
+                  title={thread?.title}
+                  subtitle={thread?.subtitle}
+                  isFavorite={thread?.favorite}
+                  isMuted={thread?.muted}
+                  hasBeenRead={thread?.last_communication_has_been_read}
+                  isDisabled={thread?.disabled}
+                  relatedObjectKind={thread?.related_object_kind}
+                  closeInboxPanel={closeInboxPanel}
+                />
+              )}
+              <div className={classnames({ [classes.openPanel]: isMobile })}>
+                <div className={classes.panelHeader}>
+                  <Typography variant="h6">
+                    {t('thread.panel.header')}
+                  </Typography>
+                  {!isMobile && (
+                    <IconButton onClick={handleClick}>
+                      <KeyboardTabIcon />
+                    </IconButton>
+                  )}
+                </div>
+
+                {thread?.related_object_kind === ChatThreadKinds.Member && (
+                  <InboxPanelMember
+                    member={member}
+                    tags={tags}
+                    goToMemberPage={goToMemberPage}
+                    unpaidInvoicesCount={unpaidInvoicesCount}
+                  />
+                )}
+                {thread?.related_object_kind === ChatThreadKinds.Smartlist && (
+                  <InboxPanelSmartlist
+                    smartlist={smartlist}
+                    memberCount={memberInSmartlistCount}
+                    goToSmartlistPage={goToSmartlistPage}
+                    filters={filtersSmartlist}
+                    includedTags={includedTagsForSmartlist}
+                    excludedTags={excludedTagsForSmartlist}
+                  />
+                )}
+                {thread?.related_object_kind === ChatThreadKinds.Offer && (
+                  <InboxPanelOffer
+                    offer={offer}
+                    goToOfferPage={goToOfferPage}
+                    showOfferGender={showOfferGender}
+                  />
+                )}
+              </div>
+            </>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  panelContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+  openPanel: {
+    padding: theme.spacing(2),
+  },
+  panelHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  loadingContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
+}));
+
+export default memo(InboxPanel);

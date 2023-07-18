@@ -345,6 +345,7 @@ class InboxThreadContainerPage extends PureComponent<Props> {
       switchDisabledStatus,
       flagAsUnread,
       goToThreadListPage,
+      goToDetailPage,
       // --- Filtering ---
       onShowFilterModal,
       kindFilterSetter,
@@ -404,6 +405,7 @@ class InboxThreadContainerPage extends PureComponent<Props> {
         switchDisabledStatus={switchDisabledStatus}
         flagAsUnread={flagAsUnread}
         goToThreadListPage={goToThreadListPage}
+        goToDetailPage={goToDetailPage}
         // --- Filtering ---
         filters={filters}
         filterDateStart={filterDateStart}

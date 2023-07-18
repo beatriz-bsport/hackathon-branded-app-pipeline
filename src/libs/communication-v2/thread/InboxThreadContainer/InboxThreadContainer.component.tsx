@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 
 import type { Moment as MomentType } from 'moment-timezone';
+import type { CallHistoryMethodAction } from 'connected-react-router';
 import { makeStyles } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -58,7 +59,7 @@ export type Props = {
     id: number,
     options?: OptionCallback<CommunicationThread>,
   ) => void;
-  goToDetailPage?: () => void;
+  goToDetailPage?: (id: number) => CallHistoryMethodAction<[string, unknown?]>;
   goToThreadListPage: () => void;
 
   // --- Filtering ---

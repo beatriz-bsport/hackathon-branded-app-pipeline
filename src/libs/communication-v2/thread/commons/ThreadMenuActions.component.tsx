@@ -1,5 +1,6 @@
 import React, { memo, useCallback } from 'react';
 
+import type { CallHistoryMethodAction } from 'connected-react-router';
 import { Menu, MenuItem, Typography, makeStyles } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
@@ -39,7 +40,7 @@ type Props = {
     options?: OptionCallback<CommunicationThread>,
   ) => void;
   isMobileMenu?: boolean;
-  goToDetailPage?: () => void;
+  goToDetailPage?: (id: number) => CallHistoryMethodAction<[string, unknown?]>;
   setOpenCollapse?: () => void;
   anchorEl: HTMLElement | null;
   setAnchorEl: (ev: HTMLElement | null) => void;
@@ -79,7 +80,7 @@ const ThreadMenuActions: React.FC<Props> = ({
       action: (
         id: number,
         options?: OptionCallback<CommunicationThread>,
-      ) => void,
+      ) => CallHistoryMethodAction<[string, unknown?]> | void,
     ) => {
       setAnchorEl(null);
       event.stopPropagation();

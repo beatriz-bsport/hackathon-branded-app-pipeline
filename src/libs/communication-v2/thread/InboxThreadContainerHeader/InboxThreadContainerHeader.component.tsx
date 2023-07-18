@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 
 import type { Moment as MomentType } from 'moment-timezone';
+import type { CallHistoryMethodAction } from 'connected-react-router';
 
 import InboxThreadHeader from '#libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadHeader.component';
 import type {
@@ -32,7 +33,7 @@ export type Props = {
   ) => void;
 
   // --- Navigation ---
-  goToDetailPage: () => void;
+  goToDetailPage: (id: number) => CallHistoryMethodAction<[string, unknown?]>;
   goToThreadListPage: () => void;
 
   // --- Filtering ---

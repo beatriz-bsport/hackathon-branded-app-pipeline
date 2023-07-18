@@ -5,7 +5,8 @@ import { connect, ConnectedProps } from 'react-redux';
 import classnames from 'classnames';
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
-import { withStyles, createStyles, Paper, WithStyles } from '@material-ui/core';
+import { withStyles, createStyles, WithStyles, Theme } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 import { compose, withHandlers, withState } from 'recompose';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
@@ -16,10 +17,16 @@ import InboxThreadList from './InboxThreadList.page';
 import InboxThreadContainer from './InboxThreadContainer.page';
 import { getInboxThreadFromSelectedId } from '#libs/communication-v2/selectors';
 import { fetchInboxThreadFromId as fetchInboxThreadFromIdAction } from '#libs/communication-v2/actions';
+import InboxPanel from './InboxPanel.page';
+import { drawerIconsOnlyWith } from '#components/navigation/BackofficeDrawer/BackofficeDrawer.component';
+
+const INBOX_PANEL_WIDTH = 550;
 
 type State = {
   contextSelected: ChatThreadKinds;
   setContextSelected: (context: ChatThreadKinds, options?: () => void) => void;
+  isPanelOpen: boolean;
+  setIsPanelOpen: (isOpen: boolean) => void;
 };
 
 type InboxConnectedProps = { id?: number } & State &
@@ -36,7 +43,7 @@ type Props = {
   WithHandlers &
   WithStyles<typeof styles>;
 
-const styles = () =>
+const styles = (theme: Theme) =>
   createStyles({
     container: {
       display: 'flex',
@@ -44,11 +51,11 @@ const styles = () =>
       height: '100%',
     },
     threadList: {
-      flex: 1,
+      flex: 10,
       height: '100%',
     },
     threadContainer: {
-      flex: 3,
+      flex: 30,
       display: 'flex',
       flexDirection: 'column',
       borderRadius: 0,
@@ -56,6 +63,24 @@ const styles = () =>
     noThread: {
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    inboxPanel: {
+      height: '100%',
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    noPanel: {
+      display: 'none',
+    },
+    openPanel: {
+      width: INBOX_PANEL_WIDTH,
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    closedPanel: {
+      width: drawerIconsOnlyWith,
     },
   });
 
@@ -77,8 +102,17 @@ class InboxContainer extends React.PureComponent<Props> {
   }
 
   render() {
-    const { id, contextSelected, setContextSelected, thread, width, classes } =
-      this.props;
+    const {
+      id,
+      contextSelected,
+      setContextSelected,
+      thread,
+      width,
+      classes,
+      isPanelOpen,
+      setIsPanelOpen,
+      isLoadingThread,
+    } = this.props;
 
     const isMobile = isWidthDown('sm', width);
 
@@ -94,6 +128,9 @@ class InboxContainer extends React.PureComponent<Props> {
               contextSelected={contextSelected}
               setContextSelected={setContextSelected}
             />
+          </Route>
+          <Route exact path="/inbox/thread/:id/detail/">
+            <InboxPanel thread={thread} isLoadingThread={isLoadingThread} />
           </Route>
         </Switch>
       );
@@ -121,6 +158,20 @@ class InboxContainer extends React.PureComponent<Props> {
             thread={thread}
           />
         </Paper>
+        <div
+          className={classnames(classes.inboxPanel, {
+            [classes.noPanel]: !isLoadingThread && !thread,
+            [classes.openPanel]: isPanelOpen,
+            [classes.closedPanel]: !isPanelOpen,
+          })}
+        >
+          <InboxPanel
+            isPanelOpen={isPanelOpen}
+            setIsPanelOpen={setIsPanelOpen}
+            thread={thread}
+            isLoadingThread={isLoadingThread}
+          />
+        </div>
       </div>
     );
   }
@@ -129,6 +180,7 @@ class InboxContainer extends React.PureComponent<Props> {
 const connector = connect(
   (state: RootState, { id }: { id?: number }) => ({
     thread: getInboxThreadFromSelectedId(state, id),
+    isLoadingThread: state.communicationV2.inboxThread.currentThread.loading,
   }),
   {
     fetchInboxThreadFromId: fetchInboxThreadFromIdAction,
@@ -138,6 +190,7 @@ const connector = connect(
 
 export default compose(
   withState('contextSelected', 'setContextSelected', ChatThreadKinds.Member),
+  withState('isPanelOpen', 'setIsPanelOpen', false),
   routerParamsToProps({ id: 'id:number' }),
   connector,
   withHandlers({

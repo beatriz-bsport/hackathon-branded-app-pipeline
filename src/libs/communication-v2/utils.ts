@@ -65,6 +65,7 @@ import { Booking, BookingOption } from '#libs/booking/types';
 import { Member } from '#libs/member/types';
 import { OptionCallback } from '../../state/types';
 import { WaitingListBookingOption } from '#libs/waiting-list/types';
+import { Tag, TagGroupAPI } from '#libs/tag/types';
 
 // #region FILTER CONTAINER
 
@@ -1051,3 +1052,15 @@ export const fetchInboxThreadListFromThreadCalledFromURL = (
     );
   }
 };
+
+export const getFilterTagsFromSmartlist = memoize((filtersSmartlist, tags) => {
+  const includedTagsForSmartlist = filtersSmartlist?.included_tags?.map(
+    (id: number) => tags.find((tag: Tag<TagGroupAPI>) => tag.id === id),
+  );
+
+  const excludedTagsForSmartlist = filtersSmartlist?.excluded_tags?.map(
+    (id: number) => tags.find((tag: Tag<TagGroupAPI>) => tag.id === id),
+  );
+
+  return Immutable({ includedTagsForSmartlist, excludedTagsForSmartlist });
+});

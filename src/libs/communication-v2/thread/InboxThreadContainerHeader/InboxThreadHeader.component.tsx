@@ -1,5 +1,6 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 
+import type { CallHistoryMethodAction } from 'connected-react-router';
 import { makeStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,6 +10,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import StarIcon from '@material-ui/icons/Star';
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import CloseIcon from '@material-ui/icons/Close';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import type { CommunicationThread } from '#libs/communication-v2/types';
@@ -26,26 +28,27 @@ type Props = {
   isDisabled: boolean;
   relatedObjectKind: ChatThreadKinds;
 
-  onShowFilterModal: () => void;
+  onShowFilterModal?: () => void;
 
-  switchFavoriteStatus: (
+  switchFavoriteStatus?: (
     id: number,
     options?: OptionCallback<CommunicationThread>,
   ) => void;
-  switchMutedStatus: (
+  switchMutedStatus?: (
     id: number,
     options?: OptionCallback<CommunicationThread>,
   ) => void;
-  switchDisabledStatus: (
+  switchDisabledStatus?: (
     id: number,
     options?: OptionCallback<CommunicationThread>,
   ) => void;
-  flagAsUnread: (
+  flagAsUnread?: (
     id: number,
     options?: OptionCallback<CommunicationThread>,
   ) => void;
-  goToDetailPage: () => void;
-  goToThreadListPage: () => void;
+  goToDetailPage?: (id: number) => CallHistoryMethodAction<[string, unknown?]>;
+  goToThreadListPage?: () => void;
+  closeInboxPanel?: (id: number) => CallHistoryMethodAction<[string, unknown?]>;
 };
 
 const InboxThreadHeader: React.FC<Props> = ({
@@ -65,17 +68,27 @@ const InboxThreadHeader: React.FC<Props> = ({
   flagAsUnread,
   goToDetailPage,
   goToThreadListPage,
+  closeInboxPanel,
 }) => {
   const classes = useStyles();
+
+  const handleClosePanel = useCallback(
+    () => closeInboxPanel(id),
+    [id, closeInboxPanel],
+  );
+
+  const isMobilePanel = !!closeInboxPanel;
 
   return (
     <Paper className={classes.header} variant="outlined">
       <div className={classes.left}>
-        <div className={classes.arrowBack}>
-          <IconButton onClick={goToThreadListPage}>
-            <ArrowBackIcon color="action" />
-          </IconButton>
-        </div>
+        {!isMobilePanel && (
+          <div className={classes.arrowBack}>
+            <IconButton onClick={goToThreadListPage}>
+              <ArrowBackIcon color="action" />
+            </IconButton>
+          </div>
+        )}
         {[ChatThreadKinds.Member, ChatThreadKinds.Offer].includes(
           relatedObjectKind,
         ) && <Avatar src={cover} />}
@@ -114,23 +127,31 @@ const InboxThreadHeader: React.FC<Props> = ({
         <IconButton onClick={onShowFilterModal} className={classes.filterIcon}>
           <FilterListIcon />
         </IconButton>
-        <div className={classes.threadStatus}>
-          <ThreadMenu
-            id={id}
-            hasBeenRead={hasBeenRead}
-            isFavorite={isFavorite}
-            isMuted={isMuted}
-            isDisabled={isDisabled}
-            relatedObjectKind={relatedObjectKind}
-            switchFavoriteStatus={switchFavoriteStatus}
-            switchMutedStatus={switchMutedStatus}
-            switchDisabledStatus={switchDisabledStatus}
-            flagAsUnread={flagAsUnread}
-            isMobileMenu
-            goToDetailPage={goToDetailPage}
-            setOpenCollapse={onShowFilterModal}
-          />
-        </div>
+        {isMobilePanel ? (
+          <div className={classes.threadStatus}>
+            <IconButton onClick={handleClosePanel}>
+              <CloseIcon />
+            </IconButton>
+          </div>
+        ) : (
+          <>
+            <ThreadMenu
+              id={id}
+              hasBeenRead={hasBeenRead}
+              isFavorite={isFavorite}
+              isMuted={isMuted}
+              isDisabled={isDisabled}
+              relatedObjectKind={relatedObjectKind}
+              switchFavoriteStatus={switchFavoriteStatus}
+              switchMutedStatus={switchMutedStatus}
+              switchDisabledStatus={switchDisabledStatus}
+              flagAsUnread={flagAsUnread}
+              isMobileMenu
+              goToDetailPage={goToDetailPage}
+              setOpenCollapse={onShowFilterModal}
+            />
+          </>
+        )}
       </div>
     </Paper>
   );

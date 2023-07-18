@@ -43,6 +43,7 @@ import type {
   Recipient,
   InboxThreadRouterProps,
   SelectFieldItem,
+  MessageParams,
 } from '#libs/communication-v2/types';
 
 // TEMPLATES
@@ -224,6 +225,7 @@ const connector = connect(
     fetchInboxThreadFromId: fetchInboxThreadFromIdAction,
     getUnreadAnswersCountFromThread: getUnreadAnswersCountFromThreadAction,
     goToThreadList: () => push(`/inbox/thread/`),
+    goToDetailPage: (id: number) => push(`/inbox/thread/${id}/detail/`),
   },
 );
 
@@ -367,7 +369,7 @@ export default function withInboxThreadData(
             memberSelectedCategories || [],
           );
 
-          const dataWithContext = {
+          const dataWithContext: MessageParams = {
             ...data,
             member_filters: {
               ...member_filters,

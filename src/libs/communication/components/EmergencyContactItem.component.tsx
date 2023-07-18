@@ -1,9 +1,7 @@
-// @ts-nocheck
-// @flow
-
 import React from 'react';
 
 import { compose } from 'recompose';
+import classnames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
@@ -15,6 +13,8 @@ import { MaterialStyleType } from '../../../utils/types';
 
 type OwnProps = {
   emergency_contact?: string;
+  disableGutters?: boolean;
+  denseListItem?: string;
 };
 
 type Props = OwnProps &
@@ -22,13 +22,22 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 export const EmergencyContactItem = (props: Props) => {
-  const { emergency_contact, classes, t } = props;
+  const { emergency_contact, disableGutters, classes, t, denseListItem } =
+    props;
   return (
     <div>
-      <FormLabel className={classes.label} component="legend">
+      <FormLabel
+        className={classnames(classes.label, {
+          [classes.labelWithMarginLeft]: !disableGutters,
+        })}
+        component="legend"
+      >
         {t('common.emergencyContact')}
       </FormLabel>
-      <ListItem>
+      <ListItem
+        disableGutters={disableGutters}
+        classes={{ root: denseListItem }}
+      >
         <AssignmentIndIcon />
         <ListItemText
           primary={(emergency_contact !== 'null' && emergency_contact) || ' - '}
@@ -43,9 +52,11 @@ const styles = (theme: Theme) => ({
     marginLeft: theme.spacing(2),
   },
   label: {
-    marginLeft: theme.spacing(2),
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+  },
+  labelWithMarginLeft: {
+    marginLeft: theme.spacing(2),
   },
 });
 

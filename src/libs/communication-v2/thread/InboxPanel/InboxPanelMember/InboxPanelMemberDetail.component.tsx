@@ -1,0 +1,254 @@
+import React, { memo, useCallback, useState } from 'react';
+
+import moment from 'moment-timezone';
+import { useTranslation } from 'react-i18next';
+// @ts-expect-error
+import BarCode from 'react-barcode';
+import type { CallHistoryMethodAction } from 'connected-react-router';
+import { makeStyles, useTheme } from '@material-ui/core';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Dialog from '@material-ui/core/Dialog';
+import TodayIcon from '@material-ui/icons/Today';
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import Cake from '@material-ui/icons/Cake';
+import ViewWeekIcon from '@material-ui/icons/ViewWeek';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import PlaceIcon from '@material-ui/icons/Place';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { formatAsDate } from '../../../../../utils/datetime';
+import type { Member } from '#libs/member/types';
+import EmergencyContactItemComponent from '#libs/communication/components/EmergencyContactItem.component';
+import { CustomChip } from '#components/chip/CustomChip.component';
+
+type Props = {
+  member: Member;
+  goToMemberPage?: (id: number) => CallHistoryMethodAction<[string, unknown?]>;
+};
+
+const InboxPanelMemberDetail: React.FC<Props> = ({
+  member,
+  goToMemberPage,
+}) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['member', 'communication']);
+
+  const theme = useTheme();
+
+  const [displayBarcodeDialog, setDisplayBarcodeDialog] = useState(false);
+
+  const age = moment().diff(moment(member?.birthday), 'years');
+
+  const isBirthday = member?.birthday
+    ? moment().format('MM-DD') === moment(member?.birthday).format('MM-DD')
+    : false;
+
+  const barcode = member?.barcode || t('barcode.none');
+
+  const handleClickBarcode = useCallback(() => {
+    setDisplayBarcodeDialog(true);
+  }, []);
+
+  const handleCloseBarcode = useCallback(() => {
+    setDisplayBarcodeDialog(false);
+  }, []);
+
+  const handleClickMemberRedirection = useCallback(() => {
+    return goToMemberPage(member?.id);
+  }, [goToMemberPage, member]);
+
+  // Problem of address not typed well on member and consumer
+  // @ts-expect-error
+  const address = member?.address || member?.consumer?.address;
+
+  const primaryAddress = `${address?.address_line_1 || ''} - ${
+    address?.address_line_2 || ''
+  }`;
+  const secondaryAddress = `${address?.city || ''} - ${address?.state || ''}${
+    address?.zipcode || ''
+  } ${address?.state ? '- ' : ''}${(address?.country || '').toUpperCase()}`;
+
+  return (
+    <div>
+      <div className={classes.memberSummaryContainer}>
+        <div className={classes.contactMember}>
+          {member?.phone_number && (
+            <div className={classes.contactItemContainer}>
+              <CustomChip
+                displayedValue={member?.phone_number}
+                mainColor={theme.palette.primary.main}
+                icon="LocalPhone"
+              />
+            </div>
+          )}
+
+          {member?.email && (
+            <div className={classes.contactItemContainer}>
+              <CustomChip
+                displayedValue={member?.email}
+                mainColor={theme.palette.primary.main}
+                icon="Mail"
+              />
+            </div>
+          )}
+        </div>
+        <div className={classes.signupDate}>
+          <Typography noWrap color="textSecondary">
+            {t('memberSince') + formatAsDate(member?.date_joined)}
+          </Typography>
+        </div>
+
+        <List dense disablePadding className={classes.section}>
+          {!!member?.birthday && (
+            <ListItem disableGutters dense>
+              <TodayIcon />
+              <ListItemText
+                className={classes.listItemText}
+                primary={
+                  <div className={classes.rowInfo}>
+                    <div>
+                      {' '}
+                      {`${t('member:birth.bornIn', {
+                        context: member?.gender,
+                        date: moment(member?.birthday).format('L'),
+                        age,
+                      })}`}
+                    </div>
+                    <div>{isBirthday && <Cake color="secondary" />}</div>
+                  </div>
+                }
+              />
+            </ListItem>
+          )}
+          <ListItem disableGutters dense>
+            <PersonOutlineIcon />
+            <ListItemText
+              className={classes.listItemText}
+              primary={`N°${member?.membership_ID}`}
+            />
+          </ListItem>
+        </List>
+
+        <div className={classes.section}>
+          <ListItem disableGutters classes={{ root: classes.denseListItem }}>
+            <ViewWeekIcon />
+            <ListItemText
+              className={classes.listItemText}
+              primary={
+                <div className={classes.rowInfo}>
+                  {`${barcode}`}
+                  <IconButton
+                    className={classes.visibilityIcon}
+                    onClick={handleClickBarcode}
+                  >
+                    <VisibilityIcon color="primary" />
+                  </IconButton>
+                </div>
+              }
+            />
+          </ListItem>
+        </div>
+
+        {address && (
+          <div className={classes.section}>
+            <ListItem disableGutters classes={{ root: classes.denseListItem }}>
+              <PlaceIcon />
+              <ListItemText
+                className={classes.listItemText}
+                primary={primaryAddress}
+                secondary={secondaryAddress}
+              />
+            </ListItem>
+          </div>
+        )}
+
+        {member?.emergency_contact && (
+          <div className={classes.emergencyContact}>
+            <EmergencyContactItemComponent
+              emergency_contact={member?.emergency_contact}
+              disableGutters
+              denseListItem={classes.denseListItem}
+            />
+          </div>
+        )}
+
+        <ButtonBase onClick={handleClickMemberRedirection}>
+          <Typography color="primary">
+            {t(
+              `communication:thread.panel.navigation.${ChatThreadKinds.Member}`,
+            ).toUpperCase()}
+          </Typography>
+          <ArrowForwardIcon className={classes.arrowIcon} color="primary" />
+        </ButtonBase>
+      </div>
+
+      <Dialog open={displayBarcodeDialog} onClose={handleCloseBarcode}>
+        <BarCode value={member?.barcode} background={theme.palette.grey[50]} />
+      </Dialog>
+    </div>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  memberSummaryContainer: {
+    backgroundColor: theme.palette.grey[100],
+    padding: theme.spacing(2),
+  },
+  contactMember: {
+    display: 'flex',
+    paddingBottom: theme.spacing(3),
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  contactItemContainer: {
+    paddingRight: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+  icon: {
+    paddingRight: theme.spacing(1),
+    paddingLeft: theme.spacing(0.5),
+  },
+  signupDate: {
+    paddingBottom: theme.spacing(3),
+  },
+  listItemText: {
+    marginLeft: theme.spacing(2),
+  },
+  rowInfo: {
+    display: 'flex',
+    alignItems: 'center',
+    '&>*': {
+      marginRight: theme.spacing(1),
+    },
+  },
+  visibilityIcon: {
+    marginLeft: theme.spacing(1),
+  },
+  section: {
+    paddingBottom: theme.spacing(3),
+  },
+  denseListItem: {
+    width: '100%',
+    display: 'flex',
+    textAlign: 'left',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    boxSizing: 'border-box',
+    paddingBottom: 0,
+    paddingTop: 0,
+  },
+  arrowIcon: {
+    paddingLeft: theme.spacing(1),
+  },
+  emergencyContact: {
+    paddingBottom: theme.spacing(3),
+  },
+}));
+
+export default memo(InboxPanelMemberDetail);

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import {
@@ -246,7 +245,7 @@ export const deleteVideoActions = {
   success: createAction('VIDEO/DELETE/SUCCESS'),
 };
 
-export function deleteVideo(id: number, options?: OptionCallback) {
+export function deleteVideo(id: number, options?: OptionCallback<number>) {
   return async (dispatch: Dispatch) => {
     dispatch(deleteVideoActions.isLoading(true));
     dispatch(deleteVideoActions.error(null));
@@ -294,13 +293,20 @@ export const registerVideoActions = {
   success: createAction('VIDEO/REGISTER/SUCCESS'),
 };
 
-export function registerVideo(id: number, data: any, options?: OptionCallback) {
+export function registerVideo(
+  id: number,
+  data: {
+    consumer_payment_pack?: number;
+    private_consumer_pass?: number;
+  },
+  options?: OptionCallback<number>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(registerVideoActions.isLoading(true));
     dispatch(registerVideoActions.error(null));
     try {
       await registerVideoAPI(id, data);
-      dispatch(registerVideoActions.success(id));
+      dispatch(registerVideoActions.success());
       if (options && options.onSuccess) {
         options.onSuccess(id);
       }
@@ -484,7 +490,7 @@ export const numberVideoPurchaseActions = {
   success: createAction('VIDEO_PURCHASE/NUMBER/SUCCESS'),
 };
 
-export function fetchNumberVideoPurchase(params) {
+export function fetchNumberVideoPurchase(params: { member_id: number }) {
   return async (dispatch: Dispatch) => {
     dispatch(numberVideoPurchaseActions.isLoading(true));
     try {
@@ -640,7 +646,12 @@ export const getPlaybackUrlActions = {
   accessDenied: createAction('VIDEO/PLAYBACK_URL/ACCESS_DENIED'),
 };
 
-export function getPlaybackUrl(videoId: number, options?: OptionCallback) {
+export function getPlaybackUrl(
+  videoId: number,
+  options?: OptionCallback & {
+    onAccessDenied?: (accessDenied: boolean) => void;
+  },
+) {
   return async (dispatch: Dispatch) => {
     dispatch(getPlaybackUrlActions.isLoading(true));
     dispatch(getPlaybackUrlActions.error(null));

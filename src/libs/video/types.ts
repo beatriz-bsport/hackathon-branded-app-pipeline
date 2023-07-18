@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 import { ErrorAndLoading, WithPagination } from '../types';
 import { Coach } from '../associated-coach/types';
@@ -30,9 +29,10 @@ export type Video<S = number, C = number> = {
 
 export type VideoPurchase = {
   id: number;
-  consumer_payment_pack: any;
-  private_consumer_pass: any;
-  video: any;
+  consumer_payment_pack: number | null;
+  private_consumer_pass: number | null;
+  video: number;
+  credit_price_payed?: number;
   member_id: number;
   date_created: string;
   available: boolean;

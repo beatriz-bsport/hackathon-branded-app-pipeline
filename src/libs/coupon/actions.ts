@@ -19,6 +19,8 @@ import {
   createUniqueCodeCoupon as createUniqueCodeCouponAPI,
   updateUniqueCodeCoupon as updateUniqueCodeCouponAPI,
   retrieveCoupon as retrieveCouponAPI,
+  markCodesAsRedeemed as markCodesAsRedeemedAPI,
+  exportCodesAsCsv as exportCodesAsCsvAPI,
 } from './api';
 
 import { OptionCallback, Dispatch, ThunkAction } from '../../state/types';
@@ -522,5 +524,66 @@ export function retrieveCoupon(
     }
 
     dispatch(retrieveCouponActions.isLoading(false));
+  };
+}
+
+export function markCodesAsRedeemed(
+  id: string | number,
+  codes: string[],
+  options?: OptionCallback<Coupon>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(couponCreateOrUpdate.isLoading(true));
+    dispatch(couponCreateOrUpdate.error(null));
+
+    try {
+      const response = await markCodesAsRedeemedAPI(id, { codes });
+      dispatch(couponCreateOrUpdate.success(response.data));
+      dispatch(snackbarSuccess('coupon.update.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(couponCreateOrUpdate.error(error));
+      dispatch(snackbarError('coupon.update.error'));
+      if (options && options.onError) {
+        options.onError();
+      }
+    }
+    dispatch(couponCreateOrUpdate.isLoading(false));
+  };
+}
+
+export const exportCodesAsCsvActions = {
+  isLoading: createAction<boolean>(
+    'UNIQUE_CODE_COUPON/EXPORT_CODES/IS_LOADING',
+  ),
+  error: createAction<Error | null>('UNIQUE_CODE_COUPON/EXPORT_CODES/ERROR'),
+};
+
+export function exportCodesAsCsv(
+  id: string | number,
+  codes: string[],
+  options?: OptionCallback<string>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(exportCodesAsCsvActions.isLoading(true));
+    dispatch(exportCodesAsCsvActions.error(null));
+
+    try {
+      const response = await exportCodesAsCsvAPI(id, { codes });
+      dispatch(snackbarSuccess('coupon.exportCodes.success'));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(exportCodesAsCsvActions.error(error));
+      dispatch(snackbarError('coupon.exportCodes.error'));
+      if (options && options.onError) {
+        options.onError();
+      }
+    }
+
+    dispatch(exportCodesAsCsvActions.isLoading(false));
   };
 }

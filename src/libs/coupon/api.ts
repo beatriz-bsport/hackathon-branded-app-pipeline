@@ -181,3 +181,17 @@ export const updateUniqueCodeCoupon = (
 export const retrieveCoupon = (id: string | number) => {
   return getAuth<Coupon>(`${COUPON_URI}${id}/`);
 };
+
+export const markCodesAsRedeemed = (
+  id: string | number,
+  data: { codes: string[] },
+) => {
+  return putAuth<Coupon>(`${COUPON_URI}unique_code/${id}/redeem/`, data);
+};
+
+export const exportCodesAsCsv = (
+  id: string | number,
+  data: { codes: string[] },
+) => {
+  return postAuth<string>(`${COUPON_URI}unique_code/${id}/export/`, data);
+};

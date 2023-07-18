@@ -127,31 +127,31 @@ const InboxThreadHeader: React.FC<Props> = ({
         <IconButton onClick={onShowFilterModal} className={classes.filterIcon}>
           <FilterListIcon />
         </IconButton>
-        {isMobilePanel ? (
-          <div className={classes.threadStatus}>
+        <div className={classes.threadStatus}>
+          {isMobilePanel ? (
             <IconButton onClick={handleClosePanel}>
               <CloseIcon />
             </IconButton>
-          </div>
-        ) : (
-          <>
-            <ThreadMenu
-              id={id}
-              hasBeenRead={hasBeenRead}
-              isFavorite={isFavorite}
-              isMuted={isMuted}
-              isDisabled={isDisabled}
-              relatedObjectKind={relatedObjectKind}
-              switchFavoriteStatus={switchFavoriteStatus}
-              switchMutedStatus={switchMutedStatus}
-              switchDisabledStatus={switchDisabledStatus}
-              flagAsUnread={flagAsUnread}
-              isMobileMenu
-              goToDetailPage={goToDetailPage}
-              setOpenCollapse={onShowFilterModal}
-            />
-          </>
-        )}
+          ) : (
+            <>
+              <ThreadMenu
+                id={id}
+                hasBeenRead={hasBeenRead}
+                isFavorite={isFavorite}
+                isMuted={isMuted}
+                isDisabled={isDisabled}
+                relatedObjectKind={relatedObjectKind}
+                switchFavoriteStatus={switchFavoriteStatus}
+                switchMutedStatus={switchMutedStatus}
+                switchDisabledStatus={switchDisabledStatus}
+                flagAsUnread={flagAsUnread}
+                isMobileMenu
+                goToDetailPage={goToDetailPage}
+                setOpenCollapse={onShowFilterModal}
+              />
+            </>
+          )}
+        </div>
       </div>
     </Paper>
   );

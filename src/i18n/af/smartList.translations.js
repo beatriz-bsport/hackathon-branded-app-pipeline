@@ -139,6 +139,9 @@ exports.default = {
     'Utilisez les smartlists afin de filtrer, analyser, et mieux connaitre vos membres.',
   selectToShowPreview: 'Sélectionnez un template',
   exportList: 'Exporter la smartlist',
+  generateExport: "Générer l'export",
+  generateHelperText: "Générez l'export pour télécharger la smartlist",
+  lastGenerated: 'Dernier export généré le : {{-date}} {{time}}',
   downLoadSavedExport: 'Télécharger votre dernier export',
   membersInList: 'Membres dans la smartlist:',
   modal: {

@@ -57,6 +57,7 @@ import {
   getCadencesUsingSmartlist,
   getCadenceIdsUsingSmartlistLoading,
   getSmartListCsvExportLink,
+  getSmartListCsvExportDate,
 } from '#libs/smart-list/selectors';
 
 import {
@@ -439,6 +440,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           exportMemberTable={() => getMemberTable(this.props.id)}
           exportMemberTableBackground={this.handleBackgroundCsvExport}
           csvExportLink={this.props.csvExportLink}
+          csvExportDate={this.props.csvExportDate}
           smartList={this.props.smartlist}
           filters={this.props.smartlist_filters}
           updateFilter={this.updateFilter}
@@ -787,6 +789,7 @@ const connector = connect(
     cadences: getCadencesUsingSmartlist(state, id),
 
     csvExportLink: getSmartListCsvExportLink(state, id),
+    csvExportDate: getSmartListCsvExportDate(state, id),
   }),
   {
     // SMARTLIST

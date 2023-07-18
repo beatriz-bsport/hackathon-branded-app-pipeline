@@ -795,8 +795,11 @@ export const fetchStoredCsvExportsActions = {
   isLoading: createAction<boolean>(
     'SMART-LIST/FETCH_CSV_EXPORT_BACKGROUND/LOADING',
   ),
-  success: createAction<string>(
-    'SMART-LIST/FETCH_CSV_EXPORT_BACKGROUND/SUCCESS',
+  successDate: createAction<string>(
+    'SMART-LIST/FETCH_CSV_EXPORT_BACKGROUND/SUCCESS_DATE',
+  ),
+  successLink: createAction<string>(
+    'SMART-LIST/FETCH_CSV_EXPORT_BACKGROUND/SUCCESS_LINK',
   ),
 };
 
@@ -806,12 +809,24 @@ export function fetchStoredCsvExports(id: number, options?: OptionCallback) {
     dispatch(fetchStoredCsvExportsActions.error(null));
     try {
       const response = await fetchStoredCsvExportsAPI(id);
-      dispatch(
-        fetchStoredCsvExportsActions.success({
-          smartlist_id: id,
-          link: response.data,
-        }),
-      );
+
+      // the data is formatted with the date of the generation of the csv in this format 'date_created|export_link'
+      if (response.data.includes('|')) {
+        const dateAndLink = response.data.split('|');
+        dispatch(
+          fetchStoredCsvExportsActions.successDate({
+            smartlist_id: id,
+            date: dateAndLink[0],
+          }),
+        );
+        dispatch(
+          fetchStoredCsvExportsActions.successLink({
+            smartlist_id: id,
+            link: dateAndLink[1],
+          }),
+        );
+      }
+
       options && options.onSuccess && options.onSuccess(response.data);
     } catch (error) {
       dispatch(fetchStoredCsvExportsActions.error(error));

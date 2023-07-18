@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ErrorAndLoading } from '../types';
 
 export type SmartList = {
@@ -42,7 +41,9 @@ export type SmartListState = ErrorAndLoading & {
     byId: { [key: number]: number[] };
   };
   csvExports: {
-    byId: { [id: number]: string } & ErrorAndLoading;
+    byId: {
+      [id: number]: { exportLink: string; date: string };
+    } & ErrorAndLoading;
   };
 };
 

@@ -603,9 +603,21 @@ export default handleActions<Immutable.Immutable<SmartListState>, any>(
     [fetchStoredCsvExportsActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['csvExports', 'error'], payload);
     },
-    [fetchStoredCsvExportsActions.success.toString()]: (state, { payload }) => {
+    [fetchStoredCsvExportsActions.successDate.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(
-        ['csvExports', 'byId', payload.smartlist_id],
+        ['csvExports', 'byId', payload.smartlist_id, 'date'],
+        payload.date,
+      );
+    },
+    [fetchStoredCsvExportsActions.successLink.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(
+        ['csvExports', 'byId', payload.smartlist_id, 'exportLink'],
         payload.link,
       );
     },

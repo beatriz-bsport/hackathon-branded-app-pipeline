@@ -111,4 +111,9 @@ export const getSmartListAutomatedCampaign = (
 export const getSmartListCsvExportLink = (
   state: RootState,
   id: number,
-): string => state.smartList.csvExports.byId[id] ?? '';
+): string => state.smartList.csvExports.byId[id]?.exportLink ?? '';
+
+export const getSmartListCsvExportDate = (
+  state: RootState,
+  id: number,
+): string => state.smartList.csvExports.byId[id]?.date ?? '';

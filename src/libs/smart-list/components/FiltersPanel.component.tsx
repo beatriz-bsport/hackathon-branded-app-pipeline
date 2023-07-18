@@ -17,7 +17,6 @@ import ListItem from '@material-ui/core/ListItem';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
@@ -55,7 +54,6 @@ import {
   USER_HAS_PHONE_FILTER_IDENTIFIER,
   TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
-import ToolTip from '#components/Tooltip.component';
 
 import type { Establishment } from '../../establishment/types';
 import type { PrivatePass, PrivateService } from '../../private-service/types';
@@ -158,6 +156,7 @@ type Props = {
   exportMemberTable: () => void;
   exportMemberTableBackground: () => void;
   csvExportLink: string;
+  csvExportDate: string;
   fetchItems: any;
   fetchBulkItems: any;
   coaches: Array<any>;
@@ -286,6 +285,19 @@ export class FiltersPanel extends Component<Props, State> {
     this.setState({ openCadenceListDialog: false });
   };
 
+  openCsvExportLink = () => window.open(this.props.csvExportLink);
+
+  addFilterOnClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+
+    trackFormAdd();
+
+    this.setState((previousState) => ({
+      anchorEl: event.currentTarget,
+      displayAddFilter: !previousState.displayAddFilter,
+    }));
+  };
+
   render() {
     const { classes, t, filters } = this.props;
 
@@ -345,57 +357,44 @@ export class FiltersPanel extends Component<Props, State> {
             memberLoading={this.props.memberLoading}
             membersToDisplay={this.props.memberList}
           />
-          <div>
-            <Button
-              onClick={(event: React.MouseEvent<HTMLElement>) => {
-                event.stopPropagation();
-
-                trackFormAdd();
-
-                this.setState({ anchorEl: event.currentTarget });
-                this.setState((previousState) => ({
-                  displayAddFilter: !previousState.displayAddFilter,
-                }));
-              }}
-              color="primary"
-              variant="contained"
-              className={classes.actionButton}
-              disabled={this.state.new_filter}
-            >
-              <FilterListIcon className={this.props.classes.leftIcon} />
-              {t('filters.add_filter')}
-            </Button>
-            <Button
-              onClick={this.exportSmartlistBackground}
-              disabled={this.state.isSmartListExporting}
-              color="secondary"
-              variant="contained"
-              className={classes.actionButton}
-            >
-              {this.state.isSmartListExporting ? (
-                <CircularProgress
-                  className={this.props.classes.leftIcon}
-                  size={25}
-                  color="secondary"
-                />
-              ) : (
-                <CloudDownloadIcon className={this.props.classes.leftIcon} />
-              )}
-              {t('exportList')}
-            </Button>
-            {this.props.csvExportLink && (
-              <ToolTip title={t('downLoadSavedExport')}>
-                <IconButton
-                  onClick={() => window.open(this.props.csvExportLink)}
-                  disabled={this.state.isSmartListExporting}
-                  color="secondary"
-                  variant="contained"
-                  className={classes.actionButton}
-                >
-                  <SaveAltIcon className={this.props.classes.leftIcon} />
-                </IconButton>
-              </ToolTip>
-            )}
+          <div className={classes.exportButtonsContainer}>
+            <div>
+              <Button
+                onClick={this.exportSmartlistBackground}
+                disabled={this.state.isSmartListExporting}
+                color="secondary"
+                variant="outlined"
+                className={classes.actionButton}
+              >
+                {t('generateExport')}
+              </Button>
+              <Button
+                onClick={this.openCsvExportLink}
+                disabled={!this.props.csvExportLink}
+                color="secondary"
+                variant="contained"
+                className={classes.actionButton}
+              >
+                {this.state.isSmartListExporting ? (
+                  <CircularProgress
+                    className={this.props.classes.leftIcon}
+                    size={25}
+                    color="secondary"
+                  />
+                ) : (
+                  <CloudDownloadIcon className={this.props.classes.leftIcon} />
+                )}
+                {t('exportList')}
+              </Button>
+            </div>
+            <Typography>
+              {this.props.csvExportLink
+                ? t('lastGenerated', {
+                    date: moment.unix(this.props.csvExportDate).format('L'),
+                    time: moment.unix(this.props.csvExportDate).format('LT'),
+                  })
+                : t('generateHelperText')}
+            </Typography>
           </div>
 
           <Menu
@@ -516,6 +515,16 @@ export class FiltersPanel extends Component<Props, State> {
         </ButtonBase>
         <Divider className={this.props.classes.divider} />
         <Collapse in={this.state.displayFilters}>
+          <Button
+            onClick={this.addFilterOnClick}
+            color="primary"
+            variant="contained"
+            className={classes.actionButton}
+            disabled={this.state.new_filter}
+          >
+            <FilterListIcon className={this.props.classes.leftIcon} />
+            {t('filters.add_filter')}
+          </Button>
           <Paper>
             <MemberBaseFilter
               smartlist={this.props.smartList}
@@ -675,6 +684,11 @@ const styles = createStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(1),
+  },
+  exportButtonsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
 }));
 

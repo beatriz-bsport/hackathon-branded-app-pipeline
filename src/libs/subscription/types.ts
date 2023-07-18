@@ -132,7 +132,7 @@ export type ContractWithPaymentPack<
   auto_renewal: boolean;
   tax: string;
   flat_fee: number;
-  recurrent_price: number;
+  recurrent_price: string;
   nb_interval: number;
   disabled: boolean;
   interval: 'month' | 'week';

@@ -458,6 +458,8 @@ exports.default = {
         error: 'Le nombre de facturations ne doit pas dépasser 90',
         errorForFixedBillingDay:
           'Le nombre de facturations ne doit pas dépasser 12',
+        restrictionForFixedBillingDay:
+          'Le nombre de facturations doit être compris entre 2 et 12 pour une facturation à un jour fixe',
       },
       interval: {
         label: 'Récurrence',

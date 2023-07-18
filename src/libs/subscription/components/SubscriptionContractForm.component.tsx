@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import classNames from 'classnames';
 import Collapse from '@material-ui/core/Collapse';
@@ -24,9 +23,13 @@ import {
   IntervalRecurrenceSelectField,
   IntegerField,
   SelectField,
+  // @ts-expect-error
 } from '../../../components/forms';
+// @ts-expect-error
 import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
+// @ts-expect-error
 import PrivatePassSelectorField from '../../private-service/components/pass/PrivatePassSelectorField.component';
+// @ts-expect-error
 import PaymentComboSelectorField from '../../payment-combo/components/PaymentComboSelectorField.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
@@ -38,6 +41,7 @@ import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { OptionCallback } from '../../../state/types';
 import FormSection from '#components/forms/FormSection';
 import PopOver from '#components/Popover';
+import { CONTRACT_MAX_NB_INTERVAL_ALLOWED } from '../constants';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -111,9 +115,6 @@ export function SubscriptionContractFields(
     if (values.invoicing_type === InvoicingType.fixedDay) {
       setFieldValue('recurrence_basis', 1);
       setFieldValue('interval', 'month');
-      if (values.nb_interval > 12) {
-        setFieldValue('nb_interval', 12);
-      }
       if (!values.month_billing_day) {
         setFieldValue('month_billing_day', 1);
       }
@@ -126,6 +127,17 @@ export function SubscriptionContractFields(
     values.month_billing_day,
     setFieldValue,
   ]);
+
+  let nbIntervalHelperText = '';
+  if (values.nb_interval > CONTRACT_MAX_NB_INTERVAL_ALLOWED)
+    nbIntervalHelperText = t('contract.form.nb_interval.error');
+  else if (
+    values.invoicing_type === InvoicingType.fixedDay &&
+    (values.nb_interval > 12 || values.nb_interval < 2)
+  )
+    nbIntervalHelperText = t(
+      'contract.form.nb_interval.restrictionForFixedBillingDay',
+    );
 
   return (
     <div>
@@ -215,8 +227,8 @@ export function SubscriptionContractFields(
         />
         {props.initial?.id &&
           // the backend returns a string for recurrent_price as it is handled as a decimal
-          parseFloat(props.values.recurrent_price) !==
-            parseFloat(props.initial.recurrent_price) && (
+          parseFloat(props.values.recurrent_price as string) !==
+            parseFloat(props.initial.recurrent_price as string) && (
             <Alert severity="info" className={classes.fieldMargin2}>
               {t('contract.form.recurrent_price.infoBox')}
             </Alert>
@@ -295,11 +307,7 @@ export function SubscriptionContractFields(
           className={classes.field}
           required
           fullWidth
-          helperText={
-            props.values.nb_interval > 90
-              ? t('contract.form.nb_interval.error')
-              : ''
-          }
+          helperText={nbIntervalHelperText}
         />
 
         <Collapse
@@ -475,7 +483,7 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
   nb_interval: Yup.number()
     .integer()
     .min(1)
-    .max(90)
+    .max(CONTRACT_MAX_NB_INTERVAL_ALLOWED)
     .required()
     .test(
       'Must-be-less-than-twelve-for-fixed-billing-day',
@@ -484,6 +492,16 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
         return (
           this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
           nb_interval <= 12
+        );
+      },
+    )
+    .test(
+      'Must-be-more-than-one-for-fixed-billing-day',
+      'contract.form.nb_interval.restrictionForFixedBillingDay',
+      function checkNbIntervalForFixedBillingDay(nb_interval) {
+        return (
+          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
+          nb_interval > 1
         );
       },
     ),
@@ -608,7 +626,7 @@ export const SubscriptionContractFormHoc = withFormik<
     }
     return {
       name: '',
-      recurrent_price: 0,
+      recurrent_price: '0',
       flat_fee: 0,
       nb_interval: 12,
       recurrence_basis: 1,

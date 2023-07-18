@@ -11,6 +11,7 @@ import {
   deleteCouponTemplateActions,
   retrieveCouponTemplateActions,
   retrieveCouponActions,
+  exportCodesAsCsvActions,
 } from './actions';
 
 import type { Coupon, CouponState, CouponTemplate, Discount } from './types';
@@ -42,6 +43,10 @@ const initialState: Immutable.Immutable<CouponState> = Immutable<CouponState>({
       loading: false,
       error: null,
     },
+  },
+  exportCodes: {
+    loading: false,
+    error: null,
   },
 });
 
@@ -225,6 +230,18 @@ export default handleActions<Immutable.Immutable<CouponState>, any>(
           payload,
         ],
       );
+    },
+    [exportCodesAsCsvActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['exportCodes', 'error'], payload);
+    },
+    [exportCodesAsCsvActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['exportCodes', 'loading'], payload);
     },
   },
   initialState,

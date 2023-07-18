@@ -74,6 +74,10 @@ export type CouponState = {
     error: null | Error;
     upsert: ErrorAndLoading;
   };
+  exportCodes: {
+    loading: boolean;
+    error: null | Error;
+  };
 };
 
 export type UniqueCodeState = {

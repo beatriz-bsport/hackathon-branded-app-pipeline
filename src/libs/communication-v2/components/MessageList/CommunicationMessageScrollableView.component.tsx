@@ -77,26 +77,18 @@ const CommunicationMessageScrollableView = (props: Props) => {
       scrollRef.current.scrollHeight -
       scrollRef.current.getBoundingClientRect().height;
   }
-  const sortedThreadList = props.messageList ?? [];
+  const sortedMessageList = props.messageList ?? [];
 
   return (
     <div ref={scrollRef} className={classes.scrollContainer}>
       <div ref={currentElement} />
-      <div className={classes.loadingMoreContainer}>
-        {props.loadingCommunicationMessageDataList &&
-        sortedThreadList.length > 0 ? (
-          <CircularProgress />
-        ) : (
-          <></>
-        )}
-      </div>
       {props.loadingCommunicationMessageDataList &&
-      sortedThreadList.length === 0 ? (
+      sortedMessageList.length === 0 ? (
         <div className={classes.loadingContainer}>
           <CircularProgress />
         </div>
       ) : (
-        sortedThreadList.map((threadCommunication: CommunicationMessage) => (
+        sortedMessageList.map((threadCommunication: CommunicationMessage) => (
           <CommunicationMessageBubble
             key={threadCommunication.communication.uuid}
             communicationMessage={threadCommunication}
@@ -110,7 +102,7 @@ const CommunicationMessageScrollableView = (props: Props) => {
         ))
       )}
       {!props.loadingCommunicationMessageDataList &&
-        sortedThreadList.length === 0 && (
+        sortedMessageList.length === 0 && (
           <Typography variant="subtitle1" className={classes.emptyLabel}>
             {t(
               `thread.emptyThread.${
@@ -132,20 +124,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     flex: 1,
     flexDirection: 'row',
     display: 'flex',
-  },
-  loadingMoreContainer: {
-    zIndex: 100,
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    background: `linear-gradient(0deg, #fff0, ${theme.palette.background.paper})`,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-    left: theme.spacing(3),
-    right: theme.spacing(3),
-    flexDirection: 'row',
-    display: 'flex',
-    position: 'absolute',
   },
   scrollContainer: {
     display: 'flex',

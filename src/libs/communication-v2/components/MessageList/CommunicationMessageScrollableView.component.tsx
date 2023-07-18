@@ -129,7 +129,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flex: '1 0 0',
     flexDirection: 'column',
-    overflowY: 'scroll',
+    overflowY: 'auto',
     [theme.breakpoints.down('sm')]: {
       paddingRight: theme.spacing(1.5),
     },

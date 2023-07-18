@@ -21,6 +21,7 @@ import {
   getUploadInstructionActions,
   listVideoPurchaseByMemberActions,
   listVideoPurchaseByMemberByVideoActions,
+  registerVideoActions,
 } from './actions';
 import { Video, VideoState } from './types';
 
@@ -383,6 +384,21 @@ export default handleActions<Immutable.Immutable<VideoState>>(
       { payload },
     ) => {
       return state.setIn(['uploadInstructions', 'loading'], payload);
+    },
+    [registerVideoActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['playbackUrl', 'loading'], payload);
+    },
+    [registerVideoActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error },
+    ) => {
+      return state.setIn(['playbackUrl', 'error'], payload);
+    },
+    [registerVideoActions.success.toString()]: (state) => {
+      return state.setIn(['playbackUrl', 'accessDenied'], false);
     },
   },
   initialState,

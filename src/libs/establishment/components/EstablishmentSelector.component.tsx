@@ -221,16 +221,21 @@ const establishmentStyles = {
 
 export type OwnProps = {
   id?: string;
-  establishments?: Array<Establishment> | Immutable.ImmutableArray<Establishment>;
+  establishments?:
+    | Array<Establishment>
+    | Immutable.ImmutableArray<Establishment>;
   selectOption: (
-    suggestion: EstablishmentSelectOption[] | EstablishmentSelectOption,
+    suggestion:
+      | EstablishmentSelectOption[]
+      | EstablishmentSelectOption
+      | number,
   ) => void;
   selectMultipleOptions?: (itemsValueList: Array<number>) => void;
   onBlur?: FocusEventHandler<HTMLSelectElement>;
   selectedEstablishments: Array<number> | null;
   disabled?: boolean;
-  noMulti: boolean;
-  closeMenuOnSelect: boolean;
+  noMulti?: boolean;
+  closeMenuOnSelect?: boolean;
   isClearable?: boolean;
   nullCurrentValue?: boolean;
   isLoading?: boolean;

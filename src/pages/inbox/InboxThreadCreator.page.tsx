@@ -17,6 +17,7 @@ import { getTheme } from '#libs/theme/selectors';
 import { getSearchedMembers } from '#libs/member/selectors';
 import { search as searchMembers } from '#libs/member/actions';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+// @ts-expect-error
 import SmartListSelector from '#libs/smart-list/components/SmartListSelector.component';
 import { getAllSmartList } from '#libs/smart-list/selectors';
 import type { OfferFilter, Offer } from '#libs/offer/types';
@@ -47,6 +48,12 @@ import type { SmartList } from '#libs/smart-list/types';
 import { fetchAllSmartLists as fetchAllSmartListsAction } from '#libs/smart-list/actions';
 // @ts-ignore @ts-expect-error
 import { omit_list, getDayOffers } from '../planning/Planning.page';
+
+type SmartListSelectOption = {
+  value: number;
+  label: string;
+  smartlist: SmartList;
+};
 
 const connector = connect(
   (state: RootState) => ({
@@ -101,9 +108,12 @@ const useSmartlistHandler = (
   const [smartlistSelected, setSmartlistSelected] =
     React.useState<number>(null);
 
-  const handleSmartlistSelect = React.useCallback((smartlists: SmartList[]) => {
-    setSmartlistSelected(smartlists[smartlists.length - 1].value);
-  }, []);
+  const handleSmartlistSelect = React.useCallback(
+    (smartlists: SmartListSelectOption[]) => {
+      setSmartlistSelected(smartlists[smartlists.length - 1].value);
+    },
+    [],
+  );
 
   React.useEffect(() => {
     if (contextSelected === ChatThreadKinds.Smartlist) {
@@ -120,7 +130,11 @@ const useOfferHandler = (
   ) => void,
   offerFilters: OfferFilter,
   fetchOffersByDayActionDisptach: (
-    params: any,
+    params: {
+      year: number;
+      month: number;
+      day: number;
+    },
     options: OptionCallback<Offer[]>,
   ) => void,
   fetchMetaActivityBulk: (ids: number[]) => void,
@@ -280,7 +294,9 @@ export const InboxThreadCreator = (props: Props) => {
           <div className={classes.innerPadding}>
             <Calendar
               events={getDayOffers(props.events)}
+              // @ts-expect-error
               onDateChange={setDate}
+              // @ts-expect-error
               date={date}
               filters={offerFilters}
               showCancelledOffers={false}

@@ -367,6 +367,7 @@ exports.default = {
       weeks: 'sem',
       year: '{{count}}\u00A0an',
       year_plural: '{{count}}\u00A0ans',
+      noMessage: 'Aucun message',
     },
     kind: {
       [ChatThreadKinds.Member]: 'Membres',

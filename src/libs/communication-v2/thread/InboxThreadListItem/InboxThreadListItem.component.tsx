@@ -148,21 +148,23 @@ const InboxThreadListItem: React.FC<Props> = ({
           }
           className={classes.textContent}
         >
-          {thread?.last_communication_content}
+          {thread?.last_communication_content || t('thread.item.noMessage')}
         </Typography>
       </div>
-      <Typography
-        component="span"
-        variant="body2"
-        color={
-          thread?.last_communication_has_been_read
-            ? 'textSecondary'
-            : 'textPrimary'
-        }
-        className="momentDateDisplay"
-      >
-        {displayRelativeTimeDelta(thread?.last_communication_datetime)}
-      </Typography>
+      {!!thread?.last_communication_datetime && (
+        <Typography
+          component="span"
+          variant="body2"
+          color={
+            thread?.last_communication_has_been_read
+              ? 'textSecondary'
+              : 'textPrimary'
+          }
+          className="momentDateDisplay"
+        >
+          {displayRelativeTimeDelta(thread?.last_communication_datetime)}
+        </Typography>
+      )}
     </div>
   );
 

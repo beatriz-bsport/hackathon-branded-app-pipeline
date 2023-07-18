@@ -998,7 +998,8 @@
         "days": "j",
         "weeks": "sem",
         "year": "{{count}} an",
-        "year_plural": "{{count}} ans"
+        "year_plural": "{{count}} ans",
+        "noMessage": "Aucun message"
       },
       "kind": { "member": "Membres", "smartlist": "Smartlists", "offer": "Séances" },
       "search": "Rechercher...",

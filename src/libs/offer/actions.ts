@@ -308,7 +308,7 @@ export function fetchOffersByDay(
     month: number;
     day: number;
   },
-  options: OptionCallback,
+  options: OptionCallback<Offer[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(offerByDay.isLoading(true));

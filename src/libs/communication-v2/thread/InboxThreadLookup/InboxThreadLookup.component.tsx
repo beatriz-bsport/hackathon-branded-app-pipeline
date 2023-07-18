@@ -44,8 +44,8 @@ const InboxThreadLookup: React.FC<Props> = ({
 
   const useSearch = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      if (!!searchThread) {
-        return searchThread(event.target.value);
+      if (searchThread) {
+        searchThread(event.target.value);
       }
     },
     [searchThread],

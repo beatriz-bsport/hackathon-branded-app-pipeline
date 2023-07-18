@@ -10,7 +10,6 @@ import MetaActivitySelector from '#libs/meta-activity/components/MetaActivitySel
 import EstablishmentGroupSelector from '#libs/establishment/components/EstablishmentGroupSelector.component';
 import RollCallSelector from '#libs/offer/components/RollCallSelector.component';
 
-import type { OfferFilter } from '#libs/offer/types';
 import type { Coach } from '#libs/associated-coach/types';
 import type {
   EstablishmentGroup,
@@ -19,13 +18,6 @@ import type {
 } from '#libs/establishment/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { CompanyTheme } from '#libs/theme/types';
-
-type SelectOption = {
-  label: string;
-  value: string | number;
-};
-
-type SelectOptions = SelectOption[]
 
 export const FILTER_COACH = 0;
 export const FILTER_ESTABLISHMENT = 1;
@@ -53,7 +45,10 @@ type Props = {
   coachesSelectedInRole: Coach[];
   coaches: Coach[];
   filterVerification: boolean;
-  setCalendarFilter: (ev: string|number|Array<number|string>, filterType: number) => void;
+  setCalendarFilter: (
+    ev: string | number | Array<number | string>,
+    filterType: number,
+  ) => void;
   selectRollCallFilter: (ev: React.SyntheticEvent) => void;
   selectedRollCallStatus: number;
 };
@@ -119,7 +114,9 @@ const OfferSearchBar = ({
 
   return (
     <Grid container style={{ overflow: 'auto' }}>
-      <Grid item xs={6}
+      <Grid
+        item
+        xs={6}
         // @ts-ignore
         md={mediumSize}
         className={classes.selector}
@@ -133,7 +130,8 @@ const OfferSearchBar = ({
       </Grid>
       {hasMultiLocation && (
         <Grid
-          item xs={6}
+          item
+          xs={6}
           // @ts-ignore
           md={mediumSize}
           className={classes.selector}
@@ -167,7 +165,9 @@ const OfferSearchBar = ({
           selectedEstablishments={
             filterVerification && offerFilters.establishments
           }
-          selectOption={(ev: number) => setCalendarFilter(ev, FILTER_ESTABLISHMENT)}
+          selectOption={(ev: number) =>
+            setCalendarFilter(ev, FILTER_ESTABLISHMENT)
+          }
           isLoading={establishmentsLoading}
         />
       </Grid>

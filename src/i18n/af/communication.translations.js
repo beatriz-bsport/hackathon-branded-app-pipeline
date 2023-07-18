@@ -368,6 +368,14 @@ exports.default = {
       year: '{{count}}\u00A0an',
       year_plural: '{{count}}\u00A0ans',
       noMessage: 'Aucun message',
+      disableDialog: {
+        title: 'Archiver le chat',
+        firstContent: 'Vous vous apprêtez à archiver ce chat.',
+        secondContent:
+          "Il n'apparaîtra plus dans la liste des chats, mais peut toujours être accessible en sélectionnant le filtre 'Archivés'.",
+        thirdContent:
+          "Notez qu'un nouveau message dans ce chat, venant de vous ou de votre interlocuteur, restaurera automatiquement le chat.",
+      },
     },
     kind: {
       [ChatThreadKinds.Member]: 'Membres',

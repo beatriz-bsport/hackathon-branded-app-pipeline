@@ -1,7 +1,10 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 
 import type { CallHistoryMethodAction } from 'connected-react-router';
-import { Menu, MenuItem, Typography, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Typography from '@material-ui/core/Typography';
 import StarIcon from '@material-ui/icons/Star';
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import EmailIcon from '@material-ui/icons/Email';
@@ -15,6 +18,25 @@ import { useTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import type { CommunicationThread } from '#libs/communication-v2/types';
 import type { OptionCallback } from '../../../../state/types';
+import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
+
+type Button = {
+  label?: string;
+  onClick: () => void;
+  variant?: 'text' | 'contained' | 'outlined' | string;
+  color?: 'primary' | 'secondary' | 'default' | 'inherit' | string;
+  commonLabel?:
+    | 'cancel'
+    | 'confirm'
+    | 'next'
+    | 'previous'
+    | 'close'
+    | 'finish'
+    | 'saveRecord'
+    | 'delete'
+    | 'download'
+    | string;
+};
 
 type Props = {
   id: number;
@@ -66,6 +88,39 @@ const ThreadMenuActions: React.FC<Props> = ({
   const classes = useStyles();
   const { t } = useTranslation('communication');
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleDisableThread = useCallback(
+    (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+      event.stopPropagation();
+      setAnchorEl(null);
+      setIsDialogOpen(true);
+    },
+    [setIsDialogOpen, setAnchorEl],
+  );
+
+  const confirmDisableThread = useCallback(() => {
+    switchDisabledStatus(id);
+    setIsDialogOpen(false);
+  }, [switchDisabledStatus, id, setIsDialogOpen]);
+
+  const getDialogButtons = useMemo((): Button[] => {
+    return [
+      {
+        commonLabel: 'cancel',
+        variant: 'text',
+        color: 'default',
+        onClick: () => setIsDialogOpen(false),
+      },
+      {
+        commonLabel: 'confirm',
+        variant: 'text',
+        color: 'primary',
+        onClick: confirmDisableThread,
+      },
+    ];
+  }, [setIsDialogOpen, confirmDisableThread]);
+
   const onClose = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation();
@@ -92,116 +147,131 @@ const ThreadMenuActions: React.FC<Props> = ({
   );
 
   return (
-    <Menu
-      id="thread-menu"
-      anchorEl={anchorEl}
-      keepMounted
-      open={!!anchorEl}
-      onClose={onClose}
-      getContentAnchorEl={null}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'center',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
-      }}
-    >
-      {isMobileMenu && (
-        <div>
-          <MenuItem
-            onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
-              handleAction(ev, goToDetailPage)
-            }
+    <>
+      <Menu
+        id="thread-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={!!anchorEl}
+        onClose={onClose}
+        getContentAnchorEl={null}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        {isMobileMenu && (
+          <div>
+            <MenuItem
+              onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
+                handleAction(ev, goToDetailPage)
+              }
+            >
+              <InfoIcon color="action" />
+              <Typography className={classes.action}>
+                {t(`thread.item.detail.${relatedObjectKind}`)}
+              </Typography>
+            </MenuItem>
+            <MenuItem
+              onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
+                handleAction(ev, setOpenCollapse)
+              }
+            >
+              <FilterListIcon color="action" />
+              <Typography className={classes.action}>
+                {t('thread.item.filterMessages')}
+              </Typography>
+            </MenuItem>
+          </div>
+        )}
+        <MenuItem
+          disabled={!hasBeenRead}
+          onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
+            handleAction(ev, flagAsUnread)
+          }
+        >
+          <EmailIcon color={hasBeenRead ? 'action' : 'disabled'} />
+          <Typography
+            color={hasBeenRead ? 'textPrimary' : 'textSecondary'}
+            className={classes.action}
           >
-            <InfoIcon color="action" />
-            <Typography className={classes.action}>
-              {t(`thread.item.detail.${relatedObjectKind}`)}
-            </Typography>
-          </MenuItem>
-          <MenuItem
-            onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
-              handleAction(ev, setOpenCollapse)
-            }
+            {t('thread.item.markAsRead')}
+          </Typography>
+        </MenuItem>
+
+        <MenuItem
+          disabled={isDisabled}
+          onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
+            handleAction(ev, switchFavoriteStatus)
+          }
+        >
+          {isFavorite ? (
+            <StarBorderIcon color="action" />
+          ) : (
+            <StarIcon color={isDisabled ? 'disabled' : 'action'} />
+          )}
+          <Typography
+            className={classes.action}
+            color={isDisabled ? 'textSecondary' : 'textPrimary'}
           >
-            <FilterListIcon color="action" />
-            <Typography className={classes.action}>
-              {t('thread.item.filterMessages')}
-            </Typography>
-          </MenuItem>
-        </div>
-      )}
-      <MenuItem
-        disabled={!hasBeenRead}
-        onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
-          handleAction(ev, flagAsUnread)
-        }
-      >
-        <EmailIcon color={hasBeenRead ? 'action' : 'disabled'} />
-        <Typography
-          color={hasBeenRead ? 'textPrimary' : 'textSecondary'}
-          className={classes.action}
-        >
-          {t('thread.item.markAsRead')}
-        </Typography>
-      </MenuItem>
+            {isFavorite
+              ? t('thread.item.removeFavorite')
+              : t('thread.item.addToFavorite')}
+          </Typography>
+        </MenuItem>
 
-      <MenuItem
-        disabled={isDisabled}
-        onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
-          handleAction(ev, switchFavoriteStatus)
-        }
-      >
-        {isFavorite ? (
-          <StarBorderIcon color="action" />
-        ) : (
-          <StarIcon color={isDisabled ? 'disabled' : 'action'} />
-        )}
-        <Typography
-          className={classes.action}
-          color={isDisabled ? 'textSecondary' : 'textPrimary'}
+        <MenuItem
+          disabled={isDisabled}
+          onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
+            handleAction(ev, switchMutedStatus)
+          }
         >
-          {isFavorite
-            ? t('thread.item.removeFavorite')
-            : t('thread.item.addToFavorite')}
-        </Typography>
-      </MenuItem>
+          {isMuted ? (
+            <NotificationsIcon color="action" />
+          ) : (
+            <NotificationsOffIcon color={isDisabled ? 'disabled' : 'action'} />
+          )}
+          <Typography
+            className={classes.action}
+            color={isDisabled ? 'textSecondary' : 'textPrimary'}
+          >
+            {isMuted ? t('thread.item.unmute') : t('thread.item.mute')}
+          </Typography>
+        </MenuItem>
 
-      <MenuItem
-        disabled={isDisabled}
-        onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
-          handleAction(ev, switchMutedStatus)
-        }
-      >
-        {isMuted ? (
-          <NotificationsIcon color="action" />
-        ) : (
-          <NotificationsOffIcon color={isDisabled ? 'disabled' : 'action'} />
-        )}
-        <Typography
-          className={classes.action}
-          color={isDisabled ? 'textSecondary' : 'textPrimary'}
+        <MenuItem
+          onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
+            handleDisableThread(ev)
+          }
         >
-          {isMuted ? t('thread.item.unmute') : t('thread.item.mute')}
-        </Typography>
-      </MenuItem>
-
-      <MenuItem
-        onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
-          handleAction(ev, switchDisabledStatus)
-        }
+          {isDisabled ? (
+            <UnarchiveIcon color="action" />
+          ) : (
+            <ArchiveIcon color="action" />
+          )}
+          <Typography className={classes.action}>
+            {isDisabled ? t('thread.item.unarchive') : t('thread.item.archive')}
+          </Typography>
+        </MenuItem>
+      </Menu>
+      <CustomMuiDialog
+        open={isDialogOpen}
+        title={t('thread.item.disableDialog.title')}
+        buttons={getDialogButtons}
       >
-        {isDisabled ? (
-          <UnarchiveIcon color="action" />
-        ) : (
-          <ArchiveIcon color="action" />
-        )}
-        <Typography className={classes.action}>
-          {isDisabled ? t('thread.item.unarchive') : t('thread.item.archive')}
+        <Typography>
+          {t('thread.item.disableDialog.firstContent')}
+          <br />
+          {t('thread.item.disableDialog.secondContent')}
+          <br /> <br />
+          {t('thread.item.disableDialog.thirdContent')}
         </Typography>
-      </MenuItem>
-    </Menu>
+      </CustomMuiDialog>
+    </>
   );
 };
 

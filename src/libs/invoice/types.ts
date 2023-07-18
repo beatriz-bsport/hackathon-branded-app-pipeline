@@ -185,6 +185,7 @@ export type InvoiceFilter = {
   unpaid?: boolean;
   member_in?: number[];
   only_today?: boolean;
+  is_draft?: boolean;
 };
 
 export type PaymentFilter = {

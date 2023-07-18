@@ -399,6 +399,28 @@ exports.default = {
       description:
         'Cliquer sur un membre, une smartlist ou une séance pour afficher la conversation associée',
     },
+    panel: {
+      header: 'Détails',
+      tags: 'Tags',
+      member: {
+        invoices: {
+          title: 'Factures',
+          noUnpaidInvoices: 'A jour',
+        },
+        files: 'Documents',
+        notes: 'Notes',
+      },
+      smartlist: {
+        memberCount: 'Membres dans la smartlist',
+        filters: 'Filtres',
+        description: 'Description',
+      },
+      navigation: {
+        [ChatThreadKinds.Member]: 'Voir le détail du membre',
+        [ChatThreadKinds.Smartlist]: 'Voir le détail de la smartlist',
+        [ChatThreadKinds.Offer]: 'Voir le détail de la séance',
+      },
+    },
   },
   generic: {
     communication: 'Communication',

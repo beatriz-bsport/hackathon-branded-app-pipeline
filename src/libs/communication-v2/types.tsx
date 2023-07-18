@@ -1,4 +1,5 @@
 import type { Moment as MomentType } from 'moment-timezone';
+import type { Immutable } from 'seamless-immutable';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import type {
   ErrorAndLoading,
@@ -135,7 +136,9 @@ export type SelectFieldItem = {
 };
 
 export type MessageParams = MessageData &
-  CommunicationContext & { member_filters: MemberFilter };
+  CommunicationContext & {
+    member_filters: MemberFilter | Immutable<MemberFilter>;
+  };
 
 export type MessageData = {
   subject?: string; // mail title

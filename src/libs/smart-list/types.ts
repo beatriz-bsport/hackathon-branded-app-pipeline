@@ -75,3 +75,9 @@ export type CadencesUsingSmartlistSuccess = {
   smartlist_id: number;
   cadences: number[];
 };
+
+export type FetchSmartlistMembersQueryParams = {
+  page?: number;
+  page_size?: number;
+  email_confirmed?: boolean;
+};

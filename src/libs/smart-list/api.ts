@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FILTERS_ROOTS } from '@bsport/common/lib/master-data/smart-list';
 import { AxiosResponse } from 'axios';
 
@@ -10,7 +9,11 @@ import {
   patchAuth,
   deleteAuth,
 } from '../../http';
-import { AutomatedCampaignQueryParams, AutomatedCampaign } from './types';
+import type {
+  AutomatedCampaignQueryParams,
+  AutomatedCampaign,
+  FetchSmartlistMembersQueryParams,
+} from './types';
 
 const SMART_LIST_URI = `${API_V1_URI}/smartlist/group/`;
 
@@ -80,18 +83,10 @@ export const fetchStoredCsvExports = async (id: number) => {
 
 export const fetchSmartListMembers = async (
   id: number,
-  {
-    page,
-    page_size,
-    email_confirmed,
-  }: { page: number; page_size: number; email_confirmed?: boolean },
+  queryParams?: FetchSmartlistMembersQueryParams,
 ) => {
   return getAuth(
-    `${SMART_LIST_URI}${id}/members/${buildUrlParams({
-      page,
-      page_size,
-      email_confirmed,
-    })}`,
+    `${SMART_LIST_URI}${id}/members/${buildUrlParams(queryParams)}`,
   );
 };
 
@@ -126,11 +121,13 @@ export const fetchFilters = async (
   smartListId: number,
 ) => {
   return getAuth(
+    // @ts-expect-error
     `${FILTER_URI}/${FILTERS_ROOTS[filter_identifier]}/${smartListId}`,
   );
 };
 
 export const createFilter = async (filter_identifier: number, data: any) => {
+  // @ts-expect-error
   return postAuth(`${FILTER_URI}/${FILTERS_ROOTS[filter_identifier]}/`, data);
 };
 
@@ -140,12 +137,14 @@ export const updateFilter = (
   data: any,
 ) => {
   return patchAuth(
+    // @ts-expect-error
     `${FILTER_URI}/${FILTERS_ROOTS[filter_identifier]}/${id}/`,
     data,
   );
 };
 
 export const deleteFilter = (filter_identifier: number, id: number) => {
+  // @ts-expect-error
   return deleteAuth(`${FILTER_URI}/${FILTERS_ROOTS[filter_identifier]}/${id}/`);
 };
 

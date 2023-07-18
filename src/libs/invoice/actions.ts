@@ -584,10 +584,10 @@ export function resetInvoiceList() {
 
 export function fetchInvoiceList(
   params: InvoiceFilter & {
-    page: number;
+    page?: number;
     page_size?: number;
   },
-  options: OptionCallback<
+  options?: OptionCallback<
     PaginatedResponse<InvoiceV1Serializer> | InvoiceV1Serializer[]
   >,
 ) {

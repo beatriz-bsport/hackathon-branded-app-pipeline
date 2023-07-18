@@ -1,12 +1,11 @@
-// @ts-nocheck
-import { ErrorAndLoading } from '#libs/types';
+import type { ErrorAndLoading } from '#libs/types';
 
 export type Level = {
   id: number;
-  company: number;
+  company?: number;
   name: string;
   color: string;
-  enabled: boolean;
+  enabled?: boolean;
 };
 
 export type LevelState = ErrorAndLoading & {

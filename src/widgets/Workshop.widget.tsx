@@ -10,10 +10,9 @@ import { Theme } from 'bsport-saas/src/libs/theme/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 
 import '../../vendor/map.css';
+
 import { getEnv } from '../utils/env';
-import {
-  bridgeRequestRegisteredOfferIdList,
-} from '../libs/bridge/actions';
+import { bridgeRequestRegisteredOfferIdList } from '../libs/bridge/actions';
 import { RootState } from '../reducers';
 
 const MarketplaceWorkshopBaseStyled = themify(MarketplaceWorkshopBase);

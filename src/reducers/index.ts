@@ -27,6 +27,7 @@ import subscription from 'bsport-saas/src/libs/subscription/reducers';
 import tag from 'bsport-saas/src/libs/tag/reducers';
 import themeReducers from 'bsport-saas/src/libs/theme/reducers';
 import video from 'bsport-saas/src/libs/video/reducers';
+import exportableComponent from 'bsport-saas/src/libs/exportable-components/reducers';
 
 import { PrivateServiceState } from 'bsport-saas/src/libs/private-service/types';
 import { CoachState } from 'bsport-saas/src/libs/associated-coach/types';
@@ -35,6 +36,7 @@ import { GiftcardState } from 'bsport-saas/src/libs/giftcard/types';
 import { createBrowserHistory } from 'history';
 import { TagState } from 'bsport-saas/src/libs/tag/types';
 import { LevelState } from 'bsport-saas/src/libs/level/types';
+import { ExportableComponentsState } from 'bsport-saas/src/libs/exportable-components/types';
 
 //  -----------------------------------------
 
@@ -73,6 +75,7 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     giftcard,
     franchise,
     level: levelReducer,
+    exportableComponent,
   });
 
 export interface RootState {
@@ -100,6 +103,7 @@ export interface RootState {
   tag: TagState;
   theme: ThemeState;
   video: any;
+  exportableComponent: ExportableComponentsState;
 }
 
 export default (history: ReturnType<typeof createBrowserHistory>) => (

@@ -1129,7 +1129,7 @@
                     "generic": "Não foi possível efetuar a operação. Por favor, tente novamente.",
                     "guestGeneric": "Surgiu um problema com a inscrição de um convidado.",
                     "guestOvercomeLimit": "O número de convidados adicionado a esta reserva excede o número autorizado.",
-                    "guestReachedLimit": "O número de convidados adicionado a esta sessão excede o número autorizado. Já não é possível efetuar mais marcações.",
+                    "guestReachedLimit": "O número de convidados adicionados a esta sessão excede o número autorizado. Já não é possível efetuar mais marcações.",
                     "guestSettings": "O estúdio desactivou a função para convidados.",
                     "guestOffer": "O estúdio desactivou a função de reserva de convidados para esta sessão.",
                     "guestPass": "O estúdio desactivou a função para convidados com este passe.",
@@ -5739,7 +5739,9 @@
             "error": {
                 "21004": "A reserva dupla não é compatível com a integração do Spivi",
                 "21003": "As sessões de Spivi devem durar entre 20min e 4h",
-                "21002": "O plano de lugares selecionado tem de ter uma Box ID para que a sessão seja ligada ao Spivi"
+                "21002": "O plano de lugares selecionado tem de ter uma Box ID para que a sessão seja ligada ao Spivi",
+                "21001": "Não foi selecionado nenhum plano de lugares",
+                "21000": "O upsell Spivi não está ativado."
             }
         },
         "replacement": {
@@ -5748,32 +5750,70 @@
                 "50015": "Não pode responder ao seu próprio pedido de substituição",
                 "50013": "Já não é possível responder a este pedido de substituição.",
                 "50007": "Não é possível criar estes pedidos de substituição: não existem pedidos em atraso suficientes.",
-                "50020": "Este pedido de substituição foi recusado: não pode ser eliminado"
+                "50020": "Este pedido de substituição foi recusado: não pode ser eliminado",
+                "500004": "Já é um substituto para esta sessão",
+                "80003": "Parâmetros em falta para os limites dos pedidos tardios.",
+                "80002": "O valor \"Número de dias de atraso da candidatura\" deve ser superior ao valor \"Número de dias de encerramento do registo\".",
+                "50021": "Não é possível especificar estabelecimentos e localizações ao mesmo tempo.",
+                "50012": "O professor respondeu que não queria ser suplente nessa sessão.",
+                "50011": "Já foi atribuído um professor a este pedido.",
+                "50010": "Não é possível anular este pedido porque já foi atribuído um professor.",
+                "50009": "Não pode recusar este pedido pelo facto de já ter sido atribuído um professor.",
+                "50008": "A data de encerramento não pode ser alterada após a data da sessão.",
+                "50000": "Esta sessão já passou"
             },
             "cancelReplacementRequest": {
-                "success": "O pedido de substituição foi eliminado."
+                "success": "O pedido de substituição foi eliminado.",
+                "error": "Ocorreu um erro ao apagar o pedido."
             },
             "disciplineGroup": {
                 "delete": {
-                    "error": "Não é possível eliminar este grupo de disciplinas"
+                    "error": "Não é possível eliminar este grupo de disciplinas",
+                    "success": "Grupo de disciplina eliminado"
+                },
+                "update": {
+                    "error": "Ocorreu um erro ao modificar o grupo de categorias",
+                    "success": "Grupo disciplinar modificado"
+                },
+                "create": {
+                    "error": "Ocorreu um erro ao criar o grupo de categorias",
+                    "success": "Grupo de disciplinas criado"
                 }
+            },
+            "updateCoachReplacementPreferences": {
+                "error": "Não é possível guardar as regras",
+                "success": "Regras guardadas"
+            },
+            "assignDisciplineGroup": {
+                "success": "O grupo disciplinar do professor foi atualizado"
             }
         },
         "marketplace": {
             "update": {
                 "stripeTerminal": {
                     "deleteReader": {
-                        "error": "Não é possível eliminar este terminal de pagamento"
+                        "error": "Não é possível eliminar este terminal de pagamento",
+                        "success": "Terminal de pagamento removido"
                     }
-                }
+                },
+                "error": "Ocorreu um erro. Por favor, verifique os parâmetros solicitados."
             }
         },
         "customFormDisplayRule": {
             "delete": {
-                "error": "Não é possível eliminar a regra de notificação"
+                "error": "Não é possível eliminar a regra de notificação",
+                "success": "Regra de notificação suprimida"
             },
             "update": {
-                "error": "Impossível alterar a regra para as notificações"
+                "error": "Impossível alterar a regra para as notificações",
+                "success": "Regra de notificação modificada"
+            },
+            "customError": {
+                "3": "Impossível criar uma regra com o mesmo tempo de aparecimento"
+            },
+            "create": {
+                "error": "Não é possível criar a regra de notificação",
+                "success": "Regra de notificação criada"
             }
         },
         "contractPause": {
@@ -5885,6 +5925,14 @@
         "customForm": {
             "update": {
                 "error": "Impossível alterar o formulário"
+            },
+            "customFormStepper": {
+                "error": "Não é possível guardar as respostas."
+            },
+            "signupViaCustomForm": {
+                "errors": {
+                    "84104": "O número de telefone é inválido"
+                }
             }
         },
         "privateBooking": {
@@ -5904,6 +5952,88 @@
                 "error": {
                     "unAuthorizedEstablishmentModification": "Impossível alterar o estabelecimento de faturação, apenas os administradores têm esse direito"
                 }
+            }
+        },
+        "quicksaleConfiguration": {
+            "error": "Ocorreu um erro durante a cópia de segurança",
+            "updated": "Configuração guardada"
+        },
+        "cadence": {
+            "update": {
+                "success": "A sua cadência foi actualizada",
+                "error": "Ocorreu um erro ao editar a cadência"
+            },
+            "create": {
+                "success": "Foi criada uma nova cadência",
+                "error": "Ocorreu um erro ao criar a cadência"
+            }
+        },
+        "smartListPopup": {
+            "send": {
+                "error": "Ocorreu um erro ao enviar o seu pop-up."
+            }
+        },
+        "instalmentPayment": {
+            "16003": "O número de recibos de caixa deve ser superior a 2 para ativar a opção \"Personalizar o primeiro montante\"",
+            "16002": "O número de talões de caixa deve ser igual a 1 para ativar a opção \"Pagamento parcial\"",
+            "16001": "A percentagem do montante total deve estar compreendida entre 0 e 100",
+            "16000": "O montante da primeira prestação deve ser positivo"
+        },
+        "communicationProviderSettings": {
+            "update": {
+                "error": "Não é possível guardar as alterações",
+                "success": "Alterações registadas"
+            }
+        },
+        "accessDenied": {
+            "general": {
+                "message": "Não é possível aceder à área solicitada",
+                "title": "Acesso recusado"
+            }
+        },
+        "plannedPayment": {
+            "registerNow": {
+                "error": "Não é possível registar o pagamento",
+                "success": "Pagamento registado"
+            }
+        },
+        "clockIn": {
+            "errors": {
+                "96002": "Impossível, este utilizador já tem uma pontuação em curso"
+            }
+        },
+        "companyTheme": {
+            "update": {
+                "error": "Não é possível guardar as alterações",
+                "success": "Alterações registadas"
+            },
+            "provincialTax": {
+                "customError": {
+                    "80001": "O imposto provincial não está disponível no seu país"
+                },
+                "error": "Erro no registo do imposto provincial",
+                "success": "Imposto provincial registado"
+            }
+        },
+        "clientSecret": {
+            "errors": {
+                "12102": "Um pagamento já está a ser validado. Volte mais tarde para registar um novo pagamento."
+            }
+        },
+        "quickbooks": {
+            "revoke": {
+                "error": "Não é possível terminar a sessão na sua conta Quickbooks",
+                "success": "A sua conta Quickbooks está desligada"
+            },
+            "create": {
+                "error": "Não é possível ligar a sua conta quickbooks",
+                "success": "A sua conta Quickbooks está agora autenticada"
+            }
+        },
+        "platformBilling": {
+            "payNowInvoice": {
+                "error": "Pagamento recusado",
+                "success": "Pagamento efetuado com êxito"
             }
         }
     },
@@ -7706,7 +7836,15 @@
             "title": "Personalize os seus espaços",
             "freeImageLabel": "Espaço disponível",
             "takenImageLabel": "Espaço reservado",
-            "helper": "Pode personalizar a forma dos locais importando as suas próprias imagens. Para o fazer, precisamos de 2 ícones diferentes: Um para indicar que o local está disponível e o outro quando está reservado. Certifique-se de que têm o mesmo tamanho e não inclua números nos seus ícones."
+            "helper": "Pode personalizar a forma dos locais importando as suas próprias imagens. Para o fazer, precisamos de 2 ícones diferentes: Um para indicar que o local está disponível e o outro quando está reservado. Certifique-se de que têm o mesmo tamanho e não inclua números nos seus ícones.",
+            "actions": {
+                "submit": "Confirmar",
+                "cancel": "Anular"
+            },
+            "imageFormat": "Formato recomendado: .png, .jpg",
+            "taken": "Reservado",
+            "free": "Disponível",
+            "imageUploadButton": "Carregar uma imagem"
         },
         "toolsMenu": {
             "requiredForSpivi": "Necessário para a integração com o Spivi",
@@ -7738,7 +7876,12 @@
                 "walls": "Paredes",
                 "edition": "Edição"
             },
-            "title": "Ferramentas"
+            "title": "Funcionalidades"
+        },
+        "toolbar": {
+            "exit": "Sair",
+            "titleLabel": "Nome do plano",
+            "save": "Registo"
         }
     },
     "establishment": {

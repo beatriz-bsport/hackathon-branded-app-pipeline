@@ -943,7 +943,6 @@ export const handleSwitchStatus = (
     params: { thread_ids: number[] },
     options?: OptionCallback,
   ) => void,
-  unselectThread: () => void,
   getUnreadAnswersCountFromThread?: (
     id: number,
     options?: OptionCallback,
@@ -976,8 +975,6 @@ export const handleSwitchStatus = (
           false,
           threadPage,
         );
-
-        unselectThread();
       }
     },
   });

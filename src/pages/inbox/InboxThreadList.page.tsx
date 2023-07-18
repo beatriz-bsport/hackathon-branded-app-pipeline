@@ -329,7 +329,6 @@ export default compose<Props, InboxThreadRouterProps>(
         fetchUnreadAnswersCounts,
         getUnreadAnswersCountFromThread,
         selectThread,
-        unselectThread,
       }: InboxListConnectedProps) =>
       (id?: number) => {
         if (id) {
@@ -345,7 +344,6 @@ export default compose<Props, InboxThreadRouterProps>(
                 threadList,
                 fetchInboxThreadList,
                 fetchUnreadAnswersCounts,
-                unselectThread,
                 getUnreadAnswersCountFromThread,
               );
             }
@@ -356,17 +354,12 @@ export default compose<Props, InboxThreadRouterProps>(
       ({
         flagAsUnread,
         getUnreadAnswersCountFromThread,
-        selectedThreadId,
-        unselectThread,
       }: InboxListConnectedProps) =>
       (threadId: number) => {
         flagAsUnread(threadId, {
           onSuccess: (thread: CommunicationThread) =>
             getUnreadAnswersCountFromThread(thread.id),
         });
-        if (selectedThreadId === threadId) {
-          unselectThread();
-        }
       },
     handleSwitchFavoriteStatus:
       ({
@@ -376,7 +369,6 @@ export default compose<Props, InboxThreadRouterProps>(
         threadList,
         fetchInboxThreadList,
         fetchUnreadAnswersCounts,
-        unselectThread,
       }: InboxListConnectedProps) =>
       (threadId: number) => {
         handleSwitchStatus(
@@ -387,7 +379,6 @@ export default compose<Props, InboxThreadRouterProps>(
           threadList,
           fetchInboxThreadList,
           fetchUnreadAnswersCounts,
-          unselectThread,
         );
       },
     handleSwitchMutedStatus:
@@ -398,7 +389,6 @@ export default compose<Props, InboxThreadRouterProps>(
         threadList,
         fetchInboxThreadList,
         fetchUnreadAnswersCounts,
-        unselectThread,
       }: InboxListConnectedProps) =>
       (threadId: number) => {
         handleSwitchStatus(
@@ -409,7 +399,6 @@ export default compose<Props, InboxThreadRouterProps>(
           threadList,
           fetchInboxThreadList,
           fetchUnreadAnswersCounts,
-          unselectThread,
         );
       },
     handleSwitchDisabledStatus:
@@ -420,7 +409,6 @@ export default compose<Props, InboxThreadRouterProps>(
         threadList,
         fetchInboxThreadList,
         fetchUnreadAnswersCounts,
-        unselectThread,
       }: InboxListConnectedProps) =>
       (threadId: number) => {
         handleSwitchStatus(
@@ -431,7 +419,6 @@ export default compose<Props, InboxThreadRouterProps>(
           threadList,
           fetchInboxThreadList,
           fetchUnreadAnswersCounts,
-          unselectThread,
         );
       },
   }),

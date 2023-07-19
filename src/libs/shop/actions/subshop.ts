@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import { AxiosResponse } from 'axios';
@@ -31,9 +30,9 @@ export function fetchAllSubShop(
         companyId,
       });
       dispatch(subshopListActions.success(response.data));
-      option?.onSuccess(response);
+      option?.onSuccess?.(response);
     } catch (e) {
-      option?.onError(e);
+      option?.onError?.(e);
       dispatch(subshopListActions.error(e));
     }
     dispatch(subshopListActions.isLoading(false));

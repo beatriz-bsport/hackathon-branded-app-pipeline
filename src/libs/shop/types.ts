@@ -1,4 +1,3 @@
-// @ts-nocheck
 export type Provision = {
   product_name: string;
   qty: number;
@@ -43,6 +42,7 @@ export type ShopItem = {
   marketplace_enabled: boolean;
   is_deliverable: boolean;
   available_payment_method_identifiers: number[];
+  current_stock?: number;
 };
 
 export type ShopState = {

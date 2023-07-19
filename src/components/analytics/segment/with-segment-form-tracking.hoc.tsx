@@ -1,5 +1,3 @@
-// @ts-nocheck
-// eslint-disable-next-line
 import React from 'react';
 import { Analytics } from '@segment/analytics-next';
 import { segmentTrackEnum, TrackProperties } from './utils';
@@ -9,12 +7,6 @@ type Props = {};
 type State = {
   segmentAnalytics: Analytics | undefined;
 };
-
-declare global {
-  interface Window {
-    bsportSegment: Analytics;
-  }
-}
 
 type AnalyticsHOCParams = {
   object_identifier: SegmentAnalyticsFormObjectIdentifier;
@@ -33,6 +25,7 @@ export default function withFormTrackingHOC<P>(params: AnalyticsHOCParams) {
       render() {
         const segmentAnalytics = segmentTrackEnum(this.state.segmentAnalytics);
         return (
+          // @ts-expect-error
           <WrappedComponent
             {...this.props}
             {...(params.object_identifier

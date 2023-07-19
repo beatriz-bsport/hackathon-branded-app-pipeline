@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Analytics } from '@segment/analytics-next';
 import { segmentTrackEnum, WithSegmentAnalyticsHandlers } from './utils';
@@ -8,11 +7,6 @@ type State = {
   segmentAnalytics: Analytics | undefined;
 };
 
-declare global {
-  interface Window {
-    bsportSegment: Analytics;
-  }
-}
 export const withSegmentAnalytics = <P extends WithSegmentAnalyticsHandlers>(
   WrappedComponent: React.ComponentType<P>,
 ) => {
@@ -26,6 +20,7 @@ export const withSegmentAnalytics = <P extends WithSegmentAnalyticsHandlers>(
 
     render() {
       return (
+        // @ts-expect-error
         <WrappedComponent
           {...this.props}
           segmentAnalytics={segmentTrackEnum(this.state.segmentAnalytics)}

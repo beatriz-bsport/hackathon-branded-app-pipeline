@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 type ConfigType = {
   REACT_APP_SENTRY_DSN: string;
   REACT_APP_STRIPE_PK_KEY: string;
@@ -30,7 +28,6 @@ function setConfigFrom(envConfig: any) {
   });
 }
 
-// @ts-ignore;
 const { runtime, runtimeBsport } = window;
 if (process && process.env) setConfigFrom(process.env);
 if (runtime && runtime.env) setConfigFrom(runtime.env);

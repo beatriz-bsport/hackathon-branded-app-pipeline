@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +19,7 @@ import BlockIcon from '@material-ui/icons/Block';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import CheckIcon from '@material-ui/icons/Check';
-import { deletebackgroundDialog } from '../actions';
+import { deletebackgroundDialog as deletebackgroundDialogAction } from '../actions';
 import { RootState } from '../../../reducers';
 import {
   BackgroundDialog,
@@ -33,8 +32,8 @@ import {
 } from '../types';
 
 type Props = {
-  backgroundDialog: Array<BackgroundDialog>;
-  deletebackgroundDialog: (id: number) => void;
+  backgroundDialog: BackgroundDialog['messages'];
+  deletebackgroundDialog: (id: string) => void;
   pushRouter: (link: string) => void;
 };
 
@@ -57,7 +56,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export function BackgroundDialogComponent(props: Props) {
+export const BackgroundDialogComponent: React.FC<Props> = ({
+  backgroundDialog,
+  deletebackgroundDialog,
+  pushRouter,
+}) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -67,13 +70,14 @@ export function BackgroundDialogComponent(props: Props) {
   };
   return (
     <div>
-      {props.backgroundDialog.map((dialog: any) => (
+      {(backgroundDialog ?? []).map((dialog) => (
         <Dialog
           open
           fullWidth
           maxWidth="md"
           aria-labelledby="alert-excel-report"
           aria-describedby="alert-excel-report"
+          key={dialog.id}
         >
           {!!dialog.title && (
             <DialogTitle id="alert-dialog-title">{dialog.title}</DialogTitle>
@@ -145,7 +149,7 @@ export function BackgroundDialogComponent(props: Props) {
 
                 <Button
                   disabled={downloadDisable}
-                  onClick={() => props.deletebackgroundDialog(dialog.id)}
+                  onClick={() => deletebackgroundDialog(dialog.id)}
                   color="secondary"
                   autoFocus
                 >
@@ -156,7 +160,7 @@ export function BackgroundDialogComponent(props: Props) {
             {dialog.actionMode === ACTION_MODE_REDIRECT && (
               <>
                 <Button
-                  onClick={() => props.deletebackgroundDialog(dialog.id)}
+                  onClick={() => deletebackgroundDialog(dialog.id)}
                   color="secondary"
                 >
                   {t('common.continue')}
@@ -164,8 +168,8 @@ export function BackgroundDialogComponent(props: Props) {
                 {dialog.link && (
                   <Button
                     onClick={() => {
-                      props.pushRouter(dialog.link);
-                      props.deletebackgroundDialog(dialog.id);
+                      pushRouter(dialog.link);
+                      deletebackgroundDialog(dialog.id);
                     }}
                     color="primary"
                     autoFocus
@@ -176,12 +180,22 @@ export function BackgroundDialogComponent(props: Props) {
                 )}
               </>
             )}
+            {![ACTION_MODE_DOWNLOAD, ACTION_MODE_REDIRECT].includes(
+              dialog.actionMode,
+            ) && (
+              <Button
+                onClick={() => deletebackgroundDialog(dialog.id)}
+                color="secondary"
+              >
+                {t('common.continue')}
+              </Button>
+            )}
           </DialogActions>
         </Dialog>
       ))}
     </div>
   );
-}
+};
 
 function mapStateToProps(state: RootState) {
   return {
@@ -190,11 +204,12 @@ function mapStateToProps(state: RootState) {
 }
 
 const mapDispatchToProps = {
-  deletebackgroundDialog,
+  deletebackgroundDialog: deletebackgroundDialogAction,
   pushRouter: push,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
+  // @ts-expect-error state.backgroundDialog.messages is wrongly typed
 )(BackgroundDialogComponent);

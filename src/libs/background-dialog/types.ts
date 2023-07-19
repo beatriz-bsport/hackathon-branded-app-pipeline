@@ -1,4 +1,3 @@
-// @ts-nocheck
 export type BackgroundDialog = {
   messages: Array<{
     id: string;

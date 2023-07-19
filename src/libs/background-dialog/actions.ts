@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { Dispatch } from '../../state/types';
 
@@ -33,7 +32,7 @@ export function displayBackgroundDialog(
   };
 }
 
-export function deletebackgroundDialog(backgroundDialogId: number) {
+export function deletebackgroundDialog(backgroundDialogId: string) {
   return async (dispatch: Dispatch) => {
     dispatch(backgroundDialogDestroy(backgroundDialogId));
   };

@@ -1,6 +1,3 @@
-// @ts-nocheck
-// @flow
-
 export const MemberMap = {
   lastname: 'last_name',
   firstname: 'first_name',

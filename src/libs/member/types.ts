@@ -111,6 +111,7 @@ export type Member<Tag = number, CA = number> = {
   unsubscribe_link: string;
   spivi_privacy_settings_accepted: boolean;
   is_pos: boolean;
+  has_bought_pack?: boolean;
 };
 
 export type MemberState = ErrorAndLoading &

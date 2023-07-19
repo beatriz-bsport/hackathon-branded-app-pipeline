@@ -2,6 +2,7 @@
 import { push } from 'connected-react-router';
 import uniq from 'lodash/uniq';
 import { createAction } from 'redux-actions';
+import type { AxiosResponse } from 'axios';
 
 import * as Sentry from '@sentry/react';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
@@ -197,15 +198,19 @@ export function fetchCountObjects(id: number) {
   };
 }
 
-export function fetchMemberBulk(params: any) {
+export function fetchMemberBulk(
+  params: any,
+  options?: OptionCallback<MemberMinimal[]>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(memberBulkActions.isLoading(true));
     try {
       const response = await fetchFilteredMembersAPI(params);
       dispatch(memberBulkActions.success(response.data.results));
+      options?.onSuccess?.(response.data.results);
     } catch (err) {
       console.error(err);
-      dispatch(memberBulkActions.error(err));
+      options?.onError?.(err);
       dispatch(memberBulkActions.error(err));
     }
     dispatch(memberBulkActions.isLoading(false));
@@ -413,7 +418,7 @@ export function incrementalSearch(
 export function search(
   text: string,
   params: { [key: string]: boolean | string | number },
-  options?: OptionCallback,
+  options?: OptionCallback<AxiosResponse<MemberMinimal[]>>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(startSearch(text));
@@ -471,7 +476,7 @@ export function searchArchived(
   };
 }
 
-export function fetchMember(id: number, options?: OptionCallback) {
+export function fetchMember(id: number, options?: OptionCallback<Member>) {
   return async (dispatch: Dispatch) => {
     dispatch(startFetchMember());
 

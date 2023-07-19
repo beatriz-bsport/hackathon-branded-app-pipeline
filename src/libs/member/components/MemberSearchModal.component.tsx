@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -20,11 +19,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import useTheme from '@material-ui/core/styles/useTheme';
-import { Theme } from '@material-ui/core';
+import type { Theme } from '@material-ui/core';
 import { Cake } from '@material-ui/icons';
 import moment from 'moment-timezone';
 
+// @ts-expect-error
 import SearchMemberInput from '../../../pages/offer-management/SearchMember.component';
+// @ts-expect-error
 import MemberForm from '../MemberForm.component';
 import { Member } from '../types';
 import { OptionCallback } from '../../../state/types';
@@ -32,14 +33,14 @@ import { OptionCallback } from '../../../state/types';
 type Props = {
   open: boolean;
   asManager?: boolean;
-  loading: boolean;
-  searchMembers: (text: string) => void;
+  loading?: boolean;
+  searchMembers?: (text: string) => void;
   searchedMembers: Array<Member>;
   onClose: () => void;
   handlMemberSelected: (id: number, member: Member) => void;
   disabled?: boolean;
   createMember?: (data: any, options: OptionCallback<Member>) => void;
-  country: string;
+  country?: string;
   waiver?: string;
   generalTermsAndConditions?: string;
 };
@@ -53,6 +54,7 @@ const MemberListItem = (props: {
 }) => (
   <ListItem
     disabled={props.disabled}
+    // @ts-expect-error
     button={!!props.onClick}
     onClick={props.onClick}
   >
@@ -126,7 +128,7 @@ export const MemberSearchModal: React.FC<Props> = ({
           asManager={asManager}
           onCancel={closeCreateForm}
           onSubmit={(data: any, options: OptionCallback) =>
-            createMember(data, {
+            createMember?.(data, {
               onSuccess: (member: Member) => {
                 handlMemberSelected(member.id, member);
               },
@@ -158,11 +160,11 @@ export const MemberSearchModal: React.FC<Props> = ({
           disabled={disabled}
           onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
             setSearchedText(ev.target.value);
-            searchMembers(ev.target.value);
+            searchMembers?.(ev.target.value);
           }}
           onReset={() => {
             setSearchedText('');
-            searchMembers(null);
+            searchMembers?.(null);
           }}
         />
       </DialogTitle>

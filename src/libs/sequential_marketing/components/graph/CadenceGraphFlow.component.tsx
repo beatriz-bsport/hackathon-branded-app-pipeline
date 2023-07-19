@@ -39,7 +39,7 @@ type Props = {
   onClickEntryStep: (step: CadenceStep) => void;
   handleSelectStepForSubscription: (
     step: CadenceStep,
-    subscriptionDestination: number | string | null,
+    subscriptionDestination?: number | string | null,
   ) => void;
   cadenceMinimalConfigurationState: {
     cadenceWinConfigured: boolean;
@@ -90,13 +90,6 @@ export const CadenceGraphFlow: React.FC<Props> = ({
 
   const classes = useGraphStyles();
 
-  const enterSubscriptionMode = React.useCallback(
-    (step: CadenceStep, destination_step: number | null | string = null) => {
-      handleSelectStepForSubscription(step, destination_step);
-    },
-    [handleSelectStepForSubscription],
-  );
-
   const { nodes, setNodes, edges, setEdges, onNodeDragStop } = useGraph({
     cadence,
     cadenceEditMode,
@@ -105,7 +98,7 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     onClickEntryStep,
     updateCadenceStepCanvasPosition,
     updateConnectedTriggerPosition,
-    enterSubscriptionMode,
+    enterSubscriptionMode: handleSelectStepForSubscription,
     onClickConnectedTrigger,
     resetAllSelection,
     handleSelectedStepForEdition,

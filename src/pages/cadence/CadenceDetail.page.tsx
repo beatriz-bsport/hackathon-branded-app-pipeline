@@ -190,12 +190,12 @@ export class CadenceDetailPage extends Component<Props> {
 
   handleSelectStepForSubscription = (
     step: CadenceStep,
-    subscriptionDestination: number | string | null,
+    subscriptionDestination?: number | string | null,
   ) => {
     this.displayNewStepParametersForm();
     this.props.setStepFormSubscription(step, {
       step:
-        typeof subscriptionDestination !== 'string' && subscriptionDestination
+        subscriptionDestination && typeof subscriptionDestination !== 'string'
           ? subscriptionDestination
           : null,
       exit:

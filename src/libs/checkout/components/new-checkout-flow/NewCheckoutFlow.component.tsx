@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Immutable, { ImmutableArray } from 'seamless-immutable';
 
-import { makeStyles, Theme } from '@material-ui/core';
+import { IconButton, makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 
@@ -73,6 +73,7 @@ type NewCheckoutFlowProps = {
   creditAccountBalance?: number | null;
   detachPaymentMethod: (paymentMethodId: string) => void;
   detachPaymentMethodLoading: boolean;
+  goBack: () => void;
   instalmentPaymentConfigurationList: InstalmentPaymentApiWithBasketId[] | null;
   isExcludingTax: boolean;
   onPaymentSuccess: (callback?: () => void) => void;
@@ -113,6 +114,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   creditAccountBalance,
   detachPaymentMethod,
   detachPaymentMethodLoading,
+  goBack,
   instalmentPaymentConfigurationList,
   isExcludingTax,
   onPaymentSuccess,
@@ -259,7 +261,9 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   return (
     <div className={classes.container}>
       <div className={classes.titleContainer}>
-        <ArrowBack className={classes.arrowIcon} />
+        <IconButton onClick={goBack}>
+          <ArrowBack className={classes.arrowIcon} />
+        </IconButton>
         <Typography className={classes.title} variant="h5">
           {t('payment.title')}
         </Typography>

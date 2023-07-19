@@ -518,6 +518,7 @@ export class BasketPage extends React.Component<Props> {
                   detachPaymentMethodLoading={
                     this.props.detachPaymentMethodLoading
                   }
+                  goBack={this.props.goBack}
                   instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
                     (ipc) => ipc.basketId === this.props.basket?.id,
                   )}

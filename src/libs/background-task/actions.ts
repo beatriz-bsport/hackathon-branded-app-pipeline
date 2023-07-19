@@ -1,6 +1,3 @@
-// @ts-nocheck
-// @flow
-
 import { createAction } from 'redux-actions';
 import { fetchBackgroundTask as fetchBackgroundTaskAPI } from './api';
 import type { State, Dispatch, OptionCallback } from '../../state/types';
@@ -11,6 +8,7 @@ import {
   backgroundSnackbarError,
   backgroundSnackbarWarning,
 } from '../snackbar/actions';
+import { BackgroundTask } from './types';
 
 const BACKGROUND_TASK_STATUS_CODE_PENDING = 0;
 const BACKGROUND_TASK_STATUS_CODE_SUCCESS = 1;
@@ -54,7 +52,10 @@ export function fetchBackgroundTask(uuid: string) {
   };
 }
 
-export function monitorBackgroundTask(uuid: string, options?: OptionCallback) {
+export function monitorBackgroundTask(
+  uuid: string,
+  options?: OptionCallback<BackgroundTask>,
+) {
   return (dispatch: Dispatch, getState: () => State) => {
     fetchFailedCounter = 0;
     dispatch(pendingBackgroundSnackbar(uuid, 'background.pending'));
@@ -68,7 +69,7 @@ const checkFetchSetTimeoutRecursive = async (
   getState: () => State,
   timeout_index: number,
   uuid: string,
-  options: OptionCallback,
+  options: OptionCallback<BackgroundTask>,
 ) => {
   if (timeout_index >= TIMEOUTS.length) {
     dispatch(deleteBackgroundSnackbar(uuid));
@@ -80,9 +81,9 @@ const checkFetchSetTimeoutRecursive = async (
     dispatch(backgroundSnackbarError(uuid, 'background.cannotFetch'));
     return;
   }
-  await fetchBackgroundTask(uuid, options)(dispatch);
+  await fetchBackgroundTask(uuid)(dispatch);
 
-  const data = getState().backgroundTask.byUuid[uuid] || {};
+  const data = getState().backgroundTask.byUuid[uuid] || ({} as BackgroundTask);
 
   if (
     uuid in getState().backgroundTask.byUuid &&

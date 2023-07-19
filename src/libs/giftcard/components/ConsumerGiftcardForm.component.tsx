@@ -16,17 +16,19 @@ import CarouselInputField from '../../../components/input/carousel-input/Carouse
 import { parseQueryString } from '../../../http';
 import { formatAsTime } from '../../../utils/datetime';
 
+export type FormValues = {
+  message_is_from: string;
+  message_is_for: string;
+  message_content: string;
+  name: string;
+  background_image: string;
+  recipients: string[];
+  date_to_send: string;
+};
+
 type Props = {
-  giftcard: Giftcard;
-  values: {
-    message_is_from: string;
-    message_is_for: string;
-    message_content: string;
-    name: string;
-    background_image: string;
-    recipients: Array<string>;
-    date_to_send: string;
-  };
+  giftcard?: Giftcard;
+  values: FormValues;
   giftcardBackgroundImageList: Array<GiftcardBackgroundImage>;
   isManager: boolean;
 };
@@ -39,6 +41,8 @@ export const ConsumerGiftcardForm = (props: Props) => {
   const handleSelectedImage = (index: number) => {
     setSelectedImage(index);
   };
+
+  if (!props.giftcard) return null;
 
   return (
     <div className={classes.container}>
@@ -181,7 +185,7 @@ export const ConsumerGiftcardFormFieldHOC = withFormik({
       message_is_from: '',
       message_is_for: '',
       message_content: '',
-      name: giftcard.name,
+      name: giftcard?.name ?? '',
       background_image: null,
       recipients: [],
       date_to_send: moment()
@@ -197,23 +201,6 @@ export const ConsumerGiftcardFormFieldHOC = withFormik({
     values,
     { props: { onSubmit, onSuccess, onError }, setSubmitting },
   ) => {
-    // const keys = [
-    //   'description',
-    //   'price',
-    //   'manager_only',
-    //   'unlimited',
-    //   'can_pay_credit',
-    //   'expiration_days',
-    //   'available_payment_method_identifiers',
-    // ];
-    // const { cover } = values;
-    // const data = {
-    //   ...pick(values, keys),
-    // };
-    // if (typeof cover !== 'string' && !!cover) {
-    //   data.cover = cover;
-    // }
-    // @ts-ignore
     // eslint-disable-next-line
     const force = !!parseQueryString(location.search || '')?.force;
     onSubmit(

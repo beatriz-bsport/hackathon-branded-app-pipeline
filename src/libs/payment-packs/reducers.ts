@@ -31,7 +31,7 @@ const initialState: PaymentPackState = Immutable({
   updatingConsumerPacks: [],
   updatingPaymentPacks: [],
   createOrUpdatePending: false,
-  loading: true,
+  loading: false,
   error: false,
   archivationWarning: {},
   byActivity: {

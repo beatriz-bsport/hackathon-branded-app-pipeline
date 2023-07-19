@@ -100,6 +100,7 @@ const CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES = [
   'on_spot_payments',
   'dispute',
   'payment_installments',
+  'referral_grant',
   'video_purchase',
   'invoices',
 ];

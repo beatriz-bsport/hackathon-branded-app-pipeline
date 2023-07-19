@@ -62,6 +62,7 @@ import {
   DisputeMetadataIdentifierEnum,
   DiscountMetadataIdentifierEnum,
   PaymentSumupMetadataIdentifierEnum,
+  ReferralGrantMetadataIdentifierEnum,
 } from '@bsport/common/lib/master-data/metadata-identifiers';
 import {
   getCurrencyDisplay,
@@ -534,6 +535,13 @@ export const generateRowLink = ({
         }/private-consumer-pass/${
           rowExtraData[PrivateConsumerPassMetadataIdentifierEnum.PK]
         }`;
+      break;
+
+    case ReportCategoryEnum.REFERRAL_GRANT:
+      if (rowExtraData[ReferralGrantMetadataIdentifierEnum.REFERRED_MEMBER_PK])
+        return `/member/${
+          rowExtraData[ReferralGrantMetadataIdentifierEnum.REFERRED_MEMBER_PK]
+        }/info`;
       break;
 
     case ReportCategoryEnum.EXPIRED_PASS:

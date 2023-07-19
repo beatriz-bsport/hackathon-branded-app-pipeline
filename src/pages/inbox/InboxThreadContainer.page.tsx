@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { compose } from 'recompose';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import type { OptionCallback } from '../../state/types';
 import InboxThreadContainer from '#libs/communication-v2/thread/InboxThreadContainer/InboxThreadContainer.component';
 
@@ -59,6 +60,7 @@ class InboxThreadContainerPage extends PureComponent<Props> {
       fetchPaginatedAvailableRecipientMemberList(1);
       flagAsReadAndUpdateUnreadCount();
       this.fetchMessageListAndScheduleRefresh();
+      this.fetchAdditionalThreadData();
     }
   }
 
@@ -69,6 +71,16 @@ class InboxThreadContainerPage extends PureComponent<Props> {
       clearTimeout(timeoutId);
     }
   }
+
+  fetchAdditionalThreadData = () => {
+    if (this.props.thread.related_object_kind === ChatThreadKinds.Offer) {
+      this.props.fetchBookingsByOffer(this.props.thread.related_object_id);
+      this.props.fetchBookingOptionByOffer(
+        this.props.thread.related_object_id,
+        { as_manager: true, offer: this.props.thread.related_object_id },
+      );
+    }
+  };
 
   fetchMoreMessages = () => {
     const {

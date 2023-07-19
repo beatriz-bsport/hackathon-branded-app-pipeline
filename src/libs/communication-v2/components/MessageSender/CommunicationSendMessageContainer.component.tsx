@@ -535,18 +535,23 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
     const onSelectTemplate = () => {
       this.setState({ openTemplateSelector: true });
     };
+
     const onSelectRecipients = () =>
       this.setState({ openRecipientSelector: true });
+
     const setActionType = (kind: number) => {
       this.props.setCommunicationKind(kind, this.checkValidity);
     };
+
     const tags = this.props.relatedObjectKind
       ? getAvailableTagsFromThread(this.props.tagCategories)
       : getAvailableTagsFromContext(
           this.props.contextIdentifier,
           this.props.tagCategories,
         );
+
     let selectedMemberDetailList: MemberMinimal[] = [];
+
     switch (this.props.communicationKind) {
       case WRITE_EMAIL:
         selectedMemberDetailList =
@@ -563,6 +568,7 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
       default:
         break;
     }
+
     return (
       <BottomBarIcons
         actionType={this.props.communicationKind}

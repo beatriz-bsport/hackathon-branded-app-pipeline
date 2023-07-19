@@ -85,6 +85,8 @@ import {
   withStaffModificationHistory,
 } from '#libs/booking/selectors';
 
+import { fetchBookingsByOffer as fetchBookingsByOfferAction } from '#libs/booking/actions';
+import { fetchByOffer as fetchBookingOptionByOfferAction } from '#libs/waiting-list/actions';
 // THEME
 import themeSelectors from '#libs/theme/selectors';
 
@@ -226,6 +228,8 @@ const connector = connect(
     getUnreadAnswersCountFromThread: getUnreadAnswersCountFromThreadAction,
     goToThreadList: () => push(`/inbox/thread/`),
     goToDetailPage: (id: number) => push(`/inbox/thread/${id}/detail/`),
+    fetchBookingsByOffer: fetchBookingsByOfferAction,
+    fetchBookingOptionByOffer: fetchBookingOptionByOfferAction,
   },
 );
 

@@ -1,4 +1,5 @@
 import {
+  getAuth,
   postAuth,
   buildUrlParams,
   API_V1_URI,
@@ -7,7 +8,8 @@ import {
   postDeprecated,
   putAuthDeprecated,
 } from '../../http';
-import { AccountConfigurationStep } from './types';
+import type { AccountConfigurationStep } from './types';
+import type { Member } from '#libs/member/types';
 
 export const fetchCompanyList = (params: any = {}) => {
   return getAuthDeprecated(
@@ -71,4 +73,8 @@ export const retrieveStripeAccountStatusAPI = async () => {
   return getAuthDeprecated(
     `${API_V1_URI}/payment_backend/stripe/company/retrieve_stripe_account_status/`,
   );
+};
+
+export const retrievePOSMember = (companyId: number) => {
+  return getAuth<Member>(`${API_V1_URI}/company/${companyId}/get_pos_member/`);
 };

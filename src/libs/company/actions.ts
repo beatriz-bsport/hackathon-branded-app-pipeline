@@ -10,15 +10,18 @@ import {
   validateAccountConfigurationStepAPI,
   retrieveStripeCompanyAPI,
   retrieveStripeAccountStatusAPI,
+  retrievePOSMember as retrievePOSMemberAPI,
 } from './api';
 import type { Dispatch, OptionCallback } from '../../state/types';
-import {
+import type {
   AccountConfigurationStep,
   Company,
   CompanySetup,
   StripeCompany,
   UpsellSumup,
 } from './types';
+import { memberBulkActions } from '#libs/member/actions';
+import type { Member } from '#libs/member/types';
 
 export const searchActions = {
   success: createAction('COMPANY/SEARCH/SUCCESS'),
@@ -263,5 +266,31 @@ export function retrieveStripeAccountStatusAction(options: OptionCallback) {
       if (options && options.onError) options.onError();
     }
     dispatch(retrieveStripeAccountStatusActions.isLoading(false));
+  };
+}
+
+export function retrievePOSMember(
+  companyId: number,
+  options?: OptionCallback<Member>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(memberBulkActions.isLoading(true));
+    dispatch(memberBulkActions.error(null));
+
+    try {
+      const response = await retrievePOSMemberAPI(companyId);
+      dispatch(memberBulkActions.success([response.data]));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(memberBulkActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+
+    dispatch(memberBulkActions.isLoading(false));
   };
 }

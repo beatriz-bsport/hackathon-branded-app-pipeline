@@ -63,7 +63,10 @@ import { PaymentPack } from '#libs/payment-packs/types';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import ConsumerAppBar from './ConsumerAppBar.container';
-import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
+import {
+  getMarketplaceRoute,
+  getSubscriptionValidationUrl,
+} from '#libs/marketplace/routing-utils';
 import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
 import MarketplaceContractCheckout from '#libs/marketplace/components/MarketplaceContractCheckout';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -294,7 +297,11 @@ export class MarketplaceSubscriptionPayment extends React.Component<
 
   goToValidationPage = (success: boolean) => {
     this.props.push(
-      `/checkout/${this.props.companyId}/subscription/${this.props.contractId}/validation?success=${success}`,
+      getSubscriptionValidationUrl(
+        this.props.companyId,
+        parseInt(this.props.contractId),
+        { success: success.toString() },
+      ),
     );
   };
 

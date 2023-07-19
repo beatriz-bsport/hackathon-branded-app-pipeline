@@ -40,6 +40,7 @@ import {
 import { RootState } from '../../reducers';
 import { Contract } from '#libs/subscription/types';
 import { PaymentPack } from '#libs/payment-packs/types';
+import { getSubscriptionPageUrl } from '#libs/marketplace/routing-utils';
 
 type OwnProps = {
   companyId: number;
@@ -120,7 +121,11 @@ export class MarketplaceContract extends React.Component<Props, State> {
     }
     Analytics.contractShowPayment(contract);
     this.props.push(
-      `/checkout/${this.props.companyId}/subscription/${contract.id}/`,
+      getSubscriptionPageUrl(
+        this.props.companyId,
+        contract.id,
+        this.props.companyTheme?.display_new_checkout_flow,
+      ),
     );
   };
 

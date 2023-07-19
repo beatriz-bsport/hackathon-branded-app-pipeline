@@ -80,6 +80,7 @@ import { getMemberTagsIdsList } from '../../../../libs/tag/selectors';
 import type { Tag } from '../../../../libs/tag/types';
 import { CompanyTheme } from '#libs/theme/types';
 import { getTheme } from '#libs/theme/selectors';
+import { getSubscriptionValidationUrl } from '#libs/marketplace/routing-utils';
 
 type OwnProps = {
   offerId: number;
@@ -242,19 +243,21 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
   goToValidationPage = (contractId: number, success: boolean) => {
     if (success) {
       this.props.replace(
-        `/checkout/${
-          this.props.company
-        }/subscription/${contractId}/validation?success=${true}&next=${encodeURIComponent(
-          `${window.location.pathname}${window.location.search}`,
-        )}`,
+        getSubscriptionValidationUrl(this.props.company, contractId, {
+          success: 'true',
+          next: encodeURIComponent(
+            `${window.location.pathname}${window.location.search}`,
+          ),
+        }),
       );
     } else {
       this.props.replace(
-        `/checkout/${
-          this.props.company
-        }/subscription/${contractId}/validation?success=${false}&next=${encodeURIComponent(
-          `${window.location.pathname}${window.location.search}`,
-        )}`,
+        getSubscriptionValidationUrl(this.props.company, contractId, {
+          success: 'false',
+          next: encodeURIComponent(
+            `${window.location.pathname}${window.location.search}`,
+          ),
+        }),
       );
     }
   };

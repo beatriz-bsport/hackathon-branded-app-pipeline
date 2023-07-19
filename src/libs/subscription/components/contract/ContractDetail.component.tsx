@@ -14,6 +14,7 @@ import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePa
 import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { ContractWithPaymentPack } from '../../types';
+import { getSubscriptionPageUrl } from '#libs/marketplace/routing-utils';
 import { CompanyTheme } from '#libs/theme/types';
 
 type Props = {
@@ -110,7 +111,12 @@ const ContractDetail = (props: Props) => {
         {props.company ? (
           <div className={classes.block}>
             <CopyToClipboard
-              text={`${window.location.origin}/checkout/${props.company.id}/subscription/${props.contract.id}?force=true`}
+              text={`${window.location.origin}${getSubscriptionPageUrl(
+                props.company.id,
+                props.contract.id,
+                props.companyTheme?.display_new_checkout_flow,
+                { force: 'true' },
+              )}`}
             >
               <ButtonBase
                 className={classes.link}

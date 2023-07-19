@@ -28,6 +28,7 @@ import ValidationIcon from '#components/icons/ValidationIcon.component';
 import TimeoutButton from '#components/button/TimeoutButton.component';
 import ErrorIcon from '#components/icons/ErrorIcon.component';
 import ContractValidationCard from '#libs/subscription/components/contract/ContractValidationCard.component';
+import { getSubscriptionPageUrl } from '#libs/marketplace/routing-utils';
 
 type RouterProps = {
   success: boolean;
@@ -169,7 +170,11 @@ const mapWithHandlers = {
         return props.replace(props.next);
       }
       return props.replace(
-        `/checkout/${props.companyId}/subscription/${props.contractId}/`,
+        getSubscriptionPageUrl(
+          props.companyId,
+          props.contractId,
+          props.theme?.display_new_checkout_flow,
+        ),
       );
     },
 };

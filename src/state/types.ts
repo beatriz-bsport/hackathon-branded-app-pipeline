@@ -1,5 +1,6 @@
-// @ts-nocheck
+// @ts-expect-error
 import { AuthAction } from './auth/types';
+// @ts-expect-error
 import { PaymentRulesState } from '#libs/payment-rules/types';
 import { StatsState } from './stats/types';
 import { CoachState } from '../libs/associated-coach/types';
@@ -12,6 +13,7 @@ import { TagState } from '../libs/tag/types';
 import { OrderState } from '../libs/order/types';
 import { ShopState } from '../libs/shop/types';
 import { CheckoutState } from '../libs/checkout/types';
+// @ts-expect-error
 import { SearchState, SearchAction } from './search/types';
 import { ThemeState } from '../libs/theme/types';
 import { EstablishmentState } from '../libs/establishment/types';
@@ -19,6 +21,7 @@ import { CouponState } from '../libs/coupon/types';
 import { LoginState } from '../libs/login/types';
 import { PrivateServiceState } from '../libs/private-service/types';
 import { PaymentComboState } from '../libs/payment-combo/types';
+// @ts-expect-error
 import { ReminderState } from '#libs/reminder/types';
 import { MembershipState } from '../libs/membership/types';
 import { CompanyState } from '../libs/company/types';
@@ -93,11 +96,11 @@ export type CustomErrorActionCallback = {
   customErrorAction: () => void;
 };
 
-export type OptionBackgroundCallback = {
-  onSuccess?: () => void;
+export type OptionBackgroundCallback<T = void, U = undefined> = {
+  onSuccess?: (args?: T) => void;
   onError?: (error?: Error) => void;
-  onBackgroundSuccess?: () => void;
-  onBackgroundError?: () => void;
+  onBackgroundSuccess?: (args?: U) => void;
+  onBackgroundError?: (error?: Error) => void;
 };
 
 export type OptionPaginatedCallback<T = void> = {

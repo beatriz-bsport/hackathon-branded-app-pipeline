@@ -29,7 +29,12 @@ import api, {
   downloadPDFContractTermsForBillingPlan as downloadPDFContractTermsForBillingPlanAPI,
 } from './api';
 
-import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import type {
+  Dispatch,
+  ThunkAction,
+  OptionCallback,
+  OptionBackgroundCallback,
+} from '../../state/types';
 import {
   snackbarSuccess,
   snackbarWarning,
@@ -712,8 +717,8 @@ export function fetchContractForBooking(
 export function flagPlannedInvoiceAsLast(
   id: number,
   note?: string,
-  options: OptionCallback,
-): Promise<void> {
+  options?: OptionCallback,
+) {
   return async (dispatch: Dispatch) => {
     try {
       await flagPlannedInvoiceAsLastAPI(id, note);
@@ -1002,7 +1007,7 @@ export const registerContractBackgroundActions = {
 export function registerContractBackground(
   id: number,
   data: any,
-  options?: OptionCallback,
+  options?: OptionBackgroundCallback,
   noAuth: boolean = false,
 ) {
   return async (dispatch: Dispatch) => {

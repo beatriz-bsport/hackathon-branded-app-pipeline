@@ -1,79 +1,93 @@
-// @ts-nocheck
 import React, { useMemo, useState } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withState, withHandlers, compose } from 'recompose';
 import moment from 'moment-timezone';
+import MomentUtils from '@date-io/moment';
+import type { TFunction } from 'i18next';
+import { useTranslation } from 'react-i18next';
+
 import Typography from '@material-ui/core/Typography';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Divider from '@material-ui/core/Divider';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import DialogActions from '@material-ui/core/DialogActions';
+import type { Theme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import { withTranslation, TFunction } from 'react-i18next';
-import MomentUtils from '@date-io/moment';
-import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
-import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import { Moment } from '../../../i18n';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 
+// @ts-expect-error
+import { Moment } from '../../../i18n';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+
+// @ts-expect-error
 import SubscriptionPayment from './SubscriptionPayment.component';
 import MemberSearchModal from '../../member/components/MemberSearchModal.component';
-
+// @ts-expect-error
 import SubscriptionContractListItem from './SubscriptionContractListItem.component';
-import { Establishment } from '../../establishment/types';
-import { StripeReader } from '#libs/terminal/types';
-import { Contract } from '../types';
-import { Member } from '../../member/types';
-import { PaymentMethod } from '../../payment/types';
+import ContractTermsDialog from './contract/ContractTermsDialog.component';
+import type { Establishment } from '../../establishment/types';
+import type { StripeReader } from '#libs/terminal/types';
+import type { Contract } from '../types';
+import type { Member } from '../../member/types';
+import type { PaymentMethod } from '../../payment/types';
+import type { OptionCallback } from '../../../state/types';
 
-type Props = {
-  t: TFunction;
-  classes: Object;
-
+type OwnProps = {
   member: Member | null;
-  searchLoading: boolean;
-  searchedMembers: Array<Member>;
-  searchMembers: (txt: string) => void;
-  onChangeMember: (Member) => void;
-
+  searchLoading?: boolean;
+  searchedMembers?: Member[];
+  searchMembers?: (txt: string) => void;
+  onChangeMember?: (member: Member) => void;
   open: boolean;
-  date: string;
-  setDate: (string) => void;
-  processing: boolean;
-
-  contractList?: Array<Contract>;
+  contractList?: Contract[];
   contract?: Contract;
-  contractLoading: boolean;
-  onChangeContract: (Contract) => void;
-  goToCustomSubscriptionForm: () => void;
-  enabledPaymentMethods: Array<number>;
-
-  onSubmit: (token: string) => void;
+  contractLoading?: boolean;
+  onChangeContract?: (contract: Contract) => void;
+  goToCustomSubscriptionForm?: () => void;
+  enabledPaymentMethods: number[];
   onClose: () => void;
-
   requestSetupIntentSecret: () => void;
-  savedPaymentMethodList: Array<PaymentMethod>;
+  savedPaymentMethodList: PaymentMethod[];
   refreshSavedPaymentMethodList: () => void;
   waiver: string;
   generalTermsAndConditions: string;
-  establishments: Array<Establishment>;
+  establishments: Establishment[];
   enableMultiLocalization: boolean;
   stripeReaders: StripeReader[];
   companyId?: number;
-
+  // the three next props are used in handler
+  // eslint-disable-next-line
+  onSuccess?: () => void;
+  // eslint-disable-next-line
   onlinePaymentEnabled: boolean;
+  // eslint-disable-next-line
+  registerContractBackground: (
+    id: number,
+    data: any,
+    options: OptionCallback,
+  ) => void;
+  withContractTermsCheckbox?: boolean;
+};
+
+type Props = OwnProps & {
+  classes: { [className: string]: string };
+  date: string | Moment;
+  setDate: (date: string | Moment) => void;
+  processing: boolean;
+  onSubmit: (token: string) => void;
 };
 
 type PickerProps = {
   t: TFunction;
-  classes: Object;
+  classes: { [className: string]: string };
   open: boolean;
-  contractList?: Array<Contract>;
-  contractLoading: boolean;
-  onChangeContract: (Contract) => void;
+  contractList?: Contract[];
+  contractLoading?: boolean;
+  onChangeContract?: (contract: Contract) => void;
   onClose: () => void;
-  goToCustomSubscriptionForm: () => void;
+  goToCustomSubscriptionForm?: () => void;
 };
 
 const ContractPickerDialog = (props: PickerProps) => (
@@ -99,7 +113,7 @@ const ContractPickerDialog = (props: PickerProps) => (
             contract={c}
             divider
             dense
-            onClick={() => props.onChangeContract(c)}
+            onClick={() => props.onChangeContract?.(c)}
           />
         ))}
       {props.goToCustomSubscriptionForm ? (
@@ -121,9 +135,14 @@ const ContractPickerDialog = (props: PickerProps) => (
 );
 
 export const SubscriptionContractRegister = (props: Props) => {
+  const { t } = useTranslation('subscription');
+
   const [alertPickedDateInThePast, setAlertPickedDateInThePast] =
     useState(false);
+
   const [pickedDateInThePast, setPickedDateInThePast] = useState(false);
+
+  const [showContractTermsDialog, setShowContractTermsDialog] = useState(false);
 
   useMemo(() => {
     setAlertPickedDateInThePast(
@@ -134,6 +153,23 @@ export const SubscriptionContractRegister = (props: Props) => {
     );
   }, [props.date]);
 
+  const openContractTermsDialog = React.useCallback(() => {
+    setShowContractTermsDialog(true);
+  }, []);
+
+  const closeContractTermsDialog = React.useCallback(() => {
+    setShowContractTermsDialog(false);
+  }, []);
+
+  const { onChangeMember } = props;
+
+  const handleMemberSelected = React.useCallback(
+    (id: number, member_: Member) => {
+      onChangeMember?.(member_);
+    },
+    [onChangeMember],
+  );
+
   if (!props.member) {
     return (
       <MemberSearchModal
@@ -143,7 +179,7 @@ export const SubscriptionContractRegister = (props: Props) => {
         searchedMembers={props.searchedMembers || []}
         searchMembers={props.searchMembers}
         onClose={props.onClose}
-        handlMemberSelected={(id, member_) => props.onChangeMember(member_)}
+        handlMemberSelected={handleMemberSelected}
         waiver={props.waiver}
         generalTermsAndConditions={props.generalTermsAndConditions}
       />
@@ -152,7 +188,7 @@ export const SubscriptionContractRegister = (props: Props) => {
   if (!props.contract) {
     return (
       <ContractPickerDialog
-        t={props.t}
+        t={t}
         classes={props.classes}
         open={props.open}
         contractList={props.contractList}
@@ -163,21 +199,6 @@ export const SubscriptionContractRegister = (props: Props) => {
       />
     );
   }
-  // console.log('---------TIMEONZE BROWSER --------');
-  // console.log(moment.tz.guess());
-  // console.log(moment(props.date, 'YYYY-MM-DD'));
-  // console.log(moment(props.date, 'YYYY-MM-DD').unix());
-
-  // console.log('---------TIMEONZE Europe/Dubli --------');
-  // console.log(moment(props.date, 'YYYY-MM-DD').tz('Europe/Dublin'));
-  // console.log(
-  //   moment
-  //     .tz(
-  //       moment(props.date, 'YYYY-MM-DD').tz('Europe/Dublin').unix(),
-  //       'Europe/Dublin',
-  //     )
-  //     .unix() * 1000,
-  // );
 
   return (
     <GenericResponsiveDialog open={props.open} maxWidth="sm">
@@ -185,20 +206,20 @@ export const SubscriptionContractRegister = (props: Props) => {
       <DialogContent>
         {pickedDateInThePast && (
           <Typography variant="h6" style={{ marginBottom: '16px' }}>
-            {props.t('contract.pastDate.futureInvoicesPayment')}
+            {t('contract.pastDate.futureInvoicesPayment')}
           </Typography>
         )}
         <GenericResponsiveDialog open={alertPickedDateInThePast} maxWidth="sm">
-          <DialogTitle>{props.t('contract.pastDate.title')}</DialogTitle>
+          <DialogTitle>{t('contract.pastDate.title')}</DialogTitle>
 
           <DialogContent>
             {moment(props.date).isSame(moment(), 'month') ? (
-              props.t('contract.pastDate.alertSameMonth', {
+              t('contract.pastDate.alertSameMonth', {
                 lostDays: moment().diff(moment(props.date), 'days'),
               })
             ) : (
               <div className={props.classes.alertContent}>
-                {props.t('contract.pastDate.alertDifferentMonth')}
+                {t('contract.pastDate.alertDifferentMonth')}
               </div>
             )}
           </DialogContent>
@@ -209,7 +230,7 @@ export const SubscriptionContractRegister = (props: Props) => {
               }}
               color="secondary"
             >
-              {props.t('contract.pastDate.cancel')}
+              {t('contract.pastDate.cancel')}
             </Button>
             <Button
               onClick={() => {
@@ -218,13 +239,13 @@ export const SubscriptionContractRegister = (props: Props) => {
               variant="contained"
               color="primary"
             >
-              {props.t('contract.pastDate.validate')}
+              {t('contract.pastDate.validate')}
             </Button>
           </DialogActions>
         </GenericResponsiveDialog>
         <div className={props.classes.row}>
           <Typography className={props.classes.buttonLeftText}>
-            {props.t('contract.actions.iwanttostarton')}
+            {t('contract.actions.iwanttostarton')}
           </Typography>
           <MuiPickersUtilsProvider
             utils={MomentUtils}
@@ -253,7 +274,6 @@ export const SubscriptionContractRegister = (props: Props) => {
                 }
                 return [];
               }}
-              returnMoment={false}
               minDate={moment().subtract(1, 'years').format('YYYY-MM-DD')}
             />
           </MuiPickersUtilsProvider>
@@ -281,15 +301,23 @@ export const SubscriptionContractRegister = (props: Props) => {
           stripeReaders={props.stripeReaders}
           pastInvoices={pickedDateInThePast}
           companyId={props.companyId}
+          showContractTermsCheckbox={props.withContractTermsCheckbox}
+          openContractTermsDialog={openContractTermsDialog}
         />
       </DialogContent>
+
+      <ContractTermsDialog
+        closeContractTermsDialog={closeContractTermsDialog}
+        contractTerms={props.contract.contract}
+        open={showContractTermsDialog}
+      />
     </GenericResponsiveDialog>
   );
 };
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   row: {
-    flexDirection: 'row',
+    flexDirection: 'row' as 'row',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -306,13 +334,12 @@ const styles = (theme) => ({
   },
   alertContent: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'column' as 'column',
     gap: theme.spacing(2),
   },
 });
 
-export default compose(
-  withTranslation(['subscription']),
+export default compose<Props, OwnProps>(
   withStyles(styles),
   withState('date', 'setDate', moment().format('YYYY-MM-DD')),
   withState('processing', 'setProcessing', false),
@@ -328,12 +355,12 @@ export default compose(
       }) =>
       async (
         token: string,
-        paymentMethodId?: string,
+        paymentMethodId: string | null,
         isPaymentMethodForPastInvoicesSaved: boolean,
-        paymentMethodPastInvoicesId?: string,
-        options,
-        coupon,
-        note,
+        paymentMethodPastInvoicesId: number | null,
+        options: OptionCallback | null,
+        coupon: string | null,
+        note: string | null,
         billing_establishment_id: number | null,
       ) => {
         const first_billing_timestamp = moment(date, 'YYYY-MM-DD').unix();
@@ -360,4 +387,5 @@ export default compose(
         });
       },
   }),
+  React.memo,
 )(SubscriptionContractRegister);

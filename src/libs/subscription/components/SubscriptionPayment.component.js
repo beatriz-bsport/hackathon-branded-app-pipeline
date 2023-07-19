@@ -106,6 +106,9 @@ type Props = {
   onlinePaymentEnabled?: boolean,
   forceEstablishmentSelection?: boolean,
   onOpenContractTermsDialog?: () => void,
+
+  showContractTermsCheckbox?: boolean,
+  openContractTermsDialog?: () => void,
 };
 
 type State = {
@@ -118,6 +121,7 @@ type State = {
   selectedSavedPaymentMethodId: number | null,
   processingTerminal: boolean,
   requiredEstablishmentIsMissing: boolean,
+  contractTermsChecked: boolean,
 };
 
 export class SubscriptionPayment extends React.Component<Props, State> {
@@ -138,6 +142,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       errorValuePastInvoices: false,
       theoricalAmountValuePastInvoices: null,
       requiredEstablishmentIsMissing: false,
+      contractTermsChecked: false,
     };
   }
 
@@ -350,6 +355,10 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     ).toFixed(2);
   };
 
+  onContractTermsCheckboxClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ contractTermsChecked: e.target.checked });
+  };
+
   render() {
     const {
       paymentMethod,
@@ -365,6 +374,8 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       date,
       setDate,
       withGeneralConditions,
+      showContractTermsCheckbox,
+      openContractTermsDialog,
     } = this.props;
 
     return (
@@ -718,6 +729,33 @@ export class SubscriptionPayment extends React.Component<Props, State> {
             )}
           </div>
         )}
+        {showContractTermsCheckbox && (
+          <div className={classes.contractTerms}>
+            <Checkbox
+              className={classes.contractTermsCheckbox}
+              checked={this.state.contractTermsChecked}
+              onChange={this.onContractTermsCheckboxClick}
+              color="primary"
+            />
+            <Typography variant="body2" className={classes.contractTerms}>
+              <Trans
+                t={t}
+                i18nKey="subscription:contract.actions.acceptContractTerms"
+                components={[
+                  <ButtonBaseWithTypography
+                    onClick={openContractTermsDialog}
+                    disableRipple
+                    typographyVariant="body2"
+                    typographyColor="primary"
+                    className={classes.contractTermsButton}
+                  >
+                    .
+                  </ButtonBaseWithTypography>,
+                ]}
+              />
+            </Typography>
+          </div>
+        )}
         {paymentMethod !== 'terminal' && (
           <div className={classes.buttonContainer}>
             <Button
@@ -748,7 +786,8 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                   !this.isZeroPrice()) ||
                 this.props.disabled ||
                 this.state.loading ||
-                processing
+                processing ||
+                (showContractTermsCheckbox && !this.state.contractTermsChecked)
               }
             >
               {this.state.loading || processing ? (
@@ -896,6 +935,9 @@ const styles = (theme) => ({
   },
   contractTermsButton: {
     marginLeft: theme.spacing(0.5),
+  },
+  contractTermsCheckbox: {
+    padding: theme.spacing(1.125),
   },
 });
 

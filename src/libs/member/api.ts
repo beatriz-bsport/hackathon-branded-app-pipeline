@@ -46,7 +46,7 @@ export const fetchFilteredMembers = fetchMemberList;
 export async function search(
   text: string,
   params: { [key: string]: boolean | string | number },
-) {
+): Promise<AxiosResponse<MemberMinimal[]>> {
   return postAuth(`${API_V1_URI}/member/search/`, { text, params });
 }
 
@@ -96,7 +96,7 @@ export async function fetchCountObject(memberId: number) {
   return getAuth(`${API_V1_URI}/member/${memberId}/count_objects/`);
 }
 
-export async function getLatest() {
+export async function getLatest(): Promise<AxiosResponse<number>> {
   return getAuth(`${API_V1_URI}/member/latest/`);
 }
 

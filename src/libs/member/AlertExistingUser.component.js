@@ -22,6 +22,8 @@ type Props = {
   email?: string,
   phonenumber?: string,
   emailConfirmed: boolean,
+
+  goToButtonText?: string,
 };
 
 export function AlertExistingUser(props: Props) {
@@ -35,6 +37,7 @@ export function AlertExistingUser(props: Props) {
     phonenumber,
     goToMerge,
     emailConfirmed,
+    goToButtonText,
   } = props;
   const userKey = existingMemberId ? 'member' : 'user';
   let textKey = email
@@ -51,7 +54,7 @@ export function AlertExistingUser(props: Props) {
           variant="outlined"
           classes={{ outlined: classes.buttonOutlined }}
         >
-          {t('exists.goTo')}
+          {t(goToButtonText ?? 'exists.goTo')}
         </Button>
         {memberId && existingMemberId && goToMerge ? (
           <Button

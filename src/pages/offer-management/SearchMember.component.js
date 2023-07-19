@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
@@ -25,12 +26,21 @@ type Props = {
   setMemberHistoryAnchor: (HTMLElement) => void,
   onClickRegister: (Member) => void,
   permissions: RolePermission,
+  fullWidth?: boolean,
 };
 
 export function SearchMember(props: Props) {
-  const { classes, t, onReset, searchedText, permissions, onChange } = props;
+  const {
+    classes,
+    t,
+    onReset,
+    searchedText,
+    permissions,
+    onChange,
+    fullWidth,
+  } = props;
   return (
-    <div>
+    <div className={classNames({ [classes.input]: fullWidth })}>
       <Popover
         style={{ zIndex: 1000000 }}
         disableAutoFocus

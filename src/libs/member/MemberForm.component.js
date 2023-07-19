@@ -104,6 +104,8 @@ type Props = {
   errors: any,
   setFieldValue: (fieldname: string, value: any) => void,
   waiver: string,
+  withoutTitle?: Boolean,
+  alreadyExistingGoToButtonText?: string,
 };
 
 const Effect = formikConnect(
@@ -123,13 +125,19 @@ const Effect = formikConnect(
   },
 );
 
-const MemberExistsBanner = (props: {
+const MemberExistsBanner = ({
+  emailExists,
+  goToMember,
+  memberId,
+  emailExistsError,
+  goToButtonText,
+}: {
   emailExists: { phonenumber: string, email: string, exists: boolean },
   goToMember: () => void,
   memberId: number,
   emailExistsError: boolean,
+  goToButtonText?: string,
 }) => {
-  const { emailExists, goToMember, memberId, emailExistsError } = props;
   if (!emailExists) {
     return null;
   }
@@ -150,6 +158,7 @@ const MemberExistsBanner = (props: {
       existingMemberId={exists.member_pk}
       emailConfirmed={exists.email_confirmed}
       goToMember={goToMember}
+      goToButtonText={goToButtonText}
     />
   );
 };
@@ -189,6 +198,8 @@ export function MemberForm(props: Props) {
     userStatus,
     setFieldValue,
     memberId,
+    withoutTitle,
+    alreadyExistingGoToButtonText,
   } = props;
   React.useEffect(() => {
     trackFormAdd(memberId);
@@ -222,6 +233,7 @@ export function MemberForm(props: Props) {
           emailExistsError={props.emailExistsError}
           goToMember={props.goToMember}
           memberId={props.memberId}
+          goToButtonText={alreadyExistingGoToButtonText}
         />
       )}
 
@@ -242,9 +254,11 @@ export function MemberForm(props: Props) {
           </div>
         ) : null}
 
-        <div className={classes.title}>
-          <MemberFormTitle userStatus={userStatus} t={t} />
-        </div>
+        {!withoutTitle && (
+          <div className={classes.title}>
+            <MemberFormTitle userStatus={userStatus} t={t} />
+          </div>
+        )}
 
         <Form>
           <Effect
@@ -634,6 +648,7 @@ export function MemberForm(props: Props) {
           emailExistsError={props.emailExistsError}
           goToMember={props.goToMember}
           memberId={props.memberId}
+          goToButtonText={alreadyExistingGoToButtonText}
         />
       )}
     </div>

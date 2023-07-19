@@ -117,6 +117,10 @@ import BookButton from '#libs/booker-module/components/BookButton.components';
 import GroupOfferRedirectToFirstOfferDialog from '#libs/marketplace/components/GroupOfferRedirectToFirstOffer.dialog';
 
 import { REDIRECTED_TO_FIRST_OFFER_TO_BE_BOOKED } from '#libs/group-offer/constants';
+import {
+  getCheckoutUrl,
+  getCheckoutValidationUrl,
+} from '#libs/marketplace/routing-utils';
 
 type OwnProps = { id: number; redirectedToFirstOfferToBeBooked: boolean };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
@@ -566,19 +570,20 @@ class OfferBooking extends React.PureComponent<Props, State> {
         this.setState({ showLoader: false });
         if (data.consumer_payment_pack || !data.offers.length) {
           this.props.push(
-            `/checkout/${
-              this.props.offer.company
-            }/validation?basket=null&user_registration_response=${encodeURIComponent(
-              JSON.stringify(responseData),
-            )}`,
+            getCheckoutValidationUrl(this.props.offer.company, false, {
+              basket: 'null',
+              user_registration_response: encodeURIComponent(
+                JSON.stringify(responseData),
+              ),
+            }),
           );
         } else {
           this.props.push(
-            `/checkout/${
-              this.props.offer.company
-            }/?user_registration_response=${encodeURIComponent(
-              JSON.stringify(responseData),
-            )}`,
+            getCheckoutUrl(this.props.offer.company, false, {
+              user_registration_response: encodeURIComponent(
+                JSON.stringify(responseData),
+              ),
+            }),
           );
         }
       },

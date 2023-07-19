@@ -48,6 +48,7 @@ import {
   getMarketplaceRoute,
   fromConfigToUrl,
   getUserSpaceUrl,
+  getCheckoutUrl,
 } from '#libs/marketplace/routing-utils';
 import { urlToMarketplace } from '#libs/marketplace/utils';
 import asyncComponent from '../../AsyncComponent';
@@ -139,7 +140,7 @@ type Props = {
   currentBasketLoading: boolean,
   removeItemFromBasket: (basketId: string, data: any) => void,
   addItemToBasket: (basketId: string, data: any) => void,
-  goToCheckout: (companyId: number) => void,
+  goToCheckout: (companyId: number, isNewCheckoutFlow: boolean) => void,
   fetchProfile: () => void,
   doEmailLogin: (
     data: { email: string, password: string },
@@ -536,7 +537,10 @@ export class MarketPlace extends Component<Props, State> {
             <MarketplaceBasketDialog
               basket={this.props.currentBasket}
               goToCheckout={() =>
-                this.props.goToCheckout(this.props.currentBasket.company)
+                this.props.goToCheckout(
+                  this.props.currentBasket.company,
+                  this.props.theme?.display_new_checkout_flow,
+                )
               }
               isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
               loading={this.props.currentBasketLoading}
@@ -752,6 +756,8 @@ export default compose(
       // for signup/signin/profile
       fetchProfile,
       goToUserSpace: (companyId) => pushRouter(getUserSpaceUrl(companyId)),
+      goToCheckout: (companyId, isNewCheckoutFlow) =>
+        pushRouter(getCheckoutUrl(companyId, isNewCheckoutFlow)),
 
       // DEPRECATED
       // signupAction: signupV2,

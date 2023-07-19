@@ -15,7 +15,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import themeSelectors from '../../../libs/theme/selectors';
 import type { Theme } from '../../../libs/theme/types';
-import { buildUrlParams } from '../../../http';
 import { getTheme } from '../../../theme';
 import {
   addItemToBasket,
@@ -27,6 +26,7 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import { getCurrentBasket } from '../../../libs/checkout/selectors';
 import Analytics from '../../../components/analytics/Analytics.component';
 import { fetchShopItem } from '../../../libs/shop/actions/shopitem';
+import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 type Props = {
   fetchShopItem: (number, options: OptionCallback) => void,
@@ -35,7 +35,7 @@ type Props = {
   itemId: number,
   fetchCurrentBasket: (companyId: number, options: OptionCallback) => void,
   addItemToBasket: (basketId: number, data: any, option: *) => void,
-  goToCheckout: (companyId: number) => void,
+  goToCheckout: (companyId: number, isNewCheckoutFlow: boolean) => void,
   classes: Object,
   push: (string) => void,
   t: TFunction,
@@ -65,7 +65,11 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
               },
               {
                 onError: (error) => this.setState({ error }),
-                onSuccess: () => this.props.goToCheckout(shopItem.company),
+                onSuccess: () =>
+                  this.props.goToCheckout(
+                    shopItem.company,
+                    this.props.theme?.display_new_checkout_flow,
+                  ),
               },
             );
           },
@@ -175,14 +179,14 @@ export default compose(
   withHandlers({
     goToCheckout:
       ({ replace, queryParams }) =>
-      (companyId) =>
+      (companyId, isNewCheckoutFlow) =>
         replace(
-          `/checkout/${companyId}${buildUrlParams({
+          getCheckoutUrl(companyId, isNewCheckoutFlow, {
             ...(queryParams?.context ? { context: queryParams.context } : {}),
             ...(queryParams?.onValidation
               ? { onValidation: queryParams.onValidation }
               : {}),
-          })}`,
+          }),
         ),
   }),
 )(PaymentPackPaymentPage);

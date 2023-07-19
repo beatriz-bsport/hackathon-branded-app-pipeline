@@ -59,6 +59,7 @@ import PrivateConsumerPassBookableItem from '../../../libs/booker-module/compone
 
 import { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import { PaymentPack } from '#libs/payment-packs/types';
+import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 const BOOKER_ITEM_PASS = -1;
 const BOOKER_ITEM_PRIVATE_PASS = -2;
@@ -218,7 +219,12 @@ export class VideoCheckoutBase extends Component<Props, State> {
             {
               onError: () => this.setState({ processing: false }),
               onSuccess: () =>
-                this.props.push(`/checkout/${this.props.companyId}`),
+                this.props.push(
+                  getCheckoutUrl(
+                    this.props.companyId,
+                    this.props.theme?.display_new_checkout_flow,
+                  ),
+                ),
             },
           );
         },

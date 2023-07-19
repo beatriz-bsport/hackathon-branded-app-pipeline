@@ -14,7 +14,7 @@ import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyabl
 import InfoIcon from '@material-ui/icons/Info';
 import themeSelectors from '../../../libs/theme/selectors';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
-import { parseQueryString, buildUrlParams } from '../../../http';
+import { parseQueryString } from '../../../http';
 import { Theme } from '../../../libs/theme/types';
 import { getTheme } from '../../../theme';
 import {
@@ -28,6 +28,7 @@ import { getCurrentBasket } from '../../../libs/checkout/selectors';
 import Analytics from '../../../components/analytics/Analytics.component';
 import { fetchPrivatePassRetrieve } from '../../../libs/private-service/actions';
 import { OptionCallback } from '../../../state/types';
+import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 type Props = {
   theme: Theme,
@@ -181,12 +182,12 @@ export default compose(
       ({ replace, queryParams }) =>
       (companyId) =>
         replace(
-          `/checkout/${companyId}${buildUrlParams({
+          getCheckoutUrl(companyId, false, {
             ...(queryParams?.context ? { context: queryParams.context } : {}),
             ...(queryParams?.onValidation
               ? { onValidation: queryParams.onValidation }
               : {}),
-          })}`,
+          }),
         ),
   }),
 )(PaymentPrivatePassPage);

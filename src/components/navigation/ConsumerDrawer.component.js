@@ -57,6 +57,7 @@ import { WidgetUtils } from '../../libs/widget/WidgetUtils';
 import { getCurrencyDisplayWithPrice } from '../../libs/theme/selectors';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 import ConnectedAsDialog from '../../libs/relationship/components/ConnectedAs.dialog';
+import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 export const drawerWidth = 260;
 
@@ -468,7 +469,10 @@ class ConsumerDrawer extends React.Component<Props, State> {
         text: t('navigation.profile'),
       },
       {
-        to: `/checkout/${this.props.membership.company}/`,
+        to: getCheckoutUrl(
+          this.props.membership.company,
+          this.props.companyTheme?.display_new_checkout_flow,
+        ),
         icon: ShoppingCartIcon,
         text: t('Basket'),
       },

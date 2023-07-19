@@ -30,7 +30,10 @@ import {
   getFranchisor,
 } from '#libs/franchise/selectors';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
+import {
+  getCheckoutUrl,
+  getMarketplaceRoute,
+} from '#libs/marketplace/routing-utils';
 import { getThemeLoading } from '#libs/theme/selectors';
 
 type OwnProps = {
@@ -168,12 +171,24 @@ const mapWithHandlers = {
   goToNextPage:
     (props: OwnProps & ConnectedProps) =>
     (companyId: number, companyName: string) => {
-      props.fetchCompanyTheme(companyId);
-      if (props.next) {
-        props.pushRouter(`/checkout/${companyId}/${props.next}`);
-      } else {
-        props.pushRouter(getMarketplaceRoute(companyName, companyId));
-      }
+      props.fetchCompanyTheme(companyId, {
+        onSuccess: (theme) => {
+          if (props.next) {
+            props.pushRouter(
+              getCheckoutUrl(
+                companyId,
+                props.getCompanyThemeLoading
+                  ? false
+                  : theme.display_new_checkout_flow,
+                null,
+                props.next,
+              ),
+            );
+          } else {
+            props.pushRouter(getMarketplaceRoute(companyName, companyId));
+          }
+        },
+      });
     },
 };
 

@@ -27,6 +27,7 @@ import { addItemToBasket, fetchCurrentBasket } from '#libs/checkout/actions';
 import { Giftcard } from '#libs/giftcard/types';
 
 import { getCurrentBasket } from '#libs/checkout/selectors';
+import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 type OwnProps = {
   companyId: number;
@@ -60,7 +61,11 @@ export class GiftcardCheckout extends React.Component<Props> {
         extra_data: { customization_dict: data },
       },
       {
-        onSuccess: () => this.props.goToBasket(this.props.giftcard.company),
+        onSuccess: () =>
+          this.props.goToBasket(
+            this.props.giftcard.company,
+            this.props.theme?.display_new_checkout_flow,
+          ),
       },
     );
   };
@@ -110,7 +115,8 @@ const connector = connect(
     fetchCompanyTheme,
     addItemToBasket,
     fetchCurrentBasket,
-    goToBasket: (companyId: number) => push(`/checkout/${companyId}/`),
+    goToBasket: (companyId: number, isNewCheckoutFlow: boolean) =>
+      push(getCheckoutUrl(companyId, isNewCheckoutFlow)),
   },
 );
 

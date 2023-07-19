@@ -17,7 +17,7 @@ import { WithStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 import { WithHandlerType } from '../../../utils/types';
 import { RootState } from '../../../reducers';
-import { buildUrlParams, parseQueryString } from '../../../http';
+import { parseQueryString } from '../../../http';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import { urlToMarketplace } from '../../../libs/marketplace/utils';
 
@@ -36,6 +36,7 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import Analytics from '../../../components/analytics/Analytics.component';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { Basket } from '#libs/checkout/types';
+import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 type OwnProps = {
   location: Object;
@@ -86,6 +87,7 @@ export class PaymentPackTemplatePreCheckoutPage extends Component<
           onSuccess: () => {
             this.props.goToCheckout(
               paymentPack.company_id || paymentPack.company,
+              this.props.theme?.display_new_checkout_flow,
             );
           },
         },
@@ -168,14 +170,14 @@ export class PaymentPackTemplatePreCheckoutPage extends Component<
 const mapWithHandlers = {
   goToCheckout:
     ({ replace, queryParams }: OwnProps & ConnectedProps<typeof connector>) =>
-    (companyId: number) => {
+    (companyId: number, isNewCheckoutFlow: boolean) => {
       replace(
-        `/checkout/${companyId}${buildUrlParams({
+        getCheckoutUrl(companyId, isNewCheckoutFlow, {
           ...(queryParams?.context ? { context: queryParams.context } : {}),
           ...(queryParams?.onValidation
             ? { onValidation: queryParams.onValidation }
             : {}),
-        })}`,
+        }),
       );
     },
 };

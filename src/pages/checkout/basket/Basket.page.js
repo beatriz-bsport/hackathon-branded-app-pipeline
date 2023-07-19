@@ -92,7 +92,10 @@ import { fetchMember } from '#libs/member/actions';
 import { BasketAddress } from '#libs/checkout/types';
 import { fetchMembership } from '#libs/membership/actions';
 import { CheckoutContext } from './CheckoutContext';
-import { getUserSpaceUrl } from '#libs/marketplace/routing-utils';
+import {
+  getCheckoutValidationUrl,
+  getUserSpaceUrl,
+} from '#libs/marketplace/routing-utils';
 
 type Props = {
   basket: ?Basket,
@@ -612,7 +615,6 @@ export default compose(
       basketOffers: withMetaActivity(
         withEstablishment((state_) => getBasketOfferList(state_)),
       )(state),
-      isNewCheckoutFlow: state.theme.theme?.display_new_checkout_flow,
     }),
     {
       disconnect: authActions.disconnect,
@@ -773,25 +775,26 @@ export default compose(
           extra_data: {},
         }),
     onSuccess:
-      ({ replace, basket, queryParams }) =>
+      ({ replace, basket, isNewCheckoutFlow, queryParams }) =>
       () => {
+        const urlParams = { basket: basket.id };
+        if (queryParams?.context) {
+          urlParams.context = queryParams.context.toString();
+        }
+        if (queryParams?.user_registration_response) {
+          urlParams.user_registration_response = encodeURIComponent(
+            queryParams.user_registration_response,
+          );
+        }
+        if (queryParams?.onValidation) {
+          urlParams.onValidation = queryParams.onValidation;
+        }
         replace(
-          `/checkout/${basket.company}/validation?basket=${basket.id}${
-            queryParams?.context
-              ? `&context=${queryParams && queryParams.context}`
-              : ''
-          }${
-            queryParams?.user_registration_response
-              ? `&user_registration_response=${
-                  queryParams &&
-                  encodeURIComponent(queryParams.user_registration_response)
-                }`
-              : ''
-          }${
-            queryParams?.onValidation
-              ? `&onValidation=${queryParams && queryParams.onValidation}`
-              : ''
-          }`,
+          getCheckoutValidationUrl(
+            basket.company,
+            isNewCheckoutFlow,
+            urlParams,
+          ),
         );
       },
     checkItemsBasket:

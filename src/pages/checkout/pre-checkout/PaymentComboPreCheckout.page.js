@@ -14,7 +14,7 @@ import { BUYABLE_ITEM_COMBO_ITEM } from '@bsport/common/lib/master-data/buyable-
 import InfoIcon from '@material-ui/icons/Info';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import { parseQueryString, buildUrlParams } from '../../../http';
+import { parseQueryString } from '../../../http';
 import themeSelectors from '../../../libs/theme/selectors';
 import { getTheme } from '../../../theme';
 import {
@@ -25,6 +25,7 @@ import { urlToMarketplace } from '../../../libs/marketplace/utils';
 
 import { fetchPaymentCombo } from '../../../libs/payment-combo/actions';
 import Analytics from '../../../components/analytics/Analytics.component';
+import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 type Props = {
   theme: Theme,
@@ -72,7 +73,11 @@ export class PaymentComboPreCheckout extends React.Component<Props, State> {
                 onError: () => {
                   this.setState({ error: true });
                 },
-                onSuccess: () => this.props.goToCheckout(paymentCombo.company),
+                onSuccess: () =>
+                  this.props.goToCheckout(
+                    paymentCombo.company,
+                    this.props.theme?.display_new_checkout_flow,
+                  ),
               },
             );
           },
@@ -181,14 +186,14 @@ export default compose(
   withHandlers({
     goToCheckout:
       ({ replace, queryParams }) =>
-      (companyId) =>
+      (companyId, isNewBookingFlow) =>
         replace(
-          `/checkout/${companyId}${buildUrlParams({
+          getCheckoutUrl(companyId, isNewBookingFlow, {
             ...(queryParams?.context ? { context: queryParams.context } : {}),
             ...(queryParams?.onValidation
               ? { onValidation: queryParams.onValidation }
               : {}),
-          })}`,
+          }),
         ),
   }),
 )(PaymentComboPreCheckout);

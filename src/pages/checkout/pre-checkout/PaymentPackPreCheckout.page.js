@@ -12,7 +12,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose, withHandlers } from 'recompose';
 import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import InfoIcon from '@material-ui/icons/Info';
-import { buildUrlParams, parseQueryString } from '../../../http';
+import { parseQueryString } from '../../../http';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 
 import themeSelectors from '../../../libs/theme/selectors';
@@ -27,6 +27,7 @@ import {
 import { fetchOne } from '../../../libs/payment-packs/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import Analytics from '../../../components/analytics/Analytics.component';
+import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 type Props = {
   location: Object,
@@ -37,7 +38,7 @@ type Props = {
   push: (string) => void,
   fetchCurrentBasket: (companyId: number) => void,
   addItemToBasket: (basketId: number, data: any, option: *) => void,
-  goToCheckout: (companyId: number) => void,
+  goToCheckout: (companyId: number, isNewCheckoutFlow: boolean) => void,
   classes: Object,
   t: TFunction,
 };
@@ -80,6 +81,7 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
                     onSuccess: () => {
                       this.props.goToCheckout(
                         paymentPack.company_id || paymentPack.company,
+                        this.props.theme?.display_new_checkout_flow,
                       );
                     },
                   },
@@ -192,14 +194,14 @@ export default compose(
   withHandlers({
     goToCheckout:
       ({ replace, queryParams }) =>
-      (companyId) => {
+      (companyId, isNewCheckoutFlow) => {
         replace(
-          `/checkout/${companyId}${buildUrlParams({
+          getCheckoutUrl(companyId, isNewCheckoutFlow, {
             ...(queryParams?.context ? { context: queryParams.context } : {}),
             ...(queryParams?.onValidation
               ? { onValidation: queryParams.onValidation }
               : {}),
-          })}`,
+          }),
         );
       },
   }),

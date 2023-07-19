@@ -10,6 +10,7 @@ import {
   MARKETPLACE_PATH_TAB_SHOP,
   MARKETPLACE_PATH_TAB_GIFTCARD,
 } from './constants';
+import { Offer } from '#libs/offer/types';
 
 export const getMarketplaceRoute = (
   companyName: string,
@@ -174,3 +175,108 @@ export const generateMarketPlaceCustomFormLink = (
     companyId,
   )}form/${customFormId}`;
 };
+
+export const getUserSpaceUrl = (id: number) => {
+  return `/c/${id}/`;
+};
+
+export const getLoginUrl = (
+  companyId: number,
+  pathname: string,
+  search: string,
+) => {
+  return `/login/customer?next=${encodeURIComponent(
+    `${pathname}${search || '?'}&membership=${companyId}`,
+  )}&membership=${companyId}`;
+};
+
+export const getBookCalendarUrl = (offerId: number, companyId: number) => {
+  return `/customer/payment/offer/${offerId}/${buildUrlParams({
+    membership: companyId,
+  })}`;
+};
+
+export const getBookWorkshopUrl = (
+  offer: Offer | number,
+  companyId: number,
+) => {
+  const offerId = typeof offer === 'number' ? offer : offer.id;
+  return `/customer/payment/offer/${offerId}/${buildUrlParams({
+    membership: companyId,
+    fromWorkshop: true,
+  })}`;
+};
+
+const buildFinalUrlWithParams = (
+  url: string,
+  params?: { [key: string]: string | number },
+) => {
+  let finalUrl = url;
+  if (params) {
+    finalUrl = `${finalUrl}${buildUrlParams(params)}`;
+  }
+  return finalUrl;
+};
+
+export const getSubscriptionPageUrl = (
+  companyId: number,
+  contractId: number,
+  isNewCheckoutFlow: boolean,
+  params?: { [key: string]: string | number },
+) => {
+  const subscriptionUrl = isNewCheckoutFlow
+    ? `/contract-s/${companyId}/${contractId}`
+    : `/checkout/${companyId}/subscription/${contractId}`;
+  return buildFinalUrlWithParams(subscriptionUrl, params);
+};
+
+export const getCheckoutUrl = (
+  companyId: number,
+  isNewCheckoutFlow: boolean,
+  params?: { [key: string]: string | number },
+) => {
+  const checkoutUrl = isNewCheckoutFlow
+    ? `/checkout-s/${companyId}`
+    : `/checkout/${companyId}`;
+  return buildFinalUrlWithParams(checkoutUrl, params);
+};
+
+export const getOfferBookerUrl = (
+  companyId: number,
+  offerId: number,
+  isNewCheckoutFlow: boolean,
+  locationSearch?: string,
+) => {
+  const pricingPageUrl = isNewCheckoutFlow
+    ? `/booker-module-s/${companyId}/${offerId}`
+    : `/checkout/${companyId}/offer-booker/${offerId}`;
+  if (locationSearch) {
+    return `${pricingPageUrl}${locationSearch}`;
+  }
+  return pricingPageUrl;
+};
+
+export const getCheckoutValidationUrl = (
+  companyId: number,
+  isNewCheckoutFlow: boolean,
+  params?: { [key: string]: string | number },
+  next?: string,
+) => {
+  const validationUrl = isNewCheckoutFlow
+    ? `/checkout-s/${companyId}/validation`
+    : `/checkout/${companyId}/validation`;
+  if (next) {
+    return `${buildFinalUrlWithParams(validationUrl, params)}${next}`;
+  }
+  return buildFinalUrlWithParams(validationUrl, params);
+};
+
+export const getSubscriptionValidationUrl = (
+  companyId: number,
+  contractId: number,
+  params?: { [key: string]: string | number },
+) =>
+  buildFinalUrlWithParams(
+    `/checkout/${companyId}/subscription/${contractId}/validation`,
+    params,
+  );

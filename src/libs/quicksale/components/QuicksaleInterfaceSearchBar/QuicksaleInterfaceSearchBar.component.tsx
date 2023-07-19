@@ -109,7 +109,7 @@ const QuicksaleInterfaceSearchBar: React.FC<Props> = ({
         placeholder={t('interface.searchAProduct')}
         searchFields={['title']}
         adornmentPosition="end"
-        onSearchClick={onSearchIconClick}
+        onClickSearch={onSearchIconClick}
         inputClassName={classes.textBar}
         disableAutoFocus
         searchOnItemsChange

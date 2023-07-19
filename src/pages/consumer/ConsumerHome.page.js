@@ -203,6 +203,7 @@ export class ConsumerHome extends React.Component<Props> {
             {this.props.membership ? (
               <ConsumerDrawer
                 buildUrl={this.props.buildUrl}
+                companyTheme={this.props.theme}
                 controlableMemberList={this.props.controlableMemberList}
                 disconnect={this.props.disconnect}
                 hasFranchise={this.props.theme.franchisor}

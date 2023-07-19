@@ -226,6 +226,7 @@ export class ContractDetailPage extends Component<Props> {
           <Grid item className={classes.detailContainer} md={6} xs={12}>
             <ContractDetail
               company={this.getCompany(this.props.theme)}
+              companyTheme={this.props.theme}
               contract={this.props.contract}
               goToCombo={this.props.goToCombo}
               goToPack={this.props.goToPaymentPackDetail}

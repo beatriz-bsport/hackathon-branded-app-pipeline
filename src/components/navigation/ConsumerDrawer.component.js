@@ -83,6 +83,7 @@ type Props = {
   navigateBackToMasterRelation: () => void,
   hasFranchise: number | null,
   name: string,
+  companyTheme: CompanyTheme,
 };
 
 type State = {

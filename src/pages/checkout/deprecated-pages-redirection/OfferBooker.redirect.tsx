@@ -8,11 +8,13 @@ import RedirectionLoading from './RedirectionLoading.component';
 import { fetchOfferBulk } from '../../../libs/offer/actions';
 import { OptionCallback } from '../../../state/types';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import type { CompanyTheme } from '#libs/theme/types';
 
 type Props = {
   id: number;
   replace: (path: string) => void;
   fetchOfferBulk: (ids: number[], options: OptionCallback) => void;
+  theme: CompanyTheme;
 };
 
 export class OfferBookerRedirect extends React.Component<Props> {
@@ -34,8 +36,13 @@ export class OfferBookerRedirect extends React.Component<Props> {
 
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
-  connect(null, {
+  connect(
+    (state) => ({
+      theme: state.theme.theme,
+    }),
+    {
     replace,
     fetchOfferBulk,
-  }),
+    },
+  ),
 )(OfferBookerRedirect);

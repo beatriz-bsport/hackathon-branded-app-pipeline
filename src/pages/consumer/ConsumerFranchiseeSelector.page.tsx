@@ -14,7 +14,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
 import { parseQueryString } from '../../http';
 import { disconnect } from '../../actions/auth.actions';
-import { fetchCompanyTheme } from '#libs/theme/actions';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 // import Analytics from '#components/analytics/Analytics.component';
 import LoginBackground from '#libs/login/components/LoginBackground.component';
 
@@ -31,6 +31,7 @@ import {
 } from '#libs/franchise/selectors';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
+import { getThemeLoading } from '#libs/theme/selectors';
 
 type OwnProps = {
   location: {
@@ -121,7 +122,7 @@ export class ConsumerFranchiseeSelectorPage extends Component<Props> {
 }
 
 const mapDispatchToProps = {
-  fetchCompanyTheme,
+  fetchCompanyTheme: fetchCompanyThemeAction,
   fetchFranchiseTheme,
   disconnect,
   pushRouter: push,
@@ -131,6 +132,7 @@ const mapStateToProps = (state: RootState) => ({
   authenticated: state.auth.authenticated,
   franchiseTheme: getFranchisor(state),
   franchiseThemeLoading: getFranchiseThemeLoading(state),
+  getCompanyThemeLoading: getThemeLoading(state),
 });
 
 const styles = (theme: Theme): any => ({
@@ -166,6 +168,7 @@ const mapWithHandlers = {
   goToNextPage:
     (props: OwnProps & ConnectedProps) =>
     (companyId: number, companyName: string) => {
+      props.fetchCompanyTheme(companyId);
       if (props.next) {
         props.pushRouter(`/checkout/${companyId}/${props.next}`);
       } else {

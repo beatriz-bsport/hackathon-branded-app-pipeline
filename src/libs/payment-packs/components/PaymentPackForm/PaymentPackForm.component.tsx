@@ -429,6 +429,7 @@ export const PaymentPackForm: React.FC<Props> = ({
               actions.setSubmitting(false);
               trackFormSuccess(initial?.id);
               clearPaymentPackToEdit?.();
+              closeForm?.();
             },
             onError: () => {
               actions.setSubmitting(false);

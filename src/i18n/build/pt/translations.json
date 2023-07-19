@@ -6423,7 +6423,7 @@
             },
             "list": {
                 "isEmpty": "Sem partilha de passes",
-                "create": "Partilhar um cartão ativo",
+                "create": "Partilhar um passe ativo",
                 "title": "Passes partilhados"
             }
         },
@@ -6646,7 +6646,8 @@
             "yes": "Sim"
         },
         "managerTableTitles": {
-            "replacementHistory": "Histórico de substituições"
+            "replacementHistory": "Histórico de substituições",
+            "pendingRequests": "Candidaturas em curso"
         },
         "requestTableTitles": {
             "deniedRequests": "Pedido recusado",
@@ -6667,13 +6668,16 @@
             "location": "Local",
             "level": "Nível",
             "name": "Nome da aula",
-            "date": "Data e hora"
+            "date": "Data e hora",
+            "establishment_group": "Localização"
         },
         "unavailableReplacement": {
             "refusedByManager": "O pedido de substituição foi recusado",
             "noLateRequestsLeft": "Já não é possível criar novos pedidos de substituição",
             "tooEarly": "Ainda não existem substitutos disponíveis",
-            "alreadyPassed": "Este passe foi aprovado"
+            "alreadyPassed": "Este passe foi aprovado",
+            "alreadyAskedFor": "Já está um pedido em curso",
+            "replacing": "É um substituto nesta sessão"
         },
         "marketplace": {
             "until": "Até {{-date}}",
@@ -7354,7 +7358,69 @@
             "notesHelperText": "As notas são privadas : só aparecerão no Backoffice para os membros do staff autorizados a editá-las",
             "editGroup": "Alterar este campo diretamente no grupo de sessões.",
             "explainNoEmailChange": "A alteração do e-mail impedirá o professor de iniciar sessão. Só o professor pode alterar o seu e-mail através da sua conta pessoal da bsport",
-            "modify": "Alterar"
+            "modify": "Alterar",
+            "interval": {
+                "year": "Anual",
+                "month": "Mensal",
+                "hour": "Por hora"
+            },
+            "never": "Nunca",
+            "oneMonth": "1 mês",
+            "twoWeeks": "2 semanas",
+            "tenDays": "10 dias",
+            "oneWeek": "1 semana",
+            "twoDays": "2 dias",
+            "oneDay": "1 dia",
+            "twelveHour": "12h",
+            "eightHour": "8h",
+            "sixHour": "6h",
+            "fourHour": "4h",
+            "threeHour": "3h",
+            "twoHour": "2h",
+            "fifteenMin": "50 min",
+            "oneHourAndHalf": "1h30",
+            "oneHourFifteen": "1h15",
+            "oneHour": "1h",
+            "halfAndQuarterHour": "45 min",
+            "halfHour": "30 min",
+            "twentyMinutes": "20 min",
+            "tenMinutes": "10 min",
+            "quarterHour": "15 min",
+            "zeroMinute": "0 min",
+            "newMetaActivity": "Nova atividade",
+            "default_duration_minutes": "Duração da sessão",
+            "default_last_discard_minutes": "Última anulação até",
+            "default_last_booking_minutes": "Última reserva antes de",
+            "default_credits": "Preço (créditos)",
+            "default_price": "Preços",
+            "SCT": "Categoria",
+            "name": "Nome",
+            "discard": "Cancelar",
+            "completeInformation": "Preencher os meus dados",
+            "send": "Registo",
+            "endWorking": "Data final",
+            "startWorking": "Data de início",
+            "workingDateSection": "Período de atividade no estúdio",
+            "notes": "Notas",
+            "descriptionHelperText": "A descrição do professor será visível para os membros quando for efectuada uma reserva",
+            "description": "Descrição",
+            "email": "Endereço de correio eletrónico",
+            "emergencyContact": "Contacto de emergência",
+            "phone": "Número de telefone",
+            "clearDate": "Eliminar",
+            "birthday": "Data de nascimento",
+            "birthdayYear": "Ano de nascimento",
+            "gender": "Sexo",
+            "lastname": "Apelido",
+            "firstname": "Nome próprio",
+            "newCoach": "Novo professor",
+            "newMember": "Novo membro",
+            "coach": "Professor",
+            "establishment": "Sala",
+            "addingSessionFor": "Criação de sessão para : ",
+            "level": "Nível",
+            "effectif": "Força de trabalho",
+            "caracteristics": "Características"
         },
         "calendar": {
             "canDeleteWithBooking": "As reservas (anuladas) ou as listas de espera foram registadas. Esta sessão não pode ser suprimida.",
@@ -8190,6 +8256,10 @@
             "subtitle": {
                 "giftcard": "Passe de oferta"
             }
+        },
+        "rolePage": {
+            "noResult": "Nenhum acesso criado",
+            "actionColumn": "Ação"
         }
     },
     "performanceTracking": {

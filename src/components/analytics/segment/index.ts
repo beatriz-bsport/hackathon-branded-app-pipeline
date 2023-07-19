@@ -1,4 +1,3 @@
-// @ts-nocheck
 import withSegmentAnalytics from './with-segment-analytics';
 import withFormTrackingHOC from './with-segment-form-tracking.hoc';
 import { SegmentAnalyticsFormObjectIdentifier } from './constants';

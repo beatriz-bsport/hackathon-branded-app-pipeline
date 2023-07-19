@@ -1,6 +1,5 @@
-// @ts-nocheck
 import memoize from 'memoize-one';
-// @ts-ignore
+// @ts-expect-error
 import { availableLanguages } from '../i18n/index';
 
 // ISO 639-1 format for language : two letters (fr for French)

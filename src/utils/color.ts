@@ -1,5 +1,3 @@
-// @ts-nocheck
-// @flow
 export function getTextColorFromRGB([red, blue, green]: [
   number,
   number,

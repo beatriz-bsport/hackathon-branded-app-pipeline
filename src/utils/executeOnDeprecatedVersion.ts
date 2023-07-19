@@ -1,6 +1,5 @@
-// @ts-nocheck
 import axios from 'axios';
-
+// @ts-expect-error
 import RELEASE_VERSION from '../release';
 
 // Check every 10 minutes

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Analytics } from '@segment/analytics-next';
 import history from '../../../history';
@@ -33,7 +32,7 @@ export const withSegmentHistoryTracker = (
         }
       });
     }
-    componentDidUpdate(_, prevState: State) {
+    componentDidUpdate(_: Props, prevState: State) {
       if (
         prevState.prevPath !== this.state.prevPath ||
         prevState.prevSearch !== this.state.prevSearch

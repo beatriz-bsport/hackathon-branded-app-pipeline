@@ -1,4 +1,3 @@
-// @ts-nocheck
 export function createUrl(file: File | Blob | null) {
   let previewURL;
 

@@ -87,7 +87,7 @@ export type UniqueCodeState = {
   invoice_uuid?: number;
 };
 
-type AvailableUniqueCodes = Record<string, UniqueCodeState>;
+export type AvailableUniqueCodes = Record<string, UniqueCodeState>;
 
 export type CouponTemplateInstance = {
   id: number;

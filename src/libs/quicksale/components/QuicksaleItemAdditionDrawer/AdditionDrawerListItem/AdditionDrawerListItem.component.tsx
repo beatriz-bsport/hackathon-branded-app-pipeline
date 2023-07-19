@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Delete from '@material-ui/icons/Delete';
 import { Theme, makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { QuicksaleCardInfo } from '../../../types';
 
 export type SimpleItemListAction = {
@@ -83,7 +83,7 @@ const AdditionDrawerListItem: React.FC<Props> = ({
 
         <div className={classNames(classes.flexCol, classes.justifySelfEnd)}>
           <Typography variant="caption">
-            {`${item.price.toFixed(2)} ${getCurrencyDisplay()}`}
+            {getCurrencyDisplayWithPrice(item.price.toFixed(2))}
           </Typography>
           {item.recurrence && (
             <Typography variant="caption">{item.recurrence}</Typography>

@@ -335,6 +335,7 @@ exports.default = {
       iAcceptCondition: "J'accepte les conditions ci-dessus",
       iAcceptGeneralCondition: " J'accepte les mentions légales",
       iAcceptContractTerms: "J'accepte les <0>mentions légales</0>.",
+      acceptContractTerms: 'Accepter les <0>mentions légales</0>',
       iwanttostarton: 'Je souhaite débuter la facturation le : ',
       subscribe: "M'abonner",
       title: 'Date passée',

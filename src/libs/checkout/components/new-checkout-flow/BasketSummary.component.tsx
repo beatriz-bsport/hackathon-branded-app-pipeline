@@ -62,7 +62,11 @@ export const BasketSummary: React.FC<BasketSummaryProps> = ({
                 onRemoveItem={onRemoveCheckoutItem}
               />
               {index !== basketSummaryCheckoutItems.length - 1 && (
-                <Divider variant="middle" className={classes.divider} />
+                <Divider
+                  variant="middle"
+                  className={classes.divider}
+                  key={`divider-${checkoutItem.id}`}
+                />
               )}
             </>
           ))}

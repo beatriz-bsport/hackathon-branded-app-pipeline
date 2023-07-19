@@ -181,6 +181,7 @@ exports.default = {
     goTo: 'Voir le membre',
     linkUser: "Lier l'utilisateur",
     merge: 'Fusionner',
+    quicksale: 'Sélectionner ce membre',
   },
   linkDialog: {
     title: 'Lier un utilisateur existant',

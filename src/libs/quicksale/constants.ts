@@ -49,3 +49,10 @@ export enum EditableQuicksaleSectionKey {
 export const DEFAULT_SECTION_ICON = 'Category';
 
 export const NO_RESULT_ALERT_BACKGROUND_COLOR = 'rgba(8, 22, 45, 0.1)';
+
+export enum QuicksaleInterfaceModalColors {
+  Warning = '#FF9800',
+  Error = '#F44336',
+  Info = '#2196F3',
+  Success = '#4CAF50',
+}

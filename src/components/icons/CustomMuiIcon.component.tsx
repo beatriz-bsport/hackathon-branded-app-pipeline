@@ -22,6 +22,7 @@ export type Props = {
   variant?: 'primary' | 'secondary' | 'disabled';
   defaultBackGround?: boolean;
   MuiIconProps?: SvgIconProps;
+  customClassName?: string;
 } & StylesProps;
 
 export const CustomMuiIcon: React.FC<Props> = ({
@@ -33,6 +34,7 @@ export const CustomMuiIcon: React.FC<Props> = ({
   defaultBackGround,
   withBackground = true,
   fadeIcon,
+  customClassName,
 }) => {
   const classes = useStyles({
     customColor,
@@ -40,13 +42,16 @@ export const CustomMuiIcon: React.FC<Props> = ({
     fadeIcon,
   });
 
-  const className = classNames({
-    [classes.root]: !defaultBackGround,
-    [classes.primary]: variant === 'primary',
-    [classes.secondary]: variant === 'secondary',
-    [classes.disabled]: variant === 'disabled',
-    [classes.custom]: !!customColor,
-  });
+  const className = classNames(
+    {
+      [classes.root]: !defaultBackGround,
+      [classes.primary]: variant === 'primary',
+      [classes.secondary]: variant === 'secondary',
+      [classes.disabled]: variant === 'disabled',
+      [classes.custom]: !!customColor,
+    },
+    customClassName,
+  );
   if (MuiIcon) {
     return <MuiIcon className={className} {...MuiIconProps} />;
   }

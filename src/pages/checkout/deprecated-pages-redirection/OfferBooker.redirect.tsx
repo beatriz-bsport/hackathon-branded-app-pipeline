@@ -9,6 +9,7 @@ import { fetchOfferBulk } from '../../../libs/offer/actions';
 import { OptionCallback } from '../../../state/types';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import type { CompanyTheme } from '#libs/theme/types';
+import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';
 
 type Props = {
   id: number;
@@ -23,7 +24,12 @@ export class OfferBookerRedirect extends React.Component<Props> {
       onSuccess: (offerList: any) => {
         const offer = offerList[0];
         this.props.replace(
-          `/checkout/${offer.company}/offer-booker/${offer.id}${window.location.search}`,
+          getOfferBookerUrl(
+            offer.company,
+            offer.id,
+            this.props.theme?.display_new_checkout_flow && !offer.group,
+            window.location.search,
+          ),
         );
       },
     });
@@ -41,8 +47,8 @@ export default compose(
       theme: state.theme.theme,
     }),
     {
-    replace,
-    fetchOfferBulk,
+      replace,
+      fetchOfferBulk,
     },
   ),
 )(OfferBookerRedirect);

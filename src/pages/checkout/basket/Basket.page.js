@@ -92,6 +92,7 @@ import { fetchMember } from '#libs/member/actions';
 import { BasketAddress } from '#libs/checkout/types';
 import { fetchMembership } from '#libs/membership/actions';
 import { CheckoutContext } from './CheckoutContext';
+import { getUserSpaceUrl } from '#libs/marketplace/routing-utils';
 
 type Props = {
   basket: ?Basket,
@@ -615,7 +616,7 @@ export default compose(
     }),
     {
       disconnect: authActions.disconnect,
-      goToUserSpace: (id) => pushRouter(`/c/${id}/`),
+      goToUserSpace: (id) => pushRouter(getUserSpaceUrl(id)),
       fetchProfile,
 
       addItemToBasket: addItemToBasketAction,

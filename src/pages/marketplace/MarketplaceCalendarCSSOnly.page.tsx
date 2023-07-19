@@ -85,7 +85,7 @@ import GroupRulePopup from '#libs/marketplace/components/GroupRulePopup.dialog';
 import { Level } from '#libs/level/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
-import { buildUrlParams } from '../../http';
+import { getBookCalendarUrl } from '#libs/marketplace/routing-utils';
 
 type OwnProps = {
   companyId: number;
@@ -627,11 +627,7 @@ const mapWithHandlers = {
       return;
     }
 
-    props.pushAction(
-      `/customer/payment/offer/${id}?${buildUrlParams({
-        membership: companyId,
-      })}`,
-    );
+    props.pushAction(getBookCalendarUrl(id, companyId));
   },
 
   goToBookOption: (props: Props) => (id: number, companyId: number) => {
@@ -640,11 +636,7 @@ const mapWithHandlers = {
       return;
     }
 
-    props.pushAction(
-      `/customer/payment/offer/${id}?${buildUrlParams({
-        membership: companyId,
-      })}`,
-    );
+    props.pushAction(getBookCalendarUrl(id, companyId));
   },
 };
 

@@ -47,6 +47,7 @@ import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
   getMarketplaceRoute,
   fromConfigToUrl,
+  getUserSpaceUrl,
 } from '#libs/marketplace/routing-utils';
 import { urlToMarketplace } from '#libs/marketplace/utils';
 import asyncComponent from '../../AsyncComponent';
@@ -151,7 +152,7 @@ type Props = {
   ) => void,
   subcomponent: string,
   replace: (path: string) => void,
-  goToUserSpace: () => void,
+  goToUserSpace: (companyId: number) => void,
 
   auth: any,
 
@@ -750,8 +751,7 @@ export default compose(
 
       // for signup/signin/profile
       fetchProfile,
-      goToUserSpace: (id) => pushRouter(`/c/${id}/`),
-      goToCheckout: (companyId) => pushRouter(`/checkout/${companyId}/`),
+      goToUserSpace: (companyId) => pushRouter(getUserSpaceUrl(companyId)),
 
       // DEPRECATED
       // signupAction: signupV2,

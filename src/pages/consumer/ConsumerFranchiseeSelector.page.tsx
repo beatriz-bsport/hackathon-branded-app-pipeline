@@ -30,6 +30,7 @@ import {
   getFranchisor,
 } from '#libs/franchise/selectors';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
 
 type OwnProps = {
   location: {
@@ -168,7 +169,7 @@ const mapWithHandlers = {
       if (props.next) {
         props.pushRouter(`/checkout/${companyId}/${props.next}`);
       } else {
-        props.pushRouter(`/m/${encodeURIComponent(companyName)}/${companyId}`);
+        props.pushRouter(getMarketplaceRoute(companyName, companyId));
       }
     },
 };

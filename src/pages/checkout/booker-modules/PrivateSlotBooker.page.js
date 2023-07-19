@@ -66,6 +66,7 @@ import type { Basket } from '../../../libs/checkout/types';
 import WidgetUtils from '../../../libs/widget/WidgetUtils';
 import { getPrivatePassByCategoryWithPasses } from '../../../libs/private-service/selectors/private-pass-category';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
+import { getUserSpaceUrl } from '#libs/marketplace/routing-utils';
 
 type Props = {
   privateServiceId: number,
@@ -435,7 +436,8 @@ export default compose(
       removeItemFromBasket,
       fetchCurrentBasket,
       goToCheckout: (companyId: number) => replace(`/checkout/${companyId}`),
-      goToConsumerHome: (companyId: number) => replace(`/c/${companyId}`),
+      goToConsumerHome: (companyId: number) =>
+        replace(getUserSpaceUrl(companyId)),
       checkPrivateSlotUnpaidBookingEligibility,
     },
   ),

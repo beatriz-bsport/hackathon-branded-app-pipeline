@@ -75,12 +75,12 @@ import withReplaceQueryParams from '#hocs/with-replace-query-params.hoc';
 import withQueryParams from '#hocs/with-query-params.hoc';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
-import { buildUrlParams } from '../../http';
 import { convertMarketplaceFilterForMetaActivityCall } from '#libs/meta-activity/utils';
 import { useWidth } from '../../hooks/useWidth';
 
 import './MarketplaceWorkshop.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { getBookWorkshopUrl } from '#libs/marketplace/routing-utils';
 
 const BATCH_SIZE_FOR_META_ACTIVITY = 6;
 
@@ -293,12 +293,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
         return;
       }
 
-      pushRouter(
-        `/customer/payment/offer/${offer.id || offer}/${buildUrlParams({
-          membership: companyId,
-          fromWorkshop: true,
-        })}`,
-      );
+      pushRouter(getBookWorkshopUrl(offer, companyId));
     },
     [pushRouter, bookWidget, companyId],
   );

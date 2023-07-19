@@ -67,6 +67,10 @@ const CoachBackoffice = asyncComponent(() =>
   import('./pages/coach-userspace/CoachBackoffice.router'),
 );
 
+const QuicksaleRouter = asyncComponent(() =>
+  import('./pages/quicksale/Quicksale.router'),
+);
+
 const styles = () => ({
   root: {
     flexGrow: 1,
@@ -181,6 +185,7 @@ export class Root extends Component<Props> {
               path="/widget/:companyName/:companyId"
               component={WidgetRouter}
             />
+            <Route path="/quicksale/" component={QuicksaleRouter} />
             <Route path="/" component={UserspaceSwitcher} />
           </Switch>
         ) : (

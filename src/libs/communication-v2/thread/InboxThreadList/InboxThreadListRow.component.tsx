@@ -27,7 +27,7 @@ type Props = {
     options?: OptionCallback<CommunicationThread>,
   ) => void;
   selectedThreadId: number;
-  handleOnItemClick: (threadId?: number, hasBeenRead?: boolean) => void;
+  handleOnItemClick: (threadId?: number) => void;
   threadList: CommunicationThreadWithUnreadAnswersCount[];
 };
 
@@ -45,7 +45,7 @@ const InboxThreadListRow: React.FC<Props> = ({
   const thread = threadList[index];
   const isLoading = !(index in threadList && !!threadList[index]);
   const onItemClick = useCallback(() => {
-    handleOnItemClick(thread?.id, thread?.last_communication_has_been_read);
+    handleOnItemClick(thread?.id);
   }, [thread, handleOnItemClick]);
 
   return (

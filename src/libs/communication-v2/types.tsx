@@ -127,7 +127,7 @@ export type CommunicationMetadata = {
 export type CommunicationContext = {
   context_identifier?: number;
   context_object_id?: number;
-  communication_thread?: number;
+  thread_id?: number;
 };
 
 export type SelectFieldItem = {
@@ -263,7 +263,6 @@ export type FetchInboxThreadPayload = {
 } & CommunicationThread;
 
 export type InboxThreadRouterProps = {
-  selectedThreadId?: number;
   contextSelected?: ChatThreadKinds;
   setContextSelected?: (context: ChatThreadKinds, options?: () => void) => void;
   thread?: CommunicationThread;

@@ -146,11 +146,11 @@ class InboxThreadListPage extends PureComponent<Props> {
 
     if (hasFilterChanged) {
       this.props.setFilterValue(value, () => {
-        const selectedId = this.props.selectedThreadId;
-
-        if (selectedId) {
-          const thread = this.props.threadsById[selectedId];
-          const isDisplayed = isThreadDisplayed(thread, this.props.filterValue);
+        if (this.props.thread) {
+          const isDisplayed = isThreadDisplayed(
+            this.props.thread,
+            this.props.filterValue,
+          );
 
           if (!isDisplayed) {
             this.props.unselectThread();
@@ -205,7 +205,7 @@ class InboxThreadListPage extends PureComponent<Props> {
       handleSwitchMutedStatus,
       handleSwitchDisabledStatus,
       handleFlagAsUnread,
-      selectedThreadId,
+      thread,
       handleOnItemClick,
       contextSelected,
       filterValue,
@@ -221,7 +221,7 @@ class InboxThreadListPage extends PureComponent<Props> {
           switchMutedStatus={handleSwitchMutedStatus}
           switchDisabledStatus={handleSwitchDisabledStatus}
           flagAsUnread={handleFlagAsUnread}
-          selectedThreadId={selectedThreadId}
+          selectedThreadId={thread?.id}
           handleOnItemClick={handleOnItemClick}
           loadMoreItems={this.loadMoreItems}
           searchThread={this.searchThread}
@@ -319,7 +319,7 @@ export default compose<Props, InboxThreadRouterProps>(
       },
     handleOnItemClick:
       ({
-        selectedThreadId,
+        thread,
         threadsById,
         flagAsRead,
         contextSelected,
@@ -332,10 +332,10 @@ export default compose<Props, InboxThreadRouterProps>(
       }: InboxListConnectedProps) =>
       (id?: number) => {
         if (id) {
-          if (id !== selectedThreadId) {
+          if (id !== thread?.id) {
             selectThread(id);
-            const thread = threadsById[id];
-            if (!thread.last_communication_has_been_read) {
+            const newThread = threadsById[id];
+            if (!newThread.last_communication_has_been_read) {
               handleSwitchStatus(
                 flagAsRead,
                 contextSelected,
@@ -354,11 +354,14 @@ export default compose<Props, InboxThreadRouterProps>(
       ({
         flagAsUnread,
         getUnreadAnswersCountFromThread,
+        unselectThread,
       }: InboxListConnectedProps) =>
       (threadId: number) => {
         flagAsUnread(threadId, {
-          onSuccess: (thread: CommunicationThread) =>
-            getUnreadAnswersCountFromThread(thread.id),
+          onSuccess: (thread: CommunicationThread) => {
+            getUnreadAnswersCountFromThread(thread.id);
+            unselectThread();
+          },
         });
       },
     handleSwitchFavoriteStatus:

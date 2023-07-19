@@ -60,6 +60,7 @@ import {
   InboxThreadListParams,
   CommunicationThread,
   CommunicationThreadWithUnreadAnswersCount,
+  CommunicationContext,
 } from './types';
 import { Booking, BookingOption } from '#libs/booking/types';
 import { Member } from '#libs/member/types';
@@ -1061,3 +1062,30 @@ export const getFilterTagsFromSmartlist = memoize((filtersSmartlist, tags) => {
 
   return Immutable({ includedTagsForSmartlist, excludedTagsForSmartlist });
 });
+
+export const getCommunicationContextFromThread = (
+  thread: CommunicationThread,
+): CommunicationContext => {
+  switch (thread.related_object_kind) {
+    case ChatThreadKinds.Member:
+      return {
+        context_identifier: CONTEXT_MEMBER,
+        context_object_id: thread.related_object_id,
+        thread_id: thread.id,
+      };
+    case ChatThreadKinds.Smartlist:
+      return {
+        context_identifier: CONTEXT_SMARTLIST,
+        context_object_id: thread.related_object_id,
+        thread_id: thread.id,
+      };
+    case ChatThreadKinds.Offer:
+      return {
+        context_identifier: CONTEXT_OFFER,
+        context_object_id: thread.related_object_id,
+        thread_id: thread.id,
+      };
+    default:
+      return { thread_id: thread.id };
+  }
+};

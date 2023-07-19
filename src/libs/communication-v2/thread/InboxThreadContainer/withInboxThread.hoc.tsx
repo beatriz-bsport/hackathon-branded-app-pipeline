@@ -5,6 +5,7 @@ import { push } from 'connected-react-router';
 import uniq from 'lodash/uniq';
 import type { Moment as MomentType } from 'moment-timezone';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import type { OptionCallback } from '../../../../state/types';
 import type { RootState } from '../../../../reducers';
 
@@ -26,7 +27,6 @@ import {
   getCommunicationMessageList,
   getCommunicationMessageListHasNextPage,
   getCommunicationMessageListLoading,
-  getMemberFromThreadId,
   getThreadsPaginationResults,
 } from '#libs/communication-v2/selectors';
 import {
@@ -34,6 +34,7 @@ import {
   getFormatedQueryParamsFromThread,
   getFormatedQueryParamsToFetchRecipientPaginatedList,
   getFiltersToEnableForThread,
+  getCommunicationContextFromThread,
 } from '#libs/communication-v2/utils';
 import type {
   Communication,
@@ -44,6 +45,7 @@ import type {
   InboxThreadRouterProps,
   SelectFieldItem,
   MessageParams,
+  CommunicationContext,
 } from '#libs/communication-v2/types';
 
 // TEMPLATES
@@ -71,7 +73,7 @@ import {
   fetchCommunicationsPaginatedMembers,
   fetchMemberBulkById as fetchMemberBulkByIdAction,
 } from '#libs/member/actions';
-import { getPaginatedMembers } from '#libs/member/selectors';
+import { getMember, getPaginatedMembers } from '#libs/member/selectors';
 import {
   MAX_DISPLAY,
   PAGINATION_SIZE_RECIPIENTS,
@@ -168,10 +170,7 @@ export type WithInboxThreadDataProps = InboxConnectedProps &
   WithTranslation;
 
 const connector = connect(
-  (
-    state: RootState,
-    { selectedThreadId, contextSelected }: InboxThreadRouterProps,
-  ) => ({
+  (state: RootState, { thread, contextSelected }: InboxThreadRouterProps) => ({
     // INBOX THREADS
     threadsById: state.communicationV2.inboxThread.byId,
     count: getThreadsPaginationResults(state, contextSelected)?.count,
@@ -190,7 +189,10 @@ const connector = connect(
     emailTemplateSummaryList: getAllEmailTemplatesSummaries(state),
     loadingEmailTemplateSummaryList: state.emailTemplate.loading,
     // MEMBERS
-    contextMember: getMemberFromThreadId(state, selectedThreadId),
+    contextMember:
+      thread?.related_object_kind === ChatThreadKinds.Member &&
+      // @ts-expect-error
+      getMember(state, thread?.related_object_id),
     countAvailableRecipientsTotal: state.member.communication.countTotal,
     countAvailableRecipientsWithEmail:
       state.member.communication.countWithEmail,
@@ -273,7 +275,7 @@ export default function withInboxThreadData(
               props.inboxContainerState.filterDateStart,
               props.inboxContainerState.filterDateEnd,
             ),
-            communication_thread: props.thread.id,
+            thread_id: props.thread.id,
           };
 
           if (isRefreshingThread && params) {
@@ -373,8 +375,12 @@ export default function withInboxThreadData(
             memberSelectedCategories || [],
           );
 
+          const communicationContextParams: CommunicationContext =
+            getCommunicationContextFromThread(props.thread);
+
           const dataWithContext: MessageParams = {
             ...data,
+            ...communicationContextParams,
             member_filters: {
               ...member_filters,
             },
@@ -383,18 +389,12 @@ export default function withInboxThreadData(
           return props.sendCommunicationAction(dataWithContext, options);
         },
       flagAsReadAndUpdateUnreadCount:
-        ({
-          selectedThreadId,
-          flagAsRead,
-          thread,
-          getUnreadAnswersCountFromThread,
-        }) =>
+        ({ flagAsRead, thread, getUnreadAnswersCountFromThread }) =>
         () => {
           if (thread) {
             if (thread.last_communication_has_been_read === false) {
-              flagAsRead(selectedThreadId, {
-                onSuccess: () =>
-                  getUnreadAnswersCountFromThread(selectedThreadId),
+              flagAsRead(thread.id, {
+                onSuccess: () => getUnreadAnswersCountFromThread(thread.id),
               });
             }
           }

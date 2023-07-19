@@ -17,7 +17,7 @@ import InboxPanelSmartlistTags from './InboxPanelSmartlistTags.component';
 type Props = {
   smartlist: SmartList;
   memberCount: number;
-  filters: number[];
+  filters: any;
   includedTags: Tag<TagGroup>[];
   excludedTags: Tag<TagGroup>[];
   goToSmartlistPage?: (
@@ -70,10 +70,10 @@ const InboxPanelSmartlist: React.FC<Props> = ({
           />
         </div>
         <div className={classes.filterContainer}>
-          {filters.map((filter) => (
+          {filters.map((filter: any) => (
             <div className={classes.chipContainer}>
               <CustomChip
-                displayedValue={t(`filters.${filter}.name`)}
+                displayedValue={t(`filters.${filter.filter_identifier}.name`)}
                 mainColor={theme.palette.common.black}
               />
             </div>
@@ -138,6 +138,7 @@ const useStyles = makeStyles((theme) => ({
   },
   chipContainer: {
     paddingRight: theme.spacing(1),
+    paddingTop: theme.spacing(1),
   },
   smallPaddingTop: {
     paddingTop: theme.spacing(1),
@@ -146,6 +147,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     paddingTop: theme.spacing(1),
+    flexWrap: 'wrap',
   },
   paddingTopContainer: {
     display: 'flex',

@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router';
 import { push } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import classnames from 'classnames';
-import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
+import withWidth, { isWidthDown, isWidthUp } from '@material-ui/core/withWidth';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import { withStyles, createStyles, WithStyles, Theme } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -20,7 +20,7 @@ import { fetchInboxThreadFromId as fetchInboxThreadFromIdAction } from '#libs/co
 import InboxPanel from './InboxPanel.page';
 import { drawerIconsOnlyWith } from '#components/navigation/BackofficeDrawer/BackofficeDrawer.component';
 
-const INBOX_PANEL_WIDTH = 550;
+const INBOX_PANEL_WIDTH = 400;
 
 type State = {
   contextSelected: ChatThreadKinds;
@@ -86,7 +86,12 @@ const styles = (theme: Theme) =>
 
 class InboxContainer extends React.PureComponent<Props> {
   componentDidMount() {
-    const { id, fetchThreadOrRedirectToTheList } = this.props;
+    const { id, fetchThreadOrRedirectToTheList, width, setIsPanelOpen } =
+      this.props;
+
+    if (isWidthUp('lg', width)) {
+      setIsPanelOpen(true);
+    }
 
     if (id) {
       fetchThreadOrRedirectToTheList();
@@ -120,11 +125,10 @@ class InboxContainer extends React.PureComponent<Props> {
       return (
         <Switch>
           <Route exact path="/inbox/thread/:id/">
-            <InboxThreadContainer selectedThreadId={id} thread={thread} />
+            <InboxThreadContainer thread={thread} />
           </Route>
           <Route exact path="/inbox/thread/">
             <InboxThreadList
-              selectedThreadId={id}
               contextSelected={contextSelected}
               setContextSelected={setContextSelected}
             />
@@ -140,7 +144,6 @@ class InboxContainer extends React.PureComponent<Props> {
       <div className={classes.container}>
         <div className={classes.threadList}>
           <InboxThreadList
-            selectedThreadId={id}
             contextSelected={contextSelected}
             setContextSelected={setContextSelected}
             thread={thread}
@@ -153,7 +156,6 @@ class InboxContainer extends React.PureComponent<Props> {
           variant="outlined"
         >
           <InboxThreadContainer
-            selectedThreadId={id}
             contextSelected={contextSelected}
             thread={thread}
           />

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { fireEvent, render, act } from '@testing-library/react';
+import 'regenerator-runtime/runtime'; // otherwise the test fails with regeneratorRuntime is not defined
 
 import FuzzySearch from '../search/FuzzySearch.component';
 

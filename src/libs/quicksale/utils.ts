@@ -194,3 +194,16 @@ export const getCardInfoFromBuyableItem = (
       };
   }
 };
+
+// This function is helpful when using Fuse. The result of fuse.search has the type
+// ```
+// X[] | Fuse.FuseResultWithMatches<X>[] | Fuse.FuseResultWithScore<X>[] |
+// (Fuse.FuseResultWithMatches<...> & Fuse.FuseResultWithScore<...>)[]
+// ```
+// according to TS (where X is the type of the items you give to the search),
+// but it's actually never X[] directly, so this is used to make TS understand that.
+export function isNotQuicksaleCardInfoList<T extends Object[]>(
+  object: T,
+): object is Exclude<T, QuicksaleCardInfo[]> {
+  return object.length > 0 && 'item' in object[0];
+}

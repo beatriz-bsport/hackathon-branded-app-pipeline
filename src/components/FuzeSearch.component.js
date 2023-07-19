@@ -4,6 +4,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import classNames from 'classnames';
+import isEqual from 'lodash/isEqual';
 
 import Fuse from 'fuse.js';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -14,6 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 import memoize from 'memoize-one';
 
 import DelayedTextField from './DelayedTextField.component';
+import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 
 type Props = {
   items: Array,
@@ -24,8 +26,12 @@ type Props = {
   changeSearch: (any) => void,
   classes: Object,
   className?: string,
+  inputClassName?: string,
   variant?: string,
   disableAutoFocus?: boolean,
+  adornmentPosition: 'start' | 'end' | 'none',
+  onClickSearch?: () => void,
+  searchOnItemsChange?: boolean,
 };
 
 export class FuzeSearch extends React.Component<Props> {
@@ -41,8 +47,22 @@ export class FuzeSearch extends React.Component<Props> {
     return new Fuse(items, options);
   });
 
+  componentDidUpdate(prevProps) {
+    if (
+      this.props.searchOnItemsChange &&
+      !isEqual(prevProps.items, this.props.items)
+    ) {
+      this.props.changeSearch(this.getFuse(this.props.items))({
+        target: { value: this.props.searchText },
+      });
+    }
+  }
+
   render() {
     const fuse = this.getFuse(this.props.items);
+    const adornmentPosition = this.props.adornmentPosition ?? 'start';
+    const { onClickSearch } = this.props;
+
     return (
       <div
         className={classNames(
@@ -59,21 +79,63 @@ export class FuzeSearch extends React.Component<Props> {
           delay={170}
           autoFocus={!this.props.disableAutoFocus}
           InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
+            className: this.props.inputClassName,
+            startAdornment:
+              adornmentPosition === 'start' ? (
+                <InputAdornment position="start">
+                  {onClickSearch ? (
+                    <IconButton
+                      className={this.props.classes.iconButton}
+                      onClick={onClickSearch}
+                      disabled={!this.props.searchText}
+                    >
+                      <CustomMuiIcon
+                        icon="Search"
+                        variant={this.props.searchText ? 'primary' : undefined}
+                      />
+                    </IconButton>
+                  ) : (
+                    <SearchIcon />
+                  )}
+                </InputAdornment>
+              ) : null,
+            endAdornment: (
+              <div className={this.props.classes.endAdornment}>
+                {this.props.searchText ? (
+                  <InputAdornment position="end">
+                    <IconButton
+                      className={this.props.classes.iconButton}
+                      aria-label={
+                        this.props.searchText ? 'Clear search' : 'Search'
+                      }
+                      onClick={this.props.clearSearch}
+                    >
+                      <ClearIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ) : null}
+                {adornmentPosition === 'end' ? (
+                  <InputAdornment position="end" style={{ marginLeft: 0 }}>
+                    {onClickSearch ? (
+                      <IconButton
+                        className={this.props.classes.iconButton}
+                        onClick={onClickSearch}
+                        disabled={!this.props.searchText}
+                      >
+                        <CustomMuiIcon
+                          icon="Search"
+                          variant={
+                            this.props.searchText ? 'primary' : undefined
+                          }
+                        />
+                      </IconButton>
+                    ) : (
+                      <SearchIcon />
+                    )}
+                  </InputAdornment>
+                ) : null}
+              </div>
             ),
-            endAdornment: this.props.searchText ? (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label={this.props.searchText ? 'Clear search' : 'Search'}
-                  onClick={this.props.clearSearch}
-                >
-                  <ClearIcon />
-                </IconButton>
-              </InputAdornment>
-            ) : null,
           }}
           // eslint-disable-next-line react/jsx-no-duplicate-props
           inputProps={{
@@ -85,8 +147,14 @@ export class FuzeSearch extends React.Component<Props> {
   }
 }
 
-const styles = () => ({
+const styles = (theme) => ({
   container: { width: '100%' },
+  endAdornment: {
+    display: 'flex',
+  },
+  iconButton: {
+    padding: theme.spacing(0.75),
+  },
 });
 
 export default compose(withStyles(styles))(FuzeSearch);

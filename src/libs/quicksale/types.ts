@@ -25,12 +25,14 @@ export type QuicksaleSection = {
 
 export type QuicksaleCardInfo = {
   id: string; // `${buyable_item_identifier} ${object_id}`
-  title: string;
-  subtitle: string;
-  price: number;
+  title?: string;
+  subtitle?: string;
+  price?: number;
   recurrence?: string;
-  color: QuicksaleItemColor;
+  color?: QuicksaleItemColor;
   sectionId: string;
+  outOfStock?: boolean;
+  restricted?: boolean;
 };
 
 type QuicksaleItemsByCategory = {

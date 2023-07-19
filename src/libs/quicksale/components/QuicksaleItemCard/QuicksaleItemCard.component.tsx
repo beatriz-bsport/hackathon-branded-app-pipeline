@@ -1,4 +1,6 @@
 import React from 'react';
+import classNames from 'classnames';
+
 import { Theme, useMediaQuery } from '@material-ui/core';
 import DragIndicator from '@material-ui/icons/DragIndicator';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -6,10 +8,9 @@ import RemoveShoppingCard from '@material-ui/icons/RemoveShoppingCart';
 import Block from '@material-ui/icons/Block';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import classNames from 'classnames';
-import { QuicksaleCardInfo } from '../../types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import useGlobalStyle from '../../globalStyleHook';
+import type { QuicksaleCardInfo } from '../../types';
 import useStyle from './styles';
 
 const stopPropagation = (e: React.KeyboardEvent) => e.stopPropagation();
@@ -18,7 +19,7 @@ type Props = {
   item: QuicksaleCardInfo;
   openColorModal?: (itemId: string) => void;
   deleteItem?: (itemId: string) => void;
-  addToBasket?: (itemId: string) => void;
+  addToBasket?: (item: QuicksaleCardInfo) => void;
   outOfStock?: boolean;
   restrictedPurchase?: boolean;
   adminView?: boolean;
@@ -65,8 +66,8 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
   );
 
   const addItemToBasket = React.useCallback(
-    () => addToBasket?.(item.id),
-    [item.id, addToBasket],
+    () => addToBasket?.(item),
+    [item, addToBasket],
   );
 
   return (
@@ -89,11 +90,11 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
 
         <div className={classes.cardTitleAndSubtitle}>
           <Typography variant="subtitle2" className={classes.cardTitle}>
-            {item.title}
+            {item.title ?? ''}
           </Typography>
 
           <Typography variant="caption" className={classes.cardSubtitle}>
-            {item.subtitle}
+            {item.subtitle ?? ''}
           </Typography>
         </div>
       </div>
@@ -101,7 +102,7 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
       <div className={classes.cardFooter}>
         <div className={classes.priceAndRecurrence}>
           <Typography variant="subtitle2" className={classes.cardPrice}>
-            {getCurrencyDisplayWithPrice(item.price.toFixed(2))}
+            {getCurrencyDisplayWithPrice((item.price ?? 0).toFixed(2))}
           </Typography>
 
           {item.recurrence && (

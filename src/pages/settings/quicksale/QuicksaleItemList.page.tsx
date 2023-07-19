@@ -57,7 +57,9 @@ import { RootState } from '../../../reducers';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import PromptOnPageLeave from '#components/Prompt';
 import useGlobalStyles from './cardListHook';
-import QuicksaleConfigurationItemList from '#libs/quicksale/components/QuicksaleConfigurationItemList';
+import QuicksaleConfigurationItemList, {
+  QuicksaleItemListHeader,
+} from '#libs/quicksale/components/QuicksaleConfigurationItemList';
 import QuicksaleItemAdditionDrawer from '#libs/quicksale/components/QuicksaleItemAdditionDrawer';
 import withDatatypeDynamicData from '#libs/datatype-filtering/dynamic-data-hoc';
 import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
@@ -487,16 +489,20 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
             )}
           </Alert>
 
-          <QuicksaleConfigurationItemList
-            sectionName={currentSection?.section_name ?? ''}
-            sectionIcon={currentSection?.section_icon ?? ''}
-            openColorModal={openColorModal}
-            deleteItem={onItemDelete}
-            openAddItemDrawer={openItemAdditionDrawer}
-            itemList={unsavedItemList}
-            loading={loading}
-            goBack={onGoBackClick}
-          />
+          <div className={localClasses.itemListContainer}>
+            <QuicksaleItemListHeader
+              sectionName={currentSection?.section_name ?? ''}
+              sectionIcon={currentSection?.section_icon ?? ''}
+              goBack={onGoBackClick}
+            />
+            <QuicksaleConfigurationItemList
+              openColorModal={openColorModal}
+              deleteItem={onItemDelete}
+              openAddItemDrawer={openItemAdditionDrawer}
+              itemList={unsavedItemList}
+              loading={loading}
+            />
+          </div>
         </div>
       </div>
 
@@ -566,6 +572,21 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: '25%',
     },
     height: 'fit-content',
+  },
+  itemListContainer: {
+    backgroundColor: theme.palette.grey[50],
+    borderRadius: theme.spacing(1),
+    padding: theme.spacing(3),
+    paddingLeft: theme.spacing(1.5),
+    paddingRight: theme.spacing(1.5),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(2),
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+    },
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
   },
 }));
 

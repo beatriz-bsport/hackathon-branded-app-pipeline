@@ -118,7 +118,7 @@ type WithState = {
 };
 
 type WithHandlers = {
-  fetchPageMessageList: (isRefreshingThread?: boolean) => void;
+  fetchPageMessageList: (isRefreshingThread?: boolean, page?: number) => void;
   fetchPageInformationRecipientList: (
     communication: Communication,
     page: number,

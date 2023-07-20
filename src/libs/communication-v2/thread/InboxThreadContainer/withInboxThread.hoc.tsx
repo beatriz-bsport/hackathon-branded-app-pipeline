@@ -267,9 +267,10 @@ export default function withInboxThreadData(
     }),
     withHandlers({
       fetchPageMessageList:
-        (props: InboxConnectedProps) => (isRefreshingThread?: boolean) => {
+        (props: InboxConnectedProps) =>
+        (isRefreshingThread?: boolean, page?: number) => {
           const params: FetchCommunicationParams = !!props.thread && {
-            page: props.inboxContainerState.messagePage,
+            page: page || props.inboxContainerState.messagePage,
             ...getFormatedFiltersToFetchCommunicationSent(
               props.inboxContainerState.filters,
               props.inboxContainerState.filterDateStart,

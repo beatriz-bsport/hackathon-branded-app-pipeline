@@ -58,6 +58,11 @@ class InboxThreadContainerPage extends PureComponent<Props> {
 
     if (newThreadCalled) {
       fetchPaginatedAvailableRecipientMemberList(1);
+
+      this.props.setInboxContainerState({
+        ...this.props.inboxContainerState,
+        messagePage: 1,
+      });
       flagAsReadAndUpdateUnreadCount();
       this.fetchMessageListAndScheduleRefresh();
       this.fetchAdditionalThreadData();
@@ -101,7 +106,7 @@ class InboxThreadContainerPage extends PureComponent<Props> {
   };
 
   fetchMessageListAndScheduleRefresh = (isRefreshingThread?: boolean) => {
-    this.props.fetchPageMessageList(isRefreshingThread);
+    this.props.fetchPageMessageList(isRefreshingThread, 1);
     // this.scheduleRefreshMessageList(isRefreshingThread);
   };
 

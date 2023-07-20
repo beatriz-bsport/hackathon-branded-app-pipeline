@@ -1,13 +1,11 @@
 // @ts-nocheck
 import React, { useCallback, useMemo } from 'react';
-import { compose } from 'recompose';
-import { WithTranslation, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Form, Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import moment from 'moment-timezone';
 import pick from 'lodash/pick';
 
-import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Button from '@material-ui/core/Button';
 import { Divider, LinearProgress } from '@material-ui/core';
@@ -65,7 +63,7 @@ const penaltyKindDict = {
 };
 
 const getFormInitial = (
-  compatibleServicePass: Array<ServiceCompatibilityPass> = [],
+  compatibleServicePass: ServiceCompatibilityPass[] = [],
 ) => {
   if (
     compatibleServicePass?.length > 0 &&
@@ -85,12 +83,12 @@ const getFormInitial = (
   return [];
 };
 
-type OwnProps = {
-  paymentPackCategories: Array<PaymentPackCategory>;
-  categoryList: Array<SCT>;
-  availableEstablishmentList: Array<Establishment>;
-  metaActivityList: Array<MetaActivity>;
-  tagList: Array<Tag<TagGroup>>;
+type Props = {
+  paymentPackCategories: PaymentPackCategory[];
+  categoryList: SCT[];
+  availableEstablishmentList: Establishment[];
+  metaActivityList: MetaActivity[];
+  tagList: Tag<TagGroup>[];
   initial?: PaymentPack<PrivatePass>;
   onCancel?: () => void;
   onCancelText: string;
@@ -102,12 +100,10 @@ type OwnProps = {
   clearPaymentPackToEdit: () => void;
   provincialTax: number;
   isInDrawer: boolean;
-  privateServices: Array<PrivateServiceWithSlots>;
-  compatibleServicePass: Array<ServiceCompatibilityPass>;
+  privateServices: PrivateServiceWithSlots[];
+  compatibleServicePass: ServiceCompatibilityPass[];
   allowGuestMaster?: boolean;
 };
-
-type Props = OwnProps & WithTranslation;
 
 const {
   trackFormAdd,
@@ -119,7 +115,6 @@ const {
 );
 
 export const PaymentPackForm: React.FC<Props> = ({
-  t,
   paymentPackCategories,
   categoryList,
   availableEstablishmentList,
@@ -141,6 +136,7 @@ export const PaymentPackForm: React.FC<Props> = ({
   const [disabledUniversalPassFields, setDisableUniversalPassFields] =
     React.useState<boolean>(false);
 
+  const { t } = useTranslation('paymentPack');
   React.useEffect(() => {
     trackFormAdd(initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -536,7 +532,7 @@ export const PaymentPackForm: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles<Theme>((theme) => ({
+const useStyles = makeStyles((theme) => ({
   actionButton: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -559,9 +555,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-export default React.memo(
-  compose<any, OwnProps>(withTranslation('paymentPack'))(PaymentPackForm),
-);
+export default React.memo(PaymentPackForm);
 
 const paymentPackSchema = Yup.object().shape({
   name: Yup.string().required('paymentPack:addPaymentPack.requiredField'),

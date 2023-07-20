@@ -9,6 +9,10 @@ import ExitCardFlowVersion from '../nodes/exits/CadenceExitCardFlowVersion.compo
 import {
   DestinationKind,
   TriggerIdentifier,
+  DEFAULT_X_FOR_ENTRYSTEP,
+  DEFAULT_X_FOR_EXIT,
+  DEFAULT_X_FOR_INNERSTEP,
+  DEFAULT_X_FOR_TRIGGER,
 } from '#libs/sequential_marketing/constants';
 
 import type {
@@ -194,7 +198,7 @@ export const useNodeElementsRecorder = ({
                 y: parseFloat(storedEntryStep.canvas?.position?.y ?? '0'),
               },
             }
-          : { position: { x: 0, y: 0 } }),
+          : { position: { x: DEFAULT_X_FOR_ENTRYSTEP, y: 0 } }),
         data: {
           step: storedEntryStep,
           triggerList: cadence.entries,
@@ -239,7 +243,7 @@ export const useNodeElementsRecorder = ({
                 y: parseFloat(triggerNode.trigger.canvas.position.y),
               },
             }
-          : { position: { x: 400, y: 0 } }),
+          : { position: { x: DEFAULT_X_FOR_TRIGGER, y: 0 } }),
         data: {
           step: triggerNode.step,
           trigger: triggerNode.trigger,
@@ -300,7 +304,7 @@ export const useNodeElementsRecorder = ({
                 y: parseFloat(stepNode.canvas.position.y),
               },
             }
-          : { position: { x: 800, y: 0 } }),
+          : { position: { x: DEFAULT_X_FOR_INNERSTEP, y: 0 } }),
         data: {
           step: stepNode,
           disabled: !cadenceEditMode,
@@ -353,7 +357,7 @@ export const useNodeElementsRecorder = ({
                 y: parseFloat(triggerNode.trigger.canvas.position.y) + 25,
               },
             }
-          : { position: { x: 1200, y: 0 } }),
+          : { position: { x: DEFAULT_X_FOR_EXIT, y: 0 } }),
         data: {
           step: triggerNode?.step,
           status: triggerNode?.trigger?.destination_config?.status,

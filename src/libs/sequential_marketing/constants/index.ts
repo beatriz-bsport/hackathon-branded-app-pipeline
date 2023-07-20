@@ -22,6 +22,13 @@ import {
   DESTINATION_STATUS_CHOICES,
 } from './triggers';
 
+import {
+  DEFAULT_X_FOR_ENTRYSTEP,
+  DEFAULT_X_FOR_EXIT,
+  DEFAULT_X_FOR_INNERSTEP,
+  DEFAULT_X_FOR_TRIGGER,
+} from './steps';
+
 import { FilterIdentifier } from './filters';
 
 import { CadencePanelMode } from './panel';
@@ -53,6 +60,11 @@ export {
   CadencePanelMode,
   // COLORS
   SequentialMarketingColors,
+  // STEPS
+  DEFAULT_X_FOR_ENTRYSTEP,
+  DEFAULT_X_FOR_EXIT,
+  DEFAULT_X_FOR_INNERSTEP,
+  DEFAULT_X_FOR_TRIGGER,
 };
 
 export const SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS = [498];

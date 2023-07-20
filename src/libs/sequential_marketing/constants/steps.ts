@@ -41,3 +41,10 @@ export enum HandleTypeChoices {
   SOURCE = 'source',
   TARGET = 'target',
 }
+
+// ========== CADENCE STEP POSITIIONS ==========
+
+export const DEFAULT_X_FOR_ENTRYSTEP = 0;
+export const DEFAULT_X_FOR_TRIGGER = 400;
+export const DEFAULT_X_FOR_INNERSTEP = 800;
+export const DEFAULT_X_FOR_EXIT = 1200;

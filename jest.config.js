@@ -10,7 +10,7 @@ module.exports = {
   testEnvironment: 'node',
   transform: {
     // '^.+\\.(ts|tsx)$': 'ts-jest',
-    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
+    '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { configFile: './.jest.babelrc' }],
   },
   transformIgnorePatterns: [
     '[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs|ts|tsx)$',

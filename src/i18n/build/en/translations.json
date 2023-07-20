@@ -2896,10 +2896,7 @@
                 "placeholder": "Select a type",
                 "title": "Type"
             },
-            "numberFilter": {
-                "oneFilter": "1 applied filter",
-                "severalFilters": "Applied filters"
-            },
+            "numberFilter": "1 filter applied",
             "dateFilter": {
                 "dateEnd": "End date",
                 "dateStart": "Start date",
@@ -2911,7 +2908,8 @@
             "srcOrDst": {
                 "placeholder": "Select a message type",
                 "title": "Messages"
-            }
+            },
+            "numberFilter_plural": "{{count}} filters applied"
         },
         "dialogInformation": {
             "status": {
@@ -2997,7 +2995,14 @@
                     "smartlist": "Smartlist details",
                     "member": "Member details"
                 },
-                "filterMessages": "Filter messages"
+                "filterMessages": "Filter messages",
+                "noMessage": "No message",
+                "disableDialog": {
+                    "title": "Archive chat",
+                    "firstContent": "You're about to archive this chat.",
+                    "secondContent": "It will no longer appear in the chat list, but can still be accessed by selecting the 'Archived' filter.",
+                    "thirdContent": "Note that a new message in this chat, either from you or from the other person, will automatically restore the chat."
+                }
             },
             "kind": {
                 "member": "Members",
@@ -3013,7 +3018,40 @@
                 "disabled": "Archived"
             },
             "loadMoreThreads": "Load more messages",
-            "noThread": "No result"
+            "noThread": {
+                "list": "No results",
+                "item": {
+                    "member": "Find here the conversations with the members",
+                    "smartlist": "Find here the conversations from your smartlists",
+                    "offer": "Find here the conversations from your sessions"
+                }
+            },
+            "selectThread": {
+                "title": "Select a cat",
+                "description": "Click on a member, smartlist or session to display the associated conversation"
+            },
+            "panel": {
+                "header": "Details",
+                "tags": "Tags",
+                "member": {
+                    "invoices": {
+                        "title": "Invoices",
+                        "noUnpaidInvoices": "Up to date"
+                    },
+                    "files": "Files",
+                    "notes": "Notes"
+                },
+                "smartlist": {
+                    "memberCount": "Members in the smartlist",
+                    "filters": "Filters",
+                    "description": "Description"
+                },
+                "navigation": {
+                    "member": "View member details",
+                    "smartlist": "See smartlist details",
+                    "offer": "See session details"
+                }
+            }
         },
         "sentStatus": {
             "fail": "An error occurred while sending",
@@ -3040,6 +3078,17 @@
             "preview": "Preview",
             "close": "Close",
             "drawerTitle": "History of startup pop-ups"
+        },
+        "createThread": {
+            "close": "Close",
+            "confirmResourceSelected": "Confirm"
+        },
+        "messageList": {
+            "filterOutCommunicationSent": "The communication you have just sent is hidden by the active filters.",
+            "emptyList": {
+                "becauseOfFilters": "No results matching filters.",
+                "becauseNeverUsed": "You have not yet sent any communication on this channel."
+            }
         }
     },
     "privateService": {
@@ -4966,6 +5015,10 @@
             "5": {
                 "name": "Reporting",
                 "description": "This will only provide access to Reporting, which may be useful for your accountants."
+            },
+            "-1": {
+                "description": "Access to quick sales interface only",
+                "name": "Checkin sales interface"
             }
         },
         "rolePermissions": {
@@ -5053,6 +5106,9 @@
                     },
                     "coachUserspace": {
                         "_label": "Teacher View"
+                    },
+                    "quicksale": {
+                        "_label": "Quick sales interface"
                     }
                 },
                 "reporting": {
@@ -8086,7 +8142,8 @@
             "2": "Pending",
             "1": "Failed",
             "0": "Successful"
-        }
+        },
+        "anonymousMember": "Anonymous member"
     },
     "coach": {
         "coach": "Teacher",
@@ -8346,7 +8403,8 @@
                     "label": "Number of bills",
                     "helperText": "Minimum is 2 months",
                     "error": "The number of billings should not exceed 90",
-                    "errorForFixedBillingDay": "The number of billings should not exceed 12"
+                    "errorForFixedBillingDay": "The number of billings should not exceed 12",
+                    "restrictionForFixedBillingDay": "The number of billings must be between 2 and 12 for fixed-day billing"
                 },
                 "managerOnly": {
                     "label": "Unavailable for purchase"
@@ -9701,7 +9759,8 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
-                "Cancelled"
+                "Cancelled",
+                "Canceled"
             ]
         },
         "payment_method_with_credit_account": {
@@ -13131,7 +13190,10 @@
             "content_plural": "You cannot delete this smartlist as long as it is used in the following cadences:",
             "cancel": "Close",
             "title": "Used in one of the cadences"
-        }
+        },
+        "generateExport": "Generate export",
+        "generateHelperText": "Generate export to download smartlist",
+        "lastGenerated": "Last export generated on : {{-date}} {{time}}"
     },
     "coachPerformance": {
         "fields": {

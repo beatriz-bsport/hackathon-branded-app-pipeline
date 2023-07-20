@@ -14,6 +14,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import VoucherCodesRowItem from './VoucherCodesRowItem.component';
 import type { Coupon, UniqueCodeState } from '#libs/coupon/types';
 import { VOUCHER_CODE_TABLE_PAGE_SIZE } from '#libs/coupon/constants';
+import VoucherCodesSelectButtons from '../VoucherCodesSelectors/VoucherCodesSelectButtons.component';
 
 export type Props = {
   availableUniqueCodes: string[];
@@ -93,7 +94,12 @@ const VoucherCodesTable: React.FC<Props> = ({
     );
   }
   return (
-    <React.Fragment>
+    <>
+      <VoucherCodesSelectButtons
+        allCodes={allCodes}
+        selectedVoucherCodes={selectedVoucherCodes}
+        setSelectedVoucherCodes={setSelectedVoucherCodes}
+      />
       <Table aria-label="simple table" padding="normal" size="small">
         <TableHead>
           <TableRow>
@@ -131,7 +137,7 @@ const VoucherCodesTable: React.FC<Props> = ({
           page={currentPage}
         />
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

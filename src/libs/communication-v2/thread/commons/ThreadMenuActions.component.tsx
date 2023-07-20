@@ -163,6 +163,7 @@ const ThreadMenuActions: React.FC<Props> = ({
           vertical: 'top',
           horizontal: 'center',
         }}
+        MenuListProps={{ disablePadding: true }}
       >
         {isMobileMenu && (
           <div>
@@ -170,6 +171,7 @@ const ThreadMenuActions: React.FC<Props> = ({
               onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
                 handleAction(ev, goToDetailPage)
               }
+              classes={{ root: classes.menuItem }}
             >
               <InfoIcon color="action" />
               <Typography className={classes.action}>
@@ -180,6 +182,7 @@ const ThreadMenuActions: React.FC<Props> = ({
               onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
                 handleAction(ev, setOpenCollapse)
               }
+              classes={{ root: classes.menuItem }}
             >
               <FilterListIcon color="action" />
               <Typography className={classes.action}>
@@ -193,6 +196,7 @@ const ThreadMenuActions: React.FC<Props> = ({
           onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
             handleAction(ev, flagAsUnread)
           }
+          classes={{ root: classes.menuItem }}
         >
           <EmailIcon color={hasBeenRead ? 'action' : 'disabled'} />
           <Typography
@@ -208,6 +212,7 @@ const ThreadMenuActions: React.FC<Props> = ({
           onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
             handleAction(ev, switchFavoriteStatus)
           }
+          classes={{ root: classes.menuItem }}
         >
           {isFavorite ? (
             <StarBorderIcon color="action" />
@@ -229,6 +234,7 @@ const ThreadMenuActions: React.FC<Props> = ({
           onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
             handleAction(ev, switchMutedStatus)
           }
+          classes={{ root: classes.menuItem }}
         >
           {isMuted ? (
             <NotificationsIcon color="action" />
@@ -247,6 +253,7 @@ const ThreadMenuActions: React.FC<Props> = ({
           onClick={(ev: React.MouseEvent<HTMLLIElement, MouseEvent>) =>
             handleDisableThread(ev)
           }
+          classes={{ root: classes.menuItem }}
         >
           {isDisabled ? (
             <UnarchiveIcon color="action" />
@@ -278,6 +285,10 @@ const ThreadMenuActions: React.FC<Props> = ({
 const useStyles = makeStyles((theme) => ({
   action: {
     padding: theme.spacing(1),
+  },
+  menuItem: {
+    paddingTop: 0,
+    paddingBottom: 0,
   },
 }));
 

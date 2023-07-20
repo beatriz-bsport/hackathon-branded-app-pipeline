@@ -215,14 +215,17 @@ const InboxThreadListItem: React.FC<Props> = ({
 const useStyles = makeStyles((theme: Theme) => ({
   listItem: {
     display: 'flex',
-    border: '1px solid #E1E1E1',
-    height: theme.spacing(10),
+    height: '64px',
     padding: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(1),
     },
     '&$selected': {
       backgroundColor: theme.palette.primary.main,
+      borderRadius: theme.spacing(2),
+    },
+    '&:hover': {
+      borderRadius: theme.spacing(2),
     },
     [theme.breakpoints.up('md')]: {
       '&:hover $threadMenu': {
@@ -239,9 +242,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     '&$selected': {
       backgroundColor: alpha(theme.palette.primary.main, 0.1),
+      borderRadius: theme.spacing(2),
     },
     '&$selected:hover': {
       backgroundColor: alpha(theme.palette.primary.main, 0.15),
+      borderRadius: theme.spacing(2),
     },
   },
   selected: {},

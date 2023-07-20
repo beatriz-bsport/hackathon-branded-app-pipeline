@@ -21,7 +21,7 @@ import type {
   SelectFieldItem,
 } from '#libs/communication-v2/types';
 
-const HEIGHT_ITEM = 80;
+const HEIGHT_ITEM = 70; // an item is 64px and we cnsider a padding of 8px between 2 items
 const APP_BAR_HEIGHT = 64;
 
 export type Props = {

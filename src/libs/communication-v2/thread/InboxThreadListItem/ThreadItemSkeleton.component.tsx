@@ -43,9 +43,11 @@ const ThreadItemSkeleton: React.FC = () => {
 const useStyles = makeStyles((theme: Theme) => ({
   listItem: {
     display: 'flex',
-    border: '1px solid #E1E1E1',
-    height: '78px',
-    padding: '8px',
+    height: '64px',
+    padding: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(1),
+    },
   },
   content: {
     padding: theme.spacing(1),

@@ -333,7 +333,6 @@ class InboxThreadContainerPage extends PureComponent<Props> {
       loadingInformationRecipientList,
       messageList,
       // --- Send Message ---
-      sendCommunication,
       countAvailableRecipientsTotal,
       countAvailableRecipientsWithEmail,
       countAvailableRecipientsWithPhone,
@@ -483,7 +482,7 @@ class InboxThreadContainerPage extends PureComponent<Props> {
         fetchEmailDetail={fetchEmailDetail}
         loadingRecipientsModalMemberList={loadingRecipientsModalMemberList}
         paginatedMemberList={recipientsModalMemberList}
-        sendCommunication={sendCommunication}
+        sendCommunication={this.sendCommunication}
         setCommunicationKindBeingWritten={setCommunicationKindBeingWritten}
         resetPaginatedAvailableRecipientMemberList={
           resetPaginatedAvailableRecipientMemberList

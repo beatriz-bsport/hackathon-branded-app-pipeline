@@ -102,7 +102,7 @@ class InboxThreadContainerPage extends PureComponent<Props> {
 
   fetchMessageListAndScheduleRefresh = (isRefreshingThread?: boolean) => {
     this.props.fetchPageMessageList(isRefreshingThread);
-    this.scheduleRefreshMessageList(isRefreshingThread);
+    // this.scheduleRefreshMessageList(isRefreshingThread);
   };
 
   refreshMessageList = () => {

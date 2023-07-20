@@ -20,6 +20,7 @@ import {
   COMMUNICATION_FILTER_IDENTIFIER_SEND_PARAMETER,
   COMMUNICATION_FILTER_IDENTIFIER_SRC_OR_DST,
   REFRESH_THREAD_TIMEOUT,
+  WRITE_EMAIL,
 } from '#libs/communication-v2/constants';
 import withInboxThreadData, {
   WithInboxThreadDataProps,
@@ -52,6 +53,7 @@ class InboxThreadContainerPage extends PureComponent<Props> {
       thread,
       fetchPaginatedAvailableRecipientMemberList,
       flagAsReadAndUpdateUnreadCount,
+      setInboxContainerState,
     } = this.props;
 
     const newThreadCalled = thread && prevProps.thread?.id !== thread.id;
@@ -66,6 +68,11 @@ class InboxThreadContainerPage extends PureComponent<Props> {
       flagAsReadAndUpdateUnreadCount();
       this.fetchMessageListAndScheduleRefresh();
       this.fetchAdditionalThreadData();
+      setInboxContainerState({
+        ...this.props.inboxContainerState,
+        communicationKindBeingWritten: WRITE_EMAIL,
+        showMessageWriter: false,
+      });
     }
   }
 

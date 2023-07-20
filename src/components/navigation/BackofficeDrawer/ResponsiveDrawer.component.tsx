@@ -17,6 +17,7 @@ import FitnessCenter from '@material-ui/icons/FitnessCenter';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import HighlightOff from '@material-ui/icons/HighlightOff';
 import LabelIcon from '@material-ui/icons/Label';
+import ChatIcon from '@material-ui/icons/Chat';
 import LaptopIcon from '@material-ui/icons/Laptop';
 import LocationOn from '@material-ui/icons/LocationOn';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
@@ -428,6 +429,15 @@ const ResponsiveDrawer: React.FC<Props> = ({
           },
         ],
       },
+      ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
+        ? [
+            {
+              to: '/inbox/thread',
+              icon: ChatIcon,
+              text: 'Inbox',
+            },
+          ]
+        : []),
       {
         to: '/member',
         icon: People,

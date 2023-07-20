@@ -80,7 +80,11 @@ const InboxThreadHeader: React.FC<Props> = ({
   const isMobilePanel = !!closeInboxPanel;
 
   return (
-    <Paper className={classes.header} variant="outlined">
+    <Paper
+      className={classes.header}
+      variant="outlined"
+      classes={{ outlined: classes.paperBorder }}
+    >
       <div className={classes.left}>
         {!isMobilePanel && (
           <div className={classes.arrowBack}>
@@ -163,6 +167,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     height: theme.spacing(10),
     borderRadius: 0,
+  },
+  paperBorder: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    borderRight: 'none',
+    borderLeft: 'none',
+    borderTop: 'none',
   },
   left: {
     display: 'flex',

@@ -199,10 +199,11 @@ const useStyles = makeStyles((theme) => ({
   memberSummaryContainer: {
     backgroundColor: theme.palette.grey[100],
     padding: theme.spacing(2),
+    borderRadius: theme.spacing(2),
   },
   contactMember: {
     display: 'flex',
-    paddingBottom: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
@@ -215,7 +216,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(0.5),
   },
   signupDate: {
-    paddingBottom: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
   },
   listItemText: {
     marginLeft: theme.spacing(2),
@@ -231,7 +232,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
   },
   section: {
-    paddingBottom: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
   },
   denseListItem: {
     width: '100%',
@@ -247,7 +248,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: theme.spacing(1),
   },
   emergencyContact: {
-    paddingBottom: theme.spacing(3),
+    paddingBottom: theme.spacing(2),
   },
 }));
 

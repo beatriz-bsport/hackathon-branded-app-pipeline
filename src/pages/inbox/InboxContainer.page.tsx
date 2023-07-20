@@ -20,7 +20,7 @@ import { fetchInboxThreadFromId as fetchInboxThreadFromIdAction } from '#libs/co
 import InboxPanel from './InboxPanel.page';
 import { drawerIconsOnlyWith } from '#components/navigation/BackofficeDrawer/BackofficeDrawer.component';
 
-const INBOX_PANEL_WIDTH = 400;
+const INBOX_PANEL_WIDTH = 378;
 
 type State = {
   contextSelected: ChatThreadKinds;
@@ -53,6 +53,7 @@ const styles = (theme: Theme) =>
     threadList: {
       flex: 10,
       height: '100%',
+      backgroundColor: theme.palette.common.white,
     },
     threadContainer: {
       flex: 30,
@@ -70,6 +71,7 @@ const styles = (theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
+      backgroundColor: theme.palette.common.white,
     },
     noPanel: {
       display: 'none',
@@ -162,9 +164,9 @@ class InboxContainer extends React.PureComponent<Props> {
         </Paper>
         <div
           className={classnames(classes.inboxPanel, {
-            [classes.noPanel]: !isLoadingThread && !thread,
-            [classes.openPanel]: isPanelOpen,
-            [classes.closedPanel]: !isPanelOpen,
+            [classes.noPanel]: !isLoadingThread && !id,
+            [classes.openPanel]: isPanelOpen && !!id,
+            [classes.closedPanel]: !isPanelOpen && !!id,
           })}
         >
           <InboxPanel

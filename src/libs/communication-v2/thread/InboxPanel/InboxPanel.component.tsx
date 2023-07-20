@@ -3,11 +3,11 @@ import React, { memo, useCallback } from 'react';
 import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import type { CallHistoryMethodAction } from 'connected-react-router';
-import { makeStyles } from '@material-ui/core';
+import { Tooltip, alpha, makeStyles } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import InfoIcon from '@material-ui/icons/Info';
 import KeyboardTabIcon from '@material-ui/icons/KeyboardTab';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
@@ -95,12 +95,20 @@ const InboxPanel: React.FC<Props> = ({
     <div
       className={classnames(classes.panelContainer, {
         [classes.openPanel]: isPanelOpen,
+        [classes.closedPanel]: !isPanelOpen,
       })}
     >
       {panelClosedOnFullScreen ? (
-        <IconButton onClick={handleClick}>
-          <ChevronLeftIcon />
-        </IconButton>
+        <div className={classes.infoIconPadding}>
+          <Tooltip
+            title={t('thread.panel.openPanel')}
+            classes={{ tooltip: classes.tooltip }}
+          >
+            <IconButton onClick={handleClick}>
+              <InfoIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
       ) : (
         <>
           {isLoading ? (
@@ -129,9 +137,11 @@ const InboxPanel: React.FC<Props> = ({
                     {t('thread.panel.header')}
                   </Typography>
                   {!isMobile && (
-                    <IconButton onClick={handleClick}>
-                      <KeyboardTabIcon />
-                    </IconButton>
+                    <Tooltip title={t('thread.panel.closePanel')}>
+                      <IconButton onClick={handleClick}>
+                        <KeyboardTabIcon />
+                      </IconButton>
+                    </Tooltip>
                   )}
                 </div>
 
@@ -174,9 +184,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
+    maxHeight: '100%',
+    overflow: 'auto',
   },
   openPanel: {
     padding: theme.spacing(2),
+  },
+  closedPanel: {
+    alignItems: 'center',
   },
   panelHeader: {
     display: 'flex',
@@ -189,6 +204,15 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
+  },
+  tooltip: {
+    backgroundColor: theme.palette.common.white,
+    color: alpha(theme.palette.common.black, 0.87),
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
+  infoIconPadding: {
+    paddingTop: theme.spacing(2),
   },
 }));
 

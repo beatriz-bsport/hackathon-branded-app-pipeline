@@ -1038,7 +1038,9 @@
           "member": "Voir le détail du membre",
           "smartlist": "Voir le détail de la smartlist",
           "offer": "Voir le détail de la séance"
-        }
+        },
+        "openPanel": "Ouvrir les détails",
+        "closePanel": "Fermer les détails"
       }
     },
     "generic": { "communication": "Communication", "history": "Historique" },

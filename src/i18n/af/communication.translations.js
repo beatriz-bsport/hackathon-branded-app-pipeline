@@ -428,6 +428,8 @@ exports.default = {
         [ChatThreadKinds.Smartlist]: 'Voir le détail de la smartlist',
         [ChatThreadKinds.Offer]: 'Voir le détail de la séance',
       },
+      openPanel: 'Ouvrir les détails',
+      closePanel: 'Fermer les détails',
     },
   },
   generic: {

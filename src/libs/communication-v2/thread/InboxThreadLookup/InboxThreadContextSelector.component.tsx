@@ -42,11 +42,14 @@ const InboxThreadContextSelector: React.FC<Props> = ({
           className={classnames(classes.kindButton, {
             [classes.buttonActive]: isMemberSelected,
           })}
+          classes={{
+            root: classnames({ [classes.noHoverOnSelectd]: isMemberSelected }),
+          }}
+          disableRipple={isMemberSelected}
         >
           <Typography
             variant="subtitle2"
             color={isMemberSelected ? 'textPrimary' : 'textSecondary'}
-            className={classes.kindText}
           >
             {t(`thread.kind.${ChatThreadKinds.Member}`)}
           </Typography>
@@ -56,11 +59,16 @@ const InboxThreadContextSelector: React.FC<Props> = ({
           className={classnames(classes.kindButton, {
             [classes.buttonActive]: isSmartlistSelected,
           })}
+          classes={{
+            root: classnames({
+              [classes.noHoverOnSelectd]: isSmartlistSelected,
+            }),
+          }}
+          disableRipple={isSmartlistSelected}
         >
           <Typography
             variant="subtitle2"
             color={isSmartlistSelected ? 'textPrimary' : 'textSecondary'}
-            className={classes.kindText}
           >
             {t(`thread.kind.${ChatThreadKinds.Smartlist}`)}
           </Typography>
@@ -70,11 +78,14 @@ const InboxThreadContextSelector: React.FC<Props> = ({
           className={classnames(classes.kindButton, {
             [classes.buttonActive]: isOfferSelected,
           })}
+          classes={{
+            root: classnames({ [classes.noHoverOnSelectd]: isOfferSelected }),
+          }}
+          disableRipple={isOfferSelected}
         >
           <Typography
             variant="subtitle2"
             color={isOfferSelected ? 'textPrimary' : 'textSecondary'}
-            className={classes.kindText}
           >
             {t(`thread.kind.${ChatThreadKinds.Offer}`)}
           </Typography>
@@ -102,8 +113,10 @@ const useStyles = makeStyles((theme) => ({
   buttonActive: {
     backgroundColor: theme.palette.common.white,
   },
-  kindText: {
-    fontWeight: 'bold',
+  noHoverOnSelectd: {
+    '&:hover': {
+      backgroundColor: theme.palette.common.white,
+    },
   },
   buttonsContainer: {
     backgroundColor: theme.palette.grey[200],

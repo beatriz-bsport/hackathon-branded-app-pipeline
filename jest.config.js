@@ -35,7 +35,7 @@ module.exports = {
     'ts',
     'tsx',
   ],
-  // setupFilesAfterEnv: ['@testing-library/react/cleanup-after-each'],
+  setupFilesAfterEnv: ['<rootDir>/config/jest/setupTests.js'],
   globals: {
     'ts-jest': {
       //   // will not check types deep but only inside test.ts file

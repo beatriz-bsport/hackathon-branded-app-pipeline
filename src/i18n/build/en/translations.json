@@ -2897,6 +2897,7 @@
                 "title": "Type"
             },
             "numberFilter": "1 filter applied",
+            "numberFilter_plural": "{{count}} filters applied",
             "dateFilter": {
                 "dateEnd": "End date",
                 "dateStart": "Start date",
@@ -2908,8 +2909,7 @@
             "srcOrDst": {
                 "placeholder": "Select a message type",
                 "title": "Messages"
-            },
-            "numberFilter_plural": "{{count}} filters applied"
+            }
         },
         "dialogInformation": {
             "status": {
@@ -3027,7 +3027,7 @@
                 }
             },
             "selectThread": {
-                "title": "Select a cat",
+                "title": "Select a chat",
                 "description": "Click on a member, smartlist or session to display the associated conversation"
             },
             "panel": {

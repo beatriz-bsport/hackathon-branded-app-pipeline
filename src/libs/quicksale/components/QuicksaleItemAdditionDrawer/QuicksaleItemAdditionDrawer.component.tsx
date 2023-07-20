@@ -1,5 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import Fuse, { FuseOptions } from 'fuse.js';
+
 import Button from '@material-ui/core/Button';
 import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
@@ -10,21 +12,23 @@ import Add from '@material-ui/icons/Add';
 import ColorLens from '@material-ui/icons/ColorLens';
 import Alert from '@material-ui/lab/Alert';
 import Pagination from '@material-ui/lab/Pagination';
-import Fuse, { FuseOptions } from 'fuse.js';
+
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
+
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import FormSection from '#components/forms/FormSection';
 // @ts-expect-error
 import FuzeSearch from '#components/FuzeSearch.component';
-import {
-  QuicksaleCardInfo,
-  QuicksaleItemsByItemIdentifierByCategory,
-} from '../../types';
 import { QuicksaleItemColor } from '../../constants';
 import ColorPicker from '../ColorPicker';
 import ListItem, { SimpleItemListAction } from './AdditionDrawerListItem';
 import QuicksaleItemGroupAdditionDrawer from './QuicksaleItemGroupAdditionDrawer';
 import useStyle from './styles';
+import { isNotQuicksaleCardInfoList } from '../../utils';
+import type {
+  QuicksaleCardInfo,
+  QuicksaleItemsByItemIdentifierByCategory,
+} from '../../types';
 
 type ItemListAction =
   | SimpleItemListAction
@@ -54,12 +58,6 @@ type Props = {
 };
 
 const PAGE_SIZE = 10;
-
-function isNotQuicksaleCardInfoList<T extends Object[]>(
-  object: T,
-): object is Exclude<T, QuicksaleCardInfo[]> {
-  return object.length > 0 && 'item' in object[0];
-}
 
 const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
   open,

@@ -1,20 +1,22 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import AutoSizer from 'react-virtualized-auto-sizer';
+
 import { useMediaQuery, Theme } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import AddCircle from '@material-ui/icons/AddCircle';
 import Popover from '@material-ui/core/Popover';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import { useTranslation } from 'react-i18next';
-import AutoSizer from 'react-virtualized-auto-sizer';
-import { QuicksaleSection } from '../../types';
-import QuicksaleSectionCard from '../QuicksaleSectionCard';
+
 import FuzzySearchIcon from '#components/search/FuzzySearchIcon.component';
 import MuiIcon from '#components/MuiIcon.component';
 import muiIconNames from '#components/input/muiIcon/muiIconNames';
 import { EditableQuicksaleSectionKey } from '../../constants';
 import useStyle from './styles';
+import QuicksaleSectionCard from '../QuicksaleSectionCard';
 import QuicksaleSectionCardSkeleton from './QuicksaleSectionCardSkeleton';
+import type { QuicksaleSection } from '../../types';
 
 const stopPropagation = (e: React.KeyboardEvent) => e.stopPropagation();
 
@@ -22,14 +24,15 @@ type Props = {
   sectionList?: Array<QuicksaleSection>;
   loading?: boolean;
   onSectionClick: (sectionId: string) => void;
-  onSectionEdit: (
+  onSectionEdit?: (
     sectionId: string,
     key: EditableQuicksaleSectionKey,
     value: string,
   ) => void;
-  archiveSection: (sectionId: string) => void;
-  openColorModal: (sectionId: string) => void;
-  addSection: () => void;
+  archiveSection?: (sectionId: string) => void;
+  openColorModal?: (sectionId: string) => void;
+  addSection?: () => void;
+  isQuicksaleInterfaceView?: boolean;
 };
 
 const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
@@ -41,6 +44,7 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
     archiveSection,
     openColorModal,
     addSection,
+    isQuicksaleInterfaceView,
   } = props;
   const { t } = useTranslation(['quicksale']);
 
@@ -59,13 +63,14 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
     return refMap.get(editedSectionId) || null;
   }, [editedSectionId, getRefMap]);
 
-  const classes = useStyle();
+  const classes = useStyle({ isQuicksaleInterfaceView });
   const isMobile = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('xs'),
   );
 
   const iconSelectorItemRenderer = React.useCallback(
     (data: { icon: string }) => {
+      if (!onSectionEdit) return <></>;
       return (
         <>
           {data?.icon ? (
@@ -151,22 +156,24 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
                       openColorModal={openColorModal}
                       getMapRefInAdminView={getRefMap}
                       openIconSelector={setEditedSectionId}
-                      adminView
+                      adminView={!isQuicksaleInterfaceView}
                       isIconBeingEdited={editedSectionId === section.section_id}
                     />
                   </Grid>
                 ))}
-                <Grid item xs={12} sm={6} lg={4}>
-                  <div
-                    onClick={addSection}
-                    className={classes.addSectionIconButton}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={stopPropagation}
-                  >
-                    <AddCircle className={classes.addSectionIcon} />
-                  </div>
-                </Grid>
+                {!isQuicksaleInterfaceView && (
+                  <Grid item xs={12} sm={6} lg={4}>
+                    <div
+                      onClick={addSection}
+                      className={classes.addSectionIconButton}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={stopPropagation}
+                    >
+                      <AddCircle className={classes.addSectionIcon} />
+                    </div>
+                  </Grid>
+                )}
               </>
             )}
           </Grid>

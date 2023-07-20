@@ -2,15 +2,22 @@ import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-item
 import chroma from 'chroma-js';
 import { TFunction } from 'i18next';
 
-import { PaymentPack } from '#libs/payment-packs/types';
-import { PrivatePass } from '#libs/private-service/types';
-import { PaymentCombo } from '#libs/payment-combo/types';
-import { ShopItem } from '#libs/shop/types';
-import { Contract } from '#libs/subscription/types';
-import { Giftcard } from '#libs/giftcard/types';
-
-import { QuicksaleCardInfo } from './types';
 import { QuicksaleItemColor, QuicksaleSectionColor } from './constants';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import type { PrivatePass } from '#libs/private-service/types';
+import type { PaymentCombo } from '#libs/payment-combo/types';
+import type { ShopItem } from '#libs/shop/types';
+import type { Contract } from '#libs/subscription/types';
+import type { Giftcard } from '#libs/giftcard/types';
+import type {
+  QuicksaleCardInfo,
+  QuicksaleItem,
+  QuicksaleSection,
+} from './types';
+import type { Basket } from '#libs/checkout/types';
+import type { Member } from '#libs/member/types';
+import type { TranslationProps } from '#components/DialogWithBigIcon/DialogWithBigIcon.component';
+import type { Tag } from '#libs/tag/types';
 
 export const getBorderColorFromBackgroundColor = (backgroundColor: string) => {
   // This function retrieves the border color of an item card of the quicksale
@@ -106,6 +113,8 @@ export const getCardInfoFromBuyableItem = (
   t: TFunction, // defined with the namespace 'quicksale'
   color?: string,
   sectionId?: string,
+  outOfStock?: boolean,
+  restricted?: boolean,
 ): QuicksaleCardInfo => {
   const id = `${buyableItemIdentifier} ${buyableItem.id}`;
   const itemColor = (color ?? QuicksaleItemColor.Gray) as QuicksaleItemColor;
@@ -127,6 +136,8 @@ export const getCardInfoFromBuyableItem = (
         price: Number((<PaymentPack>buyableItem).price),
         color: itemColor,
         sectionId: sectionId ?? '',
+        outOfStock,
+        restricted,
       };
     case QuicksaleBasketItem.PrivatePassIdentifier:
       return {
@@ -140,6 +151,8 @@ export const getCardInfoFromBuyableItem = (
         price: Number((<PrivatePass>buyableItem).price),
         color: itemColor,
         sectionId: sectionId ?? '',
+        outOfStock,
+        restricted,
       };
     case QuicksaleBasketItem.PaymentComboIdentifier: {
       const numberOfProducts =
@@ -157,6 +170,8 @@ export const getCardInfoFromBuyableItem = (
         price: Number((<PaymentCombo>buyableItem).price),
         color: itemColor,
         sectionId: sectionId ?? '',
+        outOfStock,
+        restricted,
       };
     }
     case QuicksaleBasketItem.ShopItemIdentifier:
@@ -167,6 +182,8 @@ export const getCardInfoFromBuyableItem = (
         price: Number((<ShopItem>buyableItem).price),
         color: itemColor,
         sectionId: sectionId ?? '',
+        outOfStock,
+        restricted,
       };
     case QuicksaleBasketItem.SubscriptionIdentifier:
       return {
@@ -182,6 +199,8 @@ export const getCardInfoFromBuyableItem = (
         ),
         color: itemColor,
         sectionId: sectionId ?? '',
+        outOfStock,
+        restricted,
       };
     default:
       return {
@@ -191,6 +210,8 @@ export const getCardInfoFromBuyableItem = (
         price: Number((<Giftcard>buyableItem).price),
         color: itemColor,
         sectionId: sectionId ?? '',
+        outOfStock,
+        restricted,
       };
   }
 };
@@ -207,3 +228,279 @@ export function isNotQuicksaleCardInfoList<T extends Object[]>(
 ): object is Exclude<T, QuicksaleCardInfo[]> {
   return object.length > 0 && 'item' in object[0];
 }
+
+export const getQuicksaleCardInfoFromQuicksaleItem = (
+  item: QuicksaleItem,
+  paymentPackById: { [key: number]: PaymentPack },
+  privatePassById: { [key: number]: PrivatePass },
+  paymentComboById: { [key: number]: PaymentCombo },
+  shopItemById: { [key: number]: ShopItem },
+  contractById: { [key: number]: Contract },
+  giftcardById: { [key: number]: Giftcard },
+  t: TFunction, // defined with the namespace 'quicksale'
+  section?: QuicksaleSection,
+  currentBasket?: Basket,
+  memberById?: { [key: number]: Member },
+): QuicksaleCardInfo | undefined => {
+  // This function is used to convert the quicksale items stored
+  // in the database into QuickSaleCardInfo objects to display them
+  const buyableItem = getBuyableItemFromIdentifierAndId(
+    item.buyable_item_identifier,
+    item.object_id,
+    paymentPackById,
+    privatePassById,
+    paymentComboById,
+    shopItemById,
+    contractById,
+    giftcardById,
+  );
+  if (buyableItem === undefined) return undefined;
+
+  const unauthenticated =
+    !currentBasket || memberById[currentBasket?.member]?.is_pos;
+
+  const isConcernedByNewMemberRestriction =
+    [
+      QuicksaleBasketItem.PaymentPackIdentifier,
+      QuicksaleBasketItem.PrivatePassIdentifier,
+      QuicksaleBasketItem.PaymentComboIdentifier,
+    ].includes(item.buyable_item_identifier) &&
+    (buyableItem as PaymentPack | PrivatePass | PaymentCombo).new_member_only;
+
+  const authenticatedMemberIsNotNew =
+    memberById[currentBasket?.member]?.has_bought_pack;
+
+  const isConcernedByTagsRestriction =
+    item.buyable_item_identifier ===
+      QuicksaleBasketItem.PaymentPackIdentifier &&
+    ((buyableItem as PaymentPack).whitelist_tags.length > 0 ||
+      (buyableItem as PaymentPack).blacklist_tags.length > 0);
+
+  const authenticatedMemberIsMissingRequiredTag = !memberById[
+    currentBasket?.member
+  ]?.tags?.some((tagId) =>
+    (buyableItem as PaymentPack).whitelist_tags?.includes(tagId),
+  );
+
+  const authenticatedMemberHasForbiddenTag = memberById[
+    currentBasket?.member
+  ]?.tags?.some((tagId) =>
+    (buyableItem as PaymentPack).blacklist_tags?.includes(tagId),
+  );
+
+  return getCardInfoFromBuyableItem(
+    {
+      buyableItemIdentifier: item.buyable_item_identifier,
+      buyableItem,
+    } as BuyableItemAndIdentifier,
+    t,
+    item.color,
+    section?.section_id ?? '',
+    item.buyable_item_identifier === QuicksaleBasketItem.ShopItemIdentifier &&
+      (buyableItem as ShopItem).current_stock <= 0,
+    (isConcernedByNewMemberRestriction &&
+      (unauthenticated || authenticatedMemberIsNotNew)) ||
+      (isConcernedByTagsRestriction &&
+        (unauthenticated ||
+          authenticatedMemberIsMissingRequiredTag ||
+          authenticatedMemberHasForbiddenTag)),
+  );
+};
+
+export const getMemberRestrictionModalSubTexts = (
+  buyableItemIdentifier: QuicksaleBasketItem,
+  t: TFunction, // defined with the namespace 'quicksale'
+  currentBasket?: Basket,
+  member?: Member,
+  buyableItem?: PaymentPack | PrivatePass | PaymentCombo,
+  tagsById?: { [key: number]: Tag },
+): TranslationProps[][] => {
+  // This function aims at building the subtexts of the modal
+  // that opens whenever a staff member tries to add to a basket
+  // a quicksale item that is either restricted to new members
+  // or to members with/without specific tags
+  const isUnauthenticated = !currentBasket || member?.is_pos;
+
+  // Check if the item is restricted to new members
+  const isNewMemberRestricted =
+    [
+      QuicksaleBasketItem.PaymentPackIdentifier,
+      QuicksaleBasketItem.PrivatePassIdentifier,
+      QuicksaleBasketItem.PaymentComboIdentifier,
+    ].includes(buyableItemIdentifier) &&
+    (buyableItem as PaymentPack | PrivatePass | PaymentCombo).new_member_only &&
+    member?.has_bought_pack;
+
+  // Check if the item is restricted by whitelist tags
+  const isWhitelistTagsRestricted =
+    buyableItemIdentifier === QuicksaleBasketItem.PaymentPackIdentifier &&
+    (buyableItem as PaymentPack).whitelist_tags.length > 0;
+
+  // Check if the member is missing the required tag for whitelist restriction
+  const isMissingRequiredTag =
+    isWhitelistTagsRestricted &&
+    !member?.tags?.some((tagId) =>
+      (buyableItem as PaymentPack).whitelist_tags?.includes(tagId),
+    );
+
+  // Get the name of the required not owned tag
+  const requiredNotOwnedTagName =
+    isMissingRequiredTag && tagsById
+      ? tagsById[
+          (buyableItem as PaymentPack).whitelist_tags?.find(
+            (tag) => !member?.tags.includes(tag),
+          )
+        ]?.name
+      : undefined;
+
+  // Check if the item is restricted by blacklist tags
+  const isBlacklistTagsRestricted =
+    buyableItemIdentifier === QuicksaleBasketItem.PaymentPackIdentifier &&
+    (buyableItem as PaymentPack).blacklist_tags.length > 0;
+
+  // Check if the member has a forbidden tag for blacklist restriction
+  const hasForbiddenTag =
+    isBlacklistTagsRestricted &&
+    member?.tags?.some((tagId) =>
+      (buyableItem as PaymentPack).blacklist_tags?.includes(tagId),
+    );
+
+  // Get the name of the forbidden owned tag
+  const forbiddenOwnedTagName =
+    hasForbiddenTag && tagsById
+      ? tagsById[
+          (buyableItem as PaymentPack).blacklist_tags.find((tag) =>
+            member?.tags?.includes(tag),
+          )
+        ]?.name
+      : undefined;
+
+  const subTexts: TranslationProps[][] = [];
+
+  // Building subtexts for restricted members
+  if (
+    isNewMemberRestricted &&
+    (requiredNotOwnedTagName || forbiddenOwnedTagName)
+  ) {
+    subTexts.push(
+      isUnauthenticated
+        ? ['quicksale:interface.authenticationRequired.subTextListItem']
+        : ['quicksale:interface.cannotAdd.subTextListItem'],
+    );
+
+    if (isUnauthenticated) {
+      subTexts.push([
+        'quicksale:interface.authenticationRequired.newMember.subTextListItem',
+        'quicksale:interface.authenticationRequired.tag.subTextListItem',
+      ]);
+    } else {
+      const optionalBeginning: TranslationProps[] = [
+        {
+          translationKey: 'quicksale:interface.cannotAdd.newMember.subText',
+          options: { name: member?.name },
+        },
+      ];
+
+      if (requiredNotOwnedTagName && forbiddenOwnedTagName) {
+        optionalBeginning.push({
+          translationKey:
+            'quicksale:interface.cannotAdd.tag.hasTagAndDoesNotHaveTag',
+          options: {
+            name: member?.name,
+            ownedTagName: forbiddenOwnedTagName,
+            notOwnedTagName: requiredNotOwnedTagName,
+          },
+        });
+      } else if (requiredNotOwnedTagName) {
+        optionalBeginning.push({
+          translationKey: 'quicksale:interface.cannotAdd.tag.doesNotHaveTag',
+          options: { name: member?.name, tagName: requiredNotOwnedTagName },
+        });
+      } else {
+        optionalBeginning.push({
+          translationKey: 'quicksale:interface.cannotAdd.tag.hasTag',
+          options: { name: member?.name, tagName: forbiddenOwnedTagName },
+        });
+      }
+
+      subTexts.push(optionalBeginning);
+    }
+  } else if (isNewMemberRestricted) {
+    subTexts.push(
+      isUnauthenticated
+        ? ['quicksale:interface.authenticationRequired.newMember.subText']
+        : [
+            {
+              translationKey: 'quicksale:interface.cannotAdd.newMember.subText',
+              options: {
+                name: member?.name,
+                optionalBeginning: t(
+                  'quicksale:interface.cannotAdd.subTextListItem',
+                ) as string,
+              },
+            },
+          ],
+    );
+  } else if (isUnauthenticated) {
+    subTexts.push(['quicksale:interface.authenticationRequired.tag.subText']);
+  } else {
+    const optionalBeginning = t(
+      'quicksale:interface.cannotAdd.subTextListItem',
+    ) as string;
+
+    if (requiredNotOwnedTagName && forbiddenOwnedTagName) {
+      subTexts.push([
+        {
+          translationKey:
+            'quicksale:interface.cannotAdd.tag.hasTagAndDoesNotHaveTag',
+          options: {
+            name: member?.name,
+            ownedTagName: forbiddenOwnedTagName,
+            notOwnedTagName: requiredNotOwnedTagName,
+            optionalBeginning,
+          },
+        },
+      ]);
+    } else if (requiredNotOwnedTagName) {
+      subTexts.push([
+        {
+          translationKey: 'quicksale:interface.cannotAdd.tag.doesNotHaveTag',
+          options: {
+            name: member?.name,
+            tagName: requiredNotOwnedTagName,
+            optionalBeginning,
+          },
+        },
+      ]);
+    } else {
+      subTexts.push([
+        {
+          translationKey: 'quicksale:interface.cannotAdd.tag.hasTag',
+          options: {
+            name: member?.name,
+            tagName: forbiddenOwnedTagName,
+            optionalBeginning,
+          },
+        },
+      ]);
+    }
+  }
+
+  // Add bottom subtext for unauthenticated members
+  if (isUnauthenticated) {
+    subTexts.push(['quicksale:interface.authenticationRequired.bottomSubText']);
+  }
+
+  return subTexts;
+};
+
+export const getIdsFromQuicksaleCardInfoId = (item?: QuicksaleCardInfo) => {
+  return item?.id?.split(' ');
+};
+
+export const getQuicksaleCardInfoIdFromIds = (
+  buyableItemIdentifier: QuicksaleBasketItem,
+  buyableItemId: number,
+) => {
+  return `${buyableItemIdentifier} ${buyableItemId}`;
+};

@@ -1,124 +1,22 @@
-// @ts-nocheck
-import axios, { CancelToken } from 'axios';
-import moment from 'moment-timezone';
+import axios, { CancelToken, AxiosRequestConfig } from 'axios';
 import * as Sentry from '@sentry/react';
 
-import Config from './config';
-import { setSessionId } from './sentry/session';
-import { setTransactionId } from './sentry/transaction';
+import { setSessionId } from '../sentry/session';
+import { setTransactionId } from '../sentry/transaction';
+
 import {
-  BSPORT_REQUEST_FROM_HEADER,
-  BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
-} from './constants';
-import i18n from './i18n';
+  getBsportRequestFromHeader,
+  getTimezoneName,
+  getAuthToken,
+} from './utils';
+// @ts-expect-error
+import i18n from '../i18n';
 
-const storage = window.localStorage;
-const sessionStorage = window.sessionStorage;
-
-const getBsportRequestFromHeader = () => {
-  try {
-    const storedValue = sessionStorage.getItem(
-      BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
-    );
-    return storedValue ? { [BSPORT_REQUEST_FROM_HEADER]: storedValue } : {};
-  } catch (err) {
-    console.error(err);
-    return {};
-  }
-};
-
-export const BASE_URI: string = Config.REACT_APP_BASE_URI;
-export const API_URI: string = `${BASE_URI}/api-v0`;
-export const API_V1_URI: string = `${BASE_URI}/api/v1`;
-export const PAYMENT_URI: string = `${BASE_URI}/payment`;
-
-export function parseQueryString(url: string) {
-  const pos = url.lastIndexOf('?');
-  if (pos === -1) {
-    return {};
-  }
-
-  const qs = url.substring(pos + 1);
-
-  const params = qs.split('&').map((q) => q.split('=').map(decodeURIComponent));
-
-  const q = {};
-  params.forEach(([name, value]) => {
-    q[name] = value;
-  });
-
-  return q;
-}
-
-export function parseQueryStringWhithoutDecode(url: string) {
-  const pos = url.lastIndexOf('?');
-  if (pos === -1) {
-    return {};
-  }
-
-  const qs = url.substring(pos + 1);
-
-  const params = qs.split('&').map((q) => q.split('='));
-
-  const q = {};
-  params.forEach(([name, value]) => {
-    q[name] = value;
-  });
-
-  return q;
-}
-
-export function buildUrlParams(params: any) {
-  if (params) {
-    const conditions = [];
-    for (const k in params) {
-      // eslint-disable-next-line
-      if (params.hasOwnProperty(k)) {
-        if (Array.isArray(params[k])) {
-          conditions.push(`${k}=${params[k].join(',')}`);
-        } else {
-          conditions.push(`${k}=${params[k]}`);
-        }
-      }
-    }
-    return `?${conditions.join('&')}`;
-  }
-  return '';
-}
-
-export function setAuthToken(token: string) {
-  if (!token || token === 'null') {
-    storage.setItem('http:token', token);
-    storage.removeItem('bsport:franchise:http:token');
-  }
-  storage.setItem('bsport:http:token', token);
-}
-
-export function getCookie(name) {
-  const values = document.cookie.split(';').map((s) => s.split('='));
-  const item = values.find((c) => c[0].trim() === name);
-  return item && item[1];
-}
-
-const getTimezoneName = () => {
-  return moment().tz() || 'Europe/Paris';
-};
-
-export function getAuthToken() {
-  const oldToken = storage.getItem('http:token');
-  if (oldToken && oldToken !== 'null' && oldToken !== 'undefined') {
-    return (
-      storage.getItem('http:token') || storage.getItem('bsport:http:token')
-    );
-  }
-  return storage.getItem('bsport:http:token');
-}
-
-export async function postBase(
+export async function postBase<T = unknown, D = unknown>(
   uri: string,
-  data: Object,
-  headers: Object,
-  cancelToken?: CancelToken,
+  data: D,
+  headers: AxiosRequestConfig['headers'],
+  cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
@@ -132,7 +30,7 @@ export async function postBase(
   };
 
   try {
-    const response = await axios.post(uri, data, {
+    const response = await axios.post<T>(uri, data, {
       headers: Object.assign(baseHeaders, headers),
       cancelToken,
     });
@@ -145,11 +43,11 @@ export async function postBase(
   }
 }
 
-export async function post(
+export async function post<T = unknown, D = unknown>(
   uri: string,
-  data?: Object,
-  headers?: Object,
-  cancelToken?: CancelToken,
+  data?: D,
+  headers?: AxiosRequestConfig['headers'],
+  cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
@@ -163,7 +61,7 @@ export async function post(
   };
 
   try {
-    const response = await axios.post(uri, data, {
+    const response = await axios.post<T>(uri, data, {
       headers: Object.assign(baseHeaders, headers),
       cancelToken,
     });
@@ -177,11 +75,11 @@ export async function post(
   }
 }
 
-export async function put(
+export async function put<T = unknown, D = unknown>(
   uri: string,
-  data: Object,
-  headers: Object,
-  cancelToken?: CancelToken,
+  data: D,
+  headers: AxiosRequestConfig['headers'],
+  cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
@@ -195,7 +93,7 @@ export async function put(
   };
 
   try {
-    const response = await axios.put(uri, data, {
+    const response = await axios.put<T>(uri, data, {
       headers: Object.assign(baseHeaders, headers),
       cancelToken,
     });
@@ -208,11 +106,11 @@ export async function put(
   }
 }
 
-export async function patch(
+export async function patch<T = unknown, D = unknown>(
   uri: string,
-  data: Object,
-  headers: Object,
-  cancelToken?: CancelToken,
+  data: D,
+  headers: AxiosRequestConfig['headers'],
+  cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
@@ -226,7 +124,7 @@ export async function patch(
   };
 
   try {
-    const response = await axios.patch(uri, data, {
+    const response = await axios.patch<T>(uri, data, {
       headers: Object.assign(baseHeaders, headers),
       cancelToken,
     });
@@ -239,11 +137,11 @@ export async function patch(
   }
 }
 
-export async function delete_(
+async function delete_<D = unknown>(
   uri: string,
-  data,
-  headers: Object,
-  cancelToken?: CancelToken,
+  data: D,
+  headers: AxiosRequestConfig['headers'],
+  cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
   const baseHeaders = {
     'X-Transaction-ID': setTransactionId(),
@@ -256,9 +154,7 @@ export async function delete_(
     ...getBsportRequestFromHeader(),
   };
   try {
-    const response = await axios({
-      url: uri,
-      method: 'delete',
+    const response = await axios.delete(uri, {
       headers: Object.assign(baseHeaders, headers),
       cancelToken,
       data,
@@ -272,15 +168,13 @@ export async function delete_(
   }
 }
 
-export async function get(
+export async function get<T = unknown>(
   uri: string,
-  headers: {} = {},
-  cancelToken?: CancelToken,
+  headers: AxiosRequestConfig['headers'] = {},
+  cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
   try {
-    const response = await axios({
-      url: uri,
-      method: 'get',
+    const response = await axios.get<T>(uri, {
       headers: {
         'Accept-Language': i18n.language || 'en',
         'X-Transaction-ID': setTransactionId(),
@@ -302,16 +196,16 @@ export async function get(
   }
 }
 
-export async function getAuth(
+export async function getAuth<T = unknown>(
   uri: string,
   token?: string,
   cancelToken?: CancelToken,
 ) {
   const token_ = token || getAuthToken();
   if (!token_ || token_ === 'null') {
-    return get(uri, {}, cancelToken);
+    return get<T>(uri, {}, cancelToken);
   }
-  return get(
+  return get<T>(
     uri,
     {
       'Accept-Language': i18n.language || 'en',
@@ -325,14 +219,14 @@ export async function getAuth(
   );
 }
 
-export async function postAuth(
+export async function postAuth<T = unknown, D = unknown>(
   uri: string,
-  data?: Object,
+  data?: D,
   token?: string,
-  cancelToken?: CancelToken,
+  cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
   const token_ = token || getAuthToken();
-  return post(
+  return post<T>(
     uri,
     data,
     {
@@ -346,14 +240,14 @@ export async function postAuth(
   );
 }
 
-export async function postBaseAuth(
+export async function postBaseAuth<T = unknown, D = unknown>(
   uri: string,
-  data: Object,
+  data: D,
   token?: string,
-  cancelToken?: CancelToken,
+  cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
   const token_ = token || getAuthToken();
-  return postBase(
+  return postBase<T>(
     uri,
     data,
     {
@@ -367,13 +261,13 @@ export async function postBaseAuth(
   );
 }
 
-export async function putAuth(
+export async function putAuth<T = unknown, D = unknown>(
   uri: string,
-  data?: Object,
-  cancelToken?: CancelToken,
+  data?: D,
+  cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
   const token = getAuthToken();
-  return put(
+  return put<T>(
     uri,
     data,
     {
@@ -387,13 +281,13 @@ export async function putAuth(
   );
 }
 
-export async function patchAuth(
+export async function patchAuth<T = unknown, D = unknown>(
   uri: string,
-  data: Object,
-  cancelToken?: CancelToken,
+  data: D,
+  cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
   const token = getAuthToken();
-  return patch(
+  return patch<T>(
     uri,
     data,
     {
@@ -407,10 +301,10 @@ export async function patchAuth(
   );
 }
 
-export async function deleteAuth(
+export async function deleteAuth<D = unknown>(
   uri: string,
-  data?: any,
-  cancelToken?: CancelToken,
+  data?: D,
+  cancelToken?: AxiosRequestConfig['cancelToken'],
 ) {
   const token = getAuthToken();
   return delete_(

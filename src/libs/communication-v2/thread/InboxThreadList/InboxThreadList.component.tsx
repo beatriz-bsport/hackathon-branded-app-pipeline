@@ -221,6 +221,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
   },
   fab: {
     textTransform: 'none',

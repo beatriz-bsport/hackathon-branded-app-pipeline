@@ -6,25 +6,27 @@ import {
   patchAuth,
   deleteAuth,
   API_V1_URI,
+  postAuthDeprecated,
+  getAuthDeprecated,
 } from '../../http';
 
 export const fetchVideoList = async (params: any = {}) => {
-  return getAuth(`${API_V1_URI}/vod/video/${buildUrlParams(params)}`);
+  return getAuthDeprecated(`${API_V1_URI}/vod/video/${buildUrlParams(params)}`);
 };
 
 export const retrieveVideo = async (id: number) => {
-  return getAuth(`${API_V1_URI}/vod/video/${id}/`);
+  return getAuthDeprecated(`${API_V1_URI}/vod/video/${id}/`);
 };
 
 export const createOrUpdateVideo = async (data: any = {}) => {
   if (data.get('id')) {
     return patchAuth(`${API_V1_URI}/vod/video/${data.get('id')}/`, data);
   }
-  return postAuth(`${API_V1_URI}/vod/video/`, data);
+  return postAuthDeprecated(`${API_V1_URI}/vod/video/`, data);
 };
 
 export const duplicateVideo = async (id: string) => {
-  return postAuth(`${API_V1_URI}/vod/video/${id}/duplicate/`);
+  return postAuthDeprecated(`${API_V1_URI}/vod/video/${id}/duplicate/`);
 };
 
 export const deleteVideo = async (id: number) => {
@@ -39,28 +41,30 @@ export const getUploadInstruction = async (
   id: number,
   fileExtension?: string,
 ) => {
-  return postAuth(
+  return postAuthDeprecated(
     `${API_V1_URI}/vod/video/${id}/upload_instruction/`,
     fileExtension ? { file_extension: fileExtension } : {},
   );
 };
 
 export const removeVideoSource = async (id: number) => {
-  return postAuth(`${API_V1_URI}/vod/video/${id}/remove_video_source/`);
+  return postAuthDeprecated(
+    `${API_V1_URI}/vod/video/${id}/remove_video_source/`,
+  );
 };
 
 export const setProviderIdentifier = async (
   id: number,
   data: { provider_identifier: number },
 ) => {
-  return postAuth(
+  return postAuthDeprecated(
     `${API_V1_URI}/vod/video/${id}/set_provider_identifier/`,
     data,
   );
 };
 
 export const getPlaybackUrl = async (id: number) => {
-  return getAuth(`${API_V1_URI}/vod/video/${id}/playback_url/`);
+  return getAuthDeprecated(`${API_V1_URI}/vod/video/${id}/playback_url/`);
 };
 
 export const registerVideo = async (video: number, data: any) => {
@@ -71,13 +75,13 @@ export const registerVideo = async (video: number, data: any) => {
 };
 
 export const fetchVideoPurchase = async (params?: any) => {
-  return getAuth(
+  return getAuthDeprecated(
     `${API_V1_URI}/vod/video_purchase/${buildUrlParams({ ...(params || {}) })}`,
   );
 };
 
 export const retrieveVideoPurchase = async (id: number) => {
-  return getAuth(`${API_V1_URI}/vod/video_purchase/${id}/`);
+  return getAuthDeprecated(`${API_V1_URI}/vod/video_purchase/${id}/`);
 };
 
 export const fetchNumberVideoPurchase = async (params?: any) => {
@@ -89,7 +93,7 @@ export const fetchNumberVideoPurchase = async (params?: any) => {
 };
 
 export const fetchUniqueVideoPurchaseByMember = async (params?: any) => {
-  return getAuth(
+  return getAuthDeprecated(
     `${API_V1_URI}/vod/video_purchase/get_unique_video_purchased_by_member/${buildUrlParams(
       { ...(params || {}) },
     )}`,
@@ -112,7 +116,7 @@ export const fetchVideoAnalyticsbyMember = async (
 };
 
 export const fetchVideoViewAnalytics = async (params?: any) => {
-  return getAuth(
+  return getAuthDeprecated(
     `${API_V1_URI}/vod/video_view_analytics/${buildUrlParams({
       ...(params || {}),
     })}`,
@@ -126,5 +130,8 @@ export const fetchVideoFilterableParams = async (params?: any) => {
 };
 
 export const setExternalUrl = async (videoId: number, data?: any) => {
-  return postAuth(`${API_V1_URI}/vod/video/${videoId}/set_external_url/`, data);
+  return postAuthDeprecated(
+    `${API_V1_URI}/vod/video/${videoId}/set_external_url/`,
+    data,
+  );
 };

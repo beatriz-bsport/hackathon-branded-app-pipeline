@@ -11,6 +11,7 @@ const ApplyCustomCssStyles: React.FC<{
 
   const cssIdentifierRegex = /(\.bs-[^,{]*)+(\s*{|,)/gm;
   const cssPropertyRegex = /^(\s)*(\w|-)*: ([^;}$])*/gm;
+  const cssFontFaceRuleMatcher = /@font-face\s*{[^{}]*}/gm;
 
   /*
   The widget contains elements wrapped in a "cleanslate" wrapper. 
@@ -29,6 +30,13 @@ const ApplyCustomCssStyles: React.FC<{
           cssPropertyRegex,
           (correpondance) => `${correpondance} !important`,
         )
+        /*
+         * We must exclude !important for any CSS properties inside of a font-face rule
+         * By doing so the declaration is invalid and the browser will not fetch the font(s)
+         */
+        .replace(cssFontFaceRuleMatcher, (block) => {
+          return block.replace(/ !important/gm, '');
+        })
     : inlineStyle;
 
   return <style>{styleToApply}</style>;

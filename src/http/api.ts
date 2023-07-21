@@ -11,6 +11,20 @@ import {
 } from './utils';
 // @ts-expect-error
 import i18n from '../i18n';
+import type {
+  GetAuth,
+  PatchAuth,
+  Post,
+  PostAuth,
+  PostBase,
+  PostBaseAuth,
+  PutAuth,
+} from './types';
+
+/**
+ * @deprecated This version is not type safe.
+ */
+export const postBaseDeprecated = postBase as PostBase<any, any>;
 
 export async function postBase<T = unknown, D = unknown>(
   uri: string,
@@ -42,6 +56,11 @@ export async function postBase<T = unknown, D = unknown>(
     throw err;
   }
 }
+
+/**
+ * @deprecated This version is not type safe.
+ */
+export const postDeprecated = post as Post<any, any>;
 
 export async function post<T = unknown, D = unknown>(
   uri: string,
@@ -196,6 +215,10 @@ export async function get<T = unknown>(
   }
 }
 
+/**
+ * @deprecated This version is not type safe.
+ */
+export const getAuthDeprecated = getAuth as GetAuth<any>;
 export async function getAuth<T = unknown>(
   uri: string,
   token?: string,
@@ -218,6 +241,10 @@ export async function getAuth<T = unknown>(
     cancelToken,
   );
 }
+/**
+ * @deprecated This version is not type safe.
+ */
+export const postAuthDeprecated = postAuth as PostAuth<any, any>;
 
 export async function postAuth<T = unknown, D = unknown>(
   uri: string,
@@ -240,6 +267,10 @@ export async function postAuth<T = unknown, D = unknown>(
   );
 }
 
+/**
+ * @deprecated This version is not type safe.
+ */
+export const postBaseAuthDeprecated = postBaseAuth as PostBaseAuth<any, any>;
 export async function postBaseAuth<T = unknown, D = unknown>(
   uri: string,
   data: D,
@@ -261,6 +292,10 @@ export async function postBaseAuth<T = unknown, D = unknown>(
   );
 }
 
+/**
+ * @deprecated This version is not type safe.
+ */
+export const putAuthDeprecated = putAuth as PutAuth<any, any>;
 export async function putAuth<T = unknown, D = unknown>(
   uri: string,
   data?: D,
@@ -281,6 +316,10 @@ export async function putAuth<T = unknown, D = unknown>(
   );
 }
 
+/**
+ * @deprecated This version is not type safe.
+ */
+export const patchAuthDeprecated = patchAuth as PatchAuth<any, any>;
 export async function patchAuth<T = unknown, D = unknown>(
   uri: string,
   data: D,

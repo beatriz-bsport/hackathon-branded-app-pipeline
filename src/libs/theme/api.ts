@@ -1,8 +1,8 @@
 // @ts-ignore
-import { API_V1_URI, getAuth, patchAuth } from '../../http';
+import { API_V1_URI, getAuthDeprecated, patchAuth } from '../../http';
 
 const fetchCompanyTheme = async (companyId: number) => {
-  return getAuth(`${API_V1_URI}/company/theme/${companyId || 'me'}/`);
+  return getAuthDeprecated(`${API_V1_URI}/company/theme/${companyId || 'me'}/`);
 };
 
 const updateCompanyTheme = async (companyId: number, data: any) => {

@@ -216,13 +216,15 @@ const MarketplaceContractCard: React.FC<Props> = ({
               'bs-contract-card__price-icon': 'bs-contract-card__price-icon',
             }}
           >
-            <button
-              type="button"
-              className="bs-contract-card__price-icon"
-              onClick={handleAddToCart}
-            >
-              <ShoppingCartIcon />
-            </button>
+            {!!addToCart && (
+              <button
+                type="button"
+                className="bs-contract-card__price-icon"
+                onClick={handleAddToCart}
+              >
+                <ShoppingCartIcon />
+              </button>
+            )}
           </Item>
         </Grid>
         {addToCart && onOpenDetailDialog && (

@@ -177,13 +177,15 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
                     cardVariant === CARD_VARIANTS.PRICING_PAGE,
                 }}
               >
-                <button
-                  type="button"
-                  className="bs-pack-card__price__icon"
-                  onClick={addToCart}
-                >
-                  <ShoppingCartIcon />
-                </button>
+                {!!addToCart && (
+                  <button
+                    type="button"
+                    className="bs-pack-card__price__icon"
+                    onClick={addToCart}
+                  >
+                    <ShoppingCartIcon />
+                  </button>
+                )}
               </Price>
             </div>
           </Item>

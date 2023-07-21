@@ -8,6 +8,7 @@ import {
   postAuth,
   patchAuth,
   deleteAuth,
+  getAuthDeprecated,
 } from '../../http';
 import type {
   AutomatedCampaignQueryParams,
@@ -85,7 +86,7 @@ export const fetchSmartListMembers = async (
   id: number,
   queryParams?: FetchSmartlistMembersQueryParams,
 ) => {
-  return getAuth(
+  return getAuthDeprecated(
     `${SMART_LIST_URI}${id}/members/${buildUrlParams(queryParams)}`,
   );
 };

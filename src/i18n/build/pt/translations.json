@@ -5769,7 +5769,7 @@
             "disciplineGroup": {
                 "delete": {
                     "error": "Não é possível eliminar este grupo de disciplinas",
-                    "success": "Grupo de disciplina eliminado"
+                    "success": "Grupo de aulas eliminado"
                 },
                 "update": {
                     "error": "Ocorreu um erro ao modificar o grupo de categorias",
@@ -5785,7 +5785,7 @@
                 "success": "Regras guardadas"
             },
             "assignDisciplineGroup": {
-                "success": "O grupo disciplinar do professor foi atualizado"
+                "success": "O grupo de aulas do professor foi atualizado"
             }
         },
         "marketplace": {
@@ -5819,6 +5819,13 @@
         "contractPause": {
             "delete": {
                 "error": "Impossível retirar a pausa de momento."
+            },
+            "updateName": {
+                "error": "O nome da interrupção não pôde ser alterado",
+                "success": "O nome da pausa foi alterado"
+            },
+            "create": {
+                "error": "Não é possível efetuar a pausa neste momento, tente novamente mais tarde"
             }
         },
         "subscriptionScheduledStop": {
@@ -5924,14 +5931,51 @@
         },
         "customForm": {
             "update": {
-                "error": "Impossível alterar o formulário"
+                "error": "Impossível alterar o formulário",
+                "success": "Formulário alterado"
             },
             "customFormStepper": {
                 "error": "Não é possível guardar as respostas."
             },
             "signupViaCustomForm": {
                 "errors": {
-                    "84104": "O número de telefone é inválido"
+                    "84104": "O número de telefone é inválido",
+                    "84101": "Os campos obrigatórios não foram preenchidos",
+                    "84102": "Este e-mail já está a ser utilizado",
+                    "84103": "O género especificado é inválido"
+                },
+                "error": "Erro ao registar, tente novamente",
+                "success": "Inscrição válida"
+            },
+            "duplicate": {
+                "error": "Impossível duplicar o formulário",
+                "success": "Formulário duplicado"
+            },
+            "disable": {
+                "success": "Formulário arquivado",
+                "error": "Impossível arquivar o formulário"
+            },
+            "customFormField": {
+                "restore": {
+                    "success": "Elemento restaurado",
+                    "error": "Impossível restaurar o elemento"
+                },
+                "disable": {
+                    "success": "Elemento arquivado",
+                    "error": "Impossível arquivar o elemento"
+                }
+            },
+            "create": {
+                "error": "Impossível criar o formulário",
+                "success": "Formulário criado"
+            },
+            "restore": {
+                "success": "Formulário restaurado",
+                "error": "Não é possível restaurar o formulário"
+            },
+            "upsert": {
+                "errors": {
+                    "84006": "É necessário definir uma declaração de isenção de responsabilidade em Definições > Geral para conseguir adicionar a pergunta \"Isenção de responsabilidade\"."
                 }
             }
         },
@@ -6035,6 +6079,16 @@
                 "error": "Pagamento recusado",
                 "success": "Pagamento efetuado com êxito"
             }
+        },
+        "dashboard": {
+            "save": {
+                "error": "Não é possível guardar as alterações"
+            }
+        },
+        "signup": {
+            "emailAlreadyExists": "Este e-mail já está a ser utilizado",
+            "failedCreation": "Não é possível criar a sua conta neste momento, tente novamente dentro de alguns minutos",
+            "changeWorkspaceError": "Ocorreu um erro ao alterar a conta"
         }
     },
     "theme": {
@@ -6338,10 +6392,90 @@
         "privateBooking": {
             "delete": {
                 "explainMoreHardDeleteReccurentBooking": "Esta reserva está ligada a uma regra de marcação recorrente. Se eliminar esta marcação, o sistema tentará criá-la novamente. Se não pretender que esta marcação seja novamente criada, não a elimine e deixe o seu estado como cancelado.",
-                "explainHardDelete": "Esta reserva já foi anulada. Se a eliminar, será completamente apagada do calendário e perderá o histórico. A reserva será reembolsada se ainda não tiver sido anulada. Esta operação é irreversível."
+                "explainHardDelete": "Esta reserva já foi anulada. Se a eliminar, será completamente apagada do calendário e perderá o histórico. A reserva será reembolsada se ainda não tiver sido anulada. Esta operação é irreversível.",
+                "consumer": {
+                    "title": "Cancelar reserva",
+                    "confirm": "Confirmar",
+                    "content": {
+                        "discardable": "Tem a certeza de que pretende cancelar esta marcação ? Os créditos ficarão novamente disponíveis.",
+                        "notDiscardable": "Tem a certeza de que pretende cancelar esta marcação ? Não tem tempo e os créditos não serão creditados."
+                    },
+                    "cancel": "Cancelar"
+                },
+                "explainWithRestore": "Tem a certeza de que pretende cancelar esta reserva ? Pode cancelar esta operação mais tarde.",
+                "title": "Cancelar reserva",
+                "hardDeleteTitle": "Eliminar uma reserva",
+                "explain": "Tem a certeza de que pretende cancelar esta reserva ? Esta operação é irreversível."
             },
             "hardDelete": "Eliminar",
-            "editTime": "Alterar"
+            "editTime": "Alterar",
+            "notRefunded": "Sem reembolso",
+            "detail": {
+                "cancelledByRecurrenceBy": "Cancelar por",
+                "dateModifiedBy": "Alterar por",
+                "canal": "Canal",
+                "coachModifiedBy": "Alterar por",
+                "wasRefundedNo": "Não",
+                "coach": "Professor",
+                "cancelledByRecurrenceOn": "Cancelar reserva recurrente em ",
+                "historyTitle": "Histórico",
+                "emptyHistory": "Sem histórico",
+                "coachModified": "Alteração",
+                "cancelledBy": "Cancelar por",
+                "slotTitle": "Sessão",
+                "address": "Morada",
+                "attachCoach": "Atribuir um professor",
+                "cancelledByRecurrence": "Cancelamento das reservas recorrentes",
+                "restoredBy": "Restaurar por",
+                "wasRefundedYes": "Sim",
+                "initialDateTime": "Data e hora inicial",
+                "title": "Reserva",
+                "registeredOn": "Reservado em ",
+                "cancelledOn": "Cancelar em ",
+                "source": "Canal de reservas ",
+                "unpaidBooking": "O aluno optou por efectuar o pagamento mais tarde. {{ credits}} crédito(s) serão automaticamente debitados na próxima vez que comprar um passe compatível.",
+                "by": "Por",
+                "dateModified": "Alteração",
+                "restored": "Restaurar",
+                "cancelled": "Cancelamento",
+                "passTitle": "Passes",
+                "wasRefunded": "Crédito reembolsado no passe"
+            },
+            "managerAdd": {
+                "incompatibilities": {
+                    "11108": "Número de créditos insuficientes",
+                    "11110": "O passe está expirado",
+                    "11109": "O passe fica ativo com a primeira reserva, a ",
+                    "close": "Fechar",
+                    "privateService": "Passe configurado como incompatível com a marcação em causa :",
+                    "11107": "Não compatível",
+                    "11111": "As datas não são compatíveis"
+                },
+                "emptyPrivatePass": "Sem nenhum passe de marcação compatível",
+                "address": "Morada",
+                "title": "Nova reserva",
+                "emptyPrivateConsumerPass": "Sem nenhum passe compatível",
+                "coachSelector": {
+                    "label": "Professor"
+                },
+                "pleaseSelectCoachAndSlot": "Primeiro, seleccione o professor e a sessão",
+                "compatiblePrivateConsumerPass": "Data em que os passes foram adquiridos :",
+                "nonCompatiblePrivateConsumerPass": "Passes de marcação não compatíveis :",
+                "compatiblePrivatePass": "Faturar um passe de marcação",
+                "noUncompatiblePassToDisplay": "Sem passes de marcação não compatíveis",
+                "cancel": "Cancelar",
+                "privateConsumerPassNeedRefresh": "Atualizar lista"
+            },
+            "isUnpaid": "Não pago",
+            "bookingIsUnpaid": "Reserva não paga",
+            "attachCoach": {
+                "explain": "Escolha um professor a quem atribuir esta marcação e adicione ao seu calendário",
+                "title": "Atribuir ao professor",
+                "actions": {
+                    "title": "Atribuir um professor",
+                    "cancel": "Cancelar"
+                }
+            }
         },
         "privateSlot": {
             "delete": {
@@ -8250,7 +8384,17 @@
             "deleteTile": "Eliminar",
             "editColor": "Alterar cor",
             "editName": "Alterar nome",
-            "editIcon": "Alterar ícone"
+            "editIcon": "Alterar ícone",
+            "seeLess": "Ver menos",
+            "archiveSection": "Arquivar a categoria",
+            "addSection": "Também pode adicionar uma categoria clicando no quadrado + na última posição.",
+            "archivedCategories": "Categorias arquivadas",
+            "categoryArchivedSnackbar": "Esta categoria foi arquivada",
+            "moveTile": "Mover",
+            "addItems": "Também pode adicionar objetos clicando no quadrado + na última posição.",
+            "newSection": "Nova categoria",
+            "categoryModalTitle": "Cor da categoria",
+            "categoryModalSubtitle": "Palete de cores"
         },
         "objectCard": {
             "subtitle": {
@@ -8259,8 +8403,27 @@
         },
         "rolePage": {
             "noResult": "Nenhum acesso criado",
-            "actionColumn": "Ação"
-        }
+            "actionColumn": "Ação",
+            "email": "E-mail",
+            "addAccess": "Adicionar acesso",
+            "submit": "Confirmar",
+            "firstName": "Nome próprio",
+            "lastName": "Nome",
+            "password": "Palavra-passe",
+            "cancel": "Cancelar",
+            "title": "Acesso ao ponto de venda",
+            "subtitle": "Estes acessos permitem ao pessoal aceder à interface de venda rápida. É necessário ter sessão iniciada para poder vender através da interface.",
+            "modalTitle": "Criar um acesso interface de vendas",
+            "staffColumn": "Staff",
+            "emailColumn": "E-mail"
+        },
+        "pageLeavePrompt": {
+            "save": "Guardar",
+            "description": "Atenção, não foi feita uma cópia de segurança. Está prestes a perder todas as alterações efetuadas. Gostaria de guardar?",
+            "discard": "Sair sem guardar",
+            "title": "As alterações não foram guardadas"
+        },
+        "pageTitle": "Interface de vendas"
     },
     "performanceTracking": {
         "metric": {

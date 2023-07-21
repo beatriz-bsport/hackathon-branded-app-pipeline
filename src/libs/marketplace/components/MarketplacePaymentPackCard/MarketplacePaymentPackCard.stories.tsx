@@ -37,6 +37,12 @@ paymentPackCardWithDateRange.args = {
   onOpenDetailDialog: () => {},
 };
 
+export const paymentPackCardPricingPage = Template.bind({});
+paymentPackCardPricingPage.args = {
+  paymentPack: fakepaymentPackWithDateRange,
+  variant: 'pricing_page'
+};
+
 export default {
   title: 'Components/Marketplace/PassCards/Cards/PaymentPackCard',
   component: MarketplacePaymentPackCardForStorybook,

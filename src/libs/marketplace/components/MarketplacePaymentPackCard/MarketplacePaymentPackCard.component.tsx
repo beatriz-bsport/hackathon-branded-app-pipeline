@@ -5,7 +5,9 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import Style from '@material-ui/icons/Style';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { useMediaQuery, useTheme } from '@material-ui/core';
-
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ToolTip from '#components/Tooltip.component';
 import Card from '#components/css-only/Card';
@@ -23,17 +25,23 @@ import {
 } from '#libs/theme/selectors';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import { CardSize } from '#components/css-only/Card/types';
-import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
+import {
+  MARKETPLACE_BREAKPOINT,
+  CARD_VARIANTS,
+} from '#libs/marketplace/constants';
 import { useValidityInfoForPaymentPackCard } from '../../utils/payment-pack';
+import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
 
 import './styles.css';
 
 export type Props = {
   paymentPack: PaymentPack;
   isExcludingTax?: boolean;
-  addToCart: () => void;
-  onOpenDetailDialog: () => void;
+  addToCart?: () => void;
+  onOpenDetailDialog?: () => void;
   hideCredits?: boolean;
+  isSelected?: boolean;
+  variant?: string;
 };
 
 const MarketplacePaymentPackCard: React.FC<Props> = ({
@@ -42,8 +50,12 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
   addToCart,
   onOpenDetailDialog,
   hideCredits,
+  isSelected,
+  variant,
 }) => {
-  const { t } = useTranslation('marketplace');
+  const cardVariant = variant ?? CARD_VARIANTS.MARKETPLACE;
+
+  const { t } = useTranslation(['marketplace', 'booking']);
   const theme = useTheme();
   const isMobile = useMediaQuery(
     theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM),
@@ -63,14 +75,36 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
     [addToCart],
   );
 
+  const [showAllDescription, setShowAllDescription] = React.useState(false);
+
+  const descriptionText = useIsTextExpandable(showAllDescription);
+
+  const onClickSeeMore = useCallback((event: React.MouseEvent) => {
+    event.stopPropagation();
+    setShowAllDescription(
+      (previousShowAllDescription) => !previousShowAllDescription,
+    );
+  }, []);
+
   return (
-    <Card size={CardSize.AUTO} classes={{ 'bs-pass-card': 'bs-pass-card' }}>
+    <Card
+      size={CardSize.AUTO}
+      classes={{
+        'bs-paymentpack-card': 'bs-paymentpack-card',
+        'bs-paymentpack-card--background':
+          cardVariant === CARD_VARIANTS.MARKETPLACE,
+      }}
+      isSelected={isSelected}
+    >
       <Content
         padding
         classes={{ 'bs-pass-card-content': 'bs-pass-card-content' }}
       >
         <Grid
-          classes={{ 'bs-paymentpack-card__grid': 'bs-paymentpack-card__grid' }}
+          classes={{
+            'bs-paymentpack-card__grid':
+              cardVariant === CARD_VARIANTS.MARKETPLACE,
+          }}
         >
           <Item
             alignment={Alignment.FLEX_START}
@@ -79,7 +113,12 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
             }
             columnEnd={1}
           >
-            <div className="bs-paymentpack-card__title">
+            <div
+              className={classNames('bs-paymentpack-card__title', {
+                'bs-paymentpack-card__title--small':
+                  cardVariant === CARD_VARIANTS.PRICING_PAGE,
+              })}
+            >
               {!!paymentPack.linked_private_pass && (
                 <ToolTip title={t('genericCard.title.universalPassMessage')}>
                   <Style className="bs-paymentpack-card__title__icon" />
@@ -93,66 +132,109 @@ const MarketplacePaymentPackCard: React.FC<Props> = ({
               </div>
             )}
             {paymentPack.description && (
-              <div className="bs-paymentpack-card__description">
+              <div
+                ref={descriptionText.ref}
+                className={classNames('bs-paymentpack-card__description', {
+                  'bs-paymentpack-card__description--short':
+                    cardVariant === CARD_VARIANTS.MARKETPLACE ||
+                    !showAllDescription,
+                })}
+              >
                 {paymentPack.description}
               </div>
             )}
+            {descriptionText.isExpandable &&
+              cardVariant === CARD_VARIANTS.PRICING_PAGE && (
+                <button
+                  type="button"
+                  className="bs-paymentpack-card__seemore"
+                  onClick={onClickSeeMore}
+                >
+                  {showAllDescription ? (
+                    <div className="bs-paymentpack-card__seemore__row">
+                      <KeyboardArrowUp />
+                      {t('booking:newBookingModule.cards.seeLess')}
+                    </div>
+                  ) : (
+                    <div className="bs-paymentpack-card__seemore__row">
+                      <KeyboardArrowDown />
+                      {t('booking:newBookingModule.cards.seeMore')}
+                    </div>
+                  )}
+                </button>
+              )}
           </Item>
           <Item
             alignment={Alignment.FLEX_END}
-            justification={Justification.SPACE_BETWEEN}
+            justification={
+              cardVariant === CARD_VARIANTS.MARKETPLACE
+                ? Justification.SPACE_BETWEEN
+                : Justification.FLEX_START
+            }
           >
-            <div className="bs-paymentpack-card__validity">
-              <div className="bs-paymentpack-card__validity__content">
-                {useValidityInfoForPaymentPackCard(paymentPack)}
-              </div>
+            <div
+              className={classNames('bs-paymentpack-card__validity', {
+                'bs-paymentpack-card__validity--margin':
+                  cardVariant === CARD_VARIANTS.PRICING_PAGE,
+              })}
+            >
+              <div>{useValidityInfoForPaymentPackCard(paymentPack)}</div>
             </div>
             <Price
               tax={paymentPack.tax}
               isExcludingTax={isExcludingTax}
               amount={paymentPack.price}
               formatPriceWithCurrency={getCurrencyDisplayWithPrice}
+              classes={{
+                'bs-paymentpack-card__price--small':
+                  cardVariant === CARD_VARIANTS.PRICING_PAGE,
+              }}
             >
-              <button
-                type="button"
-                className="bs-pass-card__price-icon"
-                onClick={handleAddToCart}
-              >
-                <ShoppingCartIcon />
-              </button>
+              {!!addToCart && (
+                <button
+                  type="button"
+                  className="bs-pass-card__price-icon"
+                  onClick={handleAddToCart}
+                >
+                  <ShoppingCartIcon />
+                </button>
+              )}
             </Price>
           </Item>
         </Grid>
-        <Item
-          justification={Justification.SPACE_BETWEEN}
-          direction={Direction.ROW}
-          classes={{
-            'bs-paymentpack-card__footer': 'bs-paymentpack-card__footer',
-          }}
-        >
-          <button
-            type="button"
-            className="bs-paymentpack-card__left-button"
-            onClick={onOpenDetailDialog}
+        {!!onOpenDetailDialog && !!addToCart && (
+          <Item
+            justification={Justification.SPACE_BETWEEN}
+            direction={Direction.ROW}
+            classes={{
+              'bs-paymentpack-card__footer': 'bs-paymentpack-card__footer',
+            }}
           >
-            <div className="bs-paymentpack-card__left-button__content">
-              <VisibilityIcon className="bs-paymentpack-card__left-button__icon" />
-              {t('genericCard.details.buttonContent')}
-            </div>
-          </button>
+            <button
+              type="button"
+              className="bs-paymentpack-card__left-button"
+              onClick={onOpenDetailDialog}
+            >
+              <div className="bs-paymentpack-card__left-button__content">
+                <VisibilityIcon className="bs-paymentpack-card__left-button__icon" />
+                {t('genericCard.details.buttonContent')}
+              </div>
+            </button>
 
-          <button
-            type="button"
-            className="bs-paymentpack-card__right-button"
-            onClick={addToCart}
-          >
-            {t('genericCard.addButton.buttonContent')}
-          </button>
-        </Item>
+            <button
+              type="button"
+              className="bs-paymentpack-card__right-button"
+              onClick={addToCart}
+            >
+              {t('genericCard.addButton.buttonContent')}
+            </button>
+          </Item>
+        )}
       </Content>
     </Card>
   );
 };
+
 export const MarketplacePaymentPackCardForStorybook = marketplaceCssHoc()(
   MarketplacePaymentPackCard,
 );

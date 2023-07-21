@@ -24,7 +24,7 @@ import { QuicksaleItemColor } from '../../constants';
 import ColorPicker from '../ColorPicker';
 import ListItem, { SimpleItemListAction } from './AdditionDrawerListItem';
 import QuicksaleItemGroupAdditionDrawer from './QuicksaleItemGroupAdditionDrawer';
-import useStyle from './hook';
+import useStyle from './styles';
 
 type ItemListAction =
   | SimpleItemListAction

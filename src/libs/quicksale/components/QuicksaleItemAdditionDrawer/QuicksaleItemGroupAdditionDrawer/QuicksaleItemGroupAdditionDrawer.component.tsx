@@ -16,8 +16,8 @@ import {
 } from '../../../types';
 import Selector from '#components/Selector/MaterialUISelector.component';
 import ListItem, { SimpleItemListAction } from '../AdditionDrawerListItem';
-import useParentDrawerStyle from '../hook';
-import useStyle from './hook';
+import useParentDrawerStyle from '../styles';
+import useStyle from './styles';
 
 type ItemListAction =
   | SimpleItemListAction

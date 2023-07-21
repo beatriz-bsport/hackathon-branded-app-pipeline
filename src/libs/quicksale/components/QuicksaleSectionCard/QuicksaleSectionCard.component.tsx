@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import { QuicksaleSection } from '../../types';
 import MuiIcon from '#components/MuiIcon.component';
 import useGlobalStyle from '../../globalStyleHook';
-import useStyle from './hook';
+import useStyle from './styles';
 import SectionName from './SectionName';
 import { EditableQuicksaleSectionKey } from '../../constants';
 

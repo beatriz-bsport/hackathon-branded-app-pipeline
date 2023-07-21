@@ -8,7 +8,7 @@ import {
   EditableQuicksaleSectionKey,
   QuicksaleSectionColor,
 } from '../../../constants';
-import useStyle from './hook';
+import useStyle from './styles';
 import { UserInteractionKey } from '#libs/types';
 import useOnClickOutside from '../../../../../hooks/useClickOutside';
 

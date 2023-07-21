@@ -10,7 +10,7 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import { QuicksaleCardInfo } from '../../types';
 import QuicksaleItemCard from '../QuicksaleItemCard/QuicksaleItemCard.component';
 import MuiIcon from '#components/MuiIcon.component';
-import useStyle from './hook';
+import useStyle from './styles';
 import QuicksaleItemCardSkeleton from './QuicksaleItemCardSkeleton';
 
 const stopPropagation = (e: React.KeyboardEvent) => e.stopPropagation();

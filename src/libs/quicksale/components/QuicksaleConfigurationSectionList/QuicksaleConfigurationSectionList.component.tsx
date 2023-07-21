@@ -13,7 +13,7 @@ import FuzzySearchIcon from '#components/search/FuzzySearchIcon.component';
 import MuiIcon from '#components/MuiIcon.component';
 import muiIconNames from '#components/input/muiIcon/muiIconNames';
 import { EditableQuicksaleSectionKey } from '../../constants';
-import useStyle from './hook';
+import useStyle from './styles';
 import QuicksaleSectionCardSkeleton from './QuicksaleSectionCardSkeleton';
 
 const stopPropagation = (e: React.KeyboardEvent) => e.stopPropagation();

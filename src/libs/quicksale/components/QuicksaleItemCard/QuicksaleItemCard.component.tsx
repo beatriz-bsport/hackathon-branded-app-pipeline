@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { QuicksaleCardInfo } from '../../types';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import useGlobalStyle from '../../globalStyleHook';
-import useStyle from './hook';
+import useStyle from './styles';
 
 const stopPropagation = (e: React.KeyboardEvent) => e.stopPropagation();
 

@@ -3,9 +3,11 @@ import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-in
 import {
   API_V1_URI,
   postAuth,
+  postAuthDeprecated,
   getAuth,
   buildUrlParams,
   patchAuth,
+  getAuthDeprecated,
 } from '../../http';
 import {
   MessageParams,
@@ -22,7 +24,7 @@ import { FetchRecipientsParams } from '#libs/member/types';
 import { GenericPaginationResults } from '#libs/types';
 
 export const sendCommunication = async (data: MessageParams) => {
-  return postAuth(
+  return postAuthDeprecated(
     `${API_V1_URI}/communication/communication_sent/send_communication/`,
     data,
   );
@@ -31,13 +33,13 @@ export const sendCommunication = async (data: MessageParams) => {
 export const fetchCommunicationSentList = async (
   params: FetchCommunicationParams,
 ) => {
-  return getAuth(
+  return getAuthDeprecated(
     `${API_V1_URI}/communication/communication_sent/${buildUrlParams(params)}`,
   );
 };
 
 export const fetchCommunicationSent = async (campaign_id: string) => {
-  return getAuth(
+  return getAuthDeprecated(
     `${API_V1_URI}/communication/communication_sent/${campaign_id}`,
   );
 };
@@ -59,7 +61,7 @@ export const fetchCommunicationRecipientList = async (params: {
   member_id__in?: number[];
   offer_with_selected_categories?: string;
 }) => {
-  return getAuth(
+  return getAuthDeprecated(
     `${API_V1_URI}/communication/communication_recipient/${buildUrlParams(
       params,
     )}`,
@@ -73,7 +75,7 @@ export const fetchFirstSelectedRecipientsForChatAllKinds = async (
     blacklist_notification: number[];
   } & FetchRecipientsParams,
 ) => {
-  return getAuth(
+  return getAuthDeprecated(
     `${API_V1_URI}/member/selected_members_for_communication_chat_all_kinds/${buildUrlParams(
       params,
     )}`,
@@ -81,7 +83,7 @@ export const fetchFirstSelectedRecipientsForChatAllKinds = async (
 };
 
 export const flagCommunicationRecipientAsRead = async (id: number) => {
-  return postAuth(
+  return postAuthDeprecated(
     `${API_V1_URI}/communication/communication_recipient/${id}/flag_as_read/`,
   );
 };

@@ -5,7 +5,9 @@ import {
   buildUrlParams,
   get,
   getAuth,
+  getAuthDeprecated,
   patchAuth,
+  patchAuthDeprecated,
 } from '../../http';
 import { BookingFunnelConfiguration, PricingOptionOrdering } from './types';
 
@@ -87,7 +89,7 @@ const fetchCompany = async (companyId: string) => {
 };
 
 export const fetchMarketplaceSettings = async (companyId: string) => {
-  return getAuth(
+  return getAuthDeprecated(
     `${API_V1_URI}/marketplace_settings/configuration/${companyId}/`,
   );
 };
@@ -96,7 +98,7 @@ export const updateMarketplaceSettings = async (
   companyId: string,
   data: any,
 ) => {
-  return patchAuth(
+  return patchAuthDeprecated(
     `${API_V1_URI}/marketplace_settings/configuration/${companyId}/`,
     data,
   );

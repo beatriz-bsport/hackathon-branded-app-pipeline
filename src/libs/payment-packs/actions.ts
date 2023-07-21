@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 
@@ -37,6 +36,7 @@ import {
   PaymentPackCategoryWithPacks,
   PaymentPackTemplate,
 } from './types';
+// @ts-expect-error
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 
 import type {
@@ -401,7 +401,7 @@ export function fetchPaymentPackForBooking(
   company: number,
   page: number,
   page_size: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(paymentPackForBookingActions.isLoading(true));

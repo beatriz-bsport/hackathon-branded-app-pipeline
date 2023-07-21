@@ -100,7 +100,7 @@ export const withMetaActivity = memoize((selector: (state: RootState) => any) =>
 );
 
 export const withEstablishment = memoize(
-  (selector: (state: RootState) => any) =>
+  (selector: (state: RootState, offerId?: number) => any) =>
     createSelector(
       [selector, getAllEstablishmentsDict],
       (offers, establishmentData) => {

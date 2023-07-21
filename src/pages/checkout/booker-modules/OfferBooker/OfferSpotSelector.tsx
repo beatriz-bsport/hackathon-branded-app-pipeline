@@ -11,9 +11,10 @@ import {
   DEFAULT_SPOT_TYPE_ID,
   getSpotIndexType,
 } from '#libs/spot-scheduling/utils';
+import type { Coach } from '#libs/associated-coach/types';
 
 interface Props {
-  offer: Offer<any, any, any>;
+  offer: Offer<Coach, any, any>;
   updateSpotsForOffer: (offerId: number, spot: number) => void;
   roomBlueprintsById: { [key: string]: RoomBlueprint };
   assetByIdBlueprintByIdentifier: {

@@ -14,7 +14,7 @@ export type Props = {
     tax?: number,
   ) => string;
   color?: Color;
-  classes?: { [key: string]: string };
+  classes?: { [key: string]: string | boolean };
   isExcludingTax: boolean;
   tax: number;
 };
@@ -44,4 +44,4 @@ export const Price: React.FC<Props> = ({
   );
 };
 
-export default Price;
+export default React.memo(Price);

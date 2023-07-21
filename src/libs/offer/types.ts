@@ -146,6 +146,7 @@ export type Offer<
   linked_hybrid_offer_id: number | null;
   is_broadcast: boolean;
   source: number;
+  tax?: number;
 };
 
 export type Offer_FULL = Offer<

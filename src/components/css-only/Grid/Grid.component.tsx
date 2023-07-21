@@ -6,7 +6,7 @@ import GridItem from './GridItem';
 
 export type Props = {
   children: React.ReactNode;
-  classes?: { [key: string]: string };
+  classes?: { [key: string]: string | boolean };
 };
 
 export const Grid: React.FC<Props> = ({ children, classes }) => {

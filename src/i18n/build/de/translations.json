@@ -137,7 +137,8 @@
                     "label": "Rechnungsnummer (n)",
                     "helperText": "Mindestens 2 Monate",
                     "error": "Die Anzahl der Rechnungen darf 90 nicht überschreiten",
-                    "errorForFixedBillingDay": "Die Anzahl der Rechnungen darf 12 nicht überschreiten"
+                    "errorForFixedBillingDay": "Die Anzahl der Rechnungen darf 12 nicht überschreiten",
+                    "restrictionForFixedBillingDay": "Die Anzahl der Rechnungen muss zwischen 2 und 12 liegen, wenn an einem festen Tag abgerechnet wird"
                 },
                 "recurrent_price": {
                     "label": "Wiederkehrende Zahlung",
@@ -2660,7 +2661,10 @@
             "cancel": "Schließen",
             "title": "In einer der Kadenzen verwendet"
         },
-        "downLoadSavedExport": "Vorherigen Export herunterladen"
+        "downLoadSavedExport": "Vorherigen Export herunterladen",
+        "generateExport": "Export generieren",
+        "generateHelperText": "Generieren Sie den Export zum Herunterladen der Smartlist",
+        "lastGenerated": "Letzter generierter Export am: {{-date}} {{time}}"
     },
     "theme": {
         "forms": {
@@ -3213,6 +3217,10 @@
             "5": {
                 "name": "Reports",
                 "description": "Zugriff nur auf Berichte, die beispielsweise für Deine Buchhaltung nützlich sind"
+            },
+            "-1": {
+                "description": "Zugriff nur auf die Schnellverkaufsschnittstelle",
+                "name": "Checkin Verkaufsschnittstelle"
             }
         },
         "rolePermissions": {
@@ -3281,6 +3289,9 @@
                     },
                     "waitingList": {
                         "_label": "Warteliste"
+                    },
+                    "quicksale": {
+                        "_label": "Schnelle Verkaufsschnittstelle"
                     }
                 },
                 "reporting": {
@@ -5063,6 +5074,7 @@
                 "Storniert",
                 "Stornieren",
                 "Stornieren",
+                "Stornieren",
                 "Stornieren"
             ]
         }
@@ -6594,7 +6606,8 @@
             "3": "Abbrechen",
             "4": "in Bearbeitung",
             "0": "Erfolgreich"
-        }
+        },
+        "anonymousMember": "Anonymes Mitglied"
     },
     "payment": {
         "paymentMethod": {
@@ -7783,6 +7796,22 @@
                 "default": {
                     "message": "Die Buchung dieser Session ist nicht verfügbar",
                     "title": "Buchung gesperrt"
+                },
+                "waitingListLockedByPendingBookings": {
+                    "title": "Sonstige Buchungen in Bearbeitung",
+                    "message": "Andere Personen buchen gerade, die Warteliste ist derzeit nicht verfügbar. Bitte versuchen Sie es in ein paar Minuten erneut, um zu sehen, ob ein Platz frei ist."
+                },
+                "isWaitingListFull": {
+                    "title": "Warteliste voll",
+                    "message": "Diese Session und die Warteliste sind voll. Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut."
+                },
+                "isAlreadyOnWaitingList": {
+                    "title": "Bereits auf der Warteliste",
+                    "message": "Wenn Sie auf der Warteliste stehen, werden Sie per E-Mail benachrichtigt, sobald ein Platz frei wird."
+                },
+                "waitingListOpen": {
+                    "title": "Volle Session",
+                    "message": "Treten Sie der Warteliste bei und Sie erhalten eine Nachricht, sobald ein Platz frei wird."
                 }
             },
             "backToCalendar": "Zurück zum Kalender",
@@ -7796,7 +7825,11 @@
                 "seeMore": "Mehr sehen",
                 "seeLess": "Weniger sehen"
             },
-            "filterAll": "Alle"
+            "filterAll": "Alle",
+            "subscriptions": "Verträge",
+            "combos": "Pakete",
+            "passes": "Kurspässe",
+            "otherPasses": "Andere Kurspässe"
         }
     },
     "member": {
@@ -9695,7 +9728,14 @@
                     "smartlist": "Smartlist-Details",
                     "member": "Mitgliederdetails"
                 },
-                "filterMessages": "Nachrichten filtern"
+                "filterMessages": "Nachrichten filtern",
+                "noMessage": "Keine Nachricht",
+                "disableDialog": {
+                    "title": "Den Chat archivieren",
+                    "firstContent": "SIe sind dabei diesen Chat zu archvieren.",
+                    "secondContent": "Er wird nicht mehr in der Chat-Liste erscheinen, kann aber weiterhin über den Filter 'Archiviert' aufgerufen werden.",
+                    "thirdContent": "Beachten Sie, dass eine neue Nachricht in diesem Chat, die von Ihnen oder Ihrem Gesprächspartner kommt, den Chat automatisch wiederherstellt."
+                }
             },
             "kind": {
                 "member": "Mitglieder",
@@ -9711,7 +9751,40 @@
                 "disabled": "Archivieren"
             },
             "loadMoreThreads": "Weitere Nachrichten laden",
-            "noThread": "Keine Treffer"
+            "noThread": {
+                "list": "Kein Ergebnis",
+                "item": {
+                    "member": "Hier finden Sie die Gespräche mit den Mitgliiedern",
+                    "smartlist": "Hier finden Sie die Konversationen zihrer Smartlist",
+                    "offer": "Hier finden Sie die Konversationen Ihrer Sessions"
+                }
+            },
+            "selectThread": {
+                "title": "Einen Chat auswählen",
+                "description": "Klicken Sie auf ein Mitglied, eine Smartlist oder eine Session um die zugehörige Konversation anzuzeigen"
+            },
+            "panel": {
+                "header": "Details",
+                "tags": "Tags",
+                "member": {
+                    "invoices": {
+                        "title": "Rechnungen",
+                        "noUnpaidInvoices": "Ein Tag"
+                    },
+                    "files": "Dokumente",
+                    "notes": "Notizen"
+                },
+                "smartlist": {
+                    "memberCount": "Mitglieder in der Smartlist",
+                    "filters": "Filter",
+                    "description": "Beschreibung"
+                },
+                "navigation": {
+                    "member": "Details zum Mitglied ansehen",
+                    "smartlist": "Detaisl der Smartliste ansehen",
+                    "offer": "Details der Session ansehen"
+                }
+            }
         },
         "sentStatus": {
             "fail": "Beim Senden ist ein Fehler aufgetreten",
@@ -9810,10 +9883,7 @@
                 "placeholder": "Wählen Sie eine Sendungsart aus",
                 "title": "Art der Sendung"
             },
-            "numberFilter": {
-                "oneFilter": "1 Filter angewendet",
-                "severalFilters": "angewendete Filter"
-            },
+            "numberFilter": "1 angewandter Filter",
             "dateFilter": {
                 "dateEnd": "Datum des Endes",
                 "dateStart": "Datum des Anfangs",
@@ -9821,7 +9891,8 @@
                 "title": "Datum des Versands"
             },
             "filterAction": "Filtern",
-            "applyFilter": "Anwenden"
+            "applyFilter": "Anwenden",
+            "numberFilter_plural": "{{count}} angeandte Filter"
         },
         "generic": {
             "history": "Verlauf",
@@ -9848,6 +9919,17 @@
             "see": "Anzeigen",
             "noSmartListPopup": "Kein Start-Pop-up",
             "memberListTitle": "Start-Pop-up"
+        },
+        "messageList": {
+            "filterOutCommunicationSent": "Die Kommunikation, die Sie gerade gesendet haben, wird von den aktiven Filtern verdeckt.",
+            "emptyList": {
+                "becauseOfFilters": "Keine Ergebnisse, die mit den Filtern übereinstimmen.",
+                "becauseNeverUsed": "Sie haben noch keine Kommunikation auf diesem Kanal gesendet."
+            }
+        },
+        "createThread": {
+            "close": "Schließen",
+            "confirmResourceSelected": "Bestätigen"
         }
     },
     "consumerSpace": {
@@ -12137,7 +12219,7 @@
             "cancel": "Abbrechen",
             "confirm": "Weiter",
             "warningPartialBooking": "Sie buchen eine Gruppe von Sessions. Sie sind jedoch nicht verpflichtet, an allen Sessions dieser Gruppe teilzunehmen. Sie können die Session auswählen, die Sie besuchen möchten.",
-            "warningFullBooking": "Füllen Sie diese Buchung aus, um sich für {{count}} Session(s) anzumelden."
+            "warningFullBooking": "Sie buchen gerade eine Gruppe von Sessions. Sie werden für alle {{count}} Sessions dieser Gruppe angemeldet."
         },
         "warning": {
             "disconnect": "Abmelden",

@@ -459,7 +459,63 @@
             "error": "Problema de ligação com o Spivi",
             "errorText": "O membro não preenche as condições do Spivi, pelo que a reserva não foi efectuada através do Spivi."
         },
-        "warning": "Atenção"
+        "warning": "Atenção",
+        "newBookingModule": {
+            "waitingListWarning": "Antes de se inscrever na lista de espera, certifique-se de que adquiriu um passe, um pack ou uma subscrição adequada. É essencial ter um passe, pack ou subscrição ativa para garantir o lugar na lista de espera.",
+            "filterAll": "Todos",
+            "cards": {
+                "seeLess": "Ver menos",
+                "seeMore": "Ver mais"
+            },
+            "backToCalendar": "Voltar ao calendário",
+            "choosePass": "Escolher um passe",
+            "buyPass": "Comprar um passe",
+            "buyNewPass": "Comprar um novo passe",
+            "myPasses": "O meu passe",
+            "myPasses_plural": "Os meus passes",
+            "blockedReasons": {
+                "default": {
+                    "title": "Reserva bloqueada",
+                    "message": "A reserva para esta sessão já não está disponível"
+                },
+                "blockedByTags": {
+                    "title": "Direitos insuficientes",
+                    "message": "Lamentamos, mas esta sessão não está atualmente disponível para reserva. Foi restringida a um grupo específico de membros."
+                },
+                "isAlreadyRegistered": {
+                    "title": "Sessão já reservada",
+                    "message": "Já se registou para esta sessão."
+                },
+                "isTooSoon": {
+                    "title": "Disponível em breve",
+                    "message": "As inscrições estão atualmente encerradas e serão abertas em {{-date}}."
+                },
+                "isTooLate": {
+                    "message": "Lamentamos, mas o período de reserva para esta sessão já terminou.",
+                    "title": "Limite de tempo excedido"
+                },
+                "waitingListLockedByPendingBookings": {
+                    "title": "Outras reservas ativas",
+                    "message": "Outras pessoas estão a fazer reservas, a lista de espera não está disponível de momento. Tente novamente dentro de alguns minutos."
+                },
+                "isWaitingListFull": {
+                    "title": "Lista de espera completa",
+                    "message": "Esta sessão e a lista de espera estão completas. Por favor, tente novamente mais tarde."
+                },
+                "isAlreadyOnWaitingList": {
+                    "title": "Já se encontra na lista de espera",
+                    "message": "Se estiver em lista de espera, será informado por e-mail assim que houver um lugar disponível."
+                },
+                "waitingListOpen": {
+                    "title": "Sessão completa",
+                    "message": "Inscreva-se na lista de espera e receberá uma mensagem assim que houver um lugar disponível."
+                }
+            },
+            "subscriptions": "Subscrições",
+            "combos": "Packs",
+            "passes": "Passes",
+            "otherPasses": "Outros passes"
+        }
     },
     "coach": {
         "workingDateSection": "Período de atividade no estúdio",
@@ -4202,7 +4258,86 @@
             "maxUseMonth": "Máximo de utilizações por mês",
             "maxUseWeek": "Máximo de utilizações por semana",
             "maxUseHelper": "Deixar em branco para não impor um limite",
-            "maxUseDay": "Utilizações máximas por dia"
+            "maxUseDay": "Utilizações máximas por dia",
+            "marginalContributionHelperText": "Utilizado para calcular a remuneração dos professores. 10{{ currencyDisplay }} significa que uma reserva efetuada com este passe é remunerada a 10{{ currencyDisplay }}. Se estiver vazio ou for 0{{ currencyDisplay }}, a contribuição de um cartão será PRICE/NB_RESERVATION",
+            "offPeak": {
+                "label": "É possível efetuar reservas para determinados horários",
+                "choice": {
+                    "timeSlot": "Horários",
+                    "allDay": "Durante todo o dia"
+                },
+                "addGroupTimeSlot": "Adicionar um grupo de intervalos de tempo",
+                "addTimeSlot": "Adicionar um horário"
+            },
+            "validForDuration": {
+                "yearDayNoMonth": "Este passe é válido para {{ duration_year }} anos e {{ duration_day }} dias",
+                "yearNoDay": "Este passe é válido para {{ duration_year }} anos e {{ duration_month }} meses",
+                "month": "Este passe é válido para {{ duration_month }} meses e {{ duration_day }} dias",
+                "monthNoDay": "Este passe é válido para {{ duration_month }} meses",
+                "yearNoDayNoMonth": "Este passe é válido para {{ duration_year }} anos",
+                "day": "Este passe é válido para {{ duration_day }} dias",
+                "year": "Este passe é válido por {{ duration_year }} anos, {{ duration_month }} meses e {{ duration_day }} dias"
+            },
+            "firstBooking": "Na primeira reserva",
+            "beginningDate": "Data de início",
+            "expirationDate": "Expira se não houver uma reserva inicial",
+            "penalityNumberDay": "Número de dias",
+            "atLeastOneDay": "Pelo menos um dia deve ser selecionado",
+            "minusZero": "este campo não pode ser igual a 0",
+            "namePaymentPack": "Nome do passe",
+            "description": "Descrição",
+            "credit": "Crédito",
+            "availabilityGivenNumber": "Tornar o passe válido apenas durante um determinado número de dias (após a data de compra)",
+            "availabilitySlot": "Tornar o passe válido apenas para um conjunto de datas",
+            "restriction": "Restrições",
+            "packValidity": "Validade do passe",
+            "penalityModeFranchisor": {
+                "prorataNoShow": {
+                    "explain": "O depósito de {{ price }} será aplicado proporcionalmente às ausências (não comparências) registadas para cada um dos seus franchisados. Será cobrado um total de {{ price }} ao seu franchise."
+                },
+                "buyer": {
+                    "explain": "O depósito {{ price }} só será aplicado no franchisado onde o passe foi inicialmente faturado.",
+                    "label": "O franqueado que facturou o passe"
+                },
+                "prorata": {
+                    "explain": "O depósito {{ price }} será aplicado proporcionalmente ao número de cancelamentos fora de prazo registados por cada um dos seus franchisados. Será cobrado um total de {{ price }} à sua franquia."
+                }
+            },
+            "penalityType": "Tipo de penalização a aplicar",
+            "creditWarning": "Se alterar o número de créditos, todos os cartões existentes serão afetados.",
+            "startAfterEnd": "A hora de início deve ser inferior à hora de fim",
+            "numberOfAvailableCredits": "Número de créditos disponíveis",
+            "fromDate": "A partir de",
+            "penalityInfo": "Será aplicada uma penalização se {{penalityNumberCancel}} for cancelado fora do período de dias {{penalityNumberDay}}",
+            "penalityAccountHelper": "Um depósito de {{penalityBlockAccount}}{{ currencyDisplay }} será aplicado a este membro",
+            "penality": "Aplicar uma penalização por demasiados cancelamentos após o prazo",
+            "toDate": "Até",
+            "endBeforeStart": "A data final não pode ser superior à data de início",
+            "monthValidity": "Período de validade em meses",
+            "monthValidityHelper": "Adicionado ao número de dias",
+            "migration": "Estes passes ativos é o resultado de uma migração, pelo que alguns campos não podem ser modificados para respeitar o historial. As actividades/categorias compatíveis podem ainda ser alteradas.",
+            "billing": "Faturação",
+            "penalityNumberCancel": "Número de cancelamentos",
+            "unlimited": "Ilimitado",
+            "franchise": "Este passe é partilhado pela conta do franchisador. Certos elementos foram definidos pela conta do franchisador e não podem ser alterados",
+            "marginalContribution": "Contribuição marginal teórica incl. IVA",
+            "attendance": "Na primeira presença",
+            "name": "Nome",
+            "penalityRule": "Só é possível aplicar uma penalização se o número de créditos for ilimitado",
+            "yearValidityHelper": "Adicionado ao número de meses",
+            "penalityBlockDay": "Período de bloqueio do passe (em dias)",
+            "penalityAccountPrice": "Montante do depósito",
+            "penalityBlockDayHelper": "O passe do membro será bloqueado durante {{penalityBlockDay}} dias",
+            "dayValidity": "Período de validade em dias",
+            "requiredField": "Este campo é obrigatório",
+            "paymentPack": "Passe",
+            "generalInfo": "Informações gerais",
+            "numberOfCredit": "Número de créditos",
+            "limited": "Limite",
+            "expirationDateHelper": "Se o passe não for utilizado pela primeira vez dentro deste número de dias, perde a validade",
+            "penalityBlock": "Bloquear temporariamente o passe",
+            "penalityAccount": "Criar um depósito para o membro em causa",
+            "yearValidity": "Período de validade em anos"
         },
         "incompatibilities": {
             "paymentPack": "Passe configurado como incompatível com a atividade em questão :",
@@ -4338,7 +4473,8 @@
             "compatibilityPaymentPack": "Compatibilidade com as aulas em grupo",
             "compatibility": "Compatibilidade",
             "validity": "Confirmar",
-            "credit_quantity": "Número de créditos"
+            "credit_quantity": "Número de créditos",
+            "offPeak": "Horários"
         },
         "massExtension": {
             "listItemNbDays": "+{{nbDays}} dias",
@@ -4425,8 +4561,12 @@
         "disableConsumer": "Bloquear",
         "disabled": "Desativar",
         "paymentPackDisabled": {
-            "error": "Impossível eliminar"
-        }
+            "error": "Impossível eliminar",
+            "success": "Passe eliminado"
+        },
+        "use": "Usar",
+        "isNonCompatible": "incompatível",
+        "subscribeToOffer": "Registo"
     },
     "paymentCombo": {
         "parameters": {
@@ -4688,6 +4828,70 @@
                 "settings": {
                     "waitingList": {
                         "_label": "Lista de espera"
+                    },
+                    "personalization": {
+                        "_label": "Personalizar"
+                    },
+                    "mobilePersonalization": {
+                        "_label": "Personalizar app"
+                    },
+                    "liveStreaming": {
+                        "_label": "Videoconferência"
+                    },
+                    "subscription": {
+                        "_label": "Contrato bsport"
+                    },
+                    "quicksale": {
+                        "_label": "Interface de venda rápida"
+                    },
+                    "_label": "Parámetros",
+                    "generals": {
+                        "_label": "Geral"
+                    },
+                    "coachUserspace": {
+                        "_label": "Área do professor"
+                    },
+                    "teacherPayrollRules": {
+                        "_label": "Regras de renumeração"
+                    },
+                    "webShop": {
+                        "_label": "Loja"
+                    },
+                    "webHook": {
+                        "_label": "Webhook"
+                    },
+                    "partnership": {
+                        "_label": "Parceria"
+                    },
+                    "activeCampaign": {
+                        "_label": "Campanhas ativas"
+                    },
+                    "staffs": {
+                        "_label": "Staff"
+                    },
+                    "memberForms": {
+                        "_label": "Formulário de adesão"
+                    },
+                    "company": {
+                        "_label": "Empresa"
+                    },
+                    "quickBooks": {
+                        "_label": "QuickBooks"
+                    },
+                    "paymentMethods": {
+                        "_label": "Método de pagamento"
+                    },
+                    "marketplace": {
+                        "_label": "Parámetros do marketplace"
+                    },
+                    "widgets": {
+                        "_label": "Ferramenta"
+                    },
+                    "billing": {
+                        "_label": "Faturação"
+                    },
+                    "transactionnalEmail": {
+                        "_label": "E-mails transaccionais"
                     }
                 },
                 "myClub": {
@@ -4699,13 +4903,66 @@
                     "giftcards": {
                         "_label": "Passes de oferta"
                     }
+                },
+                "tutorial": {
+                    "_label": "Tutorial"
+                },
+                "digitalOffer": {
+                    "_label": "Oferta digital",
+                    "videos": {
+                        "_label": "Biblioteca de vídeos"
+                    },
+                    "playlists": {
+                        "_label": "Lista de reprodução"
+                    }
+                },
+                "member": {
+                    "_label": "Membro"
+                },
+                "reporting": {
+                    "_label": "Relatórios"
                 }
             },
             "franchiseMenu": {
                 "products": {
                     "giftcardTemplates": {
                         "_label": "Passe de oferta"
+                    },
+                    "paymentPackTemplates": {
+                        "_label": "Passes"
+                    },
+                    "_label": "Produtos",
+                    "couponTemplates": {
+                        "_label": "Promoções"
+                    },
+                    "privatePassTemplates": {
+                        "_label": "Passe de marcação"
                     }
+                },
+                "notificationRules": {
+                    "_label": "E-mails transacionais "
+                },
+                "widgets": {
+                    "_label": "Widgets"
+                },
+                "members": {
+                    "_label": "Membros"
+                },
+                "emailTemplates": {
+                    "_label": "E-mails"
+                },
+                "settings": {
+                    "_label": "Parametros"
+                },
+                "_label": "Menu de pesquisa",
+                "franchises": {
+                    "_label": "Franchise"
+                },
+                "reporting": {
+                    "_label": "Relatórios"
+                },
+                "staff": {
+                    "_label": "Staff"
                 }
             }
         },
@@ -4796,7 +5053,37 @@
         "explainStaffDo": "Acesso do pessoal em https://backoffice.bsport.io ,através de computador ou telemóvel",
         "permissions": "Funções disponíveis",
         "userRoles": "Contas Staff",
-        "pageTitle": "Staff"
+        "pageTitle": "Staff",
+        "roleDescription": {
+            "0": {
+                "name": "Administrador(a)",
+                "description": "Acesso de administrador sem restrições, pode criar contas do staff"
+            },
+            "2": {
+                "description": "Acesso apenas no momento do check-in.",
+                "name": "Check-in restrito"
+            },
+            "3": {
+                "name": "Check-in",
+                "description": "Conta para aplicação de auto-checkin (contacte o seu gestor de conta bsport)"
+            },
+            "-1": {
+                "description": "Acesso apenas à interface de venda rápida",
+                "name": "Check-in para o interface de vendas"
+            },
+            "1": {
+                "name": "Check-in alargado",
+                "description": "Acesso à gestão de sessões (modificação e cancelamento), membros e check-in."
+            },
+            "5": {
+                "name": "Relatórios",
+                "description": "Acesso apenas a relatórios, útil para os contabilistas do espaço, por exemplo"
+            },
+            "4": {
+                "name": "Admin",
+                "description": "Admin, o mesmo acesso que o Proprietário mas pode ser eliminado/criado"
+            }
+        }
     },
     "reporting": {
         "helperText": {
@@ -7359,7 +7646,17 @@
             "coachUserspace": "Área do professor",
             "partnership": "Parceria",
             "personalization": "Personalizar",
-            "waitingList": "Lista de espera"
+            "waitingList": "Lista de espera",
+            "general": "Geral",
+            "broadcast": "Vídeo conferência",
+            "paymentRules": "Regras de renumeração",
+            "invoice": "Faturação",
+            "shop": "Loja",
+            "role": "Staff",
+            "active_campaign": "Campanha Ativa",
+            "notificationRule": "E-mails transacionais",
+            "company": "Empresa",
+            "webhook": "Webhook"
         },
         "mobilePersonalization": {
             "popup": {
@@ -7385,7 +7682,8 @@
         },
         "companyOnboarding": {
             "error": "Não é possível alterar esta informação"
-        }
+        },
+        "pageTitle": "Parametros"
     },
     "widget": {
         "widget": {
@@ -8999,5 +9297,83 @@
         "never": "Nunca",
         "longDayIdentifer": "dias",
         "shortDayIdentifier": "d"
+    },
+    "selfCheckIn": {
+        "offerDetail": {
+            "actions": {
+                "close": "Fechar",
+                "createAccount": "Criar uma conta",
+                "restartAnalyze": "Recomeçar"
+            },
+            "activateBarcode": "Detetor de cartões",
+            "register": "Registar",
+            "isFull": "Completo",
+            "emptyList": "Não há alunos registados",
+            "noConsumerPaymentPack": "Não tem um passe válido !",
+            "noDetectionResult": "Nenhum resultado",
+            "backToOfferList": "Voltar para as sessões",
+            "cancelRegistration": "Cancelar",
+            "activateFaceId": "Reconhecimento facial"
+        },
+        "signout": {
+            "signout": "Desligar",
+            "form": {
+                "username": {
+                    "label": "E-mail"
+                },
+                "password": {
+                    "label": "Palavra-passe"
+                }
+            },
+            "passwordError": "Palavra-passe errada",
+            "title": "Desativar",
+            "explain": "Para terminar a sessão, introduza a palavra-passe da sua conta Check-in",
+            "cancel": "Cancelar"
+        },
+        "memberList": {
+            "empty": "Não há alunos registados",
+            "checkIn": "Check-in",
+            "checkedIn": "Registado"
+        },
+        "confirmPage": {
+            "signIn": "Registado",
+            "classLocation": "A  sessão decorre em",
+            "expires": "Expirado",
+            "headOnIn": "Está tudo pronto para começar !",
+            "visitsLeft": "Visitas restantes"
+        },
+        "filter": {
+            "establishment": "Filtrar por local"
+        },
+        "offerList": {
+            "emptyList": "Nenhuma sessão",
+            "refresh": "Recarregar sessões"
+        },
+        "offerStatus": {
+            "inProgress": "começa depois",
+            "startIn": "começa em ",
+            "hasEnded": "Concluído desde"
+        },
+        "addMember": {
+            "button": "Criar uma conta"
+        }
+    },
+    "search": {
+        "member": {
+            "archived": "Membros arquivados",
+            "sessions": {
+                "title": "Sessões"
+            },
+            "packs": {
+                "title": "Passes"
+            },
+            "closeMemberMatch": "Está à procura deste membro ?"
+        },
+        "noResult": "Nenhum resultado",
+        "input": "Pesquisar...",
+        "go_back": "Voltar aos resultados",
+        "actions": {
+            "addMember": "Adicionar um membro"
+        }
     }
 }

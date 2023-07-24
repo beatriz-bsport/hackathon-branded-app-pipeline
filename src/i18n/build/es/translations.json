@@ -3448,7 +3448,8 @@
             "2": "Pendiente",
             "1": "Fallido",
             "0": "Exitoso"
-        }
+        },
+        "anonymousMember": "Miembro anónimo"
     },
     "coach": {
         "coach": "Profesor",
@@ -3684,7 +3685,8 @@
                     "helperText": "Al menos 2 meses",
                     "label": "Número de facturas",
                     "error": "El número de facturaciones no debe superar 90",
-                    "errorForFixedBillingDay": "El número de facturaciones no debe superar 12"
+                    "errorForFixedBillingDay": "El número de facturaciones no debe superar 12",
+                    "restrictionForFixedBillingDay": "El número de facturaciones debe estar comprendido entre 2 y 12 para la facturación en día fijo."
                 },
                 "name": {
                     "label": "Nombre del contrato"
@@ -5022,6 +5024,7 @@
                 "Cancelada",
                 "Cancelada",
                 "Cancelled",
+                "Cancelada",
                 "Cancelada"
             ]
         },
@@ -6239,7 +6242,51 @@
                 "seeMore": "Ver más",
                 "seeLess": "Ver menos"
             },
-            "filterAll": "Todo"
+            "filterAll": "Todo",
+            "blockedReasons": {
+                "default": {
+                    "title": "",
+                    "message": ""
+                },
+                "waitingListOpen": {
+                    "message": "Apúntese a la lista de espera y recibirá un mensaje en cuanto haya una plaza disponible.",
+                    "title": "Sesión completa"
+                },
+                "isTooLate": {
+                    "message": "Lo sentimos, pero el plazo de reserva para esta sesión ha finalizado.",
+                    "title": "Tiempo límite superado"
+                },
+                "blockedByTags": {
+                    "title": "",
+                    "message": ""
+                },
+                "waitingListLockedByPendingBookings": {
+                    "title": "Otras reservas en curso",
+                    "message": "Otras personas están reservando actualmente, la lista de espera no está disponible en este momento. Por favor, inténtelo de nuevo en unos minutos para ver si hay alguna plaza disponible."
+                },
+                "isWaitingListFull": {
+                    "title": "Lista de espera completa",
+                    "message": "Esta sesión y la lista de espera están completas. Vuelva a intentarlo más tarde."
+                },
+                "isAlreadyOnWaitingList": {
+                    "title": "Ya está en lista de espera",
+                    "message": "Si está en lista de espera, le informaremos por correo electrónico en cuanto haya una plaza disponible."
+                },
+                "isAlreadyRegistered": {
+                    "title": "Sesión ya reservada",
+                    "message": "Ya se ha inscrito en esta sesión."
+                },
+                "isTooSoon": {
+                    "title": "Disponible próximamente",
+                    "message": "La inscripción está actualmente cerrada y se abrirá el {{-date}}."
+                }
+            },
+            "waitingListWarning": "",
+            "backToCalendar": "",
+            "subscriptions": "Subscripciones",
+            "combos": "Packs",
+            "passes": "Bonos",
+            "otherPasses": "Otros bonos"
         }
     },
     "marketplace": {
@@ -8473,10 +8520,7 @@
             "warningConsent1": "Advertencia: este miembro no quiere recibir sms promocionales. Los sms directos te permiten llegar a tus socios de forma sencilla y rápida. No deben utilizarse con fines publicitarios o promocionales."
         },
         "filter": {
-            "numberFilter": {
-                "oneFilter": "1 filtro aplicado",
-                "severalFilters": "filtros aplicados"
-            },
+            "numberFilter": "1 filtro aplicado",
             "dateFilter": {
                 "dateEnd": "Fecha de finalización",
                 "dateStart": "Fecha de inicio",
@@ -8529,7 +8573,8 @@
             "srcOrDst": {
                 "placeholder": "Selecciona un tipo de mensaje",
                 "title": "Mensajes"
-            }
+            },
+            "numberFilter_plural": "{{count}} filtros aplicados"
         },
         "dialogRecipients": {
             "noMail": "correo electrónico no suministrado",
@@ -8615,7 +8660,14 @@
                     "smartlist": "Detalles de la Smartlist",
                     "member": "Datos del miembro"
                 },
-                "filterMessages": "Filtrar mensajes"
+                "filterMessages": "Filtrar mensajes",
+                "disableDialog": {
+                    "secondContent": "Ya no aparecerá en la lista de chats, pero se podrá seguir accediendo a él seleccionando el filtro \"Archivado\".",
+                    "title": "Archivar chat",
+                    "firstContent": "Estás a punto de archivar este chat.",
+                    "thirdContent": "Ten en cuenta que un nuevo mensaje en este chat, ya sea tuyo o de la persona con la que estás hablando, restablecerá automáticamente el chat."
+                },
+                "noMessage": "Ningún mensaje"
             },
             "search": "Buscar...",
             "filter": {
@@ -8631,7 +8683,40 @@
                 "offer": "Sesiones"
             },
             "loadMoreThreads": "Cargar más mensajes",
-            "noThread": "Ningún resultado"
+            "noThread": {
+                "item": {
+                    "smartlist": "Aquí puedes encontrar las conversaciones de tus smartlists.",
+                    "member": "Más información sobre las conversaciones con los miembros",
+                    "offer": "Haga clic aquí para obtener más información sobre sus sesiones"
+                },
+                "list": "Ningún resultado"
+            },
+            "selectThread": {
+                "description": "Haga clic en un miembro, una lista inteligente o una sesión para ver la conversación asociada.",
+                "title": "Seleccione un chat"
+            },
+            "panel": {
+                "smartlist": {
+                    "memberCount": "Miembros en la smartlist",
+                    "filters": "Filtros",
+                    "description": "Descripción"
+                },
+                "member": {
+                    "invoices": {
+                        "title": "Facturas",
+                        "noUnpaidInvoices": "Al día"
+                    },
+                    "files": "Documentos",
+                    "notes": "Notas"
+                },
+                "navigation": {
+                    "offer": "Ver detalles de la sesión",
+                    "member": "Ver los datos del miembro",
+                    "smartlist": "Ver detalles de la smartlist"
+                },
+                "header": "Detalles",
+                "tags": "Etiquetas"
+            }
         },
         "sentStatus": {
             "fail": "Se produjo un error al enviar",
@@ -8658,6 +8743,17 @@
             "seeRecipients": "Ver destinatarios",
             "noSmartListPopup": "No hay ventanas emergentes de inicio",
             "memberListTitle": "Ventana emergente de inicio"
+        },
+        "messageList": {
+            "emptyList": {
+                "becauseOfFilters": "No hay resultados que coincidan con los filtros.",
+                "becauseNeverUsed": "Aún no ha enviado ninguna comunicación por este canal."
+            },
+            "filterOutCommunicationSent": "La comunicación que acaba de enviar queda oculta por los filtros activos."
+        },
+        "createThread": {
+            "close": "Cerrar",
+            "confirmResourceSelected": "Confirmar"
         }
     },
     "paymentCombo": {
@@ -9303,6 +9399,10 @@
             "5": {
                 "name": "Informes",
                 "description": "Acceso sólo a los informes, útil para sus contadores por ejemplo"
+            },
+            "-1": {
+                "description": "Acceso sólo a la interfaz de venta rápida",
+                "name": "Interfaz de ventas Check-in"
             }
         },
         "rolePermissions": {
@@ -9371,6 +9471,9 @@
                     },
                     "coachUserspace": {
                         "_label": "Área de profesores"
+                    },
+                    "quicksale": {
+                        "_label": "Interfaz de venta rápida"
                     }
                 },
                 "reporting": {
@@ -13445,7 +13548,10 @@
             "cancel": "Cerrar",
             "title": "Utilizada en una de las cadencias"
         },
-        "downLoadSavedExport": "Descargar exportación anterior"
+        "downLoadSavedExport": "Descargar exportación anterior",
+        "generateExport": "Generar la exportación",
+        "generateHelperText": "Generar la exportación para descargar la smartlist",
+        "lastGenerated": "Última exportación generada el: {{-date}} {{time}}"
     },
     "relationship": {
         "consumer_payment_pack_links": {

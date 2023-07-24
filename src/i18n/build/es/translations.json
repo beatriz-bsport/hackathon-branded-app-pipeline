@@ -6228,6 +6228,18 @@
             "errorText": "El miembro no cumple los requisitos de Spivi, por lo que la reserva no se realizó en Spivi.",
             "connectionImpossible": "Imposible conectarse a Spivi",
             "error": "Problema de conexión con Spivi"
+        },
+        "newBookingModule": {
+            "myPasses": "Mi bono",
+            "myPasses_plural": "Mis bonos",
+            "buyNewPass": "Comprar un nuevo bono",
+            "buyPass": "Comprar un bono",
+            "choosePass": "Seleccionar un bono",
+            "cards": {
+                "seeMore": "Ver más",
+                "seeLess": "Ver menos"
+            },
+            "filterAll": "Todo"
         }
     },
     "marketplace": {

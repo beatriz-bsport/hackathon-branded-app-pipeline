@@ -1960,7 +1960,14 @@
                     "smartlist": "Dettagli della smartlist",
                     "member": "Dettagli del membro"
                 },
-                "filterMessages": "Filtra i messaggi"
+                "filterMessages": "Filtra i messaggi",
+                "disableDialog": {
+                    "thirdContent": "Si noti che un nuovo messaggio in questa chat, da parte vostra o dell'interlocutore, ripristinerà automaticamente la chat.",
+                    "secondContent": "Non apparirà più nell'elenco delle chat, ma sarà comunque possibile accedervi selezionando il filtro \"Archiviate\".",
+                    "firstContent": "Si sta per archiviare questa chat.",
+                    "title": "Archivia la chat"
+                },
+                "noMessage": "Nessun messaggio"
             },
             "kind": {
                 "member": "Membri",
@@ -1976,7 +1983,40 @@
                 "disabled": "Archiviati"
             },
             "loadMoreThreads": "Carica altri messaggi",
-            "noThread": "Nessun risultato"
+            "noThread": {
+                "item": {
+                    "offer": "Qui trovi le conversazioni riguardo le sessioni",
+                    "smartlist": "Qui trovi le conversazioni riguardanti le smartlist",
+                    "member": "Qui trovi le conversazioni con i membri"
+                },
+                "list": "Nessun risultato"
+            },
+            "panel": {
+                "navigation": {
+                    "offer": "Vedi i dettagli della sessione",
+                    "smartlist": "Vedi i dettagli della smartlist",
+                    "member": "Vedi i dettagli del membro"
+                },
+                "smartlist": {
+                    "description": "Descrizione",
+                    "filters": "Filtri",
+                    "memberCount": "Membri nella smartlist"
+                },
+                "member": {
+                    "notes": "Note",
+                    "files": "Documenti",
+                    "invoices": {
+                        "noUnpaidInvoices": "Aggiornato",
+                        "title": "Fatture"
+                    }
+                },
+                "tags": "Tag",
+                "header": "Dettagli"
+            },
+            "selectThread": {
+                "description": "Fare clic su un membro, una smartlist o una sessione per visualizzare la conversazione associata",
+                "title": "Seleziona una chat"
+            }
         },
         "sentStatus": {
             "fail": "Si è verificato un errore durante l'invio",
@@ -2075,10 +2115,7 @@
                 "placeholder": "Seleziona un tipo di invio",
                 "title": "Tipo di invio"
             },
-            "numberFilter": {
-                "oneFilter": "1 filtro applicato",
-                "severalFilters": "filtri applicati"
-            },
+            "numberFilter": "1 filtro applicato",
             "dateFilter": {
                 "dateEnd": "Data di fine",
                 "dateStart": "Data di inizio",
@@ -2086,7 +2123,8 @@
                 "title": "Data di invio"
             },
             "filterAction": "Filtra",
-            "applyFilter": "Applica"
+            "applyFilter": "Applica",
+            "numberFilter_plural": "{{count}} filtri applicati"
         },
         "forms": {
             "twoWayEmail": {
@@ -2109,6 +2147,17 @@
             "recipient_plural": "Destinatari",
             "noSmartListPopup": "Nessun pop-up di avvio",
             "memberListTitle": "Pop-up di avvio"
+        },
+        "messageList": {
+            "emptyList": {
+                "becauseNeverUsed": "Non avete ancora inviato una comunicazione su questo canale.",
+                "becauseOfFilters": "Nessun risultato corrispondente ai filtri."
+            },
+            "filterOutCommunicationSent": "La comunicazione appena inviata è nascosta dai filtri."
+        },
+        "createThread": {
+            "confirmResourceSelected": "Conferma",
+            "close": "Chiudi"
         }
     },
     "membership": {
@@ -6129,7 +6178,8 @@
             "2": "In attesa",
             "1": "Fallito",
             "0": "Riuscito"
-        }
+        },
+        "anonymousMember": "Membro anonimo"
     },
     "coach": {
         "selector": {
@@ -6412,7 +6462,8 @@
                     "label": "Numero di fatturazione",
                     "helperText": "Almeno 2 mesi",
                     "error": "Il numero di fatture non deve superare 90",
-                    "errorForFixedBillingDay": "Il numero di fatture non deve superare 12"
+                    "errorForFixedBillingDay": "Il numero di fatture non deve superare 12",
+                    "restrictionForFixedBillingDay": "Per la fatturazione in un giorno fisso, il numero di fatture deve essere compreso tra 2 e 12"
                 },
                 "recurrent_price": {
                     "label": "Pagamento ricorrente",
@@ -7651,7 +7702,8 @@
                 "Cancellata",
                 "Annulla",
                 "Cancellata",
-                "Cancellata"
+                "Cancellata",
+                "Annullato"
             ]
         },
         "payment_method_with_credit_account": {
@@ -9561,6 +9613,62 @@
             "errorText": "Il membro non soddisfa i requisiti di Spivi, quindi la prenotazione non è stata effettuata su Spivi.",
             "connectionImpossible": "Impossibile connettersi a Spivi",
             "error": "Problema di connessione con Spivi"
+        },
+        "newBookingModule": {
+            "otherPasses": "Altri pass",
+            "passes": "Pass",
+            "combos": "Pacchetti",
+            "subscriptions": "Abbonamenti",
+            "blockedReasons": {
+                "waitingListOpen": {
+                    "message": "Iscrivetevi alla lista d'attesa e riceverete un messaggio non appena si libererà un posto.",
+                    "title": "Sessione al completo"
+                },
+                "isAlreadyOnWaitingList": {
+                    "message": "Se siete in lista d'attesa, vi informeremo via e-mail non appena si libererà un posto.",
+                    "title": "Già in lista d'attesa"
+                },
+                "isWaitingListFull": {
+                    "message": "Questa sessione e la lista d'attesa relativa sono al completo. Si prega di riprovare più tardi.",
+                    "title": "Lista d'attesa piena"
+                },
+                "waitingListLockedByPendingBookings": {
+                    "message": "Altre persone stanno prenotando, la lista d'attesa non è al momento disponibile. Si prega di riprovare tra qualche minuto per vedere se si è liberato un posto.",
+                    "title": "Altre prenotazioni in corso"
+                },
+                "isTooLate": {
+                    "message": "Siamo spiacenti, ma il periodo di prenotazione per questa sessione è terminato.",
+                    "title": "Limite di tempo superato"
+                },
+                "isTooSoon": {
+                    "message": "Le iscrizioni sono attualmente chiuse e verranno aperte il {{-date}}.",
+                    "title": "Disponibile a breve"
+                },
+                "isAlreadyRegistered": {
+                    "message": "Siete già iscritti a questa sessione.",
+                    "title": "Sessione già prenotata"
+                },
+                "blockedByTags": {
+                    "message": "Siamo spiacenti, ma questa sessione non è attualmente disponibile per la prenotazione. È stata riservata a un gruppo specifico di membri.",
+                    "title": "Permessi insufficienti"
+                },
+                "default": {
+                    "message": "Le prenotazioni per questa sessione non sono disponibili",
+                    "title": "Prenotazione bloccata"
+                }
+            },
+            "backToCalendar": "Torna al calendario",
+            "waitingListWarning": "Prima di entrare in lista d'attesa, assicuratevi di aver acquistato un pass, un pacchetto o un contratto per il corso. È essenziale avere un pass, un pacchetto o un contratto attivi per garantire il proprio posto nella lista d'attesa.",
+            "myPasses": "Il mio pass",
+            "myPasses_plural": "I miei pass",
+            "buyNewPass": "Acquista un nuovo pass",
+            "buyPass": "Acquista un pass",
+            "choosePass": "Seleziona un pass",
+            "cards": {
+                "seeMore": "Vedi più",
+                "seeLess": "Vedi meno"
+            },
+            "filterAll": "Tutto"
         }
     },
     "smartList": {
@@ -10268,7 +10376,10 @@
             "cancel": "Chiudi",
             "title": "Utilizzata in una cadenza"
         },
-        "downLoadSavedExport": "Scarica l'esportazione precedente"
+        "downLoadSavedExport": "Scarica l'esportazione precedente",
+        "lastGenerated": "Ultima esportazione generata il : {{-date}} {{time}}",
+        "generateHelperText": "Generare l'esportazione per scaricare la smartlist",
+        "generateExport": "Generare l'esportazione"
     },
     "relationship": {
         "member": {
@@ -13315,6 +13426,10 @@
             "5": {
                 "name": "Report",
                 "description": "Accesso solo ai report, utile per i tuoi commercialisti per esempio"
+            },
+            "-1": {
+                "name": "Interfaccia di vendita per il check-in",
+                "description": "Accesso solo all'interfaccia di vendita rapida"
             }
         },
         "rolePermissions": {
@@ -13383,6 +13498,9 @@
                     },
                     "coachUserspace": {
                         "_label": "Zona insegnanti"
+                    },
+                    "quicksale": {
+                        "_label": "Interfaccia di vendita rapida"
                     }
                 },
                 "reporting": {

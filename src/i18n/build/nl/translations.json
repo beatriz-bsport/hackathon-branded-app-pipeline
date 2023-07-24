@@ -1939,10 +1939,7 @@
                 "placeholder": "Selecteer ten minste één kanaal",
                 "title": "Kanalen"
             },
-            "numberFilter": {
-                "oneFilter": "1 toegepaste filter",
-                "severalFilters": "Toegepaste filters"
-            },
+            "numberFilter": "1 filter toegepast",
             "dateFilter": {
                 "dateEnd": "Einddatum",
                 "dateStart": "Startdatum",
@@ -1954,7 +1951,8 @@
             "srcOrDst": {
                 "placeholder": "Selecteer een berichttype",
                 "title": "Berichten"
-            }
+            },
+            "numberFilter_plural": "{{count}} filters toegepast"
         },
         "dialogInformation": {
             "status": {
@@ -2040,7 +2038,14 @@
                     "smartlist": "Smartlist details",
                     "member": "Gegevens leden"
                 },
-                "filterMessages": "Berichten filteren"
+                "filterMessages": "Berichten filteren",
+                "disableDialog": {
+                    "thirdContent": "Merk op dat een nieuw bericht in deze chat, van jou of van de persoon met wie je praat, de chat automatisch herstelt.",
+                    "secondContent": "Het zal niet langer verschijnen in de lijst met chats, maar is nog steeds toegankelijk door de filter 'Gearchiveerd' te selecteren.",
+                    "firstContent": "Je staat op het punt deze chat te archiveren.",
+                    "title": "Archief chat"
+                },
+                "noMessage": "Geen bericht"
             },
             "kind": {
                 "member": "Leden",
@@ -2056,7 +2061,40 @@
                 "disabled": "Gearchiveerd"
             },
             "loadMoreThreads": "Meer berichten laden",
-            "noThread": "Geen resultaten."
+            "noThread": {
+                "item": {
+                    "offer": "Klik hier voor meer informatie over je sessies",
+                    "smartlist": "Hier vind je de gesprekken in je smartlists",
+                    "member": "Meer informatie over gesprekken met leden"
+                },
+                "list": "Geen resultaten"
+            },
+            "panel": {
+                "navigation": {
+                    "offer": "Bekijk de details van de sessie",
+                    "smartlist": "Bekijk de details van de smartlist",
+                    "member": "Bekijk de details van het lid"
+                },
+                "smartlist": {
+                    "description": "Beschrijving",
+                    "filters": "Filters",
+                    "memberCount": "Leden in de smartlist"
+                },
+                "member": {
+                    "notes": "Notities",
+                    "files": "Documenten",
+                    "invoices": {
+                        "noUnpaidInvoices": "Een dag",
+                        "title": "Facturen"
+                    }
+                },
+                "tags": "Tags",
+                "header": "Details"
+            },
+            "selectThread": {
+                "description": "Klik op een lid, een smartlist of een sessie om het bijbehorende gesprek weer te geven",
+                "title": "Selecteer een chat"
+            }
         },
         "sentStatus": {
             "fail": "Er is een fout opgetreden tijdens het verzenden",
@@ -2083,6 +2121,17 @@
             "recipient_plural": "Ontvangers",
             "see": "Zie",
             "seeRecipients": "Ontvangers bekijken"
+        },
+        "messageList": {
+            "emptyList": {
+                "becauseNeverUsed": "Je hebt nog geen oproep verzonden op dit kanaal.",
+                "becauseOfFilters": "Geen resultaten die overeenkomen met filters."
+            },
+            "filterOutCommunicationSent": "De communicatie die je zojuist hebt verzonden, wordt verborgen door de actieve filters."
+        },
+        "createThread": {
+            "confirmResourceSelected": "Bevestigen",
+            "close": "Sluiten"
         }
     },
     "paymentCombo": {
@@ -3070,6 +3119,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
@@ -4848,7 +4898,10 @@
             "cancel": "Sluiten",
             "title": "Gebruikt bij cadens"
         },
-        "downLoadSavedExport": "Vorige export downloaden"
+        "downLoadSavedExport": "Vorige export downloaden",
+        "lastGenerated": "Laatste export gegenereerd op: {{-date}} {{time}}",
+        "generateHelperText": "Genereer de export om de smartlist te downloaden",
+        "generateExport": "Inchecken verkoopinterface"
     },
     "metaActivity": {
         "forms": {
@@ -6218,6 +6271,62 @@
             "connectionImpossible": "Het is niet mogelijk om met Spivi te verbinden",
             "error": "Verbindingsproblemen met Spivi",
             "errorText": "Dit lid voldoet niet aan de voorwaarden van Spivi. De reservering kon daarom niet worden voltooid."
+        },
+        "newBookingModule": {
+            "otherPasses": "Andere leskaarten",
+            "passes": "Leskaarten",
+            "combos": "Pakketten",
+            "subscriptions": "Contracten",
+            "blockedReasons": {
+                "waitingListOpen": {
+                    "message": "Schrijf je in op de wachtlijst en je ontvangt een bericht zodra er een plaats vrijkomt.",
+                    "title": "Volledige sessie"
+                },
+                "isAlreadyOnWaitingList": {
+                    "message": "Als je op de wachtlijst staat, brengen we je per e-mail op de hoogte zodra er een plaats vrijkomt.",
+                    "title": "Al op de wachtlijst"
+                },
+                "isWaitingListFull": {
+                    "message": "Deze sessie en de wachtlijst zijn vol. Probeer het later nog eens.",
+                    "title": "Volledige wachtlijst"
+                },
+                "waitingListLockedByPendingBookings": {
+                    "message": "Andere mensen zijn op dit moment aan het boeken, de wachtlijst is op dit moment niet beschikbaar. Probeer het over een paar minuten nog eens om te zien of er een plaats beschikbaar is.",
+                    "title": "Overige onderhanden boekingen"
+                },
+                "isTooLate": {
+                    "message": "Sorry, maar de boekingsperiode voor deze sessie is voorbij.",
+                    "title": "Tijdslimiet overschreden"
+                },
+                "isTooSoon": {
+                    "message": "De registratie is momenteel gesloten en gaat open op {{-date}}.",
+                    "title": "Binnenkort beschikbaar"
+                },
+                "isAlreadyRegistered": {
+                    "message": "Je hebt je al ingeschreven voor deze sessie.",
+                    "title": "Sessie al geboekt"
+                },
+                "blockedByTags": {
+                    "message": "Sorry, maar deze sessie kan momenteel niet worden geboekt. De sessie is voorbehouden aan een specifieke groep leden.",
+                    "title": "Onvoldoende rechten"
+                },
+                "default": {
+                    "message": "Voor deze sessie zijn geen reserveringen beschikbaar",
+                    "title": "Geblokkeerde boeking"
+                }
+            },
+            "backToCalendar": "Terug naar de kalender",
+            "waitingListWarning": "Voordat je op de wachtlijst komt te staan, moet je ervoor zorgen dat je een geschikte leskaart, pakket of abonnement hebt aangeschaft. Het is essentieel om een actieve leskaart, pakket of abonnement te hebben om je plaats op de wachtlijst te garanderen.",
+            "myPasses": "Mijn leskaart",
+            "myPasses_plural": "Mijn leskaarten",
+            "buyNewPass": "Een nieuwe leskaart kopen",
+            "buyPass": "Een leskaart kopen",
+            "choosePass": "Kies een leskaart",
+            "cards": {
+                "seeMore": "Meer zien",
+                "seeLess": "Minder zien"
+            },
+            "filterAll": "Alles"
         }
     },
     "marketplace": {
@@ -6680,7 +6789,8 @@
                     "helperText": "Abonnementen hebben een minimumtermijn van 2 maanden.",
                     "label": "Aantal facturaties",
                     "error": "Het aantal facturen mag niet meer dan 90 bedragen",
-                    "errorForFixedBillingDay": "Het aantal facturen mag niet meer dan 12 bedragen"
+                    "errorForFixedBillingDay": "Het aantal facturen mag niet meer dan 12 bedragen",
+                    "restrictionForFixedBillingDay": "Het aantal factureringen moet tussen 2 en 12 liggen voor facturering op een vaste dag"
                 },
                 "description": {
                     "placeholder": "Een exclusieve aanbieding",
@@ -12892,7 +13002,8 @@
             "2": "In de wacht",
             "1": "Storing",
             "0": "Succesvol"
-        }
+        },
+        "anonymousMember": "Anoniem lid"
     },
     "waitingList": {
         "switchToEnable": "Wachtlijst heractiveren",
@@ -13096,6 +13207,10 @@
             "5": {
                 "name": "Rapportages",
                 "description": "Dit geeft iemand alleen toegang tot Rapportages; dit kan handig voor je accountants zijn."
+            },
+            "-1": {
+                "name": "Inchecken verkoopinterface",
+                "description": "Alleen toegang tot de snelle verkoopinterface"
             }
         },
         "rolePermissions": {
@@ -13168,6 +13283,9 @@
                     },
                     "coachUserspace": {
                         "_label": "Instructeursomgeving"
+                    },
+                    "quicksale": {
+                        "_label": "Snelle verkoopinterface"
                     }
                 },
                 "reporting": {

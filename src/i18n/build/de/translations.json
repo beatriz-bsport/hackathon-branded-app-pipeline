@@ -7761,6 +7761,42 @@
             "errorText": "Das Mitglied erfüllt die Bedingungen von Spivi nicht, daher wurde die Buchung nicht über Spivi getätigt.",
             "connectionImpossible": "Verbindung zu Spivi nicht möglich",
             "error": "Probleme bei der Verbindung mit Spivi"
+        },
+        "newBookingModule": {
+            "blockedReasons": {
+                "isTooLate": {
+                    "message": "Die Buchungsfrist für diese Session ist leider abgelaufen.",
+                    "title": "Frist abgelaufen"
+                },
+                "isTooSoon": {
+                    "message": "Die Anmeldungen sind derzeit geschlossen und öffnen am {{-date}}.",
+                    "title": "Bald verfügbar"
+                },
+                "isAlreadyRegistered": {
+                    "message": "Sie sind bereit für diese Session angemeldet.",
+                    "title": "Session bereits reserviert"
+                },
+                "blockedByTags": {
+                    "message": "Leider kann diese Session derzeit nicht gebucht werden. Sie wurde auf eine bestimmte Gruppe von Mitgliedern beschränkt.",
+                    "title": "Unzureichende Rechte"
+                },
+                "default": {
+                    "message": "Die Buchung dieser Session ist nicht verfügbar",
+                    "title": "Buchung gesperrt"
+                }
+            },
+            "backToCalendar": "Zurück zum Kalender",
+            "waitingListWarning": "Bevor Sie sich auf die Warteliste setzen lassen, sollten Sie sich vergewissern, dass Sie einen geeigneten Kurspass, ein Paket oder einen Vertrag gekauft haben. Ein aktiver Kurspass, ein Paket oder ein Vertrag sind unerlässlich, um Ihren Platz auf der Warteliste zu sichern.",
+            "myPasses": "Mein Kurspass",
+            "myPasses_plural": "Meine Kurspässe",
+            "buyNewPass": "Neuen Kurspass kaufen",
+            "buyPass": "Kurspass kaufen",
+            "choosePass": "Kurspass wählen",
+            "cards": {
+                "seeMore": "Mehr sehen",
+                "seeLess": "Weniger sehen"
+            },
+            "filterAll": "Alle"
         }
     },
     "member": {

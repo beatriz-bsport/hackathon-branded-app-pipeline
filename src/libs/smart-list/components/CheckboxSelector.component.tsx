@@ -86,11 +86,13 @@ export class CheckboxSelector<T extends Item> extends Component<
   renderValue() {
     const { helperText, items, labelName } = this.props;
     const { selectedItems } = this.state;
-    return selectedItems.length === 0
-      ? helperText
-      : selectedItems
-          .map((id) => items.find((item) => item.id === id)[labelName])
-          .join(', ');
+    return !!selectedItems && selectedItems?.length !== 0
+      ? selectedItems
+          ?.map(
+            (id) => items?.find((item) => item.id === id)?.[labelName] ?? '',
+          )
+          .join(', ')
+      : helperText;
   }
 
   render() {

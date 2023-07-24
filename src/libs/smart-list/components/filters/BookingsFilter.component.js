@@ -29,6 +29,12 @@ import CoachListItem from '../../../associated-coach/components/CoachListItemBas
 import { getLevelTrad } from '#libs/level/utils';
 import { Level } from '#libs/level/types';
 
+type LevelItem = {
+  id: string | number,
+  text: string,
+  disabled: boolean,
+};
+
 type Props = {
   filter_data: any,
   t: TFunction,
@@ -123,7 +129,24 @@ export class BookingsNumberFilter extends Component<Props, state> {
       establishments,
       payment_packs,
       coaches,
+      customLevels,
     } = this.props;
+
+    const levelItems: LevelItem[] =
+      customLevels?.map((level) => ({
+        id: level.id,
+        text: getLevelTrad(level.id, level.name, this.props.t),
+        disabled: !level.enabled,
+      })) ?? [];
+
+    const renderCheckBoxSelectorItem = (item: LevelItem) => {
+      return <ListItemText primary={item?.text} />;
+    };
+
+    const handleOnChangeCheckboxSelector = (selectedItems: number[]) => {
+      onChange({ level: selectedItems });
+    };
+
     return (
       <div>
         <div className={classes.wrapper}>
@@ -520,16 +543,10 @@ export class BookingsNumberFilter extends Component<Props, state> {
             <CheckboxSelector
               filterItemsCallback={(l) => l.enabled}
               helperText={t('multiSelector.level.select')}
-              items={this.props.customLevels.map((level) => ({
-                id: level.id,
-                text: getLevelTrad(level.id, level.name, this.props.t),
-                disabled: !level.enabled,
-              }))}
+              items={levelItems}
               labelName="text"
-              onChange={(item) => {
-                onChange({ level: item });
-              }}
-              renderItem={(item) => <ListItemText primary={item.text} />}
+              onChange={handleOnChangeCheckboxSelector}
+              renderItem={renderCheckBoxSelectorItem}
               selectedItems={filter_data.level}
             />
             {this.props.renderSelectorWarning(

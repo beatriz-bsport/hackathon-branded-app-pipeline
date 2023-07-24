@@ -5,17 +5,22 @@ import {
   getAuth,
   postAuth,
   patchAuth,
-  putAuth,
   deleteAuth,
   API_V1_URI,
-  postBaseAuth,
+  postBaseAuthDeprecated,
   buildUrlParams,
+  getAuthDeprecated,
+  patchAuthDeprecated,
+  postAuthDeprecated,
+  putAuthDeprecated,
 } from '../../http';
 
 import type { PaymentPackCategory } from './types';
 
 export async function fetchAllPaymentPacks() {
-  return getAuth(`${API_V1_URI}/payment-pack/payment-pack/?page_size=70000`);
+  return getAuthDeprecated(
+    `${API_V1_URI}/payment-pack/payment-pack/?page_size=70000`,
+  );
 }
 
 export const scalePaymentPackCredit = async (id: number, data: any) => {
@@ -26,32 +31,35 @@ export const scalePaymentPackCredit = async (id: number, data: any) => {
 };
 
 export async function create(data: any) {
-  return postAuth(`${API_URI}/saas/payment-pack/add/`, data);
+  return postAuthDeprecated(`${API_URI}/saas/payment-pack/add/`, data);
 }
 
 export async function fetchOne(id: number) {
-  return getAuth(`${API_V1_URI}/payment-pack/payment-pack/${id}/`);
+  return getAuthDeprecated(`${API_V1_URI}/payment-pack/payment-pack/${id}/`);
 }
 
 export async function edit(data: any) {
-  return putAuth(`${API_URI}/saas/payment-pack/${data.id}/edit/`, data);
+  return putAuthDeprecated(
+    `${API_URI}/saas/payment-pack/${data.id}/edit/`,
+    data,
+  );
 }
 
 export async function editOrder(data: any) {
-  return patchAuth(
+  return patchAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack/set_multiple_order/`,
     data,
   );
 }
 
 export async function isPaymentPackUsedInCombo(id: number) {
-  return postAuth(
+  return postAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack/${id}/check_archive_side_effects/`,
   );
 }
 
 export async function patch(id: number, data: any) {
-  return patchAuth(`${API_URI}/saas/payment-pack/${id}/edit/`, data);
+  return patchAuthDeprecated(`${API_URI}/saas/payment-pack/${id}/edit/`, data);
 }
 
 export async function disableConsumerPack(id: number) {
@@ -59,13 +67,13 @@ export async function disableConsumerPack(id: number) {
 }
 
 export async function fetchPaymentPackList(params: any) {
-  return getAuth(
+  return getAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack/${buildUrlParams(params)}`,
   );
 }
 
 export async function fetchPaymentPackCompatibleList(params: any = {}) {
-  return getAuth(
+  return getAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack/compatible/${buildUrlParams(
       params,
     )}`,
@@ -84,7 +92,7 @@ export async function fetchAllPaymentPackCategory({
   companyId?: number;
 }) {
   if (companyId) {
-    return getAuth(
+    return getAuthDeprecated(
       `${API_V1_URI}/payment-pack/payment-pack-category/${buildUrlParams({
         companyId,
       })}`,
@@ -96,7 +104,7 @@ export async function fetchAllPaymentPackCategory({
 export async function fetchPaymentPackTemplateList(
   params?: FranchiseProductTemplateQueryParams,
 ) {
-  return getAuth(
+  return getAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack-template/${buildUrlParams(
       params,
     )}`,
@@ -104,21 +112,26 @@ export async function fetchPaymentPackTemplateList(
 }
 
 export async function retrievePaymentPackTemplate(id: number) {
-  return getAuth(`${API_V1_URI}/payment-pack/payment-pack-template/${id}/`);
+  return getAuthDeprecated(
+    `${API_V1_URI}/payment-pack/payment-pack-template/${id}/`,
+  );
 }
 
 export async function createOrUpdatePaymentPackTemplate(data: any) {
   if (!data.id) {
-    return postAuth(`${API_V1_URI}/payment-pack/payment-pack-template/`, data);
+    return postAuthDeprecated(
+      `${API_V1_URI}/payment-pack/payment-pack-template/`,
+      data,
+    );
   }
-  return putAuth(
+  return putAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack-template/${data.id}/`,
     data,
   );
 }
 
 export async function createPaymentPackTemplateInstance(data: any) {
-  return postAuth(
+  return postAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack-template-instance/multi_create/`,
     data,
   );
@@ -137,14 +150,14 @@ export async function deletePaymentPackTemplate(id: number) {
 export async function updatePaymentPackCategory(
   paymentPackCategory: PaymentPackCategory,
 ) {
-  return putAuth(
+  return putAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack-category/${paymentPackCategory.id}/`,
     paymentPackCategory,
   );
 }
 
 export async function editCategoryOrder(data: any) {
-  return patchAuth(
+  return patchAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack-category/set_order/`,
     data,
   );
@@ -153,7 +166,7 @@ export async function editCategoryOrder(data: any) {
 export async function createPaymentPackCategory(
   paymentPackCategory: PaymentPackCategory,
 ) {
-  return postBaseAuth(
+  return postBaseAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack-category/`,
     paymentPackCategory,
   );

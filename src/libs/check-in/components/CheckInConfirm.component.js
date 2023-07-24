@@ -46,7 +46,7 @@ class CheckInConfirm extends Component<Props> {
       <React.Fragment>
         <div item className={classes.leftHeader} />
         <div className={classes.column}>
-          <Avatar src={member.photo} className={classes.memberAvatar} />
+          <Avatar src={member?.photo ?? ''} className={classes.memberAvatar} />
           <Typography variant="h5">
             {member && member.name ? member.name : ''}
           </Typography>

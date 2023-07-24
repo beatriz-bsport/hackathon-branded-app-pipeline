@@ -177,7 +177,7 @@
 
 @media screen and (max-width: 749px) {
   .bs-contract-card {
-    height: auto;
+    height: 160px;
   }
 
   .bs-contract-card__title {
@@ -192,8 +192,9 @@
   .bs-contract-card__price-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
+    height: fit-content;
   }
 
   .bs-contract-card__price {
@@ -210,7 +211,7 @@
 
   .bs-contract-card__billing-interval--mobile {
     display: flex;
-    width: 160px;
+    flex: 1;
   }
 
   .bs-contract-card__description {

@@ -7,6 +7,7 @@ import { ConnectedProps, connect } from 'react-redux';
 import {
   replace as replaceAction,
   push as pushAction,
+  goBack,
 } from 'connected-react-router';
 import {
   getOfferContraints,
@@ -194,6 +195,7 @@ type OwnProps = {
   queryParams: { fromWorkshop: string };
   memberTagList: number[];
   authenticated: boolean;
+  goBack: () => void;
 };
 
 type Props = OwnProps &
@@ -419,7 +421,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         selectedSpotId: null,
       });
     } else {
-      this.goBackToCalendar();
+      this.props.goBack();
     }
   };
 
@@ -1038,6 +1040,7 @@ const mapDispatchToProps = {
   ) => void,
   replace: replaceAction,
   fetchCompanyConfiguration,
+  goBack,
 };
 
 const mapHandlers = {

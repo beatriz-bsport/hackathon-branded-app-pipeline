@@ -73,6 +73,7 @@ export default compose(
         state.auth.emailConfirmation.last_time_sent_email_confirmation,
       email: state.auth.username,
       companyId: state.theme.theme.company,
+      simplifyUI: state.theme.theme.display_new_checkout_flow,
       isAuthenticated: state.auth.authenticated,
     }),
     {

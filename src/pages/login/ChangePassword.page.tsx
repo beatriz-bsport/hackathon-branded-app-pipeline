@@ -224,6 +224,8 @@ const mapStateToProps = (
   { membership }: { membership: number | null },
 ) => ({
   theme: !!membership && themeSelectors.getTheme(state),
+  simplifyUI:
+    !!membership && themeSelectors.getTheme(state)?.display_new_checkout_flow,
 });
 
 function mapDispatchToProps(dispatch: Dispatch) {

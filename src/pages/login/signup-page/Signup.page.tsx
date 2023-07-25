@@ -210,6 +210,8 @@ const mapStateToProps = (
   { membership }: { membership: string },
 ) => ({
   theme: !!membership && themeSelectors.getTheme(state),
+  simplifyUI:
+    !!membership && themeSelectors.getTheme(state)?.display_new_checkout_flow,
   authenticated: state.auth.authenticated,
   signUpCustomForm: getSignUpCustomFormWithEnabledField(state),
 });

@@ -118,6 +118,7 @@ export default compose(
   connect(
     (state: RootState) => ({
       theme: themeSelectors.getTheme(state),
+      simplifyUI: themeSelectors.getTheme(state)?.display_new_checkout_flow,
     }),
     {
       fetchCompanyTheme: fetchCompanyThemeAction,

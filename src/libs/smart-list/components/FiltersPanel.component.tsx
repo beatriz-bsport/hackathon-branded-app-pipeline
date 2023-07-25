@@ -289,11 +289,11 @@ export class FiltersPanel extends Component<Props, State> {
 
   addFilterOnClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
+    const anchorEl = event.currentTarget;
 
     trackFormAdd();
-
     this.setState((previousState) => ({
-      anchorEl: event.currentTarget,
+      anchorEl,
       displayAddFilter: !previousState.displayAddFilter,
     }));
   };
@@ -398,6 +398,7 @@ export class FiltersPanel extends Component<Props, State> {
           </div>
 
           <Menu
+            className={classes.filtersMenu}
             anchorEl={this.state.anchorEl}
             open={this.state.displayAddFilter}
             onClose={() =>
@@ -405,6 +406,9 @@ export class FiltersPanel extends Component<Props, State> {
                 displayAddFilter: !previousState.displayAddFilter,
               }))
             }
+            getContentAnchorEl={null}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            transformOrigin={{ vertical: 'top', horizontal: 'left' }}
           >
             {filtersCategory.map((key: number) => (
               <div key={key}>
@@ -689,6 +693,9 @@ const styles = createStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
+  },
+  filtersMenu: {
+    maxHeight: `calc(100% - 392px)`,
   },
 }));
 

@@ -1940,6 +1940,7 @@
                 "title": "Kanalen"
             },
             "numberFilter": "1 filter toegepast",
+            "numberFilter_plural": "{{count}} filters toegepast",
             "dateFilter": {
                 "dateEnd": "Einddatum",
                 "dateStart": "Startdatum",
@@ -1951,8 +1952,7 @@
             "srcOrDst": {
                 "placeholder": "Selecteer een berichttype",
                 "title": "Berichten"
-            },
-            "numberFilter_plural": "{{count}} filters toegepast"
+            }
         },
         "dialogInformation": {
             "status": {
@@ -2057,7 +2057,7 @@
                 "allThreads": "Alle berichten",
                 "hasNotBeenRead": "Ongelezen",
                 "favorites": "Favorieten",
-                "muted": "Demper",
+                "muted": "Gedempt",
                 "disabled": "Gearchiveerd"
             },
             "loadMoreThreads": "Meer berichten laden",
@@ -3119,6 +3119,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Annuleren",
+                "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
@@ -13854,7 +13855,11 @@
                     "coach": "Instructeur",
                     "activityName": "Activiteit",
                     "false": "Nee",
-                    "true": "Gereserveerd"
+                    "true": "Gereserveerd",
+                    "card": "Creditcard",
+                    "sepa_debit": "SEPA",
+                    "bacs_debit": "BACS Direct Debit",
+                    "sepa": "SEPA"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -13865,7 +13870,8 @@
                     "loading": "Laden",
                     "variant": "Benadruk",
                     "filterGroupOptions": "Gebundelde opties",
-                    "isExcludingTax": "Vóór belastingen"
+                    "isExcludingTax": "Vóór belastingen",
+                    "paymentMethodType": "Betaalmethode"
                 },
                 "configurationTitle": "Variaties"
             },
@@ -15856,6 +15862,40 @@
             "possibleActionsShort": "Je kunt acties uitvoeren door met de muis over de tegels te bewegen.",
             "save": "Opslaan",
             "preview": "Voorvertoning"
+        },
+        "interface": {
+            "seller": "Verkoper",
+            "anonymousSale": "Anonieme verkoop",
+            "searchAProduct": "Zoek een product",
+            "noResult": "Geen zoekresultaten",
+            "resultsForString": "Er is {{ count }} zoekresultaat voor \"{{ searchText }}\"",
+            "resultsForString_plural": "Er zijn {{ count }} zoekresultaten voor \"{{ searchText }}\"",
+            "goBack": "Terug",
+            "totalExcludingTax": "Totaal (excl. btw)",
+            "taxes": "Btw",
+            "totalIncludingTax": "Totaal (incl. btw)",
+            "payment": "Betaling",
+            "memberModal": {
+                "confirm": "Bevestigen",
+                "cancel": "Annuleren"
+            },
+            "deleteCurrentBasket": {
+                "cancel": "Annuleren",
+                "delete": "Verwijderen"
+            },
+            "payLater": {
+                "title": "Later betalen",
+                "cancel": "Annuleren"
+            },
+            "cannotEdit": {
+                "payment": "Betaling"
+            },
+            "objectAdded": {
+                "title": "Product toegevoegd"
+            },
+            "outOfStock": {
+                "title": "Geen voorraad"
+            }
         }
     }
 }

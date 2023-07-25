@@ -4949,7 +4949,7 @@
                 "13": "SEPA",
                 "10": "Pago automático",
                 "9": "Cuenta interna",
-                "0": "Bono"
+                "0": "Tarjeta de pago"
             },
             "billing_plan_status": {
                 "4": "Terminado",
@@ -5032,7 +5032,7 @@
             "13": "SEPA",
             "10": "Pago automático",
             "9": "Cuenta interna",
-            "0": "Bono",
+            "0": "Tarjeta de pago",
             "70": "BACS Direct Debit"
         }
     },
@@ -8521,6 +8521,7 @@
         },
         "filter": {
             "numberFilter": "1 filtro aplicado",
+            "numberFilter_plural": "{{count}} filtros aplicados",
             "dateFilter": {
                 "dateEnd": "Fecha de finalización",
                 "dateStart": "Fecha de inicio",
@@ -8573,8 +8574,7 @@
             "srcOrDst": {
                 "placeholder": "Selecciona un tipo de mensaje",
                 "title": "Mensajes"
-            },
-            "numberFilter_plural": "{{count}} filtros aplicados"
+            }
         },
         "dialogRecipients": {
             "noMail": "correo electrónico no suministrado",

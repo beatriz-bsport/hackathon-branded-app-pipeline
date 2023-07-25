@@ -1882,7 +1882,7 @@
             "HOLIDAY_CHECK": "Holiday check",
             "CHECK": "Check",
             "CB_MANUAL": "Card (manual - card machine)",
-            "CB": "Online payments"
+            "CB": "Card"
         },
         "pageTitle": {
             "myAccount": "My account"
@@ -9664,7 +9664,7 @@
                 "13": "SEPA",
                 "10": "Automatic payment",
                 "9": "Internal account",
-                "0": "Pass"
+                "0": "Card"
             },
             "billing_plan_status": {
                 "4": "Finished",
@@ -9767,7 +9767,7 @@
             "13": "SEPA",
             "10": "Automatic payment",
             "9": "Internal account",
-            "0": "Pass",
+            "0": "Card",
             "70": "Bacs Direct Debit"
         }
     },
@@ -12025,6 +12025,9 @@
             "errorText": "The member does not meet Spivi's requirements, so the booking was not made on Spivi.",
             "connectionImpossible": "Unable to connect to Spivi",
             "error": "Connection problem with Spivi"
+        },
+        "newBookingModule": {
+            "filterAll": "All"
         }
     },
     "marketplace": {

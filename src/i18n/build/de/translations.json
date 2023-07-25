@@ -5075,6 +5075,7 @@
                 "Stornieren",
                 "Stornieren",
                 "Stornieren",
+                "Stornieren",
                 "Stornieren"
             ]
         }
@@ -9884,6 +9885,7 @@
                 "title": "Art der Sendung"
             },
             "numberFilter": "1 angewandter Filter",
+            "numberFilter_plural": "{{count}} angeandte Filter",
             "dateFilter": {
                 "dateEnd": "Datum des Endes",
                 "dateStart": "Datum des Anfangs",
@@ -9891,8 +9893,7 @@
                 "title": "Datum des Versands"
             },
             "filterAction": "Filtern",
-            "applyFilter": "Anwenden",
-            "numberFilter_plural": "{{count}} angeandte Filter"
+            "applyFilter": "Anwenden"
         },
         "generic": {
             "history": "Verlauf",
@@ -13831,7 +13832,11 @@
                 "paymentPackRestrictionModal": "Popup mit Einschränkungen (Kurskarte)",
                 "paymentPackCompatibilityModal": "Kompatibilitäts-Popup (Kurskarte)",
                 "paymentPackCard": "Kurs-Karte",
-                "paymentComboCard": "Pass-Karte"
+                "paymentComboCard": "Pass-Karte",
+                "paymentPackOffPeakRestrictionModal": "Popup zur Einschränkung von Zeitrahmen (Kurskarte)",
+                "contractNotFound": "Abo-Warnung nicht gefunden",
+                "contractPayment": "Modul zur Bezahlung von Abonnements",
+                "collectPaymentMethod": "Bezahlungsmethode hinzufügen"
             },
             "page": {
                 "calendar": "Kalender",
@@ -13850,7 +13855,9 @@
                     "isRegistered": "Bereits eingeschrieben",
                     "nextOffer": "Nächste verfügbare Session",
                     "showDayParts": "Morgens, nachmittags und abends trennen",
-                    "isExcludingTax": "Vor Steuern"
+                    "isExcludingTax": "Vor Steuern",
+                    "paymentMethodType": "Zahlungsmethode",
+                    "isContractLegalTermsAccepted": "Abo-Impressum akzeptiert"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -13865,7 +13872,11 @@
                     "currentWeek": "Diese Woche",
                     "time": "Aus dem Stundenplan",
                     "past": "Verpasst",
-                    "none": "Keine"
+                    "none": "Keine",
+                    "sepa_debit": "SEPA-Lastschriftverfahren",
+                    "sepa": "SEPA-Lastschriftverfahren",
+                    "card": "Karte",
+                    "bacs_debit": "Direct-Debit"
                 }
             }
         },
@@ -15733,6 +15744,95 @@
             "title": "Zugang zur Verkaufsstelle",
             "firstName": "Vorname",
             "lastName": "Name"
+        },
+        "interface": {
+            "noResult": "Keine Treffer",
+            "goBack": "Rücksendung",
+            "totalExcludingTax": "Gesamt HT",
+            "taxes": "Steuern",
+            "totalIncludingTax": "Gesamt",
+            "payment": "Bezahlung",
+            "selectItemToStart": "Klicken Sie auf ein Objekt, um einen Warenkorb zu beginnen",
+            "memberModal": {
+                "title": "Identifikation des Mitglieds",
+                "confirm": "Registrieren",
+                "cancel": "Stornieren"
+            },
+            "authenticationNecessary": "Für diesen Abschnitt ist die Authentifizierung eines Mitglieds erforderlich.",
+            "ongoingBaskets": {
+                "title": "Aktuelle Warenkörbe",
+                "subText": "Es laufen Rechnungen, bitte schließen Sie diese, bevor Sie sich abmelden."
+            },
+            "deleteCurrentBasket": {
+                "title": "Aktuellen Warenkorb löschen",
+                "subText": "Sind Sie sicher, dass Sie den aktuellen Warenkorb löschen möchten?",
+                "cancel": "Stornieren",
+                "delete": "Löschen"
+            },
+            "payLater": {
+                "title": "Aufschieben",
+                "cancel": "Stornieren",
+                "payLater": "Auf später verschieben",
+                "subText": "Dieser Warenkorb ist bereits teilweise bezahlt. Wenn Sie ihn schließen, verschieben Sie den Rest der Zahlung auf später. Sie können die Rechnung im Backoffice wiederfinden."
+            },
+            "cannotEdit": {
+                "title": "Bearbeitung nicht möglich",
+                "payment": "Bezahlung",
+                "subText": "Der Warenkorb kann nicht mehr geändert werden, da er bereits teilweise bezahlt wurde."
+            },
+            "scannerMode": {
+                "title": "Scanner-Modus",
+                "subText": "Scannen Sie Artikel, um sie in den Warenkorb zu legen.",
+                "done": "beenden"
+            },
+            "objectAdded": {
+                "title": "Objekt hinzugefügt",
+                "subText": "Der Gegenstand wurde erfolgreich in den Warenkorb gelegt."
+            },
+            "outOfStock": {
+                "title": "Mehr Bestand",
+                "subText": "Das Produkt, das Sie in den Warenkorb legen möchten, ist in Ihrer Niederlassung nicht mehr vorrätig. Möchten Sie es trotzdem hinzufügen?",
+                "addAnyway": "Trotzdem hinzufügen"
+            },
+            "cannotAdd": {
+                "title": "Hinzufügen nicht möglich",
+                "subTextListItem": "Leider konnte der Artikel nicht hinzugefügt werden, weil",
+                "newMember": {
+                    "subText": "{{ optionalBeginning }} {{ name }} ist kein neues Mitglied."
+                },
+                "tag": {
+                    "hasTag": "{{ optionalBeginning }} {{ name }} besitzt das Tag {{ tagName }}.",
+                    "doesNotHaveTag": "{{ optionalBeginning }} {{ name }} besitzt nicht das Tag {{ tagName }}.",
+                    "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{ name }} besitzt das Tag {{ ownedTagName }} und besitzt nicht das Tag {{ notOwnedTagName }}."
+                }
+            },
+            "authenticationRequired": {
+                "title": "Identifikation erforderlich",
+                "subTextListItem": "Der Artikel, den Sie hinzufügen möchten, ist",
+                "bottomSubText": "Ohne Identifizierung des Mitglieds können die notwendigen Überprüfungen nicht durchgeführt werden.",
+                "identifyMember": "Ein Mitglied identifizieren",
+                "newMember": {
+                    "subTextListItem": "Nur für neue Mitglieder",
+                    "subText": "Der Artikel, den Sie hinzufügen möchten, ist nur für neue Mitglieder zugänglich."
+                },
+                "maxPurchase": {
+                    "subText": "Der Artikel, den Sie hinzufügen möchten, unterliegt einer Beschränkung der Anzahl der Käufe.",
+                    "subTextListItem": "Unterliegt einer Beschränkung der Anzahl der Käufe"
+                },
+                "tag": {
+                    "subText": "Der Artikel, den Sie hinzufügen möchten, ist für Mitglieder mit bestimmten Tags reserviert.",
+                    "subTextListItem": "Nur für Mitglieder mit bestimmten Tags"
+                }
+            },
+            "itemsRemovedFromBasket": {
+                "title": "Aus dem Warenkorb entfernte Artikel",
+                "subText": "Beim Wechsel des Mitglieds wurden einige Artikel aus dem Warenkorb entfernt, da sie nicht mit dem neuen Mitglied kompatibel sind."
+            },
+            "resultsForString": "{{ count }} Ergebnis für \"{{ searchText }}\"",
+            "resultsForString_plural": "{{ count }} Ergebnisse für \"{{ searchText }}\"",
+            "seller": "Verkäufer",
+            "anonymousSale": "Anonymer Verkauf",
+            "searchAProduct": "Ein Produkt suchen"
         }
     }
 }

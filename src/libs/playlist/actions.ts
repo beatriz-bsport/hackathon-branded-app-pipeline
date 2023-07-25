@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { createAction } from 'redux-actions';
+import { RootState } from '../../reducers';
 
 import {
   fetchPlaylistList as fetchPlaylistListAPI,
@@ -100,8 +101,20 @@ export const listPlaylistActions = {
   success: createAction('PLAYLIST/LIST/SUCCESS'),
 };
 
+export function fetchMorePlaylist(
+  params: { mine?: boolean; company?: number } = {},
+  options?: OptionCallback<Playlist[]>,
+) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    const { nextPage } = getState().playlist.list;
+    if (nextPage) {
+      dispatch(fetchPlaylistList(params, nextPage, options));
+    }
+  };
+}
+
 export function fetchPlaylistList(
-  params: any = {},
+  params: { mine?: boolean; company?: number } = {},
   page: number = 1,
   options?: OptionCallback,
 ) {
@@ -109,7 +122,7 @@ export function fetchPlaylistList(
     dispatch(listPlaylistActions.isLoading(true));
     dispatch(listPlaylistActions.error(null));
     try {
-      const response = await fetchPlaylistListAPI(params);
+      const response = await fetchPlaylistListAPI({ ...params, page });
       dispatch(listPlaylistActions.success({ ...response.data, page }));
       if (options && options.onSuccess) {
         options.onSuccess(response.data.results);

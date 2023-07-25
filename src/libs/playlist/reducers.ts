@@ -71,6 +71,13 @@ export default handleActions<Immutable.Immutable<PlaylistState>>(
       state,
       { payload }: { payload: any },
     ) => {
+      const newAllIds =
+        payload.page === 1
+          ? payload.results.map((ps: Playlist) => ps.id)
+          : [
+              ...state.list.allIds,
+              ...payload.results.map((ps: Playlist) => ps.id),
+            ];
       return state
         .merge(
           {
@@ -84,10 +91,7 @@ export default handleActions<Immutable.Immutable<PlaylistState>>(
           },
           { deep: true },
         )
-        .setIn(
-          ['list', 'allIds'],
-          payload.results.map((p: Playlist) => p.id),
-        )
+        .setIn(['list', 'allIds'], newAllIds)
         .setIn(['list', 'page'], payload.page)
         .setIn(['list', 'nextPage'], payload.next_page);
     },

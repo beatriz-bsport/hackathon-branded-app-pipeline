@@ -1,15 +1,17 @@
-// @flow
 import React from 'react';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 import { withTranslation, TFunction } from 'react-i18next';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
+import { Button, withStyles } from '@material-ui/core';
+import { ClassNameMap } from '@material-ui/styles';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import {
   fetchPlaylistList as fetchPlaylistListAction,
+  fetchMorePlaylist as fetchMorePlaylistAction,
   deletePlaylist as deletePlaylistAction,
   createOrUpdatePlaylist as createOrUpdatePlaylistAction,
 } from '../../libs/playlist/actions';
@@ -20,7 +22,9 @@ import PlaylistFormDialog from '../../libs/playlist/components/PlaylistFormDialo
 
 type Props = {
   t: TFunction,
+  classes: ClassNameMap,
   fetchPlaylistList: () => void,
+  fetchMorePlaylist: () => void,
   playlistList: Array<VideoPlaylist>,
   openPlaylist: (id: number) => void,
 
@@ -36,6 +40,8 @@ type Props = {
   createOpen: boolean,
 
   createOrUpdatePlaylist: (data: any, options: OptionCallback) => void,
+
+  shouldDisplaySeeMoreButton: boolean,
 };
 
 const PlaylistMap = {
@@ -52,7 +58,7 @@ export class VodPlaylistListPage extends React.Component<Props> {
 
   render() {
     return (
-      <div>
+      <div className={this.props.classes.playlistListContainer}>
         {!!this.props.loading && <LinearProgress />}
         <Grid container spacing={2}>
           {this.props.playlistList.map((pl) => (
@@ -85,21 +91,52 @@ export class VodPlaylistListPage extends React.Component<Props> {
           onCreateLabel={this.props.t('video:playlist.bottomActions.create')}
           onCreate={this.props.openCreateForm}
         />
+        {!this.props.loading &&
+          !!this.props.shouldDisplaySeeMoreButton &&
+          !!this.props.fetchMorePlaylist && (
+            <div className={this.props.classes.buttonContainer}>
+              <Button
+                variant="outlined"
+                onClick={this.props.fetchMorePlaylist}
+                color="primary"
+              >
+                {this.props.t('video.showMore')}
+              </Button>
+            </div>
+          )}
       </div>
     );
   }
 }
 
+const styles = (theme) => ({
+  buttonContainer: {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(2),
+  },
+  playlistListContainer: {
+    paddingBottom: '20vh',
+  },
+});
+
 export default compose(
-  withTranslation(['video']),
+  withStyles(styles),
+  withTranslation('video'),
   connect(
     (state) => ({
       playlistList: getPlaylistList(state),
       loading: state.playlist.loading,
+      shouldDisplaySeeMoreButton:
+        state.playlist.list.nextPage && state.playlist.list.nextPage > 1,
     }),
     {
       fetchPlaylistList: (page, options) =>
         fetchPlaylistListAction({ mine: true }, page, options),
+      fetchMorePlaylist: () => fetchMorePlaylistAction({ mine: true }),
       deletePlaylist: deletePlaylistAction,
       createOrUpdatePlaylist: createOrUpdatePlaylistAction,
       openPlaylist: (id) => push(`/vod/playlist/${id}`),

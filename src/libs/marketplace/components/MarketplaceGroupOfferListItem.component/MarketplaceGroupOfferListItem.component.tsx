@@ -437,6 +437,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                         meta_activity: metaActivity,
                         group,
                       }}
+                      metaActivity={metaActivity}
                       establishment={getEstablishment(offer.establishment)}
                       coach={getCoach(offer.coach_override || offer.coach)}
                       getLevel={getLevel}

@@ -18,9 +18,8 @@ const MarketplaceAsManager = asyncComponent(
     import('../marketplace/MarketplaceAsManager.page'),
 );
 
-// placeholder page -> to replace by the right page once it's merged
-const NewPricingPage = asyncComponent(
-  () => import('./new-checkout-flow/NewPricing.page'),
+const BoutiqueBookerModule = asyncComponent(
+  () => import('./booker-modules/OfferBooker/BoutiqueBookerModule.page'),
 );
 
 // @ts-expect-error
@@ -79,7 +78,7 @@ export class NewBookingFlowRouter extends React.Component<Props> {
     return (
       <Switch>
         <Route
-          component={NewPricingPage}
+          component={BoutiqueBookerModule}
           path="/booker-module-s/:companyId/:offerId"
         />
         <Route

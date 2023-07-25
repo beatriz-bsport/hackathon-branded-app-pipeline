@@ -171,7 +171,8 @@ type State = {
 };
 
 type OwnProps = {
-  id: number;
+  companyId: number;
+  offerId: number;
   queryParams: { fromWorkshop: string };
   memberTagList: number[];
   authenticated: boolean;
@@ -206,7 +207,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   }
 
   componentDidMount() {
-    this.props.fetchOffer(this.props.id, {
+    this.props.fetchOffer(this.props.offerId, {
       onSuccess: (offer: Offer) => {
         this.props.fetchCompanyTheme(offer.company);
         this.props.fetchCompanyConfiguration(offer.company);
@@ -215,7 +216,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         this.fetchCompatibleConsumerPaymentPacks();
         this.fetchCompatiblePaymentPacks();
         this.fetchCompatibleComboPacks();
-        this.props.fetchContractForBookingHandler(this.props.id, offer.company);
+        this.props.fetchContractForBookingHandler(
+          this.props.offerId,
+          offer.company,
+        );
         this.props.fetchMemberTagList(offer.company);
         this.props.fetchAllPaymentPackCategory(offer.company);
         this.props.fetchMetaActivityBulk([offer.meta_activity]);
@@ -287,15 +291,15 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
   fetchCompatiblePaymentPacks = () => {
     this.props.fetchPaymentPackForBooking(
-      this.props.id,
-      this.props.offer?.company,
+      this.props.offerId,
+      this.props.companyId,
       1,
       300,
     );
   };
 
   fetchCompatibleConsumerPaymentPacks = () => {
-    this.props.fetchConsumerPaymentPackForBooking(this.props.id, {
+    this.props.fetchConsumerPaymentPackForBooking(this.props.offerId, {
       onSuccess: (cppList) => {
         if (cppList.length > 0) {
           const cpp_ids = cppList.map((cpp) => cpp.id);
@@ -309,10 +313,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   fetchCompatibleComboPacks = () => {
-    if (this.props.offer?.company !== null) {
+    if (this.props.companyId !== null) {
       this.props.fetchPaymentComboForBooking(
-        this.props.offer?.company,
-        this.props.id,
+        this.props.companyId,
+        this.props.offerId,
         {
           onSuccess: (comboList: PaymentCombo[]) => {
             const ids = flatten(
@@ -334,21 +338,23 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     const availablePaymentPacksWithoutCategory = availablePaymentPacks.filter(
       (paymentPack: PaymentPack) => paymentPack.category === null,
     );
-
-    this.setState({
-      buyableItemCategories:
-        this.props.bookingFunnelConfiguration
-          ?.current_pricing_option_ordering &&
-        buildBuyableItemCategories(
-          availableContracts,
-          availableComboPacks,
-          availablePaymentPacksWithoutCategory,
-          availablePaymentPackCategories,
-          availablePaymentPacks,
-          this.props.bookingFunnelConfiguration.current_pricing_option_ordering,
-          this.props.t,
-        ),
-    });
+    if (this.props.bookingFunnelConfiguration) {
+      this.setState({
+        buyableItemCategories:
+          this.props.bookingFunnelConfiguration
+            ?.current_pricing_option_ordering &&
+          buildBuyableItemCategories(
+            availableContracts,
+            availableComboPacks,
+            availablePaymentPacksWithoutCategory,
+            availablePaymentPackCategories,
+            availablePaymentPacks,
+            this.props.bookingFunnelConfiguration
+              ?.current_pricing_option_ordering,
+            this.props.t,
+          ),
+      });
+    }
   };
 
   componentDidUpdate(prevProps: Props) {
@@ -356,7 +362,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.fetchCompatiblePaymentPacks();
       this.fetchCompatibleComboPacks();
       this.props.fetchContractForBookingHandler(
-        this.props.id,
+        this.props.offerId,
         this.props.offer?.company,
       );
       this.props.fetchAllPaymentPackCategory(this.props.offer?.company);
@@ -589,7 +595,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       getMainOfferNotBookableReasonWithTitle(
         // @ts-expect-error
         this.props.offer,
-        this.props.offerStatusById[this.props.id],
+        this.props.offerStatusById[this.props.offerId],
         {
           isBookable,
           isWaitingList,
@@ -892,7 +898,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   loading={loading}
                   metaActivity={this.props.offer.meta_activity}
                   offer={this.props.offer}
-                  offerStatus={this.props.offerStatusById[this.props.id]}
+                  offerStatus={this.props.offerStatusById?.[this.props.offerId]}
                   onConfirm={this.onConfirm}
                   price={displayPrice}
                   spotId={this.state.selectedSpot}
@@ -913,7 +919,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
   const offer: Offer_FULL = withMetaActivity(
     withCoach(withEstablishment(getOfferById)),
     // @ts-expect-error
-  )(state, props.id);
+  )(state, props.offerId);
   const memberTagList = props.memberTagList || getMemberTagsIdsList(state);
   const authenticated = props.authenticated || state.auth.authenticated;
   return {
@@ -1061,7 +1067,8 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(
   routerParamsToProps({
-    id: 'id:number',
+    companyId: 'companyId:number',
+    offerId: 'offerId:number',
   }),
   withQueryParams([['fromWorkshop'], 'queryParams']),
   connector,

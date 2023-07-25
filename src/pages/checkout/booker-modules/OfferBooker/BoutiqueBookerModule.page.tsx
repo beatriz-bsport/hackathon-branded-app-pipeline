@@ -142,6 +142,10 @@ import MarketplaceBookingBlockedReason from '#libs/marketplace/components/Market
 import MarketplaceSpotSelector from '#libs/marketplace/components/MarketplaceSpotSelector';
 import type { SpotType } from '#libs/spot-scheduling/types';
 import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
+import {
+  getCheckoutUrl,
+  getCheckoutValidationUrl,
+} from '#libs/marketplace/routing-utils';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
@@ -544,19 +548,20 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           this.setState({ confirmLoading: false });
           if (data.consumer_payment_pack || !data.offers.length) {
             this.props.push(
-              `/checkout/${
-                this.props.offer.company
-              }/validation?basket=null&user_registration_response=${encodeURIComponent(
-                JSON.stringify(responseData),
-              )}`,
+              getCheckoutValidationUrl(this.props.offer.company, true, {
+                basket: 'null',
+                user_registration_response: encodeURIComponent(
+                  JSON.stringify(responseData),
+                ),
+              }),
             );
           } else {
             this.props.push(
-              `/checkout/${
-                this.props.offer.company
-              }/?user_registration_response=${encodeURIComponent(
-                JSON.stringify(responseData),
-              )}`,
+              getCheckoutUrl(this.props.offer.company, true, {
+                user_registration_response: encodeURIComponent(
+                  JSON.stringify(responseData),
+                ),
+              }),
             );
           }
         },

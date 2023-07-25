@@ -315,8 +315,12 @@ class InboxThreadContainerPage extends PureComponent<Props> {
       return filterOutNewCommunication;
     };
     this.props.sendCommunication(data, memberSelectedCategories, {
-      ...options,
       storeInCallback,
+      onSuccess: (...args) => {
+        this.props.fetchInboxThreadFromId(this.props.thread.id);
+        if (options?.onSuccess) options.onSuccess(...args);
+      },
+      onError: options?.onError,
     });
   };
 

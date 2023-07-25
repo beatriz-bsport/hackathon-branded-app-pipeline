@@ -237,7 +237,6 @@ export default compose<Props, OwnProps>(
           is_v2: true,
           unpaid: true,
           member: id.toString(),
-          page: 1,
         });
       },
     handleFetchOffer:

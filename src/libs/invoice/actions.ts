@@ -596,7 +596,7 @@ export function fetchInvoiceList(
     dispatch(listInvoiceActions.error(null));
     try {
       const response = await fetchByQueryAPI(params);
-      if (params && params.page) {
+      if (params && params.page && response.data.results) {
         dispatch(
           listInvoiceActions.success({ ...response.data, page: params.page }),
         );

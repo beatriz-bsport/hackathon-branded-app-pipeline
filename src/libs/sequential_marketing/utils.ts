@@ -21,11 +21,15 @@ export const getCadenceWinOrLoseConnectedTriggers = (
   switch (kind) {
     case DestinationStatus.WIN:
       return cadence.cadence_exits?.filter(
-        (_exit) => _exit?.destination_config?.status === DestinationStatus.WIN,
+        (_exit) =>
+          !_exit?.disabled &&
+          _exit?.destination_config?.status === DestinationStatus.WIN,
       );
     case DestinationStatus.FAIL:
       return cadence.cadence_exits?.filter(
-        (_exit) => _exit?.destination_config?.status === DestinationStatus.FAIL,
+        (_exit) =>
+          !_exit?.disabled &&
+          _exit?.destination_config?.status === DestinationStatus.FAIL,
       );
     default:
       return [];

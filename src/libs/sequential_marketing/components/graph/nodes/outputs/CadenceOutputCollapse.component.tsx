@@ -3,6 +3,10 @@ import { type Theme, makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Typography from '@material-ui/core/Typography';
+import {
+  OUTPUT_SECTION_HEIGHT,
+  OUTPUT_SECTION_WIDTH,
+} from '#libs/sequential_marketing/constants/graph';
 
 export type CadenceOutputCollapseProps = {
   children: React.ReactNode;
@@ -75,8 +79,8 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     gap: theme.spacing(1),
-    width: theme.spacing(7),
-    height: theme.spacing(14),
+    width: `${OUTPUT_SECTION_WIDTH}px`,
+    height: `${OUTPUT_SECTION_HEIGHT}px`,
     borderRadius: theme.spacing(1),
     padding: theme.spacing(2),
   },

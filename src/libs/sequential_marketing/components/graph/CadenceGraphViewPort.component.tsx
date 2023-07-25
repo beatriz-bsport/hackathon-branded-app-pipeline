@@ -23,12 +23,22 @@ import Config from '../../../../config';
 
 import './styles.css';
 
+import CadenceOutputCollapse from '#libs/sequential_marketing/components/graph/nodes/outputs/CadenceOutputCollapse.component';
+import CadenceOutput from '#libs/sequential_marketing/components/graph/nodes/outputs/CadenceOutput.component';
+import { DestinationStatus } from '#libs/sequential_marketing/constants';
+
+import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import type { SmartList } from '#libs/smart-list/types';
+
 const nbsp = `\u00A0`;
 type Props = {
   displayDisabledTriggers: boolean;
   switchDisplayDisabledNodes: () => void;
   active: boolean;
   editMode: boolean;
+  winTriggers: ConnectedTrigger[];
+  loseTriggers: ConnectedTrigger[];
+  getSmartlist: (id: number) => SmartList;
 };
 
 export const CadenceGraphViewPort: React.FC<Props> = ({
@@ -36,6 +46,9 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
   switchDisplayDisabledNodes,
   active,
   editMode,
+  winTriggers,
+  loseTriggers,
+  getSmartlist,
 }) => {
   const [collapsed, setCollapsed] = React.useState(true);
   const { t } = useTranslation('marketing');
@@ -84,6 +97,21 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
             </Alert>
           </div>
         )}
+
+        <div className={classes.outputSection}>
+          <CadenceOutputCollapse>
+            <CadenceOutput
+              status={DestinationStatus.WIN}
+              triggerList={winTriggers}
+              getSmartlist={getSmartlist}
+            />
+            <CadenceOutput
+              status={DestinationStatus.FAIL}
+              triggerList={loseTriggers}
+              getSmartlist={getSmartlist}
+            />
+          </CadenceOutputCollapse>
+        </div>
       </div>
 
       {showMap && <MiniMap />}
@@ -150,6 +178,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'column',
     color: theme.palette.text.secondary,
+    width: 'auto',
+  },
+  outputSection: {
+    display: 'flex',
+    padding: theme.spacing(2),
   },
   topAlert: {
     display: 'flex',

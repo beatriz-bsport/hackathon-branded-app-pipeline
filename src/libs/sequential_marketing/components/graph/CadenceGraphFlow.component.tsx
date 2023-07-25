@@ -9,7 +9,10 @@ import ReactFlow, {
 
 import { useNodeTypes, useGraphStyles, useGraph } from './hooks';
 import CadenceGraphViewPort from './CadenceGraphViewPort.component';
-import { isMinimalCadenceConfigurationCompleted } from '#libs/sequential_marketing/utils';
+import {
+  getCadenceWinOrLoseConnectedTriggers,
+  isMinimalCadenceConfigurationCompleted,
+} from '#libs/sequential_marketing/utils';
 
 import type {
   Cadence,
@@ -20,6 +23,7 @@ import type {
 import type { SmartList } from '#libs/smart-list/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
+import { DestinationStatus } from '#libs/sequential_marketing/constants';
 
 const rfStyle = {
   backgroundColor: 'transparent',
@@ -137,6 +141,20 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     }
   }, [cadenceMinimalConfigurationState]);
 
+  const winTriggers = React.useMemo(
+    () =>
+      !!cadence &&
+      getCadenceWinOrLoseConnectedTriggers(cadence, DestinationStatus.WIN),
+    [cadence],
+  );
+
+  const loseTriggers = React.useMemo(
+    () =>
+      !!cadence &&
+      getCadenceWinOrLoseConnectedTriggers(cadence, DestinationStatus.FAIL),
+    [cadence],
+  );
+
   return (
     <ReactFlowProvider>
       <div
@@ -153,6 +171,9 @@ export const CadenceGraphFlow: React.FC<Props> = ({
         }
         active={cadence.active}
         editMode={cadenceEditMode}
+        winTriggers={winTriggers}
+        loseTriggers={loseTriggers}
+        getSmartlist={getSmartlist}
       />
       <ReactFlow
         nodes={nodes}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withProps } from 'recompose';
@@ -8,6 +7,7 @@ import { Redirect, Route } from 'react-router';
 import { push } from 'connected-react-router';
 import themeSelectors from '../../libs/theme/selectors';
 import { retrieveMyAssociatedCoachProfile as retrieveMyAssociatedCoachProfileAction } from '#libs/associated-coach/actions';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 import { RootState } from '../../reducers';
 
@@ -16,9 +16,13 @@ import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
 import LoginBackgroundComponent from '#libs/login/components/LoginBackground.component';
 import ConsumerCoachSpaceSelector from '#libs/associated-coach/components/ConsumerCoachSpaceSelector.component';
 import withThemeProvider from '#hocs/company-themifier.hoc';
+// @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
 
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
 const ConsumerHome = asyncComponent(
+  // @ts-expect-error
   () => import('../consumer/Consumer.router'),
 );
 
@@ -62,21 +66,18 @@ export class CoachProfile extends Component<Props, State> {
     }
     if (meAsAssociatedCoach?.has_access_to_coach_space)
       return (
-        <LoginBackgroundComponent company>
-          <div className={classes.container}>
-            <div className={classes.top}>
-              <ConsumerCoachSpaceSelector
-                disconnect={this.props.disconnect}
-                goToConsumerSpace={() => {
-                  this.setState({ has_answered_customer_space: true });
-                }}
-                goToCoachSpace={() => {
-                  this.setState({ has_answered_coach_space: true });
-                }}
-              />
-            </div>
-          </div>
-        </LoginBackgroundComponent>
+        <div className={classes.container}>
+          <LoginBackgroundComponent company />
+          <ConsumerCoachSpaceSelector
+            disconnect={this.props.disconnect}
+            goToConsumerSpace={() => {
+              this.setState({ has_answered_customer_space: true });
+            }}
+            goToCoachSpace={() => {
+              this.setState({ has_answered_coach_space: true });
+            }}
+          />
+        </div>
       );
 
     return <LoginBackgroundComponent />;
@@ -107,16 +108,16 @@ const styles = () =>
   createStyles({
     container: {
       width: '100%',
-      height: '100%',
+      height: '100vh',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
     },
-    top: { position: 'relative', bottom: '10%' },
   });
 
 export default compose<any, Props>(
+  marketplaceCssHoc(),
   withQueryParams([['membership'], 'queryParams']),
   withProps(({ queryParams }) => ({
     companyId: parseInt(queryParams?.membership),

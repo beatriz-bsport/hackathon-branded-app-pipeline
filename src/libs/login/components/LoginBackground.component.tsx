@@ -1,17 +1,15 @@
-import React from 'react';
-import { compose } from 'recompose';
-import { WithTheme } from '@material-ui/styles';
+import React, { ReactElement } from 'react';
 import classNames from 'classnames';
 import './LoginBackground.css';
+import { useTheme } from '@material-ui/core';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-type OwnProps = {
+type Props = {
   company?: boolean;
   franchise?: boolean;
   backgroundFixed?: boolean;
+  children?: ReactElement;
 };
-
-type Props = OwnProps & WithTheme;
 
 const effectArray = ['ball1', 'ball2', 'ball3', 'ball4']
   .map((effect) => ({ effect, sort: Math.random() }))
@@ -22,12 +20,13 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
   company,
   franchise,
   backgroundFixed,
-  theme,
   children,
 }) => {
+  const theme = useTheme();
   const loginBackgroundClass = backgroundFixed
     ? 'bs-login-background--fixed'
     : 'bs-login-background--default';
+
   const darkClass =
     franchise || company
       ? 'bs-login-background__dark--company'
@@ -109,8 +108,7 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
             fillOpacity="0.6"
             fill={
               company || franchise
-                ? // @ts-ignore
-                  theme?.palette.primary.main
+                ? theme?.palette.primary.main
                 : 'rgba(44, 118, 126)'
             }
           />
@@ -120,6 +118,8 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
   );
 };
 
-export default compose<any, OwnProps>(marketplaceCssHoc())(
-  React.memo(LoginBackgroundComponent),
+export const LoginBackGroundComponentForStoryBook = marketplaceCssHoc()(
+  LoginBackgroundComponent,
 );
+
+export default React.memo(LoginBackgroundComponent);

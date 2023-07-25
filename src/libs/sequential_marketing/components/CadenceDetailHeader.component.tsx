@@ -2,10 +2,10 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { Theme } from '@material-ui/core/styles';
+import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
 import Button from '@material-ui/core/Button';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import EditIcon from '@material-ui/icons/Edit';
 import BuildIcon from '@material-ui/icons/Build';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -16,16 +16,12 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
 import CadenceActivateDialog from '#libs/sequential_marketing/components/CadenceActivateDialog.component';
-import CadenceConnectedTriggersCard from '#libs/sequential_marketing/components/CadenceConnectedTriggersCard.component';
 import ToolTip from '#components/Tooltip.component';
 import StopBuildIcon from '#components/icons/StopBuildIcon.component';
+import { isMinimalCadenceConfigurationCompleted } from '#libs/sequential_marketing/utils';
 
 import type { OptionCallback } from '../../../state/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
-import { SmartList } from '#libs/smart-list/types';
-
-import { DestinationStatus } from '#libs/sequential_marketing/constants';
-import { isMinimalCadenceConfigurationCompleted } from '#libs/sequential_marketing/utils';
 
 type Props = {
   cadence: Cadence;
@@ -34,8 +30,6 @@ type Props = {
   onEdit: (data: { name: string }, options: OptionCallback) => void;
   onActivate: (options?: OptionCallback) => void;
   onShutOff: (options?: OptionCallback) => void;
-  onEditWinParameters: () => void;
-  onEditLoseParameters: () => void;
   cadenceEditMode: boolean;
   switchCadenceEditMode: () => void;
   cadenceMinimalConfigurationState: {
@@ -43,7 +37,6 @@ type Props = {
     cadenceLoseConfigured: boolean;
     cadenceEntryConfigured: boolean;
   };
-  smartlistById: { [id: number]: SmartList };
 };
 
 type HeaderActionsProps = {
@@ -79,9 +72,17 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
 
     const [canBeActivated, setCanbeActivated] = React.useState(false);
 
-    const handleOpenEditDialog = () => setOpenEditDialog(true);
-    const handleOpenActivateDialog = () => setOpenActivateDialog(true);
-    const handleShutOff = React.useCallback(() => onShutOff(), [onShutOff]);
+    const handleOpenEditDialog = React.useCallback(
+      () => setOpenEditDialog?.(true),
+      [setOpenEditDialog],
+    );
+
+    const handleOpenActivateDialog = React.useCallback(
+      () => setOpenActivateDialog?.(true),
+      [setOpenActivateDialog],
+    );
+
+    const handleShutOff = React.useCallback(() => onShutOff?.(), [onShutOff]);
 
     React.useEffect(() => {
       if (
@@ -98,7 +99,7 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
         <div className={classes.leftInnerContainer}>
           <ToolTip title={t('cadence.back')}>
             <IconButton onClick={goBack} disabled={loading}>
-              <ArrowBackIcon />
+              <KeyboardArrowLeftIcon />
             </IconButton>
           </ToolTip>
 
@@ -115,7 +116,9 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
               </IconButton>
             </ToolTip>
           </div>
+        </div>
 
+        <div className={classes.rightInnerContainer}>
           <div className={classes.actions}>
             {cadence?.active ? (
               <Button
@@ -188,34 +191,28 @@ export const CadenceDetailHeader: React.FC<Props> = ({
   onEdit,
   onActivate,
   onShutOff,
-  onEditWinParameters,
-  onEditLoseParameters,
   cadenceEditMode,
   switchCadenceEditMode,
   cadenceMinimalConfigurationState,
-  smartlistById,
 }) => {
   const classes = useStyles();
 
   const [openEditDialog, setOpenEditDialog] = React.useState(false);
   const [openActivateDialog, setOpenActivateDialog] = React.useState(false);
 
-  const handleEditWinParameters = React.useCallback(
-    () => onEditWinParameters(),
-    [onEditWinParameters],
+  const handleCloseEditForm = React.useCallback(
+    () => setOpenEditDialog(false),
+    [],
   );
 
-  const handleEditLoseParameters = React.useCallback(
-    () => onEditLoseParameters(),
-    [onEditLoseParameters],
+  const handleCloseActivateDialog = React.useCallback(
+    () => setOpenActivateDialog(false),
+    [],
   );
-
-  const handleCloseEditForm = () => setOpenEditDialog(false);
-  const handleCloseActivateDialog = () => setOpenActivateDialog(false);
 
   const handleEdit = React.useCallback(
     (data: { name: string }, options: OptionCallback) =>
-      onEdit(data, {
+      onEdit?.(data, {
         onSuccess: () => {
           options.onSuccess && options.onSuccess();
           setOpenEditDialog(false);
@@ -228,7 +225,7 @@ export const CadenceDetailHeader: React.FC<Props> = ({
   );
 
   const handleActivate = React.useCallback(() => {
-    onActivate({
+    onActivate?.({
       onSuccess: () => setOpenActivateDialog(false),
       onError: () => setOpenActivateDialog(false),
     });
@@ -261,29 +258,6 @@ export const CadenceDetailHeader: React.FC<Props> = ({
             switchCadenceEditMode={switchCadenceEditMode}
             cadenceMinimalConfigurationState={cadenceMinimalConfigurationState}
           />
-          <div className={classes.triggerCards}>
-            <CadenceConnectedTriggersCard
-              kind={DestinationStatus.WIN}
-              cadence={cadence}
-              onClick={handleEditWinParameters}
-              disabled={!cadenceEditMode}
-              smartlistById={smartlistById}
-            />
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              <CadenceConnectedTriggersCard
-                kind={DestinationStatus.FAIL}
-                cadence={cadence}
-                onClick={handleEditLoseParameters}
-                disabled={!cadenceEditMode}
-                smartlistById={smartlistById}
-              />
-            </div>
-          </div>
         </div>
       </div>
       {openEditDialog && !loading && (
@@ -313,7 +287,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   flexContent: {
     display: 'flex',
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: theme.spacing(2),
@@ -321,9 +294,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   leftInnerContainer: {
     display: 'flex',
-    flexDirection: 'row',
     gap: theme.spacing(2),
     alignItems: 'center',
+  },
+  rightInnerContainer: {
+    display: 'flex',
+    gap: theme.spacing(2),
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   titleTypo: {
     textOverflow: 'ellipsis',

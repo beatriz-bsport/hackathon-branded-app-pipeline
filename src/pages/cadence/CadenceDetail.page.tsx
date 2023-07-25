@@ -77,9 +77,7 @@ import {
 import { getAllTagsWithTagGroup, getTag } from '#libs/tag/selectors';
 
 import { NodeIdentifiersEnum } from '#libs/sequential_marketing/components/graph/hooks';
-
-export const drawerWidth = 400;
-export const headerHeight = 110;
+import { HEADER_HEIGHT } from '#libs/sequential_marketing/constants/graph';
 
 type OwnProps = {
   cadenceId: number;
@@ -279,8 +277,6 @@ export class CadenceDetailPage extends Component<Props> {
               <CadenceDetailHeader
                 goBack={this.props.backtoCadenceList}
                 onEdit={this.props.updateCadenceName}
-                onEditWinParameters={this.displayWinParametersForm}
-                onEditLoseParameters={this.displayLoseParametersForm}
                 onActivate={this.props.activateCadence}
                 onShutOff={this.props.shutOffCadence}
                 loading={this.props.loading}
@@ -290,7 +286,6 @@ export class CadenceDetailPage extends Component<Props> {
                 cadenceMinimalConfigurationState={
                   this.props.cadenceMinimalConfigurationState
                 }
-                smartlistById={this.props.smartlistById}
               />
             </div>
           </div>
@@ -322,18 +317,6 @@ export class CadenceDetailPage extends Component<Props> {
               getTag={this.props.getTag}
               getEmailTemplate={this.props.getEmailTemplate}
             />
-          </div>
-        </div>
-        <div className={classes.drawerDocker}>
-          <div className={classes.drawerPaper}>
-            <div
-              className={classNames(
-                classes.scrollable,
-                classes.whiteGreyBorderContainer,
-              )}
-            >
-              {/* Tool Panel Place Holder */}
-            </div>
           </div>
         </div>
       </div>
@@ -773,10 +756,10 @@ const styles = (theme: Theme) =>
     },
     mainPanel: {
       float: 'left',
-      width: `calc(100% - ${drawerWidth}px)`,
+      width: '100%',
     },
     header: {
-      height: `${headerHeight}px`,
+      height: HEADER_HEIGHT,
     },
     scrollable: {
       display: 'flex',
@@ -797,22 +780,6 @@ const styles = (theme: Theme) =>
       scrollbarWidth: 'none',
       maxHeight: '100vh',
     },
-    drawerDocker: {
-      flex: '0 0 auto',
-    },
-    drawerPaper: {
-      width: drawerWidth,
-      position: 'fixed',
-      display: 'inherit',
-      zIndex: 200,
-      overflowX: 'hidden',
-      overflowY: 'auto',
-      left: 'auto',
-      flex: '1 0 100%',
-      height: '100%',
-      outline: 0,
-      flexDirection: 'column',
-    },
     stickyTop: {
       position: 'sticky',
     },
@@ -821,7 +788,7 @@ const styles = (theme: Theme) =>
       overflowX: 'hidden',
       overflowY: 'hidden',
       maxHeight: '100%',
-      height: `calc(100vh - ${headerHeight}px)`,
+      height: `calc(100vh - ${HEADER_HEIGHT}px)`,
     },
   });
 

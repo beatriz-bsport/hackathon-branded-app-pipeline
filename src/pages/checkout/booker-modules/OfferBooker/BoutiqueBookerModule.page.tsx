@@ -38,8 +38,6 @@ import type {
   PaymentPackCategoryWithPacks,
 } from '#libs/payment-packs/types';
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
-// @ts-expect-error
-import SubscriptionContractBooking from '../SubscriptionPaymentDialog.component';
 import {
   fetchPaymentComboForBooking,
   fetchPaymentComboList as fetchPaymentComboListAction,
@@ -145,31 +143,10 @@ import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
 import {
   getCheckoutUrl,
   getCheckoutValidationUrl,
+  getSubscriptionPageUrl,
 } from '#libs/marketplace/routing-utils';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
-
-const buildUrlForSuccessPage = (
-  companyId: number,
-  contractId: number,
-  pathname: string,
-  search: string,
-) => {
-  return `/checkout/${companyId}/subscription/${contractId}/validation?success=true&next=${encodeURIComponent(
-    `${pathname}${search}`,
-  )}`;
-};
-
-const buildUrlForUnsuccessPage = (
-  companyId: number,
-  contractId: number,
-  pathname: string,
-  search: string,
-) => {
-  return `/checkout/${companyId}/subscription/${contractId}/validation?success=false&next=${encodeURIComponent(
-    `${pathname}${search}`,
-  )}`;
-};
 
 type State = {
   offersConstraint: OfferConstraint;
@@ -180,7 +157,6 @@ type State = {
   selectedSpot: string | undefined;
   showBuyableItems: boolean;
   confirmLoading: boolean;
-  isContractSelected: boolean;
   availableConsumerPacks: (ConsumerPaymentPack<PaymentPack> & MaxoutData)[];
   buyableItemCategories: BuyableItemCategory[];
   isBookingBlocked: boolean;
@@ -221,7 +197,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       selectedSpot: undefined,
       showBuyableItems: false,
       confirmLoading: false,
-      isContractSelected: false,
       availableConsumerPacks: [],
       buyableItemCategories: [],
       isBookingBlocked: false,
@@ -478,34 +453,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     }
   };
 
-  goToValidationPage = (contractId: number, success: boolean) => {
-    if (success) {
-      this.props.replace(
-        buildUrlForSuccessPage(
-          this.props.offer.company,
-          contractId,
-          window.location.pathname,
-          window.location.search,
-        ),
-      );
-    } else {
-      this.props.replace(
-        buildUrlForUnsuccessPage(
-          this.props.offer.company,
-          contractId,
-          window.location.pathname,
-          window.location.search,
-        ),
-      );
-    }
-  };
-
-  openSubscriptionDialog = () => {
-    this.setState({ isContractSelected: true });
-  };
-
-  closeSubscripionDialog = () => {
-    this.setState({ isContractSelected: false });
+  goToSubscriptionPage = (contractId: number) => {
+    this.props.push(
+      getSubscriptionPageUrl(this.props.offer.company, contractId, true),
+    );
   };
 
   onConfirm = () => {
@@ -522,7 +473,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     const data = buildDataForUserRegistration(
       offerFeature,
       this.state.selectedItem,
-      this.openSubscriptionDialog,
+      this.goToSubscriptionPage,
       this.props.offer.id,
       this.state.selectedSpotId,
     );
@@ -800,16 +751,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       // @ts-expect-error
       <ConsumerAppBarContainer backgroundColor="white">
         <div className="bs-new-offer-booking-page">
-          {this.state.isContractSelected && (
-            <SubscriptionContractBooking
-              companyId={this.props.offer && this.props.offer.company}
-              contract={this.state.selectedItem.data}
-              isExcludingTax={this.props.isExcludingTax}
-              onCancel={this.closeSubscripionDialog}
-              onSubmit={this.goToValidationPage}
-              requestSetupIntentSecret={this.requestSetupIntentSecret}
-            />
-          )}
           <div className="bs-new-offer-booking-with-header">
             <div className="bs-new-offer-booking__header">
               <button

@@ -1,17 +1,28 @@
 .bs-login-background--default {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
-  z-index: -1000;
-  position: relative;
+  z-index: -1;
 }
 
 .bs-login-background--fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
-  z-index: -1000;
-  position: fixed;
+  z-index: -1;
+}
+
+@media screen and (max-width: 600px) {
+  .bs-login-background--default {
+    display: none;
+  }
+  .bs-login-background--fixed {
+    display: none;
+  }
 }
 
 .bs-login-background__circle {

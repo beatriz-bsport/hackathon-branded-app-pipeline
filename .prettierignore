@@ -1,0 +1,15 @@
+# Ignore directories
+build
+coverage
+.gitlab
+.vscode
+node_modules
+src/public
+public
+flow
+
+# Ignore files
+**/*.mdx
+**/*.md
+src/i18n/**/*.translations.js
+src/i18n/**/translations.json

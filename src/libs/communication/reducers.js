@@ -1,5 +1,3 @@
-// @flow
-
 import Immutable from 'seamless-immutable';
 
 import { handleActions } from 'redux-actions';
@@ -15,6 +13,7 @@ import {
   campaignByMemberActions,
   marketingNotificationCampaignDetailActions,
   pushNotificationRecipientBulkActions,
+  fetchRecipientListExportLinkActions,
 } from './actions';
 
 import type { MailState } from './types';
@@ -59,6 +58,11 @@ const initialState: MailState = Immutable({
       page: null,
       next_page: null,
       count: 0,
+    },
+    export: {
+      loading: false,
+      error: null,
+      link: null,
     },
   },
   automatedCampaign: {
@@ -289,6 +293,24 @@ export default handleActions(
         ['availablePushNotificationRecipient', 'allIds'],
         payload,
       );
+    },
+    [fetchRecipientListExportLinkActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['campaign', 'export', 'loading'], payload);
+    },
+    [fetchRecipientListExportLinkActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['campaign', 'export', 'error'], payload);
+    },
+    [fetchRecipientListExportLinkActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['campaign', 'export', 'link'], payload);
     },
   },
   initialState,

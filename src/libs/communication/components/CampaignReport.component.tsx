@@ -1,6 +1,5 @@
 // @ts-nocheck
-// @flow
-import React from 'react';
+import React, { useState } from 'react';
 import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
@@ -14,11 +13,16 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import amber from '@material-ui/core/colors/amber';
 import { Theme, makeStyles } from '@material-ui/core';
 import clx from 'classnames';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import RecipientTable from './RecipientTable.component';
 import type { Campaign, Report, Recipient } from '../types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
+import ToolTip from '#components/Tooltip.component';
+import { OptionCallback } from '../../../state/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   statBanner: {
@@ -31,6 +35,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(2),
     backgroundColor: 'white',
     borderRadius: theme.spacing(4),
+  },
+  actionButton: {
+    marginLeft: theme.spacing(1),
   },
   leftIcon: {
     marginRight: theme.spacing(1),
@@ -46,6 +53,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   statLabel: {
     marginTop: theme.spacing(1),
+  },
+  exportButtonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginTop: theme.spacing(2),
+    marginRight: theme.spacing(3),
   },
   numberCard: {
     display: 'flex',
@@ -93,30 +106,84 @@ type CampaignStatisticsProps = {
   campaign: Campaign;
   report: Report;
   onShowMail: () => void;
+  campaignXlsxExportLink?: string;
+  generateExportLink: (options?: OptionCallback) => void;
 };
 const CampaignStatistics = (props: CampaignStatisticsProps) => {
-  const { campaign, report, onShowMail } = props;
+  const {
+    campaign,
+    report,
+    onShowMail,
+    campaignXlsxExportLink,
+    generateExportLink,
+  } = props;
   const classes = useStyles();
-  const { t } = useTranslation('communication');
-
+  const { t } = useTranslation(['communication', 'smartlist']);
+  const [isSmartListExporting, setIsSmartListExporting] = useState(false);
+  const handlerGenerateExportLink = () => {
+    setIsSmartListExporting(true);
+    generateExportLink({
+      onSuccess: () => {
+        setIsSmartListExporting(false);
+      },
+      onError: () => {
+        setIsSmartListExporting(false);
+      },
+    });
+  };
   return (
     <div>
-      <div className={classes.statBanner}>
-        <div className={classes.numberCard}>
-          <Typography color="primary" variant="h3">
-            {campaign.total_read}
-          </Typography>
-          <Typography className={classes.statLabel}>
-            {t('campaign.report.totalRead')}
-          </Typography>
+      <div>
+        <div className={classes.exportButtonContainer}>
+          <Button
+            onClick={handlerGenerateExportLink}
+            disabled={isSmartListExporting}
+            color="secondary"
+            variant="contained"
+            className={classes.actionButton}
+          >
+            {isSmartListExporting ? (
+              <CircularProgress
+                className={classes.leftIcon}
+                size={25}
+                color="inherit"
+              />
+            ) : (
+              <CloudDownloadIcon className={classes.leftIcon} />
+            )}
+            {t('exportList')}
+          </Button>
+          {campaignXlsxExportLink && (
+            <ToolTip title={t('downLoadSavedExport')}>
+              <IconButton
+                onClick={() => window.open(campaignXlsxExportLink)}
+                disabled={isSmartListExporting}
+                color="secondary"
+                variant="contained"
+                className={classes.actionButton}
+              >
+                <SaveAltIcon className={classes.leftIcon} />
+              </IconButton>
+            </ToolTip>
+          )}
         </div>
-        <div className={classes.numberCard}>
-          <Typography color="secondary" variant="h3">
-            {campaign.total_click}
-          </Typography>
-          <Typography className={classes.statLabel}>
-            {t('campaign.report.totalClick')}
-          </Typography>
+        <div className={classes.statBanner}>
+          <div className={classes.numberCard}>
+            <Typography color="primary" variant="h3">
+              {campaign.total_read}
+            </Typography>
+            <Typography className={classes.statLabel}>
+              {t('campaign.report.totalRead')}
+            </Typography>
+          </div>
+          <div className={classes.numberCard}>
+            <Typography color="secondary" variant="h3">
+              {campaign.total_click}
+            </Typography>
+            <Typography className={classes.statLabel}>
+              {t('campaign.report.totalClick')}
+            </Typography>
+          </div>
         </div>
       </div>
 
@@ -208,6 +275,8 @@ type Props = {
   goBack: () => void;
   goToMember: (id: number) => void;
   resolvedGenericTags: ResolvedGenericTags;
+  campaignXlsxExportLink?: string;
+  generateExportLink: (options?: OptionCallback) => void;
 };
 export const CampaignReport = (props: Props) => {
   const [showMail, setShowMail] = React.useState<string | null>(null);
@@ -230,6 +299,8 @@ export const CampaignReport = (props: Props) => {
             campaign={props.campaign}
             report={props.report}
             onShowMail={() => setShowMail(props.campaign.data.body)}
+            campaignXlsxExportLink={props.campaignXlsxExportLink}
+            generateExportLink={props.generateExportLink}
           />
           <CampaignClick report={props.report} />
         </div>

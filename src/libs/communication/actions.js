@@ -1,5 +1,3 @@
-// @flow
-
 import { createAction } from 'redux-actions';
 import {
   fetchCampaign as fetchCampaignAPI,
@@ -9,11 +7,14 @@ import {
   sendCommunication as sendCommunicationAPI,
   fetchCampaignSummary as fetchCampaignSummaryAPI,
   fetchPushNotificationAvailableMember as fetchPushNotificationAvailableMemberAPI,
+  fetchRecipientListExport as fetchRecipientListExportAPI,
+  fetchRecipientListExportLink as fetchRecipientListExportLinkAPI,
 } from './api';
 
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
+import { monitorBackgroundTask } from '../background-task/actions';
 
 export const membersMailAction = {
   error: createAction('MEMBERS/SEND-MAIL/ERROR'),
@@ -330,5 +331,66 @@ export function fetchNotificationRecipientBulk(
       if (options && options.onError) options.onError(error);
     }
     dispatch(pushNotificationRecipientBulkActions.isLoading(false));
+  };
+}
+
+export const fetchRecipientListExportActions = {
+  error: createAction('SMART-LIST/CAMPAIGN_EXPORT_BACKGROUND/ERROR'),
+  isLoading: createAction('SMART-LIST/CAMPAIGN_EXPORT_BACKGROUND/IS_LOADING'),
+  success: createAction('SMARTLIST/CAMPAIGN_EXPORT_BACKGROUND/SUCCESS'),
+};
+
+export function fetchRecipientListExport(id, options) {
+  return async (dispatch) => {
+    dispatch(fetchRecipientListExportActions.isLoading(true));
+    dispatch(fetchRecipientListExportActions.error(null));
+    try {
+      const response = await fetchRecipientListExportAPI(id);
+      dispatch(fetchRecipientListExportActions.success(response));
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: options?.onBackgroundSuccess,
+        }),
+      );
+      if (options && options?.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (err) {
+      dispatch(fetchRecipientListExportActions.error(err));
+      if (options && options.onError) {
+        options.onError();
+      }
+      dispatch(snackbarError('communication:campaign.report.exportError'));
+    }
+    dispatch(fetchRecipientListExportActions.isLoading(false));
+  };
+}
+
+export const fetchRecipientListExportLinkActions = {
+  error: createAction('SMART-LIST/FETCH_CAMPAIGN_EXPORT_BACKGROUND/ERROR'),
+  isLoading: createAction(
+    'SMART-LIST/FETCH_CAMPAIGN_EXPORT_BACKGROUND/LOADING',
+  ),
+  success: createAction('SMART-LIST/FETCH_CAMPAIGN_EXPORT_BACKGROUND/SUCCESS'),
+};
+
+export function fetchRecipientListExportLink(id, options) {
+  return async (dispatch) => {
+    dispatch(fetchRecipientListExportLinkActions.isLoading(true));
+    dispatch(fetchRecipientListExportLinkActions.error(null));
+    try {
+      const response = await fetchRecipientListExportLinkAPI(id);
+      dispatch(fetchRecipientListExportLinkActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      dispatch(fetchRecipientListExportLinkActions.error(error));
+      if (options && options.onError) {
+        options.onError();
+      }
+    }
+    dispatch(fetchRecipientListExportLinkActions.isLoading(false));
   };
 }

@@ -33,6 +33,16 @@ export const fetchRecipientList = async (params: any) => {
   );
 };
 
+export const fetchRecipientListExport = async (id: string) => {
+  return postAuth(
+    `${API_V1_URI}/communication/email/${id}/export-campaign-async/`,
+  );
+};
+
+export const fetchRecipientListExportLink = async (id: string) => {
+  return getAuth(`${API_V1_URI}/communication/email/${id}/get-export/`);
+};
+
 export const fetchPushNotificationAvailableMember = (ids: number[]) => {
   return getAuth(
     `${API_V1_URI}/push_notification/get_available_member/${buildUrlParams({

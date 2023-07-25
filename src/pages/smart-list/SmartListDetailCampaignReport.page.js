@@ -10,14 +10,16 @@ import {
   fetchCampaign,
   fetchCampaignReport,
   fetchRecipientByCampaign,
+  fetchRecipientListExport as fetchRecipientListExportAction,
+  fetchRecipientListExportLink as fetchRecipientListExportLinkAction,
 } from '../../libs/communication/actions';
 import {
   getCampaign,
   getCampaignReport,
   getRecipientListByCampaign,
+  getCampaignXlsxExportLink,
 } from '../../libs/communication/selectors';
 import CampaignReport from '../../libs/communication/components/CampaignReport.component';
-
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import type {
@@ -39,6 +41,9 @@ type Props = {
   reportLoading: boolean,
   recipientList: Array<Recipient>,
   goToMember: (id: number) => void,
+  campaignXlsxExportLink?: string,
+  fetchRecipientListExport: (id: string) => void,
+  fetchRecipientListExportLink: (id: string) => void,
 };
 
 export class SmartListDetailCampaignReport extends React.Component<Props> {
@@ -47,6 +52,16 @@ export class SmartListDetailCampaignReport extends React.Component<Props> {
     this.props.fetchCampaignReport();
     this.props.fetchResolvedGenericTags();
   }
+
+  generateExportLink = (options?: OptionCallback) => {
+    this.props.fetchRecipientListExport(this.props.campaign?.uuid, {
+      onBackgroundSuccess: () => {
+        this.props.fetchRecipientListExportLink(this.props.campaign?.uuid);
+      },
+      onSuccess: options?.onSuccess,
+      onError: options?.onError,
+    });
+  };
 
   render() {
     if (!this.props.campaign) {
@@ -63,6 +78,8 @@ export class SmartListDetailCampaignReport extends React.Component<Props> {
         reportLoading={this.props.reportLoading}
         goToMember={this.props.goToMember}
         resolvedGenericTags={this.props.resolvedGenericTags}
+        campaignXlsxExportLink={this.props.campaignXlsxExportLink}
+        generateExportLink={this.generateExportLink}
       />
     );
   }
@@ -78,6 +95,7 @@ export default compose(
       campaignReport: getCampaignReport(state),
       reportLoading: state.communication.campaign.report.loading,
       resolvedGenericTags: getResolvedGenericTags(state),
+      campaignXlsxExportLink: getCampaignXlsxExportLink(state),
     }),
     (dispatch, { campaignId }) => ({
       goBack: () => dispatch(goBack()),
@@ -88,6 +106,10 @@ export default compose(
         dispatch(fetchRecipientByCampaign(campaignId, page, params)),
       fetchResolvedGenericTags: () =>
         dispatch(fetchResolvedGenericTagsAction()),
+      fetchRecipientListExport: (id, options) =>
+        dispatch(fetchRecipientListExportAction(id, options)),
+      fetchRecipientListExportLink: (id, options) =>
+        dispatch(fetchRecipientListExportLinkAction(id, options)),
     }),
   ),
 )(SmartListDetailCampaignReport);

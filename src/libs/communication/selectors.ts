@@ -88,3 +88,6 @@ export const withAutomatedCampaign = memoize(
       },
     ),
 );
+
+export const getCampaignXlsxExportLink = (state: RootState): string =>
+  state.communication.campaign.export.link ?? '';

@@ -136,6 +136,7 @@ exports.default = {
       topLinks: 'Liens les plus cliqués',
       recipientList: 'Détail par destinataire',
       noTopLink: 'Aucun clic',
+      exportError: "Une erreur est survenue lors de l'export",
     },
     kind: {
       [COMMUNICATION_KIND_EMAIL]: 'Email',

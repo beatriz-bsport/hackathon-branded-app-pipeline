@@ -9,6 +9,8 @@ import {
   getAuth,
   patchAuth,
   deleteAuth,
+  postAuthDeprecated,
+  postDeprecated,
 } from '../../http';
 
 import type {
@@ -64,27 +66,33 @@ export const removeItemFromBasket = (
 };
 
 export const attachPayment = (basketId: string, data_: any) => {
-  return postAuth(
+  return postAuthDeprecated(
     `${API_V1_URI}/checkout/basket/${basketId}/attach_payment/`,
     data_,
   );
 };
 
 export const attachPaymentUnauthenticated = (basketId: string, data_: any) => {
-  return post(
+  return postDeprecated(
     `${API_V1_URI}/checkout/basket/${basketId}/attach_payment/`,
     data_,
   );
 };
 
 export const attachCoupon = (basketId: string, code: string) => {
-  return postAuth(`${API_V1_URI}/checkout/basket/${basketId}/attach_coupon/`, {
-    code,
-  });
+  return postAuthDeprecated(
+    `${API_V1_URI}/checkout/basket/${basketId}/attach_coupon/`,
+    {
+      code,
+    },
+  );
 };
 
 export const fetchBasketGeneratedObjects = (id: string) => {
-  return postAuth(`${API_V1_URI}/checkout/basket/generated_objects/`, { id });
+  return postAuthDeprecated(
+    `${API_V1_URI}/checkout/basket/generated_objects/`,
+    { id },
+  );
 };
 
 export const validateUnpaid = (basketId: string) => {
@@ -119,10 +127,13 @@ export const assignInstalmentPayment = (
   basketId: string,
   instalment_payment: number,
 ) => {
-  return postAuth(`${API_V1_URI}/checkout/basket/assign_instalment_payment/`, {
-    instalment_payment,
-    id: basketId,
-  });
+  return postAuthDeprecated(
+    `${API_V1_URI}/checkout/basket/assign_instalment_payment/`,
+    {
+      instalment_payment,
+      id: basketId,
+    },
+  );
 };
 
 export const fetchOpenQuicksaleBaskets = (): Promise<

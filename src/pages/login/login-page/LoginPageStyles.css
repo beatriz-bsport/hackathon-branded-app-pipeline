@@ -69,8 +69,10 @@
 @container (max-width: 599px) {
   .bs-login-container--webpage {
     margin-top: 0;
+    height: 100vh;
   }
   .bs-login-container--webpage--simplifyUI {
     margin-top: 0;
+    height: 100vh;
   }
 }

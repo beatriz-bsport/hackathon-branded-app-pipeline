@@ -10,10 +10,11 @@ import {
   MarketplacePage,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import { PaymentCombo } from '#libs/payment-combo/types';
 import { CompanyTheme } from '#libs/theme/types';
 
 import FactoryBotSubscription from '#libs/subscription/factory';
-import FactoryBotPaymentCombo from '#libs/payment-combo/factory';
+import { paymentComboFactory } from '#libs/payment-combo/factory';
 import { paymentPackFactory } from '#libs/payment-packs/factory';
 import { private_services_passes_factory } from '#libs/private-service/factory';
 
@@ -29,7 +30,7 @@ const contractDetailVariationRegistry = [
 ];
 
 const contractFromFactory = FactoryBotSubscription.Contract.create();
-const fakePaymentCombo = FactoryBotPaymentCombo.PaymentCombo.create();
+const fakePaymentCombo = paymentComboFactory();
 const fakepaymentPack = paymentPackFactory();
 const fakePrivatePass = private_services_passes_factory(1)[0];
 
@@ -43,7 +44,7 @@ const usePropsFromVariation = (
     contract: contractFromFactory,
     isExcludingTax: isExcludingTaxSelected,
     getPaymentComboSelected: (id: number) => {
-      return { ...fakePaymentCombo, id };
+      return { ...fakePaymentCombo, id } as PaymentCombo;
     },
     getPaymentPackSelected: (id: number) => {
       return { ...fakepaymentPack, id };

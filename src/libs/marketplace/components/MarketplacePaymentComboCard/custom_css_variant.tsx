@@ -12,7 +12,7 @@ import {
 } from '#libs/exportable-components/types';
 import { CompanyTheme } from '#libs/theme/types';
 
-import paymentComboFactory from '#libs/payment-combo/factory';
+import { paymentComboFactory } from '#libs/payment-combo/factory';
 
 const paymentComboCardVariationRegistry = [
   {
@@ -25,7 +25,7 @@ const paymentComboCardVariationRegistry = [
   },
 ];
 
-const paymentComboFromFactory = paymentComboFactory.PaymentCombo.create();
+const paymentComboFromFactory = paymentComboFactory();
 
 const usePropsFromVariation = (
   variationsSelected: Record<string, VariationConfigurationChoice>,
@@ -34,6 +34,7 @@ const usePropsFromVariation = (
     variationsSelected?.isExcludingTax?.value === 'true';
 
   return {
+    // @ts-expect-error
     paymentCombo: paymentComboFromFactory,
     isExcludingTax: isExcludingTaxSelected,
     onClick: () => {},

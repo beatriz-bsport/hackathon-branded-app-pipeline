@@ -12,7 +12,7 @@ import withFormik from '@bbbtech/storybook-formik';
 import ValidationSchema from '../ValidationSchema';
 import { PrivatePass } from '#libs/private-service/types';
 import { private_services_passes_factory } from '#libs/private-service/factory';
-import { PaymentComboStorybookListFactory } from '#libs/payment-combo/factory';
+import { paymentComboListFactory } from '#libs/payment-combo/factory';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import { UniqueCodeCouponCreationPayload } from '#libs/coupon/types';
@@ -44,9 +44,7 @@ const fakePrivatePassesById = fakePrivatePasses.reduce(
   {},
 );
 
-const fakePaymentCombos: PaymentCombo[] = PaymentComboStorybookListFactory(
-  10,
-) as PaymentCombo[];
+const fakePaymentCombos = paymentComboListFactory(10) as PaymentCombo[];
 
 const fakePaymentCombosById = fakePaymentCombos.reduce(
   (result: { [key: number]: PaymentCombo }, paymentCombo) => {

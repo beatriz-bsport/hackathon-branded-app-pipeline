@@ -43,6 +43,7 @@ export const PaymentComboStorybookFactory = (id?: number) => {
     // @ts-expect-error
     private_passes: private_services_passes_factory(2),
     shop_items: [],
+    available: Math.random() < 0.5,
   };
   return paymentCombo;
 };

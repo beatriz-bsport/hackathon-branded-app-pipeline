@@ -381,4 +381,5 @@ export type PaymentPackFactoryOptions = {
   isUniversalPass?: boolean;
   isUsableByStaff?: boolean;
   isAppliesForPayroll?: boolean;
+  isTemplate?: boolean;
 };

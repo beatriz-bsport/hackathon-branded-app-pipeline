@@ -146,7 +146,9 @@ export const paymentPackFactory = (options?: PaymentPackFactoryOptions) => {
     notifications: generateRandomIdList(faker, 2),
     whitelist_tags: generateRandomIdList(faker, 3),
     blacklist_tags: generateRandomIdList(faker, 3),
-    template_instance: parseInt(faker.finance.accountNumber(4), 10),
+    template_instance: options?.isTemplate
+      ? parseInt(faker.finance.accountNumber(4), 10)
+      : null,
     linked_private_pass: parseInt(faker.finance.accountNumber(4), 10),
     allow_guest_pass: options?.isAllowGuestPass ?? faker.datatype.boolean(),
     is_universal_pass: options?.isUniversalPass ?? faker.datatype.boolean(),

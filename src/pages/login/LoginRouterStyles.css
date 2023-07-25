@@ -9,7 +9,7 @@ as it is utilized by all pages within the login.router */
 
 .bs-container__header {
   display: flex;
-  position: absolute;
+  position: fixed;
   top: 0px;
   left: 0px;
   padding: var(--spacing-5);

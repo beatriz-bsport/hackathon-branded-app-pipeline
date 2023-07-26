@@ -141,10 +141,8 @@ const OfferSearchBar = ({
               (group) => group.establishment.length !== 0,
             )}
             selectOption={(ev: EstablishmentGroupSelectOption[]) => {
-              setCalendarFilter(
-                ev.map((e) => e.value),
-                FILTER_ESTABLISHMENT_GROUP,
-              );
+              // @ts-expect-error
+              setCalendarFilter(ev, FILTER_ESTABLISHMENT_GROUP);
             }}
             closeMenuOnSelect
             selectedEstablishmentGroups={

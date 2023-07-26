@@ -149,17 +149,14 @@ const useStyles = makeStyles<Theme>((theme) => ({
   logo: {
     height: 38,
   },
-
   container: {
     width: '100vw',
     height: '100vh',
     overflow: 'auto',
-    top: '0%',
-    left: '0%',
-    position: 'absolute',
-    [theme.breakpoints.down('xs')]: {
-      position: 'unset',
-    },
+    top: '50%',
+    left: '50%',
+    position: 'fixed',
+    transform: 'translate(-50%, -50%)',
   },
 }));
 const connector = connect(

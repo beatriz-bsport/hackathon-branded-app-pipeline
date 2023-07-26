@@ -109,8 +109,11 @@ const useSmartlistHandler = (
     React.useState<number>(null);
 
   const handleSmartlistSelect = React.useCallback(
-    (smartlists: SmartListSelectOption[]) => {
-      setSmartlistSelected(smartlists[smartlists.length - 1].value);
+    (smartlist: SmartListSelectOption) => {
+      if (!smartlist) {
+        return;
+      }
+      setSmartlistSelected(smartlist.value);
     },
     [],
   );

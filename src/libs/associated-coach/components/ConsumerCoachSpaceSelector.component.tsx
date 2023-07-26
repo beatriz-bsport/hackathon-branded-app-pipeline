@@ -40,9 +40,11 @@ export const ConsumerCoachSpaceSelector: React.FC<Props> = ({
         </Typography>
         <div className={classNames(classes.rectangle, 'reactangle-animated')} />
       </div>
-      <Typography className={classes.info} variant="body1">
-        {t('coachAccess.info')}
-      </Typography>
+      <div className={classes.infoContainer}>
+        <Typography className={classes.info} variant="body1">
+          {t('coachAccess.info')}
+        </Typography>
+      </div>
       <Button
         className={classes.studentButton}
         onClick={handleGoToConsumerSpace}
@@ -84,29 +86,40 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
   },
-  connection: { fontWeight: 700 },
+  connection: {
+    fontWeight: 700,
+  },
   studentButton: {
     background: `linear-gradient(90deg,${
       theme.palette.primary.main
     } 4.66%, ${chroma(theme.palette.primary.main).darken(1.1)} 88.6%)`,
     color: getTextColorFromRGB(chroma(theme.palette.primary.main).rgb()),
     borderRadius: '8px',
-    width: theme.spacing(51),
+    maxWidth: '408px',
+    width: '100%',
     height: theme.spacing(6),
   },
   coachButton: {
     borderRadius: '8px',
-    width: theme.spacing(51),
+    maxWidth: '408px',
+    width: '100%',
     height: theme.spacing(6),
+  },
+  infoContainer: {
+    maxWidth: '408px',
+    width: '100%',
+    display: 'flex',
+    marginBottom: theme.spacing(4),
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   info: {
     color: 'rgba(0, 0, 0, 0.7)',
-    width: theme.spacing(51),
     textAlign: 'center',
-    marginBottom: theme.spacing(4),
   },
   divider: {
-    width: theme.spacing(34),
+    width: '146px',
     borderTop: '1px solid rgba(0, 0, 0, 0.13)',
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
@@ -116,6 +129,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     gap: theme.spacing(3),
+    width: '100%',
+    padding: theme.spacing(2),
   },
   column: {
     display: 'flex',

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { makeStyles, Theme } from '@material-ui/core';
+import React, { useCallback, useState } from 'react';
+import { makeStyles, type Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -7,42 +7,58 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
-import { ChevronRight } from '@material-ui/icons';
+import ChevronRight from '@material-ui/icons/ChevronRight';
 import Popper from '@material-ui/core/Popper';
 import Grow from '@material-ui/core/Grow';
 import MenuList from '@material-ui/core/MenuList';
 import Paper from '@material-ui/core/Paper';
 
 type NestedListProps = {
-  dataRecord: Record<string, Array<string>>;
-  onItemClick?: (itemValue: any) => void;
-  anchorElMenu?: Element;
+  dataRecord: Record<string, string[]>;
   handleCloseMenu: () => void;
+  anchorElMenu?: Element;
   forTagsSelector?: boolean;
+  onItemClick?: (itemValue: any) => void;
 };
 
-const NestedMenu = (props: NestedListProps) => {
-  const { anchorElMenu, forTagsSelector } = props;
+const NestedMenu: React.FC<NestedListProps> = ({
+  dataRecord,
+  anchorElMenu,
+  forTagsSelector,
+  handleCloseMenu,
+  onItemClick,
+}) => {
   const [toggledMenu, setToggledMenu] = useState<Record<string, Element>>({});
-  const dataRecord = props.dataRecord ?? {};
-  const numberLists = Object.keys(dataRecord).length;
-  const handleToggle = (i: string) => (event: React.MouseEvent) => {
-    const newToggledMenu = {
-      [i]: toggledMenu?.[i] ? null : event.currentTarget,
-    };
-    setToggledMenu(newToggledMenu);
-  };
-  const handleClose = () => {
+  const data = dataRecord ?? {};
+  const numberLists = Object.keys(data).length;
+
+  const handleToggle = useCallback(
+    (i: string) => (event: React.MouseEvent) => {
+      const newToggledMenu = {
+        [i]: toggledMenu?.[i] ? null : event.currentTarget,
+      };
+      setToggledMenu(newToggledMenu);
+    },
+    [toggledMenu],
+  );
+
+  const handleClose = useCallback(() => {
     setToggledMenu({});
-  };
-  const handleCloseMenu = () => {
+  }, []);
+
+  const handleOnCloseMenu = useCallback(() => {
     handleClose();
-    props.handleCloseMenu();
-  };
-  const onItemClick = (itemValue: any) => {
-    props.onItemClick(itemValue);
-    handleCloseMenu();
-  };
+    handleCloseMenu?.();
+  }, [handleClose, handleCloseMenu]);
+
+  const handleItemClick = useCallback(
+    (itemValue: any) => {
+      onItemClick?.(itemValue);
+      handleCloseMenu();
+    },
+    [handleCloseMenu, onItemClick],
+  );
+
   const { t } = useTranslation(['notificationRule']);
 
   return (
@@ -55,24 +71,22 @@ const NestedMenu = (props: NestedListProps) => {
       MenuListProps={{
         disablePadding: true,
       }}
-      onClose={handleCloseMenu}
+      onClose={handleOnCloseMenu}
       open={Boolean(anchorElMenu)}
       transformOrigin={{ vertical: 'bottom', horizontal: 'left' }}
     >
-      {Object.keys(dataRecord).map((sublistName) => (
+      {Object.keys(data).map((sublistName) => (
         <NestedItem
           key={sublistName}
           categoryName={sublistName}
           forTagsSelector={forTagsSelector}
           handleClose={handleClose}
           handleToggle={handleToggle(sublistName)}
-          listData={dataRecord[sublistName]}
+          listData={data[sublistName]}
           name={forTagsSelector ? t(`tag.${sublistName}.name`) : sublistName}
-          onItemClick={onItemClick}
+          onItemClick={handleItemClick}
           target={toggledMenu[sublistName]}
-          withDivider={
-            Object.keys(dataRecord).indexOf(sublistName) < numberLists - 1
-          }
+          withDivider={Object.keys(data).indexOf(sublistName) < numberLists - 1}
         />
       ))}
     </Menu>
@@ -91,9 +105,8 @@ type NestedItemProps = {
   forTagsSelector?: boolean;
 };
 
-const NestedItem = (props: NestedItemProps) => {
-  const classes = useStyles();
-  const {
+const NestedItem: React.FC<NestedItemProps> = React.memo(
+  ({
     name,
     listData,
     target,
@@ -103,57 +116,64 @@ const NestedItem = (props: NestedItemProps) => {
     withDivider,
     forTagsSelector,
     categoryName,
-  } = props;
-  const { t } = useTranslation('notificationRule');
-  return (
-    <div className={classes.listItemContainer}>
-      <ListItem
-        key={categoryName}
-        // onClick={handleToggle} --> On Mobile, the onPointerEnter seems to trigger it too (on browser)
-        button
-        className={classes.listItem}
-        disabled={listData.length === 0}
-        onPointerEnter={handleToggle}
-      >
-        <ListItemText>{name}</ListItemText>
-        <ListItemIcon className={classes.listItemIcon}>
-          <ChevronRight />
-        </ListItemIcon>
-      </ListItem>
-      {withDivider && <Divider variant="fullWidth" />}
-      <Popper
-        transition
-        anchorEl={target}
-        className={classes.menuContainer}
-        disablePortal={false}
-        onPointerLeave={handleClose}
-        open={Boolean(target)}
-        placement="right-end"
-      >
-        {({ TransitionProps }) => (
-          <Grow {...TransitionProps} style={{ transformOrigin: 'left bottom' }}>
-            <Paper>
-              <MenuList id={`menu-${categoryName}`} variant="menu">
-                {listData.map((itemName) => (
-                  <MenuItem
-                    onClick={() => {
-                      onItemClick(itemName);
-                      handleClose();
-                    }}
-                  >
-                    {forTagsSelector
-                      ? t(`tag.${categoryName}.tags.${itemName}`)
-                      : itemName}
-                  </MenuItem>
-                ))}
-              </MenuList>
-            </Paper>
-          </Grow>
-        )}
-      </Popper>
-    </div>
-  );
-};
+  }) => {
+    const classes = useStyles();
+
+    const { t } = useTranslation('notificationRule');
+    return (
+      <div className={classes.listItemContainer}>
+        <ListItem
+          key={categoryName}
+          // onClick={handleToggle} --> On Mobile, the onPointerEnter seems to trigger it too (on browser)
+          button
+          className={classes.listItem}
+          disabled={listData.length === 0}
+          onPointerEnter={handleToggle}
+        >
+          <ListItemText>{name}</ListItemText>
+          <ListItemIcon className={classes.listItemIcon}>
+            <ChevronRight />
+          </ListItemIcon>
+        </ListItem>
+        {withDivider && <Divider variant="fullWidth" />}
+        <Popper
+          transition
+          anchorEl={target}
+          className={classes.menuContainer}
+          disablePortal={false}
+          onPointerLeave={handleClose}
+          open={Boolean(target)}
+          placement="right-end"
+        >
+          {({ TransitionProps }) => (
+            <Grow
+              {...TransitionProps}
+              style={{ transformOrigin: 'left bottom' }}
+            >
+              <Paper>
+                <MenuList id={`menu-${categoryName}`} variant="menu">
+                  {listData.map((itemName, index) => (
+                    <MenuItem
+                      key={`${index}-${itemName}`}
+                      onClick={() => {
+                        onItemClick(itemName);
+                        handleClose();
+                      }}
+                    >
+                      {forTagsSelector
+                        ? t(`tag.${categoryName}.tags.${itemName}`)
+                        : itemName}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+      </div>
+    );
+  },
+);
 
 const useStyles = makeStyles((theme: Theme) => ({
   listItem: {
@@ -174,4 +194,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default NestedMenu;
+export default React.memo(NestedMenu);

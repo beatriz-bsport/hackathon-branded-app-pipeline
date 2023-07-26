@@ -1,19 +1,21 @@
-// @ts-nocheck
 import React, { useEffect } from 'react';
 
 import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
-import { Fade, Hidden, MuiThemeProvider, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { Fade, Hidden, Paper, makeStyles } from '@material-ui/core';
 import themeSelectors from '#libs/theme/selectors';
+// @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import Welcome from '#libs/login/components/Welcome.component';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
 import { CompanyTheme } from '#libs/theme/types';
 import LoginBackgroundComponent from '#libs/login/components/LoginBackground.component';
-import { getTheme } from '../../theme';
 import Config from '../../config';
+// @ts-expect-error
 import LanguageButton from '../../components/button/LanguageButton.component';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import withThemeProvider from '#hocs/company-themifier.hoc';
+import { RootState } from '../../reducers';
 
 type Props = {
   fetchCompanyTheme: any;
@@ -22,24 +24,27 @@ type Props = {
   simplifyUI?: boolean;
 };
 
-export const WelcomePage = (props: Props) => {
+export const WelcomePage: React.FC<Props> = ({
+  fetchCompanyTheme,
+  companyId,
+  theme,
+  simplifyUI,
+}) => {
   const classes = useStyles();
-
-  const { fetchCompanyTheme, companyId } = props;
 
   useEffect(() => {
     fetchCompanyTheme(companyId);
   }, [fetchCompanyTheme, companyId]);
   let src: string = 'https://cdn.bsport.io/bsport_logo_txt.png';
   let alt: string = 'bsport-logo';
-  if (props.theme) {
-    src = props.theme.cover;
-    alt = `${props.theme.company_name} - logo`;
+  if (theme) {
+    src = theme.cover;
+    alt = `${theme.company_name} - logo`;
   }
 
   return (
-    <MuiThemeProvider theme={getTheme(props.theme)}>
-      {!props.simplifyUI && (
+    <>
+      {!simplifyUI && (
         <Hidden xsDown>
           <LoginBackgroundComponent company />
           <Fade in>
@@ -53,15 +58,15 @@ export const WelcomePage = (props: Props) => {
       )}
       <Paper className={classes.container}>
         <Welcome
-          companyName={props.theme.company_name}
+          companyName={theme.company_name}
           urlRedirection={
-            props.theme.confirm_email_url_redirection ||
-            `${Config.PUBLIC_URL}/c/${props.companyId}`
+            theme.confirm_email_url_redirection ||
+            `${Config.PUBLIC_URL}/c/${companyId}`
           }
-          simplifyUI={props.simplifyUI}
+          simplifyUI={simplifyUI}
         />
       </Paper>
-    </MuiThemeProvider>
+    </>
   );
 };
 const useStyles = makeStyles((theme) => ({
@@ -111,11 +116,13 @@ export default compose(
     companyId: parseInt(membership),
   })),
   connect(
-    (state) => ({
+    (state: RootState) => ({
       theme: themeSelectors.getTheme(state),
     }),
     {
       fetchCompanyTheme: fetchCompanyThemeAction,
     },
   ),
+  withThemeProvider,
+  marketplaceCssHoc(),
 )(WelcomePage);

@@ -89,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     background: `linear-gradient(90deg,${
       theme.palette.primary.main
     } 4.66%, ${chroma(theme.palette.primary.main).darken(1.1)} 88.6%)`,
-    color: getTextColorFromRGB(theme.palette.primary.main),
+    color: getTextColorFromRGB(chroma(theme.palette.primary.main).rgb()),
     borderRadius: '8px',
     width: theme.spacing(51),
     height: theme.spacing(6),

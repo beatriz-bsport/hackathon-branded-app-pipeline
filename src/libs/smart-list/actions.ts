@@ -63,7 +63,7 @@ export const smartListListAction = {
   success: createAction('SMART-LIST/LIST/SUCCESS'),
 };
 
-export function fetchAllSmartLists(): ThunkAction {
+export function fetchAllSmartLists(options?: OptionCallback): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(smartListListAction.isLoading(true));
     dispatch(smartListListAction.error(null));
@@ -77,8 +77,10 @@ export function fetchAllSmartLists(): ThunkAction {
         }),
       );
       dispatch(smartListListAction.error(null));
+      if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       dispatch(smartListListAction.error(error));
+      if (options && options.onError) options.onError(error);
     }
     dispatch(smartListListAction.isLoading(false));
   };

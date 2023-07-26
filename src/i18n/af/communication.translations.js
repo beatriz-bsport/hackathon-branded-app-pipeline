@@ -51,8 +51,12 @@ exports.default = {
     },
   },
   createThread: {
+    title: 'Nouveau message',
+    smartlistPlaceholder: 'Sélectionnez une smartlist',
     close: 'Fermer',
     confirmResourceSelected: 'Confirmer',
+    refreshSmartlist:
+      'Cliquez sur le bouton rafraîchir pour voir les nouvelles smartlists',
   },
   mail: {
     dialogTitle: 'Communication',
@@ -99,7 +103,7 @@ exports.default = {
     close: 'Fermer',
     confirm: 'Confirmer',
     submit: 'Envoyer',
-    refresh: 'Rafraichir',
+    refresh: 'Rafraîchir',
     recipient: 'destinataire',
     recipient_plural: 'destinataires',
   },
@@ -289,7 +293,7 @@ exports.default = {
   dialogTemplate: {
     title: 'Sélection de template',
     refreshText:
-      'Pour voir apparaître votre nouveau template dans la liste, merci de cliquer sur le bouton rafraichir.',
+      'Pour voir apparaître votre nouveau template dans la liste, merci de cliquer sur le bouton rafraîchir.',
   },
   dialogRecipients: {
     warnings: {
@@ -303,7 +307,7 @@ exports.default = {
     noMail: 'email non renseigné',
     noPhone: 'numéro non renseigné',
     refreshMemberData:
-      'Pour voir apparaître vos modifications, merci de cliquer sur le bouton rafraichir.',
+      'Pour voir apparaître vos modifications, merci de cliquer sur le bouton rafraîchir.',
   },
   sendMessage: {
     icons: {
@@ -332,7 +336,7 @@ exports.default = {
         "Cet utilisateur n'a pas de numéro de téléphone",
     },
     refresh:
-      'Pour voir apparaître la nouvelle version de votre template, merci de cliquer sur le bouton rafraichir.',
+      'Pour voir apparaître la nouvelle version de votre template, merci de cliquer sur le bouton rafraîchir.',
     writeCommunication: 'Envoyer un message',
   },
   sentStatus: {

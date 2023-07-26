@@ -8,6 +8,7 @@ import { push } from 'connected-react-router';
 import { compose } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
+import { withRouter } from 'react-router';
 
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -24,6 +25,7 @@ import {
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
 import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import withQueryParams from '../../hocs/with-query-params.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import { fetchCadenceList } from '../../libs/sequential_marketingDEPRECATED/actions';
 import {
@@ -74,7 +76,7 @@ type Props = {
   cadencesLoading: boolean,
   fetchCadenceList: (params: CadenceQueryParams) => void,
   hasSequentialMarketingUpsell: boolean,
-};
+} & WithRouterProps;
 
 type State = {
   openCreateDialog: boolean,
@@ -94,6 +96,10 @@ export class SmartListList extends Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchAllSmartLists();
+
+    if (this.props.queryParams.create === 'true') {
+      this.setState({ openCreateDialog: true });
+    }
   }
 
   addNewSmartList = (data, options?: OptionCallback) => {
@@ -106,6 +112,7 @@ export class SmartListList extends Component<Props, State> {
       },
     });
     this.setState({ openCreateDialog: false });
+    this.props.setQueryParams('create')(false);
   };
 
   updateSmartList = (smartlist: SmartList, options?: OptionCallback) => {
@@ -142,6 +149,11 @@ export class SmartListList extends Component<Props, State> {
     });
   };
 
+  handleOpenSmartlistCreateDialog = () => {
+    this.setState({ openCreateDialog: true });
+    this.props.setQueryParams('create')(true);
+  };
+
   fetchCadences = (id: number) => {
     this.props.fetchCadencesUsingSmartlist(id, {
       onSuccess: (cadence_ids) => {
@@ -161,7 +173,7 @@ export class SmartListList extends Component<Props, State> {
         {this.props.smartlists.length === 0 && !this.props.loading && (
           <IsEmptyList
             button={this.props.t('smart_list.add')}
-            onCreate={() => this.setState({ openCreateDialog: true })}
+            onCreate={this.handleOpenSmartlistCreateDialog}
             text={this.props.t('noSmartLists')}
           />
         )}
@@ -275,12 +287,13 @@ export class SmartListList extends Component<Props, State> {
         {(this.state.openEditDialog || this.state.openCreateDialog) && (
           <SmartListEditDialog
             fullScreen
-            onCancel={() =>
+            onCancel={() => {
               this.setState({
                 openEditDialog: false,
                 openCreateDialog: false,
-              })
-            }
+              });
+              this.props.setQueryParams('create')(false);
+            }}
             open={this.state.openEditDialog || this.state.openCreateDialog}
             smartlist={
               this.state.openEditDialog ? this.props.smartlistSelected : null
@@ -293,7 +306,7 @@ export class SmartListList extends Component<Props, State> {
           />
         )}
         <BottomActionButtons
-          onCreate={() => this.setState({ openCreateDialog: true })}
+          onCreate={this.handleOpenSmartlistCreateDialog}
           onCreateLabel={this.props.t('smart_list.add')}
         />
       </div>
@@ -340,6 +353,8 @@ export default compose(
   withStyles(styles),
   routerParamsToProps({ id: 'selectedId:number' }),
   withTitle(({ t }) => t('smart_list.list.title')),
+  withRouter,
+  withQueryParams([['create'], 'queryParams', 'setQueryParams']),
   connect(
     (state, { selectedId }) => ({
       smartlists: getAllSmartList(state),

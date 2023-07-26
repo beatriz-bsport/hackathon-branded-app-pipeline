@@ -18,6 +18,7 @@ type Props = {
   values: ?Array<number>,
   selectorClass: string,
   nullCurrentValue?: boolean,
+  noMulti?: boolean,
 };
 
 type OptionProps = {
@@ -56,6 +57,7 @@ export function SmartListSelector(props: Props) {
     selectorClass,
     helperText,
     nullCurrentValue,
+    noMulti,
   } = props;
   const suggestions = smartLists
     .asMutable()
@@ -67,10 +69,10 @@ export function SmartListSelector(props: Props) {
     }));
   return (
     <Selector
-      isMulti
       searchIcon
       className={classNames(classes, selectorClass)}
       components={{ Option: smartListOption }}
+      isMulti={!noMulti}
       nullCurrentValue={nullCurrentValue}
       onChange={onChange}
       placeholder={helperText}

@@ -1,8 +1,16 @@
 import React from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
-import { Button, DialogActions, makeStyles, Theme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import { useTranslation } from 'react-i18next';
+import GroupAdd from '@material-ui/icons/GroupAdd';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import { Link } from 'react-router-dom';
+import Alert from '@material-ui/lab/Alert';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import type { CommunicationThread } from '#libs/communication-v2/types';
@@ -54,6 +62,7 @@ const connector = connect(
     searchedMembers: getSearchedMembers(state),
     loading: state.member.search.loading,
     smartlists: getAllSmartList(state),
+    smartlistLoading: state.smartList.loading,
     offerFilters: state.userPreference.calendarFilter,
     events: state.offer.calendar,
     offers: withTags(
@@ -93,22 +102,62 @@ type OwnProps = {
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
-export const InboxThreadCreator = (props: Props) => {
-  const {
-    redirectToThread,
-    getOrCreateThread,
-    contextSelected,
-    onClose,
-    fetchAllOffers,
-    offerFilters,
-    fetchAllSmartLists,
-    theme,
-    fetchOffersByDayActionDisptach,
-    fetchCoachBulk,
-    fetchMetaActivityBulk,
-    fetchEstablishmentBulk,
-  } = props;
+type InboxThreadCreatorActionProps = {
+  threadType: ChatThreadKinds;
+  onNavigateToSmartlistCreation: () => void;
+};
 
+const InboxThreadCreatorIconAction: React.FC<InboxThreadCreatorActionProps> =
+  React.memo(({ threadType, onNavigateToSmartlistCreation }) => {
+    const classes = useStyles();
+
+    const getThreadCreatorActionRoute = React.useCallback(() => {
+      switch (threadType) {
+        case ChatThreadKinds.Smartlist:
+          return '/smart-list?create=true';
+        default:
+          return '#';
+      }
+    }, [threadType]);
+
+    const handleNavigateToSmartlistCreation = React.useCallback(() => {
+      onNavigateToSmartlistCreation();
+    }, [onNavigateToSmartlistCreation]);
+
+    return (
+      <Link
+        className={classes.dialogActionContainer}
+        onClick={handleNavigateToSmartlistCreation}
+        target="_blank"
+        to={getThreadCreatorActionRoute()}
+      >
+        <GroupAdd />
+      </Link>
+    );
+  });
+
+export const InboxThreadCreator: React.FC<Props> = ({
+  open,
+  loading,
+  smartlistLoading,
+  events,
+  offers,
+  searchedMembers,
+  companyCountry,
+  smartlists,
+  redirectToThread,
+  getOrCreateThread,
+  contextSelected,
+  onClose,
+  fetchAllOffers,
+  offerFilters,
+  fetchAllSmartLists,
+  theme,
+  fetchOffersByDayActionDisptach,
+  fetchCoachBulk,
+  fetchMetaActivityBulk,
+  fetchEstablishmentBulk,
+}) => {
   const [smartlistSelected, handleSmartlistSelect] = useSmartlistHandler(
     contextSelected,
     fetchAllSmartLists,
@@ -127,6 +176,8 @@ export const InboxThreadCreator = (props: Props) => {
   const { t } = useTranslation(['communication']);
   const classes = useStyles();
 
+  const [isDisplayRefreshSmartlist, setIsDisplayRefreshSmartlist] =
+    React.useState(false);
   const [processing, setProcessing] = React.useState(false);
 
   const onResourceSelected = React.useCallback(
@@ -154,35 +205,74 @@ export const InboxThreadCreator = (props: Props) => {
     [onResourceSelected, offerSelected],
   );
 
-  if (!props.open) return null;
+  const handleDisplayRefreshSmartlist = React.useCallback(
+    () => setIsDisplayRefreshSmartlist(true),
+    [],
+  );
 
-  switch (props.contextSelected) {
+  const handleHideRefreshSmartlist = React.useCallback(
+    () => setIsDisplayRefreshSmartlist(false),
+    [],
+  );
+
+  const handleRefreshSmartlist = React.useCallback(
+    () => fetchAllSmartLists({ onSuccess: handleHideRefreshSmartlist }),
+    [fetchAllSmartLists, handleHideRefreshSmartlist],
+  );
+
+  if (!open) return null;
+
+  switch (contextSelected) {
     case ChatThreadKinds.Member:
       return (
         <MemberSearchModal
           asManager
           open
-          country={props.companyCountry}
+          country={companyCountry}
           disabled={processing}
           handlMemberSelected={onResourceSelected}
-          loading={props.loading || processing}
-          onClose={props.onClose}
-          searchedMembers={props.searchedMembers}
-          searchMembers={props.searchMembers}
+          loading={loading || processing}
+          onClose={onClose}
+          searchedMembers={searchedMembers}
+          searchMembers={handleSearchMembers}
         />
       );
     case ChatThreadKinds.Smartlist:
       return (
-        <GenericResponsiveDialog open>
-          <div className={classes.innerPadding}>
-            <SmartListSelector
-              onChange={handleSmartlistSelect}
-              smartLists={props.smartlists}
-              values={[smartlistSelected]}
-            />
-          </div>
-          <DialogActions>
-            <Button onClick={props.onClose}>{t('createThread.close')}</Button>
+        <GenericResponsiveDialog open maxWidth="sm">
+          <DialogTitle>{t('createThread.title')}</DialogTitle>
+          <DialogContent>
+            <div className={classes.inputWithActionContainer}>
+              <SmartListSelector
+                noMulti
+                helperText={t('createThread.smartlistPlaceholder')}
+                onChange={handleSmartlistSelect}
+                smartLists={smartlists}
+                values={[smartlistSelected]}
+              />
+              <InboxThreadCreatorIconAction
+                onNavigateToSmartlistCreation={handleDisplayRefreshSmartlist}
+                threadType={ChatThreadKinds.Smartlist}
+              />
+            </div>
+            {isDisplayRefreshSmartlist && (
+              <div className={classes.smartlistRefreshContainer}>
+                <Button
+                  disabled={smartlistLoading}
+                  onClick={handleRefreshSmartlist}
+                  startIcon={<RefreshIcon />}
+                  variant="outlined"
+                >
+                  {t('common.refresh')}
+                </Button>
+                <Alert severity="info">
+                  {t('createThread.refreshSmartlist')}
+                </Alert>
+              </div>
+            )}
+          </DialogContent>
+          <DialogActions className={classes.dialogActions}>
+            <Button onClick={onClose}>{t('createThread.close')}</Button>
             <Button
               color="primary"
               disabled={!smartlistSelected}
@@ -201,7 +291,7 @@ export const InboxThreadCreator = (props: Props) => {
               showDayName
               // @ts-expect-error
               date={date}
-              events={getDayOffers(props.events)}
+              events={getDayOffers(events)}
               filters={offerFilters}
               // @ts-expect-error
               onDateChange={setDate}
@@ -212,13 +302,13 @@ export const InboxThreadCreator = (props: Props) => {
               showTags
               virtualized
               companyTheme={theme}
-              offers={props.offers}
+              offers={offers}
               onOfferSelected={handleOfferSelected}
               selected={offerSelected}
             />
           </div>
           <DialogActions>
-            <Button onClick={props.onClose}>{t('createThread.close')}</Button>
+            <Button onClick={onClose}>{t('createThread.close')}</Button>
             <Button
               color="primary"
               disabled={!offerSelected}
@@ -234,10 +324,42 @@ export const InboxThreadCreator = (props: Props) => {
   }
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   innerPadding: {
     padding: theme.spacing(2),
   },
+  inputWithActionContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+  },
+  smartlistRefreshContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: theme.spacing(2),
+    marginBottom: theme.spacing(1),
+  },
+  dialogActions: {
+    borderTop: `solid ${theme.palette.grey['300']} 1px`,
+  },
+  dialogActionContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: theme.spacing(1),
+    padding: theme.spacing(1.5),
+    background: theme.palette.grey[200],
+    border: 'none',
+    cursor: 'pointer',
+    color: theme.palette.common.black,
+    '&:hover': {
+      color: theme.palette.common.black,
+    },
+    '&:focus': {
+      color: theme.palette.common.black,
+    },
+  },
 }));
 
-export default connector(InboxThreadCreator);
+export default connector(React.memo(InboxThreadCreator));

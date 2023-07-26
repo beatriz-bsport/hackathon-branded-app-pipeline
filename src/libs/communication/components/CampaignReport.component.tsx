@@ -36,9 +36,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: 'white',
     borderRadius: theme.spacing(4),
   },
-  actionButton: {
-    marginLeft: theme.spacing(1),
-  },
   leftIcon: {
     marginRight: theme.spacing(1),
   },
@@ -59,6 +56,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'flex-end',
     marginTop: theme.spacing(2),
     marginRight: theme.spacing(3),
+    gap: theme.spacing(1),
+    alignItems: 'center',
   },
   numberCard: {
     display: 'flex',
@@ -118,7 +117,7 @@ const CampaignStatistics = (props: CampaignStatisticsProps) => {
     generateExportLink,
   } = props;
   const classes = useStyles();
-  const { t } = useTranslation(['communication', 'smartlist']);
+  const { t } = useTranslation(['communication', 'smartList']);
   const [isSmartListExporting, setIsSmartListExporting] = useState(false);
   const handlerGenerateExportLink = () => {
     setIsSmartListExporting(true);
@@ -140,7 +139,6 @@ const CampaignStatistics = (props: CampaignStatisticsProps) => {
             disabled={isSmartListExporting}
             color="secondary"
             variant="contained"
-            className={classes.actionButton}
           >
             {isSmartListExporting ? (
               <CircularProgress
@@ -151,16 +149,15 @@ const CampaignStatistics = (props: CampaignStatisticsProps) => {
             ) : (
               <CloudDownloadIcon className={classes.leftIcon} />
             )}
-            {t('exportList')}
+            {t('smartList:exportList')}
           </Button>
           {campaignXlsxExportLink && (
-            <ToolTip title={t('downLoadSavedExport')}>
+            <ToolTip title={t('smartList:downLoadSavedExport')}>
               <IconButton
                 onClick={() => window.open(campaignXlsxExportLink)}
                 disabled={isSmartListExporting}
                 color="secondary"
                 variant="contained"
-                className={classes.actionButton}
               >
                 <SaveAltIcon className={classes.leftIcon} />
               </IconButton>

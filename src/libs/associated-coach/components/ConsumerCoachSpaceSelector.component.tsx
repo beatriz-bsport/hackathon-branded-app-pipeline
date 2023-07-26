@@ -1,7 +1,5 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import '../../login/components/Login.css';
 import { Button, Typography } from '@material-ui/core';
@@ -14,10 +12,26 @@ type Props = {
   goToConsumerSpace: () => void;
   goToCoachSpace: () => void;
 };
-export const ConsumerCoachSpaceSelector: React.FC<Props> = (props) => {
+export const ConsumerCoachSpaceSelector: React.FC<Props> = ({
+  disconnect,
+  goToConsumerSpace,
+  goToCoachSpace,
+}) => {
   const { t } = useTranslation('coach');
   const classes = useStyles();
-  const { disconnect, goToConsumerSpace, goToCoachSpace } = props;
+
+  const handleGoToConsumerSpace = React.useCallback(
+    () => goToConsumerSpace(),
+    [goToConsumerSpace],
+  );
+
+  const handleGoToCoachSpace = React.useCallback(
+    () => goToCoachSpace(),
+    [goToCoachSpace],
+  );
+
+  const handleDisconnect = React.useCallback(() => disconnect(), [disconnect]);
+
   return (
     <div className={classes.container}>
       <div className={classes.column}>
@@ -31,7 +45,7 @@ export const ConsumerCoachSpaceSelector: React.FC<Props> = (props) => {
       </Typography>
       <Button
         className={classes.studentButton}
-        onClick={() => goToConsumerSpace()}
+        onClick={handleGoToConsumerSpace}
       >
         {t('coachAccess.student')}
       </Button>
@@ -39,24 +53,22 @@ export const ConsumerCoachSpaceSelector: React.FC<Props> = (props) => {
         variant="outlined"
         className={classes.coachButton}
         color="primary"
-        onClick={() => goToCoachSpace()}
+        onClick={handleGoToCoachSpace}
       >
         {t('coachAccess.teacher')}
       </Button>
       <div className={classes.divider} />
       <div className={classes.columnInfo}>
         <Typography>{t('common:disconnectInfo')}</Typography>
-        <Button
-          onClick={() => disconnect()}
-          className={classes.disconnectButton}
-        >
+        <Button onClick={handleDisconnect} className={classes.disconnectButton}>
           {t('common:disconnect')}
         </Button>
       </div>
     </div>
   );
 };
-const useStyles = makeStyles<Theme>((theme) => ({
+
+const useStyles = makeStyles((theme) => ({
   rectangle: {
     height: 5,
     background: `linear-gradient(90deg,${
@@ -117,4 +129,5 @@ const useStyles = makeStyles<Theme>((theme) => ({
     gap: theme.spacing(1),
   },
 }));
-export default ConsumerCoachSpaceSelector;
+
+export default React.memo(ConsumerCoachSpaceSelector);

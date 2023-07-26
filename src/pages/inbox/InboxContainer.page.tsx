@@ -51,12 +51,11 @@ const styles = (theme: Theme) =>
       height: '100%',
     },
     threadList: {
-      flex: 10,
       height: '100%',
       backgroundColor: theme.palette.common.white,
     },
     threadContainer: {
-      flex: 30,
+      flex: 1,
       display: 'flex',
       flexDirection: 'column',
       borderRadius: 0,

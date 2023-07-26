@@ -80,7 +80,7 @@ export const MarketingActionCardList: React.FC<Props> = ({
   );
 };
 
-export default MarketingActionCardList;
+export default React.memo(MarketingActionCardList);
 
 const useStyles = makeStyles((theme: Theme) => ({
   cardsContainer: {

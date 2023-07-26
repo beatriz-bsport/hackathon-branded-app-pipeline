@@ -64,7 +64,7 @@ const commonProps = {
   sendCommunication: () => {},
   setCommunicationKind: () => {},
   updateThreadList: () => {},
-  paginatedMemberList:memberList,
+  paginatedMemberList: memberList,
 };
 
 const CustomTemplate = (args: Props) => (

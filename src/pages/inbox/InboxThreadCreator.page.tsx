@@ -76,7 +76,7 @@ const connector = connect(
     )(state),
   }),
   {
-    searchMembers: (text: string) =>
+    handleSearchMembers: (text: string) =>
       searchMembers(text, { hide_archived: true }),
     fetchAllSmartLists: fetchAllSmartListsAction,
     fetchAllOffers: fetchAllOffersAction,
@@ -157,6 +157,7 @@ export const InboxThreadCreator: React.FC<Props> = ({
   fetchCoachBulk,
   fetchMetaActivityBulk,
   fetchEstablishmentBulk,
+  handleSearchMembers,
 }) => {
   const [smartlistSelected, handleSmartlistSelect] = useSmartlistHandler(
     contextSelected,

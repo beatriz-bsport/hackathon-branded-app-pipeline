@@ -2,6 +2,8 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles, Theme, WithStyles } from '@material-ui/core';
+import classNames from 'classnames';
+
 import CommunicationInformationModal from './ModalInformation/CommunicationInformationModal.component';
 import CommunicationMessageScrollableView from './CommunicationMessageScrollableView.component';
 import InfoGenericBox from '#components/box/InfoGenericBox.component';
@@ -14,6 +16,8 @@ import type {
 import type { Member } from '#libs/member/types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 import type { ResolvedGenericTags } from '#libs/email-editor/types';
+
+import './styles.css';
 
 type OwnProps = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
@@ -125,7 +129,12 @@ class CommunicationMessageListContainer extends React.PureComponent<
     }
 
     return (
-      <div className={classes.messageContainer}>
+      <div
+        className={classNames(
+          classes.messageContainer,
+          'bs-communication__message__list__container',
+        )}
+      >
         {consentWarning && (
           <div className={classes.consentContainer}>
             <InfoGenericBox

@@ -41,6 +41,8 @@ import {
 } from '#libs/communication-v2/constants';
 import { getSmartlistChannelFromMetadata } from '#libs/communication-v2/utils';
 
+import '../styles.css';
+
 const useStyles = makeStyles<Theme, { reverse: boolean; withTopGap: boolean }>(
   (theme) => ({
     container: (props) => ({
@@ -433,7 +435,16 @@ export const CommunicationMessageBubble = (props: Props) => {
             )}
           </div>
         </div>
-        <div className={classes.flexEnd}>
+        <div
+          className={classNames(
+            classes.flexEnd,
+            'bs-communication__message__bubble__footer__container',
+            {
+              'bs-communication__message__bubble__footer__align__end':
+                !communication.is_answer,
+            },
+          )}
+        >
           <Typography variant="subtitle1">
             {moment(communication.date_created).format('L - LT')}
           </Typography>
@@ -448,6 +459,7 @@ export const CommunicationMessageBubble = (props: Props) => {
                 className={classNames(
                   classes.statusContainer,
                   classes.statusFail,
+                  'bs-communication__message__bubble__status__container',
                 )}
                 variant="body2"
               >
@@ -461,6 +473,7 @@ export const CommunicationMessageBubble = (props: Props) => {
                 className={classNames(
                   classes.statusContainer,
                   classes.statusProcessing,
+                  'bs-communication__message__bubble__status__container',
                 )}
                 variant="body2"
               >

@@ -1,0 +1,17 @@
+.bs-communication__message__list__container {
+  container: bsCommunicationMessageListContainer / inline-size;
+}
+
+@container bsCommunicationMessageListContainer (width < 650px) {
+  .bs-communication__message__bubble__footer__container {
+    flex-direction: column-reverse;
+  }
+
+  .bs-communication__message__bubble__footer__align__end {
+    align-items: flex-end;
+  }
+
+  .bs-communication__message__bubble__status__container {
+    padding-right: 0;
+  }
+}

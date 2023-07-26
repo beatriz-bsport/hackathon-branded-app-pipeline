@@ -50,6 +50,14 @@ export class CoachProfile extends Component<Props, State> {
     this.props.retrieveMyAssociatedCoachProfile({ companyId });
   }
 
+  handleGoToConsumerSpace = () => {
+    this.setState({ has_answered_customer_space: true });
+  };
+
+  handleGoToCoachSpace = () => {
+    this.setState({ has_answered_coach_space: true });
+  };
+
   render() {
     const { classes, meAsAssociatedCoach, meAsAssociatedCoachLoading } =
       this.props;
@@ -70,12 +78,8 @@ export class CoachProfile extends Component<Props, State> {
           <LoginBackgroundComponent company />
           <ConsumerCoachSpaceSelector
             disconnect={this.props.disconnect}
-            goToConsumerSpace={() => {
-              this.setState({ has_answered_customer_space: true });
-            }}
-            goToCoachSpace={() => {
-              this.setState({ has_answered_coach_space: true });
-            }}
+            goToConsumerSpace={this.handleGoToConsumerSpace}
+            goToCoachSpace={this.handleGoToCoachSpace}
           />
         </div>
       );
@@ -117,7 +121,6 @@ const styles = () =>
   });
 
 export default compose<any, Props>(
-  marketplaceCssHoc(),
   withQueryParams([['membership'], 'queryParams']),
   withProps(({ queryParams }) => ({
     companyId: parseInt(queryParams?.membership),
@@ -125,5 +128,6 @@ export default compose<any, Props>(
   connector,
   withHandlers(mapWithHandlers),
   withThemeProvider,
+  marketplaceCssHoc(),
   withStyles(styles),
 )(CoachProfile);

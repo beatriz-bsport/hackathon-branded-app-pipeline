@@ -1,8 +1,6 @@
-// @ts-nocheck
 import React from 'react';
 
 import { withRouter, Switch, Redirect, Route } from 'react-router-dom';
-import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import { withProps, compose } from 'recompose';
 import { connect } from 'react-redux';
@@ -16,12 +14,13 @@ import {
 import { RootState } from '../../reducers';
 import { parseQueryString } from '../../http';
 import { fetchCompanyTheme } from '#libs/theme/actions';
+// @ts-expect-error
 import { disconnect } from '../../actions/auth.actions';
 import themeSelectors from '#libs/theme/selectors';
 // import themeSelectors, { getThemeLoading } from '#libs/theme/selectors';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 
-import { getTheme, getFranchiseTheme } from '../../theme';
 import { fetchFranchiseTheme } from '#libs/franchise/actions';
 
 import { fetchCompanyCustomSignUp } from '#libs/custom-form/actions';
@@ -33,11 +32,14 @@ import {
   getFranchiseThemeLoading,
 } from '#libs/franchise/selectors';
 import { FranchiseDetails } from '#libs/franchise/types';
+// @ts-expect-error
 import LanguageButton from '../../components/button/LanguageButton.component';
+// @ts-expect-error
 import namespaces from '../../i18n/namespaces.json';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import './LoginRouterStyles.css';
 import { isLoginBackgroundFixed } from './utils';
+import withThemeProvider from '#hocs/company-themifier.hoc';
 
 /* Some of these pages were reworked to be CSS Only, some were not. Here is which ones and why:
 
@@ -54,20 +56,23 @@ ChangePassword page was not reworked although it can be accessed on the member s
 a link on the email sent after reset password request, so it never appears in the widget.
 */
 
+// @ts-expect-error
 const Signout = asyncComponent(() => import('./Signout.page'));
 
 const ValidateEmailWithTokenPage = asyncComponent(
+  // @ts-expect-error
   () => import('./ValidateEmailWithToken.page'),
 );
 
 const LoginPage = asyncComponent(() => import('./login-page/Login.page'));
 
 const ResetPassword = asyncComponent(
+  // @ts-expect-error
   () => import('./reset-password-page/ResetPassword.page'),
 );
 
 const ChangePassword = asyncComponent(() => import('./ChangePassword.page'));
-
+// @ts-expect-error
 const DoubleLogin = asyncComponent(() => import('./DoubleLogin.page'));
 
 const CompanyOnboardingRouter = asyncComponent(
@@ -168,13 +173,7 @@ export class LoginRouter extends React.Component<Props> {
     }
 
     return (
-      <MuiThemeProvider
-        theme={
-          this.props.franchisor && franchiseTheme
-            ? getFranchiseTheme(franchiseTheme)
-            : getTheme(this.props.theme)
-        }
-      >
+      <>
         {!simplifyUI && (
           <Hidden
             xsDown={location.pathname !== '/login/signup'}
@@ -183,11 +182,6 @@ export class LoginRouter extends React.Component<Props> {
             <LoginBackground
               company={!!this.props.membership}
               franchise={!!this.props.franchisor}
-              theme={
-                this.props.franchisor && franchiseTheme
-                  ? getFranchiseTheme(franchiseTheme)
-                  : getTheme(this.props.theme)
-              }
               backgroundFixed={isLoginBackgroundFixed(location.pathname)}
             />
             <Fade in>
@@ -235,17 +229,18 @@ export class LoginRouter extends React.Component<Props> {
             <Route path="/login" component={LoginPage} />
           </Switch>
         </div>
-      </MuiThemeProvider>
+      </>
     );
   }
 }
 
 export default compose<any, Props>(
-  marketplaceCssHoc(),
   withRouter,
   withTranslation(namespaces),
   withProps((props: Props) => ({
+    // @ts-expect-error
     membership: parseQueryString(props.location.search).membership,
+    // @ts-expect-error
     franchisor: parseQueryString(props.location.search).franchisor,
   })),
   connect(
@@ -267,4 +262,6 @@ export default compose<any, Props>(
       fetchFranchiseTheme,
     },
   ),
+  withThemeProvider,
+  marketplaceCssHoc(),
 )(LoginRouter);

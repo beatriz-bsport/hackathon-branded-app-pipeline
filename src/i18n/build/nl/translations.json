@@ -225,7 +225,7 @@
             "704": "Afwezigheid: klantenrekening gedebiteerd (leden)",
             "703": "Afwezigheid: geblokkeerde kaart (leden)",
             "20": "Verzoek om factuur te downloaden",
-            "301": "Wachtwoord opnieuw instellen",
+            "301": "Wachtwoord herstellen",
             "302": "Registratiebevestiging",
             "303": "Samenvoeging ledenaccounts",
             "304": "Cadeaubon activering",
@@ -553,7 +553,7 @@
             "explain": "Je hebt de integratie van BSPORT Solution en ClassPass aangevraagd. Je accountmanager neemt spoedig contact met je op om deze aanvraag te valideren."
         },
         "parameters": {
-            "allEstablishment": "Alle zalen",
+            "allEstablishment": "Alle vestigingen",
             "enabled": "Actief",
             "establishmentId": "De IDs van je vestigingen zijn: {{establishmentIdList}}",
             "companyId": "Je Partner-ID is: {{ company }}",
@@ -1764,7 +1764,7 @@
             "titleNotification": "Titel",
             "sendNotification": "Push-notificatie",
             "warningConsent2": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt.",
-            "warningConsent1": "Waarschuwing! Dit lid heeft aangegeven geen promotionele berichten te willen ontvangen. Directe berichten kunt u snel en eenvoudig versturen om leden op de hoogte houden, zonder dat daar promotionele doeleinden aan verbonden zijn.",
+            "warningConsent1": "Belangrijk! Dit lid heeft aangegeven geen promotionele berichten te willen ontvangen. Directe berichten kun je snel en eenvoudig versturen om leden op de hoogte houden, zonder dat daar promotionele doeleinden aan verbonden zijn.",
             "titleInterpolated": "De gebruikte variabelen in dit bericht worden op individuele basis aangepast per ontvanger.",
             "warningProvider": "De antwoorden van de leden op dit bericht verschijnen niet op het platform, maar rechtstreeks in je mailbox. Om ze allemaal hier te laten verschijnen, wijzigt u de communicatie-instelling in de pagina Instellingen/Aanpassing."
         },
@@ -1899,7 +1899,7 @@
         },
         "filter": {
             "choicesLabels": {
-                "11": "Rechtstreeks bericht",
+                "11": "Direct bericht",
                 "10": "Sessie",
                 "9": "Wachtlijst",
                 "8": "Annuleringen",
@@ -2020,32 +2020,32 @@
             },
             "filterOutCommunicationSent": "De communicatie die je net hebt verzonden wordt verborgen door de actieve filters.",
             "item": {
-                "year": "{{count}} jaar",
-                "year_plural": "{{count}} jaren",
-                "weeks": "sem",
-                "days": "j",
-                "hours": "h",
+                "year": "{{count}} j",
+                "year_plural": "{{count}} j",
+                "weeks": "w",
+                "days": "d",
+                "hours": "u",
                 "minutes": "min",
-                "unarchive": "Herstel",
-                "archive": "Archief",
-                "unmute": "Reactiveren",
-                "mute": "Stoppen met",
-                "removeFavorite": "Favorieten verwijderen",
+                "unarchive": "Herstellen",
+                "archive": "Archiveren",
+                "unmute": "Dempen ongedaan maken",
+                "mute": "Dempen",
+                "removeFavorite": "Van favorieten verwijderen",
                 "addToFavorite": "Toevoegen aan favorieten",
                 "markAsRead": "Markeer als ongelezen",
                 "detail": {
                     "offer": "Details sessie",
                     "smartlist": "Smartlist details",
-                    "member": "Gegevens leden"
+                    "member": "Ledeninformatie"
                 },
                 "filterMessages": "Berichten filteren",
                 "disableDialog": {
-                    "thirdContent": "Merk op dat een nieuw bericht in deze chat, van jou of van de persoon met wie je praat, de chat automatisch herstelt.",
-                    "secondContent": "Het zal niet langer verschijnen in de lijst met chats, maar is nog steeds toegankelijk door de filter 'Gearchiveerd' te selecteren.",
+                    "thirdContent": "Gearchiveerde gesprekken worden automatisch herstelt zodra jij of het lid een nieuw bericht versturen.",
+                    "secondContent": "Dit gesprek wordt niet langer in je actieve chats getoond. Je kunt het gesprek opnieuw bekijken of openen door op \"Gearchiveerd\" te filteren.",
                     "firstContent": "Je staat op het punt deze chat te archiveren.",
-                    "title": "Archief chat"
+                    "title": "Gesprek archiveren"
                 },
-                "noMessage": "Geen bericht"
+                "noMessage": "Geen berichten"
             },
             "kind": {
                 "member": "Leden",
@@ -2063,17 +2063,17 @@
             "loadMoreThreads": "Meer berichten laden",
             "noThread": {
                 "item": {
-                    "offer": "Klik hier voor meer informatie over je sessies",
-                    "smartlist": "Hier vind je de gesprekken in je smartlists",
-                    "member": "Meer informatie over gesprekken met leden"
+                    "offer": "In dit onderdeel vind je meer informatie over gesprekken met je leden vanuit je sessies.",
+                    "smartlist": "In dit onderdeel vind je meer informatie over gesprekken met je leden vanuit je Smartlists.",
+                    "member": "In dit onderdeel vind je meer informatie over gesprekken met je leden."
                 },
-                "list": "Geen resultaten"
+                "list": "Geen zoekresultaten."
             },
             "panel": {
                 "navigation": {
-                    "offer": "Bekijk de details van de sessie",
-                    "smartlist": "Bekijk de details van de smartlist",
-                    "member": "Bekijk de details van het lid"
+                    "offer": "Toon details",
+                    "smartlist": "Toon details",
+                    "member": "Toon details"
                 },
                 "smartlist": {
                     "description": "Beschrijving",
@@ -2084,16 +2084,18 @@
                     "notes": "Notities",
                     "files": "Documenten",
                     "invoices": {
-                        "noUnpaidInvoices": "Een dag",
+                        "noUnpaidInvoices": "Bijgewerkt",
                         "title": "Facturen"
                     }
                 },
                 "tags": "Tags",
-                "header": "Details"
+                "header": "Details",
+                "openPanel": "Toon details",
+                "closePanel": "Verberg details"
             },
             "selectThread": {
-                "description": "Klik op een lid, een smartlist of een sessie om het bijbehorende gesprek weer te geven",
-                "title": "Selecteer een chat"
+                "description": "Klik op een lid, een Smartlist of een sessie om het bijbehorende gesprek weer te geven.",
+                "title": "Selecteer een gesprek"
             }
         },
         "sentStatus": {
@@ -2756,7 +2758,7 @@
             "last_invoice_status": "Status van de laatste betaling",
             "contract_name": "Naam van het abonnement",
             "billing_plan_payment_method": "Wijze van betaling",
-            "roll_call_needs_validation": "Het beroep moet geldig worden verklaard",
+            "roll_call_needs_validation": "Voltooi de aanwezigheidsregistratie",
             "no_show": "No show",
             "is_no_show": "Afwezig (no show)",
             "date_roll_call_last_modified": "Datum van laatste wijziging van de oproep",
@@ -3130,6 +3132,7 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd",
+                "Geannuleerd",
                 "Geannuleerd"
             ]
         },
@@ -3161,7 +3164,7 @@
         "unevenInvoice": {
             "title": "Openstaande factuur",
             "priceDue": "Openstaand bedrag: {{price_due }}",
-            "explainUneven": "Factuur <1>{{ invoice_identifier }}</1> is nog niet betaald.",
+            "explainUneven": "Factuur \"{{ invoice_identifier }}\" is nog niet betaald.",
             "pricePayed": "Betaald: {{price_payed}}"
         },
         "newOrder": {
@@ -5141,7 +5144,7 @@
                 "lastname": "Sorteer op: achternaam",
                 "firstname": "Sorteer op: voornaam"
             },
-            "unevenQuickInvoices": "Er bevinden zich openstaande facturen zonder betaalmethode op deze pagina. Weet je zeker dat je wilt stoppen?"
+            "unevenQuickInvoices": "Er bevinden zich openstaande facturen zonder betaalmethode op deze pagina. Weet je zeker dat je deze pagina wilt sluiten?"
         },
         "substitute": "Plaatsvervanger",
         "manageOffer": "Reserveringen beheren",
@@ -5254,17 +5257,17 @@
                 "validatedRollCall": "Beroep gevalideerd op {{-date}} {{time}}"
             },
             "dialog": {
-                "savedRollCall": "Het gesprek is opgenomen.",
-                "savedRollCall_plural": "De gesprekken zijn opgenomen.",
-                "validatedRollCall": "Beroep geldig verklaard",
-                "validatedRollCall_plural": "Beroepen geldig verklaard",
+                "savedRollCall": "De aanwezigheidsstatus is opgeslagen.",
+                "savedRollCall_plural": "De aanwezigheidsstatus is opgeslagen.",
+                "validatedRollCall": "Aanwezigheidsregistratie voltooid",
+                "validatedRollCall_plural": "Aanwezigheidsregistratie voltooid",
                 "confirmationRollCall": "Attentie: de sancties voor onbeperte leskaarten worden op afwezige leden toegepast. Weet je zeker dat je de aanwezigheidsregistratie wilt voltooien?",
                 "confirmationRollCall_plural": "Je staat op het punt de aanwezigheidsregistratie voor de gehele te voltooien. Attentie: de sancties voor onbeperte leskaarten worden op afwezige leden toegepast. Weet je zeker dat je de gehele aanwezigheidsregistratie wilt voltooien?",
-                "validationRollCall": "Valideer de oproep"
+                "validationRollCall": "Aanwezigheidsregistratie"
             },
             "button": {
-                "validationRollCall": "Valideer de oproep",
-                "validationRollCall_plural": "Valideer de oproepen",
+                "validationRollCall": "Aanwezigheidsregistratie",
+                "validationRollCall_plural": "Aanwezigheidsregistratie",
                 "validationRollCallZero": "Aanwezigheidsregistratie"
             },
             "warningIcon": {
@@ -5273,16 +5276,16 @@
             },
             "warningText": {
                 "lastValidatedRollCall": "De meest recente aanwezigheidsregistratie was op {{- date }} om {{ time }}",
-                "noRollCallLeft": "Alle oproepen werden gevalideerd",
+                "noRollCallLeft": "Alle aanwezigheidsregistraties zijn voltooid",
                 "rollCallsLeftToValidate": "Bevestig {{ number }} aanwezigheid",
                 "rollCallsLeftToValidate_plural": "Bevestig {{ number }} aanwezigheden",
                 "validatedDate": "Gevalideerd op {{- date }} om {{ time }}",
                 "modifiedRollCall": "De oproep is gewijzigd, u moet hem opnieuw valideren",
-                "notValidatedRollCall": "Het beroep werd niet geldig verklaard"
+                "notValidatedRollCall": "Onbevestigde aanwezigheidsregistratie"
             },
             "filter": {
                 "notValidated": "Oproep niet geldig",
-                "validated": "Beroep geldig verklaard",
+                "validated": "Voltooide aanwezigheidsregistraties",
                 "placeholder": "Status van het gesprek"
             }
         },
@@ -5838,9 +5841,9 @@
         "resetPassword": {
             "dialogTitle": "Wachtwoord herstellen",
             "confirmation": "Instructies correct verzonden naar {{memberEmail}}",
-            "dialogContent": "U staat op het punt wachtwoord reset instructies te sturen naar {{memberEmail}}",
+            "dialogContent": "Je staat op het punt om de herstelinstructies voor een nieuw wachtwoord naar \"{{memberEmail}}\" te sturen.",
             "error": "Fout bij het verzenden van wachtwoord reset instructies",
-            "button": "Wachtwoord opnieuw instellen"
+            "button": "Wachtwoord herstellen"
         },
         "events": {
             "member-login_successful": {
@@ -6482,8 +6485,8 @@
                     "establishmentsAndActivities": "Compatibel met {{ establishments }} en {{ activities }} ",
                     "categoriesAndEstablishment": "Compatibel met {{ categories }} en {{ establishments }} ",
                     "categoriesAndActivities": "Compatibel met {{ categories }} en {{ activities }} ",
-                    "establishments": "Compatibel met {{ count }} zaal",
-                    "establishments_plural": "Compatibel met {{ count }} zalen",
+                    "establishments": "Compatibel met {{ count }} vestiging",
+                    "establishments_plural": "Compatibel met {{ count }} vestigingen",
                     "activities": "Compatibel met {{ count }} activiteit",
                     "activities_plural": "Compatibel met {{ count }} activiteiten",
                     "categories": "Compatibel met {{ count }} categorie",
@@ -6492,12 +6495,12 @@
                     "all": "Compatibel met alle"
                 },
                 "compatibilityModal": {
-                    "establishments": "Zalen",
+                    "establishments": "Vestigingen",
                     "activities": "Activiteiten",
                     "categories": "Categoriën"
                 },
-                "establishments": "{{ count }} zaal",
-                "establishments_plural": "{{ count }} zalen",
+                "establishments": "{{ count }} vestiging",
+                "establishments_plural": "{{ count }} vestigingen",
                 "activities": "{{ count }} activiteit",
                 "activities_plural": "{{ count }} activiteiten",
                 "categories": "{{ count }} categorie",
@@ -11327,7 +11330,7 @@
             "incorrect_cvc": "De beveiligingscode is ongeldig.",
             "insufficient_funds": "Controleer of je voldoende saldo hebt.",
             "restricted_card": "Uw kaart is door uw bank geweigerd",
-            "stolen_card": "Uw kaart is door uw bank gemarkeerd als gestolen",
+            "stolen_card": "Uw bank heeft uw kaart als 'gestolen' opgegeven.",
             "generic_decline": "Je bank heeft de betaling geweigerd",
             "withdrawal_count_limit_exceeded": "Te veel debet op deze kaart, geweigerd.",
             "transaction_not_allowed": "Uw kaart is door uw bank geweigerd",
@@ -12206,7 +12209,7 @@
                     "month": "Maand",
                     "year": "Jaar",
                     "placeholder": "Frequentie",
-                    "text": " keer door "
+                    "text": " keer per "
                 },
                 "dialog": {
                     "dialogTitle": "Waarschuwing",
@@ -12227,7 +12230,7 @@
             },
             "productsThemePersonalization": {
                 "credits": {
-                    "description": "De weergave van kaarttegoeden voor klanten activeren of deactiveren",
+                    "description": "Kies om de credits op kaarten van leden wel of niet te tonen.",
                     "label": "Credits verbergen",
                     "subTitle": "Credits"
                 },
@@ -12619,7 +12622,7 @@
                 "isEmpty": "Er zijn nog geen producten aan deze factuur toevoegen.",
                 "title": "Aankopen",
                 "titleReverse": "Aankoopdetails",
-                "billing_establishment": "Facturatievestiging*"
+                "billing_establishment": "Vestiging van facturatie*"
             }
         },
         "invoiceItem": {
@@ -13742,7 +13745,7 @@
             },
             "establishment": {
                 "location": "Locatie",
-                "room": "Zaal",
+                "room": "Vestiging",
                 "calendar": "Agenda",
                 "general": "Algemeen"
             },
@@ -13871,7 +13874,8 @@
                     "variant": "Benadruk",
                     "filterGroupOptions": "Gebundelde opties",
                     "isExcludingTax": "Vóór belastingen",
-                    "paymentMethodType": "Betaalmethode"
+                    "paymentMethodType": "Betaalmethode",
+                    "isContractLegalTermsAccepted": "Abonnementsvoorwaarden geaccepteerd"
                 },
                 "configurationTitle": "Variaties"
             },
@@ -13909,7 +13913,11 @@
                 "paymentPackRestrictionModal": "Pop-up met beperkingen (leskaart)",
                 "paymentPackCompatibilityModal": "Compatibiliteit popup (leskaart)",
                 "paymentPackCard": "leskaart",
-                "paymentComboCard": "Pakketkaart"
+                "paymentComboCard": "Pakketkaart",
+                "collectPaymentMethod": "Een betaalmethode toevoegen",
+                "paymentPackOffPeakRestrictionModal": "Pop-up met roosterbeperking (leskaart)",
+                "contractNotFound": "Waarschuwing abonnement niet gevonden",
+                "contractPayment": "Betaalmodule abonnementen"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -13952,8 +13960,8 @@
         },
         "featureRequest": {
             "close": "Sluiten",
-            "content": "We hebben je bericht ontvangen, hartelijk voor je interesse! Je accountbeheerder zal je zo snel mogelijk contacteren.",
-            "title": "Add-On"
+            "content": "We hebben je bericht ontvangen, hartelijk voor je interesse! Je accountmanager zal je zo snel mogelijk contacteren.",
+            "title": "Aanvullende dienst"
         },
         "platformBillingStage": {
             "maxBooking": "Tot {{max_booking_per_month}} reserveringen / maand",
@@ -15877,24 +15885,79 @@
             "payment": "Betaling",
             "memberModal": {
                 "confirm": "Bevestigen",
-                "cancel": "Annuleren"
+                "cancel": "Annuleren",
+                "title": "Ledenidentificatie"
             },
             "deleteCurrentBasket": {
                 "cancel": "Annuleren",
-                "delete": "Verwijderen"
+                "delete": "Verwijderen",
+                "title": "De huidige mand verwijderen",
+                "subText": "Weet u zeker dat u het huidige mandje wilt verwijderen?"
             },
             "payLater": {
                 "title": "Later betalen",
-                "cancel": "Annuleren"
+                "cancel": "Annuleren",
+                "subText": "Dit mandje is al gedeeltelijk betaald. Door het te sluiten, stelt u de rest van de betaling uit. U vindt de factuur in de backoffice.",
+                "payLater": "Uitstellen"
             },
             "cannotEdit": {
-                "payment": "Betaling"
+                "payment": "Betaling",
+                "title": "Onmogelijke wijzigingen",
+                "subText": "Het mandje kan niet meer worden gewijzigd omdat het al gedeeltelijk is betaald."
             },
             "objectAdded": {
-                "title": "Product toegevoegd"
+                "title": "Product toegevoegd",
+                "subText": "Het item is toegevoegd aan het winkelmandje."
             },
             "outOfStock": {
-                "title": "Geen voorraad"
+                "title": "Geen voorraad",
+                "subText": "Het product dat u probeert toe te voegen aan uw winkelmandje is niet langer op voorraad in uw winkel. Wilt u het toch toevoegen?",
+                "addAnyway": "Toch toevoegen"
+            },
+            "selectItemToStart": "Klik op een item om een mandje te starten",
+            "cannotAdd": {
+                "title": "Onmogelijk toe te voegen",
+                "subTextListItem": "Helaas kon het artikel niet worden toegevoegd omdat",
+                "newMember": {
+                    "subText": "{{ optionalBeginning }} {{ name }} is geen nieuw lid."
+                },
+                "tag": {
+                    "hasTag": "{{ optionalBeginning }} {{ name }} heeft de tag {{ tagName }}.",
+                    "doesNotHaveTag": "{{ optionalBeginning }} {{ name }} heeft de tag {{ tagName }} niet.",
+                    "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{ name }} heeft de {{ ownedTagName }} tag en heeft niet de {{ notOwnedTagName }} tag."
+                }
+            },
+            "authenticationNecessary": "Verificatie van leden is vereist voor deze sectie.",
+            "ongoingBaskets": {
+                "title": "Huidige manden",
+                "subText": "Sluit ze voordat u de verbinding verbreekt."
+            },
+            "scannerMode": {
+                "title": "Scannermodus",
+                "subText": "Scan items om ze aan je winkelmandje toe te voegen.",
+                "done": "Eindigen"
+            },
+            "authenticationRequired": {
+                "title": "Identificatie vereist",
+                "subTextListItem": "Het item dat je wilt toevoegen is",
+                "bottomSubText": "Zonder identificatie van het lid kunnen de nodige controles niet worden uitgevoerd.",
+                "identifyMember": "Een lid identificeren",
+                "newMember": {
+                    "subText": "Het artikel dat je wilt toevoegen is gereserveerd voor nieuwe leden.",
+                    "subTextListItem": "Gereserveerd voor nieuwe leden"
+                },
+                "maxPurchase": {
+                    "subText": "Voor het item dat je wilt toevoegen, geldt een limiet voor het aantal aankopen.",
+                    "subTextListItem": "Met een limiet op het aantal aankopen"
+                },
+                "tag": {
+                    "subText": "Het artikel dat je wilt toevoegen is gereserveerd voor leden met bepaalde tags.",
+                    "subTextListItem": "Gereserveerd voor leden met bepaalde tags"
+                }
+            },
+            "itemsRemovedFromBasket": {
+                "title": "Items verwijderd uit mandje",
+                "subText": "Als een nieuw lid lid wordt, worden bepaalde items uit het mandje verwijderd omdat ze niet compatibel zijn met het nieuwe lid."
             }
         }
     }

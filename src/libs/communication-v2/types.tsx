@@ -8,6 +8,7 @@ import type {
 } from '#libs/types';
 import type { Member, MemberFilter } from '#libs/member/types';
 import type { CustomMobilePopup } from '#libs/settings/types';
+import { SmartList } from '#libs/smart-list/types';
 
 export type CommunicationProviderState = {
   provider?: CommunicationProvider;
@@ -266,4 +267,10 @@ export type InboxThreadRouterProps = {
   contextSelected?: ChatThreadKinds;
   setContextSelected?: (context: ChatThreadKinds, options?: () => void) => void;
   thread?: CommunicationThread;
+};
+
+export type SmartListSelectOption = {
+  value: number;
+  label: string;
+  smartlist: SmartList;
 };

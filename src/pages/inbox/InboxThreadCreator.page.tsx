@@ -3,8 +3,6 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Button, DialogActions, makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
-import omit from 'lodash/omit';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import type { CommunicationThread } from '#libs/communication-v2/types';
@@ -20,7 +18,6 @@ import GenericResponsiveDialog from '#components/genericDialog/GenericResponsive
 // @ts-expect-error
 import SmartListSelector from '#libs/smart-list/components/SmartListSelector.component';
 import { getAllSmartList } from '#libs/smart-list/selectors';
-import type { OfferFilter, Offer } from '#libs/offer/types';
 // @ts-ignore @ts-expect-error
 import TimeTable from '#components/offer/TimeTable.component';
 import Calendar from '#components/offer/Calendar.component';
@@ -44,16 +41,11 @@ import {
   withTags,
 } from '#libs/offer/selectors';
 
-import type { SmartList } from '#libs/smart-list/types';
 import { fetchAllSmartLists as fetchAllSmartListsAction } from '#libs/smart-list/actions';
 // @ts-ignore @ts-expect-error
-import { omit_list, getDayOffers } from '../planning/Planning.page';
-
-type SmartListSelectOption = {
-  value: number;
-  label: string;
-  smartlist: SmartList;
-};
+import { getDayOffers } from '../planning/Planning.page';
+import { useOfferHandler } from '#libs/communication-v2/hooks/useOfferHandler';
+import { useSmartlistHandler } from '#libs/communication-v2/hooks/useSmartlistHandler';
 
 const connector = connect(
   (state: RootState) => ({
@@ -101,106 +93,6 @@ type OwnProps = {
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
-const useSmartlistHandler = (
-  contextSelected: ChatThreadKinds,
-  fetchAllSmartLists: () => void,
-) => {
-  const [smartlistSelected, setSmartlistSelected] =
-    React.useState<number>(null);
-
-  const handleSmartlistSelect = React.useCallback(
-    (smartlist: SmartListSelectOption) => {
-      if (!smartlist) {
-        return;
-      }
-      setSmartlistSelected(smartlist.value);
-    },
-    [],
-  );
-
-  React.useEffect(() => {
-    if (contextSelected === ChatThreadKinds.Smartlist) {
-      fetchAllSmartLists();
-    }
-  }, [contextSelected, fetchAllSmartLists]);
-  return [smartlistSelected, handleSmartlistSelect, fetchAllSmartLists];
-};
-
-const useOfferHandler = (
-  contextSelected: ChatThreadKinds,
-  fetchAllOffers: (
-    params: { min_date: string; max_date: string } & OfferFilter,
-  ) => void,
-  offerFilters: OfferFilter,
-  fetchOffersByDayActionDisptach: (
-    params: {
-      year: number;
-      month: number;
-      day: number;
-    },
-    options: OptionCallback<Offer[]>,
-  ) => void,
-  fetchMetaActivityBulk: (ids: number[]) => void,
-  fetchCoachBulk: (ids: number[]) => void,
-  fetchEstablishmentBulk: (ids: number[]) => void,
-) => {
-  const [date, setDate] = React.useState<string>(moment().format('YYYY-MM-DD'));
-
-  const fetchRelevantOffers = React.useCallback(() => {
-    fetchAllOffers({
-      min_date: moment(date)
-        .startOf('month')
-        .startOf('week')
-        .format('YYYY-MM-DD'),
-      max_date: moment(date).endOf('month').endOf('week').format('YYYY-MM-DD'),
-      ...omit(offerFilters || {}, omit_list(offerFilters, true)),
-    });
-  }, [fetchAllOffers, offerFilters, date]);
-
-  const fetchOffersByDay = React.useCallback(() => {
-    const momentDate = moment(date);
-    fetchOffersByDayActionDisptach(
-      {
-        year: momentDate.year(),
-        month: momentDate.month() + 1,
-        day: momentDate.date(),
-        ...omit(offerFilters || {}, omit_list(offerFilters, false)),
-      },
-      {
-        onSuccess: (offers) => {
-          fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
-          fetchCoachBulk([
-            ...offers.map((o) => o.coach),
-            ...offers.map((o) => o.coach_override),
-          ]);
-          fetchEstablishmentBulk([...offers.map((o) => o.establishment)]);
-        },
-      },
-    );
-  }, [
-    fetchCoachBulk,
-    fetchEstablishmentBulk,
-    fetchMetaActivityBulk,
-    fetchOffersByDayActionDisptach,
-    date,
-    offerFilters,
-  ]);
-
-  React.useEffect(() => {
-    if (contextSelected === ChatThreadKinds.Offer) {
-      fetchRelevantOffers();
-      fetchOffersByDay();
-    }
-  }, [contextSelected, fetchRelevantOffers, fetchOffersByDay]);
-
-  const [offerSelected, setOfferSelected] = React.useState<number>(null);
-  const handleOfferSelected = React.useCallback(
-    (offer: Offer) => setOfferSelected(offer.id),
-    [setOfferSelected],
-  );
-  return [date, setDate, offerSelected, handleOfferSelected];
-};
-
 export const InboxThreadCreator = (props: Props) => {
   const {
     redirectToThread,
@@ -222,7 +114,7 @@ export const InboxThreadCreator = (props: Props) => {
     fetchAllSmartLists,
   );
 
-  const [date, setDate, offerSelected, handleOfferSelected] = useOfferHandler(
+  const [date, setDate, offerSelected, handleOfferSelected] = useOfferHandler({
     contextSelected,
     fetchAllOffers,
     offerFilters,
@@ -230,7 +122,7 @@ export const InboxThreadCreator = (props: Props) => {
     fetchMetaActivityBulk,
     fetchCoachBulk,
     fetchEstablishmentBulk,
-  );
+  });
 
   const { t } = useTranslation(['communication']);
   const classes = useStyles();
@@ -250,6 +142,16 @@ export const InboxThreadCreator = (props: Props) => {
       });
     },
     [getOrCreateThread, redirectToThread, contextSelected, onClose],
+  );
+
+  const handleSelectSmartlist = React.useCallback(
+    () => onResourceSelected(smartlistSelected),
+    [onResourceSelected, smartlistSelected],
+  );
+
+  const handleSelectOffer = React.useCallback(
+    () => onResourceSelected(offerSelected),
+    [onResourceSelected, offerSelected],
   );
 
   if (!props.open) return null;
@@ -284,7 +186,7 @@ export const InboxThreadCreator = (props: Props) => {
             <Button
               color="primary"
               disabled={!smartlistSelected}
-              onClick={() => onResourceSelected(smartlistSelected)}
+              onClick={handleSelectSmartlist}
             >
               {t('createThread.confirmResourceSelected')}
             </Button>
@@ -320,7 +222,7 @@ export const InboxThreadCreator = (props: Props) => {
             <Button
               color="primary"
               disabled={!offerSelected}
-              onClick={() => onResourceSelected(offerSelected)}
+              onClick={handleSelectOffer}
             >
               {t('createThread.confirmResourceSelected')}
             </Button>

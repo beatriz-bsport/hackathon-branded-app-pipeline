@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import {
   Terminal,
@@ -22,6 +21,7 @@ import StripeTerminalConnectingSuccess from './StripeTerminalConnectingSuccess.c
 import StripeTerminalPaymentSuccess from './StripeTerminalPaymentSuccess.component';
 import StripeTerminalUnexpectedDisconnect from './StripeTerminalUnexpectedDisconnect.component';
 import StripeTerminalPaymentError from './StripeTerminalPaymentError.component';
+// @ts-expect-error
 import PriceInput from '../../../components/input/PriceInput.component';
 import {
   capturePaymentIntent as capturePaymentIntentAPI,
@@ -33,8 +33,8 @@ import {
 } from '../../theme/selectors';
 import { updateIntentToSavePaymentMethod } from '#libs/payment/api';
 
-import { OptionCallback } from '../../../state/types';
-import { StripeReader } from '#libs/terminal/types';
+import type { OptionCallback } from '../../../state/types';
+import type { StripeReader } from '#libs/terminal/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: { minWidth: '20vw' },
@@ -121,10 +121,14 @@ export type Props = {
   setProcessing?: (value: boolean) => void;
   isSetupIntent?: boolean;
   onlySavePaymentMethod?: boolean;
-  companyId: number;
+  hideAmountToPay?: boolean;
+  children?: React.ReactNode;
+  customClasses?: {
+    [className: string]: string;
+  };
 };
 
-export const PaymentStripeTerminal = (props: Props) => {
+export const PaymentStripeTerminal: React.FC<Props> = (props) => {
   const companyCountry = getCompanyCountry();
 
   const { setProcessing } = props;
@@ -498,7 +502,9 @@ export const PaymentStripeTerminal = (props: Props) => {
   // --------------------------------------------------------------------
 
   return (
-    <div className={classes.container}>
+    <div
+      className={classnames(classes.container, props.customClasses?.container)}
+    >
       {step === 'connecting' && <StripeTerminalConnectingLoading />}
       {['collecting', 'processing'].includes(step) && (
         <StripeTerminalConnectingSuccess
@@ -538,49 +544,58 @@ export const PaymentStripeTerminal = (props: Props) => {
         />
       )}
       {step === 'paymentSettings' && (
-        <div className={classes.stripeTerminalContainer}>
-          {!props.isSetupIntent && (
-            <Typography variant="h6">
-              {t('configuration.stripeTerminal.paymentDialog.amountToPay')}
-            </Typography>
+        <div
+          className={classnames(
+            classes.stripeTerminalContainer,
+            props.customClasses?.stripeTerminalContainer,
           )}
-          {!!priceUpdaterOpen && (
-            <div className={classes.priceContainer}>
-              <PriceInput
-                value={priceUpdateAmount}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPriceUpdateAmount(Number.parseFloat(e.target.value))
-                }
-              />
-              <IconButton
-                color="primary"
-                onClick={() =>
-                  props.updatePriceCts(priceUpdateAmount * 100, {
-                    onSuccess: () => setPriceUpdaterOpen(false),
-                  })
-                }
-              >
-                <SaveIcon />
-              </IconButton>
-            </div>
-          )}
-          {!priceUpdaterOpen && !!props.paymentGroupPriceCts && (
-            <div className={classes.priceContainer}>
-              <Typography variant="h5">
-                {`${getCurrencyDisplayWithPrice(
-                  (props.paymentGroupPriceCts / 100).toFixed(2),
-                )}`}
-              </Typography>
-              {!!props.updatePriceCts && (
-                <IconButton
-                  color="primary"
-                  onClick={() => setPriceUpdaterOpen(true)}
-                >
-                  <EditIcon />
-                </IconButton>
+        >
+          {!props.hideAmountToPay ? (
+            <>
+              {!props.isSetupIntent && (
+                <Typography variant="h6">
+                  {t('configuration.stripeTerminal.paymentDialog.amountToPay')}
+                </Typography>
               )}
-            </div>
-          )}
+              {!!priceUpdaterOpen && (
+                <div className={classes.priceContainer}>
+                  <PriceInput
+                    value={priceUpdateAmount}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setPriceUpdateAmount(Number.parseFloat(e.target.value))
+                    }
+                  />
+                  <IconButton
+                    color="primary"
+                    onClick={() =>
+                      props.updatePriceCts(priceUpdateAmount * 100, {
+                        onSuccess: () => setPriceUpdaterOpen(false),
+                      })
+                    }
+                  >
+                    <SaveIcon />
+                  </IconButton>
+                </div>
+              )}
+              {!priceUpdaterOpen && !!props.paymentGroupPriceCts && (
+                <div className={classes.priceContainer}>
+                  <Typography variant="h5">
+                    {`${getCurrencyDisplayWithPrice(
+                      (props.paymentGroupPriceCts / 100).toFixed(2),
+                    )}`}
+                  </Typography>
+                  {!!props.updatePriceCts && (
+                    <IconButton
+                      color="primary"
+                      onClick={() => setPriceUpdaterOpen(true)}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  )}
+                </div>
+              )}
+            </>
+          ) : null}
 
           <>
             <Typography variant="h6">
@@ -624,7 +639,14 @@ export const PaymentStripeTerminal = (props: Props) => {
             )}
           </>
 
-          <div className={classes.actionRow}>
+          {props.children ? props.children : null}
+
+          <div
+            className={classnames(
+              classes.actionRow,
+              props.customClasses?.actionRow,
+            )}
+          >
             <Button
               color="primary"
               variant="contained"
@@ -645,4 +667,4 @@ export const PaymentStripeTerminal = (props: Props) => {
   );
 };
 
-export default PaymentStripeTerminal;
+export default React.memo(PaymentStripeTerminal);

@@ -193,7 +193,6 @@ export class CollectPaymentMethod extends React.Component<Props> {
                   clientSecret={this.state.clientSecret}
                   onCancel={this.props.onClose}
                   onSuccess={this.props.onSuccess}
-                  companyId={this.props.companyId}
                   isSetupIntent
                   onlySavePaymentMethod
                 />

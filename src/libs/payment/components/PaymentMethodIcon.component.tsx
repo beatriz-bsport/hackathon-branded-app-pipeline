@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -6,6 +5,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import MoneyIcon from '@material-ui/icons/Money';
 import Typography from '@material-ui/core/Typography';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
@@ -22,6 +22,9 @@ import BANCONTACT_LOGO from '../icons/bancontact.png';
 import SOFORT_LOGO from '../icons/sofort.png';
 import IDEAL_LOGO from '../icons/ideal.png';
 import BACS_DEBIT_LOGO from '../icons/bacs-direct-debit.png';
+import Stripe from '../icons/Stripe.icon';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '../utils';
+import { QuicksalePaymentMethod } from '#libs/quicksale/constants';
 
 const PaymentMethodIcon = (props: { paymentMethod: number }) => {
   const classes = useStyles();
@@ -56,6 +59,15 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
       return <img className={classes.icon} src={IDEAL_LOGO} alt="ideal" />;
     case PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT:
       return <img className={classes.icon} src={BACS_DEBIT_LOGO} alt="ideal" />;
+    case PAYMENT_STRIPE_TERMINAL_FAKE:
+      return <Stripe className={classes.stripeIcon} />;
+    case QuicksalePaymentMethod.Manual:
+      return (
+        <div className={classes.manualContainer}>
+          <MoneyIcon className={classes.moneyIcon} />
+          <Typography variant="body2">{t('paymentMethod.manual')}</Typography>
+        </div>
+      );
     default:
       if (getCurrencyDisplay() === '€') {
         return <EuroSymbolIcon className={classes.icon} />;
@@ -79,11 +91,23 @@ const useStyles = makeStyles((theme: Theme) => ({
   icon: {
     height: 36,
   },
+  stripeIcon: {
+    margin: theme.spacing(1, 2),
+  },
   creditCardContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
   },
+  manualContainer: {
+    display: 'flex',
+    gap: theme.spacing(1),
+    alignItems: 'center',
+  },
+  moneyIcon: {
+    height: 35,
+    width: 35,
+  },
 }));
 
-export default PaymentMethodIcon;
+export default React.memo(PaymentMethodIcon);

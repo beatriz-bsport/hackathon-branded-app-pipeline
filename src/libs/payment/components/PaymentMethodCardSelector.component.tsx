@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import FormControl from '@material-ui/core/FormControl';
@@ -16,6 +15,7 @@ type Props = {
   paymentMethodChoices: Array<number>;
   selectPaymentMethod: (paymentMethod: number) => void;
   paymentProcessing?: boolean;
+  customClasses?: { [className: string]: string };
 };
 
 export const PaymentMethodCardSelector = ({
@@ -23,6 +23,7 @@ export const PaymentMethodCardSelector = ({
   paymentMethodSelected,
   selectPaymentMethod,
   paymentProcessing,
+  customClasses,
 }: Props) => {
   const { t } = useTranslation(['invoice']);
 
@@ -36,15 +37,17 @@ export const PaymentMethodCardSelector = ({
     [paymentMethodSelected, selectPaymentMethod],
   );
   return (
-    <FormControl className={classes.formControl}>
+    <FormControl
+      className={classnames(classes.formControl, customClasses?.formControl)}
+    >
       <Typography
-        className={classes.title}
+        className={classnames(classes.title, customClasses?.title)}
         variant="h6"
         id="payment-method-select-label"
       >
         {t('paymentMethod.select.label')}
       </Typography>
-      <div className={classes.row}>
+      <div className={classnames(classes.row, customClasses?.row)}>
         {paymentMethodChoices.map((pm) => (
           <ButtonBase
             key={`${pm}`}
@@ -52,10 +55,10 @@ export const PaymentMethodCardSelector = ({
             disabled={paymentProcessing}
           >
             <Paper
-              className={classnames(
-                classes.paper,
-                paymentMethodSelected === pm ? classes.selected : null,
-              )}
+              className={classnames(classes.paper, customClasses?.paper, {
+                [classes.selected]: paymentMethodSelected === pm,
+                [customClasses?.selected]: paymentMethodSelected === pm,
+              })}
             >
               <PaymentMethodIcon paymentMethod={pm} />
             </Paper>

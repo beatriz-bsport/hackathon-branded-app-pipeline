@@ -79,7 +79,6 @@ type Props = {
   withCoupon?: boolean,
   withNote?: boolean,
   detachPaymentMethodLoading: boolean,
-  companyId: number,
   detachPaymentMethod: (pm_id: string) => void,
   snackbarErrorMsg: (msg: string) => void,
   snackbarSuccessMsg: (msg: string) => void,
@@ -582,7 +581,6 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                       this.setState({ processingTerminal: value })
                     }
                     isSetupIntent
-                    companyId={this.props.companyId}
                   />
                 </div>
               )}

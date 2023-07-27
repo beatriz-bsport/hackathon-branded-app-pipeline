@@ -93,7 +93,6 @@ export const PaymentMethodSelector = (props: Props) => {
             onCancel={props.onCancelTerminal}
             onSuccess={props.onSuccessTerminal}
             setProcessing={props.setProcessing}
-            companyId={props.companyId}
             isSetupIntent
           />
         </div>

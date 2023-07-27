@@ -1,3 +1,10 @@
+import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+} from '@bsport/common/lib/master-data/payment-group';
+
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
+
 export enum QuicksaleItemColor {
   Gray = '#E4E4E4',
   Orange = '#F5CFBB',
@@ -60,4 +67,11 @@ export enum QuicksaleInterfaceModalColors {
 export enum QuicksaleDeliveryType {
   OnSpot = 'on_spot',
   HomeDelivery = 'home_delivery',
+}
+
+export enum QuicksalePaymentMethod {
+  StripeTerminal = PAYMENT_STRIPE_TERMINAL_FAKE,
+  Manual = -1,
+  CreditCard = PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  Sepa = PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 }

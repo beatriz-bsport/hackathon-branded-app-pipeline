@@ -41,7 +41,7 @@ type Props = {
   onCancel: () => void,
   memberId: number,
   onSuccess: (callback?: () => void) => void,
-  amountToPay: number,
+  amountToPay: string,
   onlyInternal: ?boolean,
   asConsumer: ?boolean,
   paymentGroupId: number,
@@ -64,7 +64,6 @@ type Props = {
   applyBalanceLoading?: boolean,
   stripeReaders: StripeReader[],
   stripeId: string | null,
-  companyId: number,
 };
 
 type State = {
@@ -316,7 +315,6 @@ export class PaymentDialog extends React.Component<Props, State> {
                       setProcessing={(value: boolean) =>
                         this.setState({ processingPayment: value })
                       }
-                      companyId={this.props.companyId}
                     />
                   )}
                   {parseInt(this.state.paymentEngine, 10) ===

@@ -42,10 +42,10 @@ const PaymentPackTemplateForm = (props: Props) => {
 
   return (
     <div className={classes.container}>
-      <PaymentPackTemplateFormGeneral />
+      <PaymentPackTemplateFormGeneral initial={props.initial} />
       <Divider className={classes.divider} />
       <div className={classes.section}>
-        <PaymentPackTemplateFormValidity initial={props.initial} />
+        <PaymentPackTemplateFormValidity />
       </div>
       <Divider className={classes.divider} />
       <div className={classes.section}>

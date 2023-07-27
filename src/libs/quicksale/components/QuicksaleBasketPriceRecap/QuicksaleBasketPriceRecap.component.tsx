@@ -14,7 +14,7 @@ import {
   getCurrencyDisplay,
   getCurrencyDisplayWithPrice,
 } from '#libs/theme/selectors';
-import { CouponCodeForm } from '#libs/coupon/components/CouponCodeForm.component';
+import CouponCodeForm from '#libs/coupon/components/CouponCodeForm.component';
 import type { PaymentGroup } from '#libs/payment/types';
 import type { Basket } from '#libs/checkout/types';
 

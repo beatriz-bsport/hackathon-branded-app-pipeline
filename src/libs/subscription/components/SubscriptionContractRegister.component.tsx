@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import DialogContent from '@material-ui/core/DialogContent';
 import { withState, withHandlers, compose } from 'recompose';
@@ -33,6 +33,7 @@ import type { Contract } from '../types';
 import type { Member } from '../../member/types';
 import type { PaymentMethod } from '../../payment/types';
 import type { OptionCallback } from '../../../state/types';
+import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
 
 type OwnProps = {
   member: Member | null;
@@ -170,6 +171,22 @@ export const SubscriptionContractRegister = (props: Props) => {
     [onChangeMember],
   );
 
+  const handleSetDate = useCallback(
+    (selectedDate: Moment) => {
+      const formatedDate = selectedDate
+        .set(PLANNED_INVOICE_TIME_CONFIGURATION)
+        .format('YYYY-MM-DD');
+      props.setDate(formatedDate);
+    },
+    [props],
+  );
+
+  const handleResetDate = useCallback(() => {
+    props.setDate(
+      moment().set(PLANNED_INVOICE_TIME_CONFIGURATION).format('YYYY-MM-DD'),
+    );
+  }, [props]);
+
   if (!props.member) {
     return (
       <MemberSearchModal
@@ -224,12 +241,7 @@ export const SubscriptionContractRegister = (props: Props) => {
             )}
           </DialogContent>
           <DialogActions>
-            <Button
-              color="secondary"
-              onClick={() => {
-                props.setDate(moment());
-              }}
-            >
+            <Button color="secondary" onClick={handleResetDate}>
               {t('contract.pastDate.cancel')}
             </Button>
             <Button
@@ -273,7 +285,7 @@ export const SubscriptionContractRegister = (props: Props) => {
                 return [];
               }}
               minDate={moment().subtract(1, 'years').format('YYYY-MM-DD')}
-              onChange={props.setDate}
+              onChange={handleSetDate}
               value={props.date}
             />
           </MuiPickersUtilsProvider>

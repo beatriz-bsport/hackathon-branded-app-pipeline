@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,10 +11,11 @@ import DatePicker from 'material-ui-pickers/DatePicker';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import moment from 'moment-timezone';
+import moment, { type Moment } from 'moment-timezone';
 import MomentUtils from '@date-io/moment';
 import { OptionCallback } from '../../../state/types';
 import { PlannedInvoice } from '../types';
+import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
 
 type Props = {
   plannedInvoice: PlannedInvoice;
@@ -30,6 +31,14 @@ export const PlannedInvoiceDateUpdater = (props: Props) => {
   const { t } = useTranslation(['subscription']);
   const [date, setDate] = React.useState(props.plannedInvoice.date);
   const [processing, setProcessing] = React.useState(false);
+
+  const handleDateChange = useCallback((value: Moment) => {
+    const date_ = value
+      .set(PLANNED_INVOICE_TIME_CONFIGURATION)
+      .format('YYYY-MM-DD');
+    setDate(date_);
+  }, []);
+
   return (
     <Dialog open>
       <DialogTitle>{t('plannedInvoice.dateUpdater.title')}</DialogTitle>
@@ -51,10 +60,7 @@ export const PlannedInvoiceDateUpdater = (props: Props) => {
               .add(-1, 'months')
               .add(1, 'days')
               .format('YYYY-MM-DD')}
-            onChange={(value) => {
-              const date_ = moment(value).format('YYYY-MM-DD');
-              setDate(date_);
-            }}
+            onChange={handleDateChange}
             returnMoment={false}
             value={date}
           />

@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import moment from 'moment-timezone';
+import moment, { type Moment } from 'moment-timezone';
 
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -33,6 +33,7 @@ import { MaterialStyleType } from '../../../utils/types';
 import { PaymentCombo } from '../../payment-combo/types';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { DATE_FORMAT } from '../../../utils/datetime';
+import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
 
 type OwnProps = {
   paymentPacks: Array<PaymentPack>;
@@ -71,8 +72,12 @@ export class SubscriptionCreate extends Component<Props, State> {
       nb_interval: null,
       recurrent_voucher: 0,
       name: '',
-      first_billing_timestamp: parseInt((moment() + 0) / 1000, 10),
-      firstBillingDate: moment().format(DATE_FORMAT),
+      first_billing_timestamp: moment()
+        .set(PLANNED_INVOICE_TIME_CONFIGURATION)
+        .unix(),
+      firstBillingDate: moment()
+        .set(PLANNED_INVOICE_TIME_CONFIGURATION)
+        .format(DATE_FORMAT),
       warnManagerOnInvoice: false,
       alertPickedDateInThePast: false,
     };
@@ -185,12 +190,19 @@ export class SubscriptionCreate extends Component<Props, State> {
     this.setState({ nb_interval });
   };
 
-  updateFirstBillingTimestamp = (event: any) =>
+  updateFirstBillingTimestamp = (timeStamp: Moment) => {
     this.setState({
-      first_billing_timestamp: parseInt((event + 0) / 1000, 10),
-      firstBillingDate: moment(event).format(DATE_FORMAT),
-      alertPickedDateInThePast: moment(event).isBefore(moment().startOf('day')),
+      first_billing_timestamp: timeStamp
+        .set(PLANNED_INVOICE_TIME_CONFIGURATION)
+        .unix(),
+      firstBillingDate: timeStamp
+        .set(PLANNED_INVOICE_TIME_CONFIGURATION)
+        .format(DATE_FORMAT),
+      alertPickedDateInThePast: timeStamp.isBefore(
+        moment().set(PLANNED_INVOICE_TIME_CONFIGURATION).startOf('day'),
+      ),
     });
+  };
 
   updateRecurrentVoucher = (event: any) =>
     this.setState({

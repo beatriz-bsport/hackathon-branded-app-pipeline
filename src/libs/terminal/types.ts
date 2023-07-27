@@ -1,4 +1,3 @@
-// @ts-nocheck
 export type StripeReader = {
   id: string;
   device_type: string;
@@ -15,4 +14,9 @@ export type TerminalState = {
     loading: boolean;
     error: Error;
   };
+};
+
+export type ConnectionToken = {
+  objet: string;
+  secret: string;
 };

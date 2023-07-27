@@ -316,20 +316,18 @@ export function patchCurrentBasket(
 }
 
 export function attachCoupon(
+  basketId: string,
   code: string,
-  options: OptionCallback,
+  options?: OptionCallback<Basket>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState: () => RootState) => {
+  return async (dispatch: Dispatch) => {
     dispatch(currentBasket.isUpdating(true));
     dispatch(currentBasket.error(null));
 
     try {
-      const response = await attachCouponAPI(
-        getCurrentBasket(getState()).id,
-        code,
-      );
+      const response = await attachCouponAPI(basketId, code);
       dispatch(currentBasket.success(response.data));
-      if (options && options.onSuccess) options.onSuccess();
+      if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       if (
         error.response?.status === 499 &&

@@ -80,7 +80,7 @@ export const attachPaymentUnauthenticated = (basketId: string, data_: any) => {
 };
 
 export const attachCoupon = (basketId: string, code: string) => {
-  return postAuthDeprecated(
+  return postAuth<Basket>(
     `${API_V1_URI}/checkout/basket/${basketId}/attach_coupon/`,
     {
       code,

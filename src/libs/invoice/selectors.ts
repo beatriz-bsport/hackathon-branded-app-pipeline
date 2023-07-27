@@ -279,6 +279,11 @@ const _getPaymentListIds = (state: RootState) => getState(state).payment.allIds;
 
 const _getUuid = (_: RootState, uuid: string) => uuid;
 
+export const getPaymentList = createSelector(
+  [_getPaymentData, _getPaymentListIds],
+  (data, ids) => ids.map((id: string) => data[id]),
+);
+
 export const getPaymentListInInvoice = createSelector(
   [_getPaymentData, _getPaymentListIds, _getUuid],
   (data: { [id: string]: PaymentItem }, ids: string[], invoiceUuid: string) =>

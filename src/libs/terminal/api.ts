@@ -1,5 +1,5 @@
-// @ts-nocheck
 import { API_V1_URI, postAuth, getAuth, deleteAuth, putAuth } from '../../http';
+import { ConnectionToken } from './types';
 
 export const fetchStripeReaders = async () => {
   return getAuth(`${API_V1_URI}/terminal/reader`);
@@ -21,7 +21,7 @@ export const editStripeReader = async (readerId: string, label: string) => {
 };
 
 export const fetchConnectionToken = async () => {
-  return postAuth(`${API_V1_URI}/terminal/connection_token`);
+  return postAuth<ConnectionToken>(`${API_V1_URI}/terminal/connection_token`);
 };
 
 export const capturePaymentIntent = async (data: {

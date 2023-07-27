@@ -113,6 +113,7 @@ type Props = {
   fetchPaymentMethod: (params: any) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   attachCoupon: (
+    basketId: string,
     code: string,
     options?: { onSuccess?: () => void, onError?: () => void },
   ) => void,
@@ -305,7 +306,7 @@ export class BasketPage extends React.Component<Props> {
   };
 
   attachCoupon = (code: string, options: OptionCallback) => {
-    this.props.attachCoupon(code, {
+    this.props.attachCoupon(this.props.basket.id, code, {
       onSuccess: () => {
         this.props.refreshBasket(options);
       },

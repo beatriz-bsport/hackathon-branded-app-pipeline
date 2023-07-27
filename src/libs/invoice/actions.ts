@@ -506,7 +506,7 @@ export function fetchPaymentList(
     page: number;
     page_size?: number;
   },
-  options: OptionCallback<Payment[] | PaginatedResponse<Payment>>,
+  options?: OptionCallback<Payment[] | PaginatedResponse<Payment>>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listPaymentActions.isLoading(true));

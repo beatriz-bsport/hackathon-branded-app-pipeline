@@ -1,6 +1,3 @@
-// @ts-nocheck
-// @flow
-
 import { AxiosResponse } from 'axios';
 import {
   API_V1_URI,
@@ -10,7 +7,7 @@ import {
   postAuth,
   buildUrlParams,
 } from '../../http';
-import { PaymentMethod } from './types';
+import { PaymentGroup, PaymentMethod } from './types';
 
 export const fetchPaymentMethodList = async (
   params: any = {},
@@ -40,7 +37,7 @@ export const requestSetupIntentSecret = async (
   member?: number,
   company?: number,
   as_company: boolean = false,
-  payment_method?: string = '',
+  payment_method: string = '',
 ) => {
   return postAuth(
     `${API_V1_URI}/payment/payment_method/register_setup_intent/`,
@@ -100,7 +97,7 @@ export const fetchPaymentGroupList = async (params: any) => {
 };
 
 export const updateIntentToSavePaymentMethod = async (data: any) => {
-  return postAuth(
+  return postAuth<{ client_secret: string }>(
     `${API_V1_URI}/payment/payment_group/update_intent_to_save_payment_method/`,
     data,
   );
@@ -121,9 +118,12 @@ export const updatePaymentGroupPriceCts = async (
   id: number,
   price_cts: number,
 ) => {
-  return postAuth(`${API_V1_URI}/payment/payment_group/${id}/update_price/`, {
-    price_cts,
-  });
+  return postAuth<PaymentGroup>(
+    `${API_V1_URI}/payment/payment_group/${id}/update_price/`,
+    {
+      price_cts,
+    },
+  );
 };
 
 export const blockPendingBasket = async (basketId: string) => {

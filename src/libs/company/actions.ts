@@ -145,7 +145,7 @@ export const listFeatureActions = {
   error: createAction('COMPANY/LIST_FEATURE/ERROR'),
 };
 
-export function getFeatureList(options: OptionCallback<UpsellSumup>) {
+export function getFeatureList(options?: OptionCallback<UpsellSumup>) {
   return async (dispatch: Dispatch) => {
     dispatch(listFeatureActions.isLoading(true));
     dispatch(listFeatureActions.error(null));

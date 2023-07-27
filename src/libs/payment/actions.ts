@@ -1,6 +1,4 @@
 // @ts-nocheck
-// @flow
-
 import { createAction } from 'redux-actions';
 import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import { RootState } from '../../reducers';
@@ -17,7 +15,7 @@ import {
   detachPaymentMethod as detachPaymentMethodAPI,
   setPaymentMethodAsDefault as setPaymentMethodAsDefaultAPI,
 } from './api';
-import { PaymentMethod, Payout } from './types';
+import type { PaymentGroup, PaymentMethod, Payout } from './types';
 
 // Active campaign Account
 export const listSavedPaymentMethodListActions = {
@@ -267,7 +265,7 @@ export const updatePaymentGroupPriceCtsActions = {
 export function updatePaymentGroupPriceCts(
   id: number,
   price_cts: number,
-  options: OptionCallback,
+  options: OptionCallback<PaymentGroup>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(updatePaymentGroupPriceCtsActions.isLoading(true));

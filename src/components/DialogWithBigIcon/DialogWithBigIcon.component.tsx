@@ -126,6 +126,7 @@ type Props = {
   CustomIcon?: React.FC<SVGProps<SVGElement>>;
   customIconHeight?: number | string;
   customIconWidth?: number | string;
+  customIconFillOpacity?: number;
   icon?: string;
   iconColor?: string;
   withoutBackground?: boolean;
@@ -145,6 +146,7 @@ const DialogWithBigIcon: React.FC<Props> = (props) => {
     CustomIcon,
     customIconHeight,
     customIconWidth,
+    customIconFillOpacity,
     icon,
     iconColor,
     withoutBackground,
@@ -217,6 +219,7 @@ const DialogWithBigIcon: React.FC<Props> = (props) => {
               fill={iconColor}
               height={customIconHeight}
               width={customIconWidth}
+              fillOpacity={customIconFillOpacity}
             />
           ) : (
             <MuiIconComponent

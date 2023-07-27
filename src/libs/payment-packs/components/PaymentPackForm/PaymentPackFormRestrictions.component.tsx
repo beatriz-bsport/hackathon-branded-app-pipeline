@@ -218,9 +218,10 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 {values.off_peak_schedule.map((group, index) => (
                   <OffPeakTimeSlotGroup
                     key={`${index}`}
+                    disabled={!!initial?.template_instance}
                     group={group}
-                    index={index}
                     hasMultipleGroups={hasMultipleGroups}
+                    index={index}
                     onGroupDelete={handleDeleteGroup(index)}
                     setFieldValue={setFieldValue}
                   />
@@ -228,6 +229,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                 <ButtonBase
                   className={classes.buttonAdd}
                   color="primary"
+                  disabled={initial?.template_instance}
                   onClick={handleAddGroupTimeSlot}
                 >
                   <AddIcon color="primary" />

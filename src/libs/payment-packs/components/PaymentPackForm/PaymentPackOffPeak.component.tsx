@@ -26,6 +26,7 @@ type Props = {
   index: number;
   hasMultipleGroups: boolean;
   onGroupDelete: () => void;
+  disabled?: boolean;
 };
 
 type OffPeakRecurrenceWeekDay = '1' | '2' | '3' | '4' | '5' | '6' | '7';
@@ -35,6 +36,7 @@ type WeekDayButtonProps = {
   setFieldValue: FieldValueSetter;
   recurrenceWeekDay: OffPeakIsoWeekdays;
   index: number;
+  disabled?: boolean;
 };
 
 type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -44,10 +46,11 @@ type OffPeaktimeSlotsRowProps = {
   index: number;
   setFieldValue: FieldValueSetter;
   timeSlots: string[][];
+  disabled?: boolean;
 };
 
 const OffPeakButtonDay: React.FC<WeekDayButtonProps> = memo(
-  ({ day, recurrenceWeekDay, setFieldValue, index }) => {
+  ({ day, recurrenceWeekDay, setFieldValue, index, disabled }) => {
     const classes = useStyles();
     const { t } = useTranslation('datetime');
 
@@ -87,6 +90,7 @@ const OffPeakButtonDay: React.FC<WeekDayButtonProps> = memo(
             [classes.weekDayButton]: !recurrenceWeekDayState,
           },
         )}
+        disabled={disabled}
         onClick={handleOnClick}
         variant="contained"
       >
@@ -100,6 +104,7 @@ const OffPeaktimeSlotsRow: React.FC<OffPeaktimeSlotsRowProps> = ({
   index,
   timeSlots,
   setFieldValue,
+  disabled,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('paymentPack');
@@ -123,16 +128,22 @@ const OffPeaktimeSlotsRow: React.FC<OffPeaktimeSlotsRowProps> = ({
           return (
             <div>
               <div className={classes.row}>
-                <TimeField outsideErrorDisplay name={start_time_name} />
+                <TimeField
+                  outsideErrorDisplay
+                  disabled={disabled}
+                  name={start_time_name}
+                />
                 <TimeField
                   outsideErrorDisplay
                   className={classes.timeField}
+                  disabled={disabled}
                   name={end_time_name}
                 />
                 {hideDelete && (
                   <ButtonBase
                     className={classes.deleteIcon}
                     color="primary"
+                    disabled={disabled}
                     onClick={deleteTimeSlot(rowIndex)}
                   >
                     <CloseIcon />
@@ -159,14 +170,21 @@ const OffPeaktimeSlotsRow: React.FC<OffPeaktimeSlotsRowProps> = ({
 };
 
 const OffPeaktimeSlotGroup = (props: Props) => {
-  const { group, setFieldValue, index, hasMultipleGroups, onGroupDelete } =
-    props;
+  const {
+    group,
+    setFieldValue,
+    index,
+    hasMultipleGroups,
+    onGroupDelete,
+    disabled,
+  } = props;
   const classes = useStyles();
   const { t } = useTranslation('paymentPack');
 
   const weekDaysButtons = useMemo(() => {
     return WEEK_DAYS.map((day: WeekDay) => (
       <OffPeakButtonDay
+        disabled={disabled}
         key={`${day} - ${index}`}
         day={day}
         index={index}
@@ -174,7 +192,7 @@ const OffPeaktimeSlotGroup = (props: Props) => {
         setFieldValue={setFieldValue}
       />
     ));
-  }, [group.recurrenceWeekDay, index, setFieldValue]);
+  }, [group.recurrenceWeekDay, index, setFieldValue, disabled]);
 
   const SLOT_DURATION_CHOICE = [
     {
@@ -209,6 +227,7 @@ const OffPeaktimeSlotGroup = (props: Props) => {
         <ButtonBase
           className={classNames(classes.deleteIcon, classes.groupDelete)}
           color="primary"
+          disabled={disabled}
           onClick={onGroupDelete}
         >
           <CloseIcon />
@@ -228,12 +247,14 @@ const OffPeaktimeSlotGroup = (props: Props) => {
         <RadioGroupField
           isRow
           choices={SLOT_DURATION_CHOICE}
+          disabled={disabled}
           name={`off_peak_schedule[${index}].slotDurationChoice`}
         />
       </div>
       <div>
         <Collapse in={time_slot_choice}>
           <OffPeaktimeSlotsRow
+            disabled={disabled}
             index={index}
             setFieldValue={setFieldValue}
             timeSlots={group.timeSlots}
@@ -241,6 +262,7 @@ const OffPeaktimeSlotGroup = (props: Props) => {
           <ButtonBase
             className={classes.buttonAdd}
             color="primary"
+            disabled={disabled}
             onClick={handleAddtimeSlot}
           >
             <AddIcon color="primary" />

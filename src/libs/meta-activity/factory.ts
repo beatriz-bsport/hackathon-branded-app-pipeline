@@ -59,6 +59,7 @@ function random_choice(arr: Array<any>): any {
 export function meta_activity_factory(
   num_el: number,
   is_broadcast?: boolean,
+  customer_enabled?: boolean,
 ): Array<MetaActivity> {
   const META_ACTIVITY_IDS: Array<number> = [...Array(num_el).keys()];
   const names = [...Array(num_el)].map((_, i) => NAMES[i % NAMES.length]);
@@ -85,7 +86,7 @@ export function meta_activity_factory(
       first_booking_minutes_until: generateRandomInt(20000),
       is_workshop: false,
       is_broadcast: is_broadcast ?? false,
-      customer_enabled: false,
+      customer_enabled: customer_enabled ?? false,
       color: random_choice(COLORS),
       on_booking_notification: [],
       auto_discard_active: false,

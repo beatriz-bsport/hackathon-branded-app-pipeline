@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -44,7 +44,7 @@ type Props = OwnProps &
 
 type State = Address;
 
-export class AddressForm extends Component<Props, State> {
+export class AddressForm extends PureComponent<Props, State> {
   /*
    Works on controlled or uncontrolled mode, depending on wether onChange
    props was passed.
@@ -222,7 +222,7 @@ const styles = (theme: MaterialTheme) => ({
   },
 });
 
-export default compose<any, OwnProps>(
+export default compose<Props, OwnProps>(
   withStyles(styles),
   withTranslation(),
 )(AddressForm);

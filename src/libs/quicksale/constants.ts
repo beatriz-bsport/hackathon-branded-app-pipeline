@@ -56,3 +56,8 @@ export enum QuicksaleInterfaceModalColors {
   Info = '#2196F3',
   Success = '#4CAF50',
 }
+
+export enum QuicksaleDeliveryType {
+  OnSpot = 'on_spot',
+  HomeDelivery = 'home_delivery',
+}

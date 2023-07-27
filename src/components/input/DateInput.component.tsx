@@ -1,12 +1,11 @@
-// @ts-nocheck
-// @flow
-import React from 'react';
+import React, { JSX } from 'react';
 
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
 import { makeStyles } from '@material-ui/core';
 
+// @ts-expect-error
 import { Moment } from '../../i18n';
 
 type Props = {
@@ -18,9 +17,10 @@ type Props = {
   minDate?: Object;
   maxDate?: Object;
   onChange: (value: Moment) => void;
-  className: string;
+  className?: string;
   clearable?: boolean;
   format?: string;
+  endAdornment?: JSX.Element;
 };
 
 const useStyle = makeStyles(() => ({
@@ -41,6 +41,7 @@ export const DateInput: React.FC<Props> = ({
   maxDate,
   format,
   clearable = false,
+  endAdornment,
 }) => {
   const classes = useStyle();
 
@@ -62,6 +63,9 @@ export const DateInput: React.FC<Props> = ({
         error={error}
         className={`${className || ''} ${classes.container}`}
         clearable={clearable}
+        InputProps={{
+          endAdornment,
+        }}
       />
     </MuiPickersUtilsProvider>
   );

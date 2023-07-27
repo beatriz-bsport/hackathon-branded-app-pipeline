@@ -24,6 +24,46 @@ import type { Member } from '#libs/member/types';
 
 import useStyles from './styles';
 
+type BasketNameProps = {
+  member?: Member;
+  canChangeMember?: boolean;
+  openChangeMemberModal?: () => void;
+};
+
+export const BasketName: React.FC<BasketNameProps> = ({
+  member,
+  canChangeMember,
+  openChangeMemberModal,
+}) => {
+  const classes = useStyles({ canChangeMember });
+
+  const { t } = useTranslation('quicksale');
+
+  const stopPropagation = React.useCallback((e: React.KeyboardEvent) => {
+    e.stopPropagation();
+  }, []);
+
+  return (
+    <div
+      className={classes.basketName}
+      role="button"
+      tabIndex={0}
+      onKeyDown={stopPropagation}
+      onClick={canChangeMember ? openChangeMemberModal : undefined}
+    >
+      {!member?.is_pos && (
+        <Avatar className={classes.avatar}>
+          <img height={32} src={member?.photo} alt="member" />
+        </Avatar>
+      )}
+      <Typography variant="h6" className={classes.basketNameTypography}>
+        {!member?.is_pos ? member?.name : t('interface.anonymousSale')}
+      </Typography>
+      <Cached className={classes.nameIcon} />
+    </div>
+  );
+};
+
 type Props = {
   basket?: Basket;
   member?: Member;
@@ -55,10 +95,6 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
     closeBasket(basket);
   }, [closeBasket, basket]);
 
-  const stopPropagation = React.useCallback((e: React.KeyboardEvent) => {
-    e.stopPropagation();
-  }, []);
-
   if (!basket)
     return (
       <div className={classes.container}>
@@ -79,23 +115,11 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
       <div className={classes.headerAndBody}>
         <div className={classes.header}>
           <div className={classes.headerActions}>
-            <div
-              className={classes.basketName}
-              role="button"
-              tabIndex={0}
-              onKeyDown={stopPropagation}
-              onClick={canChangeMember ? openChangeMemberModal : undefined}
-            >
-              {!member?.is_pos && (
-                <Avatar className={classes.avatar}>
-                  <img height={32} src={member?.photo} alt="member" />
-                </Avatar>
-              )}
-              <Typography variant="h6" className={classes.basketNameTypography}>
-                {!member?.is_pos ? member?.name : t('interface.anonymousSale')}
-              </Typography>
-              <Cached className={classes.nameIcon} />
-            </div>
+            <BasketName
+              member={member}
+              canChangeMember={canChangeMember}
+              openChangeMemberModal={openChangeMemberModal}
+            />
 
             <IconButton
               onClick={closeCurrentBasket}

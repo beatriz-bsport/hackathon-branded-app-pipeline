@@ -1,3 +1,6 @@
-import QuicksaleBasketPanel from './QuicksaleBasketPanel.component';
+import QuicksaleBasketPanel, {
+  BasketName,
+} from './QuicksaleBasketPanel.component';
 
 export default QuicksaleBasketPanel;
+export { BasketName };

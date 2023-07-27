@@ -140,6 +140,7 @@ exports.default = {
       [PAYMENT_GROUP_METHOD_IDENTIFIER_EPS]: 'EPS',
       [PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY]: 'Giropay',
     },
+    manual: 'Manuel',
     detach: {
       pm_deleted: 'Moyen de paiement supprimé',
       last_payment_method:

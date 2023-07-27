@@ -203,4 +203,44 @@ exports.default = {
         'Lors du changement de membre, certains items ont été retirés du panier car ils ne sont pas compatibles avec le nouveau membre.',
     },
   },
+  checkout: {
+    billingDate: 'Date de facturation',
+    priceExcludingTax: 'Total HT',
+    tax: 'Taxes',
+    priceIncludingTax: 'Total',
+    invoiceFootNote: 'Note de bas de facture',
+    deliveryFee: 'Frais de livraison',
+    priceRecap: 'Récapitulatif',
+    amountDue: 'Total dû',
+    partialPayment: 'Encaissement',
+    leftToPay: 'Reste à payer',
+    leftDue: 'Restant dû :',
+    onSpot: 'Sur place',
+    homeDelivery: 'Livraison',
+    firstName: 'Prénom',
+    lastName: 'Nom',
+    unauthenticatedWarning:
+      "Si aucun membre n'est authentifié sur cette facture, elle sera créée en mode anonyme. Il est conseillé d'attribuer un membre afin de faciliter le suivi de l'information.",
+    sendToTerminal: 'Envoyer sur le terminal',
+    cancel: 'Annuler',
+    validate: 'Valider',
+    paymentSuccess: {
+      title: 'Paiement accepté',
+      subText:
+        'Le paiement a bien été pris en compte. La facture a été envoyée par mail.',
+      subTextAnonymous: 'Le paiement a bien été pris en compte.',
+      printTicket: 'Imprimer le ticket',
+      sendByEmail: 'Envoyer la facture par mail',
+    },
+    emailSent: {
+      title: 'Email envoyé',
+      subText: "La facture a bien été envoyée à l'email renseigné.",
+      printTicket: 'Imprimer le ticket',
+    },
+    payLater: {
+      title: 'Paiement remis à plus tard',
+      subText:
+        'Le paiement a bien été remis à plus tard : il pourra être effectué depuis le Backoffice ou sur le profil client.',
+    },
+  },
 };

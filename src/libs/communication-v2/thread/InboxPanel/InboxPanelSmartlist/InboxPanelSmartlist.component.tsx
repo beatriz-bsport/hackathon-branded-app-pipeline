@@ -129,6 +129,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey[100],
     padding: theme.spacing(2),
     width: '100%',
+    borderRadius: theme.spacing(1),
   },
   sectionContainer: {
     display: 'flex',

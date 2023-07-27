@@ -11262,7 +11262,8 @@
     "replacement": "Remplacement",
     "offerFormPage": "Création de séance",
     "searchResults": "Recherche",
-    "coachUserSpace": { "performance": "Rémunération", "replacement": "Remplacement" }
+    "coachUserSpace": { "performance": "Rémunération", "replacement": "Remplacement" },
+    "inbox": "Boîte de réception"
   },
   "translation": {
     "activityCreated": "Activité ajoutée",

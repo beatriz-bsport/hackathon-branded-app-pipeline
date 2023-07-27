@@ -38,6 +38,7 @@ import type {
   InboxThreadRouterProps,
   SelectFieldItem,
 } from '#libs/communication-v2/types';
+import withTitle from '#hocs/with-title.hoc';
 
 const PAGE_SIZE = 15;
 
@@ -278,7 +279,8 @@ export default compose<Props, InboxThreadRouterProps>(
   withState('threadItems', 'setThreadItems', [null]),
   withState('search', 'setSearch', ''),
   withState('createThreadIsOpen', 'setOpenThreadCreator', false),
-  withTranslation('communication'),
+  withTranslation(['communication', 'titles']),
+  withTitle(({ t }) => t('titles:inbox')),
   withHandlers({
     fetchInboxThreadListWithContextParams:
       ({

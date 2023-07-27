@@ -101,4 +101,5 @@ exports.default = {
     performance: 'Rémunération',
     replacement: 'Remplacement',
   },
+  inbox: 'Boîte de réception',
 };

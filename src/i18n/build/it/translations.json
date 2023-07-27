@@ -6444,7 +6444,8 @@
                 "iAcceptGeneralCondition": " Accetto l'avviso legale",
                 "iAcceptContractTerms": "Accetto i<0>termini legali</0>.",
                 "alertPastDateSameMonth": "Nota che hai scelto una data passata, se l'abbonamento contiene un pass, la sua validità inizierà dalla data selezionata. Nel caso di una validità di un mese, il tuo membro perderà {{lostDays}} giorni di validità.",
-                "title": "Data passata"
+                "title": "Data passata",
+                "acceptContractTerms": "Accetta <0>termini e condizioni<0>"
             },
             "list": {
                 "title": "Abbonamenti",
@@ -7706,6 +7707,7 @@
                 "Cancellata",
                 "Cancellata",
                 "Annullato",
+                "Cancellata",
                 "Cancellata"
             ]
         },
@@ -8909,7 +8911,8 @@
         "exists": {
             "linkUser": "Collega utente",
             "merge": "Unisci",
-            "goTo": "Vedi membro"
+            "goTo": "Vedi membro",
+            "quicksale": "Seleziona questo membro"
         },
         "engagement": "Impegno",
         "memberList": "Elenco dei membri",

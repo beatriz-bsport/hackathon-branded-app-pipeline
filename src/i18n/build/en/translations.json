@@ -2979,7 +2979,7 @@
             "item": {
                 "year": "{{count}} year",
                 "year_plural": "{{count}} years",
-                "weeks": "week",
+                "weeks": "w",
                 "days": "d",
                 "hours": "h",
                 "minutes": "min",
@@ -8384,7 +8384,8 @@
                 "iAcceptGeneralCondition": " I accept the terms.",
                 "alertPastDateSameMonth": "Please note that you have chosen a past date, if the subscription includes a pass, the validity of the pass will start on the selected date. In the case of a one month validity, your member will lose {{lostDays}} days of validity.",
                 "title": "Past date",
-                "iAcceptContractTerms": "I accept the <0>terms</0>."
+                "iAcceptContractTerms": "I accept the <0>terms</0>.",
+                "acceptContractTerms": "Agree to the <0>terms and conditions</0>"
             },
             "duration": "{{month}} bills",
             "list": {
@@ -9762,6 +9763,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Canceled",
                 "Canceled",
                 "Canceled"
             ]
@@ -11393,7 +11395,8 @@
         "exists": {
             "goTo": "See member",
             "linkUser": "Link user",
-            "merge": "Merge"
+            "merge": "Merge",
+            "quicksale": "Select this member"
         },
         "link": {
             "success": "Member linked"

@@ -13304,7 +13304,7 @@
             },
             "form": {
                 "dialog": {
-                    "save": "Geld sparen",
+                    "save": "Speichern",
                     "cancel": "Abbrechen",
                     "title": "Standort"
                 },

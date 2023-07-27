@@ -5605,7 +5605,8 @@
         "exists": {
             "goTo": "Toon lid",
             "linkUser": "Leden koppelen",
-            "merge": "Samenvoegen"
+            "merge": "Samenvoegen",
+            "quicksale": "Dit lid selecteren"
         },
         "linkDialog": {
             "cancel": "Annuleren",
@@ -6920,7 +6921,8 @@
                 "iAcceptGeneralCondition": " Ik ga akkoord met de voorwaarden.",
                 "title": "Verstreken datum",
                 "alertPastDateSameMonth": "Attentie: er is een datum in verleden gekozen. Indien dit abonnement een kaart bevat, zal de geselecteerde datum als startdatum van de geldigheid worden gebruikt. Indien het slechts één maand geldig is verliest het lid {{lostDays}} dag(en) van de geldigheid.",
-                "iAcceptContractTerms": "Ik accepteer de <0>voorwaarden</0>."
+                "iAcceptContractTerms": "Ik accepteer de <0>voorwaarden</0>.",
+                "acceptContractTerms": "Accepteer de <0>voorwaarden</0>"
             },
             "deleteForm": {
                 "actions": {

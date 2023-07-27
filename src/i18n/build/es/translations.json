@@ -3786,7 +3786,8 @@
                 "iAcceptGeneralCondition": " Acepto el aviso legal",
                 "alertPastDateSameMonth": "Atención, has elegido una fecha pasada, si la cuota contiene un bono, la validez de éste comenzará en la fecha seleccionada. En el caso de una validez de un mes, su miembro perderá {{lostDays}} días de validez.",
                 "title": "Fecha pasada",
-                "iAcceptContractTerms": "Acepto los <0>términos legales</0>."
+                "iAcceptContractTerms": "Acepto los <0>términos legales</0>.",
+                "acceptContractTerms": "Aceptar las <0>condiciones generales</0>."
             },
             "legal": "Notas legales",
             "description": "Descripción",
@@ -5026,6 +5027,7 @@
                 "Cancelled",
                 "Cancelada",
                 "Cancelada",
+                "Cancelada",
                 "Cancelada"
             ]
         },
@@ -5567,7 +5569,8 @@
         "exists": {
             "goTo": "Ir al cliente",
             "linkUser": "Añadir el cliente",
-            "merge": "Fusionar"
+            "merge": "Fusionar",
+            "quicksale": "Seleccionar este miembro"
         },
         "link": {
             "success": "Cliente añadido con éxito"

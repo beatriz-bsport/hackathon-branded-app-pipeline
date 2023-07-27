@@ -53,11 +53,11 @@ export const BasketName: React.FC<BasketNameProps> = ({
     >
       {!member?.is_pos && (
         <Avatar className={classes.avatar}>
-          <img height={32} src={member?.photo} alt="member" />
+          <img height={32} src={member?.photo ?? ''} alt="member" />
         </Avatar>
       )}
       <Typography variant="h6" className={classes.basketNameTypography}>
-        {!member?.is_pos ? member?.name : t('interface.anonymousSale')}
+        {!member?.is_pos ? member?.name || '' : t('interface.anonymousSale')}
       </Typography>
       <Cached className={classes.nameIcon} />
     </div>
@@ -88,6 +88,21 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
   const { t } = useTranslation('quicksale');
 
   const canChangeMember = basket && !basket.invoice;
+  const basketPriceExcludingTax = React.useMemo(() => {
+    if (basket) {
+      return getBasketTotalPriceExcludingTax(basket);
+    }
+    return '0';
+  }, [basket]);
+
+  const taxPrice = React.useMemo(() => {
+    if (basket) {
+      return (
+        parseFloat(basket.total_price) - parseFloat(basketPriceExcludingTax)
+      ).toFixed(2);
+    }
+    return '0';
+  }, [basket, basketPriceExcludingTax]);
 
   const classes = useStyles({ canChangeMember, basket });
 
@@ -103,12 +118,6 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
         </Alert>
       </div>
     );
-
-  const basketPriceExcludingTax = getBasketTotalPriceExcludingTax(basket);
-
-  const taxPrice = (
-    parseFloat(basket.total_price) - parseFloat(basketPriceExcludingTax)
-  ).toFixed(2);
 
   return (
     <div className={classes.container}>

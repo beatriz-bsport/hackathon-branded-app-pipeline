@@ -176,6 +176,9 @@ exports.default = {
           "Mentions légales de l'abonnement acceptées",
         paymentMethodType: 'Méthode de paiement',
         hideCoach: 'Cacher le filtre professeur',
+        isWorkshop: 'Est un atelier',
+        showDate: 'Afficher la date',
+        withoutBookButton: 'Cacher le bouton de réservation',
       },
       option: {
         true: 'Oui',

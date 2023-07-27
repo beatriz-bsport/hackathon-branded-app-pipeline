@@ -1,4 +1,4 @@
-import { ErrorAndLoading } from '../types';
+import type { ErrorAndLoading } from '../types';
 
 export type Tag<TG = number> = {
   id: number;
@@ -6,6 +6,7 @@ export type Tag<TG = number> = {
   group?: TG;
   color: string;
   icon: string;
+  tag_template?: number;
 };
 
 export type TagGroup = {
@@ -21,12 +22,14 @@ export type TagTemplate<TG = number> = {
   group?: TG;
   color: string;
   icon: string;
+  group_template?: number;
 };
 
 export type TagGroupTemplate = {
   id: number;
   name: string;
-  tags: TagTemplate[];
+  tags: number[];
+  tag_templates: number[];
   kind: number;
 };
 
@@ -35,6 +38,7 @@ export type TagGroupAPI = {
   name: string;
   tags: number[];
   kind: number;
+  tag_group_template?: number;
 };
 
 export type TagState = {

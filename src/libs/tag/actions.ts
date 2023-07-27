@@ -1,10 +1,9 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 
 import api from './api';
 
 import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
-import { TagGroupTemplate } from './types';
+import type { Tag, TagGroupAPI, TagGroupTemplate } from './types';
 
 export const tagListActions = {
   error: createAction('TAG/LIST/ERROR'),
@@ -37,7 +36,9 @@ export function fetchTags(): ThunkAction {
   };
 }
 
-export function fetchAllGroups(options?: OptionCallback): ThunkAction {
+export function fetchAllGroups(
+  options?: OptionCallback<TagGroupAPI[]>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(tagGroupListActions.isLoading(true));
     dispatch(tagGroupListActions.error(null));
@@ -98,7 +99,7 @@ export function fetchTagUsage(): ThunkAction {
 }
 
 export function createOrUpdateTag(
-  data: any,
+  data: Tag,
   callback?: (tagId: number) => void,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
@@ -120,7 +121,7 @@ export function createOrUpdateTag(
 
 export function createOrUpdateTagGroup(
   data: any,
-  options?: OptionCallback,
+  options?: OptionCallback<TagGroupAPI>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(tagGroupCreateOrUpdateActions.isLoading(true));
@@ -185,7 +186,7 @@ export const fetchMemberTagListActions = {
 };
 export function fetchMemberTagList(
   companyId: number,
-  options?: OptionCallback<TagGroupTemplate>,
+  options?: OptionCallback<Tag[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchMemberTagListActions.isLoading(true));
@@ -236,7 +237,9 @@ export function fetchTagTemplates(): ThunkAction {
   };
 }
 
-export function fetchAllGroupTemplates(options?: OptionCallback): ThunkAction {
+export function fetchAllGroupTemplates(
+  options?: OptionCallback<TagGroupTemplate>,
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(tagGroupTemplateListActions.isLoading(true));
     dispatch(tagGroupTemplateListActions.error(null));
@@ -320,7 +323,7 @@ export function createOrUpdateTagTemplate(
 
 export function createOrUpdateTagGroupTemplate(
   data: any,
-  options?: OptionCallback,
+  options?: OptionCallback<TagGroupTemplate>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(tagGroupTemplateCreateOrUpdateActions.isLoading(true));

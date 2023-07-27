@@ -1,4 +1,3 @@
-// @ts-nocheck
 export type PaymentMethod = {
   type: string;
   id: string;
@@ -70,3 +69,15 @@ export enum TermsAndConditionType {
   TERMS_AND_CONDITIONS = 'theTermsAndConditions',
   WAIVER = 'waiver',
 }
+
+export type PaymentGroup = {
+  id: number;
+  member: number;
+  invoice: number | null;
+  basket: number | null;
+  payment_method_identifier: number;
+  client_secret: string;
+  price_cts: number;
+  currency: string;
+  status: number;
+};

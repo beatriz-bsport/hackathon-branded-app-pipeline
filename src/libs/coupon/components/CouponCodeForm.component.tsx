@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -20,7 +19,6 @@ type Props = {
       onNotFound?: () => void;
     },
   ) => void;
-  code: string;
   loading?: boolean;
   disabled?: boolean;
 };
@@ -30,32 +28,36 @@ enum ERRORTYPE {
   COUPON_NOT_FOUND = 'not_found',
   EMPTY = '',
 }
-export const CouponCodeForm: React.FC<Props> = (props: Props) => {
+export const CouponCodeForm: React.FC<Props> = ({
+  onSubmit,
+  loading,
+  disabled,
+}) => {
   const classes = useStyles();
 
   const { t } = useTranslation('coupon');
 
   const [open, setOpen] = React.useState(false);
   const [code, setCode] = React.useState('');
-  const [loading, setLoading] = React.useState(false);
+  const [modalLoading, setModalLoading] = React.useState(false);
   const [error, setError] = React.useState<ERRORTYPE>(ERRORTYPE.EMPTY);
 
-  const onSubmit = () => {
-    setLoading(true);
+  const onCouponSubmit = () => {
+    setModalLoading(true);
     setError(ERRORTYPE.EMPTY);
-    props.onSubmit(code, {
+    onSubmit(code, {
       onSuccess: () => {
         setOpen(false);
-        setLoading(false);
+        setModalLoading(false);
         setError(ERRORTYPE.EMPTY);
         setCode('');
       },
       onError: () => {
-        setLoading(false);
+        setModalLoading(false);
         setError(ERRORTYPE.COUPON_NOT_APPLICABLE);
       },
       onNotFound: () => {
-        setLoading(false);
+        setModalLoading(false);
         setError(ERRORTYPE.COUPON_NOT_FOUND);
       },
     });
@@ -63,14 +65,14 @@ export const CouponCodeForm: React.FC<Props> = (props: Props) => {
 
   const onCancel = () => {
     setOpen(false);
-    setLoading(false);
+    setModalLoading(false);
     setError(ERRORTYPE.EMPTY);
   };
 
   return (
     <div className={classes.container}>
       <Button
-        disabled={props.loading || props.disabled}
+        disabled={loading || disabled}
         onClick={() => setOpen(true)}
         color="primary"
       >
@@ -80,7 +82,7 @@ export const CouponCodeForm: React.FC<Props> = (props: Props) => {
         <DialogContent>
           <TextField
             onChange={(ev) => setCode(ev.target.value)}
-            value={props.code}
+            value={code}
             variant="outlined"
             placeholder={t('code.addCoupon.placeholder')}
             label={t('code.addCoupon.label')}
@@ -93,10 +95,10 @@ export const CouponCodeForm: React.FC<Props> = (props: Props) => {
         )}
         <DialogActions>
           <Button onClick={onCancel}>{t('code.addCoupon.cancel')}</Button>
-          {loading ? (
+          {modalLoading ? (
             <CircularProgress />
           ) : (
-            <Button color="primary" onClick={onSubmit}>
+            <Button color="primary" onClick={onCouponSubmit}>
               {t('code.addCoupon.submit')}
             </Button>
           )}
@@ -117,4 +119,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CouponCodeForm;
+export default React.memo(CouponCodeForm);

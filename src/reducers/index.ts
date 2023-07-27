@@ -81,6 +81,7 @@ import CadenceReducers from '#libs/sequential_marketingDEPRECATED/reducers';
 import CadenceWIPReducers from '#libs/sequential_marketing/reducers';
 import exportableComponentsReducers from '#libs/exportable-components/reducers';
 import quicksaleReducers from '#libs/quicksale/reducers';
+import referralReducers from '#libs/referral/reducers';
 
 import { BackgroundDialogState } from '#libs/background-dialog/types';
 import { BackgroundTaskState } from '#libs/background-task/types';
@@ -145,6 +146,7 @@ import { InvoiceState } from '#libs/invoice/types';
 import { ExportableComponentsState } from '#libs/exportable-components/types';
 import { QuicksaleState } from '#libs/quicksale/types';
 import { SubscriptionState } from '#libs/subscription/types';
+import { ReferralState } from '#libs/referral/types';
 
 const rootReducer = (history: any) =>
   combineReducers({

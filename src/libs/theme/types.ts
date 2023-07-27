@@ -109,6 +109,7 @@ export type Theme = {
   hide_book_button: boolean;
   is_sequential_marketing_active: boolean;
   display_new_checkout_flow: boolean;
+  is_referral_program_activated: boolean;
 };
 
 export type ThemeState = {

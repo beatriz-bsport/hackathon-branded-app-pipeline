@@ -135,6 +135,7 @@ export function establishment_factory(num_el: number): Array<Establishment> {
 
 export function establishmentGroup_factory(
   num_el: number,
+  withEstablishment?: boolean,
 ): Array<EstablishmentGroup> {
   const ESTABLISHMENTGROUP_IDS = [...Array(num_el).keys()];
   const names = [...Array(num_el)].map((_, i) => TITLES[i % TITLES.length]);
@@ -142,6 +143,6 @@ export function establishmentGroup_factory(
     id: id + 1,
     name: names[id],
     company_id: id,
-    establishment: [],
+    establishment: withEstablishment ? establishment_factory(1)[0] : [],
   }));
 }

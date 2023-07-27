@@ -20,7 +20,7 @@ const InboxNoThread: React.FC<Props> = ({ count, contextSelected }) => {
     <>
       {count ? (
         <div className={classes.noThread}>
-          <ItemClickIcon />
+          <ItemClickIcon color="primary" />
           <Typography
             align="center"
             className={classes.noThreadTitle}

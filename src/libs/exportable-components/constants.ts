@@ -72,6 +72,10 @@ import {
   MARKETPLACE_COLLECT_PAYMENT_METHOD_CONFIGURATION,
   MARKETPLACE_COLLECT_PAYMENT_METHOD_PREVIEW,
 } from '#libs/marketplace/components/MarketplaceCollectPaymentMethod/custom_css_variant';
+import {
+  MARKETPLACE_CALENDAR_FILTER_CONFIGURATION,
+  MARKETPLACE_CALENDAR_FILTER_PREVIEW,
+} from '#libs/marketplace/components/MarketplaceFilterCSSOnly/custom_css_variant';
 
 import {
   CSSComponentPreviews,
@@ -268,6 +272,7 @@ export type SetState = (key: string) => (value: any) => void;
 */
 export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_OFFER_CARD_CONFIGURATION,
+  MARKETPLACE_CALENDAR_FILTER_CONFIGURATION,
   MARKETPLACE_PAYMENT_COMBO_CARD_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_CARD_CONFIGURATION,
   MARKETPLACE_PAYMENT_PACK_COMPATIBILITY_MODAL_CONFIGURATION,
@@ -319,6 +324,7 @@ Template
 export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
   Immutable({
     cardOffer: MARKETPLACE_OFFER_CARD_PREVIEW,
+    calendarFilters: MARKETPLACE_CALENDAR_FILTER_PREVIEW,
     paymentComboCard: MARKETPLACE_PAYMENT_COMBO_CARD_PREVIEW,
     paymentPackCard: MARKETPLACE_PAYMENT_PACK_CARD_PREVIEW,
     paymentPackCompatibilityModal:

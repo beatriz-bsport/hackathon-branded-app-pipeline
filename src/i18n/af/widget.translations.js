@@ -123,6 +123,8 @@ exports.default = {
       level: 'Chip de niveau',
       vodTag: 'Chip vod',
       workshopsComponent: 'Détails des ateliers',
+      calendarFilters: 'Filtres du calendrier (mise en page uniquement)',
+      calendarWeekTimeTable: 'En-tête du calendrier',
       cardOffer: 'Détails de séance (affichage calendrier)',
       groupOfferListItem: "Détails d'un groupe de séance",
       workshopCard: "Carte d'atelier",
@@ -173,11 +175,14 @@ exports.default = {
         isContractLegalTermsAccepted:
           "Mentions légales de l'abonnement acceptées",
         paymentMethodType: 'Méthode de paiement',
+        hideCoach: 'Cacher le filtre professeur',
       },
       option: {
         true: 'Oui',
         false: 'Non',
         activityName: "De l'activité",
+        activity: "Filtres d'activités",
+        workshop: "Filtres d'ateliers",
         coach: 'Du professeur',
         time: "De l'horaire",
         waitingList: "Liste d'attente",

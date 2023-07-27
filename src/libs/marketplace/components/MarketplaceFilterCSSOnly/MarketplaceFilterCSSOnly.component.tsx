@@ -20,7 +20,7 @@ import { getGroupedEstablishmentOptions } from '#libs/establishment/components/E
 import { Theme } from '#libs/theme/types';
 import MarketplaceCalendarSearch from '#libs/marketplace/components/MarketplaceCalendarSearchCSSOnly/MarketplaceCalendarSearchCSSOnly.component';
 
-type Props = {
+export type Props = {
   coaches: Coach[];
   hideCoach: boolean;
   establishments: Establishment[];

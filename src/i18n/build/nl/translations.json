@@ -15891,30 +15891,30 @@
             "deleteCurrentBasket": {
                 "cancel": "Annuleren",
                 "delete": "Verwijderen",
-                "title": "De huidige mand verwijderen",
-                "subText": "Weet u zeker dat u het huidige mandje wilt verwijderen?"
+                "title": "Openstaande winkelmandjes verwijderen",
+                "subText": "Weet je zeker dat je dit winkelmandje wilt verwijderen?"
             },
             "payLater": {
                 "title": "Later betalen",
                 "cancel": "Annuleren",
-                "subText": "Dit mandje is al gedeeltelijk betaald. Door het te sluiten, stelt u de rest van de betaling uit. U vindt de factuur in de backoffice.",
+                "subText": "Dit winkelmandje is al gedeeltelijk betaald. Door het winkelmandje te sluiten wordt de rest van de betaling uitgesteld. Deze factuur is te vinden in de Back Office.",
                 "payLater": "Uitstellen"
             },
             "cannotEdit": {
                 "payment": "Betaling",
                 "title": "Onmogelijke wijzigingen",
-                "subText": "Het mandje kan niet meer worden gewijzigd omdat het al gedeeltelijk is betaald."
+                "subText": "Dit winkelmandje is al gedeeltelijk betaald en kan niet langer worden bewerkt."
             },
             "objectAdded": {
                 "title": "Product toegevoegd",
-                "subText": "Het item is toegevoegd aan het winkelmandje."
+                "subText": "Het product is aan het winkelmandje toegevoegd."
             },
             "outOfStock": {
                 "title": "Geen voorraad",
                 "subText": "Het product dat u probeert toe te voegen aan uw winkelmandje is niet langer op voorraad in uw winkel. Wilt u het toch toevoegen?",
                 "addAnyway": "Toch toevoegen"
             },
-            "selectItemToStart": "Klik op een item om een mandje te starten",
+            "selectItemToStart": "Klik op een product om een winkelmandje aan te maken",
             "cannotAdd": {
                 "title": "Onmogelijk toe te voegen",
                 "subTextListItem": "Helaas kon het artikel niet worden toegevoegd omdat",
@@ -15927,15 +15927,15 @@
                     "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{ name }} heeft de {{ ownedTagName }} tag en heeft niet de {{ notOwnedTagName }} tag."
                 }
             },
-            "authenticationNecessary": "Verificatie van leden is vereist voor deze sectie.",
+            "authenticationNecessary": "Leden dienen geverifieerd te worden voor deze sectie.",
             "ongoingBaskets": {
-                "title": "Huidige manden",
+                "title": "Openstaande winkelmandjes",
                 "subText": "Sluit ze voordat u de verbinding verbreekt."
             },
             "scannerMode": {
                 "title": "Scannermodus",
                 "subText": "Scan items om ze aan je winkelmandje toe te voegen.",
-                "done": "Eindigen"
+                "done": "Beëindigen"
             },
             "authenticationRequired": {
                 "title": "Identificatie vereist",
@@ -15956,7 +15956,7 @@
                 }
             },
             "itemsRemovedFromBasket": {
-                "title": "Items verwijderd uit mandje",
+                "title": "Er zijn producten uit het winkelmandje verwijderd",
                 "subText": "Als een nieuw lid lid wordt, worden bepaalde items uit het mandje verwijderd omdat ze niet compatibel zijn met het nieuwe lid."
             }
         }

@@ -11214,5 +11214,12 @@
         "configurationOption": {
             "payLater": "Payez seulement {{amount}} maintenant"
         }
+    },
+    "quicksale": {
+        "interface": {
+            "outOfStock": {
+                "subText": "Le produit que vous tentez d'ajouter au panier n'est plus en stock dans votre établissement. Voulez-vous tout de même l'ajouter ?"
+            }
+        }
     }
 }

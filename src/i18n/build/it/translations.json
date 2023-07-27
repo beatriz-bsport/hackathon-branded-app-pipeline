@@ -2011,7 +2011,9 @@
                     }
                 },
                 "tags": "Tag",
-                "header": "Dettagli"
+                "header": "Dettagli",
+                "openPanel": "Apri i dettagli",
+                "closePanel": "Chiudi i dettagli"
             },
             "selectThread": {
                 "description": "Fare clic su un membro, una smartlist o una sessione per visualizzare la conversazione associata",
@@ -2116,6 +2118,7 @@
                 "title": "Tipo di invio"
             },
             "numberFilter": "1 filtro applicato",
+            "numberFilter_plural": "{{count}} filtri applicati",
             "dateFilter": {
                 "dateEnd": "Data di fine",
                 "dateStart": "Data di inizio",
@@ -2123,8 +2126,7 @@
                 "title": "Data di invio"
             },
             "filterAction": "Filtra",
-            "applyFilter": "Applica",
-            "numberFilter_plural": "{{count}} filtri applicati"
+            "applyFilter": "Applica"
         },
         "forms": {
             "twoWayEmail": {
@@ -7703,7 +7705,8 @@
                 "Annulla",
                 "Cancellata",
                 "Cancellata",
-                "Annullato"
+                "Annullato",
+                "Cancellata"
             ]
         },
         "payment_method_with_credit_account": {
@@ -13864,7 +13867,11 @@
                 "paymentPackRestrictionModal": "Popup delle restrizioni (pass)",
                 "paymentPackCompatibilityModal": "Popup di compatibilità (pass)",
                 "paymentPackCard": "Tessera Pass",
-                "paymentComboCard": "Tessera pacchetto"
+                "paymentComboCard": "Tessera pacchetto",
+                "paymentPackOffPeakRestrictionModal": "Popup di restrizione dell'orario (pass)",
+                "contractNotFound": "Avviso di abbonamento non trovato",
+                "contractPayment": "Modulo di pagamento per l'abbonamento",
+                "collectPaymentMethod": "Aggiungere un metodo di pagamento"
             },
             "cssConfig": {
                 "title": {
@@ -13876,7 +13883,9 @@
                     "isRegistered": "Già registrato",
                     "showDayParts": "Mattine, pomeriggi e sere separati",
                     "nextOffer": "Prossima sessione disponibile",
-                    "isExcludingTax": "Tasse escluse"
+                    "isExcludingTax": "Tasse escluse",
+                    "isContractLegalTermsAccepted": "Termini e condizioni dell'abbonamento accettati",
+                    "paymentMethodType": "Metodo di pagamento"
                 },
                 "option": {
                     "false": "No",
@@ -13891,7 +13900,11 @@
                     "currentWeek": "Questa settimana",
                     "nextWeek": "Prossima settimana",
                     "true": "SI",
-                    "none": "Nessuno"
+                    "none": "Nessuno",
+                    "card": "Pass",
+                    "sepa_debit": "Addebito diretto SEPA",
+                    "bacs_debit": "Bacs Direct debit",
+                    "sepa": "Addebito diretto SEPA"
                 },
                 "configurationTitle": "Variazioni"
             },
@@ -15828,6 +15841,95 @@
             "lastName": "Cognome",
             "email": "Email",
             "subtitle": "Questi accessi consentono allo staff di collegarsi all'interfaccia di vendita. È necessario effettuare il login per poter vendere tramite l'interfaccia."
+        },
+        "interface": {
+            "goBack": "Indietro",
+            "memberModal": {
+                "confirm": "Registra",
+                "title": "Identificazione del membro",
+                "cancel": "Cancella"
+            },
+            "cannotEdit": {
+                "subText": "Il carrello non può più essere modificato perché è già stato parzialmente pagato.",
+                "title": "Non è possibile modificare",
+                "payment": "Pagamento"
+            },
+            "objectAdded": {
+                "subText": "L'articolo è stato aggiunto al carrello.",
+                "title": "Articolo aggiunto"
+            },
+            "outOfStock": {
+                "title": "Esaurito",
+                "subText": "L'articolo che si sta cercando di aggiungere al carrello è esaurito nel vostro stabilimento. Vuoi comunque aggiungerlo?",
+                "addAnyway": "Aggiungi ugualmente"
+            },
+            "cannotAdd": {
+                "tag": {
+                    "doesNotHaveTag": "{{ optionalBeginning }} {{ name }} non possiede il tag {{ tagName }}.",
+                    "hasTag": "{{ optionalBeginning }} {{ name }} possiede il tag {{ tagName }}.",
+                    "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{ name }} possiede il tag {{ ownedTagName }} e non possiede il tag {{ notOwnedTagName }}."
+                },
+                "title": "Impossibile aggiungere",
+                "subTextListItem": "Purtroppo non è stato possibile aggiungere l'articolo perché",
+                "newMember": {
+                    "subText": "{{ optionalBeginning }} {{ name }} non è un nuovo membro."
+                }
+            },
+            "authenticationRequired": {
+                "maxPurchase": {
+                    "subTextListItem": "Soggetto a un limite nel numero di acquisti",
+                    "subText": "L'articolo che si desidera aggiungere è soggetto a un limite di acquisti."
+                },
+                "tag": {
+                    "subText": "L'articolo che si vuole aggiungere è riservato ai membri con determinati tag.",
+                    "subTextListItem": "Riservato ai membri con determinati tag"
+                },
+                "title": "Identificazione necessaria",
+                "subTextListItem": "L'elemento che si desidera aggiungere è",
+                "bottomSubText": "Senza l'identificazione del membro, non è possibile effettuare i controlli necessari.",
+                "identifyMember": "Identifica un membro",
+                "newMember": {
+                    "subText": "L'articolo che si desidera aggiungere è riservato ai nuovi membri.",
+                    "subTextListItem": "Riservato ai nuovi membri"
+                }
+            },
+            "seller": "Vendite",
+            "anonymousSale": "Vendita anonima",
+            "searchAProduct": "Cerca un prodotto",
+            "noResult": "Nessun risultato",
+            "resultsForString": "{{ count }} risultato per \"{{ searchText }}\"",
+            "resultsForString_plural": "{{ count }} risultati per \"{{ searchText }}\"",
+            "totalExcludingTax": "Totale tasse incluse",
+            "taxes": "Tasse",
+            "totalIncludingTax": "Totale",
+            "payment": "Pagamento",
+            "selectItemToStart": "Fare clic su un articolo per avviare il carrello",
+            "authenticationNecessary": "Per questa sezione è richiesta l'autenticazione del membro.",
+            "ongoingBaskets": {
+                "title": "Carrello in corso",
+                "subText": "Le fatture in corso sono da chiudere prima di uscire."
+            },
+            "deleteCurrentBasket": {
+                "title": "Eliminazione del carrello in corso",
+                "subText": "Sei sicuro di voler eliminare il carrello attuale?",
+                "cancel": "Cancella",
+                "delete": "Elimina"
+            },
+            "payLater": {
+                "title": "Rimanda",
+                "subText": "Questo carrello è già stato parzialmente pagato. Chiudendolo, si rimanda il resto del pagamento. La fattura è disponibile nel back office.",
+                "cancel": "Cancella",
+                "payLater": "Rimanda"
+            },
+            "scannerMode": {
+                "title": "Modalità scanner",
+                "subText": "Scansiona gli articoli per aggiungerli al carrello.",
+                "done": "Completa"
+            },
+            "itemsRemovedFromBasket": {
+                "title": "Articoli rimossi dal carrello",
+                "subText": "Quando un nuovo membro si iscrive, alcuni articoli vengono rimossi dal carrello perché non compatibili con il nuovo membro."
+            }
         }
     }
 }

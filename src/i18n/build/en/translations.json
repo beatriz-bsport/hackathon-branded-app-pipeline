@@ -3050,7 +3050,9 @@
                     "member": "View member details",
                     "smartlist": "See smartlist details",
                     "offer": "See session details"
-                }
+                },
+                "openPanel": "Open details",
+                "closePanel": "Close details"
             }
         },
         "sentStatus": {
@@ -9760,6 +9762,7 @@
                 "Cancelled",
                 "Cancelled",
                 "Cancelled",
+                "Canceled",
                 "Canceled"
             ]
         },
@@ -12027,7 +12030,60 @@
             "error": "Connection problem with Spivi"
         },
         "newBookingModule": {
-            "filterAll": "All"
+            "filterAll": "All",
+            "cards": {
+                "seeLess": "View less",
+                "seeMore": "View more"
+            },
+            "choosePass": "Choose a pass",
+            "buyPass": "Buy a pass",
+            "buyNewPass": "Buy a new pass",
+            "myPasses": "My pass",
+            "myPasses_plural": "My passes",
+            "waitingListWarning": "Before registering to the waiting list, make sure that you purchased an appropriate pass, pack or subscription. It is mandatory to be in possession of an active pass, pack or suscription to be guaranteed a spot on the waiting list.",
+            "backToCalendar": "Go back to the calendar",
+            "blockedReasons": {
+                "default": {
+                    "title": "Booking blocked",
+                    "message": "This session is not open to bookings"
+                },
+                "blockedByTags": {
+                    "title": "Insufficient rights",
+                    "message": "Sorry, but this session is not open to bookings right now. Bookings were restrained to a specific group of members."
+                },
+                "isAlreadyRegistered": {
+                    "title": "Session already booked",
+                    "message": "You already registered to this session."
+                },
+                "isTooSoon": {
+                    "title": "Available soon",
+                    "message": "Bookings are closed for the moment and will be open on the {{-date}}."
+                },
+                "isTooLate": {
+                    "title": "Deadline expired",
+                    "message": "Sorry, but the booking period for this session is over."
+                },
+                "waitingListLockedByPendingBookings": {
+                    "title": "Other bookings in progress",
+                    "message": "Other members are currently booking, the waiting list is not available at the moment. Please try again in a few minutes to see if a spot has become available."
+                },
+                "isWaitingListFull": {
+                    "title": "The waiting list is full",
+                    "message": "This session and the waiting list are full. Please try again later."
+                },
+                "isAlreadyOnWaitingList": {
+                    "title": "Already on the waiting list",
+                    "message": "If you are on the waiting list, we will send you an email as soon as a spot becomes available."
+                },
+                "waitingListOpen": {
+                    "title": "The session is full",
+                    "message": "Join the waiting list and a message will be sent to you as soon as a spot becomes available."
+                }
+            },
+            "subscriptions": "Subscriptions",
+            "combos": "Packs",
+            "passes": "Passes",
+            "otherPasses": "Other passes"
         }
     },
     "marketplace": {
@@ -14873,7 +14929,11 @@
                     "coach": "Of the teacher",
                     "activityName": "Of the activity",
                     "false": "No",
-                    "true": "Yes"
+                    "true": "Yes",
+                    "card": "Pass",
+                    "sepa_debit": "SEPA direct debits",
+                    "bacs_debit": "Bacs Direct debit",
+                    "sepa": "SEPA direct debits"
                 },
                 "title": {
                     "nextOffer": "Next session available",
@@ -14884,7 +14944,9 @@
                     "loading": "Currently loading",
                     "variant": "Highlight",
                     "filterGroupOptions": "Grouped options",
-                    "isExcludingTax": "Excluding tax"
+                    "isExcludingTax": "Excluding tax",
+                    "isContractLegalTermsAccepted": "Subscription legal information accepted",
+                    "paymentMethodType": "Payment method"
                 },
                 "configurationTitle": "Variations"
             },
@@ -14922,7 +14984,11 @@
                 "paymentPackRestrictionModal": "Restrictions popup (pass)",
                 "paymentPackCompatibilityModal": "Compatibility popup (pass)",
                 "paymentPackCard": "Pass card",
-                "paymentComboCard": "Pack card"
+                "paymentComboCard": "Pack card",
+                "paymentPackOffPeakRestrictionModal": "Schedule restriction popup (pass)",
+                "contractNotFound": "Not found subscription warning",
+                "contractPayment": "Subscription payment module",
+                "collectPaymentMethod": "Add payment method"
             },
             "customCss": {
                 "yourCode": "Your complementary implementation:",
@@ -16813,6 +16879,95 @@
             "possibleActionsShort": "You can perform actions by hovering over the tiles with the mouse...",
             "save": "Save",
             "preview": "Preview"
+        },
+        "interface": {
+            "seller": "Seller",
+            "anonymousSale": "Anonymous sale",
+            "searchAProduct": "Look for a product",
+            "noResult": "No result",
+            "resultsForString": "{{ count }} result for {{ searchText }}",
+            "resultsForString_plural": "{{ count }} results for {{ searchText }}",
+            "goBack": "Back",
+            "taxes": "Taxes",
+            "totalIncludingTax": "Total",
+            "payLater": {
+                "cancel": "Cancel",
+                "title": "Do it later",
+                "subText": "This shopping cart is already partially paid. By closing it, you will postponed the paiement of the remaining part. You will find the invoice on the backoffice.",
+                "payLater": "Do it later"
+            },
+            "cannotEdit": {
+                "title": "Editing is not possible",
+                "subText": "The shopping cart can not be edited because it was already partially paid.",
+                "payment": "Payment"
+            },
+            "scannerMode": {
+                "subText": "Scan items to add them to the shopping cart.",
+                "done": "Complete",
+                "title": "Scanning mode"
+            },
+            "objectAdded": {
+                "title": "Item added",
+                "subText": "The item was successfully added to the shopping cart."
+            },
+            "cannotAdd": {
+                "tag": {
+                    "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{ name }} is tagged as {{ ownedTagName }} and is not tagged as {{ notOwnedTagName }}.",
+                    "hasTag": "{{ optionalBeginning }} {{ name }} is tagged as {{ tagName }}.",
+                    "doesNotHaveTag": "{{ optionalBeginning }} {{ name }} is not tagged as {{ tagName }}."
+                },
+                "title": "Cannot be added",
+                "subTextListItem": "Unfortunately it was not possible to add the item because",
+                "newMember": {
+                    "subText": "{{ optionalBeginning }} {{ name }} is not a new member."
+                }
+            },
+            "authenticationRequired": {
+                "subTextListItem": "The item that you want to add is",
+                "bottomSubText": "Without member identification, the necessary checks cannot be carried out.",
+                "identifyMember": "Identify a member",
+                "newMember": {
+                    "subText": "The item you want to add is for new members only.",
+                    "subTextListItem": "For new members only"
+                },
+                "maxPurchase": {
+                    "subTextListItem": "Subject to a limit on the number of purchases",
+                    "subText": "The item you want to add is subject to a limit on the number of purchases."
+                },
+                "tag": {
+                    "subText": "The item you want to add is for members with certain tags only.",
+                    "subTextListItem": "For members with certain tags only"
+                },
+                "title": "Identification needed"
+            },
+            "itemsRemovedFromBasket": {
+                "title": "Items were removed from the shopping cart",
+                "subText": "When member was changed, certain items that were not compatible with the new member were removed from the shopping cart."
+            },
+            "totalExcludingTax": "Total before tax",
+            "payment": "Payment",
+            "selectItemToStart": "Click on an item to start a shopping cart",
+            "memberModal": {
+                "title": "Member identification",
+                "confirm": "Save",
+                "cancel": "Cancel"
+            },
+            "authenticationNecessary": "Member authentication is necessary for this section.",
+            "ongoingBaskets": {
+                "title": "Shopping cart in progress",
+                "subText": "You have invoices in progress, please close them before logging out."
+            },
+            "deleteCurrentBasket": {
+                "title": "Deleting the shopping cart in progress",
+                "subText": "Are you sure that you want to deleted the current shopping cart ?",
+                "cancel": "Cancel",
+                "delete": "Deleted"
+            },
+            "outOfStock": {
+                "title": "Out of stock",
+                "subText": "The item you try to add to the shopping cart is out of stock in your establishment. Do you want to add it anyway ?",
+                "addAnyway": "Add anyway"
+            }
         }
     }
 }

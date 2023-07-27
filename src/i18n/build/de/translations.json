@@ -5076,6 +5076,7 @@
                 "Stornieren",
                 "Stornieren",
                 "Stornieren",
+                "Stornieren",
                 "Stornieren"
             ]
         }
@@ -9784,7 +9785,9 @@
                     "member": "Details zum Mitglied ansehen",
                     "smartlist": "Detaisl der Smartliste ansehen",
                     "offer": "Details der Session ansehen"
-                }
+                },
+                "openPanel": "Details öffnen",
+                "closePanel": "Details schließen"
             }
         },
         "sentStatus": {

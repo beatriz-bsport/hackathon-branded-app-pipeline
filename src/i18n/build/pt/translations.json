@@ -6400,26 +6400,153 @@
                     "notAvailable": "A gestão das faltas de comparência não está disponível. Para a ativar, é necessário criar primeiro um passe ilimitado com penalizações por não comparência.",
                     "errorEmailTime": "O tempo decorrido antes do envio do e-mail para avisar o membro de que este não comparecerá deve ser superior a 0.",
                     "errorValidatedTime": "O tempo decorrido antes do membro ser considerado como \"ausente\", deve ser superior a 0",
-                    "error": "O e-mail de notificação da ausência não pode ser enviada depois de o membro não ter comparecido."
+                    "error": "O e-mail de notificação da ausência não pode ser enviada depois de o membro não ter comparecido.",
+                    "daysBeforeNoShow": "Considerar o membro como (falta de comparência) <0/> <1/> após a chamada nas sessões em que é indicado como ausente.",
+                    "daysBeforeNoShowHelpText": "Esta definição permite aplicar penalizações às ausências dos membros com um passe ilimitado.",
+                    "title": "Ausente (não compareceu)",
+                    "alert": "Estas definições só se aplicam a penalizações de não comparência em passes ilimitados. Para ativar as seguintes contagens, é necessário validar a chamada para cada aula.",
+                    "sendMail": "Enviar uma mensagem de e-mail <0/> <1/> após a chamada para avisar o membro de que terá uma falta de comparência se for indicado como ausente.",
+                    "sendMailHelpText": "Para ativar/desativar o e-mail, vá as Definições> Correio eletrónico transacional> Penalização> Notificação de ausência"
                 },
                 "coachUserspace": {
                     "daysBeforeReplacementClosingAcceptance": {
-                        "helperText": "Data-limite para os registos de substituição"
+                        "helperText": "Data-limite para os registos de substituição",
+                        "description": "Os professores deixarão de poder aceitar ser substitutos numa modalidade antes de {{count}} dia da aula.",
+                        "description_plural": "Os professores deixarão de poder aceitar ser substitutos numa modalidade antes de {{count}} dias da aula.",
+                        "placeholder": "Número de dias"
                     },
                     "daysBeforeReplacementClosing": {
                         "description": "Os pedidos de substituição efectuados à {{count}} dia ou mais antes do início do curso serão considerados tardios.",
                         "description_plural": "Os pedidos de substituição efectuados à {{count}} dias ou mais antes do início do curso serão considerados tardios.",
-                        "helperText": "Término dos pedidos de substituição"
+                        "helperText": "Término dos pedidos de substituição",
+                        "interval": "Intervalo",
+                        "placeholder": "Número de dias",
+                        "every": "Todos os"
                     },
                     "daysBeforeRequestIsLate": {
                         "description": "Os pedidos de substituição efectuados à menos de {{count}} dias antes do início do curso serão considerados tardios.",
-                        "description_plural": "Os pedidos de substituição efectuados à menos de {{count}} dias antes do início do curso serão considerados tardios."
+                        "description_plural": "Os pedidos de substituição efectuados à menos de {{count}} dias antes do início do curso serão considerados tardios.",
+                        "placeholder": "Número de dias",
+                        "helperText": "Pedido tardio"
                     },
                     "replacementSettings": "Parâmetros de substituição",
-                    "enableReplacement": "Substituição"
+                    "enableReplacement": "Substituição",
+                    "requestLimitationPeriods": {
+                        "placeholder": "Selecionar um periodo",
+                        "week": "Semanas",
+                        "month": "Mês",
+                        "year": "Ano"
+                    },
+                    "description": "Personalizar a área do professor na Web. Atenção, todas as definições aqui não irão afetar a área do professor da aplicação.",
+                    "enable": "Ativar a área de professores predefinida",
+                    "maxNbRequestPerPeriod": {
+                        "helperText": "Número máximo de pedidos tardios",
+                        "recap": {
+                            "1": "Em cada {{nbPeriods}} semanas, os professores podem fazer um máximo de {{nbRequests}} pedidos tardios. Quando este número for ultrapassado, deixam de poder efetuar pedidos tardios até ao final do período.",
+                            "3": "Em cada {{nbPeriods}} anos, os professores poderão fazer um máximo de {{nbRequests}} pedidos tardios. Quando este número for ultrapassado, deixarão de poder fazer pedidos tardios até ao final do período.",
+                            "2": "Em cada {{{nbPeriods}} mês, os professores podem fazer um máximo de {{nbRequests}} pedidos tardios. Quando este número for ultrapassado, os professores deixam de poder efetuar pedidos tardios até ao final do período."
+                        }
+                    },
+                    "errors": {
+                        "restrictionToggles": "Seleccionar pelo menos uma opção"
+                    },
+                    "restrictionsDescription": "Indique os separadores a que os seus professores terão acesso",
+                    "enableSchedule": "Calendário",
+                    "access": "Acesso",
+                    "enableRemuneration": "Remuneração",
+                    "isLateReplacementRequestLimited": "Limite de pedidos tardios",
+                    "enableDescription": "Ao ativar esta funcionalidade, todos os seus novos professores terão o acesso ativado por defeito",
+                    "restrictions": "Restrições"
                 },
                 "names_label_info": "Alterar a etiqueta dos campos Apelido e Nome próprio nos formulários de registo",
-                "coach_can_edit_attendance": "Na aplicação móvel, o professor pode alterar as presenças/ausências"
+                "coach_can_edit_attendance": "Na aplicação móvel, o professor pode alterar as presenças/ausências",
+                "calendar": {
+                    "police": {
+                        "placeholder": "Introduzir o código CSS"
+                    },
+                    "title": "Introduza o seu código próprio CSS para personalizar o calendário",
+                    "bookButton": {
+                        "placeholder": "Introduzir o código CSS",
+                        "helperText": "Alterar o estilo do botão \"reservar\"",
+                        "label": "Botão \"reservar\""
+                    },
+                    "columns": {
+                        "label": "Colunas",
+                        "placeholder": "Introduzir o código CSS",
+                        "helperText": "Alterar o estilo das colunas"
+                    },
+                    "offerCard": {
+                        "placeholder": "Introduzir o código CSS",
+                        "helperText": "Alterar o estilo dos passes",
+                        "label": "Passes"
+                    }
+                },
+                "default_booking_ordering": {
+                    "lastname": "Ordenar os nomes por ordem alfabética",
+                    "date": "Ordenar por data de reserva mais recente",
+                    "firstname": "Ordenar os nomes próprios por ordem alfabética",
+                    "title": "Escolha a ordem predefinida para as marcações na página das atividades"
+                },
+                "signup": {
+                    "urlError": "Introduza um URL válido",
+                    "label": "E-mail de confirmação",
+                    "title": "Inscrição",
+                    "urlRedirection": "URL de redirecionamento",
+                    "urlHelperText": "O membro será redireccionado para este link depois de confirmar o seu e-mail. Caso contrário, será redireccionado para o seu perfil no marketplace.",
+                    "helperText": "Ao registar-se, os seus membros receberão um e-mail para confirmar o seu endereço de e-mail. A sua conta não será ativada até que este e-mail tenha sido confirmado"
+                },
+                "checkBalance": {
+                    "shiftRatio": {
+                        "explain": "Se forem registadas mais de {{ numberCheck }} reservas para uma sessão, não serão autorizadas reservas que criem um desequilíbrio MULHER/HOMEM superior a {{ gender_max_shift_for_booking }} pessoas.",
+                        "helperText": "Limitar o desequilíbrio FEMININO/MASCULINO a {{ gender_max_shift_for_booking }} pessoas",
+                        "placeholder": "Desequilíbrio máximo autorizado FEMININO/MASCULINO"
+                    },
+                    "numberCheck": {
+                        "helperText": "Quando mais de {{ number }} pessoas reservam uma sessão, quaisquer reservas adicionais só serão aceites se o desequilíbrio MULHER/HOMEM for inferior ao seguinte valor.",
+                        "placeholder": "Verificar o desequilíbrio FEMININO/MASCULINO quando o número de reservas for superior a"
+                    },
+                    "checkbox": "Reduzir o desequilíbrio entre os géneros nas reservas (dança...)"
+                },
+                "daysFormatSelector": {
+                    "fullWord": "Palavra inteira",
+                    "oneLetter": "1 letra",
+                    "threeLetters": "3 letras",
+                    "label": "Formato de visualização do dia"
+                },
+                "hideBookButton": {
+                    "switchLabel": "Ocultar o botão \"{{-bookButtonTranslation}}\"",
+                    "dialogDescription": "Ao ocultar o botão \"{{-bookButtonTranslation}}\", o passe torna-se \"clicável\" para reservar a sessão."
+                },
+                "first_name_label": {
+                    "placeholder": "Etiqueta para o nome próprio",
+                    "label": "Etiqueta para o nome próprio",
+                    "helperText": "Introduzir a etiqueta para o primeiro nome"
+                },
+                "workshopsCustomer": "Mostrar os workshops no calendário do aluno",
+                "cancelledOffersManager": "Mostrar as sessões canceladas no calendário do gestor",
+                "default_attendance": {
+                    "present": "Membro presente",
+                    "title": "Estado por defeito de uma reserva efetuada pelo aluno",
+                    "missing": "Membro ausente"
+                },
+                "offersFilling": "Mostrar o preenchimento da modalidade no calendário do aluno",
+                "basket_expiration_days": {
+                    "label": "Expiração do carrinho de compras",
+                    "placeholder": "Dias até à expiração",
+                    "alert": "Preencher os dias de validade do carrinho de compras!",
+                    "helperText": "Número de dias para o carrinho de compras de um aluno ficar automaticamente vazio"
+                },
+                "showGenderOffer": "Mostrar o número de homens e mulheres que reservam uma oferta",
+                "offerBalance": "Gestão sob o equilíbrio entre homens e mulheres",
+                "errorURL": "Introduza um URL válido antes de guardar o formulário",
+                "last_name_label": {
+                    "placeholder": "Etiqueta para o nome",
+                    "label": "Etiqueta para o nome",
+                    "helperText": "Introduzir a etiqueta para o nome"
+                },
+                "showFreeSessionLabel": "Mostrar 0 sessões de crédito com a etiqueta FREE",
+                "hideSessionWithTagsNotEligible": "Não apresentar com etiquetas as sessões a que o membro não tem acesso",
+                "showActivityColor": "Mostrar a cor da atividade"
             },
             "warningColorBrightness": {
                 "save": "Guardar",
@@ -6435,11 +6562,20 @@
                     "label": "Ocultar créditos",
                     "subTitle": "Créditos"
                 },
-                "title": "Produtos"
+                "title": "Produtos",
+                "productsOrdering": {
+                    "reset": "Repor",
+                    "description": "Organize os seus produtos de forma a estarem visíveis para os clientes quando estes reservam uma aula ou necessitam de um passe, de um pack ou de uma subscrição.",
+                    "itemNumberCaption": "{{count}} item",
+                    "itemNumberCaption_plural": "{{count}} itens",
+                    "subTitle": "Encomenda do produto",
+                    "label": "Encomenda personalizada"
+                }
             },
             "instagramURL": {
                 "helperText": "O meu Instagram",
-                "label": "Link Instagram"
+                "label": "Link Instagram",
+                "placeholder": "https://instagram.com/meu-estudio/"
             },
             "extra_info": {
                 "label": "Informações do estúdio"
@@ -6449,7 +6585,8 @@
                 "placeholder": "ID"
             },
             "gtmId": {
-                "label": "Etiqueta Google ID"
+                "label": "Etiqueta Google ID",
+                "placeholder": "GTM-XXXXXX"
             },
             "waiver": {
                 "placeholder": "Certifico que tenho mais de 13 anos de idade",
@@ -6468,19 +6605,41 @@
             },
             "android_app_url": {
                 "helperText": "A aplicação Android",
-                "label": "Link para a aplicação Android"
+                "label": "Link para a aplicação Android",
+                "placeholder": "https://play.google.com/store/apps/details?id=com.bsport"
             },
             "ios_app_url": {
                 "helperText": "A aplicação iOS",
-                "label": "Link para a aplicação iOS"
+                "label": "Link para a aplicação iOS",
+                "placeholder": "https://apps.apple.com/fr/app/id1356621554"
             },
             "facebookURL": {
                 "helperText": "Página do Facebook",
-                "label": "Link Facebook"
+                "label": "Link Facebook",
+                "placeholder": "https://facebook.com/meu-estudio/"
             },
             "scheduleURL": {
                 "placeholder": "https://studio.com/calendar/",
-                "helperText": "Ligação predefinida para calendário pessoal"
+                "helperText": "Ligação predefinida para calendário pessoal",
+                "label": "Planeamento de URL"
+            },
+            "secondary_color": {
+                "label": "Cor secundária",
+                "helperText": "Cor complementar do tema"
+            },
+            "websiteURL": {
+                "placeholder": "https://studio.com/",
+                "label": "URL website",
+                "helperText": "Utilizado se o cliente clicar no seu logótipo em particular",
+                "errorText": "O URL introduzido é inválido"
+            },
+            "primary_color": {
+                "label": "Cor principal",
+                "helperText": "Escolha uma cor, evite o monocromático"
+            },
+            "cover": {
+                "label": "Logótipo",
+                "helperText": "Escolha ficheiros png com um fundo transparente"
             }
         },
         "marketingEmail": {
@@ -6490,8 +6649,10 @@
         },
         "quickbooks": {
             "confirmDialog": {
-                "text": "Tem a certeza de que pretende autorizar a Bsport a aceder à sua candidatura?"
-            }
+                "text": "Tem a certeza de que pretende autorizar a Bsport a aceder à sua candidatura?",
+                "title": "Conectar com QuickBooks"
+            },
+            "title": "QuickBooks"
         },
         "signUpForm": {
             "customQuestionDialog": {
@@ -6534,8 +6695,14 @@
                 "gender": "Género",
                 "email": "E-mail",
                 "last_name": "Nome",
-                "first_name": "Nome próprio"
-            }
+                "first_name": "Nome próprio",
+                "accept_sms": "Aceitar as notificações por SMS",
+                "cgu": "Condições Gerais de Utilização",
+                "general_terms_and_conditions_accepted": "Condições Gerais de Utilização",
+                "waiver": "Isenção de responsabilidade",
+                "vaccination_status": "Estado do passe sanitário COVID-19"
+            },
+            "title": "Formulário do membro"
         },
         "zoom": {
             "confirmDialog": {
@@ -7523,7 +7690,8 @@
         },
         "banner": {
             "franchiseConnection": "Está atualmente ligado a uma das aplicações dos seus franchisados",
-            "networkError": "Não está ligado à Internet"
+            "networkError": "Não está ligado à Internet",
+            "isStaging": "Marcar uma sessão"
         },
         "video": {
             "videoList": "Biblioteca de vídeos"
@@ -7548,6 +7716,9 @@
         "paymentPack": {
             "paymentPackList": "Passes Ativos",
             "paymentPackFormPage": "Formulário do passe"
+        },
+        "order": {
+            "orderList": "Controlos"
         }
     },
     "settings": {
@@ -7691,6 +7862,14 @@
                 "option": {
                     "waitingList": "Lista de espera"
                 }
+            },
+            "components": {
+                "contractTermsModal": "Pop-up com a menções legais da subscrição",
+                "contractCouponFormModal": "Pop-up do código promocional de subscrição",
+                "contractCard": "Passe Subscrição",
+                "contractCheckout": "Passe Subscrição (pagamento)",
+                "contractDetailModal": "Pop-up com detalhes de subscrição",
+                "contractDetail": "Detalhe da subscrição"
             }
         }
     },
@@ -8626,10 +8805,157 @@
                 },
                 "invoicing": {
                     "fixed_day": {
-                        "modification_not_apply_to_past": "Está prestes a alterar o dia de faturação da sua assinatura. Apenas as novas subscrições serão afetadas. As subscrições atuais e as subscrições existentes com renovação não serão alteradas (mesmo após a renovação)"
-                    }
+                        "modification_not_apply_to_past": "Está prestes a alterar o dia de faturação da sua assinatura. Apenas as novas subscrições serão afetadas. As subscrições atuais e as subscrições existentes com renovação não serão alteradas (mesmo após a renovação)",
+                        "explain": "Cada fatura será cobrada no dia escolhido. Se necessário, o primeiro pagamento é fraccionado.",
+                        "end_of_month_explain": "Se num mês não tiver um {{ month_billing_day }}, a fatura será emitida no último dia do mês.",
+                        "label": "Faturar num dia fixo",
+                        "recurrence_explain": {
+                            "month": "A subscrição será faturada todos os {{ month_billing_day }} meses com uma duração total de {{ nb_interval }} meses e gerará {{ nb_interval }} {{ invoice }}. O primeiro pagamento é fracionado, se necessário."
+                        }
+                    },
+                    "same_day_as_subscription": {
+                        "recurrence_explain": {
+                            "week": "A subscrição será faturada todas as semanas com uma duração total de {{ total_subscription_duration }} {{ time_unit }} {{ time_unit }} e gerará {{ nb_interval }} {{ invoice }}. Os alunos podem escolher a data de início da sua subscrição.",
+                            "week_plural": "A subscrição será faturada todas as semanas com uma duração total de {{ total_subscription_duration }} {{ time_unit }} e gerará {{ nb_interval }} {{ invoice }}. Os alunos podem escolher a data de início da sua subscrição.",
+                            "day": "A subscrição será faturada todos os dias com uma duração total de {{ total_subscription_duration }} {{ time_unit }} e gerará {{ nb_interval }} {{ invoice }}. Os aluno podem escolher a data de início da sua subscrição.",
+                            "day_plural": "A subscrição será faturada todos os {{ recurrence_basis }} dias com uma duração total de {{ total_subscription_duration }} {{ time_unit }} e gerará {{ nb_interval }} {{ invoice }}. Os alunos  podem escolher a data de início da sua subscrição.",
+                            "month": "A subscrição será faturada mensalmente por uma duração total de {{ total_subscription_duration }} {{ time_unit }} e gerará {{ nb_interval }} {{ invoice }}. Os alunos podem escolher a data de início da sua subscrição.",
+                            "month_plural": "A subscrição será faturada todos os {{ recurrence_basis }} meses por uma duração total de {{ total_subscription_duration }} {{ time_unit }} e gerará {{ nb_interval }} {{ invoice }}. Os alunos podem escolher a data de início da sua subscrição.",
+                            "year": "A subscrição será faturada anualmente por uma duração total de {{ total_subscription_duration }} {{ time_unit }} e gerará {{ nb_interval }} {{ invoice }}. Os alunos podem escolher a data de início da sua subscrição.",
+                            "year_plural": "A subscrição será faturada todos os {{ recurrence_basis }} anos por uma duração total de {{ total_subscription_duration }} {{ time_unit }} e gerará {{ nb_interval }} {{ invoice }}. Os alunos podem escolher a data de início da sua subscrição."
+                        },
+                        "label": "Faturação no mesmo dia da data de compra da subscrição",
+                        "explain": "A data de faturação dependerá da data de compra da subscrição."
+                    },
+                    "invoicing_type_readonly": "Não é possível alterar o tipo de faturação",
+                    "title": "Faturação",
+                    "invoice": "fatura",
+                    "invoice_plural": "faturas"
+                },
+                "month_billing_day": {
+                    "label2": "do mês.",
+                    "label1": "Faturar todos"
+                },
+                "recurrence": {
+                    "explain": "A subscrição será faturada a cada {{ recurrence_basis }} {{ interval }} para uma duração total de {{ total_interval_duration }} {{ interval }} e gerará {{ nb_interval }} faturas",
+                    "section": "Recorrência"
+                },
+                "general_info": {
+                    "title": "Informações gerais"
+                },
+                "name": {
+                    "label": "Nome da subscrição"
+                },
+                "interval": {
+                    "label": "Recorrência",
+                    "helperText": "Frequência de geração de faturas / passes"
+                },
+                "nb_interval": {
+                    "restrictionForFixedBillingDay": "O número de faturas deve estar compreendido entre 2 e 12 para a faturação num dia fixo",
+                    "error": "O número de faturas não deve exceder 90",
+                    "label": "Número de faturas",
+                    "errorForFixedBillingDay": "O número de faturas não deve exceder 12"
+                },
+                "object_type": {
+                    "paymentPack": "Passe",
+                    "paymentCombo": "Pack",
+                    "label": "Tipo de subscrição",
+                    "privatePass": "Passe de marcação"
+                },
+                "recurrence_basis": {
+                    "label": "Repetir a cada"
+                },
+                "title": "Formulário da subscrição",
+                "error": {
+                    "missingObject": "Este campo é obrigatório"
+                },
+                "price": {
+                    "title": "Preço"
                 }
-            }
+            },
+            "interval": {
+                "year": "ano",
+                "year_plural": "anos",
+                "day": "dia",
+                "day_plural": "dias",
+                "week": "semana",
+                "week_plural": "semanas",
+                "month": "mês",
+                "month_plural": "meses"
+            },
+            "frequency": {
+                "month": "mensalmente",
+                "week": "semanal"
+            },
+            "item": {
+                "intervalLabel": {
+                    "week": "Todas as semanas",
+                    "week_plural": "A cada {{ count }} semanas",
+                    "year": "Todos os anos",
+                    "year_plural": "A cada {{ count }} anos",
+                    "day": "Todos os dias",
+                    "day_plural": "A cada {{ count }} dias",
+                    "month": "Todos os meses",
+                    "month_plural": "A cada {{ count }} meses"
+                },
+                "identifier": "Subscrição",
+                "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}"
+            },
+            "registerManager": {
+                "explainChoseContract": "Selecionar uma subscrição, que será faturada mensalmente ao membro",
+                "explainCustomSubscriptionForm": "Não, quero definir uma subscrição personalizada",
+                "title": "Pagamento recurrente",
+                "actions": {
+                    "cancel": "Cancelar"
+                }
+            },
+            "duration": "{{month}} faturas",
+            "actions": {
+                "alertPastDateSameMonth": "Atenção, se a subscrição contém um passe, a sua validade começará na data selecionada. No caso de uma validade de um mês, o membro perderá {{lostDays}} dias de validade.",
+                "create": "Adicionar uma subscrição",
+                "iAcceptCondition": "Aceito as condições referidas",
+                "iAcceptGeneralCondition": " Aceito o aviso legal",
+                "iwanttostarton": "Gostaria de começar a faturar em : ",
+                "subscribe": "Subscrever",
+                "title": "Data anterior",
+                "iAcceptContractTerms": "Aceito as <0>condições legais</0>."
+            },
+            "pastDate": {
+                "valuePastInvoicesInputError": "O valor não corresponde. Por favor, tente novamente",
+                "payment": {
+                    "pastInvoicesPayment": "Pagamento de faturas passadas",
+                    "manualPayment": "Pagamento manual",
+                    "registeredInfo": "Todas as faturas futuras e passadas serão debitadas num prazo de 24 horas no método de pagamento indicado na subscrição.",
+                    "registeredMethodPayment": "Débito no método de pagamento registado",
+                    "manualInfo": "As faturas anteriores serão indicadas como pagas manualmente e as facturas futuras serão debitadas no método de pagamento introduzido pelo membro."
+                },
+                "alertDifferentMonthConfirmAsk": "Está prestes a faturar {{valuePastInvoicesPrice}} ao seu membro. Para confirmar esta ação, digite {{valuePastInvoices}}",
+                "alertDifferentMonthInput": "Valor das faturas anteriores",
+                "futureInvoicesPayment": "Pagamento das faturas futuras",
+                "validate": "Confirmar",
+                "title": "Data anterior",
+                "alertDifferentMonth": "Atenção, seleccionou uma data do mês passado. O seu membro pode ter um ou mais passes faturados que já expiraram.",
+                "cancel": "Cancelar",
+                "alertSameMonth": "Se a subscrição contém um passe, a sua validade começará na data selecionada. No caso de ser uma validade de um mês, o membro perderá {{lostDays}} dias de validade."
+            },
+            "description": "Descrição",
+            "legal": "Menções legais",
+            "list": {
+                "title": "Subscrições",
+                "titleManagerOnly": "Subscrições indisponíveis",
+                "titleCustomerAvailable": "Subscrições disponíveis",
+                "isEmpty": "Não há subscrições disponíveis",
+                "titleInactive": "Subscrições arquivados",
+                "addButton": "Definir uma subscrição",
+                "register": "Subscrever um membro"
+            },
+            "paymentPack": "Passe associado",
+            "privatePass": "Passe de marcação associado",
+            "monthBillingDay": "Faturado a cada {{ month_billing_day }} do mês",
+            "billingFrequency": "Frequência de faturação",
+            "yes": "Sim",
+            "no": "Não",
+            "paymentCombo": "Pack associado"
         },
         "subscription": {
             "delete": "Eliminar",
@@ -8661,6 +8987,102 @@
                     }
                 }
             }
+        },
+        "notificationForm": {
+            "notificationType": {
+                "warningHourFirst": "O número de horas indicado refere-se à data da primeira fatura, à meia-noite.",
+                "hour": "Hora",
+                "hour_plural": "Horas",
+                "contractEnd": "O término da subscrição.",
+                "warningDayFirst": "O número de dias indicado refere-se à data da primeira fatura, à meia-noite.",
+                "title": "Tipo de notificação",
+                "firstBilling": "A primeira fatura da subscrição.",
+                "warningDayLast": "O número de dias indicado refere-se à data da última fatura, à meia-noite",
+                "warningHourLast": "O número de horas indicado refere-se à data da última fatura, à meia-noite",
+                "before": "Seguinte",
+                "afterSubcriptionCreation": "Depois da subscrição ser criada.",
+                "day": "Dia",
+                "day_plural": "Dias",
+                "after": "Depois de"
+            },
+            "triggeringEvent": {
+                "contractCreation": "Criar subscrição",
+                "title": "Evento desencadeador",
+                "firstBilling": "Primeira fatura"
+            },
+            "smartLists": {
+                "smartListSelection": "Selecionar listas (opcional)",
+                "createSmartList": "Criar uma lista inteligente",
+                "warning": "Se não selecionar uma lista inteligente, corre o risco de notificar os membros que já compraram outro passe",
+                "advanced": "Seguinte",
+                "smartListHelperInclude": "Enviar e-mail apenas se o membro pertencer a uma das seguintes listas",
+                "smartListHelper": "Não enviar e-mail se o membro pertencer a uma das seguintes listas"
+            },
+            "sendingMethod": {
+                "title": "Método de envio",
+                "email": "E-mail",
+                "notificationPush": "Notificação push"
+            },
+            "subtitle": "Subscrição",
+            "emailNotification": {
+                "parameters": "Parametros de e-mail",
+                "emailToSend": "E-mail a enviar"
+            },
+            "notificationPush": {
+                "parameters": "Parâmetros da notificação",
+                "addTag": "Adicionar uma etiqueta",
+                "title": "Título",
+                "content": "Conteúdo",
+                "warning": "Tenha em atenção que as notificações push devem ser utilizadas com moderação. Demasiadas notificações push podem levar alguns membros a desinstalar a aplicação."
+            },
+            "warning": "Notifique os seus alunos quando o estado da sua subscrição alterar: fim da subscrição, início da subscrição.",
+            "typeSection": {
+                "title": "Estado a notificar",
+                "contractEnd": "Fim da subscrição",
+                "contractStart": "Início da subscrição"
+            },
+            "title": "Regra de notificações",
+            "buttons": {
+                "cancel": "Cancelar",
+                "submit": "Confirmar"
+            }
+        },
+        "plannedInvoice": {
+            "priceUpdater": {
+                "updateAll": "Atualizar todos os futuros planeados (antes da renovação)",
+                "updateRecurrentPrice": "Aplicar esta alteração aos pagamentos gerados após a renovação",
+                "cancel": "Cancelar",
+                "nonNullFlatFees": "Esta subscrição inclui atualmente uma taxa de administração de {{ flatFeesAmount }} {{ currencyDisplay }}. Esta taxa de administração não será tida em conta quando o preço for atualizado.",
+                "title": "Alterar montante futuro",
+                "price": "Novo montante",
+                "explain": "Apenas esta futura será modificada",
+                "nonNullDiscount": "Esta subscrição inclui atualmente um cupão. Este cupão não será tido em conta quando o preço for atualizado.",
+                "submit": "Registar"
+            },
+            "dateUpdater": {
+                "actions": {
+                    "submit": "Registar",
+                    "cancel": "Cancelar"
+                },
+                "explain": "Apenas esta fatura será modificada",
+                "label": "Data de recolha"
+            }
+        },
+        "notification": {
+            "creation": "Após a criação",
+            "beforeSubscriptionEnd": "Antes do fim da subscrição",
+            "afterSubscriptionEnd": "Após o fim da subscrição",
+            "days": "Dia",
+            "days_plural": "Dias",
+            "hours": "Hora",
+            "hours_plural": "Horas",
+            "title": "Notificar {{count}} {{periodScale}} {{notificationKind}}",
+            "beforefirstBilling": "Antes da primeira fatura",
+            "afterfirstBilling": "Após a primeira fatura"
+        },
+        "contractNotification": {
+            "creation": "Quando a subscrição é criada",
+            "firstBilling": "Na primeira fatura"
         }
     },
     "shop": {

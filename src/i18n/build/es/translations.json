@@ -5025,6 +5025,7 @@
                 "Cancelada",
                 "Cancelled",
                 "Cancelada",
+                "Cancelada",
                 "Cancelada"
             ]
         },
@@ -6245,8 +6246,8 @@
             "filterAll": "Todo",
             "blockedReasons": {
                 "default": {
-                    "title": "",
-                    "message": ""
+                    "title": "Reserva bloqueada",
+                    "message": "Esta sesión no está abierta a reservas"
                 },
                 "waitingListOpen": {
                     "message": "Apúntese a la lista de espera y recibirá un mensaje en cuanto haya una plaza disponible.",
@@ -6257,8 +6258,8 @@
                     "title": "Tiempo límite superado"
                 },
                 "blockedByTags": {
-                    "title": "",
-                    "message": ""
+                    "title": "Permisos insuficientes",
+                    "message": "Lo sentimos, pero esta sesión no está abierta a reservas en este momento. Las reservas están restringidas a un grupo específico de miembros."
                 },
                 "waitingListLockedByPendingBookings": {
                     "title": "Otras reservas en curso",
@@ -6281,8 +6282,8 @@
                     "message": "La inscripción está actualmente cerrada y se abrirá el {{-date}}."
                 }
             },
-            "waitingListWarning": "",
-            "backToCalendar": "",
+            "waitingListWarning": "Antes de inscribirse en la lista de espera, asegúrese de haber adquirido el bono, pack o suscripción correspondiente. Es obligatorio estar en posesión de un bono, pack o suscripción activo para tener garantizada una plaza en la lista de espera.",
+            "backToCalendar": "Volver al calendario",
             "subscriptions": "Subscripciones",
             "combos": "Packs",
             "passes": "Bonos",
@@ -8715,7 +8716,9 @@
                     "smartlist": "Ver detalles de la smartlist"
                 },
                 "header": "Detalles",
-                "tags": "Etiquetas"
+                "tags": "Etiquetas",
+                "openPanel": "Abrir detalles",
+                "closePanel": "Cerrar detalles"
             }
         },
         "sentStatus": {
@@ -13888,7 +13891,11 @@
                     "nextWeek": "La semana que viene",
                     "none": "Ninguno",
                     "waitingList": "Lista de espera",
-                    "future": "Aún no se puede reservar"
+                    "future": "Aún no se puede reservar",
+                    "sepa_debit": "Domiciliaciones SEPA",
+                    "bacs_debit": "Bacs Direct debit",
+                    "card": "Bono",
+                    "sepa": "Domiciliaciones SEPA"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",
@@ -13899,7 +13906,9 @@
                     "loading": "Cargando",
                     "variant": "Destacar",
                     "filterGroupOptions": "Opciones de agrupación",
-                    "isExcludingTax": "Impuestos no incluidos"
+                    "isExcludingTax": "Impuestos no incluidos",
+                    "isContractLegalTermsAccepted": "Información legal de suscripción aceptada",
+                    "paymentMethodType": "Método de pago"
                 },
                 "configurationTitle": "Variaciones"
             },
@@ -13937,7 +13946,11 @@
                 "paymentPackRestrictionModal": "Ventana emergente de restricciones (bono)",
                 "paymentPackCompatibilityModal": "Ventana emergente de compatibilidad (bono)",
                 "paymentPackCard": "Tarjeta de Bono",
-                "paymentComboCard": "Tarjeta de pack"
+                "paymentComboCard": "Tarjeta de pack",
+                "contractPayment": "Módulo de pago por suscripción",
+                "paymentPackOffPeakRestrictionModal": "Ventana emergente de restricción de horarios (bono)",
+                "contractNotFound": "Aviso de suscripción no encontrada",
+                "collectPaymentMethod": "Añadir método de pago"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -15890,6 +15903,95 @@
         "sectionCard": {
             "item": "item",
             "item_plural": "items"
+        },
+        "interface": {
+            "seller": "Vendedor",
+            "authenticationNecessary": "La autenticación de los miembros es necesaria para esta sección.",
+            "anonymousSale": "Venta anónima",
+            "searchAProduct": "Busque un producto",
+            "noResult": "Ningún resultado",
+            "resultsForString": "{{ count }} resultado para {{ searchText }}",
+            "resultsForString_plural": "{{ count }} resultados para {{ searchText }}",
+            "memberModal": {
+                "confirm": "Guardar",
+                "cancel": "Cancelar",
+                "title": "Identificación de miembro"
+            },
+            "ongoingBaskets": {
+                "title": "Cestas en curso",
+                "subText": "Tiene facturas en curso, ciérrelas antes de cerrar la sesión."
+            },
+            "deleteCurrentBasket": {
+                "cancel": "Cancelar",
+                "delete": "Borrar",
+                "title": "Eliminar la cesta actual",
+                "subText": "¿Estás seguro de que quieres borrar la cesta actual?"
+            },
+            "payLater": {
+                "title": "Aplazar",
+                "cancel": "Cancelar",
+                "subText": "Esta cesta ya está parcialmente pagada. Al cerrarlo, aplazará el pago de la parte restante. Encontrará la factura en el backoffice.",
+                "payLater": "Aplazar"
+            },
+            "cannotEdit": {
+                "payment": "Pago",
+                "title": "No es posible editar",
+                "subText": "La cesta ya no se puede modificar porque ya se ha pagado parcialmente."
+            },
+            "scannerMode": {
+                "title": "Modo escáner",
+                "subText": "Escanee los artículos para añadirlos a la cesta.",
+                "done": "Acabado"
+            },
+            "objectAdded": {
+                "title": "Artículo añadido",
+                "subText": "El artículo se ha añadido a la cesta."
+            },
+            "outOfStock": {
+                "title": "Agotado",
+                "subText": "El artículo que intenta añadir a la cesta de la compra está agotado en su establecimiento. ¿Desea añadirlo de todos modos?",
+                "addAnyway": "Añadir de todos modos"
+            },
+            "authenticationRequired": {
+                "title": "Identificación necesaria",
+                "subTextListItem": "El artículo que desea añadir es",
+                "bottomSubText": "Sin la identificación de los miembros, no pueden llevarse a cabo las comprobaciones necesarias.",
+                "identifyMember": "Identificar un miembro",
+                "maxPurchase": {
+                    "subText": "El artículo que desea añadir está sujeto a un límite en el número de compras.",
+                    "subTextListItem": "Sujeto a un límite en el número de compras"
+                },
+                "tag": {
+                    "subText": "El artículo que desea añadir es sólo para miembros con determinadas etiquetas.",
+                    "subTextListItem": "Sólo para miembros con determinadas etiquetas"
+                },
+                "newMember": {
+                    "subText": "El elemento que desea añadir es sólo para nuevos miembros.",
+                    "subTextListItem": "Sólo para miembros nuevos"
+                }
+            },
+            "goBack": "Atras",
+            "totalExcludingTax": "Total antes de impuestos",
+            "taxes": "Impuestos",
+            "totalIncludingTax": "Total",
+            "payment": "Pago",
+            "selectItemToStart": "Haga clic en un artículo para iniciar una cesta.",
+            "cannotAdd": {
+                "title": "No se puede añadir",
+                "subTextListItem": "Lamentablemente no ha sido posible añadir el artículo porque",
+                "newMember": {
+                    "subText": "{{ optionalBeginning }} {{ name }} no es un miembro nuevo."
+                },
+                "tag": {
+                    "hasTag": "{{ optionalBeginning }} {{ name }} está etiquetado como {{ tagName }}.",
+                    "doesNotHaveTag": "{{ optionalBeginning }} {{ name }} no está etiquetado como {{ tagName }}.",
+                    "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{ name }} está etiquetado como {{ ownedTagName }} y no está etiquetado como {{ notOwnedTagName }}."
+                }
+            },
+            "itemsRemovedFromBasket": {
+                "title": "Se han eliminado artículos de la cesta",
+                "subText": "Cuando se cambiaba de miembro, algunos artículos que no eran compatibles con el nuevo miembro se eliminaban de la cesta de la compra."
+            }
         }
     }
 }

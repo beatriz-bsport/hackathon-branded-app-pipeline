@@ -1,3 +1,6 @@
-import MarketplaceWeekTimeTable from './MarketplaceWeekTimeTableCSSOnly.component';
+import MarketplaceWeekTimeTable, {
+  Props,
+} from './MarketplaceWeekTimeTableCSSOnly.component';
 
+export type { Props };
 export default MarketplaceWeekTimeTable;

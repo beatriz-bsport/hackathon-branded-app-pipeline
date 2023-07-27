@@ -80,6 +80,10 @@ import {
   MARKETPLACE_OFFER_LIST_ITEM_CONFIGURATION,
   MARKETPLACE_OFFER_LIST_ITEM_PREVIEW,
 } from '#libs/marketplace/components/MarketplaceOfferListItemCSSOnly/custom_css_variant';
+import {
+  MARKETPLACE_WEEK_TIME_TABLE_CONFIGURATION,
+  MARKETPLACE_WEEK_TIME_TABLE_PREVIEW,
+} from '#libs/marketplace/components/MarketplaceWeekTimeTableCSSOnly/custom_css_variant';
 
 import {
   CSSComponentPreviews,
@@ -295,6 +299,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_CONTRACT_NOT_FOUND_CONFIGURATION,
   MARKETPLACE_CONTRACT_PAYMENT_CONFIGURATION,
   MARKETPLACE_COLLECT_PAYMENT_METHOD_CONFIGURATION,
+  MARKETPLACE_WEEK_TIME_TABLE_CONFIGURATION,
 
   /*
   MARKETPLACE_FILTER_CONFIGURATION,
@@ -332,6 +337,7 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
     cardOffer: MARKETPLACE_OFFER_CARD_PREVIEW,
     offerListItem: MARKETPLACE_OFFER_LIST_ITEM_PREVIEW,
     calendarFilters: MARKETPLACE_CALENDAR_FILTER_PREVIEW,
+    calendarWeekTimeTable: MARKETPLACE_WEEK_TIME_TABLE_PREVIEW,
     paymentComboCard: MARKETPLACE_PAYMENT_COMBO_CARD_PREVIEW,
     paymentPackCard: MARKETPLACE_PAYMENT_PACK_CARD_PREVIEW,
     paymentPackCompatibilityModal:

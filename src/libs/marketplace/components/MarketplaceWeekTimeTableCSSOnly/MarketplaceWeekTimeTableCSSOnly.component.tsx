@@ -36,7 +36,7 @@ import { Coach } from '#libs/associated-coach/types';
 const SPLIT_AFTERNOON = 12;
 const SPLIT_EVENNING = 17;
 const DAY_PARTS = ['morning', 'afternoon', 'evening'];
-type Props = {
+export type Props = {
   loading: boolean;
   onClickOffer: () => void;
   onClickBook: (offer: Offer_FULL) => void;

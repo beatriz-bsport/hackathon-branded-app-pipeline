@@ -228,6 +228,7 @@ const rootReducer = (history: any) =>
     cadenceWIP: CadenceWIPReducers,
     exportableComponents: exportableComponentsReducers,
     quicksale: quicksaleReducers,
+    referral: referralReducers,
   });
 
 export type RootState = {
@@ -285,6 +286,7 @@ export type RootState = {
   privateService: PrivateServiceState;
   quickbooks: QuickbooksState;
   quicksale: QuicksaleState;
+  referral: ReferralState;
   relationship: any;
   reminder: any;
   replacementRequest: ReplacementRequestState;

@@ -446,6 +446,10 @@ const QuicksaleInterface: React.FC<Props> = ({
 
   // ========================================================
 
+  const goToPaymentPage = React.useCallback(() => {
+    if (currentBasket) push(`/quicksale/checkout/${currentBasket.id}/`);
+  }, [currentBasket, push]);
+
   return (
     <>
       <QuicksaleInterfaceComponent
@@ -476,6 +480,7 @@ const QuicksaleInterface: React.FC<Props> = ({
         closeGiftcardFormModal={closeGiftcardFormModal}
         addToBasket={addToBasket}
         fetchGiftcardBackgroundImageList={fetchGiftcardBackgroundImageList}
+        goToPaymentPage={goToPaymentPage}
       />
 
       <MemberSearchDialog

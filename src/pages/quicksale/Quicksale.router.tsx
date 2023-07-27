@@ -13,6 +13,8 @@ import type { RootState } from '../../reducers';
 
 const QuicksaleInterface = asyncComponent(() => import('./QuicksaleInterface'));
 
+const QuicksaleCheckout = asyncComponent(() => import('./QuicksaleCheckout'));
+
 type Props = ConnectedProps<typeof connector>;
 
 const Quicksale: React.FC<Props> = ({ authenticated, role, fetchProfile }) => {
@@ -25,6 +27,11 @@ const Quicksale: React.FC<Props> = ({ authenticated, role, fetchProfile }) => {
 
   return (
     <Switch>
+      <Route
+        exact
+        path="/quicksale/checkout/:basketId/"
+        component={QuicksaleCheckout}
+      />
       <Route
         exact
         path="/quicksale/:sectionId/"

@@ -91,6 +91,7 @@ type Props = {
     companyId: number,
     options?: OptionCallback<GiftcardBackgroundImage>,
   ) => void;
+  goToPaymentPage: () => void;
 };
 
 const QuicksaleInterface: React.FC<Props> = ({
@@ -121,6 +122,7 @@ const QuicksaleInterface: React.FC<Props> = ({
   closeGiftcardFormModal,
   addToBasket,
   fetchGiftcardBackgroundImageList,
+  goToPaymentPage,
 }) => {
   const { t } = useTranslation('quicksale');
 
@@ -320,6 +322,7 @@ const QuicksaleInterface: React.FC<Props> = ({
           removeFromBasket={removeFromBasket}
           closeBasket={onDeleteBasketClick}
           openChangeMemberModal={openMemberAuthenticationModal}
+          onPaymentClick={goToPaymentPage}
         />
       </Grid>
 

@@ -89,7 +89,7 @@ const CustomFormFieldFormSchema = Yup.object().shape({
         .test(
           'empty_choice',
           'marketing:customForm.customFormField.modal.error.emptyChoice',
-          function checkEmpty(item) {
+          (item) => {
             return !!item;
           },
         ),

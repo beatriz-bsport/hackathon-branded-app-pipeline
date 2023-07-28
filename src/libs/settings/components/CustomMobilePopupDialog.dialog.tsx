@@ -244,7 +244,7 @@ const CustomMobilePopupDialogSchema = Yup.object().shape({
   name: Yup.string().required('performanceTracking:requiredField'),
   link: Yup.string()
     .required()
-    .test('valid-link', 'errors.invalidUrl', function checkUrl(link) {
+    .test('valid-link', 'errors.invalidUrl', (link) => {
       try {
         const testUrl = new URL(link);
         return !!testUrl;

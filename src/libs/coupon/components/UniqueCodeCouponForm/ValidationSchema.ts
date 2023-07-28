@@ -90,7 +90,7 @@ const ValidationSchema = Yup.object().shape({
     .test(
       'is-codes-an-empty-array',
       'You must add at least one code',
-      function isCodesAnEmptyArray(value) {
+      (value) => {
         return value.length > 0;
       },
     ),

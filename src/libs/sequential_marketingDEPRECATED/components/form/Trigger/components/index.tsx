@@ -173,7 +173,7 @@ const CadenceTriggerFormSchema = Yup.object().shape({
     .test(
       'Check For Timeout Value',
       'marketing:cadence.form.error.timeoutMustBeStrictPositive',
-      function CheckForTimeoutValue(days) {
+      (days) => {
         if (!days) {
           return true;
         }

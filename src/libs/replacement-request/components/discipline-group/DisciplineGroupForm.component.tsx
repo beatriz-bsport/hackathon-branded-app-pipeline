@@ -617,7 +617,7 @@ const disciplineGroupSchema = Yup.object()
   .test(
     'establishments-and-locations-both-set',
     'replacement:disciplineGroup.form.establishmentSelectorError',
-    function checkIsLocationEmpty(discipline_group) {
+    (discipline_group) => {
       const establishmentsAreSet = discipline_group.establishments.length > 0;
       const establishmentGroupsAreSet =
         discipline_group.establishment_groups.length > 0;

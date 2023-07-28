@@ -57,7 +57,7 @@ const GroupedOfferPreviewSchema = Yup.object().shape({
         name: Yup.string().required(),
       }),
     )
-    .test('size-check', 'required', function testLength(item) {
+    .test('size-check', 'required', (item) => {
       return item.length > 0;
     }),
 });

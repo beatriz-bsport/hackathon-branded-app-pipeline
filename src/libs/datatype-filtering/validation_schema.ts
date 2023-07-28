@@ -59,7 +59,7 @@ const BaseSchema = {
                     .test(
                       'Is in rigth order',
                       'filter.form.error.wrongOrdering',
-                      function CheckOrder(item) {
+                      (item) => {
                         return item[0] < item[1];
                       },
                     ),
@@ -87,7 +87,7 @@ const BaseSchema = {
                     .test(
                       'Is in rigth order',
                       'filter.form.error.wrongOrdering',
-                      function CheckOrder(item) {
+                      (item) => {
                         return item[0] < item[1];
                       },
                     ),
@@ -113,7 +113,7 @@ const BaseSchema = {
                     .test(
                       'Is in rigth order',
                       'filter.form.error.wrongOrdering',
-                      function CheckOrder(item) {
+                      (item) => {
                         return item[0] < item[1];
                       },
                     ),
@@ -146,7 +146,7 @@ const BaseSchema = {
                     .test(
                       'Is in rigth order',
                       'filter.form.error.wrongOrdering',
-                      function CheckOrder(item) {
+                      (item) => {
                         return item[0] < item[1];
                       },
                     ),

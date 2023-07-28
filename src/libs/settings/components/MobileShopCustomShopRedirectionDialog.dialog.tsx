@@ -134,7 +134,7 @@ const MobileShopCustomShopRedirectionDialogSchema = Yup.object().shape({
   name: Yup.string().required('performanceTracking:requiredField'),
   url: Yup.string()
     .required()
-    .test('valid-link', 'errors.invalidUrl', function checkUrl(url) {
+    .test('valid-link', 'errors.invalidUrl', (url) => {
       try {
         const testUrl = new URL(url);
         return !!testUrl;

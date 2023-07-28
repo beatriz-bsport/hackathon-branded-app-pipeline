@@ -12734,7 +12734,7 @@
                 "billByInstalment": "Termijnbetaling",
                 "paymentLink": "Betaallink",
                 "generatePaymentLink": "Een betaallink genereren",
-                "paymentSecurityInformation": "Je kunt je betaalgegevens en informatie veilig en versleuteld opslaan voor toekomstige aankopen."
+                "paymentSecurityInformation": "Je kunt je betaalgegevens en -informatie veilig en versleuteld opslaan voor toekomstige aankopen."
             },
             "sumup": {
                 "amountPaid": "Betaald",

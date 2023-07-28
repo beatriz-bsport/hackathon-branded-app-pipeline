@@ -3,12 +3,6 @@ import { ConnectedProps, connect } from 'react-redux';
 import { compose } from 'recompose';
 import { push as pushAction } from 'connected-react-router';
 
-import {
-  PAYMENT_ENGINE_BSPORT,
-  PAYMENT_ENGINE_STRIPE,
-  PAYMENT_INTENT_TYPE_BASKET,
-} from '@bsport/common/lib/master-data/payment-group';
-
 // @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
@@ -27,8 +21,6 @@ import { updatePaymentGroupPriceCts } from '#libs/payment/actions';
 
 import { fetchPaymentList as fetchPaymentListAction } from '#libs/invoice/actions';
 import { getPaymentList } from '#libs/invoice/selectors';
-
-import { requestClientSecret as requestClientSecretAPI } from '../../../libs/invoice/api';
 
 import { getMemberListData } from '#libs/member/selectors';
 import {
@@ -49,15 +41,11 @@ import { mapFormData } from '../../form.utils';
 import QuicksaleCheckout from './QuicksaleCheckout.component';
 import { PaymentGroup } from '#libs/payment/types';
 import { Basket, BasketAddress } from '#libs/checkout/types';
-import {
-  QuicksaleDeliveryType,
-  QuicksalePaymentMethod,
-} from '#libs/quicksale/constants';
-import { hasUpsell } from '#libs/platform-billing/utils';
-import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
+import { QuicksaleDeliveryType } from '#libs/quicksale/constants';
 import { getFeatureList as getFeatureListAction } from '#libs/company/actions';
 import { fetchStripeReaders as fetchStripeReadersAction } from '#libs/terminal/actions';
 import { getStripeReaders } from '#libs/terminal/selectors';
+import { useQuicksalePayments, useModals } from './hooks';
 
 type Props = {
   basketId: string;
@@ -70,7 +58,6 @@ const QuicksalePayment: React.FC<Props> = ({
   theme,
   quicksaleStaffFullName,
   paymentList,
-  featureList,
   stripeReaders,
   fetchBasket,
   fetchMembers,
@@ -89,109 +76,43 @@ const QuicksalePayment: React.FC<Props> = ({
     push('/quicksale/');
   }, [push]);
 
-  // ========== Client secret and payment info ==========
-  const [clientSecret, setClientSecret] = React.useState<string>(null);
+  const [loading, setLoading] = React.useState(true);
 
-  const [isProcessing, setIsProcessing] = React.useState(false);
-
-  const [paymentGroupId, setPaymentGroupId] = React.useState<number>(null);
-
-  const [paymentGroupPriceCts, setPaymentGroupPriceCts] =
-    React.useState<number>(null);
-
-  const [paymentEngine, setPaymentEngine] = React.useState<
-    typeof PAYMENT_ENGINE_BSPORT | typeof PAYMENT_ENGINE_STRIPE | null
-  >(null);
-
-  const [selectedPaymentMethod, changeSelectedPaymentMethod] =
-    React.useState<QuicksalePaymentMethod>(null);
-
-  // Change payment engine accordingly with the selected payment method
-  const setSelectedPaymentMethod = React.useCallback(
-    (newPaymentMethod: QuicksalePaymentMethod) => {
-      changeSelectedPaymentMethod(newPaymentMethod);
-      if (
-        newPaymentMethod === QuicksalePaymentMethod.Manual &&
-        paymentEngine !== PAYMENT_ENGINE_BSPORT
-      ) {
-        setPaymentEngine(PAYMENT_ENGINE_BSPORT);
-      } else if (
-        newPaymentMethod !== QuicksalePaymentMethod.Manual &&
-        paymentEngine !== PAYMENT_ENGINE_STRIPE
-      )
-        setPaymentEngine(PAYMENT_ENGINE_STRIPE);
-    },
-    [paymentEngine],
-  );
-
-  const availablePaymentMethods: QuicksalePaymentMethod[] = React.useMemo(
-    () => [
-      ...(hasUpsell(featureList, UPSELL_IDENTIFIER_STRIPE_TERMINAL)
-        ? [QuicksalePaymentMethod.StripeTerminal]
-        : []),
-      QuicksalePaymentMethod.Manual,
-      QuicksalePaymentMethod.CreditCard,
-      QuicksalePaymentMethod.Sepa,
-    ],
-    [featureList],
-  );
+  const {
+    clientSecret,
+    isProcessing,
+    setIsProcessing,
+    paymentGroupId,
+    paymentGroupPriceCts,
+    setPaymentGroupPriceCts,
+    paymentMethod,
+    availablePaymentMethods,
+    setPaymentMethod,
+    fetchOrRefreshPaymentGroup,
+  } = useQuicksalePayments({ theme, basketId, setLoading });
 
   React.useEffect(() => {
-    if (theme?.online_payment_enabled) setPaymentEngine(PAYMENT_ENGINE_STRIPE);
-    else setPaymentEngine(PAYMENT_ENGINE_BSPORT);
-  }, [theme?.online_payment_enabled]);
+    fetchOrRefreshPaymentGroup();
+  }, [fetchOrRefreshPaymentGroup, basket?.total_price]);
 
-  React.useEffect(() => {
-    if (featureList) changeSelectedPaymentMethod(availablePaymentMethods[0]);
-  }, [availablePaymentMethods, featureList]);
-
-  // ========== States for the modals ==========
-
-  const [showCannotSignOutModal, setShowCannotSignOutModal] =
-    React.useState(false);
-
-  const [showMemberAuthenticationModal, setShowMemberAuthenticationModal] =
-    React.useState(false);
-
-  const [showWarningRemovedItemsModal, setShowWarningRemovedItemsModal] =
-    React.useState(false);
-
-  const [showPaymentSuccessModal, setShowPaymentSuccessModal] =
-    React.useState(false);
-
-  const [
+  const {
+    showCannotSignOutModal,
+    showMemberAuthenticationModal,
+    showWarningRemovedItemsModal,
+    setShowWarningRemovedItemsModal,
+    showPaymentSuccessModal,
+    setShowPaymentSuccessModal,
     showAnonymousPaymentSuccessModal,
     setShowAnonymousPaymentSuccessModal,
-  ] = React.useState(false);
-
-  const openCannotSignOutModal = React.useCallback(() => {
-    setShowCannotSignOutModal(true);
-  }, []);
-
-  const closeCannotSignOutModal = React.useCallback(() => {
-    setShowCannotSignOutModal(false);
-  }, []);
-
-  const openMemberModal = React.useCallback(() => {
-    setShowMemberAuthenticationModal(true);
-  }, []);
-
-  const closeMemberModal = React.useCallback(() => {
-    setShowMemberAuthenticationModal(false);
-  }, []);
-
-  const closeWarningRemovedItemsModal = React.useCallback(() => {
-    setShowWarningRemovedItemsModal(false);
-  }, []);
-
-  const closeAnonymousPaymentSuccessModal = React.useCallback(() => {
-    setShowAnonymousPaymentSuccessModal(false);
-    goBack();
-  }, [goBack]);
+    openCannotSignOutModal,
+    closeCannotSignOutModal,
+    openMemberModal,
+    closeMemberModal,
+    closeWarningRemovedItemsModal,
+    closeAnonymousPaymentSuccessModal,
+  } = useModals({ goBack });
 
   // ===========================================
-
-  const [loading, setLoading] = React.useState(true);
 
   const [basketAddress, setBasketAddress] = React.useState<BasketAddress>(null);
 
@@ -215,39 +136,6 @@ const QuicksalePayment: React.FC<Props> = ({
       },
     });
   }, [basketId, fetchBasket, fetchMembers, fetchPaymentList]);
-
-  // Fetch client secret and payment group id
-  const fetchOrRefreshPaymentGroup = React.useCallback(
-    (
-      currentPaymentEngine: number | null,
-      currentPaymentMethod: QuicksalePaymentMethod | null,
-    ) => {
-      if (currentPaymentEngine !== null) {
-        setLoading(true);
-        requestClientSecretAPI(
-          currentPaymentEngine,
-          PAYMENT_INTENT_TYPE_BASKET,
-          {
-            basket: basketId,
-            is_physical_payment_intent:
-              currentPaymentMethod === QuicksalePaymentMethod.StripeTerminal,
-          },
-        )
-          .then(({ data }) => {
-            setClientSecret(data.client_secret);
-            setPaymentGroupId(data.payment_group);
-            setPaymentGroupPriceCts(data.price_cts);
-            setLoading(false);
-          })
-          .catch((err) => console.error(err));
-      }
-    },
-    [basketId],
-  );
-
-  React.useEffect(() => {
-    fetchOrRefreshPaymentGroup(paymentEngine, selectedPaymentMethod);
-  }, [fetchOrRefreshPaymentGroup, paymentEngine, selectedPaymentMethod]);
 
   const alreadyPaidAmount = React.useMemo(
     () =>
@@ -313,6 +201,7 @@ const QuicksalePayment: React.FC<Props> = ({
       fetchMembers,
       memberById,
       updateQuicksaleBasketMember,
+      setShowWarningRemovedItemsModal,
     ],
   );
 
@@ -327,12 +216,22 @@ const QuicksalePayment: React.FC<Props> = ({
       paymentGroupPriceCts === basket.total_price_cts / 100 - alreadyPaidAmount
     )
       goBack();
-  }, [alreadyPaidAmount, basket, goBack, paymentGroupPriceCts]);
+  }, [
+    alreadyPaidAmount,
+    basket,
+    goBack,
+    paymentGroupPriceCts,
+    setShowPaymentSuccessModal,
+  ]);
 
   const onPaymentSuccess = React.useCallback(() => {
     if (member?.is_pos) setShowAnonymousPaymentSuccessModal(true);
     else setShowPaymentSuccessModal(true);
-  }, [member?.is_pos]);
+  }, [
+    member?.is_pos,
+    setShowAnonymousPaymentSuccessModal,
+    setShowPaymentSuccessModal,
+  ]);
 
   // ========================================
 
@@ -348,44 +247,23 @@ const QuicksalePayment: React.FC<Props> = ({
         onError: options?.onError,
       });
     },
-    [paymentGroupId, updatePaymentGroupPrice],
+    [paymentGroupId, updatePaymentGroupPrice, setPaymentGroupPriceCts],
   );
 
   const removeCoupon = React.useCallback(
     (data: { checkout_item: string; quantity: number }) => {
       setLoading(true);
-      removeItemFromBasket(basketId, data, {
-        onSuccess: () =>
-          fetchOrRefreshPaymentGroup(paymentEngine, selectedPaymentMethod),
-      });
+      removeItemFromBasket(basketId, data);
     },
-    [
-      basketId,
-      fetchOrRefreshPaymentGroup,
-      paymentEngine,
-      removeItemFromBasket,
-      selectedPaymentMethod,
-    ],
+    [basketId, removeItemFromBasket],
   );
 
   const addCoupon = React.useCallback(
     (code: string, options?: OptionCallback<Basket>) => {
       setLoading(true);
-      attachCoupon(basketId, code, {
-        onSuccess: (newBasket) => {
-          fetchOrRefreshPaymentGroup(paymentEngine, selectedPaymentMethod);
-          options?.onSuccess?.(newBasket);
-        },
-        onError: options?.onError,
-      });
+      attachCoupon(basketId, code, options);
     },
-    [
-      attachCoupon,
-      basketId,
-      fetchOrRefreshPaymentGroup,
-      paymentEngine,
-      selectedPaymentMethod,
-    ],
+    [attachCoupon, basketId],
   );
 
   const companyCountry = getCompanyCountry();
@@ -414,8 +292,8 @@ const QuicksalePayment: React.FC<Props> = ({
         deliveryType={deliveryType}
         setDeliveryType={setDeliveryType}
         availablePaymentMethods={availablePaymentMethods}
-        selectedPaymentMethod={selectedPaymentMethod}
-        setSelectedPaymentMethod={setSelectedPaymentMethod}
+        selectedPaymentMethod={paymentMethod}
+        setSelectedPaymentMethod={setPaymentMethod}
         stripeReaders={stripeReaders}
         clientSecret={clientSecret}
         onPaymentSuccess={onPaymentSuccess}

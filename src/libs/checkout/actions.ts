@@ -252,7 +252,7 @@ export function removeItemFromBasket(
     checkout_item: string;
     quantity: number;
   },
-  options: OptionCallback<Basket>,
+  options?: OptionCallback<Basket>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(currentBasket.isLoading(true));

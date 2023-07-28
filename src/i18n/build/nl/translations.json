@@ -1810,7 +1810,8 @@
                 "dateCreated": "Verzenddatum:",
                 "topLinks": "Populaire links",
                 "recipientList": "Details",
-                "noTopLink": "Er is nog geen informatie om weer te geven."
+                "noTopLink": "Er is nog geen informatie om weer te geven.",
+                "exportError": "Fout bij het exporteren van de gegevens"
             },
             "recipientCount": "Ontvanger(s): {{total_recipients}}",
             "kind": {
@@ -14563,6 +14564,29 @@
             },
             "marketingAction": {
                 "addAction": "Een actie toevoegen"
+            },
+            "bubble": {
+                "entryTrigger": {
+                    "addTrigger": "Selecteer een aanleiding",
+                    "title": "Aanleiding",
+                    "helperText": "Selecteer de voorwaarden voor het activeren van deze cadence voor leden aan de hand van deze criteria, marketingacties en meer."
+                },
+                "marketingAction": {
+                    "label": "Selecteer een marketingactie",
+                    "title": "Marketingactie"
+                },
+                "changeInStep": {
+                    "default": "Naam van de stap",
+                    "label": "Naam van de stap"
+                },
+                "changeInExit": {
+                    "title": "Sluiten",
+                    "label": "Label dit lid als"
+                },
+                "previous": "Terug",
+                "next": "Volgende",
+                "confirm": "Opslaan",
+                "cancel": "Annuleren"
             }
         }
     },

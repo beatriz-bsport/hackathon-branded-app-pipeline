@@ -15448,7 +15448,7 @@
                     "exit_success_label": "Won",
                     "title": "Exit"
                 },
-                "next": "Following",
+                "next": "Next",
                 "previous": "Previous",
                 "lose_step": "Lost",
                 "entry_step": "Entry",

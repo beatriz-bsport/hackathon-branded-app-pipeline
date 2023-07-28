@@ -14,14 +14,17 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import { compose, pure } from 'recompose';
-import { VOUCHER_TYPE_AMOUNT } from '@bsport/common/lib/master-data/coupon';
+import { compose } from 'recompose';
+import {
+  CouponKind,
+  VOUCHER_TYPE_AMOUNT,
+} from '@bsport/common/lib/master-data/coupon';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import { isCurrentlyActive } from '../utils';
+import TagChip from '../../tag/components/TagChip.component';
 
 import type { Coupon } from '../types';
-import TagChip from '../../tag/components/TagChip.component';
 
 type Props = {
   coupon: Coupon,
@@ -31,139 +34,156 @@ type Props = {
   isLoading: boolean,
 };
 
-export const CouponCard = (props: Props) => {
-  const { coupon, classes, t } = props;
-  const currentlyActive = isCurrentlyActive(coupon);
+export const CouponCard = React.memo(
+  ({ coupon, classes, t, goToEdit, isLoading }: Props) => {
+    const currentlyActive = isCurrentlyActive(coupon);
 
-  const displayNbUses = `${t('card.uses')}: ${props.coupon.nb_discounts}${
-    props.coupon.coupon_template_instance ? '' : `/${props.coupon.usage_total}`
-  }`;
+    const displayNbUses = `${t('card.uses')}: ${coupon.nb_discounts}${
+      coupon.coupon_template_instance ? '' : `/${coupon.usage_total}`
+    }`;
 
-  return (
-    <Paper className={classes.paperContainer}>
-      <div className={classes.headline}>
-        <div>
-          <Typography variant="h4">{props.coupon.name}</Typography>
-          <Typography variant="h5">{props.coupon.code}</Typography>
-        </div>
-        <div className={classes.headlineRight}>
-          {currentlyActive ? (
-            <CheckCircleOutlineIcon
-              className={classes.isActiveIcon}
-              color="primary"
-            />
-          ) : (
-            <CancelIcon className={classes.isActiveIcon} color="error" />
+    const isCouponViaUniqueCode =
+      coupon?.coupon_type === CouponKind.COUPON_VIA_UNIQUE_CODE_PER_USAGE;
+
+    const numberOfUsedVouchers = `${t('card.uses')}: ${
+      coupon?.nb_discounts
+    }${`/${coupon?.nb_unique_codes}`}`;
+
+    if (!coupon) {
+      return null;
+    }
+
+    return (
+      <Paper className={classes.paperContainer}>
+        <div className={classes.headline}>
+          <div>
+            <Typography variant="h4">{coupon.name}</Typography>
+            <Typography variant="h5">{coupon.code}</Typography>
+          </div>
+          {!isCouponViaUniqueCode && (
+            <div className={classes.headlineRight}>
+              {currentlyActive ? (
+                <CheckCircleOutlineIcon
+                  className={classes.isActiveIcon}
+                  color="primary"
+                />
+              ) : (
+                <CancelIcon className={classes.isActiveIcon} color="error" />
+              )}
+              <Typography align="right" variant="h5">
+                {coupon.voucher_type === VOUCHER_TYPE_AMOUNT
+                  ? `${getCurrencyDisplayWithPrice(coupon.amount_off)}`
+                  : `${coupon.percent_off}%`}
+              </Typography>
+            </div>
           )}
-          <Typography align="right" variant="h5">
-            {coupon.voucher_type === VOUCHER_TYPE_AMOUNT
-              ? `${getCurrencyDisplayWithPrice(coupon.amount_off)}`
-              : `${coupon.percent_off}%`}
-          </Typography>
         </div>
-      </div>
-      <List>
-        <ListItem>
-          <ListItemIcon>
-            <ArrowRightIcon />
-          </ListItemIcon>
-          <ListItemText primary={displayNbUses} />
-        </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <ArrowRightIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary={
-              props.coupon.usage_per_member === 1
-                ? `${t('card.limitation')} ${props.coupon.usage_per_member} ${t(
-                    'card.member_use',
-                  )}`
-                : `${t('card.limitation')} ${props.coupon.usage_per_member} ${t(
-                    'card.member_uses',
-                  )}`
-            }
-          />
-        </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <ArrowRightIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary={
-              props.coupon.combinable
-                ? t('card.cumulable')
-                : t('card.no_cumulable')
-            }
-          />
-        </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <ArrowRightIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary={`${t('card.validity')} ${t(
-              `form.applies_to.choices.${props.coupon.applies_to}`,
-            )}`}
-          />
-        </ListItem>
-        {props.coupon.only_on_first_checkout ? (
+        <List>
           <ListItem>
             <ListItemIcon>
               <ArrowRightIcon />
             </ListItemIcon>
-            <ListItemText primary={t('card.first_buy')} />
+            <ListItemText
+              primary={
+                isCouponViaUniqueCode ? numberOfUsedVouchers : displayNbUses
+              }
+            />
           </ListItem>
-        ) : null}
-        <ListItem>
-          <ListItemIcon>
-            <ArrowRightIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary={
-              props.coupon.expiration_date
-                ? `${t('card.expiration')} ${props.coupon.expiration_date}`
-                : t('card.no_expiration')
-            }
-          />
-        </ListItem>
-      </List>
-      <div className={classes.allTagContainer}>
-        {props.coupon?.whitelist_tags &&
-        props.coupon?.whitelist_tags?.length !== 0 ? (
-          <div className={classes.tagContainer}>
-            <Typography>{t('card.allowedFor')}</Typography>
-            <div className={classes.chipContainer}>
-              {props.coupon?.whitelist_tags?.map((tag) => {
-                return <TagChip tag={tag} />;
-              })}
+          {!isCouponViaUniqueCode && (
+            <>
+              <ListItem>
+                <ListItemIcon>
+                  <ArrowRightIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={
+                    coupon.usage_per_member === 1
+                      ? `${t('card.limitation')} ${coupon.usage_per_member} ${t(
+                          'card.member_use',
+                        )}`
+                      : `${t('card.limitation')} ${coupon.usage_per_member} ${t(
+                          'card.member_uses',
+                        )}`
+                  }
+                />
+              </ListItem>
+
+              <ListItem>
+                <ListItemIcon>
+                  <ArrowRightIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={
+                    coupon.combinable
+                      ? t('card.cumulable')
+                      : t('card.no_cumulable')
+                  }
+                />
+              </ListItem>
+            </>
+          )}
+          <ListItem>
+            <ListItemIcon>
+              <ArrowRightIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`${t('card.validity')} ${t(
+                `form.applies_to.choices.${coupon.applies_to}`,
+              )}`}
+            />
+          </ListItem>
+          {coupon.only_on_first_checkout ? (
+            <ListItem>
+              <ListItemIcon>
+                <ArrowRightIcon />
+              </ListItemIcon>
+              <ListItemText primary={t('card.first_buy')} />
+            </ListItem>
+          ) : null}
+          <ListItem>
+            <ListItemIcon>
+              <ArrowRightIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={
+                coupon.expiration_date
+                  ? `${t('card.expiration')} ${coupon.expiration_date}`
+                  : t('card.no_expiration')
+              }
+            />
+          </ListItem>
+        </List>
+        <div className={classes.allTagContainer}>
+          {coupon?.whitelist_tags && coupon?.whitelist_tags?.length !== 0 ? (
+            <div className={classes.tagContainer}>
+              <Typography>{t('card.allowedFor')}</Typography>
+              <div className={classes.chipContainer}>
+                {coupon?.whitelist_tags?.map((tag) => {
+                  return <TagChip key={tag.id} tag={tag} />;
+                })}
+              </div>
             </div>
-          </div>
-        ) : null}
-        {props.coupon?.blacklist_tags &&
-        props.coupon?.blacklist_tags?.length !== 0 ? (
-          <div className={classes.tagContainer}>
-            <Typography>{t('card.unallowedFor')}</Typography>
-            <div className={classes.chipContainer}>
-              {props.coupon?.blacklist_tags?.map((tag) => {
-                return <TagChip tag={tag} />;
-              })}
+          ) : null}
+          {coupon?.blacklist_tags && coupon?.blacklist_tags?.length !== 0 ? (
+            <div className={classes.tagContainer}>
+              <Typography>{t('card.unallowedFor')}</Typography>
+              <div className={classes.chipContainer}>
+                {coupon?.blacklist_tags?.map((tag) => {
+                  return <TagChip key={tag.id} tag={tag} />;
+                })}
+              </div>
             </div>
-          </div>
-        ) : null}
-      </div>
-      <div className={classes.actionButtons}>
-        <Button
-          color="primary"
-          disabled={props.isLoading}
-          onClick={props.goToEdit}
-        >
-          {props.t('detail.seeParameters')}
-        </Button>
-      </div>
-    </Paper>
-  );
-};
+          ) : null}
+        </div>
+        <div className={classes.actionButtons}>
+          <Button color="primary" disabled={isLoading} onClick={goToEdit}>
+            {t('detail.seeParameters')}
+          </Button>
+        </div>
+      </Paper>
+    );
+  },
+);
 
 const styles = (theme) => ({
   allTagContainer: {
@@ -212,5 +232,4 @@ const styles = (theme) => ({
 export default compose(
   withStyles(styles),
   withTranslation(['coupon']),
-  pure,
 )(CouponCard);

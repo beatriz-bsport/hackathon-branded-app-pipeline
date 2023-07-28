@@ -1,5 +1,5 @@
-// @flow
 import React, { useImperativeHandle, forwardRef } from 'react';
+import classNames from 'classnames';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
@@ -72,23 +72,29 @@ type PropsIban = {
   setBillingDetails: (billingdetails: BillingDetails) => void;
 };
 
-const IbanForm = (props: PropsIban) => {
+const IbanForm: React.FC<PropsIban> = ({
+  withAddress,
+  disabled,
+  processing,
+  isActive,
+  error,
+  billingDetails,
+  setBillingDetails,
+}) => {
   const { t } = useTranslation(['invoice']);
   const isNewCheckoutFlow = React.useContext(CheckoutContext);
   const classes = useStyles({ isNewCheckoutFlow });
-
-  const { billingDetails, setBillingDetails, processing } = props;
 
   return (
     <div>
       <div className={classes.nameAndEmailContainer}>
         <TextField
-          required={props.isActive}
+          required={isActive}
           fullWidth
           value={billingDetails.name}
           variant="outlined"
           placeholder={t('mandate.name')}
-          disabled={props.disabled}
+          disabled={disabled}
           onChange={(ev) => {
             const { value } = ev.target;
             setBillingDetails({
@@ -99,12 +105,12 @@ const IbanForm = (props: PropsIban) => {
         />
         <TextField
           type="email"
-          required={props.isActive}
+          required={isActive}
           fullWidth
           variant="outlined"
           value={billingDetails.email}
           placeholder={t('mandate.email')}
-          disabled={props.disabled}
+          disabled={disabled}
           onChange={(ev) => {
             const { value } = ev.target;
             setBillingDetails({
@@ -113,7 +119,7 @@ const IbanForm = (props: PropsIban) => {
             });
           }}
         />
-        {props.withAddress && (
+        {withAddress && (
           <TextField
             required
             fullWidth
@@ -137,10 +143,10 @@ const IbanForm = (props: PropsIban) => {
         <div className={classes.sensitiveDataContainer}>
           <div className={classes.sensitiveData}>
             <IbanElement options={IBAN_ELEMENT_OPTIONS} />
-            {!!props.error && (
+            {!!error && (
               <StripeErrorCode
-                errorCode={props.error.code}
-                declineCode={props.error.decline_code}
+                errorCode={error.code}
+                declineCode={error.decline_code}
               />
             )}
           </div>
@@ -156,19 +162,16 @@ const IbanForm = (props: PropsIban) => {
 };
 
 type PaymentStripeSEPAProps = {
-  onError: () => void;
+  onError?: () => void;
   onSuccess: (callback: () => void) => void;
   memberId?: number;
-  companyId?: number;
   clientSecret: string;
   onCancel: () => void;
   termsAndConditionsAccepted: boolean;
-  AcceptTermsAndConditionsComponent: React.Component;
+  AcceptTermsAndConditionsComponent?: React.Component;
   forceDisabled?: boolean;
   detachPaymentMethodLoading: boolean;
-  detachPaymentMethod: (pm_id: string) => void;
-  snackbarErrorMsg: (msg: string) => void;
-  snackbarSuccessMsg: (msg: string) => void;
+  detachPaymentMethod: (paymentMetodId: string) => void;
   userDefaultName?: string;
   userDefaultEmail?: string;
   loading?: boolean;
@@ -180,12 +183,16 @@ type PaymentStripeSEPAProps = {
   creditAccountBalance?: number | null;
   applyBalanceLoading?: boolean;
   forceSave?: boolean;
-  checkItemsBasket: (basketId: string) => boolean;
+  checkItemsBasket: (basketId: string) => Promise<boolean>;
   setPaymentProcessing: (processing: boolean) => void;
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
+  customClasses?: { [className: string]: string };
+  children?: React.ReactNode;
+  forceButtonDisplay?: boolean;
+  hideSaveForLater?: boolean;
 };
 
 export const PaymentStripeSEPA = forwardRef(
@@ -194,7 +201,6 @@ export const PaymentStripeSEPA = forwardRef(
       onError,
       onSuccess,
       memberId,
-      companyId,
       clientSecret,
       onCancel,
       termsAndConditionsAccepted,
@@ -202,8 +208,6 @@ export const PaymentStripeSEPA = forwardRef(
       forceDisabled,
       detachPaymentMethodLoading,
       detachPaymentMethod,
-      snackbarErrorMsg,
-      snackbarSuccessMsg,
       userDefaultName,
       userDefaultEmail,
       loading,
@@ -219,6 +223,10 @@ export const PaymentStripeSEPA = forwardRef(
       setPaymentProcessing,
       createPendingBookingsIfNecessary,
       setIsOnlinePaymentDisabled,
+      customClasses,
+      children,
+      forceButtonDisplay,
+      hideSaveForLater,
     }: PaymentStripeSEPAProps,
     ref,
   ) => {
@@ -278,7 +286,8 @@ export const PaymentStripeSEPA = forwardRef(
     const [needBillingDetailAddress, setNeedBillingDetailAddress] =
       React.useState(false);
 
-    const iban = elements.getElement(IbanElement);
+    const iban = elements?.getElement(IbanElement);
+    const ibanExists = !!iban;
     React.useEffect(() => {
       if (iban) {
         iban.on('change', (data) => {
@@ -319,7 +328,12 @@ export const PaymentStripeSEPA = forwardRef(
         iban?.off('change');
       };
       // eslint-disable-next-line
-    }, [!!iban, setNeedBillingDetailAddress, setBillingDetails, billingDetails]);
+    }, [
+      ibanExists,
+      setNeedBillingDetailAddress,
+      setBillingDetails,
+      billingDetails,
+    ]);
 
     const isSubmitButtonDisabled =
       forceDisabled || !stripe || !termsAndConditionsAccepted;
@@ -358,7 +372,7 @@ export const PaymentStripeSEPA = forwardRef(
           ) {
             setPaymentPageProcessing(false);
             // eslint-disable-next-line
-        window.alert(t('paymentPanel.actions.basketInconsistent'));
+            window.alert(t('paymentPanel.actions.basketInconsistent'));
             window.location.reload();
             return;
           }
@@ -474,32 +488,67 @@ export const PaymentStripeSEPA = forwardRef(
               processing={processing}
               isActive={!paymentMethodSelected}
             />
-            <div className={classes.saveAndDisplay}>
-              <div className={classes.row}>
-                <Checkbox
-                  checked={saveForLater || forceSave}
-                  disabled={!!forceSave}
-                  onChange={(ev) => setSaveForLater(ev.target.checked)}
-                />
-                <Typography variant={isNewCheckoutFlow ? 'body1' : 'caption'}>
-                  {t('paymentPanel.actions.saveForLater')}
-                </Typography>
-                <div className={classes.securityInformationContainer}>
-                  <PopOver
-                    title={t('paymentPanel.actions.paymentSecurityInformation')}
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                    transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    className={classes.securityInformationText}
-                  >
-                    <Info className={classes.infoIcon} />
-                  </PopOver>
-                </div>
+            <div
+              className={classNames(
+                classes.saveAndDisplay,
+                customClasses?.saveAndDisplay,
+              )}
+            >
+              <div className={classNames(classes.row, customClasses?.row)}>
+                {!hideSaveForLater && (
+                  <>
+                    <Checkbox
+                      checked={saveForLater || forceSave}
+                      disabled={!!forceSave}
+                      onChange={(ev) => setSaveForLater(ev.target.checked)}
+                    />
+                    <Typography
+                      variant={isNewCheckoutFlow ? 'body1' : 'caption'}
+                    >
+                      {t('paymentPanel.actions.saveForLater')}
+                    </Typography>
+                    <div
+                      className={classNames(
+                        classes.securityInformationContainer,
+                        customClasses?.securityInformationContainer,
+                      )}
+                    >
+                      <PopOver
+                        title={t(
+                          'paymentPanel.actions.paymentSecurityInformation',
+                        )}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
+                        className={classNames(
+                          classes.securityInformationText,
+                          customClasses?.securityInformationText,
+                        )}
+                      >
+                        <Info
+                          className={classNames(
+                            classes.infoIcon,
+                            customClasses?.infoIcon,
+                          )}
+                        />
+                      </PopOver>
+                    </div>
+                  </>
+                )}
               </div>
 
               {!!paymentMethodList.length && (
                 <ButtonBase
                   onClick={() => setAddPaymentMethod(false)}
-                  className={classes.displayButton}
+                  className={classNames(
+                    classes.displayButton,
+                    customClasses?.displayButton,
+                  )}
                 >
                   <Typography variant="body1" align="right" color="primary">
                     {t(
@@ -520,21 +569,26 @@ export const PaymentStripeSEPA = forwardRef(
               paymentMethodType="sepa_debit"
               onSelect={(id: string) => defineSelectedPaymentMethod(id)}
               setHasDetached={setHasDetached}
-              memberId={memberId}
               detachPaymentMethodLoading={detachPaymentMethodLoading}
               detachPaymentMethod={detachPaymentMethod}
-              snackbarErrorMsg={snackbarErrorMsg}
-              snackbarSuccessMsg={snackbarSuccessMsg}
-              companyId={companyId}
               sepaDefaultName={userDefaultName}
               sepaDefaultEmail={userDefaultEmail}
             />
             <ButtonBase
               disabled={false}
               onClick={() => setAddPaymentMethod(true)}
-              className={classes.addButton}
+              className={classNames(
+                classes.addButton,
+                customClasses?.addButton,
+              )}
             >
-              <AddIcon className={classes.leftIcon} color="primary" />
+              <AddIcon
+                className={classNames(
+                  classes.leftIcon,
+                  customClasses?.leftIcon,
+                )}
+                color="primary"
+              />
               <Typography variant="body1" align="left" color="primary">
                 {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
               </Typography>
@@ -549,12 +603,25 @@ export const PaymentStripeSEPA = forwardRef(
             loading={loading || applyBalanceLoading}
           />
         )}
-        {!isNewCheckoutFlow && (
+        {children ?? null}
+        {(!isNewCheckoutFlow || forceButtonDisplay) && (
           <>
-            <div className={classes.conditions}>
-              {AcceptTermsAndConditionsComponent}
-            </div>
-            <div className={classes.actionRow}>
+            {AcceptTermsAndConditionsComponent && (
+              <div
+                className={classNames(
+                  classes.conditions,
+                  customClasses?.conditions,
+                )}
+              >
+                {AcceptTermsAndConditionsComponent}
+              </div>
+            )}
+            <div
+              className={classNames(
+                classes.actionRow,
+                customClasses?.actionRow,
+              )}
+            >
               {processing ? (
                 <CircularProgress />
               ) : (
@@ -677,4 +744,4 @@ const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
   infoIcon: { color: theme.palette.grey[600] },
 }));
 
-export default PaymentStripeSEPA;
+export default React.memo(PaymentStripeSEPA);

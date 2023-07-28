@@ -18,6 +18,7 @@ import PaymentBsportInternal from '#libs/payment/components/payment-backend-inte
 import PaymentStripeCard from '#libs/payment/components/payment-backend-stripe/PaymentStripeCard.component';
 import type { OptionCallback } from '../../../../state/types';
 import { getStripePkKey } from '#libs/theme/selectors';
+import PaymentStripeSEPA from '#libs/payment/components/payment-backend-stripe/PaymentStripeSEPA.component';
 
 type Props = {
   availablePaymentMethods?: QuicksalePaymentMethod[];
@@ -36,7 +37,7 @@ type Props = {
   detachPaymentMethodLoading?: boolean;
   removePaymentMethod: (
     paymentMethodId: string,
-    options: OptionCallback,
+    options?: OptionCallback,
   ) => void;
   checkItemsBasket: (basketId: string) => Promise<boolean>;
   basketId?: string;
@@ -147,6 +148,32 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
           </PaymentStripeCard>
         </Elements>
       )}
+
+      {selectedPaymentMethod === QuicksalePaymentMethod.Sepa && (
+        <Elements stripe={stripePromise}>
+          <PaymentStripeSEPA
+            memberId={memberId}
+            clientSecret={clientSecret}
+            basketId={basketId}
+            basketTotalPriceCts={paymentGroupPriceCts}
+            onSuccess={onPaymentSuccess}
+            setPaymentProcessing={setIsProcessing}
+            onCancel={onCancel}
+            termsAndConditionsAccepted
+            detachPaymentMethodLoading={detachPaymentMethodLoading}
+            detachPaymentMethod={removePaymentMethod}
+            checkItemsBasket={checkItemsBasket}
+            loading={loading}
+            customClasses={{
+              actionRow: classes.sepaPaymentActionRow,
+            }}
+            forceButtonDisplay
+            hideSaveForLater={isMemberPOS}
+          >
+            {children}
+          </PaymentStripeSEPA>
+        </Elements>
+      )}
     </div>
   );
 };
@@ -191,6 +218,11 @@ const useStyles = makeStyles((theme) => ({
     gap: theme.spacing(1),
   },
   cardPaymentActionRow: {
+    justifyContent: 'end',
+    flexDirection: 'row-reverse',
+    gap: theme.spacing(1),
+  },
+  sepaPaymentActionRow: {
     justifyContent: 'end',
     flexDirection: 'row-reverse',
     gap: theme.spacing(1),

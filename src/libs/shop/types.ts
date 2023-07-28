@@ -97,3 +97,9 @@ export type ShopAPIFilter = {
 export type ShopItemCreate = Omit<ShopItem, 'id'>;
 
 export type ProvisionCreate = Omit<Provision, 'id'>;
+
+export type ShopItemFactoryOptions = {
+  isUnlimitedProvisions?: boolean;
+  isMarketplaceEnabled?: boolean;
+  isDeliverable?: boolean;
+};

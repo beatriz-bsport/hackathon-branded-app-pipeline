@@ -156,8 +156,10 @@ export const TriggerSectionForm: React.FC<Props> = ({
     const hasEventAndSmartlist =
       values.trigger_has_event && values.trigger_has_smartlist;
     const valuesHaveChanged =
-      prevHasEvent !== values.trigger_has_event ||
-      prevHasSmartlist !== values.trigger_has_smartlist;
+      (prevHasEvent !== values.trigger_has_event &&
+        prevHasSmartlist === values.trigger_has_smartlist) ||
+      (prevHasEvent === values.trigger_has_event &&
+        prevHasSmartlist !== values.trigger_has_smartlist);
 
     if (hasEventAndSmartlist && valuesHaveChanged) {
       setFieldValue(

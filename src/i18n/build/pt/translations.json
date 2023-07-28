@@ -4952,7 +4952,7 @@
                     "_label": "E-mails"
                 },
                 "settings": {
-                    "_label": "Parametros"
+                    "_label": "Parâmetros"
                 },
                 "_label": "Menu de pesquisa",
                 "franchises": {
@@ -6950,9 +6950,73 @@
         },
         "privatePassTemplateInstance": {
             "form": {
-                "explain1": "Os estúdios seguintes terão automaticamente este passe disponível para venda. Não poderão alterar o preço ou o número de créditos."
+                "explain1": "Os estúdios seguintes terão automaticamente este passe disponível para venda. Não poderão alterar o preço ou o número de créditos.",
+                "actions": {
+                    "submit": "Registo",
+                    "close": "Fechar"
+                },
+                "explain2": "Se um membro comprar este passe num dos estúdios compatíveis, poderá também utilizá-lo nos outros estúdios que definiu.",
+                "title": "Configurar os meus estúdios"
+            },
+            "actions": {
+                "addCompany": "Adicionar um estúdio"
+            },
+            "companyEmpty": "Nenhum estúdio está configurado para aceitar este passe",
+            "deleteForm": {
+                "actions": {
+                    "submit": "Desativar a partilha",
+                    "close": "Fechar"
+                },
+                "content": "Ao desativar este estúdio da partilha de passes, todos os membros que possuem este passe e o compraram neste estúdio poderão continuar a utilizá-lo. No entanto, deixarão de o poder utilizar noutros estúdios. Por último, os passes comprados noutros estúdios deixarão de poder ser utilizados no estúdio desativado, independentemente da data de compra.",
+                "title": "Desativar"
+            },
+            "privateConsumerPassSharedFromOtherFranchisee": "Partilhado pelo franchisado",
+            "privatePassSharedFromFranchisor": "Passe de franquia"
+        },
+        "filters": {
+            "credits": "Crédito",
+            "expiration": "Validade",
+            "all": "Todos os passes"
+        },
+        "popup": {
+            "end": "Hora de fim",
+            "begin": "Hora de início",
+            "button": "Horários",
+            "validate": "Confirmar"
+        },
+        "searshAppointmentPass": "Procurar um passe de marcação",
+        "search": "Procurar uma sessão",
+        "privatePassTemplate": {
+            "actions": {
+                "create": "Criar um passe partilhado"
+            },
+            "deleteForm": {
+                "actions": {
+                    "submit": "Desativar a partilha",
+                    "close": "Fechar"
+                },
+                "content": "Ao desativar um cartão partilhado, os membros que possuem este cartão só o poderão utilizar no estúdio onde o adquiriram.",
+                "title": "Desativar"
+            },
+            "form": {
+                "actions": {
+                    "submit": "Registar",
+                    "close": "Fechar"
+                },
+                "submit": "Confirmar",
+                "close": "Fechar",
+                "title": "Passe de aulas partilhado"
+            },
+            "section": {
+                "titleManagerOnly": "Indisponível para venda",
+                "titleAvailable": "Disponível para venda"
+            },
+            "isEmptyExplain": "Os passes de aulas partilhados estão disponíveis nos estúdios da sua escolha e permitem que os membros utilizem os créditos em qualquer estúdio à escolha.",
+            "specification": {
+                "companySharedWithTitle": "Partilhar com os outros estúdios:"
             }
-        }
+        },
+        "seeAll": "Ver tudo"
     },
     "relationship": {
         "private_consumer_pass_links": {
@@ -7706,7 +7770,7 @@
         "offerManagement": "Reservas",
         "shop": "A minha loja",
         "planning": "Planear",
-        "settings": "Parametros",
+        "settings": "Parâmetros",
         "marketing": {
             "cadence": "Sequência",
             "notifications": "Notificações",
@@ -7854,7 +7918,7 @@
         "companyOnboarding": {
             "error": "Não é possível alterar esta informação"
         },
-        "pageTitle": "Parametros"
+        "pageTitle": "Parâmetros"
     },
     "widget": {
         "widget": {
@@ -9025,7 +9089,7 @@
             },
             "subtitle": "Subscrição",
             "emailNotification": {
-                "parameters": "Parametros de e-mail",
+                "parameters": "Parâmetros de e-mail",
                 "emailToSend": "E-mail a enviar"
             },
             "notificationPush": {
@@ -9796,6 +9860,64 @@
         "go_back": "Voltar aos resultados",
         "actions": {
             "addMember": "Adicionar um membro"
+        }
+    },
+    "platformBilling": {
+        "featureRequest": {
+            "close": "Fechar",
+            "content": "Obrigado pelo seu interesse! O seu gestor de conta bsport contactá-lo-á em breve com mais informações.",
+            "title": "Add-on"
+        },
+        "platformBillingStage": {
+            "maxBooking": "Até {{ max_booking_per_month }} reservas / mês",
+            "monthlyPrice": "{{ price }} / mês"
+        },
+        "platformBillingPlan": {
+            "max_establishment": {
+                "help": "Um estabelecimento é contabilizado a partir de 8 sessões mensais",
+                "label": "Até {{ max_establishment }} estabelecimentos"
+            },
+            "max_coach": {
+                "help": "Um professor é creditado com 8 ou mais sessões mensais",
+                "label": "Até {{ max_coach }} professores"
+            }
+        },
+        "platformBillingGroup": {
+            "soonAvailable": "Disponível brevemente !",
+            "myGroup": "A minha encomenda"
+        },
+        "upsellPackage": {
+            "sms": {
+                "explainBilling": "{{ price_cts }} / SMS"
+            },
+            "vod": {
+                "explainBilling": "  +1 {{currencyDisplay }} / cliente ativo"
+            },
+            "otherAddonTitle": "Add-ons disponíveis",
+            "myAddonTitle": "Os meus add-ons",
+            "knowMore": "Mais informações +",
+            "billRecurrent": "{{ price_cts }} / mês",
+            "billOnce": "{{ price_cts }}"
+        },
+        "paymentMethod": {
+            "info": {
+                "link": "aqui",
+                "content": "A sua subscrição Bsport será debitada no método de pagamento indicado abaixo. Para configurar a conta na qual serão creditados os pagamentos em linha via Bsport, clique em"
+            },
+            "actions": {
+                "createCard": "Adicionar um passe",
+                "createSepa": "Adicionar um IBAN"
+            },
+            "sectionTitle": "Meios de pagamento"
+        },
+        "platformInvoice": {
+            "status": {
+                "failed": "Falha no pagamento",
+                "processing": "Pagamento contestado",
+                "disputed": "Pagamento contestado",
+                "succeeded": "Pagamento efetuado com sucesso",
+                "missing_charge": "Não foi efetuada qualquer tentativa de pagamento"
+            }
         }
     }
 }

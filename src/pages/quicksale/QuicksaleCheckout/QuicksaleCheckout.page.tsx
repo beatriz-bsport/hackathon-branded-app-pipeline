@@ -99,7 +99,9 @@ const QuicksalePayment: React.FC<Props> = ({
   const [paymentGroupPriceCts, setPaymentGroupPriceCts] =
     React.useState<number>(null);
 
-  const [paymentEngine, setPaymentEngine] = React.useState<number | null>(null);
+  const [paymentEngine, setPaymentEngine] = React.useState<
+    typeof PAYMENT_ENGINE_BSPORT | typeof PAYMENT_ENGINE_STRIPE | null
+  >(null);
 
   const [selectedPaymentMethod, changeSelectedPaymentMethod] =
     React.useState<QuicksalePaymentMethod>(null);

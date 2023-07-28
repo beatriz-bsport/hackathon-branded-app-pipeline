@@ -65,6 +65,7 @@ const renderMemberName = (
     </div>
   );
 };
+
 const getColumnData = (
   t: TFunction,
   showOnlyCoreColumns: boolean,
@@ -129,7 +130,7 @@ const getColumnData = (
               </div>
             );
           }
-          return 'Paiement en ligne';
+          return t('parameters.payment_method.paymentOnline');
         },
       },
     },

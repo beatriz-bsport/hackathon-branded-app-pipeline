@@ -581,6 +581,7 @@ exports.default = {
     parameters: 'Paramètres',
     payment_method: {
       label: 'Moyen de paiement',
+      paymentOnline: 'Paiement en ligne',
       [BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT]: 'A crédit',
       [BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]: 'Carte',
       [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]: 'Virement SEPA',

@@ -1217,7 +1217,7 @@
       "inactiveCoupons": "Promotions désactivées ou expirées",
       "activeCoupons": "Promotions actives"
     },
-    "detail": { "seeParameters": "Voir les paramètres" },
+    "detail": { "seeParameters": "Voir les paramètres", "seeVouchers": "Voir les bons d'achat" },
     "card": {
       "allowedFor": "Autorisé pour",
       "unallowedFor": "Non-Autorisé pour",

@@ -23,6 +23,7 @@ exports.default = {
   },
   detail: {
     seeParameters: 'Voir les paramètres',
+    seeVouchers: "Voir les bons d'achat",
   },
   card: {
     allowedFor: 'Autorisé pour',

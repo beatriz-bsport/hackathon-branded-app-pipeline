@@ -40,7 +40,7 @@ exports.default = {
     session: 'Cours Collectifs & Ateliers',
     groupActivity: 'Cours Collectifs',
     workshop: 'Ateliers',
-    appointment: 'Rendez-Vous',
+    appointment: 'Rendez-vous',
     all: 'Tous les cours',
     groups: 'Groupes de rémunérations',
   },
@@ -190,7 +190,7 @@ exports.default = {
     },
     dissociate: 'Personnaliser les règles',
     dialogTitle: 'Groupe de rémunération',
-    private_service: 'Rendez-Vous',
+    private_service: 'Rendez-vous',
     session: 'Cours Collectifs',
     workshop: 'Ateliers',
     subtitle: {

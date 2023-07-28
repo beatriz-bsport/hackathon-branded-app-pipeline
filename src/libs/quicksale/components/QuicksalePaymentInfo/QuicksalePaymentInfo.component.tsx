@@ -1,11 +1,18 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Event from '@material-ui/icons/Event';
+
+import {
+  PAYMENT_ENGINE_BSPORT,
+  PAYMENT_GROUP_METHOD_BY_ENGINE,
+} from '@bsport/common/lib/master-data/payment-group';
 
 import { QuicksalePaymentMethod } from '#libs/quicksale/constants';
 import PaymentMethodCardSelector from '#libs/payment/components/PaymentMethodCardSelector.component';
 import type { StripeReader } from '#libs/terminal/types';
 import PaymentStripeTerminal from '#libs/terminal/components/PaymentStripeTerminal.component';
+import PaymentBsportInternal from '#libs/payment/components/payment-backend-internal/PaymentBsportInternal.component';
 
 type Props = {
   availablePaymentMethods?: QuicksalePaymentMethod[];
@@ -71,6 +78,28 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
           {children}
         </PaymentStripeTerminal>
       )}
+
+      {selectedPaymentMethod === QuicksalePaymentMethod.Manual && (
+        <PaymentBsportInternal
+          paymentMethodChoices={
+            PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT]
+          }
+          amountToPay={paymentGroupPriceCts?.toString() ?? ''}
+          clientSecret={clientSecret}
+          onCancel={onCancel}
+          onSuccess={onPaymentSuccess}
+          hideAmountToPay
+          dateFieldEndAdornment={
+            <Event className={classes.manualPaymentDateFieldIcon} />
+          }
+          customClasses={{
+            actionRow: classes.manualPaymentActionRow,
+          }}
+        >
+          {children}
+        </PaymentBsportInternal>
+      )}
+
     </div>
   );
 };
@@ -104,6 +133,15 @@ const useStyles = makeStyles((theme) => ({
   stripeTerminalActions: {
     justifyContent: 'end',
     flexDirection: 'row-reverse',
+    gap: theme.spacing(1),
+  },
+  manualPaymentDateFieldIcon: {
+    fill: theme.palette.action.active,
+  },
+  manualPaymentActionRow: {
+    justifyContent: 'end',
+    flexDirection: 'row-reverse',
+    gap: theme.spacing(1),
   },
 }));
 

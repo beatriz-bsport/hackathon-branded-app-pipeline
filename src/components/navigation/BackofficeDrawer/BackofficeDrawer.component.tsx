@@ -263,6 +263,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
     return setOpenWelcometutorialDialog(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   React.useEffect(() => {
     if (
       previousLocation &&
@@ -282,20 +283,35 @@ export const BackOfficeDrawer: React.FC<Props> = ({
     setOpenWelcometutorialDialog,
     openWelcometutorialDialog,
   ]);
+
+  // Close  the left menu when editing a cadence and
+  // reopen the left menu when leaving a cadence edition
   React.useEffect(() => {
-    if (
-      location.pathname.startsWith('/cadence/') &&
-      location.pathname !== '/cadence/wip'
-    ) {
+    const LOCATION_IS_CADENCE_EDITION_PAGE =
+      location?.pathname?.startsWith('/cadence/') &&
+      location?.pathname !== '/cadence/wip';
+    const PREVIOUS_LOCATION_WAS_CADENCE_EDITION_PAGE =
+      previousLocation?.pathname?.startsWith('/cadence/') &&
+      previousLocation?.pathname !== '/cadence/wip';
+
+    if (LOCATION_IS_CADENCE_EDITION_PAGE) {
       setDrawerIconsOnly(true);
       setHideAppBar(true);
     } else {
       setHideAppBar(false);
+      PREVIOUS_LOCATION_WAS_CADENCE_EDITION_PAGE && setDrawerIconsOnly(false);
     }
+
     if (!displayLeftMenu || mobileOpen) {
       setDrawerIconsOnly(false);
     }
-  }, [location, setDrawerIconsOnly, displayLeftMenu, mobileOpen]);
+  }, [
+    displayLeftMenu,
+    location,
+    mobileOpen,
+    previousLocation,
+    setDrawerIconsOnly,
+  ]);
 
   const handleDrawerToggle = () => {
     if (mobileOpen) {

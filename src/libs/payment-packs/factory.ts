@@ -27,7 +27,7 @@ export const paymentPackCategoryFactory = () => {
  * @returns {PaymentPackCategory[]}
  */
 export const paymentPackCategoryListFactory = (count: number) => {
-  return faker.helpers.multiple(() => paymentPackCategoryFactory, { count });
+  return faker.helpers.multiple(() => paymentPackCategoryFactory(), { count });
 };
 
 /**

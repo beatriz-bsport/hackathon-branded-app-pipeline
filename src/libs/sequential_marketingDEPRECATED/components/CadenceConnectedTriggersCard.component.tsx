@@ -133,7 +133,7 @@ export const CadenceConnectedTriggersCard: React.FC<Props> = ({
         </div>
         <div>
           {triggers && triggers.length !== 0 && (
-            <div className={classNames(classes.flewAndWrap, 'shiftable')}>
+            <div className={classNames(classes.flexAndWrap, 'shiftable')}>
               {triggers.map((trigger) => (
                 <TriggerChip
                   key={`trigger_chip${trigger?.uuid}`}
@@ -180,7 +180,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'flex-start',
     gap: theme.spacing(1),
   },
-  flewAndWrap: {
+  flexAndWrap: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -215,7 +215,7 @@ const useChipStyles = makeStyles<Theme, { identifier: TriggerEnum }>(
         identifier === TriggerEnum.TIMEOUT_TRIGGER_IDENTIFIER
           ? chroma(theme.palette.text.secondary).alpha(0.09).hex()
           : chroma(theme.palette.primary.main).alpha(0.09).hex(),
-      maxWidth: '90px',
+      maxWidth: '160px',
       paddingLeft: theme.spacing(0.5),
     },
     rootIconColorPrimary: {

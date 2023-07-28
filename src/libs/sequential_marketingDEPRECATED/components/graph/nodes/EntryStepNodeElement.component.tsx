@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import classNames from 'classnames';
@@ -29,7 +28,9 @@ import type { SmartList } from '#libs/smart-list/types';
 
 export type EntryStepNodeElementProps = {
   step: CadenceStep<number, number, StepConnectedTriggerConfig<SmartList>>;
-  onCardClick?: (step: CadenceStep) => void;
+  onCardClick?: (
+    step: CadenceStep<number, number, StepConnectedTriggerConfig<SmartList>>,
+  ) => void;
   cadence: Cadence<
     number,
     StepConnectedTriggerConfig<SmartList>,
@@ -92,7 +93,7 @@ export const EntryStepNodeElement: React.FC<EntryStepNodeElementProps> = ({
           {step?.is_entry_step ? (
             <div className={classes.chipsContainer}>
               {triggers && triggers.length !== 0 && (
-                <div className={classNames(classes.flewAndWrap, 'shiftable')}>
+                <div className={classNames(classes.flexAndWrap, 'shiftable')}>
                   {triggers.map((trigger) => (
                     <TriggerChip
                       key={`trigger_chip${trigger?.uuid}`}
@@ -139,17 +140,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   cardHeader: {
     display: 'flex',
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: theme.spacing(2),
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
   },
-  flewAndWrap: {
+  flexAndWrap: {
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     flexWrap: 'wrap',
     gap: theme.spacing(1),
     paddingTop: theme.spacing(1),

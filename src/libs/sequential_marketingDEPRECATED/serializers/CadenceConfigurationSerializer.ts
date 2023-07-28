@@ -1,14 +1,13 @@
 // @ts-nocheck
 import { v4 as uuidv4 } from 'uuid';
 import type { Values } from '#libs/sequential_marketingDEPRECATED/components/form/Trigger/components';
-import { RuleBetweenEntryEvent } from '#libs/sequential_marketingDEPRECATED/constants';
 import {
   CADENCE_STEPPER_ENTRY_STEP,
   CADENCE_STEPPER_WIN_STEP,
   CADENCE_STEPPER_LOSE_STEP,
 } from '#libs/sequential_marketingDEPRECATED/components/form/CadenceSettingsFormStepper.component';
 
-import {
+import type {
   BackEndConnectedTriggerPayload,
   FormValues,
   BackEndTriggerIdentifier,
@@ -16,6 +15,7 @@ import {
   BackendFiltering,
   BackEndDestinationStatus,
 } from './types';
+import { getCadenceConfigurationInformation } from './utils';
 
 export default class CadenceConfigurationSerializer {
   formValues: FormValues;
@@ -53,6 +53,7 @@ const convertEntryFormValuesToBackEndPayload = (values: Values) => {
   if (!values) {
     return [];
   }
+
   const {
     trigger_has_event,
     trigger_event_kind,
@@ -60,17 +61,26 @@ const convertEntryFormValuesToBackEndPayload = (values: Values) => {
     trigger_smartlist_selected,
     trigger_logic_between_event_and_smartlist,
   } = values;
+
   // Type '{ uuid: string; identifier: BackEndTriggerIdentifier; event_type: CadenceEventsEnum; }' is not assignable to type 'BackEndTriggerConfigDict'.
   const payload = [];
 
-  if (trigger_has_event && trigger_event_kind) {
-    if (
-      trigger_has_smartlist &&
-      trigger_smartlist_selected &&
-      trigger_logic_between_event_and_smartlist ===
-        RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT
-    ) {
-      // ConnectedTrigger event/filtered by smartlist/coming form outside/going into the first step.
+  // Defining boolean values
+  const {
+    TRIGGER_HAS_EVENT_SET,
+    TRIGGER_HAS_SMARTLIST_AS_EVENT_FILTERING,
+    TRIGGER_HAS_SMARTLIST_AS_TRIGGER,
+  } = getCadenceConfigurationInformation({
+    trigger_has_event,
+    trigger_event_kind,
+    trigger_has_smartlist,
+    trigger_smartlist_selected,
+    trigger_logic_between_event_and_smartlist,
+  });
+
+  if (TRIGGER_HAS_EVENT_SET) {
+    if (TRIGGER_HAS_SMARTLIST_AS_EVENT_FILTERING) {
+      // ConnectedTrigger event filtered by a smartlist coming form outside going into the first step.
       payload.push({
         trigger_config: {
           uuid: uuidv4(),
@@ -78,7 +88,7 @@ const convertEntryFormValuesToBackEndPayload = (values: Values) => {
           event_type: trigger_event_kind,
         },
         destination_config: {
-          destination_id: null, // Back must be able to do cadence.get_entry_point().id,
+          destination_id: null, // Back must be able to do cadence.get_entry_point().id
           kind: BackEndDestinationKind.OUTSIDE_TO_STEP,
           source_id: null,
           uuid: uuidv4(),
@@ -90,7 +100,7 @@ const convertEntryFormValuesToBackEndPayload = (values: Values) => {
         },
       });
     } else {
-      // ConnectedTrigger event/unfiltered by smartlist/coming form outside/going into the first step.
+      // ConnectedTrigger event unfiltered by a smartlist coming form outside going into the first step.
       payload.push({
         trigger_config: {
           uuid: uuidv4(),
@@ -98,7 +108,7 @@ const convertEntryFormValuesToBackEndPayload = (values: Values) => {
           event_type: trigger_event_kind,
         },
         destination_config: {
-          destination_id: null, // Back must be able to do cadence.get_entry_point().id,
+          destination_id: null, // Back must be able to do cadence.get_entry_point().id
           kind: BackEndDestinationKind.OUTSIDE_TO_STEP,
           source_id: null,
           uuid: uuidv4(),
@@ -109,15 +119,31 @@ const convertEntryFormValuesToBackEndPayload = (values: Values) => {
           identifier: BackendFiltering.EMPTY,
         },
       });
+      if (TRIGGER_HAS_SMARTLIST_AS_TRIGGER) {
+        // ConnectedTrigger smartlist coming form outside going into the first step with the event ConnectedTrigger.
+        payload.push({
+          trigger_config: {
+            uuid: uuidv4(),
+            identifier: BackEndTriggerIdentifier.EMPTY,
+            event_type: trigger_event_kind,
+          },
+          destination_config: {
+            destination_id: null, // Back must be able to do cadence.get_entry_point().id
+            kind: BackEndDestinationKind.OUTSIDE_TO_STEP,
+            source_id: null,
+            uuid: uuidv4(),
+          },
+          filtering_config: {
+            uuid: uuidv4(),
+            smartlist_pk: trigger_smartlist_selected,
+            identifier: BackendFiltering.SMARTLIST,
+          },
+        });
+      }
     }
   }
-  if (
-    !trigger_has_event &&
-    trigger_has_smartlist &&
-    trigger_smartlist_selected &&
-    trigger_logic_between_event_and_smartlist ===
-      RuleBetweenEntryEvent.OR_RULE_BETWEEN_ENTRY_EVENT
-  ) {
+  if (!TRIGGER_HAS_EVENT_SET && TRIGGER_HAS_SMARTLIST_AS_TRIGGER) {
+    // ConnectedTrigger smartlist coming form outside going into the first step.
     payload.push({
       trigger_config: {
         uuid: uuidv4(),
@@ -125,7 +151,7 @@ const convertEntryFormValuesToBackEndPayload = (values: Values) => {
         event_type: trigger_event_kind,
       },
       destination_config: {
-        destination_id: null, // Back must be able to do cadence.get_entry_point().id,
+        destination_id: null, // Back must be able to do cadence.get_entry_point().id
         kind: BackEndDestinationKind.OUTSIDE_TO_STEP,
         source_id: null,
         uuid: uuidv4(),
@@ -144,6 +170,7 @@ const convertWinFormValuesToBackEndPayload = (values: Values) => {
   if (!values) {
     return [];
   }
+
   const {
     trigger_has_event,
     trigger_event_kind,
@@ -154,14 +181,22 @@ const convertWinFormValuesToBackEndPayload = (values: Values) => {
 
   const payload = [];
 
-  if (trigger_has_event && trigger_event_kind) {
-    if (
-      trigger_has_smartlist &&
-      trigger_smartlist_selected &&
-      trigger_logic_between_event_and_smartlist ===
-        RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT
-    ) {
-      // ConnectedTrigger event/filtered by smartlist/coming from inside /going outside.
+  // Defining boolean values
+  const {
+    TRIGGER_HAS_EVENT_SET,
+    TRIGGER_HAS_SMARTLIST_AS_EVENT_FILTERING,
+    TRIGGER_HAS_SMARTLIST_AS_TRIGGER,
+  } = getCadenceConfigurationInformation({
+    trigger_has_event,
+    trigger_event_kind,
+    trigger_has_smartlist,
+    trigger_smartlist_selected,
+    trigger_logic_between_event_and_smartlist,
+  });
+
+  if (TRIGGER_HAS_EVENT_SET) {
+    if (TRIGGER_HAS_SMARTLIST_AS_EVENT_FILTERING) {
+      // ConnectedTrigger event filtered by a smartlist coming from inside going outside.
       payload.push({
         trigger_config: {
           uuid: uuidv4(),
@@ -183,7 +218,7 @@ const convertWinFormValuesToBackEndPayload = (values: Values) => {
         },
       });
     } else {
-      // ConnectedTrigger event/unfiltered by smartlist/coming form outside/going into the first step.
+      // ConnectedTrigger event unfiltered by a smartlist coming form inside going outside.
       payload.push({
         trigger_config: {
           uuid: uuidv4(),
@@ -191,7 +226,7 @@ const convertWinFormValuesToBackEndPayload = (values: Values) => {
           event_type: trigger_event_kind,
         },
         destination_config: {
-          destination_id: null, // Back must be able to do cadence.get_entry_point().id,
+          destination_id: null,
           kind: BackEndDestinationKind.CADENCE_TO_OUTSIDE,
           reason: '',
           source_id: null,
@@ -205,14 +240,32 @@ const convertWinFormValuesToBackEndPayload = (values: Values) => {
         },
       });
     }
+    if (TRIGGER_HAS_SMARTLIST_AS_TRIGGER) {
+      // ConnectedTrigger smartlist coming form inside going outside.
+      payload.push({
+        trigger_config: {
+          uuid: uuidv4(),
+          identifier: BackEndTriggerIdentifier.EMPTY,
+          event_type: trigger_event_kind,
+        },
+        destination_config: {
+          destination_id: null,
+          kind: BackEndDestinationKind.CADENCE_TO_OUTSIDE,
+          reason: '',
+          source_id: null,
+          status: BackEndDestinationStatus.WIN,
+          uuid: uuidv4(),
+        },
+        filtering_config: {
+          uuid: uuidv4(),
+          smartlist_pk: trigger_smartlist_selected,
+          identifier: BackendFiltering.SMARTLIST,
+        },
+      });
+    }
   }
-  if (
-    !trigger_has_event &&
-    trigger_has_smartlist &&
-    trigger_smartlist_selected &&
-    trigger_logic_between_event_and_smartlist ===
-      RuleBetweenEntryEvent.OR_RULE_BETWEEN_ENTRY_EVENT
-  ) {
+  if (!TRIGGER_HAS_EVENT_SET && TRIGGER_HAS_SMARTLIST_AS_TRIGGER) {
+    // ConnectedTrigger smartlist coming form inside going outside.
     payload.push({
       trigger_config: {
         uuid: uuidv4(),
@@ -220,7 +273,7 @@ const convertWinFormValuesToBackEndPayload = (values: Values) => {
         event_type: trigger_event_kind,
       },
       destination_config: {
-        destination_id: null, // Back must be able to do cadence.get_entry_point().id,
+        destination_id: null,
         kind: BackEndDestinationKind.CADENCE_TO_OUTSIDE,
         reason: '',
         source_id: null,
@@ -241,6 +294,7 @@ const convertLoseFormValuesToBackEndPayload = (values: Values) => {
   if (!values) {
     return [];
   }
+
   const {
     trigger_has_event,
     trigger_event_kind,
@@ -252,14 +306,22 @@ const convertLoseFormValuesToBackEndPayload = (values: Values) => {
 
   const payload = [];
 
-  if (trigger_has_event && trigger_event_kind) {
-    if (
-      trigger_has_smartlist &&
-      trigger_smartlist_selected &&
-      trigger_logic_between_event_and_smartlist ===
-        RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT
-    ) {
-      // ConnectedTrigger event/filtered by smartlist/coming from inside /going outside.
+  // Defining boolean values
+  const {
+    TRIGGER_HAS_EVENT_SET,
+    TRIGGER_HAS_SMARTLIST_AS_EVENT_FILTERING,
+    TRIGGER_HAS_SMARTLIST_AS_TRIGGER,
+  } = getCadenceConfigurationInformation({
+    trigger_has_event,
+    trigger_event_kind,
+    trigger_has_smartlist,
+    trigger_smartlist_selected,
+    trigger_logic_between_event_and_smartlist,
+  });
+
+  if (TRIGGER_HAS_EVENT_SET) {
+    if (TRIGGER_HAS_SMARTLIST_AS_EVENT_FILTERING) {
+      // ConnectedTrigger event filtered by a smartlist coming from inside going outside.
       payload.push({
         trigger_config: {
           uuid: uuidv4(),
@@ -281,7 +343,7 @@ const convertLoseFormValuesToBackEndPayload = (values: Values) => {
         },
       });
     } else {
-      // ConnectedTrigger event/unfiltered by smartlist/coming form outside/going into the first step.
+      // ConnectedTrigger event unfiltered by a smartlist coming form inside going outside.
       payload.push({
         trigger_config: {
           uuid: uuidv4(),
@@ -289,7 +351,7 @@ const convertLoseFormValuesToBackEndPayload = (values: Values) => {
           event_type: trigger_event_kind,
         },
         destination_config: {
-          destination_id: null, // Back must be able to do cadence.get_entry_point().id,
+          destination_id: null,
           kind: BackEndDestinationKind.CADENCE_TO_OUTSIDE,
           reason: '',
           source_id: null,
@@ -303,14 +365,32 @@ const convertLoseFormValuesToBackEndPayload = (values: Values) => {
         },
       });
     }
+    if (TRIGGER_HAS_SMARTLIST_AS_TRIGGER) {
+      // ConnectedTrigger smartlist coming form inside going outside.
+      payload.push({
+        trigger_config: {
+          uuid: uuidv4(),
+          identifier: BackEndTriggerIdentifier.EMPTY,
+          event_type: trigger_event_kind,
+        },
+        destination_config: {
+          destination_id: null,
+          kind: BackEndDestinationKind.CADENCE_TO_OUTSIDE,
+          reason: '',
+          source_id: null,
+          status: BackEndDestinationStatus.FAIL,
+          uuid: uuidv4(),
+        },
+        filtering_config: {
+          uuid: uuidv4(),
+          smartlist_pk: trigger_smartlist_selected,
+          identifier: BackendFiltering.SMARTLIST,
+        },
+      });
+    }
   }
-  if (
-    !trigger_has_event &&
-    trigger_has_smartlist &&
-    trigger_smartlist_selected &&
-    trigger_logic_between_event_and_smartlist ===
-      RuleBetweenEntryEvent.OR_RULE_BETWEEN_ENTRY_EVENT
-  ) {
+  if (!TRIGGER_HAS_EVENT_SET && TRIGGER_HAS_SMARTLIST_AS_TRIGGER) {
+    // ConnectedTrigger smartlist coming form inside going outside.
     payload.push({
       trigger_config: {
         uuid: uuidv4(),
@@ -318,7 +398,7 @@ const convertLoseFormValuesToBackEndPayload = (values: Values) => {
         event_type: trigger_event_kind,
       },
       destination_config: {
-        destination_id: null, // Back must be able to do cadence.get_entry_point().id,
+        destination_id: null,
         kind: BackEndDestinationKind.CADENCE_TO_OUTSIDE,
         reason: '',
         source_id: null,
@@ -333,6 +413,7 @@ const convertLoseFormValuesToBackEndPayload = (values: Values) => {
     });
   }
   if (trigger_destination_timeout_days) {
+    // ConnectedTrigger timeout coming form inside going outside.
     payload.push({
       trigger_config: {
         uuid: uuidv4(),
@@ -341,7 +422,7 @@ const convertLoseFormValuesToBackEndPayload = (values: Values) => {
         timeout: trigger_destination_timeout_days,
       },
       destination_config: {
-        destination_id: null, // Back must be able to do cadence.get_entry_point().id,
+        destination_id: null,
         kind: BackEndDestinationKind.CADENCE_TO_OUTSIDE,
         reason: '',
         source_id: null,

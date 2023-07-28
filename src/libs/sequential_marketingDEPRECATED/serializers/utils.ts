@@ -1,22 +1,23 @@
-// @ts-nocheck
 // FROM BackEndConnectedTriggerPayload TO StepConnectedTriggerConfig ||CadenceConnectedTriggerConfig
 
 import {
-  BackEndConnectedTriggerPayload,
+  type BackEndConnectedTriggerPayload,
+  type BackEndTriggerConfigDict,
+  type BackEndFilteringConfigDict,
   BackEndTriggerIdentifier,
-  BackEndTriggerConfigDict,
-  BackEndFilteringConfigDict,
   BackendFiltering,
   BackEndDestinationKind,
   BackEndDestinationStatus,
 } from './types';
 import type { StepConnectedTriggerConfig } from '#libs/sequential_marketingDEPRECATED/types';
+import type { Values } from '#libs/sequential_marketingDEPRECATED/components/form/Trigger/components';
 
 import {
   TriggerEnum,
   FiltersEnum,
   StepDestinationEnum,
   CadenceDestinationEnum,
+  RuleBetweenEntryEvent,
 } from '#libs/sequential_marketingDEPRECATED/constants';
 
 export const matchBakcEndTriggerIdentifierToFront = (
@@ -134,10 +135,38 @@ export const convertStepConnectedTrigger = (
         BackEndConnectedTrigger.destination_config.kind,
       ),
       source_id: BackEndConnectedTrigger.destination_config.source_id,
+      // @ts-expect-error
       status: matchStepStatus(
         BackEndConnectedTrigger.destination_config.status,
       ),
     },
     canvas: BackEndConnectedTrigger.canvas,
+  };
+};
+
+export const getCadenceConfigurationInformation = ({
+  trigger_has_event,
+  trigger_event_kind,
+  trigger_has_smartlist,
+  trigger_smartlist_selected,
+  trigger_logic_between_event_and_smartlist,
+}: Values) => {
+  // Defining boolean values
+  const TRIGGER_HAS_EVENT_SET = trigger_has_event && trigger_event_kind;
+  const TRIGGER_HAS_SMARTLIST_AS_EVENT_FILTERING =
+    trigger_has_smartlist &&
+    trigger_smartlist_selected &&
+    trigger_logic_between_event_and_smartlist ===
+      RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT;
+  const TRIGGER_HAS_SMARTLIST_AS_TRIGGER =
+    trigger_has_smartlist &&
+    trigger_smartlist_selected &&
+    trigger_logic_between_event_and_smartlist ===
+      RuleBetweenEntryEvent.OR_RULE_BETWEEN_ENTRY_EVENT;
+
+  return {
+    TRIGGER_HAS_EVENT_SET,
+    TRIGGER_HAS_SMARTLIST_AS_EVENT_FILTERING,
+    TRIGGER_HAS_SMARTLIST_AS_TRIGGER,
   };
 };

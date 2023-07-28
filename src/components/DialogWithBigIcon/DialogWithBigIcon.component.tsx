@@ -234,7 +234,10 @@ const DialogWithBigIcon: React.FC<Props> = (props) => {
         </div>
 
         {title && (
-          <Typography variant="h6" className={customClasses?.title}>
+          <Typography
+            variant="h6"
+            className={classNames(classes.title, customClasses?.title)}
+          >
             {typeof title === 'string'
               ? t(title)
               : t(title.translationKey, {
@@ -321,6 +324,9 @@ const useStyles = makeStyles<
     fontSize: '72px',
     color: iconColor ?? theme.palette.primary.main,
   }),
+  title: {
+    textAlign: 'center',
+  },
   subTextList: {
     '& > li': {
       listStyleType: 'disc',

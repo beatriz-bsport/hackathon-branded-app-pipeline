@@ -229,6 +229,8 @@ exports.default = {
       subText:
         'Le paiement a bien été pris en compte. La facture a été envoyée par mail.',
       subTextAnonymous: 'Le paiement a bien été pris en compte.',
+      subTextPartialPayment:
+        'Le paiement a bien été pris en compte. La facture a été envoyée par mail. Le reste du paiement a été remis à plus tard : il pourra être effectué depuis le Backoffice ou sur le profil client.',
       printTicket: 'Imprimer le ticket',
       sendByEmail: 'Envoyer la facture par mail',
     },

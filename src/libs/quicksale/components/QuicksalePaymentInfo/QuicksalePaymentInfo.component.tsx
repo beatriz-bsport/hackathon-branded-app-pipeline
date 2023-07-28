@@ -1,4 +1,6 @@
 import React from 'react';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Event from '@material-ui/icons/Event';
@@ -13,6 +15,9 @@ import PaymentMethodCardSelector from '#libs/payment/components/PaymentMethodCar
 import type { StripeReader } from '#libs/terminal/types';
 import PaymentStripeTerminal from '#libs/terminal/components/PaymentStripeTerminal.component';
 import PaymentBsportInternal from '#libs/payment/components/payment-backend-internal/PaymentBsportInternal.component';
+import PaymentStripeCard from '#libs/payment/components/payment-backend-stripe/PaymentStripeCard.component';
+import type { OptionCallback } from '../../../../state/types';
+import { getStripePkKey } from '#libs/theme/selectors';
 
 type Props = {
   availablePaymentMethods?: QuicksalePaymentMethod[];
@@ -24,9 +29,18 @@ type Props = {
   paymentGroupPriceCts?: number;
   paymentGroup?: number;
   setIsProcessing?: (isProcessing: boolean) => void;
-  onPaymentSuccess: () => void;
+  onPaymentSuccess: (callabck?: () => void) => void;
   onCancel?: () => void;
   children?: React.ReactNode;
+  memberId?: number;
+  detachPaymentMethodLoading?: boolean;
+  removePaymentMethod: (
+    paymentMethodId: string,
+    options: OptionCallback,
+  ) => void;
+  checkItemsBasket: (basketId: string) => Promise<boolean>;
+  basketId?: string;
+  isMemberPOS?: boolean;
 };
 
 const QuicksalePaymentInfo: React.FC<Props> = ({
@@ -42,8 +56,16 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
   onPaymentSuccess,
   onCancel,
   children,
+  memberId,
+  detachPaymentMethodLoading,
+  removePaymentMethod,
+  checkItemsBasket,
+  basketId,
+  isMemberPOS,
 }) => {
   const classes = useStyles();
+
+  const stripePromise = loadStripe(getStripePkKey());
 
   return (
     <div className={classes.container}>
@@ -100,6 +122,31 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
         </PaymentBsportInternal>
       )}
 
+      {selectedPaymentMethod === QuicksalePaymentMethod.CreditCard && (
+        <Elements stripe={stripePromise}>
+          <PaymentStripeCard
+            memberId={memberId}
+            clientSecret={clientSecret}
+            basketId={basketId}
+            basketTotalPriceCts={paymentGroupPriceCts}
+            onSuccess={onPaymentSuccess}
+            setPaymentProcessing={setIsProcessing}
+            onCancel={onCancel}
+            termsAndConditionsAccepted
+            detachPaymentMethodLoading={detachPaymentMethodLoading}
+            detachPaymentMethod={removePaymentMethod}
+            checkItemsBasket={checkItemsBasket}
+            loading={loading}
+            customClasses={{
+              actionRow: classes.cardPaymentActionRow,
+            }}
+            forceButtonDisplay
+            hideSaveForLater={isMemberPOS}
+          >
+            {children}
+          </PaymentStripeCard>
+        </Elements>
+      )}
     </div>
   );
 };
@@ -139,6 +186,11 @@ const useStyles = makeStyles((theme) => ({
     fill: theme.palette.action.active,
   },
   manualPaymentActionRow: {
+    justifyContent: 'end',
+    flexDirection: 'row-reverse',
+    gap: theme.spacing(1),
+  },
+  cardPaymentActionRow: {
     justifyContent: 'end',
     flexDirection: 'row-reverse',
     gap: theme.spacing(1),

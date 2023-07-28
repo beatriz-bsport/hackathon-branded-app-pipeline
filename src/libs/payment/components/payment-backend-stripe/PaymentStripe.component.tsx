@@ -1,5 +1,3 @@
-// @ts-nocheck
-// @flow
 import React, { forwardRef, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -31,6 +29,7 @@ import PaymentStripeSofort from './PaymentStripeSofort.component';
 import PaymentStripeIdeal from './PaymentStripeIdeal.component';
 import PaymentStripeEPS from './PaymentStripeEPS.component';
 import PaymentStripeGiropay from './PaymentStripeGiropay.component';
+// @ts-expect-error
 import PriceInput from '../../../../components/input/PriceInput.component';
 import InstalmentPaymentSelector from '../../../instalment-payment-configuration/components/InstalmentPaymentSelector.component';
 
@@ -106,9 +105,7 @@ type PaymentStripeProps = {
 
 type PaymentStripePropsNewCheckoutFlow = Omit<
   PaymentStripeProps,
-  'onCancel',
-  'paymentGroupPriceCts',
-  'updatePriceCts'
+  'onCancel' | 'paymentGroupPriceCts' | 'updatePriceCts'
 > &
   Partial<PaymentStripeProps>;
 
@@ -312,6 +309,7 @@ const PaymentStripe: React.FC<
             <IconButton
               color="primary"
               onClick={() =>
+                // @ts-expect-error
                 updatePriceCts(parseInt(priceUpdateAmount * 100, 10), {
                   onSuccess: () => setPriceUpdaterOpen(false),
                 })

@@ -36,7 +36,6 @@ import PaymentMethodList from '../payment-method-list';
 import PopOver from '#components/Popover';
 
 interface PaymentStripeBacsDebitProps {
-  companyId: number;
   onCancel: () => void;
   onSuccess: (callback?: () => void) => void;
   onError: () => void;
@@ -54,8 +53,6 @@ interface PaymentStripeBacsDebitProps {
   memberId: number;
   detachPaymentMethodLoading: boolean;
   detachPaymentMethod: (pm_id: string) => void;
-  snackbarErrorMsg: (msg: string) => void;
-  snackbarSuccessMsg: (msg: string) => void;
   saveForLaterBacsDebit: boolean;
   setSaveForLaterBacsDebit: React.Dispatch<React.SetStateAction<Boolean>>;
   createPendingBookingsIfNecessary?: (data?: {
@@ -67,7 +64,6 @@ interface PaymentStripeBacsDebitProps {
 const PaymentStripeBacsDebit = forwardRef(
   (
     {
-      companyId,
       onCancel,
       onSuccess,
       onError,
@@ -85,8 +81,6 @@ const PaymentStripeBacsDebit = forwardRef(
       memberId,
       detachPaymentMethodLoading,
       detachPaymentMethod,
-      snackbarErrorMsg,
-      snackbarSuccessMsg,
       saveForLaterBacsDebit,
       setSaveForLaterBacsDebit,
       createPendingBookingsIfNecessary,
@@ -206,7 +200,7 @@ const PaymentStripeBacsDebit = forwardRef(
       ) {
         setPaymentPageProcessing(false);
         // eslint-disable-next-line
-      window.alert(t('paymentPanel.actions.basketInconsistent'));
+        window.alert(t('paymentPanel.actions.basketInconsistent'));
         window.location.reload();
       }
     }, [
@@ -404,12 +398,8 @@ const PaymentStripeBacsDebit = forwardRef(
               paymentMethodType="bacs_debit"
               onSelect={defineSelectedPaymentMethod}
               setHasDetached={setHasDetached}
-              memberId={memberId}
               detachPaymentMethodLoading={detachPaymentMethodLoading}
               detachPaymentMethod={detachPaymentMethod}
-              snackbarErrorMsg={snackbarErrorMsg}
-              snackbarSuccessMsg={snackbarSuccessMsg}
-              companyId={companyId}
             />
             <ButtonBase
               disabled={false}

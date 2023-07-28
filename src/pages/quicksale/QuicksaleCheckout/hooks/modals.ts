@@ -18,6 +18,9 @@ const useModals = ({ goBack }: { goBack: () => void }) => {
     setShowAnonymousPaymentSuccessModal,
   ] = React.useState(false);
 
+  const [showPartialPaymentSuccesModal, setShowPartialPaymentSuccesModal] =
+    React.useState(false);
+
   const openCannotSignOutModal = React.useCallback(() => {
     setShowCannotSignOutModal(true);
   }, []);
@@ -53,6 +56,7 @@ const useModals = ({ goBack }: { goBack: () => void }) => {
     showPaymentSuccessModal,
     setShowPaymentSuccessModal,
     showAnonymousPaymentSuccessModal,
+    showPartialPaymentSuccesModal,
     setShowAnonymousPaymentSuccessModal,
     openCannotSignOutModal,
     closeCannotSignOutModal,
@@ -60,6 +64,7 @@ const useModals = ({ goBack }: { goBack: () => void }) => {
     closeMemberModal,
     closeWarningRemovedItemsModal,
     closeAnonymousPaymentSuccessModal,
+    setShowPartialPaymentSuccesModal,
   };
 };
 

@@ -57,7 +57,13 @@ type Props = {
   setSelectedPaymentMethod: (paymentMethod: QuicksalePaymentMethod) => void;
   stripeReaders?: StripeReader[];
   clientSecret?: string;
-  onPaymentSuccess: () => void;
+  onPaymentSuccess: (callback?: () => void) => void;
+  detachPaymentMethodLoading?: boolean;
+  removePaymentMethod: (
+    paymentMethodId: string,
+    options: OptionCallback,
+  ) => void;
+  checkItemsBasket: (basketId: string) => Promise<boolean>;
 };
 
 const QuicksaleCheckout: React.FC<Props> = ({
@@ -87,6 +93,9 @@ const QuicksaleCheckout: React.FC<Props> = ({
   stripeReaders,
   clientSecret,
   onPaymentSuccess,
+  detachPaymentMethodLoading,
+  removePaymentMethod,
+  checkItemsBasket,
 }) => {
   const { t } = useTranslation('quicksale');
 
@@ -170,6 +179,12 @@ const QuicksaleCheckout: React.FC<Props> = ({
             setIsProcessing={setIsProcessing}
             onPaymentSuccess={onPaymentSuccess}
             onCancel={goBack}
+            detachPaymentMethodLoading={detachPaymentMethodLoading}
+            removePaymentMethod={removePaymentMethod}
+            basketId={basket?.id}
+            isMemberPOS={member?.is_pos}
+            memberId={basket?.member}
+            checkItemsBasket={checkItemsBasket}
           />
         </Grid>
       </Grid>

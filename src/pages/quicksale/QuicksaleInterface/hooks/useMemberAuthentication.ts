@@ -85,12 +85,12 @@ const useMemberAuthentication = (
         updateQuicksaleBasketMember(currentBasket.id, memberId, {
           onSuccess: (updateData) => {
             if (updateData.updated_member) {
-              setCurrentBasket(updateData.basket);
+              setCurrentBasket(updateData.new_basket);
               closeMemberModal();
               if (updateData.has_removed_incompatible_items)
                 setShowWarningRemovedItemsModal(true);
               if (pendingItemToAdd) {
-                onItemClick(pendingItemToAdd, updateData.basket);
+                onItemClick(pendingItemToAdd, updateData.new_basket);
                 setPendingItemToAdd(null);
               }
             }

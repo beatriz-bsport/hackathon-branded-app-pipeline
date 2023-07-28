@@ -38,6 +38,7 @@ import type {
   BasketAddress,
   GeneratedObject,
   QuicksaleMemberUpdateResponse,
+  QuicksaleMemberUpdateSuccess,
 } from './types';
 // @ts-expect-error
 import { COMPANY_EVENTS } from './event.utils';
@@ -513,10 +514,9 @@ export const updateQuicksaleBasketMemberActions = {
   isLoading: createAction<boolean>(
     'CHECKOUT_BASKET/QUICKSALE_UPDATE_MEMBER/IS_LOADING',
   ),
-  success: createAction<{
-    updated_member: boolean;
-    basket: Basket;
-  }>('CHECKOUT_BASKET/QUICKSALE_UPDATE_MEMBER/SUCCESS'),
+  success: createAction<QuicksaleMemberUpdateSuccess>(
+    'CHECKOUT_BASKET/QUICKSALE_UPDATE_MEMBER/SUCCESS',
+  ),
 };
 
 export function updateQuicksaleBasketMember(
@@ -533,7 +533,8 @@ export function updateQuicksaleBasketMember(
       dispatch(
         updateQuicksaleBasketMemberActions.success({
           updated_member: response.data.updated_member,
-          basket: response.data.basket,
+          newBasket: response.data.new_basket,
+          previousBasketId: basketId,
         }),
       );
       if (options && options.onSuccess) options.onSuccess(response.data);

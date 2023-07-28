@@ -161,5 +161,11 @@ export type StepType = typeof STEPS[keyof typeof STEPS];
 export type QuicksaleMemberUpdateResponse = {
   updated_member: boolean;
   has_removed_incompatible_items: boolean;
-  basket: Basket;
+  new_basket?: Basket;
+};
+
+export type QuicksaleMemberUpdateSuccess = {
+  updated_member: boolean;
+  newBasket: Basket;
+  previousBasketId: string;
 };

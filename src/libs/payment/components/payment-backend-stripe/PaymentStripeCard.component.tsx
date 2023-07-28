@@ -1,5 +1,5 @@
-// @flow
 import React, { useImperativeHandle, forwardRef } from 'react';
+import classNames from 'classnames';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -25,20 +25,24 @@ import PopOver from '#components/Popover';
 import CardBillingDetailsForm, {
   ADDRESS_REQUIRED_COMPANY_ID,
 } from './CardBillingDetailsForm';
+import { OptionCallback } from '../../../../state/types';
 
 type Props = {
   memberId: number;
   companyId: number;
   onSuccess: (callback: () => void) => void;
-  onError: () => void;
+  onError?: () => void;
   setPaymentProcessing?: (processing: boolean) => void;
   onCancel: () => void;
   clientSecret: string;
   termsAndConditionsAccepted: boolean;
-  AcceptTermsAndConditionsComponent: React.Component;
+  AcceptTermsAndConditionsComponent?: React.Component;
   forceDisabled?: boolean;
   detachPaymentMethodLoading: boolean;
-  detachPaymentMethod: (pm_id: string) => void;
+  detachPaymentMethod: (
+    paymentMethodId: string,
+    options?: OptionCallback,
+  ) => void;
   loading?: boolean;
   snackbarErrorMsg: (msg: string) => void;
   snackbarSuccessMsg: (msg: string) => void;
@@ -52,11 +56,15 @@ type Props = {
   creditAccountBalance?: number | null;
   applyBalanceLoading?: boolean;
   forceSave?: boolean;
-  checkItemsBasket: (basketId: string) => boolean;
+  checkItemsBasket: (basketId: string) => Promise<boolean>;
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
+  customClasses?: { [className: string]: string };
+  children?: React.ReactNode;
+  forceButtonDisplay?: boolean;
+  hideSaveForLater?: boolean;
 };
 
 const CARD_ELEMENT_OPTIONS = {
@@ -126,6 +134,10 @@ const StripePaymentCard = forwardRef(
       checkItemsBasket,
       createPendingBookingsIfNecessary,
       setIsOnlinePaymentDisabled,
+      customClasses,
+      children,
+      forceButtonDisplay,
+      hideSaveForLater,
     }: Props,
     ref,
   ) => {
@@ -331,7 +343,10 @@ const StripePaymentCard = forwardRef(
     };
 
     return (
-      <form onSubmit={handleSubmit} className={classes.container}>
+      <form
+        onSubmit={handleSubmit}
+        className={classNames(classes.container, customClasses?.container)}
+      >
         <Typography variant="h6">
           {t(
             `payment:forms.savePaymentMethod.${
@@ -349,31 +364,66 @@ const StripePaymentCard = forwardRef(
               />
             )}
             <CardSection error={error} />
-            <div className={classes.saveAndDisplay}>
-              <div className={classes.row}>
-                <Checkbox
-                  checked={saveForLater || forceSave}
-                  disabled={forceSave}
-                  onChange={(ev) => setSaveForLater(ev.target.checked)}
-                />
-                <Typography variant={isNewCheckoutFlow ? 'body1' : 'caption'}>
-                  {t('paymentPanel.actions.saveForLater')}
-                </Typography>
-                <div className={classes.securityInformationContainer}>
-                  <PopOver
-                    title={t('paymentPanel.actions.paymentSecurityInformation')}
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                    transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                    className={classes.securityInformationText}
-                  >
-                    <Info className={classes.infoIcon} />
-                  </PopOver>
-                </div>
+            <div
+              className={classNames(
+                classes.saveAndDisplay,
+                customClasses?.saveAndDisplay,
+              )}
+            >
+              <div className={classNames(classes.row, customClasses?.row)}>
+                {!hideSaveForLater && (
+                  <>
+                    <Checkbox
+                      checked={saveForLater || forceSave}
+                      disabled={forceSave}
+                      onChange={(ev) => setSaveForLater(ev.target.checked)}
+                    />
+                    <Typography
+                      variant={isNewCheckoutFlow ? 'body1' : 'caption'}
+                    >
+                      {t('paymentPanel.actions.saveForLater')}
+                    </Typography>
+                    <div
+                      className={classNames(
+                        classes.securityInformationContainer,
+                        customClasses?.securityInformationContainer,
+                      )}
+                    >
+                      <PopOver
+                        title={t(
+                          'paymentPanel.actions.paymentSecurityInformation',
+                        )}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
+                        className={classNames(
+                          classes.securityInformationText,
+                          customClasses?.securityInformationText,
+                        )}
+                      >
+                        <Info
+                          className={classNames(
+                            classes.infoIcon,
+                            customClasses?.infoIcon,
+                          )}
+                        />
+                      </PopOver>
+                    </div>
+                  </>
+                )}
               </div>
               {!!paymentMethodList.length && (
                 <ButtonBase
                   onClick={() => setAddPaymentMethod(false)}
-                  className={classes.displayButton}
+                  className={classNames(
+                    classes.displayButton,
+                    customClasses?.displayButton,
+                  )}
                 >
                   <Typography variant="body1" align="right" color="primary">
                     {t(
@@ -401,7 +451,6 @@ const StripePaymentCard = forwardRef(
               paymentMethodType="card"
               onSelect={(id: string) => defineSelectedPaymentMethod(id)}
               setHasDetached={setHasDetached}
-              memberId={memberId}
               detachPaymentMethodLoading={detachPaymentMethodLoading}
               detachPaymentMethod={detachPaymentMethod}
               snackbarErrorMsg={snackbarErrorMsg}
@@ -413,9 +462,18 @@ const StripePaymentCard = forwardRef(
             <ButtonBase
               disabled={false}
               onClick={() => setAddPaymentMethod(true)}
-              className={classes.addButton}
+              className={classNames(
+                classes.addButton,
+                customClasses?.addButton,
+              )}
             >
-              <AddIcon className={classes.leftIcon} color="primary" />
+              <AddIcon
+                className={classNames(
+                  classes.leftIcon,
+                  customClasses?.leftIcon,
+                )}
+                color="primary"
+              />
               <Typography variant="body1" align="left" color="primary">
                 {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
               </Typography>
@@ -430,12 +488,25 @@ const StripePaymentCard = forwardRef(
             loading={loading || processing || applyBalanceLoading}
           />
         )}
-        {!isNewCheckoutFlow && (
+        {children ?? null}
+        {(!isNewCheckoutFlow || forceButtonDisplay) && (
           <>
-            <div className={classes.conditionRow}>
-              {AcceptTermsAndConditionsComponent}
-            </div>
-            <div className={classes.actionRow}>
+            {AcceptTermsAndConditionsComponent && (
+              <div
+                className={classNames(
+                  classes.conditionRow,
+                  customClasses?.conditionRow,
+                )}
+              >
+                {AcceptTermsAndConditionsComponent}
+              </div>
+            )}
+            <div
+              className={classNames(
+                classes.actionRow,
+                customClasses?.actionRow,
+              )}
+            >
               {processing ? (
                 <CircularProgress />
               ) : (
@@ -537,4 +608,4 @@ const useStyles = makeStyles((theme) => ({
   infoIcon: { color: theme.palette.grey[600] },
 }));
 
-export default StripePaymentCard;
+export default React.memo(StripePaymentCard);

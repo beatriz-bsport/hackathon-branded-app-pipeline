@@ -1,5 +1,3 @@
-// @ts-nocheck
-// @flow
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +5,6 @@ import AddIcon from '@material-ui/icons/Add';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { AxiosResponse } from 'axios';
@@ -29,11 +26,7 @@ type Props = {
   paymentMethodType?: string;
   setHasDetached?: (paymentMethodId: string) => void;
   detachPaymentMethodLoading?: boolean;
-  companyId: number | null;
-  memberId?: number | null;
   detachPaymentMethod?: (pm_id: string, options?: OptionCallback) => void;
-  snackbarErrorMsg?: (msg: string) => void;
-  snackbarSuccessMsg?: (msg: string) => void;
   onlyDefault?: boolean;
 
   sepaDefaultName?: string;
@@ -46,7 +39,6 @@ export const PaymentMethodList = (props: Props) => {
   const { t } = useTranslation(['payment']);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [disableDuringDetach, setDisableDuringDetach] = React.useState(false);
   const [collectPaymentMethodIsOpen, setCollectPaymentMethodIsOpen] =
     React.useState(false);
 
@@ -71,7 +63,6 @@ export const PaymentMethodList = (props: Props) => {
 
   return (
     <div className={classes.container}>
-      {disableDuringDetach && <LinearProgress />}
       {(props.onlyDefault && defaultPaymentMethod
         ? [defaultPaymentMethod]
         : relevantSavedPaymentMethodList
@@ -83,18 +74,8 @@ export const PaymentMethodList = (props: Props) => {
           selected={pm.id === props.selectedSavedPaymentMethodId}
           onClick={props.onSelect && (() => props.onSelect(pm.id))}
           setHasDetached={props.setHasDetached}
-          disableDuringDetach={disableDuringDetach}
-          setDisableDuringDetach={setDisableDuringDetach}
           detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-          companyId={props.companyId}
-          memberId={props.memberId}
-          refreshSavedPaymentMethodList={props.refreshSavedPaymentMethodList}
           detachPaymentMethod={props.detachPaymentMethod}
-          snackbarErrorMsg={props.snackbarErrorMsg}
-          snackbarSuccessMsg={props.snackbarSuccessMsg}
-          sepaDefaultName={props.sepaDefaultName}
-          sepaDefaultEmail={props.sepaDefaultEmail}
-          className={classes.item}
         />
       ))}
       {!!props.requestSetupIntentSecret && onlinePaymentEnabled && (

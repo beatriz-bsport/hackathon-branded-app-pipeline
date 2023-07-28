@@ -1,7 +1,12 @@
 import React from 'react';
 import { ConnectedProps, connect } from 'react-redux';
 import { compose } from 'recompose';
-import { push as pushAction } from 'connected-react-router';
+import {
+  push as pushAction,
+  replace as replaceAction,
+} from 'connected-react-router';
+
+import ALL_ERROR_CODES from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
 
 // @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -17,7 +22,11 @@ import {
 } from '#libs/checkout/actions';
 import { getBasket } from '#libs/checkout/selectors';
 
-import { updatePaymentGroupPriceCts } from '#libs/payment/actions';
+import {
+  updatePaymentGroupPriceCts,
+  detachPaymentMethod as detachPaymentMethodAction,
+} from '#libs/payment/actions';
+import { checkItemsBasket as checkItemsBasketAPI } from '#libs/payment/api';
 
 import { fetchPaymentList as fetchPaymentListAction } from '#libs/invoice/actions';
 import { getPaymentList } from '#libs/invoice/selectors';
@@ -30,6 +39,8 @@ import {
 } from '#libs/member/actions';
 import MemberSearchDialog from '#libs/member/components/MemberSearchDialog';
 import { MemberMap } from '#libs/member/utils';
+
+import { snackbarWarning } from '#libs/snackbar/actions';
 
 import QuicksaleDialogs from '#libs/quicksale/components/QuicksaleDialogs.component';
 
@@ -59,9 +70,11 @@ const QuicksalePayment: React.FC<Props> = ({
   quicksaleStaffFullName,
   paymentList,
   stripeReaders,
+  detachPaymentMethodLoading,
   fetchBasket,
   fetchMembers,
   push,
+  replace,
   searchMembers,
   createMemberAction,
   updateQuicksaleBasketMember,
@@ -71,6 +84,8 @@ const QuicksalePayment: React.FC<Props> = ({
   removeItemFromBasket,
   getFeatureList,
   fetchStripeReaders,
+  detachPaymentMethod,
+  snackbarErrorMsg,
 }) => {
   const goBack = React.useCallback(() => {
     push('/quicksale/');
@@ -89,7 +104,11 @@ const QuicksalePayment: React.FC<Props> = ({
     availablePaymentMethods,
     setPaymentMethod,
     fetchOrRefreshPaymentGroup,
-  } = useQuicksalePayments({ theme, basketId, setLoading });
+  } = useQuicksalePayments({ basketId, setLoading });
+
+  React.useEffect(() => {
+    fetchOrRefreshPaymentGroup();
+  }, [fetchOrRefreshPaymentGroup, basket?.total_price, basket?.member]);
 
   React.useEffect(() => {
     fetchOrRefreshPaymentGroup();
@@ -103,6 +122,7 @@ const QuicksalePayment: React.FC<Props> = ({
     showPaymentSuccessModal,
     setShowPaymentSuccessModal,
     showAnonymousPaymentSuccessModal,
+    showPartialPaymentSuccesModal,
     setShowAnonymousPaymentSuccessModal,
     openCannotSignOutModal,
     closeCannotSignOutModal,
@@ -110,6 +130,7 @@ const QuicksalePayment: React.FC<Props> = ({
     closeMemberModal,
     closeWarningRemovedItemsModal,
     closeAnonymousPaymentSuccessModal,
+    setShowPartialPaymentSuccesModal,
   } = useModals({ goBack });
 
   // ===========================================
@@ -189,6 +210,7 @@ const QuicksalePayment: React.FC<Props> = ({
         onSuccess: (updateData) => {
           if (updateData.updated_member) {
             closeMemberModal();
+            replace(`/quicksale/checkout/${updateData.new_basket.id}/`);
             if (updateData.has_removed_incompatible_items)
               setShowWarningRemovedItemsModal(true);
           }
@@ -197,10 +219,11 @@ const QuicksalePayment: React.FC<Props> = ({
     },
     [
       basket,
-      closeMemberModal,
-      fetchMembers,
       memberById,
       updateQuicksaleBasketMember,
+      fetchMembers,
+      closeMemberModal,
+      replace,
       setShowWarningRemovedItemsModal,
     ],
   );
@@ -210,28 +233,40 @@ const QuicksalePayment: React.FC<Props> = ({
   // ========== Payment validation ==========
 
   const closePaymentSuccessModal = React.useCallback(() => {
+    setIsProcessing(false);
+    setLoading(false);
+    goBack();
+    setShowPartialPaymentSuccesModal(false);
     setShowPaymentSuccessModal(false);
-    if (
-      basket &&
-      paymentGroupPriceCts === basket.total_price_cts / 100 - alreadyPaidAmount
-    )
-      goBack();
   }, [
-    alreadyPaidAmount,
-    basket,
     goBack,
-    paymentGroupPriceCts,
+    setIsProcessing,
+    setShowPartialPaymentSuccesModal,
     setShowPaymentSuccessModal,
   ]);
 
-  const onPaymentSuccess = React.useCallback(() => {
-    if (member?.is_pos) setShowAnonymousPaymentSuccessModal(true);
-    else setShowPaymentSuccessModal(true);
-  }, [
-    member?.is_pos,
-    setShowAnonymousPaymentSuccessModal,
-    setShowPaymentSuccessModal,
-  ]);
+  const onPaymentSuccess = React.useCallback(
+    (callback?: () => void) => {
+      callback?.();
+      if (member?.is_pos) setShowAnonymousPaymentSuccessModal(true);
+      else if (
+        basket &&
+        paymentGroupPriceCts / 100 !==
+          basket.total_price_cts / 100 - alreadyPaidAmount
+      )
+        setShowPartialPaymentSuccesModal(true);
+      else setShowPaymentSuccessModal(true);
+    },
+    [
+      alreadyPaidAmount,
+      basket,
+      member?.is_pos,
+      paymentGroupPriceCts,
+      setShowAnonymousPaymentSuccessModal,
+      setShowPartialPaymentSuccesModal,
+      setShowPaymentSuccessModal,
+    ],
+  );
 
   // ========================================
 
@@ -266,6 +301,42 @@ const QuicksalePayment: React.FC<Props> = ({
     [attachCoupon, basketId],
   );
 
+  const removePaymentMethod = React.useCallback(
+    (paymentMethodId: string, options: OptionCallback) => {
+      detachPaymentMethod(
+        {
+          payment_method_id: paymentMethodId,
+          member: basket?.member,
+        },
+        options,
+      );
+    },
+    [basket?.member, detachPaymentMethod],
+  );
+
+  const checkItemsBasket = React.useCallback(
+    async (id: string) => {
+      try {
+        await checkItemsBasketAPI(id);
+      } catch (error) {
+        if (error.response?.status === 499 && error.response?.data) {
+          error.response.data.forEach((exc: { error_code: number }) => {
+            const { error_code } = exc;
+            if (ALL_ERROR_CODES.includes(error_code)) {
+              snackbarErrorMsg(`canNotBuyErrorCode.${error_code}`);
+            } else {
+              snackbarErrorMsg('canNotBuyErrorCode.generic');
+            }
+          });
+          fetchBasket(basketId);
+          return false;
+        }
+      }
+      return true;
+    },
+    [basketId, fetchBasket, snackbarErrorMsg],
+  );
+
   const companyCountry = getCompanyCountry();
 
   return (
@@ -297,6 +368,9 @@ const QuicksalePayment: React.FC<Props> = ({
         stripeReaders={stripeReaders}
         clientSecret={clientSecret}
         onPaymentSuccess={onPaymentSuccess}
+        detachPaymentMethodLoading={detachPaymentMethodLoading}
+        removePaymentMethod={removePaymentMethod}
+        checkItemsBasket={checkItemsBasket}
       />
 
       <QuicksaleDialogs
@@ -308,6 +382,8 @@ const QuicksalePayment: React.FC<Props> = ({
         closePaymentSuccessModal={closePaymentSuccessModal}
         showAnonymousPaymentSuccessModal={showAnonymousPaymentSuccessModal}
         closeAnonymousPaymentSuccessModal={closeAnonymousPaymentSuccessModal}
+        showPartialPaymentSuccesModal={showPartialPaymentSuccesModal}
+        closePartialPaymentSuccesModal={closePaymentSuccessModal}
       />
 
       <MemberSearchDialog
@@ -332,11 +408,14 @@ const connector = connect(
     paymentList: getPaymentList(state),
     featureList: state.company.feature.data,
     stripeReaders: getStripeReaders(state),
+    detachPaymentMethodLoading:
+      state.paymentBackend.detachPaymentMethod.loading,
   }),
   {
     fetchBasket: fetchBasketAction,
     fetchMembers: fetchMemberBulk,
     push: pushAction,
+    replace: replaceAction,
     searchMembers: search,
     createMemberAction: createOrUpdateMember,
     updateQuicksaleBasketMember: updateQuicksaleBasketMemberAction,
@@ -347,6 +426,8 @@ const connector = connect(
     patchCurrentBasket: patchCurrentBasketAction,
     getFeatureList: getFeatureListAction,
     fetchStripeReaders: fetchStripeReadersAction,
+    detachPaymentMethod: detachPaymentMethodAction,
+    snackbarErrorMsg: snackbarWarning,
   },
 );
 

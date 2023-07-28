@@ -1,11 +1,11 @@
-// @ts-nocheck
-// @flow
 import React from 'react';
 
 import { AxiosResponse } from 'axios';
 import { SetupIntentResult } from '@stripe/stripe-js';
 import CollectPaymentMethodBacsDebit from './payment-backend-stripe-deprecated/CollectPaymentMethodBacsDebit.component';
+// @ts-expect-error
 import CollectPaymentMethodCard from './payment-backend-stripe-deprecated/CollectPaymentMethodCard.component';
+// @ts-expect-error
 import CollectPaymentMethodSepa from './payment-backend-stripe-deprecated/CollectPaymentMethodSepa.component';
 import type { StripeReader } from '#libs/terminal/types';
 

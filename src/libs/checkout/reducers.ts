@@ -14,7 +14,12 @@ import {
   dropQuicksaleBasketActions,
 } from './actions';
 
-import { Basket, CheckoutState, GeneratedObject } from './types';
+import {
+  Basket,
+  CheckoutState,
+  GeneratedObject,
+  QuicksaleMemberUpdateSuccess,
+} from './types';
 
 const initialState: Immutable.Immutable<CheckoutState> =
   Immutable<CheckoutState>({
@@ -238,17 +243,21 @@ export default handleActions<Immutable.Immutable<CheckoutState>, any>(
       {
         payload,
       }: {
-        payload: {
-          updated_member: boolean;
-          basket: Basket;
-        };
+        payload: QuicksaleMemberUpdateSuccess;
       },
     ) => {
       if (payload.updated_member) {
-        return state.setIn(
-          ['basket', 'byId', payload.basket.id],
-          payload.basket,
-        );
+        return state
+          .setIn(
+            ['basket', 'allIds'],
+            [
+              ...state.basket.allIds.filter(
+                (id) => id !== payload.previousBasketId,
+              ),
+              payload.newBasket.id,
+            ],
+          )
+          .setIn(['basket', 'byId', payload.newBasket.id], payload.newBasket);
       }
       return state;
     },

@@ -9,15 +9,12 @@ import { QuicksalePaymentMethod } from '#libs/quicksale/constants';
 
 import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook ';
 
-import type { CompanyTheme } from '#libs/theme/types';
-
 import { requestClientSecret as requestClientSecretAPI } from '../../../../libs/invoice/api';
 
 const useQuicksalePayments = ({
   basketId,
   setLoading,
 }: {
-  theme: CompanyTheme;
   basketId: string;
   setLoading: (loading: boolean) => void;
 }) => {

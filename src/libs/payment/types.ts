@@ -5,6 +5,7 @@ export type PaymentMethod = {
   brand: string;
   payment_backend_identifier: number;
   additional_info: string;
+  is_default: boolean;
 };
 
 export type PaymentConfigData = {

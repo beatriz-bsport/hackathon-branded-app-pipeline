@@ -66,6 +66,11 @@ type Props = {
   // Modal to confirm the payment has been set for later
   showPaymentSetForLaterModal?: boolean;
   closePaymentSetForLaterModal?: () => void;
+
+  // Modal to confirm the partial payment has been accepted
+  // and the rest of the payment has been set for later
+  showPartialPaymentSuccesModal?: boolean;
+  closePartialPaymentSuccesModal?: () => void;
 };
 
 // The quicksale interface contains a lot of dialogs that depend on
@@ -100,6 +105,8 @@ const QuicksaleDialogs: React.FC<Props> = ({
   closeInvoiceSentModal,
   showPaymentSetForLaterModal,
   closePaymentSetForLaterModal,
+  showPartialPaymentSuccesModal,
+  closePartialPaymentSuccesModal,
 }) => {
   const classes = useStyles();
 
@@ -302,6 +309,23 @@ const QuicksaleDialogs: React.FC<Props> = ({
           withoutBackground
           title="quicksale:checkout.payLater.title"
           subTexts={[['quicksale:checkout.payLater.subText']]}
+          namespaces="quicksale"
+        />
+      )}
+
+      {showPartialPaymentSuccesModal !== undefined && (
+        <DialogWithBigIcon
+          open={showPartialPaymentSuccesModal}
+          onClose={closePartialPaymentSuccesModal}
+          withCross
+          CustomIcon={ValidationIcon}
+          customIconFillOpacity={0.08}
+          iconColor={QuicksaleInterfaceModalColors.Success}
+          withoutBackground
+          title="quicksale:checkout.paymentSuccess.title"
+          subTexts={[
+            ['quicksale:checkout.paymentSuccess.subTextPartialPayment'],
+          ]}
           namespaces="quicksale"
         />
       )}

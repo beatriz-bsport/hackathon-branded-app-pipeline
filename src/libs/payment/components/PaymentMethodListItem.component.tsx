@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { FC } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -9,10 +8,11 @@ import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
-import { PaymentMethod } from '../types';
+import type { PaymentMethod } from '../types';
+import type { OptionCallback } from '../../../state/types';
 
 type Props = {
   paymentMethod: PaymentMethod;
@@ -21,9 +21,11 @@ type Props = {
   onEdit?: (id: string) => void;
   withGeneralConditions?: boolean;
   disabled?: boolean;
-  detachPaymentMethod?: (id: string) => void;
+  detachPaymentMethod?: (
+    paymentMethodId: string,
+    options?: OptionCallback,
+  ) => void;
   setHasDetached?: (id: string) => void;
-  disableDuringDetach?: boolean;
   detachPaymentMethodLoading?: boolean;
 };
 
@@ -58,44 +60,67 @@ const useStyles = makeStyles((theme) => ({
   checked: {},
 }));
 
-export const PaymentMethodListItem: FC<Props> = (props) => {
+export const PaymentMethodListItem: FC<Props> = ({
+  paymentMethod,
+  selected,
+  onClick,
+  onEdit,
+  withGeneralConditions,
+  disabled,
+  detachPaymentMethod,
+  setHasDetached,
+  detachPaymentMethodLoading,
+}) => {
   const classes = useStyles();
+
   const { t } = useTranslation(['invoice']);
 
-  const withGeneralConditions = props.withGeneralConditions
-    ? props.withGeneralConditions
-    : true;
-  const handleChangePaymentMethod = () => {
-    if (!props.onClick || !withGeneralConditions) return;
-    if (props.selected) {
-      props.onClick();
+  const handleChangePaymentMethod = React.useCallback(() => {
+    if (!onClick || !(withGeneralConditions || true)) return;
+    if (selected) {
+      onClick();
     } else {
-      props.onClick(props.paymentMethod.id);
+      onClick(paymentMethod.id);
     }
-  };
-  if (!props.paymentMethod) {
+  }, [onClick, paymentMethod.id, selected, withGeneralConditions]);
+
+  const onPaymentMethodEdit = React.useCallback(
+    () => onEdit(paymentMethod.id),
+    [onEdit, paymentMethod.id],
+  );
+
+  const removePaymentMethod = React.useCallback(() => {
+    detachPaymentMethod(paymentMethod.id, {
+      onSuccess: () => {
+        setHasDetached && setHasDetached(paymentMethod.id);
+      },
+    });
+  }, [detachPaymentMethod, paymentMethod.id, setHasDetached]);
+
+  if (!paymentMethod) {
     return null;
   }
   return (
     <ListItem
-      button={!!props.onClick}
-      selected={props.selected}
+      // @ts-expect-error
+      button={!!onClick}
+      selected={selected}
       className={`${classes.listItem} ${
-        props.selected ? classes.selectedBorder : null
+        selected ? classes.selectedBorder : null
       }`}
       onClick={handleChangePaymentMethod}
-      disabled={props.disabled}
+      disabled={disabled}
     >
-      {!!props.onClick && (
+      {!!onClick && (
         <Radio
-          checked={props.selected ? props.selected : false}
+          checked={selected || false}
           onChange={handleChangePaymentMethod}
           name="radio-buttons"
           classes={{ root: classes.radio, checked: classes.checked }}
         />
       )}
       <ListItemIcon className={classes.listItemIcon}>
-        {props.paymentMethod.type === 'card' ? (
+        {paymentMethod.type === 'card' ? (
           <CreditCardIcon />
         ) : (
           <AccountBalanceIcon />
@@ -103,42 +128,29 @@ export const PaymentMethodListItem: FC<Props> = (props) => {
       </ListItemIcon>
 
       <ListItemText
-        primary={`**** **** **** ${props.paymentMethod.readable_identifier}`}
+        primary={`**** **** **** ${paymentMethod.readable_identifier}`}
         secondary={
-          props.paymentMethod.type === 'card'
-            ? `${props.paymentMethod.additional_info || ' '} ${
-                props.paymentMethod.brand
-              }`
+          paymentMethod.type === 'card'
+            ? `${paymentMethod.additional_info || ' '} ${paymentMethod.brand}`
             : null
         }
       />
-      {props.onEdit && (
+      {onEdit && (
         <ListItemSecondaryAction>
           <Button
             color="primary"
             variant="outlined"
-            onClick={() => props.onEdit(props.paymentMethod.id)}
+            onClick={onPaymentMethodEdit}
           >
             {t('paymentMethod.edit')}
           </Button>
         </ListItemSecondaryAction>
       )}
-      {props.detachPaymentMethod && (
+      {detachPaymentMethod && (
         <ListItemSecondaryAction>
           <IconButton
-            onClick={() => {
-              props.detachPaymentMethod(props.paymentMethod.id, {
-                onSuccess: () => {
-                  props.setHasDetached &&
-                    props.setHasDetached(props.paymentMethod.id);
-                },
-              });
-            }}
-            disabled={
-              props.disableDuringDetach ||
-              props.detachPaymentMethodLoading ||
-              props.disabled
-            }
+            onClick={removePaymentMethod}
+            disabled={detachPaymentMethodLoading || disabled}
           >
             <DeleteIcon />
           </IconButton>
@@ -148,4 +160,4 @@ export const PaymentMethodListItem: FC<Props> = (props) => {
   );
 };
 
-export default withTranslation(['invoice'])(PaymentMethodListItem);
+export default React.memo(PaymentMethodListItem);

@@ -161,6 +161,7 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
                   {getCurrencyDisplay()}
                 </InputAdornment>
               }
+              autoFocus
             />
             <Save className={classes.primaryIcon} onClick={saveNewPrice} />
             <Close className={classes.grayIcon} onClick={cancelNewPrice} />

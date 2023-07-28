@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import classNames from 'classnames';
@@ -63,6 +62,7 @@ export const CadenceListItem: React.FC<Props> = ({
       })}
     >
       <ListItem
+        // @ts-expect-error
         button={!!onClick}
         selected={cadence?.id === selectedId}
         classes={{ root: classes.listItemOutter }}

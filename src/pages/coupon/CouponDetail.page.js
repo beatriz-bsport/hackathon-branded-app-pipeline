@@ -30,12 +30,15 @@ import {
   resetDiscounts,
   updateCoupon,
   updateUniqueCodeCoupon,
+  markCodesAsRedeemed as markCodesAsRedeemedAction,
+  exportCodesAsCsv as exportCodesAsCsvAction,
   retrieveCoupon,
 } from '../../libs/coupon/actions';
-import type { Coupon, Discount } from '../../libs/coupon/types';
+
 import CouponDetail from '../../libs/coupon/components/CouponDetail.component';
 import CouponFormDrawer from '#libs/coupon/components/CouponFormDrawer.component';
 import UniqueCodeCouponFormDrawer from '#libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';
+import VoucherCodesDialog from '#libs/coupon/components/VoucherCodesDialog/VoucherCodesDialog.component';
 
 import {
   fetchAllPaymentPacks,
@@ -72,6 +75,7 @@ import {
   getPaymentComboList,
 } from '#libs/payment-combo/selectors';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
+import { exportAsCsvWithFormattedData } from '../../utils/downloader';
 import type { ShopItem } from '#libs/shop/types';
 import type { PrivatePass } from '#libs/private-service/types';
 import type { PaymentCombo } from '#libs/payment_combo/types';
@@ -79,11 +83,16 @@ import type { Tag, TagGroupAPI } from '../../tag/types';
 import type { OptionCallback } from '../../state/types';
 import { WithHandlerType } from '../../utils/types';
 import Config from '../../config';
+import type {
+  Coupon,
+  Discount,
+  ExportCodesAsCsvResponse,
+} from '../../libs/coupon/types';
 
 type Props = {
   id: number,
   coupon: ?Coupon,
-  fetchCouponPage: (number) => void,
+  fetchCouponPage: (number, options?: OptionCallback<Coupon[]>) => void,
   fetchCouponDiscounts: (id: number) => void,
   setDeleteModalOpen: (open: boolean) => void,
   goToInvoice: (uuid: string) => void,
@@ -105,6 +114,10 @@ type Props = {
     params: { company: Number, id__in?: Number[] },
     options?: OptionCallback<PaymentCombo[]>,
   ) => void,
+  retrieveCoupon: (
+    couponId: string | number,
+    options?: OptionCallback<Coupon>,
+  ) => void,
   tagsLoading: boolean,
   paymentPacks: Array<PaymentPack>,
   allPaymentPacksById: { [key: number]: PaymentPack },
@@ -122,6 +135,8 @@ const PAGE_SIZE = 5;
 
 type State = {
   couponFormState: { open: boolean, initial: Coupon | null },
+  uniqueCodeCouponFormState: { open: boolean, initial: Coupon | null },
+  voucherCodesDialogState: { open: boolean },
 };
 export class CouponCreate extends Component<Props, State> {
   constructor(props: Props) {
@@ -129,6 +144,7 @@ export class CouponCreate extends Component<Props, State> {
     this.state = {
       couponFormState: { open: false, initial: null },
       uniqueCodeCouponFormState: { open: false, initial: null },
+      voucherCodesDialogState: { open: false },
     };
   }
 
@@ -269,6 +285,18 @@ export class CouponCreate extends Component<Props, State> {
       uniqueCodeCouponFormState: { open: false, initial: null },
     });
 
+  openVoucherCodesDialog = () => {
+    this.setState({
+      voucherCodesDialogState: { open: true },
+    });
+  };
+
+  onCloseVoucherCodesDialog = () => {
+    this.setState({
+      voucherCodesDialogState: { open: false },
+    });
+  };
+
   render() {
     if (!this.props.coupon) {
       return <CircularProgress />;
@@ -289,6 +317,7 @@ export class CouponCreate extends Component<Props, State> {
           goToInvoice={this.props.goToInvoice}
           isLoading={this.props.loading}
           itemPerPage={PAGE_SIZE}
+          openVoucherCodesDialog={this.openVoucherCodesDialog}
         />
         {!this.props.loading && (
           <BottomActionButtons
@@ -328,22 +357,32 @@ export class CouponCreate extends Component<Props, State> {
           tagsLoading={this.props.tagsLoading}
         />
         {isDevelopment && (
-          <UniqueCodeCouponFormDrawer
-            isLoading={this.props.loading}
-            isProcessing={this.props.createOrUpdateLoading}
-            onCancel={this.onCloseUniqueCodeCouponFormDrawer}
-            onSubmit={this.updateUniqueCodeCoupon}
-            open={this.state.uniqueCodeCouponFormState.open}
-            paymentCombos={this.props.paymentCombos}
-            paymentCombosById={this.props.allPaymentCombosById}
-            paymentPacks={this.props.paymentPacks}
-            paymentPacksById={this.props.allPaymentPacksById}
-            privatePasses={this.props.privatePasses}
-            privatePassesById={this.props.allPrivatePassesById}
-            shopItems={this.props.shopItems}
-            shopItemsById={this.props.allShopItemsById}
-            uniqueCodeCoupon={this.state.uniqueCodeCouponFormState.initial}
-          />
+          <>
+            <UniqueCodeCouponFormDrawer
+              isLoading={this.props.loading}
+              isProcessing={this.props.createOrUpdateLoading}
+              onCancel={this.onCloseUniqueCodeCouponFormDrawer}
+              onSubmit={this.updateUniqueCodeCoupon}
+              open={this.state.uniqueCodeCouponFormState.open}
+              paymentCombos={this.props.paymentCombos}
+              paymentCombosById={this.props.allPaymentCombosById}
+              paymentPacks={this.props.paymentPacks}
+              paymentPacksById={this.props.allPaymentPacksById}
+              privatePasses={this.props.privatePasses}
+              privatePassesById={this.props.allPrivatePassesById}
+              shopItems={this.props.shopItems}
+              shopItemsById={this.props.allShopItemsById}
+              uniqueCodeCoupon={this.state.uniqueCodeCouponFormState.initial}
+            />
+            <VoucherCodesDialog
+              exportAsCsv={this.props.exportCodesAsCsv}
+              isLoading={this.props.loading}
+              isOpen={this.state.voucherCodesDialogState.open}
+              markCodeAsRedeemed={this.props.markCodesAsRedeemed}
+              onClose={this.onCloseVoucherCodesDialog}
+              uniqueCodeCoupon={this.props.coupon}
+            />
+          </>
         )}
       </div>
     );
@@ -369,6 +408,40 @@ const mapWithHandlers = {
       props.updateUniqueCodeCouponAction(id, data, {
         onSuccess: (couponUpdated: Coupon) => {
           if (options && options.onSuccess) options.onSuccess(couponUpdated);
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
+      });
+    },
+  markCodesAsRedeemed:
+    (props: ConnectedProps<typeof connector>) =>
+    (
+      id: string | number,
+      codes: string[],
+      options?: OptionCallback<Coupon>,
+    ) => {
+      props.markCodesAsRedeemed(id, codes, {
+        onSuccess: (couponUpdated: Coupon) => {
+          props.retrieveCoupon(couponUpdated.id);
+          if (options && options.onSuccess) options.onSuccess(couponUpdated);
+        },
+        onError: () => {
+          if (options && options.onError) options.onError();
+        },
+      });
+    },
+  exportCodesAsCsv:
+    (props: ConnectedProps<typeof connector>) =>
+    (
+      id: string | number,
+      codes: string[],
+      options?: OptionCallback<ExportCodesAsCsvResponse>,
+    ) => {
+      props.exportCodesAsCsv(id, codes, {
+        onSuccess: (response: string) => {
+          exportAsCsvWithFormattedData(response);
+          if (options && options.onSuccess) options.onSuccess(response);
         },
         onError: () => {
           if (options && options.onError) options.onError();
@@ -420,6 +493,8 @@ const connector = connect(
     updateCouponAction: updateCoupon,
     updateUniqueCodeCouponAction: updateUniqueCodeCoupon,
     resetDisabledPaymentPack: resetDisabledPaymentPackAction,
+    markCodesAsRedeemed: markCodesAsRedeemedAction,
+    exportCodesAsCsv: exportCodesAsCsvAction,
     retrieveCoupon,
   },
 );

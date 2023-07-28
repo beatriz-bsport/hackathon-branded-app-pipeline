@@ -27,6 +27,7 @@ type Props = {
   t: TFunction,
   itemPerPage: number,
   fetchCouponDiscounts: (id: number, params: any) => void,
+  openVoucherCodesDialog: () => void,
 };
 
 export class CouponDetail extends React.PureComponent<Props> {
@@ -50,6 +51,7 @@ export class CouponDetail extends React.PureComponent<Props> {
                 coupon={coupon}
                 goToEdit={this.props.goToEdit}
                 isLoading={this.props.isLoading}
+                openVoucherCodesDialog={this.props.openVoucherCodesDialog}
               />
             </Paper>
           </Grid>

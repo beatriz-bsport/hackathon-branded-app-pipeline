@@ -38,7 +38,14 @@ type Props = {
 };
 
 export const CouponCard = React.memo(
-  ({ coupon, classes, t, goToEdit, isLoading }: Props) => {
+  ({
+    coupon,
+    classes,
+    t,
+    goToEdit,
+    isLoading,
+    openVoucherCodesDialog,
+  }: Props) => {
     const currentlyActive = isCurrentlyActive(coupon);
 
     const displayNbUses = `${t('card.uses')}: ${coupon.nb_discounts}${
@@ -186,7 +193,7 @@ export const CouponCard = React.memo(
               onClick={openVoucherCodesDialog}
               startIcon={<VisibilityIcon />}
             >
-              {props.t('detail.seeVouchers')}
+              {t('detail.seeVouchers')}
             </Button>
           )}
           <Button
@@ -195,7 +202,7 @@ export const CouponCard = React.memo(
             onClick={goToEdit}
             startIcon={<CreateIcon />}
           >
-            {props.t('detail.seeParameters')}
+            {t('detail.seeParameters')}
           </Button>
         </div>
       </Paper>

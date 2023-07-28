@@ -72,8 +72,8 @@ export const getInitialFormValuesFromCTList = ({
   withExit = false,
 }: {
   connected_triggers: CadenceConnectedTriggerConfig[];
-  withTimeout: boolean;
-  withExit: boolean;
+  withTimeout?: boolean;
+  withExit?: boolean;
 }) => {
   // CTL stands for : Connected Triggers List
   const {

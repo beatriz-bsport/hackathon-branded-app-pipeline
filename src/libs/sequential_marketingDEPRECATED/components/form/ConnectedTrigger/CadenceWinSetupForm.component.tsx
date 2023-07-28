@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -16,7 +15,6 @@ import { getInitialFormValuesFromCTList } from '../Trigger/utils';
 import useConnectedTriggerFormStyles from './styles.hook';
 
 import { CadenceDestinationEnum } from '#libs/sequential_marketingDEPRECATED/constants';
-import type { Cadence } from '#libs/sequential_marketingDEPRECATED/types';
 import type { OptionCallback } from '../../../../../state/types';
 import type { BaseFormComponentProps } from './types';
 
@@ -38,7 +36,7 @@ export const CadenceWinSetupForm: React.FC<InitialWinComponentProps> = ({
   const { t } = useTranslation('marketing');
   const classes = useConnectedTriggerFormStyles();
 
-  const [initial, setInitial] = React.useState<Cadence | null>(null);
+  const [initial, setInitial] = React.useState<Partial<Values>>(null);
 
   React.useEffect(() => {
     if (

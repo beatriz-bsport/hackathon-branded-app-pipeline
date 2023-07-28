@@ -37,7 +37,6 @@ import type {
   EmailTemplateDetail,
 } from '#libs/email-editor/types';
 import type { SmartList } from '#libs/smart-list/types';
-import type { Cadence } from '#libs/sequential_marketingDEPRECATED/types';
 import type { OptionCallback } from '../../../../../../state/types';
 
 import { TRIGGER_DETAULT_TIMEOUT_DAYS } from '#libs/sequential_marketingDEPRECATED/components/form/Trigger/utils';
@@ -54,16 +53,16 @@ export type ComponentProps = {
   smartlists: SmartList[];
   loading?: boolean;
   forceAndLogicForTriggerAndSmartList?: boolean;
-  tagList: Array<Tag<TagGroup>>;
+  tagList?: Array<Tag<TagGroup>>;
   withTimeout?: boolean;
-  emailListLoading: boolean;
-  emails: Array<EmailTemplate>;
-  emailDetailLoading: boolean;
-  emailDetails: Array<EmailTemplateDetail>;
+  emailListLoading?: boolean;
+  emails?: Array<EmailTemplate>;
+  emailDetailLoading?: boolean;
+  emailDetails?: Array<EmailTemplateDetail>;
   withExit?: boolean;
   onCancel?: () => void;
-  getEmails: () => void;
-  getEmailDetail: (id: number) => void;
+  getEmails?: () => void;
+  getEmailDetail?: (id: number) => void;
   cadenceEntry?: boolean;
   cadenceExitSuccess?: boolean;
   cadenceExitFail?: boolean;
@@ -72,7 +71,7 @@ export type ComponentProps = {
 };
 
 export type FormProps = {
-  initial?: Cadence;
+  initial?: Partial<Values>;
   onSubmit: (data: Values, options: OptionCallback) => void;
 };
 
@@ -199,7 +198,9 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
     () => [...(smartlists || [])],
     [smartlists],
   );
+
   const { t } = useTranslation('marketing');
+
   const classes = useCadenceFormStyles();
 
   const { isSubmitting, isValid }: FormikValues = useFormikContext();

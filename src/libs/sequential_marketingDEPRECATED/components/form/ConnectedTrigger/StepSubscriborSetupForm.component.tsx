@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -12,7 +11,6 @@ import { getInitialFormValuesFromCTList } from '../Trigger/utils';
 import useConnectedTriggerFormStyles from './styles.hook';
 
 import type {
-  Cadence,
   CadenceStep,
   CadenceConnectedTriggerConfig,
 } from '#libs/sequential_marketingDEPRECATED/types';
@@ -34,14 +32,18 @@ export const StepSubscriborSetupForm: React.FC<
   const { t } = useTranslation('marketing');
   const classes = useConnectedTriggerFormStyles();
 
-  const [initial, setInitial] = React.useState<Cadence | null>(null);
+  const [initial, setInitial] = React.useState<Partial<Values>>(null);
 
   const handleSubmitForm = (data: Values, options: OptionCallback) => {
     onSubmit(data, options);
   };
 
   React.useEffect(() => {
-    if (triggerForEdition && triggerForEdition.trigger) {
+    if (
+      triggerForEdition &&
+      'trigger' in triggerForEdition &&
+      triggerForEdition.trigger
+    ) {
       setInitial(
         getInitialFormValuesFromCTList({
           connected_triggers: [triggerForEdition.trigger],

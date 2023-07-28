@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
@@ -17,15 +16,9 @@ import useConnectedTriggerFormStyles from './styles.hook';
 
 import type { OptionCallback } from '../../../../../state/types';
 import type { BaseFormComponentProps } from './types';
-import type { Cadence } from '#libs/sequential_marketingDEPRECATED/types';
 
 type InitialEntryComponentProps = BaseFormComponentProps & {
-  onSubmit: (
-    data: {
-      [CADENCE_STEPPER_ENTRY_STEP]: Values | {};
-    },
-    options?: OptionCallback,
-  ) => void;
+  onSubmit: (data: Values | {}, options?: OptionCallback) => void;
 };
 
 export const CadenceEntrySetupForm: React.FC<InitialEntryComponentProps> = ({
@@ -37,7 +30,7 @@ export const CadenceEntrySetupForm: React.FC<InitialEntryComponentProps> = ({
   const { t } = useTranslation('marketing');
   const classes = useConnectedTriggerFormStyles();
 
-  const [initial, setInitial] = React.useState<Cadence | null>(null);
+  const [initial, setInitial] = React.useState<Partial<Values>>(null);
 
   React.useEffect(() => {
     if (cadence && cadence.entries) {

@@ -12,6 +12,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import CreateIcon from '@material-ui/icons/Create';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import { compose } from 'recompose';
@@ -32,6 +34,7 @@ type Props = {
   t: TFunction,
   goToEdit: () => void,
   isLoading: boolean,
+  openVoucherCodesDialog: () => void,
 };
 
 export const CouponCard = React.memo(
@@ -176,8 +179,23 @@ export const CouponCard = React.memo(
           ) : null}
         </div>
         <div className={classes.actionButtons}>
-          <Button color="primary" disabled={isLoading} onClick={goToEdit}>
-            {t('detail.seeParameters')}
+          {isCouponViaUniqueCode && (
+            <Button
+              color="secondary"
+              disabled={isLoading}
+              onClick={openVoucherCodesDialog}
+              startIcon={<VisibilityIcon />}
+            >
+              {props.t('detail.seeVouchers')}
+            </Button>
+          )}
+          <Button
+            color="primary"
+            disabled={isLoading}
+            onClick={goToEdit}
+            startIcon={<CreateIcon />}
+          >
+            {props.t('detail.seeParameters')}
           </Button>
         </div>
       </Paper>

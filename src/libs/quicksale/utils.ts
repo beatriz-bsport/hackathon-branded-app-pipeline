@@ -60,25 +60,29 @@ export const getBuyableItemFromIdentifierAndId = (
 ) => {
   switch (buyableItemIdentifier) {
     case QuicksaleBasketItem.PaymentPackIdentifier:
-      return paymentPackById[id]?.is_usable_by_staff
+      return paymentPackById[id]?.is_usable_by_staff &&
+        !paymentPackById[id]?.disabled
         ? paymentPackById[id]
         : undefined;
     case QuicksaleBasketItem.PrivatePassIdentifier:
-      return privatePassById[id]?.is_usable_by_staff
+      return privatePassById[id]?.is_usable_by_staff &&
+        privatePassById[id]?.available
         ? privatePassById[id]
         : undefined;
     case QuicksaleBasketItem.PaymentComboIdentifier:
-      return paymentComboById[id]?.is_usable_by_staff
+      return paymentComboById[id]?.is_usable_by_staff &&
+        paymentComboById[id]?.available
         ? paymentComboById[id]
         : undefined;
     case QuicksaleBasketItem.ShopItemIdentifier:
       return shopItemById[id];
     case QuicksaleBasketItem.SubscriptionIdentifier:
-      return subscriptionById[id]?.is_usable_by_staff
+      return subscriptionById[id]?.is_usable_by_staff &&
+        !subscriptionById[id]?.disabled
         ? subscriptionById[id]
         : undefined;
     default:
-      return giftcardById[id];
+      return !giftcardById[id]?.disabled ? giftcardById[id] : undefined;
   }
 };
 

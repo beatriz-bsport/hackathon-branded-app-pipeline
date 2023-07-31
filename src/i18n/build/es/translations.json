@@ -2847,7 +2847,7 @@
                     "helperText": " "
                 },
                 "recurrence": {
-                    "explain": "El pago se repartirá en {{ total_interval_duration }} {{ intervalo }} cada {{ recurrence_basis }} {{ intervalo }} y generará {{ nb_interval }} ingresos en efectivo",
+                    "explain": "El pago se repartirá en {{ total_interval_duration }} {{ interval }} cada {{ recurrence_basis }} {{ interval }} y generará {{ nb_interval }} ingresos en efectivo",
                     "section": "Recurrencia"
                 },
                 "interval": {
@@ -3363,7 +3363,7 @@
             },
             "nextRetryDate": "El pago se retrasará hasta {{ d }}",
             "lockedToday": "El pago vence hoy, ya no se puede cambiar",
-            "registerNowInitialData": "El pago debía realizarse originalmente el {{fecha}}",
+            "registerNowInitialData": "El pago debía realizarse originalmente el {{-date}}",
             "dialog": {
                 "invalidMandate": {
                     "confirm": "Siguiente",
@@ -3632,7 +3632,7 @@
             },
             "paymentCombo": "Pack",
             "payment_combo": "Pack",
-            "contractTermsAccepted": "<0>Términos</0> han sido aceptados en la {{- fechaAceptada}}.",
+            "contractTermsAccepted": "<0>Términos</0> han sido aceptados en la {{- dateAccepted}}.",
             "stopNote": "Nota de cancelación"
         },
         "schedule": {
@@ -5177,8 +5177,8 @@
             "endDateLabel": "Fecha de finalización (inclusive)",
             "startDateLabel": "Fecha de inicio (inclusive)",
             "sure": "¿Está seguro de que quiere validar esta acción?",
-            "confirmInfo": "Está a punto de cancelar todas las sesiones entre {{start_date}} y {{end_date}} (inclusive). Es decir, {{número_de_ofertas_borradas}} sesión cancelada.",
-            "confirmInfo_plural": "Está a punto de cancelar todas las sesiones entre {{start_date}} y {{end_date}} (inclusive). Es decir, {{número_de_ofertas_borradas}} sesiones canceladas.",
+            "confirmInfo": "Está a punto de cancelar todas las sesiones entre {{start_date}} y {{end_date}} (inclusive). Es decir, {{number_of_deleted_offer}} sesión cancelada.",
+            "confirmInfo_plural": "Está a punto de cancelar todas las sesiones entre {{start_date}} y {{end_date}} (inclusive). Es decir, {{number_of_deleted_offer}} sesiones canceladas.",
             "confirm": "Confirmar",
             "successInfo": "Se ha tenido en cuenta la eliminación de todas las sesiones entre {{start_date}} y {{end_date}}.",
             "iConfirm": "CONFIRMO",
@@ -5285,8 +5285,8 @@
             "warningText": {
                 "lastValidatedRollCall": "Última asistencia validada el {{- date }} {{ time }}",
                 "noRollCallLeft": "Todas las asistencias fueron validadas",
-                "rollCallsLeftToValidate": "{{ número }} asistencia requiere validación",
-                "rollCallsLeftToValidate_plural": "{{ número }} asistencias requieren validación",
+                "rollCallsLeftToValidate": "{{ number }} asistencia requiere validación",
+                "rollCallsLeftToValidate_plural": "{{ number }} asistencias requieren validación",
                 "validatedDate": "Validada el {{- date }} a las {{ time }}",
                 "modifiedRollCall": "La asistencia ha sido modificada, debe validarla de nuevo",
                 "notValidatedRollCall": "La asistencia no fue validada"
@@ -6423,8 +6423,8 @@
                 "onlyVodAccess": "Disponible sólo para VOD",
                 "fullVodAccess": "Compatible con VOD",
                 "onsitePaymentAvailable": "Pago in situ disponible",
-                "cancellation": "{{cuenta}} cancelación",
-                "cancellation_plural": "{{cuenta}} cancelaciones",
+                "cancellation": "{{count}} cancelación",
+                "cancellation_plural": "{{count}} cancelaciones",
                 "penaltyNoShow": {
                     "block": "{{days_blocked}} de bloqueo después de {{threshold}} durante un periodo de {{time_window_days}}.",
                     "account": "Se aplicará un depósito de {{amount}} para {{threshold}} durante un periodo de {{time_window_days}}.",
@@ -6441,8 +6441,8 @@
             "compatibility": {
                 "packs": {
                     "and": " y ",
-                    "categoriesAndActivitiesAndEstablishments": "Compatible con {{ categorías }}, {{ establecimientos }} y {{ actividades }} ",
-                    "establishmentsAndActivities": "Compatible con {{ establecimientos }} y {{ actividades }} ",
+                    "categoriesAndActivitiesAndEstablishments": "Compatible con {{ categories }}, {{ establishments }} y {{ activities }} ",
+                    "establishmentsAndActivities": "Compatible con {{ establishments }} y {{ activities }} ",
                     "categoriesAndEstablishment": "Compatible con {{ categories }} y {{ establishments }} ",
                     "categoriesAndActivities": "Compatible con {{ categories }} y {{ activities }} ",
                     "establishments": "Compatible con {{ count }} sala",
@@ -6878,7 +6878,7 @@
                 "useFor": "Uso para ",
                 "pickTemplate": "Elija una plantilla",
                 "name": "Nombre",
-                "description": "La plantilla elegida se utilizará para el correo electrónico transaccional \"{{name}}\" para todos los franquiciados seleccionados aquí.",
+                "description": "La plantilla elegida se utilizará para el correo electrónico transaccional \"{{-name}}\" para todos los franquiciados seleccionados aquí.",
                 "title": "Configuración",
                 "restrictedAccess": "Esta configuración se establece para los franquiciados a las que no tienes acceso. Algunos campos no son editables"
             },
@@ -7685,8 +7685,8 @@
             "isRefunded": "Reembolsado",
             "bookingIsUnpaid": "Reservas impagadas",
             "isUnpaid": "No pagado",
-            "isCancelledByManagerDate": "Cancelado el {{-date}} a las {{time}} por {{canceled_by}}",
-            "isCancelledByManager": "Cancelado por {{canceled_by}}"
+            "isCancelledByManagerDate": "Cancelado el {{-date}} a las {{time}} por {{cancelled_by}}",
+            "isCancelledByManager": "Cancelado por {{cancelled_by}}"
         },
         "consumerPass": {
             "detail": {
@@ -7868,8 +7868,8 @@
             "selectService": "Elija un servicio",
             "selectSession": "Elija su sesión",
             "searchFirstSlot": "Buscar la primera ranura disponible",
-            "nextOffer": "Primera ranura disponible en {{- fecha }}: {{ hora }}",
-            "previousOffer": "Una sesión más reciente está disponible en {{- fecha }}: {{ hora }}",
+            "nextOffer": "Primera ranura disponible en {{- date }}: {{ hour }}",
+            "previousOffer": "Una sesión más reciente está disponible en {{-date }}: {{ hour }}",
             "emptyState": "No hay disponibilidad en este momento"
         },
         "privateEstablishment": {
@@ -11672,11 +11672,11 @@
         "validForNdays1": "Válido ",
         "validForDuration": {
             "general": "Válido {{ duration_days }} días {{ duration_months }} meses y {{ duration_years }} año",
-            "years": "Válido {{ duration_years }} año",
-            "years_plural": "Válido {{ duration_years }} años",
+            "years": "Válido {{ count }} año",
+            "years_plural": "Válido {{ count }} años",
             "months": "{{ count }} meses",
-            "days": "Válido {{ duration_days }} día",
-            "days_plural": "Válido {{ duration_days }} días",
+            "days": "Válido {{ count }} día",
+            "days_plural": "Válido {{ count }} días",
             "and": " y ",
             "attendance": "a partir de la primera presencia",
             "booking": "a partir de la primera reservación",
@@ -12751,7 +12751,7 @@
             },
             "download": "Descargar",
             "ebook": {
-                "downloadHelper": "Has desbloqueado tu libro electrónico, para verlo haz clic en el botón {{botón}}"
+                "downloadHelper": "Has desbloqueado tu libro electrónico, para verlo haz clic en el botón {{button}}"
             }
         },
         "playlist": {
@@ -13525,7 +13525,7 @@
             "activeSince": "Activo desde {{ since }}",
             "tag": "Etiqueta",
             "asyncDialog": {
-                "message": "A raíz de sus cambios en las reglas de las etiquetas de la smartlist {{ nombre }} las etiquetas deben ser actualizadas. Esta sincronización se realiza cada dos horas.",
+                "message": "A raíz de sus cambios en las reglas de las etiquetas de la smartlist {{ name }} las etiquetas deben ser actualizadas. Esta sincronización se realiza cada dos horas.",
                 "title": "Actualización de las normas de la etiqueta "
             }
         },
@@ -13605,7 +13605,7 @@
                 "is": " es ",
                 "access": "Acceso a la cuenta",
                 "confirm": "Confirmar",
-                "autorization": "Permitir a {{nombre_1}} acceder a la cuenta de {{nombre_2}}",
+                "autorization": "Permitir a {{name_1}} acceder a la cuenta de {{name_2}}",
                 "accountInfo": "El acceso a la cuenta permite al miembro acceder a la cuenta de su relación desde su propia cuenta.",
                 "email": "Copia del email",
                 "parentalLink": "Relación"
@@ -14964,7 +14964,7 @@
                 "activate": "Activar mi tarjeta regalo",
                 "content3": "Si no está conectado a la cuenta correcta, por favor, cierre la sesión para conectarse a la cuenta correcta. Si esta tarjeta regalo no es para usted, no la canjee.",
                 "content2": "Se añadirá automáticamente como método de pago a su cesta de la compra. Puedes encontrar toda la información sobre tu tarjeta regalo en tu perfil.",
-                "content1": "Tu tarjeta regalo por valor de {{precio}} es compatible con todos los productos de nuestra tienda. Esta tarjeta no tiene fecha de caducidad, así que aprovecha!",
+                "content1": "Tu tarjeta regalo por valor de {{price}} es compatible con todos los productos de nuestra tienda. Esta tarjeta no tiene fecha de caducidad, así que aprovecha!",
                 "subtitle": "Parece que alguien le ha dado una sorpresa.",
                 "title": "¡Alguien quería complacerte!",
                 "content1withDate": "iTu tarjeta regalo {{price}} es compatible con todos los productos de nuestra tienda. Esta tarjeta caduca {{expiration_days }} días después de su activación, así que date un capricho!"
@@ -14983,7 +14983,7 @@
             "visibility": "No es visible",
             "explainIfEmpty": "Las tarjetas regalo permiten a sus miembros ofrecer a sus invitados una cantidad para gastar en su estudio.",
             "unlimited": "Ilimitado",
-            "validity": "Válido {{ duración }} días"
+            "validity": "Válido {{ duration }} días"
         },
         "delete": {
             "submit": "Confirmar",
@@ -15236,7 +15236,7 @@
             "cancel": "Cancelar",
             "all": "Eliminar todos los gastos similares (pasados y futuros)",
             "warning": "¿Está seguro de que quiere cancelar este gasto?",
-            "confirm": "Eliminará permanentemente el gasto {{amount}} de la {{due date}}.",
+            "confirm": "Eliminará permanentemente el gasto {{amount}} de la {{date_due}}.",
             "current": "Borrar sólo este gasto"
         },
         "filters": {
@@ -15653,7 +15653,7 @@
         },
         "disciplineGroup": {
             "delete": {
-                "description": "¿Estás seguro de que quieres eliminar el grupo de disciplina {{nombre}}?",
+                "description": "¿Estás seguro de que quieres eliminar el grupo de disciplina {{name}}?",
                 "title": "Borrar",
                 "confirm": "Confirmar",
                 "cancel": "Cancelar"

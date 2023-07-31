@@ -1,15 +1,11 @@
 import React, { useMemo } from 'react';
 
-import { makeStyles } from '@material-ui/styles';
-import { Theme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import classNames from 'classnames';
 import { Immutable } from 'seamless-immutable';
 
 import PassSearch from '#components/css-only/Search/PassSearch';
-import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import { MarketplaceCategoryPassFilterOption } from '#libs/marketplace/types';
 import { useMarketplacePassFlatLists } from '#libs/marketplace/hooks';
 
@@ -22,6 +18,8 @@ import { PaymentPackCategoryWithPacks } from '#libs/payment-packs/types';
 import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
 import Select from '#components/css-only/Select';
 import MarketplaceFilter from '#libs/marketplace/components/MarketplaceFilter/MarketplaceFilter.component';
+
+import './styles.css';
 
 type Props = {
   searchFiltersState: {
@@ -84,7 +82,6 @@ const MarketplacePassFilters: React.FC<Props> = React.memo(
     onChangeCategory,
   }) => {
     const { t } = useTranslation();
-    const classes = useStyles();
     const { filteredPaymentPackList, filteredPrivatePassList } =
       useMarketplacePassFlatLists({
         paymentPackByCategory,
@@ -126,7 +123,7 @@ const MarketplacePassFilters: React.FC<Props> = React.memo(
 
     return (
       <>
-        <div className={classes.searchContainer}>
+        <div className="bs-pass-page__pass__filters__search__container">
           <PassSearch
             addPaymentComboToBasket={addComboToCart}
             addPaymentPackToBasket={addPaymentPackToCart}
@@ -142,12 +139,7 @@ const MarketplacePassFilters: React.FC<Props> = React.memo(
             showPrivatePassDetail={onShowPrivatePassDetail}
           />
 
-          <div
-            className={classNames(
-              classes.searchFilters,
-              'bs-marketplace-pass-filters',
-            )}
-          >
+          <div className="bs-pass-page__pass__filters">
             {!hidePaymentPack && !hidePrivatePass && (
               <Select
                 isClearable
@@ -171,7 +163,7 @@ const MarketplacePassFilters: React.FC<Props> = React.memo(
         </div>
 
         {!!searchResultState.query && (
-          <div className={classes.searchResultTextContainer}>
+          <div className="bs-pass-page__pass__filters__search__result__text__container">
             <span>
               {t('marketplace:pass.search.result', {
                 count: searchResultCount,
@@ -193,53 +185,5 @@ const MarketplacePassFilters: React.FC<Props> = React.memo(
     );
   },
 );
-
-const useStyles = makeStyles((theme: Theme) => ({
-  searchContainer: {
-    display: 'flex',
-    gap: theme.spacing(2),
-    width: 'fit-content',
-    [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.MD)]: {
-      flexDirection: 'column',
-    },
-    [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM)]: {
-      width: '100%',
-    },
-  },
-  searchFilters: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(2, auto)',
-    alignItems: 'center',
-    gap: theme.spacing(2),
-    [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.MD)]: {
-      gridTemplateColumns: 'repeat(2, auto)',
-    },
-    [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM)]: {
-      gridTemplateColumns: '2fr 3fr',
-    },
-    [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.XS)]: {
-      gridTemplateColumns: '1fr',
-    },
-  },
-  selectedCategoriesCount: {
-    background: theme.palette.primary.main,
-    borderRadius: '99px',
-    margin: 0,
-    alignSelf: 'center',
-    padding: '2px',
-    color: theme.palette.primary.contrastText,
-    height: theme.spacing(3),
-    width: theme.spacing(3),
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  searchResultTextContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: 'fit-content',
-    gap: theme.spacing(2),
-  },
-}));
 
 export default MarketplacePassFilters;

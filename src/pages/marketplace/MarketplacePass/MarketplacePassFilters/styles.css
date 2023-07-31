@@ -1,0 +1,45 @@
+.bs-pass-page__pass__filters {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.bs-pass-page__pass__filters__search__container {
+  display: flex;
+  gap: var(--spacing-2);
+  width: fit-content;
+}
+
+.bs-pass-page__pass__filters__search__result__text__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  width: fit-content;
+}
+
+.bs-pass-page__pass__filters .bs-marketplace-filter {
+  height: 40px;
+}
+
+.bs-pass-page__pass__filters .bs-marketplace-filter__menu {
+  margin-top: var(--spacing-1);
+}
+
+@container bsPassPage (width < 750px) {
+  .bs-pass-page__pass__filters {
+    grid-template-columns: 2fr 3fr;
+  }
+
+  .bs-pass-page__pass__filters__search__container {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+@container bsPassPage (width < 425px) {
+  .bs-pass-page__pass__filters {
+    grid-template-columns: 1fr;
+  }
+}

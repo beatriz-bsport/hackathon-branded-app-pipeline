@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import MarketplacePaymentPackDetailsModal from '#libs/marketplace/components/MarketplacePaymentPackDetailModal';
 import MarketplacePaymentPackRestrictionModal from '#libs/marketplace/components/MarketplacePaymentPackRestrictionModal';
@@ -7,6 +7,7 @@ import MarketplacePaymentPackCompatibilityModal from '#libs/marketplace/componen
 import MarketplacePrivatePassDetailsModal from '#libs/marketplace/components/MarketplacePrivatePassDetailsModal';
 import MarketplacePrivatePassCompatibilityModal from '#libs/marketplace/components/MarketplacePrivatePassCompatibilityModal';
 import MarketplacePaymentComboDetailsModal from '#libs/marketplace/components/MarketplacePaymentComboDetailModal';
+import { useMarketplaceFixedDialog } from '#libs/marketplace/hooks';
 
 import {
   MarketplacePassDialogStateKey,
@@ -56,29 +57,47 @@ type Props = {
   hideCredits?: boolean;
 };
 
-const MarketplacePassDialogs = (props: Props) => {
-  const {
-    dialogSelectedItem,
-    isPaymentPackDetailsDialogOpen,
-    isPaymentPackCompatibilityDialogOpen,
-    isPaymentPackRestrictionDialogOpen,
-    isPaymentPackOffPeakRestrictionDialogOpen,
-    isPrivatePassDetailsDialogOpen,
-    isPrivatePassCompatibilityDialogOpen,
-    isPaymentComboDetailsDialogOpen,
-    isExcludingTax,
-    establishments,
-    metaActivities,
-    privateServices,
-    privateSlots,
-    addPaymentPackToCart,
-    addPrivatePassToCart,
-    addComboToCart,
-    handleCloseDialog,
-    handleOpenDialog,
-    hideCredits,
-  } = props;
+export const MarketplacePassDialogsPortal: React.FC<Props> = React.memo(
+  (props) => {
+    const [pageContainerClass, setPageContainerClass] = useState<string>(null);
 
+    useEffect(() => {
+      setPageContainerClass('.bs-pass-page');
+      return () => {
+        setPageContainerClass(null);
+      };
+    }, []);
+
+    const portalContainer = useMarketplaceFixedDialog(
+      <MarketplacePassDialogs {...props} />,
+      pageContainerClass,
+    );
+
+    return portalContainer;
+  },
+);
+
+const MarketplacePassDialogs: React.FC<Props> = ({
+  dialogSelectedItem,
+  isPaymentPackDetailsDialogOpen,
+  isPaymentPackCompatibilityDialogOpen,
+  isPaymentPackRestrictionDialogOpen,
+  isPaymentPackOffPeakRestrictionDialogOpen,
+  isPrivatePassDetailsDialogOpen,
+  isPrivatePassCompatibilityDialogOpen,
+  isPaymentComboDetailsDialogOpen,
+  isExcludingTax,
+  establishments,
+  metaActivities,
+  privateServices,
+  privateSlots,
+  addPaymentPackToCart,
+  addPrivatePassToCart,
+  addComboToCart,
+  handleCloseDialog,
+  handleOpenDialog,
+  hideCredits,
+}) => {
   const paymentPackCompatibleEstablishments = useMemo(() => {
     if (
       dialogSelectedItem &&
@@ -256,4 +275,5 @@ const MarketplacePassDialogs = (props: Props) => {
     </>
   );
 };
-export default MarketplacePassDialogs;
+
+export default React.memo(MarketplacePassDialogs);

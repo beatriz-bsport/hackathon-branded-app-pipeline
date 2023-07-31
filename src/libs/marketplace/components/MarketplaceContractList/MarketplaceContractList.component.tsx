@@ -1,14 +1,14 @@
 import React, { useCallback } from 'react';
-import makeStyles from '@material-ui/styles/makeStyles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Theme, useTheme } from '@material-ui/core';
-import classNames from 'classnames';
+import { useTheme } from '@material-ui/core';
 
 import MarketplaceContractCard from '#libs/marketplace/components/MarketplaceContractCard';
 
 import { Contract } from '#libs/subscription/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import { filterSearchedMarketplaceContracts } from '#libs/marketplace/hooks';
+
+import './styles.css';
 
 type Props = {
   isExcludingTax: boolean;
@@ -27,7 +27,6 @@ type ContractListItemProps = {
 
 const MarkeplaceContractListItem: React.FC<ContractListItemProps> = React.memo(
   ({ contract, isExcludingTax, onAddToCart, onOpenDetailDialog }) => {
-    const classes = useStyles();
     const theme = useTheme();
     const isMobile = useMediaQuery(
       theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM),
@@ -41,10 +40,7 @@ const MarkeplaceContractListItem: React.FC<ContractListItemProps> = React.memo(
 
     return (
       <button
-        className={classNames(
-          classes.contractButtonContainer,
-          'bs-contract-list__container',
-        )}
+        className="bs-contract-page__contract__button__container"
         onClick={handleMobileClick}
         type="button"
       >
@@ -67,8 +63,6 @@ const MarketplaceContractList: React.FC<Props> = React.memo(
     onAddToCart,
     onOpenDetailDialog,
   }) => {
-    const classes = useStyles();
-
     const filteredContractList = React.useMemo(
       () =>
         filterSearchedMarketplaceContracts(contractList, searchedContractIds),
@@ -76,7 +70,7 @@ const MarketplaceContractList: React.FC<Props> = React.memo(
     );
 
     return (
-      <div className={classes.contractItemsContainer}>
+      <div className="bs-contract-page__contract__list__container">
         {!!filteredContractList.length &&
           filteredContractList.map((contract) => (
             <MarkeplaceContractListItem
@@ -91,31 +85,5 @@ const MarketplaceContractList: React.FC<Props> = React.memo(
     );
   },
 );
-
-const useStyles = makeStyles((theme: Theme) => ({
-  contractItemsContainer: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    gridTemplateRows: '240px',
-    gap: theme.spacing(4),
-    [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.LG)]: {
-      gridTemplateColumns: 'repeat(3, 1fr)',
-    },
-    [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.MD)]: {
-      gridTemplateColumns: 'repeat(2, 1fr)',
-    },
-    [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM)]: {
-      gridTemplateColumns: 'repeat(1, 1fr)',
-      gridTemplateRows: '160px',
-      gap: theme.spacing(2),
-    },
-  },
-  contractButtonContainer: {
-    outline: 'none',
-    border: 'none',
-    background: 'none',
-    padding: 0,
-  },
-}));
 
 export default MarketplaceContractList;

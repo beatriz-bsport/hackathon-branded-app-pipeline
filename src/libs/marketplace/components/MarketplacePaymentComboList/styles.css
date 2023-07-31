@@ -1,0 +1,31 @@
+.bs-pass-page__combo__list__container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 260px;
+  gap: var(--spacing-4);
+}
+
+.bs-pass-page__combo__list__title {
+  margin-top: var(--spacing-2);
+  margin-bottom: var(--spacing-1);
+}
+
+@container bsPassPage (width < 1475px) {
+  .bs-pass-page__combo__list__container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@container bsPassPage (width < 1100px) {
+  .bs-pass-page__combo__list__container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@container bsPassPage (width < 750px) {
+  .bs-pass-page__combo__list__container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 220px;
+    gap: var(--spacing-2);
+  }
+}

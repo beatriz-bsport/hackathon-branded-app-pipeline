@@ -7933,7 +7933,33 @@
                 "contractCard": "Passe Subscrição",
                 "contractCheckout": "Passe Subscrição (pagamento)",
                 "contractDetailModal": "Pop-up com detalhes de subscrição",
-                "contractDetail": "Detalhe da subscrição"
+                "contractDetail": "Detalhe da subscrição",
+                "collectPaymentMethod": "Adicionar um método de pagamento",
+                "contractPayment": "Módulo de pagamento de assinaturas",
+                "contractNotFound": "Aviso de subscrição não encontrado",
+                "contractCooldownModal": "Popup de aviso de compra de subscrição",
+                "privatePassCompatibilityModal": "Popup de compatibilidade (mapa RDV)",
+                "privatePassCard": "Cartão de marcação de consulta",
+                "paymentPackOffPeakRestrictionModal": "Popup de restrição de horário (cartão de curso)",
+                "paymentPackRestrictionModal": "Popup de restrições (ficha de curso)",
+                "paymentPackCompatibilityModal": "Popup de compatibilidade (ficha de curso)",
+                "paymentPackCard": "Cartão de membro",
+                "paymentComboCard": "Cartão de pack",
+                "calendar": "Página do calendário",
+                "timeTable": "Componente do calendário",
+                "workshopPage": "Página de workshop",
+                "activity": "Popup de detalhes da atividade",
+                "datePicker": "Seletor de datas",
+                "bookButton": "Botão de reserva",
+                "filters": "Lista de filtros",
+                "workshopCard": "Cartão de membro",
+                "groupOfferListItem": "Detalhes de um grupo de sessão",
+                "cardOffer": "Detalhes da sessão (visualização do calendário)",
+                "workshopsComponent": "Detalhes do espaço",
+                "vodTag": "Chip vod",
+                "level": "Ficha de nível",
+                "offerListItem": "Detalhes da sessão",
+                "filter": "Filtro simples"
             },
             "cssEditor": {
                 "reset": "reposto",
@@ -7953,7 +7979,15 @@
                 "general": "Espaçamento e arredondamento",
                 "preview": "Pré-visualização",
                 "roundingHelper": "Os cantos são arredondados em múltiplos {{base}}px",
-                "spacingHelper": "O espaçamento é baseado em múltiplos de {{base}} px"
+                "spacingHelper": "O espaçamento é baseado em múltiplos de {{base}} px",
+                "dialog": {
+                    "confirm": "Confirmar",
+                    "cancel": "Cancelar",
+                    "content": "Atenção: está prestes a anular todos os campos que já foram personalizados.",
+                    "title": "Repor definições"
+                },
+                "submit": "Registo",
+                "selectAlert": "Atualmente, a personalização de widgets só está disponível para workshops, calendários, subscrições e cartões"
             },
             "groupSessionByPeriod": "Manhãs, tardes e noites separadas",
             "configDialog": {
@@ -8008,6 +8042,33 @@
             "configTitle": "O meu widget",
             "containerConfiguration": {
                 "title": "Configuração geral"
+            },
+            "page": {
+                "calendar": "Calendário",
+                "workshop": "Estúdio"
+            },
+            "customCss": {
+                "yourCode": "A sua implementação complementar:",
+                "baseCode": "Estilo de bsport",
+                "showBsportCode": "Mostrar o estilo bsport",
+                "infoMultiplePage": "Este elemento está presente em vários widgets, pelo que as alterações aplicar-se-ão aos seguintes widgets:",
+                "snackbarSuccessResetAll": "Todas as suas configurações foram repostas",
+                "snackbarSuccessSave": "O seu item foi guardado com sucesso",
+                "choiceElement": "Escolha do elemento",
+                "choiceWidget": "Escolha do widget",
+                "info": "Pode personalizar cada elemento e as suas variantes que constituem os widgets. Seleccione um widget e, em seguida, o elemento pretendido.",
+                "dialog": {
+                    "content": "Aviso: está prestes a repor o css deste elemento. Ele voltará à sua configuração predefinida.",
+                    "confirm": "Confirmar",
+                    "cancel": "Cancelar",
+                    "title": "Repor item"
+                },
+                "save": "Registo",
+                "savedChanges": "Últimas alterações guardadas",
+                "unsavedChanges": "Não foram registadas quaisquer alterações",
+                "element": "Elemento",
+                "preview": "Pré-visualização - {{-name}}",
+                "CSS": "CSS"
             }
         },
         "customizeCss": "Personalização css",

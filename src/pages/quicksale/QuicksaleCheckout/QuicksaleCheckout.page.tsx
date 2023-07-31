@@ -20,6 +20,7 @@ import {
   removeItemFromBasket as removeItemFromBasketAction,
   patchCurrentBasket as patchCurrentBasketAction,
   assignInstalmentPayment as assignInstalmentPaymentAction,
+  createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
 } from '#libs/checkout/actions';
 import { getBasket } from '#libs/checkout/selectors';
 
@@ -93,6 +94,7 @@ const QuicksalePayment: React.FC<Props> = ({
   snackbarErrorMsg,
   fetchInstalmentPaymentByBasket,
   assignInstalmentPayment,
+  createOrRefreshInternalAccountPrepaidLine,
 }) => {
   const goBack = React.useCallback(() => {
     push('/quicksale/');
@@ -115,11 +117,15 @@ const QuicksalePayment: React.FC<Props> = ({
 
   React.useEffect(() => {
     fetchOrRefreshPaymentGroup();
-  }, [fetchOrRefreshPaymentGroup, basket?.total_price, basket?.member]);
-
-  React.useEffect(() => {
-    fetchOrRefreshPaymentGroup();
-  }, [fetchOrRefreshPaymentGroup, basket?.total_price]);
+  }, [
+    fetchOrRefreshPaymentGroup,
+    basket?.total_price,
+    basket?.member,
+    basket?.total_price_prepaid_lines_cts,
+    fetchInstalmentPaymentByBasket,
+    basketId,
+    basket?.instalment_payment,
+  ]);
 
   const {
     showCannotSignOutModal,
@@ -163,13 +169,16 @@ const QuicksalePayment: React.FC<Props> = ({
           });
       },
     });
+  }, [basketId, fetchBasket, fetchMembers, fetchPaymentList]);
+
+  React.useEffect(() => {
     fetchInstalmentPaymentByBasket(basketId);
   }, [
-    basketId,
-    fetchBasket,
+    basket?.total_price,
+    basket?.total_price_prepaid_lines_cts,
     fetchInstalmentPaymentByBasket,
-    fetchMembers,
-    fetchPaymentList,
+    basketId,
+    basket?.instalment_payment,
   ]);
 
   const alreadyPaidAmount = React.useMemo(
@@ -369,6 +378,24 @@ const QuicksalePayment: React.FC<Props> = ({
     [assignInstalmentPayment, basketId],
   );
 
+  // =========================================
+
+  // ========== Internal account ==========
+
+  const useInternalAccount = React.useCallback(
+    (amount: number, options?: OptionCallback<Basket>) => {
+      createOrRefreshInternalAccountPrepaidLine(basketId, amount, options);
+    },
+    [basketId, createOrRefreshInternalAccountPrepaidLine],
+  );
+
+  const removeInternalAccountPrepaidLine = React.useCallback(
+    (options?: OptionCallback<Basket>) => {
+      createOrRefreshInternalAccountPrepaidLine(basketId, 0, options);
+    },
+    [basketId, createOrRefreshInternalAccountPrepaidLine],
+  );
+
   return (
     <>
       <QuicksaleCheckout
@@ -406,6 +433,8 @@ const QuicksalePayment: React.FC<Props> = ({
         }
         onSelectInstalmentPayment={onSelectInstalmentPayment}
         setLoading={setLoading}
+        useInternalAccount={useInternalAccount}
+        removeInternalAccountPrepaidLine={removeInternalAccountPrepaidLine}
       />
 
       <QuicksaleDialogs
@@ -466,6 +495,8 @@ const connector = connect(
     snackbarErrorMsg: snackbarWarning,
     fetchInstalmentPaymentByBasket: fetchInstalmentPaymentByBasketAction,
     assignInstalmentPayment: assignInstalmentPaymentAction,
+    createOrRefreshInternalAccountPrepaidLine:
+      createOrRefreshInternalAccountPrepaidLineAction,
   },
 );
 

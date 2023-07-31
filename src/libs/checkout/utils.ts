@@ -1,5 +1,6 @@
 import { TFunction } from 'i18next';
 import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items';
 import { OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
 import { getPrice } from '#libs/theme/utils';
 import { Basket, PrepaidLine } from './types';
@@ -15,6 +16,7 @@ import {
 
 export const getBasketTotalPriceExcludingTax = (
   basket: Basket | Basket<string, PrepaidLine> | Basket<number, PrepaidLine>,
+  excludeDeliveryFee?: boolean,
 ): string => {
   // if we don't have items, or items with no quantity, price returned is always 0
   if (
@@ -44,7 +46,10 @@ export const getBasketTotalPriceExcludingTax = (
         ) / basket.checkout_items.reduce((acc, ci) => acc + ci.quantity, 0);
 
   const sum_prices = basket.checkout_items.reduce(
-    (acc, ci) => acc + ci.unit_price * ci.quantity,
+    (acc, ci) =>
+      excludeDeliveryFee && ci.buyable_item_identifier === BUYABLE_ITEM_FEE
+        ? acc
+        : acc + ci.unit_price * ci.quantity,
     0,
   );
   return parseFloat(getPrice(sum_prices, true, mean_tax)).toFixed(2);

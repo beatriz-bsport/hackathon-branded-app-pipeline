@@ -141,6 +141,7 @@ exports.default = {
     useMyInternalAccount: 'Utilisation de mon solde',
     myInternalAccount: 'Mon solde',
     use: 'Utiliser mon solde',
+    useAsManager: 'Utiliser le solde',
     label: 'Montant disponible : ',
     cancel: 'Annuler',
     confirm: 'Confirmer',

@@ -30,6 +30,7 @@ import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-
 import type { Basket } from '#libs/checkout/types';
 
 type Props = {
+  basket?: Basket;
   availablePaymentMethods?: QuicksalePaymentMethod[];
   selectedPaymentMethod: QuicksalePaymentMethod;
   setSelectedPaymentMethod: (paymentMethod: QuicksalePaymentMethod) => void;
@@ -64,6 +65,7 @@ type Props = {
 };
 
 const QuicksalePaymentInfo: React.FC<Props> = ({
+  basket,
   availablePaymentMethods,
   selectedPaymentMethod,
   setSelectedPaymentMethod,
@@ -166,7 +168,10 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
             paymentProcessing={loading}
             setPaymentProcessing={setLoading}
             onSelectInstalmentPayment={onSelectInstalmentPayment}
-            basketPriceCts={paymentGroupPriceCts}
+            basketPriceCts={
+              (basket?.total_price_cts ?? 0) -
+              (basket?.total_price_prepaid_lines_cts ?? 0)
+            }
             onlyInstantPayment={isMemberPOS || hasPaymentGroupPriceBeenModified}
           />
           {isMemberPOS && (

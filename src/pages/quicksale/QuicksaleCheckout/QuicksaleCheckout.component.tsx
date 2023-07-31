@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import Grid from '@material-ui/core/Grid';
+import Alert from '@material-ui/lab/Alert';
 
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
 
@@ -28,6 +29,7 @@ import QuicksaleDeliveryForm from '#libs/quicksale/components/QuicksaleDeliveryF
 import QuicksalePaymentInfo from '#libs/quicksale/components/QuicksalePaymentInfo';
 import type { StripeReader } from '#libs/terminal/types';
 import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
+import UseInternalAccountForm from '#libs/payment/components/UseInternalAccountForm.component';
 
 type Props = {
   theme: Theme;
@@ -35,7 +37,7 @@ type Props = {
   onSignOut?: () => void;
   goBack: () => void;
   basket?: Basket;
-  member?: Member;
+  member: Member;
   openMemberAuthenticationModal: () => void;
   editPaymentGroupPrice?: (
     price: number,
@@ -71,6 +73,11 @@ type Props = {
     instalment_payment: number,
     options?: OptionCallback<Basket>,
   ) => void;
+  useInternalAccount: (
+    amount: number,
+    options?: OptionCallback<Basket>,
+  ) => void;
+  removeInternalAccountPrepaidLine: (options?: OptionCallback<Basket>) => void;
 };
 
 const QuicksaleCheckout: React.FC<Props> = ({
@@ -106,6 +113,8 @@ const QuicksaleCheckout: React.FC<Props> = ({
   checkItemsBasket,
   instalmentPaymentConfigurationList,
   onSelectInstalmentPayment,
+  useInternalAccount,
+  removeInternalAccountPrepaidLine,
 }) => {
   const { t } = useTranslation('quicksale');
 
@@ -128,10 +137,19 @@ const QuicksaleCheckout: React.FC<Props> = ({
   const resetPaymentGroupPrice = React.useCallback(
     () =>
       editPaymentGroupPrice?.(
-        basket?.total_price_cts / 100 - (alreadyPaidAmount ?? 0),
+        basket?.total_price_cts / 100 -
+          (alreadyPaidAmount ?? 0) -
+          basket?.total_price_prepaid_lines_cts / 100,
       ),
-    [alreadyPaidAmount, basket?.total_price_cts, editPaymentGroupPrice],
+    [
+      alreadyPaidAmount,
+      basket?.total_price_cts,
+      basket?.total_price_prepaid_lines_cts,
+      editPaymentGroupPrice,
+    ],
   );
+
+  if (!basket || !member) return null;
 
   return (
     <div className={classes.container}>
@@ -162,18 +180,27 @@ const QuicksaleCheckout: React.FC<Props> = ({
             invoiceFootNote={invoiceFootNote}
             setInvoiceFootNote={setInvoiceFootNote}
             onCouponRemove={removeCoupon}
+            removeInternalAccountPrepaidLine={removeInternalAccountPrepaidLine}
           />
         </Grid>
 
         <Grid item xs={12} sm={8} className={classes.rightContainer}>
           <QuicksaleBasketPriceRecap
             basketTotalPrice={basket?.total_price_cts / 100}
-            modifiedPrice={paymentGroupPriceCts / 100}
+            modifiedPrice={
+              basket.instalment_payment
+                ? basket.total_price_cts / 100 -
+                  basket.total_price_prepaid_lines_cts / 100
+                : paymentGroupPriceCts / 100
+            }
             setModifiedPrice={editPaymentGroupPrice}
             partialPayment={alreadyPaidAmount}
             loading={loading || isProcessing}
             attachCoupon={attachCoupon}
-            preventPriceModification={member?.is_pos}
+            preventPriceModification={
+              member.is_pos || !!basket.instalment_payment
+            }
+            internalAccount={basket.total_price_prepaid_lines_cts / 100}
           />
 
           {basketContainsShopItem && (
@@ -186,6 +213,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
           )}
 
           <QuicksalePaymentInfo
+            basket={basket}
             availablePaymentMethods={availablePaymentMethods}
             selectedPaymentMethod={selectedPaymentMethod}
             setSelectedPaymentMethod={setSelectedPaymentMethod}
@@ -199,23 +227,47 @@ const QuicksaleCheckout: React.FC<Props> = ({
             onCancel={goBack}
             detachPaymentMethodLoading={detachPaymentMethodLoading}
             removePaymentMethod={removePaymentMethod}
-            basketId={basket?.id}
-            isMemberPOS={member?.is_pos}
-            memberId={basket?.member}
+            basketId={basket.id}
+            isMemberPOS={member.is_pos}
+            memberId={basket.member}
             checkItemsBasket={checkItemsBasket}
             instalmentPaymentConfigurationList={
               instalmentPaymentConfigurationList
             }
             onSelectInstalmentPayment={onSelectInstalmentPayment}
-            instalmentPaymentSelectedId={basket?.instalment_payment}
+            instalmentPaymentSelectedId={basket.instalment_payment}
             setLoading={setLoading}
             openMemberAuthenticationModale={openMemberAuthenticationModal}
             hasPaymentGroupPriceBeenModified={
+              !basket.instalment_payment &&
               paymentGroupPriceCts !==
-              basket?.total_price_cts - (alreadyPaidAmount ?? 0)
+                basket.total_price_cts -
+                  (alreadyPaidAmount ?? 0) -
+                  basket.total_price_prepaid_lines_cts
             }
             resetPaymentGroupPrice={resetPaymentGroupPrice}
-          />
+          >
+            {member.credit_account_balance ? (
+              <div className={classes.clientDebt}>
+                <Typography variant="h6">{t('checkout.clientDebt')}</Typography>
+                {member.is_pos ? (
+                  <Alert severity="info" className={classes.alert}>
+                    {t('checkout.noAnonymousClientDebt')}
+                  </Alert>
+                ) : (
+                  <UseInternalAccountForm
+                    onBasketSubmit={useInternalAccount}
+                    creditAccountBalance={
+                      member.credit_account_balance -
+                      basket.total_price_prepaid_lines_cts / 100
+                    }
+                    loading={loading || isProcessing}
+                    asManager
+                  />
+                )}
+              </div>
+            ) : null}
+          </QuicksalePaymentInfo>
         </Grid>
       </Grid>
     </div>
@@ -262,6 +314,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     gap: theme.spacing(1),
     alignSelf: 'end',
+  },
+  alert: {
+    alignItems: 'center',
+  },
+  clientDebt: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
   },
 }));
 

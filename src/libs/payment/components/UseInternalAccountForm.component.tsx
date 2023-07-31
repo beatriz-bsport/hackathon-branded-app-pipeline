@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
@@ -16,14 +15,17 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import type { OptionCallback } from '../../../state/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+// @ts-expect-error
 import { PriceField } from '../../../components/forms';
+import type { Basket } from '#libs/checkout/types';
 
 type Props = {
-  onBasketSubmit: (amount: number, options?: OptionCallback) => void;
-  onInvoiceSubmit: () => void;
+  onBasketSubmit?: (amount: number, options?: OptionCallback<Basket>) => void;
+  onInvoiceSubmit?: () => void;
   creditAccountBalance: number;
   loading?: boolean;
   disabled?: boolean;
+  asManager?: boolean;
 };
 
 const validationSchema = Yup.object().shape({
@@ -38,17 +40,25 @@ const validationSchema = Yup.object().shape({
     ),
   maximum_credits: Yup.number().nullable(false),
 });
-export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
-  const [open, setOpen] = React.useState<boolean>(false);
+
+export const UseInternalAccountForm: React.FC<Props> = ({
+  onBasketSubmit,
+  onInvoiceSubmit,
+  creditAccountBalance,
+  loading,
+  disabled,
+  asManager,
+}) => {
+  const [open, setOpen] = React.useState(false);
   const { t } = useTranslation('checkout');
   const classes = useStyles();
   const [isUseInternalAccountProcessing, setIsUseInternalAccountProcessing] =
-    React.useState<boolean>(false);
+    React.useState(false);
 
   const handleUseInternalAccountBasketSubmit = React.useCallback(
     (values) => {
       setIsUseInternalAccountProcessing(true);
-      props.onBasketSubmit(values.amount, {
+      onBasketSubmit(values.amount, {
         onSuccess: () => {
           setOpen(false);
           setIsUseInternalAccountProcessing(false);
@@ -58,19 +68,21 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
         },
       });
     },
-    [props],
+    [onBasketSubmit],
   );
 
   return (
     <>
-      {props.onBasketSubmit && (
+      {onBasketSubmit && (
         <>
-          <Typography variant="h6" className={classes.header}>
-            {t('internalAccount.myInternalAccount')}
-          </Typography>
+          {!asManager && (
+            <Typography variant="h6" className={classes.header}>
+              {t('internalAccount.myInternalAccount')}
+            </Typography>
+          )}
           <div className={classes.greyContainer}>
             <Typography variant="h6" className={classes.creditAccountBalance}>
-              {getCurrencyDisplayWithPrice(props.creditAccountBalance)}
+              {getCurrencyDisplayWithPrice(creditAccountBalance)}
             </Typography>
             <Collapse
               in={!open}
@@ -82,23 +94,25 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
                   <Button
                     className={classes.fullWidth}
                     fullWidth
-                    disabled={props.loading || props.disabled}
+                    disabled={loading || disabled}
                     onClick={() => setOpen(true)}
                     color="primary"
                     variant="outlined"
                   >
                     <AccountBalanceWalletIcon className={classes.iconButton} />
-                    {t('internalAccount.use')}
+                    {asManager
+                      ? t('internalAccount.useAsManager')
+                      : t('internalAccount.use')}
                   </Button>
                 </div>
               </div>
             </Collapse>
-            {props.onBasketSubmit && open && (
+            {onBasketSubmit && open && (
               <Formik
                 validationSchema={validationSchema}
                 initialValues={{
                   amount: 0,
-                  maximum_credits: props.creditAccountBalance,
+                  maximum_credits: creditAccountBalance,
                 }}
                 onSubmit={handleUseInternalAccountBasketSubmit}
               >
@@ -112,7 +126,7 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
                           label={`${t(
                             'internalAccount.label',
                           )}${'\u00A0'}${getCurrencyDisplayWithPrice(
-                            props.creditAccountBalance,
+                            creditAccountBalance,
                           )}`}
                           variant="outlined"
                           InputProps={{
@@ -125,9 +139,7 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
                                   />
                                 ) : (
                                   <IconButton
-                                    disabled={
-                                      formik.isSubmitting || props.loading
-                                    }
+                                    disabled={formik.isSubmitting || loading}
                                     onClick={() => formik.handleSubmit()}
                                     color="primary"
                                     edge="end"
@@ -153,22 +165,22 @@ export const UseInternalAccountForm: React.FC<Props> = (props: Props) => {
           </div>
         </>
       )}
-      {props.onInvoiceSubmit && (
+      {onInvoiceSubmit && (
         <>
           <Typography variant="h6" className={classes.header}>
             {t('internalAccount.myInternalAccount')}
           </Typography>
           <div className={classes.greyContainer}>
             <Typography variant="h6" className={classes.creditAccountBalance}>
-              {getCurrencyDisplayWithPrice(props.creditAccountBalance)}
+              {getCurrencyDisplayWithPrice(creditAccountBalance)}
             </Typography>
             <Button
-              disabled={props.loading || props.disabled}
-              onClick={() => props.onInvoiceSubmit()}
+              disabled={loading || disabled}
+              onClick={() => onInvoiceSubmit()}
               color="primary"
               variant="outlined"
             >
-              {props.loading ? (
+              {loading ? (
                 <CircularProgress size={20} className={classes.iconButton} />
               ) : (
                 <AccountBalanceWalletIcon className={classes.iconButton} />
@@ -242,4 +254,5 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(1),
   },
 }));
-export default UseInternalAccountForm;
+
+export default React.memo(UseInternalAccountForm);

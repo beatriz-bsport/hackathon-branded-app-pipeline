@@ -32,6 +32,7 @@ type Props = {
   loading?: boolean;
   attachCoupon: (code: string, options?: OptionCallback<Basket>) => void;
   preventPriceModification?: boolean;
+  internalAccount?: number;
 };
 
 const QuicksaleBasketPriceRecap: React.FC<Props> = ({
@@ -42,10 +43,14 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
   loading,
   attachCoupon,
   preventPriceModification,
+  internalAccount,
 }) => {
   const { t } = useTranslation('quicksale');
 
   const classes = useStyles();
+
+  const basketTotalPriceWithReductions =
+    basketTotalPrice - (partialPayment ?? 0) - (internalAccount ?? 0);
 
   const [isEditingPrice, setIsEditingPrice] = React.useState(false);
 
@@ -68,8 +73,8 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
       priceToSet <= 0 ||
       priceToSet > basketTotalPrice - (partialPayment ?? 0)
     ) {
-      if (modifiedPrice !== basketTotalPrice - (partialPayment ?? 0))
-        setModifiedPrice(basketTotalPrice - (partialPayment ?? 0));
+      if (modifiedPrice !== basketTotalPriceWithReductions)
+        setModifiedPrice(basketTotalPriceWithReductions);
     } else if (modifiedPrice !== priceToSet) setModifiedPrice(priceToSet);
     setIsEditingPrice(false);
     setNewPrice(0);
@@ -79,20 +84,21 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
     partialPayment,
     modifiedPrice,
     setModifiedPrice,
+    basketTotalPriceWithReductions,
   ]);
 
   const cancelNewPrice = React.useCallback(() => {
     setNewPrice(0);
-    if (modifiedPrice !== basketTotalPrice - (partialPayment ?? 0))
-      setModifiedPrice(basketTotalPrice - (partialPayment ?? 0));
+    if (modifiedPrice !== basketTotalPriceWithReductions)
+      setModifiedPrice(basketTotalPriceWithReductions);
     setIsEditingPrice(false);
-  }, [basketTotalPrice, modifiedPrice, partialPayment, setModifiedPrice]);
+  }, [basketTotalPriceWithReductions, modifiedPrice, setModifiedPrice]);
 
   const addCoupon = React.useCallback(
     (code: string, options?: OptionCallback) => {
       attachCoupon(code, {
         onSuccess: (newBasket) => {
-          if (modifiedPrice !== basketTotalPrice - (partialPayment ?? 0))
+          if (modifiedPrice !== basketTotalPriceWithReductions)
             setModifiedPrice(
               newBasket.total_price_cts / 100 - (partialPayment ?? 0),
             );
@@ -103,7 +109,7 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
     },
     [
       attachCoupon,
-      basketTotalPrice,
+      basketTotalPriceWithReductions,
       modifiedPrice,
       partialPayment,
       setModifiedPrice,
@@ -118,12 +124,12 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
         {t('checkout.priceRecap')}
       </Typography>
 
-      {!loading && basketTotalPrice !== modifiedPrice && (
+      {!loading && basketTotalPriceWithReductions !== modifiedPrice && (
         <div className={classes.recapLine}>
           <Typography variant="caption">{t('checkout.amountDue')}</Typography>
           <div className={classes.line} />
           <Typography variant="caption">
-            {getCurrencyDisplayWithPrice(basketTotalPrice)}
+            {getCurrencyDisplayWithPrice(basketTotalPriceWithReductions)}
           </Typography>
         </div>
       )}
@@ -144,7 +150,7 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
             <Typography variant="caption">{t('checkout.leftToPay')}</Typography>
             <div className={classes.line} />
             <Typography variant="caption">
-              {getCurrencyDisplayWithPrice(basketTotalPrice - partialPayment)}
+              {getCurrencyDisplayWithPrice(basketTotalPriceWithReductions)}
             </Typography>
           </div>
         </>
@@ -191,14 +197,13 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
           </div>
         )}
 
-        {!loading &&
-          modifiedPrice !== basketTotalPrice - (partialPayment ?? 0) && (
-            <Typography variant="caption">
-              {`${t('checkout.leftDue')} ${getCurrencyDisplayWithPrice(
-                basketTotalPrice - (partialPayment ?? 0) - modifiedPrice,
-              )}`}
-            </Typography>
-          )}
+        {!loading && modifiedPrice !== basketTotalPriceWithReductions && (
+          <Typography variant="caption">
+            {`${t('checkout.leftDue')} ${getCurrencyDisplayWithPrice(
+              basketTotalPriceWithReductions - modifiedPrice,
+            )}`}
+          </Typography>
+        )}
       </div>
 
       <div className={classes.couponButton}>

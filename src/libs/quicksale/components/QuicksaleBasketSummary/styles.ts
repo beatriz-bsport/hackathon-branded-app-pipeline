@@ -90,6 +90,11 @@ const useStyles = makeStyles((theme) => ({
     gap: theme.spacing(1),
     alignItems: 'center',
   },
+  internalCredit: {
+    display: 'flex',
+    gap: theme.spacing(1),
+    alignItems: 'center',
+  },
 }));
 
 export default useStyles;

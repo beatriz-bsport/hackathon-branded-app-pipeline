@@ -24,6 +24,7 @@ import DateInput from '../../../../components/input/DateInput.component';
 
 import { BasketName } from '../QuicksaleBasketPanel';
 import useStyles from './styles';
+import type { OptionCallback } from '../../../../state/types';
 
 type CouponProps = {
   coupon: CheckoutItem;
@@ -65,6 +66,7 @@ type Props = {
   invoiceFootNote: string;
   setInvoiceFootNote: (note: string) => void;
   onCouponRemove: (data: { checkout_item: string; quantity: number }) => void;
+  removeInternalAccountPrepaidLine: (options?: OptionCallback<Basket>) => void;
 };
 
 const QuicksaleBasketSummary: React.FC<Props> = ({
@@ -76,9 +78,14 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
   invoiceFootNote,
   setInvoiceFootNote,
   onCouponRemove,
+  removeInternalAccountPrepaidLine,
 }) => {
   const { t } = useTranslation('quicksale');
   const classes = useStyles();
+
+  // For now, the footnote and the billing date of the invoice
+  // are not used since the backend is not ready for it
+  const showInvoiceInformation = false;
 
   const canChangeMember = !!basket && !basket.invoice;
 
@@ -128,12 +135,19 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
     [setDate],
   );
 
+  const removePrepaidLine = React.useCallback(
+    () => removeInternalAccountPrepaidLine(),
+    [removeInternalAccountPrepaidLine],
+  );
+
   if (!basket) return <></>;
 
-  const basketPriceExcludingTax = getBasketTotalPriceExcludingTax(basket);
+  const basketPriceExcludingTax = getBasketTotalPriceExcludingTax(basket, true);
 
   const taxPrice = (
-    parseFloat(basket.total_price) - parseFloat(basketPriceExcludingTax)
+    parseFloat(basket.total_price) -
+    parseFloat(basketPriceExcludingTax) -
+    deliveryFee?.unit_price
   ).toFixed(2);
 
   return (
@@ -150,13 +164,15 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
         </Alert>
       ) : null}
 
-      <DateInput
-        value={date}
-        onChange={onChangeDate}
-        label={t('checkout.billingDate')}
-        className={classes.datePicker}
-        endAdornment={<Event className={classes.icon} />}
-      />
+      {showInvoiceInformation && (
+        <DateInput
+          value={date}
+          onChange={onChangeDate}
+          label={t('checkout.billingDate')}
+          className={classes.datePicker}
+          endAdornment={<Event className={classes.icon} />}
+        />
+      )}
 
       <Divider className={classes.divider} />
 
@@ -232,6 +248,30 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
             ))
           : null}
 
+        {basket?.total_price_prepaid_lines_cts ? (
+          <div className={classes.additionalLine}>
+            <Typography variant="body2" className={classes.textGrey600}>
+              {t('checkout.internalCredits')}
+            </Typography>
+
+            <div className={classes.internalCredit}>
+              <Typography variant="subtitle2" className={classes.fontWeight500}>
+                -
+                {getCurrencyDisplayWithPrice(
+                  basket?.total_price_prepaid_lines_cts / 100,
+                )}
+              </Typography>
+
+              <IconButton
+                className={classes.iconButton}
+                onClick={removePrepaidLine}
+              >
+                <Delete className={classes.icon} />
+              </IconButton>
+            </div>
+          </div>
+        ) : null}
+
         <div className={classes.total}>
           <Typography variant="subtitle1" className={classes.fontWeight500}>
             {t('checkout.priceIncludingTax')}
@@ -239,35 +279,41 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
 
           <Typography variant="h6" className={classes.fontWeight500}>
             {getCurrencyDisplayWithPrice(
-              parseFloat(basket.total_price).toFixed(2),
+              (
+                parseFloat(basket.total_price) -
+                parseFloat(basket.total_price_prepaid_lines)
+              ).toFixed(2),
             )}
           </Typography>
         </div>
       </div>
 
-      <Divider className={classes.divider} />
-
-      <TextField
-        value={invoiceFootNote}
-        onChange={onFootNoteChange}
-        fullWidth
-        variant="outlined"
-        label={t('checkout.invoiceFootNote')}
-        InputProps={
-          invoiceFootNote.length
-            ? {
-                endAdornment: (
-                  <IconButton
-                    className={classes.iconButton}
-                    onClick={clearFootNote}
-                  >
-                    <Cancel className={classes.icon} />
-                  </IconButton>
-                ),
-              }
-            : {}
-        }
-      />
+      {showInvoiceInformation && (
+        <>
+          <Divider className={classes.divider} />
+          <TextField
+            value={invoiceFootNote}
+            onChange={onFootNoteChange}
+            fullWidth
+            variant="outlined"
+            label={t('checkout.invoiceFootNote')}
+            InputProps={
+              invoiceFootNote.length
+                ? {
+                    endAdornment: (
+                      <IconButton
+                        className={classes.iconButton}
+                        onClick={clearFootNote}
+                      >
+                        <Cancel className={classes.icon} />
+                      </IconButton>
+                    ),
+                  }
+                : {}
+            }
+          />
+        </>
+      )}
     </div>
   );
 };

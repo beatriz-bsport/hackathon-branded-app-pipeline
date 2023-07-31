@@ -109,7 +109,9 @@ export default handleActions<Immutable.Immutable<CheckoutState>, any>(
       state,
       { payload }: { payload: Basket },
     ) => {
-      return state.setIn(['basket', 'current', 'data'], payload);
+      return state
+        .setIn(['basket', 'current', 'data'], payload)
+        .setIn(['basket', 'byId', payload.id], payload);
     },
     [basketHistoryActions.error.toString()]: (
       state,

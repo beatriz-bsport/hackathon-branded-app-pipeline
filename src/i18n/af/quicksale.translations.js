@@ -254,5 +254,9 @@ exports.default = {
         'Il est impossible de payer en plusieurs fois lorsque le montant total à payer a été modifié.',
       reset: 'Réinitialiser',
     },
+    clientDebt: 'Solde client',
+    noAnonymousClientDebt:
+      "Pour utiliser le solde client, il est nécessaire d'identifier un membre sur la facture",
+    internalCredits: 'Crédits internes',
   },
 };

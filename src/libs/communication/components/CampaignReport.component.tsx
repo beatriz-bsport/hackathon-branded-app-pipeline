@@ -277,7 +277,6 @@ export const CampaignReport = (props: Props) => {
         <div>
           <CampaignStatistics
             campaign={props.campaign}
-            campaignXlsxExportLink={props.campaignXlsxExportLink}
             generateExportLink={props.generateExportLink}
             onShowMail={() => setShowMail(props.campaign.data.body)}
             onShowMail={() => setShowMail(props.campaign.data.body)}

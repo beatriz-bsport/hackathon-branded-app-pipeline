@@ -195,6 +195,7 @@ export const getCardInfoFromBuyableItem = (
           `objectCard.recurrence.${(<Contract>buyableItem).interval}`,
           {
             count: (<Contract>buyableItem).recurrence_basis,
+            recurrence_basis: (<Contract>buyableItem).recurrence_basis,
           },
         ),
         color: itemColor,

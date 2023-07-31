@@ -2,20 +2,15 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import {
-  Avatar,
-  Chip,
-  Typography,
-  lighten,
-  makeStyles,
-} from '@material-ui/core';
-import {
-  Adjust,
-  CreditCard,
-  HourglassFull,
-  LocationOn,
-  Person,
-} from '@material-ui/icons';
+import { Theme, lighten, makeStyles } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import Chip from '@material-ui/core/Chip';
+import Typography from '@material-ui/core/Typography';
+import Adjust from '@material-ui/icons/Adjust';
+import CreditCard from '@material-ui/icons/CreditCard';
+import HourglassFull from '@material-ui/icons/HourglassFull';
+import LocationOn from '@material-ui/icons/LocationOn';
+import Person from '@material-ui/icons/Person';
 
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
@@ -80,26 +75,25 @@ export type Props = {
   theme: CompanyTheme;
 };
 
-const OfferSummary: React.FC<Props> = (props) => {
-  const {
-    metaActivity,
-    offer,
-    coach,
-    coachOverride,
-    establishment,
-    spotId,
-    price,
-    onConfirm,
-    disableButton,
-    confirmLoading,
-    loading,
-    offerStatus,
-    tax,
-    variant,
-    theme,
-  } = props;
-
-  const classes = useStyles(props);
+const OfferSummary: React.FC<Props> = ({
+  metaActivity,
+  offer,
+  coach,
+  coachOverride,
+  establishment,
+  spotId,
+  price,
+  onConfirm,
+  disableButton,
+  confirmLoading,
+  loading,
+  offerStatus,
+  tax,
+  variant,
+  theme,
+  isBookingButtonHidden,
+}) => {
+  const classes = useStyles({ variant, offerStatus });
 
   const { t } = useTranslation(['datetime', 'booking', 'checkout']);
 
@@ -180,35 +174,37 @@ const OfferSummary: React.FC<Props> = (props) => {
             <div className={classes.lineGap1}>
               <LocationOn className={classes.icon} />
               <Typography>
-                {variant === 'default'
+                {variant === OfferSummaryVariant.DEFAULT
                   ? `${establishment?.title} - ${establishment?.location?.address}`
                   : `${establishment?.title}`}
               </Typography>
             </div>
           )}
 
-          {relevantCoach && !theme?.hideCoach && variant === 'default' && (
-            <div className={classes.itemWithIcon}>
-              {displayCoachPicture ? (
-                <Avatar
-                  className={classes.avatar}
-                  src={relevantCoach?.photo ?? DEFAULT_AVATAR}
-                />
-              ) : (
-                <Person className={classes.icon} />
-              )}
-              <Typography>{coachName}</Typography>
-            </div>
-          )}
+          {relevantCoach &&
+            !theme?.hideCoach &&
+            variant !== OfferSummaryVariant.BASKET && (
+              <div className={classes.itemWithIcon}>
+                {displayCoachPicture ? (
+                  <Avatar
+                    className={classes.avatar}
+                    src={relevantCoach?.photo ?? DEFAULT_AVATAR}
+                  />
+                ) : (
+                  <Person className={classes.icon} />
+                )}
+                <Typography>{coachName}</Typography>
+              </div>
+            )}
 
-          {spotId !== undefined && variant === 'default' && (
+          {spotId !== undefined && variant === OfferSummaryVariant.DEFAULT && (
             <div className={classes.itemWithIcon}>
               <Adjust className={classes.icon} />
               <Typography>{`${t(`booking:place`)} ${spotId}`}</Typography>
             </div>
           )}
 
-          {offer && variant === 'default' && (
+          {offer && variant === OfferSummaryVariant.DEFAULT && (
             <div className={classes.itemWithIcon}>
               <CreditCard className={classes.icon} />
               <Typography>
@@ -223,8 +219,9 @@ const OfferSummary: React.FC<Props> = (props) => {
         </div>
       </div>
       {(!isWaitlistFull || isBookable) &&
+        !isBookingButtonHidden &&
         onConfirm &&
-        variant === 'default' && (
+        variant !== OfferSummaryVariant.BASKET && (
           <div className={classes.columnGap2}>
             {!!price && (
               <>
@@ -279,83 +276,85 @@ const OfferSummary: React.FC<Props> = (props) => {
   );
 };
 
-const useStyles = makeStyles((theme) => ({
-  grid: {
-    display: 'flex',
-    flexDirection: 'column',
-    maxWidth: '374px',
-    padding: theme.spacing(2),
-    gap: theme.spacing(3),
-    justifyContent: 'flex-start',
-    backgroundColor: theme.palette.background.paper,
-    border: (props: Props) =>
-      props.variant === 'default' && '2px solid #F1F3F4',
-    borderRadius: '8px',
-    [theme.breakpoints.down('xs')]: {
-      maxWidth: '100%',
-      borderRadius: 0,
+const useStyles = makeStyles<Theme, Pick<Props, 'variant' | 'offerStatus'>>(
+  (theme) => ({
+    grid: {
+      display: 'flex',
+      flexDirection: 'column',
+      maxWidth: '374px',
+      padding: theme.spacing(2),
+      gap: theme.spacing(3),
+      justifyContent: 'flex-start',
+      backgroundColor: theme.palette.background.paper,
+      border: ({ variant }) =>
+        variant !== OfferSummaryVariant.BASKET && '2px solid #F1F3F4',
+      borderRadius: '8px',
+      [theme.breakpoints.down('xs')]: {
+        maxWidth: '100%',
+        borderRadius: 0,
+        gap: theme.spacing(1),
+      },
+    },
+    columnGap2: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: theme.spacing(2),
+      [theme.breakpoints.down('xs')]: {
+        gap: theme.spacing(1),
+      },
+    },
+    columnGap1: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: theme.spacing(1),
+      [theme.breakpoints.down('xs')]: {
+        gap: 0,
+      },
+    },
+    grey: {
+      color: '#687586',
+    },
+    waitlistChip: ({ offerStatus }) => ({
+      borderRadius: '4px',
+      color:
+        offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL
+          ? theme.palette.error.dark
+          : theme.palette.grey[800],
+      backgroundColor:
+        offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL
+          ? lighten(theme.palette.error.light, 0.8)
+          : theme.palette.grey[100],
+      '&>*': {
+        color: 'inherit',
+      },
+    }),
+    lineGap1: {
+      display: 'flex',
+      alignItems: 'center',
       gap: theme.spacing(1),
     },
-  },
-  columnGap2: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: theme.spacing(2),
-    [theme.breakpoints.down('xs')]: {
+    itemWithIcon: {
+      display: 'flex',
+      alignItems: 'center',
       gap: theme.spacing(1),
+      [theme.breakpoints.down('xs')]: {
+        display: 'none',
+      },
     },
-  },
-  columnGap1: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: theme.spacing(1),
-    [theme.breakpoints.down('xs')]: {
-      gap: 0,
+    icon: {
+      color: theme.palette.action.active,
     },
-  },
-  grey: {
-    color: '#687586',
-  },
-  waitlistChip: (props: Props) => ({
-    borderRadius: '4px',
-    color:
-      props.offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL
-        ? theme.palette.error.dark
-        : theme.palette.grey[800],
-    backgroundColor:
-      props.offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_FULL
-        ? lighten(theme.palette.error.light, 0.8)
-        : theme.palette.grey[100],
-    '&>*': {
-      color: 'inherit',
+    avatar: {
+      height: 24,
+      width: 24,
+    },
+    price: {
+      display: 'flex',
+      justifyContent: 'space-between',
     },
   }),
-  lineGap1: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing(1),
-  },
-  itemWithIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing(1),
-    [theme.breakpoints.down('xs')]: {
-      display: 'none',
-    },
-  },
-  icon: {
-    color: theme.palette.action.active,
-  },
-  avatar: {
-    height: 24,
-    width: 24,
-  },
-  price: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-}));
+);
 
 export const OfferSummaryForStorybook = marketplaceCssHoc()(OfferSummary);
 
-export default marketplaceCssHoc()(OfferSummary);
+export default React.memo(OfferSummary);

@@ -168,7 +168,6 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
   return (
     <div className="bs-marketplace-spot-selector">
       <div className="bs-marketplace-spot-selector__header">
-        {/* @ts-expect-error */}
         <OfferSummary
           establishment={props.offer?.establishment}
           metaActivity={props.offer?.meta_activity}

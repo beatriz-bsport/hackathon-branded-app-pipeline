@@ -46,7 +46,6 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
       {checkoutItemsWithDetails?.map((checkoutItem, index) => (
         <div key={`checkout-item-details-${checkoutItem.id}`}>
           {checkoutItem.offers.map((offer) => (
-            // @ts-expect-error
             <OfferSummary
               key={`offer-summary-${offer?.id}`}
               establishment={offer?.establishment}

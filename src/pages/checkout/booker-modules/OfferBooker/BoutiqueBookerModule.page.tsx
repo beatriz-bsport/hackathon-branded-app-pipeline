@@ -896,7 +896,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 )}
               </div>
               <div className="bs-new-offer-booking__offer-summary">
-                {/* @ts-expect-error */}
                 <OfferSummary
                   coach={this.props.offer.coach}
                   confirmLoading={this.state.confirmLoading}

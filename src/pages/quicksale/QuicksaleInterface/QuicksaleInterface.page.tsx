@@ -16,7 +16,7 @@ import {
   dropQuicksaleBasket as dropQuicksaleBasketAction,
   updateQuicksaleBasketMember as updateQuicksaleBasketMemberAction,
 } from '#libs/checkout/actions';
-import { getBasketList } from '#libs/checkout/selectors';
+import { getUnfinalizeBasketList } from '#libs/checkout/selectors';
 import type { Basket } from '#libs/checkout/types';
 
 import { getMemberListData } from '#libs/member/selectors';
@@ -551,7 +551,7 @@ const connector = connect(
     theme: state.theme.theme,
     memberById: getMemberListData(state),
     quicksaleStaffFullName: state.auth.name,
-    baskets: getBasketList(state),
+    baskets: getUnfinalizeBasketList(state),
     sectionList: getSectionList(state),
     loading:
       getLoading(state) ||

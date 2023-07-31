@@ -11566,7 +11566,7 @@
             "daysLeftLabel": "Notificar cuando queda {{day}} día de validez del pase",
             "daysLeftLabel_plural": "Notificar cuando queda {{day}} días de validez del pase",
             "creditsLeftLabel": "Notificar cuando quedan {{count}} crédito",
-            "creditsLeftLabel_plural": "Notificar cuando quedan {{count}} créditos",
+            "creditsLeftLabel_plural": "Notificar cuando quedan {{credit}} créditos",
             "creditsLeftOnOfferStart": "{{hours}}h después de la sesión",
             "creditsLeftOnBooking": "{{hours}}h después de la reserva"
         },

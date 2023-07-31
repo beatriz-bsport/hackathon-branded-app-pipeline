@@ -432,7 +432,28 @@ export const usePaymentMethodBillingDetails = (
  *
  * Since we now have container queries (CSS fixed position don't work inside),
  * we must set all of out marketplace dialogs out of the page container
- * @param dialogContainer The component that reders dialog(s)
+ * @param DialogContainer The component rendering the dialog(s)
+ * @param pageClass The CSS class of the page
+ * (will be used to evaluate the closest `div.bs-setup-variable`)
+ * @returns {React.ReactElement} The dialog container 'teleported' within `div.bs-setup-variable`
+ * @example
+ *  export const MarketplaceDialogPortal: React.FC<Props> = (props) => {
+ *      const [pageClass, setPageClass] = useState<string>(null);
+ *
+ *      useEffect(() => {
+ *        setPageClass('.bs-contract-page');
+ *        return () => {
+ *          setPageClass(null);
+ *        };
+ *      }, []);
+ *
+ *      const portalContainer = useMarketplaceFixedDialog(
+ *        <MarketplaceDialog {...props} />,
+ *        pageClass,
+ *      );
+ *
+ *     return portalContainer;
+ * };
  */
 export const useMarketplaceFixedDialog = (
   DialogContainer: React.ReactElement,

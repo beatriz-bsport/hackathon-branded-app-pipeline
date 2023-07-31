@@ -7924,8 +7924,25 @@
         "widget": {
             "cssConfig": {
                 "option": {
-                    "waitingList": "Lista de espera"
-                }
+                    "waitingList": "Lista de espera",
+                    "activityName": "Atividade",
+                    "false": "Não",
+                    "true": "Sim"
+                },
+                "title": {
+                    "paymentMethodType": "Modo de pagamento",
+                    "isContractLegalTermsAccepted": "Termos e condições de subscrição aceites",
+                    "isExcludingTax": "Antes de impostos",
+                    "nextOffer": "Próxima sessão disponível",
+                    "showDayParts": "Manhãs, tardes e noites separadas",
+                    "isRegistered": "Já registado",
+                    "offerStatus": "Disponibilidade da oferta",
+                    "isMobile": "Para o telemóvel",
+                    "loading": "Atualmente a carregar",
+                    "variant": "Destaque",
+                    "filterGroupOptions": "Opções agrupadas"
+                },
+                "configurationTitle": "Variações"
             },
             "components": {
                 "contractTermsModal": "Pop-up com a menções legais da subscrição",
@@ -8046,7 +8063,8 @@
             "page": {
                 "calendar": "Calendário",
                 "workshop": "Estúdio",
-                "pass": "Cartões de curso"
+                "pass": "Cartões de curso",
+                "subscription": "Subscrições"
             },
             "customCss": {
                 "yourCode": "A sua implementação complementar:",

@@ -3338,7 +3338,7 @@
             "daysLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{day}} dagen geldig is.",
             "daysPastLabel": "Een melding versturen wanneer deze kaart {{day}} dag verlopen is.",
             "daysPastLabel_plural": "Een melding versturen wanneer deze kaart {{day}} dagen verlopen is.",
-            "creditsLeftLabel": "Een melding versturen wanneer deze kaart nog {{credit}} credit heeft.",
+            "creditsLeftLabel": "Een melding versturen wanneer deze kaart nog {{count}} credit heeft.",
             "creditsLeftLabel_plural": "Een melding versturen wanneer deze kaart nog {{credit}} credits heeft.",
             "creditsLeftOnOfferStart": "{{hours}} uur na het einde van de sessie",
             "creditsLeftOnBooking": "{{hours}} uur na het maken van de reservering"

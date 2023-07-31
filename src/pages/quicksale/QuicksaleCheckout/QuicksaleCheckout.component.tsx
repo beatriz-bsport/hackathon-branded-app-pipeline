@@ -283,9 +283,7 @@ const useStyles = makeStyles((theme) => ({
     gap: theme.spacing(2),
   },
   gridContainer: {
-    padding: `0 ${theme.spacing(3)}px ${theme.spacing(2)}px ${theme.spacing(
-      1,
-    )}px`,
+    padding: theme.spacing(0, 3, 0, 1),
   },
   goBackButton: {
     marginTop: theme.spacing(2),

@@ -8,7 +8,6 @@ import React, {
 
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { useMediaQuery, useTheme } from '@material-ui/core';
 
 import { useSwipe } from '../../../hooks/useSwipe';
 import { useWheel } from '../../../hooks/useWheel';
@@ -17,7 +16,6 @@ import { SLIDESHOW_INTERVAL_TIME, SLIDESHOW_ANIMATION_TIME } from './constants';
 import { getCarouselItemClasses } from '#csscomponents/utils';
 import './style.css';
 import CarouselIndicator from './CarouselIndicator';
-import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 
 export interface Props<T = unknown> {
   data: Array<T>;
@@ -45,11 +43,16 @@ const Carousel = <T extends BaseData>({
   const [isTransition, setIsTransition] = useState(false);
   const [isAutomaticSlideshow, setIsAutomaticSlideshow] = useState(true);
   const carouselSwipeContainer = useRef<HTMLDivElement>(null);
+  const navigationButtonLeft = useRef<HTMLButtonElement>(null);
+  const navigationButtonRight = useRef<HTMLButtonElement>(null);
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(
-    theme.breakpoints.down(MARKETPLACE_BREAKPOINT.MD),
-  );
+  // bs-carousel__navigation__button are hidden when container is less than 1100px
+  const isMobile =
+    navigationButtonLeft?.current &&
+    window.getComputedStyle(navigationButtonLeft?.current)?.display ===
+      'none' &&
+    navigationButtonRight?.current &&
+    window.getComputedStyle(navigationButtonRight?.current)?.display === 'none';
 
   const nextItemIndex = currentIndex + 1;
   const previousItemIndex = currentIndex - 1;
@@ -167,7 +170,7 @@ const Carousel = <T extends BaseData>({
         break;
     }
 
-    return `translateX(calc(${translateDistanceViewportUnit}vw - ${translateDistanceGap}px))`;
+    return `translateX(calc(${translateDistanceViewportUnit}cqw - ${translateDistanceGap}px))`;
   }, [currentIndex, previousItemIndex]);
 
   const isLeftNavigationButtonHiddenClass =
@@ -181,6 +184,7 @@ const Carousel = <T extends BaseData>({
   return (
     <div className="bs-carousel__container">
       <button
+        ref={navigationButtonLeft}
         className={`bs-carousel__navigation__button${isLeftNavigationButtonHiddenClass}`}
         onClick={() => handleNagivate(previousItemIndex)}
         type="button"
@@ -222,6 +226,7 @@ const Carousel = <T extends BaseData>({
       </div>
 
       <button
+        ref={navigationButtonRight}
         className={`bs-carousel__navigation__button${isRightNavigationButtonHiddenClass}`}
         onClick={() => handleNagivate(nextItemIndex)}
         type="button"

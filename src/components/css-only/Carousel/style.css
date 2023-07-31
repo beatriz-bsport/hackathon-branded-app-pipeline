@@ -152,11 +152,6 @@
   left: 0;
 }
 
-.bs-carousel__item__center {
-  z-index: 2;
-  transform: scale(1.1);
-}
-
 .bs-carousel__item__right {
   right: 0;
 }
@@ -237,6 +232,8 @@
 
 .bs-carousel__item__center {
   opacity: 1;
+  z-index: 2;
+  transform: scale(1.1);
 }
 
 .bs-carousel__item--hidden {
@@ -279,7 +276,7 @@
   display: none;
 }
 
-@media screen and (max-width: 1099px) {
+@container (width < 1100px) {
   .hidden-item-right {
     width: inherit;
     position: inherit;
@@ -301,7 +298,7 @@
   }
 
   .bs-carousel__item {
-    width: 80vw;
+    width: 80cqw;
     flex-basis: inherit;
     position: inherit;
     display: flex !important;

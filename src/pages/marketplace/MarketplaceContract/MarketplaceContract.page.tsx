@@ -1,12 +1,10 @@
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
 import { push, replace as replaceAction } from 'connected-react-router';
 import { compose, withProps } from 'recompose';
 import { connect } from 'react-redux';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
-import { Theme, createStyles } from '@material-ui/core';
 
 import themeSelectors from '#libs/theme/selectors';
 import { getPaymentPack } from '#libs/payment-packs/selectors';
@@ -22,32 +20,35 @@ import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/paym
 import { getMarketplaceContractList } from '#libs/subscription/selectors';
 import { fetchMarketplaceContractList } from '#libs/subscription/actions';
 // @ts-ignore
-import Analytics from '../../components/analytics/Analytics.component';
+import Analytics from '../../../components/analytics/Analytics.component';
 import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
 // @ts-ignore
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { marketplaceCssHoc } from '../../hocs/marketplace-css.hoc';
-import MarketplaceContractFilters from './MarketplaceContractFilters.component';
-import MarketplaceContractList from '#libs/marketplace/components/MarketplaceContractList.component';
-import MarketplaceContractDetailModal from '#libs/marketplace/components/MarketplaceContractDetailModal/MarketplaceContractDetailModal.component';
+import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
+import MarketplaceContractFilters from './MarketplaceContractFilters';
+import MarketplaceContractList from '#libs/marketplace/components/MarketplaceContractList';
+import { MarketplaceContractDetailModalPortal } from '#libs/marketplace/components/MarketplaceContractDetailModal';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 
-import { MaterialStyleType } from '../../utils/types';
+import './styles.css';
+
 import {
   SearchItemData,
   BaseAdditionalData,
 } from '#components/css-only/Search/Search.component';
-import { RootState } from '../../reducers';
+import { RootState } from '../../../reducers';
 import { Contract } from '#libs/subscription/types';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { getSubscriptionPageUrl } from '#libs/marketplace/routing-utils';
+
+import { CompanyTheme } from '#libs/theme/types';
 
 type OwnProps = {
   companyId: number;
   contractLoading: boolean;
   classes: Object;
   contractList: Contract[];
-  companyTheme: Theme;
+  companyTheme: CompanyTheme;
   push: (path: string) => void;
   onAddToCart: (id: number) => void;
   fetchContracts: (companyId: number) => void;
@@ -56,8 +57,7 @@ type OwnProps = {
 type Props = OwnProps &
   RouterProps &
   typeof mapDispatchToProps &
-  ReturnType<typeof mapStateToProps> &
-  MaterialStyleType<ReturnType<typeof styles>>;
+  ReturnType<typeof mapStateToProps>;
 
 type State = {
   selectedContract: Contract | null;
@@ -218,15 +218,15 @@ export class MarketplaceContract extends React.Component<Props, State> {
     }));
 
   render() {
-    const { classes, contractList } = this.props;
+    const { contractList } = this.props;
 
     if (this.props.contractLoading) {
       return <LinearProgress />;
     }
 
     return (
-      <div className={classes.container}>
-        <MarketplaceContractDetailModal
+      <div className="bs-contract-page">
+        <MarketplaceContractDetailModalPortal
           contract={this.state.selectedContract}
           getPaymentComboSelected={this.props.getPaymentComboSelected}
           getPaymentPackSelected={this.props.getPaymentPackSelected}
@@ -264,22 +264,6 @@ export class MarketplaceContract extends React.Component<Props, State> {
     );
   }
 }
-
-const styles = (theme: Theme) =>
-  createStyles({
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: theme.spacing(3),
-      padding: theme.spacing(6),
-      paddingTop: theme.spacing(4),
-      maxWidth: '1652px',
-      margin: '0 auto',
-      [theme.breakpoints.down('sm')]: {
-        padding: theme.spacing(2),
-      },
-    },
-  });
 
 const mapParamsToProps = {
   companyId: 'companyId:number',
@@ -322,14 +306,12 @@ const DataHOC = compose(
 );
 
 export const MarketplaceContractBase = compose<any, OwnProps>(
-  withStyles(styles),
   marketplaceCssHoc(),
   DataHOC,
 )(MarketplaceContract);
 
 export default compose(
   withTranslation(['subscription', 'payment', 'invoice', 'translation']),
-  withStyles(styles),
   withRouter,
   routerParamsToProps(mapParamsToProps),
   DataHOC,

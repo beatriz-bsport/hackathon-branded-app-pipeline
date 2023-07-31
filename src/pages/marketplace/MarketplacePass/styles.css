@@ -1,0 +1,39 @@
+.bs-pass-page {
+  container: bsPassPage / inline-size;
+}
+
+.bs-pass-page__carousel__container {
+  padding: var(--spacing-6);
+  padding-top: var(--spacing-2);
+  padding-bottom: 0;
+  max-width: 1652px;
+  margin: 0 auto;
+}
+
+.bs-pass-page__list__filters__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4) var(--spacing-6) var(--spacing-6);
+  max-width: 1652px;
+  margin: 0 auto;
+}
+
+.bs-pass-page__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+@container bsPassPage (width < 1100px) {
+  .bs-pass-page__carousel__container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@container bsPassPage (width < 450px) {
+  .bs-pass-page__list__filters__container {
+    padding: var(--spacing-2);
+  }
+}

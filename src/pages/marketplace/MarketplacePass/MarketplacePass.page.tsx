@@ -3,10 +3,7 @@ import React, { Component, useCallback } from 'react';
 import { compose, withHandlers } from 'recompose';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { createStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import { Theme, useMediaQuery, useTheme } from '@material-ui/core';
+import { useMediaQuery, useTheme } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
@@ -25,8 +22,8 @@ import themeSelector from '#libs/theme/selectors';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
-import MarketplacePaymentPackList from '#libs/marketplace/components/MarketplacePaymentPackList.component';
-import MarketplacePrivatePassList from '#libs/marketplace/components/MarketplacePrivatePassList.component';
+import MarketplacePaymentPackList from '#libs/marketplace/components/MarketplacePaymentPackList';
+import MarketplacePrivatePassList from '#libs/marketplace/components/MarketplacePrivatePassList';
 
 // @ts-ignore
 import withQueryParams from '#hocs/with-query-params.hoc';
@@ -56,7 +53,7 @@ import {
   fetchAllPaymentPackCategory,
 } from '#libs/payment-packs/actions';
 import withTitle from '#hocs/with-title.hoc';
-import { RootState } from '../../reducers';
+import { RootState } from '../../../reducers';
 
 import { fetchMemberTagList } from '#libs/tag/actions';
 import { getMemberTagsIdsList } from '#libs/tag/selectors';
@@ -76,18 +73,19 @@ import {
   BaseAdditionalData,
   SearchItemData,
 } from '#components/css-only/Search/Search.component';
-import MarketplacePaymentComboList from '#libs/marketplace/components/MarketplacePaymentComboList.component';
-import MarketplacePassFilters from './MarketplacePassFilters.component';
+import MarketplacePaymentComboList from '#libs/marketplace/components/MarketplacePaymentComboList';
+import MarketplacePassFilters from './MarketplacePassFilters';
 import {
   getParsedPassRestrictedCategories,
   getPassFilterAvailableCategories,
 } from '#libs/marketplace/utils';
-import MarketplacePassDialogs from './MarketplacePassDialogs.component';
-import { MaterialStyleType } from '../../utils/types';
+import { MarketplacePassDialogsPortal } from './MarketplacePassDialogs.component';
 import { getAllEstablishmentsDict } from '#libs/establishment/selectors';
 import { getMetaActivityAbstractDict } from '#libs/meta-activity/selectors';
 import { _getPrivateServicesById } from '#libs/private-service/selectors/private-service';
 import { getAllPrivateSlotsDict } from '#libs/private-service/selectors/private-slot';
+
+import './styles.css';
 
 type OwnProps = {
   authenticated: boolean;
@@ -109,7 +107,6 @@ type OwnProps = {
 
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
-  MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation &
   typeof mapDispatchToProps;
 
@@ -530,27 +527,19 @@ export class MarketPlacePassPage extends Component<Props, State> {
     const hideFilters = this.props.params?.hideFilters === 'true';
 
     return (
-      <>
+      <div className="bs-pass-page">
         {!hidePaymentCombo &&
           !this.state.passSearchResult.query &&
           !!this.props.paymentComboList.length && (
-            <Grid
-              container
-              className={this.props.classes.carouselContainer}
-              direction="row"
-            >
+            <div className="bs-pass-page__carousel__container">
               <Carousel
                 data={this.props.paymentComboList}
                 renderItem={this.getCarouselRenderItem}
               />
-            </Grid>
+            </div>
           )}
 
-        <Grid
-          container
-          className={this.props.classes.container}
-          direction="row"
-        >
+        <div className="bs-pass-page__list__filters__container">
           {!hideFilters && (
             <MarketplacePassFilters
               addComboToCart={this.addComboToCart}
@@ -584,7 +573,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
           {!!this.state.passSearchResult.query &&
             !!this.state.passSearchResult.paymentCombo.length &&
             !hidePaymentCombo && (
-              <div className={this.props.classes.marketplaceList}>
+              <div className="bs-pass-page__list">
                 <MarketplacePaymentComboList
                   isExcludingTax={
                     this.props.theme.is_tax_excluded_in_marketplace
@@ -601,7 +590,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
 
           {!hidePaymentPack &&
             this.state.passSearchFilters.type !== 'privatePass' && (
-              <div className={this.props.classes.marketplaceList}>
+              <div className="bs-pass-page__list">
                 <MarketplacePaymentPackList
                   hideCredits={this.props.theme.hide_credits_for_customers}
                   isExcludingTax={
@@ -623,7 +612,7 @@ export class MarketPlacePassPage extends Component<Props, State> {
 
           {!hidePrivatePass &&
             this.state.passSearchFilters.type !== 'paymentPack' && (
-              <div className={this.props.classes.marketplaceList}>
+              <div className="bs-pass-page__list">
                 <MarketplacePrivatePassList
                   hideCredits={this.props.theme.hide_credits_for_customers}
                   isExcludingTax={
@@ -642,9 +631,9 @@ export class MarketPlacePassPage extends Component<Props, State> {
                 />
               </div>
             )}
-        </Grid>
+        </div>
 
-        <MarketplacePassDialogs
+        <MarketplacePassDialogsPortal
           addComboToCart={this.addComboToCart}
           addPaymentPackToCart={this.addPaymentPackToCart}
           addPrivatePassToCart={this.addPrivatePassToCart}
@@ -679,42 +668,10 @@ export class MarketPlacePassPage extends Component<Props, State> {
           privateServices={this.props.privateServices}
           privateSlots={this.props.privateSlots}
         />
-      </>
+      </div>
     );
   }
 }
-
-const styles = (theme: Theme) =>
-  createStyles({
-    marketplaceList: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: theme.spacing(3),
-    },
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: theme.spacing(3),
-      padding: theme.spacing(6),
-      paddingTop: theme.spacing(4),
-      maxWidth: '1652px',
-      margin: '0 auto',
-      [theme.breakpoints.down('xs')]: {
-        padding: theme.spacing(2),
-      },
-    },
-    carouselContainer: {
-      padding: theme.spacing(6),
-      paddingTop: theme.spacing(2),
-      paddingBottom: 0,
-      maxWidth: '1652px',
-      margin: '0 auto',
-      [theme.breakpoints.down(MARKETPLACE_BREAKPOINT.MD)]: {
-        paddingLeft: theme.spacing(0),
-        paddingRight: theme.spacing(0),
-      },
-    },
-  });
 
 const mapMemberInfoStateToProps = (
   // Have to do this separation here for widget purpose
@@ -790,7 +747,6 @@ const mapDispatchToProps = {
 };
 
 export const MarketplacePassBase = compose<any, OwnProps>(
-  withStyles(styles),
   connect(mapMemberInfoStateToProps),
   connect(mapStateToProps, mapDispatchToProps),
   withHandlers({
@@ -830,6 +786,5 @@ export default compose<any, OwnProps>(
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:marketplace.marketplacePass'),
   ),
-  withStyles(styles),
   marketplaceCssHoc(),
 )(MarketplacePassBase);

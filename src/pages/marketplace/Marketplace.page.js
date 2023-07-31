@@ -97,9 +97,7 @@ import {
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-const MarketplacePassPage = asyncComponent(() =>
-  import('./MarketplacePass.page'),
-);
+const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
 
 const MarketplacePrivateServiceRouter = asyncComponent(() =>
   import('./PrivateService/MarketplacePrivateService.router'),
@@ -114,7 +112,7 @@ const MarketplaceWorkshopPage = asyncComponent(() =>
   import('./MarketplaceWorkshop.page'),
 );
 const MarketplaceContractPage = asyncComponent(() =>
-  import('./MarketplaceContract.page.tsx'),
+  import('./MarketplaceContract'),
 );
 const MarketplaceVodRouter = asyncComponent(() =>
   import('./MarketplaceVod.router'),

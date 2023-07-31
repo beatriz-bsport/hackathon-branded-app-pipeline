@@ -7,7 +7,7 @@ exports.default = {
       product: 'produit',
       product_plural: 'produits',
       paymentPack: 'Carte de cours',
-      privatePass: 'Carte de rdv',
+      privatePass: 'Carte RDV',
       shopProduct: 'Produit',
       paymentCombo: 'Pack',
       subscription: 'Contrat',

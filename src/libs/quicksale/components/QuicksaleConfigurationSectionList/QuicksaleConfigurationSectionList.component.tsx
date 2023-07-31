@@ -144,9 +144,9 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
                     key={section.section_id}
                     item
                     className={classes.sectionItem}
-                    lg={4}
                     sm={6}
                     xs={12}
+                    {...(isQuicksaleInterfaceView ? { md: 4 } : { lg: 4 })}
                   >
                     <QuicksaleSectionCard
                       adminView={!isQuicksaleInterfaceView}

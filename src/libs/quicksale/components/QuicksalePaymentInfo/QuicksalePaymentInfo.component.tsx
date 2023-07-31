@@ -1,16 +1,22 @@
 import React from 'react';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Event from '@material-ui/icons/Event';
+import Alert from '@material-ui/lab/Alert';
+import Button from '@material-ui/core/Button';
 
 import {
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
 } from '@bsport/common/lib/master-data/payment-group';
 
-import { QuicksalePaymentMethod } from '#libs/quicksale/constants';
+import {
+  QuicksalePaymentMethod,
+  WARNING_FONT_COLOR,
+} from '#libs/quicksale/constants';
 import PaymentMethodCardSelector from '#libs/payment/components/PaymentMethodCardSelector.component';
 import type { StripeReader } from '#libs/terminal/types';
 import PaymentStripeTerminal from '#libs/terminal/components/PaymentStripeTerminal.component';
@@ -19,12 +25,16 @@ import PaymentStripeCard from '#libs/payment/components/payment-backend-stripe/P
 import type { OptionCallback } from '../../../../state/types';
 import { getStripePkKey } from '#libs/theme/selectors';
 import PaymentStripeSEPA from '#libs/payment/components/payment-backend-stripe/PaymentStripeSEPA.component';
+import InstalmentPaymentSelector from '#libs/instalment-payment-configuration/components/InstalmentPaymentSelector.component';
+import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
+import type { Basket } from '#libs/checkout/types';
 
 type Props = {
   availablePaymentMethods?: QuicksalePaymentMethod[];
   selectedPaymentMethod: QuicksalePaymentMethod;
   setSelectedPaymentMethod: (paymentMethod: QuicksalePaymentMethod) => void;
   loading?: boolean;
+  setLoading?: (loading: boolean) => void;
   stripeReaders?: StripeReader[];
   clientSecret?: string;
   paymentGroupPriceCts?: number;
@@ -42,6 +52,15 @@ type Props = {
   checkItemsBasket: (basketId: string) => Promise<boolean>;
   basketId?: string;
   isMemberPOS?: boolean;
+  instalmentPaymentConfigurationList?: InstalmentPaymentApiWithBasketId[];
+  onSelectInstalmentPayment: (
+    instalment_payment: number,
+    options?: OptionCallback<Basket>,
+  ) => void;
+  instalmentPaymentSelectedId?: number;
+  openMemberAuthenticationModale?: () => void;
+  hasPaymentGroupPriceBeenModified?: boolean;
+  resetPaymentGroupPrice?: () => void;
 };
 
 const QuicksalePaymentInfo: React.FC<Props> = ({
@@ -49,6 +68,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
   selectedPaymentMethod,
   setSelectedPaymentMethod,
   loading,
+  setLoading,
   stripeReaders,
   clientSecret,
   paymentGroupPriceCts,
@@ -63,8 +83,16 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
   checkItemsBasket,
   basketId,
   isMemberPOS,
+  instalmentPaymentConfigurationList,
+  onSelectInstalmentPayment,
+  instalmentPaymentSelectedId,
+  openMemberAuthenticationModale,
+  hasPaymentGroupPriceBeenModified,
+  resetPaymentGroupPrice,
 }) => {
   const classes = useStyles();
+
+  const { t } = useTranslation('quicksale');
 
   const stripePromise = loadStripe(getStripePkKey());
 
@@ -121,6 +149,59 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
         >
           {children}
         </PaymentBsportInternal>
+      )}
+
+      {[
+        QuicksalePaymentMethod.CreditCard,
+        QuicksalePaymentMethod.Sepa,
+      ].includes(selectedPaymentMethod) && (
+        <>
+          <InstalmentPaymentSelector
+            instalmentPaymentConfigurationSelectedId={
+              instalmentPaymentSelectedId
+            }
+            instalmentPaymentConfigurationList={
+              instalmentPaymentConfigurationList
+            }
+            paymentProcessing={loading}
+            setPaymentProcessing={setLoading}
+            onSelectInstalmentPayment={onSelectInstalmentPayment}
+            basketPriceCts={paymentGroupPriceCts}
+            onlyInstantPayment={isMemberPOS || hasPaymentGroupPriceBeenModified}
+          />
+          {isMemberPOS && (
+            <Alert
+              severity="warning"
+              className={classes.alert}
+              action={
+                <Button
+                  onClick={openMemberAuthenticationModale}
+                  className={classes.authenticationButton}
+                >
+                  {t('checkout.noAnonymousInstalment.identify')}
+                </Button>
+              }
+            >
+              {t('checkout.noAnonymousInstalment.explanation')}
+            </Alert>
+          )}
+          {hasPaymentGroupPriceBeenModified && (
+            <Alert
+              severity="warning"
+              className={classes.alert}
+              action={
+                <Button
+                  onClick={resetPaymentGroupPrice}
+                  className={classes.authenticationButton}
+                >
+                  {t('checkout.noPartialInstalment.reset')}
+                </Button>
+              }
+            >
+              {t('checkout.noPartialInstalment.explanation')}
+            </Alert>
+          )}
+        </>
       )}
 
       {selectedPaymentMethod === QuicksalePaymentMethod.CreditCard && (
@@ -226,6 +307,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'end',
     flexDirection: 'row-reverse',
     gap: theme.spacing(1),
+  },
+  alert: {
+    alignItems: 'center',
+  },
+  authenticationButton: {
+    color: WARNING_FONT_COLOR,
   },
 }));
 

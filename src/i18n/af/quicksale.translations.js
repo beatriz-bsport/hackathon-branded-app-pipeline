@@ -244,5 +244,15 @@ exports.default = {
       subText:
         'Le paiement a bien été remis à plus tard : il pourra être effectué depuis le Backoffice ou sur le profil client.',
     },
+    noAnonymousInstalment: {
+      explanation:
+        'Il est impossible de payer en plusieurs fois lorsque la facture est anonyme',
+      identify: 'Identifier',
+    },
+    noPartialInstalment: {
+      explanation:
+        'Il est impossible de payer en plusieurs fois lorsque le montant total à payer a été modifié.',
+      reset: 'Réinitialiser',
+    },
   },
 };

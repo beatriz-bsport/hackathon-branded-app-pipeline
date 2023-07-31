@@ -43,12 +43,13 @@ import {
   getStripeRegion,
 } from '../../../theme/selectors';
 import type { OptionCallback } from '../../../../state/types';
-import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
+import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
 import {
   updateIntentToSavePaymentMethod as updateIntentToSavePaymentMethodAPI,
   updateIntentToSavePaymentMethodWebview as updateIntentToSavePaymentMethodWebviewAPI,
 } from '#libs/payment/api';
 import { TermsAndConditionType } from '#libs/payment/types';
+import type { Basket } from '#libs/checkout/types';
 
 const stripePromise = loadStripe(getStripePkKey());
 
@@ -86,9 +87,12 @@ type PaymentStripeProps = {
   creditAccountBalance?: number | null;
   applyBalanceLoading?: boolean;
 
-  instalmentPaymentConfigurationList: Array<InstalmentPayment> | null;
+  instalmentPaymentConfigurationList: InstalmentPaymentApiWithBasketId[] | null;
   instalmentPaymentSelectedId: number;
-  onSelectInstalmentPayment: (id: number, options: OptionCallback) => void;
+  onSelectInstalmentPayment: (
+    id: number,
+    options?: OptionCallback<Basket>,
+  ) => void;
   checkItemsBasket: (basketId: string) => boolean;
   paymentProcessing?: boolean;
   setPaymentProcessing?: (process: boolean) => void;

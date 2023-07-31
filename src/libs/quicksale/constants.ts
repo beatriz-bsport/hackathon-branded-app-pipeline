@@ -75,3 +75,5 @@ export enum QuicksalePaymentMethod {
   CreditCard = PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   Sepa = PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 }
+
+export const WARNING_FONT_COLOR = '#663D00';

@@ -1,9 +1,11 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Radio, Typography, Collapse } from '@material-ui/core';
+import Radio from '@material-ui/core/Radio';
+import Typography from '@material-ui/core/Typography';
+import Collapse from '@material-ui/core/Collapse';
 import moment from 'moment-timezone';
 import classNames from 'classnames';
-import { InstalmentPayment } from '../types';
+import type { InstalmentPaymentApiWithBasketId } from '../types';
 import InstalmentPaymentMultiplyIcon from './InstalmentPaymentConfigurationMultiplyIcon.component';
 import { DAILY, MONTHLY, WEEKLY } from '../constants';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
@@ -12,17 +14,25 @@ import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext'
 
 type OwnProps = {
   checked: boolean;
-  instalmentPayment: InstalmentPayment;
+  instalmentPayment: InstalmentPaymentApiWithBasketId;
   basketPrice: number;
   disabled: boolean;
-  withPaddingLeft: boolean;
+  withPaddingLeft?: boolean;
   onSelect: (id?: number) => void;
+  unselectable?: boolean;
 };
 type ShortandMoment = 'y' | 'd' | 'w' | 'M';
 type Props = OwnProps;
 
-export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
-  const { checked, instalmentPayment, basketPrice, disabled, onSelect } = props;
+export const BasketInstalmentPaymentOption: React.FC<Props> = ({
+  checked,
+  instalmentPayment,
+  basketPrice,
+  disabled,
+  withPaddingLeft,
+  onSelect,
+  unselectable,
+}) => {
   const isNewCheckoutFlow = React.useContext(CheckoutContext);
 
   const { t } = useTranslation(['instalmentPayment']);
@@ -73,7 +83,7 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
     if (!hasCustomfirstPayment)
       return (basketPrice / number_of_billing).toFixed(2);
     if (custom_first_instalment_type === 0)
-      return custom_first_instalment_amount;
+      return custom_first_instalment_amount.toFixed(2);
     return ((custom_first_instalment_percent / 100) * basketPrice).toFixed(2);
   }, [
     custom_first_instalment_amount,
@@ -149,15 +159,22 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
 
         {!partial_payment_enabled && (
           <>
-            <Typography>{instalmentPayment.name}</Typography>
-            <InstalmentPaymentMultiplyIcon multiplyFactor={number_of_billing} />
+            <Typography
+              className={classNames({ [classes.disabledText]: unselectable })}
+            >
+              {instalmentPayment.name}
+            </Typography>
+            <InstalmentPaymentMultiplyIcon
+              multiplyFactor={number_of_billing}
+              unselectable={unselectable}
+            />
           </>
         )}
       </div>
       <Collapse in={checked}>
         <div
           className={classNames(classes.column, {
-            [classes.paddingLeftMobile]: !!props?.withPaddingLeft,
+            [classes.paddingLeftMobile]: !!withPaddingLeft,
           })}
         >
           {partial_payment_enabled && (
@@ -190,4 +207,4 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = (props) => {
   );
 };
 
-export default BasketInstalmentPaymentOption;
+export default React.memo(BasketInstalmentPaymentOption);

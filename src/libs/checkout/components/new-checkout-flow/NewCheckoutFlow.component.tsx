@@ -29,18 +29,18 @@ import {
   StepType,
   STEPS,
 } from '../../types';
-import { OptionCallback } from '../../../../state/types';
+import type { OptionCallback } from '../../../../state/types';
 import { ActivitiesSummary } from './ActivitiesSummary.component';
 import { BasketSummary } from './BasketSummary.component';
 import CouponCodeInput from './CouponCodeInput.component';
-import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
+import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
 import { PriceCount } from './PriceCount.component';
 import { CheckoutSteps } from './CheckoutSteps.component';
-import { CompanyTheme } from '#libs/theme/types';
+import type { CompanyTheme } from '#libs/theme/types';
 import CheckoutButtons from './CheckoutButtons.component';
-import { Offer } from '#libs/offer/types';
-import { Establishment } from '#libs/establishment/types';
-import { MetaActivity } from '#libs/meta-activity/types';
+import type { Offer } from '#libs/offer/types';
+import type { Establishment } from '#libs/establishment/types';
+import type { MetaActivity } from '#libs/meta-activity/types';
 
 import {
   useHandleSubmitButtonsCallbacks,
@@ -73,11 +73,14 @@ type NewCheckoutFlowProps = {
   creditAccountBalance?: number | null;
   detachPaymentMethod: (paymentMethodId: string) => void;
   detachPaymentMethodLoading: boolean;
-  instalmentPaymentConfigurationList: Array<InstalmentPayment> | null;
+  instalmentPaymentConfigurationList: InstalmentPaymentApiWithBasketId[] | null;
   isExcludingTax: boolean;
   onPaymentSuccess: (callback?: () => void) => void;
   onRemoveInternalAccountPrepaidLine: () => void;
-  onSelectInstalmentPayment: (id: number, options: OptionCallback) => void;
+  onSelectInstalmentPayment: (
+    id: number,
+    options?: OptionCallback<Basket>,
+  ) => void;
   patchBasket: (basketAddress: BasketAddress, options: OptionCallback) => void;
   paymentGroupId: number;
   paymentProcessing?: boolean;

@@ -14,7 +14,7 @@ import {
   dropQuicksaleBasketActions,
 } from './actions';
 
-import {
+import type {
   Basket,
   CheckoutState,
   GeneratedObject,
@@ -166,6 +166,18 @@ export default handleActions<Immutable.Immutable<CheckoutState>, any>(
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(['basket', 'updating'], payload);
+    },
+    [assignInstalmentPaymentActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error },
+    ) => {
+      return state.setIn(['basket', 'error'], payload);
+    },
+    [assignInstalmentPaymentActions.success.toString()]: (
+      state,
+      { payload }: { payload: Basket },
+    ) => {
+      return state.setIn(['basket', 'byId', payload.id], payload);
     },
 
     [fetchQuicksaleBasketsActions.isLoading.toString()]: (

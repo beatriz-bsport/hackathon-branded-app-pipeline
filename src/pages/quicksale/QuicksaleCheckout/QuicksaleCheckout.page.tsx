@@ -19,6 +19,7 @@ import {
   attachCoupon as attachCouponAction,
   removeItemFromBasket as removeItemFromBasketAction,
   patchCurrentBasket as patchCurrentBasketAction,
+  assignInstalmentPayment as assignInstalmentPaymentAction,
 } from '#libs/checkout/actions';
 import { getBasket } from '#libs/checkout/selectors';
 
@@ -30,6 +31,8 @@ import { checkItemsBasket as checkItemsBasketAPI } from '#libs/payment/api';
 
 import { fetchPaymentList as fetchPaymentListAction } from '#libs/invoice/actions';
 import { getPaymentList } from '#libs/invoice/selectors';
+
+import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#libs/instalment-payment-configuration/actions';
 
 import { getMemberListData } from '#libs/member/selectors';
 import {
@@ -57,6 +60,7 @@ import { getFeatureList as getFeatureListAction } from '#libs/company/actions';
 import { fetchStripeReaders as fetchStripeReadersAction } from '#libs/terminal/actions';
 import { getStripeReaders } from '#libs/terminal/selectors';
 import { useQuicksalePayments, useModals } from './hooks';
+import { getInstalmentForBasketList } from '#libs/instalment-payment-configuration/selectors';
 
 type Props = {
   basketId: string;
@@ -71,6 +75,7 @@ const QuicksalePayment: React.FC<Props> = ({
   paymentList,
   stripeReaders,
   detachPaymentMethodLoading,
+  instalmentPaymentConfigurationList,
   fetchBasket,
   fetchMembers,
   push,
@@ -86,6 +91,8 @@ const QuicksalePayment: React.FC<Props> = ({
   fetchStripeReaders,
   detachPaymentMethod,
   snackbarErrorMsg,
+  fetchInstalmentPaymentByBasket,
+  assignInstalmentPayment,
 }) => {
   const goBack = React.useCallback(() => {
     push('/quicksale/');
@@ -156,7 +163,14 @@ const QuicksalePayment: React.FC<Props> = ({
           });
       },
     });
-  }, [basketId, fetchBasket, fetchMembers, fetchPaymentList]);
+    fetchInstalmentPaymentByBasket(basketId);
+  }, [
+    basketId,
+    fetchBasket,
+    fetchInstalmentPaymentByBasket,
+    fetchMembers,
+    fetchPaymentList,
+  ]);
 
   const alreadyPaidAmount = React.useMemo(
     () =>
@@ -339,6 +353,22 @@ const QuicksalePayment: React.FC<Props> = ({
 
   const companyCountry = getCompanyCountry();
 
+  // ========== Instalment payments ==========
+  const instalmentPaymentConfigurationListForCurrentBasket = React.useMemo(
+    () =>
+      instalmentPaymentConfigurationList.filter(
+        (instalmentPayment) => instalmentPayment.basketId === basketId,
+      ),
+    [basketId, instalmentPaymentConfigurationList],
+  );
+
+  const onSelectInstalmentPayment = React.useCallback(
+    (instalment_payment: number, options?: OptionCallback<Basket>) => {
+      assignInstalmentPayment(basketId, instalment_payment, options);
+    },
+    [assignInstalmentPayment, basketId],
+  );
+
   return (
     <>
       <QuicksaleCheckout
@@ -371,6 +401,11 @@ const QuicksalePayment: React.FC<Props> = ({
         detachPaymentMethodLoading={detachPaymentMethodLoading}
         removePaymentMethod={removePaymentMethod}
         checkItemsBasket={checkItemsBasket}
+        instalmentPaymentConfigurationList={
+          instalmentPaymentConfigurationListForCurrentBasket
+        }
+        onSelectInstalmentPayment={onSelectInstalmentPayment}
+        setLoading={setLoading}
       />
 
       <QuicksaleDialogs
@@ -410,6 +445,7 @@ const connector = connect(
     stripeReaders: getStripeReaders(state),
     detachPaymentMethodLoading:
       state.paymentBackend.detachPaymentMethod.loading,
+    instalmentPaymentConfigurationList: getInstalmentForBasketList(state),
   }),
   {
     fetchBasket: fetchBasketAction,
@@ -428,6 +464,8 @@ const connector = connect(
     fetchStripeReaders: fetchStripeReadersAction,
     detachPaymentMethod: detachPaymentMethodAction,
     snackbarErrorMsg: snackbarWarning,
+    fetchInstalmentPaymentByBasket: fetchInstalmentPaymentByBasketAction,
+    assignInstalmentPayment: assignInstalmentPaymentAction,
   },
 );
 

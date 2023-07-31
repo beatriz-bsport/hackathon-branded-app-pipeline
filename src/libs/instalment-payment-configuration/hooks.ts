@@ -33,4 +33,7 @@ export const useBasketInstalmentPaymentOptionStyle = makeStyles<
     gap: theme.spacing(1),
     alignItems: 'center',
   },
+  disabledText: {
+    color: theme.palette.grey[500],
+  },
 }));

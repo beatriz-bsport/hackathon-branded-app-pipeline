@@ -26,7 +26,8 @@ import {
 } from '#libs/quicksale/constants';
 import QuicksaleDeliveryForm from '#libs/quicksale/components/QuicksaleDeliveryForm/QuicksaleDeliveryForm.component';
 import QuicksalePaymentInfo from '#libs/quicksale/components/QuicksalePaymentInfo';
-import { StripeReader } from '#libs/terminal/types';
+import type { StripeReader } from '#libs/terminal/types';
+import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
 
 type Props = {
   theme: Theme;
@@ -44,6 +45,7 @@ type Props = {
   paymentGroupPriceCts?: number;
   alreadyPaidAmount?: number;
   loading?: boolean;
+  setLoading?: (loading: boolean) => void;
   isProcessing?: boolean;
   setIsProcessing?: (isProcessing: boolean) => void;
   removeCoupon: (data: { checkout_item: string; quantity: number }) => void;
@@ -64,6 +66,11 @@ type Props = {
     options?: OptionCallback,
   ) => void;
   checkItemsBasket: (basketId: string) => Promise<boolean>;
+  instalmentPaymentConfigurationList?: InstalmentPaymentApiWithBasketId[];
+  onSelectInstalmentPayment: (
+    instalment_payment: number,
+    options?: OptionCallback<Basket>,
+  ) => void;
 };
 
 const QuicksaleCheckout: React.FC<Props> = ({
@@ -79,6 +86,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
   paymentGroupPriceCts,
   alreadyPaidAmount,
   loading,
+  setLoading,
   isProcessing,
   setIsProcessing,
   removeCoupon,
@@ -96,6 +104,8 @@ const QuicksaleCheckout: React.FC<Props> = ({
   detachPaymentMethodLoading,
   removePaymentMethod,
   checkItemsBasket,
+  instalmentPaymentConfigurationList,
+  onSelectInstalmentPayment,
 }) => {
   const { t } = useTranslation('quicksale');
 
@@ -113,6 +123,14 @@ const QuicksaleCheckout: React.FC<Props> = ({
           QuicksaleBasketItem.ShopItemIdentifier,
       ),
     [basket?.checkout_items],
+  );
+
+  const resetPaymentGroupPrice = React.useCallback(
+    () =>
+      editPaymentGroupPrice?.(
+        basket?.total_price_cts / 100 - (alreadyPaidAmount ?? 0),
+      ),
+    [alreadyPaidAmount, basket?.total_price_cts, editPaymentGroupPrice],
   );
 
   return (
@@ -185,6 +203,18 @@ const QuicksaleCheckout: React.FC<Props> = ({
             isMemberPOS={member?.is_pos}
             memberId={basket?.member}
             checkItemsBasket={checkItemsBasket}
+            instalmentPaymentConfigurationList={
+              instalmentPaymentConfigurationList
+            }
+            onSelectInstalmentPayment={onSelectInstalmentPayment}
+            instalmentPaymentSelectedId={basket?.instalment_payment}
+            setLoading={setLoading}
+            openMemberAuthenticationModale={openMemberAuthenticationModal}
+            hasPaymentGroupPriceBeenModified={
+              paymentGroupPriceCts !==
+              basket?.total_price_cts - (alreadyPaidAmount ?? 0)
+            }
+            resetPaymentGroupPrice={resetPaymentGroupPrice}
           />
         </Grid>
       </Grid>
@@ -225,6 +255,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
+    maxHeight: 'calc(100vh - 156px)',
+    overflowY: 'auto',
   },
   buttons: {
     display: 'flex',

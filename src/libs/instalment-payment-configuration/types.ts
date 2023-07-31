@@ -69,6 +69,10 @@ export type InstalmentPaymentApi = {
   partial_payment_enabled: boolean;
 };
 
+export type InstalmentPaymentApiWithBasketId = InstalmentPaymentApi & {
+  basketId?: string;
+};
+
 export type InstalmentPaymentState = {
   allIds: Array<number>;
   byId: {

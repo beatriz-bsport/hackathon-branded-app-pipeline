@@ -4,32 +4,77 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import BasketInstalmentEmptyPlaceholder from '#libs/instalment-payment-configuration/components/BasketInstalmentEmptyPlaceholder.component';
 import BasketInstalmentPaymentOption from './BasketInstalmentPaymentConfigurationOption.component';
-import { InstalmentPayment } from '../types';
-import { OptionCallback } from '../../../state/types';
+import type { InstalmentPaymentApiWithBasketId } from '../types';
+import type { OptionCallback } from '../../../state/types';
 import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
+import type { Basket } from '#libs/checkout/types';
 
 type Props = {
-  instalmentPaymentConfigurationList: null | Array<InstalmentPayment>;
+  instalmentPaymentConfigurationList: null | InstalmentPaymentApiWithBasketId[];
   basketPriceCts: number;
   onSelectInstalmentPayment: (
     id: number | null,
-    options: OptionCallback,
+    options?: OptionCallback<Basket>,
   ) => void;
-  fromApp: boolean;
+  fromApp?: boolean;
   paymentProcessing?: boolean;
+  setPaymentProcessing?: (isPaymentProcessing: boolean) => void;
 
   instalmentPaymentConfigurationSelectedId: number;
+  onlyInstantPayment?: boolean;
 };
 
-const InstalmentPaymentSelector = (props: Props) => {
+const InstalmentPaymentSelector: React.FC<Props> = ({
+  instalmentPaymentConfigurationList,
+  basketPriceCts,
+  onSelectInstalmentPayment,
+  fromApp,
+  paymentProcessing,
+  setPaymentProcessing,
+  instalmentPaymentConfigurationSelectedId,
+  onlyInstantPayment,
+}) => {
   const isNewCheckoutFlow = React.useContext(CheckoutContext);
   const classes = useStyles({ isNewCheckoutFlow });
   const [processing, setProcessing] = React.useState(false);
   const isLoadingMain =
-    props.instalmentPaymentConfigurationSelectedId &&
-    !(props.instalmentPaymentConfigurationList || [])
+    instalmentPaymentConfigurationSelectedId &&
+    !(instalmentPaymentConfigurationList || [])
       .map((ipc) => ipc.id)
-      .includes(props.instalmentPaymentConfigurationSelectedId);
+      .includes(instalmentPaymentConfigurationSelectedId);
+
+  const onEmptyInstalmentPaymentSelect = React.useCallback(() => {
+    setProcessing(true);
+    setPaymentProcessing?.(true);
+    onSelectInstalmentPayment(null, {
+      onSuccess: () => {
+        setProcessing(false);
+        setPaymentProcessing?.(false);
+      },
+      onError: () => {
+        setProcessing(false);
+        setPaymentProcessing?.(false);
+      },
+    });
+  }, [onSelectInstalmentPayment, setPaymentProcessing]);
+
+  const onSelectInstalmentPaymentWithId = React.useCallback(
+    (id: number) => {
+      setProcessing(true);
+      setPaymentProcessing?.(true);
+      onSelectInstalmentPayment(id, {
+        onSuccess: () => {
+          setProcessing(false);
+          setPaymentProcessing?.(false);
+        },
+        onError: () => {
+          setProcessing(false);
+          setPaymentProcessing?.(false);
+        },
+      });
+    },
+    [onSelectInstalmentPayment, setPaymentProcessing],
+  );
 
   if (isLoadingMain) {
     return (
@@ -41,34 +86,23 @@ const InstalmentPaymentSelector = (props: Props) => {
   return (
     <div className={classes.row}>
       {processing && <LinearProgress />}
-      {!!(props.instalmentPaymentConfigurationList || []).length && (
+      {!!(instalmentPaymentConfigurationList || []).length && (
         <BasketInstalmentEmptyPlaceholder
-          disabled={processing || props.paymentProcessing}
-          checked={props.instalmentPaymentConfigurationSelectedId === null}
-          onSelect={() => {
-            setProcessing(true);
-            props.onSelectInstalmentPayment(null, {
-              onSuccess: () => setProcessing(false),
-              onError: () => setProcessing(false),
-            });
-          }}
+          disabled={processing || paymentProcessing}
+          checked={instalmentPaymentConfigurationSelectedId === null}
+          onSelect={onEmptyInstalmentPaymentSelect}
         />
       )}
-      {(props.instalmentPaymentConfigurationList || []).map((ipc) => (
+      {(instalmentPaymentConfigurationList || []).map((ipc) => (
         <BasketInstalmentPaymentOption
           instalmentPayment={ipc}
           key={ipc.id}
-          disabled={processing || props.paymentProcessing}
-          checked={props.instalmentPaymentConfigurationSelectedId === ipc.id}
-          basketPrice={props.basketPriceCts / 100}
-          onSelect={(id: number) => {
-            setProcessing(true);
-            props.onSelectInstalmentPayment(id, {
-              onSuccess: () => setProcessing(false),
-              onError: () => setProcessing(false),
-            });
-          }}
-          withPaddingLeft={props.fromApp}
+          disabled={onlyInstantPayment || processing || paymentProcessing}
+          checked={instalmentPaymentConfigurationSelectedId === ipc.id}
+          basketPrice={basketPriceCts / 100}
+          onSelect={onSelectInstalmentPaymentWithId}
+          withPaddingLeft={fromApp}
+          unselectable={onlyInstantPayment}
         />
       ))}
     </div>
@@ -98,4 +132,4 @@ const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
   }),
 }));
 
-export default InstalmentPaymentSelector;
+export default React.memo(InstalmentPaymentSelector);

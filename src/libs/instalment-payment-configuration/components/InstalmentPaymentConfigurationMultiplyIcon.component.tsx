@@ -1,42 +1,46 @@
-// @ts-nocheck
 import React from 'react';
-import { Theme } from '@material-ui/core/styles';
+import chroma from 'chroma-js';
+import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import { getTextColorFromRGB } from '../../../utils/color';
 
-type OwnProps = { multiplyFactor: number };
+type Props = { multiplyFactor: number; unselectable?: boolean };
 
-type Props = OwnProps;
-
-export const InstalmentPaymentMultiplyIcon: React.FC<Props> = (props) => {
-  const classes = useStyles();
+export const InstalmentPaymentMultiplyIcon: React.FC<Props> = ({
+  multiplyFactor,
+  unselectable,
+}) => {
+  const classes = useStyles({ unselectable });
 
   return (
     <div className={classes.container}>
       <Typography variant="subtitle1" className={classes.typo}>
-        {`${props.multiplyFactor}x`}
+        {`${multiplyFactor}x`}
       </Typography>
     </div>
   );
 };
 
-const useStyles = makeStyles<Theme>((theme) => ({
+const useStyles = makeStyles<Theme, { unselectable?: boolean }>((theme) => ({
   typo: {
-    color: getTextColorFromRGB(theme.palette.primary.main),
+    color: getTextColorFromRGB(chroma(theme.palette.primary.main).rgb()),
     fontWeight: 500,
     display: 'flex',
     alignItems: 'center',
   },
 
-  container: {
-    backgroundColor: theme.palette.primary.main,
+  container: ({ unselectable }) => ({
+    backgroundColor: unselectable
+      ? chroma(theme.palette.primary.main).alpha(0.1).hex()
+      : theme.palette.primary.main,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     padding: '2px 12px',
     borderRadius: '4px',
-  },
+  }),
 }));
-export default InstalmentPaymentMultiplyIcon;
+
+export default React.memo(InstalmentPaymentMultiplyIcon);

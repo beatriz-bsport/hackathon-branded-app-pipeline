@@ -2,10 +2,10 @@ import React, { forwardRef, useImperativeHandle } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { OptionCallback } from '../../../../state/types';
-import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
+import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
 import PaymentStripe from '#libs/payment/components/payment-backend-stripe/PaymentStripe.component';
 import { BasketNullPrice } from './BasketNullPrice.component';
-import { Basket, PrepaidLine } from '#libs/checkout/types';
+import type { Basket, PrepaidLine } from '#libs/checkout/types';
 import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
 
 type PaymentStepProps = {
@@ -20,12 +20,15 @@ type PaymentStepProps = {
   creditAccountBalance?: number;
   detachPaymentMethod: (paymentMethodId: string) => void;
   detachPaymentMethodLoading: boolean;
-  instalmentPaymentConfigurationList?: Array<InstalmentPayment>;
+  instalmentPaymentConfigurationList?: InstalmentPaymentApiWithBasketId[];
   isOnlinePaymentAvailable: boolean;
   isPayLaterAvailable: boolean;
   isTotalPriceNull: boolean;
   loading: boolean;
-  onSelectInstalmentPayment: (id: number, options: OptionCallback) => void;
+  onSelectInstalmentPayment: (
+    id: number,
+    options?: OptionCallback<Basket>,
+  ) => void;
   onPaymentSuccess: (callback?: () => void) => void;
   paymentGroupId: number;
   paymentMethodChoices: any;
@@ -115,9 +118,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       ) {
         setPaymentProcessing(false);
         // eslint-disable-next-line
-        window.alert(
-          t('myBasket.error.inconsistentBasket'),
-        );
+        window.alert(t('myBasket.error.inconsistentBasket'));
         window.location.reload();
         return;
       }

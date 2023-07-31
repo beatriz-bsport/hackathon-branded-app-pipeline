@@ -9,7 +9,7 @@ import { makeStyles, Theme } from '@material-ui/core';
 import { ImmutableArray } from 'seamless-immutable';
 import BasketDeliveryForm from '#libs/checkout/components/BasketDeliveryForm.component';
 import AcceptTermsAndConditions from '#libs/payment/components/AcceptTermsAndConditions.component';
-import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
+import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
 
 import type { OptionCallback } from '../../../../state/types';
 import {
@@ -38,11 +38,14 @@ type CheckoutStepsProps = {
   currentStep: StepType;
   detachPaymentMethod: (pm_id: string) => void;
   detachPaymentMethodLoading: boolean;
-  instalmentPaymentConfigurationList: Array<InstalmentPayment> | null;
+  instalmentPaymentConfigurationList: InstalmentPaymentApiWithBasketId[] | null;
   isOnlinePaymentAvailable: boolean;
   isPayLaterAvailable: boolean;
   isTotalPriceNull: boolean;
-  onSelectInstalmentPayment: (id: number, options: OptionCallback) => void;
+  onSelectInstalmentPayment: (
+    id: number,
+    options?: OptionCallback<Basket>,
+  ) => void;
   onPaymentSuccess: () => void;
   patchBasket: (basketAddress: BasketAddress, options: OptionCallback) => void;
   paymentGroupId: number;

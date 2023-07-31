@@ -1070,7 +1070,7 @@
                 "status": "Status"
             },
             "invoice": {
-                "explainUnevenInvoice": "Het totaalbedrag is €{{totalInvoiceItems}}, maar het totaal van de betalingen is €{{ totalPayments }}. Het interne account van het lid zal worden bijgeschreven/gedebiteerd om dit te balanceren.",
+                "explainUnevenInvoice": "Het totaal is {{totalInvoiceItems }}{ currencyDisplay }} als het totaal aan betalingen {{ totalPayments }}{ currencyDisplay }} is. De interne rekening van het lid wordt gecrediteerd/gedebiteerd naar balans.",
                 "titleUnevenInvoice": "Openstaande facturen",
                 "activityHelper": "Kies de activiteit en vervolgens de sessie",
                 "objectTypeLabel": "Te verrekenen onderdeel",
@@ -3205,14 +3205,14 @@
                 "content": "Toegevoegd aan: {{- name}}"
             },
             "newSection": {
-                "content": "De nieuwe handleiding \"{{name}}\" is nu beschikbaar.",
+                "content": "De {{-name}} sectie is toegevoegd, dus begin nu met trainen.",
                 "title": "Nieuwe Sectie"
             }
         },
         "readAll": "Markeer alles als gelezen",
         "lateReplacementRequest": {
             "title": "Late plaatsvervanging",
-            "content": "verzocht om een vervanging voor de volgende sessie: {{activity_name}} - {{date_start}}"
+            "content": "heeft een vervanging aangevraagd voor de volgende sessie: {{activity_name}} - {{date_start}}"
         }
     },
     "paymentPack": {
@@ -3894,10 +3894,10 @@
             "penalityType": "Type sanctie",
             "penalityAccount": "De interne rekening (Wallet) van het lid in rekening brengen",
             "penalityBlock": "Tijdelijk de kaart blokkeren",
-            "penalityInfo": "Er wordt een sanctie toegepast wanneer een lid {{penalityNumberCancel}} keer te laat binnen {{{penalityNumberDay}}  dagen annuleert",
+            "penalityInfo": "Er zal een boete worden toegepast als {{penalityNumberCancel}} wordt geannuleerd buiten de {{penalityNumberDay}} dagperiode.",
             "penalityNumberDay": "Aantal dagen",
             "penalityNumberCancel": "Aantal annuleringen",
-            "marginalContributionHelperText": "Dit wordt gebruikt om de payroll van de instructeur(s) te berekenen. Voorbeeld: €10 betekent dat bij 1 reservering, de instructeur €10 ontvangt. Indien dit veld leeg of €0 is, dan wordt de payroll op basis van PRIJS / AANTAL RESERVERINGEN berekend.",
+            "marginalContributionHelperText": "Wordt gebruikt om de vergoeding voor docenten te berekenen. 10{ currencyDisplay }} betekent dat een reservering die met deze kaart is gemaakt, wordt vergoed tegen 10{ currencyDisplay }}. Indien leeg of 0{ currencyDisplay }} is de bijdrage van een kaart PRIJS/NB_RESERVATIE",
             "marginalContribution": "Theoretische marginale waarde excl. btw",
             "expirationDateHelper": "De geldigheid van deze leskaart verloopt na X aantal dagen als het niet gebruikt wordt.",
             "expirationDate": "De vervaldatum indien deze leskaart niet gebruikt wordt:",
@@ -4019,7 +4019,7 @@
             "unusableByStaff": "Onzichtbaar voor het personeel"
         },
         "noShowPenalty": {
-            "account": "Een voorschot van {{bedrag}} wordt toegepast voor {{treshold}} afwezigheden over een periode van {{time_window_days}} dagen",
+            "account": "Een waarborg van {{amount}} zal worden toegepast voor {{treshold}} afwezigheden over een periode van {{time_window_days}} dagen.",
             "block": "{{days_blocked}} geblokkeerde dagen na {{treshold}} afwezigheden over een periode van {{time_window_days}} dagen"
         },
         "orderingAlert": {
@@ -6868,10 +6868,10 @@
                             "year_plural": "Het abonnement wordt elke {{ recurrence_basis }} jaar gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van het abonnement kiezen.",
                             "day": "Het abonnement wordt dagelijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van zijn abonnement kiezen.",
                             "day_plural": "Het abonnement wordt elke {{ recurrence_basis }} dagen gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van zijn abonnement kiezen.",
-                            "week": "Het abonnement wordt wekelijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van het abonnement kiezen.",
-                            "week_plural": "Het abonnement wordt wekelijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van het abonnement kiezen.",
-                            "month": "Het abonnement wordt maandelijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van zijn abonnement kiezen.",
-                            "month_plural": "Het abonnement wordt maandelijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. De klant kan de begindatum van zijn abonnement kiezen."
+                            "week": "Het abonnement wordt elke week gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. Klanten kunnen de begindatum van hun abonnement kiezen.",
+                            "week_plural": "Het abonnement wordt elke {{ recurrence_basis }} week gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. Klanten kunnen de begindatum van hun abonnement kiezen.",
+                            "month": "Het abonnement wordt maandelijks gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. Klanten kunnen de begindatum van hun abonnement kiezen.",
+                            "month_plural": "Het abonnement wordt elke {{ recurrence_basis }} maand gefactureerd voor een totale duur van {{ total_subscription_duration }} {{ time_unit }} en genereert {{ nb_interval }} {{ invoice }}. Klanten kunnen de begindatum van hun abonnement kiezen."
                         },
                         "explain": "De facturatiedatum hangt af van de dag van aankoop van het abonnement.",
                         "label": "Factuur op dezelfde dag als de aankoopdatum van het abonnement"
@@ -11836,7 +11836,7 @@
         },
         "management": {
             "smartlistDetail": {
-                "empty": "Er is geen automatisch tag-regel aan deze tag \"{{- tag }}\" gekoppeld.",
+                "empty": "Er is geen taggingregel gekoppeld aan de {{ tag }} tag.",
                 "removeTag": "Verwijder",
                 "title": "Tags van Smartlists",
                 "createViaSmartlist": "Open Smartlists"
@@ -12126,7 +12126,7 @@
                 "acceptDoubleBookingMetaActivity": "Accepteer dubbele boekingen voor activiteiten",
                 "acceptDoubleBookingWorkshop": "Accepteer dubbele boekingen voor workshops",
                 "hideBookButton": {
-                    "switchLabel": "Verberg de knop \"{{bookButtonTranslation}}\"",
+                    "switchLabel": "Verberg de knop \" {{bookButtonTranslation}}",
                     "dialogDescription": "Door de \"{{-bookButtonTranslation}}\" knop te verbergen, wordt de kaart klikbaar om de sessie te boeken."
                 },
                 "doubleBookingDisabledWithSpivi": "Dubbele reserveringen zijn niet mogelijk met de Spivi-integratie."
@@ -14361,7 +14361,7 @@
                     "title": "Een cadence verwijderen",
                     "confirm": "Vervolgen",
                     "cancel": "Annuleren",
-                    "beingArchived": "Je staat op het punt om \"{{ naam }}\" te verwijderen."
+                    "beingArchived": "Je staat op het punt om \"{{ name }}\" te verwijderen."
                 }
             },
             "howTo": {

@@ -7934,24 +7934,104 @@
                 "contractCheckout": "Passe Subscrição (pagamento)",
                 "contractDetailModal": "Pop-up com detalhes de subscrição",
                 "contractDetail": "Detalhe da subscrição"
+            },
+            "cssEditor": {
+                "reset": "reposto",
+                "secondaryBackgroundColorElement": "Cor de fundo secundária para elementos",
+                "backgroundColorElement": "Cor de fundo principal dos elementos",
+                "backgroundColorPage": "Cor de fundo da página",
+                "borderColor": "Cor da margem",
+                "secondaryColor": "Cor secundária",
+                "mainColor": "Cor principal",
+                "subtypographyColor": "Cor da legenda",
+                "typographyColor": "Cor do texto",
+                "rounding": "Arredondamento de objectos",
+                "spacing": "Espaçamento",
+                "backgroundColor": "Cor de fundo",
+                "colors": "Cores",
+                "typography": "Tipografia",
+                "general": "Espaçamento e arredondamento"
+            },
+            "groupSessionByPeriod": "Manhãs, tardes e noites separadas",
+            "configDialog": {
+                "cancel": "Fechar",
+                "submit": "Confirmar",
+                "title": "Definições do widget"
+            },
+            "variantOption": {
+                "time": "Horário",
+                "coach": "O professor",
+                "activityName": "A atividade"
+            },
+            "variant": "Apresentação",
+            "browserLanguage": "Idioma do browser",
+            "languageHelper": "O widget será predefinido para o idioma selecionado aqui. Seleccione \"Idioma do navegador\" para que o idioma do widget se adapte automaticamente ao idioma do seu cliente.",
+            "pickALanguage": "Selecionar o idioma predefinido",
+            "dialogSize": {
+                "window": "Janela pop-up",
+                "fullScreen": "Ecrã inteiro"
+            },
+            "dialogMode": {
+                "iframe": "Permanecer no site",
+                "popup": "Nova janela",
+                "tab": "Novo separador"
+            },
+            "showFabLabel": "Botão Bsport EasyConnect",
+            "dialogSizeLabel": "Tamanho do popup",
+            "dialogModeLabel": "Tipo de pop-up (início de sessão, pagamento, reserva)",
+            "widgetPreviewError": "Termine a sua configuração",
+            "dialogTitle": "Personalização de widgets",
+            "linkToConfig": "Ligação a esta configuração",
+            "codeInfo": "O código a integrar no seu sítio",
+            "creationPageInfo": "Personalize widgets e integre-os no seu sítio",
+            "responsiveIframe": "Ativar o modo de resposta",
+            "ownStyle": "Modo de compatibilidade (ignorar o tema do sítio)",
+            "copyUrl": "Aceder à ligação do seu calendário",
+            "codeSource": "Veja o código que precisa de copiar para o seu próprio sítio",
+            "copy": "Cópia",
+            "url": "Ligação ao calendário",
+            "code": "Widget no seu sítio",
+            "choice": "Escolha como pretende apresentar o seu widget",
+            "visualisation": "Visualização",
+            "widget": "Partilhar o seu calendário",
+            "displayType": "Tipo de ecrã",
+            "return": "Voltar a",
+            "show": "Visualizar",
+            "cancel": "Cancelar",
+            "responsiveDisplay": "Ecrã responsivo",
+            "todayOnly": "Sessões de visão do dia",
+            "calendarDisplay": "Visão semanal do passe (calendário)",
+            "listDisplay": "Lista da semana da visão",
+            "configTitle": "O meu widget",
+            "containerConfiguration": {
+                "title": "Configuração geral"
             }
-        }
+        },
+        "customizeCss": "Personalização css",
+        "customize": "Personalização",
+        "create": "General"
     },
     "waitingList": {
         "member": {
             "detail": {
-                "title": "Detalhes da lista de espera"
+                "title": "Detalhes da lista de espera",
+                "offerTitle": "Sessão interligada",
+                "registrationSource": "Painel de registo",
+                "registeredOn": "Registado em"
             },
             "empty": "Não há lista de espera",
             "listTitle": "Lista de espera",
-            "delete": "Eliminar"
+            "delete": "Eliminar",
+            "addToBook": "Registo"
         },
         "dialog": {
             "delete": {
                 "title": "Eliminar lista de espera",
                 "confirm": "Eliminar",
                 "contentV2": "Tem a certeza de que pretende retirar este membro da lista de espera ?",
-                "content": "Tem a certeza de que pretende retirar este membro da lista de espera ? Ele será notificado por e-mail."
+                "content": "Tem a certeza de que pretende retirar este membro da lista de espera ? Ele será notificado por e-mail.",
+                "cancel": "Cancelar",
+                "sendEmail": "Enviar uma mensagem de email para anular a subscrição"
             }
         },
         "form": {
@@ -7969,15 +8049,43 @@
             "dynamic": {
                 "label": "Gerir as prioridades da lista de espera",
                 "1": {
-                    "explain": "A lista de espera não é ordenada. Quando um lugar fica disponível, todos os inscritos na lista recebem um e-mail ao mesmo tempo de convite."
+                    "explain": "A lista de espera não é ordenada. Quando um lugar fica disponível, todos os inscritos na lista recebem um e-mail ao mesmo tempo de convite.",
+                    "label": "Primeiro a chegar, primeiro a ser servido"
                 },
                 "0": {
-                    "explain": "Quando um aluno inscreve-se na lista de espera é-lhe atribuído um lugar. Quando surgir uma vaga, o primeiro aluno da lista pode inscrever-se, enquanto os outros aguardam a sua vez"
+                    "explain": "Quando um aluno inscreve-se na lista de espera é-lhe atribuído um lugar. Quando surgir uma vaga, o primeiro aluno da lista pode inscrever-se, enquanto os outros aguardam a sua vez",
+                    "overallExplainSmart": "Se houver um lugar disponível, o aluno tem {{ autokick_delay }} lembretes em intervalos de {{ smart_delay_percentage }} do tempo restante antes do início da sessão para se registar. Por exemplo, se houver {{ example_hours_before }} h antes da sessão, tem {{ example_computed_delay_one }} minutos para se registar e depois {{ example_computed_delay_two }} minutos após o primeiro reinício, e assim sucessivamente, antes de dar lugar ao aluno seguinte.",
+                    "overallExplainSimple": "Se houver um lugar disponível, o aluno tem {{ autokick_delay }} lembretes em intervalos de {{ dumb_delay_minutes }} minutos para se inscrever antes de ceder o seu lugar ao aluno seguinte.",
+                    "settingsDelay": "Tempo entre lembretes",
+                    "label": "Alternativa"
                 }
+            },
+            "check_credit": {
+                "helper": "Os clientes não podem ser colocados em fila de espera enquanto não dispuserem de um cartão de curso compatível com a oferta em causa e de crédito suficiente para efetuar a reserva",
+                "label": "Verificar se o cliente dispõe de um cartão de curso compatível com a oferta e se tem crédito suficiente"
+            },
+            "submit": "Registo",
+            "smart_delay_percentage": {
+                "helper": "Se houver um lugar disponível, é atribuído ao aluno um horário proporcional ao tempo que falta para a sessão.",
+                "label": "Gestão inteligente"
+            },
+            "dumb_delay_minutes": {
+                "label": "Gestão simples"
+            },
+            "auto_consume_pack": {
+                "helper": "Se o membro tiver um cartão de curso válido, quando houver um lugar disponível, é automaticamente inscrito e o seu cartão é debitado. O cartão com a data de expiração mais antiga e com menos crédito disponível é utilizado em primeiro lugar.",
+                "label": "Debitar automaticamente um cartão de curso e inscrever o membro quando houver um lugar disponível."
+            },
+            "last_delay_before_auto_consume": {
+                "helper": "Se a sessão tiver lugar demasiado cedo, o membro não será registado, mesmo que tenha um cartão de curso válido",
+                "label": "Inscrição automática apenas se a sessão se realizar em menos de "
             }
         },
         "switchToDisable": "Desativar a lista de espera",
-        "switchToEnable": "Reativar a lista de espera"
+        "switchToEnable": "Reativar a lista de espera",
+        "explainWaitingListConf": "Por exemplo: Faltam 3 horas para a sessão, o aluno tem {{ nbMinutesBeforeBookingOptionExpire }} minutos para validar a sua reserva antes de deixar o seu lugar.",
+        "nbConvertible": "{{ nbConvertible }} a aguardar confirmação",
+        "nbPending": "{{ nbPending }} na lista"
     },
     "translation": {
         "marketplace": {
@@ -8820,11 +8928,64 @@
                 "content": "Tem a certeza de que pretende eliminar esta rota ? Esta operação é irreversível."
             },
             "form": {
-                "edit": "Alterar"
-            }
+                "edit": "Alterar",
+                "confirm": {
+                    "button": "Confirmar",
+                    "unlimitedToRent": "Acabou de mudar um vídeo ilimitado para um vídeo de aluguer. Os membros que possuem atualmente o vídeo perderão o acesso ao mesmo se o período de validade especificado tiver expirado. Tem a certeza de que pretende alterar esta definição?",
+                    "rentToUnlimited": "Acabou de transformar um vídeo de aluguer num vídeo ilimitado. Todos os membros que já tenham desbloqueado o vídeo (em curso ou expirado) mantê-lo-ão para sempre. Tem a certeza de que pretende alterar esta definição?",
+                    "title": "Validação"
+                },
+                "video_label": "Vídeo",
+                "video_source": {
+                    "change_popup_text": "Tenha em atenção que o vídeo atual será eliminado. Os membros que compraram o vídeo antigo terão agora acesso ao novo vídeo.",
+                    "change_popup_title": "Carregar vídeo",
+                    "edit_button": "Alterar vídeo",
+                    "ebook": "Ebook",
+                    "uploaded_video": "Ficheiro carregado",
+                    "vimeo_video": "Vídeo Vimeo",
+                    "youtube_video": "Vídeo Youtube",
+                    "title": "Vídeo"
+                },
+                "creditPrice": {
+                    "helperText": "Sem custo para que o vídeo seja acessível a todos os seus membros",
+                    "label": "Custo em crédito"
+                },
+                "coach": {
+                    "isEmpty": "Nenhum professor"
+                },
+                "title": "Editar vídeo",
+                "submit": "Registo",
+                "cancel": "Cancelar"
+            },
+            "ebook": {
+                "downloadHelper": "Desbloqueou o seu ebook. Para o visualizar, clique no botão {{button}}"
+            },
+            "download": "Descarregar",
+            "analytics": {
+                "uploaded": "Vídeo carregado em {{date}}",
+                "distinctViewers": "Vistas únicas",
+                "viewsLastWeek": "Últimos 7 dias",
+                "totalViews": "Total",
+                "dateCreated": "Em curso",
+                "viewTitle": "Visualizar",
+                "views": "{{nb_views}} visualizações"
+            },
+            "viewsListTitle": "Lista de visualizações",
+            "purchaseListTitle": "Carrinho de compras",
+            "viewedOn": "Vídeo visualizado em {{-date}} às {{hour}}",
+            "boughtOn": "Comprado em {{-date}}",
+            "noVideoView": "Sem vista",
+            "noVideoPurchase": "Nenhuma compra registada",
+            "duplicate": "Duplicar"
         },
         "playlist": {
             "deleteVideo": "Eliminar"
+        },
+        "details": {
+            "pleaseSelectVod": "Selecionar uma compra para ver os detalhes",
+            "invoiceTitle": "Fatura associada",
+            "consumerPaymentPackTitle": "Cartão de curso utilizado",
+            "title": "Detalhes do vídeo"
         }
     },
     "tag": {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 export type PaymentItemData = {
   price: number;
   payment_method: number;

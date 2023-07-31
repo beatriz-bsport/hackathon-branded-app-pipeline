@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import EmailEditor, { OwnProps } from './EmailEditor.component';
 import EmailTemplateSummaryFactoryBot from '../../email-editor/factories/EmailTemplateSummary';

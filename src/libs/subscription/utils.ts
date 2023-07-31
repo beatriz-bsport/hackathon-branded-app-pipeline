@@ -1,4 +1,3 @@
-// @ts-nocheck
 import moment, { Moment } from 'moment-timezone';
 import { SubscriptionPause } from './types';
 

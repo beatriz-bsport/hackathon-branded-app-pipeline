@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ErrorAndLoading } from '../types';
 
 export type CustomForm = {

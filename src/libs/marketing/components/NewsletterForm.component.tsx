@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { FormEvent } from 'react';
 import {
   Button,

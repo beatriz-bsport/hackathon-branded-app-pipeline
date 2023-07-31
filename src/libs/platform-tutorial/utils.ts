@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FeatureList } from '#libs/company/types';
 import { TutorialCompletion, TutorialLesson } from './types';
 import { hasUpsell } from '#libs/platform-billing/utils';

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { ErrorAndLoading } from '../../state/types';
 import { Company } from '../company/types';

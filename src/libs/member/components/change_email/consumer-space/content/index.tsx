@@ -1,4 +1,3 @@
-// @ts-nocheck
 import SimpleEmailChangeContent from './simpe-email-change/EmailChange.component';
 import SimpleEmailChangeContentMultipleCompanies from './simpe-email-change/EmailChangeMultipleCompanies.component';
 import LinkAccountVetoContent from './link-account/LinkAccountVeto.component';

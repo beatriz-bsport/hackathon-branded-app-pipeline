@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Member } from '../member/types';
 import { ErrorAndLoading } from '#libs/types';
 

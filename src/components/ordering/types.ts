@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { DraggableSyntheticListeners } from '@dnd-kit/core';
 import React from 'react';
 

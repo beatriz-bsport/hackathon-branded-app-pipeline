@@ -1,4 +1,3 @@
-// @ts-nocheck
 import type { MarkerType } from './types';
 
 const MAXLAT = 180;

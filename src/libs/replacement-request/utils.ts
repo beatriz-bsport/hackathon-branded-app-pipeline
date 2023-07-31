@@ -1,4 +1,3 @@
-// @ts-nocheck
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
 import { Coach } from '#libs/associated-coach/types';

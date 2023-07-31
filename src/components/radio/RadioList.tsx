@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Theme, makeStyles } from '@material-ui/core';
 import { RadioItem } from './RadioItem';

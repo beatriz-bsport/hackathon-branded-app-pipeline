@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import PresentIcon from '@material-ui/icons/DoneOutline';

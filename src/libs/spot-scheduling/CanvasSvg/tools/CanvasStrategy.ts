@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ElementDOMController } from './BaseClasses/Base.controller';
 
 import LineDOMController from './Line/CanvasLine.controller';

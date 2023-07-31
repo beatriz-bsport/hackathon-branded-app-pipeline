@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { within } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 

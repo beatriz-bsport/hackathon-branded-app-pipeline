@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { RootState } from '../../reducers';
 
 const getZoomApp = (state: RootState) => state.zoomApp.detail;

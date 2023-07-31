@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { getAuth, postAuth, API_V1_URI, buildUrlParams } from '../../http';
 
 export const fetchMembershipList = async (params: any = {}) => {

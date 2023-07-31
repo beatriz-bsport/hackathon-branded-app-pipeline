@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import DatePickerSelector, { Props } from './DatePickerSelector.component';

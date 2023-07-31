@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ErrorAndLoading } from '../types';
 import {
   PRIVATE_BOOKING_CREATED_BY_STAFF,

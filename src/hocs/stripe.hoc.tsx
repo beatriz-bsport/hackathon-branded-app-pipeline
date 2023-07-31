@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';

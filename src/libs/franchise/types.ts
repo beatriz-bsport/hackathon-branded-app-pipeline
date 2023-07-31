@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { CompanyWithTheme, Company } from '#libs/company/types';
 import { PaymentPackTemplate } from '#libs/payment-packs/types';
 import { PrivatePassTemplate } from '#libs/private-service/types';

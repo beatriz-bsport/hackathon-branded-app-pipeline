@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Config from '../../config';
 
 export function getPaymentLink(companyId: number, invoiceId: string) {

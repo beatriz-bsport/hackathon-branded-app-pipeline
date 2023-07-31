@@ -1,4 +1,3 @@
-// @ts-nocheck
 import InstalmentPaymentForm, {
   InstalPaymentFormHOC as InstalPaymentFormHOCa,
 } from './InstalmentPaymentForm.component';

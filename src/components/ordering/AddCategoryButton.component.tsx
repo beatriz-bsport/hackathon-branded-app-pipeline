@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';

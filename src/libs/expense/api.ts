@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { cleanParams } from '../../utils/createUrlHandlers';
 import {
   getAuth,

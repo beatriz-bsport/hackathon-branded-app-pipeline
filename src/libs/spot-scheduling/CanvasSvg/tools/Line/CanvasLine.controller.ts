@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ElementDOMController } from '../BaseClasses/Base.controller';
 import { CanvasLineProps } from './CanvasLine.component';
 

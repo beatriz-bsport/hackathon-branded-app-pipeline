@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import {Props, ConfirmationRollCallDialog} from './ConfirmationRollCallDialog.component';
 import { OptionCallback } from 'src/state/types';

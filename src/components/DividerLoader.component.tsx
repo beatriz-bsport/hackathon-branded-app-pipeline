@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Divider from '@material-ui/core/Divider';

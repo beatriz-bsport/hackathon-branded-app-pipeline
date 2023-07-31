@@ -1,4 +1,3 @@
-// @ts-nocheck
 import MarketplacePaymentPackRestrictionModal, {
   Props,
   MarketplacePaymentPackRestrictionModalForStorybook,

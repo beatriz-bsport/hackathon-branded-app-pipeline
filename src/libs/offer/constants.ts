@@ -1,4 +1,3 @@
-// @ts-nocheck
 export enum PropagateCoachOverrideToSimilarOffers {
   NO_PROPAGATION = 0,
   PROPAGATE_TO_OFFERS_WITH_SAME_COACH_OVERRIDE_ONLY = 1,

@@ -1,4 +1,3 @@
-// @ts-nocheck
 export enum SegmentAnalyticsFormObjectIdentifier {
   // Track Payment Pack
   PaymentPack = 'payment_pack',

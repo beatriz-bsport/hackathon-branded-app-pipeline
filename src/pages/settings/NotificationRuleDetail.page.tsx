@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React, { useCallback, useEffect, useState } from 'react';
 import { compose } from 'recompose';

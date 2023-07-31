@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import { Avatar, Fade, Typography, ButtonBase } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';

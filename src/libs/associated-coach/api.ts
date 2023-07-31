@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   API_URI,
   API_V1_URI,

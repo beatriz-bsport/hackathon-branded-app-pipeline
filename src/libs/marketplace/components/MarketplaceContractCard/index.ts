@@ -1,4 +1,3 @@
-// @ts-nocheck
 import MarketplaceContractCard, {
   Props,
   MarketplaceContractCardForStorybook,

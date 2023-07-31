@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import moment from 'moment-timezone';
 
 import { computeProrataPriceForSubscription } from '../utils';

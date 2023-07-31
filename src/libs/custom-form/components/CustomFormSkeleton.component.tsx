@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Skeleton from '@material-ui/lab/Skeleton';
 import Box from '@material-ui/core/Box';

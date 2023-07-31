@@ -1,4 +1,3 @@
-// @ts-nocheck
 import useGraph from './graph.hooks';
 import useGraphStyles from './useStyles.hooks';
 import {

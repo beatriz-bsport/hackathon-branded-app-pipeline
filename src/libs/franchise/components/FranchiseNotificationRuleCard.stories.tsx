@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import FranchiseNotificationRuleCard, {
   OwnProps,
@@ -13,6 +12,7 @@ import {
   EmailTemplateDetail,
   EmailTemplateSummary,
 } from '../../email-editor/types';
+// @ts-expect-error
 import { FranchiseCompleteNotificationRule } from '../../notification-rule/types';
 
 const CustomTemplate = (args: OwnProps) => (

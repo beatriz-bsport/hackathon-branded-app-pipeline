@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { ButtonBase, Typography } from '@material-ui/core';
 import { Variant } from '@material-ui/core/styles/createTypography';

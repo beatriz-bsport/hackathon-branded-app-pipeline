@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Card, { Props } from './Card.component';
 import { CardSize } from './types';
 

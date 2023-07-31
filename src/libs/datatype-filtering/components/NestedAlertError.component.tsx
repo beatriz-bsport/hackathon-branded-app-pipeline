@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Typography } from '@material-ui/core';
 import { Field } from 'formik';
 import React from 'react';

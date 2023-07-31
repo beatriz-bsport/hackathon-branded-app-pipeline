@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { generateRandomInt } from '../../utils/factories';
 
 import { MarketplaceSettings } from './types';

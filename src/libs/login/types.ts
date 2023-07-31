@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 export type TempPasswordState = {

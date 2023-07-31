@@ -1,4 +1,3 @@
-// @ts-nocheck
 import omit from 'lodash/omit';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';

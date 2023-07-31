@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import { PaymentMethod } from './types';
 import { generateRandomInt } from '../../utils/factories';
 

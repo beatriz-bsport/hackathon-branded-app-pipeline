@@ -1,4 +1,3 @@
-// @ts-nocheck
 import moment from 'moment-timezone';
 import { buildUrlParams } from '../../http';
 import {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import {
   getAuth,

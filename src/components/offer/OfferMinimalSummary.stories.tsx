@@ -1,5 +1,5 @@
-// @ts-nocheck
 import React from 'react';
+// @ts-expect-error
 import OfferMinimalSummary, { Props } from './OfferMinimalSummary.component';
 import { offerFactory } from '#libs/offer/factory';
 

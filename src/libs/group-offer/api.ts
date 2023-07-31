@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { AxiosResponse } from 'axios';
 
 import { GenericPaginationResults } from '#libs/types';

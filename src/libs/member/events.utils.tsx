@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import React from 'react';
 import {
   ShoppingBasket as BasketPaidIcon,

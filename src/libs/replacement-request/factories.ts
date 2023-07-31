@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import { offerFactory } from '#libs/offer/factory';
 import { generateRandomInt } from '../../utils/factories';
 

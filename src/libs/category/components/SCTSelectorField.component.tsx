@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import { Field, FieldInputProps, FieldProps, FormikProps } from 'formik';

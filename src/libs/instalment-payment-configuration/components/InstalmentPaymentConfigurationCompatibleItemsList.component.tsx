@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme, Typography } from '@material-ui/core';

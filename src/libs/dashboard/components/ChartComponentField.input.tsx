@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import chroma from 'chroma-js';
 import { Field, useField } from 'formik';

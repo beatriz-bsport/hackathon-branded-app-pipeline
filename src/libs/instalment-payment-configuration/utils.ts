@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { TFunction } from 'i18next';
 import { DAILY, MONTHLY, WEEKLY } from './constants';
 import { InstalmentPayment } from './types';

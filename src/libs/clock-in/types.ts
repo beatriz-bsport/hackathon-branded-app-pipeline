@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ErrorAndLoading } from '#libs/types';
 import type { UserRole, Role } from '#libs/role/types';
 

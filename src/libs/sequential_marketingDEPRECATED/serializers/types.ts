@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { CadenceEventsEnum } from '#libs/sequential_marketingDEPRECATED/constants';
 import type { Values } from '#libs/sequential_marketingDEPRECATED/components/form/Trigger/components';
 import {

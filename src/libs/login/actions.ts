@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 
 import { createAction } from 'redux-actions';

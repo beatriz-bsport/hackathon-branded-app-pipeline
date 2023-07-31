@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Typography } from '@material-ui/core';
 import { CheckCircleOutlineRounded } from '@material-ui/icons';

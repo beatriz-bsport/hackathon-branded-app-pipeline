@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useRef, useEffect, useState } from 'react';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';

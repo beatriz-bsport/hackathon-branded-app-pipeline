@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FeatureList } from '#libs/company/types';
 
 export const hasUpsell = (

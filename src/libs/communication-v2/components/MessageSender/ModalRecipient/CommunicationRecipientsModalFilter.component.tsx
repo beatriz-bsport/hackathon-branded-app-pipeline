@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { Theme } from '@material-ui/core/styles';
 import { ListItem, ListItemText, Checkbox } from '@material-ui/core';

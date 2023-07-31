@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { ExposedError } from '@stripe/terminal-js';
 import classNames from 'classnames';

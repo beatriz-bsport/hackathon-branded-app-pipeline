@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Moment } from 'moment-timezone';
 import Immutable from 'seamless-immutable';
 

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core';
 import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';

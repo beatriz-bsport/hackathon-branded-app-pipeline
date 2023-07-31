@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import React from 'react';
 import { coachFactory } from '#libs/associated-coach/factories';
 import { establishment_factory } from '#libs/establishment/factory';

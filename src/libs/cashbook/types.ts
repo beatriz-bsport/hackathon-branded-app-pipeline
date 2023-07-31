@@ -1,4 +1,3 @@
-// @ts-nocheck
 export type CashBookState = {
   infos: CashBook;
   createOrUpdate: {

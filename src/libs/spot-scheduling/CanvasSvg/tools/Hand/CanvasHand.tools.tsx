@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import CanvasAbstractTool from '../BaseClasses/Base.tool';

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { CancelTokenSource } from 'axios';
 import { Company } from '../company/types';
 import { ErrorAndLoading, WithPagination } from '../types';

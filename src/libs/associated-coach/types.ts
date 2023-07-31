@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ActivitySimplified } from '../../api/types';
 import { ErrorAndLoading } from '#libs/types';
 

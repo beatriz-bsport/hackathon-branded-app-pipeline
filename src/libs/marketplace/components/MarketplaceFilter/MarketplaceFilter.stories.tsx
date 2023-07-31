@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { PinDrop } from '@material-ui/icons';
 import React from 'react';
 import { useMuiThemeToCssVars } from '../../../../hooks/useMuiThemeToCssVars';

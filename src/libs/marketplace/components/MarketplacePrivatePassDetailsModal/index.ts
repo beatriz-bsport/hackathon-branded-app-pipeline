@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import MarketplacePrivatePassDetailsModal, {
   Props,
 } from './MarketplacePrivatePassDetailsModal.component';

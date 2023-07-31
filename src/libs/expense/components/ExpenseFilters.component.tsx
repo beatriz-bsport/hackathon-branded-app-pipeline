@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Chip from '@material-ui/core/Chip';
 import { useTranslation } from 'react-i18next';

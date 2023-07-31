@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { CanvasElement } from './CanvasSvg/tools/BaseClasses/Base.tool';
 import { ErrorAndLoading } from '../types';
 

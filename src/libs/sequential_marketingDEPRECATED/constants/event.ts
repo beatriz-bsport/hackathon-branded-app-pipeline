@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {
   // CONSUMER PAYMENT PACK
   CONSUMER_PAYMENT_PACK_EVENTS,

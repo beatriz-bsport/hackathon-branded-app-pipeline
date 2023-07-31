@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState, useCallback } from 'react';
 import debounce from 'lodash/debounce';
 import { useTranslation } from 'react-i18next';

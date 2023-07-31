@@ -1,4 +1,3 @@
-// @ts-nocheck
 export const STRIPE_CONFIGURATION_STEP = 1;
 export const BANK_ACCOUNT_CONFIGURATION_STEP = 2;
 export const PAYMENT_METHOD_CONFIGURATION_STEP = 3;

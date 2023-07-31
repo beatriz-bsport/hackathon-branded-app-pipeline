@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { ReactNode } from 'react';
 
 import Fab from '@material-ui/core/Fab';

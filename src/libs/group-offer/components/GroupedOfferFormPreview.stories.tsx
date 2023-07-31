@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import moment from 'moment-timezone';
 import React from 'react';

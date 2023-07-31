@@ -1,4 +1,3 @@
-// @ts-nocheck
 import GridItem, { Props } from './GridItem.component';
 import { Alignment, Direction, Justification } from './types';
 

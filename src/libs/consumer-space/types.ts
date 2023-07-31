@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { PrivateBooking } from '../private-service/types';
 import { Booking } from '../booking/types';
 import { ErrorAndLoading } from '../types';

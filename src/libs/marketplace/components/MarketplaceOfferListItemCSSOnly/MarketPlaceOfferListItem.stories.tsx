@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import React from 'react';
 import { MarketplaceOfferListItemForStorybook } from './MarketplaceOfferListItemCSSOnly.component';
 import { levelFactory } from '#libs/level/factories';

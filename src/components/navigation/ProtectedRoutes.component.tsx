@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';

@@ -1,4 +1,3 @@
-// @ts-nocheck
 export type PollField = {
   field_identifier: string;
   is_always_required: boolean;

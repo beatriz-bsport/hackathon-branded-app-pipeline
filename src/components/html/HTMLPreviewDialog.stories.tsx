@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import HTMLPreviewDialog, { OwnProps } from './HTMLPreviewDialog.component';
 import fakerHTML from './fakerHTML';

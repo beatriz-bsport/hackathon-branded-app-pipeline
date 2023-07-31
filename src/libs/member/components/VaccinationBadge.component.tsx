@@ -1,4 +1,3 @@
-// @ts-nocheck
 // @flow
 import React from 'react';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';

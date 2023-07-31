@@ -1,4 +1,3 @@
-// @ts-nocheck
 export type OfferPerformance = {
   id: number;
   nb_bookings: number;

@@ -1,4 +1,3 @@
-// @ts-nocheck
 type carouselParams = {
   isFirstItem: boolean;
   isPreviousItem: boolean;

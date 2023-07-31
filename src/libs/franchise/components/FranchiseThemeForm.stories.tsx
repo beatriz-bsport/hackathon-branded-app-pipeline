@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import FranchiseThemeForm, { OwnProps } from './FranchiseThemeForm.components';
 import FactoryBot from '../factories/Franchise';

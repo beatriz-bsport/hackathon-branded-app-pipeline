@@ -1,4 +1,3 @@
-// @ts-nocheck
 export const PENALTY_KIND_BLOCK_CPP = 0;
 export const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
 

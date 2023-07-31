@@ -1,4 +1,3 @@
-// @ts-nocheck
 import CadenceInitialSetupForm from './CadenceInitialSetupForm.components';
 import CadenceEntrySetupForm from './CadenceEntrySetupForm.component';
 import CadenceWinSetupForm from './CadenceWinSetupForm.component';

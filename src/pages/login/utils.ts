@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { buildUrlParams } from '../../http';
 import { PAGES_NOT_LOGIN } from './constants';
 

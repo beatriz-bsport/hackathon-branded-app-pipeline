@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { ButtonBase, makeStyles, Radio, Theme } from '@material-ui/core';
 

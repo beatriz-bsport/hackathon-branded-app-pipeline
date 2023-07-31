@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useEffect, useMemo } from 'react';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';

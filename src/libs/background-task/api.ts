@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { API_V1_URI, getAuth } from '../../http';
 
 export async function fetchBackgroundTask(uuid: string) {

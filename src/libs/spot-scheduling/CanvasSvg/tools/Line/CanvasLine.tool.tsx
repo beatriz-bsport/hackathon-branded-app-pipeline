@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import cloneDeep from 'lodash/cloneDeep';
 import CreateIcon from '@material-ui/icons/Create';

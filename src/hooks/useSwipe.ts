@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useCallback, useState, TouchEvent } from 'react';
 
 type Callback = () => void;

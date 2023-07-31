@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState, useCallback, useMemo } from 'react';
 
 import Button from '@material-ui/core/Button';

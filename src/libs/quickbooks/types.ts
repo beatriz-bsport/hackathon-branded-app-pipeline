@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ErrorAndLoading } from '../../state/types';
 
 export type QuickbooksApp = {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ResolvedGenericTags } from '#libs/email-editor/types';
 import { ErrorAndLoading } from '../types';
 

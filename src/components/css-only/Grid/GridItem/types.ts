@@ -1,4 +1,3 @@
-// @ts-nocheck
 enum Alignment {
   FLEX_START = 'flex-start',
   CENTER = 'center',

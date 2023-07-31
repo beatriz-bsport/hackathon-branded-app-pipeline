@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import Hidden from '@material-ui/core/Hidden';

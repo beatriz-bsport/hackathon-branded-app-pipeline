@@ -1,4 +1,3 @@
-// @ts-nocheck
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
 import { FranchiseCompany } from './types';

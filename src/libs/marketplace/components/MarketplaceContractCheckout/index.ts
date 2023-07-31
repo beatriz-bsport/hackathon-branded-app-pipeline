@@ -1,4 +1,3 @@
-// @ts-nocheck
 import MarketplaceContractCheckout, {
   Props,
   MarketplaceContractCheckoutForStorybook,

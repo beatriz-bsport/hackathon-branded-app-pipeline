@@ -1,4 +1,3 @@
-// @ts-nocheck
 import ExportableVODSettings from './ExportableVODSettings.form';
 import ExportablePassSettings from './ExportablePassSettings.form';
 import ExportableCalendarSettings from './ExportableCalendarV2Settings.form';

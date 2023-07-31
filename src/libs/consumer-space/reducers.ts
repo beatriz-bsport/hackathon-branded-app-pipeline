@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { actionsType } from './actions';
 // @ts-ignore

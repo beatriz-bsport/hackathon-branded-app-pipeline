@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo, useCallback } from 'react';
 import { TFunction } from 'i18next';
 import memoize from 'memoize-one';

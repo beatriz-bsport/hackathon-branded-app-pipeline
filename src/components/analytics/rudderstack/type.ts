@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { apiObject } from 'rudder-sdk-js';
 
 export interface UserTraits extends apiObject {

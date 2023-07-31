@@ -1,4 +1,3 @@
-// @ts-nocheck
 export type DeliveryFee = {
   company: number;
   disabled: boolean;

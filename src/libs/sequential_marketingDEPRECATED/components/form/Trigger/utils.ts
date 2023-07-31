@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { CadenceConnectedTriggerConfig } from '#libs/sequential_marketingDEPRECATED/types';
 import {
   // TRIGGERS

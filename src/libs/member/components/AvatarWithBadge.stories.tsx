@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import AvatarWithBadge, { Props } from './AvatarWithBadge.component';

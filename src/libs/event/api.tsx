@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { API_V1_URI, buildUrlParams, getAuth } from '../../http';
 import { EventListParams } from './types';
 

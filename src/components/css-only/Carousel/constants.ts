@@ -1,3 +1,2 @@
-// @ts-nocheck
 export const SLIDESHOW_INTERVAL_TIME = 5000;
 export const SLIDESHOW_ANIMATION_TIME = 400;

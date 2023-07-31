@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { useMuiThemeToCssVars } from '../../../../hooks/useMuiThemeToCssVars';
 

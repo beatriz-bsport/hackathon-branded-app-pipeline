@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import TutorialMenuHeader, { Props } from './TutorialMenuHeader.component';

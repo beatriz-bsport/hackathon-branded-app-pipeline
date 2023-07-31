@@ -17,7 +17,6 @@ import {
   getCampaign,
   getCampaignReport,
   getRecipientListByCampaign,
-  getCampaignXlsxExportLink,
 } from '../../libs/communication/selectors';
 import CampaignReport from '../../libs/communication/components/CampaignReport.component';
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
@@ -41,7 +40,6 @@ type Props = {
   reportLoading: boolean,
   recipientList: Array<Recipient>,
   goToMember: (id: number) => void,
-  campaignXlsxExportLink?: string,
   fetchRecipientListExport: (id: string) => void,
   fetchRecipientListExportLink: (id: string) => void,
 };
@@ -53,12 +51,14 @@ export class SmartListDetailCampaignReport extends React.Component<Props> {
     this.props.fetchResolvedGenericTags();
   }
 
-  generateExportLink = (options?: OptionCallback) => {
+  generateExportLink = (options?: OptionCallback<string>) => {
     this.props.fetchRecipientListExport(this.props.campaign?.uuid, {
       onBackgroundSuccess: () => {
-        this.props.fetchRecipientListExportLink(this.props.campaign?.uuid);
+        this.props.fetchRecipientListExportLink(
+          this.props.campaign?.uuid,
+          options,
+        );
       },
-      onSuccess: options?.onSuccess,
       onError: options?.onError,
     });
   };
@@ -78,7 +78,6 @@ export class SmartListDetailCampaignReport extends React.Component<Props> {
         reportLoading={this.props.reportLoading}
         goToMember={this.props.goToMember}
         resolvedGenericTags={this.props.resolvedGenericTags}
-        campaignXlsxExportLink={this.props.campaignXlsxExportLink}
         generateExportLink={this.generateExportLink}
       />
     );
@@ -95,7 +94,6 @@ export default compose(
       campaignReport: getCampaignReport(state),
       reportLoading: state.communication.campaign.report.loading,
       resolvedGenericTags: getResolvedGenericTags(state),
-      campaignXlsxExportLink: getCampaignXlsxExportLink(state),
     }),
     (dispatch, { campaignId }) => ({
       goBack: () => dispatch(goBack()),

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import { _getAutomatedCampaignById } from '#libs/smart-list/selectors';
@@ -88,6 +87,3 @@ export const withAutomatedCampaign = memoize(
       },
     ),
 );
-
-export const getCampaignXlsxExportLink = (state: RootState): string =>
-  state.communication.campaign.export.link ?? '';

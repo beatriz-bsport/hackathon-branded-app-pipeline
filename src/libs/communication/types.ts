@@ -105,6 +105,9 @@ export type MailState = {
       next_page?: number;
       count: number;
     };
+    export: {
+      link: string | null;
+    } & ErrorAndLoading;
   };
   automatedCampaign: {
     byId: { [uuid: string]: Campaign };

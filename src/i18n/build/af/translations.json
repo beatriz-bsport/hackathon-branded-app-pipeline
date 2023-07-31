@@ -886,7 +886,8 @@
         "topLinks": "Liens les plus cliqués",
         "recipientList": "Détail par destinataire",
         "noTopLink": "Aucun clic",
-        "exportError": "Une erreur est survenue lors de l'export"
+        "exportError": "Une erreur est survenue lors de l'export",
+        "exportCampaign": "Exporter la campagne"
       },
       "kind": { "0": "Email", "1": "SMS", "2": "Notification push" },
       "automated": {

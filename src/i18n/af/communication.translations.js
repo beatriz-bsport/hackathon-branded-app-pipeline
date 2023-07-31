@@ -137,6 +137,7 @@ exports.default = {
       recipientList: 'Détail par destinataire',
       noTopLink: 'Aucun clic',
       exportError: "Une erreur est survenue lors de l'export",
+      exportCampaign: 'Exporter la campagne',
     },
     kind: {
       [COMMUNICATION_KIND_EMAIL]: 'Email',

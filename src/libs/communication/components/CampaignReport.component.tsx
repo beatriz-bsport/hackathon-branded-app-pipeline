@@ -1,5 +1,4 @@
-// @ts-nocheck
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
@@ -15,13 +14,12 @@ import { Theme, makeStyles } from '@material-ui/core';
 import clx from 'classnames';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import SaveAltIcon from '@material-ui/icons/SaveAlt';
+// @ts-expect-error
 import RecipientTable from './RecipientTable.component';
 import type { Campaign, Report, Recipient } from '../types';
 import HTMLPreviewDialog from '#components/html/HTMLPreviewDialog.component';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
-import ToolTip from '#components/Tooltip.component';
 import { OptionCallback } from '../../../state/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -105,39 +103,37 @@ type CampaignStatisticsProps = {
   campaign: Campaign;
   report: Report;
   onShowMail: () => void;
-  campaignXlsxExportLink?: string;
-  generateExportLink: (options?: OptionCallback) => void;
+  generateExportLink: (options?: OptionCallback<string>) => void;
 };
+
 const CampaignStatistics = (props: CampaignStatisticsProps) => {
-  const {
-    campaign,
-    report,
-    onShowMail,
-    campaignXlsxExportLink,
-    generateExportLink,
-  } = props;
+  const { campaign, report, onShowMail, generateExportLink } = props;
   const classes = useStyles();
-  const { t } = useTranslation(['communication', 'smartList']);
+  const { t } = useTranslation(['communication']);
+
   const [isSmartListExporting, setIsSmartListExporting] = useState(false);
-  const handlerGenerateExportLink = () => {
+
+  const handleExportReport = useCallback(() => {
     setIsSmartListExporting(true);
     generateExportLink({
-      onSuccess: () => {
+      onSuccess: (campaignXlsxExportLink) => {
+        window.open(campaignXlsxExportLink);
         setIsSmartListExporting(false);
       },
       onError: () => {
         setIsSmartListExporting(false);
       },
     });
-  };
+  }, [generateExportLink]);
+
   return (
     <div>
       <div>
         <div className={classes.exportButtonContainer}>
           <Button
-            onClick={handlerGenerateExportLink}
-            disabled={isSmartListExporting}
             color="secondary"
+            disabled={isSmartListExporting}
+            onClick={handleExportReport}
             variant="contained"
           >
             {isSmartListExporting ? (
@@ -149,20 +145,8 @@ const CampaignStatistics = (props: CampaignStatisticsProps) => {
             ) : (
               <CloudDownloadIcon className={classes.leftIcon} />
             )}
-            {t('smartList:exportList')}
+            {t('campaign.report.exportCampaign')}
           </Button>
-          {campaignXlsxExportLink && (
-            <ToolTip title={t('smartList:downLoadSavedExport')}>
-              <IconButton
-                onClick={() => window.open(campaignXlsxExportLink)}
-                disabled={isSmartListExporting}
-                color="secondary"
-                variant="contained"
-              >
-                <SaveAltIcon className={classes.leftIcon} />
-              </IconButton>
-            </ToolTip>
-          )}
         </div>
         <div className={classes.statBanner}>
           <div className={classes.numberCard}>
@@ -272,8 +256,7 @@ type Props = {
   goBack: () => void;
   goToMember: (id: number) => void;
   resolvedGenericTags: ResolvedGenericTags;
-  campaignXlsxExportLink?: string;
-  generateExportLink: (options?: OptionCallback) => void;
+  generateExportLink: (options?: OptionCallback<string>) => void;
 };
 export const CampaignReport = (props: Props) => {
   const [showMail, setShowMail] = React.useState<string | null>(null);
@@ -296,7 +279,6 @@ export const CampaignReport = (props: Props) => {
             campaign={props.campaign}
             report={props.report}
             onShowMail={() => setShowMail(props.campaign.data.body)}
-            campaignXlsxExportLink={props.campaignXlsxExportLink}
             generateExportLink={props.generateExportLink}
           />
           <CampaignClick report={props.report} />

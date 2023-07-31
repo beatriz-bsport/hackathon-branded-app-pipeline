@@ -8045,7 +8045,8 @@
             },
             "page": {
                 "calendar": "Calendário",
-                "workshop": "Estúdio"
+                "workshop": "Estúdio",
+                "pass": "Cartões de curso"
             },
             "customCss": {
                 "yourCode": "A sua implementação complementar:",

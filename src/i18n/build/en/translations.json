@@ -9972,7 +9972,7 @@
             "daysPastLabel_plural": "This notification will be sent when the pass has expired for {{day}} days.",
             "daysLeftLabel": "This notification will be sent when the pass expires in {{day}} day.",
             "daysLeftLabel_plural": "This notification will be sent when the pass expires in {{day}} days.",
-            "creditsLeftLabel": "This notification will be sent when the pass has {{credit}} remaining credit.",
+            "creditsLeftLabel": "This notification will be sent when the pass has {{count}} remaining credit.",
             "creditsLeftLabel_plural": "This notification will be sent when the pass has {{credit}} remaining credits.",
             "creditsLeftOnOfferStart": "{{hours}} hour(s) after the end of the session",
             "creditsLeftOnBooking": "{{hours}} hour(s) after completing a booking"
@@ -10333,7 +10333,7 @@
         "blockedCpp": "Card blocked from {{-blocked_from}} to {{-blocked_until}}",
         "penalty": {
             "account": "A penalty of {{account_value}} will be applied if {{nb_cancellations}} late cancellation(s) are registered within {{nb_days}} day(s).",
-            "block": "This pass will be blocked for {{days_blocked}} day(s) if {{nb_cancellations}} late cancellation(s) are registered within {{days_blocked}} day(s).",
+            "block": "This pass will be blocked for {{days_blocked}} day(s) if {{nb_cancellations}} late cancellation(s) are registered within {{nb_days}} day(s).",
             "title": "Cancellation policy"
         },
         "only_vod_access": "Only for Video On Demand",
@@ -11384,7 +11384,7 @@
                     "memberOfCompany": "Please complete the following form.",
                     "notMemberYet": "Looks like this will be your first time visiting our studio."
                 },
-                "welcome": "Hello!"
+                "welcome": "Hello {{firstname}}"
             },
             "title": "[Form] Sign up",
             "newMemberOnlyHelperText": "A member is considered \"new\" as long as they have not made a purchase greater than {{ currency }}0. Please note that any purchase of a paid item with a 100% reduction in price will result in the loss of the 'New Member' status."

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
@@ -11,6 +11,7 @@ import ReplayIcon from '@material-ui/icons/Replay';
 import useIsTextExpandable from '../../../../hooks/useIsTextExpandable';
 import { useDialogClickAwayListener } from '../../../../hooks/useDialogClickAwayListener';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import { useMarketplaceFixedDialog } from '#libs/marketplace/hooks';
 
 import Card, { CardSize } from '#csscomponents/Card';
 import Content from '#csscomponents/Card/CardContent';
@@ -118,6 +119,26 @@ const ContractDetailList: React.FC<
         )}
       </ul>
     );
+  },
+);
+
+export const MarketplaceContractDetailModalPortal: React.FC<Props> = React.memo(
+  (props) => {
+    const [pageContainerClass, setPageContainerClass] = useState<string>(null);
+
+    useEffect(() => {
+      setPageContainerClass('.bs-contract-page');
+      return () => {
+        setPageContainerClass(null);
+      };
+    }, []);
+
+    const portalContainer = useMarketplaceFixedDialog(
+      <MarketplaceContractDetailModal {...props} />,
+      pageContainerClass,
+    );
+
+    return portalContainer;
   },
 );
 

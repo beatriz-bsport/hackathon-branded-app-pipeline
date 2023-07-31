@@ -116,9 +116,11 @@ export default compose(
     companyId: parseInt(membership),
   })),
   connect(
-    (state: RootState) => ({
+    (state: RootState, companyId: string) => ({
       theme: themeSelectors.getTheme(state),
-      simplifyUI: themeSelectors.getTheme(state)?.display_new_checkout_flow,
+      simplifyUI:
+        !!companyId &&
+        themeSelectors.getTheme(state)?.display_new_checkout_flow,
     }),
     {
       fetchCompanyTheme: fetchCompanyThemeAction,

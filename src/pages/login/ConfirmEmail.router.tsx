@@ -102,9 +102,10 @@ export const ConfirmEmailRouter: React.FC<Props> = ({
 };
 
 const connector = connect(
-  (state: RootState) => ({
+  (state: RootState, companyId: number) => ({
     theme: themeSelectors.getTheme(state),
-    simplifyUI: themeSelectors.getTheme(state)?.display_new_checkout_flow,
+    simplifyUI:
+      !!companyId && themeSelectors.getTheme(state)?.display_new_checkout_flow,
   }),
   {
     fetchCompanyTheme: fetchCompanyThemeAction,

@@ -253,7 +253,7 @@ export default compose<any, Props>(
       company: state.theme.theme.company_name,
       franchiseTheme: !!franchisor && getFranchisor(state),
       franchiseThemeLoading: !!franchisor && getFranchiseThemeLoading(state),
-      simplifyUI: state.theme.theme?.display_new_checkout_flow,
+      simplifyUI: !!membership && state.theme.theme?.display_new_checkout_flow,
       // membershipThemeLoading: !!membership && getThemeLoading(state),
     }),
     {

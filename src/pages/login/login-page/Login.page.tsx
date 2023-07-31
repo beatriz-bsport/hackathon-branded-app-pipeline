@@ -253,7 +253,7 @@ const mapStateToProps = (
   is_premium: state.theme.theme.is_premium,
   franchisor: !!franchisorId && getFranchisor(state),
   franchiseThemeLoading: !!franchisorId && getFranchiseThemeLoading(state),
-  simplifyUI: state.theme.theme.display_new_checkout_flow,
+  simplifyUI: !!membership && state.theme.theme.display_new_checkout_flow,
   // membershipThemeLoading: !!membership && getThemeLoading(state),
 });
 

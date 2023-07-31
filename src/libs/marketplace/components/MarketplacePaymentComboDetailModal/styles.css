@@ -10,7 +10,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
@@ -204,7 +203,7 @@
   background-color: #bdbdbd;
 }
 
-@media screen and (max-width: 570px) {
+@container bsPassPage (width < 750px) {
   .bs-combo-details-dialog__header {
     background: var(--color-secondary-background-paper);
   }

@@ -2,6 +2,7 @@
   display: flex;
   gap: var(--spacing-2);
   width: fit-content;
+  padding: 0 var(--spacing-6);
 }
 
 .bs-contract-page__pass__filters__search__result__text__container {
@@ -20,5 +21,11 @@
 @container bsContractPage (width < 750px) {
   .bs-contract-page__pass__filters__search__container {
     width: 100%;
+  }
+}
+
+@container bsContractPage (width < 450px) {
+  .bs-contract-page__pass__filters__search__container {
+    padding: 0 var(--spacing-2);
   }
 }

@@ -214,7 +214,7 @@
   background: var(--color-primary-dark);
 }
 
-@media screen and (max-width: 749px) {
+@container bsContractPage (width < 750px) {
   .bs-contract-card {
     height: 160px;
   }
@@ -274,7 +274,7 @@
   }
 }
 
-@media screen and (max-width: 390px) {
+@container bsContractPage (width < 390px) {
   .bs-contract-card__billing-interval--mobile {
     width: 100px;
   }

@@ -165,7 +165,7 @@
   background: var(--color-primary-dark);
 }
 
-@media screen and (max-width: 749px) {
+@container bsPassPage (width < 750px) {
   .bs-pass-card__description {
     display: none;
   }

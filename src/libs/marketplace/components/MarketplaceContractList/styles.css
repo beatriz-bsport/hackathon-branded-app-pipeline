@@ -3,6 +3,7 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 240px;
   gap: var(--spacing-4);
+  padding: 0 var(--spacing-6);
 }
 
 .bs-contract-page__contract__button__container {
@@ -29,5 +30,11 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     gap: var(--spacing-2);
+  }
+}
+
+@container bsContractPage (width < 450px) {
+  .bs-contract-page__contract__list__container {
+    padding: 0 var(--spacing-2);
   }
 }

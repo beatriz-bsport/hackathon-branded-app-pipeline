@@ -214,13 +214,13 @@
   font-weight: 500;
 }
 
-@media screen and (min-width: 749px) {
+@container bsPassPage (width > 750px) {
   .bs-pack-card__price__icon {
     display: none;
   }
 }
 
-@media screen and (max-width: 749px) {
+@container bsPassPage (width < 750px) {
   .bs-pack-card__list {
     margin-left: var(--spacing-3);
   }
@@ -266,7 +266,7 @@
   }
 }
 
-@media screen and (max-width: 570px) {
+@container bsPassPage (width < 750px) {
   .bs-carousel__item .bs-pack-card {
     height: 192px;
   }

@@ -218,16 +218,16 @@
   background-color: #bdbdbd;
 }
 
-@media screen and (max-width: 749px) {
+@container bsContractCheckoutPage (width < 750px) {
   .bs-contract-details__container .bs-contract-details__grid,
   .bs-contract-details__item {
     background: none;
   }
 }
 
-@media screen and (max-width: 570px) {
+@container bsContractCheckoutPage (width < 570px) {
   .bs-contract-details__body {
-    max-height: calc(100vh - 300px);
+    max-height: calc(100cqh - 300px);
   }
 
   .bs-contract__header__price-container--desktop {

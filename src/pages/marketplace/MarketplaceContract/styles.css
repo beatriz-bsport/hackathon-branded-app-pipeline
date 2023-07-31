@@ -2,15 +2,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3);
-  padding: var(--spacing-6);
   padding-top: var(--spacing-4);
   max-width: 1652px;
   margin: 0 auto;
   container: bsContractPage / inline-size;
-}
-
-@container bsContractPage (width < 600px) {
-  .bs-contract-page {
-    padding: var(--spacing-2);
-  }
 }

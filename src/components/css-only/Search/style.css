@@ -84,7 +84,7 @@
   text-align: center;
 }
 
-@media screen and (max-width: 749px) {
+@container (width < 750px) {
   .bs-search__container {
     min-width: 0;
     width: 100%;

@@ -19,7 +19,7 @@
   color: var(--color-secondary-main);
 }
 
-@media screen and (max-width: 749px) {
+@container (width < 750px) {
   .bs-price__container {
     font-size: var(--h4-fontSize);
   }

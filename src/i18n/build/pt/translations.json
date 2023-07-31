@@ -248,7 +248,7 @@
             }
         },
         "details": {
-            "consumerPaymentPackTitle": "Passe utilizado",
+            "consumerPaymentPackTitle": "Passe de aulas utilizado",
             "pleaseSelectABooking": "Seleccione uma reserva para ver detalhes",
             "title": "Detalhes da reserva",
             "offerTitle": "Sessão interligada"
@@ -513,7 +513,7 @@
             },
             "subscriptions": "Subscrições",
             "combos": "Packs",
-            "passes": "Passes",
+            "passes": "Passe de aulas",
             "otherPasses": "Outros passes"
         }
     },
@@ -1188,7 +1188,7 @@
                     "guestReachedLimit": "O número de convidados adicionados a esta sessão excede o número autorizado. Já não é possível efetuar mais marcações.",
                     "guestSettings": "O estúdio desactivou a função para convidados.",
                     "guestOffer": "O estúdio desactivou a função de reserva de convidados para esta sessão.",
-                    "guestPass": "O estúdio desactivou a função para convidados com este passe.",
+                    "guestPass": "O estúdio desativou a função para convidados com este passe.",
                     "guestNotEnoughSpot": "Não há lugares suficientes para todos os vossos convidados."
                 },
                 "offerBooked": "As suas sessões",
@@ -1579,6 +1579,13 @@
                         "update": "Alterar"
                     }
                 }
+            },
+            "subscription": {
+                "forms": {
+                    "disable_pass_on_fail_subscription_payment": {
+                        "helperText": "Se o pagamento da subscrição não for efetuado ou for declarado contestado, os passes de aulas e de marcações relativos a esta fatura serão desativados até que a fatura seja liquidada"
+                    }
+                }
             }
         },
         "revert": {
@@ -1602,7 +1609,8 @@
         "invoiceItem": {
             "buyableItemIdentifier": {
                 "11": "passe de oferta",
-                "10": "Pack"
+                "10": "Pack",
+                "1": "Passe de aulas"
             }
         },
         "quickbooks": {
@@ -1661,7 +1669,7 @@
             "dashboard": "Resumo",
             "calendar": "Histórico",
             "myVideos": "Meus vídeos",
-            "pack": "Passe de aula",
+            "pack": "Passe de aulas",
             "invoice": "Fatura",
             "changeMembership": "Mudança de estabelecimento",
             "pick_a_language": "Seleccionar uma língua",
@@ -1696,7 +1704,7 @@
         "dashboard": {
             "optionTitle": "Em lista de espera",
             "nextBookingTitle": "As minhas próximas sessões",
-            "currentPassTitle": "Passes de aulas ativas",
+            "currentPassTitle": "Passes de aulas ativos",
             "showMore": "Ver mais",
             "noPackCurrentlyActive": "Nenhum passe válido",
             "noBooking": "Não há sessões futuras",
@@ -1800,7 +1808,7 @@
             "applies_to": {
                 "choicesFranchise": {
                     "9": "Passes de Marcações partilhados",
-                    "1": "Passes partilhados"
+                    "1": "Passes de aulas partilhados"
                 },
                 "choices": {
                     "null": "Conjunto do carrinho",
@@ -1809,7 +1817,7 @@
                     "9": "Passe de marcações",
                     "6": "Despesas de envio",
                     "2": "Loja",
-                    "1": "Passes ativos"
+                    "1": "Passe de aulas"
                 }
             },
             "minimum_amount": {
@@ -2713,7 +2721,7 @@
                     "4": "Frequência das aulas em grupo",
                     "3": "Sessões em grupo",
                     "2": "Passe de marcação",
-                    "1": "Passes"
+                    "1": "Passe de aulas"
                 },
                 "exit": {
                     "exit_fail_label": "Perdido",
@@ -2856,12 +2864,12 @@
             "cancel": "Anular",
             "next": "Seguinte",
             "privatePassPlaceholder": "Passes de marcação",
-            "paymentPackPlaceholder": "Passes de aulas",
+            "paymentPackPlaceholder": "Passe de aulas",
             "selectIdentifierLabel": {
                 "contract": "Selecionar uma subscrição",
                 "private_service": "Selecionar uma marcação",
                 "private_pass": "Selecionar um passe de marcação",
-                "payment_pack": "Selecionar um passe de aula",
+                "payment_pack": "Selecionar um passe de aulas",
                 "establishment": "Selecionar uma sala",
                 "workshop": "Selecionar um workshop",
                 "meta_activity": "Selecionar uma atividade",
@@ -2902,7 +2910,7 @@
             },
             "filters": {
                 "type": {
-                    "paymentPack": "Passes de aulas",
+                    "paymentPack": "Passe de aulas",
                     "privatePass": "Créditos de marcações"
                 },
                 "noCategory": "Sem categoria",
@@ -2966,7 +2974,7 @@
                 "availableCredit_plural": "{{count}} créditos"
             },
             "title": {
-                "universalPassMessage": "Passe geral, pode ser utilizado para aulas de grupo e marcações"
+                "universalPassMessage": "O passe universal pode ser utilizado para aulas de grupo e marcações"
             }
         },
         "selector": {
@@ -3144,7 +3152,7 @@
             "form": "Formulários",
             "contact": "Contacto",
             "programs": "Programas",
-            "paymentPack": "Passes ativos",
+            "paymentPack": "Passes de aulas",
             "basket": "Carrinho",
             "vod": "Vídeos on Demand"
         },
@@ -3168,7 +3176,8 @@
                 "seeMemberPage": " Ver página dos membros",
                 "error": "Impossível unir membros",
                 "srcMember": "Membro a unir (eliminado)",
-                "dstMember": "Membro a manter"
+                "dstMember": "Membro a manter",
+                "explainBookingsAndPassAndInvoiceAndNotes": "Os passes ativos, as reservas, as faturas e as notas serão transferidos."
             },
             "title": "Informação do utilizador"
         },
@@ -3229,7 +3238,7 @@
         },
         "applyBalanceToUnpaidInvoices": "Aplicar o saldo a montantes pendentes",
         "cashoutBalance": "Pagar",
-        "showPaymentPack": "Ver os passes ativos",
+        "showPaymentPack": "Ver os passes de aulas",
         "showInvoices": "Ver faturas",
         "subscriptionTitle": "Subscrições",
         "offers_joined": "N.º de sessões registadas",
@@ -3372,11 +3381,14 @@
             },
             "create": {
                 "compatible_packs": {
-                    "noCompatiblePass": "Não existem passes de aulas compatíveis com esta atividade, por isso não se esqueça de criar um",
+                    "noCompatiblePass": "Não existe nenhum passe de aulas compatível com esta atividade, por isso não se esqueça de criar um",
                     "passHelperText": "Os passes de aulas seguintes são compatíveis com a atividade criada:",
                     "goToActivity": "Ir para a atividade",
                     "createPass": "Criar um passe de aulas",
                     "seeMore": "Ver mais"
+                },
+                "steps": {
+                    "pass_form": "Criar um passe de aulas (opcional)"
                 }
             }
         },
@@ -3388,11 +3400,11 @@
             "pack": {
                 "paymentPacks": "Passes compatíveis",
                 "consumerPacks": "Passe de aulas pertencentes a membros",
-                "noCompatiblePass": "Não há passes de aulas compatíveis"
+                "noCompatiblePass": "Não há passe de aulas compatível"
             }
         },
         "navigation": {
-            "goToPaymentPack": "Passe de aulas"
+            "goToPaymentPack": "Passes de aulas"
         }
     },
     "navigation": {
@@ -3444,7 +3456,11 @@
             "franchiseConnectedAs": "Registado como: {{- name}}",
             "replacement": "Substituição",
             "giftcard": "Passes de oferta",
-            "combo": "Packs"
+            "combo": "Packs",
+            "pass": "Passes de aulas",
+            "consumer": {
+                "pass": "Passes de aulas"
+            }
         },
         "stripeOnboardingPending": {
             "banner": "Se não tiver terminado a configuração da faturação, os pagamentos em linha podem ser desactivados."
@@ -3753,7 +3769,7 @@
             "21": "Nova reserva (alunos)",
             "26": "Subscrição em pausa",
             "6": "Inscrição de membro (aluno)",
-            "7": "Reserva por cartão de oferta",
+            "7": "Reserva por passe de oferta",
             "12": "Inscrever-me na lista de espera",
             "3": "Cancelar sessão (alunos)",
             "17": "Reserva anulada : crédito não reembolsado (alunos)",
@@ -3771,7 +3787,8 @@
             "16": "Sessão alterada (alunos)",
             "902": "Pedido de substituição anulado (substituto)",
             "904": "Novo pedido de substituição (substituto)",
-            "304": "Ativar o passe de oferta"
+            "304": "Ativar o passe de oferta",
+            "515": "Passe de aulas e taxa de subscrição automaticamente desativados"
         },
         "emailDesign": {
             "placeholder": "Criado por bsport",
@@ -3835,7 +3852,7 @@
                     },
                     "kind": {
                         "account": "Criar um depósito para o membro em causa",
-                        "block": "Bloquear temporariamente o passe ativo",
+                        "block": "Bloquear temporariamente o passe de aulas",
                         "label": "Selecionar o tipo de penalização a aplicar"
                     },
                     "nb_days": "Número de dias :",
@@ -3864,14 +3881,14 @@
                         "submit": "Eliminar",
                         "cancel": "Cancelar"
                     },
-                    "isUsedInCombo": "Atenção! Este passe ativo é utilizado num pack, que deixará de estar disponível para venda se o retirar.",
+                    "isUsedInCombo": "Atenção ! Este passe de aulas é utilizado num pack, que deixará de estar disponível para venda se o retirar.",
                     "thereAreConsumers": "Atenção! Alguns membros compraram este passe. Se o apagar, continuarão a poder utilizar os créditos restantes. Pode reduzi-los manualmente para zero aqui.\n\nO passe deixará de aparecer na sua loja.",
                     "askConfirmation": "Atenção! Esta operação é definitiva. O passe deixará de ser visível e ficará indisponível para compra.",
                     "title": "Eliminar o passe:"
                 },
                 "update": {
-                    "error": "Cartões ativos: erro durante o funcionamento",
-                    "success": "Passe ativo: operação concluída com sucesso"
+                    "error": "Passe de aulas: erro durante o funcionamento",
+                    "success": "Passe de aula: operação concluída com sucesso"
                 },
                 "noneMeansAll": "Deixar em branco para autorizar tudo",
                 "restrictionsTitle": "Restrições",
@@ -3954,7 +3971,7 @@
                 "only_vod_access": "Apenas para VOD",
                 "full_vod_access": "Dá acesso ao VOD durante o período de validade",
                 "name": {
-                    "helperText": "Nome dos passes ativos",
+                    "helperText": "Nome do passe de aulas",
                     "label": "Nome"
                 },
                 "until": "Até ",
@@ -4217,7 +4234,7 @@
             "widget": {
                 "choose": "Escolher passes de aulas partilhados"
             },
-            "pass": "Passes de aulas de grupo"
+            "pass": "Passes de aulas"
         },
         "paymentPackTemplateInstance": {
             "actions": {
@@ -4253,7 +4270,7 @@
             "bookingsTitle": "Reembolso associado",
             "refundTitle": "Reembolso associado",
             "invoiceTitle": "Fatura associada",
-            "shareAPass": "Partilhar um passe",
+            "shareAPass": "Partilhar um passe de aulas",
             "pleaseSelectAPack": "Selecionar um passe para ver detalhes"
         },
         "listItem": {
@@ -4310,7 +4327,7 @@
             "penalityNumberDay": "Número de dias",
             "atLeastOneDay": "Pelo menos um dia deve ser selecionado",
             "minusZero": "este campo não pode ser igual a 0",
-            "namePaymentPack": "Nome do passe",
+            "namePaymentPack": "Nome do passe de aulas",
             "description": "Descrição",
             "credit": "Crédito",
             "availabilityGivenNumber": "Tornar o passe válido apenas durante um determinado número de dias (após a data de compra)",
@@ -4341,7 +4358,7 @@
             "endBeforeStart": "A data final não pode ser superior à data de início",
             "monthValidity": "Período de validade em meses",
             "monthValidityHelper": "Adicionado ao número de dias",
-            "migration": "Estes passes ativos é o resultado de uma migração, pelo que alguns campos não podem ser modificados para respeitar o historial. As actividades/categorias compatíveis podem ainda ser alteradas.",
+            "migration": "Este passe de aulas é o resultado de uma migração, pelo que alguns campos não podem ser modificados para respeitar o historial. As atividades/categorias compatíveis podem ainda ser alteradas.",
             "billing": "Faturação",
             "penalityNumberCancel": "Número de cancelamentos",
             "unlimited": "Ilimitado",
@@ -4356,7 +4373,7 @@
             "penalityBlockDayHelper": "O passe do membro será bloqueado durante {{penalityBlockDay}} dias",
             "dayValidity": "Período de validade em dias",
             "requiredField": "Este campo é obrigatório",
-            "paymentPack": "Passe",
+            "paymentPack": "Passe de aulas",
             "generalInfo": "Informações gerais",
             "numberOfCredit": "Número de créditos",
             "limited": "Limite",
@@ -4461,7 +4478,7 @@
                 }
             },
             "add": "Adicionar uma categoria",
-            "category": "Categorias dos passes ativos"
+            "category": "Categorias dos passes de aulas"
         },
         "selector": {
             "noAvailable": "Nenhum passe corresponde à disponibilidade selecionada",
@@ -4511,8 +4528,8 @@
             "title": "Adicionar uma extensão a todos os membros",
             "maxDate": "Até",
             "minDate": "Nunca antes de",
-            "dateHelpText": "Prolongar apenas os passes ativos que expiram entre",
-            "helpText": "Aqui pode extender os passes ativos todos os membros. Esta operação é reversível."
+            "dateHelpText": "Prolongar apenas os passes de aulas que expiram entre",
+            "helpText": "Aqui pode extender os passes de aulas para todos os membros. Esta operação é reversível."
         },
         "blockedCpp": "Passe bloqueado de {{-blocked_from}} até {{-blocked_until}}",
         "disabledPacks": {
@@ -4575,7 +4592,7 @@
             "bookingsThisWeek": "reserva(s) desta semana",
             "expiresOn": "Expira em ",
             "isFromDisabledShare": "Participação",
-            "isOwnerOfShares": "Partilhado (passe ativo)",
+            "isOwnerOfShares": "Partilhado (passe de aulas)",
             "isFromShare": "Partilhado a partir de outra conta"
         },
         "validityTo": " em ",
@@ -4588,11 +4605,14 @@
         "disabled": "Desativar",
         "paymentPackDisabled": {
             "error": "Impossível eliminar",
-            "success": "Passe eliminado"
+            "success": "Passe de aulas eliminado"
         },
         "use": "Usar",
         "isNonCompatible": "incompatível",
-        "subscribeToOffer": "Registo"
+        "subscribeToOffer": "Registo",
+        "orderingAlert": {
+            "text": "Qualquer alteração na ordem das \"Categorias\" apenas afetará a apresentação da página \"Passes de aulas\" do mercado e da aplicação. Esta atualização não afectará qualquer outra secção ou categoria."
+        }
     },
     "paymentCombo": {
         "parameters": {
@@ -4845,6 +4865,11 @@
             "year_plural": "anos",
             "month": "mês",
             "month_plural": "meses"
+        },
+        "subscriptionPaymentDialog": {
+            "success": {
+                "text_content_funnel": "A sua compra foi processada, clique em continuar para finalizar a sua reserva. O passe associado à sua inscrição foi adicionado à secção \"Os meus passes de aulas\". Seleccione-o para efetuar a sua reserva."
+            }
         }
     },
     "role": {
@@ -4939,6 +4964,9 @@
                 "products": {
                     "giftcards": {
                         "_label": "Passes de oferta"
+                    },
+                    "paymentPack": {
+                        "_label": "Passes de aulas"
                     }
                 },
                 "tutorial": {
@@ -4966,7 +4994,7 @@
                         "_label": "Passe de oferta"
                     },
                     "paymentPackTemplates": {
-                        "_label": "Passes"
+                        "_label": "Passe de aulas"
                     },
                     "_label": "Produtos",
                     "couponTemplates": {
@@ -5154,7 +5182,7 @@
             "workshop": "Os workshops apresentados são aqueles que estão agendados no intervalo de datas selecionado.",
             "members": "Os membros são filtrados pela data de subscrição.",
             "billing_plan": "As subscrições são filtradas por data da primeira fatura.",
-            "franchise_shared_pass": "Este relatório permite-lhe analisar as reservas efectuadas com os passes partilhados durante o período selecionado. Quando um passe partilhado é adquirido num estúdio, o relatório mostra o número de marcações efectuadas com este passe noutro estúdio. O número de sessões marcadas inclui as marcações para aulas de grupo, workshops e consultas.",
+            "franchise_shared_pass": "Este relatório permite-lhe analisar as reservas efectuadas com os passes partilhados durante o período selecionado. Quando um passe partilhado é adquirido num estúdio, o relatório mostra o número de marcações efectuadas com o passe noutro estúdio. O número de sessões marcadas inclui as marcações para aulas de grupo, workshops e consultas.",
             "activityByCoach": "As atividades e os professores apresentados são aqueles para os quais está agendada uma sessão no intervalo de datas selecionado.",
             "activityByEst": "As atividades e estabelecimentos apresentados são aqueles para os quais está agendada uma sessão no intervalo de datas selecionado.",
             "activities": "As atividades que aparecem são dentro do intervalo de datas selecionado."
@@ -5220,7 +5248,7 @@
             "top_up": "Carregar crédito do cliente",
             "shop_item": "Loja",
             "refund": "Crédito reembolsado",
-            "payment_pack": "Passes ativos"
+            "payment_pack": "Passe de aulas"
         },
         "last_invoice_status": {
             "": [
@@ -5421,7 +5449,7 @@
             "payout_date_created": "Data da transferência",
             "payment_status": "Estado do pagamento",
             "payment_price": "Preço",
-            "payment_pack": "Passes ativos",
+            "payment_pack": "Passe de aulas",
             "payment_note": "Nota de pagamento",
             "payment_method": "Método de pagamento",
             "payment_method_total": "Total",
@@ -5591,7 +5619,7 @@
             "payment_date_time": "Hora do pagamento",
             "payment_date_date": "Data do pagamento",
             "payment_amount_by_payment_method": "Cobrança por meio de pagamento",
-            "pass": "Passes ativos",
+            "pass": "Passe de aulas",
             "paid": "Dinheiro na caixa",
             "on_behalf_of_teacher": "Pagamento integral ao professor",
             "note": "Nota"
@@ -5629,7 +5657,7 @@
             "payment_sumup": "Total de pagamentos",
             "credit": "Crédito",
             "basket": "Carrinho",
-            "memberships": "Aulas em curso",
+            "memberships": "Passes de aulas",
             "unpaid_invoices": "Facturas não pagas",
             "invoices": "Aquisição",
             "products": "Produtos",
@@ -5739,8 +5767,8 @@
             "percent": "Percentagem",
             "number": "Número",
             "int": "Número",
-            "payment_pack_category": "Categoria dos passes ativos",
-            "payment_pack": "Passes ativos",
+            "payment_pack_category": "Categoria do passe de aulas",
+            "payment_pack": "Passe de aulas",
             "video": "Vídeo",
             "giftcard": "Passe de oferta",
             "coach": "Professores",
@@ -5794,7 +5822,7 @@
                 "success": "Passe de marcação alterado"
             },
             "switchPack": {
-                "error": "Impossível alterar",
+                "error": "Impossível alterar o passe de aulas",
                 "success": "Passe alterado"
             },
             "stop": {
@@ -6053,11 +6081,20 @@
             },
             "createOrUpdate": {
                 "error": "Erro de registo"
+            },
+            "merge": {
+                "explainBookingsAndPassAndInvoiceAndNotes": "Os passes de aulas, as reservas, as faturas e as notas serão transferidos"
             }
         },
         "canNotBuyErrorCode": {
             "6003": "Já está na lista de espera",
-            "6002": "A lista de espera está completa"
+            "6002": "A lista de espera está completa",
+            "23001": "Nenhum passe de aulas permite-lhe ser adicionado à fila de espera para esta oferta",
+            "2017": "O seu passe de aulas já não lhe permite reservar este ano",
+            "2016": "O seu passe de aulas já não lhe permite reservar este mês",
+            "2015": "O seu passe de aulas já não lhe permite reservar esta semana",
+            "2014": "O seu passe de aulas já não permite efetuar reservas para este dia",
+            "2002": "Este passe de aulas só está disponível para os novos membros"
         },
         "spivi": {
             "error": {
@@ -6237,6 +6274,15 @@
                 "update": {
                     "error": "Impossível alterar a categoria"
                 }
+            },
+            "createOrUpdate": {
+                "success": "Passe de aulas registado"
+            },
+            "paymentPackEnabled": {
+                "success": "Passe de aulas restaurado"
+            },
+            "paymentPackDisabled": {
+                "success": "Passe de aulas desativo"
             }
         },
         "paymentMethod": {
@@ -6514,8 +6560,8 @@
                     },
                     "offerCard": {
                         "placeholder": "Introduzir o código CSS",
-                        "helperText": "Alterar o estilo dos passes",
-                        "label": "Passes"
+                        "helperText": "Alterar o estilo dos passes de aulas",
+                        "label": "Passes de aulas"
                     }
                 },
                 "default_booking_ordering": {
@@ -6583,7 +6629,8 @@
                 },
                 "showFreeSessionLabel": "Mostrar 0 sessões de crédito com a etiqueta FREE",
                 "hideSessionWithTagsNotEligible": "Não apresentar com etiquetas as sessões a que o membro não tem acesso",
-                "showActivityColor": "Mostrar a cor da atividade"
+                "showActivityColor": "Mostrar a cor da atividade",
+                "hideBuyablePassIfSuperfluous": "Ocultar passes de aulas, subscrições e packs que podem ser comprados no momento da reserva se o membro já tiver um passe compatível"
             },
             "warningColorBrightness": {
                 "save": "Guardar",
@@ -6851,9 +6898,22 @@
         "privatePass": {
             "delete": {
                 "explain": "Tem a certeza de que pretende eliminar este passe ? As pessoas que ainda têm créditos continuarão a poder utilizá-los.",
-                "delete": "Eliminar"
+                "delete": "Eliminar",
+                "warning": "Atenção! Este passe de marcação é utilizado num pack, que deixará de estar disponível para venda se retirar este passe de aulas."
             },
-            "edit": "Alterar"
+            "edit": "Alterar",
+            "form": {
+                "expirationDaysBeforeFirstUse": {
+                    "helperText": "Se o passe de aula não for utilizado pela primeira vez dentro deste número de dias, perde a validade."
+                },
+                "name": {
+                    "helperText": "Nome do passe de aulas"
+                },
+                "universalPass": {
+                    "helperText": "Os passes universais podem ser utilizados para marcar aulas de grupo e marcações. Uma vez criado o passe, será criado um passe \"gémeo\" nos passes de aulas. O número de créditos dos dois cartões será associado. Quando comprar um dos dois cartões, o outro será automaticamente adicionado ao membro (sem custos adicionais).",
+                    "warningIsUniversalPass": "Este passe é um passe universal, foi criado um passe igual nos passes de aulas. Todos os campos modificados neste passe serão igualmente modificados no passe \"gémeo\" (exceto a categoria). O mesmo se aplica às notificações, extensões e modificações de crédito."
+                }
+            }
         },
         "privateServiceCompatibility": {
             "delete": {
@@ -6866,7 +6926,8 @@
                 "delete": {
                     "explain": "Tem a certeza de que pretende eliminar a extensão da validade ?"
                 }
-            }
+            },
+            "warningShareUniversal": "Este passe é universal, por favor partilhe o passe de aulas associado"
         },
         "privateCoach": {
             "delete": {
@@ -6929,7 +6990,7 @@
                 "dateModified": "Alteração",
                 "restored": "Restaurar",
                 "cancelled": "Cancelamento",
-                "passTitle": "Passes",
+                "passTitle": "Passe de aulas",
                 "wasRefunded": "Crédito reembolsado no passe"
             },
             "managerAdd": {
@@ -7112,7 +7173,7 @@
             },
             "list": {
                 "isEmpty": "Sem partilha de passes",
-                "create": "Partilhar um passe ativo",
+                "create": "Partilhar um passe de aulas",
                 "title": "Passes partilhados"
             }
         },
@@ -7140,7 +7201,7 @@
                 "actions": {
                     "create": "Adicionar um agregado"
                 },
-                "pleaseSelectOne": "Selecionar um agregado para ver os passes partilhados",
+                "pleaseSelectOne": "Selecionar um agregado para ver os passes de aulas partilhados",
                 "isEmpty": "Ainda não foi criado nenhuma agregado",
                 "title": "Agregados"
             },
@@ -7468,6 +7529,12 @@
             "delete": {
                 "title": "Eliminar uma regra"
             }
+        },
+        "coach_payment_rules": {
+            "paymentPackPlaceHolder": "Selecionar os passes de aulas",
+            "excludePaymentPack": {
+                "warning": "Se já excluiu os passes de aulas da remuneração através do parâmetro \"Sessões tidas em conta no cálculo da remuneração do professor\", não precisa de as especificar novamente aqui."
+            }
         }
     },
     "smartList": {
@@ -7677,9 +7744,10 @@
             "24": {
                 "between": "e",
                 "combo": "Pack",
-                "pack": "Passes",
+                "pack": "Passe de aulas",
                 "shop": "Loja",
-                "explanation": "Produtos comprados A e B"
+                "explanation": "Produtos comprados A e B",
+                "workshop": "Passe de aulas especial workshop"
             },
             "23": {
                 "explanation": "Reservou a primeira sessão em...",
@@ -7715,6 +7783,32 @@
                 "first": "Reservado",
                 "explanation": "Reservou X sessões da atividade A, no espaço B, com o passe C...",
                 "name": "Número de reservas"
+            },
+            "105": {
+                "explanation": "Tem X agregados e Y passes de aulas ou passes de marcação ou reservas partilhadas",
+                "info": {
+                    "consumerPaymentPacks": "\"válido\" significa que o passe pode agora ser utilizado para reservar uma aula de grupo"
+                },
+                "consumerPaymentPacks": "de passes de aulas"
+            },
+            "27": {
+                "info": "Os passes de aulas e os passes de marcação bloqueados também são tidos em conta",
+                "second": "passes de aulas ou passes de marcação válidos atualmente. Entre",
+                "explanation": "X número de passes de aulas o ou de passes de marcação válidos"
+            },
+            "19": {
+                "infoIcon": "Os passes de aulas ilimitados serão sempre incluídos",
+                "first": "um dos passes de aulas",
+                "explanation": "Adquiriu um passe de aulas A na data Y, com X créditos"
+            },
+            "14": {
+                "workshop": "Passe de aulas especial workshop",
+                "pack": "Passe de aulas"
+            },
+            "8": {
+                "explanation": "Possuí um passe de aulas X utilizável",
+                "first": "Possuí um passe de aulas",
+                "name": "Validade de um passe de aulas"
             }
         },
         "cannotBeDeletedDialog": {
@@ -7727,7 +7821,23 @@
                 "content": "Tem a certeza de que pretende eliminar esta lista inteligente ? Esta operação é definitiva"
             }
         },
-        "delete": "Eliminar"
+        "delete": "Eliminar",
+        "filterCategory": {
+            "2": "Passes de aulas"
+        },
+        "multiSelector": {
+            "activePasses": {
+                "warning": "Selecionar pelos menos um passe",
+                "paymentPackHelperText": "sem passe de aulas"
+            },
+            "paymentPacks": {
+                "warning": "Selecionar pelos menos um passe de aulas",
+                "helperAllSelectedText": "todos os passes de aulas",
+                "textFieldPlaceholder": "Procurar um passe de aulas",
+                "helperSelectedText": "passes de aulas selecionados",
+                "helperText": "selecionar passes de aulas"
+            }
+        }
     },
     "titles": {
         "workshopActivity": {
@@ -7748,7 +7858,7 @@
         },
         "marketplace": {
             "marketplaceGiftcard": "Passes caducados",
-            "marketplacePass": "Passes ativos",
+            "marketplacePass": "Passes de aulas",
             "marketplaceCalendar": "Calendário",
             "marketplaceWorkshop": "Workshops",
             "marketplaceShop": "Loja"
@@ -7815,8 +7925,8 @@
             "marketingDashboard": "Página Principal"
         },
         "paymentPack": {
-            "paymentPackList": "Passes Ativos",
-            "paymentPackFormPage": "Formulário do passe"
+            "paymentPackList": "Passes de aulas",
+            "paymentPackFormPage": "Formulário do passe de aulas"
         },
         "order": {
             "orderList": "Controlos"
@@ -7836,13 +7946,17 @@
                 "privateService": "Apenas por marcação",
                 "workshop": "Workshops",
                 "calendarV2": "Calendário",
-                "calendar": "Calendário"
+                "calendar": "Calendário",
+                "paymentPackTemplate": "Passe de aulas partilhado"
             },
             "preview": "Visão geral",
             "saveButton": "Guardar",
             "link": "Aceder ao marketplace para os alunos (a sessão será terminada)",
             "explainMarketplace": "Os seus membros podem aceder ao marketplace (calendário, loja, VOD, etc.) online no computador, tablet ou telemóvel. Personalize a sua página aqui!",
-            "addButton": "Adicionar um separador"
+            "addButton": "Adicionar um separador",
+            "createDialog": {
+                "hidePaymentPack": "Não exibir passes de aulas"
+            }
         },
         "active_campaign": {
             "link": {
@@ -7947,7 +8061,8 @@
                         "giftcard": "Passes de oferta"
                     },
                     "membershipCard": {
-                        "giftcardSubtitle": "Encontre todos os passes de oferta do seu estúdio aqui"
+                        "giftcardSubtitle": "Encontre todos os passes de oferta do seu estúdio aqui",
+                        "paymentPack": "Passes de aulas"
                     }
                 }
             }
@@ -7994,10 +8109,10 @@
                 "contractCooldownModal": "Popup de aviso de compra de subscrição",
                 "privatePassCompatibilityModal": "Popup de compatibilidade (mapa RDV)",
                 "privatePassCard": "Cartão de marcação de consulta",
-                "paymentPackOffPeakRestrictionModal": "Popup de restrição de horário (cartão de curso)",
-                "paymentPackRestrictionModal": "Popup de restrições (ficha de curso)",
-                "paymentPackCompatibilityModal": "Popup de compatibilidade (ficha de curso)",
-                "paymentPackCard": "Cartão de membro",
+                "paymentPackOffPeakRestrictionModal": "Pop-up de restrição de horário (passe de aulas)",
+                "paymentPackRestrictionModal": "Pop-up de restrições (passe de aulas)",
+                "paymentPackCompatibilityModal": "Pop-up de compatibilidade (passe de aulas)",
+                "paymentPackCard": "Passe de aulas",
                 "paymentComboCard": "Cartão de pack",
                 "calendar": "Página do calendário",
                 "timeTable": "Componente do calendário",
@@ -8100,7 +8215,7 @@
             "page": {
                 "calendar": "Calendário",
                 "workshop": "Estúdio",
-                "pass": "Cartões de curso",
+                "pass": "Passes de aulas",
                 "subscription": "Subscrições"
             },
             "customCss": {
@@ -8181,8 +8296,8 @@
                 }
             },
             "check_credit": {
-                "helper": "Os clientes não podem ser colocados em fila de espera enquanto não dispuserem de um cartão de curso compatível com a oferta em causa e de crédito suficiente para efetuar a reserva",
-                "label": "Verificar se o cliente dispõe de um cartão de curso compatível com a oferta e se tem crédito suficiente"
+                "helper": "Os clientes não podem ser colocados em fila de espera enquanto não dispuserem de um passe de aulas compatível com a oferta em causa e de crédito suficiente para efetuar a reserva",
+                "label": "Verificar se o cliente dispõe de um passe de aulas compatível com a oferta e se tem crédito suficiente"
             },
             "submit": "Registo",
             "smart_delay_percentage": {
@@ -8193,11 +8308,11 @@
                 "label": "Gestão simples"
             },
             "auto_consume_pack": {
-                "helper": "Se o membro tiver um cartão de curso válido, quando houver um lugar disponível, é automaticamente inscrito e o seu cartão é debitado. O cartão com a data de expiração mais antiga e com menos crédito disponível é utilizado em primeiro lugar.",
-                "label": "Debitar automaticamente um cartão de curso e inscrever o membro quando houver um lugar disponível."
+                "helper": "Se o membro tiver um passe de aulas válido, quando houver um lugar disponível, é automaticamente inscrito e o seu passe é debitado. O passe com a data de expiração mais antiga e com menos crédito disponível é utilizado em primeiro lugar.",
+                "label": "Debitar automaticamente um passe de aulas e inscrever o membro quando houver um lugar disponível."
             },
             "last_delay_before_auto_consume": {
-                "helper": "Se a sessão tiver lugar demasiado cedo, o membro não será registado, mesmo que tenha um cartão de curso válido",
+                "helper": "Se a sessão tiver lugar demasiado cedo, o membro não será registado, mesmo que tenha um passe de aulas válido",
                 "label": "Inscrição automática apenas se a sessão se realizar em menos de "
             }
         },
@@ -8211,7 +8326,8 @@
         "marketplace": {
             "bookButton": {
                 "bookOption": "Lista de espera"
-            }
+            },
+            "pass": "Passe de aulas"
         },
         "booking": {
             "waiting": "Lista de espera",
@@ -8228,11 +8344,14 @@
         "consumer": {
             "booking": {
                 "noBookingOptions": "Nenhuma reserva em lista de espera",
-                "myOptions": "Reservas na lista de espera"
+                "myOptions": "Reservas na lista de espera",
+                "discardImpossibleExplain": "Tem a certeza de que pretende cancelar esta reserva ? Se cancelar demasiado tarde, o seu passe de aulas não será creditado novamente (termos e condições do estabelecimento).",
+                "discardGroupImpossibleExplain": "Se cancelar demasiado tarde, o seu passe de aulas não será creditado novamente (condições do estabelecimento)."
             },
             "help": {
                 "explainCancelBookingOption": "Se optar novamente por esta sessão, o seu lugar na lista de espera será reposto."
-            }
+            },
+            "myPaymentPacks": "Os meus passes de aulas"
         },
         "form": {
             "default_waiting_list_max_size": "Tamanho da lista de espera",
@@ -8242,14 +8361,17 @@
                 "delete": {
                     "explainHardDelete": "Eliminar a sessão da lista ? Tenha em atenção que esta operação é irreversível! Se a sessão contiver reservas, não será eliminada.",
                     "buttonHardDelete": "Eliminar",
-                    "force": "Eliminar mesmo que as reservas sejam guardadas"
+                    "force": "Eliminar mesmo que as reservas sejam guardadas",
+                    "explainCreditBack": "Devolver créditos gastos aos clientes no seu passe de aulas",
+                    "explainForceDanger": "Atenção! As reservas serão permanentemente apagadas. Se não tiver reembolsado o crédito, perderá todos os vestígios da sua utilização. Por favor, verifique cuidadosamente o estado das suas reservas e passes de aulas antes de os eliminar."
                 },
                 "explainRecursiveOfferDelete": "Pretende eliminar TODAS as sessões semelhantes ?",
                 "deleteTitle": "Eliminar a sessão",
                 "explainRecursiveOfferEdit": "Pretende alterar TODAS as sessões semelhantes de acordo com estas novas condições ?",
                 "changeEstablishment": "Alterar local",
                 "changeCoach": "Alterar o professor",
-                "changeDate": "Alterar o horário / data"
+                "changeDate": "Alterar o horário / data",
+                "warningPackonEdit": "As alterações das sessões podem torná-las incompatíveis com determinados passes de aulas. Após a alteração, verifique se as sessões continuarão a ser compatíveis com eventuais mudanças de local / professor"
             },
             "shop": {
                 "subShop": {
@@ -8323,14 +8445,21 @@
             "addingSessionFor": "Criação de sessão para : ",
             "level": "Nível",
             "effectif": "Força de trabalho",
-            "caracteristics": "Características"
+            "caracteristics": "Características",
+            "credits": "N.º de créditos necessários para reservar o passe de aulas",
+            "credit_price": "N.º de créditos necessários para reservar o passe de aulas",
+            "invoice": {
+                "dateStartPaymentPack": "Este passe de aulas começa em"
+            }
         },
         "calendar": {
             "canDeleteWithBooking": "As reservas (anuladas) ou as listas de espera foram registadas. Esta sessão não pode ser suprimida.",
             "modifyOffer": "Alterar"
         },
         "payment": {
-            "invoiceFromSubscriptionThusNotEditable": "Esta fatura faz parte de uma subscrição e não pode ser editada. Por favor, altere a subscrição diretamente"
+            "invoiceFromSubscriptionThusNotEditable": "Esta fatura faz parte de uma subscrição e não pode ser editada. Por favor, altere a subscrição diretamente",
+            "addPaymentPack": "Passe de aulas",
+            "availablePaymentPacks": " passe de aulas compatíveis"
         },
         "shop": {
             "noProvisionUpdates": "Sem stock",
@@ -8369,8 +8498,8 @@
             "previousOffer": "Sessão anterior",
             "backToCalendar": "Calendário",
             "noEmptyDuration": "A duração deve ser estritamente positiva",
-            "noConsumerPackAvailableForPurchase": "Este membro não possui um passe compatível!",
-            "noInConsumerPackAvailableForPurchase": "Este membro não tem um passe incompatível!",
+            "noConsumerPackAvailableForPurchase": "Este membro não possui um passe compatível !",
+            "noInConsumerPackAvailableForPurchase": "Este membro não tem um passe de aulas incompatível !",
             "noncompatibleConsumerPaymentPacksAre": "Passe(s) não compatível(eis)",
             "noPackAvailableForOfferPurchase": "Nenhum passe é compatível com esta sessão !",
             "offersPendingDelete": "Sessões a cancelar :",
@@ -8437,7 +8566,7 @@
             "credit_s": "Crédito(s)",
             "continue": "Continuar",
             "amount": "Montante",
-            "paymentPack": "Passes ativos",
+            "paymentPack": "Passe de aulas",
             "datetime": "Sessão",
             "selectAnActivity": "Selecionar um workshop",
             "activity": "Workshop",
@@ -8554,14 +8683,30 @@
         "private_service": "Só por marcação",
         "languageToolTip": "Disponível no marketplace online",
         "visibilityOfIconToolTip": "Não visível",
-        "onlyNewMember": "Bloquear a inscrição de novos alunos nos passes ativos",
+        "onlyNewMember": "Bloquear a inscrição de novos alunos nos passes de aulas",
         "openSchedule": "Ver o calendário",
         "button": {
             "login": "Ligação"
         },
         "bookingConfirmed": "Reserva confirmada",
         "activityUpdated": "Atividade alterada",
-        "activityCreated": "Atividade adicionada"
+        "activityCreated": "Atividade adicionada",
+        "blockBooking": "Bloquear a reserva para novos clientes nos passes de aulas",
+        "appbar": {
+            "title": {
+                "paymentPackList": "Passes de aulas",
+                "paymentPackFormPage": "Criar um passe de aulas"
+            }
+        },
+        "invoice": {
+            "revertExplainPacks": "Os passes de aulas e TODAS as reservas associadas serão anulados"
+        },
+        "navigation": {
+            "pass": "Passe de aulas",
+            "consumer": {
+                "pass": "Passes de aulas"
+            }
+        }
     },
     "offer": {
         "form": {
@@ -8574,13 +8719,17 @@
                     },
                     "title": "Características",
                     "tooltip": {
-                        "roomBlueprint": "Permite aos seus alunos reservar o espaço que pretendem na sala"
+                        "roomBlueprint": "Permite aos seus alunos reservar o espaço que pretendem na sala",
+                        "credits": "Número de créditos necessários para reservar"
                     }
                 },
                 "settings": {
                     "field": {
                         "isModifyRecursively": "Gostaria de alterar sessões semelhantes de acordo com estas novas condições?"
                     }
+                },
+                "similarOffers": {
+                    "info": "As alterações das sessões podem torná-las incompatíveis com determinados passes. Após a modificação, verifique se as sessões continuarão a ser compatíveis com eventuais mudanças de local / professor."
                 }
             },
             "groupedOffer": {
@@ -8704,7 +8853,7 @@
             "secondWarning": "Ao clicar em \"CONFIRMAR\", todas as sessões do intervalo de datas serão definitivamente anuladas. Não será possível voltar atrás.",
             "explainLoading": "Por favor, aguarde",
             "explainWarning": "ATENÇÃO esta operação é irreversível.",
-            "explain": "Seleccione o intervalo de datas para o qual pretende cancelar as suas sessões. Os membros que efectuaram a reserva serão notificados por e-mail e os seus créditos serão automaticamente reembolsados no passe correspondente.",
+            "explain": "Seleccione o intervalo de datas para o qual pretende cancelar as suas sessões. Os membros que efetuaram a reserva serão notificados por e-mail e os seus créditos serão automaticamente reembolsados no passe correspondente.",
             "title": "Cancelar grupo",
             "warning": "ATENÇÃO esta operação é irreversível",
             "info": "Seleccione as datas entre as quais pretende anular todas as sessões. As datas seleccionadas são incluídas.",
@@ -9022,7 +9171,20 @@
         "deleteDialog": {
             "title": "Pretende mesmo eliminar esta configuração ?"
         },
-        "modify": "Alterar"
+        "modify": "Alterar",
+        "form": {
+            "compability": {
+                "pack": "Passe de aulas",
+                "allPass": "Compatível com todos os passes de aulas",
+                "selectPack": "Selecionar um passe de aulas"
+            }
+        },
+        "detail": {
+            "packAvailable": "{{length}} passe de aulas compatível",
+            "packAvailable_plural": "{{length}} passes de aulas compatíveis",
+            "packAvailableForAll": "Todos os passes de aulas compatíveis",
+            "paymentPack": "Passes de aulas"
+        }
     },
     "workshop": {
         "forms": {
@@ -9040,6 +9202,9 @@
                 "confirm": "Eliminar",
                 "content": "Tem a certeza de que pretende cancelar este seminário ? As sessões e as reservas não serão afectadas. Esta operação é definitiva."
             }
+        },
+        "navigation": {
+            "goToPaymentPack": "Passes de aulas"
         }
     },
     "video": {
@@ -9104,7 +9269,7 @@
         "details": {
             "pleaseSelectVod": "Selecionar uma compra para ver os detalhes",
             "invoiceTitle": "Fatura associada",
-            "consumerPaymentPackTitle": "Cartão de curso utilizado",
+            "consumerPaymentPackTitle": "Passe de aulas utilizado",
             "title": "Detalhes do vídeo"
         }
     },
@@ -9202,7 +9367,7 @@
                     "errorForFixedBillingDay": "O número de faturas não deve exceder 12"
                 },
                 "object_type": {
-                    "paymentPack": "Passe",
+                    "paymentPack": "Passe de aulas",
                     "paymentCombo": "Pack",
                     "label": "Tipo de subscrição",
                     "privatePass": "Passe de marcação"
@@ -9294,7 +9459,7 @@
                 "addButton": "Definir uma subscrição",
                 "register": "Subscrever um membro"
             },
-            "paymentPack": "Passe associado",
+            "paymentPack": "Passe de aulas associado",
             "privatePass": "Passe de marcação associado",
             "monthBillingDay": "Faturado a cada {{ month_billing_day }} do mês",
             "billingFrequency": "Frequência de faturação",
@@ -9314,6 +9479,17 @@
             "switchPaymentCombo": {
                 "form": {
                     "prewarning": "Se pretender alterar futuras faturas já criadas, deve anular esta subscrição."
+                }
+            },
+            "freeze": {
+                "form": {
+                    "explain": "O pagamento seguinte será adiado pelo mesmo número de dias, tal como os futuros passes de aulas"
+                }
+            },
+            "switchPack": {
+                "form": {
+                    "explain": "Este passe de aulas será cobrado em vez do antigo em todas as faturas futuras. As sessões marcadas com o passe antigo serão transferidas para o novo passe, mesmo que este não seja supostamente compatível.",
+                    "title": "Alterar o passe de aulas"
                 }
             }
         },
@@ -9432,13 +9608,13 @@
         "parameters": {
             "payment_combo": "Pack",
             "private_pass": "Passe de Marcação",
-            "payment_pack": "Passes",
+            "payment_pack": "Passe de aulas",
             "firstBilling": "Primeira coleção",
             "nbMonths": "Número de colecções",
             "dateStart": "Primeira faturação",
             "paymentCombo": "Pack",
             "privatePass": "Passe de Marcação",
-            "paymentPack": "Passes",
+            "paymentPack": "Passe de aulas",
             "flat_fee": "Taxas de candidatura",
             "recurrent_price": "Pagamento recurrente",
             "nbInterval": "Número de colecções",
@@ -9471,6 +9647,10 @@
             "revertCurrentExplainHelper": "Se o pagamento for válido, será criado um crédito, que pode reembolsar ao aluno introduzindo a fatura e clicando em \"Reembolsar\". Se o pagamento falhar, a dívida será anulada.",
             "revertCurrentExplain": "Anular a última fatura registada e bloquear o passe",
             "planStop": "Programar a rescisão da subscrição"
+        },
+        "noContracts": "Os contratos permitem-lhe faturar aos seus membros numa base regular (mensal) um passe de aulas que é creditado de novo todos os meses/dias/anos.",
+        "events": {
+            "billing_plan-update_payment_pack": "Passe de aulas alterado"
         }
     },
     "shop": {
@@ -9506,7 +9686,8 @@
         },
         "objectCard": {
             "subtitle": {
-                "giftcard": "Passe de oferta"
+                "giftcard": "Passe de oferta",
+                "paymentPack": "Passe de aulas"
             }
         },
         "rolePage": {
@@ -9872,7 +10053,7 @@
                 "7": "Promoção",
                 "6": "Despesas de envio",
                 "2": "Produtos da loja",
-                "1": "Passe de aulas"
+                "1": "Passes de aulas"
             }
         },
         "bookingDropdown": {
@@ -10119,7 +10300,7 @@
             "register": "Registar",
             "isFull": "Completo",
             "emptyList": "Não há alunos registados",
-            "noConsumerPaymentPack": "Não tem um passe válido !",
+            "noConsumerPaymentPack": "Não tem um passe de aulas válido !",
             "noDetectionResult": "Nenhum resultado",
             "backToOfferList": "Voltar para as sessões",
             "cancelRegistration": "Cancelar",
@@ -10175,7 +10356,7 @@
                 "title": "Sessões"
             },
             "packs": {
-                "title": "Passes"
+                "title": "Passes de aulas"
             },
             "closeMemberMatch": "Está à procura deste membro ?"
         },

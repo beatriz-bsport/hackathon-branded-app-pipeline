@@ -7950,7 +7950,10 @@
                 "backgroundColor": "Cor de fundo",
                 "colors": "Cores",
                 "typography": "Tipografia",
-                "general": "Espaçamento e arredondamento"
+                "general": "Espaçamento e arredondamento",
+                "preview": "Pré-visualização",
+                "roundingHelper": "Os cantos são arredondados em múltiplos {{base}}px",
+                "spacingHelper": "O espaçamento é baseado em múltiplos de {{base}} px"
             },
             "groupSessionByPeriod": "Manhãs, tardes e noites separadas",
             "configDialog": {

@@ -1,4 +1,12 @@
-import { useCallback, useMemo, SetStateAction, ChangeEvent } from 'react';
+import React, {
+  useCallback,
+  useMemo,
+  SetStateAction,
+  ChangeEvent,
+  useEffect,
+  useState,
+} from 'react';
+import ReactDOM from 'react-dom';
 
 import moment from 'moment-timezone';
 
@@ -415,4 +423,28 @@ export const usePaymentMethodBillingDetails = (
     handleChangeAccountNumber,
     handleChangeState,
   };
+};
+
+/**
+ * Simulate fixed position behavior for marketplace dialogs
+ *
+ * Since we now have container queries (CSS fixed position don't work inside),
+ * we must set all of out marketplace dialogs out of the page container
+ * @param dialogContainer The component that reders dialog(s)
+ */
+export const useMarketplaceFixedDialog = (
+  DialogContainer: React.ReactElement,
+  pageClass: string | null,
+) => {
+  const [portalContainer, setPortalContainer] = useState<Element>(null);
+
+  useEffect(() => {
+    const pageContainer = document.querySelector(pageClass);
+    const cssHocContainer = pageContainer?.closest('div.bs-setup-variable');
+    setPortalContainer(cssHocContainer);
+  }, [pageClass]);
+
+  return portalContainer
+    ? ReactDOM.createPortal(DialogContainer, portalContainer)
+    : DialogContainer;
 };

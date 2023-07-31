@@ -3629,7 +3629,7 @@
             "daysPastLabel_plural": "Benachrichtigen, wenn die Karte seit {{day}} Tage abgelaufen ist",
             "daysLeftLabel": "Benachrichtigen, wenn auf der Karte noch {{day}} Gültigkeitstag verbleibt",
             "daysLeftLabel_plural": "Benachrichtigen, wenn auf der Karte noch {{day}} Gültigkeitstage verbleibt",
-            "creditsLeftLabel": "Benachrichtigen, wenn {{credit}} Guthaben verbleibt",
+            "creditsLeftLabel": "Benachrichtigen, wenn {{count}} Guthaben verbleibt",
             "creditsLeftLabel_plural": "Benachrichtigen, wenn {{credit}} Guthaben verbleibt",
             "creditsLeftOnBooking": "{{hours}}h nach der Buchung",
             "creditsLeftOnOfferStart": "{{hours}}h nach der Buchung"

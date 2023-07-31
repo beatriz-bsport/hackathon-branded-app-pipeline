@@ -1823,7 +1823,8 @@
                 "lastOpen": "Ultima apertura",
                 "dateCreated": "Data di invio",
                 "topLinks": "Link più cliccati",
-                "recipientList": "Dettagli per destinatario"
+                "recipientList": "Dettagli per destinatario",
+                "exportError": "Si è verificato un errore durante l'esportazione"
             },
             "recipientCount": "Destinatario: {{total_recipients}}",
             "clickCount": "Click",
@@ -7708,7 +7709,8 @@
                 "Cancellata",
                 "Annullato",
                 "Cancellata",
-                "Cancellata"
+                "Cancellata",
+                "Cancella"
             ]
         },
         "payment_method_with_credit_account": {
@@ -14533,6 +14535,29 @@
             },
             "marketingAction": {
                 "addAction": "Aggiungi un'azione"
+            },
+            "bubble": {
+                "entryTrigger": {
+                    "helperText": "Definire quando e chi entrerà in questa cadenza con i criteri e i trigger selezionati.",
+                    "addTrigger": "Aggiungi un trigger di ingresso",
+                    "title": "Entra"
+                },
+                "marketingAction": {
+                    "label": "Seleziona un'azione di marketing",
+                    "title": "Azione di marketing"
+                },
+                "changeInStep": {
+                    "default": "Nome dello step",
+                    "label": "Nome dello step"
+                },
+                "changeInExit": {
+                    "label": "Considera il membro come",
+                    "title": "Esci"
+                },
+                "previous": "Indietro",
+                "next": "Avanti",
+                "confirm": "Salva",
+                "cancel": "Cancella"
             }
         }
     },

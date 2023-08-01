@@ -232,7 +232,7 @@ export const PaymentStripeSEPA = forwardRef(
   ) => {
     const isNewCheckoutFlow = React.useContext(CheckoutContext);
     const classes = useStyles({ isNewCheckoutFlow });
-    const { t } = useTranslation('invoice');
+    const { t } = useTranslation(['invoice', 'payment']);
 
     const stripe = useStripe();
     const elements = useElements();

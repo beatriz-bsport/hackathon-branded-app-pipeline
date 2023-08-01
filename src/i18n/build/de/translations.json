@@ -1928,7 +1928,7 @@
             "cancelledBookings_plural": "{{nb}} Buchungen storniert",
             "totalBookings": "{{nb}} Buchung insgesamt",
             "totalBookings_plural": "{{nb}} Buchungen insgesamt",
-            "offerFilteredBookingRecap": "Deine Buchung am  {{date}}",
+            "offerFilteredBookingRecap": "Deine Buchung am {{date}}",
             "weekOverview": "Übersicht der Woche"
         },
         "show_cancelled_offers": "Abgesagte Stunden anzeigen",
@@ -2822,7 +2822,7 @@
                         "description": "Anfragen auf Vertretungen, die ab {{count}} Tag vor Kursbeginn gestellt werden, werden als verspätet angezeigt.",
                         "description_plural": "Anfragen auf Vertretungen, die ab {{count}} Tage vor Kursbeginn gestellt werden, werden als verspätet angezeigt.",
                         "every": "Alle",
-                        "helperText": "Schließung  von Anfragen auf Vertretung",
+                        "helperText": "Schließung von Anfragen auf Vertretung",
                         "placeholder": "Anzahl an Tagen"
                     },
                     "restrictionsDescription": "Geben Sie an, auf welche Tabs Ihre Lehrkräfte Zugriff haben",

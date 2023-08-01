@@ -155,15 +155,15 @@ describe('TEST extractVoucherCodesFromCSVString', () => {
   });
 
   it('Returns an incorrect data error if the input is a string with coma', () => {
-    expect(extractVoucherCodesFromCSVString(stringWithComa)).toEqual(
-      UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_INCORRECT_DATA_ERROR,
-    );
+    expect(() => {
+      extractVoucherCodesFromCSVString(stringWithComa);
+    }).toThrowError(UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_INCORRECT_DATA_ERROR);
   });
 
   it('Returns an incorrect data error if the input is a string with a too long code (more than a 100 characters)', () => {
-    expect(extractVoucherCodesFromCSVString(stringWithTooLongCode)).toEqual(
-      UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_INCORRECT_DATA_ERROR,
-    );
+    expect(() => {
+      extractVoucherCodesFromCSVString(stringWithTooLongCode);
+    }).toThrowError(UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_INCORRECT_DATA_ERROR);
   });
 
   it('Returns the expectedResult if the input is a string with white spaces', () => {
@@ -186,8 +186,7 @@ describe('TEST parseCSVFileToGetVoucherCodes', () => {
     const mockFile = new File([stringWithComa], 'test.csv', {
       type: VOUCHER_CODE_CSV_FILE_MIME_TYPE,
     });
-    const errorMessage = await parseCSVFileToGetVoucherCodes(mockFile);
-    expect(errorMessage).toEqual(
+    await expect(parseCSVFileToGetVoucherCodes(mockFile)).rejects.toThrowError(
       UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_INCORRECT_DATA_ERROR,
     );
   });
@@ -196,8 +195,7 @@ describe('TEST parseCSVFileToGetVoucherCodes', () => {
     const mockFile = new File([stringWithComa], 'test.csv', {
       type: 'image/jpeg',
     });
-    const errorMessage = await parseCSVFileToGetVoucherCodes(mockFile);
-    expect(errorMessage).toEqual(
+    await expect(parseCSVFileToGetVoucherCodes(mockFile)).rejects.toThrowError(
       UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_NOT_CSV_FILE_ERROR,
     );
   });
@@ -213,8 +211,7 @@ describe('TEST parseCSVFileToGetVoucherCodes', () => {
       enumerable: true,
       configurable: true,
     });
-    const errorMessage = await parseCSVFileToGetVoucherCodes(mockFile);
-    expect(errorMessage).toEqual(
+    await expect(parseCSVFileToGetVoucherCodes(mockFile)).rejects.toThrowError(
       UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_FILE_TOO_LARGE_ERROR,
     );
   });

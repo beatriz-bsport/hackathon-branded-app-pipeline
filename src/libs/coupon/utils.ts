@@ -17,18 +17,15 @@ export const isCurrentlyActive: (coupon: Coupon) => boolean = (coupon) =>
 
 export const extractVoucherCodesFromCSVString = (csvFileAsString: string) => {
   if (csvFileAsString.includes(',')) {
-    return UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_INCORRECT_DATA_ERROR;
+    throw new Error(UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_INCORRECT_DATA_ERROR);
   }
   const formatedString = csvFileAsString.replace('\r\n', '\n');
-  const codes = formatedString
-    .slice(formatedString.indexOf('\n'))
-    .split('\n')
-    .filter((row) => !!row.length);
+  const codes = formatedString.split('\n').filter((row) => !!row.length);
   const isSomeCodeTooLong = codes.some(
     (code) => code.length > VOUCHER_CODE_CHARACTERS_NUMBER_LIMIT,
   );
   if (isSomeCodeTooLong) {
-    return UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_INCORRECT_DATA_ERROR;
+    throw new Error(UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_INCORRECT_DATA_ERROR);
   }
   return codes;
 };
@@ -38,12 +35,16 @@ export const parseCSVFileToGetVoucherCodes = async (csvFile: File) => {
     return null;
   }
   if (csvFile.size > VOUCHER_CODE_CSV_FILE_SIZE_LIMIT_IN_BYTES) {
-    return UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_FILE_TOO_LARGE_ERROR;
+    throw new Error(UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_FILE_TOO_LARGE_ERROR);
   }
   if (csvFile.type !== VOUCHER_CODE_CSV_FILE_MIME_TYPE) {
-    return UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_NOT_CSV_FILE_ERROR;
+    throw new Error(UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_NOT_CSV_FILE_ERROR);
   }
   const csvAsString = await csvFile.text();
-  const voucherCodes = extractVoucherCodesFromCSVString(csvAsString);
-  return voucherCodes;
+  try {
+    const voucherCodes = extractVoucherCodesFromCSVString(csvAsString);
+    return voucherCodes;
+  } catch (error) {
+    throw error;
+  }
 };

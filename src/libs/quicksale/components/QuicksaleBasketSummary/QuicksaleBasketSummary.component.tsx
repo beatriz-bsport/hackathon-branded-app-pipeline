@@ -147,7 +147,7 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
   const taxPrice = (
     parseFloat(basket.total_price) -
     parseFloat(basketPriceExcludingTax) -
-    deliveryFee?.unit_price
+    (deliveryFee?.unit_price ?? 0)
   ).toFixed(2);
 
   return (

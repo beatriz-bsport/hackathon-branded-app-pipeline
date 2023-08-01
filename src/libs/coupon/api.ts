@@ -177,3 +177,7 @@ export const updateUniqueCodeCoupon = (
 ) => {
   return putAuth<Coupon>(`${COUPON_URI}unique_code/${id}/`, data);
 };
+
+export const retrieveCoupon = (id: string | number) => {
+  return getAuth<Coupon>(`${COUPON_URI}${id}/`);
+};

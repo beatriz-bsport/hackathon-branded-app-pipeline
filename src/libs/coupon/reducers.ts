@@ -10,6 +10,7 @@ import {
   createOrUpdateCouponTemplateActions,
   deleteCouponTemplateActions,
   retrieveCouponTemplateActions,
+  retrieveCouponActions,
 } from './actions';
 
 import type { Coupon, CouponState, CouponTemplate, Discount } from './types';
@@ -200,6 +201,30 @@ export default handleActions<Immutable.Immutable<CouponState>, any>(
       { payload }: { payload: CouponTemplate },
     ) => {
       return state.setIn(['couponTemplate', 'byId', payload.id], payload);
+    },
+    [retrieveCouponActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['coupon', 'loading'], payload);
+    },
+    [retrieveCouponActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['coupon', 'error'], payload);
+    },
+    [retrieveCouponActions.success.toString()]: (
+      state,
+      { payload }: { payload: Coupon },
+    ) => {
+      return state.setIn(
+        ['coupon', 'items'],
+        [
+          ...state.coupon.items.filter((item) => item.id !== payload.id),
+          payload,
+        ],
+      );
     },
   },
   initialState,

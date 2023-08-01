@@ -18,6 +18,7 @@ import {
   deleteCouponTemplateInstance as deleteCouponTemplateInstanceAPI,
   createUniqueCodeCoupon as createUniqueCodeCouponAPI,
   updateUniqueCodeCoupon as updateUniqueCodeCouponAPI,
+  retrieveCoupon as retrieveCouponAPI,
 } from './api';
 
 import { OptionCallback, Dispatch, ThunkAction } from '../../state/types';
@@ -489,5 +490,37 @@ export function updateUniqueCodeCoupon(
     }
 
     dispatch(couponCreateOrUpdate.isLoading(false));
+  };
+}
+
+export const retrieveCouponActions = {
+  isLoading: createAction<boolean>('COUPON/RETRIEVE/IS_LOADING'),
+  error: createAction<Error | null>('COUPON/RETRIEVE/ERROR'),
+  success: createAction<Coupon>('COUPON/RETRIEVE/SUCCESS'),
+};
+
+export function retrieveCoupon(
+  couponId: string | number,
+  options?: OptionCallback<Coupon>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveCouponActions.isLoading(true));
+    dispatch(retrieveCouponActions.error(null));
+
+    try {
+      const response = await retrieveCouponAPI(couponId);
+      dispatch(retrieveCouponActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+      dispatch(retrieveCouponActions.error(null));
+    } catch (error) {
+      dispatch(retrieveCouponActions.error(error));
+      if (options && options.onError) {
+        options.onError();
+      }
+    }
+
+    dispatch(retrieveCouponActions.isLoading(false));
   };
 }

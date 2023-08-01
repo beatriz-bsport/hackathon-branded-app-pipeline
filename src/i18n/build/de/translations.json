@@ -253,7 +253,8 @@
                 "iAcceptGeneralCondition": " Ich akzeptiere den rechtlichen Hinweis",
                 "alertPastDateSameMonth": "Bitte beachten Sie, dass Sie ein vergangenes Datum gewählt haben. Wenn das Abonnement einen Pass beinhaltet, beginnt die Gültigkeit des Passes an dem gewählten Datum. Im Falle einer einmonatigen Gültigkeit, verliert ihr Mitglied {{lostDays}} Tage der Gültigkeit.",
                 "title": "Vergangenes Datum",
-                "iAcceptContractTerms": "Ich akzeptiere die <0>Nutzungsbedingungen</0>."
+                "iAcceptContractTerms": "Ich akzeptiere die <0>Nutzungsbedingungen</0>.",
+                "acceptContractTerms": "Akzeptieren Sie die <0>Allgemeinen Nutzungsbedingungen</0>"
             },
             "list": {
                 "title": "Abonnements",
@@ -264,7 +265,7 @@
                 "isEmpty": "Kein verfügbarer Vertrag",
                 "titleInactive": "Archivierte Verträge"
             },
-            "duration": "{{Month}} Rechnungen",
+            "duration": "{{month}} Rechnungen",
             "legal": "Allgemeine Geschäftsbedingungen",
             "deleteForm": {
                 "actions": {
@@ -291,13 +292,13 @@
             "item": {
                 "intervalLabel": {
                     "year": "Jedes Jahr",
-                    "year_plural": "Jede  {{ count }}  Jahre",
+                    "year_plural": "Jede {{ count }} Jahre",
                     "day": "Jeden Tag",
-                    "day_plural": "Jede  {{ count }} Tage",
+                    "day_plural": "Jede {{ count }} Tage",
                     "week": "Jede Woche",
-                    "week_plural": "Jede  {{ count }}  Wochen",
+                    "week_plural": "Jede {{ count }} Wochen",
                     "month": "Jeden Monat",
-                    "month_plural": "Jede  {{ count }} Monate"
+                    "month_plural": "Jede {{ count }} Monate"
                 },
                 "recurrentPriceLabel": "{{ recurrent_price  }}{{ currencyDisplay }}",
                 "identifier": "Abo"
@@ -621,7 +622,7 @@
                         "contentCanNotCancelPause": "Da die Pause bereits begonnen hat oder schon vorbei ist, kann sie nicht mehr abgesagt werden.",
                         "contentSubscriptionHasNotStarted": "Die Pause wurde nicht durchgeführt, da der Datumsbereich vor dem Beginn des Abonnements liegt.",
                         "contentCanNotEditPauseStartWhenHasStarted": "Der Beginn der Pause kann nicht mehr geändert werden, sobald sie begonnen hat.",
-                        "contentIncomingBill": "Das Abonnement von {{AbonnementName}} von {{AbonnentName}} konnte nicht pausiert werden, da eine Rechnung im Pausenintervall innerhalb von 24 Stunden in Rechnung gestellt wird oder eine Zahlung in Bearbeitung ist. Bitte ändern Sie das Startdatum der Pause.",
+                        "contentIncomingBill": "Das Abonnement {{- subscriptionName}} von {{subscriberName}} konnte nicht pausiert werden, da eine Rechnung innerhalb des Pausenintervalls innerhalb von 24 Stunden in Rechnung gestellt wird oder eine zukünftige Rechnung bezahlt wird. Bitte ändern Sie das Startdatum der Pause.",
                         "contentCanNotCreateAPauseInThePast": "Die Pause kann nicht in der Vergangenheit beginnen.",
                         "contentInvalidTimedelta": "Die Pause muss mindestens einen Tag dauern."
                     },
@@ -1378,7 +1379,7 @@
                 "activityHelper": "Wähle erst die Aktivität und dann den Kurs",
                 "paymentPackHelper": "Diese Karte wird dem Mitglied gutgeschrieben",
                 "noPayedObject": "Keine",
-                "explainUnevenInvoice": "Die Gesamtsumme beträgt {{totalInvoiceItems}}€ , wenn die Gesamtzahlungen {{ totalPayments }}{{ totalPayments }}€ beträgt. Das interne Konto des Mitglieds wird zum Ausgleich gutgeschrieben/abgebucht.",
+                "explainUnevenInvoice": "Die Gesamtsumme beträgt {{totalInvoiceItems }}{{ currencyDisplay }}, wenn die Gesamtsumme der Zahlungen bei {{ totalPayments }}{{ currencyDisplay }} liegt. Das interne Konto des Mitglieds wird zum Ausgleich gutgeschrieben/belastet.",
                 "objectTypeLabel": "Objekt, das gutgeschrieben werden soll"
             },
             "quickInvoice": {
@@ -1841,7 +1842,7 @@
                     "min_bookings_nb": "Anzahl der Buchung(en):",
                     "emailRecipients": "Diese E-Mail wird an Mitarbeiter mit der Rolle \"Leiter\" oder \"Administrator\" sowie an die Lehrkraft (oder Vertretungslehrkraft) des betreffenden Kurses gesendet.",
                     "checkbox": "Storniere den Kurs automatisch, wenn zu wenige Buchungen vorliegen",
-                    "explain": "Sende eine E-Mail Benachrichtigung und storniere den Kurs, wenn x Buchungen bei Beginn des Kurses oder weniger als y Stunden vor Beginn vorliegen."
+                    "explain": "Die Sitzung absagen und eine E-Mail-Benachrichtigung an die Schüler senden, wenn {{bookings_nb}} Reservierung(en) vorliegen oder weniger als {{hours}} vor Beginn der Sitzung."
                 }
             }
         },
@@ -1978,7 +1979,7 @@
                 "name": "Datum des zuletzt gebuchten Kurses"
             },
             "1": {
-                "explanation": "Hat X {{CurrencyDisplay}} auf seinem Konto",
+                "explanation": "Hat X {{currencyDisplay}} auf seinem Konto",
                 "third": "{{currencyDisplay}}",
                 "first": "Das Guthaben des Kundes ist",
                 "name": "Guthaben",
@@ -2302,7 +2303,7 @@
                 },
                 "first": "gebucht",
                 "second": "Termin",
-                "explanation": "X  gebuchte Termine mit Professor A an Platz B mit dem Terminpass C ...",
+                "explanation": "X  gebuchte Termine mit Professor A an Platz B mit dem Terminpass C...",
                 "name": "Anzahl der Termine",
                 "private_service": {
                     "first": "mit den Terminen"
@@ -2629,7 +2630,7 @@
             "display_tag_rules": "Markierungsregeln anzeigen",
             "tag_on_left": "Markieren, wenn von der Smartliste genommen wird",
             "tag_on_join": "Markieren, wenn auf der Smartlist",
-            "activeSince": "Aktiv von",
+            "activeSince": "Aktiv seit {{ since }}",
             "tag": "Tag",
             "asyncDialog": {
                 "message": "Aufgrund Ihrer Änderungen an den Tag-Regeln der Smartlist {{ name }} müssen die Tags aktualisiert werden. Diese Synchronisierung erfolgt alle zwei Stunden.",
@@ -3550,7 +3551,7 @@
             "invoiceTitle": "Verbundene Rechnung",
             "shareAPass": "Einen Kurspass teilen",
             "trackModifiedCreditTitle": "Vergangenen Credits-Anpassungen",
-            "penaltyAccount": "Zusätzliche Abrechnung von {{account_value}} {{rencyDisplay}}",
+            "penaltyAccount": "Zusätzliche Abrechnung von {{account_value}} {{currencyDisplay}}",
             "penaltyBlock": "Karte für {{nb_days}} Tage gesperrt",
             "penaltyTitle": "Sanktion angewendet"
         },
@@ -3744,7 +3745,7 @@
                 },
                 "penalty": {
                     "account": {
-                        "helperText": "Eine Anzahlung von {{Wert}} wird für dieses Mitglied angewendet.",
+                        "helperText": "Eine Anzahlung von {{value}} wird für dieses Mitglied angewendet",
                         "label": "Einzahlungsbetrag:"
                     },
                     "block": {
@@ -3764,10 +3765,10 @@
                     "helperText": "Verhängen Sie Sanktionen bei zu vielen Fehlzeiten oder nicht fristgerechten Stornierungen",
                     "errorNoPenaltyRule": "Ihre Änderungen können nicht gespeichert werden, Sie müssen eine Sanktion auswählen oder die Sanktion deaktivieren, um fortfahren zu können",
                     "penaltyParamsText": "Wenden Sie die gleiche Abrechnung für nicht fristgerechte Stornierungen und Abwesenheiten (no show) an",
-                    "noShowPenaltyInfo": "Eine Sanktion wird verhängt, wenn {{PenalityNumberNoShow}} innerhalb eines Zeitraums von {{PenalityNumberDay}} Tag nicht erscheint",
-                    "noShowPenaltyInfo_plural": "Eine Sanktion wird verhängt, wenn {{PenalityNumberNoShow}} innerhalb eines Zeitraums von {{PenalityNumberDay}} Tagen nicht erscheint",
-                    "bothPenaltiesInfo": "Bei verspäteter Stornierung oder Nichterscheinen innerhalb eines Zeitraums von {{PenalityNumberDay}} Tag wird eine Sanktion erhoben",
-                    "bothPenaltiesInfo_plural": "Bei verspäteter Stornierung oder Nichterscheinen innerhalb eines Zeitraums von {{PenalityNumberDay}} Tagen wird eine Sanktion erhoben",
+                    "noShowPenaltyInfo": "Eine Sanktion wird verhängt, wenn {{penalityNumberNoShow}} innerhalb eines Zeitraums von {{penalityNumberDay}} Tag nicht erscheint",
+                    "noShowPenaltyInfo_plural": "Eine Sanktion wird verhängt, wenn {{penalityNumberNoShow}} innerhalb eines Zeitraums von {{penalityNumberDay}} Tagen nicht erscheint",
+                    "bothPenaltiesInfo": "Eine Strafe wird erhoben, wenn es innerhalb eines Zeitraums von {{penalityNumberNoShow}} Tagen {{penalityNumberDay}} nicht fristgerechte Stornierungen oder Abwesenheit (no show) gibt",
+                    "bothPenaltiesInfo_plural": "Eine Strafe wird erhoben, wenn es in einem Zeitraum von {{penalityNumberNoShow}} Tagen {{penalityNumberDay}} nicht fristgerechte Stornierungen oder Abwesenheiten (no show) gibt",
                     "noShowDialog": {
                         "text": "Sie haben soeben Sanktionen für das Nichterscheinen erstellt.  Wir haben die Funktion \"Namensaufruf\" aktiviert. Sie müssen nun für jede Session einen Namensaufruf durchführen, um die Sanktion zu aktivieren.",
                         "title": "Sanktionen bei Nichterscheinen",
@@ -3902,11 +3903,11 @@
         "ht": "Ohne Steuer",
         "validForDuration": {
             "general": "Gültig für {{ duration_days }} Tage, {{ duration_months }} Monat(e) und {{ duration_years }} Jahr(e)",
-            "years": "Gültig für {{ duration_years }} Jahr(e)",
-            "years_plural": "Gültig für {{ duration_years }} Jahr(en)",
+            "years": "{{ count }} Jahr",
+            "years_plural": "{{ count }} Jahre",
             "months": "{{ count }} Monat",
-            "days": "Gültig für {{ duration_days }} Tage",
-            "days_plural": "Gültig für {{ duration_days }} Tagen",
+            "days": "{{ count }} Tag",
+            "days_plural": "{{ count }} Tage",
             "and": " und ",
             "attendance": "ab der ersten Anwesenheit",
             "booking": "ab der ersten Buchung",
@@ -4052,21 +4053,21 @@
             "newMembers": "Nur für Neukunden"
         },
         "tags": {
-            "blackList": "unautorisiertes Tagging",
-            "blackList_plural": "nicht zugelassene Tags",
-            "whiteList": "tag erlaubt",
-            "whiteList_plural": "zugelassene Tags"
+            "blackList": "{{ count }} unzulässiger Tag",
+            "blackList_plural": "{{ count }} unzulässige Tags",
+            "whiteList": "{{ count }} zulässiger Tag",
+            "whiteList_plural": "{{ count }} zulässige Tags"
         },
         "full_vod": "Gültig für VOD",
         "seeAll": "Alles sehen",
         "compatibility": {
             "and": " und ",
-            "establishments": "Raum",
-            "establishments_plural": "Raume",
-            "activities": "Aktivität",
-            "activities_plural": "Aktivitäten",
-            "categories": "Kategorie",
-            "categories_plural": "Kategorien",
+            "establishments": "{{ count }} Raum",
+            "establishments_plural": "{{ count }} Räume",
+            "activities": "{{ count }} Aktivität",
+            "activities_plural": "{{ count }} Aktivitäten",
+            "categories": "{{ count }} Kategorie",
+            "categories_plural": "{{ count }} Kategorien",
             "compatible": "Kompatibel mit ",
             "all": "Kompatibel mit allen"
         },
@@ -4132,7 +4133,7 @@
             "maxUseHelper": "Leer lassen, um keine Grenzen zu setzen",
             "maxUseDay": "Maximale Nutzungen pro Tag",
             "restriction": "Restriktionen",
-            "penalityAccountHelper": "Für dieses Mitglied wird eine Anzahlung von {{penalityBlockAccount}}€ erhoben.",
+            "penalityAccountHelper": "Für dieses Mitglied wird eine Anzahlung von {{penalityBlockAccount}}{{ currencyDisplay }} erhoben",
             "penalityBlockDayHelper": "Die Karte des betroffenen Mitglieds wird für {{penalityBlockDay}} Tage gesperrt.",
             "penalityAccountPrice": "Betrag der Anzahlung",
             "penalityBlockDay": "Sperrfrist für die Karte (in Tagen)",
@@ -4142,7 +4143,7 @@
             "penalityInfo": "Eine Sanktion wird erhoben, wenn es innerhalb eines Zeitraums von {{penalityNumberCancel}} Tagen {{penalityNumberDay}} außerterminliche Stornierungen gibt.",
             "penalityNumberDay": "Anzahl der Tage",
             "penalityNumberCancel": "Anzahl der Absagen",
-            "marginalContributionHelperText": "Wird verwendet, um die Vergütung von Lehrkräften zu berechnen. 10€ bedeutet, dass eine mit dieser Karte vorgenommene Buchung mit 10€ vergütet wird. Wenn leer oder 0€ wird die Einbringung einer Karte PRIX/NB_RESERVATION",
+            "marginalContributionHelperText": "Wird verwendet, um die Vergütung von Lehrern zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit dieser Karte vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
             "marginalContribution": "Theoretischer Grenzertrag TTC",
             "expirationDateHelper": "Wenn der Kurspass innerhalb dieser Anzahl an Tagen nicht zum ersten Mal verbraucht wird, wird sie ungültig.",
             "expirationDate": "Verfall, wenn keine ursprüngliche Buchung",
@@ -4188,7 +4189,7 @@
             "franchise": "Diese Karte ist eine Karte, die vom Franchisegeber-Konto gemeinsam genutzt wird. Einige Elemente wurden vom Franchisegeber-Konto festgelegt und können nicht geändert werden",
             "penalityModeFranchisor": {
                 "buyer": {
-                    "explain": "Das Mitgliedskonto wird nur bei dem Franchisenehmer, bei dem die Karte gekauft wurde, mit {{ Preis }} belastet.",
+                    "explain": "Die Anzahlung von {{ price }} wird nur bei dem Franchisenehmer angewendet, bei dem die Karte ursprünglich in Rechnung gestellt wurde.",
                     "label": "An den Franchisenehmer, der die Karte abgerechnet hat"
                 },
                 "label": "Der Saldo des Mitgliedskontos wird belastet",
@@ -4806,7 +4807,7 @@
             "selectRange": "Einen Zeitraumbereich auswählen",
             "selectDate": "Ein Datum auswählen",
             "from": "Von",
-            "from_to": "Von {{-von}} bis {{-bis}}",
+            "from_to": "Von {{-from}} bis {{-to}}",
             "to": "bis",
             "start": "Start",
             "end": "Ende",
@@ -5072,6 +5073,7 @@
                 "Stornieren",
                 "Stornieren",
                 "Storniert",
+                "Stornieren",
                 "Stornieren",
                 "Stornieren",
                 "Stornieren",
@@ -6799,7 +6801,7 @@
                 "0": "In Bearbeitung"
             },
             "payoutIsIncludedInOther": "Diese Überweisung wurde in die Überweisung vom {{date}} mit der Kennung {{readable_identifier}} aufgenommen.",
-            "payoutAmountFromIncludedPayouts": "davon {{Preis}} aus vorherigen Auszahlungen",
+            "payoutAmountFromIncludedPayouts": "davon {{price}} aus vorherigen Auszahlungen",
             "payoutIsManual": "Dieser Auszahlungstransfer wurde vom bsport-Team manuell ausgelöst, um die Überweisung Ihres Geldes zu beschleunigen. In diesem Fall sind die Details der verbundenen Zahlungen nicht verfügbar. Bitte setzen Sie sich für weitere Informationen mit unserem Team in Verbindung."
         },
         "instalment": {
@@ -6812,8 +6814,8 @@
                         "day_plural": "Tage",
                         "month": "Monat",
                         "month_plural": "Monate",
-                        "year": "eine",
-                        "year_plural": "eine"
+                        "year": "Jahr",
+                        "year_plural": "Jahre"
                     },
                     "label": "Wiederholen Sie alle",
                     "helperText": " "
@@ -6847,7 +6849,7 @@
         },
         "interval": {
             "week": "Woche",
-            "week_plural": "Woche",
+            "week_plural": "Wochen",
             "day": "Tag",
             "day_plural": "Tage",
             "year": "Jahr",
@@ -7458,10 +7460,10 @@
         "statusCode": {
             "cancelledByOffer": "Kurs von dem Studio storniert",
             "cancelledByConsumer": "Stornierung vom Kunde",
-            "cancelledByManager": "Stornierung vom Admin",
+            "cancelledByManager": "Vom Manager storniert ({{cancelled_by}})",
             "cancelledByOfferDate": "Kurs vom Club am {{-date}} um {{time}} abgesagt",
             "cancelledByConsumerDate": "Kundenstornierung am {{-date}} um {{time}}",
-            "cancelledByManagerDate": "von Admin storniert am {{-date}} um {{time}}",
+            "cancelledByManagerDate": "Abgesagt vom Manager am {{-date}} um {{time}} von {{cancelled_by}}",
             "cancelledByAnonymousManager": "Annullierung Admin",
             "cancelledByAnonymousManagerDate": "Annullierung Admin am {{-date}} um {{time}}"
         },
@@ -7838,7 +7840,8 @@
         "exists": {
             "goTo": "Mitglied ansehen",
             "merge": "Fusionieren",
-            "linkUser": "Den Benutzer verbinden"
+            "linkUser": "Den Benutzer verbinden",
+            "quicksale": "Dieses Mitglied auswählen"
         },
         "forms": {
             "merge": {
@@ -7883,7 +7886,7 @@
                 }
             },
             "title": "Informationen für den Benutzer",
-            "newMemberOnlyHelperText": "Ein Mitglied gilt als \"neu\", solange es keinen Kauf von mehr als {{ Währung }}0 getätigt hat. Bitte beachten Sie, dass jeder Kauf eines bezahlten Artikels mit einer 100%igen Preisreduzierung zum Verlust des Status \"Neues Mitglied\" führt."
+            "newMemberOnlyHelperText": "Ein Mitglied gilt als \"neu\", solange es keinen Kauf von mehr als {{ currency }}0 getätigt hat. Bitte beachten Sie, dass jeder Kauf eines bezahlten Artikels mit einer 100%igen Preisreduzierung zum Verlust des Status \"Neues Mitglied\" führt."
         },
         "showSubscriptions": "Abonnements ansehen",
         "showInvoices": "Rechnungen ansehen",
@@ -8064,7 +8067,7 @@
                         },
                         "denied": {
                             "contactCompany": "Wenn Sie erneut eine Zusammenlegung Ihres Kontos beantragen möchten oder wenn Sie die Zusammenlegungsanfrage nicht abgelehnt haben, wenden Sie sich bitte direkt an Ihr Studio.",
-                            "helper": "Sie haben den Zusammenschlussantrag von {{- Unternehmen }} bereits abgelehnt.",
+                            "helper": "Sie haben den Zusammenschlussantrag von {{- company}} bereits abgelehnt.",
                             "title": "Fusion abgelehnt"
                         }
                     },
@@ -8083,14 +8086,14 @@
                         }
                     },
                     "dstUser": {
-                        "deniedRequestHelper": "Bitte wählen Sie \"Kontenzusammenlegung ablehnen\", wenn Sie diese Anfrage nicht bearbeiten möchten oder wenn Sie nicht der Initiator sind. Dadurch werden Ihre Konten nicht zusammengelegt und Sie werden nicht bei {{- Unternehmen }} registriert.",
+                        "deniedRequestHelper": "Bitte wählen Sie \"Kontenzusammenlegung ablehnen\", wenn Sie diese Anfrage nicht bearbeiten möchten oder wenn Sie nicht der Initiator sind. Dadurch werden Ihre Konten nicht zusammengelegt und Sie werden nicht bei {{- company }} registriert.",
                         "acceptRequestHelper": "Um die Zusammenlegung der Konten zu akzeptieren, klicken Sie bitte auf \"Zusammenlegung akzeptieren\".",
                         "notMemberYet": "Sie haben noch kein Konto bei {{- company }}. Durch die Zusammenlegung der Konten werden alle Informationen von Ihrer vorherigen E-Mail-Adresse (\"{{ old_email }}\") auf Ihre neue E-Mail-Adresse (\"{{ new_email }}\") übertragen. Sie können diese Anmeldedaten für jedes Studio verwenden.",
-                        "requestingStudio": "{{- Firma }} hat darum gebeten, Ihre alte Anmelde-E-Mail-Adresse (\"{{ old_email }}\") mit Ihrer neuen Anmelde-E-Mail-Adresse (\"{{ new_email }}\") zusammenzuführen."
+                        "requestingStudio": "Das Studio {{- company}} hat den Antrag gestellt, Ihr Konto {{ new_email }} mit dem Konto {{ old_email }} zusammenzuführen."
                     },
                     "veto": {
                         "deniedRequestHelper": "Wenn Sie diese Konten nicht zusammenführen möchten oder diese Anfrage nicht von Ihnen stammt, klicken Sie bitte auf \"Zusammenführung ablehnen\". Dadurch wird die Zusammenlegung der Konten verhindert und Sie behalten Ihre Anmeldedaten.",
-                        "acceptRequestHelper": "Um die Zusammenlegung der Konten zu akzeptieren, gehen Sie bitte zu Ihrer {{ E-Mail }}-Adresse und klicken Sie auf den Link in der E-Mail, die wir Ihnen geschickt haben.",
+                        "acceptRequestHelper": "Um die Zusammenlegung der Konten zu akzeptieren, gehen Sie bitte zu Ihrer {{ email }}-Adresse und klicken Sie auf den Link in der E-Mail, die wir Ihnen geschickt haben.",
                         "requestExplanation": "Diese E-Mail-Adresse \"{{ email }}\" wird bereits von einem anderen Studio verwendet. {{- company }} hat Ihr Konto mit diesem bestehenden Konto beantragt. Wenn Sie die beiden Konten zusammenführen, können Sie die Anmeldedaten (E-Mail und Passwort) des Kontos verwenden, das mit dem Konto von {{ email }} verbunden ist. Sie können diese Anmeldedaten für jedes Studio verwenden, das unsere Softwarelösung einsetzt."
                     },
                     "title": "Zusammenführen Ihres Kontos"
@@ -8099,12 +8102,12 @@
                     "error": {
                         "emailTaken": {
                             "contactCompany": "In der Zwischenzeit wurde jedoch ein Konto erstellt, das die Adresse {{ email }} verwendet. Diese Anfrage ist nun hinfällig. Wenn die E-Mail-Adresse {{ email }} Ihnen gehört, Sie aber nicht die Erstellung des zugehörigen Kontos veranlasst haben, wenden Sie sich bitte direkt an Ihr Studio.",
-                            "helper": "Sie haben eine Änderung der Anmelde-E-Mail-Adresse für Ihr Konto beantragt:",
+                            "helper": "Das Studio {{- company}} hatte eine Anfrage gestellt, um Ihre Anmelde-E-Mail für Ihren persönlichen Bereich zu ändern:",
                             "title": "Anmelde-E-Mail bereits genommen"
                         },
                         "delayExceeded": {
                             "contactCompany": "Wenn Sie erneut eine Änderung Ihrer Anmeldeadresse beantragen möchten, wenden Sie sich bitte an Ihr Studio.",
-                            "helper": "{Sie haben eine Bestätigungs-E-Mail erhalten, um die Änderung Ihrer Anmelde-E-Mail-Adresse zu bestätigen. Diese Anfragen sind 7 Tage lang gültig und sind nun abgelaufen.",
+                            "helper": "Das Studio {{- company}} hatte Ihnen eine Anfrage zur Bestätigung der Änderung Ihrer Anmelde-E-Mail geschickt. Die siebentägige Gültigkeitsdauer dieser Anfrage ist abgelaufen.",
                             "title": "Änderung deiner Anmelde-E-Mail"
                         },
                         "renewed": {
@@ -8200,7 +8203,7 @@
             },
             "member-private_booking_registered": {
                 "filter": "Termin",
-                "primaryText": "{{- source }} hat den Termin {{- privateServiceName }} gebucht. - {{- privateSlotName }} vom {{- privateServiceDate }}.",
+                "primaryText": "{{ source }} hat den Termin {{- privateServiceName }} gebucht. - {{- privateSlotName }} vom {{- privateServiceDate }}.",
                 "sourceManager": "Der Manager {{ managerName }}"
             },
             "member-tag_applied": {
@@ -8848,7 +8851,7 @@
             "selectSession": "Wähle einen Termin",
             "searchFirstSlot": "Die nächste Verfügbarkeit finden",
             "emptyState": "Derzeit nicht verfügbar",
-            "previousOffer": "Verfügbare Session: {{- Datum }} um {{ Stunde }}",
+            "previousOffer": "Eine neuere Sitzung ist am {{- Datum }} verfügbar: {{ hour }}",
             "nextOffer": "Erste Verfügbarkeit: {{- date }} um {{ hour }}"
         },
         "availabilitySlot": {
@@ -8945,7 +8948,7 @@
                 "establishment": "Diese Einrichtung ist derzeit nicht verfügbar",
                 "coach": "Diese Lehrkraft ist zu diesem Zeitpunkt nicht verfügbar",
                 "title": "Zeitfenster nicht verfügbar",
-                "resource": "Achtung! {{ Ressource }} ist im Moment nicht verfügbar.\n",
+                "resource": "Achtung! {{ ressource }} ist im Moment nicht verfügbar.\n",
                 "continue": "Sind Sie sicher, dass Sie den Termin verschieben möchten?",
                 "validate": "Bestätigen",
                 "cancel": "Stornieren",
@@ -9017,12 +9020,12 @@
                 "startDate": "Startdatum",
                 "duration": {
                     "and": " und ",
-                    "years": "Jahr",
-                    "years_plural": "Jahre",
-                    "daysMonths": "Monaten {{ duration_months }} und {{ duration_days }}  Tage",
-                    "months": "Monat",
-                    "days": "Tag",
-                    "days_plural": "Tage",
+                    "years": "{{ count }} Jahr",
+                    "years_plural": "{{ count }} Jahre",
+                    "daysMonths": "Monaten {{ duration_months }} und {{ duration_days }} Tage",
+                    "months": "{{ count }} Monate",
+                    "days": "{{ count }} Tag",
+                    "days_plural": "{{ count }} Tage",
                     "valid": "Gültig ",
                     "fullText": "Diese Karte ist gültig für "
                 },
@@ -9062,8 +9065,8 @@
                 }
             },
             "parameters": {
-                "nbCredits": "{{ credits }} Credits",
-                "nbCredits_plural": "Kredite",
+                "nbCredits": "{{ credits }} Credit",
+                "nbCredits_plural": "{{ credits }} Credits",
                 "managerOnly": "Für Kunden unsichtbar",
                 "tax": "Mehrwertsteuer : {{ tax }}%",
                 "price": "{{price, price}}",
@@ -9180,7 +9183,7 @@
                 "cancel": "Abbrechen",
                 "helperText": "Wähle den Termin aus, für den die Termin-Karte kompatibel ist",
                 "submit": "Speichern",
-                "title": "{{Service}} Termine",
+                "title": "Session des {{ service }}",
                 "isEmpty": "In diesem Termin ist kein Sessionstyp konfiguriert!"
             },
             "forSlots": "Kompatible Termine:",
@@ -9386,7 +9389,7 @@
                     "cancelledRefunded": "Für jede erstattete Stornierung",
                     "valid": "Bei jedem Termin"
                 },
-                "cancelledRefunded": "Anzahl der erstatteten Stornierungen:  n° {{notify_booking_nb}}",
+                "cancelledRefunded": "Anzahl der erstatteten Stornierungen: n° {{notify_booking_nb}}",
                 "cancelledNotRefunded": "Anzahl der Stornierungen nach Ablauf der Frist: i n° {{notify_booking_nb}}",
                 "valid": "Terminnummer {{notify_booking_nb}}",
                 "after": "Benachrichtigung {{hours}} Std nach dem Termin",
@@ -9588,7 +9591,8 @@
                 "recipientList": "Details nach Empfänger",
                 "topLinks": "Meist angeklickte Links",
                 "totalRead": "Number of people who opened the mail",
-                "lastOpen": "Letzte Öffnung"
+                "lastOpen": "Letzte Öffnung",
+                "exportError": "Beim Export ist ein Fehler aufgetreten"
             },
             "clickCount": "Klicks",
             "recipientCount": "Empfänger : {{ total_recipients }}",
@@ -10138,7 +10142,7 @@
                         "applyRecursive": "Andere ähnliche Gruppen stornieren",
                         "selectGroup": "Andere ähnliche Gruppen stornieren",
                         "selectHeader": "Wählen Sie die Gruppen, die geändert werden sollen",
-                        "firstSession": "Die erste anstehende Session ist am: {{-Tag}}",
+                        "firstSession": "Die erste anstehende Session ist am: {{-day}}",
                         "missingOffer": "Kein Angebot in der Gruppe"
                     },
                     "submit": "Bestätigen",
@@ -10189,33 +10193,33 @@
             },
             "intervalLabel": {
                 "day": "Jeden Tag",
-                "day_plural": "Jeden {{ Anzahl }} Tag",
+                "day_plural": "Alle {{ count }} Tage",
                 "until": {
-                    "day": "Jeden Tag bis {{-bis}} ",
-                    "day_plural": "Jeden {{ Anzahl }} Tag bis {{-bis}} ",
-                    "year": "Jedes Jahr bis {{-bis}} ",
-                    "year_plural": "Alle {{ Anzahl }} Jahre bis {{-bis}} ",
-                    "month": "Jeden Monat bis {{-bis}} ",
-                    "month_plural": "Jeden Monat von {{ count }} bis {{-until}} ",
-                    "week": "Jede Woche bis {{-bis}} ",
-                    "week_plural": "Jede {{ count }} Woche bis {{-until}} "
+                    "day": "Täglich bis zum {{-until}} ",
+                    "day_plural": "Jeden {{ count }} Tag bis zum {{-until}} ",
+                    "year": "Jedes Jahr bis zum {{-until}} ",
+                    "year_plural": "Alle {{ count }} Jahre bis zum {{-until}} ",
+                    "month": "Jeden Monat bis {{-until}} ",
+                    "month_plural": "Alle Monate von {{ count }} bis {{-until}} ",
+                    "week": "Jede Woche bis {{-until}} ",
+                    "week_plural": "Alle {{ count }} Wochen bis {{-until}} "
                 },
                 "month": "Jeden Monat",
                 "month_plural": "Alle {{ count }} Monate",
                 "year": "Jedes Jahr",
-                "year_plural": "Jedes {{ Anzahl }} Jahr",
+                "year_plural": "Jedes {{ count }} Jahre",
                 "week": "Jede Woche",
-                "week_plural": "Jede {{ Anzahl }} Woche"
+                "week_plural": "Alle {{ count }} Wochen"
             },
             "helperText": {
-                "month": "Dieses Ereignis beginnt jeden Monat am: {{Tag}}",
-                "month_plural": "Dieses Ereignis beginnt jeden Monat am: {{-Tag}} für {{ Anzahl }} Monat(e)",
-                "week": "Diese Gruppe beginnt am {{Tag}}, jede Woche",
-                "week_plural": "Diese Gruppe beginnt am {{-Tag}} jede {{ Anzahl }} Woche",
+                "month": "Diese Gruppe beginnt am {{-day}}, jeden Monat",
+                "month_plural": "Diese Gruppe beginnt am {{-day}}, jeden {{ count }} Monat",
+                "week": "Diese Gruppe beginnt am {{-day}}, jede Woche",
+                "week_plural": "Diese Gruppe beginnt am {{-day}}, alle {{ count }} Wochen",
                 "day": "Diese Gruppe wird täglich trainiert",
                 "day_plural": "Diese Gruppe wird alle {{ count }} Tage wiederholt",
-                "year": "Diese Veranstaltung beginnt jedes Jahr am: {{-Tag}} {{-Mont}}",
-                "year_plural": "Diese Veranstaltung beginnt jedes Jahr am: {{-Tag}} {{-Monat}} für {{ Anzahl }} Jahr(e)"
+                "year": "Diese Gruppe beginnt {{-day}}, von {{-mont}} jedes Jahr",
+                "year_plural": "Diese Gruppe beginnt {{-day}}, von {{-month}} alle {{ count }} Jahre"
             },
             "last": "letzte",
             "offerDescription": "{{ count }} Session(s) von {{- firstSession }} bis {{- lastSession }}",
@@ -10227,7 +10231,7 @@
         "edit": "Bearbeiten",
         "close": "Schließen",
         "workshopSelect": "Suche nach einem Workshop",
-        "cancelledOffers": "{{Anzahl}} Stornierungen"
+        "cancelledOffers": "{{count}} Stornierungen"
     },
     "coachPerformance": {
         "bonus": "Bonus",
@@ -11733,9 +11737,9 @@
             "manager": "Manager",
             "franchisor": "Franchisegeber",
             "continue": "Weiter mit dieser Session",
-            "currentSession": "Sie sind derzeit eingeloggt als",
+            "currentSession": "Sie sind derzeit als {{name}} angemeldet",
             "restore": "Diese Session wiederherstellen",
-            "previousSession": " Sie waren eingeloggt als",
+            "previousSession": " Sie waren angemeldet als {{name}}",
             "title": " Sie scheinen mehrere Tabs gleichzeitig zu verwenden"
         },
         "stripeOnboardingPending": {
@@ -11744,33 +11748,33 @@
         "tab": {
             "member": {
                 "invoices": "Rechnungen und Mitgliedsbeiträge",
-                "invoices_plural": "Rechnungen und Mitgliedsbeiträge ({{Anzahl}})",
+                "invoices_plural": "Rechnungen und Mitgliedsbeiträge ({{number}})",
                 "privateConsumerPass": "Terminpass",
-                "privateConsumerPass_plural": "Terminpässe ({{Anzahl}})",
+                "privateConsumerPass_plural": "Terminpässe ({{number}})",
                 "vod": "VOD",
-                "vod_plural": "VOD ({{Anzahl}})",
+                "vod_plural": "VOD ({{number}})",
                 "form": "Formular",
-                "form_plural": "Formulare ({{Anzahl}})",
+                "form_plural": "Formulare ({{number}})",
                 "programs": "Programm",
-                "programs_plural": "Programme",
+                "programs_plural": "Programme ({{number}})",
                 "info": "Allgemein",
-                "info_plural": "Allgemein ({{Anzahl}})",
+                "info_plural": "Allgemein ({{number}})",
                 "relation": "Beziehung",
-                "relation_plural": "Beziehungen ({{Anzahl}})",
+                "relation_plural": "Beziehungen ({{number}})",
                 "bookings": "Buchung",
-                "bookings_plural": "Buchungen ({{Anzahl}})",
+                "bookings_plural": "Buchungen ({{number}})",
                 "giftcard": "Gutschein",
-                "giftcard_plural": "Gutscheine ({{Anzahl}})",
+                "giftcard_plural": "Gutscheine ({{number}})",
                 "paymentPack": "Karte",
-                "paymentPack_plural": "Karten ({{Nummer}})",
+                "paymentPack_plural": "Karten ({{number}})",
                 "contact": "Kontakt",
                 "contact_plural": "Contact ({{number}})",
                 "basket": "Warenkorb",
-                "basket_plural": "Warenkörbe ({{Anzahl}})",
+                "basket_plural": "Warenkörbe ({{number}})",
                 "payment": "Rechnung",
-                "payment_plural": "Rechnung ({{Anzahl}})",
+                "payment_plural": "Rechnung ({{number}})",
                 "privateBooking": "Termine",
-                "privateBooking_plural": "Termine ({{Anzahl}})"
+                "privateBooking_plural": "Termine ({{number}})"
             },
             "widget": {
                 "create": "Allgemein",
@@ -12145,8 +12149,8 @@
             "paymentMethodTitle": "Wählen Sie Ihre Zahlungsmethode",
             "paymentMethodExplain": "Wählen Sie die Zahlungsmethode, die Sie für die Bsport-Rechnung verwenden möchten",
             "finishExplain": "Die Konfiguration ist abgeschlossen. Sie können nun Bsport verwenden.",
-            "welcomeConfigure": "Richten Sie Ihr Konto in nur {{AnzahlSchritte}} Schritt ein!",
-            "welcomeConfigure_plural": "Richten Sie Ihr Konto in nur {{AnzahlSchritte}} Schritten ein!",
+            "welcomeConfigure": "Richten Sie Ihr Konto in nur {{numberOfSteps}} Schritt ein!",
+            "welcomeConfigure_plural": "Richten Sie Ihr Konto in nur {{numberOfSteps}} Schritten ein!",
             "congrats": "Herzlichen Glückwunsch!",
             "finishStep": "Fertig!",
             "infoGoingBack": "Sie können dies später nachholen, wenn Sie diese Seite verlassen.",
@@ -12180,7 +12184,7 @@
         },
         "welcome": {
             "textExplain": "Herzlichen Glückwunsch, Ihre Registrierung wurde erfolgreich abgeschlossen. Sie können nun Ihr Konto nutzen und Ihre ersten Sessions buchen.",
-            "title": "Willkommen bei {{Unternehmensname}}!",
+            "title": "Willkommen bei {{- companyName}}!",
             "begin": "Start"
         },
         "needStripe": {
@@ -12218,7 +12222,7 @@
                 "bookTitle": "Übersicht"
             },
             "noWorkshopAvailable": "Kein Event ist momentan geplant",
-            "warningBookingRedirectToFirstOffer": "Sie wurden zum Buchungsbildschirm der Gruppe {{Name}} weitergeleitet. Die gemeinsam zu buchenden Sessions werden auf Ihrem Buchungsbildschirm aufgelistet.",
+            "warningBookingRedirectToFirstOffer": "Sie wurden zum Buchungsbildschirm der Gruppe {{name}} weitergeleitet. Die gemeinsam zu buchenden Sessions werden auf Ihrem Buchungsbildschirm aufgelistet.",
             "loadMore": "Mehr dazu",
             "cancel": "Abbrechen",
             "confirm": "Weiter",
@@ -12258,16 +12262,16 @@
         "genericCardDetails": {
             "compatibility": {
                 "establishments": "Raum {{ count }}",
-                "establishments_plural": "Räume  {{ count }}",
+                "establishments_plural": "Räume {{ count }}",
                 "packs": {
                     "activities": "Kompatibel mit {{ count }} Aktivität",
                     "activities_plural": "Kompatibel mit {{ count }} Aktivitäten",
                     "all": "Kompatibel mit allen",
-                    "categoriesAndActivities": "Kompatibel mit {{ Kategorien }} und {{ Aktivitäten }} ",
-                    "categoriesAndEstablishment": "Kompatibel mit {{ Kategorien }} und {{ Betrieben }} ",
+                    "categoriesAndActivities": "Kompatibel mit {{ categories }} und {{ activities }} ",
+                    "categoriesAndEstablishment": "Kompatibel mit {{ categories }} und {{ establishments }} ",
                     "and": " und ",
-                    "establishmentsAndActivities": "Kompatibel mit {{ Einrichtungen }} und {{ Aktivitäten }} ",
-                    "categoriesAndActivitiesAndEstablishments": "Kompatibel mit {{ Kategorien }}, {{ Einrichtungen }} und {{ Aktivitäten }} ",
+                    "establishmentsAndActivities": "Kompatibel mit {{ establishments }} und {{ activities }} ",
+                    "categoriesAndActivitiesAndEstablishments": "Kompatibel mit {{ categories }}, {{ establishments }} und {{ activities }} ",
                     "compatible": "Kompatibel mit ",
                     "categories": "Kompatibel mit {{ count }} Kategorie",
                     "categories_plural": "Kompatibel mit {{ count }} Kategorien",
@@ -12287,23 +12291,23 @@
                     "activities": "Aktivitäten",
                     "establishments": "Räume"
                 },
-                "categories": "{{ Anzahl }} Kategorie",
-                "categories_plural": "{{ Anzahl }} Kategorien",
+                "categories": "{{ count }} Kategorie",
+                "categories_plural": "{{ count }} Kategorien",
                 "activities": "Aktivität: {{ count }}",
                 "activities_plural": "Aktivitäten: {{ count }}"
             },
             "includedElements": {
                 "restrictions": {
-                    "perDay": "{Anzahl}} Nutzung pro Tag",
-                    "perDay_plural": "{{Anzahl}} Nutzungen pro Tag",
-                    "maxPerDay": "Maximale Nutzung pro Tag: <strong>{{count}}</strong>",
-                    "maxPerDay_plural": "Maximale Nutzungstage: <strong>{{Zahl}}</strong>",
-                    "perWeek": "{Anzahl}} Nutzung pro Woche",
-                    "perWeek_plural": "{Anzahl}} Nutzungen pro Woche",
-                    "maxPerWeek": "Maximale Nutzung pro Woche : <strong>{{{count}}</strong>",
-                    "maxPerWeek_plural": "Maximale Nutzungen pro Woche : <strong>{{Anzahl}}</strong>",
-                    "perMonth": "{Anzahl}} Nutzung pro Monat",
-                    "perMonth_plural": "{Anzahl}} Nutzungen pro Monat",
+                    "perDay": "{{count}} Nutzung pro Tag",
+                    "perDay_plural": "{{count}} Nutzungen pro Tag",
+                    "maxPerDay": "Maximale Nutzung pro Tag : <strong>{{count}}</strong>",
+                    "maxPerDay_plural": "Maximale Nutzungen pro Tag : <strong>{{count}}</strong>",
+                    "perWeek": "{count}} Nutzung pro Woche",
+                    "perWeek_plural": "{count}} Nutzungen pro Woche",
+                    "maxPerWeek": "Maximale Nutzung pro Woche : <strong>{{count}}</strong>",
+                    "maxPerWeek_plural": "Maximale Nutzungen pro Woche : <strong>{{count}}</strong>",
+                    "perMonth": "{{count}} Nutzung pro Monat",
+                    "perMonth_plural": "{{count}} Nutzungen pro Monat",
                     "maxPerMonth": "Maximale Nutzung pro Monat : <strong>{{count}}</strong>",
                     "maxPerMonth_plural": "Maximale Nutzungen pro Monat : <strong>{{count}}</strong>",
                     "title": "Beschränkungen der Nutzung"
@@ -12312,22 +12316,22 @@
                 "isUniversalPass": "Universalpass",
                 "newMemberOnly": "Nur für Neumitglieder",
                 "penalty": {
-                    "days": "{{Gebühren_Tage}} der Sperrung nach {{Gebühren_Stornierungen}} aus Zeit über einen {{Gebühren_Tage_Zeitraum}} Zeitraum",
-                    "amount": "{{Gebührenbetrag}} wird nach {{Gebührenstornierungen}} über einen Zeitraum von {{Gebührentage_Zeitraum}} abgezogen",
-                    "penaltyDay": "{{Anzahl}} Tag",
-                    "penaltyDay_plural": "{{Anzahl}} Tage"
+                    "days": "{{penalty_days}} der Sperrung nach {{penalty_cancellations}} aus Zeit über einen {{penalty_days_period}} Zeitraum",
+                    "amount": "{{penalty_amount}} wird nach {{penalty_cancellations}} über einen Zeitraum von {{penalty_days_period}} abgezogen",
+                    "penaltyDay": "{{count}} Tag",
+                    "penaltyDay_plural": "{{count}} Tage"
                 },
-                "maxPurchasePerMember": "{{Anzahl}} Kauf pro Mitglied",
-                "maxPurchasePerMember_plural": "{{Anzahl}} Käufe pro Mitglied",
+                "maxPurchasePerMember": "{{count}} Kauf pro Mitglied",
+                "maxPurchasePerMember_plural": "{{count}} Käufe pro Mitglied",
                 "onsitePaymentAvailable": "Bezahlung vor Ort möglich",
                 "onlyVodAccess": "Nur als VOD verfügbar",
                 "compatibleWithEverything": "kompatibel mit Allem",
                 "see": "Siehe",
-                "cancellation": "{{Anzahl}} Kündigung",
-                "cancellation_plural": "{{Anzahl}} Kündigungen",
+                "cancellation": "{{count}} Kündigung",
+                "cancellation_plural": "{{count}} Kündigungen",
                 "penaltyNoShow": {
-                    "threshold": "{{Zahl}} Abwesenheit",
-                    "threshold_plural": "{{Zahl}} Abwesenheiten",
+                    "threshold": "{{count}} Abwesenheit",
+                    "threshold_plural": "{{count}} Abwesenheiten",
                     "block": "{{days_blocked}} der Sperrung nach {{threshold}} über einen Zeitraum von {{time_window_days}}.",
                     "account": "Eine Anzahlung von {{amount}} wird für {{threshold}} über einen Zeitraum von {{time_window_days}} erhoben.",
                     "penaltyDay": "{{count}} Tag",
@@ -12339,15 +12343,15 @@
             },
             "credits": {
                 "unlimited": "Unbegrenzt",
-                "availableCredit": "{{Anzahl}} Guthaben",
-                "availableCredit_plural": "{{Anzahl}} Guthaben"
+                "availableCredit": "{{count}} Credit",
+                "availableCredit_plural": "{{count}} Credits"
             },
             "restrictions": "Beschränkungen",
             "compatibleTimeSlot": "Vereinbarte Zeitfenster"
         },
         "contractCard": {
             "chooseButton": "auswählen",
-            "fees": "Anmeldegebühr: {{ Gebühren }}",
+            "fees": "Anmeldegebühr: {{ fees }}",
             "registerButton": "Abonnieren",
             "seeMore": "mehr anzeigen",
             "seeLess": "weniger anzeigen",
@@ -12359,17 +12363,17 @@
                 "week": "Woche",
                 "week_plural": "Every {{ count }} weeks",
                 "year": "Jahr",
-                "year_plural": "Alle {{ Anzahl }} Jahre",
+                "year_plural": "Alle {{ count }} Jahre",
                 "day": "Tag",
-                "day_plural": "Alle {{ Anzahl }} Tage"
+                "day_plural": "Alle {{ count }} Tage"
             },
-            "invoice": "{{Anzahl}} Rechnung",
-            "invoice_plural": "{{Anzahl}} Rechnungen"
+            "invoice": "{{ count }} Rechnung",
+            "invoice_plural": "{{ count }} Rechnungen"
         },
         "genericCard": {
             "credits": {
-                "availableCredit": "{{Anzahl}} Guthaben",
-                "availableCredit_plural": "{{Anzahl}} Guthaben",
+                "availableCredit": "{{count}} Credit",
+                "availableCredit_plural": "{{count}} Credits",
                 "unlimited": "Unbegrenzt"
             },
             "details": {
@@ -12393,12 +12397,12 @@
                 "booking": "Gültig ab der ersten Buchung"
             },
             "validity": {
-                "year": "{{Zahl}} Jahr",
-                "year_plural": "{{Zahl}} Jahre",
-                "month": "{{Zahl}} Monat",
-                "month_plural": "{{Zahl}} Monate",
-                "day": "{{Zahl}} Tag",
-                "day_plural": "{{Zahl}} Tage"
+                "year": "{{count}} Jahr",
+                "year_plural": "{{count}} Jahre",
+                "month": "{{count}} Monat",
+                "month_plural": "{{count}} Monate",
+                "day": "{{count}} Tag",
+                "day_plural": "{{count}} Tage"
             },
             "title": {
                 "universalPassMessage": "Universalpässe, könn für Gruppenaktivitäten und Termine verwendet werden"
@@ -12408,10 +12412,10 @@
             "comboItemList": {
                 "paymentPackItem": "{{count}} Kurspass",
                 "paymentPackItem_plural": "{{count}} Kurspässe",
-                "privatePassItem": "{{Anzahl}} Terminpass",
-                "privatePassItem_plural": "{{Anzahl}} Terminpässe",
-                "hiddenItem": "{{Anzahl}} andere Element...",
-                "hiddenItem_plural": "{{Anzahl}} andere Elemente..."
+                "privatePassItem": "{{count}} Terminpass",
+                "privatePassItem_plural": "{{count}} Terminpässe",
+                "hiddenItem": "{{count}} anderes Element...",
+                "hiddenItem_plural": "{{count}} andere Elemente..."
             }
         },
         "packCardDetail": {
@@ -12452,7 +12456,7 @@
             "add": "Hinzufügen",
             "establishmentMergeMaster": "In dieser Einrichtung zusammenführen ⬇️.",
             "establishmentMergedAs": "Diese Einrichtungen zusammenlegen",
-            "partnerId": "PartnerID: {{ Unternehmen }}",
+            "partnerId": "PartnerID: {{ company }}",
             "venueIds": "VenueIDs: {{ establishmentIdList }}",
             "pleaseChoseEstablishmentMany": "Bitte wählen Sie mindestens eine Einrichtung aus",
             "establishment": "Einrichtung",
@@ -12592,7 +12596,7 @@
             "endDateLabel": "Enddatum (einschließlich)",
             "startDateLabel": "Startdatum (einschließlich)",
             "sure": "Sind Sie sicher, dass Sie diese Aktion bestätigen möchten?",
-            "confirmInfo": "Sie sind dabei, alle Sessions zwischen dem {{start_date}} und dem {{end_date}} (einschließlich). Das bedeutet, dass {{number_of_deleted_offer}} Sessions abgesagt werden.",
+            "confirmInfo": "Sie sind dabei, alle Sessions zwischen dem {{start_date}} und dem {{end_date}} (einschließlich). Das bedeutet, dass {{number_of_deleted_offer}} Session abgesagt wird.",
             "confirmInfo_plural": "Sie sind dabei, alle Sessions zwischen dem {{start_date}} und dem {{end_date}} (einschließlich). Das bedeutet, dass {{number_of_deleted_offer}} Sessions abgesagt werden.",
             "confirm": "Bestätigen",
             "successInfo": "Die Löschung aller Sessions zwischen {{start_date}} und {{end_date}} wurde korrekt berücksichtigt.",
@@ -13387,7 +13391,7 @@
             },
             "isFinalized": "Dein Warenkorb wurde validiert",
             "checkingPaymentStatus": "Bitte warten Sie, wir prüfen den Status Ihrer Zahlung",
-            "totalQuantity": "Enthält Elemente",
+            "totalQuantity": "Enthält: {{ Anzahl }} Produkt(e)",
             "acceptTermsAndFinalize": "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen und schließen Sie Ihre Buchung ab",
             "checkAndFinalize": "Bitte überprüfen Sie Ihren Warenkorb und schließen Sie Ihre Buchung ab",
             "almostDone": "Fast geschafft"
@@ -13549,13 +13553,13 @@
         "management": {
             "smartlistDetail": {
                 "createViaSmartlist": "Auf intelligente Listen zugreifen",
-                "empty": "An das Tag ist keine Tagging-Regel gebunden",
+                "empty": "Keine Tagging-Regel ist mit dem Tag {{ tag }} verknüpft",
                 "removeTag": "Löschen",
                 "title": "Beschriftungsregel (Smart List)"
             },
             "couponDetail": {
                 "createViaCoupon": "Greifen Sie auf Aktionscodes zu",
-                "empty": "Es ist kein Promo-Code mit dem Tag verknüpft.",
+                "empty": "Es sind keine Gutscheincodes mit dem Tag {{- tag }} verknüpft",
                 "removeTag": "Etikett entfernen",
                 "blacklist": "Nicht verwendbar für markierte Mitglieder",
                 "whitelist": "Kann von Mitgliedern mit dem Tag verwendet werden",
@@ -13646,7 +13650,7 @@
         },
         "platformBillingStage": {
             "maxBooking": "Bis zu {{max_booking_per_month}} Buchungen / Monat",
-            "monthlyPrice": "{{price, price}} / Monat"
+            "monthlyPrice": "{{ price }} / Monat"
         },
         "platformBillingPlan": {
             "max_establishment": {
@@ -13669,10 +13673,10 @@
             "otherAddonTitle": "Add-Ons verfügbar",
             "myAddonTitle": "Meine Add-Ons",
             "knowMore": "Mehr erfahren",
-            "billRecurrent": "{{price_cts, price}} / Monat",
-            "billOnce": "{{price_cts, price}}",
+            "billRecurrent": "{{ price_cts }} / Monat",
+            "billOnce": "{{ price_cts }}",
             "sms": {
-                "explainBilling": "{{price_cts, price}} / SMS"
+                "explainBilling": "{{ price_cts }} / SMS"
             }
         },
         "paymentMethod": {
@@ -14036,7 +14040,7 @@
                 "tag_group": "Kategorie",
                 "link_to_tag_popover": "Verknüpfen Sie ein Etikett mit dieser Option",
                 "signature": "Signatur",
-                "text_size_limit": "Die Länge der Antwort ist auf Zeichen begrenzt.",
+                "text_size_limit": "Maximale Antwortlänge: {{count}} Zeichen.",
                 "link_to_note_helper": "Wenn Sie die Frage mit einer Notiz verknüpfen, wird die Antwort automatisch zu einer Notiz in der Akte des Mitglieds hinzugefügt.",
                 "link_to_note": "Eine Notiz erstellen",
                 "fileHelper": "Die heruntergeladenen Dateien werden direkt in den Bereich \"Meine Dokumente\" der Mitgliederakte aufgenommen.",
@@ -14124,7 +14128,7 @@
             "CustomFormLink": "Formular Link",
             "title": "Formularios",
             "displayRule": {
-                "snoozeTime": "Uhr zum Zählen der Stunden",
+                "snoozeTime": "Eingeschlafen für {{ count }} Stunde(n)",
                 "unSnoozableMinimal": "Obligatorisch",
                 "snoozableMinimal": "Kann ignoriert werden",
                 "forcedDisplayMinimal": "Sichtbar auch für Mitglieder, die das Formular bereits ausgefüllt haben",
@@ -14351,7 +14355,7 @@
             },
             "archive": {
                 "dialog": {
-                    "beingArchived": "Sie sind dabei, {{ Name }} zu löschen.",
+                    "beingArchived": "Sie sind dabei, {{ name }} zu löschen.",
                     "confirm": "Weiter",
                     "helper": "Die Mitglieder, die sich gerade in der Kadenz befinden, verlassen diese automatisch. Diese Kadenz wird archiviert, aber Sie können sie später wieder aktivieren.",
                     "cancel": "Stornieren",
@@ -14436,6 +14440,29 @@
             },
             "marketingAction": {
                 "addAction": "Eine Aktion hinzufügen"
+            },
+            "bubble": {
+                "cancel": "Stornieren",
+                "confirm": "Speichern",
+                "next": "Weiter",
+                "previous": "Zurück",
+                "changeInExit": {
+                    "title": "Beenden",
+                    "label": "Betrachten Sie das Mitglied als"
+                },
+                "changeInStep": {
+                    "label": "Name des Schrittes",
+                    "default": "Name des Schrittes"
+                },
+                "marketingAction": {
+                    "title": "Marketing-Aktion",
+                    "label": "Wählen Sie eine Marketing-Aktion aus"
+                },
+                "entryTrigger": {
+                    "title": "Eingang",
+                    "addTrigger": "Hinzufügen eines Eingabeauslösers",
+                    "helperText": "Bitte legen Sie fest, wann und wer in diesen Rhythmus mit den ausgewählten Kriterien und Auslösern eintritt."
+                }
             }
         }
     },
@@ -14524,20 +14551,20 @@
             "deleted": "Spot gelöscht",
             "missImageFree": "Sie haben das Bild für den freien Spot nicht geladen",
             "subtitle": "Platz-Typ erstellen",
-            "freePersonalized": "Verfügbar: {{Name}}",
+            "freePersonalized": "Verfügbar: {{name}}",
             "title": "Raumplan",
             "circular": "Rund",
             "rectangle": "Rechteck",
             "square": "Quadrat",
             "predefined": "Vorgegebene Formen",
             "selected": "Ausgewählter Spot",
-            "takenPersonalized": "Gebucht: {{Name}}",
+            "takenPersonalized": "Gebucht: {{name}}",
             "generalInfo": "Allgemeine Informationen",
             "taken": "Gebuchte Spots",
             "saved": "Gespeicherter Spot",
             "nameExplain": "Name des Platz-typs",
             "prefixExplain": "Das hier angegebene Zeichen wird als Vorwahl der Platznummern erscheinen",
-            "selectedPersonalized": "{{Name}} ausgewählt",
+            "selectedPersonalized": "{{name}} ausgewählt",
             "missImageTaken": "Sie haben das Bild für den gebuchten Spot nicht geladen",
             "alertDefaultSpot": "Wenn Sie den Standard-spot ändern, werden alle Standard-spots auf allen Plänen identisch geändert.",
             "personalizedExplain": "Sie können die Form der Slots anpassen, indem Sie Ihre eigenen Bilder importieren. Hierfür benötigen wir 3 verschiedene Symbole. Eines zeigt an, dass der Platz frei ist, ein anderes, dass er reserviert ist. Achten Sie darauf, dass sie die gleiche Größe haben, und fügen Sie bitte keine Zahlen in Ihre Icons ein.",
@@ -14781,7 +14808,7 @@
             "sendTo": "Einladung zurücksenden",
             "expiresOn": "Läuft ab am {{- d }}",
             "notAttributedYet": "Nicht validiert",
-            "willInviteOn": "Einladung zum Senden am",
+            "willInviteOn": "Die Einladung wird am {{- d }} verschickt",
             "invitedOn": "Envoyée le {{- d }}",
             "value": "Wert",
             "isFrom": "Von ",
@@ -14806,7 +14833,7 @@
                 "activate": "Aktivieren Sie meine Geschenkkarte",
                 "content3": "Wenn Sie nicht mit dem richtigen Konto angemeldet sind, melden Sie sich bitte ab und melden Sie sich mit dem richtigen Konto an. Wenn dieser Geschenkgutschein nicht für Sie bestimmt ist, lösen Sie ihn bitte nicht ein.",
                 "content2": "Sie wird automatisch als Zahlungsmethode zu Ihrem Einkaufswagen hinzugefügt. Alle Informationen zu Ihrer Geschenkkarte finden Sie in Ihrem Profil.",
-                "content1": "Ihre Geschenkkarte im Wert von {{Preis}} ist mit allen Produkten in unserem Shop kompatibel. Diese Karte hat kein Verfallsdatum, also gönnen Sie sich etwas!",
+                "content1": "Ihre Geschenkkarte im Wert von {{price}} ist mit allen Produkten unseres Shops kompatibel und hat kein Verfallsdatum. Viel Spaß!",
                 "subtitle": "Es scheint, als hätte Ihnen jemand eine Überraschung bereitet.",
                 "title": "Jemand wollte Ihnen eine Freude machen!",
                 "content1withDate": "Ihre {{price}} Geschenkkarte ist mit allen Produkten in unserem Shop kompatibel. Diese Karte verfällt {{expiration_days }} Tage nach der Aktivierung, also gönnen Sie sich was!"
@@ -14841,8 +14868,8 @@
                 "unlimited": "Unbegrenzt",
                 "deleteTemplateContent": "Durch die Deaktivierung eines gemeinsam genutzten Gutscheins können Mitglieder, die diese Karte besitzen, sie nur noch in dem Studio nutzen, in dem sie gekauft wurde.",
                 "deleteInstanceContent2": "Schließlich sind Gutscheine, die in anderen Studios gekauft wurden, in dem deaktivierten Studio nicht mehr verwendbar, unabhängig davon, wann sie gekauft wurden.",
-                "validity": "Gültiger {{Anzahl}} Tag",
-                "validity_plural": "Gültige {{Anzahl}} Tage",
+                "validity": "Gültig {{count}} Tag",
+                "validity_plural": "Gültig {{count}} Tage",
                 "validityDetail": "Gültigkeit vor Ablauf : {{count}} Tag",
                 "validityDetail_plural": "Gültigkeit vor Ablauf : {{count}} Tage",
                 "withoutTax": "Exkl. MwSt./Umsatzsteuer"
@@ -15096,7 +15123,7 @@
     },
     "instalmentPayment": {
         "detail": {
-            "duration": "Alle {{Frequenz}} {{Währung}} pendant {{Anzahl_der_Rechnungen}} {{Währung_abwägen_nach_Anzahl_der_Rechnungen}}",
+            "duration": "Alle {{frequency}} {{recurrency}} während {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}",
             "noConfiguration": "Wählen Sie eine Konfiguration aus, um ihre Details zu sehen",
             "title": "Details zur Konfiguration",
             "giftcard": "Geschenkkarten",
@@ -15119,8 +15146,8 @@
             "privatePassAvailable": "{{length}} kompatibler Terminpass",
             "privatePassAvailable_plural": "{{length}} kompatible Terminpässe",
             "comboAvailableForAll": "Alle kompatiblen Packs",
-            "comboAvailable": "{Länge}} packkompatibel",
-            "comboAvailable_plural": "{{Länge}} packt kompatibles",
+            "comboAvailable": "{length}} kompatibles Paket",
+            "comboAvailable_plural": "{{length}} kompatible Pakete",
             "giftcardAvailableForALl": "Alle kompatiblen Geschenkkarten",
             "giftcardAvailable": "{{length}} kompatible Geschenkkarte",
             "giftcardAvailable_plural": "{{length}} kompatible Geschenkkarten",
@@ -15357,8 +15384,8 @@
     },
     "replacement": {
         "calendar": {
-            "helperTextLimited": "<strong>{{AnfragenLinks}}</strong> auf <strong>{{AnfragenMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}. Alle Anträge auf Vertretung, die innerhalb von {{count}} Tagen vor Beginn der Session gestellt werden, werden als verspätet betrachtet.",
-            "helperTextLimited_plural": "<strong>{{AnfragenLinks}}</strong> auf <strong>{{AnfragenMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}. Alle Anträge auf Vertretung, die innerhalb von {{count}} Tagen vor Beginn der Session gestellt werden, werden als verspätet betrachtet.",
+            "helperTextLimited": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}. Alle Anträge auf Vertretung, die innerhalb von {{count}} Tag vor Beginn der Session gestellt werden, werden als verspätet betrachtet.",
+            "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}. Alle Anträge auf Vertretung, die innerhalb von {{count}} Tagen vor Beginn der Session gestellt werden, werden als verspätet betrachtet.",
             "helperTextNotLimited": "Alle Anträge auf Vertretung, die innerhalb von {{count}} Tag vor Beginn der Session gestellt werden, werden als verspätet betrachtet.",
             "helperTextNotLimited_plural": "Alle Anträge auf Vertretung, die innerhalb von {{count}} Tagen vor Beginn der Session gestellt werden, werden als verspätet betrachtet.",
             "title": "Mein Kalender",
@@ -15414,8 +15441,8 @@
             "requestSentDescription_plural": "Ihre Ersatzanträge wurden berücksichtigt. Gehen Sie auf die Registerkarte \"Meine Anträge\", um die Bearbeitung zu verfolgen.",
             "lateRequestTypo": "Achtung: Ihr Antrag auf einen Ersatztermin verspätet sich. Sie haben {{daysBeforeOffer}} Tage vor Kursbeginn Zeit, um Ihren Antrag rechtzeitig zu stellen.",
             "lateRequestTypo_plural": "Achtung: Ihr Antrag auf einen Ersatztermin verspätet sich. Sie haben {{daysBeforeOffer}}. Tage vor Kursbeginn Zeit, um Ihren Antrag rechtzeitig zu stellen.",
-            "lateRequestCounterInfo": "<strong>{{AnfragenLinks}}</strong> auf <strong>{{AnfragenMax}}</strong> verbleibende späte Anfrage bis {{-dateEnd}}.",
-            "lateRequestCounterInfo_plural": "<strong>{{AnfragenLinks}}</strong> auf <strong>{{AnfragenMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}.",
+            "lateRequestCounterInfo": "<strong>{{requestLeft}}</strong> auf <strong>{{requestMax}}</strong> verbleibende späte Anfrage bis {{-dateEnd}}.",
+            "lateRequestCounterInfo_plural": "<strong>{{requestLeft}}</strong> auf <strong>{{requestMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}.",
             "lateRequestInfo": "Die Anfrage wird registriert, aber stellen Sie sicher, dass Sie Ihr Studio direkt kontaktieren, um es so schnell wie möglich zu benachrichtigen.",
             "lateRequestInfo_plural": "Die Anfragen werden registriert, aber stellen Sie sicher, dass Sie Ihr Studio direkt kontaktieren, um es so schnell wie möglich zu benachrichtigen.",
             "title": "Vertretung anfragen",
@@ -15538,7 +15565,7 @@
             "title": "Marketplace",
             "description": "Die folgenden Sessions benötigen eine Vertretungslehrkraft. Sind Sie verfügbar?",
             "filters": "Filter",
-            "until": "Bis  {{-Datum}}"
+            "until": "Bis {{-date}}"
         },
         "managerTableTitles": {
             "pendingRequests": "Anfrage in Bearbeitung",
@@ -15556,9 +15583,9 @@
         },
         "compatibleCoaches": {
             "title": "Verfügbare Lehrkräfte nach Fachrichtung",
-            "compatibleCoaches": "{{Anzahl}} kompatibler Lehrerkraft",
-            "compatibleCoaches_plural": "{{Anzahl}} kompatibler Lehrkräfte",
-            "nextSlot": "Nächste Session am {{Datum}} - {{Stunde}}",
+            "compatibleCoaches": "{{count}} kompatibler Lehrerkraft",
+            "compatibleCoaches_plural": "{{count}} kompatible Lehrkräfte",
+            "nextSlot": "Nächste Session am {{date}} - {{hour}}",
             "activities": "Aktivitäten",
             "workshops": "Workshops",
             "categories": "Kategorien"
@@ -15599,8 +15626,8 @@
     },
     "tutorial": {
         "shareDialog": {
-            "infoTextSection": "Geben Sie alle Lektionen von \"{{Name}}\" an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diesen Bereich.",
-            "infoTextLesson": "Geben Sie diese Lektion ({{Name}}) an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diese Lektion.",
+            "infoTextSection": "Geben Sie alle Sessions von \"{{name}}\" an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diesen Bereich.",
+            "infoTextLesson": "Geben Sie diese Session ({{name}}) an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diese Session.",
             "title": "Teilen",
             "continueButton": "Weiter"
         },
@@ -15639,7 +15666,7 @@
         "sectionFinishDialog": {
             "title": "Herzlichen Glückwunsch!",
             "continueButton": "Weiter",
-            "infoText": "Du hast alle Lektionen im Abschnitt {{Name}} abgeschlossen. Verbessere dich weiter, indem du den nächsten Abschnitt bearbeitest."
+            "infoText": "Du hast alle Session im Abschnitt {{name}} abgeschlossen. Verbessere dich weiter, indem du den nächsten Abschnitt bearbeitest."
         },
         "allFinishDialog": {
             "title": "Abgeschlossen!",
